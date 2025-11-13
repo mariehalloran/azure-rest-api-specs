@@ -14,22 +14,6 @@ namespace Microsoft.BareMetal;
 
 interface Operations extends Azure.ResourceManager.Operations {}
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "Cannot use @armResourceOperations decorator here, the auto-generated routes do not match feature requirements"
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "This is the API"
-interface LocationsUtilization {
-  /**
-   * Get the Utilization for all clusters in the given location
-   * New API route starting from 2025-02-01-preview
-   */
-  @armResourceList(ClusterProperties)
-  @route("/providers/Microsoft.BareMetal/locations/{location}/utilization")
-  @get
-  list(
-    ...ApiVersionParameter,
-    ...LocationResourceParameter,
-  ): ArmResponse<ClusterList> | ErrorResponse;
-}
-
 @armResourceOperations
 interface Locations {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "Template for async post request with body"
@@ -49,4 +33,13 @@ interface Locations {
     ...Azure.Core.Foundations.RetryAfterHeader;
     ...ArmLroLocationHeader<FinalResult = UpdateRoutesOnVirtualNetwork>;
   } | ErrorResponse;
+
+  @doc("Get Utilization for Clusters.")
+  @armResourceList(ClusterList)
+  @autoRoute
+  @action
+  @get
+  utilization(
+    ...ResourceInstanceParameters<Location>,
+  ): ArmResponse<ClusterList> | ErrorResponse;
 }
