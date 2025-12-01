@@ -243,7 +243,7 @@
           }
         },
         "x-ms-examples": {
-          "Locations_Utilization_MaximumSet_Gen": {
+          "Locations_Utilization_MaximumSet": {
             "$ref": "./examples/Locations_Utilization_MaximumSet_Gen.json"
           }
         }
@@ -1535,10 +1535,7 @@
           "items": {
             "$ref": "#/definitions/NetworkInterface"
           },
-          "readOnly": true,
-          "x-ms-identifiers": [
-            "id"
-          ]
+          "readOnly": true
         },
         "anchorNics": {
           "type": "array",
@@ -1546,10 +1543,7 @@
           "items": {
             "$ref": "#/definitions/NetworkInterface"
           },
-          "readOnly": true,
-          "x-ms-identifiers": [
-            "id"
-          ]
+          "readOnly": true
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
