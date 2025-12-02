@@ -1535,7 +1535,10 @@
           "items": {
             "$ref": "#/definitions/NetworkInterface"
           },
-          "readOnly": true
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "id"
+          ]
         },
         "anchorNics": {
           "type": "array",
@@ -1543,7 +1546,10 @@
           "items": {
             "$ref": "#/definitions/NetworkInterface"
           },
-          "readOnly": true
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "id"
+          ]
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
