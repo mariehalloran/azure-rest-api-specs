@@ -37,10 +37,10 @@ input-file:
     - Microsoft.BareMetal/preview/2025-08-01-preview/BootstrapRP.json
 suppressions:
     - code: XmsPageableForListCalls
-      where: $.paths["/providers/Microsoft.BareMetal/locations/{location}/utilization"].get
+      where: $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.BareMetal/locations/{location}/utilization"].get
       reason: Partner wants to ensure return value of existing API doesn't change
     - code: GetCollectionOnlyHasValueAndNextLink
-      where: $.paths["/providers/Microsoft.BareMetal/locations/{location}/utilization"].get.responses["200"].schema.properties
+      where: $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.BareMetal/locations/{location}/utilization"].get.responses["200"].schema.properties
       reason: Partner wants to ensure return value of existing API doesn't change
 ```
 
@@ -53,10 +53,10 @@ input-file:
     - Microsoft.BareMetal/preview/2025-02-01-preview/BootstrapRP.json
 suppressions:
     - code: XmsPageableForListCalls
-      where: $.paths["/providers/Microsoft.BareMetal/locations/{location}/utilization"].get
+      where: $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.BareMetal/locations/{location}/utilization"].get
       reason: Partner wants to ensure return value of existing API doesn't change
     - code: GetCollectionOnlyHasValueAndNextLink
-      where: $.paths["/providers/Microsoft.BareMetal/locations/{location}/utilization"].get.responses["200"].schema.properties
+      where: $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.BareMetal/locations/{location}/utilization"].get.responses["200"].schema.properties
       reason: Partner wants to ensure return value of existing API doesn't change
 ```
 
