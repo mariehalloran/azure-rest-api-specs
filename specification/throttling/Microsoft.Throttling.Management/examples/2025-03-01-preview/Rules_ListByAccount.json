@@ -15,17 +15,11 @@
             "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rgthrottling/providers/Microsoft.Throttling/throttlingAccounts/contoso/rules/rule1",
             "type": "Microsoft.Throttling/throttlingAccounts/rules",
             "name": "rule1",
-            "location": "westus3",
             "properties": {
               "provisioningState": "Succeeded",
               "windowDuration": "PT30S",
-              "minEnforcementDuration": "PT1M",
               "threshold": 1000,
-              "depthMultiplier": -1,
-              "disabled": false
-            },
-            "tags": {
-              "key1": "value1"
+              "depthMultiplier": -1
             },
             "systemData": {
               "createdBy": "example@contoso.com",

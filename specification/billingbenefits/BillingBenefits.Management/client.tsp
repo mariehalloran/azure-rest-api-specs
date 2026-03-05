@@ -2,13 +2,42 @@ import "./main.tsp";
 import "@azure-tools/typespec-client-generator-core";
 
 using Azure.ClientGenerator.Core;
+using Microsoft.BillingBenefits;
 
 // go
-@@clientLocation(Microsoft.BillingBenefits.validatePurchase, "RP", "go");
+@@clientLocation(BenefitOperationGroup.validate, "RP", "go");
 @@clientName(Microsoft.BillingBenefits.ResourceSku, "SKU", "go");
+@@clientName(Microsoft.BillingBenefits.ManagedServiceIdentity,
+  "ServiceManagedIdentity",
+  "go"
+);
+@@clientName(Microsoft.BillingBenefits.ManagedServiceIdentityType,
+  "ServiceManagedIdentityType",
+  "go"
+);
 
 // java
-@@clientLocation(Microsoft.BillingBenefits.validatePurchase,
-  "ResourceProviders",
+@@clientLocation(BenefitOperationGroup.validate, "ResourceProviders", "java");
+@@clientName(Microsoft.BillingBenefits.ManagedServiceIdentity,
+  "ServiceManagedIdentity",
   "java"
 );
+@@clientName(Microsoft.BillingBenefits.ManagedServiceIdentityType,
+  "ServiceManagedIdentityType",
+  "java"
+);
+
+// python
+@@clientName(Microsoft.BillingBenefits.ManagedServiceIdentity,
+  "ServiceManagedIdentity",
+  "python"
+);
+@@clientName(Microsoft.BillingBenefits.ManagedServiceIdentityType,
+  "ServiceManagedIdentityType",
+  "python"
+);
+@@clientName(Microsoft.BillingBenefits, "BillingBenefitsRP", "python");
+@@clientName(Microsoft.BillingBenefits.Term.P1Y, "P1_Y", "python");
+@@clientName(Microsoft.BillingBenefits.Term.P3Y, "P3_Y", "python");
+@@clientName(Microsoft.BillingBenefits.Term.P5Y, "P5_Y", "python");
+@@clientName(Microsoft.BillingBenefits.BillingPlan.P1M, "P1_M", "python");

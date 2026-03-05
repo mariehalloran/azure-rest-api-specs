@@ -31,10 +31,16 @@ model MqttSourceConnectorProperties extends DataSourceProperties {
   @doc("URL of the broker where to establish the connection.")
   brokerUrl: string;
 
-  @doc("Username to use when connecting to the Mqtt v5 compliant broker.")
+  @doc("Username to use when connecting to the Mqtt compliant broker.")
   username?: string;
 
-  @doc("Password to use when connecting to the Mqtt v5 compliant broker.")
+  @doc("Password to use when connecting to the Mqtt compliant broker.")
   @secret
   password?: string;
+
+  @doc("Configuration for ssl.")
+  sslConfiguration?: Models.Auth.SslConfiguration;
+
+  @doc("Client certificate for Confluent.")
+  clientCertAuthentication?: Models.Auth.CertificateAuthentication;
 }
