@@ -53,6 +53,9 @@ model AzCopyResourceProperties {
   @doc("Raw value of AzCopy result response message.")
   @visibility(Lifecycle.Read) // A part of provisioning ResultData output, gets PATCHed back from FRP.
   azCopy?: string;
+
+  @doc("Control whether blob access tiers are preserved from source to destination.") //Optional field: (Default true)
+  preserveAccessTier?: boolean;
 }
 
 @doc("AzCopy Resource")
