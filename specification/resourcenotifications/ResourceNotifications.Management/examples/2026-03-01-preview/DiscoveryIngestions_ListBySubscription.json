@@ -1,0 +1,37 @@
+{
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "api-version": "2026-03-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "tags": {
+              "environment": "production"
+            },
+            "systemData": {
+              "lastModifiedAt": "2025-01-15T12:00:00Z",
+              "lastModifiedByType": "User",
+              "lastModifiedBy": "user@example.com",
+              "createdBy": "user@example.com",
+              "createdByType": "User",
+              "createdAt": "2025-01-15T10:00:00Z"
+            },
+            "name": "compute-streaming",
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/discoveryIngestions/compute-streaming",
+            "type": "Microsoft.ResourceNotifications/discoveryIngestions",
+            "properties": {
+              "provisioningState": "Succeeded",
+              "linkedPublisherSettingsId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default-setting"
+            },
+            "location": "eastus"
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "DiscoveryIngestions_ListBySubscription",
+  "title": "DiscoveryIngestions - ListBySubscription"
+}

@@ -1,0 +1,80 @@
+{
+  "parameters": {
+    "resourceGroupName": "rg-arn-examples",
+    "flowName": "vm-resources-flow",
+    "api-version": "2026-03-01-preview",
+    "resource": {
+      "properties": {
+        "eventHubConfig": {
+          "eventHubNamespace": "arn-eventhub-eastus",
+          "eventHubName": "compute-vm-events"
+        },
+        "transformationType": "JsonToArn",
+        "gdsEventName": "VirtualMachineChanges",
+        "gdsEventNamespace": "Microsoft.Compute",
+        "consumerGroup": "arn-consumer",
+        "kind": "Streaming"
+      }
+    },
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "ingestionName": "compute-streaming"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "name": "vm-resources-flow",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/discoveryIngestion/compute-streaming/flows/vm-resources-flow",
+        "systemData": {
+          "lastModifiedAt": "2025-01-15T12:00:00Z",
+          "lastModifiedByType": "User",
+          "lastModifiedBy": "user@example.com",
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2025-01-15T10:00:00Z"
+        },
+        "type": "Microsoft.ResourceNotifications/discoveryIngestion/flows",
+        "properties": {
+          "eventHubConfig": {
+            "eventHubNamespace": "arn-eventhub-eastus",
+            "eventHubName": "compute-vm-events"
+          },
+          "transformationType": "JsonToArn",
+          "gdsEventName": "VirtualMachineChanges",
+          "gdsEventNamespace": "Microsoft.Compute",
+          "provisioningState": "Succeeded",
+          "consumerGroup": "arn-consumer",
+          "kind": "Streaming"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "name": "vm-resources-flow",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/discoveryIngestions/compute-streaming/flows/vm-resources-flow",
+        "systemData": {
+          "lastModifiedAt": "2025-01-15T12:00:00Z",
+          "lastModifiedByType": "User",
+          "lastModifiedBy": "user@example.com",
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2025-01-15T10:00:00Z"
+        },
+        "type": "Microsoft.ResourceNotifications/discoveryIngestions/flows",
+        "properties": {
+          "eventHubConfig": {
+            "eventHubNamespace": "arn-eventhub-eastus",
+            "eventHubName": "compute-vm-events"
+          },
+          "transformationType": "JsonToArn",
+          "gdsEventName": "VirtualMachineChanges",
+          "gdsEventNamespace": "Microsoft.Compute",
+          "provisioningState": "Succeeded",
+          "consumerGroup": "arn-consumer",
+          "kind": "Streaming"
+        }
+      }
+    }
+  },
+  "operationId": "IngestionFlows_CreateOrUpdate",
+  "title": "IngestionFlows - CreateOrUpdate"
+}

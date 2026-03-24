@@ -1,0 +1,42 @@
+{
+  "parameters": {
+    "api-version": "2026-03-01-preview",
+    "flowName": "vm-resources-flow",
+    "resourceGroupName": "rg-arn-examples",
+    "pipelineName": "compute-batch-eastus",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "name": "vm-resources-flow",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/discoveryPipelines/compute-batch-eastus/flows/vm-resources-flow",
+        "systemData": {
+          "lastModifiedAt": "2025-01-15T12:00:00Z",
+          "lastModifiedByType": "User",
+          "lastModifiedBy": "user@example.com",
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2025-01-15T10:00:00Z"
+        },
+        "type": "Microsoft.ResourceNotifications/discoveryPipelines/flows",
+        "properties": {
+          "orchestration": "ADF",
+          "kustoQuery": "vm-resources-query",
+          "fullyQualifiedResourceType": "Microsoft.Compute/virtualMachines",
+          "scheduling": {
+            "intervalHours": 24
+          },
+          "provisioningState": "Succeeded",
+          "partitioning": {
+            "maxPartitions": 100,
+            "strategy": "subscription"
+          },
+          "kind": "BatchIngestion"
+        }
+      }
+    }
+  },
+  "operationId": "DiscoveryFlows_Get",
+  "title": "DiscoveryFlows - Get"
+}

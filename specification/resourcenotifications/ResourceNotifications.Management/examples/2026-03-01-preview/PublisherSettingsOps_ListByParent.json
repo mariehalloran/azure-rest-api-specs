@@ -1,0 +1,61 @@
+{
+  "parameters": {
+    "api-version": "2026-03-01-preview",
+    "resourceGroupName": "rg-arn-examples",
+    "namespaceName": "Microsoft.Compute",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "default-setting",
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default-setting",
+            "systemData": {
+              "lastModifiedAt": "2025-01-15T12:00:00Z",
+              "lastModifiedByType": "User",
+              "lastModifiedBy": "user@example.com",
+              "createdBy": "user@example.com",
+              "createdByType": "User",
+              "createdAt": "2025-01-15T10:00:00Z"
+            },
+            "type": "Microsoft.ResourceNotifications/namespaces/publisherSettings",
+            "properties": {
+              "provisioningState": "Succeeded",
+              "publishingResourceTypes": [
+                {
+                  "resourceType": "Microsoft.Compute/virtualMachines"
+                }
+              ],
+              "serviceName": "AzureCompute",
+              "throttlingPolicy": {
+                "burstAllowance": 2.0,
+                "maxRequestsPerMinutePerRegion": 25000,
+                "maxRequestsPerMinute": 50000
+              },
+              "alertingInfo": {
+                "severity": "3",
+                "notificationEmail": "compute-alerts@microsoft.com"
+              },
+              "deploymentConfig": {
+                "stageDefinition": {
+                  "$sequence": ["canary", "stage1", "stage2", "remaining"],
+                  "canary": ["eastus2euap", "centraluseuap"],
+                  "stage1": ["eastus", "westus2"],
+                  "stage2": ["northeurope", "westeurope"],
+                  "remaining": ["*"]
+                },
+                "managedSdpEnabled": true,
+                "waitDuration": "PT24H"
+              },
+              "schemaVersion": "1.0"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "PublisherSettingsOps_ListByParent",
+  "title": "PublisherSettingsOps - ListByParent"
+}

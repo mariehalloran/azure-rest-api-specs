@@ -1,0 +1,45 @@
+{
+  "parameters": {
+    "resourceGroupName": "rg-arn-examples",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "api-version": "2026-03-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "tags": {
+              "environment": "production"
+            },
+            "systemData": {
+              "lastModifiedAt": "2025-01-15T12:00:00Z",
+              "lastModifiedByType": "User",
+              "lastModifiedBy": "user@example.com",
+              "createdBy": "user@example.com",
+              "createdByType": "User",
+              "createdAt": "2025-01-15T10:00:00Z"
+            },
+            "name": "compute-batch-eastus",
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/discoveryPipelines/compute-batch-eastus",
+            "type": "Microsoft.ResourceNotifications/discoveryPipelines",
+            "identity": {
+              "type": "SystemAssigned",
+              "principalId": "22222222-2222-2222-2222-222222222222",
+              "tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47"
+            },
+            "properties": {
+              "provisioningState": "Succeeded",
+              "linkedPublisherSettingsId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default-setting",
+              "kustoDatabaseName": "ArnDiscovery",
+              "kustoClusterUrl": "https://arn-kusto-eastus.eastus.kusto.windows.net"
+            },
+            "location": "eastus"
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "DiscoveryPipelines_ListByResourceGroup",
+  "title": "DiscoveryPipelines - ListByResourceGroup"
+}
