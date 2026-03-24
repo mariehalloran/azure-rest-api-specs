@@ -54,15 +54,15 @@ suppressions:
   - code: TrackedResourcesMustHavePut
     from: resourcenotifications.json
     reason: Namespace is a read-only resource pre-provisioned by the platform. Publishers cannot create or replace namespaces.
-    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}"]
+    where: $.definitions.Namespace
   - code: TrackedResourcePatchOperation
     from: resourcenotifications.json
     reason: Namespace is a read-only resource pre-provisioned by the platform. Publishers cannot update namespaces.
-    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}"]
+    where: $.definitions.Namespace
   - code: AllTrackedResourcesMustHaveDelete
     from: resourcenotifications.json
     reason: Namespace is a read-only resource pre-provisioned by the platform. Publishers cannot delete namespaces.
-    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}"]
+    where: $.definitions.Namespace
   - code: AvoidAdditionalProperties
     from: resourcenotifications.json
     reason: DeploymentConfig.stageDefinition uses Record<Array<string>> for flexible stage-to-region mapping required by SDP.
