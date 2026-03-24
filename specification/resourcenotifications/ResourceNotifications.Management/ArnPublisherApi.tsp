@@ -18,10 +18,9 @@ namespace Microsoft.ResourceNotifications;
 
 // Namespace (read-only parent)
 
-@added(Versions.v2026_03_01_preview)
 /** Pre-existing namespace representing a registered resource provider in ARN. Read-only - partner details are derived from ServiceTree and the ARM manifest. */
-model Namespace
-  is Azure.ResourceManager.TrackedResource<NamespaceProperties> {
+@added(Versions.v2026_03_01_preview)
+model Namespace is Azure.ResourceManager.TrackedResource<NamespaceProperties> {
   /** Publisher namespace name (e.g., 'Microsoft.Compute'). */
   @key("namespaceName")
   @segment("namespaces")
@@ -30,8 +29,8 @@ model Namespace
   name: string;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Properties of the Namespace resource. All fields are read-only, populated from ServiceTree and ARM RP registration. */
+@added(Versions.v2026_03_01_preview)
 model NamespaceProperties {
   /** Display name of the publishing service, populated from ServiceTree. */
   @visibility(Lifecycle.Read)
@@ -58,8 +57,8 @@ interface Namespaces {
 
 // PublisherSettings/{settingName}
 
-@added(Versions.v2026_03_01_preview)
 /** Publisher-facing configuration: resource types, service name linkage, and default throttling. Prerequisite: parent Namespace must exist; returns 400 NamespaceNotFound otherwise. */
+@added(Versions.v2026_03_01_preview)
 @parentResource(Namespace)
 model PublisherSettings
   is Azure.ResourceManager.ProxyResource<PublisherSettingsProperties> {
@@ -71,8 +70,8 @@ model PublisherSettings
   name: string;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Properties of PublisherSettings. */
+@added(Versions.v2026_03_01_preview)
 model PublisherSettingsProperties {
   /** Schema version (e.g., '1.0'). */
   schemaVersion?: string = "1.0";
@@ -98,8 +97,8 @@ model PublisherSettingsProperties {
   provisioningState?: ProvisioningState;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Resource type declared for publishing. */
+@added(Versions.v2026_03_01_preview)
 model PublishingResourceType {
   /** Fully qualified type (e.g., 'Microsoft.Compute/virtualMachines'). */
   resourceType: string;
@@ -123,8 +122,8 @@ interface PublisherSettingsOps {
 
 // HttpEndpointConfiguration (singleton under PublisherSettings)
 
-@added(Versions.v2026_03_01_preview)
 /** HTTP endpoint ingestion configuration with polymorphic authorization. Throttling here overrides the publisher-level default from PublisherSettings. */
+@added(Versions.v2026_03_01_preview)
 @singleton
 @parentResource(PublisherSettings)
 model HttpEndpointConfiguration
@@ -137,8 +136,8 @@ model HttpEndpointConfiguration
   name: string;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Properties of HttpEndpointConfiguration. */
+@added(Versions.v2026_03_01_preview)
 model HttpEndpointConfigurationProperties {
   /** Receiver endpoint URLs provisioned by the system. Read-only. */
   @visibility(Lifecycle.Read)
@@ -155,8 +154,8 @@ model HttpEndpointConfigurationProperties {
   provisioningState?: ProvisioningState;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Throttling policy. */
+@added(Versions.v2026_03_01_preview)
 model ThrottlingPolicy {
   /** Max requests/minute globally. Default: 20,000. */
   @minValue(20000)
@@ -174,9 +173,9 @@ model ThrottlingPolicy {
   burstAllowance?: float64 = 1.5;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Safe deployment configuration for gradual regional rollout of publisher settings. */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Record needed for flexible stage-to-region mapping for SDP"
+@added(Versions.v2026_03_01_preview)
 model DeploymentConfig {
   /** Ordered stage definitions mapping stage names to Azure regions.
    * Use a "$sequence" key for ordering and "*" for remaining regions. */
@@ -191,8 +190,8 @@ model DeploymentConfig {
 
 // Polymorphic Authorization
 
-@added(Versions.v2026_03_01_preview)
 /** Authorization kind. */
+@added(Versions.v2026_03_01_preview)
 union AuthorizationKind {
   string,
 
@@ -203,16 +202,16 @@ union AuthorizationKind {
   Dsts: "DSTS",
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Base model for polymorphic authorization. Discriminated on 'kind'. */
+@added(Versions.v2026_03_01_preview)
 @discriminator("kind")
 model Authorization {
   /** Discriminator: 'AAD' or 'DSTS'. */
   kind: AuthorizationKind;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** AAD authorization with per-application scoping. */
+@added(Versions.v2026_03_01_preview)
 model AadAuthorization extends Authorization {
   kind: "AAD";
 
@@ -222,8 +221,8 @@ model AadAuthorization extends Authorization {
   applications: AuthorizedApplication[];
 }
 
-@added(Versions.v2026_03_01_preview)
 /** An authorized AAD application. */
+@added(Versions.v2026_03_01_preview)
 model AuthorizedApplication {
   /** AAD application (client) ID. */
   applicationId: string;
@@ -238,8 +237,8 @@ model AuthorizedApplication {
   allowedSubscriptionIds?: string[];
 }
 
-@added(Versions.v2026_03_01_preview)
 /** DSTS claim-based authorization. */
+@added(Versions.v2026_03_01_preview)
 model DstsAuthorization extends Authorization {
   kind: "DSTS";
 
@@ -249,8 +248,8 @@ model DstsAuthorization extends Authorization {
   claims: DstsClaim[];
 }
 
-@added(Versions.v2026_03_01_preview)
 /** A required DSTS claim. */
+@added(Versions.v2026_03_01_preview)
 model DstsClaim {
   /** DSTS claim URI. */
   claim: url;
@@ -274,8 +273,8 @@ interface HttpEndpointConfigurations {
 
 // EventGridConfiguration (LEGACY - singleton under PublisherSettings)
 
-@added(Versions.v2026_03_01_preview)
 /** LEGACY: Event Grid topic-based ingestion for existing publishers. New publishers must use HttpEndpointConfiguration instead. */
+@added(Versions.v2026_03_01_preview)
 @singleton
 @parentResource(PublisherSettings)
 model EventGridConfiguration
@@ -288,8 +287,8 @@ model EventGridConfiguration
   name: string;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Properties of EventGridConfiguration. */
+@added(Versions.v2026_03_01_preview)
 model EventGridConfigurationProperties {
   /** Read-only provisioning state. */
   @visibility(Lifecycle.Read)
@@ -314,8 +313,8 @@ interface EventGridConfigurations {
 
 // TopicConfigurations (child of EventGridConfiguration)
 
-@added(Versions.v2026_03_01_preview)
 /** LEGACY: Individual Event Grid topic reference. Only topicResourceId is publisher-provided. */
+@added(Versions.v2026_03_01_preview)
 @parentResource(EventGridConfiguration)
 model TopicConfiguration
   is Azure.ResourceManager.ProxyResource<TopicConfigurationProperties> {
@@ -327,8 +326,8 @@ model TopicConfiguration
   name: string;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Properties of TopicConfiguration. Minimal publisher surface - only the EG topic resource ID. */
+@added(Versions.v2026_03_01_preview)
 model TopicConfigurationProperties {
   /** ARM resource ID of the publisher-owned Event Grid topic. */
   topicResourceId: string;
@@ -349,8 +348,8 @@ interface TopicConfigurations {
 
 // DiscoveryConfig (singleton under PublisherSettings)
 
-@added(Versions.v2026_03_01_preview)
 /** Global Discovery defaults (ADF stamp, endpoints, alerting). */
+@added(Versions.v2026_03_01_preview)
 @singleton
 @parentResource(PublisherSettings)
 model DiscoveryConfig
@@ -363,8 +362,8 @@ model DiscoveryConfig
   name: string;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Properties of DiscoveryConfig. */
+@added(Versions.v2026_03_01_preview)
 model DiscoveryConfigProperties {
   /** Default ADF stamp for discovery pipelines. */
   adfStamp?: string;
@@ -380,8 +379,8 @@ model DiscoveryConfigProperties {
   provisioningState?: ProvisioningState;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Alerting configuration for discovery pipelines. */
+@added(Versions.v2026_03_01_preview)
 model AlertingInfo {
   /** Alert severity level. */
   severity?: string;
@@ -403,11 +402,10 @@ interface DiscoveryConfigs {
 
 // KustoQueries (child of DiscoveryConfig)
 
-@added(Versions.v2026_03_01_preview)
 /** Reusable Kusto query definition. */
+@added(Versions.v2026_03_01_preview)
 @parentResource(DiscoveryConfig)
-model KustoQuery
-  is Azure.ResourceManager.ProxyResource<KustoQueryProperties> {
+model KustoQuery is Azure.ResourceManager.ProxyResource<KustoQueryProperties> {
   /** Query name. */
   @key("queryName")
   @segment("kustoQueries")
@@ -416,8 +414,8 @@ model KustoQuery
   name: string;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Properties of a KustoQuery. */
+@added(Versions.v2026_03_01_preview)
 model KustoQueryProperties {
   /** KQL query text. */
   query: string;
@@ -441,8 +439,8 @@ interface KustoQueries {
 
 // ProviderSettings (singleton under Namespace)
 
-@added(Versions.v2026_03_01_preview)
 /** Type ownership governance - managed by the provider namespace (type owner). Controls validation policies and cross-publisher permissions. Prerequisite: parent Namespace must exist; returns 400 NamespaceNotFound otherwise. */
+@added(Versions.v2026_03_01_preview)
 @singleton
 @parentResource(Namespace)
 model ProviderSettings
@@ -455,8 +453,8 @@ model ProviderSettings
   name: string;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Properties of ProviderSettings. ARG metadata (logicalTable) is system-resolved and read-only. */
+@added(Versions.v2026_03_01_preview)
 model ProviderSettingsProperties {
   /** ARG logical table for this provider's types. Read-only - resolved from ARG dataset configuration at runtime. */
   @visibility(Lifecycle.Read)
@@ -485,8 +483,8 @@ interface ProviderSettingsOps {
 
 // TypeSetting (child of ProviderSettings)
 
-@added(Versions.v2026_03_01_preview)
 /** Per-type governance override. Type owner sets validationPolicy to control who can publish this type. */
+@added(Versions.v2026_03_01_preview)
 @parentResource(ProviderSettings)
 model TypeSetting
   is Azure.ResourceManager.ProxyResource<TypeSettingProperties> {
@@ -498,8 +496,8 @@ model TypeSetting
   name: string;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Properties of a TypeSetting. validationPolicy is the core type-owner governance decision. */
+@added(Versions.v2026_03_01_preview)
 model TypeSettingProperties {
   /** Validation policy controlling who may publish this type. Set by the type owner. */
   validationPolicy: ValidationPolicy;
@@ -513,8 +511,8 @@ model TypeSettingProperties {
   provisioningState?: ProvisioningState;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Validation policy determining publishing authorization for a resource type. Set by the type owner (provider namespace). */
+@added(Versions.v2026_03_01_preview)
 union ValidationPolicy {
   string,
 
@@ -552,8 +550,8 @@ interface TypeSettings {
 
 // AllowedPublisher (child of TypeSetting)
 
-@added(Versions.v2026_03_01_preview)
 /** Cross-publisher permission grant. Type owner allows another namespace to publish this type, and controls whether that publisher's data flows to ARG. */
+@added(Versions.v2026_03_01_preview)
 @parentResource(TypeSetting)
 model AllowedPublisherResource
   is Azure.ResourceManager.ProxyResource<AllowedPublisherProperties> {
@@ -565,11 +563,11 @@ model AllowedPublisherResource
   name: string;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Properties of an AllowedPublisher entry. sendToArg is set by the type owner. */
+@added(Versions.v2026_03_01_preview)
 model AllowedPublisherProperties {
-  #suppress "EnumInsteadOfBoolean" "sendToArg is a simple on/off toggle; an enum adds no value"
   /** Forward this publisher's events to ARG (default: true). Set by the type owner. */
+  #suppress "EnumInsteadOfBoolean" "sendToArg is a simple on/off toggle; an enum adds no value"
   sendToArg?: boolean = true;
 
   /** Read-only provisioning state. */
@@ -595,8 +593,8 @@ interface AllowedPublishers {
 
 // DiscoveryPipeline (top-level, subscription-scoped, regional)
 
-@added(Versions.v2026_03_01_preview)
 /** Regional batch ingestion pipeline with Managed Identity support. */
+@added(Versions.v2026_03_01_preview)
 model DiscoveryPipeline
   is Azure.ResourceManager.TrackedResource<DiscoveryPipelineProperties> {
   /** Pipeline name (e.g., 'compute-batch-eastus'). */
@@ -609,8 +607,8 @@ model DiscoveryPipeline
   ...ManagedServiceIdentityProperty;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Properties of a DiscoveryPipeline. */
+@added(Versions.v2026_03_01_preview)
 model DiscoveryPipelineProperties {
   /** ARM resource ID of the linked PublisherSettings. */
   linkedPublisherSettingsId: Azure.Core.armResourceIdentifier;
@@ -626,8 +624,8 @@ model DiscoveryPipelineProperties {
   provisioningState?: ProvisioningState;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Patch model for DiscoveryPipeline updates (tags + identity). */
+@added(Versions.v2026_03_01_preview)
 model DiscoveryPipelinePatch {
   ...Azure.ResourceManager.Foundations.ArmTagsProperty;
   ...ManagedServiceIdentityProperty;
@@ -650,8 +648,8 @@ interface DiscoveryPipelines {
 
 // DiscoveryFlow (child of DiscoveryPipeline)
 
-@added(Versions.v2026_03_01_preview)
 /** Individual batch ingestion flow. */
+@added(Versions.v2026_03_01_preview)
 @parentResource(DiscoveryPipeline)
 model DiscoveryFlow
   is Azure.ResourceManager.ProxyResource<DiscoveryFlowProperties> {
@@ -663,8 +661,8 @@ model DiscoveryFlow
   name: string;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Properties of a DiscoveryFlow. */
+@added(Versions.v2026_03_01_preview)
 model DiscoveryFlowProperties {
   /** Flow kind. */
   kind: "BatchIngestion";
@@ -689,15 +687,15 @@ model DiscoveryFlowProperties {
   provisioningState?: ProvisioningState;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Flow scheduling configuration. */
+@added(Versions.v2026_03_01_preview)
 model FlowScheduling {
   /** Interval in hours. */
   intervalHours?: int32 = 24;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Flow partitioning strategy. */
+@added(Versions.v2026_03_01_preview)
 model FlowPartitioning {
   /** Partitioning strategy (e.g., 'subscription'). */
   strategy?: string;
@@ -717,8 +715,8 @@ interface DiscoveryFlows {
 
 // DiscoveryIngestion (top-level, subscription-scoped, regional)
 
-@added(Versions.v2026_03_01_preview)
 /** Regional streaming ingestion from GDS/Event Hub. */
+@added(Versions.v2026_03_01_preview)
 model DiscoveryIngestion
   is Azure.ResourceManager.TrackedResource<DiscoveryIngestionProperties> {
   /** Ingestion name. */
@@ -729,8 +727,8 @@ model DiscoveryIngestion
   name: string;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Properties of a DiscoveryIngestion. */
+@added(Versions.v2026_03_01_preview)
 model DiscoveryIngestionProperties {
   /** ARM resource ID of the linked PublisherSettings. */
   linkedPublisherSettingsId: Azure.Core.armResourceIdentifier;
@@ -756,8 +754,8 @@ interface DiscoveryIngestions {
 
 // IngestionFlow (child of DiscoveryIngestion)
 
-@added(Versions.v2026_03_01_preview)
 /** Individual streaming ingestion flow. */
+@added(Versions.v2026_03_01_preview)
 @parentResource(DiscoveryIngestion)
 model IngestionFlow
   is Azure.ResourceManager.ProxyResource<IngestionFlowProperties> {
@@ -769,8 +767,8 @@ model IngestionFlow
   name: string;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Properties of an IngestionFlow. */
+@added(Versions.v2026_03_01_preview)
 model IngestionFlowProperties {
   /** Flow kind. */
   kind: "Streaming";
@@ -795,8 +793,8 @@ model IngestionFlowProperties {
   provisioningState?: ProvisioningState;
 }
 
-@added(Versions.v2026_03_01_preview)
 /** Event Hub configuration for streaming ingestion. */
+@added(Versions.v2026_03_01_preview)
 model EventHubConfig {
   /** Event Hub namespace. */
   eventHubNamespace?: string;
