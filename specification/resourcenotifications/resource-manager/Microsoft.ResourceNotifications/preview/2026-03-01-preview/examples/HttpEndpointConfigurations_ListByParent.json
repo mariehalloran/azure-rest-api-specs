@@ -1,0 +1,58 @@
+{
+  "parameters": {
+    "api-version": "2026-03-01-preview",
+    "resourceGroupName": "rg-arn-examples",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "namespaceName": "Microsoft.Compute",
+    "settingName": "default-setting"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "default",
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default-setting/httpEndpointConfigurations/default",
+            "type": "Microsoft.ResourceNotifications/namespaces/publisherSettings/httpEndpointConfigurations",
+            "systemData": {
+              "lastModifiedAt": "2025-01-15T12:00:00Z",
+              "lastModifiedByType": "User",
+              "lastModifiedBy": "user@example.com",
+              "createdBy": "user@example.com",
+              "createdByType": "User",
+              "createdAt": "2025-01-15T10:00:00Z"
+            },
+            "properties": {
+              "authorization": {
+                "applications": [
+                  {
+                    "scopes": [
+                      "Production"
+                    ],
+                    "allowedTenantIds": [
+                      "72f988bf-86f1-41af-91ab-2d7cd011db47"
+                    ],
+                    "allowedSubscriptionIds": [],
+                    "applicationId": "11111111-1111-1111-1111-111111111111"
+                  }
+                ],
+                "kind": "AAD"
+              },
+              "provisioningState": "Succeeded",
+              "throttlingPolicy": {
+                "burstAllowance": 2.0,
+                "maxRequestsPerMinutePerRegion": 25000,
+                "maxRequestsPerMinute": 50000
+              },
+              "endpoints": [
+                "https://arn-receiver-eastus.trafficmanager.net/api/v1/notifications"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "HttpEndpointConfigurations_ListByParent",
+  "title": "HttpEndpointConfigurations - ListByParent"
+}

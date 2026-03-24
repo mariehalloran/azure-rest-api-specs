@@ -1,0 +1,41 @@
+{
+  "parameters": {
+    "api-version": "2026-03-01-preview",
+    "resourceGroupName": "rg-arn-examples",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "namespaceName": "Microsoft.Compute",
+    "settingName": "default-setting"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "default",
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default-setting/discoveryConfig/default",
+            "type": "Microsoft.ResourceNotifications/namespaces/publisherSettings/discoveryConfig",
+            "systemData": {
+              "lastModifiedAt": "2025-01-15T12:00:00Z",
+              "lastModifiedByType": "User",
+              "lastModifiedBy": "user@example.com",
+              "createdBy": "user@example.com",
+              "createdByType": "User",
+              "createdAt": "2025-01-15T10:00:00Z"
+            },
+            "properties": {
+              "adfStamp": "arn-adf-eastus",
+              "alertingInfo": {
+                "severity": "Sev3",
+                "notificationEmail": "arn-alerts@microsoft.com"
+              },
+              "defaultMapping": "default-v1",
+              "provisioningState": "Succeeded"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "DiscoveryConfigs_ListByParent",
+  "title": "DiscoveryConfigs - ListByParent"
+}

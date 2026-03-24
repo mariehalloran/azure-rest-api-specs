@@ -1,0 +1,33 @@
+{
+  "parameters": {
+    "resourceGroupName": "rg-arn-examples",
+    "api-version": "2026-03-01-preview",
+    "namespaceName": "Microsoft.Compute",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "topicConfigId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "settingName": "default-setting"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "name": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default-setting/eventGridConfigurations/default/topicConfigurations/a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "systemData": {
+          "lastModifiedAt": "2025-01-15T12:00:00Z",
+          "lastModifiedByType": "User",
+          "lastModifiedBy": "user@example.com",
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2025-01-15T10:00:00Z"
+        },
+        "type": "Microsoft.ResourceNotifications/namespaces/publisherSettings/eventGridConfigurations/topicConfigurations",
+        "properties": {
+          "topicResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-events/providers/Microsoft.EventGrid/topics/compute-notifications",
+          "provisioningState": "Succeeded"
+        }
+      }
+    }
+  },
+  "operationId": "TopicConfigurations_Get",
+  "title": "TopicConfigurations - Get"
+}
