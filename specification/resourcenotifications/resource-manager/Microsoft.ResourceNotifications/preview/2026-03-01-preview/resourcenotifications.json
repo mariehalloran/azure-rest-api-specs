@@ -246,6 +246,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "List notification sessions in a location": {
+            "$ref": "./examples/NotificationsSessions_ListByLocation.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -294,6 +299,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Get a notification session": {
+            "$ref": "./examples/NotificationsSessions_Get.json"
           }
         }
       },
@@ -367,6 +377,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "Create a notification session": {
+            "$ref": "./examples/NotificationsSessions_CreateOrUpdate.json"
+          }
+        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
@@ -414,6 +429,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Close a notification session": {
+            "$ref": "./examples/NotificationsSessions_Delete.json"
           }
         }
       }
@@ -470,6 +490,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Get session details": {
+            "$ref": "./examples/NotificationsSessions_GetSessionDetails.json"
           }
         }
       }
@@ -3860,6 +3885,11 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
+        },
+        "x-ms-examples": {
+          "Get a resource subscription with cloud scope and partitioning": {
+            "$ref": "./examples/ResourceSubscriptions_Get.json"
+          }
         }
       },
       "put": {
@@ -3925,6 +3955,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Create or update a resource subscription with tenant scope": {
+            "$ref": "./examples/ResourceSubscriptions_CreateOrUpdate.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -4023,6 +4058,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a resource subscription": {
+            "$ref": "./examples/ResourceSubscriptions_Delete.json"
           }
         }
       }
@@ -4124,6 +4164,11 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
+        },
+        "x-ms-examples": {
+          "Get a storage account destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_Get.json"
+          }
         }
       },
       "put": {
@@ -4187,6 +4232,11 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
+        },
+        "x-ms-examples": {
+          "Create or update a fabric table destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate.json"
+          }
         }
       },
       "delete": {
@@ -4234,6 +4284,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_Delete.json"
           }
         }
       }

@@ -51,6 +51,30 @@ suppressions:
     from: resourcenotifications.json
     reason: appId is an Azure Active Directory application ID which is a GUID by definition.
     where: $.definitions["Azure.Core.uuid"].format
+  - code: TrackedResourcesMustHavePut
+    from: resourcenotifications.json
+    reason: Namespace is a read-only resource pre-provisioned by the platform. Publishers cannot create or replace namespaces.
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}"]
+  - code: TrackedResourcePatchOperation
+    from: resourcenotifications.json
+    reason: Namespace is a read-only resource pre-provisioned by the platform. Publishers cannot update namespaces.
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}"]
+  - code: AllTrackedResourcesMustHaveDelete
+    from: resourcenotifications.json
+    reason: Namespace is a read-only resource pre-provisioned by the platform. Publishers cannot delete namespaces.
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}"]
+  - code: AvoidAdditionalProperties
+    from: resourcenotifications.json
+    reason: DeploymentConfig.stageDefinition uses Record<Array<string>> for flexible stage-to-region mapping required by SDP.
+    where: $.definitions["DeploymentConfig"].properties.stageDefinition
+  - code: EnumInsteadOfBoolean
+    from: resourcenotifications.json
+    reason: managedSdpEnabled is a simple on/off toggle for managed Safe Deployment Practices; an enum adds no value.
+    where: $.definitions["DeploymentConfig"].properties.managedSdpEnabled
+  - code: EnumInsteadOfBoolean
+    from: resourcenotifications.json
+    reason: sendToArg is a simple on/off toggle for whether to send data to Azure Resource Graph; an enum adds no value.
+    where: $.definitions["AllowedPublisherProperties"].properties.sendToArg
 ```
 
 ## Code Generation
