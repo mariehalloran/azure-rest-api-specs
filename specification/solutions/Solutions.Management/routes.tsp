@@ -1,0 +1,118 @@
+// FIXME: Operations in this file are not detected as a resource operation, please confirm the conversion result manually
+
+import "@azure-tools/typespec-azure-core";
+import "@typespec/rest";
+import "./models.tsp";
+import "@azure-tools/typespec-azure-resource-manager";
+import "@typespec/openapi";
+
+using TypeSpec.Rest;
+using TypeSpec.Http;
+using Azure.ResourceManager;
+using TypeSpec.OpenAPI;
+
+namespace Microsoft.Solutions;
+
+/**
+ * Generates the registry package links for Managed Applications and Solution Templates.
+ */
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "For backward compatibility"
+@autoRoute
+op portalRegistryPackage is ArmProviderActionSync<
+  Request = RegistryPackagePlan,
+  Response = RegistryPackage
+>;
+
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "For backward compatibility"
+interface ApplicationsOperationGroup {
+  /**
+   * Gets the managed application.
+   */
+  @route("/{+applicationId}")
+  @get
+  getById(
+    ...ApiVersionParameter,
+
+    /**
+     * The ID of the managed application.
+     */
+    @path
+    applicationId: string,
+  ): ArmResponse<Application> | NotFoundResponse | ErrorResponse;
+
+  /**
+   * Creates or updates a managed application.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/lro-location-header" "For backward compatibility"
+  @route("/{+applicationId}")
+  @put
+  createOrUpdateById(
+    ...ApiVersionParameter,
+
+    /**
+     * The ID of the managed application.
+     */
+    @path
+    applicationId: string,
+
+    /**
+     * Parameters supplied to create or update a managed application.
+     */
+    @bodyRoot
+    parameters: Application,
+  ): ArmResponse<Application> | ArmCreatedResponse<
+    Application,
+    ExtraHeaders = ArmAsyncOperationHeader<FinalResult = Application> &
+      Azure.Core.Foundations.RetryAfterHeader
+  > | ErrorResponse;
+
+  /**
+   * Updates an existing managed application.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-patch" ""
+  #suppress "@azure-tools/typespec-azure-resource-manager/no-response-body" ""
+  #suppress "@azure-tools/typespec-azure-resource-manager/lro-location-header" "For backward compatibility"
+  @route("/{+applicationId}")
+  @patch(#{ implicitOptionality: false })
+  updateById(
+    ...ApiVersionParameter,
+
+    /**
+     * The ID of the managed application.
+     */
+    @path
+    applicationId: string,
+
+    /**
+     * Parameters supplied to update an existing managed application.
+     */
+    @bodyRoot
+    parameters?: ApplicationPatchable,
+  ): ArmResponse<Application> | (ArmAcceptedLroResponse<LroHeaders = ArmAsyncOperationHeader<FinalResult = Application> &
+    Azure.Core.Foundations.RetryAfterHeader> & {
+    @bodyRoot
+    _: Application;
+  }) | ErrorResponse;
+
+  /**
+   * Deletes the managed application.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/lro-location-header" "For backward compatibility"
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "For backward compatibility"
+  @route("/{+applicationId}")
+  @delete
+  deleteById(
+    ...ApiVersionParameter,
+
+    /**
+     * The ID of the managed application.
+     */
+    @path
+    applicationId: string,
+  ):
+    | OkResponse
+    | ArmAcceptedLroResponse<LroHeaders = ArmAsyncOperationHeader &
+        Azure.Core.Foundations.RetryAfterHeader>
+    | ArmDeletedNoContentResponse
+    | ErrorResponse;
+}
