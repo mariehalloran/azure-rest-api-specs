@@ -392,7 +392,7 @@ union Substatus {
 /**
  * The managed application artifact type.
  */
-#suppress "@azure-tools/typespec-azure-core/no-enum" "For backward compatibility"
+#suppress "@azure-tools/typespec-azure-core/no-enum" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 enum ApplicationArtifactType {
   /**
    * NotSpecified
@@ -413,7 +413,7 @@ enum ApplicationArtifactType {
 /**
  * The identity type.
  */
-#suppress "@azure-tools/typespec-azure-core/no-enum" "For backward compatibility"
+#suppress "@azure-tools/typespec-azure-core/no-enum" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 enum ResourceIdentityType {
   /**
    * SystemAssigned
@@ -504,13 +504,13 @@ model ApplicationProperties {
   /**
    * Name and value pairs that define the managed application parameters. It can be a JObject or a well formed JSON string.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unknown" ""
+  #suppress "@azure-tools/typespec-azure-core/no-unknown" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   parameters?: unknown;
 
   /**
    * Name and value pairs that define the managed application outputs.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unknown" ""
+  #suppress "@azure-tools/typespec-azure-core/no-unknown" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @visibility(Lifecycle.Read)
   outputs?: unknown;
 
@@ -781,14 +781,14 @@ model Identity {
   /**
    * The list of user identities associated with the resource. The user identity dictionary key references will be resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "For backward compatibility"
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   userAssignedIdentities?: Record<userAssignedResourceIdentity>;
 }
 
 /**
  * Represents the user assigned identity that is contained within the UserAssignedIdentities dictionary on ResourceIdentity
  */
-#suppress "@azure-tools/typespec-azure-core/casing-style" ""
+#suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 model userAssignedResourceIdentity {
   /**
    * The principal id of user assigned identity.
@@ -806,7 +806,7 @@ model userAssignedResourceIdentity {
 /**
  * Resource information.
  */
-#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "For backward compatibility"
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 model GenericResource extends Resource {
   /**
    * ID of the resource that manages this resource.
@@ -884,7 +884,7 @@ model Resource {
   /**
    * Resource tags
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "For backward compatibility"
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   tags?: Record<string>;
 
   /**
@@ -897,7 +897,7 @@ model Resource {
 /**
  * Information about managed application.
  */
-#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "For backward compatibility"
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 model ApplicationPatchable extends GenericResource {
   /**
    * The managed application properties.
@@ -954,7 +954,7 @@ model PlanPatchable {
 /**
  * The managed application definition properties.
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "For backward compatibility"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 model ApplicationDefinitionProperties {
   /**
    * The managed application lock level.
@@ -1001,13 +1001,13 @@ model ApplicationDefinitionProperties {
   /**
    * The inline main template json which has resources to be provisioned. It can be a JObject or well-formed JSON string.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unknown" ""
+  #suppress "@azure-tools/typespec-azure-core/no-unknown" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   mainTemplate?: unknown;
 
   /**
    * The createUiDefinition json for the backing template with Microsoft.Solutions/applications resource. It can be a JObject or well-formed JSON string.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unknown" ""
+  #suppress "@azure-tools/typespec-azure-core/no-unknown" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   createUiDefinition?: unknown;
 
   /**
@@ -1136,12 +1136,12 @@ model ApplicationPolicy {
 /**
  * Information about an application definition request.
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/patch-envelope" ""
+#suppress "@azure-tools/typespec-azure-resource-manager/patch-envelope" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 model ApplicationDefinitionPatchable {
   /**
    * Application definition tags
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "For backward compatibility"
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   tags?: Record<string>;
 }
 
@@ -1240,7 +1240,7 @@ model JitRequestPatchable {
   /**
    * Jit request tags
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "For backward compatibility"
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   tags?: Record<string>;
 }
 
@@ -1262,25 +1262,25 @@ model UpdateAccessDefinition {
   /**
    * The approver name.
    */
-  #suppress "@azure-tools/typespec-azure-core/casing-style" ""
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   Approver?: string;
 
   /**
    * The JIT request metadata.
    */
-  #suppress "@azure-tools/typespec-azure-core/casing-style" ""
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   Metadata: JitRequestMetadata;
 
   /**
    * The JIT status.
    */
-  #suppress "@azure-tools/typespec-azure-core/casing-style" ""
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   Status: Status;
 
   /**
    * The JIT status.
    */
-  #suppress "@azure-tools/typespec-azure-core/casing-style" ""
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   SubStatus: Substatus;
 }
 
@@ -1343,7 +1343,7 @@ model ManagedIdentityToken {
   /**
    * The requested access token.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" ""
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   accessToken?: string;
 
   /**
@@ -1464,13 +1464,13 @@ model ApplicationPropertiesPatchable {
   /**
    * Name and value pairs that define the managed application parameters. It can be a JObject or a well formed JSON string.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unknown" ""
+  #suppress "@azure-tools/typespec-azure-core/no-unknown" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   parameters?: unknown;
 
   /**
    * Name and value pairs that define the managed application outputs.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unknown" ""
+  #suppress "@azure-tools/typespec-azure-core/no-unknown" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @visibility(Lifecycle.Read)
   outputs?: unknown;
 

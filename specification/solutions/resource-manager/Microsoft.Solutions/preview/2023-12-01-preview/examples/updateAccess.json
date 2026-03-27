@@ -3,15 +3,15 @@
     "api-version": "2023-12-01-preview",
     "applicationName": "myManagedApplication",
     "parameters": {
-      "approver": "amauser",
-      "metadata": {
+      "Approver": "amauser",
+      "Metadata": {
         "originRequestId": "originRequestId",
         "requestorId": "RequestorId",
         "subjectDisplayName": "SubjectDisplayName",
         "tenantDisplayName": "TenantDisplayName"
       },
-      "status": "Elevate",
-      "subStatus": "Approved"
+      "Status": "Elevate",
+      "SubStatus": "Approved"
     },
     "resourceGroupName": "rg",
     "subscriptionId": "subid"
@@ -20,15 +20,15 @@
     "200": {},
     "202": {
       "body": {
-        "approver": "amauser",
-        "metadata": {
+        "Approver": "amauser",
+        "Metadata": {
           "originRequestId": "originRequestId",
           "requestorId": "RequestorId",
           "subjectDisplayName": "SubjectDisplayName",
           "tenantDisplayName": "TenantDisplayName"
         },
-        "status": "Elevate",
-        "subStatus": "Approved"
+        "Status": "Elevate",
+        "SubStatus": "Approved"
       },
       "headers": {
         "location": "https://management.azure.com/subscriptions/subid/providers/Microsoft.Solutions/pathToOperationResult"

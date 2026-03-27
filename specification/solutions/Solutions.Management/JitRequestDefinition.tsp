@@ -13,7 +13,7 @@ namespace Microsoft.Solutions;
 /**
  * Information about JIT request definition.
  */
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" ""
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 model JitRequestDefinition
   is Azure.ResourceManager.Legacy.TrackedResourceWithOptionalLocation<JitRequestProperties> {
   ...ResourceNameParameter<
@@ -29,8 +29,6 @@ interface JitRequestDefinitions {
   /**
    * Gets the JIT request.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-openapi" "non-standard operations"
-  @operationId("JitRequests_Get")
   get is ArmResourceRead<
     JitRequestDefinition,
     Response = ArmResponse<JitRequestDefinition> | NotFoundResponse
@@ -39,15 +37,13 @@ interface JitRequestDefinitions {
   /**
    * Creates or updates the JIT request.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-openapi" "non-standard operations"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @operationId("jitRequests_CreateOrUpdate")
   createOrUpdate is ArmResourceCreateOrReplaceAsync<JitRequestDefinition>;
 
   /**
    * Updates the JIT request.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-openapi" "non-standard operations"
-  @operationId("JitRequests_Update")
   @patch(#{ implicitOptionality: false })
   update is ArmCustomPatchSync<
     JitRequestDefinition,
@@ -57,21 +53,21 @@ interface JitRequestDefinitions {
   /**
    * Deletes the JIT request.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-openapi" "non-standard operations"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @operationId("jitRequests_Delete")
   delete is ArmResourceDeleteSync<JitRequestDefinition>;
 
   /**
    * Lists all JIT requests within the resource group.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-openapi" "non-standard operations"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @operationId("jitRequests_ListByResourceGroup")
   listByResourceGroup is Azure.ResourceManager.Legacy.ArmListSinglePageByParent<JitRequestDefinition>;
 
   /**
    * Lists all JIT requests within the subscription.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-openapi" "non-standard operations"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @operationId("jitRequests_ListBySubscription")
   listBySubscription is Azure.ResourceManager.Legacy.ArmListSinglePageBySubscription<JitRequestDefinition>;
 }

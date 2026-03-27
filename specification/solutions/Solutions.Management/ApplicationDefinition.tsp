@@ -13,7 +13,7 @@ namespace Microsoft.Solutions;
 /**
  * Information about managed application definition.
  */
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" ""
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 model ApplicationDefinition
   is Azure.ResourceManager.Legacy.TrackedResourceWithOptionalLocation<
     ApplicationDefinitionProperties,
@@ -29,13 +29,13 @@ model ApplicationDefinition
   /**
    * ID of the resource that manages this resource.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "For backward compatibility"
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   managedBy?: string;
 
   /**
    * The SKU of the resource.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "For backward compatibility"
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   sku?: Sku;
 }
 
