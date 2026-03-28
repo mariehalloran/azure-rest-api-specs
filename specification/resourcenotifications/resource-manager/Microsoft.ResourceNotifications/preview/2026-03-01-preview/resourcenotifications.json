@@ -4599,13 +4599,10 @@
       "description": "Safe deployment configuration for gradual regional rollout of publisher settings.",
       "properties": {
         "stageDefinition": {
-          "type": "object",
-          "description": "Ordered stage definitions mapping stage names to Azure regions.\nUse a \"$sequence\" key for ordering and \"*\" for remaining regions.",
-          "additionalProperties": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
+          "type": "array",
+          "description": "Ordered stage definitions for gradual regional rollout.\nEach entry maps a stage name to its target Azure regions. Array order defines rollout sequence.",
+          "items": {
+            "$ref": "#/definitions/StageDefinition"
           }
         },
         "managedSdpEnabled": {
@@ -6112,6 +6109,27 @@
           }
         ]
       }
+    },
+    "StageDefinition": {
+      "type": "object",
+      "description": "A single stage in a deployment rollout, mapping a stage name to its target Azure regions.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the deployment stage (e.g. \"canary\", \"stage1\", \"remaining\")."
+        },
+        "regions": {
+          "type": "array",
+          "description": "Azure regions assigned to this stage. Use \"*\" to match all remaining regions.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "regions"
+      ]
     },
     "StorageAccountDestinationProperties": {
       "type": "object",

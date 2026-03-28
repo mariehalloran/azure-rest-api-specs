@@ -173,13 +173,22 @@ model ThrottlingPolicy {
   burstAllowance?: float64 = 1.5;
 }
 
+/** A single stage in a deployment rollout, mapping a stage name to its target Azure regions. */
+@added(Versions.v2026_03_01_preview)
+model StageDefinition {
+  /** Name of the deployment stage (e.g. "canary", "stage1", "remaining"). */
+  name: string;
+
+  /** Azure regions assigned to this stage. Use "*" to match all remaining regions. */
+  regions: string[];
+}
+
 /** Safe deployment configuration for gradual regional rollout of publisher settings. */
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Record needed for flexible stage-to-region mapping for SDP"
 @added(Versions.v2026_03_01_preview)
 model DeploymentConfig {
-  /** Ordered stage definitions mapping stage names to Azure regions.
-   * Use a "$sequence" key for ordering and "*" for remaining regions. */
-  stageDefinition?: Record<Array<string>>;
+  /** Ordered stage definitions for gradual regional rollout.
+   * Each entry maps a stage name to its target Azure regions. Array order defines rollout sequence. */
+  stageDefinition?: StageDefinition[];
 
   /** Whether managed SDP is enabled for this publisher's config rollout. */
   managedSdpEnabled?: boolean;
