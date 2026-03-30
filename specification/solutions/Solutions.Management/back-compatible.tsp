@@ -37,9 +37,7 @@ using Microsoft.Solutions;
 
 @@clientLocation(ApplicationsOperationGroup.getById, Applications);
 @@clientLocation(ApplicationsOperationGroup.deleteById, Applications);
-@@clientLocation(ApplicationsOperationGroup.createOrUpdateById,
-  Applications
-);
+@@clientLocation(ApplicationsOperationGroup.createOrUpdateById, Applications);
 @@clientLocation(ApplicationsOperationGroup.updateById, Applications);
 
 @@clientName(portalRegistryPackage::parameters.body, "parameters");
