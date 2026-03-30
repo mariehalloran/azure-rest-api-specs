@@ -13,15 +13,33 @@ namespace Microsoft.Solutions;
 /**
  * Information about JIT request definition.
  */
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-model JitRequestDefinition
-  is Azure.ResourceManager.Legacy.TrackedResourceWithOptionalLocation<JitRequestProperties> {
-  ...ResourceNameParameter<
-    Resource = JitRequestDefinition,
-    KeyName = "jitRequestName",
-    SegmentName = "jitRequests",
-    NamePattern = ""
-  >;
+// #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+// model JitRequestDefinition
+//   is Azure.ResourceManager.Legacy.TrackedResourceWithOptionalLocation<JitRequestProperties> {
+//   ...ResourceNameParameter<
+//     Resource = JitRequestDefinition,
+//     KeyName = "jitRequestName",
+//     SegmentName = "jitRequests",
+//     NamePattern = ""
+//   >;
+// }
+#suppress "@azure-tools/typespec-azure-core/no-private-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-custom-resource-usage-discourage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+@Http.Private.includeInapplicableMetadataInPayload(false)
+model JitRequestDefinition extends Resource {
+  @visibility(Lifecycle.Read)
+  @path
+  @key("jitRequestName")
+  @minLength(2)
+  @maxLength(10)
+  @segment("jitRequests")
+  name: string;
+
+  /**
+   * The JIT request properties that can be updated.
+   */
+  properties?: JitRequestProperties;
 }
 
 @armResourceOperations

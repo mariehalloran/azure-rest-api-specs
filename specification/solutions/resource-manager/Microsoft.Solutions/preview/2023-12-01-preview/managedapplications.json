@@ -1325,7 +1325,9 @@
             "in": "path",
             "description": "The name of the JIT request.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 10
           }
         ],
         "responses": {
@@ -1372,7 +1374,9 @@
             "in": "path",
             "description": "The name of the JIT request.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 10
           },
           {
             "name": "parameters",
@@ -1447,7 +1451,9 @@
             "in": "path",
             "description": "The name of the JIT request.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 10
           },
           {
             "name": "parameters",
@@ -1500,7 +1506,9 @@
             "in": "path",
             "description": "The name of the JIT request.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 10
           }
         ],
         "responses": {
@@ -1548,29 +1556,6 @@
           "description": "The managed application properties.",
           "x-ms-client-flatten": true
         },
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "location": {
-          "type": "string",
-          "description": "The geo-location where the resource lives",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "managedBy": {
-          "type": "string",
-          "description": "ID of the resource that manages this resource."
-        },
-        "sku": {
-          "$ref": "#/definitions/Sku",
-          "description": "The SKU of the resource."
-        },
         "plan": {
           "$ref": "#/definitions/Plan",
           "description": "The plan information."
@@ -1591,7 +1576,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/Resource"
+          "$ref": "#/definitions/GenericResource"
         }
       ]
     },
@@ -1738,29 +1723,6 @@
           "$ref": "#/definitions/ApplicationDefinitionProperties",
           "description": "The managed application definition properties.",
           "x-ms-client-flatten": true
-        },
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "location": {
-          "type": "string",
-          "description": "The geo-location where the resource lives",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "managedBy": {
-          "type": "string",
-          "description": "ID of the resource that manages this resource."
-        },
-        "sku": {
-          "$ref": "#/definitions/Sku",
-          "description": "The SKU of the resource."
         }
       },
       "required": [
@@ -1768,7 +1730,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/Resource"
+          "$ref": "#/definitions/GenericResource"
         }
       ]
     },
@@ -2486,26 +2448,11 @@
           "$ref": "#/definitions/JitRequestProperties",
           "description": "The JIT request properties.",
           "x-ms-client-flatten": true
-        },
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "location": {
-          "type": "string",
-          "description": "The geo-location where the resource lives",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/Resource"
+          "$ref": "#/definitions/Resource"
         }
       ]
     },
@@ -3034,7 +2981,8 @@
           "description": "Metadata pertaining to creation and last modification of the resource.",
           "readOnly": true
         }
-      }
+      },
+      "x-ms-azure-resource": true
     },
     "ResourceIdentityType": {
       "type": "string",

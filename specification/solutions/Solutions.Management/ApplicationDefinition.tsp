@@ -13,30 +13,23 @@ namespace Microsoft.Solutions;
 /**
  * Information about managed application definition.
  */
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-model ApplicationDefinition
-  is Azure.ResourceManager.Legacy.TrackedResourceWithOptionalLocation<
-    ApplicationDefinitionProperties,
-    false
-  > {
-  ...ResourceNameParameter<
-    Resource = ApplicationDefinition,
-    KeyName = "applicationDefinitionName",
-    SegmentName = "applicationDefinitions",
-    NamePattern = ""
-  >;
+#suppress "@azure-tools/typespec-azure-core/no-private-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-custom-resource-usage-discourage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+@Http.Private.includeInapplicableMetadataInPayload(false)
+model ApplicationDefinition extends GenericResource {
+  @visibility(Lifecycle.Read)
+  @path
+  @key("applicationDefinitionName")
+  @minLength(2)
+  @maxLength(10)
+  @segment("applicationDefinitions")
+  name: string;
 
   /**
-   * ID of the resource that manages this resource.
+   * The managed application definition properties that can be updated.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  managedBy?: string;
-
-  /**
-   * The SKU of the resource.
-   */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  sku?: Sku;
+  properties: ApplicationDefinitionProperties;
 }
 
 @armResourceOperations

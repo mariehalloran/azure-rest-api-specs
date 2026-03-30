@@ -13,30 +13,23 @@ namespace Microsoft.Solutions;
 /**
  * Information about managed application.
  */
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-model Application
-  is Azure.ResourceManager.Legacy.TrackedResourceWithOptionalLocation<
-    ApplicationProperties,
-    false
-  > {
-  ...ResourceNameParameter<
-    Resource = Application,
-    KeyName = "applicationName",
-    SegmentName = "applications",
-    NamePattern = ""
-  >;
+#suppress "@azure-tools/typespec-azure-core/no-private-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-custom-resource-usage-discourage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+@Http.Private.includeInapplicableMetadataInPayload(false)
+model Application extends GenericResource {
+  @visibility(Lifecycle.Read)
+  @path
+  @key("applicationName")
+  @minLength(3)
+  @maxLength(64)
+  @segment("applications")
+  name: string;
 
   /**
-   * ID of the resource that manages this resource.
+   * The managed application properties.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  managedBy?: string;
-
-  /**
-   * The SKU of the resource.
-   */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  sku?: Sku;
+  properties: ApplicationProperties;
 
   /**
    * The plan information.
