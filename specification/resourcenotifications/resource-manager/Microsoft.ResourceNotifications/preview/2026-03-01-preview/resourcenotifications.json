@@ -1775,7 +1775,7 @@
         "tags": [
           "ProviderSettingsOps"
         ],
-        "description": "Create or update provider settings. Only provisioningState is returned; logicalTable is system-resolved.",
+        "description": "Create or update provider settings. logicalTable is system-resolved.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -4373,11 +4373,6 @@
           "type": "boolean",
           "description": "Forward this publisher's events to ARG (default: true). Set by the type owner.",
           "default": true
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
         }
       }
     },
@@ -4794,11 +4789,6 @@
         "defaultMapping": {
           "type": "string",
           "description": "Default data mapping configuration."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
         }
       }
     },
@@ -4871,11 +4861,6 @@
         "partitioning": {
           "$ref": "#/definitions/FlowPartitioning",
           "description": "Partitioning strategy."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
         }
       },
       "required": [
@@ -5137,14 +5122,7 @@
     },
     "EventGridConfigurationProperties": {
       "type": "object",
-      "description": "Properties of EventGridConfiguration.",
-      "properties": {
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
-        }
-      }
+      "description": "Properties of EventGridConfiguration."
     },
     "EventHubConfig": {
       "type": "object",
@@ -5336,11 +5314,6 @@
         "authorization": {
           "$ref": "#/definitions/Authorization",
           "description": "Polymorphic authorization (AAD or DSTS)."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
         }
       }
     },
@@ -5413,11 +5386,6 @@
         "consumerGroup": {
           "type": "string",
           "description": "Consumer group name."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
         }
       },
       "required": [
@@ -5471,11 +5439,6 @@
         "description": {
           "type": "string",
           "description": "Description of what this query returns."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
         }
       },
       "required": [
@@ -5849,11 +5812,6 @@
         "logicalTable": {
           "type": "string",
           "description": "ARG logical table for this provider's types. Read-only - resolved from ARG dataset configuration at runtime.",
-          "readOnly": true
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
           "readOnly": true
         }
       }
@@ -6389,11 +6347,6 @@
         "topicResourceId": {
           "type": "string",
           "description": "ARM resource ID of the publisher-owned Event Grid topic."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
         }
       },
       "required": [
@@ -6447,11 +6400,6 @@
         "logicalTable": {
           "type": "string",
           "description": "ARG logical table override for this type. Read-only - resolved from ARG dataset configuration.",
-          "readOnly": true
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
           "readOnly": true
         }
       },
