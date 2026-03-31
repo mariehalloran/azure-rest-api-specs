@@ -83,7 +83,7 @@ model PublisherSettingsProperties {
   @OpenAPI.extension("x-ms-identifiers", #["resourceType"])
   publishingResourceTypes?: PublishingResourceType[];
 
-  /** Default throttling policy for all ingestion paths. Can be overridden per-path (e.g., on HttpEndpointConfiguration). */
+  /** Default throttling policy for all ingestion paths. Can be overridden per-path (e.g., on Endpoint). */
   throttlingPolicy?: ThrottlingPolicy;
 
   /** Default IcM / alerting configuration. Can be overridden by child resources (e.g., DiscoveryConfig). */
@@ -120,25 +120,25 @@ interface PublisherSettingsOps {
   listByParent is ArmResourceListByParent<PublisherSettings>;
 }
 
-// HttpEndpointConfiguration (singleton under PublisherSettings)
+// Endpoint (singleton under PublisherSettings)
 
 /** HTTP endpoint ingestion configuration with polymorphic authorization. Throttling here overrides the publisher-level default from PublisherSettings. */
 @added(Versions.v2026_03_01_preview)
 @singleton
 @parentResource(PublisherSettings)
-model HttpEndpointConfiguration
-  is Azure.ResourceManager.ProxyResource<HttpEndpointConfigurationProperties> {
+model Endpoint
+  is Azure.ResourceManager.ProxyResource<EndpointProperties> {
   /** Singleton key. */
-  @key("httpEndpointConfigurationName")
-  @segment("httpEndpointConfigurations")
+  @key("endpointName")
+  @segment("endpoints")
   @pattern("^[a-zA-Z0-9-]{1,64}$")
   @path
   name: string;
 }
 
-/** Properties of HttpEndpointConfiguration. */
+/** Properties of Endpoint. */
 @added(Versions.v2026_03_01_preview)
-model HttpEndpointConfigurationProperties {
+model EndpointProperties {
   /** Receiver endpoint URLs provisioned by the system. Read-only. */
   @visibility(Lifecycle.Read)
   endpoints?: url[];
@@ -262,23 +262,23 @@ model DstsClaim {
 
 @added(Versions.v2026_03_01_preview)
 @armResourceOperations
-interface HttpEndpointConfigurations {
+interface Endpoints {
   /** Get the HTTP endpoint configuration. */
-  get is ArmResourceRead<HttpEndpointConfiguration>;
+  get is ArmResourceRead<Endpoint>;
 
   /** Create or update the HTTP endpoint configuration. */
-  createOrUpdate is ArmResourceCreateOrReplaceSync<HttpEndpointConfiguration>;
+  createOrUpdate is ArmResourceCreateOrReplaceSync<Endpoint>;
 
   /** Delete the HTTP endpoint configuration. */
-  delete is ArmResourceDeleteSync<HttpEndpointConfiguration>;
+  delete is ArmResourceDeleteSync<Endpoint>;
 
   /** List HTTP endpoint configurations under a publisher setting. */
-  listByParent is ArmResourceListByParent<HttpEndpointConfiguration>;
+  listByParent is ArmResourceListByParent<Endpoint>;
 }
 
 // EventGridConfiguration (LEGACY - singleton under PublisherSettings)
 
-/** LEGACY: Event Grid topic-based ingestion for existing publishers. New publishers must use HttpEndpointConfiguration instead. */
+/** LEGACY: Event Grid topic-based ingestion for existing publishers. New publishers must use Endpoint instead. */
 @added(Versions.v2026_03_01_preview)
 @singleton
 @parentResource(PublisherSettings)
@@ -303,7 +303,7 @@ interface EventGridConfigurations {
   /** Get the legacy Event Grid configuration. */
   get is ArmResourceRead<EventGridConfiguration>;
 
-  /** Create or update the legacy Event Grid configuration. New publishers should use HttpEndpointConfiguration instead. */
+  /** Create or update the legacy Event Grid configuration. New publishers should use Endpoint instead. */
   createOrUpdate is ArmResourceCreateOrReplaceSync<EventGridConfiguration>;
 
   /** Delete the legacy Event Grid configuration. */

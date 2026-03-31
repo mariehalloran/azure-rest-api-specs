@@ -58,7 +58,7 @@
       "name": "PublisherSettingsOps"
     },
     {
-      "name": "HttpEndpointConfigurations"
+      "name": "Endpoints"
     },
     {
       "name": "EventGridConfigurations"
@@ -3108,6 +3108,220 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/endpoints": {
+      "get": {
+        "operationId": "Endpoints_ListByParent",
+        "tags": [
+          "Endpoints"
+        ],
+        "description": "List HTTP endpoint configurations under a publisher setting.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
+            "required": true,
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
+          },
+          {
+            "name": "settingName",
+            "in": "path",
+            "description": "Publisher setting name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,64}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EndpointListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/endpoints/default": {
+      "get": {
+        "operationId": "Endpoints_Get",
+        "tags": [
+          "Endpoints"
+        ],
+        "description": "Get the HTTP endpoint configuration.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
+            "required": true,
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
+          },
+          {
+            "name": "settingName",
+            "in": "path",
+            "description": "Publisher setting name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,64}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "Endpoints_CreateOrUpdate",
+        "tags": [
+          "Endpoints"
+        ],
+        "description": "Create or update the HTTP endpoint configuration.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
+            "required": true,
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
+          },
+          {
+            "name": "settingName",
+            "in": "path",
+            "description": "Publisher setting name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,64}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'Endpoint' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "201": {
+            "description": "Resource 'Endpoint' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Endpoint"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "Endpoints_Delete",
+        "tags": [
+          "Endpoints"
+        ],
+        "description": "Delete the HTTP endpoint configuration.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
+            "required": true,
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
+          },
+          {
+            "name": "settingName",
+            "in": "path",
+            "description": "Publisher setting name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,64}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/eventGridConfigurations": {
       "get": {
         "operationId": "EventGridConfigurations_ListByParent",
@@ -3225,7 +3439,7 @@
         "tags": [
           "EventGridConfigurations"
         ],
-        "description": "Create or update the legacy Event Grid configuration. New publishers should use HttpEndpointConfiguration instead.",
+        "description": "Create or update the legacy Event Grid configuration. New publishers should use Endpoint instead.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -3596,240 +3810,6 @@
         "x-ms-examples": {
           "TopicConfigurations - Delete": {
             "$ref": "./examples/TopicConfigurations_Delete.json"
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/httpEndpointConfigurations": {
-      "get": {
-        "operationId": "HttpEndpointConfigurations_ListByParent",
-        "tags": [
-          "HttpEndpointConfigurations"
-        ],
-        "description": "List HTTP endpoint configurations under a publisher setting.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/HttpEndpointConfigurationListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "HttpEndpointConfigurations - ListByParent": {
-            "$ref": "./examples/HttpEndpointConfigurations_ListByParent.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/httpEndpointConfigurations/default": {
-      "get": {
-        "operationId": "HttpEndpointConfigurations_Get",
-        "tags": [
-          "HttpEndpointConfigurations"
-        ],
-        "description": "Get the HTTP endpoint configuration.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/HttpEndpointConfiguration"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "HttpEndpointConfigurations - Get": {
-            "$ref": "./examples/HttpEndpointConfigurations_Get.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "HttpEndpointConfigurations_CreateOrUpdate",
-        "tags": [
-          "HttpEndpointConfigurations"
-        ],
-        "description": "Create or update the HTTP endpoint configuration.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/HttpEndpointConfiguration"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'HttpEndpointConfiguration' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/HttpEndpointConfiguration"
-            }
-          },
-          "201": {
-            "description": "Resource 'HttpEndpointConfiguration' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/HttpEndpointConfiguration"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "HttpEndpointConfigurations - CreateOrUpdate": {
-            "$ref": "./examples/HttpEndpointConfigurations_CreateOrUpdate.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "HttpEndpointConfigurations_Delete",
-        "tags": [
-          "HttpEndpointConfigurations"
-        ],
-        "description": "Delete the HTTP endpoint configuration.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "HttpEndpointConfigurations - Delete": {
-            "$ref": "./examples/HttpEndpointConfigurations_Delete.json"
           }
         }
       }
@@ -5060,6 +5040,21 @@
         "claim"
       ]
     },
+    "Endpoint": {
+      "type": "object",
+      "description": "HTTP endpoint ingestion configuration with polymorphic authorization. Throttling here overrides the publisher-level default from PublisherSettings.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/EndpointProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
     "EndpointDeliveryMode": {
       "type": "string",
       "description": "The delivery mode for endpoints, determining how notifications are distributed across endpoints",
@@ -5084,9 +5079,53 @@
         ]
       }
     },
+    "EndpointListResult": {
+      "type": "object",
+      "description": "The response of a Endpoint list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Endpoint items on this page",
+          "items": {
+            "$ref": "#/definitions/Endpoint"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "EndpointProperties": {
+      "type": "object",
+      "description": "Properties of Endpoint.",
+      "properties": {
+        "endpoints": {
+          "type": "array",
+          "description": "Receiver endpoint URLs provisioned by the system. Read-only.",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          },
+          "readOnly": true
+        },
+        "throttlingPolicy": {
+          "$ref": "#/definitions/ThrottlingPolicy",
+          "description": "Throttling policy override for this ingestion path. If omitted, inherits from PublisherSettings.throttlingPolicy. Default: 20,000 req/min, 1.5x burst."
+        },
+        "authorization": {
+          "$ref": "#/definitions/Authorization",
+          "description": "Polymorphic authorization (AAD or DSTS)."
+        }
+      }
+    },
     "EventGridConfiguration": {
       "type": "object",
-      "description": "LEGACY: Event Grid topic-based ingestion for existing publishers. New publishers must use HttpEndpointConfiguration instead.",
+      "description": "LEGACY: Event Grid topic-based ingestion for existing publishers. New publishers must use Endpoint instead.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/EventGridConfigurationProperties",
@@ -5255,65 +5294,6 @@
           "description": "Duration in minutes for session validity",
           "minimum": 1,
           "maximum": 240
-        }
-      }
-    },
-    "HttpEndpointConfiguration": {
-      "type": "object",
-      "description": "HTTP endpoint ingestion configuration with polymorphic authorization. Throttling here overrides the publisher-level default from PublisherSettings.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/HttpEndpointConfigurationProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "HttpEndpointConfigurationListResult": {
-      "type": "object",
-      "description": "The response of a HttpEndpointConfiguration list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The HttpEndpointConfiguration items on this page",
-          "items": {
-            "$ref": "#/definitions/HttpEndpointConfiguration"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "HttpEndpointConfigurationProperties": {
-      "type": "object",
-      "description": "Properties of HttpEndpointConfiguration.",
-      "properties": {
-        "endpoints": {
-          "type": "array",
-          "description": "Receiver endpoint URLs provisioned by the system. Read-only.",
-          "items": {
-            "type": "string",
-            "format": "uri"
-          },
-          "readOnly": true
-        },
-        "throttlingPolicy": {
-          "$ref": "#/definitions/ThrottlingPolicy",
-          "description": "Throttling policy override for this ingestion path. If omitted, inherits from PublisherSettings.throttlingPolicy. Default: 20,000 req/min, 1.5x burst."
-        },
-        "authorization": {
-          "$ref": "#/definitions/Authorization",
-          "description": "Polymorphic authorization (AAD or DSTS)."
         }
       }
     },
@@ -5932,7 +5912,7 @@
         },
         "throttlingPolicy": {
           "$ref": "#/definitions/ThrottlingPolicy",
-          "description": "Default throttling policy for all ingestion paths. Can be overridden per-path (e.g., on HttpEndpointConfiguration)."
+          "description": "Default throttling policy for all ingestion paths. Can be overridden per-path (e.g., on Endpoint)."
         },
         "alertingInfo": {
           "$ref": "#/definitions/AlertingInfo",
