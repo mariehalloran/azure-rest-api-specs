@@ -474,10 +474,10 @@ interface ProviderSettingsOps {
 @parentResource(ProviderSettings)
 model TypeSetting
   is Azure.ResourceManager.ProxyResource<TypeSettingProperties> {
-  /** Fully qualified resource type using dot delimiter (e.g., 'Microsoft.Compute.virtualMachines'). */
+  /** Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). */
   @key("typeName")
   @segment("types")
-  @pattern("^[a-zA-Z0-9.]{1,128}$")
+  @pattern("^[a-zA-Z0-9.%/]{1,128}$")
   @path
   name: string;
 }
