@@ -110,11 +110,11 @@ interface PublisherSettingsOps {
   /** Get a publisher setting. */
   get is ArmResourceRead<PublisherSettings>;
 
-  /** Create or update a publisher setting. */
-  createOrUpdate is ArmResourceCreateOrReplaceSync<PublisherSettings>;
+  /** Create or update a publisher setting. Publisher onboarding is a long-running process. */
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<PublisherSettings>;
 
   /** Delete a publisher setting. */
-  delete is ArmResourceDeleteSync<PublisherSettings>;
+  delete is ArmResourceDeleteWithoutOkAsync<PublisherSettings>;
 
   /** List publisher settings under a namespace. */
   listByParent is ArmResourceListByParent<PublisherSettings>;
