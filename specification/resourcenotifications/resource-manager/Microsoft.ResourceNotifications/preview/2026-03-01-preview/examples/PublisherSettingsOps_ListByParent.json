@@ -40,10 +40,33 @@
               },
               "deploymentConfig": {
                 "stageDefinition": [
-                  { "name": "canary", "regions": ["eastus2euap", "centraluseuap"] },
-                  { "name": "stage1", "regions": ["eastus", "westus2"] },
-                  { "name": "stage2", "regions": ["northeurope", "westeurope"] },
-                  { "name": "remaining", "regions": ["*"] }
+                  {
+                    "name": "canary",
+                    "regions": [
+                      "eastus2euap",
+                      "centraluseuap"
+                    ]
+                  },
+                  {
+                    "name": "stage1",
+                    "regions": [
+                      "eastus",
+                      "westus2"
+                    ]
+                  },
+                  {
+                    "name": "stage2",
+                    "regions": [
+                      "northeurope",
+                      "westeurope"
+                    ]
+                  },
+                  {
+                    "name": "remaining",
+                    "regions": [
+                      "*"
+                    ]
+                  }
                 ],
                 "managedSdpEnabled": true,
                 "waitDuration": "PT24H"
