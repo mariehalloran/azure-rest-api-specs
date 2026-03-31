@@ -276,72 +276,72 @@ interface Endpoints {
   listByParent is ArmResourceListByParent<Endpoint>;
 }
 
-// EventGridConfiguration (LEGACY - singleton under PublisherSettings)
+// EventGridConfig (LEGACY - singleton under PublisherSettings)
 
 /** LEGACY: Event Grid topic-based ingestion for existing publishers. New publishers must use Endpoint instead. */
 @added(Versions.v2026_03_01_preview)
 @singleton
 @parentResource(PublisherSettings)
-model EventGridConfiguration
-  is Azure.ResourceManager.ProxyResource<EventGridConfigurationProperties> {
+model EventGridConfig
+  is Azure.ResourceManager.ProxyResource<EventGridConfigProperties> {
   /** Singleton key. */
-  @key("eventGridConfigurationName")
-  @segment("eventGridConfigurations")
+  @key("eventGridConfigName")
+  @segment("eventGridConfigs")
   @pattern("^[a-zA-Z0-9-]{1,64}$")
   @path
   name: string;
 }
 
-/** Properties of EventGridConfiguration. */
+/** Properties of EventGridConfig. */
 @added(Versions.v2026_03_01_preview)
-model EventGridConfigurationProperties {
+model EventGridConfigProperties {
 }
 
 @added(Versions.v2026_03_01_preview)
 @armResourceOperations
-interface EventGridConfigurations {
+interface EventGridConfigs {
   /** Get the legacy Event Grid configuration. */
-  get is ArmResourceRead<EventGridConfiguration>;
+  get is ArmResourceRead<EventGridConfig>;
 
   /** Create or update the legacy Event Grid configuration. New publishers should use Endpoint instead. */
-  createOrUpdate is ArmResourceCreateOrReplaceSync<EventGridConfiguration>;
+  createOrUpdate is ArmResourceCreateOrReplaceSync<EventGridConfig>;
 
   /** Delete the legacy Event Grid configuration. */
-  delete is ArmResourceDeleteSync<EventGridConfiguration>;
+  delete is ArmResourceDeleteSync<EventGridConfig>;
 
   /** List Event Grid configurations under a publisher setting. */
-  listByParent is ArmResourceListByParent<EventGridConfiguration>;
+  listByParent is ArmResourceListByParent<EventGridConfig>;
 }
 
-// TopicConfigurations (child of EventGridConfiguration)
+// TopicConfigs (child of EventGridConfig)
 
 /** LEGACY: Individual Event Grid topic reference. Only topicResourceId is publisher-provided. */
 @added(Versions.v2026_03_01_preview)
-@parentResource(EventGridConfiguration)
-model TopicConfiguration
-  is Azure.ResourceManager.ProxyResource<TopicConfigurationProperties> {
+@parentResource(EventGridConfig)
+model TopicConfig
+  is Azure.ResourceManager.ProxyResource<TopicConfigProperties> {
   /** System-generated GUID identifying this topic configuration. */
   @key("topicConfigId")
-  @segment("topicConfigurations")
+  @segment("topicConfigs")
   @pattern("^[a-fA-F0-9-]{1,64}$")
   @path
   name: string;
 }
 
-/** Properties of TopicConfiguration. Minimal publisher surface - only the EG topic resource ID. */
+/** Properties of TopicConfig. Minimal publisher surface - only the EG topic resource ID. */
 @added(Versions.v2026_03_01_preview)
-model TopicConfigurationProperties {
+model TopicConfigProperties {
   /** ARM resource ID of the publisher-owned Event Grid topic. */
   topicResourceId: string;
 }
 
 @added(Versions.v2026_03_01_preview)
 @armResourceOperations
-interface TopicConfigurations {
-  get is ArmResourceRead<TopicConfiguration>;
-  createOrUpdate is ArmResourceCreateOrReplaceSync<TopicConfiguration>;
-  delete is ArmResourceDeleteSync<TopicConfiguration>;
-  listByParent is ArmResourceListByParent<TopicConfiguration>;
+interface TopicConfigs {
+  get is ArmResourceRead<TopicConfig>;
+  createOrUpdate is ArmResourceCreateOrReplaceSync<TopicConfig>;
+  delete is ArmResourceDeleteSync<TopicConfig>;
+  listByParent is ArmResourceListByParent<TopicConfig>;
 }
 
 // DiscoveryConfig (singleton under PublisherSettings)
@@ -354,7 +354,7 @@ model DiscoveryConfig
   is Azure.ResourceManager.ProxyResource<DiscoveryConfigProperties> {
   /** Singleton key. */
   @key("discoveryConfigName")
-  @segment("discoveryConfig")
+  @segment("discoveryConfigs")
   @pattern("^[a-zA-Z0-9-]{1,64}$")
   @path
   name: string;

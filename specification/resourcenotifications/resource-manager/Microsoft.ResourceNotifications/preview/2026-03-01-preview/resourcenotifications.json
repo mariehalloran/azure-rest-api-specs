@@ -61,10 +61,10 @@
       "name": "Endpoints"
     },
     {
-      "name": "EventGridConfigurations"
+      "name": "EventGridConfigs"
     },
     {
-      "name": "TopicConfigurations"
+      "name": "TopicConfigs"
     },
     {
       "name": "DiscoveryConfigs"
@@ -2616,7 +2616,7 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/discoveryConfig": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/discoveryConfigs": {
       "get": {
         "operationId": "DiscoveryConfigs_ListByParent",
         "tags": [
@@ -2674,7 +2674,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/discoveryConfig/default": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/discoveryConfigs/default": {
       "get": {
         "operationId": "DiscoveryConfigs_Get",
         "tags": [
@@ -2850,7 +2850,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/discoveryConfig/default/kustoQueries": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/discoveryConfigs/default/kustoQueries": {
       "get": {
         "operationId": "KustoQueries_ListByParent",
         "tags": [
@@ -2908,7 +2908,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/discoveryConfig/default/kustoQueries/{queryName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/discoveryConfigs/default/kustoQueries/{queryName}": {
       "get": {
         "operationId": "KustoQueries_Get",
         "tags": [
@@ -3322,11 +3322,11 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/eventGridConfigurations": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/eventGridConfigs": {
       "get": {
-        "operationId": "EventGridConfigurations_ListByParent",
+        "operationId": "EventGridConfigs_ListByParent",
         "tags": [
-          "EventGridConfigurations"
+          "EventGridConfigs"
         ],
         "description": "List Event Grid configurations under a publisher setting.",
         "parameters": [
@@ -3360,7 +3360,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/EventGridConfigurationListResult"
+              "$ref": "#/definitions/EventGridConfigListResult"
             }
           },
           "default": {
@@ -3370,21 +3370,16 @@
             }
           }
         },
-        "x-ms-examples": {
-          "EventGridConfigurations - ListByParent": {
-            "$ref": "./examples/EventGridConfigurations_ListByParent.json"
-          }
-        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/eventGridConfigurations/default": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/eventGridConfigs/default": {
       "get": {
-        "operationId": "EventGridConfigurations_Get",
+        "operationId": "EventGridConfigs_Get",
         "tags": [
-          "EventGridConfigurations"
+          "EventGridConfigs"
         ],
         "description": "Get the legacy Event Grid configuration.",
         "parameters": [
@@ -3418,7 +3413,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/EventGridConfiguration"
+              "$ref": "#/definitions/EventGridConfig"
             }
           },
           "default": {
@@ -3427,17 +3422,12 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "x-ms-examples": {
-          "EventGridConfigurations - Get": {
-            "$ref": "./examples/EventGridConfigurations_Get.json"
-          }
         }
       },
       "put": {
-        "operationId": "EventGridConfigurations_CreateOrUpdate",
+        "operationId": "EventGridConfigs_CreateOrUpdate",
         "tags": [
-          "EventGridConfigurations"
+          "EventGridConfigs"
         ],
         "description": "Create or update the legacy Event Grid configuration. New publishers should use Endpoint instead.",
         "parameters": [
@@ -3472,21 +3462,21 @@
             "description": "Resource create parameters.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/EventGridConfiguration"
+              "$ref": "#/definitions/EventGridConfig"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Resource 'EventGridConfiguration' update operation succeeded",
+            "description": "Resource 'EventGridConfig' update operation succeeded",
             "schema": {
-              "$ref": "#/definitions/EventGridConfiguration"
+              "$ref": "#/definitions/EventGridConfig"
             }
           },
           "201": {
-            "description": "Resource 'EventGridConfiguration' create operation succeeded",
+            "description": "Resource 'EventGridConfig' create operation succeeded",
             "schema": {
-              "$ref": "#/definitions/EventGridConfiguration"
+              "$ref": "#/definitions/EventGridConfig"
             }
           },
           "default": {
@@ -3495,17 +3485,12 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "x-ms-examples": {
-          "EventGridConfigurations - CreateOrUpdate": {
-            "$ref": "./examples/EventGridConfigurations_CreateOrUpdate.json"
-          }
         }
       },
       "delete": {
-        "operationId": "EventGridConfigurations_Delete",
+        "operationId": "EventGridConfigs_Delete",
         "tags": [
-          "EventGridConfigurations"
+          "EventGridConfigs"
         ],
         "description": "Delete the legacy Event Grid configuration.",
         "parameters": [
@@ -3548,21 +3533,16 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "x-ms-examples": {
-          "EventGridConfigurations - Delete": {
-            "$ref": "./examples/EventGridConfigurations_Delete.json"
-          }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/eventGridConfigurations/default/topicConfigurations": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/eventGridConfigs/default/topicConfigs": {
       "get": {
-        "operationId": "TopicConfigurations_ListByParent",
+        "operationId": "TopicConfigs_ListByParent",
         "tags": [
-          "TopicConfigurations"
+          "TopicConfigs"
         ],
-        "description": "List TopicConfiguration resources by EventGridConfiguration",
+        "description": "List TopicConfig resources by EventGridConfig",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -3594,7 +3574,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/TopicConfigurationListResult"
+              "$ref": "#/definitions/TopicConfigListResult"
             }
           },
           "default": {
@@ -3604,23 +3584,18 @@
             }
           }
         },
-        "x-ms-examples": {
-          "TopicConfigurations - ListByParent": {
-            "$ref": "./examples/TopicConfigurations_ListByParent.json"
-          }
-        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/eventGridConfigurations/default/topicConfigurations/{topicConfigId}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/eventGridConfigs/default/topicConfigs/{topicConfigId}": {
       "get": {
-        "operationId": "TopicConfigurations_Get",
+        "operationId": "TopicConfigs_Get",
         "tags": [
-          "TopicConfigurations"
+          "TopicConfigs"
         ],
-        "description": "Get a TopicConfiguration",
+        "description": "Get a TopicConfig",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -3660,7 +3635,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/TopicConfiguration"
+              "$ref": "#/definitions/TopicConfig"
             }
           },
           "default": {
@@ -3669,19 +3644,14 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "x-ms-examples": {
-          "TopicConfigurations - Get": {
-            "$ref": "./examples/TopicConfigurations_Get.json"
-          }
         }
       },
       "put": {
-        "operationId": "TopicConfigurations_CreateOrUpdate",
+        "operationId": "TopicConfigs_CreateOrUpdate",
         "tags": [
-          "TopicConfigurations"
+          "TopicConfigs"
         ],
-        "description": "Create a TopicConfiguration",
+        "description": "Create a TopicConfig",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -3722,21 +3692,21 @@
             "description": "Resource create parameters.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/TopicConfiguration"
+              "$ref": "#/definitions/TopicConfig"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Resource 'TopicConfiguration' update operation succeeded",
+            "description": "Resource 'TopicConfig' update operation succeeded",
             "schema": {
-              "$ref": "#/definitions/TopicConfiguration"
+              "$ref": "#/definitions/TopicConfig"
             }
           },
           "201": {
-            "description": "Resource 'TopicConfiguration' create operation succeeded",
+            "description": "Resource 'TopicConfig' create operation succeeded",
             "schema": {
-              "$ref": "#/definitions/TopicConfiguration"
+              "$ref": "#/definitions/TopicConfig"
             }
           },
           "default": {
@@ -3745,19 +3715,14 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "x-ms-examples": {
-          "TopicConfigurations - CreateOrUpdate": {
-            "$ref": "./examples/TopicConfigurations_CreateOrUpdate.json"
-          }
         }
       },
       "delete": {
-        "operationId": "TopicConfigurations_Delete",
+        "operationId": "TopicConfigs_Delete",
         "tags": [
-          "TopicConfigurations"
+          "TopicConfigs"
         ],
-        "description": "Delete a TopicConfiguration",
+        "description": "Delete a TopicConfig",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -3805,11 +3770,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "TopicConfigurations - Delete": {
-            "$ref": "./examples/TopicConfigurations_Delete.json"
           }
         }
       }
@@ -5123,12 +5083,12 @@
         }
       }
     },
-    "EventGridConfiguration": {
+    "EventGridConfig": {
       "type": "object",
       "description": "LEGACY: Event Grid topic-based ingestion for existing publishers. New publishers must use Endpoint instead.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/EventGridConfigurationProperties",
+          "$ref": "#/definitions/EventGridConfigProperties",
           "description": "The resource-specific properties for this resource."
         }
       },
@@ -5138,15 +5098,15 @@
         }
       ]
     },
-    "EventGridConfigurationListResult": {
+    "EventGridConfigListResult": {
       "type": "object",
-      "description": "The response of a EventGridConfiguration list operation.",
+      "description": "The response of a EventGridConfig list operation.",
       "properties": {
         "value": {
           "type": "array",
-          "description": "The EventGridConfiguration items on this page",
+          "description": "The EventGridConfig items on this page",
           "items": {
-            "$ref": "#/definitions/EventGridConfiguration"
+            "$ref": "#/definitions/EventGridConfig"
           }
         },
         "nextLink": {
@@ -5159,9 +5119,9 @@
         "value"
       ]
     },
-    "EventGridConfigurationProperties": {
+    "EventGridConfigProperties": {
       "type": "object",
-      "description": "Properties of EventGridConfiguration."
+      "description": "Properties of EventGridConfig."
     },
     "EventHubConfig": {
       "type": "object",
@@ -6284,12 +6244,12 @@
       ],
       "x-ms-discriminator-value": "timeAndScopeRangeHash"
     },
-    "TopicConfiguration": {
+    "TopicConfig": {
       "type": "object",
       "description": "LEGACY: Individual Event Grid topic reference. Only topicResourceId is publisher-provided.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/TopicConfigurationProperties",
+          "$ref": "#/definitions/TopicConfigProperties",
           "description": "The resource-specific properties for this resource."
         }
       },
@@ -6299,15 +6259,15 @@
         }
       ]
     },
-    "TopicConfigurationListResult": {
+    "TopicConfigListResult": {
       "type": "object",
-      "description": "The response of a TopicConfiguration list operation.",
+      "description": "The response of a TopicConfig list operation.",
       "properties": {
         "value": {
           "type": "array",
-          "description": "The TopicConfiguration items on this page",
+          "description": "The TopicConfig items on this page",
           "items": {
-            "$ref": "#/definitions/TopicConfiguration"
+            "$ref": "#/definitions/TopicConfig"
           }
         },
         "nextLink": {
@@ -6320,9 +6280,9 @@
         "value"
       ]
     },
-    "TopicConfigurationProperties": {
+    "TopicConfigProperties": {
       "type": "object",
-      "description": "Properties of TopicConfiguration. Minimal publisher surface - only the EG topic resource ID.",
+      "description": "Properties of TopicConfig. Minimal publisher surface - only the EG topic resource ID.",
       "properties": {
         "topicResourceId": {
           "type": "string",
