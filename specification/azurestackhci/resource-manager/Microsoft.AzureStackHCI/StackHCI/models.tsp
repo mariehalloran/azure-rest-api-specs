@@ -2555,10 +2555,24 @@ model ClusterReportedProperties {
    */
   @visibility(Lifecycle.Read)
   hardwareClass?: HardwareClass = HardwareClass.Medium;
+
+  /**
+   * Number of fault domains configured in the cluster.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  faultDomainCount?: int32;
+
+  /**
+   * Naming prefix for fault domains configured in the cluster (e.g., "Rack").
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  faultDomainPrefix?: string;
 }
 
 /**
- * Cluster node details.
+ * Cluster node details.  
  */
 model ClusterNode {
   /**
@@ -7125,6 +7139,12 @@ model EdgeMachineProperties {
    */
   @visibility(Lifecycle.Read)
   lastSyncTimestamp?: utcDateTime;
+
+  /**
+   * Fault domain name assigned to this edge machine after a ConfigureFaultDomain job succeeds.
+   */
+  @visibility(Lifecycle.Read)
+  faultDomainName?: string;
 }
 
 /**
