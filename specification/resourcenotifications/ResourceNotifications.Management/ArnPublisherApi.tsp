@@ -139,15 +139,25 @@ model Endpoint
 /** Properties of Endpoint. */
 @added(Versions.v2026_03_01_preview)
 model EndpointProperties {
-  /** Receiver endpoint URLs provisioned by the system. Read-only. */
+  /** Receiver endpoint URLs provisioned by the system, keyed by scope (e.g., 'global', 'eu'). Read-only. */
   @visibility(Lifecycle.Read)
-  endpoints?: url[];
+  endpoints?: EndpointUrls;
 
   /** Throttling policy override for this ingestion path. If omitted, inherits from PublisherSettings.throttlingPolicy. Default: 20,000 req/min, 1.5x burst. */
   throttlingPolicy?: ThrottlingPolicy;
 
   /** Polymorphic authorization (AAD or DSTS). */
   authorization?: Authorization;
+}
+
+/** Receiver endpoint URLs keyed by scope. */
+@added(Versions.v2026_03_01_preview)
+model EndpointUrls {
+  /** Global receiver endpoint URL. */
+  global?: url;
+
+  /** EU-scoped receiver endpoint URL. */
+  eu?: url;
 }
 
 /** Throttling policy. */

@@ -65,9 +65,10 @@
             "maxRequestsPerMinutePerRegion": 25000,
             "maxRequestsPerMinute": 50000
           },
-          "endpoints": [
-            "https://arn-receiver-eastus.trafficmanager.net/api/v1/notifications"
-          ]
+          "endpoints": {
+            "global": "https://ms-apps-containerapps-qcs-global.receiver.arn.core.windows.net",
+            "eu": "https://ms-apps-containerapps-qcs-eu.receiver.arn.core.windows.net"
+          }
         }
       }
     },
@@ -105,9 +106,10 @@
             "maxRequestsPerMinutePerRegion": 25000,
             "maxRequestsPerMinute": 50000
           },
-          "endpoints": [
-            "https://arn-receiver-eastus.trafficmanager.net/api/v1/notifications"
-          ]
+          "endpoints": {
+            "global": "https://ms-apps-containerapps-qcs-global.receiver.arn.core.windows.net",
+            "eu": "https://ms-apps-containerapps-qcs-eu.receiver.arn.core.windows.net"
+          }
         }
       }
     }

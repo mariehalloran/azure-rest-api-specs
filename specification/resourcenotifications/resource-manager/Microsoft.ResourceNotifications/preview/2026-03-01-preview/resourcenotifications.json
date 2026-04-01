@@ -5065,12 +5065,8 @@
       "description": "Properties of Endpoint.",
       "properties": {
         "endpoints": {
-          "type": "array",
-          "description": "Receiver endpoint URLs provisioned by the system. Read-only.",
-          "items": {
-            "type": "string",
-            "format": "uri"
-          },
+          "$ref": "#/definitions/EndpointUrls",
+          "description": "Receiver endpoint URLs provisioned by the system, keyed by scope (e.g., 'global', 'eu'). Read-only.",
           "readOnly": true
         },
         "throttlingPolicy": {
@@ -5080,6 +5076,22 @@
         "authorization": {
           "$ref": "#/definitions/Authorization",
           "description": "Polymorphic authorization (AAD or DSTS)."
+        }
+      }
+    },
+    "EndpointUrls": {
+      "type": "object",
+      "description": "Receiver endpoint URLs keyed by scope.",
+      "properties": {
+        "global": {
+          "type": "string",
+          "format": "uri",
+          "description": "Global receiver endpoint URL."
+        },
+        "eu": {
+          "type": "string",
+          "format": "uri",
+          "description": "EU-scoped receiver endpoint URL."
         }
       }
     },
