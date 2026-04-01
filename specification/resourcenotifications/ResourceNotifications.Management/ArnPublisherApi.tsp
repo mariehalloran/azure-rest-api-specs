@@ -148,6 +148,10 @@ model EndpointProperties {
 
   /** Polymorphic authorization (AAD or DSTS). */
   authorization?: Authorization;
+
+  /** Read-only provisioning state. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
 }
 
 /** Receiver endpoint URLs keyed by scope. */
@@ -305,6 +309,9 @@ model EventGridConfig
 /** Properties of EventGridConfig. */
 @added(Versions.v2026_03_01_preview)
 model EventGridConfigProperties {
+  /** Read-only provisioning state. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
 }
 
 @added(Versions.v2026_03_01_preview)
@@ -343,6 +350,10 @@ model TopicConfig
 model TopicConfigProperties {
   /** ARM resource ID of the publisher-owned Event Grid topic. */
   topicResourceId: string;
+
+  /** Read-only provisioning state. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
 }
 
 @added(Versions.v2026_03_01_preview)
@@ -381,6 +392,10 @@ model DiscoveryConfigProperties {
 
   /** Default data mapping configuration. */
   defaultMapping?: string;
+
+  /** Read-only provisioning state. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
 }
 
 /** Alerting configuration for discovery pipelines. */
@@ -426,6 +441,10 @@ model KustoQueryProperties {
 
   /** Description of what this query returns. */
   description?: string;
+
+  /** Read-only provisioning state. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
 }
 
 @added(Versions.v2026_03_01_preview)
@@ -459,6 +478,10 @@ model ProviderSettingsProperties {
   /** ARG logical table for this provider's types. Read-only - resolved from ARG dataset configuration at runtime. */
   @visibility(Lifecycle.Read)
   logicalTable?: string;
+
+  /** Read-only provisioning state. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
 }
 
 @added(Versions.v2026_03_01_preview)
@@ -501,6 +524,10 @@ model TypeSettingProperties {
   /** ARG logical table override for this type. Read-only - resolved from ARG dataset configuration. */
   @visibility(Lifecycle.Read)
   logicalTable?: string;
+
+  /** Read-only provisioning state. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
 }
 
 /** Validation policy determining publishing authorization for a resource type. Set by the type owner (provider namespace). */
@@ -561,6 +588,10 @@ model AllowedPublisherProperties {
   /** Forward this publisher's events to ARG (default: true). Set by the type owner. */
   #suppress "EnumInsteadOfBoolean" "sendToArg is a simple on/off toggle; an enum adds no value"
   sendToArg?: boolean = true;
+
+  /** Read-only provisioning state. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
 }
 
 @added(Versions.v2026_03_01_preview)
@@ -669,6 +700,10 @@ model DiscoveryFlowProperties {
 
   /** Partitioning strategy. */
   partitioning?: FlowPartitioning;
+
+  /** Read-only provisioning state. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
 }
 
 /** Flow scheduling configuration. */
@@ -771,6 +806,10 @@ model IngestionFlowProperties {
 
   /** Consumer group name. */
   consumerGroup?: string;
+
+  /** Read-only provisioning state. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
 }
 
 /** Event Hub configuration for streaming ingestion. */

@@ -14,6 +14,7 @@
         "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default/discoveryConfig/default/kustoQueries/vm-resources-query",
         "type": "Microsoft.ResourceNotifications/namespaces/publisherSettings/discoveryConfig/kustoQueries",
         "properties": {
+          "provisioningState": "Succeeded",
           "query": "Resources | where type == 'microsoft.compute/virtualmachines' | project id, name, location, properties",
           "description": "List all virtual machine resources with their properties"
         }
