@@ -3,7 +3,6 @@
     "resourceGroupName": "rg-arn-examples",
     "resource": {
       "properties": {
-        "provisioningState": "Succeeded",
         "query": "Resources | where type == 'microsoft.compute/virtualmachines' | project id, name, location, properties",
         "description": "List all virtual machine resources with their properties"
       }

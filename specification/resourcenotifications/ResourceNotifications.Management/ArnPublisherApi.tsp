@@ -126,8 +126,7 @@ interface PublisherSettingsOperations {
 @added(Versions.v2026_03_01_preview)
 @singleton
 @parentResource(PublisherSettings)
-model Endpoint
-  is Azure.ResourceManager.ProxyResource<EndpointProperties> {
+model Endpoint is Azure.ResourceManager.ProxyResource<EndpointProperties> {
   /** Singleton key. */
   @key("endpointName")
   @segment("endpoints")
