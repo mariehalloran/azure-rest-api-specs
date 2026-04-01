@@ -55,7 +55,7 @@
       "name": "Namespaces"
     },
     {
-      "name": "PublisherSettingsOps"
+      "name": "PublisherSettingsOperations"
     },
     {
       "name": "Endpoints"
@@ -73,7 +73,7 @@
       "name": "KustoQueries"
     },
     {
-      "name": "ProviderSettingsOps"
+      "name": "ProviderSettingsOperations"
     },
     {
       "name": "TypeSettings"
@@ -1676,9 +1676,9 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings": {
       "get": {
-        "operationId": "ProviderSettingsOps_ListByParent",
+        "operationId": "ProviderSettingsOperations_ListByParent",
         "tags": [
-          "ProviderSettingsOps"
+          "ProviderSettingsOperations"
         ],
         "description": "List provider settings under a namespace.",
         "parameters": [
@@ -1715,8 +1715,8 @@
           }
         },
         "x-ms-examples": {
-          "ProviderSettingsOps - ListByParent": {
-            "$ref": "./examples/ProviderSettingsOps_ListByParent.json"
+          "ProviderSettingsOperations - ListByParent": {
+            "$ref": "./examples/ProviderSettingsOperations_ListByParent.json"
           }
         },
         "x-ms-pageable": {
@@ -1726,9 +1726,9 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default": {
       "get": {
-        "operationId": "ProviderSettingsOps_Get",
+        "operationId": "ProviderSettingsOperations_Get",
         "tags": [
-          "ProviderSettingsOps"
+          "ProviderSettingsOperations"
         ],
         "description": "Get provider settings for this namespace.",
         "parameters": [
@@ -1765,15 +1765,15 @@
           }
         },
         "x-ms-examples": {
-          "ProviderSettingsOps - Get": {
-            "$ref": "./examples/ProviderSettingsOps_Get.json"
+          "ProviderSettingsOperations - Get": {
+            "$ref": "./examples/ProviderSettingsOperations_Get.json"
           }
         }
       },
       "put": {
-        "operationId": "ProviderSettingsOps_CreateOrUpdate",
+        "operationId": "ProviderSettingsOperations_CreateOrUpdate",
         "tags": [
-          "ProviderSettingsOps"
+          "ProviderSettingsOperations"
         ],
         "description": "Create or update provider settings. logicalTable is system-resolved.",
         "parameters": [
@@ -1825,15 +1825,15 @@
           }
         },
         "x-ms-examples": {
-          "ProviderSettingsOps - CreateOrUpdate": {
-            "$ref": "./examples/ProviderSettingsOps_CreateOrUpdate.json"
+          "ProviderSettingsOperations - CreateOrUpdate": {
+            "$ref": "./examples/ProviderSettingsOperations_CreateOrUpdate.json"
           }
         }
       },
       "delete": {
-        "operationId": "ProviderSettingsOps_Delete",
+        "operationId": "ProviderSettingsOperations_Delete",
         "tags": [
-          "ProviderSettingsOps"
+          "ProviderSettingsOperations"
         ],
         "description": "Delete provider settings.",
         "parameters": [
@@ -1870,8 +1870,8 @@
           }
         },
         "x-ms-examples": {
-          "ProviderSettingsOps - Delete": {
-            "$ref": "./examples/ProviderSettingsOps_Delete.json"
+          "ProviderSettingsOperations - Delete": {
+            "$ref": "./examples/ProviderSettingsOperations_Delete.json"
           }
         }
       }
@@ -2362,9 +2362,9 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings": {
       "get": {
-        "operationId": "PublisherSettingsOps_ListByParent",
+        "operationId": "PublisherSettingsOperations_ListByParent",
         "tags": [
-          "PublisherSettingsOps"
+          "PublisherSettingsOperations"
         ],
         "description": "List publisher settings under a namespace.",
         "parameters": [
@@ -2401,8 +2401,8 @@
           }
         },
         "x-ms-examples": {
-          "PublisherSettingsOps - ListByParent": {
-            "$ref": "./examples/PublisherSettingsOps_ListByParent.json"
+          "PublisherSettingsOperations - ListByParent": {
+            "$ref": "./examples/PublisherSettingsOperations_ListByParent.json"
           }
         },
         "x-ms-pageable": {
@@ -2412,9 +2412,9 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}": {
       "get": {
-        "operationId": "PublisherSettingsOps_Get",
+        "operationId": "PublisherSettingsOperations_Get",
         "tags": [
-          "PublisherSettingsOps"
+          "PublisherSettingsOperations"
         ],
         "description": "Get a publisher setting.",
         "parameters": [
@@ -2459,15 +2459,15 @@
           }
         },
         "x-ms-examples": {
-          "PublisherSettingsOps - Get": {
-            "$ref": "./examples/PublisherSettingsOps_Get.json"
+          "PublisherSettingsOperations - Get": {
+            "$ref": "./examples/PublisherSettingsOperations_Get.json"
           }
         }
       },
       "put": {
-        "operationId": "PublisherSettingsOps_CreateOrUpdate",
+        "operationId": "PublisherSettingsOperations_CreateOrUpdate",
         "tags": [
-          "PublisherSettingsOps"
+          "PublisherSettingsOperations"
         ],
         "description": "Create or update a publisher setting. Publisher onboarding is a long-running process.",
         "parameters": [
@@ -2538,8 +2538,8 @@
           }
         },
         "x-ms-examples": {
-          "PublisherSettingsOps - CreateOrUpdate": {
-            "$ref": "./examples/PublisherSettingsOps_CreateOrUpdate.json"
+          "PublisherSettingsOperations - CreateOrUpdate": {
+            "$ref": "./examples/PublisherSettingsOperations_CreateOrUpdate.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -2548,9 +2548,9 @@
         "x-ms-long-running-operation": true
       },
       "delete": {
-        "operationId": "PublisherSettingsOps_Delete",
+        "operationId": "PublisherSettingsOperations_Delete",
         "tags": [
-          "PublisherSettingsOps"
+          "PublisherSettingsOperations"
         ],
         "description": "Delete a publisher setting.",
         "parameters": [
@@ -2606,8 +2606,8 @@
           }
         },
         "x-ms-examples": {
-          "PublisherSettingsOps - Delete": {
-            "$ref": "./examples/PublisherSettingsOps_Delete.json"
+          "PublisherSettingsOperations - Delete": {
+            "$ref": "./examples/PublisherSettingsOperations_Delete.json"
           }
         },
         "x-ms-long-running-operation-options": {

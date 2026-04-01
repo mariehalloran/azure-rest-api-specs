@@ -106,7 +106,7 @@ model PublishingResourceType {
 
 @added(Versions.v2026_03_01_preview)
 @armResourceOperations
-interface PublisherSettingsOps {
+interface PublisherSettingsOperations {
   /** Get a publisher setting. */
   get is ArmResourceRead<PublisherSettings>;
 
@@ -463,7 +463,7 @@ model ProviderSettingsProperties {
 
 @added(Versions.v2026_03_01_preview)
 @armResourceOperations
-interface ProviderSettingsOps {
+interface ProviderSettingsOperations {
   /** Get provider settings for this namespace. */
   get is ArmResourceRead<ProviderSettings>;
 
