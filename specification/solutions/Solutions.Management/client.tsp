@@ -8,7 +8,7 @@ using Microsoft.Solutions;
   "listOperations",
   "javascript"
 );
-@@clientName(Microsoft.Solutions, "ApplicationClient", "javascript,python");
+@@clientName(Microsoft.Solutions, "ApplicationClient", "javascript,python,go");
 
 @@clientName(Operations.list, "list_operations", "python");
 @@clientLocation(Operations.list, Microsoft.Solutions, "python,javascript");
