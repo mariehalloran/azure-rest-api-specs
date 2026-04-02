@@ -42,7 +42,8 @@ model JitRequestDefinition extends Resource {
   properties?: JitRequestProperties;
 }
 
-@armResourceOperations
+@armResourceOperations(#{ omitTags: true })
+@tag("JitRequests")
 interface JitRequestDefinitions {
   /**
    * Gets the JIT request.

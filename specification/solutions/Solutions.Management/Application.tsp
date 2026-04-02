@@ -118,7 +118,6 @@ interface Applications {
   /**
    * List allowed upgrade plans for application.
    */
-  @list
   listAllowedUpgradePlans is ArmResourceActionSync<
     Application,
     void,
@@ -133,7 +132,8 @@ interface Applications {
     UpdateAccessDefinition,
     OkResponse | ArmAcceptedLroResponse<
       "Resource operation accepted.",
-      ArmLroLocationHeader<FinalResult = UpdateAccessDefinition> & Body<UpdateAccessDefinition>
+      ArmLroLocationHeader<FinalResult = UpdateAccessDefinition> &
+        Body<UpdateAccessDefinition>
     >,
     BaseParameters = Azure.ResourceManager.Foundations.BaseParameters<Application>
   >;
@@ -141,7 +141,6 @@ interface Applications {
   /**
    * List tokens for application.
    */
-  @list
   listTokens is ArmResourceActionSync<
     Application,
     ListTokenRequest,

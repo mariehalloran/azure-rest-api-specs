@@ -40,4 +40,23 @@ using Microsoft.Solutions;
 @@clientLocation(ApplicationsOperationGroup.createOrUpdateById, Applications);
 @@clientLocation(ApplicationsOperationGroup.updateById, Applications);
 
+@@clientLocation(ApplicationDefinitionOpsById.getById,
+  "ApplicationDefinitions"
+);
+
+@@clientLocation(ApplicationDefinitionOpsById.createOrUpdateById,
+  "ApplicationDefinitions"
+);
+
+@@clientLocation(ApplicationDefinitionOpsById.updateById,
+  "ApplicationDefinitions"
+);
+
+@@clientLocation(ApplicationDefinitionOpsById.deleteById,
+  "ApplicationDefinitions"
+);
+
 @@clientName(portalRegistryPackage::parameters.body, "parameters");
+
+@@clientLocation(Operations.list, Microsoft.Solutions);
+@@clientName(Operations.list, "ListOperations");

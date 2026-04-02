@@ -32,6 +32,100 @@ model ApplicationDefinition extends GenericResource {
   properties: ApplicationDefinitionProperties;
 }
 
+@armResourceOperations(#{ allowStaticRoutes: true, omitTags: true })
+interface ApplicationDefinitionOpsById {
+  /**
+   * Gets the managed application definition.
+   */
+  @tag("ApplicationDefinitions")
+  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy")
+  getById(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupParameter,
+
+    /**
+     * The name of the managed application definition.
+     */
+    @minLength(3)
+    @maxLength(64)
+    @path
+    applicationDefinitionName: string,
+  ): ArmResponse<ApplicationDefinition> | NotFoundResponse | ErrorResponse;
+
+  /**
+   * Creates or updates a managed application definition.
+   */
+  @tag("ApplicationDefinitions")
+  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy")
+  @put
+  createOrUpdateById(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupParameter,
+
+    /**
+     * The name of the managed application definition.
+     */
+    @minLength(3)
+    @maxLength(64)
+    @path
+    applicationDefinitionName: string,
+
+    /**
+     * Parameters supplied to the create or update a managed application definition.
+     */
+    @bodyRoot
+    parameters: ApplicationDefinition,
+  ): ArmResponse<ApplicationDefinition> | ArmCreatedResponse<ApplicationDefinition> | ErrorResponse;
+
+  /**
+   * Updates the managed application definition.
+   */
+  @tag("ApplicationDefinitions")
+  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy")
+  @patch(#{ implicitOptionality: false })
+  updateById(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupParameter,
+
+    /**
+     * The name of the managed application definition.
+     */
+    @minLength(3)
+    @maxLength(64)
+    @path
+    applicationDefinitionName: string,
+
+    /**
+     * Parameters supplied to the update a managed application definition.
+     */
+    @bodyRoot
+    parameters: ApplicationDefinitionPatchable,
+  ): ArmResponse<ApplicationDefinition> | ErrorResponse;
+
+  /**
+   * Deletes the managed application definition.
+   */
+  @tag("ApplicationDefinitions")
+  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy")
+  @delete
+  deleteById(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupParameter,
+
+    /**
+     * The name of the managed application definition.
+     */
+    @minLength(3)
+    @maxLength(64)
+    @path
+    applicationDefinitionName: string,
+  ): OkResponse | NoContentResponse | ErrorResponse;
+}
+
 @armResourceOperations
 interface ApplicationDefinitions {
   /**

@@ -40,19 +40,28 @@
   },
   "tags": [
     {
+      "name": "PortalRegistryPackages"
+    },
+    {
+      "name": "Operations"
+    },
+    {
       "name": "Applications"
     },
     {
       "name": "ApplicationDefinitions"
     },
     {
-      "name": "JitRequestDefinitions"
+      "name": "JitRequests"
     }
   ],
   "paths": {
     "/{applicationId}": {
       "get": {
         "operationId": "Applications_GetById",
+        "tags": [
+          "Applications"
+        ],
         "description": "Gets the managed application.",
         "parameters": [
           {
@@ -92,6 +101,9 @@
       },
       "put": {
         "operationId": "Applications_CreateOrUpdateById",
+        "tags": [
+          "Applications"
+        ],
         "description": "Creates or updates a managed application.",
         "parameters": [
           {
@@ -159,6 +171,9 @@
       },
       "patch": {
         "operationId": "Applications_UpdateById",
+        "tags": [
+          "Applications"
+        ],
         "description": "Updates an existing managed application.",
         "parameters": [
           {
@@ -226,6 +241,9 @@
       },
       "delete": {
         "operationId": "Applications_DeleteById",
+        "tags": [
+          "Applications"
+        ],
         "description": "Deletes the managed application.",
         "parameters": [
           {
@@ -282,7 +300,10 @@
     "/providers/Microsoft.Solutions/operations": {
       "get": {
         "operationId": "ListOperations",
-        "description": "Lists all of the available Microsoft.Solutions REST API operations.",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the provider",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
@@ -315,6 +336,9 @@
     "/providers/Microsoft.Solutions/portalRegistryPackage": {
       "post": {
         "operationId": "PortalRegistryPackage",
+        "tags": [
+          "PortalRegistryPackages"
+        ],
         "description": "Generates the registry package links for Managed Applications and Solution Templates.",
         "parameters": [
           {
@@ -433,7 +457,7 @@
       "get": {
         "operationId": "jitRequests_ListBySubscription",
         "tags": [
-          "JitRequestDefinitions"
+          "JitRequests"
         ],
         "description": "Lists all JIT requests within the subscription.",
         "parameters": [
@@ -1259,7 +1283,8 @@
           }
         },
         "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
+          "final-state-via": "location",
+          "final-state-schema": "#/definitions/UpdateAccessDefinition"
         },
         "x-ms-long-running-operation": true
       }
@@ -1268,7 +1293,7 @@
       "get": {
         "operationId": "jitRequests_ListByResourceGroup",
         "tags": [
-          "JitRequestDefinitions"
+          "JitRequests"
         ],
         "description": "Lists all JIT requests within the resource group.",
         "parameters": [
@@ -1307,7 +1332,7 @@
       "get": {
         "operationId": "JitRequests_Get",
         "tags": [
-          "JitRequestDefinitions"
+          "JitRequests"
         ],
         "description": "Gets the JIT request.",
         "parameters": [
@@ -1356,7 +1381,7 @@
       "put": {
         "operationId": "jitRequests_CreateOrUpdate",
         "tags": [
-          "JitRequestDefinitions"
+          "JitRequests"
         ],
         "description": "Creates or updates the JIT request.",
         "parameters": [
@@ -1433,7 +1458,7 @@
       "patch": {
         "operationId": "JitRequests_Update",
         "tags": [
-          "JitRequestDefinitions"
+          "JitRequests"
         ],
         "description": "Updates the JIT request.",
         "parameters": [
@@ -1488,7 +1513,7 @@
       "delete": {
         "operationId": "jitRequests_Delete",
         "tags": [
-          "JitRequestDefinitions"
+          "JitRequests"
         ],
         "description": "Deletes the JIT request.",
         "parameters": [
@@ -1528,6 +1553,214 @@
         "x-ms-examples": {
           "Delete jit request": {
             "$ref": "./examples/deleteJitRequest.json"
+          }
+        }
+      }
+    }
+  },
+  "x-ms-paths": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy": {
+      "get": {
+        "operationId": "ApplicationDefinitions_GetById",
+        "tags": [
+          "ApplicationDefinitions"
+        ],
+        "description": "Gets the managed application definition.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "applicationDefinitionName",
+            "in": "path",
+            "description": "The name of the managed application definition.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 64
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDefinition"
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy&_overload=createOrUpdateById": {
+      "put": {
+        "operationId": "ApplicationDefinitions_CreateOrUpdateById",
+        "tags": [
+          "ApplicationDefinitions"
+        ],
+        "description": "Creates or updates a managed application definition.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "applicationDefinitionName",
+            "in": "path",
+            "description": "The name of the managed application definition.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 64
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "description": "Parameters supplied to the create or update a managed application definition.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApplicationDefinition"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDefinition"
+            }
+          },
+          "201": {
+            "description": "Azure create operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDefinition"
+            },
+            "headers": {
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy&_overload=updateById": {
+      "patch": {
+        "operationId": "ApplicationDefinitions_UpdateById",
+        "tags": [
+          "ApplicationDefinitions"
+        ],
+        "description": "Updates the managed application definition.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "applicationDefinitionName",
+            "in": "path",
+            "description": "The name of the managed application definition.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 64
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "description": "Parameters supplied to the update a managed application definition.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApplicationDefinitionPatchable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ApplicationDefinition"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy&_overload=deleteById": {
+      "delete": {
+        "operationId": "ApplicationDefinitions_DeleteById",
+        "tags": [
+          "ApplicationDefinitions"
+        ],
+        "description": "Deletes the managed application definition.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "applicationDefinitionName",
+            "in": "path",
+            "description": "The name of the managed application definition.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 64
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded."
+          },
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+            }
           }
         }
       }

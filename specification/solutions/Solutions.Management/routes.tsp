@@ -18,6 +18,7 @@ namespace Microsoft.Solutions;
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 @autoRoute
+@tag("PortalRegistryPackages")
 op portalRegistryPackage is ArmProviderActionSync<
   Request = RegistryPackagePlan,
   Response = RegistryPackage
@@ -30,6 +31,7 @@ interface ApplicationsOperationGroup {
    */
   @route("/{+applicationId}")
   @get
+  @tag("Applications")
   getById(
     ...ApiVersionParameter,
 
@@ -46,6 +48,7 @@ interface ApplicationsOperationGroup {
   #suppress "@azure-tools/typespec-azure-resource-manager/lro-location-header" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @route("/{+applicationId}")
   @put
+  @tag("Applications")
   createOrUpdateById(
     ...ApiVersionParameter,
 
@@ -74,6 +77,7 @@ interface ApplicationsOperationGroup {
   #suppress "@azure-tools/typespec-azure-resource-manager/lro-location-header" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @route("/{+applicationId}")
   @patch(#{ implicitOptionality: false })
+  @tag("Applications")
   updateById(
     ...ApiVersionParameter,
 
@@ -101,6 +105,7 @@ interface ApplicationsOperationGroup {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @route("/{+applicationId}")
   @delete
+  @tag("Applications")
   deleteById(
     ...ApiVersionParameter,
 

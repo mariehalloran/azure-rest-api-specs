@@ -44,18 +44,8 @@ enum Versions {
   v2023_12_01_preview: "2023-12-01-preview",
 }
 
-interface Operations {
-  #suppress "@azure-tools/typespec-azure-core/no-private-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  #suppress "@azure-tools/typespec-azure-core/no-openapi" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  @OpenAPI.operationId("ListOperations")
-  @autoRoute
-  @doc("Lists all of the available Microsoft.Solutions REST API operations.")
-  @segment("operations")
-  @list
-  @get
-  list(
-    ...ApiVersionParameter,
-    ...Azure.ResourceManager.Legacy.Provider,
-  ): ArmResponse<OperationListResult> | ErrorResponse;
-}
+interface Operations
+  extends Azure.ResourceManager.Legacy.Operations<
+      ArmResponse<OperationListResult>,
+      ErrorResponse
+    > {}
