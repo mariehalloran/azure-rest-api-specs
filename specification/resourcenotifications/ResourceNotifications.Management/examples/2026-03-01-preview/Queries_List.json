@@ -1,0 +1,27 @@
+{
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "api-version": "2026-03-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "compute-vm-discovery",
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/queries/compute-vm-discovery",
+            "type": "Microsoft.ResourceNotifications/queries",
+            "properties": {
+              "provisioningState": "Succeeded",
+              "query": "Resources | where type == 'microsoft.compute/virtualmachines' | project id, name, location, properties",
+              "description": "Discovers all Compute virtual machines and their key properties.",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "Queries_List",
+  "title": "Queries - List"
+}

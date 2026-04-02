@@ -19,8 +19,9 @@ namespace Microsoft.ResourceNotifications;
 // Namespace (read-only parent)
 
 /** Pre-existing namespace representing a registered resource provider in ARN. Read-only - partner details are derived from ServiceTree and the ARM manifest. */
+@subscriptionResource
 @added(Versions.v2026_03_01_preview)
-model Namespace is Azure.ResourceManager.TrackedResource<NamespaceProperties> {
+model Namespace is Azure.ResourceManager.ProxyResource<NamespaceProperties> {
   /** Publisher namespace name (e.g., 'Microsoft.Compute'). */
   @key("namespaceName")
   @segment("namespaces")
@@ -51,8 +52,8 @@ interface Namespaces {
   /** Get a namespace. Returns partner details derived from ServiceTree and ARM RP registration. */
   get is ArmResourceRead<Namespace>;
 
-  listByResourceGroup is ArmResourceListByParent<Namespace>;
-  listBySubscription is ArmListBySubscription<Namespace>;
+  /** List namespaces in subscription. */
+  list is ArmResourceListByParent<Namespace>;
 }
 
 // PublisherSettings/{settingName}
@@ -83,11 +84,12 @@ model PublisherSettingsProperties {
   @OpenAPI.extension("x-ms-identifiers", #["resourceType"])
   publishingResourceTypes?: PublishingResourceType[];
 
-  /** Default throttling policy for all ingestion paths. Can be overridden per-path (e.g., on Endpoint). */
-  throttlingPolicy?: ThrottlingPolicy;
-
-  /** Default IcM / alerting configuration. Can be overridden by child resources (e.g., DiscoveryConfig). */
+  /** Default IcM / alerting configuration. */
   alertingInfo?: AlertingInfo;
+
+  /** Whether this publisher setting is enabled. Set to false to disable during outages. Default: true. */
+  #suppress "EnumInsteadOfBoolean" "enabled is a simple on/off operational toggle"
+  enabled?: boolean = true;
 
   /** Safe deployment configuration for gradual or immediate regional rollout. */
   deploymentConfig?: DeploymentConfig;
@@ -118,49 +120,6 @@ interface PublisherSettingsOperations {
 
   /** List publisher settings under a namespace. */
   listByParent is ArmResourceListByParent<PublisherSettings>;
-}
-
-// Endpoint (singleton under PublisherSettings)
-
-/** HTTP endpoint ingestion configuration with polymorphic authorization. Throttling here overrides the publisher-level default from PublisherSettings. */
-@added(Versions.v2026_03_01_preview)
-@singleton
-@parentResource(PublisherSettings)
-model Endpoint is Azure.ResourceManager.ProxyResource<EndpointProperties> {
-  /** Singleton key. */
-  @key("endpointName")
-  @segment("endpoints")
-  @pattern("^[a-zA-Z0-9-]{1,64}$")
-  @path
-  name: string;
-}
-
-/** Properties of Endpoint. */
-@added(Versions.v2026_03_01_preview)
-model EndpointProperties {
-  /** Receiver endpoint URLs provisioned by the system, keyed by scope (e.g., 'global', 'eu'). Read-only. */
-  @visibility(Lifecycle.Read)
-  endpoints?: EndpointUrls;
-
-  /** Throttling policy override for this ingestion path. If omitted, inherits from PublisherSettings.throttlingPolicy. Default: 20,000 req/min, 1.5x burst. */
-  throttlingPolicy?: ThrottlingPolicy;
-
-  /** Polymorphic authorization (AAD or DSTS). */
-  authorization?: Authorization;
-
-  /** Read-only provisioning state. */
-  @visibility(Lifecycle.Read)
-  provisioningState?: ProvisioningState;
-}
-
-/** Receiver endpoint URLs keyed by scope. */
-@added(Versions.v2026_03_01_preview)
-model EndpointUrls {
-  /** Global receiver endpoint URL. */
-  global?: url;
-
-  /** EU-scoped receiver endpoint URL. */
-  eu?: url;
 }
 
 /** Throttling policy. */
@@ -273,130 +232,6 @@ model DstsClaim {
   claim: url;
 }
 
-@added(Versions.v2026_03_01_preview)
-@armResourceOperations
-interface Endpoints {
-  /** Get the HTTP endpoint configuration. */
-  get is ArmResourceRead<Endpoint>;
-
-  /** Create or update the HTTP endpoint configuration. */
-  createOrUpdate is ArmResourceCreateOrReplaceSync<Endpoint>;
-
-  /** Delete the HTTP endpoint configuration. */
-  delete is ArmResourceDeleteSync<Endpoint>;
-
-  /** List HTTP endpoint configurations under a publisher setting. */
-  listByParent is ArmResourceListByParent<Endpoint>;
-}
-
-// EventGridConfig (LEGACY - singleton under PublisherSettings)
-
-/** LEGACY: Event Grid topic-based ingestion for existing publishers. New publishers must use Endpoint instead. */
-@added(Versions.v2026_03_01_preview)
-@singleton
-@parentResource(PublisherSettings)
-model EventGridConfig
-  is Azure.ResourceManager.ProxyResource<EventGridConfigProperties> {
-  /** Singleton key. */
-  @key("eventGridConfigName")
-  @segment("eventGridConfigs")
-  @pattern("^[a-zA-Z0-9-]{1,64}$")
-  @path
-  name: string;
-}
-
-/** Properties of EventGridConfig. */
-@added(Versions.v2026_03_01_preview)
-model EventGridConfigProperties {
-  /** Read-only provisioning state. */
-  @visibility(Lifecycle.Read)
-  provisioningState?: ProvisioningState;
-}
-
-@added(Versions.v2026_03_01_preview)
-@armResourceOperations
-interface EventGridConfigs {
-  /** Get the legacy Event Grid configuration. */
-  get is ArmResourceRead<EventGridConfig>;
-
-  /** Create or update the legacy Event Grid configuration. New publishers should use Endpoint instead. */
-  createOrUpdate is ArmResourceCreateOrReplaceSync<EventGridConfig>;
-
-  /** Delete the legacy Event Grid configuration. */
-  delete is ArmResourceDeleteSync<EventGridConfig>;
-
-  /** List Event Grid configurations under a publisher setting. */
-  listByParent is ArmResourceListByParent<EventGridConfig>;
-}
-
-// TopicConfigs (child of EventGridConfig)
-
-/** LEGACY: Individual Event Grid topic reference. Only topicResourceId is publisher-provided. */
-@added(Versions.v2026_03_01_preview)
-@parentResource(EventGridConfig)
-model TopicConfig
-  is Azure.ResourceManager.ProxyResource<TopicConfigProperties> {
-  /** System-generated GUID identifying this topic configuration. */
-  @key("topicConfigId")
-  @segment("topicConfigs")
-  @pattern("^[a-fA-F0-9-]{1,64}$")
-  @path
-  name: string;
-}
-
-/** Properties of TopicConfig. Minimal publisher surface - only the EG topic resource ID. */
-@added(Versions.v2026_03_01_preview)
-model TopicConfigProperties {
-  /** ARM resource ID of the publisher-owned Event Grid topic. */
-  topicResourceId: string;
-
-  /** Read-only provisioning state. */
-  @visibility(Lifecycle.Read)
-  provisioningState?: ProvisioningState;
-}
-
-@added(Versions.v2026_03_01_preview)
-@armResourceOperations
-interface TopicConfigs {
-  get is ArmResourceRead<TopicConfig>;
-  createOrUpdate is ArmResourceCreateOrReplaceSync<TopicConfig>;
-  delete is ArmResourceDeleteSync<TopicConfig>;
-  listByParent is ArmResourceListByParent<TopicConfig>;
-}
-
-// DiscoveryConfig (singleton under PublisherSettings)
-
-/** Global Discovery defaults (ADF stamp, endpoints, alerting). */
-@added(Versions.v2026_03_01_preview)
-@singleton
-@parentResource(PublisherSettings)
-model DiscoveryConfig
-  is Azure.ResourceManager.ProxyResource<DiscoveryConfigProperties> {
-  /** Singleton key. */
-  @key("discoveryConfigName")
-  @segment("discoveryConfigs")
-  @pattern("^[a-zA-Z0-9-]{1,64}$")
-  @path
-  name: string;
-}
-
-/** Properties of DiscoveryConfig. */
-@added(Versions.v2026_03_01_preview)
-model DiscoveryConfigProperties {
-  /** Default ADF stamp for discovery pipelines. */
-  adfStamp?: string;
-
-  /** Default alerting configuration. */
-  alertingInfo?: AlertingInfo;
-
-  /** Default data mapping configuration. */
-  defaultMapping?: string;
-
-  /** Read-only provisioning state. */
-  @visibility(Lifecycle.Read)
-  provisioningState?: ProvisioningState;
-}
-
 /** Alerting configuration for discovery pipelines. */
 @added(Versions.v2026_03_01_preview)
 model AlertingInfo {
@@ -405,54 +240,6 @@ model AlertingInfo {
 
   /** Alert notification email. */
   notificationEmail?: string;
-}
-
-@added(Versions.v2026_03_01_preview)
-@armResourceOperations
-interface DiscoveryConfigs {
-  get is ArmResourceRead<DiscoveryConfig>;
-  createOrUpdate is ArmResourceCreateOrReplaceSync<DiscoveryConfig>;
-  delete is ArmResourceDeleteSync<DiscoveryConfig>;
-
-  /** List discovery configurations under a publisher setting. */
-  listByParent is ArmResourceListByParent<DiscoveryConfig>;
-}
-
-// KustoQueries (child of DiscoveryConfig)
-
-/** Reusable Kusto query definition. */
-@added(Versions.v2026_03_01_preview)
-@parentResource(DiscoveryConfig)
-model KustoQuery is Azure.ResourceManager.ProxyResource<KustoQueryProperties> {
-  /** Query name. */
-  @key("queryName")
-  @segment("kustoQueries")
-  @pattern("^[a-zA-Z0-9-]{1,64}$")
-  @path
-  name: string;
-}
-
-/** Properties of a KustoQuery. */
-@added(Versions.v2026_03_01_preview)
-model KustoQueryProperties {
-  /** KQL query text. */
-  query: string;
-
-  /** Description of what this query returns. */
-  description?: string;
-
-  /** Read-only provisioning state. */
-  @visibility(Lifecycle.Read)
-  provisioningState?: ProvisioningState;
-}
-
-@added(Versions.v2026_03_01_preview)
-@armResourceOperations
-interface KustoQueries {
-  get is ArmResourceRead<KustoQuery>;
-  createOrUpdate is ArmResourceCreateOrReplaceSync<KustoQuery>;
-  delete is ArmResourceDeleteSync<KustoQuery>;
-  listByParent is ArmResourceListByParent<KustoQuery>;
 }
 
 // ProviderSettings (singleton under Namespace)
@@ -609,102 +396,6 @@ interface AllowedPublishers {
   listByParent is ArmResourceListByParent<AllowedPublisherResource>;
 }
 
-// DiscoveryPipeline (top-level, subscription-scoped, regional)
-
-/** Regional batch ingestion pipeline with Managed Identity support. */
-@added(Versions.v2026_03_01_preview)
-model DiscoveryPipeline
-  is Azure.ResourceManager.TrackedResource<DiscoveryPipelineProperties> {
-  /** Pipeline name (e.g., 'compute-batch-eastus'). */
-  @key("pipelineName")
-  @segment("discoveryPipelines")
-  @pattern("^[a-zA-Z0-9-]{1,64}$")
-  @path
-  name: string;
-
-  ...ManagedServiceIdentityProperty;
-}
-
-/** Properties of a DiscoveryPipeline. */
-@added(Versions.v2026_03_01_preview)
-model DiscoveryPipelineProperties {
-  /** ARM resource ID of the linked PublisherSettings. */
-  linkedPublisherSettingsId: Azure.Core.armResourceIdentifier;
-
-  /** Kusto cluster URL. */
-  kustoClusterUrl?: url;
-
-  /** Kusto database name. */
-  kustoDatabaseName?: string;
-
-  /** Read-only provisioning state. */
-  @visibility(Lifecycle.Read)
-  provisioningState?: ProvisioningState;
-}
-
-/** Patch model for DiscoveryPipeline updates (tags + identity). */
-@added(Versions.v2026_03_01_preview)
-model DiscoveryPipelinePatch {
-  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
-  ...ManagedServiceIdentityProperty;
-}
-
-@added(Versions.v2026_03_01_preview)
-@armResourceOperations
-interface DiscoveryPipelines {
-  get is ArmResourceRead<DiscoveryPipeline>;
-  createOrUpdate is ArmResourceCreateOrReplaceAsync<DiscoveryPipeline>;
-
-  /** Update discovery pipeline tags and identity. */
-  @patch(#{ implicitOptionality: true })
-  update is ArmCustomPatchSync<DiscoveryPipeline, DiscoveryPipelinePatch>;
-
-  delete is ArmResourceDeleteWithoutOkAsync<DiscoveryPipeline>;
-  listByResourceGroup is ArmResourceListByParent<DiscoveryPipeline>;
-  listBySubscription is ArmListBySubscription<DiscoveryPipeline>;
-}
-
-// DiscoveryFlow (child of DiscoveryPipeline)
-
-/** Individual batch ingestion flow. */
-@added(Versions.v2026_03_01_preview)
-@parentResource(DiscoveryPipeline)
-model DiscoveryFlow
-  is Azure.ResourceManager.ProxyResource<DiscoveryFlowProperties> {
-  /** Flow name. */
-  @key("flowName")
-  @segment("flows")
-  @pattern("^[a-zA-Z0-9-]{1,64}$")
-  @path
-  name: string;
-}
-
-/** Properties of a DiscoveryFlow. */
-@added(Versions.v2026_03_01_preview)
-model DiscoveryFlowProperties {
-  /** Flow kind. */
-  kind: "BatchIngestion";
-
-  /** Orchestration engine (Direct or ADF). */
-  orchestration?: string;
-
-  /** Fully qualified resource type this flow ingests. */
-  fullyQualifiedResourceType?: string;
-
-  /** Reference to a kustoQuery name from discoveryConfig. */
-  kustoQuery?: string;
-
-  /** Scheduling configuration. */
-  scheduling?: FlowScheduling;
-
-  /** Partitioning strategy. */
-  partitioning?: FlowPartitioning;
-
-  /** Read-only provisioning state. */
-  @visibility(Lifecycle.Read)
-  provisioningState?: ProvisioningState;
-}
-
 /** Flow scheduling configuration. */
 @added(Versions.v2026_03_01_preview)
 model FlowScheduling {
@@ -712,120 +403,319 @@ model FlowScheduling {
   intervalHours?: int32 = 24;
 }
 
-/** Flow partitioning strategy. */
+// ─── INGESTION UNITS ─── //
+
+/** Per-region ingestion configuration linked to a publisher setting. */
 @added(Versions.v2026_03_01_preview)
-model FlowPartitioning {
-  /** Partitioning strategy (e.g., 'subscription'). */
-  strategy?: string;
-
-  /** Max number of partitions. */
-  maxPartitions?: int32;
-}
-
-@added(Versions.v2026_03_01_preview)
-@armResourceOperations
-interface DiscoveryFlows {
-  get is ArmResourceRead<DiscoveryFlow>;
-  createOrUpdate is ArmResourceCreateOrReplaceSync<DiscoveryFlow>;
-  delete is ArmResourceDeleteSync<DiscoveryFlow>;
-  listByParent is ArmResourceListByParent<DiscoveryFlow>;
-}
-
-// DiscoveryIngestion (top-level, subscription-scoped, regional)
-
-/** Regional streaming ingestion from GDS/Event Hub. */
-@added(Versions.v2026_03_01_preview)
-model DiscoveryIngestion
-  is Azure.ResourceManager.TrackedResource<DiscoveryIngestionProperties> {
-  /** Ingestion name. */
-  @key("ingestionName")
-  @segment("discoveryIngestions")
-  @pattern("^[a-zA-Z0-9-]{1,64}$")
+model IngestionUnit
+  is Azure.ResourceManager.TrackedResource<IngestionUnitProperties> {
+  /** Ingestion unit name (e.g., 'eastus-primary'). */
+  @key("unitName")
+  @segment("ingestionUnits")
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$")
   @path
   name: string;
 }
 
-/** Properties of a DiscoveryIngestion. */
+/** Properties for an ingestion unit resource. */
 @added(Versions.v2026_03_01_preview)
-model DiscoveryIngestionProperties {
-  /** ARM resource ID of the linked PublisherSettings. */
-  linkedPublisherSettingsId: Azure.Core.armResourceIdentifier;
+model IngestionUnitProperties {
+  /** ARM resource ID of the linked publisher setting. */
+  linkedPublisherSetting: Azure.Core.armResourceIdentifier;
+
+  /** Authorization override for this region. If omitted, inherits from publisherSettings. */
+  authorization?: Authorization;
+
+  /** Throttling policy for this ingestion unit. Required. */
+  publisherUsageUnit: ThrottlingPolicy;
+
+  /** System-provisioned receiver hostname. Derived from location. */
+  @visibility(Lifecycle.Read)
+  endpoint?: string;
+
+  /** ARM resource IDs of Event Grid topics/domains routed through this unit. */
+  eventGridTopicIds?: string[];
+
+  /** Whether this ingestion unit is enabled. Set to false to disable during outages. Default: true. */
+  #suppress "EnumInsteadOfBoolean" "enabled is a simple on/off operational toggle"
+  enabled?: boolean = true;
 
   /** Read-only provisioning state. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
 }
 
+/** Ingestion unit operations. */
 @added(Versions.v2026_03_01_preview)
 @armResourceOperations
-interface DiscoveryIngestions {
-  get is ArmResourceRead<DiscoveryIngestion>;
-  createOrUpdate is ArmResourceCreateOrReplaceAsync<DiscoveryIngestion>;
+interface IngestionUnits {
+  /** Get an ingestion unit. */
+  get is ArmResourceRead<IngestionUnit>;
 
-  /** Update discovery ingestion tags. */
-  update is ArmTagsPatchSync<DiscoveryIngestion>;
+  /** Create or update an ingestion unit. Asynchronous operation. */
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<IngestionUnit>;
 
-  delete is ArmResourceDeleteWithoutOkAsync<DiscoveryIngestion>;
-  listByResourceGroup is ArmResourceListByParent<DiscoveryIngestion>;
-  listBySubscription is ArmListBySubscription<DiscoveryIngestion>;
+  /** Update tags on an ingestion unit. */
+  @patch(#{ implicitOptionality: true })
+  update is ArmTagsPatchSync<IngestionUnit>;
+
+  /** Delete an ingestion unit. Asynchronous operation. */
+  delete is ArmResourceDeleteWithoutOkAsync<IngestionUnit>;
+
+  /** List ingestion units in a resource group. */
+  listByResourceGroup is ArmResourceListByParent<IngestionUnit>;
+
+  /** List ingestion units in a subscription. */
+  listBySubscription is ArmListBySubscription<IngestionUnit>;
 }
 
-// IngestionFlow (child of DiscoveryIngestion)
+// ─── QUERIES ─── //
 
-/** Individual streaming ingestion flow. */
+/** Reusable KQL query definition stored in the resource provider. */
+@subscriptionResource
 @added(Versions.v2026_03_01_preview)
-@parentResource(DiscoveryIngestion)
-model IngestionFlow
-  is Azure.ResourceManager.ProxyResource<IngestionFlowProperties> {
+model Query is Azure.ResourceManager.ProxyResource<QueryProperties> {
+  /** Query name. */
+  @key("queryName")
+  @segment("queries")
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$")
+  @path
+  name: string;
+}
+
+/** Properties for a query resource. */
+@added(Versions.v2026_03_01_preview)
+model QueryProperties {
+  /** KQL query text. */
+  query: string;
+
+  /** Human-readable description of this query. */
+  description?: string;
+
+  /** Whether this query is enabled. Set to false to disable during outages. Default: true. */
+  #suppress "EnumInsteadOfBoolean" "enabled is a simple on/off operational toggle"
+  enabled?: boolean = true;
+
+  /** Read-only provisioning state. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/** Query operations. */
+@added(Versions.v2026_03_01_preview)
+@armResourceOperations
+interface Queries {
+  /** Get a query. */
+  get is ArmResourceRead<Query>;
+
+  /** Create or update a query. Modifications to existing queries use this operation. */
+  createOrUpdate is ArmResourceCreateOrReplaceSync<Query>;
+
+  /** Delete a query. */
+  delete is ArmResourceDeleteSync<Query>;
+
+  /** List queries in a subscription. */
+  list is ArmResourceListByParent<Query>;
+}
+
+// ─── FLOWS (POLYMORPHIC) ─── //
+
+/** The kind of discovery flow. */
+@added(Versions.v2026_03_01_preview)
+union FlowKind {
+  string,
+
+  /** Batch ingestion via Kusto query on a schedule. */
+  DiscoveryQuery: "DiscoveryQuery",
+
+  /** Streaming ingestion from Geneva Data Service. */
+  DiscoveryStreaming: "DiscoveryStreaming",
+
+  /** Full resource synchronization via ARM LIST calls. */
+  FullSync: "FullSync",
+}
+
+/** Regional discovery flow with Managed Identity support. Polymorphic by kind. */
+@added(Versions.v2026_03_01_preview)
+model Flow is Azure.ResourceManager.TrackedResource<FlowProperties> {
   /** Flow name. */
   @key("flowName")
   @segment("flows")
-  @pattern("^[a-zA-Z0-9-]{1,64}$")
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$")
   @path
   name: string;
+
+  /** Managed identity for this flow (Kusto/GDS access). */
+  ...ManagedServiceIdentityProperty;
 }
 
-/** Properties of an IngestionFlow. */
+/** Common properties for all flow kinds. Discriminated by kind. */
 @added(Versions.v2026_03_01_preview)
-model IngestionFlowProperties {
-  /** Flow kind. */
-  kind: "Streaming";
+@discriminator("kind")
+model FlowProperties {
+  /** The kind of discovery flow. */
+  kind: FlowKind;
 
-  /** GDS event namespace. */
-  gdsEventNamespace?: string;
+  /** ARM resource ID of the linked publisher setting. */
+  linkedPublisherSettingsId: Azure.Core.armResourceIdentifier;
 
-  /** GDS event name. */
-  gdsEventName?: string;
+  /** Fully qualified resource type this flow processes (e.g., 'Microsoft.Compute/virtualMachines'). */
+  fullyQualifiedResourceType: string;
 
-  /** Transformation type. */
-  transformationType?: string;
+  /** Whether this is a preview notification flow. */
+  #suppress "EnumInsteadOfBoolean" "isPreview is a simple flag"
+  isPreview?: boolean;
 
-  /** Event Hub configuration. */
-  eventHubConfig?: EventHubConfig;
+  /** Preview zones for this flow (e.g., ['Galaxy.InfrastructureGraph.QCS']). */
+  previewZones?: string[];
 
-  /** Consumer group name. */
-  consumerGroup?: string;
+  /** Whether this flow is enabled. Set to false to pause the flow during outages. Default: true. */
+  #suppress "EnumInsteadOfBoolean" "enabled is a simple on/off operational toggle"
+  enabled?: boolean = true;
 
   /** Read-only provisioning state. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
 }
 
-/** Event Hub configuration for streaming ingestion. */
+/** Properties for a DiscoveryQuery flow — batch ingestion via Kusto query on a schedule. */
 @added(Versions.v2026_03_01_preview)
-model EventHubConfig {
-  /** Event Hub namespace. */
-  eventHubNamespace?: string;
+model DiscoveryQueryFlowProperties extends FlowProperties {
+  /** Discriminator value. */
+  kind: FlowKind.DiscoveryQuery;
 
-  /** Event Hub name. */
-  eventHubName?: string;
+  /** ARM resource ID of the linked query resource. */
+  queryId: Azure.Core.armResourceIdentifier;
+
+  /** Partner's Kusto cluster endpoint URL. */
+  sourceClusterEndpoint: url;
+
+  /** Partner's Kusto database name. */
+  sourceDatabase: string;
+
+  /** Column name for hash partitioning. Omit if no partitioning needed. */
+  partitionColumn?: string;
+
+  /** Estimated row count for auto-partition sizing (partitions = rows / 100K). */
+  estimatedRowCount: int32;
+
+  /** Scheduling configuration. Default interval: 24 hours. */
+  scheduling?: FlowScheduling;
+
+  /** Manual partition count override. Must be >= auto-calculated value. */
+  partitionCountOverride?: int32;
+
+  /** Number of parallel Kusto query batches for large datasets (>1M rows). */
+  queryParallelism?: int32;
+
+  /** Kusto export distribution strategy. */
+  distributionType?: DistributionType;
+
+  /** Credential details for Kusto cluster access. */
+  credentialDetails?: CredentialDetails;
+
+  /** System-computed receiver hostname (derived from location). */
+  @visibility(Lifecycle.Read)
+  endpoint?: string;
+
+  /** System-computed partition count (estimatedRowCount / 100K). */
+  @visibility(Lifecycle.Read)
+  partitionCount?: int32;
 }
 
+/** Properties for a DiscoveryStreaming flow — streaming ingestion from Geneva Data Service. */
+@added(Versions.v2026_03_01_preview)
+model DiscoveryStreamingFlowProperties extends FlowProperties {
+  /** Discriminator value. */
+  kind: FlowKind.DiscoveryStreaming;
+
+  /** Geneva log account name. */
+  gdsAccount: string;
+
+  /** GDS event namespaces. */
+  gdsEventNamespaces: string[];
+
+  /** GDS event names within those namespaces. */
+  gdsEventNames: string[];
+
+  /** Transformation type for the streaming data. */
+  transformationType: TransformationType;
+}
+
+/** Properties for a FullSync flow — full resource synchronization via ARM LIST calls. */
+@added(Versions.v2026_03_01_preview)
+model FullSyncFlowProperties extends FlowProperties {
+  /** Discriminator value. */
+  kind: FlowKind.FullSync;
+}
+
+/** Kusto export distribution strategy. */
+@added(Versions.v2026_03_01_preview)
+union DistributionType {
+  string,
+
+  /** Single export operation. */
+  single: "single",
+
+  /** Distributed per-node export. */
+  perNode: "per_node",
+}
+
+/** Transformation type for streaming ingestion. */
+@added(Versions.v2026_03_01_preview)
+union TransformationType {
+  string,
+
+  /** Transform data as ARM resource format. */
+  ArmResource: "ArmResource",
+
+  /** Pass-through log data without transformation. */
+  PassThroughLogs: "PassThroughLogs",
+}
+
+/** Credential details for Kusto cluster access. */
+@added(Versions.v2026_03_01_preview)
+model CredentialDetails {
+  /** User-assigned managed identity resource ID. */
+  managedIdentity: string;
+
+  /** Tenant ID for federated identity credential (FIC) mode. */
+  tenantId?: string;
+
+  /** Application ID for federated identity credential (FIC) mode. */
+  applicationId?: string;
+}
+
+/** Patch model for flow updates — tags and identity only. */
+@added(Versions.v2026_03_01_preview)
+model FlowUpdate {
+  /** Resource tags. */
+  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+
+  /** Managed identity update. */
+  ...ManagedServiceIdentityProperty;
+}
+
+/** Flow operations. */
 @added(Versions.v2026_03_01_preview)
 @armResourceOperations
-interface IngestionFlows {
-  get is ArmResourceRead<IngestionFlow>;
-  createOrUpdate is ArmResourceCreateOrReplaceSync<IngestionFlow>;
-  delete is ArmResourceDeleteSync<IngestionFlow>;
-  listByParent is ArmResourceListByParent<IngestionFlow>;
+interface Flows {
+  /** Get a flow. */
+  get is ArmResourceRead<Flow>;
+
+  /** Create or update a flow. Asynchronous operation. Use PUT to change flow properties including subtype-specific fields. */
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<Flow>;
+
+  /** Update tags and managed identity on a flow. */
+  @patch(#{ implicitOptionality: true })
+  update is ArmCustomPatchSync<Flow, FlowUpdate>;
+
+  /** Delete a flow. Asynchronous operation. */
+  delete is ArmResourceDeleteWithoutOkAsync<Flow>;
+
+  /** List flows in a resource group. */
+  listByResourceGroup is ArmResourceListByParent<Flow>;
+
+  /** List flows in a subscription. */
+  listBySubscription is ArmListBySubscription<Flow>;
 }

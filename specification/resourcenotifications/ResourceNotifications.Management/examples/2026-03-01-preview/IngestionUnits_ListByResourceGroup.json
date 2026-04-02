@@ -1,0 +1,37 @@
+{
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-arn-examples",
+    "api-version": "2026-03-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "eastus-primary",
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/ingestionUnits/eastus-primary",
+            "type": "Microsoft.ResourceNotifications/ingestionUnits",
+            "location": "eastus",
+            "tags": {
+              "environment": "production"
+            },
+            "properties": {
+              "provisioningState": "Succeeded",
+              "linkedPublisherSetting": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default",
+              "publisherUsageUnit": {
+                "maxRequestsPerMinute": 50000,
+                "maxRequestsPerMinutePerRegion": 25000,
+                "burstAllowance": 2.0
+              },
+              "endpoint": "ms-compute-eastus.receiver.arn.core.windows.net",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "IngestionUnits_ListByResourceGroup",
+  "title": "IngestionUnits - ListByResourceGroup"
+}

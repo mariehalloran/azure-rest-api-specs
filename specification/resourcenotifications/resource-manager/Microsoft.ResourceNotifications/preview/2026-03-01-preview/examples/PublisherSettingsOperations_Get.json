@@ -1,16 +1,15 @@
 {
   "parameters": {
     "api-version": "2026-03-01-preview",
-    "resourceGroupName": "rg-arn-examples",
     "namespaceName": "Microsoft.Compute",
     "subscriptionId": "00000000-0000-0000-0000-000000000000",
-    "settingName": "default"
+    "settingName": "computeVmSetting"
   },
   "responses": {
     "200": {
       "body": {
-        "name": "default",
-        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default",
+        "name": "computeVmSetting",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/computeVmSetting",
         "type": "Microsoft.ResourceNotifications/namespaces/publisherSettings",
         "properties": {
           "provisioningState": "Succeeded",
@@ -20,11 +19,6 @@
             }
           ],
           "serviceName": "AzureCompute",
-          "throttlingPolicy": {
-            "burstAllowance": 2.0,
-            "maxRequestsPerMinutePerRegion": 25000,
-            "maxRequestsPerMinute": 50000
-          },
           "alertingInfo": {
             "severity": "3",
             "notificationEmail": "compute-alerts@microsoft.com"
@@ -62,7 +56,8 @@
             "managedSdpEnabled": true,
             "waitDuration": "PT24H"
           },
-          "schemaVersion": "1.0"
+          "schemaVersion": "1.0",
+          "enabled": true
         }
       }
     }

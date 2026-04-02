@@ -58,21 +58,6 @@
       "name": "PublisherSettingsOperations"
     },
     {
-      "name": "Endpoints"
-    },
-    {
-      "name": "EventGridConfigs"
-    },
-    {
-      "name": "TopicConfigs"
-    },
-    {
-      "name": "DiscoveryConfigs"
-    },
-    {
-      "name": "KustoQueries"
-    },
-    {
       "name": "ProviderSettingsOperations"
     },
     {
@@ -82,16 +67,13 @@
       "name": "AllowedPublishers"
     },
     {
-      "name": "DiscoveryPipelines"
+      "name": "IngestionUnits"
     },
     {
-      "name": "DiscoveryFlows"
+      "name": "Queries"
     },
     {
-      "name": "DiscoveryIngestions"
-    },
-    {
-      "name": "IngestionFlows"
+      "name": "Flows"
     }
   ],
   "paths": {
@@ -131,13 +113,13 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/discoveryIngestions": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/flows": {
       "get": {
-        "operationId": "DiscoveryIngestions_ListBySubscription",
+        "operationId": "Flows_ListBySubscription",
         "tags": [
-          "DiscoveryIngestions"
+          "Flows"
         ],
-        "description": "List DiscoveryIngestion resources by subscription ID",
+        "description": "List flows in a subscription.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -150,7 +132,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/DiscoveryIngestionListResult"
+              "$ref": "#/definitions/FlowListResult"
             }
           },
           "default": {
@@ -161,8 +143,8 @@
           }
         },
         "x-ms-examples": {
-          "DiscoveryIngestions - ListBySubscription": {
-            "$ref": "./examples/DiscoveryIngestions_ListBySubscription.json"
+          "Flows - ListBySubscription": {
+            "$ref": "./examples/Flows_ListBySubscription.json"
           }
         },
         "x-ms-pageable": {
@@ -170,13 +152,13 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/discoveryPipelines": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/ingestionUnits": {
       "get": {
-        "operationId": "DiscoveryPipelines_ListBySubscription",
+        "operationId": "IngestionUnits_ListBySubscription",
         "tags": [
-          "DiscoveryPipelines"
+          "IngestionUnits"
         ],
-        "description": "List DiscoveryPipeline resources by subscription ID",
+        "description": "List ingestion units in a subscription.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -189,7 +171,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/DiscoveryPipelineListResult"
+              "$ref": "#/definitions/IngestionUnitListResult"
             }
           },
           "default": {
@@ -200,8 +182,8 @@
           }
         },
         "x-ms-examples": {
-          "DiscoveryPipelines - ListBySubscription": {
-            "$ref": "./examples/DiscoveryPipelines_ListBySubscription.json"
+          "IngestionUnits - ListBySubscription": {
+            "$ref": "./examples/IngestionUnits_ListBySubscription.json"
           }
         },
         "x-ms-pageable": {
@@ -501,11 +483,11 @@
     },
     "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces": {
       "get": {
-        "operationId": "Namespaces_ListBySubscription",
+        "operationId": "Namespaces_List",
         "tags": [
           "Namespaces"
         ],
-        "description": "List Namespace resources by subscription ID",
+        "description": "List namespaces in subscription.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -529,8 +511,8 @@
           }
         },
         "x-ms-examples": {
-          "Namespaces - ListBySubscription": {
-            "$ref": "./examples/Namespaces_ListBySubscription.json"
+          "Namespaces - List": {
+            "$ref": "./examples/Namespaces_List.json"
           }
         },
         "x-ms-pageable": {
@@ -538,1096 +520,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/resourceSubscriptions": {
-      "get": {
-        "operationId": "ResourceSubscriptions_ListBySubscription",
-        "tags": [
-          "ResourceSubscriptions"
-        ],
-        "description": "Lists all resource subscriptions in a subscription",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ResourceSubscriptionListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "List all resource subscriptions in a subscription": {
-            "$ref": "./examples/ResourceSubscriptions_ListBySubscription.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/discoveryIngestions": {
-      "get": {
-        "operationId": "DiscoveryIngestions_ListByResourceGroup",
-        "tags": [
-          "DiscoveryIngestions"
-        ],
-        "description": "List DiscoveryIngestion resources by resource group",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryIngestionListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryIngestions - ListByResourceGroup": {
-            "$ref": "./examples/DiscoveryIngestions_ListByResourceGroup.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/discoveryIngestions/{ingestionName}": {
-      "get": {
-        "operationId": "DiscoveryIngestions_Get",
-        "tags": [
-          "DiscoveryIngestions"
-        ],
-        "description": "Get a DiscoveryIngestion",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "ingestionName",
-            "in": "path",
-            "description": "Ingestion name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryIngestion"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryIngestions - Get": {
-            "$ref": "./examples/DiscoveryIngestions_Get.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "DiscoveryIngestions_CreateOrUpdate",
-        "tags": [
-          "DiscoveryIngestions"
-        ],
-        "description": "Create a DiscoveryIngestion",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "ingestionName",
-            "in": "path",
-            "description": "Ingestion name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DiscoveryIngestion"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'DiscoveryIngestion' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryIngestion"
-            }
-          },
-          "201": {
-            "description": "Resource 'DiscoveryIngestion' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryIngestion"
-            },
-            "headers": {
-              "Azure-AsyncOperation": {
-                "type": "string",
-                "description": "A link to the status monitor"
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryIngestions - CreateOrUpdate": {
-            "$ref": "./examples/DiscoveryIngestions_CreateOrUpdate.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        },
-        "x-ms-long-running-operation": true
-      },
-      "patch": {
-        "operationId": "DiscoveryIngestions_Update",
-        "tags": [
-          "DiscoveryIngestions"
-        ],
-        "description": "Update discovery ingestion tags.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "ingestionName",
-            "in": "path",
-            "description": "Ingestion name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "The resource properties to be updated.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DiscoveryIngestionTagsUpdate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryIngestion"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryIngestions - Update": {
-            "$ref": "./examples/DiscoveryIngestions_Update.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "DiscoveryIngestions_Delete",
-        "tags": [
-          "DiscoveryIngestions"
-        ],
-        "description": "Delete a DiscoveryIngestion",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "ingestionName",
-            "in": "path",
-            "description": "Ingestion name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Resource deletion accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryIngestions - Delete": {
-            "$ref": "./examples/DiscoveryIngestions_Delete.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/discoveryIngestions/{ingestionName}/flows": {
-      "get": {
-        "operationId": "IngestionFlows_ListByParent",
-        "tags": [
-          "IngestionFlows"
-        ],
-        "description": "List IngestionFlow resources by DiscoveryIngestion",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "ingestionName",
-            "in": "path",
-            "description": "Ingestion name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/IngestionFlowListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "IngestionFlows - ListByParent": {
-            "$ref": "./examples/IngestionFlows_ListByParent.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/discoveryIngestions/{ingestionName}/flows/{flowName}": {
-      "get": {
-        "operationId": "IngestionFlows_Get",
-        "tags": [
-          "IngestionFlows"
-        ],
-        "description": "Get a IngestionFlow",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "ingestionName",
-            "in": "path",
-            "description": "Ingestion name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "flowName",
-            "in": "path",
-            "description": "Flow name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/IngestionFlow"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "IngestionFlows - Get": {
-            "$ref": "./examples/IngestionFlows_Get.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "IngestionFlows_CreateOrUpdate",
-        "tags": [
-          "IngestionFlows"
-        ],
-        "description": "Create a IngestionFlow",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "ingestionName",
-            "in": "path",
-            "description": "Ingestion name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "flowName",
-            "in": "path",
-            "description": "Flow name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/IngestionFlow"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'IngestionFlow' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/IngestionFlow"
-            }
-          },
-          "201": {
-            "description": "Resource 'IngestionFlow' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/IngestionFlow"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "IngestionFlows - CreateOrUpdate": {
-            "$ref": "./examples/IngestionFlows_CreateOrUpdate.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "IngestionFlows_Delete",
-        "tags": [
-          "IngestionFlows"
-        ],
-        "description": "Delete a IngestionFlow",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "ingestionName",
-            "in": "path",
-            "description": "Ingestion name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "flowName",
-            "in": "path",
-            "description": "Flow name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "IngestionFlows - Delete": {
-            "$ref": "./examples/IngestionFlows_Delete.json"
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/discoveryPipelines": {
-      "get": {
-        "operationId": "DiscoveryPipelines_ListByResourceGroup",
-        "tags": [
-          "DiscoveryPipelines"
-        ],
-        "description": "List DiscoveryPipeline resources by resource group",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryPipelineListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryPipelines - ListByResourceGroup": {
-            "$ref": "./examples/DiscoveryPipelines_ListByResourceGroup.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/discoveryPipelines/{pipelineName}": {
-      "get": {
-        "operationId": "DiscoveryPipelines_Get",
-        "tags": [
-          "DiscoveryPipelines"
-        ],
-        "description": "Get a DiscoveryPipeline",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "pipelineName",
-            "in": "path",
-            "description": "Pipeline name (e.g., 'compute-batch-eastus').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryPipeline"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryPipelines - Get": {
-            "$ref": "./examples/DiscoveryPipelines_Get.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "DiscoveryPipelines_CreateOrUpdate",
-        "tags": [
-          "DiscoveryPipelines"
-        ],
-        "description": "Create a DiscoveryPipeline",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "pipelineName",
-            "in": "path",
-            "description": "Pipeline name (e.g., 'compute-batch-eastus').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DiscoveryPipeline"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'DiscoveryPipeline' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryPipeline"
-            }
-          },
-          "201": {
-            "description": "Resource 'DiscoveryPipeline' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryPipeline"
-            },
-            "headers": {
-              "Azure-AsyncOperation": {
-                "type": "string",
-                "description": "A link to the status monitor"
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryPipelines - CreateOrUpdate": {
-            "$ref": "./examples/DiscoveryPipelines_CreateOrUpdate.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        },
-        "x-ms-long-running-operation": true
-      },
-      "patch": {
-        "operationId": "DiscoveryPipelines_Update",
-        "tags": [
-          "DiscoveryPipelines"
-        ],
-        "description": "Update discovery pipeline tags and identity.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "pipelineName",
-            "in": "path",
-            "description": "Pipeline name (e.g., 'compute-batch-eastus').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "The resource properties to be updated.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DiscoveryPipelinePatch"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryPipeline"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryPipelines - Update": {
-            "$ref": "./examples/DiscoveryPipelines_Update.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "DiscoveryPipelines_Delete",
-        "tags": [
-          "DiscoveryPipelines"
-        ],
-        "description": "Delete a DiscoveryPipeline",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "pipelineName",
-            "in": "path",
-            "description": "Pipeline name (e.g., 'compute-batch-eastus').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Resource deletion accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryPipelines - Delete": {
-            "$ref": "./examples/DiscoveryPipelines_Delete.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/discoveryPipelines/{pipelineName}/flows": {
-      "get": {
-        "operationId": "DiscoveryFlows_ListByParent",
-        "tags": [
-          "DiscoveryFlows"
-        ],
-        "description": "List DiscoveryFlow resources by DiscoveryPipeline",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "pipelineName",
-            "in": "path",
-            "description": "Pipeline name (e.g., 'compute-batch-eastus').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryFlowListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryFlows - ListByParent": {
-            "$ref": "./examples/DiscoveryFlows_ListByParent.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/discoveryPipelines/{pipelineName}/flows/{flowName}": {
-      "get": {
-        "operationId": "DiscoveryFlows_Get",
-        "tags": [
-          "DiscoveryFlows"
-        ],
-        "description": "Get a DiscoveryFlow",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "pipelineName",
-            "in": "path",
-            "description": "Pipeline name (e.g., 'compute-batch-eastus').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "flowName",
-            "in": "path",
-            "description": "Flow name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryFlow"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryFlows - Get": {
-            "$ref": "./examples/DiscoveryFlows_Get.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "DiscoveryFlows_CreateOrUpdate",
-        "tags": [
-          "DiscoveryFlows"
-        ],
-        "description": "Create a DiscoveryFlow",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "pipelineName",
-            "in": "path",
-            "description": "Pipeline name (e.g., 'compute-batch-eastus').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "flowName",
-            "in": "path",
-            "description": "Flow name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DiscoveryFlow"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'DiscoveryFlow' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryFlow"
-            }
-          },
-          "201": {
-            "description": "Resource 'DiscoveryFlow' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryFlow"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryFlows - CreateOrUpdate": {
-            "$ref": "./examples/DiscoveryFlows_CreateOrUpdate.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "DiscoveryFlows_Delete",
-        "tags": [
-          "DiscoveryFlows"
-        ],
-        "description": "Delete a DiscoveryFlow",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "pipelineName",
-            "in": "path",
-            "description": "Pipeline name (e.g., 'compute-batch-eastus').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "flowName",
-            "in": "path",
-            "description": "Flow name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryFlows - Delete": {
-            "$ref": "./examples/DiscoveryFlows_Delete.json"
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces": {
-      "get": {
-        "operationId": "Namespaces_ListByResourceGroup",
-        "tags": [
-          "Namespaces"
-        ],
-        "description": "List Namespace resources by resource group",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/NamespaceListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Namespaces - ListByResourceGroup": {
-            "$ref": "./examples/Namespaces_ListByResourceGroup.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}": {
       "get": {
         "operationId": "Namespaces_Get",
         "tags": [
@@ -1640,9 +533,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "namespaceName",
@@ -1674,7 +564,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings": {
       "get": {
         "operationId": "ProviderSettingsOperations_ListByParent",
         "tags": [
@@ -1687,9 +577,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "namespaceName",
@@ -1724,7 +611,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default": {
       "get": {
         "operationId": "ProviderSettingsOperations_Get",
         "tags": [
@@ -1737,9 +624,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "namespaceName",
@@ -1782,9 +666,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "namespaceName",
@@ -1844,9 +725,6 @@
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
             "name": "namespaceName",
             "in": "path",
             "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
@@ -1876,7 +754,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default/types": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default/types": {
       "get": {
         "operationId": "TypeSettings_ListByParent",
         "tags": [
@@ -1889,9 +767,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "namespaceName",
@@ -1926,7 +801,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default/types/{typeName}": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default/types/{typeName}": {
       "get": {
         "operationId": "TypeSettings_Get",
         "tags": [
@@ -1939,9 +814,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "namespaceName",
@@ -1992,9 +864,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "namespaceName",
@@ -2062,9 +931,6 @@
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
             "name": "namespaceName",
             "in": "path",
             "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
@@ -2102,7 +968,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default/types/{typeName}/allowedPublishers": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default/types/{typeName}/allowedPublishers": {
       "get": {
         "operationId": "AllowedPublishers_ListByParent",
         "tags": [
@@ -2115,9 +981,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "namespaceName",
@@ -2160,7 +1023,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default/types/{typeName}/allowedPublishers/{publisherNamespace}": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default/types/{typeName}/allowedPublishers/{publisherNamespace}": {
       "get": {
         "operationId": "AllowedPublishers_Get",
         "tags": [
@@ -2173,9 +1036,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "namespaceName",
@@ -2234,9 +1094,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "namespaceName",
@@ -2312,9 +1169,6 @@
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
             "name": "namespaceName",
             "in": "path",
             "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
@@ -2360,7 +1214,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings": {
       "get": {
         "operationId": "PublisherSettingsOperations_ListByParent",
         "tags": [
@@ -2373,9 +1227,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "namespaceName",
@@ -2410,7 +1261,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}": {
       "get": {
         "operationId": "PublisherSettingsOperations_Get",
         "tags": [
@@ -2423,9 +1274,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "namespaceName",
@@ -2476,9 +1324,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "namespaceName",
@@ -2561,9 +1406,6 @@
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
             "name": "namespaceName",
             "in": "path",
             "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
@@ -2616,45 +1458,26 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/discoveryConfigs": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/queries": {
       "get": {
-        "operationId": "DiscoveryConfigs_ListByParent",
+        "operationId": "Queries_List",
         "tags": [
-          "DiscoveryConfigs"
+          "Queries"
         ],
-        "description": "List discovery configurations under a publisher setting.",
+        "description": "List queries in a subscription.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/DiscoveryConfigListResult"
+              "$ref": "#/definitions/QueryListResult"
             }
           },
           "default": {
@@ -2665,8 +1488,8 @@
           }
         },
         "x-ms-examples": {
-          "DiscoveryConfigs - ListByParent": {
-            "$ref": "./examples/DiscoveryConfigs_ListByParent.json"
+          "Queries - List": {
+            "$ref": "./examples/Queries_List.json"
           }
         },
         "x-ms-pageable": {
@@ -2674,272 +1497,19 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/discoveryConfigs/default": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/queries/{queryName}": {
       "get": {
-        "operationId": "DiscoveryConfigs_Get",
+        "operationId": "Queries_Get",
         "tags": [
-          "DiscoveryConfigs"
+          "Queries"
         ],
-        "description": "Get a DiscoveryConfig",
+        "description": "Get a query.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryConfig"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryConfigs - Get": {
-            "$ref": "./examples/DiscoveryConfigs_Get.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "DiscoveryConfigs_CreateOrUpdate",
-        "tags": [
-          "DiscoveryConfigs"
-        ],
-        "description": "Create a DiscoveryConfig",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DiscoveryConfig"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'DiscoveryConfig' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryConfig"
-            }
-          },
-          "201": {
-            "description": "Resource 'DiscoveryConfig' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/DiscoveryConfig"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryConfigs - CreateOrUpdate": {
-            "$ref": "./examples/DiscoveryConfigs_CreateOrUpdate.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "DiscoveryConfigs_Delete",
-        "tags": [
-          "DiscoveryConfigs"
-        ],
-        "description": "Delete a DiscoveryConfig",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DiscoveryConfigs - Delete": {
-            "$ref": "./examples/DiscoveryConfigs_Delete.json"
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/discoveryConfigs/default/kustoQueries": {
-      "get": {
-        "operationId": "KustoQueries_ListByParent",
-        "tags": [
-          "KustoQueries"
-        ],
-        "description": "List KustoQuery resources by DiscoveryConfig",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/KustoQueryListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "KustoQueries - ListByParent": {
-            "$ref": "./examples/KustoQueries_ListByParent.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/discoveryConfigs/default/kustoQueries/{queryName}": {
-      "get": {
-        "operationId": "KustoQueries_Get",
-        "tags": [
-          "KustoQueries"
-        ],
-        "description": "Get a KustoQuery",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
           },
           {
             "name": "queryName",
@@ -2947,14 +1517,14 @@
             "description": "Query name.",
             "required": true,
             "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/KustoQuery"
+              "$ref": "#/definitions/Query"
             }
           },
           "default": {
@@ -2965,42 +1535,23 @@
           }
         },
         "x-ms-examples": {
-          "KustoQueries - Get": {
-            "$ref": "./examples/KustoQueries_Get.json"
+          "Queries - Get": {
+            "$ref": "./examples/Queries_Get.json"
           }
         }
       },
       "put": {
-        "operationId": "KustoQueries_CreateOrUpdate",
+        "operationId": "Queries_CreateOrUpdate",
         "tags": [
-          "KustoQueries"
+          "Queries"
         ],
-        "description": "Create a KustoQuery",
+        "description": "Create or update a query. Modifications to existing queries use this operation.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
           },
           {
             "name": "queryName",
@@ -3008,7 +1559,7 @@
             "description": "Query name.",
             "required": true,
             "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
           },
           {
             "name": "resource",
@@ -3016,21 +1567,21 @@
             "description": "Resource create parameters.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/KustoQuery"
+              "$ref": "#/definitions/Query"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Resource 'KustoQuery' update operation succeeded",
+            "description": "Resource 'Query' update operation succeeded",
             "schema": {
-              "$ref": "#/definitions/KustoQuery"
+              "$ref": "#/definitions/Query"
             }
           },
           "201": {
-            "description": "Resource 'KustoQuery' create operation succeeded",
+            "description": "Resource 'Query' create operation succeeded",
             "schema": {
-              "$ref": "#/definitions/KustoQuery"
+              "$ref": "#/definitions/Query"
             }
           },
           "default": {
@@ -3041,42 +1592,23 @@
           }
         },
         "x-ms-examples": {
-          "KustoQueries - CreateOrUpdate": {
-            "$ref": "./examples/KustoQueries_CreateOrUpdate.json"
+          "Queries - CreateOrUpdate": {
+            "$ref": "./examples/Queries_CreateOrUpdate.json"
           }
         }
       },
       "delete": {
-        "operationId": "KustoQueries_Delete",
+        "operationId": "Queries_Delete",
         "tags": [
-          "KustoQueries"
+          "Queries"
         ],
-        "description": "Delete a KustoQuery",
+        "description": "Delete a query.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
           },
           {
             "name": "queryName",
@@ -3084,7 +1616,7 @@
             "description": "Query name.",
             "required": true,
             "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
           }
         ],
         "responses": {
@@ -3102,51 +1634,32 @@
           }
         },
         "x-ms-examples": {
-          "KustoQueries - Delete": {
-            "$ref": "./examples/KustoQueries_Delete.json"
+          "Queries - Delete": {
+            "$ref": "./examples/Queries_Delete.json"
           }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/endpoints": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/resourceSubscriptions": {
       "get": {
-        "operationId": "Endpoints_ListByParent",
+        "operationId": "ResourceSubscriptions_ListBySubscription",
         "tags": [
-          "Endpoints"
+          "ResourceSubscriptions"
         ],
-        "description": "List HTTP endpoint configurations under a publisher setting.",
+        "description": "Lists all resource subscriptions in a subscription",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/EndpointListResult"
+              "$ref": "#/definitions/ResourceSubscriptionListResult"
             }
           },
           "default": {
@@ -3157,8 +1670,8 @@
           }
         },
         "x-ms-examples": {
-          "Endpoints - ListByParent": {
-            "$ref": "./examples/Endpoints_ListByParent.json"
+          "List all resource subscriptions in a subscription": {
+            "$ref": "./examples/ResourceSubscriptions_ListBySubscription.json"
           }
         },
         "x-ms-pageable": {
@@ -3166,13 +1679,13 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/endpoints/default": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/flows": {
       "get": {
-        "operationId": "Endpoints_Get",
+        "operationId": "Flows_ListByResourceGroup",
         "tags": [
-          "Endpoints"
+          "Flows"
         ],
-        "description": "Get the HTTP endpoint configuration.",
+        "description": "List flows in a resource group.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -3182,29 +1695,13 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/Endpoint"
+              "$ref": "#/definitions/FlowListResult"
             }
           },
           "default": {
@@ -3215,184 +1712,8 @@
           }
         },
         "x-ms-examples": {
-          "Endpoints - Get": {
-            "$ref": "./examples/Endpoints_Get.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "Endpoints_CreateOrUpdate",
-        "tags": [
-          "Endpoints"
-        ],
-        "description": "Create or update the HTTP endpoint configuration.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Endpoint"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'Endpoint' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/Endpoint"
-            }
-          },
-          "201": {
-            "description": "Resource 'Endpoint' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/Endpoint"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Endpoints - CreateOrUpdate": {
-            "$ref": "./examples/Endpoints_CreateOrUpdate.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "Endpoints_Delete",
-        "tags": [
-          "Endpoints"
-        ],
-        "description": "Delete the HTTP endpoint configuration.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Endpoints - Delete": {
-            "$ref": "./examples/Endpoints_Delete.json"
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/eventGridConfigs": {
-      "get": {
-        "operationId": "EventGridConfigs_ListByParent",
-        "tags": [
-          "EventGridConfigs"
-        ],
-        "description": "List Event Grid configurations under a publisher setting.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/EventGridConfigListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "EventGridConfigs - ListByParent": {
-            "$ref": "./examples/EventGridConfigs_ListByParent.json"
+          "Flows - ListByResourceGroup": {
+            "$ref": "./examples/Flows_ListByResourceGroup.json"
           }
         },
         "x-ms-pageable": {
@@ -3400,13 +1721,13 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/eventGridConfigs/default": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/flows/{flowName}": {
       "get": {
-        "operationId": "EventGridConfigs_Get",
+        "operationId": "Flows_Get",
         "tags": [
-          "EventGridConfigs"
+          "Flows"
         ],
-        "description": "Get the legacy Event Grid configuration.",
+        "description": "Get a flow.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -3418,27 +1739,19 @@
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "name": "namespaceName",
+            "name": "flowName",
             "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
+            "description": "Flow name.",
             "required": true,
             "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/EventGridConfig"
+              "$ref": "#/definitions/Flow"
             }
           },
           "default": {
@@ -3449,17 +1762,23 @@
           }
         },
         "x-ms-examples": {
-          "EventGridConfigs - Get": {
-            "$ref": "./examples/EventGridConfigs_Get.json"
+          "Flows - Get DiscoveryQuery": {
+            "$ref": "./examples/Flows_Get_DiscoveryQuery.json"
+          },
+          "Flows - Get DiscoveryStreaming": {
+            "$ref": "./examples/Flows_Get_DiscoveryStreaming.json"
+          },
+          "Flows - Get FullSync": {
+            "$ref": "./examples/Flows_Get_FullSync.json"
           }
         }
       },
       "put": {
-        "operationId": "EventGridConfigs_CreateOrUpdate",
+        "operationId": "Flows_CreateOrUpdate",
         "tags": [
-          "EventGridConfigs"
+          "Flows"
         ],
-        "description": "Create or update the legacy Event Grid configuration. New publishers should use Endpoint instead.",
+        "description": "Create or update a flow. Asynchronous operation. Use PUT to change flow properties including subtype-specific fields.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -3471,20 +1790,12 @@
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "name": "namespaceName",
+            "name": "flowName",
             "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
+            "description": "Flow name.",
             "required": true,
             "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
           },
           {
             "name": "resource",
@@ -3492,21 +1803,32 @@
             "description": "Resource create parameters.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/EventGridConfig"
+              "$ref": "#/definitions/Flow"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Resource 'EventGridConfig' update operation succeeded",
+            "description": "Resource 'Flow' update operation succeeded",
             "schema": {
-              "$ref": "#/definitions/EventGridConfig"
+              "$ref": "#/definitions/Flow"
             }
           },
           "201": {
-            "description": "Resource 'EventGridConfig' create operation succeeded",
+            "description": "Resource 'Flow' create operation succeeded",
             "schema": {
-              "$ref": "#/definitions/EventGridConfig"
+              "$ref": "#/definitions/Flow"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
             }
           },
           "default": {
@@ -3517,17 +1839,27 @@
           }
         },
         "x-ms-examples": {
-          "EventGridConfigs - CreateOrUpdate": {
-            "$ref": "./examples/EventGridConfigs_CreateOrUpdate.json"
+          "Flows - CreateOrUpdate DiscoveryQuery": {
+            "$ref": "./examples/Flows_CreateOrUpdate_DiscoveryQuery.json"
+          },
+          "Flows - CreateOrUpdate DiscoveryStreaming": {
+            "$ref": "./examples/Flows_CreateOrUpdate_DiscoveryStreaming.json"
+          },
+          "Flows - CreateOrUpdate FullSync": {
+            "$ref": "./examples/Flows_CreateOrUpdate_FullSync.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
       },
-      "delete": {
-        "operationId": "EventGridConfigs_Delete",
+      "patch": {
+        "operationId": "Flows_Update",
         "tags": [
-          "EventGridConfigs"
+          "Flows"
         ],
-        "description": "Delete the legacy Event Grid configuration.",
+        "description": "Update tags and managed identity on a flow.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -3539,25 +1871,82 @@
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "name": "namespaceName",
+            "name": "flowName",
             "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
+            "description": "Flow name.",
             "required": true,
             "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
           },
           {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
             "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
+            "schema": {
+              "$ref": "#/definitions/FlowUpdate"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Resource deleted successfully."
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Flow"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Flows - Update": {
+            "$ref": "./examples/Flows_Update.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "Flows_Delete",
+        "tags": [
+          "Flows"
+        ],
+        "description": "Delete a flow. Asynchronous operation.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "flowName",
+            "in": "path",
+            "description": "Flow name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -3570,19 +1959,23 @@
           }
         },
         "x-ms-examples": {
-          "EventGridConfigs - Delete": {
-            "$ref": "./examples/EventGridConfigs_Delete.json"
+          "Flows - Delete": {
+            "$ref": "./examples/Flows_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/eventGridConfigs/default/topicConfigs": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/ingestionUnits": {
       "get": {
-        "operationId": "TopicConfigs_ListByParent",
+        "operationId": "IngestionUnits_ListByResourceGroup",
         "tags": [
-          "TopicConfigs"
+          "IngestionUnits"
         ],
-        "description": "List TopicConfig resources by EventGridConfig",
+        "description": "List ingestion units in a resource group.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -3592,29 +1985,13 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/TopicConfigListResult"
+              "$ref": "#/definitions/IngestionUnitListResult"
             }
           },
           "default": {
@@ -3625,8 +2002,8 @@
           }
         },
         "x-ms-examples": {
-          "TopicConfigs - ListByParent": {
-            "$ref": "./examples/TopicConfigs_ListByParent.json"
+          "IngestionUnits - ListByResourceGroup": {
+            "$ref": "./examples/IngestionUnits_ListByResourceGroup.json"
           }
         },
         "x-ms-pageable": {
@@ -3634,13 +2011,13 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}/eventGridConfigs/default/topicConfigs/{topicConfigId}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/ingestionUnits/{unitName}": {
       "get": {
-        "operationId": "TopicConfigs_Get",
+        "operationId": "IngestionUnits_Get",
         "tags": [
-          "TopicConfigs"
+          "IngestionUnits"
         ],
-        "description": "Get a TopicConfig",
+        "description": "Get an ingestion unit.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -3652,35 +2029,19 @@
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "name": "namespaceName",
+            "name": "unitName",
             "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
+            "description": "Ingestion unit name (e.g., 'eastus-primary').",
             "required": true,
             "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "topicConfigId",
-            "in": "path",
-            "description": "System-generated GUID identifying this topic configuration.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-fA-F0-9-]{1,64}$"
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/TopicConfig"
+              "$ref": "#/definitions/IngestionUnit"
             }
           },
           "default": {
@@ -3691,17 +2052,17 @@
           }
         },
         "x-ms-examples": {
-          "TopicConfigs - Get": {
-            "$ref": "./examples/TopicConfigs_Get.json"
+          "IngestionUnits - Get": {
+            "$ref": "./examples/IngestionUnits_Get.json"
           }
         }
       },
       "put": {
-        "operationId": "TopicConfigs_CreateOrUpdate",
+        "operationId": "IngestionUnits_CreateOrUpdate",
         "tags": [
-          "TopicConfigs"
+          "IngestionUnits"
         ],
-        "description": "Create a TopicConfig",
+        "description": "Create or update an ingestion unit. Asynchronous operation.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -3713,28 +2074,12 @@
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "name": "namespaceName",
+            "name": "unitName",
             "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
+            "description": "Ingestion unit name (e.g., 'eastus-primary').",
             "required": true,
             "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "topicConfigId",
-            "in": "path",
-            "description": "System-generated GUID identifying this topic configuration.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-fA-F0-9-]{1,64}$"
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
           },
           {
             "name": "resource",
@@ -3742,21 +2087,32 @@
             "description": "Resource create parameters.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/TopicConfig"
+              "$ref": "#/definitions/IngestionUnit"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Resource 'TopicConfig' update operation succeeded",
+            "description": "Resource 'IngestionUnit' update operation succeeded",
             "schema": {
-              "$ref": "#/definitions/TopicConfig"
+              "$ref": "#/definitions/IngestionUnit"
             }
           },
           "201": {
-            "description": "Resource 'TopicConfig' create operation succeeded",
+            "description": "Resource 'IngestionUnit' create operation succeeded",
             "schema": {
-              "$ref": "#/definitions/TopicConfig"
+              "$ref": "#/definitions/IngestionUnit"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
             }
           },
           "default": {
@@ -3767,17 +2123,21 @@
           }
         },
         "x-ms-examples": {
-          "TopicConfigs - CreateOrUpdate": {
-            "$ref": "./examples/TopicConfigs_CreateOrUpdate.json"
+          "IngestionUnits - CreateOrUpdate": {
+            "$ref": "./examples/IngestionUnits_CreateOrUpdate.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
       },
-      "delete": {
-        "operationId": "TopicConfigs_Delete",
+      "patch": {
+        "operationId": "IngestionUnits_Update",
         "tags": [
-          "TopicConfigs"
+          "IngestionUnits"
         ],
-        "description": "Delete a TopicConfig",
+        "description": "Update tags on an ingestion unit.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -3789,33 +2149,82 @@
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "name": "namespaceName",
+            "name": "unitName",
             "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
+            "description": "Ingestion unit name (e.g., 'eastus-primary').",
             "required": true,
             "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
           },
           {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
             "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
-          },
-          {
-            "name": "topicConfigId",
-            "in": "path",
-            "description": "System-generated GUID identifying this topic configuration.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-fA-F0-9-]{1,64}$"
+            "schema": {
+              "$ref": "#/definitions/IngestionUnitTagsUpdate"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Resource deleted successfully."
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/IngestionUnit"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "IngestionUnits - Update Tags": {
+            "$ref": "./examples/IngestionUnits_Update.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "IngestionUnits_Delete",
+        "tags": [
+          "IngestionUnits"
+        ],
+        "description": "Delete an ingestion unit. Asynchronous operation.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "unitName",
+            "in": "path",
+            "description": "Ingestion unit name (e.g., 'eastus-primary').",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -3828,10 +2237,14 @@
           }
         },
         "x-ms-examples": {
-          "TopicConfigs - Delete": {
-            "$ref": "./examples/TopicConfigs_Delete.json"
+          "IngestionUnits - Delete": {
+            "$ref": "./examples/IngestionUnits_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/resourceSubscriptions": {
@@ -4624,6 +3037,27 @@
       ],
       "x-ms-discriminator-value": "cloud"
     },
+    "CredentialDetails": {
+      "type": "object",
+      "description": "Credential details for Kusto cluster access.",
+      "properties": {
+        "managedIdentity": {
+          "type": "string",
+          "description": "User-assigned managed identity resource ID."
+        },
+        "tenantId": {
+          "type": "string",
+          "description": "Tenant ID for federated identity credential (FIC) mode."
+        },
+        "applicationId": {
+          "type": "string",
+          "description": "Application ID for federated identity credential (FIC) mode."
+        }
+      },
+      "required": [
+        "managedIdentity"
+      ]
+    },
     "DeploymentConfig": {
       "type": "object",
       "description": "Safe deployment configuration for gradual regional rollout of publisher settings.",
@@ -4743,297 +3177,143 @@
         "kind"
       ]
     },
-    "DiscoveryConfig": {
+    "DiscoveryQueryFlowProperties": {
       "type": "object",
-      "description": "Global Discovery defaults (ADF stamp, endpoints, alerting).",
+      "description": "Properties for a DiscoveryQuery flow — batch ingestion via Kusto query on a schedule.",
       "properties": {
-        "properties": {
-          "$ref": "#/definitions/DiscoveryConfigProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "DiscoveryConfigListResult": {
-      "type": "object",
-      "description": "The response of a DiscoveryConfig list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The DiscoveryConfig items on this page",
-          "items": {
-            "$ref": "#/definitions/DiscoveryConfig"
-          }
+        "queryId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the linked query resource."
         },
-        "nextLink": {
+        "sourceClusterEndpoint": {
           "type": "string",
           "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "DiscoveryConfigProperties": {
-      "type": "object",
-      "description": "Properties of DiscoveryConfig.",
-      "properties": {
-        "adfStamp": {
-          "type": "string",
-          "description": "Default ADF stamp for discovery pipelines."
+          "description": "Partner's Kusto cluster endpoint URL."
         },
-        "alertingInfo": {
-          "$ref": "#/definitions/AlertingInfo",
-          "description": "Default alerting configuration."
-        },
-        "defaultMapping": {
+        "sourceDatabase": {
           "type": "string",
-          "description": "Default data mapping configuration."
+          "description": "Partner's Kusto database name."
         },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
-        }
-      }
-    },
-    "DiscoveryFlow": {
-      "type": "object",
-      "description": "Individual batch ingestion flow.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/DiscoveryFlowProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "DiscoveryFlowListResult": {
-      "type": "object",
-      "description": "The response of a DiscoveryFlow list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The DiscoveryFlow items on this page",
-          "items": {
-            "$ref": "#/definitions/DiscoveryFlow"
-          }
+        "partitionColumn": {
+          "type": "string",
+          "description": "Column name for hash partitioning. Omit if no partitioning needed."
         },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "DiscoveryFlowProperties": {
-      "type": "object",
-      "description": "Properties of a DiscoveryFlow.",
-      "properties": {
-        "kind": {
-          "type": "string",
-          "description": "Flow kind.",
-          "enum": [
-            "BatchIngestion"
-          ],
-          "x-ms-enum": {
-            "modelAsString": false
-          }
-        },
-        "orchestration": {
-          "type": "string",
-          "description": "Orchestration engine (Direct or ADF)."
-        },
-        "fullyQualifiedResourceType": {
-          "type": "string",
-          "description": "Fully qualified resource type this flow ingests."
-        },
-        "kustoQuery": {
-          "type": "string",
-          "description": "Reference to a kustoQuery name from discoveryConfig."
+        "estimatedRowCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Estimated row count for auto-partition sizing (partitions = rows / 100K)."
         },
         "scheduling": {
           "$ref": "#/definitions/FlowScheduling",
-          "description": "Scheduling configuration."
+          "description": "Scheduling configuration. Default interval: 24 hours."
         },
-        "partitioning": {
-          "$ref": "#/definitions/FlowPartitioning",
-          "description": "Partitioning strategy."
+        "partitionCountOverride": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Manual partition count override. Must be >= auto-calculated value."
         },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
+        "queryParallelism": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of parallel Kusto query batches for large datasets (>1M rows)."
+        },
+        "distributionType": {
+          "$ref": "#/definitions/DistributionType",
+          "description": "Kusto export distribution strategy."
+        },
+        "credentialDetails": {
+          "$ref": "#/definitions/CredentialDetails",
+          "description": "Credential details for Kusto cluster access."
+        },
+        "endpoint": {
+          "type": "string",
+          "description": "System-computed receiver hostname (derived from location).",
+          "readOnly": true
+        },
+        "partitionCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "System-computed partition count (estimatedRowCount / 100K).",
           "readOnly": true
         }
       },
       "required": [
-        "kind"
-      ]
-    },
-    "DiscoveryIngestion": {
-      "type": "object",
-      "description": "Regional streaming ingestion from GDS/Event Hub.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/DiscoveryIngestionProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
+        "queryId",
+        "sourceClusterEndpoint",
+        "sourceDatabase",
+        "estimatedRowCount"
+      ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+          "$ref": "#/definitions/FlowProperties"
         }
-      ]
+      ],
+      "x-ms-discriminator-value": "DiscoveryQuery"
     },
-    "DiscoveryIngestionListResult": {
+    "DiscoveryStreamingFlowProperties": {
       "type": "object",
-      "description": "The response of a DiscoveryIngestion list operation.",
+      "description": "Properties for a DiscoveryStreaming flow — streaming ingestion from Geneva Data Service.",
       "properties": {
-        "value": {
+        "gdsAccount": {
+          "type": "string",
+          "description": "Geneva log account name."
+        },
+        "gdsEventNamespaces": {
           "type": "array",
-          "description": "The DiscoveryIngestion items on this page",
+          "description": "GDS event namespaces.",
           "items": {
-            "$ref": "#/definitions/DiscoveryIngestion"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "DiscoveryIngestionProperties": {
-      "type": "object",
-      "description": "Properties of a DiscoveryIngestion.",
-      "properties": {
-        "linkedPublisherSettingsId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "ARM resource ID of the linked PublisherSettings."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
-        }
-      },
-      "required": [
-        "linkedPublisherSettingsId"
-      ]
-    },
-    "DiscoveryIngestionTagsUpdate": {
-      "type": "object",
-      "description": "The type used for updating tags in DiscoveryIngestion resources.",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "DiscoveryPipeline": {
-      "type": "object",
-      "description": "Regional batch ingestion pipeline with Managed Identity support.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/DiscoveryPipelineProperties",
-          "description": "The resource-specific properties for this resource."
-        },
-        "identity": {
-          "$ref": "../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
-          "description": "The managed service identities assigned to this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
-        }
-      ]
-    },
-    "DiscoveryPipelineListResult": {
-      "type": "object",
-      "description": "The response of a DiscoveryPipeline list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The DiscoveryPipeline items on this page",
-          "items": {
-            "$ref": "#/definitions/DiscoveryPipeline"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "DiscoveryPipelinePatch": {
-      "type": "object",
-      "description": "Patch model for DiscoveryPipeline updates (tags + identity).",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
             "type": "string"
           }
         },
-        "identity": {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.ManagedServiceIdentityUpdate",
-          "description": "The managed service identities assigned to this resource."
-        }
-      }
-    },
-    "DiscoveryPipelineProperties": {
-      "type": "object",
-      "description": "Properties of a DiscoveryPipeline.",
-      "properties": {
-        "linkedPublisherSettingsId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "ARM resource ID of the linked PublisherSettings."
+        "gdsEventNames": {
+          "type": "array",
+          "description": "GDS event names within those namespaces.",
+          "items": {
+            "type": "string"
+          }
         },
-        "kustoClusterUrl": {
-          "type": "string",
-          "format": "uri",
-          "description": "Kusto cluster URL."
-        },
-        "kustoDatabaseName": {
-          "type": "string",
-          "description": "Kusto database name."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
+        "transformationType": {
+          "$ref": "#/definitions/TransformationType",
+          "description": "Transformation type for the streaming data."
         }
       },
       "required": [
-        "linkedPublisherSettingsId"
-      ]
+        "gdsAccount",
+        "gdsEventNamespaces",
+        "gdsEventNames",
+        "transformationType"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/FlowProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "DiscoveryStreaming"
+    },
+    "DistributionType": {
+      "type": "string",
+      "description": "Kusto export distribution strategy.",
+      "enum": [
+        "single",
+        "per_node"
+      ],
+      "x-ms-enum": {
+        "name": "DistributionType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "single",
+            "value": "single",
+            "description": "Single export operation."
+          },
+          {
+            "name": "perNode",
+            "value": "per_node",
+            "description": "Distributed per-node export."
+          }
+        ]
+      }
     },
     "DstsAuthorization": {
       "type": "object",
@@ -5075,21 +3355,6 @@
         "claim"
       ]
     },
-    "Endpoint": {
-      "type": "object",
-      "description": "HTTP endpoint ingestion configuration with polymorphic authorization. Throttling here overrides the publisher-level default from PublisherSettings.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/EndpointProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
     "EndpointDeliveryMode": {
       "type": "string",
       "description": "The delivery mode for endpoints, determining how notifications are distributed across endpoints",
@@ -5112,128 +3377,6 @@
             "description": "Delivers to the first available endpoint"
           }
         ]
-      }
-    },
-    "EndpointListResult": {
-      "type": "object",
-      "description": "The response of a Endpoint list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The Endpoint items on this page",
-          "items": {
-            "$ref": "#/definitions/Endpoint"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "EndpointProperties": {
-      "type": "object",
-      "description": "Properties of Endpoint.",
-      "properties": {
-        "endpoints": {
-          "$ref": "#/definitions/EndpointUrls",
-          "description": "Receiver endpoint URLs provisioned by the system, keyed by scope (e.g., 'global', 'eu'). Read-only.",
-          "readOnly": true
-        },
-        "throttlingPolicy": {
-          "$ref": "#/definitions/ThrottlingPolicy",
-          "description": "Throttling policy override for this ingestion path. If omitted, inherits from PublisherSettings.throttlingPolicy. Default: 20,000 req/min, 1.5x burst."
-        },
-        "authorization": {
-          "$ref": "#/definitions/Authorization",
-          "description": "Polymorphic authorization (AAD or DSTS)."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
-        }
-      }
-    },
-    "EndpointUrls": {
-      "type": "object",
-      "description": "Receiver endpoint URLs keyed by scope.",
-      "properties": {
-        "global": {
-          "type": "string",
-          "format": "uri",
-          "description": "Global receiver endpoint URL."
-        },
-        "eu": {
-          "type": "string",
-          "format": "uri",
-          "description": "EU-scoped receiver endpoint URL."
-        }
-      }
-    },
-    "EventGridConfig": {
-      "type": "object",
-      "description": "LEGACY: Event Grid topic-based ingestion for existing publishers. New publishers must use Endpoint instead.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/EventGridConfigProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "EventGridConfigListResult": {
-      "type": "object",
-      "description": "The response of a EventGridConfig list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The EventGridConfig items on this page",
-          "items": {
-            "$ref": "#/definitions/EventGridConfig"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "EventGridConfigProperties": {
-      "type": "object",
-      "description": "Properties of EventGridConfig.",
-      "properties": {
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
-        }
-      }
-    },
-    "EventHubConfig": {
-      "type": "object",
-      "description": "Event Hub configuration for streaming ingestion.",
-      "properties": {
-        "eventHubNamespace": {
-          "type": "string",
-          "description": "Event Hub namespace."
-        },
-        "eventHubName": {
-          "type": "string",
-          "description": "Event Hub name."
-        }
       }
     },
     "FabricEndpoint": {
@@ -5291,20 +3434,121 @@
       ],
       "x-ms-discriminator-value": "fabricTable"
     },
-    "FlowPartitioning": {
+    "Flow": {
       "type": "object",
-      "description": "Flow partitioning strategy.",
+      "description": "Regional discovery flow with Managed Identity support. Polymorphic by kind.",
       "properties": {
-        "strategy": {
-          "type": "string",
-          "description": "Partitioning strategy (e.g., 'subscription')."
+        "properties": {
+          "$ref": "#/definitions/FlowProperties",
+          "description": "The resource-specific properties for this resource."
         },
-        "maxPartitions": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Max number of partitions."
+        "identity": {
+          "$ref": "../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "description": "The managed service identities assigned to this resource."
         }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "FlowKind": {
+      "type": "string",
+      "description": "The kind of discovery flow.",
+      "enum": [
+        "DiscoveryQuery",
+        "DiscoveryStreaming",
+        "FullSync"
+      ],
+      "x-ms-enum": {
+        "name": "FlowKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "DiscoveryQuery",
+            "value": "DiscoveryQuery",
+            "description": "Batch ingestion via Kusto query on a schedule."
+          },
+          {
+            "name": "DiscoveryStreaming",
+            "value": "DiscoveryStreaming",
+            "description": "Streaming ingestion from Geneva Data Service."
+          },
+          {
+            "name": "FullSync",
+            "value": "FullSync",
+            "description": "Full resource synchronization via ARM LIST calls."
+          }
+        ]
       }
+    },
+    "FlowListResult": {
+      "type": "object",
+      "description": "The response of a Flow list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Flow items on this page",
+          "items": {
+            "$ref": "#/definitions/Flow"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "FlowProperties": {
+      "type": "object",
+      "description": "Common properties for all flow kinds. Discriminated by kind.",
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/FlowKind",
+          "description": "The kind of discovery flow."
+        },
+        "linkedPublisherSettingsId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the linked publisher setting."
+        },
+        "fullyQualifiedResourceType": {
+          "type": "string",
+          "description": "Fully qualified resource type this flow processes (e.g., 'Microsoft.Compute/virtualMachines')."
+        },
+        "isPreview": {
+          "type": "boolean",
+          "description": "Whether this is a preview notification flow."
+        },
+        "previewZones": {
+          "type": "array",
+          "description": "Preview zones for this flow (e.g., ['Galaxy.InfrastructureGraph.QCS']).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether this flow is enabled. Set to false to pause the flow during outages. Default: true.",
+          "default": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Read-only provisioning state.",
+          "readOnly": true
+        }
+      },
+      "discriminator": "kind",
+      "required": [
+        "kind",
+        "linkedPublisherSettingsId",
+        "fullyQualifiedResourceType"
+      ]
     },
     "FlowScheduling": {
       "type": "object",
@@ -5317,6 +3561,33 @@
           "default": 24
         }
       }
+    },
+    "FlowUpdate": {
+      "type": "object",
+      "description": "Patch model for flow updates — tags and identity only.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "identity": {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.ManagedServiceIdentityUpdate",
+          "description": "The managed service identities assigned to this resource."
+        }
+      }
+    },
+    "FullSyncFlowProperties": {
+      "type": "object",
+      "description": "Properties for a FullSync flow — full resource synchronization via ARM LIST calls.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/FlowProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "FullSync"
     },
     "GetNotificationSessionDetails": {
       "type": "object",
@@ -5356,30 +3627,30 @@
         }
       }
     },
-    "IngestionFlow": {
+    "IngestionUnit": {
       "type": "object",
-      "description": "Individual streaming ingestion flow.",
+      "description": "Per-region ingestion configuration linked to a publisher setting.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/IngestionFlowProperties",
+          "$ref": "#/definitions/IngestionUnitProperties",
           "description": "The resource-specific properties for this resource."
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
         }
       ]
     },
-    "IngestionFlowListResult": {
+    "IngestionUnitListResult": {
       "type": "object",
-      "description": "The response of a IngestionFlow list operation.",
+      "description": "The response of a IngestionUnit list operation.",
       "properties": {
         "value": {
           "type": "array",
-          "description": "The IngestionFlow items on this page",
+          "description": "The IngestionUnit items on this page",
           "items": {
-            "$ref": "#/definitions/IngestionFlow"
+            "$ref": "#/definitions/IngestionUnit"
           }
         },
         "nextLink": {
@@ -5392,97 +3663,39 @@
         "value"
       ]
     },
-    "IngestionFlowProperties": {
+    "IngestionUnitProperties": {
       "type": "object",
-      "description": "Properties of an IngestionFlow.",
+      "description": "Properties for an ingestion unit resource.",
       "properties": {
-        "kind": {
+        "linkedPublisherSetting": {
           "type": "string",
-          "description": "Flow kind.",
-          "enum": [
-            "Streaming"
-          ],
-          "x-ms-enum": {
-            "modelAsString": false
-          }
+          "format": "arm-id",
+          "description": "ARM resource ID of the linked publisher setting."
         },
-        "gdsEventNamespace": {
+        "authorization": {
+          "$ref": "#/definitions/Authorization",
+          "description": "Authorization override for this region. If omitted, inherits from publisherSettings."
+        },
+        "publisherUsageUnit": {
+          "$ref": "#/definitions/ThrottlingPolicy",
+          "description": "Throttling policy for this ingestion unit. Required."
+        },
+        "endpoint": {
           "type": "string",
-          "description": "GDS event namespace."
-        },
-        "gdsEventName": {
-          "type": "string",
-          "description": "GDS event name."
-        },
-        "transformationType": {
-          "type": "string",
-          "description": "Transformation type."
-        },
-        "eventHubConfig": {
-          "$ref": "#/definitions/EventHubConfig",
-          "description": "Event Hub configuration."
-        },
-        "consumerGroup": {
-          "type": "string",
-          "description": "Consumer group name."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
+          "description": "System-provisioned receiver hostname. Derived from location.",
           "readOnly": true
-        }
-      },
-      "required": [
-        "kind"
-      ]
-    },
-    "KustoQuery": {
-      "type": "object",
-      "description": "Reusable Kusto query definition.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/KustoQueryProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "KustoQueryListResult": {
-      "type": "object",
-      "description": "The response of a KustoQuery list operation.",
-      "properties": {
-        "value": {
+        },
+        "eventGridTopicIds": {
           "type": "array",
-          "description": "The KustoQuery items on this page",
+          "description": "ARM resource IDs of Event Grid topics/domains routed through this unit.",
           "items": {
-            "$ref": "#/definitions/KustoQuery"
+            "type": "string"
           }
         },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "KustoQueryProperties": {
-      "type": "object",
-      "description": "Properties of a KustoQuery.",
-      "properties": {
-        "query": {
-          "type": "string",
-          "description": "KQL query text."
-        },
-        "description": {
-          "type": "string",
-          "description": "Description of what this query returns."
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether this ingestion unit is enabled. Set to false to disable during outages. Default: true.",
+          "default": true
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
@@ -5491,8 +3704,22 @@
         }
       },
       "required": [
-        "query"
+        "linkedPublisherSetting",
+        "publisherUsageUnit"
       ]
+    },
+    "IngestionUnitTagsUpdate": {
+      "type": "object",
+      "description": "The type used for updating tags in IngestionUnit resources.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
     },
     "MinCountMaxDelayBatchingPolicy": {
       "type": "object",
@@ -5531,7 +3758,7 @@
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -5984,13 +4211,14 @@
             "resourceType"
           ]
         },
-        "throttlingPolicy": {
-          "$ref": "#/definitions/ThrottlingPolicy",
-          "description": "Default throttling policy for all ingestion paths. Can be overridden per-path (e.g., on Endpoint)."
-        },
         "alertingInfo": {
           "$ref": "#/definitions/AlertingInfo",
-          "description": "Default IcM / alerting configuration. Can be overridden by child resources (e.g., DiscoveryConfig)."
+          "description": "Default IcM / alerting configuration."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether this publisher setting is enabled. Set to false to disable during outages. Default: true.",
+          "default": true
         },
         "deploymentConfig": {
           "$ref": "#/definitions/DeploymentConfig",
@@ -6014,6 +4242,69 @@
       },
       "required": [
         "resourceType"
+      ]
+    },
+    "Query": {
+      "type": "object",
+      "description": "Reusable KQL query definition stored in the resource provider.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/QueryProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "QueryListResult": {
+      "type": "object",
+      "description": "The response of a Query list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Query items on this page",
+          "items": {
+            "$ref": "#/definitions/Query"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "QueryProperties": {
+      "type": "object",
+      "description": "Properties for a query resource.",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "KQL query text."
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of this query."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether this query is enabled. Set to false to disable during outages. Default: true.",
+          "default": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Read-only provisioning state.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "query"
       ]
     },
     "ResourceSubscription": {
@@ -6358,59 +4649,29 @@
       ],
       "x-ms-discriminator-value": "timeAndScopeRangeHash"
     },
-    "TopicConfig": {
-      "type": "object",
-      "description": "LEGACY: Individual Event Grid topic reference. Only topicResourceId is publisher-provided.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/TopicConfigProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "TopicConfigListResult": {
-      "type": "object",
-      "description": "The response of a TopicConfig list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The TopicConfig items on this page",
-          "items": {
-            "$ref": "#/definitions/TopicConfig"
+    "TransformationType": {
+      "type": "string",
+      "description": "Transformation type for streaming ingestion.",
+      "enum": [
+        "ArmResource",
+        "PassThroughLogs"
+      ],
+      "x-ms-enum": {
+        "name": "TransformationType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "ArmResource",
+            "value": "ArmResource",
+            "description": "Transform data as ARM resource format."
+          },
+          {
+            "name": "PassThroughLogs",
+            "value": "PassThroughLogs",
+            "description": "Pass-through log data without transformation."
           }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "TopicConfigProperties": {
-      "type": "object",
-      "description": "Properties of TopicConfig. Minimal publisher surface - only the EG topic resource ID.",
-      "properties": {
-        "topicResourceId": {
-          "type": "string",
-          "description": "ARM resource ID of the publisher-owned Event Grid topic."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
-        }
-      },
-      "required": [
-        "topicResourceId"
-      ]
+        ]
+      }
     },
     "TypeSetting": {
       "type": "object",
