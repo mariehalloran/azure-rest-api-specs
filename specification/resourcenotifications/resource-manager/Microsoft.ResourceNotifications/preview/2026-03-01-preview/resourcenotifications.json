@@ -3067,7 +3067,10 @@
           "description": "Ordered stage definitions for gradual regional rollout.\nEach entry maps a stage name to its target Azure regions. Array order defines rollout sequence.",
           "items": {
             "$ref": "#/definitions/StageDefinition"
-          }
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
         },
         "managedSdpEnabled": {
           "type": "boolean",
@@ -3508,7 +3511,7 @@
       "type": "object",
       "description": "Common properties for all flow kinds. Discriminated by kind.",
       "properties": {
-        "kind": {
+        "flowKind": {
           "$ref": "#/definitions/FlowKind",
           "description": "The kind of discovery flow."
         },
@@ -3543,9 +3546,9 @@
           "readOnly": true
         }
       },
-      "discriminator": "kind",
+      "discriminator": "flowKind",
       "required": [
-        "kind",
+        "flowKind",
         "linkedPublisherSettingsId",
         "fullyQualifiedResourceType"
       ]

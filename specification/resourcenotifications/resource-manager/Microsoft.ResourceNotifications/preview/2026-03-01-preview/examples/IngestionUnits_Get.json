@@ -19,10 +19,14 @@
           "provisioningState": "Succeeded",
           "linkedPublisherSetting": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default",
           "authorization": {
-            "kind": "Aad",
-            "applicationId": "00000000-1111-2222-3333-444444444444",
-            "allowedTenantIds": [
-              "00000000-0000-0000-0000-000000000001"
+            "kind": "AAD",
+            "applications": [
+              {
+                "applicationId": "00000000-1111-2222-3333-444444444444",
+                "allowedTenantIds": [
+                  "00000000-0000-0000-0000-000000000001"
+                ]
+              }
             ]
           },
           "publisherUsageUnit": {

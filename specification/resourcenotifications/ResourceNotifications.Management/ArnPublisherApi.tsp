@@ -156,6 +156,7 @@ model StageDefinition {
 model DeploymentConfig {
   /** Ordered stage definitions for gradual regional rollout.
    * Each entry maps a stage name to its target Azure regions. Array order defines rollout sequence. */
+  @OpenAPI.extension("x-ms-identifiers", #["name"])
   stageDefinition?: StageDefinition[];
 
   /** Whether managed SDP is enabled for this publisher's config rollout. */
@@ -551,10 +552,10 @@ model Flow is Azure.ResourceManager.TrackedResource<FlowProperties> {
 
 /** Common properties for all flow kinds. Discriminated by kind. */
 @added(Versions.v2026_03_01_preview)
-@discriminator("kind")
+@discriminator("flowKind")
 model FlowProperties {
   /** The kind of discovery flow. */
-  kind: FlowKind;
+  flowKind: FlowKind;
 
   /** ARM resource ID of the linked publisher setting. */
   linkedPublisherSettingsId: Azure.Core.armResourceIdentifier;
@@ -582,7 +583,7 @@ model FlowProperties {
 @added(Versions.v2026_03_01_preview)
 model DiscoveryQueryFlowProperties extends FlowProperties {
   /** Discriminator value. */
-  kind: FlowKind.DiscoveryQuery;
+  flowKind: FlowKind.DiscoveryQuery;
 
   /** ARM resource ID of the linked query resource. */
   queryId: Azure.Core.armResourceIdentifier;
@@ -627,7 +628,7 @@ model DiscoveryQueryFlowProperties extends FlowProperties {
 @added(Versions.v2026_03_01_preview)
 model DiscoveryStreamingFlowProperties extends FlowProperties {
   /** Discriminator value. */
-  kind: FlowKind.DiscoveryStreaming;
+  flowKind: FlowKind.DiscoveryStreaming;
 
   /** Geneva log account name. */
   gdsAccount: string;
@@ -646,7 +647,7 @@ model DiscoveryStreamingFlowProperties extends FlowProperties {
 @added(Versions.v2026_03_01_preview)
 model FullSyncFlowProperties extends FlowProperties {
   /** Discriminator value. */
-  kind: FlowKind.FullSync;
+  flowKind: FlowKind.FullSync;
 }
 
 /** Kusto export distribution strategy. */
