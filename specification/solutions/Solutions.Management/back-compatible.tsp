@@ -22,12 +22,12 @@ using Microsoft.Solutions;
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 @@Legacy.flattenProperty(ApplicationDefinition.properties);
 
-@@clientLocation(JitRequestDefinitions.get, "JitRequests");
+@@clientLocation(JitRequestDefinitions.get, "jitRequests");
 @@clientLocation(JitRequestDefinitions.createOrUpdate, "jitRequests");
 @@clientName(JitRequestDefinitions.createOrUpdate::parameters.resource,
   "parameters"
 );
-@@clientLocation(JitRequestDefinitions.update, "JitRequests");
+@@clientLocation(JitRequestDefinitions.update, "jitRequests");
 @@clientName(JitRequestDefinitions.update::parameters.properties, "parameters");
 @@clientLocation(JitRequestDefinitions.delete, "jitRequests");
 @@clientLocation(JitRequestDefinitions.listByResourceGroup, "jitRequests");
