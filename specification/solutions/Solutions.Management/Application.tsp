@@ -133,7 +133,7 @@ interface Applications {
     UpdateAccessDefinition,
     OkResponse | ArmAcceptedLroResponse<
       "Resource operation accepted.",
-      ArmLroLocationHeader & Body<UpdateAccessDefinition>
+      ArmLroLocationHeader<FinalResult = UpdateAccessDefinition> & Body<UpdateAccessDefinition>
     >,
     BaseParameters = Azure.ResourceManager.Foundations.BaseParameters<Application>
   >;
