@@ -91,9 +91,6 @@ model PublisherSettingsProperties {
   #suppress "EnumInsteadOfBoolean" "enabled is a simple on/off operational toggle"
   enabled?: boolean = true;
 
-  /** Safe deployment configuration for gradual or immediate regional rollout. */
-  deploymentConfig?: DeploymentConfig;
-
   /** Read-only provisioning state. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
@@ -112,11 +109,11 @@ interface PublisherSettingsOperations {
   /** Get a publisher setting. */
   get is ArmResourceRead<PublisherSettings>;
 
-  /** Create or update a publisher setting. Publisher onboarding is a long-running process. */
-  createOrUpdate is ArmResourceCreateOrReplaceAsync<PublisherSettings>;
+  /** Create or update a publisher setting. */
+  createOrUpdate is ArmResourceCreateOrReplaceSync<PublisherSettings>;
 
   /** Delete a publisher setting. */
-  delete is ArmResourceDeleteWithoutOkAsync<PublisherSettings>;
+  delete is ArmResourceDeleteSync<PublisherSettings>;
 
   /** List publisher settings under a namespace. */
   listByParent is ArmResourceListByParent<PublisherSettings>;
@@ -139,31 +136,6 @@ model ThrottlingPolicy {
   @minValue(1.0)
   @maxValue(5.0)
   burstAllowance?: float64 = 1.5;
-}
-
-/** A single stage in a deployment rollout, mapping a stage name to its target Azure regions. */
-@added(Versions.v2026_03_01_preview)
-model StageDefinition {
-  /** Name of the deployment stage (e.g. "canary", "stage1", "remaining"). */
-  name: string;
-
-  /** Azure regions assigned to this stage. Use "*" to match all remaining regions. */
-  regions: string[];
-}
-
-/** Safe deployment configuration for gradual regional rollout of publisher settings. */
-@added(Versions.v2026_03_01_preview)
-model DeploymentConfig {
-  /** Ordered stage definitions for gradual regional rollout.
-   * Each entry maps a stage name to its target Azure regions. Array order defines rollout sequence. */
-  @OpenAPI.extension("x-ms-identifiers", #["name"])
-  stageDefinition?: StageDefinition[];
-
-  /** Whether managed SDP is enabled for this publisher's config rollout. */
-  managedSdpEnabled?: boolean;
-
-  /** Wait duration between stages (ISO 8601 duration). Default: PT24H. */
-  waitDuration?: duration;
 }
 
 // Polymorphic Authorization

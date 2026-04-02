@@ -12,39 +12,6 @@
           "severity": "3",
           "notificationEmail": "compute-alerts@microsoft.com"
         },
-        "deploymentConfig": {
-          "stageDefinition": [
-            {
-              "name": "canary",
-              "regions": [
-                "eastus2euap",
-                "centraluseuap"
-              ]
-            },
-            {
-              "name": "stage1",
-              "regions": [
-                "eastus",
-                "westus2"
-              ]
-            },
-            {
-              "name": "stage2",
-              "regions": [
-                "northeurope",
-                "westeurope"
-              ]
-            },
-            {
-              "name": "remaining",
-              "regions": [
-                "*"
-              ]
-            }
-          ],
-          "managedSdpEnabled": true,
-          "waitDuration": "PT24H"
-        },
         "schemaVersion": "1.0",
         "enabled": true
       }
@@ -70,94 +37,6 @@
           "alertingInfo": {
             "severity": "3",
             "notificationEmail": "compute-alerts@microsoft.com"
-          },
-          "deploymentConfig": {
-            "stageDefinition": [
-              {
-                "name": "canary",
-                "regions": [
-                  "eastus2euap",
-                  "centraluseuap"
-                ]
-              },
-              {
-                "name": "stage1",
-                "regions": [
-                  "eastus",
-                  "westus2"
-                ]
-              },
-              {
-                "name": "stage2",
-                "regions": [
-                  "northeurope",
-                  "westeurope"
-                ]
-              },
-              {
-                "name": "remaining",
-                "regions": [
-                  "*"
-                ]
-              }
-            ],
-            "managedSdpEnabled": true,
-            "waitDuration": "PT24H"
-          },
-          "schemaVersion": "1.0",
-          "enabled": true
-        }
-      }
-    },
-    "201": {
-      "body": {
-        "name": "computeVmSetting",
-        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/computeVmSetting",
-        "type": "Microsoft.ResourceNotifications/namespaces/publisherSettings",
-        "properties": {
-          "provisioningState": "Creating",
-          "publishingResourceTypes": [
-            {
-              "resourceType": "Microsoft.Compute/virtualMachines"
-            }
-          ],
-          "serviceName": "AzureCompute",
-          "alertingInfo": {
-            "severity": "3",
-            "notificationEmail": "compute-alerts@microsoft.com"
-          },
-          "deploymentConfig": {
-            "stageDefinition": [
-              {
-                "name": "canary",
-                "regions": [
-                  "eastus2euap",
-                  "centraluseuap"
-                ]
-              },
-              {
-                "name": "stage1",
-                "regions": [
-                  "eastus",
-                  "westus2"
-                ]
-              },
-              {
-                "name": "stage2",
-                "regions": [
-                  "northeurope",
-                  "westeurope"
-                ]
-              },
-              {
-                "name": "remaining",
-                "regions": [
-                  "*"
-                ]
-              }
-            ],
-            "managedSdpEnabled": true,
-            "waitDuration": "PT24H"
           },
           "schemaVersion": "1.0",
           "enabled": true

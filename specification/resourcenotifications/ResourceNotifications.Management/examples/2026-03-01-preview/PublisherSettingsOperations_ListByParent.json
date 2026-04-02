@@ -24,39 +24,6 @@
                 "severity": "3",
                 "notificationEmail": "compute-alerts@microsoft.com"
               },
-              "deploymentConfig": {
-                "stageDefinition": [
-                  {
-                    "name": "canary",
-                    "regions": [
-                      "eastus2euap",
-                      "centraluseuap"
-                    ]
-                  },
-                  {
-                    "name": "stage1",
-                    "regions": [
-                      "eastus",
-                      "westus2"
-                    ]
-                  },
-                  {
-                    "name": "stage2",
-                    "regions": [
-                      "northeurope",
-                      "westeurope"
-                    ]
-                  },
-                  {
-                    "name": "remaining",
-                    "regions": [
-                      "*"
-                    ]
-                  }
-                ],
-                "managedSdpEnabled": true,
-                "waitDuration": "PT24H"
-              },
               "schemaVersion": "1.0",
               "enabled": true
             }

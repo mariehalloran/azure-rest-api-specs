@@ -1317,7 +1317,7 @@
         "tags": [
           "PublisherSettingsOperations"
         ],
-        "description": "Create or update a publisher setting. Publisher onboarding is a long-running process.",
+        "description": "Create or update a publisher setting.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -1362,17 +1362,6 @@
             "description": "Resource 'PublisherSettings' create operation succeeded",
             "schema": {
               "$ref": "#/definitions/PublisherSettings"
-            },
-            "headers": {
-              "Azure-AsyncOperation": {
-                "type": "string",
-                "description": "A link to the status monitor"
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
             }
           },
           "default": {
@@ -1386,11 +1375,7 @@
           "PublisherSettingsOperations - CreateOrUpdate": {
             "$ref": "./examples/PublisherSettingsOperations_CreateOrUpdate.json"
           }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        },
-        "x-ms-long-running-operation": true
+        }
       },
       "delete": {
         "operationId": "PublisherSettingsOperations_Delete",
@@ -1423,19 +1408,8 @@
           }
         ],
         "responses": {
-          "202": {
-            "description": "Resource deletion accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
+          "200": {
+            "description": "Resource deleted successfully."
           },
           "204": {
             "description": "Resource does not exist."
@@ -1451,11 +1425,7 @@
           "PublisherSettingsOperations - Delete": {
             "$ref": "./examples/PublisherSettingsOperations_Delete.json"
           }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
+        }
       }
     },
     "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/queries": {
@@ -3058,31 +3028,6 @@
         "managedIdentity"
       ]
     },
-    "DeploymentConfig": {
-      "type": "object",
-      "description": "Safe deployment configuration for gradual regional rollout of publisher settings.",
-      "properties": {
-        "stageDefinition": {
-          "type": "array",
-          "description": "Ordered stage definitions for gradual regional rollout.\nEach entry maps a stage name to its target Azure regions. Array order defines rollout sequence.",
-          "items": {
-            "$ref": "#/definitions/StageDefinition"
-          },
-          "x-ms-identifiers": [
-            "name"
-          ]
-        },
-        "managedSdpEnabled": {
-          "type": "boolean",
-          "description": "Whether managed SDP is enabled for this publisher's config rollout."
-        },
-        "waitDuration": {
-          "type": "string",
-          "format": "duration",
-          "description": "Wait duration between stages (ISO 8601 duration). Default: PT24H."
-        }
-      }
-    },
     "Destination": {
       "type": "object",
       "description": "Destination resource for Azure Resource Notifications",
@@ -4223,10 +4168,6 @@
           "description": "Whether this publisher setting is enabled. Set to false to disable during outages. Default: true.",
           "default": true
         },
-        "deploymentConfig": {
-          "$ref": "#/definitions/DeploymentConfig",
-          "description": "Safe deployment configuration for gradual or immediate regional rollout."
-        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "Read-only provisioning state.",
@@ -4445,27 +4386,6 @@
           }
         ]
       }
-    },
-    "StageDefinition": {
-      "type": "object",
-      "description": "A single stage in a deployment rollout, mapping a stage name to its target Azure regions.",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Name of the deployment stage (e.g. \"canary\", \"stage1\", \"remaining\")."
-        },
-        "regions": {
-          "type": "array",
-          "description": "Azure regions assigned to this stage. Use \"*\" to match all remaining regions.",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": [
-        "name",
-        "regions"
-      ]
     },
     "StorageAccountDestinationProperties": {
       "type": "object",
