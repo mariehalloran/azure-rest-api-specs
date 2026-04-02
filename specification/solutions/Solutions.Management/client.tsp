@@ -6,6 +6,7 @@ using Microsoft.Solutions;
 
 @@clientName(Microsoft.Solutions, "ApplicationClient", "javascript,python");
 
+@@clientName(Operations.list, "list_operations", "python");
 @@clientLocation(Operations.list, Microsoft.Solutions, "python");
 @@clientLocation(JitRequestDefinitions.get, "JitRequests", "python");
 @@clientLocation(JitRequestDefinitions.createOrUpdate, "JitRequests", "python");
