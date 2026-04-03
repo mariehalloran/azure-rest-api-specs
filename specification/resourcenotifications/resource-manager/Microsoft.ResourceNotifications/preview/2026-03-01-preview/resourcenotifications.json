@@ -4097,7 +4097,7 @@
     },
     "PublisherSettings": {
       "type": "object",
-      "description": "Publisher-facing configuration: resource types, service name linkage, and default throttling. Prerequisite: parent Namespace must exist; returns 400 NamespaceNotFound otherwise.",
+      "description": "Publisher-facing configuration: resource types and default alerting. Prerequisite: parent Namespace must exist; returns 400 NamespaceNotFound otherwise.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/PublisherSettingsProperties",
@@ -4139,10 +4139,6 @@
           "type": "string",
           "description": "Schema version (e.g., '1.0').",
           "default": "1.0"
-        },
-        "serviceName": {
-          "type": "string",
-          "description": "Service name linking to ProviderSettings.allowedPublishers."
         },
         "publishingResourceTypes": {
           "type": "array",

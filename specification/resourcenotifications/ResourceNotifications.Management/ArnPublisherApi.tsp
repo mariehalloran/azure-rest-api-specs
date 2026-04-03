@@ -58,7 +58,7 @@ interface Namespaces {
 
 // PublisherSettings/{settingName}
 
-/** Publisher-facing configuration: resource types, service name linkage, and default throttling. Prerequisite: parent Namespace must exist; returns 400 NamespaceNotFound otherwise. */
+/** Publisher-facing configuration: resource types and default alerting. Prerequisite: parent Namespace must exist; returns 400 NamespaceNotFound otherwise. */
 @added(Versions.v2026_03_01_preview)
 @parentResource(Namespace)
 model PublisherSettings
@@ -76,9 +76,6 @@ model PublisherSettings
 model PublisherSettingsProperties {
   /** Schema version (e.g., '1.0'). */
   schemaVersion?: string = "1.0";
-
-  /** Service name linking to ProviderSettings.allowedPublishers. */
-  serviceName?: string;
 
   /** Resource types this publisher will publish. */
   @OpenAPI.extension("x-ms-identifiers", #["resourceType"])
