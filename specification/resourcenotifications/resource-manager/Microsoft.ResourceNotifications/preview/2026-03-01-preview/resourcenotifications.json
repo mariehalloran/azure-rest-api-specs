@@ -659,7 +659,7 @@
         "tags": [
           "ProviderSettingsOperations"
         ],
-        "description": "Create or update provider settings. logicalTable is system-resolved.",
+        "description": "Create or update provider settings.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -4031,13 +4031,8 @@
     },
     "ProviderSettingsProperties": {
       "type": "object",
-      "description": "Properties of ProviderSettings. ARG metadata (logicalTable) is system-resolved and read-only.",
+      "description": "Properties of ProviderSettings.",
       "properties": {
-        "logicalTable": {
-          "type": "string",
-          "description": "ARG logical table for this provider's types. Read-only - resolved from ARG dataset configuration at runtime.",
-          "readOnly": true
-        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "Read-only provisioning state.",
@@ -4639,11 +4634,6 @@
         "validationPolicy": {
           "$ref": "#/definitions/ValidationPolicy",
           "description": "Validation policy controlling who may publish this type. Set by the type owner."
-        },
-        "logicalTable": {
-          "type": "string",
-          "description": "ARG logical table override for this type. Read-only - resolved from ARG dataset configuration.",
-          "readOnly": true
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",

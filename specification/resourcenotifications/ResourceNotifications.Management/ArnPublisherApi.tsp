@@ -231,13 +231,9 @@ model ProviderSettings
   name: string;
 }
 
-/** Properties of ProviderSettings. ARG metadata (logicalTable) is system-resolved and read-only. */
+/** Properties of ProviderSettings. */
 @added(Versions.v2026_03_01_preview)
 model ProviderSettingsProperties {
-  /** ARG logical table for this provider's types. Read-only - resolved from ARG dataset configuration at runtime. */
-  @visibility(Lifecycle.Read)
-  logicalTable?: string;
-
   /** Read-only provisioning state. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
@@ -249,7 +245,7 @@ interface ProviderSettingsOperations {
   /** Get provider settings for this namespace. */
   get is ArmResourceRead<ProviderSettings>;
 
-  /** Create or update provider settings. logicalTable is system-resolved. */
+  /** Create or update provider settings. */
   createOrUpdate is ArmResourceCreateOrReplaceSync<ProviderSettings>;
 
   /** Delete provider settings. */
@@ -279,10 +275,6 @@ model TypeSetting
 model TypeSettingProperties {
   /** Validation policy controlling who may publish this type. Set by the type owner. */
   validationPolicy: ValidationPolicy;
-
-  /** ARG logical table override for this type. Read-only - resolved from ARG dataset configuration. */
-  @visibility(Lifecycle.Read)
-  logicalTable?: string;
 
   /** Read-only provisioning state. */
   @visibility(Lifecycle.Read)
