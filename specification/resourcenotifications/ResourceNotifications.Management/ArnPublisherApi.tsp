@@ -379,7 +379,7 @@ model IngestionUnit
 @added(Versions.v2026_03_01_preview)
 model IngestionUnitProperties {
   /** ARM resource ID of the linked publisher setting. */
-  linkedPublisherSetting: Azure.Core.armResourceIdentifier;
+  linkedPublisherSettingId: Azure.Core.armResourceIdentifier;
 
   /** Authorization override for this region. */
   authorization?: Authorization;
@@ -515,7 +515,7 @@ model FlowProperties {
   flowKind: FlowKind;
 
   /** ARM resource ID of the linked publisher setting. */
-  linkedPublisherSettingsId: Azure.Core.armResourceIdentifier;
+  linkedPublisherSettingId: Azure.Core.armResourceIdentifier;
 
   /** Fully qualified resource type this flow processes (e.g., 'Microsoft.Compute/virtualMachines'). */
   fullyQualifiedResourceType: string;

@@ -3455,7 +3455,7 @@
           "$ref": "#/definitions/FlowKind",
           "description": "The kind of discovery flow."
         },
-        "linkedPublisherSettingsId": {
+        "linkedPublisherSettingId": {
           "type": "string",
           "format": "arm-id",
           "description": "ARM resource ID of the linked publisher setting."
@@ -3489,7 +3489,7 @@
       "discriminator": "flowKind",
       "required": [
         "flowKind",
-        "linkedPublisherSettingsId",
+        "linkedPublisherSettingId",
         "fullyQualifiedResourceType"
       ]
     },
@@ -3610,7 +3610,7 @@
       "type": "object",
       "description": "Properties for an ingestion unit resource.",
       "properties": {
-        "linkedPublisherSetting": {
+        "linkedPublisherSettingId": {
           "type": "string",
           "format": "arm-id",
           "description": "ARM resource ID of the linked publisher setting."
@@ -3647,7 +3647,7 @@
         }
       },
       "required": [
-        "linkedPublisherSetting",
+        "linkedPublisherSettingId",
         "publisherUsageUnit"
       ]
     },
