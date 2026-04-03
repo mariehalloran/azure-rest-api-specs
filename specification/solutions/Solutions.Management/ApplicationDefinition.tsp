@@ -77,7 +77,8 @@ interface ApplicationDefinitionOpsById {
      */
     @bodyRoot
     parameters: ApplicationDefinition,
-  ): ArmResponse<ApplicationDefinition> | ArmCreatedResponse<ApplicationDefinition> | ErrorResponse;
+  ): ArmResponse<ApplicationDefinition> | (CreatedResponse &
+    Body<ApplicationDefinition>) | ErrorResponse;
 
   /**
    * Updates the managed application definition.
