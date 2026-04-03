@@ -130,11 +130,8 @@ interface Applications {
   updateAccess is ArmResourceActionAsyncBase<
     Application,
     UpdateAccessDefinition,
-    OkResponse | ArmAcceptedLroResponse<
-      "Resource operation accepted.",
-      ArmLroLocationHeader<FinalResult = UpdateAccessDefinition> &
-        Body<UpdateAccessDefinition>
-    >,
+    OkResponse | (ArmAcceptedLroResponse<"Resource operation accepted."> &
+      Body<UpdateAccessDefinition>),
     BaseParameters = Azure.ResourceManager.Foundations.BaseParameters<Application>
   >;
 
