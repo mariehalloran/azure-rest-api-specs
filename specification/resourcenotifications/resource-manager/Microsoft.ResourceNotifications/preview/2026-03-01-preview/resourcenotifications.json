@@ -1087,7 +1087,7 @@
         "tags": [
           "AllowedPublishers"
         ],
-        "description": "Grant a publisher permission to publish this type. Type owner controls sendToArg.",
+        "description": "Grant a publisher permission to publish this type.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -2750,13 +2750,8 @@
     },
     "AllowedPublisherProperties": {
       "type": "object",
-      "description": "Properties of an AllowedPublisher entry. sendToArg is set by the type owner.",
+      "description": "Properties of an AllowedPublisher entry.",
       "properties": {
-        "sendToArg": {
-          "type": "boolean",
-          "description": "Forward this publisher's events to ARG (default: true). Set by the type owner.",
-          "default": true
-        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "Read-only provisioning state.",
@@ -3622,7 +3617,7 @@
         },
         "authorization": {
           "$ref": "#/definitions/Authorization",
-          "description": "Authorization override for this region. If omitted, inherits from publisherSettings."
+          "description": "Authorization override for this region."
         },
         "publisherUsageUnit": {
           "$ref": "#/definitions/ThrottlingPolicy",

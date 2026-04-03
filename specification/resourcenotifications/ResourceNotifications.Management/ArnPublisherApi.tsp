@@ -330,13 +330,9 @@ model AllowedPublisherResource
   name: string;
 }
 
-/** Properties of an AllowedPublisher entry. sendToArg is set by the type owner. */
+/** Properties of an AllowedPublisher entry. */
 @added(Versions.v2026_03_01_preview)
 model AllowedPublisherProperties {
-  /** Forward this publisher's events to ARG (default: true). Set by the type owner. */
-  #suppress "EnumInsteadOfBoolean" "sendToArg is a simple on/off toggle; an enum adds no value"
-  sendToArg?: boolean = true;
-
   /** Read-only provisioning state. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
@@ -348,7 +344,7 @@ interface AllowedPublishers {
   /** Get an allowed publisher entry. */
   get is ArmResourceRead<AllowedPublisherResource>;
 
-  /** Grant a publisher permission to publish this type. Type owner controls sendToArg. */
+  /** Grant a publisher permission to publish this type. */
   createOrUpdate is ArmResourceCreateOrReplaceSync<AllowedPublisherResource>;
 
   /** Revoke a publisher's permission to publish this type. */
@@ -385,7 +381,7 @@ model IngestionUnitProperties {
   /** ARM resource ID of the linked publisher setting. */
   linkedPublisherSetting: Azure.Core.armResourceIdentifier;
 
-  /** Authorization override for this region. If omitted, inherits from publisherSettings. */
+  /** Authorization override for this region. */
   authorization?: Authorization;
 
   /** Throttling policy for this ingestion unit. Required. */
