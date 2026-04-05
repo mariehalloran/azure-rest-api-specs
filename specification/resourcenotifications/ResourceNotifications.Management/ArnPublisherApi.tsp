@@ -333,6 +333,9 @@ model AllowedPublisherResource
 /** Properties of an AllowedPublisher entry. */
 @added(Versions.v2026_03_01_preview)
 model AllowedPublisherProperties {
+  /** Optional validation policy override for this specific delegation grant. */
+  validationPolicy?: ValidationPolicy;
+
   /** Read-only provisioning state. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;

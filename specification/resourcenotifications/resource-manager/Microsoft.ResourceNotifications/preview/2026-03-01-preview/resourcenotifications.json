@@ -2752,6 +2752,10 @@
       "type": "object",
       "description": "Properties of an AllowedPublisher entry.",
       "properties": {
+        "validationPolicy": {
+          "$ref": "#/definitions/ValidationPolicy",
+          "description": "Optional validation policy override for this specific delegation grant."
+        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "Read-only provisioning state.",
