@@ -12369,11 +12369,6 @@
           "format": "int32",
           "description": "Number of fault domains configured in the cluster.",
           "readOnly": true
-        },
-        "faultDomainPrefix": {
-          "type": "string",
-          "description": "Naming prefix for fault domains configured in the cluster (e.g., \"Rack\").",
-          "readOnly": true
         }
       }
     },
@@ -16559,11 +16554,6 @@
           "type": "string",
           "format": "date-time",
           "description": "Last time data updated to service.",
-          "readOnly": true
-        },
-        "faultDomainName": {
-          "type": "string",
-          "description": "Fault domain name assigned to this edge machine after a ConfigureFaultDomain job succeeds.",
           "readOnly": true
         }
       }
@@ -24412,6 +24402,11 @@
           "type": "integer",
           "format": "int64",
           "description": "Number of storage disks in the device with $CanPool as true.",
+          "readOnly": true
+        },
+        "faultDomainName": {
+          "type": "string",
+          "description": "Fault domain name assigned to this edge machine after a ConfigureFaultDomain job succeeds.",
           "readOnly": true
         }
       }

@@ -228,18 +228,17 @@ Read-only child resource of `Cluster` for surfacing cluster storage volumes.
 
 | Field | Type | Access | Description |
 |---|---|---|---|
-| `faultDomainCount` | `int32` | Read-only | Number of fault domains configured in the cluster. |
-| `faultDomainPrefix` | `string` | Read-only | Naming prefix for fault domains (e.g., "Rack" → Rack1, Rack2, …). |
+| `localAvailabilityZoneCount` | `int32` | Read-only | Number of local availability zones configured in the cluster. |
 
 ---
 
-## EdgeMachineProperties
+## StorageProfile (EdgeMachineReportedProperties)
 
 ### New fields
 
 | Field | Type | Access | Description |
 |---|---|---|---|
-| `faultDomainName` | `string` | Read-only | Fault domain name assigned to this edge machine after a `ConfigureFaultDomain` job succeeds. |
+| `localAvailabilityZoneName` | `string` | Read-only | Local availability zone name assigned to this edge machine after a `ConfigureLocalAvailabilityZone` job succeeds. |
 
 ---
 
@@ -249,25 +248,24 @@ Read-only child resource of `Cluster` for surfacing cluster storage volumes.
 
 | Value | Description |
 |---|---|
-| `ConfigureFaultDomain` | Job to configure fault domains for the cluster. |
+| `ConfigureLocalAvailabilityZone` | Job to configure local availability zones for the cluster. |
 
-## HciConfigureFaultDomainJobProperties (new model)
+## HciConfigureLocalAvailabilityZoneJobProperties (new model)
 
-Extends `ClusterJobProperties` with discriminator value `ConfigureFaultDomain`.
-
-### New fields
-
-| Field | Type | Access | Description |
-|---|---|---|---|
-| `faultDomainCount` | `int32` | Read/Write | Number of fault domains to create (1-8). |
-| `faultDomainPrefix` | `string` | Read/Write | Naming prefix for fault domains (e.g., "Rack" creates Rack1, Rack2, etc.). |
-| `nodeAssignment` | `FaultDomainNodeAssignment[]` | Read/Write | Mapping of fault domain names to their assigned nodes. |
-
-## FaultDomainNodeAssignment (new model)
+Extends `ClusterJobProperties` with discriminator value `ConfigureLocalAvailabilityZone`.
 
 ### New fields
 
 | Field | Type | Access | Description |
 |---|---|---|---|
-| `faultDomainName` | `string` | Read/Write | Name of the fault domain (e.g., Rack1, Rack2). |
-| `nodes` | `string[]` | Read/Write | List of node names assigned to this fault domain. |
+| `localAvailabilityZoneCount` | `int32` | Read/Write | Number of local availability zones to create (1-2). |
+| `localAvailabilityZones` | `LocalAvailabilityZoneNodeAssignment[]` | Read/Write | Mapping of local availability zone names to their assigned nodes. |
+
+## LocalAvailabilityZoneNodeAssignment (new model)
+
+### New fields
+
+| Field | Type | Access | Description |
+|---|---|---|---|
+| `localAvailabilityZoneName` | `string` | Read/Write | Name of the local availability zone (e.g., Zone1, Zone2). |
+| `nodes` | `string[]` | Read/Write | List of node names assigned to this local availability zone. |

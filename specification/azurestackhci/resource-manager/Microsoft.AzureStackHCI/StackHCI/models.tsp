@@ -21,8 +21,8 @@ union HciJobType {
   /** Job to repair a server in the cluster. */
   RepairServer: "RepairServer",
 
-  /** Job to configure fault domains for the cluster. */
-  ConfigureFaultDomain: "ConfigureFaultDomain",
+  /** Job to configure local availability zones for the cluster. */
+  ConfigureLocalAvailabilityZone: "ConfigureLocalAvailabilityZone",
 
   // PRIVATE PREVIEW - Arc Gateway and GPU job types
   /** Job to configure arc gateway for the cluster. */
@@ -2557,22 +2557,15 @@ model ClusterReportedProperties {
   hardwareClass?: HardwareClass = HardwareClass.Medium;
 
   /**
-   * Number of fault domains configured in the cluster.
+   * Number of local availability zones configured in the cluster.
    */
   @added(Versions.v2026_03_15_preview)
   @visibility(Lifecycle.Read)
-  faultDomainCount?: int32;
-
-  /**
-   * Naming prefix for fault domains configured in the cluster (e.g., "Rack").
-   */
-  @added(Versions.v2026_03_15_preview)
-  @visibility(Lifecycle.Read)
-  faultDomainPrefix?: string;
+  localAvailabilityZoneCount?: int32;
 }
 
 /**
- * Cluster node details.  
+ * Cluster node details.
  */
 model ClusterNode {
   /**
@@ -6755,36 +6748,33 @@ model HciRepairServerJobProperties extends ClusterJobProperties {
 }
 
 ////////////////////////////////////////////////////////////////
-////////////// Fault Domain Config Job Models /////////////////
+////////// Local Availability Zone Config Job Models //////////
 ////////////////////////////////////////////////////////////////
 
-/** Mapping of a fault domain to its assigned nodes. */
+/** Mapping of a local availability zone to its assigned nodes. */
 @added(Versions.v2026_03_15_preview)
-model FaultDomainNodeAssignment {
-  /** Name of the fault domain (e.g., Rack1, Rack2). */
-  faultDomainName: string;
+model LocalAvailabilityZoneNodeAssignment {
+  /** Name of the local availability zone (e.g., Zone1, Zone2). */
+  localAvailabilityZoneName: string;
 
-  /** List of node names assigned to this fault domain. */
+  /** List of node names assigned to this local availability zone. */
   nodes: string[];
 }
 
-/** Properties for configuring fault domains in the cluster. */
+/** Properties for configuring local availability zones in the cluster. */
 @added(Versions.v2026_03_15_preview)
-model HciConfigureFaultDomainJobProperties extends ClusterJobProperties {
+model HciConfigureLocalAvailabilityZoneJobProperties extends ClusterJobProperties {
   /** ClusterJob Type to support polymorphic resource. */
-  jobType: HciJobType.ConfigureFaultDomain;
+  jobType: HciJobType.ConfigureLocalAvailabilityZone;
 
-  /** Number of fault domains to create (1-8). */
+  /** Number of local availability zones to create (1-2). */
   @minValue(1)
-  @maxValue(8)
-  faultDomainCount: int32;
+  @maxValue(2)
+  localAvailabilityZoneCount: int32;
 
-  /** Naming prefix for fault domains. Each fault domain is named <Prefix>1, <Prefix>2, etc. */
-  faultDomainPrefix: string;
-
-  /** Mapping of fault domain names to their assigned nodes. */
-  @Azure.ResourceManager.identifiers(#["faultDomainName"])
-  nodeAssignment: FaultDomainNodeAssignment[];
+  /** Mapping of local availability zone names to their assigned nodes. */
+  @Azure.ResourceManager.identifiers(#["localAvailabilityZoneName"])
+  localAvailabilityZones: LocalAvailabilityZoneNodeAssignment[];
 }
 
 ////////////////////////////////////////////////////////////////
@@ -7139,12 +7129,6 @@ model EdgeMachineProperties {
    */
   @visibility(Lifecycle.Read)
   lastSyncTimestamp?: utcDateTime;
-
-  /**
-   * Fault domain name assigned to this edge machine after a ConfigureFaultDomain job succeeds.
-   */
-  @visibility(Lifecycle.Read)
-  faultDomainName?: string;
 }
 
 /**
@@ -7839,6 +7823,12 @@ model StorageProfile {
    */
   @visibility(Lifecycle.Read)
   poolableDisksCount?: int64;
+
+  /**
+   * Local availability zone name assigned to this edge machine after a ConfigureLocalAvailabilityZone job succeeds.
+   */
+  @visibility(Lifecycle.Read)
+  localAvailabilityZoneName?: string;
 }
 /**
  * details of validation failure

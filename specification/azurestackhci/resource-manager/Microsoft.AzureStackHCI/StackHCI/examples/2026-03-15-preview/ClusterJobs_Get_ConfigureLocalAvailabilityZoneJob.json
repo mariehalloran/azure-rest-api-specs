@@ -1,18 +1,18 @@
 {
-  "title": "ClusterJobs_Get_ConfigureFaultDomainJob",
+  "title": "ClusterJobs_Get_ConfigureLocalAvailabilityZoneJob",
   "operationId": "ClusterJobs_Get",
   "parameters": {
     "subscriptionId": "fd3c3665-1729-4b7b-9a38-238e83b0f98b",
     "resourceGroupName": "test-rg",
     "clusterName": "myCluster",
-    "jobsName": "configurefaultdomain",
+    "jobsName": "configurelocalavailabilityzone",
     "api-version": "2026-03-15-preview"
   },
   "responses": {
     "200": {
       "body": {
-        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/user-pvtrp-rg/providers/Microsoft.AzureStackHCI/clusters/hciclu3/jobs/configurefaultdomain",
-        "name": "configurefaultdomain",
+        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/user-pvtrp-rg/providers/Microsoft.AzureStackHCI/clusters/hciclu3/jobs/configurelocalavailabilityzone",
+        "name": "configurelocalavailabilityzone",
         "type": "Microsoft.azurestackhci/clusters/jobs",
         "systemData": {
           "createdBy": "user@microsoft.com",
@@ -23,37 +23,22 @@
           "lastModifiedAt": "2024-01-29T10:43:27.9471574Z"
         },
         "properties": {
-          "jobType": "ConfigureFaultDomain",
+          "jobType": "ConfigureLocalAvailabilityZone",
           "deploymentMode": "Deploy",
-          "faultDomainCount": 4,
-          "faultDomainPrefix": "Rack",
-          "nodeAssignment": [
+          "localAvailabilityZoneCount": 2,
+          "localAvailabilityZones": [
             {
-              "faultDomainName": "Rack1",
+              "localAvailabilityZoneName": "Zone1",
               "nodes": [
                 "ASRR1N42R13U17",
                 "ASRR1N42R13U18"
               ]
             },
             {
-              "faultDomainName": "Rack2",
+              "localAvailabilityZoneName": "Zone2",
               "nodes": [
                 "ASRR1N42R13U19",
                 "ASRR1N42R13U20"
-              ]
-            },
-            {
-              "faultDomainName": "Rack3",
-              "nodes": [
-                "ASRR1N42R13U21",
-                "ASRR1N42R13U22"
-              ]
-            },
-            {
-              "faultDomainName": "Rack4",
-              "nodes": [
-                "ASRR1N42R13U23",
-                "ASRR1N42R13U24"
               ]
             }
           ],
@@ -63,8 +48,8 @@
               "steps": [
                 {
                   "fullStepIndex": "0",
-                  "name": "Fault Domain Configuration",
-                  "description": "Configure Fault Domains.",
+                  "name": "Local Availability Zone Configuration",
+                  "description": "Configure Local Availability Zones.",
                   "startTimeUtc": "2023-06-09T00:08:19",
                   "endTimeUtc": "2023-06-09T04:01:47",
                   "status": "Error",
@@ -94,8 +79,8 @@
               "steps": [
                 {
                   "fullStepIndex": "0",
-                  "name": "Fault Domain Configuration",
-                  "description": "Configure Fault Domains.",
+                  "name": "Local Availability Zone Configuration",
+                  "description": "Configure Local Availability Zones.",
                   "startTimeUtc": "2023-06-09T00:08:19",
                   "endTimeUtc": "2023-06-09T04:01:47",
                   "status": "Error",
