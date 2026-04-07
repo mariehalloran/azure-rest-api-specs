@@ -127,10 +127,11 @@ interface Applications {
   /**
    * Update access for application.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/no-response-body" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   updateAccess is ArmResourceActionAsyncBase<
     Application,
     UpdateAccessDefinition,
-    OkResponse | (ArmAcceptedLroResponse<"Resource operation accepted."> &
+    ArmResponse<UpdateAccessDefinition> | (ArmAcceptedLroResponse<"Resource operation accepted."> &
       Body<UpdateAccessDefinition>),
     BaseParameters = Azure.ResourceManager.Foundations.BaseParameters<Application>
   >;
