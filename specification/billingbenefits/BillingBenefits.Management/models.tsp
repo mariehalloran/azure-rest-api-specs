@@ -14,6 +14,79 @@ using TypeSpec.Versioning;
 namespace Microsoft.BillingBenefits;
 
 /**
+ * Common versioned properties added to all benefit resources starting from v2026_02_01.
+ * Spread this model into any benefit resource's properties to include these fields.
+ * New cross-cutting properties for future versions should be added here.
+ */
+model BenefitCommonVersionedProperties {
+  /**
+   * Invitation identifier
+   */
+  @added(Versions.v2026_02_01)
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  invitationId?: string;
+}
+
+/**
+ * Versioned expansion properties for Credit, MACC, and ConditionalCredit resources.
+ * Contains properties common to these three resource types but not applicable to Discount or FreeServices.
+ * Spreads BenefitCommonVersionedProperties to include all cross-cutting versioned properties.
+ */
+model BenefitVersionedExpansionProperties {
+  ...BenefitCommonVersionedProperties;
+
+  /**
+   * Amount of benefit that has been consumed
+   */
+  @added(Versions.v2026_02_01)
+  @visibility(Lifecycle.Read)
+  consumed?: Price;
+}
+
+/**
+ * Canonical billing scope properties for benefit resources.
+ * Contains readOnly billing account, billing profile, customer identifiers, plus versioned common properties.
+ * Use `...BenefitBillingScopeProperties` in new resource properties models.
+ * Currently used by Discount and FreeServices; recommended for all future benefit resources.
+ */
+model BenefitBillingScopeProperties {
+  /**
+   * Fully-qualified identifier of the billing account where the benefit is applied.
+   */
+  @visibility(Lifecycle.Read)
+  billingAccountResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      scopes: ["Tenant"];
+      type: "Microsoft.Billing/billingAccounts";
+    }
+  ]>;
+
+  /**
+   * Fully-qualified identifier of the billing profile where the benefit is applied.
+   */
+  @visibility(Lifecycle.Read)
+  billingProfileResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      scopes: ["Tenant"];
+      type: "Microsoft.Billing/billingAccounts";
+    }
+  ]>;
+
+  /**
+   * Customer resource id where the benefit is scoped to.
+   */
+  @visibility(Lifecycle.Read)
+  customerResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      scopes: ["Tenant"];
+      type: "Microsoft.Billing/billingAccounts/customers";
+    }
+  ]>;
+
+  ...BenefitCommonVersionedProperties;
+}
+
+/**
  * Represents the result of listing savings plan models
  */
 model SavingsPlanModelListResult {
@@ -243,9 +316,10 @@ union DiscountStatus {
 }
 
 /**
- * List of applied scopes supported for discounts.
+ * List of applied scope types supported for benefit resources.
  */
-union DiscountAppliedScopeType {
+@renamedFrom(Versions.v2026_02_01, "DiscountAppliedScopeType")
+union BenefitAppliedScopeType {
   string,
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   BillingAccount: "BillingAccount",
@@ -298,6 +372,12 @@ union DiscountType {
   CustomPrice: "CustomPrice",
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   CustomPriceMultiCurrency: "CustomPriceMultiCurrency",
+
+  /**
+   * Azure promotion discount type.
+   */
+  @added(Versions.v2026_02_01)
+  AzurePromotion: "AzurePromotion",
 }
 
 /**
@@ -714,6 +794,12 @@ model AppliedScopeProperties {
    * Display name
    */
   displayName?: string;
+
+  /**
+   * Benefit filter key
+   */
+  @added(Versions.v2026_02_01)
+  benefitFilter?: string;
 }
 
 /**
@@ -1580,38 +1666,7 @@ model DiscountProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: DiscountProvisioningState;
 
-  /**
-   * Billing account resource id where the discount metadata is present.
-   */
-  @visibility(Lifecycle.Read)
-  billingAccountResourceId?: Azure.Core.armResourceIdentifier<[
-    {
-      scopes: ["Tenant"];
-      type: "Microsoft.Billing/billingAccounts";
-    }
-  ]>;
-
-  /**
-   * Billing profile resource id where the discount is scoped to.
-   */
-  @visibility(Lifecycle.Read)
-  billingProfileResourceId?: Azure.Core.armResourceIdentifier<[
-    {
-      scopes: ["Tenant"];
-      type: "Microsoft.Billing/billingAccounts";
-    }
-  ]>;
-
-  /**
-   * Customer resource id where the discount is scoped to.
-   */
-  @visibility(Lifecycle.Read)
-  customerResourceId?: Azure.Core.armResourceIdentifier<[
-    {
-      scopes: ["Tenant"];
-      type: "Microsoft.Billing/billingAccounts/customers";
-    }
-  ]>;
+  ...BenefitBillingScopeProperties;
 
   /**
    * This defines a user friendly display name for the discount.
@@ -1638,7 +1693,14 @@ model DiscountProperties {
   /**
    * List of applied scopes supported for discounts.
    */
-  appliedScopeType?: DiscountAppliedScopeType;
+  appliedScopeType?: BenefitAppliedScopeType;
+
+  /**
+   * Product details including SKU title, product family, and product type.
+   */
+  @added(Versions.v2026_02_01)
+  @visibility(Lifecycle.Read)
+  productDetails?: ProductDetailsBase;
 }
 
 /**
@@ -1922,6 +1984,22 @@ model ConditionsItem {
 }
 
 /**
+ * Discount type properties for Azure promotion discounts.
+ */
+@added(Versions.v2026_02_01)
+model DiscountTypeAzurePromotion extends DiscountTypeProperties {
+  /**
+   * Product family for which the discount is given. Validation: Optional
+   */
+  productFamilyName?: string;
+
+  /**
+   * Defines the type of discount. Supported values are ProductFamily, Product, Sku, CustomPrice, and CustomPriceMultiCurrency.
+   */
+  discountType: DiscountType.AzurePromotion;
+}
+
+/**
  * Discount type properties including product family name
  */
 model DiscountTypeProductFamily extends DiscountTypeProperties {
@@ -1933,7 +2011,7 @@ model DiscountTypeProductFamily extends DiscountTypeProperties {
   /**
    * Defines the type of discount. Supported values are ProductFamily, Product, Sku, CustomPrice, and CustomPriceMultiCurrency.
    */
-  discountType: "ProductFamily";
+  discountType: DiscountType.ProductFamily;
 }
 
 /**
@@ -1953,7 +2031,7 @@ model DiscountTypeProduct extends DiscountTypeProperties {
   /**
    * Defines the type of discount. Supported values are ProductFamily, Product, Sku, CustomPrice, and CustomPriceMultiCurrency.
    */
-  discountType: "Product";
+  discountType: DiscountType.Product;
 }
 
 /**
@@ -1978,7 +2056,7 @@ model DiscountTypeProductSku extends DiscountTypeProperties {
   /**
    * Defines the type of discount. Supported values are ProductFamily, Product, Sku, CustomPrice, and CustomPriceMultiCurrency.
    */
-  discountType: "Sku";
+  discountType: DiscountType.Sku;
 }
 
 alias DiscountCommonProperties = {
@@ -2344,6 +2422,21 @@ model MaccModelProperties {
       type: "Microsoft.Billing/billingAccounts";
     }
   ]>;
+
+  /**
+   * Product details including SKU title, product family, and product type.
+   */
+  @added(Versions.v2026_02_01)
+  @visibility(Lifecycle.Read)
+  productDetails?: ProductDetailsBase;
+
+  /**
+   * Type of the applied scope for the MACC.
+   */
+  @added(Versions.v2026_02_01)
+  appliedScopeType?: BenefitAppliedScopeType;
+
+  ...BenefitVersionedExpansionProperties;
 }
 
 /**
@@ -2561,6 +2654,82 @@ model CreditPolicies {
 }
 
 /**
+ * Indicates where the credit benefit is applied
+ */
+@added(Versions.v2026_02_01)
+union AppliedOn {
+  string,
+
+  /**
+   * Applied on consume charges
+   */
+  consumption: "consumption",
+
+  /**
+   * Applied on invoice
+   */
+  invoice: "invoice",
+
+  /**
+   * Applied externally
+   */
+  external: "external",
+}
+
+/** Common product detail properties shared across all benefit resources */
+@added(Versions.v2026_02_01)
+model ProductDetailsBase {
+  /** SKU title of the product */
+  skuTitle?: string;
+
+  /**
+   * The product family.
+   */
+  productFamily?: string;
+
+  /**
+   * The type of the product.
+   */
+  productType?: string;
+}
+
+/**
+ * Product details for a credit
+ */
+@added(Versions.v2026_02_01)
+model CreditProductDetails {
+  ...ProductDetailsBase;
+
+  /**
+   * Indicates where the credit benefit is applied (e.g., consume, invoice, or external application).
+   */
+  appliedOn?: AppliedOn[];
+
+  /**
+   * Specifies which price point is used when applying the credit (for example, market price or unit price).
+   */
+  appliedPrice?: string;
+}
+
+/**
+ * Product details for a transaction
+ */
+@added(Versions.v2026_02_01)
+model TransactionProductDetails {
+  ...ProductDetailsBase;
+
+  /**
+   * Additional SKU-level properties for the product.
+   */
+  skuProperties?: string;
+
+  /**
+   * The publisher type of the product.
+   */
+  publisherType?: string;
+}
+
+/**
  * Properties of a credit
  */
 model CreditProperties {
@@ -2623,6 +2792,18 @@ model CreditProperties {
   ]>;
 
   /**
+   * Customer resource id where the benefit is scoped to.
+   */
+  @added(Versions.v2026_02_01)
+  @visibility(Lifecycle.Read)
+  customerResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      scopes: ["Tenant"];
+      type: "Microsoft.Billing/billingAccounts";
+    }
+  ]>;
+
+  /**
    * Credit line-items/milestones/no-charge services breakdown
    */
   #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
@@ -2640,8 +2821,16 @@ model CreditProperties {
   systemId?: string;
 
   /**
+   * Funding system identifier used in credit transfer scenario.
+   */
+  @added(Versions.v2026_02_01)
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  fundingSystemId?: string;
+
+  /**
    * Fully-qualified identifier of the customer where the savings plan is applied. Present only for Partner-led customers. Format is /providers/Microsoft.Billing/billingAccounts/{acctId:orgId}
    */
+  @removed(Versions.v2026_02_01)
   @visibility(Lifecycle.Read)
   customerId?: string;
 
@@ -2649,6 +2838,21 @@ model CreditProperties {
    * Fully-qualified resource identifier of the resource. Format: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/{benefitType}/{benefitName}.
    */
   resourceId?: Azure.Core.armResourceIdentifier;
+
+  ...BenefitVersionedExpansionProperties;
+
+  /**
+   * Product details including SKU title, product kind, offer type, and application details
+   */
+  @added(Versions.v2026_02_01)
+  @visibility(Lifecycle.Read)
+  productDetails?: CreditProductDetails;
+
+  /**
+   * Type of the applied scope for the credit.
+   */
+  @added(Versions.v2026_02_01)
+  appliedScopeType?: BenefitAppliedScopeType;
 }
 
 /**
@@ -2739,6 +2943,149 @@ model CreditPatchProperties {
 model CreditsList is Azure.Core.Page<Credit>;
 
 /**
+ * Request body for the changeSponsor action on a credit.
+ */
+@added(Versions.v2026_02_01)
+model ChangeSponsorRequest {
+  /** The PC code of the new sponsor. */
+  pcCode?: string;
+}
+
+/**
+ * Properties of a transaction
+ */
+@added(Versions.v2026_02_01)
+model TransactionProperties {
+  /**
+   * Provisioning state of the transaction.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * This is the DateTime when the transaction occurred.
+   */
+  date?: utcDateTime;
+
+  /**
+   * The type of transaction such as usage, purchase, refund.
+   */
+  chargeType?: string;
+
+  /**
+   * Billing lifecycle status such as open (charge may still change), closed (charge is finalized)
+   */
+  billingStatus?: string;
+
+  /**
+   * Fully-qualified identifier of the invoice.
+   */
+  invoiceResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      scopes: ["Tenant"];
+      type: "Microsoft.Billing/billingAccounts";
+    }
+  ]>;
+
+  /**
+   * Transaction amount in billing currency.
+   */
+  amountInBillingCurrency?: Price;
+
+  /**
+   * Transaction amount in pricing currency.
+   */
+  amountInPricingCurrency?: Price;
+
+  /**
+   * The unique identifier code for the product.
+   */
+  productCode?: string;
+
+  /**
+   * Product details including SKU title, SKU properties, product family, type, and publisher type.
+   */
+  productDetails?: TransactionProductDetails;
+}
+
+/**
+ * Transaction patch request properties
+ */
+@added(Versions.v2026_02_01)
+model TransactionPatchProperties {
+  /**
+   * This is the DateTime when the transaction occurred.
+   */
+  date?: utcDateTime;
+
+  /**
+   * The type of transaction such as usage, purchase, refund.
+   */
+  chargeType?: string;
+
+  /**
+   * Billing lifecycle status such as open (charge may still change), closed (charge is finalized)
+   */
+  billingStatus?: string;
+
+  /**
+   * Fully-qualified identifier of the invoice.
+   */
+  invoiceResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      scopes: ["Tenant"];
+      type: "Microsoft.Billing/billingAccounts";
+    }
+  ]>;
+
+  /**
+   * Transaction amount in billing currency.
+   */
+  amountInBillingCurrency?: Price;
+
+  /**
+   * Transaction amount in pricing currency.
+   */
+  amountInPricingCurrency?: Price;
+
+  /**
+   * The unique identifier code for the product.
+   */
+  productCode?: string;
+
+  /**
+   * Product details including SKU title, SKU properties, product family, type, and publisher type.
+   */
+  productDetails?: TransactionProductDetails;
+}
+
+/**
+ * Transaction patch request, reserved for admin-only operations routed through RPaaS.
+ */
+#suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model" "Empty patch body intentional - admin patches properties server-side via RPaaS"
+@added(Versions.v2026_02_01)
+model TransactionPatchRequest {}
+
+/**
+ * List of transactions
+ */
+@added(Versions.v2026_02_01)
+model TransactionsList is Azure.Core.Page<CreditTransaction>;
+
+/**
+ * List of Macc transactions
+ */
+@added(Versions.v2026_02_01)
+model MaccTransactionsList is Azure.Core.Page<MaccTransaction>;
+
+/**
+ * List of conditional credit transactions
+ */
+@added(Versions.v2026_02_01)
+model ConditionalCreditTransactionsList
+  is Azure.Core.Page<ConditionalCreditTransaction>;
+
+/**
  * List of applicable conditional credits
  */
 model ConditionalCreditList is Azure.Core.Page<ConditionalCredit>;
@@ -2817,6 +3164,21 @@ model ConditionalCreditProperties {
    * Fully-qualified resource identifier of the resource. Format: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/{benefitType}/{benefitName}.
    */
   resourceId?: Azure.Core.armResourceIdentifier;
+
+  /**
+   * Product details including SKU title, product family, and product type.
+   */
+  @added(Versions.v2026_02_01)
+  @visibility(Lifecycle.Read)
+  productDetails?: ProductDetailsBase;
+
+  /**
+   * Type of the applied scope for the conditional credit.
+   */
+  @added(Versions.v2026_02_01)
+  appliedScopeType?: BenefitAppliedScopeType;
+
+  ...BenefitVersionedExpansionProperties;
 }
 
 /**
@@ -3317,43 +3679,19 @@ model FreeServicesProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: string;
 
-  /**
-   * Billing account resource id where the free services metadata is present.
-   */
-  @visibility(Lifecycle.Read)
-  billingAccountResourceId?: Azure.Core.armResourceIdentifier<[
-    {
-      scopes: ["Tenant"];
-      type: "Microsoft.Billing/billingAccounts";
-    }
-  ]>;
-
-  /**
-   * Billing profile resource id where the free services are scoped to.
-   */
-  @visibility(Lifecycle.Read)
-  billingProfileResourceId?: Azure.Core.armResourceIdentifier<[
-    {
-      scopes: ["Tenant"];
-      type: "Microsoft.Billing/billingAccounts";
-    }
-  ]>;
-
-  /**
-   * Customer resource id where the free services are scoped to.
-   */
-  @visibility(Lifecycle.Read)
-  customerResourceId?: Azure.Core.armResourceIdentifier<[
-    {
-      scopes: ["Tenant"];
-      type: "Microsoft.Billing/billingAccounts/customers";
-    }
-  ]>;
+  ...BenefitBillingScopeProperties;
 
   /**
    * This is the globally unique identifier of the free services which will not change for its lifetime.
    */
   systemId?: string;
+
+  /**
+   * Product details including SKU title, product family, and product type.
+   */
+  @added(Versions.v2026_02_01)
+  @visibility(Lifecycle.Read)
+  productDetails?: ProductDetailsBase;
 }
 
 /**
@@ -3431,4 +3769,99 @@ model FreeServicesList {
   @visibility(Lifecycle.Read)
   @nextLink
   nextLink?: string;
+}
+
+// ─── CatalogGroup models ──────────────────────────────────────────────────────
+
+/**
+ * Properties of a catalog group.
+ */
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Read-only proxy resource with no provisioning lifecycle"
+@added(Versions.v2026_02_01)
+model CatalogGroupProperties {
+  /**
+   * The top-level benefit resource type (e.g., maccs, credits, conditionalCredits, discounts, savingsPlans, reservations).
+   */
+  benefitResourceType?: string;
+
+  /**
+   * Dot-separated path encoding the category hierarchy within a benefit type (e.g., maccs, VirtualMachines, SQL.ManagedInstance). The default group namespace equals the benefitResourceType.
+   */
+  @encodedName("application/json", "namespace")
+  catalogNamespace?: string;
+
+  /**
+   * Display name for the catalog group.
+   */
+  displayName?: string;
+
+  /**
+   * Short description of the catalog group.
+   */
+  shortDescription?: string;
+
+  /**
+   * Long description of the catalog group.
+   */
+  longDescription?: string;
+
+  /**
+   * Link to learn more about this catalog group. Uses the forward-link format https://go.microsoft.com/fwlink/?linkid=<linkId>.
+   */
+  learnMoreLink?: string;
+
+  /**
+   * Manifest-sourced array of search terms for this catalog group. Omitted when empty.
+   */
+  keywords?: string[];
+
+  /**
+   * URI to the benefit type's SVG icon. Null when not resolved.
+   */
+  icon?: string;
+
+  /**
+   * Capabilities of the catalog group as key-value pairs. Omitted when a benefit type has no defined capabilities.
+   */
+  @identifiers(#[])
+  capabilities?: CatalogGroupCapability[];
+
+  /**
+   * Optional disclaimers (legal or eligibility caveats) for the catalog group. Included only when caveats apply.
+   */
+  disclaimers?: string[];
+}
+
+/**
+ * A capability key-value pair on a catalog group.
+ */
+@added(Versions.v2026_02_01)
+model CatalogGroupCapability {
+  /**
+   * The capability key (e.g., SelfServiceExchange, Renewability).
+   */
+  key?: string;
+
+  /**
+   * The capability value (e.g., Supported, Not Supported).
+   */
+  value?: string;
+}
+
+/**
+ * The list of catalog groups.
+ */
+@added(Versions.v2026_02_01)
+model CatalogGroupList {
+  /**
+   * The list of catalog groups.
+   */
+  @pageItems
+  value?: CatalogGroup[];
+
+  /**
+   * Url to get the next page.
+   */
+  @nextLink
+  nextLink?: url;
 }

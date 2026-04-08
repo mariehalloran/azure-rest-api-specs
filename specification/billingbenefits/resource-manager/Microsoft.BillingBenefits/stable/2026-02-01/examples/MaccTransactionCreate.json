@@ -1,0 +1,92 @@
+{
+  "parameters": {
+    "api-version": "2026-02-01",
+    "maccName": "macc-20250101-001",
+    "transactionName": "txn-macc-001",
+    "resourceGroupName": "benefits-rg",
+    "subscriptionId": "30000000-0000-0000-0000-000000000000",
+    "resource": {
+      "properties": {
+        "date": "2025-07-15T14:22:00Z",
+        "chargeType": "usage",
+        "billingStatus": "closed",
+        "invoiceResourceId": "/providers/Microsoft.Billing/billingAccounts/20000000-1000-0000-0000-000000000000/billingProfiles/ABCD-1234-5678-9012/invoices/INV20250001",
+        "amountInBillingCurrency": {
+          "currencyCode": "USD",
+          "amount": 150.0
+        },
+        "amountInPricingCurrency": {
+          "currencyCode": "USD",
+          "amount": 150.0
+        },
+        "productCode": "UPN242544",
+        "productDetails": {
+          "skuTitle": "Standard D4s v3",
+          "productFamily": "Compute",
+          "productType": "Virtual Machines Dv2 Series",
+          "publisherType": "Microsoft"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/30000000-0000-0000-0000-000000000000/resourceGroups/benefits-rg/providers/Microsoft.BillingBenefits/maccs/macc-20250101-001/transactions/txn-macc-001",
+        "name": "txn-macc-001",
+        "type": "Microsoft.BillingBenefits/maccs/transactions",
+        "properties": {
+          "date": "2025-07-15T14:22:00Z",
+          "chargeType": "usage",
+          "billingStatus": "closed",
+          "invoiceResourceId": "/providers/Microsoft.Billing/billingAccounts/20000000-1000-0000-0000-000000000000/billingProfiles/ABCD-1234-5678-9012/invoices/INV20250001",
+          "amountInBillingCurrency": {
+            "currencyCode": "USD",
+            "amount": 150.0
+          },
+          "amountInPricingCurrency": {
+            "currencyCode": "USD",
+            "amount": 150.0
+          },
+          "productCode": "UPN242544",
+          "productDetails": {
+            "skuTitle": "Standard D4s v3",
+            "productFamily": "Compute",
+            "productType": "Virtual Machines Dv2 Series",
+            "publisherType": "Microsoft"
+          }
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/30000000-0000-0000-0000-000000000000/resourceGroups/benefits-rg/providers/Microsoft.BillingBenefits/maccs/macc-20250101-001/transactions/txn-macc-001",
+        "name": "txn-macc-001",
+        "type": "Microsoft.BillingBenefits/maccs/transactions",
+        "properties": {
+          "date": "2025-07-15T14:22:00Z",
+          "chargeType": "usage",
+          "billingStatus": "closed",
+          "invoiceResourceId": "/providers/Microsoft.Billing/billingAccounts/20000000-1000-0000-0000-000000000000/billingProfiles/ABCD-1234-5678-9012/invoices/INV20250001",
+          "amountInBillingCurrency": {
+            "currencyCode": "USD",
+            "amount": 150.0
+          },
+          "amountInPricingCurrency": {
+            "currencyCode": "USD",
+            "amount": 150.0
+          },
+          "productCode": "UPN242544",
+          "productDetails": {
+            "skuTitle": "Standard D4s v3",
+            "productFamily": "Compute",
+            "productType": "Virtual Machines Dv2 Series",
+            "publisherType": "Microsoft"
+          }
+        }
+      }
+    }
+  },
+  "operationId": "MaccTransactions_Create",
+  "title": "MaccTransactionCreate"
+}

@@ -5643,7 +5643,7 @@
     },
     "DiscountAppliedScopeType": {
       "type": "string",
-      "description": "List of applied scopes supported for discounts.",
+      "description": "List of applied scope types supported for benefit resources.",
       "enum": [
         "BillingAccount",
         "BillingProfile",
@@ -5790,7 +5790,7 @@
         "billingAccountResourceId": {
           "type": "string",
           "format": "arm-id",
-          "description": "Billing account resource id where the discount metadata is present.",
+          "description": "Fully-qualified identifier of the billing account where the benefit is applied.",
           "readOnly": true,
           "x-ms-arm-id-details": {
             "allowedResources": [
@@ -5806,7 +5806,7 @@
         "billingProfileResourceId": {
           "type": "string",
           "format": "arm-id",
-          "description": "Billing profile resource id where the discount is scoped to.",
+          "description": "Fully-qualified identifier of the billing profile where the benefit is applied.",
           "readOnly": true,
           "x-ms-arm-id-details": {
             "allowedResources": [
@@ -5822,7 +5822,7 @@
         "customerResourceId": {
           "type": "string",
           "format": "arm-id",
-          "description": "Customer resource id where the discount is scoped to.",
+          "description": "Customer resource id where the benefit is scoped to.",
           "readOnly": true,
           "x-ms-arm-id-details": {
             "allowedResources": [
@@ -6375,7 +6375,7 @@
         "billingAccountResourceId": {
           "type": "string",
           "format": "arm-id",
-          "description": "Billing account resource id where the free services metadata is present.",
+          "description": "Fully-qualified identifier of the billing account where the benefit is applied.",
           "readOnly": true,
           "x-ms-arm-id-details": {
             "allowedResources": [
@@ -6391,7 +6391,7 @@
         "billingProfileResourceId": {
           "type": "string",
           "format": "arm-id",
-          "description": "Billing profile resource id where the free services are scoped to.",
+          "description": "Fully-qualified identifier of the billing profile where the benefit is applied.",
           "readOnly": true,
           "x-ms-arm-id-details": {
             "allowedResources": [
@@ -6407,7 +6407,7 @@
         "customerResourceId": {
           "type": "string",
           "format": "arm-id",
-          "description": "Customer resource id where the free services are scoped to.",
+          "description": "Customer resource id where the benefit is scoped to.",
           "readOnly": true,
           "x-ms-arm-id-details": {
             "allowedResources": [
