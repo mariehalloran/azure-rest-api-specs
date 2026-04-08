@@ -1,0 +1,43 @@
+{
+  "title": "Services_ListBySubscription",
+  "operationId": "Services_ListBySubscription",
+  "parameters": {
+    "api-version": "2026-05-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-aiops/providers/Microsoft.AIOps/services/my-service",
+            "name": "my-service",
+            "type": "Microsoft.AIOps/services",
+            "location": "eastus2",
+            "tags": {
+              "environment": "production",
+              "team": "health-engine"
+            },
+            "identity": {
+              "type": "SystemAssigned",
+              "principalId": "11111111-1111-1111-1111-111111111111",
+              "tenantId": "22222222-2222-2222-2222-222222222222"
+            },
+            "properties": {
+              "provisioningState": "Succeeded",
+              "dataplaneEndpoint": "https://my-service.aiops.azure.com"
+            },
+            "systemData": {
+              "createdBy": "user@contoso.com",
+              "createdByType": "User",
+              "createdAt": "2026-04-01T12:00:00.000Z",
+              "lastModifiedBy": "user@contoso.com",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-04-01T12:00:00.000Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
