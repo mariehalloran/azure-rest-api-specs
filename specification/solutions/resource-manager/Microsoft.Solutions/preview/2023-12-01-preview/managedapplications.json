@@ -1256,10 +1256,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/UpdateAccessDefinition"
-            }
+            "description": "The request has succeeded."
           },
           "202": {
             "description": "The request has been accepted for processing, but processing has not yet completed.",
@@ -1291,7 +1288,8 @@
           }
         },
         "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
+          "final-state-via": "location",
+          "final-state-schema": "#/definitions/Application"
         },
         "x-ms-long-running-operation": true
       }
