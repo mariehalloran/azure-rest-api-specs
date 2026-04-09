@@ -1,3 +1,6 @@
+parameters:
+  "service-dir":
+    default: "sdk/aiops"
 emit:
   - "@azure-tools/typespec-autorest"
 options:
@@ -7,23 +10,28 @@ options:
     output-file: "{emitter-output-dir}/{version-status}/{version}/aiops.json"
     arm-types-dir: "{project-root}/../../../../common-types/resource-management"
   "@azure-tools/typespec-csharp":
+    flavor: azure
     emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.AIOps"
     clear-output-folder: true
-    model-namespace: false
+    model-namespace: true
     namespace: "Azure.ResourceManager.AIOps"
   "@azure-tools/typespec-python":
     emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-aiops"
-    namespace: "azure.mgmt.aiops"
+    package-name: "azure-mgmt-aiops"
     generate-test: true
     generate-sample: true
+    flavor: "azure"
+    namespace: azure.mgmt.aiops
   "@azure-tools/typespec-java":
     emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-aiops"
     namespace: "com.azure.resourcemanager.aiops"
     service-name: "aiops"
+    flavor: azure
   "@azure-tools/typespec-ts":
     emitter-output-dir: "{output-dir}/{service-dir}/arm-aiops"
     experimental-extensible-enums: true
-    flavor: azure
+    is-modular-library: true
+    flavor: "azure"
     package-details:
       name: "@azure/arm-aiops"
   "@azure-tools/typespec-go":
@@ -31,10 +39,12 @@ options:
     emitter-output-dir: "{output-dir}/{service-dir}/armaiops"
     module: "github.com/Azure/azure-sdk-for-go/{service-dir}/armaiops"
     fix-const-stuttering: true
-    generate-samples: true
+    flavor: "azure"
+    generate-examples: true
     generate-fakes: true
     head-as-boolean: true
     inject-spans: true
+    generate-samples: true
 linter:
   extends:
     - "@azure-tools/typespec-azure-rulesets/resource-manager"
