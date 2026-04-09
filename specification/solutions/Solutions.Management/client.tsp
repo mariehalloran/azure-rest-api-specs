@@ -27,3 +27,9 @@ using Microsoft.Solutions;
   "JitRequests",
   "python"
 );
+
+@@clientName(ApplicationDefinitionOpsById.getById,
+  "getByResourceGroup",
+  "java"
+);
+@@clientName(ApplicationDefinitions.get, "getById", "java");
