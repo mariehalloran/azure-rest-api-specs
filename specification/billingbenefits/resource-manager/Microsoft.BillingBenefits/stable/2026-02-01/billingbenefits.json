@@ -5778,9 +5778,9 @@
       "type": "object",
       "description": "Request body for the changeSponsor action on a credit.",
       "properties": {
-        "pcCode": {
+        "sponsorId": {
           "type": "string",
-          "description": "The PC code of the new sponsor."
+          "description": "The sponsor ID of the new sponsor."
         }
       }
     },
@@ -6729,6 +6729,11 @@
         "systemId": {
           "type": "string",
           "description": "System identifier"
+        },
+        "orderId": {
+          "type": "string",
+          "description": "Identifier of the $0 transaction created during credit acquisition.",
+          "readOnly": true
         },
         "fundingSystemId": {
           "type": "string",

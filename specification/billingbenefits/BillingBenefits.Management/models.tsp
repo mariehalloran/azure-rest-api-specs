@@ -2821,6 +2821,13 @@ model CreditProperties {
   systemId?: string;
 
   /**
+   * Identifier of the $0 transaction created during credit acquisition.
+   */
+  @added(Versions.v2026_02_01)
+  @visibility(Lifecycle.Read)
+  orderId?: string;
+
+  /**
    * Funding system identifier used in credit transfer scenario.
    */
   @added(Versions.v2026_02_01)
@@ -2947,8 +2954,8 @@ model CreditsList is Azure.Core.Page<Credit>;
  */
 @added(Versions.v2026_02_01)
 model ChangeSponsorRequest {
-  /** The PC code of the new sponsor. */
-  pcCode?: string;
+  /** The sponsor ID of the new sponsor. */
+  sponsorId?: string;
 }
 
 /**
