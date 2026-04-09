@@ -1,6 +1,6 @@
 {
-  "title": "Services_UpdateTags",
-  "operationId": "Services_UpdateTags",
+  "title": "Services_Update",
+  "operationId": "Services_Update",
   "parameters": {
     "api-version": "2026-05-01-preview",
     "subscriptionId": "00000000-0000-0000-0000-000000000000",
@@ -11,6 +11,9 @@
         "environment": "staging",
         "team": "health-engine",
         "costCenter": "12345"
+      },
+      "identity": {
+        "type": "SystemAssigned"
       }
     }
   },
@@ -41,8 +44,14 @@
           "createdAt": "2026-04-01T12:00:00.000Z",
           "lastModifiedBy": "user@contoso.com",
           "lastModifiedByType": "User",
-          "lastModifiedAt": "2026-04-08T10:00:00.000Z"
+          "lastModifiedAt": "2026-04-09T10:00:00.000Z"
         }
+      }
+    },
+    "202": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.AIOps/locations/eastus2/operationStatuses/00000000-0000-0000-0000-000000000003?api-version=2026-05-01-preview",
+        "Retry-After": 10
       }
     }
   }
