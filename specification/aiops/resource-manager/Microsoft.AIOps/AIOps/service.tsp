@@ -69,5 +69,12 @@ interface Services {
   listBySubscription is ArmListBySubscription<Service>;
 
   /** Update a Microsoft.AIOps service resource. */
-  update is ArmResourcePatchAsync<Service, ServiceProperties>;
+  @Azure.Core.useFinalStateVia("azure-async-operation")
+  update is ArmResourcePatchAsync<
+    Service,
+    ServiceProperties,
+    LroHeaders = ArmAsyncOperationHeader<FinalResult = Service> &
+      ArmLroLocationHeader<FinalResult = Service> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
 }
