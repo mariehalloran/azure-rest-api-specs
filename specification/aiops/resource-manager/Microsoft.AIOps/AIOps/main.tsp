@@ -13,9 +13,7 @@ using Azure.ResourceManager;
 
 /** Microsoft.AIOps Resource Provider management API. */
 @armProviderNamespace
-@service(#{
-  title: "Microsoft.AIOps management service",
-})
+@service(#{ title: "Microsoft.AIOps management service" })
 @versioned(Microsoft.AIOps.Versions)
 namespace Microsoft.AIOps;
 
