@@ -74,7 +74,6 @@ interface Services {
     Service,
     ServiceProperties,
     LroHeaders = ArmAsyncOperationHeader<FinalResult = Service> &
-      ArmLroLocationHeader<FinalResult = Service> &
       Azure.Core.Foundations.RetryAfterHeader
   >;
 }
