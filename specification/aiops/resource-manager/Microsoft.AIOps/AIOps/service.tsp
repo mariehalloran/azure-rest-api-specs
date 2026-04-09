@@ -68,6 +68,6 @@ interface Services {
   /** List Microsoft.AIOps service resources by subscription. */
   listBySubscription is ArmListBySubscription<Service>;
 
-  /** Update tags for a Microsoft.AIOps service resource. */
-  updateTags is ArmTagsPatchSync<Service>;
+  /** Update a Microsoft.AIOps service resource. */
+  update is ArmResourcePatchAsync<Service, ServiceProperties>;
 }
