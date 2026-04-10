@@ -133,7 +133,7 @@ interface Applications {
     UpdateAccessDefinition,
     OkResponse | (ArmAcceptedLroResponse<
       "Resource operation accepted.",
-      ArmLroLocationHeader<FinalResult = Application> &
+      ArmLroLocationHeader<FinalResult = UpdateAccessDefinition> &
         Azure.Core.Foundations.RetryAfterHeader
     > &
       Body<UpdateAccessDefinition>),
