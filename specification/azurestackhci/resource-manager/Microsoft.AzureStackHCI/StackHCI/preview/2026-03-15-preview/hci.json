@@ -143,6 +143,9 @@
     },
     {
       "name": "DevicePools"
+    },
+    {
+      "name": "ProxyConfigurations"
     }
   ],
   "paths": {
@@ -9062,6 +9065,103 @@
           "final-state-via": "location"
         },
         "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/proxyConfigurations": {
+      "get": {
+        "operationId": "ProxyConfigurations_List",
+        "tags": [
+          "ProxyConfigurations"
+        ],
+        "description": "List proxy configuration resources by Edge Machine.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ProxyConfigurationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ProxyConfigurations_List": {
+            "$ref": "./examples/ProxyConfigurations_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/proxyConfigurations/default": {
+      "get": {
+        "operationId": "ProxyConfigurations_Get",
+        "tags": [
+          "ProxyConfigurations"
+        ],
+        "description": "Get the proxy configuration of an Edge Machine.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ProxyConfiguration"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ProxyConfigurations_Get": {
+            "$ref": "./examples/ProxyConfigurations_Get.json"
+          }
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/validate": {
@@ -20331,6 +20431,57 @@
         ]
       },
       "readOnly": true
+    },
+    "ProxyConfiguration": {
+      "type": "object",
+      "description": "Proxy configuration for an Edge Machine.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ProxyConfigurationProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "ProxyConfigurationListResult": {
+      "type": "object",
+      "description": "The response of a ProxyConfiguration list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ProxyConfiguration items on this page",
+          "items": {
+            "$ref": "#/definitions/ProxyConfiguration"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ProxyConfigurationProperties": {
+      "type": "object",
+      "description": "Proxy configuration properties for an Edge Machine.",
+      "properties": {
+        "webProxy": {
+          "$ref": "#/definitions/WebProxyConfiguration",
+          "description": "Web proxy configuration."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the proxy configuration resource.",
+          "readOnly": true
+        }
+      }
     },
     "Publisher": {
       "type": "object",

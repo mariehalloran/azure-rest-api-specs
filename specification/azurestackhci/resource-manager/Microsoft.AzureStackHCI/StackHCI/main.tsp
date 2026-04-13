@@ -44,6 +44,7 @@ import "./ValidateOwnershipVouchers.tsp";
 import "./ClusterJobs.tsp";
 import "./ClusterVolume.tsp";
 import "./DevicePool.tsp";
+import "./ProxyConfiguration.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;

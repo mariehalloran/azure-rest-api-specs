@@ -10957,3 +10957,20 @@ union ClusterVolumeProvisioningType {
   /** Fixed provisioning. */
   Fixed: "Fixed",
 }
+
+////////////////////////////////////////////////////////////////
+///// PRIVATE PREVIEW - Edge Machine Proxy Configuration Models ////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Proxy configuration properties for an Edge Machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProxyConfigurationProperties {
+  /** Web proxy configuration. */
+  webProxy?: WebProxyConfiguration;
+
+  /** Provisioning state of the proxy configuration resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
