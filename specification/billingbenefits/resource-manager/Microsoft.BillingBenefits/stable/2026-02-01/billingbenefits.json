@@ -86,6 +86,15 @@
     },
     {
       "name": "ConditionalCreditTransactions"
+    },
+    {
+      "name": "SubscriptionCatalogGroupsOps"
+    },
+    {
+      "name": "BillingAccountCatalogGroupsOps"
+    },
+    {
+      "name": "BillingProfileCatalogGroupsOps"
     }
   ],
   "paths": {
@@ -209,28 +218,41 @@
         }
       }
     },
-    "/{scope}/providers/Microsoft.BillingBenefits/catalogGroups": {
+    "/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/providers/Microsoft.BillingBenefits/catalogGroups": {
       "get": {
-        "operationId": "CatalogGroups_List",
-        "description": "List catalog groups at a given scope. Supported scopes: subscriptions, billing accounts, billing profiles.",
+        "operationId": "BillingProfileCatalogGroupsOps_List",
+        "tags": [
+          "BillingProfileCatalogGroupsOps"
+        ],
+        "description": "List catalog groups at the target scope.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "name": "scope",
+            "name": "billingAccountName",
             "in": "path",
-            "description": "The scope at which the catalog groups are listed. Supported scopes: subscriptions/{subscriptionId}, providers/Microsoft.Billing/billingAccounts/{billingAccountId}, providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}.",
+            "description": "The name of the resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "billingProfileName",
+            "in": "path",
+            "description": "The name of the billing profile.",
             "required": true,
             "type": "string",
-            "x-ms-skip-url-encoding": true
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "$ref": "#/parameters/CatalogGroupsListParameters"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/CatalogGroupList"
+              "$ref": "#/definitions/CatalogGroupListResult"
             }
           },
           "default": {
@@ -241,8 +263,8 @@
           }
         },
         "x-ms-examples": {
-          "CatalogGroupsList": {
-            "$ref": "./examples/CatalogGroupsList.json"
+          "BillingProfileCatalogGroupsList": {
+            "$ref": "./examples/CatalogGroupsBillingProfileList.json"
           }
         },
         "x-ms-pageable": {
@@ -250,26 +272,36 @@
         }
       }
     },
-    "/{scope}/providers/Microsoft.BillingBenefits/catalogGroups/{catalogGroupName}": {
+    "/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/providers/Microsoft.BillingBenefits/catalogGroups/{catalogGroupName}": {
       "get": {
-        "operationId": "CatalogGroups_Get",
-        "description": "Get a specific catalog group at a given scope.",
+        "operationId": "BillingProfileCatalogGroupsOps_Get",
+        "tags": [
+          "BillingProfileCatalogGroupsOps"
+        ],
+        "description": "Get a specific catalog group at the target scope.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "name": "scope",
+            "name": "billingAccountName",
             "in": "path",
-            "description": "The scope at which the catalog group is retrieved.",
+            "description": "The name of the resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "billingProfileName",
+            "in": "path",
+            "description": "The name of the billing profile.",
             "required": true,
             "type": "string",
-            "x-ms-skip-url-encoding": true
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
           },
           {
             "name": "catalogGroupName",
             "in": "path",
-            "description": "The name of the catalog group (e.g., reservations.VirtualMachines, credits.default).",
+            "description": "The name of the CatalogGroup",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
@@ -290,8 +322,102 @@
           }
         },
         "x-ms-examples": {
-          "CatalogGroupsGet": {
-            "$ref": "./examples/CatalogGroupsGet.json"
+          "BillingProfileCatalogGroupsGet": {
+            "$ref": "./examples/CatalogGroupsBillingProfileGet.json"
+          }
+        }
+      }
+    },
+    "/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/providers/Microsoft.BillingBenefits/catalogGroups": {
+      "get": {
+        "operationId": "BillingAccountCatalogGroupsOps_List",
+        "tags": [
+          "BillingAccountCatalogGroupsOps"
+        ],
+        "description": "List catalog groups at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "billingAccountName",
+            "in": "path",
+            "description": "The name of the resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/CatalogGroupsListParameters"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroupListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "BillingAccountCatalogGroupsList": {
+            "$ref": "./examples/CatalogGroupsBillingAccountList.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/providers/Microsoft.BillingBenefits/catalogGroups/{catalogGroupName}": {
+      "get": {
+        "operationId": "BillingAccountCatalogGroupsOps_Get",
+        "tags": [
+          "BillingAccountCatalogGroupsOps"
+        ],
+        "description": "Get a specific catalog group at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "billingAccountName",
+            "in": "path",
+            "description": "The name of the resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "catalogGroupName",
+            "in": "path",
+            "description": "The name of the CatalogGroup",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroup"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "BillingAccountCatalogGroupsGet": {
+            "$ref": "./examples/CatalogGroupsBillingAccountGet.json"
           }
         }
       }
@@ -1328,6 +1454,92 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.BillingBenefits/catalogGroups": {
+      "get": {
+        "operationId": "SubscriptionCatalogGroupsOps_List",
+        "tags": [
+          "SubscriptionCatalogGroupsOps"
+        ],
+        "description": "List catalog groups at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/CatalogGroupsListParameters"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroupListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SubscriptionCatalogGroupsList": {
+            "$ref": "./examples/CatalogGroupsSubscriptionList.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.BillingBenefits/catalogGroups/{catalogGroupName}": {
+      "get": {
+        "operationId": "SubscriptionCatalogGroupsOps_Get",
+        "tags": [
+          "SubscriptionCatalogGroupsOps"
+        ],
+        "description": "Get a specific catalog group at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "catalogGroupName",
+            "in": "path",
+            "description": "The name of the CatalogGroup",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroup"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SubscriptionCatalogGroupsGet": {
+            "$ref": "./examples/CatalogGroupsSubscriptionGet.json"
+          }
         }
       }
     },
@@ -5307,27 +5519,27 @@
       "type": "string",
       "description": "Indicates where the credit benefit is applied",
       "enum": [
-        "consumption",
-        "invoice",
-        "external"
+        "Consumption",
+        "Invoice",
+        "External"
       ],
       "x-ms-enum": {
         "name": "AppliedOn",
         "modelAsString": true,
         "values": [
           {
-            "name": "consumption",
-            "value": "consumption",
+            "name": "Consumption",
+            "value": "Consumption",
             "description": "Applied on consume charges"
           },
           {
-            "name": "invoice",
-            "value": "invoice",
+            "name": "Invoice",
+            "value": "Invoice",
             "description": "Applied on invoice"
           },
           {
-            "name": "external",
-            "value": "external",
+            "name": "External",
+            "value": "External",
             "description": "Applied externally"
           }
         ]
@@ -5359,7 +5571,7 @@
         },
         "benefitFilter": {
           "type": "string",
-          "description": "Benefit filter key"
+          "description": "A filter string passed to downstream services to categorize and apply usage benefits to specific resource models. Expected format: \"key/value\" (e.g., \"contractid/2025 H2CPU\"). The value is not validated by BillingBenefits and is forwarded as-is."
         }
       }
     },
@@ -5475,6 +5687,11 @@
     "Azure.Core.armResourceType": {
       "type": "string",
       "description": "Represents an Azure Resource Type."
+    },
+    "Azure.Core.uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Universally Unique Identifier"
     },
     "BenefitAppliedScopeType": {
       "type": "string",
@@ -5687,7 +5904,7 @@
     },
     "CatalogGroupCapability": {
       "type": "object",
-      "description": "A capability key-value pair on a catalog group.",
+      "description": "A key-value pair representing a capability of the catalog group (for example, exchange or renewal support).",
       "properties": {
         "key": {
           "type": "string",
@@ -5697,15 +5914,19 @@
           "type": "string",
           "description": "The capability value (e.g., Supported, Not Supported)."
         }
-      }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
     },
-    "CatalogGroupList": {
+    "CatalogGroupListResult": {
       "type": "object",
-      "description": "The list of catalog groups.",
+      "description": "The response of a CatalogGroup list operation.",
       "properties": {
         "value": {
           "type": "array",
-          "description": "The list of catalog groups.",
+          "description": "The CatalogGroup items on this page",
           "items": {
             "$ref": "#/definitions/CatalogGroup"
           }
@@ -5713,21 +5934,24 @@
         "nextLink": {
           "type": "string",
           "format": "uri",
-          "description": "Url to get the next page."
+          "description": "The link to the next page of items"
         }
-      }
+      },
+      "required": [
+        "value"
+      ]
     },
     "CatalogGroupProperties": {
       "type": "object",
       "description": "Properties of a catalog group.",
       "properties": {
-        "benefitResourceType": {
-          "type": "string",
+        "resourceType": {
+          "$ref": "#/definitions/ResourceType",
           "description": "The top-level benefit resource type (e.g., maccs, credits, conditionalCredits, discounts, savingsPlans, reservations)."
         },
         "namespace": {
           "type": "string",
-          "description": "Dot-separated path encoding the category hierarchy within a benefit type (e.g., maccs, VirtualMachines, SQL.ManagedInstance). The default group namespace equals the benefitResourceType.",
+          "description": "Dot-separated path encoding the category hierarchy within a benefit type (e.g., VirtualMachines, SQL.ManagedInstance). The default group namespace equals the resourceType.",
           "x-ms-client-name": "catalogNamespace"
         },
         "displayName": {
@@ -5744,6 +5968,7 @@
         },
         "learnMoreLink": {
           "type": "string",
+          "format": "uri",
           "description": "Link to learn more about this catalog group. Uses the forward-link format https://go.microsoft.com/fwlink/?linkid=<linkId>."
         },
         "keywords": {
@@ -5755,7 +5980,7 @@
         },
         "icon": {
           "type": "string",
-          "description": "URI to the benefit type's SVG icon. Null when not resolved."
+          "description": "The benefit type's icon as JSON-escaped SVG markup. After parsing, the value is a complete `<svg>…</svg>` element."
         },
         "capabilities": {
           "type": "array",
@@ -5772,7 +5997,11 @@
             "type": "string"
           }
         }
-      }
+      },
+      "required": [
+        "resourceType",
+        "namespace"
+      ]
     },
     "ChangeSponsorRequest": {
       "type": "object",
@@ -5780,7 +6009,7 @@
       "properties": {
         "sponsorId": {
           "type": "string",
-          "description": "The sponsor ID of the new sponsor."
+          "description": "Financial code identifying the new sponsor. This is an alphanumeric identifier assigned by the billing system, for example P20567384."
         }
       }
     },
@@ -6629,7 +6858,7 @@
         },
         "appliedPrice": {
           "type": "string",
-          "description": "Specifies which price point is used when applying the credit (for example, market price or unit price)."
+          "description": "Specifies which price point is used when applying the credit. Known values include \"MarketPrice\", \"UnitPrice\", and \"BenefitGroupPrice:<groupId>\" where <groupId> identifies the benefit group."
         }
       }
     },
@@ -6736,8 +6965,8 @@
           "readOnly": true
         },
         "fundingSystemId": {
-          "type": "string",
-          "description": "Funding system identifier used in credit transfer scenario.",
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "Unique identifier (UUID) of the funding lot assigned by the benefit publisher. Used in credit transfer scenarios to trace the originating credit lot.",
           "x-ms-mutability": [
             "read",
             "create"
@@ -7300,7 +7529,7 @@
                 "scopes": [
                   "Tenant"
                 ],
-                "type": "Microsoft.Billing/billingAccounts"
+                "type": "Microsoft.Billing/billingAccounts/billingProfiles"
               }
             ]
           }
@@ -7920,7 +8149,7 @@
                 "scopes": [
                   "Tenant"
                 ],
-                "type": "Microsoft.Billing/billingAccounts"
+                "type": "Microsoft.Billing/billingAccounts/billingProfiles"
               }
             ]
           }
@@ -7951,7 +8180,7 @@
         },
         "systemId": {
           "type": "string",
-          "description": "This is the globally unique identifier of the free services which will not change for its lifetime."
+          "description": "This is the globally unique identifier of the free services which will not change for its lifetime. Generated by the benefit publisher."
         },
         "productDetails": {
           "$ref": "#/definitions/ProductDetailsBase",
@@ -9180,6 +9409,11 @@
           "format": "date-time",
           "description": "This is the date-time when the Azure Hybrid Benefit needs to be reviewed."
         },
+        "benefitStartTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "This is the DateTime when the reservation benefit started."
+        },
         "reservedResourceProperties": {
           "$ref": "#/definitions/ReservationOrderAliasRequestPropertiesReservedResourceProperties",
           "description": "Properties specific to each reserved resource type. Not required if not applicable."
@@ -9279,6 +9513,11 @@
           "type": "string",
           "format": "date-time",
           "description": "This is the date-time when the Reservation needs to be reviewed."
+        },
+        "benefitStartTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "This is the DateTime when the reservation benefit started."
         },
         "reservedResourceProperties": {
           "$ref": "#/definitions/ReservationOrderAliasResponsePropertiesReservedResourceProperties",
@@ -9446,6 +9685,60 @@
         }
       }
     },
+    "ResourceType": {
+      "type": "string",
+      "description": "The top-level ARM resource type for a billing benefit (e.g., maccs, credits, savingsPlans, reservations).",
+      "enum": [
+        "Maccs",
+        "Credits",
+        "ConditionalCredits",
+        "Discounts",
+        "FreeServices",
+        "SavingsPlans",
+        "Reservations"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Maccs",
+            "value": "Maccs",
+            "description": "Microsoft Azure Consumption Commitments"
+          },
+          {
+            "name": "Credits",
+            "value": "Credits",
+            "description": "Credits"
+          },
+          {
+            "name": "ConditionalCredits",
+            "value": "ConditionalCredits",
+            "description": "Conditional Credits"
+          },
+          {
+            "name": "Discounts",
+            "value": "Discounts",
+            "description": "Discounts"
+          },
+          {
+            "name": "FreeServices",
+            "value": "FreeServices",
+            "description": "FreeServices"
+          },
+          {
+            "name": "SavingsPlans",
+            "value": "SavingsPlans",
+            "description": "Savings Plan"
+          },
+          {
+            "name": "Reservations",
+            "value": "Reservations",
+            "description": "Reservations"
+          }
+        ]
+      }
+    },
     "RoleAssignmentEntity": {
       "type": "object",
       "description": "Role assignment entity",
@@ -9587,7 +9880,7 @@
                 "scopes": [
                   "Tenant"
                 ],
-                "type": "Microsoft.Billing/billingAccounts"
+                "type": "Microsoft.Billing/billingAccounts/billingProfiles"
               }
             ]
           }
@@ -9847,7 +10140,7 @@
                 "scopes": [
                   "Tenant"
                 ],
-                "type": "Microsoft.Billing/billingAccounts"
+                "type": "Microsoft.Billing/billingAccounts/billingProfiles"
               }
             ]
           }
@@ -10295,6 +10588,60 @@
         ]
       }
     },
+    "TransactionBillingStatus": {
+      "type": "string",
+      "description": "Billing lifecycle status of a transaction.",
+      "enum": [
+        "Open",
+        "Closed"
+      ],
+      "x-ms-enum": {
+        "name": "TransactionBillingStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Open",
+            "value": "Open",
+            "description": "Charge may still change."
+          },
+          {
+            "name": "Closed",
+            "value": "Closed",
+            "description": "Charge is finalized."
+          }
+        ]
+      }
+    },
+    "TransactionChargeType": {
+      "type": "string",
+      "description": "The type of charge for a transaction.",
+      "enum": [
+        "Usage",
+        "Purchase",
+        "Refund"
+      ],
+      "x-ms-enum": {
+        "name": "TransactionChargeType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Usage",
+            "value": "Usage",
+            "description": "Usage charge. Applicable to all benefits."
+          },
+          {
+            "name": "Purchase",
+            "value": "Purchase",
+            "description": "Purchase charge. Applicable to MACC, CACO, ACO, MC only."
+          },
+          {
+            "name": "Refund",
+            "value": "Refund",
+            "description": "Refund charge. Applicable to all benefits."
+          }
+        ]
+      }
+    },
     "TransactionPatchRequest": {
       "type": "object",
       "description": "Transaction patch request, reserved for admin-only operations routed through RPaaS."
@@ -10321,7 +10668,7 @@
         },
         "publisherType": {
           "type": "string",
-          "description": "The publisher type of the product."
+          "description": "The publisher type of the product, for example \"Microsoft\" for first-party or a third-party publisher name. Additional values may be introduced in the future."
         }
       }
     },
@@ -10340,12 +10687,12 @@
           "description": "This is the DateTime when the transaction occurred."
         },
         "chargeType": {
-          "type": "string",
-          "description": "The type of transaction such as usage, purchase, refund."
+          "$ref": "#/definitions/TransactionChargeType",
+          "description": "The type of charge for this transaction."
         },
         "billingStatus": {
-          "type": "string",
-          "description": "Billing lifecycle status such as open (charge may still change), closed (charge is finalized)"
+          "$ref": "#/definitions/TransactionBillingStatus",
+          "description": "Billing lifecycle status of this transaction."
         },
         "invoiceResourceId": {
           "type": "string",
@@ -10372,7 +10719,7 @@
         },
         "productCode": {
           "type": "string",
-          "description": "The unique identifier code for the product."
+          "description": "Catalog UPN for the product associated with this transaction."
         },
         "productDetails": {
           "$ref": "#/definitions/TransactionProductDetails",
@@ -10449,5 +10796,14 @@
       }
     }
   },
-  "parameters": {}
+  "parameters": {
+    "CatalogGroupsListParameters": {
+      "name": "$filter",
+      "in": "query",
+      "description": "OData filter expression to narrow the list of catalog groups.",
+      "required": false,
+      "type": "string",
+      "x-ms-parameter-location": "method"
+    }
+  }
 }

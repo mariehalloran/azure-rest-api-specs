@@ -68,7 +68,7 @@ model BenefitBillingScopeProperties {
   billingProfileResourceId?: Azure.Core.armResourceIdentifier<[
     {
       scopes: ["Tenant"];
-      type: "Microsoft.Billing/billingAccounts";
+      type: "Microsoft.Billing/billingAccounts/billingProfiles";
     }
   ]>;
 
@@ -710,6 +710,35 @@ union BenefitType {
 }
 
 /**
+ * The top-level ARM resource type for a billing benefit (e.g., maccs, credits, savingsPlans, reservations).
+ */
+@added(Versions.v2026_02_01)
+union ResourceType {
+  string,
+
+  /** Microsoft Azure Consumption Commitments */
+  Maccs: "Maccs",
+
+  /** Credits */
+  Credits: "Credits",
+
+  /** Conditional Credits */
+  ConditionalCredits: "ConditionalCredits",
+
+  /** Discounts */
+  Discounts: "Discounts",
+
+  /** FreeServices */
+  FreeServices: "FreeServices",
+
+  /** Savings Plan */
+  SavingsPlans: "SavingsPlans",
+
+  /** Reservations */
+  Reservations: "Reservations",
+}
+
+/**
  * Savings plan properties
  */
 model SavingsPlanOrderAliasProperties {
@@ -796,9 +825,10 @@ model AppliedScopeProperties {
   displayName?: string;
 
   /**
-   * Benefit filter key
+   * A filter string passed to downstream services to categorize and apply usage benefits to specific resource models. Expected format: "key/value" (e.g., "contractid/2025 H2CPU"). The value is not validated by BillingBenefits and is forwarded as-is.
    */
   @added(Versions.v2026_02_01)
+  @example("clusterId/2025 H2CPU")
   benefitFilter?: string;
 }
 
@@ -851,7 +881,7 @@ model SavingsPlanOrderModelProperties {
   billingProfileId?: Azure.Core.armResourceIdentifier<[
     {
       scopes: ["Tenant"];
-      type: "Microsoft.Billing/billingAccounts";
+      type: "Microsoft.Billing/billingAccounts/billingProfiles";
     }
   ]>;
 
@@ -1068,7 +1098,7 @@ model SavingsPlanModelProperties {
   billingProfileId?: Azure.Core.armResourceIdentifier<[
     {
       scopes: ["Tenant"];
-      type: "Microsoft.Billing/billingAccounts";
+      type: "Microsoft.Billing/billingAccounts/billingProfiles";
     }
   ]>;
 
@@ -1536,6 +1566,12 @@ model ReservationOrderAliasRequestProperties {
   reviewDateTime?: utcDateTime;
 
   /**
+   * This is the DateTime when the reservation benefit started.
+   */
+  @added(Versions.v2026_02_01)
+  benefitStartTime?: utcDateTime;
+
+  /**
    * Properties specific to each reserved resource type. Not required if not applicable.
    */
   reservedResourceProperties?: ReservationOrderAliasRequestPropertiesReservedResourceProperties;
@@ -1617,6 +1653,12 @@ model ReservationOrderAliasResponseProperties {
    */
   // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
   reviewDateTime?: utcDateTime;
+
+  /**
+   * This is the DateTime when the reservation benefit started.
+   */
+  @added(Versions.v2026_02_01)
+  benefitStartTime?: utcDateTime;
 
   /**
    * Properties specific to each reserved resource type. Not required if not applicable.
@@ -2663,17 +2705,17 @@ union AppliedOn {
   /**
    * Applied on consume charges
    */
-  consumption: "consumption",
+  Consumption: "Consumption",
 
   /**
    * Applied on invoice
    */
-  invoice: "invoice",
+  Invoice: "Invoice",
 
   /**
    * Applied externally
    */
-  external: "external",
+  External: "External",
 }
 
 /** Common product detail properties shared across all benefit resources */
@@ -2706,7 +2748,7 @@ model CreditProductDetails {
   appliedOn?: AppliedOn[];
 
   /**
-   * Specifies which price point is used when applying the credit (for example, market price or unit price).
+   * Specifies which price point is used when applying the credit. Known values include "MarketPrice", "UnitPrice", and "BenefitGroupPrice:<groupId>" where <groupId> identifies the benefit group.
    */
   appliedPrice?: string;
 }
@@ -2724,7 +2766,7 @@ model TransactionProductDetails {
   skuProperties?: string;
 
   /**
-   * The publisher type of the product.
+   * The publisher type of the product, for example "Microsoft" for first-party or a third-party publisher name. Additional values may be introduced in the future.
    */
   publisherType?: string;
 }
@@ -2828,11 +2870,11 @@ model CreditProperties {
   orderId?: string;
 
   /**
-   * Funding system identifier used in credit transfer scenario.
+   * Unique identifier (UUID) of the funding lot assigned by the benefit publisher. Used in credit transfer scenarios to trace the originating credit lot.
    */
   @added(Versions.v2026_02_01)
   @visibility(Lifecycle.Read, Lifecycle.Create)
-  fundingSystemId?: string;
+  fundingSystemId?: Azure.Core.uuid;
 
   /**
    * Fully-qualified identifier of the customer where the savings plan is applied. Present only for Partner-led customers. Format is /providers/Microsoft.Billing/billingAccounts/{acctId:orgId}
@@ -2954,8 +2996,40 @@ model CreditsList is Azure.Core.Page<Credit>;
  */
 @added(Versions.v2026_02_01)
 model ChangeSponsorRequest {
-  /** The sponsor ID of the new sponsor. */
+  /** Financial code identifying the new sponsor. This is an alphanumeric identifier assigned by the billing system, for example P20567384. */
+  @example("P30000001")
   sponsorId?: string;
+}
+
+/**
+ * The type of charge for a transaction.
+ */
+@added(Versions.v2026_02_01)
+union TransactionChargeType {
+  string,
+
+  /** Usage charge. Applicable to all benefits. */
+  Usage: "Usage",
+
+  /** Purchase charge. Applicable to MACC, CACO, ACO, MC only. */
+  Purchase: "Purchase",
+
+  /** Refund charge. Applicable to all benefits. */
+  Refund: "Refund",
+}
+
+/**
+ * Billing lifecycle status of a transaction.
+ */
+@added(Versions.v2026_02_01)
+union TransactionBillingStatus {
+  string,
+
+  /** Charge may still change. */
+  Open: "Open",
+
+  /** Charge is finalized. */
+  Closed: "Closed",
 }
 
 /**
@@ -2969,50 +3043,7 @@ model TransactionProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
 
-  /**
-   * This is the DateTime when the transaction occurred.
-   */
-  date?: utcDateTime;
-
-  /**
-   * The type of transaction such as usage, purchase, refund.
-   */
-  chargeType?: string;
-
-  /**
-   * Billing lifecycle status such as open (charge may still change), closed (charge is finalized)
-   */
-  billingStatus?: string;
-
-  /**
-   * Fully-qualified identifier of the invoice.
-   */
-  invoiceResourceId?: Azure.Core.armResourceIdentifier<[
-    {
-      scopes: ["Tenant"];
-      type: "Microsoft.Billing/billingAccounts";
-    }
-  ]>;
-
-  /**
-   * Transaction amount in billing currency.
-   */
-  amountInBillingCurrency?: Price;
-
-  /**
-   * Transaction amount in pricing currency.
-   */
-  amountInPricingCurrency?: Price;
-
-  /**
-   * The unique identifier code for the product.
-   */
-  productCode?: string;
-
-  /**
-   * Product details including SKU title, SKU properties, product family, type, and publisher type.
-   */
-  productDetails?: TransactionProductDetails;
+  ...TransactionPatchProperties;
 }
 
 /**
@@ -3026,14 +3057,14 @@ model TransactionPatchProperties {
   date?: utcDateTime;
 
   /**
-   * The type of transaction such as usage, purchase, refund.
+   * The type of charge for this transaction.
    */
-  chargeType?: string;
+  chargeType?: TransactionChargeType;
 
   /**
-   * Billing lifecycle status such as open (charge may still change), closed (charge is finalized)
+   * Billing lifecycle status of this transaction.
    */
-  billingStatus?: string;
+  billingStatus?: TransactionBillingStatus;
 
   /**
    * Fully-qualified identifier of the invoice.
@@ -3056,7 +3087,7 @@ model TransactionPatchProperties {
   amountInPricingCurrency?: Price;
 
   /**
-   * The unique identifier code for the product.
+   * Catalog UPN for the product associated with this transaction.
    */
   productCode?: string;
 
@@ -3689,7 +3720,7 @@ model FreeServicesProperties {
   ...BenefitBillingScopeProperties;
 
   /**
-   * This is the globally unique identifier of the free services which will not change for its lifetime.
+   * This is the globally unique identifier of the free services which will not change for its lifetime. Generated by the benefit publisher.
    */
   systemId?: string;
 
@@ -3789,13 +3820,13 @@ model CatalogGroupProperties {
   /**
    * The top-level benefit resource type (e.g., maccs, credits, conditionalCredits, discounts, savingsPlans, reservations).
    */
-  benefitResourceType?: string;
+  resourceType: ResourceType;
 
   /**
-   * Dot-separated path encoding the category hierarchy within a benefit type (e.g., maccs, VirtualMachines, SQL.ManagedInstance). The default group namespace equals the benefitResourceType.
+   * Dot-separated path encoding the category hierarchy within a benefit type (e.g., VirtualMachines, SQL.ManagedInstance). The default group namespace equals the resourceType.
    */
   @encodedName("application/json", "namespace")
-  catalogNamespace?: string;
+  catalogNamespace: string;
 
   /**
    * Display name for the catalog group.
@@ -3815,7 +3846,7 @@ model CatalogGroupProperties {
   /**
    * Link to learn more about this catalog group. Uses the forward-link format https://go.microsoft.com/fwlink/?linkid=<linkId>.
    */
-  learnMoreLink?: string;
+  learnMoreLink?: url;
 
   /**
    * Manifest-sourced array of search terms for this catalog group. Omitted when empty.
@@ -3823,8 +3854,9 @@ model CatalogGroupProperties {
   keywords?: string[];
 
   /**
-   * URI to the benefit type's SVG icon. Null when not resolved.
+   * The benefit type's icon as JSON-escaped SVG markup. After parsing, the value is a complete `<svg>…</svg>` element.
    */
+  @example("<svg viewBox=\"0 0 18 18\" class=\"\" role=\"presentation\" focusable=\"false\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" id=\"FxSymbol0-026\"><defs><linearGradient id=\"0069e7e8-fdae-4c19-9033-1c9110b94edb\" x1=\"8.88\" y1=\"12.21\" x2=\"8.88\" y2=\".21\" gradientUnits=\"userSpaceOnUse\"><stop offset=\"0\" stop-color=\"#0078d4\"/><stop offset=\".82\" stop-color=\"#5ea0ef\"/></linearGradient><linearGradient id=\"a7c881fe-6333-4255-971a-27e7240497ec\" x1=\"8.88\" y1=\"16.84\" x2=\"8.88\" y2=\"12.21\" gradientUnits=\"userSpaceOnUse\"><stop offset=\".15\" stop-color=\"#ccc\"/><stop offset=\"1\" stop-color=\"#707070\"/></linearGradient></defs><rect x=\"-.12\" y=\".21\" width=\"18\" height=\"12\" rx=\".6\" fill=\"url(#0069e7e8-fdae-4c19-9033-1c9110b94edb)\"></rect><path fill=\"#50e6ff\" d=\"M11.88 4.46v3.49l-3 1.76v-3.5l3-1.75z\"></path><path fill=\"#c3f1ff\" d=\"M11.88 4.46l-3 1.76-3-1.76 3-1.75 3 1.75z\"></path><path fill=\"#9cebff\" d=\"M8.88 6.22v3.49l-3-1.76V4.46l3 1.76z\"></path><path fill=\"#c3f1ff\" d=\"M5.88 7.95l3-1.74v3.5l-3-1.76z\"></path><path fill=\"#9cebff\" d=\"M11.88 7.95l-3-1.74v3.5l3-1.76z\"></path><path d=\"M12.49 15.84c-1.78-.28-1.85-1.56-1.85-3.63H7.11c0 2.07-.06 3.35-1.84 3.63a1 1 0 0 0-.89 1h9a1 1 0 0 0-.89-1z\" fill=\"url(#a7c881fe-6333-4255-971a-27e7240497ec)\"></path></svg>")
   icon?: string;
 
   /**
@@ -3840,19 +3872,19 @@ model CatalogGroupProperties {
 }
 
 /**
- * A capability key-value pair on a catalog group.
+ * A key-value pair representing a capability of the catalog group (for example, exchange or renewal support).
  */
 @added(Versions.v2026_02_01)
 model CatalogGroupCapability {
   /**
    * The capability key (e.g., SelfServiceExchange, Renewability).
    */
-  key?: string;
+  key: string;
 
   /**
    * The capability value (e.g., Supported, Not Supported).
    */
-  value?: string;
+  value: string;
 }
 
 /**
@@ -3867,7 +3899,7 @@ model CatalogGroupList {
   value?: CatalogGroup[];
 
   /**
-   * Url to get the next page.
+   * URL to get the next page of results, or `null` if this is the last page.
    */
   @nextLink
   nextLink?: url;

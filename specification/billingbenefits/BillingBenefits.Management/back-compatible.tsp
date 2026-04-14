@@ -48,9 +48,6 @@ using Microsoft.BillingBenefits;
 @@clientLocation(FreeServicesOperations.listByResourceGroup, "FreeServices");
 @@clientLocation(FreeServicesOperations.listBySubscription, "FreeServices");
 
-@@clientLocation(CatalogGroupsOperationGroup.list, "CatalogGroups");
-@@clientLocation(CatalogGroupsOperationGroup.get, "CatalogGroups");
-
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(RoleAssignmentEntity.properties
 );
