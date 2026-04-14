@@ -5,7 +5,7 @@
     "api-version": "2026-03-15-preview",
     "subscriptionId": "fd3c3665-1729-4b7b-9a38-238e83b0f98b",
     "resourceGroupName": "test-rg",
-    "edgeMachineName": "machine1"
+    "edgeMachineName": "machine01"
   },
   "responses": {
     "200": {
@@ -13,17 +13,31 @@
         "value": [
           {
             "properties": {
-              "webProxy": {
+              "desiredConfiguration": {
                 "connectionUri": "http://proxy.contoso.com",
                 "port": "8080",
                 "bypassList": [
-                  "http://localhost",
-                  "http://169.254.169.254"
-                ]
+                  "localhost",
+                  "*.contoso.com",
+                  "169.254.169.254"
+                ],
+                "isEnabled": true
               },
+              "reportedConfiguration": {
+                "connectionUri": "http://proxy.contoso.com",
+                "port": "8080",
+                "bypassList": [
+                  "localhost",
+                  "*.contoso.com",
+                  "169.254.169.254"
+                ],
+                "isEnabled": true,
+                "lastReportedTimestamp": "2026-04-09T20:00:00Z"
+              },
+              "configurationState": "InSync",
               "provisioningState": "Succeeded"
             },
-            "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/test-rg/providers/Microsoft.AzureStackHCI/edgeMachines/machine1/proxyConfigurations/default",
+            "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/test-rg/providers/Microsoft.AzureStackHCI/edgeMachines/machine01/proxyConfigurations/default",
             "name": "default",
             "type": "Microsoft.AzureStackHCI/edgeMachines/proxyConfigurations",
             "systemData": {

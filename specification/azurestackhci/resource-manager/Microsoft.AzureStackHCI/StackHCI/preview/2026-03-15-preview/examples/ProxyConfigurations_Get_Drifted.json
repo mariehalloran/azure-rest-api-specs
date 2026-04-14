@@ -1,5 +1,5 @@
 {
-  "title": "ProxyConfigurations_Get",
+  "title": "ProxyConfigurations_Get_Drifted",
   "operationId": "ProxyConfigurations_Get",
   "parameters": {
     "api-version": "2026-03-15-preview",
@@ -17,23 +17,20 @@
             "port": "8080",
             "bypassList": [
               "localhost",
-              "*.contoso.com",
-              "169.254.169.254"
+              "*.contoso.com"
             ],
             "isEnabled": true
           },
           "reportedConfiguration": {
             "connectionUri": "http://proxy.contoso.com",
-            "port": "8080",
+            "port": "9090",
             "bypassList": [
-              "localhost",
-              "*.contoso.com",
-              "169.254.169.254"
+              "localhost"
             ],
             "isEnabled": true,
-            "lastReportedTimestamp": "2026-04-09T20:00:00Z"
+            "lastReportedTimestamp": "2026-04-10T10:00:00Z"
           },
-          "configurationState": "InSync",
+          "configurationState": "Drifted",
           "provisioningState": "Succeeded"
         },
         "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/test-rg/providers/Microsoft.AzureStackHCI/edgeMachines/machine01/proxyConfigurations/default",
@@ -45,7 +42,7 @@
           "createdAt": "2024-07-01T17:02:21.168Z",
           "lastModifiedBy": "user1@contoso.com",
           "lastModifiedByType": "User",
-          "lastModifiedAt": "2024-07-01T17:02:21.168Z"
+          "lastModifiedAt": "2026-04-10T10:00:00Z"
         }
       }
     }
