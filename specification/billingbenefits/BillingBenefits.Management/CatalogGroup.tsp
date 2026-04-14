@@ -65,30 +65,25 @@ alias SubscriptionScope = Extension.Subscription;
 /**
  * Billing account scope: /providers/Microsoft.Billing/billingAccounts/{billingAccountName}
  */
-@tenantResource
-@armVirtualResource("Microsoft.Billing")
-model BillingAccountScope {
-  @doc("The name of the billing account.")
-  @path
-  @key("billingAccountName")
-  @segment("billingAccounts")
-  @pattern("^[a-zA-Z0-9_\\-\\.:]+$")
-  name: string;
-}
+alias BillingAccountScope = Extension.ExternalResource<
+  TargetNamespace = "Microsoft.Billing",
+  ResourceType = "billingAccounts",
+  ResourceParameterName = "billingAccountName",
+  NamePattern = "^[a-zA-Z0-9_\\-\\.:]+$",
+  Description = "The name of the billing account.",
+  ParentType = "Tenant"
+>;
 
 /**
  * Billing profile scope: /providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}
  */
-@armVirtualResource("Microsoft.Billing")
-@parentResource(BillingAccountScope)
-model BillingProfileScope {
-  @doc("The name of the billing profile.")
-  @path
-  @key("billingProfileName")
-  @segment("billingProfiles")
-  @pattern("^[a-zA-Z0-9_\\-\\.]+$")
-  name: string;
-}
+alias BillingProfileScope = Extension.ExternalChildResource<
+  BillingAccountScope,
+  "billingProfiles",
+  "billingProfileName",
+  NamePattern = "^[a-zA-Z0-9_\\-\\.]+$",
+  Description = "The name of the billing profile."
+>;
 
 @added(Versions.v2026_02_01)
 @armResourceOperations
