@@ -292,6 +292,28 @@ model ResourceOperation {
   operation?: ResourceOperationDetails;
 }
 
+@added(Microsoft.ComputeSchedule.Versions.`2026-04-07-preview`)
+@doc("Response from a deallocate with capacity check operation on a resource")
+model DeallocateResourceWithCapacityCheckResourceOperation {
+  @doc("Unique identifier for the resource involved in the operation, eg ArmId")
+  resourceId?: armResourceIdentifier;
+
+  @doc("Resource level error code if it exists")
+  errorCode?: string;
+
+  @doc("Resource level error details if they exist")
+  errorDetails?: string;
+
+  @doc("Capacity prediction for the operation")
+  capacityPrediction?: string;
+
+  @doc("The quality score of the capacity prediction")
+  capacityPredictionQualityScore?: int32;
+
+  @doc("Details of the operation performed on a resource")
+  operation?: ResourceOperationDetails;
+}
+
 // ----------- SubmitDeallocate ---------
 @doc("The deallocate request for resources")
 model SubmitDeallocateRequest {
@@ -323,6 +345,24 @@ model DeallocateResourceOperationResponse {
   @Azure.ResourceManager.identifiers(#["resourceId"])
   @doc("The results from the deallocate request if no errors exist")
   results?: Array<ResourceOperation>;
+}
+
+@added(Microsoft.ComputeSchedule.Versions.`2026-04-07-preview`)
+@doc("The response from a deallocate with capacity check request")
+model DeallocateResourceWithCapacityCheckOperationResponse {
+  @doc("The description of the operation response")
+  description: string;
+
+  @doc("The type of resources used in the deallocate request eg virtual machines")
+  type: string;
+
+  @doc("The location of the deallocate request eg westus")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  location: string;
+
+  @Azure.ResourceManager.identifiers(#["resourceId"])
+  @doc("The results from the deallocate request if no errors exist")
+  results?: Array<DeallocateResourceWithCapacityCheckResourceOperation>;
 }
 
 // ----------- SubmitStart ---------
@@ -426,6 +466,34 @@ model ExecuteStartRequest {
 
   @doc("Correlationid item")
   correlationid: string;
+}
+
+// ----------- ExecuteDeallocateWithCapacityCheck ---------
+@added(Microsoft.ComputeSchedule.Versions.`2026-04-07-preview`)
+@doc("The request for deallocating VMs with a capacity check, which verifies capacity predictions at the desired start time before proceeding with deallocation")
+model ExecuteDeallocateWithCapacityCheckRequest {
+  @doc("The resources for the request")
+  resources: Resources;
+
+  @doc("The desired start time at which the VMs should be restarted. Capacity predictions are checked at this time to determine if deallocation is safe.")
+  startTime: StartTime;
+
+  @doc("The execution parameters for the request")
+  executionParameters: ExecutionParameters;
+
+  @doc("Correlationid item")
+  correlationid?: string;
+}
+
+@added(Microsoft.ComputeSchedule.Versions.`2026-04-07-preview`)
+@doc("The desired start time for the VMs, used to check capacity predictions")
+model StartTime {
+  #suppress "@azure-tools/typespec-azure-core/no-offsetdatetime" "Prefer using `utcDateTime` when representing a datetime unless an offset is necessary."
+  @doc("The date and time at which the VMs should be started")
+  dateTime: offsetDateTime;
+
+  @doc("The timezone for the start time")
+  timeZone?: string;
 }
 
 // ----------- ExecuteCreate ---------

@@ -27,7 +27,34 @@ These are the global settings for the computeschedule.
 ```yaml
 openapi-subtype: providerHub
 openapi-type: arm
-tag: package-2026-03-01-preview
+tag: package-2026-04-07-preview
+```
+
+### Tag: package-2026-04-07-preview
+
+These settings apply only when `--tag=package-2026-04-07-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-04-07-preview'
+input-file:
+  - Microsoft.ComputeSchedule/preview/2026-04-07-preview/computeschedule.json
+suppressions:  
+  - code: AvoidAdditionalProperties
+    reason: Record unknown because we are a passthrough API to compute and we can't take dependency on VirtualMachine properties for updating with version change.
+    from: computeschedule.json
+    where: $.definitions.ResourceProvisionFlexPayload.properties.baseProfile
+  - code: AvoidAdditionalProperties
+    reason: Record unknown because we are a passthrough API to compute and we can't take dependency on VirtualMachine properties for updating with version change.
+    from: computeschedule.json
+    where: $.definitions.ResourceProvisionFlexPayload.properties.resourceOverrides.items
+  - code: AvoidAdditionalProperties
+    reason: Record unknown because we are a passthrough API to compute and we can't take dependency on VirtualMachine properties for updating with version change.
+    from: computeschedule.json
+    where: $.definitions.ResourceProvisionPayload.properties.baseProfile
+  - code: AvoidAdditionalProperties
+    reason: Record unknown because we are a passthrough API to compute and we can't take dependency on VirtualMachine properties for updating with version change.
+    from: computeschedule.json
+    where: $.definitions.ResourceProvisionPayload.properties.resourceOverrides.items
+
 ```
 
 ### Tag: package-2026-03-01-preview
