@@ -232,9 +232,10 @@
           {
             "name": "billingAccountName",
             "in": "path",
-            "description": "The name of the resource",
+            "description": "The name of the billing account.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.:]+$"
           },
           {
             "name": "billingProfileName",
@@ -286,9 +287,10 @@
           {
             "name": "billingAccountName",
             "in": "path",
-            "description": "The name of the resource",
+            "description": "The name of the billing account.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.:]+$"
           },
           {
             "name": "billingProfileName",
@@ -342,9 +344,10 @@
           {
             "name": "billingAccountName",
             "in": "path",
-            "description": "The name of the resource",
+            "description": "The name of the billing account.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.:]+$"
           },
           {
             "$ref": "#/parameters/CatalogGroupsListParameters"
@@ -388,9 +391,10 @@
           {
             "name": "billingAccountName",
             "in": "path",
-            "description": "The name of the resource",
+            "description": "The name of the billing account.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.:]+$"
           },
           {
             "name": "catalogGroupName",
@@ -5571,7 +5575,7 @@
         },
         "benefitFilter": {
           "type": "string",
-          "description": "A filter string passed to downstream services to categorize and apply usage benefits to specific resource models. Expected format: \"key/value\" (e.g., \"contractid/2025 H2CPU\"). The value is not validated by BillingBenefits and is forwarded as-is."
+          "description": "A filter string passed to downstream services to categorize and apply usage benefits to specific resource models. Expected format: \"key/value\" (e.g., \"contractId/2025 H2CPU\"). The value is not validated by BillingBenefits and is forwarded as-is."
         }
       }
     },
@@ -5687,11 +5691,6 @@
     "Azure.Core.armResourceType": {
       "type": "string",
       "description": "Represents an Azure Resource Type."
-    },
-    "Azure.Core.uuid": {
-      "type": "string",
-      "format": "uuid",
-      "description": "Universally Unique Identifier"
     },
     "BenefitAppliedScopeType": {
       "type": "string",
@@ -6965,7 +6964,7 @@
           "readOnly": true
         },
         "fundingSystemId": {
-          "$ref": "#/definitions/Azure.Core.uuid",
+          "type": "string",
           "description": "Unique identifier (UUID) of the funding lot assigned by the benefit publisher. Used in credit transfer scenarios to trace the originating credit lot.",
           "x-ms-mutability": [
             "read",
@@ -9709,7 +9708,7 @@
           {
             "name": "Credits",
             "value": "Credits",
-            "description": "Credits"
+            "description": "Credits applied to the customer's billing account"
           },
           {
             "name": "ConditionalCredits",
@@ -9719,12 +9718,12 @@
           {
             "name": "Discounts",
             "value": "Discounts",
-            "description": "Discounts"
+            "description": "Discounts that reduce charges on eligible services"
           },
           {
             "name": "FreeServices",
             "value": "FreeServices",
-            "description": "FreeServices"
+            "description": "Services provided at no charge under the billing agreement"
           },
           {
             "name": "SavingsPlans",
@@ -9734,7 +9733,7 @@
           {
             "name": "Reservations",
             "value": "Reservations",
-            "description": "Reservations"
+            "description": "Reserved capacity or reserved instances"
           }
         ]
       }

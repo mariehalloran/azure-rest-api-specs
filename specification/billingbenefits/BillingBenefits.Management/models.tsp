@@ -719,22 +719,22 @@ union ResourceType {
   /** Microsoft Azure Consumption Commitments */
   Maccs: "Maccs",
 
-  /** Credits */
+  /** Credits applied to the customer's billing account */
   Credits: "Credits",
 
   /** Conditional Credits */
   ConditionalCredits: "ConditionalCredits",
 
-  /** Discounts */
+  /** Discounts that reduce charges on eligible services */
   Discounts: "Discounts",
 
-  /** FreeServices */
+  /** Services provided at no charge under the billing agreement */
   FreeServices: "FreeServices",
 
   /** Savings Plan */
   SavingsPlans: "SavingsPlans",
 
-  /** Reservations */
+  /** Reserved capacity or reserved instances */
   Reservations: "Reservations",
 }
 
@@ -825,7 +825,7 @@ model AppliedScopeProperties {
   displayName?: string;
 
   /**
-   * A filter string passed to downstream services to categorize and apply usage benefits to specific resource models. Expected format: "key/value" (e.g., "contractid/2025 H2CPU"). The value is not validated by BillingBenefits and is forwarded as-is.
+   * A filter string passed to downstream services to categorize and apply usage benefits to specific resource models. Expected format: "key/value" (e.g., "contractId/2025 H2CPU"). The value is not validated by BillingBenefits and is forwarded as-is.
    */
   @added(Versions.v2026_02_01)
   @example("clusterId/2025 H2CPU")
@@ -2874,7 +2874,7 @@ model CreditProperties {
    */
   @added(Versions.v2026_02_01)
   @visibility(Lifecycle.Read, Lifecycle.Create)
-  fundingSystemId?: Azure.Core.uuid;
+  fundingSystemId?: string;
 
   /**
    * Fully-qualified identifier of the customer where the savings plan is applied. Present only for Partner-led customers. Format is /providers/Microsoft.Billing/billingAccounts/{acctId:orgId}
