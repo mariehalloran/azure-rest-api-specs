@@ -545,22 +545,38 @@
     },
     "ServiceUpdate": {
       "type": "object",
-      "description": "A Microsoft.AIOps service resource representing a BRAIN tenant.",
+      "description": "The type used for update operations of the Service.",
       "properties": {
-        "properties": {
-          "$ref": "#/definitions/ServiceProperties",
-          "description": "The resource-specific properties for this resource."
-        },
         "identity": {
           "$ref": "../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
           "description": "The managed service identities assigned to this resource."
+        },
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/ServiceUpdateProperties",
+          "description": "The resource-specific properties for this resource."
         }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+      }
+    },
+    "ServiceUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of the Service.",
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "User-friendly display name for the Microsoft.AIOps service."
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the Microsoft.AIOps service resource."
         }
-      ]
+      }
     }
   },
   "parameters": {}

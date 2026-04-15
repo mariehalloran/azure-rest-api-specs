@@ -70,8 +70,7 @@ interface Services {
   @Azure.Core.useFinalStateVia("azure-async-operation")
   delete is ArmResourceDeleteWithoutOkAsync<
     Service,
-    LroHeaders = ArmCombinedLroHeaders &
-      Azure.Core.Foundations.RetryAfterHeader
+    LroHeaders = ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
   >;
 
   /** List Microsoft.AIOps service resources by resource group. */
@@ -82,9 +81,13 @@ interface Services {
 
   /** Update a Microsoft.AIOps service resource. */
   @Azure.Core.useFinalStateVia("azure-async-operation")
-  update is ArmResourcePatchAsync<
+  @patch(#{ implicitOptionality: true })
+  update is ArmCustomPatchAsync<
     Service,
-    ServiceProperties,
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      Service,
+      ServiceProperties
+    >,
     LroHeaders = ArmAsyncOperationHeader<FinalResult = Service> &
       ArmLroLocationHeader<FinalResult = Service> &
       Azure.Core.Foundations.RetryAfterHeader
