@@ -6,9 +6,11 @@ emit:
 options:
   "@azure-tools/typespec-autorest":
     use-read-only-status-schema: true
-    emitter-output-dir: "{project-root}"
-    output-file: "{emitter-output-dir}/{version-status}/{version}/aiops.json"
-    arm-types-dir: "{project-root}/../../../../common-types/resource-management"
+    azure-resource-provider-folder: "resource-manager"
+    emitter-output-dir: "{project-root}/.."
+    output-file: "{azure-resource-provider-folder}/{service-name}/{version-status}/{version}/aiops.json"
+    emit-common-types-schema: "never"
+    omit-unreachable-types: true
   "@azure-tools/typespec-csharp":
     flavor: azure
     emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.AIOps"

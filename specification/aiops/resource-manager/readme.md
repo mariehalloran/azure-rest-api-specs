@@ -36,7 +36,7 @@ These settings apply only when `--tag=package-2026-05-01-preview` is specified o
 
 ```yaml $(tag) == 'package-2026-05-01-preview'
 input-file:
-  - Microsoft.AIOps/AIOps/preview/2026-05-01-preview/aiops.json
+  - Microsoft.AIOps/preview/2026-05-01-preview/aiops.json
 ```
 
 ---
