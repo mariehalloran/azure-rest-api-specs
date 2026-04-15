@@ -29,6 +29,12 @@ union ProvisioningState {
 
 /** Properties of the Microsoft.AIOps service resource. */
 model ServiceProperties {
+  /** User-friendly display name for the Microsoft.AIOps service. */
+  displayName?: string;
+
+  /** Detailed description of the Microsoft.AIOps service resource. */
+  description?: string;
+
   /** Provisioning state of the Microsoft.AIOps service. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
@@ -43,7 +49,8 @@ model Service is TrackedResource<ServiceProperties> {
   ...ResourceNameParameter<
     Service,
     KeyName = "serviceName",
-    SegmentName = "services"
+    SegmentName = "services",
+    NamePattern = "^[a-zA-Z][a-zA-Z0-9-]{1,22}[a-zA-Z0-9]$"
   >;
 
   /** The managed identity for the resource. */
@@ -60,7 +67,12 @@ interface Services {
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Service>;
 
   /** Delete a Microsoft.AIOps service resource. */
-  delete is ArmResourceDeleteWithoutOkAsync<Service>;
+  @Azure.Core.useFinalStateVia("azure-async-operation")
+  delete is ArmResourceDeleteWithoutOkAsync<
+    Service,
+    LroHeaders = ArmCombinedLroHeaders &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
 
   /** List Microsoft.AIOps service resources by resource group. */
   listByResourceGroup is ArmResourceListByParent<Service>;

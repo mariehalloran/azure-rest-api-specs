@@ -1,9 +1,10 @@
 {
-  "title": "Services_ListBySubscription",
-  "operationId": "Services_ListBySubscription",
+  "title": "Services_ListByResourceGroup",
+  "operationId": "Services_ListByResourceGroup",
   "parameters": {
     "api-version": "2026-05-01-preview",
-    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-aiops"
   },
   "responses": {
     "200": {
@@ -24,6 +25,8 @@
               "tenantId": "22222222-2222-2222-2222-222222222222"
             },
             "properties": {
+              "displayName": "My AIOps Service",
+              "description": "Production AIOps service for health engine team",
               "provisioningState": "Succeeded",
               "dataplaneEndpoint": "https://my-service.aiops.azure.com"
             },

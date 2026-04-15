@@ -21,6 +21,7 @@ namespace Microsoft.AIOps;
 enum Versions {
   /** 2026-05-01-preview version */
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  @Azure.Core.previewVersion
   v2026_05_01_preview: "2026-05-01-preview",
 }
 
