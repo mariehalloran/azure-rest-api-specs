@@ -2829,7 +2829,7 @@ model CreditProperties {
   billingProfileResourceId?: Azure.Core.armResourceIdentifier<[
     {
       scopes: ["Tenant"];
-      type: "Microsoft.Billing/billingAccounts";
+      type: "Microsoft.Billing/billingAccounts/billingProfiles";
     }
   ]>;
 
@@ -2841,7 +2841,7 @@ model CreditProperties {
   customerResourceId?: Azure.Core.armResourceIdentifier<[
     {
       scopes: ["Tenant"];
-      type: "Microsoft.Billing/billingAccounts";
+      type: "Microsoft.Billing/billingAccounts/customers";
     }
   ]>;
 
