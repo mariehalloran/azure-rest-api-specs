@@ -34,6 +34,11 @@ enum Versions {
   @useDependency(LiftrBase.Versions.v2_preview)
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v3)
   v2026_02_17_preview: "2026-02-17-preview",
+
+  @doc("Dependent on LiftrBase.Versions.v2_preview")
+  @useDependency(LiftrBase.Versions.v2_preview)
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v3)
+  v2026_04_16: "2026-04-16",
 }
 
 /**
