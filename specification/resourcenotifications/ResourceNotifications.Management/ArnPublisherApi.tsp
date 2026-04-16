@@ -575,10 +575,6 @@ model DiscoveryQueryFlowProperties extends FlowProperties {
   /** Credential details for Kusto cluster access. */
   credentialDetails?: CredentialDetails;
 
-  /** System-computed receiver hostname (derived from location). */
-  @visibility(Lifecycle.Read)
-  endpoint?: string;
-
   /** System-computed partition count (estimatedRowCount / 100K). */
   @visibility(Lifecycle.Read)
   partitionCount?: int32;
