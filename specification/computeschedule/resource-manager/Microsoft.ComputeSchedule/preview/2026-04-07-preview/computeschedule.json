@@ -403,7 +403,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/DeallocateResourceWithCapacityCheckOperationResponse"
+              "$ref": "#/definitions/DeallocateResourceOperationResponse"
             }
           },
           "default": {
@@ -2032,6 +2032,42 @@
         "results"
       ]
     },
+    "CapacityPrediction": {
+      "type": "string",
+      "description": "The result of capacity prediction for deallocating VMs with a capacity check",
+      "enum": [
+        "VeryLow",
+        "Low",
+        "Medium",
+        "High"
+      ],
+      "x-ms-enum": {
+        "name": "CapacityPrediction",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "VeryLow",
+            "value": "VeryLow",
+            "description": "Very Low capacity is predicted at the desired restart time"
+          },
+          {
+            "name": "Low",
+            "value": "Low",
+            "description": "Low capacity is predicted at the desired restart time"
+          },
+          {
+            "name": "Medium",
+            "value": "Medium",
+            "description": "Medium capacity is predicted at the desired restart time"
+          },
+          {
+            "name": "High",
+            "value": "High",
+            "description": "High capacity is predicted at the desired restart time"
+          }
+        ]
+      }
+    },
     "CreateFlexResourceOperationResponse": {
       "type": "object",
       "description": "The response from a create flex request",
@@ -2180,75 +2216,6 @@
         "location"
       ]
     },
-    "DeallocateResourceWithCapacityCheckOperationResponse": {
-      "type": "object",
-      "description": "The response from a deallocate with capacity check request",
-      "properties": {
-        "description": {
-          "type": "string",
-          "description": "The description of the operation response"
-        },
-        "type": {
-          "type": "string",
-          "description": "The type of resources used in the deallocate request eg virtual machines"
-        },
-        "location": {
-          "type": "string",
-          "description": "The location of the deallocate request eg westus",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "results": {
-          "type": "array",
-          "description": "The results from the deallocate request if no errors exist",
-          "items": {
-            "$ref": "#/definitions/DeallocateResourceWithCapacityCheckResourceOperation"
-          },
-          "x-ms-identifiers": [
-            "resourceId"
-          ]
-        }
-      },
-      "required": [
-        "description",
-        "type",
-        "location"
-      ]
-    },
-    "DeallocateResourceWithCapacityCheckResourceOperation": {
-      "type": "object",
-      "description": "Response from a deallocate with capacity check operation on a resource",
-      "properties": {
-        "resourceId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "Unique identifier for the resource involved in the operation, eg ArmId"
-        },
-        "errorCode": {
-          "type": "string",
-          "description": "Resource level error code if it exists"
-        },
-        "errorDetails": {
-          "type": "string",
-          "description": "Resource level error details if they exist"
-        },
-        "capacityPrediction": {
-          "type": "string",
-          "description": "Capacity prediction for the operation"
-        },
-        "capacityPredictionQualityScore": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The quality score of the capacity prediction"
-        },
-        "operation": {
-          "$ref": "#/definitions/ResourceOperationDetails",
-          "description": "Details of the operation performed on a resource"
-        }
-      }
-    },
     "DelayRequest": {
       "type": "object",
       "description": "Request to ask for a delay in an occurrence, delay should be set to client local time eg (ACST) 2025-05-30T22:03:00+09:30, (PST) 2025-05-30T06:35:00-07:00",
@@ -2306,6 +2273,24 @@
         "description",
         "type",
         "location"
+      ]
+    },
+    "DesiredStartTime": {
+      "type": "object",
+      "description": "The desired start time for the VMs, used to check capacity predictions",
+      "properties": {
+        "dateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time at which the VMs should be started"
+        },
+        "timeZone": {
+          "type": "string",
+          "description": "The timezone for the start time"
+        }
+      },
+      "required": [
+        "dateTime"
       ]
     },
     "DistributionStrategy": {
@@ -2419,9 +2404,9 @@
           "$ref": "#/definitions/Resources",
           "description": "The resources for the request"
         },
-        "startTime": {
-          "$ref": "#/definitions/StartTime",
-          "description": "The desired start time at which the VMs should be restarted. Capacity predictions are checked at this time to determine if deallocation is safe."
+        "desiredFutureStartTime": {
+          "$ref": "#/definitions/DesiredStartTime",
+          "description": "The desired start time at which the VMs should be restarted. Capacity predictions are checked for this time to determine if deallocation is safe."
         },
         "executionParameters": {
           "$ref": "#/definitions/ExecutionParameters",
@@ -2434,7 +2419,7 @@
       },
       "required": [
         "resources",
-        "startTime",
+        "desiredFutureStartTime",
         "executionParameters"
       ]
     },
@@ -3667,6 +3652,15 @@
         "retryPolicy": {
           "$ref": "#/definitions/RetryPolicy",
           "description": "Retry policy the user can pass"
+        },
+        "capacityPrediction": {
+          "$ref": "#/definitions/CapacityPrediction",
+          "description": "Capacity prediction for the deallocate with capacity check operation"
+        },
+        "capacityPredictionQualityScore": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The quality score of the capacity check prediction"
         }
       },
       "required": [
@@ -4495,24 +4489,6 @@
         "description",
         "type",
         "location"
-      ]
-    },
-    "StartTime": {
-      "type": "object",
-      "description": "The desired start time for the VMs, used to check capacity predictions",
-      "properties": {
-        "dateTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The date and time at which the VMs should be started"
-        },
-        "timeZone": {
-          "type": "string",
-          "description": "The timezone for the start time"
-        }
-      },
-      "required": [
-        "dateTime"
       ]
     },
     "SubmitDeallocateRequest": {

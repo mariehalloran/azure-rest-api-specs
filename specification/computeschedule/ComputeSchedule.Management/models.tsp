@@ -293,9 +293,11 @@ model ResourceOperationDetails {
   retryPolicy?: RetryPolicy;
 
   @doc("Capacity prediction for the deallocate with capacity check operation")
+  @added(Versions.`2026-04-07-preview`)
   capacityPrediction?: CapacityPrediction;
 
   @doc("The quality score of the capacity check prediction")
+  @added(Versions.`2026-04-07-preview`)
   capacityPredictionQualityScore?: int32;
 }
 

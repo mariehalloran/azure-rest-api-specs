@@ -11,7 +11,7 @@
           "/subscriptions/CB26D7CB-3E27-465F-99C8-EAF7A4118245/resourceGroups/myResourceGroup/providers/Microsoft.Compute/virtualMachines/myVm"
         ]
       },
-      "startTime": {
+      "desiredFutureStartTime": {
         "dateTime": "2026-04-09T07:00:00.000Z",
         "timeZone": "UTC"
       },
@@ -28,9 +28,9 @@
   "responses": {
     "200": {
       "body": {
+        "description": "Deallocate with capacity check operation completed successfully",
         "type": "virtualMachines",
         "location": "eastus",
-        "description": "Deallocate with capacity check operation completed successfully",
         "results": [
           {
             "resourceId": "/subscriptions/CB26D7CB-3E27-465F-99C8-EAF7A4118245/resourceGroups/myResourceGroup/providers/Microsoft.Compute/virtualMachines/myVm",
@@ -47,9 +47,10 @@
               "retryPolicy": {
                 "retryCount": 3,
                 "retryWindowInMinutes": 20
-              }
-            },
-            "capacityPrediction": "High"
+              },
+              "capacityPrediction": "Low",
+              "capacityPredictionQualityScore": 10
+            }
           }
         ]
       }
