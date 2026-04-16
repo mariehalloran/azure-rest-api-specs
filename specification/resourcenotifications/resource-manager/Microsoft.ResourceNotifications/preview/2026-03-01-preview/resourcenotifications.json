@@ -70,9 +70,6 @@
       "name": "IngestionUnits"
     },
     {
-      "name": "Queries"
-    },
-    {
       "name": "Flows"
     }
   ],
@@ -1424,188 +1421,6 @@
         "x-ms-examples": {
           "PublisherSettingsOperations - Delete": {
             "$ref": "./examples/PublisherSettingsOperations_Delete.json"
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/queries": {
-      "get": {
-        "operationId": "Queries_List",
-        "tags": [
-          "Queries"
-        ],
-        "description": "List queries in a subscription.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/QueryListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Queries - List": {
-            "$ref": "./examples/Queries_List.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/queries/{queryName}": {
-      "get": {
-        "operationId": "Queries_Get",
-        "tags": [
-          "Queries"
-        ],
-        "description": "Get a query.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "queryName",
-            "in": "path",
-            "description": "Query name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/Query"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Queries - Get": {
-            "$ref": "./examples/Queries_Get.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "Queries_CreateOrUpdate",
-        "tags": [
-          "Queries"
-        ],
-        "description": "Create or update a query. Modifications to existing queries use this operation.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "queryName",
-            "in": "path",
-            "description": "Query name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Query"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'Query' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/Query"
-            }
-          },
-          "201": {
-            "description": "Resource 'Query' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/Query"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Queries - CreateOrUpdate": {
-            "$ref": "./examples/Queries_CreateOrUpdate.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "Queries_Delete",
-        "tags": [
-          "Queries"
-        ],
-        "description": "Delete a query.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "queryName",
-            "in": "path",
-            "description": "Query name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Queries - Delete": {
-            "$ref": "./examples/Queries_Delete.json"
           }
         }
       }
@@ -3128,10 +2943,9 @@
       "type": "object",
       "description": "Properties for a DiscoveryQuery flow — batch ingestion via Kusto query on a schedule.",
       "properties": {
-        "queryId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "ARM resource ID of the linked query resource."
+        "queryDefinition": {
+          "$ref": "#/definitions/QueryDefinition",
+          "description": "Inline KQL query definition for this flow."
         },
         "sourceClusterEndpoint": {
           "type": "string",
@@ -3181,7 +2995,7 @@
         }
       },
       "required": [
-        "queryId",
+        "queryDefinition",
         "sourceClusterEndpoint",
         "sourceDatabase",
         "estimatedRowCount"
@@ -4173,45 +3987,9 @@
         "resourceType"
       ]
     },
-    "Query": {
+    "QueryDefinition": {
       "type": "object",
-      "description": "Reusable KQL query definition stored in the resource provider.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/QueryProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "QueryListResult": {
-      "type": "object",
-      "description": "The response of a Query list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The Query items on this page",
-          "items": {
-            "$ref": "#/definitions/Query"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "QueryProperties": {
-      "type": "object",
-      "description": "Properties for a query resource.",
+      "description": "Inline KQL query definition embedded in a DiscoveryQuery flow.",
       "properties": {
         "query": {
           "type": "string",
@@ -4220,16 +3998,6 @@
         "description": {
           "type": "string",
           "description": "Human-readable description of this query."
-        },
-        "enabled": {
-          "type": "boolean",
-          "description": "Whether this query is enabled. Set to false to disable during outages. Default: true.",
-          "default": true
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
         }
       },
       "required": [

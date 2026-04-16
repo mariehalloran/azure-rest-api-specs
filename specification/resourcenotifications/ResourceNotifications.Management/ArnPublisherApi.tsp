@@ -430,53 +430,16 @@ interface IngestionUnits {
   listBySubscription is ArmListBySubscription<IngestionUnit>;
 }
 
-// ─── QUERIES ─── //
+// ─── QUERY DEFINITION (INLINE) ─── //
 
-/** Reusable KQL query definition stored in the resource provider. */
-@subscriptionResource
+/** Inline KQL query definition embedded in a DiscoveryQuery flow. */
 @added(Versions.v2026_03_01_preview)
-model Query is Azure.ResourceManager.ProxyResource<QueryProperties> {
-  /** Query name. */
-  @key("queryName")
-  @segment("queries")
-  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$")
-  @path
-  name: string;
-}
-
-/** Properties for a query resource. */
-@added(Versions.v2026_03_01_preview)
-model QueryProperties {
+model QueryDefinition {
   /** KQL query text. */
   query: string;
 
   /** Human-readable description of this query. */
   description?: string;
-
-  /** Whether this query is enabled. Set to false to disable during outages. Default: true. */
-  #suppress "EnumInsteadOfBoolean" "enabled is a simple on/off operational toggle"
-  enabled?: boolean = true;
-
-  /** Read-only provisioning state. */
-  @visibility(Lifecycle.Read)
-  provisioningState?: ProvisioningState;
-}
-
-/** Query operations. */
-@added(Versions.v2026_03_01_preview)
-@armResourceOperations
-interface Queries {
-  /** Get a query. */
-  get is ArmResourceRead<Query>;
-
-  /** Create or update a query. Modifications to existing queries use this operation. */
-  createOrUpdate is ArmResourceCreateOrReplaceSync<Query>;
-
-  /** Delete a query. */
-  delete is ArmResourceDeleteSync<Query>;
-
-  /** List queries in a subscription. */
-  list is ArmResourceListByParent<Query>;
 }
 
 // ─── FLOWS (POLYMORPHIC) ─── //
@@ -545,8 +508,8 @@ model DiscoveryQueryFlowProperties extends FlowProperties {
   /** Discriminator value. */
   flowKind: FlowKind.DiscoveryQuery;
 
-  /** ARM resource ID of the linked query resource. */
-  queryId: Azure.Core.armResourceIdentifier;
+  /** Inline KQL query definition for this flow. */
+  queryDefinition: QueryDefinition;
 
   /** Partner's Kusto cluster endpoint URL. */
   sourceClusterEndpoint: url;

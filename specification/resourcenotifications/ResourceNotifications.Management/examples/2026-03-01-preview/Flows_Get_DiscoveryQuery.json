@@ -26,7 +26,10 @@
           "linkedPublisherSettingId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default",
           "fullyQualifiedResourceType": "Microsoft.Compute/virtualMachines",
           "enabled": true,
-          "queryId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/queries/compute-vm-discovery",
+          "queryDefinition": {
+            "query": "Resources | where type == 'microsoft.compute/virtualmachines' | project id, name, location, properties",
+            "description": "Discovers all Compute virtual machines and their key properties."
+          },
           "sourceClusterEndpoint": "https://compute-kusto.eastus.kusto.windows.net",
           "sourceDatabase": "ComputeInventory",
           "partitionColumn": "subscriptionId",
