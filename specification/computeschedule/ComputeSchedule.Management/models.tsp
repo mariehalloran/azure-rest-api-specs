@@ -156,6 +156,23 @@ union DistributionStrategy {
   string,
 }
 
+@doc("The result of capacity prediction for deallocating VMs with a capacity check")
+union CapacityPrediction {
+  @doc("Very Low capacity is predicted at the desired restart time")
+  VeryLow: "VeryLow",
+
+  @doc("Low capacity is predicted at the desired restart time")
+  Low: "Low",
+
+  @doc("Medium capacity is predicted at the desired restart time")
+  Medium: "Medium",
+
+  @doc("High capacity is predicted at the desired restart time")
+  High: "High",
+
+  string,
+}
+
 // ------------------ Common Values ---------------
 alias Params = {
   ...ApiVersionParameter;
@@ -274,6 +291,12 @@ model ResourceOperationDetails {
 
   @doc("Retry policy the user can pass")
   retryPolicy?: RetryPolicy;
+
+  @doc("Capacity prediction for the deallocate with capacity check operation")
+  capacityPrediction?: CapacityPrediction;
+
+  @doc("The quality score of the capacity check prediction")
+  capacityPredictionQualityScore?: int32;
 }
 
 @doc("High level response from an operation on a resource")
@@ -287,28 +310,6 @@ model ResourceOperation {
 
   @doc("Resource level error details if they exist")
   errorDetails?: string;
-
-  @doc("Details of the operation performed on a resource")
-  operation?: ResourceOperationDetails;
-}
-
-@added(Microsoft.ComputeSchedule.Versions.`2026-04-07-preview`)
-@doc("Response from a deallocate with capacity check operation on a resource")
-model DeallocateResourceWithCapacityCheckResourceOperation {
-  @doc("Unique identifier for the resource involved in the operation, eg ArmId")
-  resourceId?: armResourceIdentifier;
-
-  @doc("Resource level error code if it exists")
-  errorCode?: string;
-
-  @doc("Resource level error details if they exist")
-  errorDetails?: string;
-
-  @doc("Capacity prediction for the operation")
-  capacityPrediction?: string;
-
-  @doc("The quality score of the capacity prediction")
-  capacityPredictionQualityScore?: int32;
 
   @doc("Details of the operation performed on a resource")
   operation?: ResourceOperationDetails;
@@ -345,24 +346,6 @@ model DeallocateResourceOperationResponse {
   @Azure.ResourceManager.identifiers(#["resourceId"])
   @doc("The results from the deallocate request if no errors exist")
   results?: Array<ResourceOperation>;
-}
-
-@added(Microsoft.ComputeSchedule.Versions.`2026-04-07-preview`)
-@doc("The response from a deallocate with capacity check request")
-model DeallocateResourceWithCapacityCheckOperationResponse {
-  @doc("The description of the operation response")
-  description: string;
-
-  @doc("The type of resources used in the deallocate request eg virtual machines")
-  type: string;
-
-  @doc("The location of the deallocate request eg westus")
-  @visibility(Lifecycle.Read, Lifecycle.Create)
-  location: string;
-
-  @Azure.ResourceManager.identifiers(#["resourceId"])
-  @doc("The results from the deallocate request if no errors exist")
-  results?: Array<DeallocateResourceWithCapacityCheckResourceOperation>;
 }
 
 // ----------- SubmitStart ---------
@@ -475,8 +458,8 @@ model ExecuteDeallocateWithCapacityCheckRequest {
   @doc("The resources for the request")
   resources: Resources;
 
-  @doc("The desired start time at which the VMs should be restarted. Capacity predictions are checked at this time to determine if deallocation is safe.")
-  startTime: StartTime;
+  @doc("The desired start time at which the VMs should be restarted. Capacity predictions are checked for this time to determine if deallocation is safe.")
+  desiredFutureStartTime: DesiredStartTime;
 
   @doc("The execution parameters for the request")
   executionParameters: ExecutionParameters;
@@ -487,7 +470,7 @@ model ExecuteDeallocateWithCapacityCheckRequest {
 
 @added(Microsoft.ComputeSchedule.Versions.`2026-04-07-preview`)
 @doc("The desired start time for the VMs, used to check capacity predictions")
-model StartTime {
+model DesiredStartTime {
   #suppress "@azure-tools/typespec-azure-core/no-offsetdatetime" "Prefer using `utcDateTime` when representing a datetime unless an offset is necessary."
   @doc("The date and time at which the VMs should be started")
   dateTime: offsetDateTime;

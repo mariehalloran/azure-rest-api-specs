@@ -114,7 +114,7 @@ interface ScheduledActions {
     @body
     @doc("The request body")
     requestBody: ExecuteDeallocateWithCapacityCheckRequest,
-  ): ArmResponse<DeallocateResourceWithCapacityCheckOperationResponse> | ErrorResponse;
+  ): ArmResponse<DeallocateResourceOperationResponse> | ErrorResponse;
 
   /** virtualMachinesGetOperationStatus: getOperationStatus for a virtual machine */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
