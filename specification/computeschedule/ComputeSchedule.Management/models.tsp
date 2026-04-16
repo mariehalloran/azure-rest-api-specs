@@ -157,6 +157,7 @@ union DistributionStrategy {
 }
 
 @doc("The result of capacity prediction for deallocating VMs with a capacity check")
+@added(Microsoft.ComputeSchedule.Versions.`2026-04-07-preview`)
 union CapacityPrediction {
   @doc("Very Low capacity is predicted at the desired restart time")
   VeryLow: "VeryLow",
