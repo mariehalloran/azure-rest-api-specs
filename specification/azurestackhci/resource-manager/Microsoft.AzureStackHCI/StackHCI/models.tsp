@@ -10957,3 +10957,35 @@ union ClusterVolumeProvisioningType {
   /** Fixed provisioning. */
   Fixed: "Fixed",
 }
+
+/** Represents a required package for an update configuration. */
+@added(Versions.v2026_03_15_preview)
+model RequiredPackage {
+  /** The type of the required package. */
+  @encodedName("application/json", "Type")
+  type?: string;
+
+  /** The version of the required package. */
+  @encodedName("application/json", "Version")
+  version?: string;
+
+  /** The minimum version required for the package. */
+  @encodedName("application/json", "MinVersionRequired")
+  minVersionRequired?: string;
+}
+
+/** Represents a validated update configuration with required packages. */
+@added(Versions.v2026_03_15_preview)
+model ValidatedUpdateConfiguration {
+  /** The list of required packages for this configuration. */
+  @encodedName("application/json", "RequiredPackages")
+  requiredPackages?: RequiredPackage[];
+}
+
+/** Properties for EdgeMachineUpdate resource. */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineUpdateProperties {
+  /** The list of validated update configurations. */
+  @encodedName("application/json", "ValidatedUpdateConfigurations")
+  validatedUpdateConfigurations?: ValidatedUpdateConfiguration[];
+}
