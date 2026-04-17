@@ -1,0 +1,45 @@
+{
+  "title": "Operations_List",
+  "operationId": "Operations_List",
+  "parameters": {
+    "api-version": "2026-05-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "Microsoft.AIOps/services/read",
+            "display": {
+              "provider": "Microsoft.AIOps",
+              "resource": "services",
+              "operation": "Get AIOps Service",
+              "description": "Gets an AIOps service resource."
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.AIOps/services/write",
+            "display": {
+              "provider": "Microsoft.AIOps",
+              "resource": "services",
+              "operation": "Create or Update AIOps Service",
+              "description": "Creates or updates an AIOps service resource."
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.AIOps/services/delete",
+            "display": {
+              "provider": "Microsoft.AIOps",
+              "resource": "services",
+              "operation": "Delete AIOps Service",
+              "description": "Deletes an AIOps service resource."
+            },
+            "isDataAction": false
+          }
+        ]
+      }
+    }
+  }
+}
