@@ -105,9 +105,6 @@ directive:
     from: billingbenefits.json
     reason: False-positive. Milestones is always present in resource model. There are two types of conditionalCredit models - primary and contributor. The resource model is split on this discriminator value, and milesstones is only present for primary. The patch operation is only available for primary, so milestones will always be available.
     where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/conditionalCredits/{conditionalCreditName}"].patch.parameters[4]["schema"]
-  - suppress: ProvisioningStateMustBeReadOnly
-    from: billingbenefits.json
-    reason: provisioningState is correctly set as readOnly in all model definitions. This is a known lint false positive affecting all BillingBenefits resources.
 ```
 
 ### Tag: package-2026-02-01
