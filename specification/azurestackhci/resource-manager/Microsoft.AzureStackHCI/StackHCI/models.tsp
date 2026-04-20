@@ -10958,34 +10958,37 @@ union ClusterVolumeProvisioningType {
   Fixed: "Fixed",
 }
 
-/** Represents a required package for an update configuration. */
+/** Represents an available update for an edge machine. */
 @added(Versions.v2026_03_15_preview)
-model RequiredPackage {
-  /** The type of the required package. */
-  @encodedName("application/json", "Type")
-  type?: string;
+model EdgeMachineUpdateInfo {
+  /** The VSR version of the update. */
+  vsrVersion: string;
 
-  /** The version of the required package. */
-  @encodedName("application/json", "Version")
-  version?: string;
+  /** The display name of the update. */
+  displayName?: string;
 
-  /** The minimum version required for the package. */
-  @encodedName("application/json", "MinVersionRequired")
-  minVersionRequired?: string;
-}
+  /** Link to the release notes for this update. */
+  releaseNotesLink?: string;
 
-/** Represents a validated update configuration with required packages. */
-@added(Versions.v2026_03_15_preview)
-model ValidatedUpdateConfiguration {
-  /** The list of required packages for this configuration. */
-  @encodedName("application/json", "RequiredPackages")
-  requiredPackages?: RequiredPackage[];
+  /** Total size of the update in bytes. */
+  totalSizeBytes?: int64;
+
+  /** Indicates whether a reboot is required after installing this update. */
+  rebootRequired?: boolean;
+
+  /** Estimated time in minutes to install this update. */
+  estimatedInstallTimeMinutes?: int32;
+
+  /** The type of update (e.g., FullImage). */
+  updateType?: string;
+
+  /** The Arc agent version included in this update. */
+  arcAgentVersion?: string;
 }
 
 /** Properties for EdgeMachineUpdate resource. */
 @added(Versions.v2026_03_15_preview)
 model EdgeMachineUpdateProperties {
-  /** The list of validated update configurations. */
-  @encodedName("application/json", "ValidatedUpdateConfigurations")
-  validatedUpdateConfigurations?: ValidatedUpdateConfiguration[];
+  /** The list of available updates. */
+  value?: EdgeMachineUpdateInfo[];
 }
