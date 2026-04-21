@@ -39,8 +39,8 @@ enum Versions {
   @useDependency(LiftrBase.Versions.v1_preview)
   v5_preview: "2026-06-01-preview",
 
-  @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v1_preview")
-  @useDependency(LiftrBase.Versions.v1_preview)
+  @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v3_preview")
+  @useDependency(LiftrBase.Versions.v3_preview)
   v6_preview: "2026-06-02-preview",
 
   @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v1_preview")
