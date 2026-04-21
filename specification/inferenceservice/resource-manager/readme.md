@@ -36,5 +36,5 @@ These settings apply only when `--tag=package-preview-2026-01-15-preview` is spe
 
 ```yaml $(tag) == 'package-preview-2026-01-15-preview'
 input-file:
-  - Microsoft.InferenceService\preview\2026-01-15-preview\inferenceservice.json
+  - Microsoft.InferenceService\InferenceService\preview\2026-01-15-preview\inferenceservice.json
 ```
