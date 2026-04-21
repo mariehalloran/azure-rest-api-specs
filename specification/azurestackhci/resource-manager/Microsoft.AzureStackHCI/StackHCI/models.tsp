@@ -10991,4 +10991,10 @@ model EdgeMachineUpdateInfo {
 model EdgeMachineUpdateProperties {
   /** The list of available updates. */
   values: EdgeMachineUpdateInfo[];
+
+  /**
+   * Provisioning state of the updates resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
 }
