@@ -1033,6 +1033,13 @@ model RestoreProtectionItemRequest {
   vmDestinationInfo: VmDestinationInfo;
 }
 
+@doc("Response for count protected items operation.")
+@added(Versions.v7_preview)
+model CountProtectedItemsResponse {
+  @doc("The count of protected items.")
+  count: string;
+}
+
 @doc("Request to count protected items for the provided CCA resource IDs across subscriptions.")
 @added(Versions.v7_preview)
 model CountProtectedItemsRequest {
@@ -1080,7 +1087,7 @@ interface ProtectedItemsOperationGroup {
     @bodyRoot
     @doc("The body type of the operation request.")
     request: CountProtectedItemsRequest,
-  ): int32 | ErrorResponse;
+  ): CountProtectedItemsResponse | string;
 }
 
 @doc("Restore points of a Protected Item")

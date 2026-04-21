@@ -101,10 +101,6 @@
       "post": {
         "operationId": "ProtectedItemsOperationGroup_CountByProtectionGroups",
         "description": "Gets the count of protected items for provided CCA resource IDs across subscriptions.",
-        "produces": [
-          "text/plain",
-          "application/json"
-        ],
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
@@ -123,14 +119,13 @@
           "200": {
             "description": "The request has succeeded.",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "$ref": "#/definitions/CountProtectedItemsResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "type": "string"
             }
           }
         },
@@ -2524,6 +2519,19 @@
       },
       "required": [
         "resourceIds"
+      ]
+    },
+    "CountProtectedItemsResponse": {
+      "type": "object",
+      "description": "Response for count protected items operation.",
+      "properties": {
+        "count": {
+          "type": "string",
+          "description": "The count of protected items."
+        }
+      },
+      "required": [
+        "count"
       ]
     },
     "DayOfWeek": {
