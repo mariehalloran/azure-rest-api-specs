@@ -1910,6 +1910,9 @@
         "x-ms-examples": {
           "IngestionUnits - CreateOrUpdate": {
             "$ref": "./examples/IngestionUnits_CreateOrUpdate.json"
+          },
+          "IngestionUnits - CreateOrUpdate Flow": {
+            "$ref": "./examples/IngestionUnits_CreateOrUpdate_Flow.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -2797,6 +2800,34 @@
         ]
       }
     },
+    "CapacityOverrides": {
+      "type": "object",
+      "description": "Capacity overrides — fine-grained overrides for push-tier IngestionUnits. Each field must be ≤ the SKU tier ceiling. If omitted entirely, all values default from the SKU tier.",
+      "properties": {
+        "maxRequestsPerMinute": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Max requests/minute globally. Must be ≤ SKU tier ceiling. Default: tier value.",
+          "minimum": 20000,
+          "maximum": 5000000
+        },
+        "maxRequestsPerMinutePerRegion": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Max requests/minute/region. Must be ≤ maxRequestsPerMinute.",
+          "minimum": 20000,
+          "maximum": 5000000
+        },
+        "burstAllowance": {
+          "type": "number",
+          "format": "double",
+          "description": "Burst multiplier allowing short spikes above the RPM limit. Default: 1.5.",
+          "default": 1.5,
+          "minimum": 1,
+          "maximum": 5
+        }
+      }
+    },
     "CloudScope": {
       "type": "object",
       "description": "Cloud scope configuration",
@@ -3273,6 +3304,11 @@
           "format": "arm-id",
           "description": "ARM resource ID of the linked publisher setting."
         },
+        "ingestionUnitId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the IngestionUnit providing billing capacity for this flow. Must reference a flow-tier SKU IngestionUnit. RP validates at PUT: unit exists, is enabled, has a flow-tier SKU, and its linkedPublisherSettingId and location match this flow."
+        },
         "fullyQualifiedResourceType": {
           "type": "string",
           "description": "Fully qualified resource type this flow processes (e.g., 'Microsoft.Compute/virtualMachines')."
@@ -3303,6 +3339,7 @@
       "required": [
         "flowKind",
         "linkedPublisherSettingId",
+        "ingestionUnitId",
         "fullyQualifiedResourceType"
       ]
     },
@@ -3385,7 +3422,7 @@
     },
     "IngestionUnit": {
       "type": "object",
-      "description": "Per-region ingestion configuration linked to a publisher setting.",
+      "description": "Per-region ingestion capacity linked to a publisher setting. SKU determines workload type (push or flow) and capacity tier.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/IngestionUnitProperties",
@@ -3423,6 +3460,10 @@
       "type": "object",
       "description": "Properties for an ingestion unit resource.",
       "properties": {
+        "sku": {
+          "$ref": "#/definitions/IngestionUnitSku",
+          "description": "SKU selecting capacity tier and workload type."
+        },
         "linkedPublisherSettingId": {
           "type": "string",
           "format": "arm-id",
@@ -3432,9 +3473,9 @@
           "$ref": "#/definitions/Authorization",
           "description": "Authorization override for this region."
         },
-        "publisherUsageUnit": {
-          "$ref": "#/definitions/ThrottlingPolicy",
-          "description": "Throttling policy for this ingestion unit. Required."
+        "capacityOverrides": {
+          "$ref": "#/definitions/CapacityOverrides",
+          "description": "Capacity overrides. Optional — if omitted, all values default from the SKU tier ceiling. Each field, if present, must be ≤ the SKU tier ceiling. Applicable to push-tier SKUs only."
         },
         "endpoint": {
           "type": "string",
@@ -3460,9 +3501,79 @@
         }
       },
       "required": [
-        "linkedPublisherSettingId",
-        "publisherUsageUnit"
+        "sku",
+        "linkedPublisherSettingId"
       ]
+    },
+    "IngestionUnitSku": {
+      "type": "object",
+      "description": "SKU for an ingestion unit. Selects capacity tier and workload type.",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/IngestionUnitSkuName",
+          "description": "SKU name selecting capacity tier and workload type. Required on PUT."
+        },
+        "tier": {
+          "$ref": "#/definitions/SkuTier",
+          "description": "ARM standard tier label. RP populates on GET; not required on PUT. Free→Free, Standard/Standard_Flow→Standard, Dedicated/Dedicated_Flow/DedicatedPlus→Premium."
+        },
+        "capacity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Optional capacity unit multiplier. Must be ≤ tier ceiling. If omitted, tier default applies."
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "IngestionUnitSkuName": {
+      "type": "string",
+      "description": "SKU name for an ingestion unit. Determines capacity tier and workload type (push or flow).",
+      "enum": [
+        "Free",
+        "Standard",
+        "Dedicated",
+        "DedicatedPlus",
+        "Standard_Flow",
+        "Dedicated_Flow"
+      ],
+      "x-ms-enum": {
+        "name": "IngestionUnitSkuName",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Free",
+            "value": "Free",
+            "description": "Free push tier: minimal capacity for development and testing."
+          },
+          {
+            "name": "Standard",
+            "value": "Standard",
+            "description": "Standard push tier: production HTTP push ingestion capacity."
+          },
+          {
+            "name": "Dedicated",
+            "value": "Dedicated",
+            "description": "Dedicated push tier: high-volume HTTP push ingestion capacity."
+          },
+          {
+            "name": "DedicatedPlus",
+            "value": "DedicatedPlus",
+            "description": "Dedicated Plus push tier: maximum HTTP push ingestion capacity."
+          },
+          {
+            "name": "Standard_Flow",
+            "value": "Standard_Flow",
+            "description": "Standard flow tier: production discovery pipeline capacity."
+          },
+          {
+            "name": "Dedicated_Flow",
+            "value": "Dedicated_Flow",
+            "description": "Dedicated flow tier: high-volume discovery pipeline capacity."
+          }
+        ]
+      }
     },
     "IngestionUnitTagsUpdate": {
       "type": "object",
@@ -4140,6 +4251,36 @@
         ]
       }
     },
+    "SkuTier": {
+      "type": "string",
+      "description": "ARM standard SKU tier.",
+      "enum": [
+        "Free",
+        "Standard",
+        "Premium"
+      ],
+      "x-ms-enum": {
+        "name": "SkuTier",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Free",
+            "value": "Free",
+            "description": "Free tier."
+          },
+          {
+            "name": "Standard",
+            "value": "Standard",
+            "description": "Standard tier."
+          },
+          {
+            "name": "Premium",
+            "value": "Premium",
+            "description": "Premium tier (maps to Dedicated and DedicatedPlus SKU names)."
+          }
+        ]
+      }
+    },
     "StorageAccountDestinationProperties": {
       "type": "object",
       "description": "Storage account destination properties",
@@ -4260,35 +4401,6 @@
         }
       ],
       "x-ms-discriminator-value": "tenant"
-    },
-    "ThrottlingPolicy": {
-      "type": "object",
-      "description": "Throttling policy.",
-      "properties": {
-        "maxRequestsPerMinute": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Max requests/minute globally. Default: 20,000.",
-          "default": 20000,
-          "minimum": 20000,
-          "maximum": 5000000
-        },
-        "maxRequestsPerMinutePerRegion": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Max requests/minute/region.",
-          "minimum": 20000,
-          "maximum": 5000000
-        },
-        "burstAllowance": {
-          "type": "number",
-          "format": "double",
-          "description": "Burst multiplier. Default: 1.5.",
-          "default": 1.5,
-          "minimum": 1,
-          "maximum": 5
-        }
-      }
     },
     "TimeAndScopeRangeHashPathPolicy": {
       "type": "object",

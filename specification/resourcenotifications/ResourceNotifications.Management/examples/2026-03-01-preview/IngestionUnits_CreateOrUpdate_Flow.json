@@ -1,0 +1,57 @@
+{
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-arn-examples",
+    "unitName": "eastus-flow",
+    "api-version": "2026-03-01-preview",
+    "resource": {
+      "location": "eastus",
+      "tags": {
+        "environment": "production"
+      },
+      "properties": {
+        "sku": { "name": "Standard_Flow" },
+        "linkedPublisherSettingId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default",
+        "enabled": true
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "name": "eastus-flow",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/ingestionUnits/eastus-flow",
+        "type": "Microsoft.ResourceNotifications/ingestionUnits",
+        "location": "eastus",
+        "tags": {
+          "environment": "production"
+        },
+        "properties": {
+          "sku": { "name": "Standard_Flow" },
+          "provisioningState": "Succeeded",
+          "linkedPublisherSettingId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default",
+          "enabled": true
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "name": "eastus-flow",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/ingestionUnits/eastus-flow",
+        "type": "Microsoft.ResourceNotifications/ingestionUnits",
+        "location": "eastus",
+        "tags": {
+          "environment": "production"
+        },
+        "properties": {
+          "sku": { "name": "Standard_Flow" },
+          "provisioningState": "Creating",
+          "linkedPublisherSettingId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default",
+          "enabled": true
+        }
+      }
+    }
+  },
+  "operationId": "IngestionUnits_CreateOrUpdate",
+  "title": "IngestionUnits - CreateOrUpdate Flow"
+}

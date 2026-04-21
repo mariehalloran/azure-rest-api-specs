@@ -10,6 +10,7 @@
         "environment": "production"
       },
       "properties": {
+        "sku": { "name": "Standard" },
         "linkedPublisherSettingId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default",
         "authorization": {
           "kind": "AAD",
@@ -22,7 +23,7 @@
             }
           ]
         },
-        "publisherUsageUnit": {
+        "capacityOverrides": {
           "maxRequestsPerMinute": 50000,
           "maxRequestsPerMinutePerRegion": 25000,
           "burstAllowance": 2.0
@@ -38,13 +39,14 @@
     "200": {
       "body": {
         "name": "eastus-primary",
-        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/ingestionUnits/eastus-primary",
+        "id": "/subscriptions/00000000-0000-0000-0000-resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/ingestionUnits/eastus-primary",
         "type": "Microsoft.ResourceNotifications/ingestionUnits",
         "location": "eastus",
         "tags": {
           "environment": "production"
         },
         "properties": {
+          "sku": { "name": "Standard" },
           "provisioningState": "Succeeded",
           "linkedPublisherSettingId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default",
           "authorization": {
@@ -58,7 +60,7 @@
               }
             ]
           },
-          "publisherUsageUnit": {
+          "capacityOverrides": {
             "maxRequestsPerMinute": 50000,
             "maxRequestsPerMinutePerRegion": 25000,
             "burstAllowance": 2.0
@@ -81,6 +83,7 @@
           "environment": "production"
         },
         "properties": {
+          "sku": { "name": "Standard" },
           "provisioningState": "Creating",
           "linkedPublisherSettingId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default",
           "authorization": {
@@ -94,7 +97,7 @@
               }
             ]
           },
-          "publisherUsageUnit": {
+          "capacityOverrides": {
             "maxRequestsPerMinute": 50000,
             "maxRequestsPerMinutePerRegion": 25000,
             "burstAllowance": 2.0

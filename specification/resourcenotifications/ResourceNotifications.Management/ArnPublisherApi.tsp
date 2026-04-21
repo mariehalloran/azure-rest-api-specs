@@ -116,23 +116,77 @@ interface PublisherSettingsOperations {
   listByParent is ArmResourceListByParent<PublisherSettings>;
 }
 
-/** Throttling policy. */
+/** Capacity overrides — fine-grained overrides for push-tier IngestionUnits. Each field must be ≤ the SKU tier ceiling. If omitted entirely, all values default from the SKU tier. */
 @added(Versions.v2026_03_01_preview)
-model ThrottlingPolicy {
-  /** Max requests/minute globally. Default: 20,000. */
+model CapacityOverrides {
+  /** Max requests/minute globally. Must be ≤ SKU tier ceiling. Default: tier value. */
   @minValue(20000)
   @maxValue(5000000)
-  maxRequestsPerMinute?: int32 = 20000;
+  maxRequestsPerMinute?: int32;
 
-  /** Max requests/minute/region. */
+  /** Max requests/minute/region. Must be ≤ maxRequestsPerMinute. */
   @minValue(20000)
   @maxValue(5000000)
   maxRequestsPerMinutePerRegion?: int32;
 
-  /** Burst multiplier. Default: 1.5. */
+  /** Burst multiplier allowing short spikes above the RPM limit. Default: 1.5. */
   @minValue(1.0)
   @maxValue(5.0)
   burstAllowance?: float64 = 1.5;
+}
+
+// ─── SKU ─── //
+
+/** ARM standard SKU tier. */
+@added(Versions.v2026_03_01_preview)
+union SkuTier {
+  string,
+
+  /** Free tier. */
+  Free: "Free",
+
+  /** Standard tier. */
+  Standard: "Standard",
+
+  /** Premium tier (maps to Dedicated and DedicatedPlus SKU names). */
+  Premium: "Premium",
+}
+
+/** SKU name for an ingestion unit. Determines capacity tier and workload type (push or flow). */
+@added(Versions.v2026_03_01_preview)
+union IngestionUnitSkuName {
+  string,
+
+  /** Free push tier: minimal capacity for development and testing. */
+  Free: "Free",
+
+  /** Standard push tier: production HTTP push ingestion capacity. */
+  Standard: "Standard",
+
+  /** Dedicated push tier: high-volume HTTP push ingestion capacity. */
+  Dedicated: "Dedicated",
+
+  /** Dedicated Plus push tier: maximum HTTP push ingestion capacity. */
+  DedicatedPlus: "DedicatedPlus",
+
+  /** Standard flow tier: production discovery pipeline capacity. */
+  Standard_Flow: "Standard_Flow",
+
+  /** Dedicated flow tier: high-volume discovery pipeline capacity. */
+  Dedicated_Flow: "Dedicated_Flow",
+}
+
+/** SKU for an ingestion unit. Selects capacity tier and workload type. */
+@added(Versions.v2026_03_01_preview)
+model IngestionUnitSku {
+  /** SKU name selecting capacity tier and workload type. Required on PUT. */
+  name: IngestionUnitSkuName;
+
+  /** ARM standard tier label. RP populates on GET; not required on PUT. Free→Free, Standard/Standard_Flow→Standard, Dedicated/Dedicated_Flow/DedicatedPlus→Premium. */
+  tier?: SkuTier;
+
+  /** Optional capacity unit multiplier. Must be ≤ tier ceiling. If omitted, tier default applies. */
+  capacity?: int32;
 }
 
 // Polymorphic Authorization
@@ -366,7 +420,7 @@ model FlowScheduling {
 
 // ─── INGESTION UNITS ─── //
 
-/** Per-region ingestion configuration linked to a publisher setting. */
+/** Per-region ingestion capacity linked to a publisher setting. SKU determines workload type (push or flow) and capacity tier. */
 @added(Versions.v2026_03_01_preview)
 model IngestionUnit
   is Azure.ResourceManager.TrackedResource<IngestionUnitProperties> {
@@ -381,14 +435,17 @@ model IngestionUnit
 /** Properties for an ingestion unit resource. */
 @added(Versions.v2026_03_01_preview)
 model IngestionUnitProperties {
+  /** SKU selecting capacity tier and workload type. */
+  sku: IngestionUnitSku;
+
   /** ARM resource ID of the linked publisher setting. */
   linkedPublisherSettingId: Azure.Core.armResourceIdentifier;
 
   /** Authorization override for this region. */
   authorization?: Authorization;
 
-  /** Throttling policy for this ingestion unit. Required. */
-  publisherUsageUnit: ThrottlingPolicy;
+  /** Capacity overrides. Optional — if omitted, all values default from the SKU tier ceiling. Each field, if present, must be ≤ the SKU tier ceiling. Applicable to push-tier SKUs only. */
+  capacityOverrides?: CapacityOverrides;
 
   /** System-provisioned receiver hostname. Derived from location. */
   @visibility(Lifecycle.Read)
@@ -482,6 +539,9 @@ model FlowProperties {
 
   /** ARM resource ID of the linked publisher setting. */
   linkedPublisherSettingId: Azure.Core.armResourceIdentifier;
+
+  /** ARM resource ID of the IngestionUnit providing billing capacity for this flow. Must reference a flow-tier SKU IngestionUnit. RP validates at PUT: unit exists, is enabled, has a flow-tier SKU, and its linkedPublisherSettingId and location match this flow. */
+  ingestionUnitId: Azure.Core.armResourceIdentifier;
 
   /** Fully qualified resource type this flow processes (e.g., 'Microsoft.Compute/virtualMachines'). */
   fullyQualifiedResourceType: string;

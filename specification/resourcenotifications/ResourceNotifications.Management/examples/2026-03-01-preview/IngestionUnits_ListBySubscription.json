@@ -16,9 +16,10 @@
               "environment": "production"
             },
             "properties": {
+              "sku": { "name": "Standard" },
               "provisioningState": "Succeeded",
               "linkedPublisherSettingId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default",
-              "publisherUsageUnit": {
+              "capacityOverrides": {
                 "maxRequestsPerMinute": 50000,
                 "maxRequestsPerMinutePerRegion": 25000,
                 "burstAllowance": 2.0
