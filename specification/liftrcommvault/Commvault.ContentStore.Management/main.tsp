@@ -1087,7 +1087,7 @@ interface ProtectedItemsOperationGroup {
     @bodyRoot
     @doc("The body type of the operation request.")
     request: CountProtectedItemsRequest,
-  ): CountProtectedItemsResponse | string;
+  ): CountProtectedItemsResponse | ErrorResponse;
 }
 
 @doc("Restore points of a Protected Item")
