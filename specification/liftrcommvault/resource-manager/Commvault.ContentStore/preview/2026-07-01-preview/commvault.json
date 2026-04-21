@@ -2440,7 +2440,7 @@
           ]
         },
         "user": {
-          "$ref": "#/definitions/LiftrBase.UserDetailsUpdate",
+          "$ref": "#/definitions/LiftrBase.UserDetails",
           "description": "Details of the user."
         }
       }
@@ -2694,13 +2694,16 @@
           "description": "Marketplace subscription status",
           "readOnly": true
         },
+        "saasResourceId": {
+          "type": "string",
+          "description": "Marketplace SaaS Resource Id"
+        },
         "offerDetails": {
           "$ref": "#/definitions/LiftrBase.OfferDetails",
           "description": "Offer details for the marketplace that is selected by the user"
         }
       },
       "required": [
-        "subscriptionId",
         "offerDetails"
       ]
     },
@@ -2711,6 +2714,10 @@
         "subscriptionId": {
           "type": "string",
           "description": "Azure subscription id for the the marketplace offer is purchased from"
+        },
+        "saasResourceId": {
+          "type": "string",
+          "description": "Marketplace SaaS Resource Id"
         },
         "offerDetails": {
           "$ref": "#/definitions/LiftrBase.OfferDetailsUpdate",
@@ -2785,8 +2792,7 @@
       },
       "required": [
         "publisherId",
-        "offerId",
-        "planId"
+        "offerId"
       ]
     },
     "LiftrBase.OfferDetailsUpdate": {
@@ -2820,37 +2826,6 @@
       }
     },
     "LiftrBase.UserDetails": {
-      "type": "object",
-      "description": "User details for an organization",
-      "properties": {
-        "firstName": {
-          "type": "string",
-          "description": "First name of the user"
-        },
-        "lastName": {
-          "type": "string",
-          "description": "Last name of the user"
-        },
-        "emailAddress": {
-          "$ref": "#/definitions/LiftrBase.email",
-          "description": "Email address of the user"
-        },
-        "upn": {
-          "type": "string",
-          "description": "User's principal name"
-        },
-        "phoneNumber": {
-          "type": "string",
-          "description": "User's phone number"
-        }
-      },
-      "required": [
-        "firstName",
-        "lastName",
-        "emailAddress"
-      ]
-    },
-    "LiftrBase.UserDetailsUpdate": {
       "type": "object",
       "description": "User details for an organization",
       "properties": {
