@@ -4026,11 +4026,13 @@
         },
         "createdAt": {
           "type": "string",
+          "format": "date-time",
           "description": "Volume creation date, as an RFC 3339 timestamp",
           "readOnly": true
         },
         "sourceVolumeResourceId": {
           "type": "string",
+          "format": "arm-id",
           "description": "Azure resource ID of the source volume for cloning",
           "x-ms-mutability": [
             "create"
@@ -4038,6 +4040,7 @@
         },
         "sourceVolumeGroupResourceId": {
           "type": "string",
+          "format": "arm-id",
           "description": "Azure Resource ID of the source volume group to clone from.",
           "x-ms-mutability": [
             "create"
@@ -4601,10 +4604,12 @@
       "properties": {
         "retention": {
           "type": "string",
+          "format": "duration",
           "description": "Retention period for snapshots in ISO 8601 duration format"
         },
         "frequency": {
           "type": "string",
+          "format": "duration",
           "description": "Snapshot frequency in ISO 8601 duration format"
         }
       }
@@ -5395,6 +5400,7 @@
         },
         "sourceVolumeGroupResourceId": {
           "type": "string",
+          "format": "arm-id",
           "description": "Azure resource ID of the source volume group for cloning",
           "x-ms-mutability": [
             "create"
