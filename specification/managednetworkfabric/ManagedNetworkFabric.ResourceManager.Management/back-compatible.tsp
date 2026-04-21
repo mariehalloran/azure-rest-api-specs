@@ -57,6 +57,15 @@ using Microsoft.ManagedNetworkFabric;
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
 @@Legacy.flattenProperty(RoutePolicyPatch.properties);
 
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
+@@Legacy.flattenProperty(NetworkBootstrapInterfacePatch.properties);
+
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
+@@Legacy.flattenProperty(NetworkBootstrapDevicePatch.properties);
+
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
+@@Legacy.flattenProperty(NetworkMonitorPatch.properties);
+
 @@clientName(AccessControlLists.create::parameters.resource, "body");
 @@clientName(AccessControlLists.update::parameters.properties, "body");
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
@@ -150,6 +159,11 @@ using Microsoft.ManagedNetworkFabric;
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
 @@Legacy.flattenProperty(NetworkFabric.properties);
 
+@@clientName(EdgeConnectors.create::parameters.resource, "body");
+@@clientName(EdgeConnectors.update::parameters.properties, "body");
+@@clientName(Fabrics.create::parameters.resource, "body");
+@@clientName(Fabrics.update::parameters.properties, "body");
+
 @@clientName(NetworkToNetworkInterconnects.create::parameters.resource, "body");
 @@clientName(NetworkToNetworkInterconnects.update::parameters.properties,
   "body"
@@ -187,6 +201,18 @@ using Microsoft.ManagedNetworkFabric;
 @@clientName(RoutePolicies.update::parameters.properties, "body");
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
 @@Legacy.flattenProperty(RoutePolicy.properties);
+
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
+@@Legacy.flattenProperty(NetworkBootstrapDevice.properties);
+
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
+@@Legacy.flattenProperty(NetworkBootstrapInterface.properties);
+
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
+@@Legacy.flattenProperty(NetworkMonitor.properties);
+
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Property flatten for SDK backward compatibility."
+@@Legacy.flattenProperty(NetworkMonitor.properties);
 
 // Backward compatibility models for list results
 model InternetGatewayRulesListResult is Azure.Core.Page<InternetGatewayRule>;
