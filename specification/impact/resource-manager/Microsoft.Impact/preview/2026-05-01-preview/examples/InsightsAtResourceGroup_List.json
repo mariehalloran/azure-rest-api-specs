@@ -1,0 +1,37 @@
+{
+  "operationId": "Insights_ListByResourceGroup",
+  "title": "List Insight resources by workloadImpactName at resource group scope",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "impact-rg",
+    "workloadImpactName": "impact-rg-001",
+    "api-version": "2026-05-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/impact-rg/providers/Microsoft.Impact/workloadImpacts/impact-rg-001/insights/insight-rg-001",
+            "name": "insight-rg-001",
+            "type": "Microsoft.Impact/workloadImpacts/insights",
+            "properties": {
+              "category": "repair",
+              "status": "resolved",
+              "insightUniqueId": "00000000-0000-0000-0000-000000000000",
+              "content": {
+                "title": "Impact correlated to outage",
+                "description": "An outage has been correlated to the workload impact."
+              },
+              "impact": {
+                "impactedResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/resource-rg/providers/Microsoft.Sql/sqlServers/dbservername",
+                "startTime": "2023-06-15T01:00:00.009223Z",
+                "impactId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/impact-rg/providers/Microsoft.Impact/workloadImpacts/impact-rg-001"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
