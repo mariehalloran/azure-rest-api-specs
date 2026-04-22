@@ -1046,7 +1046,11 @@ model CountProtectedItemsRequest {
   @doc("The list of CCA resource IDs.")
   @visibility(Lifecycle.Read, Lifecycle.Create)
   @minItems(1)
-  resourceIds: string[];
+  resourceIds: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Commvault.ContentStore/cloudAccounts";
+    }
+  ]>[];
 }
 
 @armResourceOperations

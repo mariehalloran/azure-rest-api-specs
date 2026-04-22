@@ -2512,7 +2512,16 @@
           "description": "The list of CCA resource IDs.",
           "minItems": 1,
           "items": {
-            "type": "string"
+            "type": "string",
+            "format": "arm-id",
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Commvault.ContentStore/cloudAccounts"
+                }
+              ]
+            }
           },
           "x-ms-mutability": [
             "read",
