@@ -10990,6 +10990,7 @@ model EdgeMachineUpdateInfo {
 @added(Versions.v2026_03_15_preview)
 model EdgeMachineUpdateProperties {
   /** The list of available updates. */
+  @identifiers(#[])
   values: EdgeMachineUpdateInfo[];
 
   /**
