@@ -11091,6 +11091,11 @@
           "description": "Cluster volume mount path. This can be a CSV path or device path depending on the backing storage.",
           "readOnly": true
         },
+        "volumeId": {
+          "type": "string",
+          "description": "Volume GUID. Primary identifier for the cluster volume.",
+          "readOnly": true
+        },
         "clusterResourceId": {
           "type": "string",
           "description": "Cluster resource GUID for a PDR-backed volume when applicable.",

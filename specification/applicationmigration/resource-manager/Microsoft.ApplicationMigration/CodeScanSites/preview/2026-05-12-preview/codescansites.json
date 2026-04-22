@@ -1718,12 +1718,15 @@
             "$ref": "#/definitions/AzureTarget"
           }
         },
-        "repoNames": {
+        "repos": {
           "type": "array",
-          "description": "The name of repositories affected by this issue.",
+          "description": "Repository-level details for this issue, including per-repo occurrence counts.",
           "items": {
-            "type": "string"
-          }
+            "$ref": "#/definitions/IssueRepoInfo"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
         }
       },
       "required": [
@@ -2166,6 +2169,25 @@
           }
         ]
       }
+    },
+    "IssueRepoInfo": {
+      "type": "object",
+      "description": "Per-repository details for a code scan issue.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The repository name."
+        },
+        "occurrences": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of occurrences of this issue in this repository."
+        }
+      },
+      "required": [
+        "name",
+        "occurrences"
+      ]
     },
     "MappingMethod": {
       "type": "string",
