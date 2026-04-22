@@ -6,6 +6,7 @@ import "./models.tsp";
 import "./Cluster.tsp";
 
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 using TypeSpec.Http;
 using TypeSpec.OpenAPI;
@@ -22,6 +23,8 @@ model SecuritySetting
   @segment("securitySettings")
   @pattern("^[a-zA-Z0-9-]{3,24}$")
   name: string = "default";
+
+  ...Azure.ResourceManager.EntityTagProperty;
 }
 
 @armResourceOperations
@@ -45,6 +48,15 @@ interface SecuritySettings {
    * List SecuritySetting resources by Clusters
    */
   listByClusters is ArmResourceListByParent<SecuritySetting>;
+
+  /**
+   * Remediate a group of settings within SecuritySetting
+   */
+  @added(Versions.v2026_03_15_preview)
+  remediate is ArmResourceActionNoResponseContentAsync<
+    SecuritySetting,
+    Recommendation
+  >;
 }
 
 @@doc(SecuritySetting.name, "Name of security setting");
