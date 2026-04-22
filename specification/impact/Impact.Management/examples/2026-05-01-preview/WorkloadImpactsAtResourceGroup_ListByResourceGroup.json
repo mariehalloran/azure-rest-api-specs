@@ -1,0 +1,27 @@
+{
+  "operationId": "WorkloadImpactsAtResourceGroup_ListByResourceGroup",
+  "title": "List WorkloadImpact resources by resource group",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "impact-rg",
+    "api-version": "2026-05-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/impact-rg/providers/Microsoft.Impact/workloadImpacts/impact-rg-001",
+            "name": "impact-rg-001",
+            "type": "Microsoft.Impact/workloadImpacts",
+            "properties": {
+              "impactedResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/resource-rg/providers/Microsoft.Compute/virtualMachines/vm1",
+              "startDateTime": "2022-06-15T05:59:46.6517821Z",
+              "impactCategory": "Resource.Other"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
