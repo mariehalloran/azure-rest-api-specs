@@ -10782,6 +10782,10 @@ model ClusterVolumeReportedProperties {
   @visibility(Lifecycle.Read)
   path?: string;
 
+  /** Volume GUID. Primary identifier for the cluster volume. */
+  @visibility(Lifecycle.Read)
+  volumeId?: string;
+
   /** Cluster resource GUID for a PDR-backed volume when applicable. */
   @visibility(Lifecycle.Read)
   clusterResourceId?: string;
