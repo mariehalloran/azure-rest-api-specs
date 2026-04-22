@@ -35,9 +35,19 @@ interface EdgeMachineUpdates {
   get is ArmResourceRead<EdgeMachineUpdate>;
 
   /**
+   * Create or update EdgeMachine update.
+   */
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<EdgeMachineUpdate>;
+
+  /**
    * Delete EdgeMachine update.
    */
   delete is ArmResourceDeleteWithoutOkAsync<EdgeMachineUpdate>;
+
+  /**
+   * List EdgeMachine update resources by EdgeMachine.
+   */
+  list is ArmResourceListByParent<EdgeMachineUpdate>;
 }
 
 @@doc(EdgeMachineUpdate.name, "Name of EdgeMachine update");
