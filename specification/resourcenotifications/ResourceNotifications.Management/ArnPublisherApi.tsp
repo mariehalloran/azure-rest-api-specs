@@ -430,14 +430,15 @@ model IngestionUnit
   @pattern("^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$")
   @path
   name: string;
+
+  /** SKU selecting capacity tier and workload type. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "sku is ARM standard envelope property"
+  sku: IngestionUnitSku;
 }
 
 /** Properties for an ingestion unit resource. */
 @added(Versions.v2026_03_01_preview)
 model IngestionUnitProperties {
-  /** SKU selecting capacity tier and workload type. */
-  sku: IngestionUnitSku;
-
   /** ARM resource ID of the linked publisher setting. */
   linkedPublisherSettingId: Azure.Core.armResourceIdentifier;
 

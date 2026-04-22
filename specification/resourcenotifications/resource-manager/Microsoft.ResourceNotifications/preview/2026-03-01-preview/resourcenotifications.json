@@ -3427,8 +3427,15 @@
         "properties": {
           "$ref": "#/definitions/IngestionUnitProperties",
           "description": "The resource-specific properties for this resource."
+        },
+        "sku": {
+          "$ref": "#/definitions/IngestionUnitSku",
+          "description": "SKU selecting capacity tier and workload type."
         }
       },
+      "required": [
+        "sku"
+      ],
       "allOf": [
         {
           "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
@@ -3460,10 +3467,6 @@
       "type": "object",
       "description": "Properties for an ingestion unit resource.",
       "properties": {
-        "sku": {
-          "$ref": "#/definitions/IngestionUnitSku",
-          "description": "SKU selecting capacity tier and workload type."
-        },
         "linkedPublisherSettingId": {
           "type": "string",
           "format": "arm-id",
@@ -3501,7 +3504,6 @@
         }
       },
       "required": [
-        "sku",
         "linkedPublisherSettingId"
       ]
     },
