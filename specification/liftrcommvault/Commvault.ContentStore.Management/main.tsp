@@ -1079,15 +1079,14 @@ interface ProtectedItems {
 @added(Versions.v7_preview)
 interface ProtectedItemsOperationGroup {
   @doc("Gets the count of protected items for provided CCA resource IDs across subscriptions.")
-  @route("/providers/Commvault.ContentStore/protectedItemCount")
-  @post
-  countByProtectionGroups(
-    ...ApiVersionParameter,
-
-    @bodyRoot
-    @doc("The body type of the operation request.")
-    request: CountProtectedItemsRequest,
-  ): CountProtectedItemsResponse | ErrorResponse;
+  @autoRoute
+  @action("protectedItemCount")
+  countByProtectionGroups is ArmProviderActionSync<
+    Request = CountProtectedItemsRequest,
+    Response = CountProtectedItemsResponse,
+    Scope = TenantActionScope,
+    Parameters = {}
+  >;
 }
 
 @doc("Restore points of a Protected Item")
