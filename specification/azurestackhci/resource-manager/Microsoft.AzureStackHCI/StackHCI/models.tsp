@@ -15,6 +15,15 @@ namespace Microsoft.AzureStackHCI;
 union HciJobType {
   string,
 
+  /** Job to add a server to the cluster. */
+  AddServer: "AddServer",
+
+  /** Job to repair a server in the cluster. */
+  RepairServer: "RepairServer",
+
+  /** Job to configure fault domains for the cluster. */
+  ConfigureFaultDomain: "ConfigureFaultDomain",
+
   // PRIVATE PREVIEW - Arc Gateway and GPU job types
   /** Job to configure arc gateway for the cluster. */
   ConfigureArcGateway: "ConfigureArcGateway",
@@ -1720,6 +1729,64 @@ union EdgeSolutionType {
    * Edge solution for Windows based edge devices.
    */
   WindowsServer: "WindowsServer",
+}
+
+/**
+ * Lifecycle status of an Edge Machine.
+ */
+@added(Versions.v2026_03_15_preview)
+union EdgeMachineLifecycleStatus {
+  string,
+
+  /** Machine is being created. */
+  Creating: "Creating",
+
+  /** Machine is awaiting connection. */
+  AwaitingConnection: "AwaitingConnection",
+
+  /** Machine is being provisioned. */
+  Provisioning: "Provisioning",
+
+  /** Machine is ready for OS installation. */
+  ReadyForOs: "ReadyForOs",
+
+  /** Machine is installing the OS. */
+  InstallingOs: "InstallingOs",
+
+  /** Machine has been provisioned. */
+  Provisioned: "Provisioned",
+
+  /** Machine OS is being updated. */
+  UpdatingOs: "UpdatingOs",
+
+  /** Machine OS is being reset. */
+  ResettingOs: "ResettingOs",
+
+  /** Machine is being deleted. */
+  Deleting: "Deleting",
+
+  /** Machine is in a failed state. */
+  Failed: "Failed",
+}
+
+/**
+ * Status of an operation. Maps to Steps.Status / SubSteps.Status.
+ */
+@added(Versions.v2026_03_15_preview)
+union LifecycleOperationStatus {
+  string,
+
+  /** Operation has not started. */
+  NotStarted: "NotStarted",
+
+  /** Operation is in progress. */
+  InProgress: "InProgress",
+
+  /** Operation has completed successfully. */
+  Completed: "Completed",
+
+  /** Operation has failed. */
+  Failed: "Failed",
 }
 
 /**
@@ -6601,6 +6668,112 @@ model HciConfigureCvmJobProperties extends ClusterJobProperties {
 }
 
 ////////////////////////////////////////////////////////////////
+////////////////////// Add Server Job Models ///////////////////
+////////////////////////////////////////////////////////////////
+
+/** Details of servers to be added to the cluster */
+@added(Versions.v2026_03_15_preview)
+model AddServerJobServerDetails {
+  /** Name of server to be added to cluster. */
+  serverName: string;
+
+  /** Ip address of server to be added to cluster. */
+  hostIpv4Address: string;
+
+  /** Local availability zone name of server to be added to rack aware cluster. */
+  localAvailabilityZoneName?: string;
+
+  /** Azure resource id of machine part of cluster for which job will be triggered. */
+  serverResourceId: Azure.Core.armResourceIdentifier;
+}
+
+/** Properties for adding a server in the cluster. */
+@added(Versions.v2026_03_15_preview)
+model HciAddServerJobProperties extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.AddServer;
+
+  /** Details of servers to be added to the cluster */
+  @Azure.ResourceManager.identifiers(#[])
+  addServerJobServerDetails: AddServerJobServerDetails[];
+
+  /** List of protected parameters to pass to trigger the job for the cluster. */
+  @Azure.ResourceManager.identifiers(#["secretName"])
+  secrets?: EceDeploymentSecrets[];
+
+  /** Use a cloud witness if you have internet access and if you use an Azure Storage account to provide a vote on cluster quorum. A cloud witness uses Azure Blob Storage to read or write a blob file and then uses it to arbitrate in split-brain resolution. Only allowed values are 'Cloud', 'FileShare' */
+  witnessType?: string;
+
+  /** Specify the fileshare path for the local witness for your Azure Stack HCI cluster. */
+  witnessPath?: string;
+
+  /** Specify the Azure Storage account name for cloud witness for your Azure Stack HCI cluster. */
+  cloudAccountName?: string;
+}
+
+////////////////////////////////////////////////////////////////
+////////////////////// Repair Server Job Models ////////////////
+////////////////////////////////////////////////////////////////
+
+/** Details of servers to be repaired in the cluster */
+@added(Versions.v2026_03_15_preview)
+model RepairServerJobServerDetails {
+  /** Name of server to be repaired in cluster. */
+  serverName: string;
+
+  /** Azure resource id of Arc machine part of cluster for which job will be triggered. */
+  serverResourceId?: Azure.Core.armResourceIdentifier;
+}
+
+/** Properties for repairing a server in the cluster. */
+@added(Versions.v2026_03_15_preview)
+model HciRepairServerJobProperties extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.RepairServer;
+
+  /** Details of servers to be repaired in the cluster */
+  @Azure.ResourceManager.identifiers(#[])
+  repairServerJobServerDetails: RepairServerJobServerDetails[];
+
+  /** List of protected parameters to pass to trigger job for cluster. */
+  @Azure.ResourceManager.identifiers(#["secretName"])
+  secrets?: EceDeploymentSecrets[];
+}
+
+////////////////////////////////////////////////////////////////
+////////////// Fault Domain Config Job Models /////////////////
+////////////////////////////////////////////////////////////////
+
+/** Mapping of a fault domain to its assigned nodes. */
+@added(Versions.v2026_03_15_preview)
+model FaultDomainNodeAssignment {
+  /** Name of the fault domain (e.g., Rack1, Rack2). */
+  faultDomainName: string;
+
+  /** List of node names assigned to this fault domain. */
+  nodes: string[];
+}
+
+/** Properties for configuring fault domains in the cluster. */
+@added(Versions.v2026_03_15_preview)
+model HciConfigureFaultDomainJobProperties extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.ConfigureFaultDomain;
+
+  /** Number of fault domains to create (1-8). */
+  @minValue(1)
+  @maxValue(8)
+  faultDomainCount: int32;
+
+  /** Naming prefix for fault domains. Each fault domain is named <Prefix>1, <Prefix>2, etc. */
+  faultDomainPrefix: string;
+
+  /** Mapping of fault domain names to their assigned nodes. */
+  @Azure.ResourceManager.identifiers(#["faultDomainName"])
+  nodeAssignment: FaultDomainNodeAssignment[];
+}
+
+////////////////////////////////////////////////////////////////
 ////////// PRIVATE PREVIEW - Arc Gateway and GPU Job Models ////
 ////////////////////////////////////////////////////////////////
 
@@ -6877,6 +7050,12 @@ model EdgeMachineProperties {
   ]>;
 
   /**
+   * Lifecycle details of the resource
+   */
+  @visibility(Lifecycle.Read)
+  lifecycleDetails?: LifecycleDetails;
+
+  /**
    * Link to Arc Gateway ARM resource Id
    */
   @visibility(Lifecycle.Read, Lifecycle.Create)
@@ -7112,6 +7291,116 @@ union EdgeMachineConnectivityStatus {
    * The machine resource is connected.
    */
   Connected: "Connected",
+}
+
+/**
+ * Summary lifecycle status for a resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model LifecycleStatus {
+  /**
+   * Overall lifecycle status of the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  status: EdgeMachineLifecycleStatus;
+
+  /**
+   * Depicts what is the current ongoing stage.
+   */
+  @visibility(Lifecycle.Read)
+  stage?: string;
+
+  /**
+   * Last time the lifecycle status was updated.
+   */
+  @visibility(Lifecycle.Read)
+  lastUpdatedUtc: utcDateTime;
+
+  /**
+   * Message to provide more details on lifecycle status, especially in case of failures.
+   */
+  @visibility(Lifecycle.Read)
+  message?: string;
+}
+
+/**
+ * Lifecycle stage details for a resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model LifecycleStage {
+  /**
+   * Name of the stage;
+   */
+  @visibility(Lifecycle.Read)
+  name: string;
+
+  /**
+   * Description of the stage.
+   */
+  @visibility(Lifecycle.Read)
+  description: string;
+
+  /**
+   * Status of the stage.
+   */
+  @visibility(Lifecycle.Read)
+  status: LifecycleOperationStatus;
+
+  /**
+   * Start time of the stage.
+   */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /**
+   * End time of the stage.
+   */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /**
+   * Last time the stage was updated.
+   */
+  @visibility(Lifecycle.Read)
+  lastUpdatedUtc?: utcDateTime;
+
+  /**
+   * Error details.
+   */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.CommonTypes.ErrorDetail;
+
+  /**
+   * Recommended steps to resolve failures.
+   */
+  @visibility(Lifecycle.Read)
+  recommendedSteps?: string[];
+
+  /**
+   * Sub-stages for this stage.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["name"])
+  subStages?: LifecycleStage[];
+}
+
+/**
+ * Overall Lifecycle details for a resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model LifecycleDetails {
+  /**
+   * Overall lifecycle status of the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  lifecycleStatus?: LifecycleStatus;
+
+  /**
+   * List of lifecycle stages for the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["name"])
+  lifecycleStages: LifecycleStage[];
 }
 
 /**
@@ -9568,6 +9857,18 @@ model NetworkAdapterConfiguration {
 
   /** List of DNS servers. */
   dnsServers?: string[];
+
+  /** IP configuration type (Dhcp or Static). */
+  ipInterfaceType?: IpInterfaceType;
+
+  /** VLAN identifier for network segmentation. */
+  vlanId?: int32;
+
+  /** Administrative state of the interface (up or down). */
+  interfaceState?: InterfaceState;
+
+  /** WiFi configuration desired properties. */
+  wifiConfiguration?: WifiConfigurationDesiredProperties;
 }
 
 /**
@@ -9575,7 +9876,20 @@ model NetworkAdapterConfiguration {
  */
 @added(Versions.v2026_03_15_preview)
 model NetworkAdapterReportedProperties {
-  ...NetworkAdapterConfiguration;
+  /** Adapter name. */
+  adapterName?: string;
+
+  /** IP address. */
+  ip4Address?: string;
+
+  /** Subnet mask. */
+  subnetMask?: string;
+
+  /** Default gateway. */
+  defaultGateway?: string;
+
+  /** List of DNS servers. */
+  dnsServers?: string[];
 
   /** Interface description of NIC. */
   @visibility(Lifecycle.Read)
@@ -9646,6 +9960,10 @@ model NetworkAdapterReportedProperties {
   /** The observed state of network adapter. */
   @visibility(Lifecycle.Read)
   networkAdapterStatus?: NetworkAdapterStatus;
+
+  /** WiFi configuration reported properties. */
+  @visibility(Lifecycle.Read)
+  wifiConfiguration?: WifiConfigurationReportedProperties;
 }
 
 /**
@@ -9720,6 +10038,160 @@ model NetworkAdapterProvisioningStatus {
   /** The status of the operation performed on the network adapter. */
   @visibility(Lifecycle.Read)
   status?: NetworkAdapterOperationStatus;
+}
+
+// ==================== WiFi Types ====================
+
+/**
+ * WiFi configuration desired properties.
+ */
+@added(Versions.v2026_03_15_preview)
+model WifiConfigurationDesiredProperties {
+  /** WiFi SSID. */
+  ssid?: string;
+
+  /** WiFi authentication type. */
+  authenticationType?: AuthenticationType;
+
+  /** EAP method used for authentication. */
+  eapMethod?: EAPMethod;
+
+  /** Username for enterprise WiFi authentication. */
+  username?: string;
+
+  /** WiFi secret reference. */
+  wifiSecret?: WifiSecret;
+}
+
+/**
+ * WiFi secret reference for storing credentials.
+ */
+@added(Versions.v2026_03_15_preview)
+model WifiSecret {
+  /** Name of the secret. */
+  secretName?: string;
+
+  /** Location of the secret. */
+  secretLocation?: string;
+
+  /** Type of the WiFi secret. */
+  secretType?: WifiSecretType;
+}
+
+/**
+ * Type of WiFi secret.
+ */
+@added(Versions.v2026_03_15_preview)
+union WifiSecretType {
+  string,
+
+  /** WiFi password. */
+  WiFiPassword: "WiFiPassword",
+
+  /** WiFi certificate. */
+  WiFiCertificate: "WiFiCertificate",
+
+  /** WiFi CA certificate. */
+  WiFiCACertificate: "WiFiCACertificate",
+}
+
+/**
+ * WiFi configuration reported properties.
+ */
+@added(Versions.v2026_03_15_preview)
+model WifiConfigurationReportedProperties {
+  /** WiFi SSID. */
+  ssid?: string;
+
+  /** WiFi authentication type. */
+  authenticationType?: AuthenticationType;
+
+  /** EAP method used for authentication. */
+  eapMethod?: EAPMethod;
+
+  /** WiFi signal strength. */
+  @visibility(Lifecycle.Read)
+  signalStrength?: int32;
+
+  /** Last successful WiFi connection timestamp. */
+  @visibility(Lifecycle.Read)
+  lastSuccessfulConnectionTimestamp?: string;
+
+  /** Current WiFi connection state. */
+  @visibility(Lifecycle.Read)
+  connectionState?: ConnectionState;
+
+  /** Username for enterprise WiFi authentication. */
+  username?: string;
+}
+
+/**
+ * WiFi connection state.
+ */
+@added(Versions.v2026_03_15_preview)
+union ConnectionState {
+  string,
+
+  /** WiFi is not configured. */
+  NotConfigured: "NotConfigured",
+
+  /** WiFi is connected. */
+  Connected: "Connected",
+
+  /** WiFi is disconnected. */
+  Disconnected: "Disconnected",
+
+  /** WiFi is connecting. */
+  Connecting: "Connecting",
+
+  /** WiFi is disconnecting. */
+  Disconnecting: "Disconnecting",
+
+  /** WiFi authentication failed. */
+  AuthenticationFailed: "AuthenticationFailed",
+}
+
+/**
+ * WiFi authentication type.
+ */
+@added(Versions.v2026_03_15_preview)
+union AuthenticationType {
+  string,
+
+  /** WPA2 Personal. */
+  `WPA2-Personal`: "WPA2-Personal",
+
+  /** WPA2 Enterprise. */
+  `WPA2-Enterprise`: "WPA2-Enterprise",
+
+  /** WPA3 Personal. */
+  `WPA3-Personal`: "WPA3-Personal",
+
+  /** WPA3 Enterprise. */
+  `WPA3-Enterprise`: "WPA3-Enterprise",
+
+  /** Open network. */
+  Open: "Open",
+}
+
+/**
+ * EAP authentication method.
+ */
+@added(Versions.v2026_03_15_preview)
+union EAPMethod {
+  string,
+
+  /** PEAP authentication. */
+  PEAP: "PEAP",
+
+  /** EAP-TLS authentication. */
+  `EAP-TLS`: "EAP-TLS",
+
+  /** EAP-TTLS authentication. */
+  `EAP-TTLS`: "EAP-TTLS",
+
+  /** EAP-FAST authentication. */
+  `EAP-FAST`: "EAP-FAST",
 }
 
 /**
@@ -10412,6 +10884,10 @@ model ClusterVolumeReportedProperties {
   /** Cluster volume mount path. This can be a CSV path or device path depending on the backing storage. */
   @visibility(Lifecycle.Read)
   path?: string;
+
+  /** Volume GUID. Primary identifier for the cluster volume. */
+  @visibility(Lifecycle.Read)
+  volumeId?: string;
 
   /** Cluster resource GUID for a PDR-backed volume when applicable. */
   @visibility(Lifecycle.Read)
