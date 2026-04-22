@@ -24,7 +24,11 @@ model SecuritySetting
   @pattern("^[a-zA-Z0-9-]{3,24}$")
   name: string = "default";
 
-  ...Azure.ResourceManager.EntityTagProperty;
+  /** If eTag is provided in the response body, it may also be provided as a header per the normal etag convention. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "eTag is needed for concurrency control"
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  eTag?: string;
 }
 
 @armResourceOperations
