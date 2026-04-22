@@ -112,6 +112,9 @@
       "name": "EdgeMachineMetadataOperations"
     },
     {
+      "name": "EdgeMachineUpdates"
+    },
+    {
       "name": "EdgeMachineGpus"
     },
     {
@@ -9064,6 +9067,129 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/updates/{default}": {
+      "get": {
+        "operationId": "EdgeMachineUpdates_Get",
+        "tags": [
+          "EdgeMachineUpdates"
+        ],
+        "description": "Get EdgeMachine update.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "default",
+            "in": "path",
+            "description": "Name of EdgeMachine update",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineUpdate"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeMachineUpdates_Get": {
+            "$ref": "./examples/EdgeMachineUpdates_Get.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "EdgeMachineUpdates_Delete",
+        "tags": [
+          "EdgeMachineUpdates"
+        ],
+        "description": "Delete EdgeMachine update.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "default",
+            "in": "path",
+            "description": "Name of EdgeMachine update",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeMachineUpdates_Delete": {
+            "$ref": "./examples/EdgeMachineUpdates_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/validate": {
       "post": {
         "operationId": "EdgeMachines_Validate",
@@ -15112,6 +15238,86 @@
           }
         ]
       }
+    },
+    "EdgeMachineUpdate": {
+      "type": "object",
+      "description": "EdgeMachine Update resource that stores validated update configurations for an edge machine.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/EdgeMachineUpdateProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "EdgeMachineUpdateInfo": {
+      "type": "object",
+      "description": "Represents an available update for an edge machine.",
+      "properties": {
+        "vsrVersion": {
+          "type": "string",
+          "description": "The VSR version of the update."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The display name of the update."
+        },
+        "releaseNotesLink": {
+          "type": "string",
+          "description": "Link to the release notes for this update."
+        },
+        "totalSizeBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total size of the update in bytes."
+        },
+        "rebootRequired": {
+          "type": "boolean",
+          "description": "Indicates whether a reboot is required after installing this update."
+        },
+        "estimatedInstallTimeMinutes": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Estimated time in minutes to install this update."
+        },
+        "updateType": {
+          "type": "string",
+          "description": "The type of update (e.g., FullImage)."
+        },
+        "arcAgentVersion": {
+          "type": "string",
+          "description": "The Arc agent version included in this update."
+        }
+      },
+      "required": [
+        "vsrVersion"
+      ]
+    },
+    "EdgeMachineUpdateProperties": {
+      "type": "object",
+      "description": "Properties for EdgeMachineUpdate resource.",
+      "properties": {
+        "values": {
+          "type": "array",
+          "description": "The list of available updates.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineUpdateInfo"
+          },
+          "x-ms-identifiers": []
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the updates resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "values"
+      ]
     },
     "EdgeMachineValidateRequest": {
       "type": "object",
