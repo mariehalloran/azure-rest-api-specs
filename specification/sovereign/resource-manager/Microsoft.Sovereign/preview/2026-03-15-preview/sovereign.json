@@ -1949,7 +1949,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SovereignViewResourceTagsUpdate"
+              "$ref": "#/definitions/SovereignViewResourcePatch"
             }
           }
         ],
@@ -4181,6 +4181,23 @@
         "value"
       ]
     },
+    "SovereignViewResourcePatch": {
+      "type": "object",
+      "description": "The patch model for the sovereign view resource type.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "identity": {
+          "$ref": "../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "description": "The managed service identities assigned to this resource."
+        }
+      }
+    },
     "SovereignViewResourceProperties": {
       "type": "object",
       "description": "The properties of the sovereign view resource type.",
@@ -4217,19 +4234,6 @@
         "scope",
         "policyInitiatives"
       ]
-    },
-    "SovereignViewResourceTagsUpdate": {
-      "type": "object",
-      "description": "The type used for updating tags in SovereignViewResource resources.",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      }
     },
     "SovereignViewScope": {
       "type": "object",
