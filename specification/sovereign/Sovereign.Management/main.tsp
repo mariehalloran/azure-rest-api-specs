@@ -155,7 +155,7 @@ model SovereignViewResource
   @path
   name: string;
 
-  ...ManagedServiceIdentityProperty;
+  ...ManagedSystemAssignedIdentityProperty;
 }
 
 @added(Versions.Preview20260315)

@@ -8,7 +8,7 @@ namespace Microsoft.Sovereign;
 @doc("The patch model for the sovereign view resource type.")
 model SovereignViewResourcePatch {
   ...Azure.ResourceManager.Foundations.ArmTagsProperty;
-  ...ManagedServiceIdentityProperty;
+  ...ManagedSystemAssignedIdentityProperty;
 }
 
 @added(Versions.Preview20260315)
