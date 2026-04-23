@@ -10939,7 +10939,7 @@ model ClusterVolumeReportedProperties {
 
   /** Whether data deduplication is enabled. */
   @visibility(Lifecycle.Read)
-  isDedupeEnabled?: boolean;
+  isDedupEnabled?: boolean;
 
   /** Whether BitLocker encryption is enabled. */
   @visibility(Lifecycle.Read)
