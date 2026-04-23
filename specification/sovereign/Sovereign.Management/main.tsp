@@ -154,6 +154,8 @@ model SovereignViewResource
   @visibility(Lifecycle.Read)
   @path
   name: string;
+
+  ...ManagedServiceIdentityProperty;
 }
 
 @added(Versions.Preview20260315)
