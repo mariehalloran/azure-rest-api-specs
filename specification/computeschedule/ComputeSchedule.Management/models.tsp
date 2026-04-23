@@ -458,17 +458,10 @@ model ExecuteStartRequest {
 @added(Microsoft.ComputeSchedule.Versions.`2026-04-07-preview`)
 @doc("The request for deallocating VMs with a capacity check, which verifies capacity predictions at the desired start time before proceeding with deallocation")
 model ExecuteDeallocateWithCapacityCheckRequest {
-  @doc("The resources for the request")
-  resources: Resources;
+  ...ExecuteDeallocateRequest;
 
   @doc("The desired start time at which the VMs should be restarted. Capacity predictions are checked for this time to determine if deallocation is safe.")
   desiredFutureStartTime: DesiredStartTime;
-
-  @doc("The execution parameters for the request")
-  executionParameters: ExecutionParameters;
-
-  @doc("Correlationid item")
-  correlationid?: string;
 }
 
 @added(Microsoft.ComputeSchedule.Versions.`2026-04-07-preview`)
