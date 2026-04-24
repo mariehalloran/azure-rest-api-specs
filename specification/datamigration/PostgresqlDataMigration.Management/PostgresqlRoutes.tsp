@@ -18,9 +18,13 @@ model DatabaseMigrationGetParameters {
   @doc("Detail level for the status response: 'database', 'schema', or 'table'. Auto-selected based on migration type if omitted.")
   detail?: string;
 
-  @query("limit")
-  @doc("Maximum number of table progress records to return when detail=table.")
-  limit?: int32;
+  @query("$top")
+  @doc("Maximum number of items per page for the active status section. Default 25, max 100.")
+  top?: int32;
+
+  @query("$skiptoken")
+  @doc("Pagination continuation token from a previous response's nextLink.")
+  skiptoken?: string;
 }
 
 @armResourceOperations

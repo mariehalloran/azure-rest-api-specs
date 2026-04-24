@@ -532,7 +532,10 @@
             "$ref": "#/parameters/DatabaseMigrationGetParameters.detail"
           },
           {
-            "$ref": "#/parameters/DatabaseMigrationGetParameters.limit"
+            "$ref": "#/parameters/DatabaseMigrationGetParameters.top"
+          },
+          {
+            "$ref": "#/parameters/DatabaseMigrationGetParameters.skiptoken"
           },
           {
             "name": "serviceName",
@@ -1418,6 +1421,11 @@
           "items": {
             "$ref": "#/definitions/TableProgressModel"
           },
+          "readOnly": true
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "Next page link for pagination. Null when no more pages.",
           "readOnly": true
         },
         "totalRecords": {
@@ -2696,14 +2704,24 @@
       "type": "string",
       "x-ms-parameter-location": "method"
     },
-    "DatabaseMigrationGetParameters.limit": {
-      "name": "limit",
+    "DatabaseMigrationGetParameters.skiptoken": {
+      "name": "$skiptoken",
       "in": "query",
-      "description": "Maximum number of table progress records to return when detail=table.",
+      "description": "Pagination continuation token from a previous response's nextLink.",
+      "required": false,
+      "type": "string",
+      "x-ms-parameter-location": "method",
+      "x-ms-client-name": "skiptoken"
+    },
+    "DatabaseMigrationGetParameters.top": {
+      "name": "$top",
+      "in": "query",
+      "description": "Maximum number of items per page for the active status section. Default 25, max 100.",
       "required": false,
       "type": "integer",
       "format": "int32",
-      "x-ms-parameter-location": "method"
+      "x-ms-parameter-location": "method",
+      "x-ms-client-name": "top"
     }
   }
 }

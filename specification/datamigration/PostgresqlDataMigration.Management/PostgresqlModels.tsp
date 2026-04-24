@@ -146,30 +146,6 @@ union MappingScope {
   Database: "database",
 }
 
-@doc("Mapping definition for schema or database migration.")
-model DatabaseMapping {
-  @doc("Scope of the mapping")
-  mappingScope: MappingScope;
-
-  @doc("Source schema name")
-  sourceSchemaName?: string;
-
-  @doc("Source database name")
-  sourceDatabaseName?: string;
-
-  @doc("Target database name")
-  targetDatabaseName?: string;
-
-  @doc("Target schema name")
-  targetSchemaName?: string;
-
-  @doc("Source connection name")
-  sourceConnectionName: string;
-
-  @doc("Target connection name")
-  targetConnectionName: string;
-}
-
 @doc("The provisioning state of the resource.")
 union ProvisioningState {
   string,
@@ -400,6 +376,30 @@ model TargetConfiguration {
   #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "connectionName is the identifier"
   @doc("List of connection endpoints")
   connectionEndPoints: ConnectionEndpoint[];
+}
+
+@doc("Mapping definition for schema or database migration.")
+model DatabaseMapping {
+  @doc("Scope of the mapping")
+  mappingScope: MappingScope;
+
+  @doc("Source schema name")
+  sourceSchemaName?: string;
+
+  @doc("Source database name")
+  sourceDatabaseName?: string;
+
+  @doc("Target database name")
+  targetDatabaseName?: string;
+
+  @doc("Target schema name")
+  targetSchemaName?: string;
+
+  @doc("Source connection name")
+  sourceConnectionName: string;
+
+  @doc("Target connection name")
+  targetConnectionName: string;
 }
 
 @doc("Migration job settings.")
@@ -691,6 +691,10 @@ model DatabaseMigrationProperties {
   @doc("Per-table migration progress")
   @visibility(Lifecycle.Read)
   tableProgress?: TableProgressModel[];
+
+  @doc("Next page link for pagination. Null when no more pages.")
+  @visibility(Lifecycle.Read)
+  nextLink?: string;
 
   @doc("Total record count before pagination")
   @visibility(Lifecycle.Read)
