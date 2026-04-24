@@ -11482,7 +11482,8 @@
           "readOnly": true
         },
         "sizeRemainingInBytes": {
-          "type": "string",
+          "type": "integer",
+          "format": "int64",
           "description": "Free space in bytes.",
           "readOnly": true
         },
@@ -13426,17 +13427,6 @@
       "type": "object",
       "description": "Reported properties of a volume on the disk.",
       "properties": {
-        "volumeId": {
-          "type": "string",
-          "description": "Unique identifier for the volume.",
-          "readOnly": true
-        },
-        "volumeNumber": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Volume/partition number.",
-          "readOnly": true
-        },
         "sizeInBytes": {
           "type": "string",
           "description": "Size of the volume in bytes.",
@@ -13450,6 +13440,43 @@
         "fileSystem": {
           "type": "string",
           "description": "File system type.",
+          "readOnly": true
+        },
+        "partitionId": {
+          "type": "string",
+          "description": "Unique identifier for the partition.",
+          "readOnly": true
+        },
+        "partitionNumber": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Partition number.",
+          "readOnly": true
+        },
+        "offsetInBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Byte offset of the partition start.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the volume.",
+          "readOnly": true
+        },
+        "isBoot": {
+          "type": "boolean",
+          "description": "Indicates if this volume is a boot volume.",
+          "readOnly": true
+        },
+        "sizeRemainingInBytes": {
+          "type": "string",
+          "description": "Available space on the volume in bytes.",
+          "readOnly": true
+        },
+        "resourceName": {
+          "type": "string",
+          "description": "Resource name of the volume.",
           "readOnly": true
         }
       }
