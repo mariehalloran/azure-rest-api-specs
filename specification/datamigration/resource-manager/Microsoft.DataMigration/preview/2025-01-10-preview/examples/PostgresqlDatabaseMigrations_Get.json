@@ -110,26 +110,25 @@
               }
             ]
           },
-          "databases": [
+          "databaseSummary": null,
+          "schemaSummary": [
             {
-              "databaseName": "HR",
-              "migrationStatus": "InProgress",
-              "migrationProgress": {
-                "migrationPhase": "DataMigration",
-                "migrationStatistics": {
-                  "tablesTotal": 100,
-                  "tablesCompleted": 75,
-                  "tablesFailed": 0,
-                  "tablesInProgress": 5,
-                  "tablesPending": 20,
-                  "percentComplete": 75
-                }
-              },
-              "errors": [],
-              "createdAt": "2025-09-20T08:15:30Z",
-              "lastUpdatedAt": "2025-09-23T10:30:00Z"
+              "sourceDatabaseName": "ORCL",
+              "sourceSchemaName": "HR",
+              "targetDatabaseName": "db1",
+              "targetSchemaName": "hr1",
+              "status": "InProgress",
+              "startedAt": "2025-09-20T08:15:30Z",
+              "endedAt": null,
+              "totalTables": 100,
+              "completedTables": 75,
+              "failedTables": 0,
+              "inProgressTables": 5,
+              "errors": []
             }
           ],
+          "tableProgress": null,
+          "totalRecords": 1,
           "startedAt": "2025-01-10T10:47:41.820717Z",
           "endedAt": null
         }

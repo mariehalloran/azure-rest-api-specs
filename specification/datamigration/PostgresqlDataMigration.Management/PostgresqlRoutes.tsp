@@ -8,8 +8,20 @@ import "./PostgresqlDatabaseMigration.tsp";
 
 using TypeSpec.Http;
 using Azure.ResourceManager;
+using Azure.ResourceManager.Foundations;
 
 namespace Microsoft.DataMigration;
+
+@doc("Query parameters for the GET database migration operation.")
+model DatabaseMigrationGetParameters {
+  @query("detail")
+  @doc("Detail level for the status response: 'database', 'schema', or 'table'. Auto-selected based on migration type if omitted.")
+  detail?: string;
+
+  @query("limit")
+  @doc("Maximum number of table progress records to return when detail=table.")
+  limit?: int32;
+}
 
 @armResourceOperations
 interface PostgresqlMigrationServices {
@@ -48,8 +60,11 @@ interface PostgresqlMigrationServices {
 
 @armResourceOperations
 interface PostgresqlDatabaseMigrations {
-  @doc("Gets a database migration.")
-  get is ArmResourceRead<DatabaseMigration>;
+  @doc("Gets a database migration. Use 'detail' query param to control response granularity: 'database' (default for PG→PG), 'schema' (default for Oracle→PG), or 'table' (drill-down with pagination via 'limit').")
+  get is ArmResourceRead<
+    DatabaseMigration,
+    BaseParameters<DatabaseMigration> & DatabaseMigrationGetParameters
+  >;
 
   @doc("Creates or updates a database migration.")
   createOrUpdate is ArmResourceCreateOrReplaceSync<DatabaseMigration>;

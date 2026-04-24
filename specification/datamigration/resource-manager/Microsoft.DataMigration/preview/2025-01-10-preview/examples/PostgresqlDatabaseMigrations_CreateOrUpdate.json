@@ -236,21 +236,20 @@
               }
             ]
           },
-          "databases": [
+          "databaseSummary": null,
+          "schemaSummary": [
             {
-              "databaseName": "HR",
-              "migrationStatus": "Failed",
-              "migrationProgress": {
-                "migrationPhase": "DataMigration",
-                "migrationStatistics": {
-                  "tablesTotal": 100,
-                  "tablesCompleted": 75,
-                  "tablesFailed": 3,
-                  "tablesInProgress": 5,
-                  "tablesPending": 17,
-                  "percentComplete": 75
-                }
-              },
+              "sourceDatabaseName": "ORCL",
+              "sourceSchemaName": "HR",
+              "targetDatabaseName": "db1",
+              "targetSchemaName": "hr1",
+              "status": "Failed",
+              "startedAt": "2025-09-20T08:15:30Z",
+              "endedAt": null,
+              "totalTables": 100,
+              "completedTables": 75,
+              "failedTables": 3,
+              "inProgressTables": 5,
               "errors": [
                 {
                   "errorCode": "ConnectionError",
@@ -259,29 +258,11 @@
                   "message": "Failed to connect to source database HRDB.",
                   "details": "Timeout while attempting to connect to oracle-prod.company.com:1521."
                 }
-              ],
-              "createdAt": "2025-09-20T08:15:30Z",
-              "lastUpdatedAt": "2025-09-23T10:30:00Z"
-            },
-            {
-              "databaseName": "DB1",
-              "migrationStatus": "InProgress",
-              "migrationProgress": {
-                "migrationPhase": "DataMigration",
-                "migrationStatistics": {
-                  "tablesTotal": 100,
-                  "tablesCompleted": 75,
-                  "tablesFailed": 3,
-                  "tablesInProgress": 5,
-                  "tablesPending": 17,
-                  "percentComplete": 75
-                }
-              },
-              "errors": [],
-              "createdAt": "2025-09-21T09:20:45Z",
-              "lastUpdatedAt": "2025-09-23T10:30:00Z"
+              ]
             }
           ],
+          "tableProgress": null,
+          "totalRecords": 1,
           "startedAt": "2025-01-10T10:47:41.820717Z",
           "endedAt": null
         }
@@ -397,52 +378,25 @@
             "state": "InProgress",
             "preMigrationValidationSummaries": []
           },
-          "databases": [
+          "databaseSummary": null,
+          "schemaSummary": [
             {
-              "databaseName": "HR",
-              "migrationStatus": "Failed",
-              "migrationProgress": {
-                "migrationPhase": "DataMigration",
-                "migrationStatistics": {
-                  "tablesTotal": 100,
-                  "tablesCompleted": 75,
-                  "tablesFailed": 3,
-                  "tablesInProgress": 5,
-                  "tablesPending": 17,
-                  "percentComplete": 75
-                }
-              },
-              "errors": [
-                {
-                  "errorCode": "ConnectionError",
-                  "category": "Connection",
-                  "severity": "Critical",
-                  "message": "Failed to connect to source database HRDB.",
-                  "details": "Timeout while attempting to connect to oracle-prod.company.com:1521."
-                }
-              ],
-              "createdAt": "2025-09-20T08:15:30Z",
-              "lastUpdatedAt": "2025-09-23T10:30:00Z"
-            },
-            {
-              "databaseName": "DB1",
-              "migrationStatus": "InProgress",
-              "migrationProgress": {
-                "migrationPhase": "DataMigration",
-                "migrationStatistics": {
-                  "tablesTotal": 100,
-                  "tablesCompleted": 75,
-                  "tablesFailed": 3,
-                  "tablesInProgress": 5,
-                  "tablesPending": 17,
-                  "percentComplete": 75
-                }
-              },
-              "errors": [],
-              "createdAt": "2025-09-21T09:20:45Z",
-              "lastUpdatedAt": "2025-09-23T10:30:00Z"
+              "sourceDatabaseName": "ORCL",
+              "sourceSchemaName": "HR",
+              "targetDatabaseName": "db1",
+              "targetSchemaName": "hr1",
+              "status": "InProgress",
+              "startedAt": "2025-09-20T08:15:30Z",
+              "endedAt": null,
+              "totalTables": 100,
+              "completedTables": 75,
+              "failedTables": 3,
+              "inProgressTables": 5,
+              "errors": []
             }
           ],
+          "tableProgress": null,
+          "totalRecords": 1,
           "startedAt": "2025-01-10T10:47:41.820717Z",
           "endedAt": null
         }

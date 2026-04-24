@@ -146,6 +146,30 @@ union MappingScope {
   Database: "database",
 }
 
+@doc("Mapping definition for schema or database migration.")
+model DatabaseMapping {
+  @doc("Scope of the mapping")
+  mappingScope: MappingScope;
+
+  @doc("Source schema name")
+  sourceSchemaName?: string;
+
+  @doc("Source database name")
+  sourceDatabaseName?: string;
+
+  @doc("Target database name")
+  targetDatabaseName?: string;
+
+  @doc("Target schema name")
+  targetSchemaName?: string;
+
+  @doc("Source connection name")
+  sourceConnectionName: string;
+
+  @doc("Target connection name")
+  targetConnectionName: string;
+}
+
 @doc("The provisioning state of the resource.")
 union ProvisioningState {
   string,
@@ -378,64 +402,139 @@ model TargetConfiguration {
   connectionEndPoints: ConnectionEndpoint[];
 }
 
-@doc("Mapping definition for schema or database migration.")
-model DatabaseMapping {
-  @doc("Scope of the mapping")
-  mappingScope: MappingScope;
-
-  @doc("Source schema name")
-  sourceSchemaName?: string;
-
-  @doc("Source database name")
-  sourceDatabaseName?: string;
-
-  @doc("Target database name")
-  targetDatabaseName?: string;
-
-  @doc("Target schema name")
-  targetSchemaName?: string;
-
-  @doc("Source connection name")
-  sourceConnectionName: string;
-
-  @doc("Target connection name")
-  targetConnectionName: string;
-}
-
 @doc("Migration job settings.")
 model MigrationJobSettings {
   @doc("Validate only flag")
   validateOnly: boolean;
 }
 
-@doc("Migration statistics.")
-model MigrationStatistics {
-  @doc("Total number of tables")
-  tablesTotal: int32;
+@doc("Per-database migration status summary.")
+model DatabaseSummary {
+  @doc("Source database name")
+  sourceDatabaseName: string;
 
-  @doc("Number of completed tables")
-  tablesCompleted: int32;
+  @doc("Target database name")
+  targetDatabaseName: string;
 
-  @doc("Number of failed tables")
-  tablesFailed: int32;
+  @doc("Aggregated status")
+  status: MigrationState;
 
-  @doc("Number of tables in progress")
-  tablesInProgress: int32;
+  @doc("Start time")
+  startedAt?: utcDateTime;
 
-  @doc("Number of pending tables")
-  tablesPending: int32;
+  @doc("End time")
+  endedAt?: utcDateTime;
 
-  @doc("Percentage complete")
-  percentComplete: int32;
+  @doc("Total schemas")
+  totalSchemas: int32;
+
+  @doc("Completed schemas")
+  completedSchemas: int32;
+
+  @doc("Failed schemas")
+  failedSchemas: int32;
+
+  @doc("In-progress schemas")
+  inProgressSchemas: int32;
+
+  @doc("Total tables")
+  totalTables: int32;
+
+  @doc("Completed tables")
+  completedTables: int32;
+
+  @doc("Failed tables")
+  failedTables: int32;
+
+  @doc("In-progress tables")
+  inProgressTables: int32;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "No identifier properties for this array"
+  @doc("Errors at database scope")
+  errors: MigrationError[];
 }
 
-@doc("Migration progress information.")
-model MigrationProgress {
-  @doc("Current migration phase")
-  migrationPhase: MigrationPhase;
+@doc("Per-schema migration status.")
+model SchemaSummaryModel {
+  @doc("Source database name")
+  sourceDatabaseName: string;
 
-  @doc("Migration statistics")
-  migrationStatistics: MigrationStatistics;
+  @doc("Source schema name")
+  sourceSchemaName: string;
+
+  @doc("Target database name")
+  targetDatabaseName: string;
+
+  @doc("Target schema name")
+  targetSchemaName: string;
+
+  @doc("Migration status")
+  status: MigrationState;
+
+  @doc("Start time")
+  startedAt?: utcDateTime;
+
+  @doc("End time")
+  endedAt?: utcDateTime;
+
+  @doc("Total tables")
+  totalTables: int32;
+
+  @doc("Completed tables")
+  completedTables: int32;
+
+  @doc("Failed tables")
+  failedTables: int32;
+
+  @doc("In-progress tables")
+  inProgressTables: int32;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "No identifier properties for this array"
+  @doc("Errors at schema scope")
+  errors: MigrationError[];
+}
+
+@doc("Per-table migration progress.")
+model TableProgressModel {
+  @doc("Source database name")
+  sourceDatabaseName: string;
+
+  @doc("Source schema name")
+  sourceSchemaName: string;
+
+  @doc("Source table name")
+  sourceTableName: string;
+
+  @doc("Target database name")
+  targetDatabaseName: string;
+
+  @doc("Target schema name")
+  targetSchemaName: string;
+
+  @doc("Target table name")
+  targetTableName: string;
+
+  @doc("Migration status")
+  status: MigrationState;
+
+  @doc("Start time")
+  startedAt?: utcDateTime;
+
+  @doc("End time")
+  endedAt?: utcDateTime;
+
+  @doc("Rows copied")
+  rowsCopied: int64;
+
+  @doc("Estimated total rows")
+  totalRows: int64;
+
+  @doc("Bytes copied")
+  bytesCopied: int64;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "No identifier properties for this array"
+  @doc("Errors at table scope")
+  errors: MigrationError[];
 }
 
 @doc("Error information.")
@@ -454,30 +553,6 @@ model MigrationError {
 
   @doc("Error details")
   details: string;
-}
-
-@doc("Database migration status.")
-model DatabaseMigrationStatus {
-  @doc("Database name")
-  databaseName: string;
-
-  @doc("Migration status")
-  migrationStatus: MigrationState;
-
-  @doc("Migration progress")
-  migrationProgress: MigrationProgress;
-
-  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "No identifier properties for this array"
-  @doc("List of errors")
-  errors: MigrationError[];
-
-  @doc("Creation timestamp")
-  @visibility(Lifecycle.Read)
-  createdAt: utcDateTime;
-
-  @doc("Last updated timestamp")
-  @visibility(Lifecycle.Read)
-  lastUpdatedAt: utcDateTime;
 }
 
 @doc("Overall migration status.")
@@ -602,10 +677,24 @@ model DatabaseMigrationProperties {
   @visibility(Lifecycle.Read)
   preMigrationValidations?: PreMigrationValidationStatus;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "databaseName is the identifier"
-  @doc("List of database migration statuses")
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "sourceDatabaseName is the identifier"
+  @doc("Per-database migration status summaries")
   @visibility(Lifecycle.Read)
-  databases?: DatabaseMigrationStatus[];
+  databaseSummary?: DatabaseSummary[];
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "sourceSchemaName is the identifier"
+  @doc("Per-schema migration statuses")
+  @visibility(Lifecycle.Read)
+  schemaSummary?: SchemaSummaryModel[];
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "sourceTableName is the identifier"
+  @doc("Per-table migration progress")
+  @visibility(Lifecycle.Read)
+  tableProgress?: TableProgressModel[];
+
+  @doc("Total record count before pagination")
+  @visibility(Lifecycle.Read)
+  totalRecords?: int32;
 
   @doc("Migration start time")
   @visibility(Lifecycle.Read)
