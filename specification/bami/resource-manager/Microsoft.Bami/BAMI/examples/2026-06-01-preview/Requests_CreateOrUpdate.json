@@ -1,0 +1,83 @@
+{
+  "operationId": "AutomationRequests_CreateOrUpdate",
+  "title": "Create or Update Request",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "api-version": "2026-06-01-preview",
+    "applicationEntitlementId": "cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa",
+    "requestId": "3f9c2e7a-8b4d-4f6a-9c1e-7d5a2b9e4c81",
+    "resource": {
+      "location": "centralus",
+      "properties": {
+        "requestType": "Account",
+        "accountType": "FieldLed",
+        "estimatedMonthlySpend": 500.0,
+        "businessJustification": "Test billing account for integration testing.",
+        "context": {
+          "accountContext": {
+            "accountType": "FieldLed",
+            "fieldLedContext": {
+              "audienceType": "Internal",
+              "configurationType": "Standard",
+              "environmentType": "Test",
+              "mcapiAuthorization": "ProductionAccess",
+              "signupEntity": {
+                "organizationInfo": {
+                  "displayName": "Contoso Test Org",
+                  "domainName": "contosotestorg"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Bami/applicationEntitlements/cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa/requests/3f9c2e7a-8b4d-4f6a-9c1e-7d5a2b9e4c81",
+        "name": "3f9c2e7a-8b4d-4f6a-9c1e-7d5a2b9e4c81",
+        "type": "Microsoft.Bami/applicationEntitlements/requests",
+        "location": "centralus",
+        "properties": {
+          "requestStatus": "Started",
+          "requestType": "Account",
+          "accountType": "FieldLed",
+          "estimatedMonthlySpend": 500.0,
+          "businessJustification": "Test billing account for integration testing.",
+          "serviceName": "Contoso Service",
+          "createdDate": "2026-03-06T12:00:00Z",
+          "lastModifiedDate": "2026-03-06T12:00:00Z",
+          "result": null,
+          "context": {}
+        }
+      }
+    },
+    "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Bami/locations/global/operationStatuses/3f9c2e7a-8b4d-4f6a-9c1e-7d5a2b9e4c81?api-version=2026-06-01-preview",
+        "Retry-After": 10
+      },
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Bami/applicationEntitlements/cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa/requests/3f9c2e7a-8b4d-4f6a-9c1e-7d5a2b9e4c81",
+        "name": "3f9c2e7a-8b4d-4f6a-9c1e-7d5a2b9e4c81",
+        "type": "Microsoft.Bami/applicationEntitlements/requests",
+        "location": "centralus",
+        "properties": {
+          "requestStatus": "Started",
+          "requestType": "Account",
+          "accountType": "FieldLed",
+          "estimatedMonthlySpend": 500.0,
+          "businessJustification": "Test billing account for integration testing.",
+          "serviceName": "Contoso Service",
+          "createdDate": "2026-03-06T12:00:00Z",
+          "lastModifiedDate": "2026-03-06T12:00:00Z",
+          "result": null,
+          "context": {}
+        }
+      }
+    }
+  }
+}

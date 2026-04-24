@@ -121,7 +121,7 @@ union ReasonForRequestingConfirmation {
 @doc("Represents a user confirmation for a high availability solution.")
 model UserConfirmationForHighAvailabilityItem {
   @doc("The solution provider name of the high availability solution.")
-  solutionProviderName: SolutionProviderName;
+  solutionDisplayName: SolutionProviderName;
 
   @doc("The confirmation status of the high availability solution.")
   confirmationStatus: ConfirmationStatus;

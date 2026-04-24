@@ -16,7 +16,7 @@ namespace Microsoft.CleanRoom;
  * Defines the collaboration.
  */
 model Collaboration
-  is Azure.ResourceManager.TrackedResource<CollaborationProperties, false> {
+  is Azure.ResourceManager.TrackedResource<CollaborationProperties, true> {
   ...ResourceNameParameter<
     Resource = Collaboration,
     KeyName = "collaborationName",
@@ -133,6 +133,16 @@ interface Collaborations {
     LroHeaders = ArmAsyncOperationHeader &
       ArmLroLocationHeader &
       Azure.Core.Foundations.RetryAfterHeader
+  >;
+
+  /**
+   * Gets the readonly kubeconfig for the collaboration.
+   */
+  @added(Versions.v2026_04_30_preview)
+  getReadonlyKubeConfig is ArmResourceActionSync<
+    Collaboration,
+    void,
+    ArmResponse<ReadonlyKubeConfigResult>
   >;
 
   /**

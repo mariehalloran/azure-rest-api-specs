@@ -37,8 +37,9 @@ model CodeScanIssueProperties {
   azureTargets: AzureTarget[];
 
   @added(CodeScanSitesApiVersions.v2026_05_12_preview)
-  @doc("The name of repositories affected by this issue.")
-  repoNames?: string[];
+  @doc("Repository-level details for this issue, including per-repo occurrence counts.")
+  @identifiers(#["name"])
+  repos?: IssueRepoInfo[];
 }
 
 @parentResource(CodeScanReport)
