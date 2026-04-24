@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Microsoft.ApplicationMigration management service for storage workloads",
-    "version": "2025-02-01-preview",
+    "version": "2026-05-01-preview",
     "description": "The Microsoft.ApplicationMigration Rest API spec for Storage workloads.",
     "x-typespec-generated": [
       {
@@ -50,6 +50,9 @@
     },
     {
       "name": "Agents"
+    },
+    {
+      "name": "NAS"
     }
   ],
   "paths": {
@@ -1099,6 +1102,312 @@
         },
         "x-ms-long-running-operation": true
       }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApplicationMigration/StorageSites/{siteName}/nas": {
+      "get": {
+        "operationId": "NAS_ListBySite",
+        "tags": [
+          "NAS"
+        ],
+        "description": "Lists the NAS resources in StorageSites.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "siteName",
+            "in": "path",
+            "description": "The name of Site",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-zA-Z0-9-]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/NasList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "NAS_ListBySite_MaximumSet": {
+            "$ref": "./examples/NAS_ListBySite_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApplicationMigration/StorageSites/{siteName}/nas/{nasName}": {
+      "get": {
+        "operationId": "NAS_Get",
+        "tags": [
+          "NAS"
+        ],
+        "description": "Gets the NAS resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "siteName",
+            "in": "path",
+            "description": "The name of Site",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "nasName",
+            "in": "path",
+            "description": "The name of NAS device",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Nas"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "NAS_Get_MaximumSet": {
+            "$ref": "./examples/NAS_Get_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "NAS_CreateOrUpdate",
+        "tags": [
+          "NAS"
+        ],
+        "description": "Puts the NAS resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "siteName",
+            "in": "path",
+            "description": "The name of Site",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "nasName",
+            "in": "path",
+            "description": "The name of NAS device",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "The NAS resource to create or update.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Nas"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'Nas' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Nas"
+            }
+          },
+          "201": {
+            "description": "Resource 'Nas' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Nas"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "NAS_CreateOrUpdate_MaximumSet": {
+            "$ref": "./examples/NAS_CreateOrUpdate_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "NAS_Update",
+        "tags": [
+          "NAS"
+        ],
+        "description": "Patch the NAS resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "siteName",
+            "in": "path",
+            "description": "The name of Site",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "nasName",
+            "in": "path",
+            "description": "The name of NAS device",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "NAS patch payload.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NasResourcePatchProperties"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Nas"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "NAS_Update_MaximumSet": {
+            "$ref": "./examples/NAS_Update_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "NAS_Delete",
+        "tags": [
+          "NAS"
+        ],
+        "description": "Deletes the NAS resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "siteName",
+            "in": "path",
+            "description": "The name of Site",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "nasName",
+            "in": "path",
+            "description": "The name of NAS device",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "NAS_Delete_MaximumSet": {
+            "$ref": "./examples/NAS_Delete_MaximumSet_Gen.json"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1411,6 +1720,15 @@
           "format": "double",
           "description": "FileShare Estimated Size in GB."
         },
+        "fileShareSizeInGb": {
+          "type": "number",
+          "format": "double",
+          "description": "FileShare Size in GB."
+        },
+        "platformType": {
+          "$ref": "#/definitions/PlatformType",
+          "description": "The Platform Type for the file share."
+        },
         "errors": {
           "type": "array",
           "description": "The list of errors.",
@@ -1439,6 +1757,20 @@
           },
           "x-ms-identifiers": [
             "shareId"
+          ]
+        },
+        "colocatedRefId": {
+          "type": "string",
+          "description": "Colocated resource ID."
+        },
+        "aliases": {
+          "type": "array",
+          "description": "Protocol aliases for multi-protocol access.",
+          "items": {
+            "$ref": "#/definitions/ProtocolAlias"
+          },
+          "x-ms-identifiers": [
+            "name"
           ]
         },
         "tags": {
@@ -1516,6 +1848,15 @@
           "format": "double",
           "description": "FileShare Estimated Size in GB."
         },
+        "fileShareSizeInGb": {
+          "type": "number",
+          "format": "double",
+          "description": "FileShare Size in GB."
+        },
+        "platformType": {
+          "$ref": "#/definitions/PlatformType",
+          "description": "The Platform Type for the file share."
+        },
         "errors": {
           "type": "array",
           "description": "The list of errors.",
@@ -1546,6 +1887,20 @@
             "shareId"
           ]
         },
+        "colocatedRefId": {
+          "type": "string",
+          "description": "Colocated resource ID."
+        },
+        "aliases": {
+          "type": "array",
+          "description": "Protocol aliases for multi-protocol access.",
+          "items": {
+            "$ref": "#/definitions/ProtocolAlias"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        },
         "tags": {
           "type": "object",
           "description": "Resource tags",
@@ -1565,13 +1920,351 @@
         }
       }
     },
+    "Nas": {
+      "type": "object",
+      "description": "The NAS resource definition.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/NasProperties",
+          "description": "Resource properties."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "NasError": {
+      "type": "object",
+      "description": "Defines an error specific to NAS resources.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The error ID."
+        },
+        "code": {
+          "type": "string",
+          "description": "The error code."
+        },
+        "summaryMessage": {
+          "type": "string",
+          "description": "The summarized error message."
+        },
+        "runAsAccountId": {
+          "type": "string",
+          "description": "The account ID used to login."
+        },
+        "message": {
+          "type": "string",
+          "description": "The detailed error message."
+        },
+        "possibleCause": {
+          "type": "string",
+          "description": "The error possible cause."
+        },
+        "recommendedAction": {
+          "type": "string",
+          "description": "Gets description of the checkpoint."
+        },
+        "severity": {
+          "type": "string",
+          "description": "Gets description of the severity."
+        },
+        "updatedTimeStamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time when this error was last updated."
+        },
+        "applianceName": {
+          "type": "string",
+          "description": "The appliance name."
+        }
+      }
+    },
+    "NasList": {
+      "type": "object",
+      "description": "List of NAS resources.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Nas items on this page",
+          "items": {
+            "$ref": "#/definitions/Nas"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "NasProperties": {
+      "type": "object",
+      "description": "NAS device properties.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The status of the last operation.",
+          "readOnly": true
+        },
+        "storageType": {
+          "$ref": "#/definitions/StorageType",
+          "description": "The storage type."
+        },
+        "osVersion": {
+          "type": "string",
+          "description": "The OS version of the NAS device."
+        },
+        "vendor": {
+          "$ref": "#/definitions/Vendor",
+          "description": "The NAS vendor (e.g., NetApp, Dell)."
+        },
+        "productName": {
+          "type": "string",
+          "description": "The product name."
+        },
+        "model": {
+          "type": "string",
+          "description": "The model of the NAS device.",
+          "x-ms-client-name": "nasModel"
+        },
+        "clusterId": {
+          "type": "string",
+          "description": "The cluster ID."
+        },
+        "clusterName": {
+          "type": "string",
+          "description": "The cluster name."
+        },
+        "nodesInCluster": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of nodes in the cluster."
+        },
+        "totalCapacityInGb": {
+          "type": "number",
+          "format": "double",
+          "description": "Total capacity in Gb."
+        },
+        "usedCapacityInGb": {
+          "type": "number",
+          "format": "double",
+          "description": "Used capacity in Gb."
+        },
+        "numberOfShares": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of file shares."
+        },
+        "numberOfBuckets": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of object store buckets."
+        },
+        "clusterFqdn": {
+          "type": "array",
+          "description": "The cluster FQDN(s).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "runAsAccountId": {
+          "type": "string",
+          "description": "The run-as account ID for NAS access."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The display name of the NAS device."
+        },
+        "errors": {
+          "type": "array",
+          "description": "The list of errors.",
+          "items": {
+            "$ref": "#/definitions/NasError"
+          }
+        },
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "clusterId"
+      ]
+    },
+    "NasResourcePatch": {
+      "type": "object",
+      "description": "NAS resource patch properties.",
+      "properties": {
+        "storageType": {
+          "$ref": "#/definitions/StorageType",
+          "description": "The storage type."
+        },
+        "osVersion": {
+          "type": "string",
+          "description": "The OS version of the NAS device."
+        },
+        "vendor": {
+          "$ref": "#/definitions/Vendor",
+          "description": "The NAS vendor (e.g., NetApp, Dell)."
+        },
+        "productName": {
+          "type": "string",
+          "description": "The product name."
+        },
+        "model": {
+          "type": "string",
+          "description": "The model of the NAS device.",
+          "x-ms-client-name": "nasModel"
+        },
+        "clusterId": {
+          "type": "string",
+          "description": "The cluster ID."
+        },
+        "clusterName": {
+          "type": "string",
+          "description": "The cluster name."
+        },
+        "nodesInCluster": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of nodes in the cluster."
+        },
+        "totalCapacityInGb": {
+          "type": "number",
+          "format": "double",
+          "description": "Total capacity in Gb."
+        },
+        "usedCapacityInGb": {
+          "type": "number",
+          "format": "double",
+          "description": "Used capacity in Gb."
+        },
+        "numberOfShares": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of file shares."
+        },
+        "numberOfBuckets": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of object store buckets."
+        },
+        "clusterFqdn": {
+          "type": "array",
+          "description": "The cluster FQDN(s).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "runAsAccountId": {
+          "type": "string",
+          "description": "The run-as account ID for NAS access."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The display name of the NAS device."
+        },
+        "errors": {
+          "type": "array",
+          "description": "The list of errors.",
+          "items": {
+            "$ref": "#/definitions/NasError"
+          }
+        },
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "NasResourcePatchProperties": {
+      "type": "object",
+      "description": "NAS resource patch properties wrapper.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/NasResourcePatch",
+          "description": "NAS resource patch properties object."
+        }
+      }
+    },
+    "PlatformType": {
+      "type": "string",
+      "description": "The platform type for fileshare.",
+      "enum": [
+        "Unknown",
+        "NAS",
+        "Server"
+      ],
+      "x-ms-enum": {
+        "name": "PlatformType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Unknown platform type."
+          },
+          {
+            "name": "NAS",
+            "value": "NAS",
+            "description": "Network Attached Storage platform."
+          },
+          {
+            "name": "Server",
+            "value": "Server",
+            "description": "Windows or Linux servers."
+          }
+        ]
+      }
+    },
+    "ProtocolAlias": {
+      "type": "object",
+      "description": "Protocol alias information for multi-protocol file shares.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The alias name."
+        },
+        "protocolType": {
+          "$ref": "#/definitions/ProtocolType",
+          "description": "The protocol type for this alias."
+        },
+        "protocolVersion": {
+          "type": "array",
+          "description": "The protocol versions supported by this alias.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
     "ProtocolType": {
       "type": "string",
       "description": "The protocol Type for the file share.",
       "enum": [
         "Unknown",
         "SMB",
-        "NFS"
+        "NFS",
+        "S3",
+        "MultiProtocol"
       ],
       "x-ms-enum": {
         "name": "ProtocolType",
@@ -1591,6 +2284,16 @@
             "name": "NFS",
             "value": "NFS",
             "description": "Network File System Protocol."
+          },
+          {
+            "name": "S3",
+            "value": "S3",
+            "description": "S3 Protocol."
+          },
+          {
+            "name": "MultiProtocol",
+            "value": "MultiProtocol",
+            "description": "Multi protocol access."
           }
         ]
       }
@@ -1756,6 +2459,48 @@
           "$ref": "#/definitions/StorageSiteProperties",
           "description": "The StorageSites resource definition."
         }
+      }
+    },
+    "StorageType": {
+      "type": "string",
+      "description": "The storage type for NAS devices.",
+      "enum": [
+        "NAS"
+      ],
+      "x-ms-enum": {
+        "name": "StorageType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "NAS",
+            "value": "NAS",
+            "description": "Network Attached Storage."
+          }
+        ]
+      }
+    },
+    "Vendor": {
+      "type": "string",
+      "description": "The vendor of the NAS device.",
+      "enum": [
+        "NetApp",
+        "Dell"
+      ],
+      "x-ms-enum": {
+        "name": "Vendor",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "NetApp",
+            "value": "NetApp",
+            "description": "NetApp vendor."
+          },
+          {
+            "name": "Dell",
+            "value": "Dell",
+            "description": "Dell vendor."
+          }
+        ]
       }
     }
   },
