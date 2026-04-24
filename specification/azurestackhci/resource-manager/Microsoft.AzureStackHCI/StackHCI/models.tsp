@@ -9453,14 +9453,6 @@ union DiskState {
  */
 @added(Versions.v2026_03_15_preview)
 model DiskVolumeReportedProperties {
-  /** Unique identifier for the volume. */
-  @visibility(Lifecycle.Read)
-  volumeId?: string;
-
-  /** Volume/partition number. */
-  @visibility(Lifecycle.Read)
-  volumeNumber?: int32;
-
   /** Size of the volume in bytes. */
   @visibility(Lifecycle.Read)
   sizeInBytes?: string;
@@ -9472,6 +9464,34 @@ model DiskVolumeReportedProperties {
   /** File system type. */
   @visibility(Lifecycle.Read)
   fileSystem?: string;
+
+  /** Unique identifier for the partition. */
+  @visibility(Lifecycle.Read)
+  partitionId?: string;
+
+  /** Partition number. */
+  @visibility(Lifecycle.Read)
+  partitionNumber?: int32;
+
+  /** Byte offset of the partition start. */
+  @visibility(Lifecycle.Read)
+  offsetInBytes?: int64;
+
+  /** Name of the volume. */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /** Indicates if this volume is a boot volume. */
+  @visibility(Lifecycle.Read)
+  isBoot?: boolean;
+
+  /** Available space on the volume in bytes. */
+  @visibility(Lifecycle.Read)
+  sizeRemainingInBytes?: string;
+
+  /** Resource name of the volume. */
+  @visibility(Lifecycle.Read)
+  resourceName?: string;
 }
 
 /**
@@ -10907,7 +10927,7 @@ model ClusterVolumeReportedProperties {
 
   /** Free space in bytes. */
   @visibility(Lifecycle.Read)
-  sizeRemainingInBytes?: string;
+  sizeRemainingInBytes?: int64;
 
   /** Filesystem type (NTFS, ReFS, CSVFS_NTFS, CSVFS_ReFS). */
   @visibility(Lifecycle.Read)
