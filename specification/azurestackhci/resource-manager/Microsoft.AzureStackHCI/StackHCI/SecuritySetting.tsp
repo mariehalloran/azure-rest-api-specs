@@ -6,6 +6,7 @@ import "./models.tsp";
 import "./Cluster.tsp";
 
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 using TypeSpec.Http;
 using TypeSpec.OpenAPI;
@@ -45,6 +46,13 @@ interface SecuritySettings {
    * List SecuritySetting resources by Clusters
    */
   listByClusters is ArmResourceListByParent<SecuritySetting>;
+
+  /**
+   * Remediate a group of settings within SecuritySetting
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "The final response has no content, so 204 is returned."
+  @added(Versions.v2026_03_15_preview)
+  remediate is ArmResourceActionNoContentAsync<SecuritySetting, Recommendation>;
 }
 
 @@doc(SecuritySetting.name, "Name of security setting");

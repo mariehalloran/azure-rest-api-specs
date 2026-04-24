@@ -24,6 +24,19 @@ model WorkloadImpact is ProxyResource<WorkloadImpactProperties> {
   name: string;
 }
 
+@added(Versions.v2026_05_01_preview)
+@doc("Workload Impact properties at resource group scope")
+@resourceGroupResource
+model WorkloadImpactAtResourceGroup is ProxyResource<WorkloadImpactProperties> {
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-:]*[a-zA-Z0-9]{3,120}$")
+  @key("workloadImpactName")
+  @segment("workloadImpacts")
+  @doc("workloadImpact resource")
+  @visibility(Lifecycle.Read)
+  @path
+  name: string;
+}
+
 @doc("Workload impact properties")
 model WorkloadImpactProperties is ResourceProperties {
   @doc("Time at which impact was observed ")
@@ -122,4 +135,13 @@ interface WorkloadImpacts {
   get is ArmResourceRead<WorkloadImpact>;
   delete is ArmResourceDeleteSync<WorkloadImpact>;
   listBySubscription is ArmListBySubscription<WorkloadImpact>;
+}
+
+@added(Versions.v2026_05_01_preview)
+@armResourceOperations
+interface WorkloadImpactsAtResourceGroup {
+  createByResourceGroup is ArmResourceCreateOrUpdateAsync<WorkloadImpactAtResourceGroup>;
+  getByResourceGroup is ArmResourceRead<WorkloadImpactAtResourceGroup>;
+  deleteByResourceGroup is ArmResourceDeleteSync<WorkloadImpactAtResourceGroup>;
+  listByResourceGroup is ArmResourceListByParent<WorkloadImpactAtResourceGroup>;
 }

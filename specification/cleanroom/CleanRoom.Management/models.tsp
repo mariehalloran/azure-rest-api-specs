@@ -161,6 +161,12 @@ model CollaborationProperties {
   managedOnBehalfOfConfiguration?: ManagedOnBehalfOfConfiguration;
 
   /**
+   * Gets or sets the resource location for the collaboration.
+   */
+  @added(Versions.v2026_04_30_preview)
+  resourceLocation?: Azure.Core.azureLocation;
+
+  /**
    * Gets or sets the provisioning state.
    */
   @visibility(Lifecycle.Read)
@@ -172,12 +178,20 @@ model CollaborationProperties {
  */
 @added(Versions.v2025_10_31_preview)
 union WorkloadType {
+  @removed(Versions.v2026_04_30_preview)
   string,
 
   /**
    * Analytics workload.
    */
+  @removed(Versions.v2026_04_30_preview)
   Analytics: "analytics",
+
+  /**
+   * Analytics workload.
+   */
+  @added(Versions.v2026_04_30_preview)
+  AnalyticsStrict: "Analytics",
 }
 
 /**
@@ -334,6 +348,17 @@ model AddCollaboratorInput {
    */
   @removed(Versions.v2026_03_31_preview)
   email: string;
+}
+
+/**
+ * Result of the getReadonlyKubeConfig action.
+ */
+@added(Versions.v2026_04_30_preview)
+model ReadonlyKubeConfigResult {
+  /**
+   * The readonly kubeconfig for the collaboration.
+   */
+  kubeconfig: string;
 }
 
 /**
@@ -564,6 +589,12 @@ model ConsortiumProperties {
    */
   @visibility(Lifecycle.Read)
   managedOnBehalfOfConfiguration?: ManagedOnBehalfOfConfiguration;
+
+  /**
+   * Gets or sets the resource location for the consortium.
+   */
+  @added(Versions.v2026_04_30_preview)
+  resourceLocation?: Azure.Core.azureLocation;
 
   /**
    * Gets or sets the provisioning state.
