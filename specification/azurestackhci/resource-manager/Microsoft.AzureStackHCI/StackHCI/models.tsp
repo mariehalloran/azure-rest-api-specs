@@ -7321,6 +7321,12 @@ model LifecycleStatus {
    */
   @visibility(Lifecycle.Read)
   message?: string;
+
+  /**
+   * Recommended steps to resolve failures.
+   */
+  @visibility(Lifecycle.Read)
+  recommendedSteps?: string[];
 }
 
 /**
@@ -7369,12 +7375,6 @@ model LifecycleStage {
    */
   @visibility(Lifecycle.Read)
   error?: Azure.ResourceManager.CommonTypes.ErrorDetail;
-
-  /**
-   * Recommended steps to resolve failures.
-   */
-  @visibility(Lifecycle.Read)
-  recommendedSteps?: string[];
 
   /**
    * Sub-stages for this stage.
