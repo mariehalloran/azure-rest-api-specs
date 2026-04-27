@@ -495,11 +495,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "List all database migrations by migration service": {
-            "$ref": "./examples/PostgresqlDatabaseMigrations_ListByMigrationService.json"
-          }
-        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -551,11 +546,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "Get a database migration": {
-            "$ref": "./examples/PostgresqlDatabaseMigrations_Get.json"
           }
         }
       },
@@ -620,11 +610,6 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "x-ms-examples": {
-          "Create a database migration": {
-            "$ref": "./examples/PostgresqlDatabaseMigrations_CreateOrUpdate.json"
-          }
         }
       },
       "patch": {
@@ -681,11 +666,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "Cutover a database migration": {
-            "$ref": "./examples/PostgresqlDatabaseMigrations_Update.json"
           }
         }
       },
@@ -806,6 +786,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "List database statuses for a migration": {
+            "$ref": "./examples/DatabaseStatuses_List.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -859,6 +844,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "List schema statuses for a migration": {
+            "$ref": "./examples/SchemaStatuses_List.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -910,6 +900,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "List table statuses for a migration": {
+            "$ref": "./examples/TableStatuses_List.json"
           }
         },
         "x-ms-pageable": {
