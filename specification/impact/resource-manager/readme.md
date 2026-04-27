@@ -38,6 +38,10 @@ suppressions:
   - code: AvoidAdditionalProperties
     reason: this is needed as its the extensible property bag for storing custom metadata associated with an impact.
     from: impact.json
+
+  - code: GetCollectionResponseSchema
+    reason: Split subscription and resource-group operation groups in 2026-05 preview can trigger false correlation between collection and single get schema in lint-diff/OAV.
+    from: impact.json
 ```
 
 ## Configuration
@@ -49,7 +53,16 @@ These are the global settings for the impact.
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2026-01-01-preview
+tag: package-2026-05-01-preview
+```
+
+### Tag: package-2026-05-01-preview
+
+These settings apply only when `--tag=package-2026-05-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-05-01-preview'
+input-file:
+  - Microsoft.Impact/preview/2026-05-01-preview/impact.json
 ```
 
 ### Tag: package-2026-01-01-preview

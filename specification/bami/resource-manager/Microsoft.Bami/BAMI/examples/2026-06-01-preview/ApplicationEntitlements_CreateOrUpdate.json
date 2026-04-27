@@ -1,0 +1,65 @@
+{
+  "operationId": "ApplicationEntitlements_CreateOrUpdate",
+  "title": "Create or Update Application Entitlement",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "api-version": "2026-06-01-preview",
+    "applicationEntitlementId": "cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa",
+    "resource": {
+      "location": "centralus"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Bami/applicationEntitlements/cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa",
+        "name": "cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa",
+        "type": "Microsoft.Bami/applicationEntitlements",
+        "location": "centralus",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "serviceTreeId": "11111111-1111-1111-1111-111111111111",
+          "applicationId": "44444444-4444-4444-4444-444444444444",
+          "applicationDisplayName": "Contoso Test Automation App",
+          "onboardingRequestId": "cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa",
+          "status": "Onboarded",
+          "maxAssignedQuota": 50,
+          "estimatedCostPerWindow": 10000.0,
+          "quotaWindowDays": 30,
+          "currentQuotaUsage": 12,
+          "currentCostUsage": 2400.0,
+          "quotaResetDate": "2026-04-01T00:00:00Z",
+          "lastQuotaUsageDate": "2026-03-06T11:30:00Z"
+        }
+      }
+    },
+    "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Bami/locations/global/operationStatuses/cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa?api-version=2026-06-01-preview",
+        "Retry-After": 10
+      },
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Bami/applicationEntitlements/cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa",
+        "name": "cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa",
+        "type": "Microsoft.Bami/applicationEntitlements",
+        "location": "centralus",
+        "properties": {
+          "provisioningState": "Accepted",
+          "serviceTreeId": "11111111-1111-1111-1111-111111111111",
+          "applicationId": "44444444-4444-4444-4444-444444444444",
+          "applicationDisplayName": "Contoso Test Automation App",
+          "onboardingRequestId": "cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa",
+          "status": "PendingLinking",
+          "maxAssignedQuota": 50,
+          "estimatedCostPerWindow": 10000.0,
+          "quotaWindowDays": 30,
+          "currentQuotaUsage": 0,
+          "currentCostUsage": 0.0,
+          "quotaResetDate": "2026-04-01T00:00:00Z",
+          "lastQuotaUsageDate": null
+        }
+      }
+    }
+  }
+}

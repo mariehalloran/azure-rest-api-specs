@@ -31,6 +31,7 @@ model Environment is TrackedResource<EnvironmentProperties> {
 @friendlyName("CosmicEnvironmentProperties")
 model EnvironmentProperties {
   @doc("Platform ring classification (e.g. test, sdf, msit, prod).")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   platformRing?: CosmicRing;
 
   @doc("Topology configuration including per-location networking and partition declarations.")

@@ -1,10 +1,12 @@
 import "@typespec/rest";
 import "@typespec/http";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Foundations;
 
@@ -131,6 +133,9 @@ model FileShareProperties is AzureResourceProperties {
     },
     {
       type: "Microsoft.OffAzure/hyperVSites/machines";
+    },
+    {
+      type: "Microsoft.ApplicationMigration/StorageSites/nas";
     }
   ]>[];
 
@@ -158,6 +163,18 @@ model FileShareProperties is AzureResourceProperties {
    * FileShare Estimated Size in GB.
    */
   fileShareEstimatedSizeInGb?: float64;
+
+  /**
+   * FileShare Size in GB.
+   */
+  @added(Versions.v2026_05_01_preview)
+  fileShareSizeInGb?: float64;
+
+  /**
+   * The Platform Type for the file share.
+   */
+  @added(Versions.v2026_05_01_preview)
+  platformType?: PlatformType;
 
   /**
    * The list of errors.
@@ -193,6 +210,19 @@ model FileShareProperties is AzureResourceProperties {
    */
   @identifiers(#["shareId"])
   colocatedShares?: ColocatedShare[];
+
+  /**
+   * Colocated resource ID.
+   */
+  @added(Versions.v2026_05_01_preview)
+  colocatedRefId?: string;
+
+  /**
+   * Protocol aliases for multi-protocol access.
+   */
+  @added(Versions.v2026_05_01_preview)
+  @identifiers(#["name"])
+  aliases?: ProtocolAlias[];
 
   /**
    * Resource tags
@@ -237,6 +267,9 @@ model FileShareResourcePatch {
     },
     {
       type: "Microsoft.OffAzure/hyperVSites/machines";
+    },
+    {
+      type: "Microsoft.ApplicationMigration/StorageSites/nas";
     }
   ]>[];
 
@@ -264,6 +297,18 @@ model FileShareResourcePatch {
    * FileShare Estimated Size in GB.
    */
   fileShareEstimatedSizeInGb?: float64;
+
+  /**
+   * FileShare Size in GB.
+   */
+  @added(Versions.v2026_05_01_preview)
+  fileShareSizeInGb?: float64;
+
+  /**
+   * The Platform Type for the file share.
+   */
+  @added(Versions.v2026_05_01_preview)
+  platformType?: PlatformType;
 
   /**
    * The list of errors.
@@ -299,6 +344,19 @@ model FileShareResourcePatch {
    */
   @identifiers(#["shareId"])
   colocatedShares?: ColocatedShare[];
+
+  /**
+   * Colocated resource ID.
+   */
+  @added(Versions.v2026_05_01_preview)
+  colocatedRefId?: string;
+
+  /**
+   * Protocol aliases for multi-protocol access.
+   */
+  @added(Versions.v2026_05_01_preview)
+  @identifiers(#["name"])
+  aliases?: ProtocolAlias[];
 
   /**
    * Resource tags
@@ -356,6 +414,17 @@ model Error {
    */
   // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
   updatedTimeStamp?: utcDateTime;
+}
+
+/**
+ * Defines an error specific to NAS resources.
+ */
+@added(Versions.v2026_05_01_preview)
+model NasError is Error {
+  /**
+   * The appliance name.
+   */
+  applianceName?: string;
 }
 
 /**
@@ -461,9 +530,285 @@ union ProtocolType {
 
   @doc("Network File System Protocol.")
   NFS: "NFS",
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("S3 Protocol.")
+  S3: "S3",
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Multi protocol access.")
+  MultiProtocol: "MultiProtocol",
+}
+
+/**
+ * The platform type for fileshare.
+ */
+@added(Versions.v2026_05_01_preview)
+union PlatformType {
+  string,
+
+  @doc("Unknown platform type.")
+  Unknown: "Unknown",
+
+  @doc("Network Attached Storage platform.")
+  NAS: "NAS",
+
+  @doc("Windows or Linux servers.")
+  Server: "Server",
+}
+
+/**
+ * The storage type for NAS devices.
+ */
+@added(Versions.v2026_05_01_preview)
+union StorageType {
+  string,
+
+  @doc("Network Attached Storage.")
+  NAS: "NAS",
+}
+
+/**
+ * The vendor of the NAS device.
+ */
+@added(Versions.v2026_05_01_preview)
+union Vendor {
+  string,
+
+  @doc("NetApp vendor.")
+  NetApp: "NetApp",
+
+  @doc("Dell vendor.")
+  Dell: "Dell",
 }
 
 @doc("The Site Tags patch resource definition.")
 model SiteTagsPatch {
   ...ArmTagsProperty;
+}
+
+/**
+ * Protocol alias information for multi-protocol file shares.
+ */
+@added(Versions.v2026_05_01_preview)
+model ProtocolAlias {
+  /**
+   * The alias name.
+   */
+  name: string;
+
+  /**
+   * The protocol type for this alias.
+   */
+  protocolType?: ProtocolType;
+
+  /**
+   * The protocol versions supported by this alias.
+   */
+  protocolVersion?: string[];
+}
+
+// ======== NAS Models ========
+
+/**
+ * List of NAS resources.
+ */
+@added(Versions.v2026_05_01_preview)
+model NasList is Azure.Core.Page<Nas>;
+
+/**
+ * NAS device properties.
+ */
+@added(Versions.v2026_05_01_preview)
+model NasProperties is AzureResourceProperties {
+  /**
+   * The storage type.
+   */
+  storageType?: StorageType;
+
+  /**
+   * The OS version of the NAS device.
+   */
+  osVersion?: string;
+
+  /**
+   * The NAS vendor (e.g., NetApp, Dell).
+   */
+  vendor?: Vendor;
+
+  /**
+   * The product name.
+   */
+  productName?: string;
+
+  /**
+   * The model of the NAS device.
+   */
+  @encodedName("application/json", "model")
+  nasModel?: string;
+
+  /**
+   * The cluster ID.
+   */
+  clusterId: string;
+
+  /**
+   * The cluster name.
+   */
+  clusterName?: string;
+
+  /**
+   * The number of nodes in the cluster.
+   */
+  nodesInCluster?: int32;
+
+  /**
+   * Total capacity in Gb.
+   */
+  totalCapacityInGb?: float64;
+
+  /**
+   * Used capacity in Gb.
+   */
+  usedCapacityInGb?: float64;
+
+  /**
+   * Number of file shares.
+   */
+  numberOfShares?: int32;
+
+  /**
+   * Number of object store buckets.
+   */
+  numberOfBuckets?: int32;
+
+  /**
+   * The cluster FQDN(s).
+   */
+  clusterFqdn?: string[];
+
+  /**
+   * The run-as account ID for NAS access.
+   */
+  runAsAccountId?: string;
+
+  /**
+   * The display name of the NAS device.
+   */
+  displayName?: string;
+
+  /**
+   * The list of errors.
+   */
+  errors?: NasError[];
+
+  /**
+   * Resource tags.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
+  tags?: Record<string>;
+}
+
+/**
+ * NAS resource patch properties wrapper.
+ */
+@added(Versions.v2026_05_01_preview)
+model NasResourcePatchProperties {
+  /**
+   * NAS resource patch properties object.
+   */
+  properties?: NasResourcePatch;
+}
+
+/**
+ * NAS resource patch properties.
+ */
+@added(Versions.v2026_05_01_preview)
+model NasResourcePatch {
+  /**
+   * The storage type.
+   */
+  storageType?: StorageType;
+
+  /**
+   * The OS version of the NAS device.
+   */
+  osVersion?: string;
+
+  /**
+   * The NAS vendor (e.g., NetApp, Dell).
+   */
+  vendor?: Vendor;
+
+  /**
+   * The product name.
+   */
+  productName?: string;
+
+  /**
+   * The model of the NAS device.
+   */
+  @encodedName("application/json", "model")
+  nasModel?: string;
+
+  /**
+   * The cluster ID.
+   */
+  clusterId?: string;
+
+  /**
+   * The cluster name.
+   */
+  clusterName?: string;
+
+  /**
+   * The number of nodes in the cluster.
+   */
+  nodesInCluster?: int32;
+
+  /**
+   * Total capacity in Gb.
+   */
+  totalCapacityInGb?: float64;
+
+  /**
+   * Used capacity in Gb.
+   */
+  usedCapacityInGb?: float64;
+
+  /**
+   * Number of file shares.
+   */
+  numberOfShares?: int32;
+
+  /**
+   * Number of object store buckets.
+   */
+  numberOfBuckets?: int32;
+
+  /**
+   * The cluster FQDN(s).
+   */
+  clusterFqdn?: string[];
+
+  /**
+   * The run-as account ID for NAS access.
+   */
+  runAsAccountId?: string;
+
+  /**
+   * The display name of the NAS device.
+   */
+  displayName?: string;
+
+  /**
+   * The list of errors.
+   */
+  errors?: NasError[];
+
+  /**
+   * Resource tags.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
+  tags?: Record<string>;
 }

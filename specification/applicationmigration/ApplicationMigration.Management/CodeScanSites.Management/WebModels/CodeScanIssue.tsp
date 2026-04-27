@@ -3,6 +3,7 @@ import "./CodeScanReport.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 
 namespace Microsoft.ApplicationMigration;
@@ -34,6 +35,11 @@ model CodeScanIssueProperties {
 
   @doc("The migration targets applicable for this issue.")
   azureTargets: AzureTarget[];
+
+  @added(CodeScanSitesApiVersions.v2026_05_12_preview)
+  @doc("Repository-level details for this issue, including per-repo occurrence counts.")
+  @identifiers(#["name"])
+  repos?: IssueRepoInfo[];
 }
 
 @parentResource(CodeScanReport)
