@@ -1026,8 +1026,8 @@
           "description": "The resource-specific properties for this resource."
         },
         "identity": {
-          "$ref": "../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/SystemAssignedServiceIdentity",
-          "description": "The managed service identities assigned to this resource."
+          "$ref": "../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "description": "The identity of the Storage Discovery Workspace."
         }
       },
       "allOf": [
@@ -1190,8 +1190,8 @@
       "description": "The template for adding updateable properties.",
       "properties": {
         "identity": {
-          "$ref": "../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/SystemAssignedServiceIdentity",
-          "description": "The managed service identities assigned to this resource."
+          "$ref": "../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "description": "The identity of the Storage Discovery Workspace."
         },
         "tags": {
           "type": "object",
