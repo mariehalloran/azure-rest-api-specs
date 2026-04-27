@@ -181,8 +181,8 @@ model ProjectProperties {
 @added(MongoDB.Atlas.Versions.v2026_03_01_preview)
 @parentResource(OrganizationResource)
 model Project is ProxyResource<ProjectProperties> {
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-name-pattern" "Partner (MongoDB Atlas) uses Unicode validation server-side which cannot be expressed as an ARM-compatible regex pattern."
   @key("projectName")
+  @pattern("^[a-zA-Z0-9 \\-_.(),:&@+']*$")
   @segment("projects")
   @minLength(1)
   @maxLength(64)
