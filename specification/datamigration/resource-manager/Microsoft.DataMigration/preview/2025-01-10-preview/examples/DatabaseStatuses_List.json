@@ -1,0 +1,40 @@
+{
+  "title": "List database statuses for a migration",
+  "operationId": "DatabaseStatuses_List",
+  "parameters": {
+    "subscriptionId": "12345678-1234-1234-1234-123456789012",
+    "resourceGroupName": "my-rg",
+    "serviceName": "myMigrationService",
+    "databaseMigrationId": "mig-123e4567-e89b-12d3-a456-426614174000",
+    "api-version": "2025-01-10-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.DataMigration/postgresqlMigrationServices/myMigrationService/postgresqlDatabaseMigrations/mig-123e4567-e89b-12d3-a456-426614174000/databaseStatuses/users_db",
+            "name": "users_db",
+            "type": "Microsoft.DataMigration/postgresqlMigrationServices/postgresqlDatabaseMigrations/databaseStatuses",
+            "properties": {
+              "sourceDatabaseName": "users_db",
+              "targetDatabaseName": "users_db",
+              "status": "Succeeded",
+              "startedAt": "2025-09-20T08:15:30Z",
+              "endedAt": "2025-09-23T10:30:00Z",
+              "totalSchemas": 1,
+              "completedSchemas": 1,
+              "failedSchemas": 0,
+              "inProgressSchemas": 0,
+              "totalTables": 12,
+              "completedTables": 12,
+              "failedTables": 0,
+              "inProgressTables": 0,
+              "errors": []
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -11477,7 +11477,8 @@
           "readOnly": true
         },
         "sizeInBytes": {
-          "type": "string",
+          "type": "integer",
+          "format": "int64",
           "description": "Total cluster volume size in bytes.",
           "readOnly": true
         },
@@ -18100,14 +18101,6 @@
           "description": "Error details.",
           "readOnly": true
         },
-        "recommendedSteps": {
-          "type": "array",
-          "description": "Recommended steps to resolve failures.",
-          "items": {
-            "type": "string"
-          },
-          "readOnly": true
-        },
         "subStages": {
           "type": "array",
           "description": "Sub-stages for this stage.",
@@ -18149,6 +18142,14 @@
         "message": {
           "type": "string",
           "description": "Message to provide more details on lifecycle status, especially in case of failures.",
+          "readOnly": true
+        },
+        "recommendedSteps": {
+          "type": "array",
+          "description": "Recommended steps to resolve failures.",
+          "items": {
+            "type": "string"
+          },
           "readOnly": true
         }
       },
