@@ -1,0 +1,47 @@
+{
+  "title": "List table statuses for a migration",
+  "operationId": "TableStatuses_List",
+  "parameters": {
+    "subscriptionId": "12345678-1234-1234-1234-123456789012",
+    "resourceGroupName": "my-rg",
+    "serviceName": "myMigrationService",
+    "databaseMigrationId": "mig-123e4567-e89b-12d3-a456-426614174000",
+    "api-version": "2025-01-10-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.DataMigration/postgresqlMigrationServices/myMigrationService/postgresqlDatabaseMigrations/mig-123e4567-e89b-12d3-a456-426614174000/tableStatuses/orders",
+            "name": "orders",
+            "type": "Microsoft.DataMigration/postgresqlMigrationServices/postgresqlDatabaseMigrations/tableStatuses",
+            "properties": {
+              "sourceDatabaseName": "orders_db",
+              "sourceSchemaName": "public",
+              "sourceTableName": "orders",
+              "targetDatabaseName": "orders_db",
+              "targetSchemaName": "public",
+              "targetTableName": "orders",
+              "status": "Failed",
+              "startedAt": "2025-09-20T08:15:30Z",
+              "endedAt": "2025-09-23T10:30:00Z",
+              "rowsCopied": 45000,
+              "totalRows": 100000,
+              "bytesCopied": 19327352,
+              "errors": [
+                {
+                  "errorCode": "23505",
+                  "category": "Migration",
+                  "severity": "Error",
+                  "message": "duplicate key value violates unique constraint",
+                  "details": "Key (order_id)=(12345) already exists."
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
