@@ -105,7 +105,7 @@ interface ScheduledActions {
 
   /** virtualMachinesExecuteDeallocateWithCapacityCheck: deallocate VMs only if capacity predictions indicate sufficient capacity at the desired restart time. VMs that fail the capacity check are returned with a VmNoCapacity error. */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
-  @added(Microsoft.ComputeSchedule.Versions.`2026-04-07-preview`)
+  @added(Microsoft.ComputeSchedule.Versions.`2026-04-27-preview`)
   @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesExecuteDeallocateWithCapacityCheck")
   @post
   virtualMachinesExecuteDeallocateWithCapacityCheck(

@@ -157,7 +157,7 @@ union DistributionStrategy {
 }
 
 @doc("The result of capacity prediction for deallocating VMs with a capacity check")
-@added(Microsoft.ComputeSchedule.Versions.`2026-04-07-preview`)
+@added(Microsoft.ComputeSchedule.Versions.`2026-04-27-preview`)
 union CapacityPrediction {
   @doc("Very Low capacity is predicted at the desired restart time")
   VeryLow: "VeryLow",
@@ -294,11 +294,11 @@ model ResourceOperationDetails {
   retryPolicy?: RetryPolicy;
 
   @doc("Capacity prediction for the deallocate with capacity check operation")
-  @added(Versions.`2026-04-07-preview`)
+  @added(Versions.`2026-04-27-preview`)
   capacityPrediction?: CapacityPrediction;
 
   @doc("The quality score of the capacity check prediction")
-  @added(Versions.`2026-04-07-preview`)
+  @added(Versions.`2026-04-27-preview`)
   capacityPredictionQualityScore?: int32;
 }
 
@@ -455,7 +455,7 @@ model ExecuteStartRequest {
 }
 
 // ----------- ExecuteDeallocateWithCapacityCheck ---------
-@added(Microsoft.ComputeSchedule.Versions.`2026-04-07-preview`)
+@added(Microsoft.ComputeSchedule.Versions.`2026-04-27-preview`)
 @doc("The request for deallocating VMs with a capacity check, which verifies capacity predictions at the desired start time before proceeding with deallocation")
 model ExecuteDeallocateWithCapacityCheckRequest {
   ...ExecuteDeallocateRequest;
@@ -464,7 +464,7 @@ model ExecuteDeallocateWithCapacityCheckRequest {
   desiredFutureStartTime: DesiredStartTime;
 }
 
-@added(Microsoft.ComputeSchedule.Versions.`2026-04-07-preview`)
+@added(Microsoft.ComputeSchedule.Versions.`2026-04-27-preview`)
 @doc("The desired start time for the VMs, used to check capacity predictions")
 model DesiredStartTime {
   #suppress "@azure-tools/typespec-azure-core/no-offsetdatetime" "Prefer using `utcDateTime` when representing a datetime unless an offset is necessary."
