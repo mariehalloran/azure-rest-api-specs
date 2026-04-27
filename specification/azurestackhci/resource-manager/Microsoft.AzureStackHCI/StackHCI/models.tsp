@@ -10923,7 +10923,7 @@ model ClusterVolumeReportedProperties {
 
   /** Total cluster volume size in bytes. */
   @visibility(Lifecycle.Read)
-  sizeInBytes?: string;
+  sizeInBytes?: int64;
 
   /** Free space in bytes. */
   @visibility(Lifecycle.Read)
