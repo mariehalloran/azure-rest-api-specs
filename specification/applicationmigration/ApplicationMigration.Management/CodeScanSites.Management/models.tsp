@@ -1,4 +1,5 @@
 using Azure.ResourceManager;
+using TypeSpec.Versioning;
 
 namespace Microsoft.ApplicationMigration;
 
@@ -23,6 +24,10 @@ union AzureTarget {
 
   @doc("App Service Native.")
   AzureAppService: "AzureAppService",
+
+  @added(CodeScanSitesApiVersions.v2026_05_12_preview)
+  @doc("Azure Container Apps.")
+  ContainerApps: "ContainerApps",
 
   string,
 }
@@ -173,6 +178,16 @@ model ReferenceLink {
   label: string;
 }
 
+@added(CodeScanSitesApiVersions.v2026_05_12_preview)
+@doc("Per-repository details for a code scan issue.")
+model IssueRepoInfo {
+  @doc("The repository name.")
+  name: string;
+
+  @doc("The number of occurrences of this issue in this repository.")
+  occurrences: int32;
+}
+
 @doc("Cloud Suitability for Azure.")
 union CloudSuitability {
   @doc("Unknown. Indicates missing data.")
@@ -189,6 +204,21 @@ union CloudSuitability {
 
   @doc("Unknown Readiness for Azure.")
   ReadinessUnknown: "ReadinessUnknown",
+
+  string,
+}
+
+@added(CodeScanSitesApiVersions.v2026_05_12_preview)
+@doc("The source of the code scan report.")
+union ReportSource {
+  @doc("Indicates that the report was uploaded as a ZIP file.")
+  Zip: "Zip",
+
+  @doc("Indicates that the report was uploaded to a GHCP issue.")
+  GHCPIssue: "GHCPIssue",
+
+  @doc("Indicates that the report was generated and uploaded by GHCP Modernize Scan.")
+  GHCPModernizeScan: "GHCPModernizeScan",
 
   string,
 }

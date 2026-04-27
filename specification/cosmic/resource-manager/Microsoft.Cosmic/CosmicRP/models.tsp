@@ -174,6 +174,32 @@ union HealthState {
   string,
 }
 
+@doc("The provisioning status of a namespace instance on a cluster.")
+union InstanceProvisioningStatus {
+  @doc("Status is unspecified.")
+  Unspecified: "Unspecified",
+
+  @doc("The instance is ready.")
+  Ready: "Ready",
+
+  @doc("The instance has been soft-deleted.")
+  SoftDeleted: "SoftDeleted",
+
+  @doc("The instance encountered an error.")
+  Error: "Error",
+
+  @doc("The instance is pending provisioning.")
+  Pending: "Pending",
+
+  @doc("The instance resources have been cleaned up.")
+  ResourcesCleanedUp: "ResourcesCleanedUp",
+
+  @doc("The instance is terminating.")
+  Terminating: "Terminating",
+
+  string,
+}
+
 // ─── Topology models ────────────────────────────────────────────────
 
 @doc("Optional per-location topology declarations including networking and partition identity.")
@@ -256,13 +282,18 @@ model ResourcePolicy {
 model RingDefaultPolicy {
   @doc("Per-service pod resource specifications.")
   @identifiers(#[])
-  podResources?: PodResource[];
+  podResources?: PodSpec[];
 
   @doc("The operating system type.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   os?: OsType;
 
   @doc("The IP version (IPv4 or IPv6).")
   ipVersion?: IpVersion;
+
+  @doc("The Azure VM family for cluster selection (e.g., 'D_FLEX', 'F_FLEX', 'DV4').")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  vmFamily?: string;
 }
 
 @doc("Region-scoped policy overrides.")
@@ -300,11 +331,16 @@ model PartitionOverride {
 @doc("Partition-level default resource policy.")
 model PartitionDefaultPolicy {
   @doc("The operating system type override.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   os?: OsType;
 
   @doc("Per-service pod resource specifications.")
   @identifiers(#[])
-  podResources?: PodResource[];
+  podResources?: PodSpec[];
+
+  @doc("The Azure VM family override for this partition (e.g., 'F_FLEX' for GPU partitions).")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  vmFamily?: string;
 }
 
 @doc("Migration-only per-instance resource override.")
@@ -319,17 +355,18 @@ model InstanceOverride {
 @doc("Per-instance quota override shape (migration-only).")
 model InstanceQuota {
   @doc("The Azure VM family.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   vmFamily?: string;
 
   @doc("Per-service pod resource specifications.")
   @identifiers(#[])
-  podResources?: PodResource[];
+  podResources?: PodSpec[];
 }
 
 // ─── Pod resource models ─────────────────────────────────────────────
 
 @doc("Pod resource envelope.")
-model PodResource {
+model PodSpec {
   @doc("CPU cores requested per pod (e.g. '0.5', '2').")
   cores?: string;
 
@@ -403,6 +440,9 @@ model Instance {
 
   @doc("The ARM resource ID of the cluster backing this instance.")
   clusterResourceId?: Azure.Core.armResourceIdentifier;
+
+  @doc("The provisioning status of this instance on the backing cluster.")
+  status?: InstanceProvisioningStatus;
 }
 
 // ─── Networking models ───────────────────────────────────────────────
@@ -425,14 +465,17 @@ model IngressPublicIp {
 @doc("Egress public IP configuration using BYOIP.")
 model EgressPublicIps {
   @doc("The IP tag type for egress.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   ipTagType?: string;
 
   @doc("The IP tag value for egress.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   ipTagValue?: string;
 
   @doc("The IP capacity for egress.")
   ipCapacity?: string;
 
   @doc("The IP version (IPv4 or IPv6). Defaults to IPv4.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   ipVersion?: IpVersion;
 }

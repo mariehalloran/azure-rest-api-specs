@@ -1,0 +1,78 @@
+{
+  "operationId": "EnvironmentGroupRules_ListByEnvironmentGroup",
+  "title": "List rules for an environment group",
+  "parameters": {
+    "api-version": "2026-04-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg1",
+    "environmentGroupId": "group-prod-001"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.PowerPlatform/environmentGroups/group-prod-001/rules/ConnectorManagement",
+            "name": "ConnectorManagement",
+            "type": "Microsoft.PowerPlatform/environmentGroups/rules",
+            "properties": {
+              "environmentGroupId": "group-prod-001",
+              "tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+              "policyId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+              "ruleSetId": "ConnectorManagement",
+              "ruleSetVersion": "1.0",
+              "ruleSetType": "Governing",
+              "configured": true,
+              "enabled": true,
+              "sourceType": "EnvironmentGroup",
+              "lastModified": "2026-04-15T10:30:00Z",
+              "inputSize": 5,
+              "inputSummary": "5 connectors allowed, SomeAllowed mode",
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.PowerPlatform/environmentGroups/group-prod-001/rules/IPFirewallSettings",
+            "name": "IPFirewallSettings",
+            "type": "Microsoft.PowerPlatform/environmentGroups/rules",
+            "properties": {
+              "environmentGroupId": "group-prod-001",
+              "tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+              "policyId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+              "ruleSetId": "IPFirewallSettings",
+              "ruleSetVersion": "1.0",
+              "ruleSetType": "Configuration",
+              "configured": true,
+              "enabled": true,
+              "sourceType": "EnvironmentGroup",
+              "lastModified": "2026-04-12T14:00:00Z",
+              "inputSize": 3,
+              "inputSummary": "IP firewall enabled, 3 IP ranges allowed",
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.PowerPlatform/environmentGroups/group-prod-001/rules/SharingLimit",
+            "name": "SharingLimit",
+            "type": "Microsoft.PowerPlatform/environmentGroups/rules",
+            "properties": {
+              "environmentGroupId": "group-prod-001",
+              "tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+              "policyId": "b2c3d4e5-f6a7-8901-bcde-f23456789012",
+              "ruleSetId": "SharingLimit",
+              "ruleSetVersion": "1.0",
+              "ruleSetType": "Governing",
+              "configured": true,
+              "enabled": true,
+              "sourceType": "EnvironmentGroup",
+              "lastModified": "2026-03-20T14:00:00Z",
+              "inputSize": 4,
+              "inputSummary": "Canvas apps: max 50 shares, Cloud flows: max 25 shares",
+              "provisioningState": "Succeeded"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

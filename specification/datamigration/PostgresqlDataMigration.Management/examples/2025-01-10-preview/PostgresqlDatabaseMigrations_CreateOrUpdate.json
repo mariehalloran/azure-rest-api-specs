@@ -104,12 +104,12 @@
             "targetConnectionName": "targetConnection2"
           }
         ],
-        "computeProfile": {
-          "computeSubnetResourceId": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet"
-        },
-        "migrationJobsettings": {
-          "validateOnly": false
-        }
+        "migrationJobSettings": [
+          {
+            "settingName": "validateOnly",
+            "settingValue": "false"
+          }
+        ]
       }
     }
   },
@@ -211,12 +211,12 @@
               "targetConnectionName": "targetConnection2"
             }
           ],
-          "computeProfile": {
-            "computeSubnetResourceId": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet"
-          },
-          "migrationJobsettings": {
-            "validateOnly": false
-          },
+          "migrationJobSettings": [
+            {
+              "settingName": "validateOnly",
+              "settingValue": "false"
+            }
+          ],
           "provisioningState": "Provisioning",
           "migrationStatus": {
             "state": "InProgress",
@@ -242,52 +242,6 @@
               }
             ]
           },
-          "databases": [
-            {
-              "databaseName": "HR",
-              "migrationStatus": "Failed",
-              "migrationProgress": {
-                "migrationPhase": "DataMigration",
-                "migrationStatistics": {
-                  "tablesTotal": 100,
-                  "tablesCompleted": 75,
-                  "tablesFailed": 3,
-                  "tablesInProgress": 5,
-                  "tablesPending": 17,
-                  "percentComplete": 75
-                }
-              },
-              "errors": [
-                {
-                  "errorCode": "ConnectionError",
-                  "category": "Connection",
-                  "severity": "Critical",
-                  "message": "Failed to connect to source database HRDB.",
-                  "details": "Timeout while attempting to connect to oracle-prod.company.com:1521."
-                }
-              ],
-              "createdAt": "2025-09-20T08:15:30Z",
-              "lastUpdatedAt": "2025-09-23T10:30:00Z"
-            },
-            {
-              "databaseName": "DB1",
-              "migrationStatus": "InProgress",
-              "migrationProgress": {
-                "migrationPhase": "DataMigration",
-                "migrationStatistics": {
-                  "tablesTotal": 100,
-                  "tablesCompleted": 75,
-                  "tablesFailed": 3,
-                  "tablesInProgress": 5,
-                  "tablesPending": 17,
-                  "percentComplete": 75
-                }
-              },
-              "errors": [],
-              "createdAt": "2025-09-21T09:20:45Z",
-              "lastUpdatedAt": "2025-09-23T10:30:00Z"
-            }
-          ],
           "startedAt": "2025-01-10T10:47:41.820717Z",
           "endedAt": null
         }
@@ -390,12 +344,12 @@
               "targetConnectionName": "targetConnection2"
             }
           ],
-          "computeProfile": {
-            "computeSubnetResourceId": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet"
-          },
-          "migrationJobsettings": {
-            "validateOnly": false
-          },
+          "migrationJobSettings": [
+            {
+              "settingName": "validateOnly",
+              "settingValue": "false"
+            }
+          ],
           "provisioningState": "Provisioning",
           "migrationStatus": {
             "state": "InProgress",
@@ -406,52 +360,6 @@
             "state": "InProgress",
             "preMigrationValidationSummaries": []
           },
-          "databases": [
-            {
-              "databaseName": "HR",
-              "migrationStatus": "Failed",
-              "migrationProgress": {
-                "migrationPhase": "DataMigration",
-                "migrationStatistics": {
-                  "tablesTotal": 100,
-                  "tablesCompleted": 75,
-                  "tablesFailed": 3,
-                  "tablesInProgress": 5,
-                  "tablesPending": 17,
-                  "percentComplete": 75
-                }
-              },
-              "errors": [
-                {
-                  "errorCode": "ConnectionError",
-                  "category": "Connection",
-                  "severity": "Critical",
-                  "message": "Failed to connect to source database HRDB.",
-                  "details": "Timeout while attempting to connect to oracle-prod.company.com:1521."
-                }
-              ],
-              "createdAt": "2025-09-20T08:15:30Z",
-              "lastUpdatedAt": "2025-09-23T10:30:00Z"
-            },
-            {
-              "databaseName": "DB1",
-              "migrationStatus": "InProgress",
-              "migrationProgress": {
-                "migrationPhase": "DataMigration",
-                "migrationStatistics": {
-                  "tablesTotal": 100,
-                  "tablesCompleted": 75,
-                  "tablesFailed": 3,
-                  "tablesInProgress": 5,
-                  "tablesPending": 17,
-                  "percentComplete": 75
-                }
-              },
-              "errors": [],
-              "createdAt": "2025-09-21T09:20:45Z",
-              "lastUpdatedAt": "2025-09-23T10:30:00Z"
-            }
-          ],
           "startedAt": "2025-01-10T10:47:41.820717Z",
           "endedAt": null
         }

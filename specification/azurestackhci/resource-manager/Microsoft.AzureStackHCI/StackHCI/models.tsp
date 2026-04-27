@@ -1732,6 +1732,64 @@ union EdgeSolutionType {
 }
 
 /**
+ * Lifecycle status of an Edge Machine.
+ */
+@added(Versions.v2026_03_15_preview)
+union EdgeMachineLifecycleStatus {
+  string,
+
+  /** Machine is being created. */
+  Creating: "Creating",
+
+  /** Machine is awaiting connection. */
+  AwaitingConnection: "AwaitingConnection",
+
+  /** Machine is being provisioned. */
+  Provisioning: "Provisioning",
+
+  /** Machine is ready for OS installation. */
+  ReadyForOs: "ReadyForOs",
+
+  /** Machine is installing the OS. */
+  InstallingOs: "InstallingOs",
+
+  /** Machine has been provisioned. */
+  Provisioned: "Provisioned",
+
+  /** Machine OS is being updated. */
+  UpdatingOs: "UpdatingOs",
+
+  /** Machine OS is being reset. */
+  ResettingOs: "ResettingOs",
+
+  /** Machine is being deleted. */
+  Deleting: "Deleting",
+
+  /** Machine is in a failed state. */
+  Failed: "Failed",
+}
+
+/**
+ * Status of an operation. Maps to Steps.Status / SubSteps.Status.
+ */
+@added(Versions.v2026_03_15_preview)
+union LifecycleOperationStatus {
+  string,
+
+  /** Operation has not started. */
+  NotStarted: "NotStarted",
+
+  /** Operation is in progress. */
+  InProgress: "InProgress",
+
+  /** Operation has completed successfully. */
+  Completed: "Completed",
+
+  /** Operation has failed. */
+  Failed: "Failed",
+}
+
+/**
  * List of ArcSetting proxy resources for the HCI cluster.
  */
 model ArcSettingList is Azure.Core.Page<ArcSetting>;
@@ -4303,6 +4361,21 @@ model SecurityProperties {
   smbEncryptionForIntraClusterTrafficComplianceAssignment?: ComplianceAssignmentType = ComplianceAssignmentType.Audit;
 
   /**
+   * Desired security settings.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @identifiers(#[])
+  desiredSettings?: DesiredSetting[];
+
+  /**
+   * Reported compliance states for security settings.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  reportedComplianceStates?: ReportedComplianceState[];
+
+  /**
    * Security Compliance Status
    */
   @visibility(Lifecycle.Read)
@@ -4344,11 +4417,99 @@ model SecurityComplianceStatus {
   dataInTransitProtected?: ComplianceStatus;
 
   /**
+   * Contains details about HCI cluster's compliance with security baseline.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  securityBaseline?: SecurityBaseline;
+
+  /**
    * Time in UTC when compliance status was last updated.
    */
   @visibility(Lifecycle.Read)
   // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
   lastUpdated?: utcDateTime;
+}
+
+/**
+ * Desired security setting.
+ */
+@added(Versions.v2026_03_15_preview)
+model DesiredSetting {
+  /** Name of the setting. */
+  settingName: string;
+
+  /** Value of the setting. */
+  value: string;
+}
+
+/**
+ * Reported compliance state of a security setting.
+ */
+@added(Versions.v2026_03_15_preview)
+model ReportedComplianceState {
+  /** Name of the setting. */
+  @visibility(Lifecycle.Read)
+  settingName: string;
+
+  /** Aggregated compliance state value of the setting across all nodes of the cluster. */
+  @visibility(Lifecycle.Read)
+  value: ComplianceStatus;
+
+  /** Per machine compliance state value and reason for it. */
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  perMachineStates: MachineComplianceState[];
+}
+
+/**
+ * Compliance state on a single machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model MachineComplianceState {
+  /** Name of the machine. */
+  @visibility(Lifecycle.Read)
+  machineName: string;
+
+  /** Compliance state value of the setting. */
+  @visibility(Lifecycle.Read)
+  value: ComplianceStatus;
+
+  /** Compliance score of the setting. */
+  @visibility(Lifecycle.Read)
+  percentScore?: string;
+
+  /** Reason for the compliance state of the machine. */
+  @visibility(Lifecycle.Read)
+  reason: string;
+}
+
+/**
+ * Compliance state of the security baseline.
+ */
+@added(Versions.v2026_03_15_preview)
+model SecurityBaseline {
+  /** Status of compliance. */
+  @visibility(Lifecycle.Read)
+  securityBaselineCompliance?: ComplianceStatus;
+
+  /** Aggregated compliance score across cluster nodes. */
+  @visibility(Lifecycle.Read)
+  percentScore?: string;
+
+  /** Per machine compliance state value and reason for it. */
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  perMachineStates?: MachineComplianceState[];
+}
+
+/**
+ * Name of the recommendation.
+ */
+@added(Versions.v2026_03_15_preview)
+model Recommendation {
+  /** Name of the recommendation. */
+  recommendationName: string;
 }
 
 /**
@@ -6889,6 +7050,12 @@ model EdgeMachineProperties {
   ]>;
 
   /**
+   * Lifecycle details of the resource
+   */
+  @visibility(Lifecycle.Read)
+  lifecycleDetails?: LifecycleDetails;
+
+  /**
    * Link to Arc Gateway ARM resource Id
    */
   @visibility(Lifecycle.Read, Lifecycle.Create)
@@ -7124,6 +7291,116 @@ union EdgeMachineConnectivityStatus {
    * The machine resource is connected.
    */
   Connected: "Connected",
+}
+
+/**
+ * Summary lifecycle status for a resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model LifecycleStatus {
+  /**
+   * Overall lifecycle status of the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  status: EdgeMachineLifecycleStatus;
+
+  /**
+   * Depicts what is the current ongoing stage.
+   */
+  @visibility(Lifecycle.Read)
+  stage?: string;
+
+  /**
+   * Last time the lifecycle status was updated.
+   */
+  @visibility(Lifecycle.Read)
+  lastUpdatedUtc: utcDateTime;
+
+  /**
+   * Message to provide more details on lifecycle status, especially in case of failures.
+   */
+  @visibility(Lifecycle.Read)
+  message?: string;
+
+  /**
+   * Recommended steps to resolve failures.
+   */
+  @visibility(Lifecycle.Read)
+  recommendedSteps?: string[];
+}
+
+/**
+ * Lifecycle stage details for a resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model LifecycleStage {
+  /**
+   * Name of the stage;
+   */
+  @visibility(Lifecycle.Read)
+  name: string;
+
+  /**
+   * Description of the stage.
+   */
+  @visibility(Lifecycle.Read)
+  description: string;
+
+  /**
+   * Status of the stage.
+   */
+  @visibility(Lifecycle.Read)
+  status: LifecycleOperationStatus;
+
+  /**
+   * Start time of the stage.
+   */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /**
+   * End time of the stage.
+   */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /**
+   * Last time the stage was updated.
+   */
+  @visibility(Lifecycle.Read)
+  lastUpdatedUtc?: utcDateTime;
+
+  /**
+   * Error details.
+   */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.CommonTypes.ErrorDetail;
+
+  /**
+   * Sub-stages for this stage.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["name"])
+  subStages?: LifecycleStage[];
+}
+
+/**
+ * Overall Lifecycle details for a resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model LifecycleDetails {
+  /**
+   * Overall lifecycle status of the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  lifecycleStatus?: LifecycleStatus;
+
+  /**
+   * List of lifecycle stages for the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["name"])
+  lifecycleStages: LifecycleStage[];
 }
 
 /**
@@ -9176,14 +9453,6 @@ union DiskState {
  */
 @added(Versions.v2026_03_15_preview)
 model DiskVolumeReportedProperties {
-  /** Unique identifier for the volume. */
-  @visibility(Lifecycle.Read)
-  volumeId?: string;
-
-  /** Volume/partition number. */
-  @visibility(Lifecycle.Read)
-  volumeNumber?: int32;
-
   /** Size of the volume in bytes. */
   @visibility(Lifecycle.Read)
   sizeInBytes?: string;
@@ -9195,6 +9464,34 @@ model DiskVolumeReportedProperties {
   /** File system type. */
   @visibility(Lifecycle.Read)
   fileSystem?: string;
+
+  /** Unique identifier for the partition. */
+  @visibility(Lifecycle.Read)
+  partitionId?: string;
+
+  /** Partition number. */
+  @visibility(Lifecycle.Read)
+  partitionNumber?: int32;
+
+  /** Byte offset of the partition start. */
+  @visibility(Lifecycle.Read)
+  offsetInBytes?: int64;
+
+  /** Name of the volume. */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /** Indicates if this volume is a boot volume. */
+  @visibility(Lifecycle.Read)
+  isBoot?: boolean;
+
+  /** Available space on the volume in bytes. */
+  @visibility(Lifecycle.Read)
+  sizeRemainingInBytes?: string;
+
+  /** Resource name of the volume. */
+  @visibility(Lifecycle.Read)
+  resourceName?: string;
 }
 
 /**
@@ -10608,6 +10905,10 @@ model ClusterVolumeReportedProperties {
   @visibility(Lifecycle.Read)
   path?: string;
 
+  /** Volume GUID. Primary identifier for the cluster volume. */
+  @visibility(Lifecycle.Read)
+  volumeId?: string;
+
   /** Cluster resource GUID for a PDR-backed volume when applicable. */
   @visibility(Lifecycle.Read)
   clusterResourceId?: string;
@@ -10622,11 +10923,11 @@ model ClusterVolumeReportedProperties {
 
   /** Total cluster volume size in bytes. */
   @visibility(Lifecycle.Read)
-  sizeInBytes?: string;
+  sizeInBytes?: int64;
 
   /** Free space in bytes. */
   @visibility(Lifecycle.Read)
-  sizeRemainingInBytes?: string;
+  sizeRemainingInBytes?: int64;
 
   /** Filesystem type (NTFS, ReFS, CSVFS_NTFS, CSVFS_ReFS). */
   @visibility(Lifecycle.Read)
@@ -10658,7 +10959,7 @@ model ClusterVolumeReportedProperties {
 
   /** Whether data deduplication is enabled. */
   @visibility(Lifecycle.Read)
-  isDedupeEnabled?: boolean;
+  isDedupEnabled?: boolean;
 
   /** Whether BitLocker encryption is enabled. */
   @visibility(Lifecycle.Read)
@@ -10782,4 +11083,46 @@ union ClusterVolumeProvisioningType {
 
   /** Fixed provisioning. */
   Fixed: "Fixed",
+}
+
+/** Represents an available update for an edge machine. */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineUpdateInfo {
+  /** The VSR version of the update. */
+  vsrVersion: string;
+
+  /** The display name of the update. */
+  displayName?: string;
+
+  /** Link to the release notes for this update. */
+  releaseNotesLink?: string;
+
+  /** Total size of the update in bytes. */
+  totalSizeBytes?: int64;
+
+  /** Indicates whether a reboot is required after installing this update. */
+  rebootRequired?: boolean;
+
+  /** Estimated time in minutes to install this update. */
+  estimatedInstallTimeMinutes?: int32;
+
+  /** The type of update (e.g., FullImage). */
+  updateType?: string;
+
+  /** The Arc agent version included in this update. */
+  arcAgentVersion?: string;
+}
+
+/** Properties for EdgeMachineUpdate resource. */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineUpdateProperties {
+  /** The list of available updates. */
+  @identifiers(#[])
+  values: EdgeMachineUpdateInfo[];
+
+  /**
+   * Provisioning state of the updates resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
 }
