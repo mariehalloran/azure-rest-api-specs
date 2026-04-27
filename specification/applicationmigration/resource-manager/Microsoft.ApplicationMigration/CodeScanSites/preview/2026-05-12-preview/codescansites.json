@@ -1568,7 +1568,8 @@
       "enum": [
         "AKS",
         "AzureAppServiceContainer",
-        "AzureAppService"
+        "AzureAppService",
+        "ContainerApps"
       ],
       "x-ms-enum": {
         "name": "AzureTarget",
@@ -1588,6 +1589,11 @@
             "name": "AzureAppService",
             "value": "AzureAppService",
             "description": "App Service Native."
+          },
+          {
+            "name": "ContainerApps",
+            "value": "ContainerApps",
+            "description": "Azure Container Apps."
           }
         ]
       }
@@ -1911,16 +1917,6 @@
         "migrateWorkloadType": {
           "$ref": "#/definitions/MigrateWorkloadType",
           "description": "The type of the migrate workload."
-        },
-        "processedRepos": {
-          "type": "array",
-          "description": "The list of processed repositories.",
-          "items": {
-            "$ref": "#/definitions/ProcessedRepo"
-          },
-          "x-ms-identifiers": [
-            "repoName"
-          ]
         }
       },
       "required": [
@@ -1962,8 +1958,7 @@
         "reportType",
         "reportName",
         "reportFormat",
-        "status",
-        "reportSource"
+        "status"
       ]
     },
     "CodeScanReportListResult": {
@@ -2012,6 +2007,16 @@
           },
           "x-ms-identifiers": [
             "azureTarget"
+          ]
+        },
+        "processedRepos": {
+          "type": "array",
+          "description": "The list of processed repositories.",
+          "items": {
+            "$ref": "#/definitions/ProcessedRepo"
+          },
+          "x-ms-identifiers": [
+            "repoName"
           ]
         }
       },
