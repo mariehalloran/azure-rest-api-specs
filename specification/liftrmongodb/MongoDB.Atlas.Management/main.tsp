@@ -170,7 +170,7 @@ model ProjectProperties {
   @doc("Number of clusters in the project.")
   @visibility(Lifecycle.Read)
   @minValue(0)
-  clusterCount?: int32;
+  clusterCount?: int64;
 
   @doc("Provisioning state of the resource.")
   @visibility(Lifecycle.Read)
@@ -182,7 +182,6 @@ model ProjectProperties {
 @parentResource(OrganizationResource)
 model Project is ProxyResource<ProjectProperties> {
   @key("projectName")
-  @pattern("^[ a-zA-Z0-9\\-_.(),:&@+']*$")
   @segment("projects")
   @minLength(1)
   @maxLength(64)
@@ -293,13 +292,13 @@ model ClusterProperties {
   @visibility(Lifecycle.Read)
   mongoDbVersion?: string;
 
-  @doc("Whether backups are enabled for the cluster.")
+  @doc("Whether backups are active for the cluster; null if undetermined.")
   @visibility(Lifecycle.Read)
-  backupEnabled?: boolean;
+  backups?: boolean | null;
 
   @doc("Current state of the cluster.")
   @visibility(Lifecycle.Read)
-  state?: string;
+  state?: string | null;
 
   @doc("Provisioning state of the resource.")
   @visibility(Lifecycle.Read)

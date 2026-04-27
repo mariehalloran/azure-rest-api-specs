@@ -526,8 +526,7 @@
             "required": true,
             "type": "string",
             "minLength": 1,
-            "maxLength": 64,
-            "pattern": "^[ a-zA-Z0-9\\-_.(),:&@+']*$"
+            "maxLength": 64
           }
         ],
         "responses": {
@@ -583,8 +582,7 @@
             "required": true,
             "type": "string",
             "minLength": 1,
-            "maxLength": 64,
-            "pattern": "^[ a-zA-Z0-9\\-_.(),:&@+']*$"
+            "maxLength": 64
           },
           {
             "name": "resource",
@@ -670,8 +668,7 @@
             "required": true,
             "type": "string",
             "minLength": 1,
-            "maxLength": 64,
-            "pattern": "^[ a-zA-Z0-9\\-_.(),:&@+']*$"
+            "maxLength": 64
           }
         ],
         "responses": {
@@ -744,8 +741,7 @@
             "required": true,
             "type": "string",
             "minLength": 1,
-            "maxLength": 64,
-            "pattern": "^[ a-zA-Z0-9\\-_.(),:&@+']*$"
+            "maxLength": 64
           }
         ],
         "responses": {
@@ -803,8 +799,7 @@
             "required": true,
             "type": "string",
             "minLength": 1,
-            "maxLength": 64,
-            "pattern": "^[ a-zA-Z0-9\\-_.(),:&@+']*$"
+            "maxLength": 64
           }
         ],
         "responses": {
@@ -865,8 +860,7 @@
             "required": true,
             "type": "string",
             "minLength": 1,
-            "maxLength": 64,
-            "pattern": "^[ a-zA-Z0-9\\-_.(),:&@+']*$"
+            "maxLength": 64
           },
           {
             "name": "clusterName",
@@ -932,8 +926,7 @@
             "required": true,
             "type": "string",
             "minLength": 1,
-            "maxLength": 64,
-            "pattern": "^[ a-zA-Z0-9\\-_.(),:&@+']*$"
+            "maxLength": 64
           },
           {
             "name": "clusterName",
@@ -1029,8 +1022,7 @@
             "required": true,
             "type": "string",
             "minLength": 1,
-            "maxLength": 64,
-            "pattern": "^[ a-zA-Z0-9\\-_.(),:&@+']*$"
+            "maxLength": 64
           },
           {
             "name": "clusterName",
@@ -1113,8 +1105,7 @@
             "required": true,
             "type": "string",
             "minLength": 1,
-            "maxLength": 64,
-            "pattern": "^[ a-zA-Z0-9\\-_.(),:&@+']*$"
+            "maxLength": 64
           }
         ],
         "responses": {
@@ -1282,14 +1273,16 @@
           "description": "MongoDB version running on the cluster.",
           "readOnly": true
         },
-        "backupEnabled": {
+        "backups": {
           "type": "boolean",
-          "description": "Whether backups are enabled for the cluster.",
+          "description": "Whether backups are active for the cluster; null if undetermined.",
+          "x-nullable": true,
           "readOnly": true
         },
         "state": {
           "type": "string",
           "description": "Current state of the cluster.",
+          "x-nullable": true,
           "readOnly": true
         },
         "provisioningState": {
@@ -1676,7 +1669,7 @@
         },
         "clusterCount": {
           "type": "integer",
-          "format": "int32",
+          "format": "int64",
           "description": "Number of clusters in the project.",
           "minimum": 0,
           "readOnly": true
