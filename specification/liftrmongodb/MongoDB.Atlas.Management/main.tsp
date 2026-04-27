@@ -182,7 +182,7 @@ model ProjectProperties {
 @parentResource(OrganizationResource)
 model Project is ProxyResource<ProjectProperties> {
   @key("projectName")
-  @pattern("^[a-zA-Z0-9 \\-_.(),:&@+']*$")
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-name-pattern" "Partner (MongoDB Atlas) uses Unicode validation server-side which cannot be expressed as an ARM-compatible regex pattern."
   @segment("projects")
   @minLength(1)
   @maxLength(64)
@@ -295,10 +295,12 @@ model ClusterProperties {
 
   @doc("Whether backups are active for the cluster; null if undetermined.")
   @visibility(Lifecycle.Read)
+  #suppress "@azure-tools/typespec-azure-core/no-nullable" "Partner API returns explicit null for backups when undetermined, not absent."
   backups?: boolean | null;
 
   @doc("Current state of the cluster.")
   @visibility(Lifecycle.Read)
+  #suppress "@azure-tools/typespec-azure-core/no-nullable" "Partner API returns explicit null for state when not available, not absent."
   state?: string | null;
 
   @doc("Provisioning state of the resource.")
