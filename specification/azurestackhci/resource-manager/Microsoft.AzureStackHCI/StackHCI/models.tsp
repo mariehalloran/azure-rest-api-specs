@@ -7321,6 +7321,12 @@ model LifecycleStatus {
    */
   @visibility(Lifecycle.Read)
   message?: string;
+
+  /**
+   * Recommended steps to resolve failures.
+   */
+  @visibility(Lifecycle.Read)
+  recommendedSteps?: string[];
 }
 
 /**
@@ -7369,12 +7375,6 @@ model LifecycleStage {
    */
   @visibility(Lifecycle.Read)
   error?: Azure.ResourceManager.CommonTypes.ErrorDetail;
-
-  /**
-   * Recommended steps to resolve failures.
-   */
-  @visibility(Lifecycle.Read)
-  recommendedSteps?: string[];
 
   /**
    * Sub-stages for this stage.
@@ -10923,7 +10923,7 @@ model ClusterVolumeReportedProperties {
 
   /** Total cluster volume size in bytes. */
   @visibility(Lifecycle.Read)
-  sizeInBytes?: string;
+  sizeInBytes?: int64;
 
   /** Free space in bytes. */
   @visibility(Lifecycle.Read)
