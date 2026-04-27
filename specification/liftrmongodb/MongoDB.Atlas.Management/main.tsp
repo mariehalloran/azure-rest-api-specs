@@ -182,7 +182,7 @@ model ProjectProperties {
 @parentResource(OrganizationResource)
 model Project is ProxyResource<ProjectProperties> {
   @key("projectName")
-  @pattern("^[a-zA-Z0-9 \\-_.(),:&@+']*$")
+  @pattern("^.+$")
   @segment("projects")
   @minLength(1)
   @maxLength(64)
