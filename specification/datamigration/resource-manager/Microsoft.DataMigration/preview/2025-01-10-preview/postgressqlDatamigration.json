@@ -816,6 +816,69 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/databaseStatuses/{sourceDatabaseName}": {
+      "get": {
+        "operationId": "DatabaseStatuses_Get",
+        "tags": [
+          "DatabaseStatuses"
+        ],
+        "description": "Gets a database-level migration status.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "serviceName",
+            "in": "path",
+            "description": "The migration service name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "databaseMigrationId",
+            "in": "path",
+            "description": "The database migration identifier.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]*$"
+          },
+          {
+            "name": "sourceDatabaseName",
+            "in": "path",
+            "description": "The source database name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_.*]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DatabaseStatusResource"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a database status": {
+            "$ref": "./examples/DatabaseStatuses_Get.json"
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/schemaStatuses": {
       "get": {
         "operationId": "SchemaStatuses_List",
@@ -874,6 +937,69 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/schemaStatuses/{sourceSchemaName}": {
+      "get": {
+        "operationId": "SchemaStatuses_Get",
+        "tags": [
+          "SchemaStatuses"
+        ],
+        "description": "Gets a schema-level migration status.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "serviceName",
+            "in": "path",
+            "description": "The migration service name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "databaseMigrationId",
+            "in": "path",
+            "description": "The database migration identifier.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]*$"
+          },
+          {
+            "name": "sourceSchemaName",
+            "in": "path",
+            "description": "The source schema identifier.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_.*]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SchemaStatusResource"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a schema status": {
+            "$ref": "./examples/SchemaStatuses_Get.json"
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/tableStatuses": {
       "get": {
         "operationId": "TableStatuses_List",
@@ -929,6 +1055,69 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/tableStatuses/{sourceTableName}": {
+      "get": {
+        "operationId": "TableStatuses_Get",
+        "tags": [
+          "TableStatuses"
+        ],
+        "description": "Gets a table-level migration status.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "serviceName",
+            "in": "path",
+            "description": "The migration service name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "databaseMigrationId",
+            "in": "path",
+            "description": "The database migration identifier.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]*$"
+          },
+          {
+            "name": "sourceTableName",
+            "in": "path",
+            "description": "The source table identifier.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_.*]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/TableStatusResource"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a table status": {
+            "$ref": "./examples/TableStatuses_Get.json"
+          }
         }
       }
     },
