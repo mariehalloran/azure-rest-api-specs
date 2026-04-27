@@ -404,11 +404,11 @@ model DatabaseMapping {
 
 @doc("Migration job setting key-value pair.")
 model MigrationJobSettings {
-  @doc("The setting property name.")
-  property: string;
+  @doc("The setting name.")
+  settingName: string;
 
   @doc("The setting value.")
-  value: string;
+  settingValue: string;
 }
 
 @doc("Per-database migration status summary.")
@@ -688,7 +688,7 @@ model DatabaseMigrationProperties {
   @visibility(Lifecycle.Create, Lifecycle.Read)
   mappingDefinitions: DatabaseMapping[];
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "property is the identifier"
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "settingName is the identifier"
   @doc("Migration job settings")
   @visibility(Lifecycle.Create, Lifecycle.Read)
   migrationJobSettings: MigrationJobSettings[];

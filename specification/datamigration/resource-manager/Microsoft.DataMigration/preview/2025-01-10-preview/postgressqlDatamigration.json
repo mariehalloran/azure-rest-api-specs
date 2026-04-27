@@ -2256,18 +2256,18 @@
       "type": "object",
       "description": "Migration job setting key-value pair.",
       "properties": {
-        "property": {
+        "settingName": {
           "type": "string",
-          "description": "The setting property name."
+          "description": "The setting name."
         },
-        "value": {
+        "settingValue": {
           "type": "string",
           "description": "The setting value."
         }
       },
       "required": [
-        "property",
-        "value"
+        "settingName",
+        "settingValue"
       ]
     },
     "MigrationMode": {
