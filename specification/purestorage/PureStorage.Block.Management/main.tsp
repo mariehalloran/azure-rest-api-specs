@@ -1155,6 +1155,9 @@ interface Volumes {
 model ActivateSaaSRequest {
   @doc("SaaS guid for Activate SaaS Resource")
   saasGuid: string;
+
+  @doc("Publisher Id for PureStorage resource")
+  publisherId?: string;
 }
 
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Response model extending ProxyResource for consistency with Azure patterns"
