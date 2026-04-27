@@ -8,24 +8,8 @@ import "./PostgresqlDatabaseMigration.tsp";
 
 using TypeSpec.Http;
 using Azure.ResourceManager;
-using Azure.ResourceManager.Foundations;
 
 namespace Microsoft.DataMigration;
-
-@doc("Query parameters for the GET database migration operation.")
-model DatabaseMigrationGetParameters {
-  @query("detail")
-  @doc("Detail level for the status response: 'database', 'schema', or 'table'. Auto-selected based on migration type if omitted.")
-  detail?: string;
-
-  @query("$top")
-  @doc("Maximum number of items per page for the active status section. Default 25, max 100.")
-  top?: int32;
-
-  @query("$skiptoken")
-  @doc("Pagination continuation token from a previous response's nextLink.")
-  skiptoken?: string;
-}
 
 @armResourceOperations
 interface PostgresqlMigrationServices {
@@ -64,11 +48,8 @@ interface PostgresqlMigrationServices {
 
 @armResourceOperations
 interface PostgresqlDatabaseMigrations {
-  @doc("Gets a database migration. Use 'detail' query param to control response granularity: 'database' (default for PG→PG), 'schema' (default for Oracle→PG), or 'table' (drill-down with pagination via 'limit').")
-  get is ArmResourceRead<
-    DatabaseMigration,
-    BaseParameters<DatabaseMigration> & DatabaseMigrationGetParameters
-  >;
+  @doc("Gets a database migration.")
+  get is ArmResourceRead<DatabaseMigration>;
 
   @doc("Creates or updates a database migration.")
   createOrUpdate is ArmResourceCreateOrReplaceSync<DatabaseMigration>;
@@ -84,4 +65,22 @@ interface PostgresqlDatabaseMigrations {
 
   @doc("Lists database migrations by migration service.")
   listByMigrationService is ArmResourceListByParent<DatabaseMigration>;
+}
+
+@armResourceOperations
+interface DatabaseStatuses {
+  @doc("Lists database-level migration statuses.")
+  list is ArmResourceListByParent<DatabaseStatusResource>;
+}
+
+@armResourceOperations
+interface SchemaStatuses {
+  @doc("Lists schema-level migration statuses.")
+  list is ArmResourceListByParent<SchemaStatusResource>;
+}
+
+@armResourceOperations
+interface TableStatuses {
+  @doc("Lists table-level migration statuses.")
+  list is ArmResourceListByParent<TableStatusResource>;
 }

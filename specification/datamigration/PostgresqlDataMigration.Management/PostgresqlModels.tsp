@@ -677,28 +677,53 @@ model DatabaseMigrationProperties {
   @visibility(Lifecycle.Read)
   preMigrationValidations?: PreMigrationValidationStatus;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "sourceDatabaseName is the identifier"
-  @doc("Per-database migration status summaries")
+  @doc("Total number of databases in this migration")
   @visibility(Lifecycle.Read)
-  databaseSummary?: DatabaseSummary[];
+  totalDatabases?: int32;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "sourceSchemaName is the identifier"
-  @doc("Per-schema migration statuses")
+  @doc("Number of databases that completed successfully")
   @visibility(Lifecycle.Read)
-  schemaSummary?: SchemaSummaryModel[];
+  completedDatabases?: int32;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "sourceTableName is the identifier"
-  @doc("Per-table migration progress")
+  @doc("Number of databases that failed")
   @visibility(Lifecycle.Read)
-  tableProgress?: TableProgressModel[];
+  failedDatabases?: int32;
 
-  @doc("Next page link for pagination. Null when no more pages.")
+  @doc("Number of databases currently in progress")
   @visibility(Lifecycle.Read)
-  nextLink?: string;
+  inProgressDatabases?: int32;
 
-  @doc("Total record count before pagination")
+  @doc("Total number of schemas in this migration")
   @visibility(Lifecycle.Read)
-  totalRecords?: int32;
+  totalSchemas?: int32;
+
+  @doc("Number of schemas that completed successfully")
+  @visibility(Lifecycle.Read)
+  completedSchemas?: int32;
+
+  @doc("Number of schemas that failed")
+  @visibility(Lifecycle.Read)
+  failedSchemas?: int32;
+
+  @doc("Number of schemas currently in progress")
+  @visibility(Lifecycle.Read)
+  inProgressSchemas?: int32;
+
+  @doc("Total number of tables in this migration")
+  @visibility(Lifecycle.Read)
+  totalTables?: int32;
+
+  @doc("Number of tables that completed successfully")
+  @visibility(Lifecycle.Read)
+  completedTables?: int32;
+
+  @doc("Number of tables that failed")
+  @visibility(Lifecycle.Read)
+  failedTables?: int32;
+
+  @doc("Number of tables currently in progress")
+  @visibility(Lifecycle.Read)
+  inProgressTables?: int32;
 
   @doc("Migration start time")
   @visibility(Lifecycle.Read)
