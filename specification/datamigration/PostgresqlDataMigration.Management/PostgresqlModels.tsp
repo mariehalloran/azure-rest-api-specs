@@ -537,6 +537,33 @@ model TableProgressModel {
   errors: MigrationError[];
 }
 
+@doc("Properties wrapper for DatabaseStatusResource (child proxy resource).")
+model DatabaseStatusProperties {
+  ...DatabaseSummary;
+
+  @doc("Provisioning state")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+@doc("Properties wrapper for SchemaStatusResource (child proxy resource).")
+model SchemaStatusProperties {
+  ...SchemaSummaryModel;
+
+  @doc("Provisioning state")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+@doc("Properties wrapper for TableStatusResource (child proxy resource).")
+model TableStatusProperties {
+  ...TableProgressModel;
+
+  @doc("Provisioning state")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
 @doc("Error information.")
 model MigrationError {
   @doc("Error code")

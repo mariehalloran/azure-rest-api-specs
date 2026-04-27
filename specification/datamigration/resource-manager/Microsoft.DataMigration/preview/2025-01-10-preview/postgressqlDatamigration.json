@@ -495,6 +495,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "List all database migrations by migration service": {
+            "$ref": "./examples/PostgresqlDatabaseMigrations_ListByMigrationService.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -546,6 +551,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Get a database migration": {
+            "$ref": "./examples/PostgresqlDatabaseMigrations_Get.json"
           }
         }
       },
@@ -610,6 +620,11 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
+        },
+        "x-ms-examples": {
+          "Create a database migration": {
+            "$ref": "./examples/PostgresqlDatabaseMigrations_CreateOrUpdate.json"
+          }
         }
       },
       "patch": {
@@ -666,6 +681,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Cutover a database migration": {
+            "$ref": "./examples/PostgresqlDatabaseMigrations_Update.json"
           }
         }
       },
@@ -1660,12 +1680,106 @@
         }
       ]
     },
+    "DatabaseStatusProperties": {
+      "type": "object",
+      "description": "Properties wrapper for DatabaseStatusResource (child proxy resource).",
+      "properties": {
+        "sourceDatabaseName": {
+          "type": "string",
+          "description": "Source database name"
+        },
+        "targetDatabaseName": {
+          "type": "string",
+          "description": "Target database name"
+        },
+        "status": {
+          "$ref": "#/definitions/MigrationState",
+          "description": "Aggregated status"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start time"
+        },
+        "endedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End time"
+        },
+        "totalSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total schemas"
+        },
+        "completedSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Completed schemas"
+        },
+        "failedSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Failed schemas"
+        },
+        "inProgressSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "In-progress schemas"
+        },
+        "totalTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total tables"
+        },
+        "completedTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Completed tables"
+        },
+        "failedTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Failed tables"
+        },
+        "inProgressTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "In-progress tables"
+        },
+        "errors": {
+          "type": "array",
+          "description": "Errors at database scope",
+          "items": {
+            "$ref": "#/definitions/MigrationError"
+          }
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "sourceDatabaseName",
+        "targetDatabaseName",
+        "status",
+        "totalSchemas",
+        "completedSchemas",
+        "failedSchemas",
+        "inProgressSchemas",
+        "totalTables",
+        "completedTables",
+        "failedTables",
+        "inProgressTables",
+        "errors"
+      ]
+    },
     "DatabaseStatusResource": {
       "type": "object",
       "description": "A database-level migration status child resource.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/DatabaseSummary",
+          "$ref": "#/definitions/DatabaseStatusProperties",
           "description": "The resource-specific properties for this resource."
         }
       },
@@ -2468,12 +2582,92 @@
         "schemaName"
       ]
     },
+    "SchemaStatusProperties": {
+      "type": "object",
+      "description": "Properties wrapper for SchemaStatusResource (child proxy resource).",
+      "properties": {
+        "sourceDatabaseName": {
+          "type": "string",
+          "description": "Source database name"
+        },
+        "sourceSchemaName": {
+          "type": "string",
+          "description": "Source schema name"
+        },
+        "targetDatabaseName": {
+          "type": "string",
+          "description": "Target database name"
+        },
+        "targetSchemaName": {
+          "type": "string",
+          "description": "Target schema name"
+        },
+        "status": {
+          "$ref": "#/definitions/MigrationState",
+          "description": "Migration status"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start time"
+        },
+        "endedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End time"
+        },
+        "totalTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total tables"
+        },
+        "completedTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Completed tables"
+        },
+        "failedTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Failed tables"
+        },
+        "inProgressTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "In-progress tables"
+        },
+        "errors": {
+          "type": "array",
+          "description": "Errors at schema scope",
+          "items": {
+            "$ref": "#/definitions/MigrationError"
+          }
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "sourceDatabaseName",
+        "sourceSchemaName",
+        "targetDatabaseName",
+        "targetSchemaName",
+        "status",
+        "totalTables",
+        "completedTables",
+        "failedTables",
+        "inProgressTables",
+        "errors"
+      ]
+    },
     "SchemaStatusResource": {
       "type": "object",
       "description": "A schema-level migration status child resource.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/SchemaSummaryModel",
+          "$ref": "#/definitions/SchemaStatusProperties",
           "description": "The resource-specific properties for this resource."
         }
       },
@@ -2775,12 +2969,96 @@
         "errors"
       ]
     },
+    "TableStatusProperties": {
+      "type": "object",
+      "description": "Properties wrapper for TableStatusResource (child proxy resource).",
+      "properties": {
+        "sourceDatabaseName": {
+          "type": "string",
+          "description": "Source database name"
+        },
+        "sourceSchemaName": {
+          "type": "string",
+          "description": "Source schema name"
+        },
+        "sourceTableName": {
+          "type": "string",
+          "description": "Source table name"
+        },
+        "targetDatabaseName": {
+          "type": "string",
+          "description": "Target database name"
+        },
+        "targetSchemaName": {
+          "type": "string",
+          "description": "Target schema name"
+        },
+        "targetTableName": {
+          "type": "string",
+          "description": "Target table name"
+        },
+        "status": {
+          "$ref": "#/definitions/MigrationState",
+          "description": "Migration status"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start time"
+        },
+        "endedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End time"
+        },
+        "rowsCopied": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Rows copied"
+        },
+        "totalRows": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Estimated total rows"
+        },
+        "bytesCopied": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Bytes copied"
+        },
+        "errors": {
+          "type": "array",
+          "description": "Errors at table scope",
+          "items": {
+            "$ref": "#/definitions/MigrationError"
+          }
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "sourceDatabaseName",
+        "sourceSchemaName",
+        "sourceTableName",
+        "targetDatabaseName",
+        "targetSchemaName",
+        "targetTableName",
+        "status",
+        "rowsCopied",
+        "totalRows",
+        "bytesCopied",
+        "errors"
+      ]
+    },
     "TableStatusResource": {
       "type": "object",
       "description": "A table-level migration status child resource.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/TableProgressModel",
+          "$ref": "#/definitions/TableStatusProperties",
           "description": "The resource-specific properties for this resource."
         }
       },

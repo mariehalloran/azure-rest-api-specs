@@ -27,32 +27,35 @@ model DatabaseMigration is ProxyResource<DatabaseMigrationProperties> {
 @doc("A database-level migration status child resource.")
 @resource("databaseStatuses")
 @parentResource(DatabaseMigration)
-model DatabaseStatusResource is ProxyResource<DatabaseSummary> {
+model DatabaseStatusResource is ProxyResource<DatabaseStatusProperties> {
   @doc("The source database name.")
   @key("sourceDatabaseName")
   @segment("databaseStatuses")
   @path
+  @pattern("^[a-zA-Z0-9-_.*]*$")
   name: string;
 }
 
 @doc("A schema-level migration status child resource.")
 @resource("schemaStatuses")
 @parentResource(DatabaseMigration)
-model SchemaStatusResource is ProxyResource<SchemaSummaryModel> {
+model SchemaStatusResource is ProxyResource<SchemaStatusProperties> {
   @doc("The source schema identifier.")
   @key("sourceSchemaName")
   @segment("schemaStatuses")
   @path
+  @pattern("^[a-zA-Z0-9-_.*]*$")
   name: string;
 }
 
 @doc("A table-level migration status child resource.")
 @resource("tableStatuses")
 @parentResource(DatabaseMigration)
-model TableStatusResource is ProxyResource<TableProgressModel> {
+model TableStatusResource is ProxyResource<TableStatusProperties> {
   @doc("The source table identifier.")
   @key("sourceTableName")
   @segment("tableStatuses")
   @path
+  @pattern("^[a-zA-Z0-9-_.*]*$")
   name: string;
 }
