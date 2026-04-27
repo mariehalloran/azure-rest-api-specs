@@ -112,6 +112,9 @@
       "name": "EdgeMachineMetadataOperations"
     },
     {
+      "name": "EdgeMachineUpdates"
+    },
+    {
       "name": "EdgeMachineGpus"
     },
     {
@@ -4690,6 +4693,85 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/clusters/{clusterName}/securitySettings/{securitySettingsName}/remediate": {
+      "post": {
+        "operationId": "SecuritySettings_Remediate",
+        "tags": [
+          "SecuritySettings"
+        ],
+        "description": "Remediate a group of settings within SecuritySetting",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the cluster.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "securitySettingsName",
+            "in": "path",
+            "description": "Name of security setting",
+            "required": true,
+            "type": "string",
+            "default": "default",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Recommendation"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Action completed successfully."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Remediate Security Settings": {
+            "$ref": "./examples/RemediateSecuritySettings.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/clusters/{clusterName}/triggerLogCollection": {
       "post": {
         "operationId": "Clusters_TriggerLogCollection",
@@ -5984,6 +6066,155 @@
             "$ref": "./examples/ClusterVolumes_Get.json"
           }
         }
+      },
+      "put": {
+        "operationId": "ClusterVolumes_CreateOrUpdate",
+        "tags": [
+          "ClusterVolumes"
+        ],
+        "description": "Create or update a volume on a Cluster.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the cluster.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "volumeName",
+            "in": "path",
+            "description": "The name of the ClusterVolume",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ClusterVolume"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ClusterVolume' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ClusterVolume"
+            }
+          },
+          "201": {
+            "description": "Resource 'ClusterVolume' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ClusterVolume"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ClusterVolumes_CreateOrUpdate": {
+            "$ref": "./examples/ClusterVolumes_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "ClusterVolumes_Delete",
+        "tags": [
+          "ClusterVolumes"
+        ],
+        "description": "Delete a volume from a Cluster.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the cluster.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "volumeName",
+            "in": "path",
+            "description": "The name of the ClusterVolume",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ClusterVolumes_Delete": {
+            "$ref": "./examples/ClusterVolumes_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/devicePools": {
@@ -9064,6 +9295,262 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/updates": {
+      "get": {
+        "operationId": "EdgeMachineUpdates_List",
+        "tags": [
+          "EdgeMachineUpdates"
+        ],
+        "description": "List EdgeMachine update resources by EdgeMachine.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineUpdateListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeMachineUpdates_List": {
+            "$ref": "./examples/EdgeMachineUpdates_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/updates/{default}": {
+      "get": {
+        "operationId": "EdgeMachineUpdates_Get",
+        "tags": [
+          "EdgeMachineUpdates"
+        ],
+        "description": "Get EdgeMachine update.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "default",
+            "in": "path",
+            "description": "Name of EdgeMachine update",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineUpdate"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeMachineUpdates_Get": {
+            "$ref": "./examples/EdgeMachineUpdates_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "EdgeMachineUpdates_CreateOrUpdate",
+        "tags": [
+          "EdgeMachineUpdates"
+        ],
+        "description": "Create or update EdgeMachine update.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "default",
+            "in": "path",
+            "description": "Name of EdgeMachine update",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'EdgeMachineUpdate' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineUpdate"
+            }
+          },
+          "201": {
+            "description": "Resource 'EdgeMachineUpdate' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineUpdate"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeMachineUpdates_CreateOrUpdate": {
+            "$ref": "./examples/EdgeMachineUpdates_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "EdgeMachineUpdates_Delete",
+        "tags": [
+          "EdgeMachineUpdates"
+        ],
+        "description": "Delete EdgeMachine update.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "default",
+            "in": "path",
+            "description": "Name of EdgeMachine update",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeMachineUpdates_Delete": {
+            "$ref": "./examples/EdgeMachineUpdates_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/validate": {
       "post": {
         "operationId": "EdgeMachines_Validate",
@@ -10965,6 +11452,11 @@
           "description": "Cluster volume mount path. This can be a CSV path or device path depending on the backing storage.",
           "readOnly": true
         },
+        "volumeId": {
+          "type": "string",
+          "description": "Volume GUID. Primary identifier for the cluster volume.",
+          "readOnly": true
+        },
         "clusterResourceId": {
           "type": "string",
           "description": "Cluster resource GUID for a PDR-backed volume when applicable.",
@@ -10990,7 +11482,8 @@
           "readOnly": true
         },
         "sizeRemainingInBytes": {
-          "type": "string",
+          "type": "integer",
+          "format": "int64",
           "description": "Free space in bytes.",
           "readOnly": true
         },
@@ -11029,7 +11522,7 @@
           "description": "Current owner node for the cluster volume when applicable.",
           "readOnly": true
         },
-        "isDedupeEnabled": {
+        "isDedupEnabled": {
           "type": "boolean",
           "description": "Whether data deduplication is enabled.",
           "readOnly": true
@@ -12255,6 +12748,24 @@
         "link"
       ]
     },
+    "DesiredSetting": {
+      "type": "object",
+      "description": "Desired security setting.",
+      "properties": {
+        "settingName": {
+          "type": "string",
+          "description": "Name of the setting."
+        },
+        "value": {
+          "type": "string",
+          "description": "Value of the setting."
+        }
+      },
+      "required": [
+        "settingName",
+        "value"
+      ]
+    },
     "DeviceConfiguration": {
       "type": "object",
       "description": "The device Configuration for edge device.",
@@ -12916,17 +13427,6 @@
       "type": "object",
       "description": "Reported properties of a volume on the disk.",
       "properties": {
-        "volumeId": {
-          "type": "string",
-          "description": "Unique identifier for the volume.",
-          "readOnly": true
-        },
-        "volumeNumber": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Volume/partition number.",
-          "readOnly": true
-        },
         "sizeInBytes": {
           "type": "string",
           "description": "Size of the volume in bytes.",
@@ -12940,6 +13440,43 @@
         "fileSystem": {
           "type": "string",
           "description": "File system type.",
+          "readOnly": true
+        },
+        "partitionId": {
+          "type": "string",
+          "description": "Unique identifier for the partition.",
+          "readOnly": true
+        },
+        "partitionNumber": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Partition number.",
+          "readOnly": true
+        },
+        "offsetInBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Byte offset of the partition start.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the volume.",
+          "readOnly": true
+        },
+        "isBoot": {
+          "type": "boolean",
+          "description": "Indicates if this volume is a boot volume.",
+          "readOnly": true
+        },
+        "sizeRemainingInBytes": {
+          "type": "string",
+          "description": "Available space on the volume in bytes.",
+          "readOnly": true
+        },
+        "resourceName": {
+          "type": "string",
+          "description": "Resource name of the volume.",
           "readOnly": true
         }
       }
@@ -15112,6 +15649,107 @@
           }
         ]
       }
+    },
+    "EdgeMachineUpdate": {
+      "type": "object",
+      "description": "EdgeMachine Update resource that stores validated update configurations for an edge machine.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/EdgeMachineUpdateProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "EdgeMachineUpdateInfo": {
+      "type": "object",
+      "description": "Represents an available update for an edge machine.",
+      "properties": {
+        "vsrVersion": {
+          "type": "string",
+          "description": "The VSR version of the update."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The display name of the update."
+        },
+        "releaseNotesLink": {
+          "type": "string",
+          "description": "Link to the release notes for this update."
+        },
+        "totalSizeBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total size of the update in bytes."
+        },
+        "rebootRequired": {
+          "type": "boolean",
+          "description": "Indicates whether a reboot is required after installing this update."
+        },
+        "estimatedInstallTimeMinutes": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Estimated time in minutes to install this update."
+        },
+        "updateType": {
+          "type": "string",
+          "description": "The type of update (e.g., FullImage)."
+        },
+        "arcAgentVersion": {
+          "type": "string",
+          "description": "The Arc agent version included in this update."
+        }
+      },
+      "required": [
+        "vsrVersion"
+      ]
+    },
+    "EdgeMachineUpdateListResult": {
+      "type": "object",
+      "description": "The response of a EdgeMachineUpdate list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The EdgeMachineUpdate items on this page",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineUpdate"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "EdgeMachineUpdateProperties": {
+      "type": "object",
+      "description": "Properties for EdgeMachineUpdate resource.",
+      "properties": {
+        "values": {
+          "type": "array",
+          "description": "The list of available updates.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineUpdateInfo"
+          },
+          "x-ms-identifiers": []
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the updates resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "values"
+      ]
     },
     "EdgeMachineValidateRequest": {
       "type": "object",
@@ -17462,14 +18100,6 @@
           "description": "Error details.",
           "readOnly": true
         },
-        "recommendedSteps": {
-          "type": "array",
-          "description": "Recommended steps to resolve failures.",
-          "items": {
-            "type": "string"
-          },
-          "readOnly": true
-        },
         "subStages": {
           "type": "array",
           "description": "Sub-stages for this stage.",
@@ -17511,6 +18141,14 @@
         "message": {
           "type": "string",
           "description": "Message to provide more details on lifecycle status, especially in case of failures.",
+          "readOnly": true
+        },
+        "recommendedSteps": {
+          "type": "array",
+          "description": "Recommended steps to resolve failures.",
+          "items": {
+            "type": "string"
+          },
           "readOnly": true
         }
       },
@@ -17818,6 +18456,37 @@
         ]
       },
       "readOnly": true
+    },
+    "MachineComplianceState": {
+      "type": "object",
+      "description": "Compliance state on a single machine.",
+      "properties": {
+        "machineName": {
+          "type": "string",
+          "description": "Name of the machine.",
+          "readOnly": true
+        },
+        "value": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "Compliance state value of the setting.",
+          "readOnly": true
+        },
+        "percentScore": {
+          "type": "string",
+          "description": "Compliance score of the setting.",
+          "readOnly": true
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason for the compliance state of the machine.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "machineName",
+        "value",
+        "reason"
+      ]
     },
     "NetworkAdapter": {
       "type": "object",
@@ -20463,6 +21132,19 @@
         ]
       }
     },
+    "Recommendation": {
+      "type": "object",
+      "description": "Name of the recommendation.",
+      "properties": {
+        "recommendationName": {
+          "type": "string",
+          "description": "Name of the recommendation."
+        }
+      },
+      "required": [
+        "recommendationName"
+      ]
+    },
     "ReconcileArcSettingsRequest": {
       "type": "object",
       "description": "Request for reconciling Arc Settings.",
@@ -20892,6 +21574,36 @@
         "serverName"
       ]
     },
+    "ReportedComplianceState": {
+      "type": "object",
+      "description": "Reported compliance state of a security setting.",
+      "properties": {
+        "settingName": {
+          "type": "string",
+          "description": "Name of the setting.",
+          "readOnly": true
+        },
+        "value": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "Aggregated compliance state value of the setting across all nodes of the cluster.",
+          "readOnly": true
+        },
+        "perMachineStates": {
+          "type": "array",
+          "description": "Per machine compliance state value and reason for it.",
+          "items": {
+            "$ref": "#/definitions/MachineComplianceState"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        }
+      },
+      "required": [
+        "settingName",
+        "value",
+        "perMachineStates"
+      ]
+    },
     "ReportedProperties": {
       "type": "object",
       "description": "Reported properties pushed from edge device.",
@@ -21311,6 +22023,31 @@
         ]
       }
     },
+    "SecurityBaseline": {
+      "type": "object",
+      "description": "Compliance state of the security baseline.",
+      "properties": {
+        "securityBaselineCompliance": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "Status of compliance.",
+          "readOnly": true
+        },
+        "percentScore": {
+          "type": "string",
+          "description": "Aggregated compliance score across cluster nodes.",
+          "readOnly": true
+        },
+        "perMachineStates": {
+          "type": "array",
+          "description": "Per machine compliance state value and reason for it.",
+          "items": {
+            "$ref": "#/definitions/MachineComplianceState"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        }
+      }
+    },
     "SecurityComplianceStatus": {
       "type": "object",
       "description": "Security compliance properties of the resource",
@@ -21333,6 +22070,11 @@
         "dataInTransitProtected": {
           "$ref": "#/definitions/ComplianceStatus",
           "description": "Indicates whether HCI cluster has data in-transit protection.",
+          "readOnly": true
+        },
+        "securityBaseline": {
+          "$ref": "#/definitions/SecurityBaseline",
+          "description": "Contains details about HCI cluster's compliance with security baseline.",
           "readOnly": true
         },
         "lastUpdated": {
@@ -21421,6 +22163,23 @@
               }
             ]
           }
+        },
+        "desiredSettings": {
+          "type": "array",
+          "description": "Desired security settings.",
+          "items": {
+            "$ref": "#/definitions/DesiredSetting"
+          },
+          "x-ms-identifiers": []
+        },
+        "reportedComplianceStates": {
+          "type": "array",
+          "description": "Reported compliance states for security settings.",
+          "items": {
+            "$ref": "#/definitions/ReportedComplianceState"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
         },
         "securityComplianceStatus": {
           "$ref": "#/definitions/SecurityComplianceStatus",

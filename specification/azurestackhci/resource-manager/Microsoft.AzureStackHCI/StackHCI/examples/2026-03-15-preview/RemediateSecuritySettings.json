@@ -1,0 +1,22 @@
+{
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "clusterName": "myCluster",
+    "resourceGroupName": "test-rg",
+    "securitySettingsName": "default",
+    "subscriptionId": "fd3c3665-1729-4b7b-9a38-238e83b0f98b",
+    "body": {
+      "recommendationName": "SecuredCore"
+    }
+  },
+  "responses": {
+    "202": {
+      "headers": {
+        "location": "https://contoso.com/operationstatus"
+      }
+    },
+    "204": {}
+  },
+  "operationId": "SecuritySettings_Remediate",
+  "title": "Remediate Security Settings"
+}

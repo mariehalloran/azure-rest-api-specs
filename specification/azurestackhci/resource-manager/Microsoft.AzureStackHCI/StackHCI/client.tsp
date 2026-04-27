@@ -65,3 +65,7 @@ using Microsoft.AzureStackHCI;
   "default",
   "python"
 );
+
+@@clientName(EAPMethod.`EAP-FAST`, "EAP_FAST", "python");
+@@clientName(EAPMethod.`EAP-TLS`, "EAP_TLS", "python");
+@@clientName(EAPMethod.`EAP-TTLS`, "EAP_TTLS", "python");

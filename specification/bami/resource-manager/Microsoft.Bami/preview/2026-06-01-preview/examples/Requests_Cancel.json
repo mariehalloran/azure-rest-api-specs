@@ -1,0 +1,47 @@
+{
+  "operationId": "AutomationRequests_Cancel",
+  "title": "Cancel an automation request",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "api-version": "2026-06-01-preview",
+    "applicationEntitlementId": "cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa",
+    "requestId": "3f9c2e7a-8b4d-4f6a-9c1e-7d5a2b9e4c81",
+    "body": {
+      "reason": "Test account no longer needed."
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Bami/applicationEntitlements/cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa/requests/3f9c2e7a-8b4d-4f6a-9c1e-7d5a2b9e4c81",
+        "name": "3f9c2e7a-8b4d-4f6a-9c1e-7d5a2b9e4c81",
+        "type": "Microsoft.Bami/applicationEntitlements/requests",
+        "location": "centralus",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "requestStatus": "Cancelled",
+          "requestType": "Account",
+          "accountType": "FieldLed",
+          "estimatedMonthlySpend": 1000.0,
+          "businessJustification": "Test billing account for integration testing.",
+          "context": {
+            "accountContext": {
+              "accountType": "FieldLed",
+              "fieldLedContext": {
+                "audienceType": "Internal",
+                "configurationType": "Standard",
+                "environmentType": "Test",
+                "mcapiAuthorization": "ProductionAccess"
+              }
+            }
+          },
+          "serviceName": "Contoso Service",
+          "createdDate": "2026-03-06T12:00:00.0000000Z",
+          "lastModifiedDate": "2026-03-06T15:00:00.0000000Z",
+          "result": null
+        }
+      }
+    }
+  }
+}

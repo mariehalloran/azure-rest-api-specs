@@ -20,16 +20,11 @@
                 "externalWebAppName": "my-webapp",
                 "reportFramework": "Java",
                 "azureTargets": [
-                  "AKS"
+                  "AKS",
+                  "ContainerApps"
                 ],
                 "migrateWorkloadArmId": "/subscriptions/4BAC2980-CDFB-44D1-ABB5-E7E46F348D8B/resourceGroups/rgcodescansites/providers/Microsoft.Migrate/migrateProjects/myProject/webApps/myWebApp",
-                "migrateWorkloadType": "WebApplication",
-                "processedRepos": [
-                  {
-                    "repoName": "my-java-app",
-                    "lastUpdatedOn": "2026-04-01T00:00:00Z"
-                  }
-                ]
+                "migrateWorkloadType": "WebApplication"
               },
               "reportDetails": {
                 "reportId": "myReport01",
@@ -45,6 +40,18 @@
                   "effortInHr": 40,
                   "cloudSuitability": "Suitable",
                   "azureTarget": "AKS"
+                },
+                {
+                  "migrateGartnerR": "Replatform",
+                  "effortInHr": 30,
+                  "cloudSuitability": "Suitable",
+                  "azureTarget": "ContainerApps"
+                }
+              ],
+              "processedRepos": [
+                {
+                  "repoName": "my-java-app",
+                  "lastUpdatedOn": "2026-04-01T00:00:00Z"
                 }
               ]
             },
