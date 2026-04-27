@@ -701,6 +701,10 @@
     }
   },
   "definitions": {
+    "Azure.Core.azureLocation": {
+      "type": "string",
+      "description": "Represents an Azure geography region where supported resource providers live."
+    },
     "Azure.ResourceManager.ResourceProvisioningState": {
       "type": "string",
       "description": "The provisioning state of a resource type.",
@@ -764,6 +768,55 @@
       "required": [
         "results"
       ]
+    },
+    "ObjectMetadataRepository": {
+      "type": "object",
+      "description": "Configuration for an object metadata repository hosted in a customer-owned storage account container.",
+      "properties": {
+        "storageAccountResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "The ARM resource ID of the storage account that hosts the object metadata repository.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Storage/storageAccounts"
+              }
+            ]
+          }
+        },
+        "containerName": {
+          "type": "string",
+          "description": "The name of the blob container in the storage account where object metadata is written.",
+          "minLength": 3,
+          "maxLength": 63,
+          "pattern": "^[a-z0-9]([a-z0-9]|(-(?!-))){1,61}[a-z0-9]$"
+        }
+      }
+    },
+    "ObjectMetadataRepositoryState": {
+      "type": "string",
+      "description": "The enablement state of the object metadata repository on a storage discovery scope.",
+      "enum": [
+        "Enabled",
+        "Disabled"
+      ],
+      "x-ms-enum": {
+        "name": "ObjectMetadataRepositoryState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Enabled",
+            "value": "Enabled",
+            "description": "Object metadata repository is enabled for this scope."
+          },
+          {
+            "name": "Disabled",
+            "value": "Disabled",
+            "description": "Object metadata repository is disabled for this scope."
+          }
+        ]
+      }
     },
     "ReportProperties": {
       "type": "object",
@@ -859,6 +912,16 @@
         }
       }
     },
+    "StorageDiscoveryCapabilities": {
+      "type": "object",
+      "description": "The capabilities configured for a storage discovery workspace.",
+      "properties": {
+        "objectMetadataRepository": {
+          "$ref": "#/definitions/ObjectMetadataRepository",
+          "description": "Configuration for the object metadata repository capability, which stores discovered object metadata in a customer-owned storage account container."
+        }
+      }
+    },
     "StorageDiscoveryResourceType": {
       "type": "string",
       "description": "Storage Discovery Resource Type",
@@ -893,6 +956,17 @@
           "description": "Resource types for the collection",
           "items": {
             "$ref": "#/definitions/StorageDiscoveryResourceType"
+          }
+        },
+        "objectMetadataRepository": {
+          "$ref": "#/definitions/ObjectMetadataRepositoryState",
+          "description": "Indicates whether the object metadata repository is enabled for this scope."
+        },
+        "locations": {
+          "type": "array",
+          "description": "The Azure regions to filter storage accounts by for this scope.",
+          "items": {
+            "$ref": "#/definitions/Azure.Core.azureLocation"
           }
         },
         "tagKeysOnly": {
@@ -1012,6 +1086,10 @@
           "type": "string",
           "description": "The description of the storage discovery workspace"
         },
+        "capabilities": {
+          "$ref": "#/definitions/StorageDiscoveryCapabilities",
+          "description": "The capabilities configured for the storage discovery workspace."
+        },
         "workspaceRoots": {
           "type": "array",
           "description": "The view level storage discovery data estate",
@@ -1065,6 +1143,10 @@
         "description": {
           "type": "string",
           "description": "The description of the storage discovery workspace"
+        },
+        "capabilities": {
+          "$ref": "#/definitions/StorageDiscoveryCapabilities",
+          "description": "The capabilities configured for the storage discovery workspace."
         },
         "workspaceRoots": {
           "type": "array",

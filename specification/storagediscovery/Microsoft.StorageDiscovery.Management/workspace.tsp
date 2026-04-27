@@ -41,6 +41,10 @@ model StorageDiscoveryWorkspaceProperties {
   @doc("The description of the storage discovery workspace")
   description?: string;
 
+  @doc("The capabilities configured for the storage discovery workspace.")
+  @added(ApiVersion.v2026_07_01_preview)
+  capabilities?: StorageDiscoveryCapabilities;
+
   @doc("The view level storage discovery data estate")
   @added(ApiVersion.v2025_01_01_preview)
   @renamedFrom(ApiVersion.v2025_03_01_preview, "storageEstateViewLevel")
@@ -219,10 +223,60 @@ model StorageDiscoveryScope {
   @doc("Resource types for the collection")
   resourceTypes: StorageDiscoveryResourceType[];
 
+  @doc("Indicates whether the object metadata repository is enabled for this scope.")
+  @added(ApiVersion.v2026_07_01_preview)
+  objectMetadataRepository?: ObjectMetadataRepositoryState;
+
+  @doc("The Azure regions to filter storage accounts by for this scope.")
+  @added(ApiVersion.v2026_07_01_preview)
+  locations?: Azure.Core.azureLocation[];
+
   @doc("The storage account tags keys to filter")
   tagKeysOnly?: string[];
 
   ...ArmTagsProperty;
+}
+
+/**
+ * The capabilities configured for a storage discovery workspace.
+ */
+@added(ApiVersion.v2026_07_01_preview)
+model StorageDiscoveryCapabilities {
+  @doc("Configuration for the object metadata repository capability, which stores discovered object metadata in a customer-owned storage account container.")
+  objectMetadataRepository?: ObjectMetadataRepository;
+}
+
+/**
+ * Configuration for an object metadata repository hosted in a customer-owned storage account container.
+ */
+@added(ApiVersion.v2026_07_01_preview)
+model ObjectMetadataRepository {
+  @doc("The ARM resource ID of the storage account that hosts the object metadata repository.")
+  storageAccountResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Storage/storageAccounts";
+    }
+  ]>;
+
+  @doc("The name of the blob container in the storage account where object metadata is written.")
+  @minLength(3)
+  @maxLength(63)
+  @pattern("^[a-z0-9]([a-z0-9]|(-(?!-))){1,61}[a-z0-9]$")
+  containerName?: string;
+}
+
+/**
+ * The enablement state of the object metadata repository on a storage discovery scope.
+ */
+@added(ApiVersion.v2026_07_01_preview)
+union ObjectMetadataRepositoryState {
+  @doc("Object metadata repository is enabled for this scope.")
+  Enabled: "Enabled",
+
+  @doc("Object metadata repository is disabled for this scope.")
+  Disabled: "Disabled",
+
+  string,
 }
 
 /**
