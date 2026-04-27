@@ -1721,8 +1721,11 @@
           ]
         },
         "migrationJobSettings": {
-          "$ref": "#/definitions/MigrationJobSettings",
+          "type": "array",
           "description": "Migration job settings",
+          "items": {
+            "$ref": "#/definitions/MigrationJobSettings"
+          },
           "x-ms-mutability": [
             "read",
             "create"
@@ -2251,15 +2254,20 @@
     },
     "MigrationJobSettings": {
       "type": "object",
-      "description": "Migration job settings.",
+      "description": "Migration job setting key-value pair.",
       "properties": {
-        "validateOnly": {
-          "type": "boolean",
-          "description": "Validate only flag"
+        "property": {
+          "type": "string",
+          "description": "The setting property name."
+        },
+        "value": {
+          "type": "string",
+          "description": "The setting value."
         }
       },
       "required": [
-        "validateOnly"
+        "property",
+        "value"
       ]
     },
     "MigrationMode": {

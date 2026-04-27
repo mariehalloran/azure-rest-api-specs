@@ -402,10 +402,13 @@ model DatabaseMapping {
   targetConnectionName: string;
 }
 
-@doc("Migration job settings.")
+@doc("Migration job setting key-value pair.")
 model MigrationJobSettings {
-  @doc("Validate only flag")
-  validateOnly: boolean;
+  @doc("The setting property name.")
+  property: string;
+
+  @doc("The setting value.")
+  value: string;
 }
 
 @doc("Per-database migration status summary.")
@@ -685,9 +688,10 @@ model DatabaseMigrationProperties {
   @visibility(Lifecycle.Create, Lifecycle.Read)
   mappingDefinitions: DatabaseMapping[];
 
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "property is the identifier"
   @doc("Migration job settings")
   @visibility(Lifecycle.Create, Lifecycle.Read)
-  migrationJobSettings: MigrationJobSettings;
+  migrationJobSettings: MigrationJobSettings[];
 
   @doc("The type of operation to perform on the migration")
   operationType?: MigrationOperationType;

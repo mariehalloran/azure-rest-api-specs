@@ -74,9 +74,12 @@
               "targetConnectionName": "targetConnection1"
             }
           ],
-          "migrationJobSettings": {
-            "validateOnly": false
-          },
+          "migrationJobSettings": [
+            {
+              "property": "validateOnly",
+              "value": "false"
+            }
+          ],
           "provisioningState": "Succeeded",
           "migrationStatus": {
             "state": "CutoverInProgress",
