@@ -371,6 +371,10 @@ model AssetPropertiesOfDrill {
   @doc("Region where Drill's internal resources will be created.")
   @added(Versions.v2026_03_01_preview)
   region: string;
+
+  @doc("Resource group where Drill's internal resources will be created. If not specified, defaults to 'AzureResilienceManagementDrills'. This value is immutable after drill creation.")
+  @added(Versions.v2026_03_01_preview)
+  resourceGroup?: string;
 }
 
 @doc("Reason why the Drill is in NeedsAttention state, and not ready to run.")
