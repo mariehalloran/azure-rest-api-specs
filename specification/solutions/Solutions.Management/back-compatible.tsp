@@ -70,3 +70,6 @@ using Microsoft.Solutions;
 @@clientName(ApplicationDefinitionOpsById.createOrUpdateById::parameters.resource,
   "parameters"
 );
+@@clientName(ApplicationDefinitionOpsById.updateById::parameters.properties,
+  "parameters"
+);
