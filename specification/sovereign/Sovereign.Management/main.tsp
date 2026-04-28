@@ -154,6 +154,8 @@ model SovereignViewResource
   @visibility(Lifecycle.Read)
   @path
   name: string;
+
+  ...ManagedSystemAssignedIdentityProperty;
 }
 
 @added(Versions.Preview20260315)
@@ -164,7 +166,10 @@ interface SovereignViewOperations {
   @doc("Creates the Sovereign View resource.")
   create is ArmResourceCreateOrReplaceAsync<SovereignViewResource>;
   @doc("Updates the Sovereign View resource.")
-  update is ArmTagsPatchSync<SovereignViewResource>;
+  update is ArmCustomPatchAsync<
+    SovereignViewResource,
+    SovereignViewResourcePatch
+  >;
   @doc("Deletes the Sovereign View resource.")
   delete is ArmResourceDeleteWithoutOkAsync<SovereignViewResource>;
   @doc("Lists the Sovereign View resources within a resource group.")

@@ -1568,7 +1568,8 @@
       "enum": [
         "AKS",
         "AzureAppServiceContainer",
-        "AzureAppService"
+        "AzureAppService",
+        "ContainerApps"
       ],
       "x-ms-enum": {
         "name": "AzureTarget",
@@ -1588,6 +1589,11 @@
             "name": "AzureAppService",
             "value": "AzureAppService",
             "description": "App Service Native."
+          },
+          {
+            "name": "ContainerApps",
+            "value": "ContainerApps",
+            "description": "Azure Container Apps."
           }
         ]
       }
@@ -1718,12 +1724,15 @@
             "$ref": "#/definitions/AzureTarget"
           }
         },
-        "repoNames": {
+        "repos": {
           "type": "array",
-          "description": "The name of repositories affected by this issue.",
+          "description": "Repository-level details for this issue, including per-repo occurrence counts.",
           "items": {
-            "type": "string"
-          }
+            "$ref": "#/definitions/IssueRepoInfo"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
         }
       },
       "required": [
@@ -1908,16 +1917,6 @@
         "migrateWorkloadType": {
           "$ref": "#/definitions/MigrateWorkloadType",
           "description": "The type of the migrate workload."
-        },
-        "processedRepos": {
-          "type": "array",
-          "description": "The list of processed repositories.",
-          "items": {
-            "$ref": "#/definitions/ProcessedRepo"
-          },
-          "x-ms-identifiers": [
-            "repoName"
-          ]
         }
       },
       "required": [
@@ -1959,8 +1958,7 @@
         "reportType",
         "reportName",
         "reportFormat",
-        "status",
-        "reportSource"
+        "status"
       ]
     },
     "CodeScanReportListResult": {
@@ -2009,6 +2007,16 @@
           },
           "x-ms-identifiers": [
             "azureTarget"
+          ]
+        },
+        "processedRepos": {
+          "type": "array",
+          "description": "The list of processed repositories.",
+          "items": {
+            "$ref": "#/definitions/ProcessedRepo"
+          },
+          "x-ms-identifiers": [
+            "repoName"
           ]
         }
       },
@@ -2166,6 +2174,25 @@
           }
         ]
       }
+    },
+    "IssueRepoInfo": {
+      "type": "object",
+      "description": "Per-repository details for a code scan issue.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The repository name."
+        },
+        "occurrences": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of occurrences of this issue in this repository."
+        }
+      },
+      "required": [
+        "name",
+        "occurrences"
+      ]
     },
     "MappingMethod": {
       "type": "string",

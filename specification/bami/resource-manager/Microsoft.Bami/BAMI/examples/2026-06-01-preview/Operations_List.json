@@ -1,0 +1,71 @@
+{
+  "operationId": "Operations_List",
+  "title": "List Operations",
+  "parameters": {
+    "api-version": "2026-06-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "Microsoft.Bami/applicationEntitlements/requests/read",
+            "isDataAction": false,
+            "display": {
+              "provider": "Microsoft BAMI",
+              "resource": "Automation Requests",
+              "operation": "Get Automation Request",
+              "description": "Gets the status and details of an automation request."
+            },
+            "origin": "user,system"
+          },
+          {
+            "name": "Microsoft.Bami/applicationEntitlements/requests/write",
+            "isDataAction": false,
+            "display": {
+              "provider": "Microsoft BAMI",
+              "resource": "Automation Requests",
+              "operation": "Create or Update Automation Request",
+              "description": "Creates or updates an automation request for test account provisioning."
+            },
+            "origin": "user,system"
+          },
+          {
+            "name": "Microsoft.Bami/applicationEntitlements/read",
+            "isDataAction": false,
+            "display": {
+              "provider": "Microsoft BAMI",
+              "resource": "Application Entitlement",
+              "operation": "Get Application Entitlement",
+              "description": "Gets the application entitlement including onboarding status, current usage, and limits."
+            },
+            "origin": "user,system"
+          },
+          {
+            "name": "Microsoft.Bami/applicationEntitlements/write",
+            "isDataAction": false,
+            "display": {
+              "provider": "Microsoft BAMI",
+              "resource": "Application Entitlement",
+              "operation": "Create or Link Application Entitlement",
+              "description": "Creates or links the application entitlement after onboarding approval."
+            },
+            "origin": "user,system"
+          },
+          {
+            "name": "Microsoft.Bami/operations/read",
+            "isDataAction": false,
+            "display": {
+              "provider": "Microsoft BAMI",
+              "resource": "Operations",
+              "operation": "List Operations",
+              "description": "Lists all available operations for the Microsoft.Bami resource provider."
+            },
+            "origin": "user,system"
+          }
+        ],
+        "nextLink": null
+      }
+    }
+  }
+}

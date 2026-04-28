@@ -5949,6 +5949,10 @@
         "region": {
           "type": "string",
           "description": "Region where Drill's internal resources will be created."
+        },
+        "resourceGroup": {
+          "type": "string",
+          "description": "Resource group where Drill's internal resources will be created. If not specified, defaults to 'AzureResilienceManagementDrills'. This value is immutable after drill creation."
         }
       },
       "required": [
@@ -5967,6 +5971,10 @@
         "region": {
           "type": "string",
           "description": "Region where Drill's internal resources will be created."
+        },
+        "resourceGroup": {
+          "type": "string",
+          "description": "Resource group where Drill's internal resources will be created. If not specified, defaults to 'AzureResilienceManagementDrills'. This value is immutable after drill creation."
         }
       }
     },
