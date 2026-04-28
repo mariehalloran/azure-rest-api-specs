@@ -60,3 +60,13 @@ using Microsoft.Solutions;
 
 @@clientLocation(Operations.list, Microsoft.Solutions);
 @@clientName(Operations.list, "ListOperations");
+
+@@clientLocation(ApplicationDefinitionListOperationGroup.listByResourceGroup,
+  "ApplicationDefinitions"
+);
+@@clientLocation(ApplicationDefinitionListOperationGroup.listBySubscription,
+  "ApplicationDefinitions"
+);
+@@clientName(ApplicationDefinitionOpsById.createOrUpdateById::parameters.resource,
+  "parameters"
+);

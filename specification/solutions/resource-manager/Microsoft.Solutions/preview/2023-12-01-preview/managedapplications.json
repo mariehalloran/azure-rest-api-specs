@@ -1644,7 +1644,7 @@
           {
             "name": "parameters",
             "in": "body",
-            "description": "Parameters supplied to the create or update a managed application definition.",
+            "description": "Resource create parameters.",
             "required": true,
             "schema": {
               "$ref": "#/definitions/ApplicationDefinition"
@@ -1653,13 +1653,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "Resource 'ApplicationDefinition' update operation succeeded",
             "schema": {
               "$ref": "#/definitions/ApplicationDefinition"
             }
           },
           "201": {
-            "description": "The request has succeeded and a new resource has been created as a result.",
+            "description": "Resource 'ApplicationDefinition' create operation succeeded",
             "schema": {
               "$ref": "#/definitions/ApplicationDefinition"
             }
@@ -1705,9 +1705,9 @@
             "maxLength": 64
           },
           {
-            "name": "parameters",
+            "name": "properties",
             "in": "body",
-            "description": "Parameters supplied to the update a managed application definition.",
+            "description": "Resource create parameters.",
             "required": true,
             "schema": {
               "$ref": "#/definitions/ApplicationDefinitionPatchable"
@@ -1764,10 +1764,10 @@
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded."
+            "description": "Resource deleted successfully."
           },
           "204": {
-            "description": "There is no content to send for this request, but the headers may be useful."
+            "description": "Resource does not exist."
           },
           "default": {
             "description": "An unexpected error response.",

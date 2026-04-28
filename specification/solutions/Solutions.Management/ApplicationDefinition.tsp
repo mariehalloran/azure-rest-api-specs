@@ -32,107 +32,32 @@ model ApplicationDefinition extends GenericResource {
   properties: ApplicationDefinitionProperties;
 }
 
-@armResourceOperations(#{ allowStaticRoutes: true, omitTags: true })
-interface ApplicationDefinitionOpsById {
-  /**
-   * Gets the managed application definition.
-   */
-  @tag("ApplicationDefinitions")
-  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy")
-  getById(
-    ...ApiVersionParameter,
-    ...SubscriptionIdParameter,
-    ...ResourceGroupParameter,
-
-    /**
-     * The name of the managed application definition.
-     */
+alias ApplicationDefinitionOps = Azure.ResourceManager.Legacy.RoutedOperations<
+  {
+    ...ApiVersionParameter;
+    ...SubscriptionIdParameter;
+    ...ResourceGroupParameter;
+  },
+  {
+    /** The name of the managed application definition. */
+    @path
+    @key
     @minLength(3)
     @maxLength(64)
-    @path
-    applicationDefinitionName: string,
-  ): ArmResponse<ApplicationDefinition> | NotFoundResponse | ErrorResponse;
+    @segment("applicationDefinitions")
+    applicationDefinitionName: string;
+  },
+  ResourceRoute = #{ useStaticRoute: true }
+>;
 
-  /**
-   * Creates or updates a managed application definition.
-   */
-  @tag("ApplicationDefinitions")
-  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy")
-  @put
-  createOrUpdateById(
-    ...ApiVersionParameter,
-    ...SubscriptionIdParameter,
-    ...ResourceGroupParameter,
-
-    /**
-     * The name of the managed application definition.
-     */
-    @minLength(3)
-    @maxLength(64)
-    @path
-    applicationDefinitionName: string,
-
-    /**
-     * Parameters supplied to the create or update a managed application definition.
-     */
-    @bodyRoot
-    parameters: ApplicationDefinition,
-  ): ArmResponse<ApplicationDefinition> | (CreatedResponse &
-    Body<ApplicationDefinition>) | ErrorResponse;
-
-  /**
-   * Updates the managed application definition.
-   */
-  @tag("ApplicationDefinitions")
-  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy")
-  @patch(#{ implicitOptionality: false })
-  updateById(
-    ...ApiVersionParameter,
-    ...SubscriptionIdParameter,
-    ...ResourceGroupParameter,
-
-    /**
-     * The name of the managed application definition.
-     */
-    @minLength(3)
-    @maxLength(64)
-    @path
-    applicationDefinitionName: string,
-
-    /**
-     * Parameters supplied to the update a managed application definition.
-     */
-    @bodyRoot
-    parameters: ApplicationDefinitionPatchable,
-  ): ArmResponse<ApplicationDefinition> | ErrorResponse;
-
-  /**
-   * Deletes the managed application definition.
-   */
-  @tag("ApplicationDefinitions")
-  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy")
-  @delete
-  deleteById(
-    ...ApiVersionParameter,
-    ...SubscriptionIdParameter,
-    ...ResourceGroupParameter,
-
-    /**
-     * The name of the managed application definition.
-     */
-    @minLength(3)
-    @maxLength(64)
-    @path
-    applicationDefinitionName: string,
-  ): OkResponse | NoContentResponse | ErrorResponse;
-}
-
-@armResourceOperations
+@route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}")
+@armResourceOperations(#{ allowStaticRoutes: true })
 interface ApplicationDefinitions {
   /**
    * Gets the managed application definition.
    */
-  get is ArmResourceRead<
+  @sharedRoute
+  get is ApplicationDefinitionOps.Read<
     ApplicationDefinition,
     Response = ArmResponse<ApplicationDefinition> | NotFoundResponse
   >;
@@ -140,13 +65,15 @@ interface ApplicationDefinitions {
   /**
    * Creates or updates a managed application definition.
    */
-  createOrUpdate is ArmResourceCreateOrReplaceSync<ApplicationDefinition>;
+  @sharedRoute
+  createOrUpdate is ApplicationDefinitionOps.CreateOrUpdateSync<ApplicationDefinition>;
 
   /**
    * Updates the managed application definition.
    */
+  @sharedRoute
   @patch(#{ implicitOptionality: false })
-  update is ArmCustomPatchSync<
+  update is ApplicationDefinitionOps.CustomPatchSync<
     ApplicationDefinition,
     PatchModel = ApplicationDefinitionPatchable
   >;
@@ -154,8 +81,49 @@ interface ApplicationDefinitions {
   /**
    * Deletes the managed application definition.
    */
-  delete is ArmResourceDeleteSync<ApplicationDefinition>;
+  @sharedRoute
+  delete is ApplicationDefinitionOps.DeleteSync<ApplicationDefinition>;
+}
 
+@tag("ApplicationDefinitions")
+@route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy")
+@armResourceOperations(#{ allowStaticRoutes: true, omitTags: true })
+interface ApplicationDefinitionOpsById {
+  /**
+   * Gets the managed application definition.
+   */
+  @sharedRoute
+  getById is ApplicationDefinitionOps.Read<
+    ApplicationDefinition,
+    Response = ArmResponse<ApplicationDefinition> | NotFoundResponse
+  >;
+
+  /**
+   * Creates or updates a managed application definition.
+   */
+  @sharedRoute
+  createOrUpdateById is ApplicationDefinitionOps.CreateOrUpdateSync<ApplicationDefinition>;
+
+  /**
+   * Updates the managed application definition.
+   */
+  @sharedRoute
+  @patch(#{ implicitOptionality: false })
+  updateById is ApplicationDefinitionOps.CustomPatchSync<
+    ApplicationDefinition,
+    PatchModel = ApplicationDefinitionPatchable
+  >;
+
+  /**
+   * Deletes the managed application definition.
+   */
+  @sharedRoute
+  deleteById is ApplicationDefinitionOps.DeleteSync<ApplicationDefinition>;
+}
+
+@armResourceOperations(#{ omitTags: true })
+@tag("ApplicationDefinitions")
+interface ApplicationDefinitionListOperationGroup {
   /**
    * Lists the managed application definitions in a resource group.
    */
