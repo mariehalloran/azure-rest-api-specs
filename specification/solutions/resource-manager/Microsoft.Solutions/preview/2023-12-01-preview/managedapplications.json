@@ -1678,6 +1678,54 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy&_overload=deleteById": {
+      "delete": {
+        "operationId": "ApplicationDefinitions_DeleteById",
+        "tags": [
+          "ApplicationDefinitions"
+        ],
+        "description": "Deletes the managed application definition.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "applicationDefinitionName",
+            "in": "path",
+            "description": "The name of the managed application definition.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 64
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "delete managed application definition": {
+            "$ref": "./examples/deleteApplicationDefinition1.json"
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy&_overload=updateById": {
       "patch": {
         "operationId": "ApplicationDefinitions_UpdateById",
@@ -1731,54 +1779,6 @@
         "x-ms-examples": {
           "Update managed application definition": {
             "$ref": "./examples/updateApplicationDefinition1.json"
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Solutions/applicationDefinitions/{applicationDefinitionName}?disambiguation_dummy&_overload=deleteById": {
-      "delete": {
-        "operationId": "ApplicationDefinitions_DeleteById",
-        "tags": [
-          "ApplicationDefinitions"
-        ],
-        "description": "Deletes the managed application definition.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "applicationDefinitionName",
-            "in": "path",
-            "description": "The name of the managed application definition.",
-            "required": true,
-            "type": "string",
-            "minLength": 3,
-            "maxLength": 64
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "delete managed application definition": {
-            "$ref": "./examples/deleteApplicationDefinition1.json"
           }
         }
       }
