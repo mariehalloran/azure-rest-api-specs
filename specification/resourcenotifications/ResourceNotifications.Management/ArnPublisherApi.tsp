@@ -18,7 +18,7 @@ namespace Microsoft.ResourceNotifications;
 
 // Namespace (read-only parent)
 
-/** Pre-existing namespace representing a registered resource provider in ARN. Read-only - partner details are derived from ServiceTree and the ARM manifest. */
+/** Pre-existing namespace representing a registered resource provider in ARN. Read-only - Namespaces details are pre-fetched and populated in the RP Layer. */
 @subscriptionResource
 @added(Versions.v2026_03_01_preview)
 model Namespace is Azure.ResourceManager.ProxyResource<NamespaceProperties> {
@@ -33,11 +33,9 @@ model Namespace is Azure.ResourceManager.ProxyResource<NamespaceProperties> {
 /** Properties of the Namespace resource. All fields are read-only, populated from ServiceTree and ARM RP registration. */
 @added(Versions.v2026_03_01_preview)
 model NamespaceProperties {
-  /** Display name of the publishing service, populated from ServiceTree. */
   @visibility(Lifecycle.Read)
   serviceName?: string;
 
-  /** Contact e-mail for the service team, populated from ServiceTree. */
   @visibility(Lifecycle.Read)
   serviceTeamEmail?: string;
 
