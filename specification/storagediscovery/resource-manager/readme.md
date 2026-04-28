@@ -41,39 +41,6 @@ input-file:
   - Microsoft.StorageDiscovery/preview/2024-12-01-preview/storageDiscoveryWorkspace.json
 ```
 
-### Tag: package-2025-01-01-preview
-
-These settings apply only when `--tag=package-2025-01-01-preview` is specified on the command line.
-
-```yaml $(tag) == 'package-2025-01-01-preview'
-input-file:
-  - Microsoft.StorageDiscovery/preview/2025-01-01-preview/storageDiscoveryWorkspace.json
-```
-
----
-
-### Tag: package-2025-03-01-preview
-
-These settings apply only when `--tag=package-2025-03-01-preview` is specified on the command line.
-
-```yaml $(tag) == 'package-2025-03-01-preview'
-input-file:
-  - Microsoft.StorageDiscovery/preview/2025-03-01-preview/storageDiscoveryWorkspace.json
-```
-
----
-
-### Tag: package-2025-04-01-preview
-
-These settings apply only when `--tag=package-2025-04-01-preview` is specified on the command line.
-
-```yaml $(tag) == 'package-2025-04-01-preview'
-input-file:
-  - Microsoft.StorageDiscovery/preview/2025-04-01-preview/storageDiscoveryWorkspace.json
-```
-
----
-
 ### Tag: package-2025-06-01-preview
 
 These settings apply only when `--tag=package-2025-06-01-preview` is specified on the command line.
