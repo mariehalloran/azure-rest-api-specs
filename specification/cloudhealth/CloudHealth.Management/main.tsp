@@ -19,6 +19,9 @@ namespace Microsoft.CloudHealth;
 @doc("API Versions")
 enum Versions {
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  @doc("2023-10-01-preview")
+  v2023_10_01_preview: "2023-10-01-preview",
+
   @doc("2025-05-01-preview")
   v2025_05_01_preview: "2025-05-01-preview",
 
