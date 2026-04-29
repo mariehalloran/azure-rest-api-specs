@@ -19,14 +19,6 @@ namespace Microsoft.Edge;
 @added(Versions.v2025_08_01)
 @doc("Hierarchy Ids With Level for applying config Template which will further generate ARG objects")
 model HierarchyMetadata {
-  @added(Versions.v2026_03_01)
-  @doc("ArmId of Context")
-  contextId?: Azure.Core.armResourceIdentifier<[
-    {
-      type: "Microsoft.Edge/contexts";
-    }
-  ]>;
-
   @doc("Hierarchy Ids")
   @visibility(Lifecycle.Read)
   hierarchyIds?: Azure.Core.armResourceIdentifier<[
@@ -47,6 +39,14 @@ model HierarchyMetadata {
 @added(Versions.v2025_08_01)
 @doc("ConfigTemplateMetadata Properties")
 model ConfigTemplateMetadataProperties {
+  @added(Versions.v2026_03_01)
+  @doc("ArmId of Context")
+  contextId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Edge/contexts";
+    }
+  ]>;
+
   @doc("Hierarchy ARM Ids")
   @visibility(Lifecycle.Read)
   @identifiers(#[])
@@ -88,6 +88,21 @@ model ConfigTemplateMetadata
 interface ConfigTemplateMetadatas {
   @doc("Get a ConfigTemplateMetadata Resource")
   get is ArmResourceRead<ConfigTemplateMetadata>;
+
+  @added(Versions.v2026_03_01)
+  @doc("Create or update a ConfigTemplateMetadata Resource")
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<ConfigTemplateMetadata>;
+
+  @added(Versions.v2026_03_01)
+  @doc("Update a ConfigTemplateMetadata Resource")
+  update is ArmResourcePatchSync<
+    ConfigTemplateMetadata,
+    ConfigTemplateMetadataProperties
+  >;
+
+  @added(Versions.v2026_03_01)
+  @doc("Delete a ConfigTemplateMetadata Resource")
+  delete is ArmResourceDeleteWithoutOkAsync<ConfigTemplateMetadata>;
 
   @doc("List by ConfigTemplate")
   listByConfigTemplate is ArmResourceListByParent<ConfigTemplateMetadata>;

@@ -1499,6 +1499,204 @@
             "$ref": "./examples/ConfigTemplateMetadatas_Get_MaximumSet_Gen.json"
           }
         }
+      },
+      "put": {
+        "operationId": "ConfigTemplateMetadatas_CreateOrUpdate",
+        "tags": [
+          "ConfigTemplateMetadatas"
+        ],
+        "description": "Create or update a ConfigTemplateMetadata Resource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "configTemplateName",
+            "in": "path",
+            "description": "The name of the ConfigTemplate",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "configTemplateMetadataName",
+            "in": "path",
+            "description": "The name of the ConfigTemplateMetadataProperties",
+            "required": true,
+            "type": "string",
+            "pattern": "^(?!.*\\.\\.)[a-zA-Z0-9-][a-zA-Z0-9._-]{1,68}[a-zA-Z0-9-]$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ConfigTemplateMetadata"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ConfigTemplateMetadata' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ConfigTemplateMetadata"
+            }
+          },
+          "201": {
+            "description": "Resource 'ConfigTemplateMetadata' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ConfigTemplateMetadata"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "ConfigTemplateMetadatas_Update",
+        "tags": [
+          "ConfigTemplateMetadatas"
+        ],
+        "description": "Update a ConfigTemplateMetadata Resource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "configTemplateName",
+            "in": "path",
+            "description": "The name of the ConfigTemplate",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "configTemplateMetadataName",
+            "in": "path",
+            "description": "The name of the ConfigTemplateMetadataProperties",
+            "required": true,
+            "type": "string",
+            "pattern": "^(?!.*\\.\\.)[a-zA-Z0-9-][a-zA-Z0-9._-]{1,68}[a-zA-Z0-9-]$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ConfigTemplateMetadataUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ConfigTemplateMetadata"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "ConfigTemplateMetadatas_Delete",
+        "tags": [
+          "ConfigTemplateMetadatas"
+        ],
+        "description": "Delete a ConfigTemplateMetadata Resource",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "configTemplateName",
+            "in": "path",
+            "description": "The name of the ConfigTemplate",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "configTemplateMetadataName",
+            "in": "path",
+            "description": "The name of the ConfigTemplateMetadataProperties",
+            "required": true,
+            "type": "string",
+            "pattern": "^(?!.*\\.\\.)[a-zA-Z0-9-][a-zA-Z0-9._-]{1,68}[a-zA-Z0-9-]$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Edge/configTemplates/{configTemplateName}/createVersion": {
@@ -9613,6 +9811,18 @@
       "type": "object",
       "description": "ConfigTemplateMetadata Properties",
       "properties": {
+        "contextId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ArmId of Context",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Edge/contexts"
+              }
+            ]
+          }
+        },
         "linkedHierarchies": {
           "type": "array",
           "description": "Hierarchy ARM Ids",
@@ -9642,6 +9852,21 @@
           "readOnly": true
         }
       }
+    },
+    "ConfigTemplateMetadataUpdate": {
+      "type": "object",
+      "description": "SolutionSchema Resource",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ConfigTemplateMetadataProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+        }
+      ]
     },
     "ConfigTemplateProperties": {
       "type": "object",
@@ -10749,18 +10974,6 @@
       "type": "object",
       "description": "Hierarchy Ids With Level for applying config Template which will further generate ARG objects",
       "properties": {
-        "contextId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "ArmId of Context",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.Edge/contexts"
-              }
-            ]
-          }
-        },
         "hierarchyIds": {
           "type": "array",
           "description": "Hierarchy Ids",
