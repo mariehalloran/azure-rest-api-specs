@@ -1,6 +1,6 @@
 parameters:
   "service-dir":
-    default: "sdk/commerce"
+    default: "sdk/offercatalog"
 emit:
   - "@azure-tools/typespec-autorest"
 options:
@@ -11,20 +11,17 @@ options:
     arm-types-dir: "{project-root}/../../../../common-types/resource-management"
     use-read-only-status-schema: true
   "@azure-tools/typespec-python":
-    service-dir: "sdk/offercatalog"
     emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-offercatalog"
     namespace: "azure.mgmt.offercatalog"
     generate-test: true
     generate-sample: true
     flavor: "azure"
   "@azure-tools/typespec-java":
-    service-dir: "sdk/offercatalog"
     emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-offercatalog"
     namespace: "com.azure.resourcemanager.offercatalog"
     service-name: "Offer Catalog"
     flavor: "azure"
   "@azure-tools/typespec-ts":
-    service-dir: "sdk/offercatalog"
     emitter-output-dir: "{output-dir}/{service-dir}/arm-offercatalog"
     flavor: "azure"
     experimental-extensible-enums: true
