@@ -3618,7 +3618,7 @@
     },
     "Namespace": {
       "type": "object",
-      "description": "Pre-existing namespace representing a registered resource provider in ARN. Read-only - partner details are derived from ServiceTree and the ARM manifest.",
+      "description": "Pre-existing namespace representing a registered resource provider in ARN. Read-only - Namespaces details are pre-fetched and populated in the RP Layer.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/NamespaceProperties",
@@ -3658,12 +3658,10 @@
       "properties": {
         "serviceName": {
           "type": "string",
-          "description": "Display name of the publishing service, populated from ServiceTree.",
           "readOnly": true
         },
         "serviceTeamEmail": {
           "type": "string",
-          "description": "Contact e-mail for the service team, populated from ServiceTree.",
           "readOnly": true
         },
         "provisioningState": {
