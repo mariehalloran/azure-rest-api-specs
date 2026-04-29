@@ -35,7 +35,7 @@ interface Upns {
    * Get a single UPN resource by its GUID identifier. Returns the identity
    * envelope of the UPN.
    */
-  get is Extension.Read<Extension.Tenant, Upn>;
+  get is ArmResourceRead<Upn>;
 }
 
 @@doc(Upn.name,

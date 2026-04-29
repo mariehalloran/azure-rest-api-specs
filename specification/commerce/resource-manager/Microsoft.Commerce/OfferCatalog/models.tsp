@@ -17,10 +17,10 @@ union UpnOwnership {
   string,
 
   /** First-party (Microsoft-owned) product. */
-  "1PP",
+  FirstParty: "1PP",
 
   /** Third-party (publisher-owned) product. */
-  "3PP",
+  ThirdParty: "3PP",
 }
 
 /** The commercial type of a SKU. */
