@@ -150,12 +150,8 @@
           }
         },
         "ownership": {
-          "description": "Ownership classification of the product.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/UpnOwnership"
-            }
-          ]
+          "$ref": "#/definitions/UpnOwnership",
+          "description": "Ownership classification of the product."
         }
       },
       "required": [
@@ -175,12 +171,8 @@
           "description": "The human-readable friendly name of the SKU."
         },
         "type": {
-          "description": "The commercial type of the SKU.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/SkuType"
-            }
-          ]
+          "$ref": "#/definitions/SkuType",
+          "description": "The commercial type of the SKU."
         }
       },
       "required": [
@@ -222,12 +214,8 @@
       "description": "UPN (Unified Product Node) resource.\n\nA UPN is a provider-scoped, tenant-level, read-only proxy resource that\nrepresents one transactable value-exchange in the Microsoft commercial\ncatalog. It is addressed at `/providers/Microsoft.Commerce/upns/{upnGuid}`.",
       "properties": {
         "properties": {
-          "description": "The properties of the UPN resource.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/UpnProperties"
-            }
-          ]
+          "$ref": "#/definitions/UpnProperties",
+          "description": "The properties of the UPN resource."
         }
       },
       "allOf": [
@@ -265,28 +253,16 @@
       "description": "Properties of a UPN (Unified Product Node) resource. A UPN is the\ntransactable catalog identity and carries denormalized product and SKU\nsummaries plus the value-exchange identity.",
       "properties": {
         "valueExchange": {
-          "description": "The value-exchange identity that this UPN represents.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ValueExchange"
-            }
-          ]
+          "$ref": "#/definitions/ValueExchange",
+          "description": "The value-exchange identity that this UPN represents."
         },
         "product": {
-          "description": "Denormalized product summary.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ProductSummary"
-            }
-          ]
+          "$ref": "#/definitions/ProductSummary",
+          "description": "Denormalized product summary."
         },
         "sku": {
-          "description": "Denormalized SKU summary.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/SkuSummary"
-            }
-          ]
+          "$ref": "#/definitions/SkuSummary",
+          "description": "Denormalized SKU summary."
         },
         "template": {
           "type": "string",
@@ -308,20 +284,12 @@
           "description": "The stable identifier of the value exchange."
         },
         "unit": {
-          "description": "Unit metadata for the value exchange.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ValueExchangeUnit"
-            }
-          ]
+          "$ref": "#/definitions/ValueExchangeUnit",
+          "description": "Unit metadata for the value exchange."
         },
         "dimensions": {
-          "description": "Dimension metadata for the value exchange.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ValueExchangeDimensions"
-            }
-          ]
+          "$ref": "#/definitions/ValueExchangeDimensions",
+          "description": "Dimension metadata for the value exchange."
         }
       },
       "required": [
