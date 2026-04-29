@@ -32,6 +32,15 @@ These settings apply only when `--tag=package-2026-04-24-preview` is specified o
 ```yaml $(tag) == 'package-2026-04-24-preview'
 input-file:
   - preview/2026-04-24-preview/offerCatalog.json
+directive:
+  - suppress: TenantLevelAPIsNotAllowed
+    from: preview/2026-04-24-preview/offerCatalog.json
+    reason: >
+      This API version introduces the tenant-level resource
+      /providers/Microsoft.Commerce/upns/{upnGuid}. Per RPC guidance,
+      tenant-level API approval requires ARM API review office hours
+      sign-off and confirmation that no unauthorized actions are
+      involved, or PAS team approval if unauthorized actions are used.
 ```
 
 ---
