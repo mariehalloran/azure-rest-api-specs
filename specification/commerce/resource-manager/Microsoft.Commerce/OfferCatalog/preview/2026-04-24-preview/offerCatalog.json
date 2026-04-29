@@ -150,8 +150,12 @@
           }
         },
         "ownership": {
-          "$ref": "#/definitions/UpnOwnership",
-          "description": "Ownership classification of the product."
+          "description": "Ownership classification of the product.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/UpnOwnership"
+            }
+          ]
         }
       },
       "required": [
@@ -171,8 +175,12 @@
           "description": "The human-readable friendly name of the SKU."
         },
         "type": {
-          "$ref": "#/definitions/SkuType",
-          "description": "The commercial type of the SKU."
+          "description": "The commercial type of the SKU.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SkuType"
+            }
+          ]
         }
       },
       "required": [
@@ -214,8 +222,12 @@
       "description": "UPN (Unified Product Node) resource.\n\nA UPN is a provider-scoped, tenant-level, read-only proxy resource that\nrepresents one transactable value-exchange in the Microsoft commercial\ncatalog. It is addressed at `/providers/Microsoft.Commerce/upns/{upnGuid}`.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/UpnProperties",
-          "description": "The properties of the UPN resource."
+          "description": "The properties of the UPN resource.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/UpnProperties"
+            }
+          ]
         }
       },
       "allOf": [
@@ -236,12 +248,12 @@
         "modelAsString": true,
         "values": [
           {
-            "name": "1PP",
+            "name": "FirstParty",
             "value": "1PP",
             "description": "First-party (Microsoft-owned) product."
           },
           {
-            "name": "3PP",
+            "name": "ThirdParty",
             "value": "3PP",
             "description": "Third-party (publisher-owned) product."
           }
@@ -253,16 +265,28 @@
       "description": "Properties of a UPN (Unified Product Node) resource. A UPN is the\ntransactable catalog identity and carries denormalized product and SKU\nsummaries plus the value-exchange identity.",
       "properties": {
         "valueExchange": {
-          "$ref": "#/definitions/ValueExchange",
-          "description": "The value-exchange identity that this UPN represents."
+          "description": "The value-exchange identity that this UPN represents.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ValueExchange"
+            }
+          ]
         },
         "product": {
-          "$ref": "#/definitions/ProductSummary",
-          "description": "Denormalized product summary."
+          "description": "Denormalized product summary.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ProductSummary"
+            }
+          ]
         },
         "sku": {
-          "$ref": "#/definitions/SkuSummary",
-          "description": "Denormalized SKU summary."
+          "description": "Denormalized SKU summary.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SkuSummary"
+            }
+          ]
         },
         "template": {
           "type": "string",
@@ -284,12 +308,20 @@
           "description": "The stable identifier of the value exchange."
         },
         "unit": {
-          "$ref": "#/definitions/ValueExchangeUnit",
-          "description": "Unit metadata for the value exchange."
+          "description": "Unit metadata for the value exchange.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ValueExchangeUnit"
+            }
+          ]
         },
         "dimensions": {
-          "$ref": "#/definitions/ValueExchangeDimensions",
-          "description": "Dimension metadata for the value exchange."
+          "description": "Dimension metadata for the value exchange.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ValueExchangeDimensions"
+            }
+          ]
         }
       },
       "required": [
