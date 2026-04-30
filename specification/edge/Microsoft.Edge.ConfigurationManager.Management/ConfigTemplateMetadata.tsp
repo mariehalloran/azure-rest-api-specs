@@ -92,7 +92,7 @@ model ConfigTemplateMetadataUpdate {
 
 @added(Versions.v2025_08_15_preview)
 @added(Versions.v2025_08_01)
-@doc("SolutionSchema Resource")
+@doc("ConfigTemplateMetadata Resource")
 @parentResource(ConfigTemplate)
 model ConfigTemplateMetadata
   is ProxyResource<ConfigTemplateMetadataProperties> {
