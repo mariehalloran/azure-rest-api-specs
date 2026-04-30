@@ -48,12 +48,10 @@ model ConfigTemplateMetadataProperties {
   ]>;
 
   @doc("Hierarchy ARM Ids")
-  @visibility(Lifecycle.Read)
   @identifiers(#[])
   linkedHierarchies?: HierarchyMetadata[];
 
   @doc("Hierarchy ARM Ids")
-  @visibility(Lifecycle.Read)
   @identifiers(#[])
   unLinkedHierarchies?: HierarchyMetadata[];
 
@@ -64,6 +62,32 @@ model ConfigTemplateMetadataProperties {
   @doc("Provisioning state of resource")
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
+}
+
+@added(Versions.v2026_03_01)
+@doc("The updatable properties of the ConfigTemplateMetadata.")
+model ConfigTemplateMetadataUpdateProperties {
+  @doc("ArmId of Context")
+  contextId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Edge/contexts";
+    }
+  ]>;
+
+  @doc("Hierarchy ARM Ids")
+  @identifiers(#[])
+  linkedHierarchies?: HierarchyMetadata[];
+
+  @doc("Hierarchy ARM Ids")
+  @identifiers(#[])
+  unLinkedHierarchies?: HierarchyMetadata[];
+}
+
+@added(Versions.v2026_03_01)
+@doc("The type used for update operations of the ConfigTemplateMetadata.")
+model ConfigTemplateMetadataUpdate {
+  @doc("The resource-specific properties for this resource.")
+  properties?: ConfigTemplateMetadataUpdateProperties;
 }
 
 @added(Versions.v2025_08_15_preview)
@@ -95,9 +119,9 @@ interface ConfigTemplateMetadatas {
 
   @added(Versions.v2026_03_01)
   @doc("Update a ConfigTemplateMetadata Resource")
-  update is ArmResourcePatchSync<
+  update is ArmCustomPatchAsync<
     ConfigTemplateMetadata,
-    ConfigTemplateMetadataProperties
+    ConfigTemplateMetadataUpdate
   >;
 
   @added(Versions.v2026_03_01)
