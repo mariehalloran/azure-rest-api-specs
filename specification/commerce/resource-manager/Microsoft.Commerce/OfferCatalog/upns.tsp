@@ -14,11 +14,12 @@ namespace Microsoft.Commerce;
 /**
  * UPN (Unified Product Node) resource.
  *
- * A UPN is a provider-scoped, tenant-level, read-only proxy resource that
+ * A UPN is a subscription-scoped, read-only proxy resource that
  * represents one transactable value-exchange in the Microsoft commercial
- * catalog. It is addressed at `/providers/Microsoft.Commerce/upns/{upnGuid}`.
+ * catalog. It is addressed at
+ * `/subscriptions/{subscriptionId}/providers/Microsoft.Commerce/upns/{upnGuid}`.
  */
-@tenantResource
+@subscriptionResource
 model Upn is Azure.ResourceManager.ProxyResource<UpnProperties> {
   ...ResourceNameParameter<
     Resource = Upn,
