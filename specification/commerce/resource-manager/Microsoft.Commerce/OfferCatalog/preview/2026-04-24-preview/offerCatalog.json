@@ -53,7 +53,7 @@
         "tags": [
           "Operations"
         ],
-        "description": "List the operations for the provider",
+        "description": "Lists the operations for the provider.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -100,6 +100,7 @@
             "description": "The GUID identifier of the UPN. Corresponds to the OCP value-exchange productCode.",
             "required": true,
             "type": "string",
+            "format": "uuid",
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
           }
         ],
@@ -130,7 +131,7 @@
       "type": "object",
       "description": "Denormalized product summary embedded in a UPN. Only identifying and\ndiscovery-relevant product fields are exposed here; the full product\ndocument is not retrievable as a separate resource type.",
       "properties": {
-        "id": {
+        "productId": {
           "type": "string",
           "description": "The stable product identifier."
         },
@@ -142,7 +143,7 @@
           "type": "string",
           "description": "The offer template identifier for this product (for example, \"offer-template/az-generic\")."
         },
-        "tags": {
+        "discoveryTags": {
           "type": "object",
           "description": "Discovery tags associated with the product.",
           "additionalProperties": {
@@ -150,19 +151,23 @@
           }
         },
         "ownership": {
-          "$ref": "#/definitions/UpnOwnership",
-          "description": "Ownership classification of the product."
+          "description": "Ownership classification of the product.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/UpnOwnership"
+            }
+          ]
         }
       },
       "required": [
-        "id"
+        "productId"
       ]
     },
     "SkuSummary": {
       "type": "object",
       "description": "Denormalized SKU summary embedded in a UPN. Only identifying and\ndiscovery-relevant SKU fields are exposed here.",
       "properties": {
-        "id": {
+        "skuId": {
           "type": "string",
           "description": "The stable SKU identifier."
         },
@@ -171,21 +176,25 @@
           "description": "The human-readable friendly name of the SKU."
         },
         "type": {
-          "$ref": "#/definitions/SkuType",
-          "description": "The commercial type of the SKU."
+          "description": "The commercial type of the SKU.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SkuType"
+            }
+          ]
         }
       },
       "required": [
-        "id"
+        "skuId"
       ]
     },
     "SkuType": {
       "type": "string",
       "description": "The commercial type of a SKU.",
       "enum": [
-        "consumption",
-        "subscription",
-        "one_time"
+        "Consumption",
+        "Subscription",
+        "OneTime"
       ],
       "x-ms-enum": {
         "name": "SkuType",
@@ -193,17 +202,17 @@
         "values": [
           {
             "name": "Consumption",
-            "value": "consumption",
+            "value": "Consumption",
             "description": "Consumption-based SKU (pay-as-you-go)."
           },
           {
             "name": "Subscription",
-            "value": "subscription",
+            "value": "Subscription",
             "description": "Subscription-based SKU."
           },
           {
             "name": "OneTime",
-            "value": "one_time",
+            "value": "OneTime",
             "description": "One-time purchase SKU."
           }
         ]
@@ -214,8 +223,12 @@
       "description": "UPN (Unified Product Node) resource.\n\nA UPN is a provider-scoped, tenant-level, read-only proxy resource that\nrepresents one transactable value-exchange in the Microsoft commercial\ncatalog. It is addressed at `/providers/Microsoft.Commerce/upns/{upnGuid}`.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/UpnProperties",
-          "description": "The properties of the UPN resource."
+          "description": "The properties of the UPN resource.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/UpnProperties"
+            }
+          ]
         }
       },
       "allOf": [
@@ -253,16 +266,28 @@
       "description": "Properties of a UPN (Unified Product Node) resource. A UPN is the\ntransactable catalog identity and carries denormalized product and SKU\nsummaries plus the value-exchange identity.",
       "properties": {
         "valueExchange": {
-          "$ref": "#/definitions/ValueExchange",
-          "description": "The value-exchange identity that this UPN represents."
+          "description": "The value-exchange identity that this UPN represents.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ValueExchange"
+            }
+          ]
         },
         "product": {
-          "$ref": "#/definitions/ProductSummary",
-          "description": "Denormalized product summary."
+          "description": "Denormalized product summary.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ProductSummary"
+            }
+          ]
         },
         "sku": {
-          "$ref": "#/definitions/SkuSummary",
-          "description": "Denormalized SKU summary."
+          "description": "Denormalized SKU summary.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SkuSummary"
+            }
+          ]
         },
         "template": {
           "type": "string",
@@ -279,30 +304,38 @@
       "type": "object",
       "description": "Value-exchange (UPN identity) metadata. The value exchange is the leaf of\nthe OCP Product -> SKU -> Value Exchange hierarchy and is the transactable\nidentity addressed by this resource.",
       "properties": {
-        "id": {
+        "valueExchangeId": {
           "type": "string",
           "description": "The stable identifier of the value exchange."
         },
         "unit": {
-          "$ref": "#/definitions/ValueExchangeUnit",
-          "description": "Unit metadata for the value exchange."
+          "description": "Unit metadata for the value exchange.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ValueExchangeUnit"
+            }
+          ]
         },
         "dimensions": {
-          "$ref": "#/definitions/ValueExchangeDimensions",
-          "description": "Dimension metadata for the value exchange."
+          "description": "Dimension metadata for the value exchange.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ValueExchangeDimensions"
+            }
+          ]
         }
       },
       "required": [
-        "id"
+        "valueExchangeId"
       ]
     },
     "ValueExchangeDimensions": {
       "type": "object",
       "description": "Dimension metadata associated with a value exchange.",
       "properties": {
-        "location": {
+        "region": {
           "type": "string",
-          "description": "The location dimension (for example, an Azure region)."
+          "description": "The Azure region dimension (for example, \"westus2\")."
         },
         "feature": {
           "type": "string",

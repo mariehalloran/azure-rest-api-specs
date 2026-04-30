@@ -3,6 +3,11 @@ parameters:
     default: "sdk/offercatalog"
 emit:
   - "@azure-tools/typespec-autorest"
+  - "@azure-tools/typespec-python"
+  - "@azure-tools/typespec-java"
+  - "@azure-tools/typespec-ts"
+  - "@azure-tools/typespec-go"
+  - "@azure-typespec/http-client-csharp-mgmt"
 options:
   "@azure-tools/typespec-autorest":
     emitter-output-dir: "{project-root}"

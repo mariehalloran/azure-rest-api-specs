@@ -28,13 +28,13 @@ union SkuType {
   string,
 
   /** Consumption-based SKU (pay-as-you-go). */
-  Consumption: "consumption",
+  Consumption: "Consumption",
 
   /** Subscription-based SKU. */
-  Subscription: "subscription",
+  Subscription: "Subscription",
 
   /** One-time purchase SKU. */
-  OneTime: "one_time",
+  OneTime: "OneTime",
 }
 
 /** Unit metadata associated with a value exchange. */
@@ -45,8 +45,8 @@ model ValueExchangeUnit {
 
 /** Dimension metadata associated with a value exchange. */
 model ValueExchangeDimensions {
-  /** The location dimension (for example, an Azure region). */
-  location?: string;
+  /** The Azure region dimension (for example, "westus2"). */
+  region?: string;
 
   /** The feature dimension (for example, a product feature name). */
   feature?: string;
@@ -59,7 +59,7 @@ model ValueExchangeDimensions {
  */
 model ValueExchange {
   /** The stable identifier of the value exchange. */
-  id: string;
+  valueExchangeId: string;
 
   /** Unit metadata for the value exchange. */
   unit?: ValueExchangeUnit;
@@ -75,7 +75,7 @@ model ValueExchange {
  */
 model ProductSummary {
   /** The stable product identifier. */
-  id: string;
+  productId: string;
 
   /** The human-readable friendly name of the product. */
   friendlyName?: string;
@@ -85,7 +85,7 @@ model ProductSummary {
 
   /** Discovery tags associated with the product. */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Product tags are free-form discovery metadata sourced from the upstream BigCat catalog; the key set is unbounded and cannot be modeled as an explicit type."
-  tags?: Record<string>;
+  discoveryTags?: Record<string>;
 
   /** Ownership classification of the product. */
   ownership?: UpnOwnership;
@@ -97,7 +97,7 @@ model ProductSummary {
  */
 model SkuSummary {
   /** The stable SKU identifier. */
-  id: string;
+  skuId: string;
 
   /** The human-readable friendly name of the SKU. */
   friendlyName?: string;
