@@ -25,6 +25,10 @@ union AzureTarget {
   @doc("App Service Native.")
   AzureAppService: "AzureAppService",
 
+  @added(CodeScanSitesApiVersions.v2026_05_12_preview)
+  @doc("Azure Container Apps.")
+  ContainerApps: "ContainerApps",
+
   string,
 }
 
