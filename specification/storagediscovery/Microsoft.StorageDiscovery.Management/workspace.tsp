@@ -248,7 +248,7 @@ model StorageDiscoveryCapabilities {
 @added(ApiVersion.v2026_07_01_preview)
 model ObjectMetadataRepository {
   @doc("The ARM resource ID of the storage account that hosts the object metadata repository.")
-  storageAccountResourceId: Azure.Core.armResourceIdentifier<[
+  storageAccountResourceId?: Azure.Core.armResourceIdentifier<[
     {
       type: "Microsoft.Storage/storageAccounts";
     }
@@ -258,7 +258,7 @@ model ObjectMetadataRepository {
   @minLength(3)
   @maxLength(63)
   @pattern("^[a-z0-9]([a-z0-9]|(-(?!-))){1,61}[a-z0-9]$")
-  containerName: string;
+  containerName?: string;
 }
 
 /**
