@@ -823,7 +823,7 @@
           {
             "name": "typeName",
             "in": "path",
-            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines').",
+            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). Forward slashes must be URL-encoded as %2F in the path segment. Allows dots, percent-encoding, and slashes to support ARM resource type naming.",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9.%/]{1,128}$"
@@ -873,7 +873,7 @@
           {
             "name": "typeName",
             "in": "path",
-            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines').",
+            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). Forward slashes must be URL-encoded as %2F in the path segment. Allows dots, percent-encoding, and slashes to support ARM resource type naming.",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9.%/]{1,128}$"
@@ -938,7 +938,7 @@
           {
             "name": "typeName",
             "in": "path",
-            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines').",
+            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). Forward slashes must be URL-encoded as %2F in the path segment. Allows dots, percent-encoding, and slashes to support ARM resource type naming.",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9.%/]{1,128}$"
@@ -990,7 +990,7 @@
           {
             "name": "typeName",
             "in": "path",
-            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines').",
+            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). Forward slashes must be URL-encoded as %2F in the path segment. Allows dots, percent-encoding, and slashes to support ARM resource type naming.",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9.%/]{1,128}$"
@@ -1045,7 +1045,7 @@
           {
             "name": "typeName",
             "in": "path",
-            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines').",
+            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). Forward slashes must be URL-encoded as %2F in the path segment. Allows dots, percent-encoding, and slashes to support ARM resource type naming.",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9.%/]{1,128}$"
@@ -1103,7 +1103,7 @@
           {
             "name": "typeName",
             "in": "path",
-            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines').",
+            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). Forward slashes must be URL-encoded as %2F in the path segment. Allows dots, percent-encoding, and slashes to support ARM resource type naming.",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9.%/]{1,128}$"
@@ -1176,7 +1176,7 @@
           {
             "name": "typeName",
             "in": "path",
-            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines').",
+            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). Forward slashes must be URL-encoded as %2F in the path segment. Allows dots, percent-encoding, and slashes to support ARM resource type naming.",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9.%/]{1,128}$"
@@ -1286,7 +1286,7 @@
             "description": "Publisher setting name.",
             "required": true,
             "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
           }
         ],
         "responses": {
@@ -1336,7 +1336,7 @@
             "description": "Publisher setting name.",
             "required": true,
             "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
           },
           {
             "name": "resource",
@@ -1401,7 +1401,7 @@
             "description": "Publisher setting name.",
             "required": true,
             "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,64}$"
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
           }
         ],
         "responses": {
