@@ -227,10 +227,6 @@ model StorageDiscoveryScope {
   @added(ApiVersion.v2026_07_01_preview)
   objectMetadataRepositoryState?: ObjectMetadataRepositoryState;
 
-  @doc("The Azure regions to filter storage accounts by for this scope.")
-  @added(ApiVersion.v2026_07_01_preview)
-  locations?: Azure.Core.azureLocation[];
-
   @doc("The storage account tags keys to filter")
   tagKeysOnly?: string[];
 
