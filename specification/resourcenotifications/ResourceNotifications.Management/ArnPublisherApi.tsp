@@ -64,7 +64,7 @@ model PublisherSettings
   /** Publisher setting name. */
   @key("settingName")
   @segment("publisherSettings")
-  @pattern("^[a-zA-Z0-9-]{1,64}$")
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$")
   @path
   name: string;
 }
@@ -311,7 +311,7 @@ interface ProviderSettingsOperations {
 @parentResource(ProviderSettings)
 model TypeSetting
   is Azure.ResourceManager.ProxyResource<TypeSettingProperties> {
-  /** Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). */
+  /** Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). Forward slashes must be URL-encoded as %2F in the path segment. Allows dots, percent-encoding, and slashes to support ARM resource type naming. */
   @key("typeName")
   @segment("types")
   @pattern("^[a-zA-Z0-9.%/]{1,128}$")

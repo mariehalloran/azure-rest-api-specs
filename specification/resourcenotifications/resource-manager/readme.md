@@ -63,18 +63,6 @@ suppressions:
     from: resourcenotifications.json
     reason: Namespace is a read-only resource pre-provisioned by the platform. Publishers cannot delete namespaces.
     where: $.definitions.Namespace
-  - code: AvoidAdditionalProperties
-    from: resourcenotifications.json
-    reason: DeploymentConfig.stageDefinition uses Record<Array<string>> for flexible stage-to-region mapping required by SDP.
-    where: $.definitions["DeploymentConfig"].properties.stageDefinition
-  - code: EnumInsteadOfBoolean
-    from: resourcenotifications.json
-    reason: managedSdpEnabled is a simple on/off toggle for managed Safe Deployment Practices; an enum adds no value.
-    where: $.definitions["DeploymentConfig"].properties.managedSdpEnabled
-  - code: EnumInsteadOfBoolean
-    from: resourcenotifications.json
-    reason: sendToArg is a simple on/off toggle for whether to send data to Azure Resource Graph; an enum adds no value.
-    where: $.definitions["AllowedPublisherProperties"].properties.sendToArg
 ```
 
 ## Code Generation
