@@ -49,20 +49,24 @@ input-file:
 suppressions:
   - code: GuidUsage
     from: Microsoft.ResourceNotifications/preview/2026-03-01-preview/resourcenotifications.json
-    reason: appId is an Azure Active Directory application ID which is a GUID by definition.
+    reason: appId is an AAD application ID which is a GUID by definition.
     where: $.definitions["Azure.Core.uuid"].format
   - code: TrackedResourcesMustHavePut
     from: Microsoft.ResourceNotifications/preview/2026-03-01-preview/resourcenotifications.json
-    reason: Namespace is a read-only resource pre-provisioned by the platform. Publishers cannot create or replace namespaces.
+    reason: Namespace is read-only, pre-provisioned by the platform.
     where: $.definitions.Namespace
   - code: TrackedResourcePatchOperation
     from: Microsoft.ResourceNotifications/preview/2026-03-01-preview/resourcenotifications.json
-    reason: Namespace is a read-only resource pre-provisioned by the platform. Publishers cannot update namespaces.
+    reason: Namespace is read-only, pre-provisioned by the platform.
     where: $.definitions.Namespace
   - code: AllTrackedResourcesMustHaveDelete
     from: Microsoft.ResourceNotifications/preview/2026-03-01-preview/resourcenotifications.json
-    reason: Namespace is a read-only resource pre-provisioned by the platform. Publishers cannot delete namespaces.
+    reason: Namespace is read-only, pre-provisioned by the platform.
     where: $.definitions.Namespace
+  - code: GuidUsage
+    from: Microsoft.ResourceNotifications/preview/2025-11-19-preview/resourcenotifications.json
+    reason: appId is an AAD application ID which is a GUID by definition.
+    where: $.definitions["Azure.Core.uuid"].format
 ```
 
 ## Code Generation
