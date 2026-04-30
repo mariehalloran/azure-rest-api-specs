@@ -15,7 +15,7 @@
         "type": "Microsoft.ResourceNotifications/resourceSubscriptions",
         "location": "westus",
         "properties": {
-          "query": "where (event.type startswith 'Microsoft.ContainerService/managedClusters/nodes)",
+          "query": "where (event.type startswith 'Microsoft.ContainerService/managedClusters/nodes')",
           "scope": {
             "kind": "cloud",
             "providerNamespace": "Microsoft.ResourceGraph",
