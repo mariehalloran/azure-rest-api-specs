@@ -35,7 +35,7 @@ input-file:
 suppressions:
   - code: AvoidAdditionalProperties
     from:
-      - preview/2026-04-24-preview/offerCatalog.json
+      - offerCatalog.json
     where:
       - $.definitions.ProductSummary.properties.discoveryTags
     reason: >
