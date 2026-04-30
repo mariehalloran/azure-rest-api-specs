@@ -32,6 +32,15 @@ These settings apply only when `--tag=package-2026-04-24-preview` is specified o
 ```yaml $(tag) == 'package-2026-04-24-preview'
 input-file:
   - preview/2026-04-24-preview/offerCatalog.json
+directive:
+  - suppress: AvoidAdditionalProperties
+    from: preview/2026-04-24-preview/offerCatalog.json
+    where: $.definitions.ProductSummary.properties.discoveryTags
+    reason: >
+      `discoveryTags` is a free-form bag of discovery metadata sourced from
+      the upstream BigCat catalog. The set of keys is unbounded and
+      provider-defined; it cannot be modeled as an explicit schema. This is
+      catalog discovery metadata, not user-defined ARM tags.
 ```
 
 ---

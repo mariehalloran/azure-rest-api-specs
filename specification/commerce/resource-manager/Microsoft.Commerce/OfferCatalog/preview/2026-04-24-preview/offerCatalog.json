@@ -83,6 +83,45 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Commerce/upns": {
+      "get": {
+        "operationId": "Upns_ListBySubscription",
+        "tags": [
+          "Upns"
+        ],
+        "description": "List all UPN resources in the subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/UpnListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List all UPN resources in the subscription.": {
+            "$ref": "./examples/Upns_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/providers/Microsoft.Commerce/upns/{upnGuid}": {
       "get": {
         "operationId": "Upns_Get",
@@ -225,6 +264,27 @@
         {
           "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
+      ]
+    },
+    "UpnListResult": {
+      "type": "object",
+      "description": "The response of a Upn list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Upn items on this page",
+          "items": {
+            "$ref": "#/definitions/Upn"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
       ]
     },
     "UpnOwnership": {

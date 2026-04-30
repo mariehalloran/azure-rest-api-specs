@@ -37,6 +37,11 @@ interface Upns {
    * envelope of the UPN.
    */
   get is ArmResourceRead<Upn>;
+
+  /**
+   * List all UPN resources in the subscription.
+   */
+  listBySubscription is ArmListBySubscription<Upn>;
 }
 
 @@doc(Upn.name,
