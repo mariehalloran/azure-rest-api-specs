@@ -1,0 +1,42 @@
+parameters:
+  "service-dir":
+    default: "sdk/bami"
+emit:
+  - "@azure-tools/typespec-autorest"
+options:
+  "@azure-tools/typespec-autorest":
+    use-read-only-status-schema: true
+    emitter-output-dir: "{project-root}/.."
+    output-file: "{version-status}/{version}/bami.json"
+    examples-dir: "{project-root}/examples"
+    arm-types-dir: "{project-root}/../../../../common-types/resource-management"
+  "@azure-tools/typespec-python":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-bami"
+    namespace: "azure.mgmt.bami"
+    generate-test: true
+    generate-sample: true
+    flavor: "azure"
+  "@azure-tools/typespec-java":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-bami"
+    namespace: "com.azure.resourcemanager.bami"
+    service-name: "BAMI"
+    flavor: azure
+  "@azure-tools/typespec-ts":
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-bami"
+    flavor: azure
+    experimental-extensible-enums: true
+    package-details:
+      name: "@azure/arm-bami"
+  "@azure-tools/typespec-go":
+    service-dir: "sdk/resourcemanager/bami"
+    emitter-output-dir: "{output-dir}/{service-dir}/armbami"
+    module: "github.com/Azure/azure-sdk-for-go/{service-dir}/armbami"
+    fix-const-stuttering: true
+    flavor: "azure"
+    generate-samples: true
+    generate-fakes: true
+    head-as-boolean: true
+    inject-spans: true
+linter:
+  extends:
+    - "@azure-tools/typespec-azure-rulesets/resource-manager"

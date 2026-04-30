@@ -5,6 +5,13 @@ using Azure.Core;
 namespace Microsoft.Sovereign;
 
 @added(Versions.Preview20260315)
+@doc("The patch model for the sovereign view resource type.")
+model SovereignViewResourcePatch {
+  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+  ...ManagedSystemAssignedIdentityProperty;
+}
+
+@added(Versions.Preview20260315)
 @doc("The properties of the sovereign view resource type.")
 model SovereignViewResourceProperties {
   @doc("The scope to apply for configuration.")

@@ -26,6 +26,10 @@ import "./ConditionalCredit.tsp";
 import "./ConditionalCreditContributor.tsp";
 import "./CreditSource.tsp";
 import "./FreeServices.tsp";
+import "./CreditTransaction.tsp";
+import "./MaccTransaction.tsp";
+import "./ConditionalCreditTransaction.tsp";
+import "./CatalogGroup.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
@@ -50,6 +54,11 @@ enum Versions {
    * The 2025-12-01-preview API version.
    */
   v2025_12_01_preview: "2025-12-01-preview",
+
+  /**
+   * The 2026-02-01 API version.
+   */
+  v2026_02_01: "2026-02-01",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}

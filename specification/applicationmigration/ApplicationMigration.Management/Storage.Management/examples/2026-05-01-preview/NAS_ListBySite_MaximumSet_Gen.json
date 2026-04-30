@@ -1,0 +1,68 @@
+{
+  "title": "NAS_ListBySite_MaximumSet",
+  "operationId": "NAS_ListBySite",
+  "parameters": {
+    "api-version": "2026-05-01-preview",
+    "subscriptionId": "C5AA31EB-0059-4B26-8EA4-CC3C5A4BD7BC",
+    "resourceGroupName": "rgStorageWorkloadsDiscovery",
+    "siteName": "testSite"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "properties": {
+              "provisioningState": "Succeeded",
+              "storageType": "NAS",
+              "osVersion": "OneFS 9.1.0.0",
+              "vendor": "Dell",
+              "productName": "OneFS",
+              "model": "F210",
+              "clusterId": "0cefacb4-0dc9-11f1-893c-000c295e7492",
+              "clusterName": "SHIVA",
+              "nodesInCluster": 112,
+              "totalCapacityInGb": 6000,
+              "usedCapacityInGb": 3000,
+              "numberOfShares": 50,
+              "numberOfBuckets": 10,
+              "clusterFqdn": [
+                "shiva.svceng.com"
+              ],
+              "runAsAccountId": "00000000-0000-0000-0000-000000000001",
+              "displayName": "SHIVA",
+              "errors": [
+                {
+                  "id": "14001",
+                  "code": "S3_API_UNAVAILABLE",
+                  "summaryMessage": "S3 endpoint not configured",
+                  "message": "S3 API endpoint is not configured on this NAS cluster. Object store bucket discovery was skipped.",
+                  "possibleCause": "S3 service may not be licensed or enabled on this cluster.",
+                  "recommendedAction": "Enable S3 object storage on the NAS cluster or ignore if not using object storage.",
+                  "severity": "Warning",
+                  "updatedTimeStamp": "2025-07-11T07:03:12.028Z",
+                  "applianceName": "testAppliance"
+                }
+              ],
+              "tags": {
+                "env": "prod"
+              }
+            },
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.ApplicationMigration/StorageSites/testSite/nas/0cefacb4-0dc9-11f1-893c-000c295e7492",
+            "name": "0cefacb4-0dc9-11f1-893c-000c295e7492",
+            "type": "Microsoft.ApplicationMigration/StorageSites/nas",
+            "systemData": {
+              "createdBy": "user@example.com",
+              "createdByType": "User",
+              "createdAt": "2025-07-11T07:03:07.083Z",
+              "lastModifiedBy": "user@example.com",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2025-07-11T07:03:07.084Z"
+            }
+          }
+        ],
+        "nextLink": "https://microsoft.com/a"
+      }
+    }
+  }
+}
