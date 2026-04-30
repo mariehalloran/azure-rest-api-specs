@@ -18531,6 +18531,67 @@
         "vlanId": {
           "type": "string",
           "description": "VLAN ID for the network setup."
+        },
+        "interfaceDescription": {
+          "type": "string",
+          "description": "Interface description of NIC."
+        },
+        "componentId": {
+          "type": "string",
+          "description": "Component ID of NIC."
+        },
+        "driverVersion": {
+          "type": "string",
+          "description": "Driver version of NIC."
+        },
+        "defaultIsolationId": {
+          "type": "string",
+          "description": "Default isolation of management NIC."
+        },
+        "slot": {
+          "type": "string",
+          "description": "The slot attached to the NIC."
+        },
+        "switchName": {
+          "type": "string",
+          "description": "The switch attached to the NIC, if any."
+        },
+        "interfaceType": {
+          "$ref": "#/definitions/NetworkInterfaceType",
+          "description": "Type of network interface."
+        },
+        "interfaceSpeed": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Interface speed in Mbps."
+        },
+        "interfaceState": {
+          "$ref": "#/definitions/InterfaceState",
+          "description": "Current state of the interface."
+        },
+        "nicType": {
+          "type": "string",
+          "description": "The type of NIC (physical, virtual, management)."
+        },
+        "nicStatus": {
+          "type": "string",
+          "description": "The status of NIC (up, disconnected)."
+        },
+        "managementInterface": {
+          "type": "boolean",
+          "description": "Indicates if this is a management interface."
+        },
+        "rdmaCapability": {
+          "$ref": "#/definitions/RdmaCapability",
+          "description": "RDMA capability of the network adapter."
+        },
+        "networkAdapterStatus": {
+          "$ref": "#/definitions/NetworkAdapterStatus",
+          "description": "The observed state of network adapter."
+        },
+        "wifiConfiguration": {
+          "$ref": "#/definitions/WifiConfigurationReportedProperties",
+          "description": "WiFi configuration properties."
         }
       },
       "required": [
@@ -20786,6 +20847,20 @@
           "$ref": "#/definitions/EceActionStatus",
           "description": "Deployment status of job.",
           "readOnly": true
+        }
+      }
+    },
+    "ProvisionOsVolumeConfiguration": {
+      "type": "object",
+      "description": "Volume configuration for device provisioning.",
+      "properties": {
+        "configuration": {
+          "type": "array",
+          "description": "List of volume details.",
+          "items": {
+            "$ref": "#/definitions/VolumeDetails"
+          },
+          "x-ms-identifiers": []
         }
       }
     },
@@ -23052,6 +23127,10 @@
         "storage": {
           "$ref": "#/definitions/StorageConfiguration",
           "description": "Storage configuration."
+        },
+        "volume": {
+          "$ref": "#/definitions/ProvisionOsVolumeConfiguration",
+          "description": "Volume configuration."
         }
       }
     },
@@ -24049,6 +24128,32 @@
         "reserved": {
           "type": "string",
           "description": "Reserved for future volume configuration options."
+        }
+      }
+    },
+    "VolumeDetails": {
+      "type": "object",
+      "description": "Details of a volume to be configured on the device.",
+      "properties": {
+        "sizeInBytes": {
+          "type": "string",
+          "description": "Size of the volume in bytes."
+        },
+        "path": {
+          "type": "string",
+          "description": "Mount path for the volume."
+        },
+        "fileSystem": {
+          "$ref": "#/definitions/DiskFileSystemType",
+          "description": "File system type to format the volume with."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the volume."
+        },
+        "diskName": {
+          "type": "string",
+          "description": "Name of the disk on which the volume resides."
         }
       }
     },
