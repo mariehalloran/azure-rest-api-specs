@@ -27,7 +27,7 @@ These are the global settings for the awsconnector.
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2025-12-01-preview
+tag: package-2026-05-31-preview
 ```
 
 ### Tag: package-2023-12-01-preview
@@ -376,6 +376,138 @@ input-file:
   - Microsoft.AwsConnector/stable/2024-12-01/wafWebACLSummary.json
 ```
 
+### Tag: package-2026-05-31-preview
+
+These settings apply only when `--tag=package-2026-05-31-preview` is specified on the command line.
+
+``` yaml $(tag) == 'package-2026-05-31-preview'
+input-file:
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/accessAnalyzerAnalyzer.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/acmCertificateSummary.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/apiGatewayRestApi.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/apiGatewayStage.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/appSyncGraphqlApi.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/autoScalingAutoScalingGroup.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/bedrockAgent.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/bedrockAgentAlias.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/bedrockApplicationInferenceProfile.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/bedrockBlueprint.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/bedrockDataAutomationProject.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/bedrockDataSource.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/bedrockFlow.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/bedrockFlowAlias.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/bedrockGuardrail.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/bedrockKnowledgeBase.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/bedrockPrompt.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/cloudFormationStack.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/cloudFormationStackSet.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/cloudFrontDistribution.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/cloudTrailTrail.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/cloudWatchAlarm.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/codeBuildProject.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/codeBuildSourceCredentialsInfo.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/configServiceConfigurationRecorder.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/configServiceConfigurationRecorderStatus.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/configServiceDeliveryChannel.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/databaseMigrationServiceReplicationInstance.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/daxCluster.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/dynamoDBContinuousBackupsDescription.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/dynamoDBTable.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2AccountAttribute.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2Address.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2FlowLog.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2Image.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2Instance.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2InstanceStatus.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2Ipam.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2KeyPair.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2NetworkAcl.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2NetworkInterface.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2RouteTable.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2SecurityGroup.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2Snapshot.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2Subnet.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2Volume.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2Vpc.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2VPCEndpoint.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ec2VPCPeeringConnection.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ecrImageDetail.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ecrRepository.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ecsCluster.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ecsService.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ecsTaskDefinition.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/efsFileSystem.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/efsMountTarget.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/eksCluster.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/eksNodegroup.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/elasticBeanstalkApplication.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/elasticBeanstalkConfigurationTemplate.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/elasticBeanstalkEnvironment.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/elasticLoadBalancingV2Listener.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/elasticLoadBalancingV2LoadBalancer.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/elasticLoadBalancingV2TargetGroup.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/elasticLoadBalancingV2TargetHealthDescription.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/emrCluster.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/guardDutyDetector.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/iamAccessKeyLastUsed.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/iamAccessKeyMetadata.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/iamGroup.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/iamInstanceProfile.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/iamMFADevice.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/iamPasswordPolicy.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/iamPolicyVersion.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/iamRole.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/iamServerCertificate.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/iamVirtualMFADevice.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/kmsAlias.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/kmsKey.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/lambdaFunction.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/lambdaFunctionCodeLocation.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/lightsailBucket.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/lightsailInstance.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/logsLogGroup.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/logsLogStream.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/logsMetricFilter.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/logsSubscriptionFilter.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/macie2JobSummary.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/macieAllowList.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/networkFirewallFirewall.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/networkFirewallFirewallPolicy.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/networkFirewallRuleGroup.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/openSearchDomainStatus.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/operations.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/organizationsAccount.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/organizationsOrganization.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/rdsDBCluster.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/rdsDBInstance.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/rdsDBSnapshot.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/rdsDBSnapshotAttributesResult.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/rdsEventSubscription.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/rdsExportTask.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/redshiftCluster.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/redshiftClusterParameterGroup.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/route53DomainsDomainSummary.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/route53HostedZone.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/route53ResourceRecordSet.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/s3AccessControlPolicy.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/s3AccessPoint.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/s3Bucket.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/s3BucketPolicy.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/s3ControlMultiRegionAccessPointPolicyDocument.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/sageMakerApp.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/sageMakerNotebookInstanceSummary.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/secretsManagerResourcePolicy.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/secretsManagerSecret.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/snsSubscription.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/snsTopic.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/sqsQueue.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ssmInstanceInformation.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ssmParameter.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/ssmResourceComplianceSummaryItem.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/wafv2LoggingConfiguration.json
+  - Microsoft.AwsConnector/preview/2026-05-31-preview/wafWebACLSummary.json
+```
+
 ## Suppression
 
 ``` yaml
@@ -398,6 +530,10 @@ directive:
     from:
       - ec2Instance.json
       - eksCluster.json
+  - suppress: XMSSecretInResponse
+    reason: rolesKey and subjectKey are claim attribute names (e.g. "GroupId", "Email"), not secret credentials. The property names contain "Key" which triggers a false positive.
+    from:
+      - openSearchDomainStatus.json
      
 ```
 
