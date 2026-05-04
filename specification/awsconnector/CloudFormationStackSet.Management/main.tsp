@@ -26,7 +26,10 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2024-12-01 api version */
-  `2024-12-01`,
+  v2024_12_01: "2024-12-01",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 //---------------------------------------------- CloudFormationStackSets ----------------------------------------------
@@ -116,6 +119,7 @@ model AwsCloudFormationStackSetProperties {
   templateBody?: string;
 
   @doc("Location of file containing the template body. The URL must point to a template (max size: 460,800 bytes) that is located in an Amazon S3 bucket.")
+  @clientName("templateUrl", "java")
   templateURL?: string;
 }
 
