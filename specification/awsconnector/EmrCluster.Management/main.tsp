@@ -11,6 +11,7 @@ import "../shared/main.tsp";
 using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
+using Azure.ClientGenerator.Core;
 using Azure.ResourceManager;
 using Azure.Portal;
 
@@ -25,7 +26,10 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2024-12-01 api version */
-  `2024-12-01`,
+  v2024_12_01: "2024-12-01",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 //---------------------------------------------- EmrClusters ----------------------------------------------
@@ -474,6 +478,8 @@ model ClusterStateEnumValue {
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Supress arm-no-record to handle the datatype object used in aws"
 #suppress "@azure-tools/typespec-client-generator-core/property-name-conflict" "AWSConnector will not generate SDK. So, supressing this error"
 @doc("Definition of ErrorDetail")
+@clientName("EmrClusterErrorDetail", "python")
+@clientName("EmrClusterErrorDetail", "java")
 model ErrorDetail {
   @doc("<p>The name or code associated with the error.</p>")
   errorCode?: string;
