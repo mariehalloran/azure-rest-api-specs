@@ -1,0 +1,91 @@
+{
+  "title": "GuardDutyDetectors_Update_MaximumSet",
+  "operationId": "GuardDutyDetectors_Update",
+  "parameters": {
+    "api-version": "2026-05-31-preview",
+    "subscriptionId": "9F0E1FD8-FB5E-43C5-A28F-92F874FCA2FE",
+    "resourceGroupName": "rgguardDutyDetector",
+    "name": "Replace this value with a string matching RegExp ^(z=.{0,259}[^zs.]$)(z!.*[zzzzzzzz])",
+    "properties": {
+      "tags": {
+        "key1602": "vcrurxffbioyajgkilwfwtn"
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "awsProperties": {
+            "dataSources": {
+              "kubernetes": {
+                "auditLogs": {
+                  "enable": true
+                }
+              },
+              "malwareProtection": {
+                "scanEc2InstanceWithFindings": {
+                  "ebsVolumes": true
+                }
+              },
+              "s3Logs": {
+                "enable": true
+              }
+            },
+            "enable": true,
+            "features": [
+              {
+                "additionalConfiguration": [
+                  {
+                    "name": "acnmxjvmrnctikymburdf",
+                    "status": "rwysjpujuibhfdphmvphkmtdr"
+                  }
+                ],
+                "name": "hru",
+                "status": "DISABLED"
+              }
+            ],
+            "findingPublishingFrequency": "gxaqupexy",
+            "id": "ypkilemljvjynuxyzw",
+            "tags": [
+              {
+                "key": "jlhyv",
+                "value": "wqrbsztgvitbud"
+              }
+            ]
+          },
+          "publicCloudConnectorsResourceId": "lneztozoxhhkkkz",
+          "awsAccountId": "lxglniebghdj",
+          "arn": "vdgxasccdlnfafuykaedol",
+          "publicCloudResourceName": "gmsitmgtzgo",
+          "awsSourceSchema": "rorpapxwgopypnwrmegzy",
+          "awsRegion": "anxkadmrtawsdrgulubss",
+          "awsTags": {
+            "key8832": "wiiklnzg"
+          },
+          "provisioningState": "Succeeded"
+        },
+        "tags": {
+          "key9393": "pxynjbj"
+        },
+        "location": "waohtizkqnnvpxyixzsviq",
+        "id": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AwsConnector/GuardDutyDetectors/{resourceName}",
+        "name": "uxd",
+        "type": "nu",
+        "systemData": {
+          "createdBy": "hovbagomcuabj",
+          "createdByType": "User",
+          "createdAt": "2026-04-10T01:00:59.738Z",
+          "lastModifiedBy": "tvvpywausmszkkjn",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-04-10T01:00:59.739Z"
+        }
+      }
+    },
+    "202": {
+      "headers": {
+        "location": "https://contoso.com/operationstatus"
+      }
+    }
+  }
+}
