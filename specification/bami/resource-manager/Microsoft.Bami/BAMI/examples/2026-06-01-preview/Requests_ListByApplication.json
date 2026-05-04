@@ -1,0 +1,68 @@
+{
+  "operationId": "AutomationRequests_List",
+  "title": "List Requests By Application Entitlement",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "api-version": "2026-06-01-preview",
+    "applicationEntitlementId": "cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Bami/applicationEntitlements/cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa/requests/3f9c2e7a-8b4d-4f6a-9c1e-7d5a2b9e4c81",
+            "name": "3f9c2e7a-8b4d-4f6a-9c1e-7d5a2b9e4c81",
+            "type": "Microsoft.Bami/applicationEntitlements/requests",
+            "location": "centralus",
+            "properties": {
+              "requestStatus": "Completed",
+              "requestType": "Account",
+              "accountType": "FieldLed",
+              "estimatedMonthlySpend": 500.0,
+              "businessJustification": "Test billing account for integration testing.",
+              "serviceName": "Contoso Service",
+              "createdDate": "2026-03-06T12:00:00Z",
+              "lastModifiedDate": "2026-03-06T14:30:00Z",
+              "result": {
+                "organizationInfo": {
+                  "displayName": "Contoso Test Org",
+                  "domainName": "contosotestorg.onmicrosoft.com"
+                },
+                "tenantId": "22222222-2222-2222-2222-222222222222",
+                "objectId": "33333333-3333-3333-3333-333333333333",
+                "fulfillmentDetail": {
+                  "accountId": "cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa",
+                  "organizationId": "dddddddd-eeee-ffff-aaaa-bbbbbbbbbbbb",
+                  "billingAccountId": "cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa:dddddddd-eeee-ffff-aaaa-bbbbbbbbbbbb",
+                  "billingProfileId": "eeeeeeee-ffff-aaaa-bbbb-cccccccccccc",
+                  "invoiceSectionId": "ffffffff-aaaa-bbbb-cccc-dddddddddddd"
+                }
+              },
+              "context": {}
+            }
+          },
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Bami/applicationEntitlements/cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa/requests/bbbbbbbb-cccc-dddd-eeee-ffffffffffff",
+            "name": "bbbbbbbb-cccc-dddd-eeee-ffffffffffff",
+            "type": "Microsoft.Bami/applicationEntitlements/requests",
+            "location": "centralus",
+            "properties": {
+              "requestStatus": "InProgress",
+              "requestType": "Tenant",
+              "estimatedMonthlySpend": 500.0,
+              "businessJustification": "Tenant for QA workload.",
+              "serviceName": "Contoso Service",
+              "createdDate": "2026-03-05T10:00:00Z",
+              "lastModifiedDate": "2026-03-05T10:15:00Z",
+              "result": null,
+              "context": {}
+            }
+          }
+        ],
+        "nextLink": null
+      }
+    }
+  }
+}

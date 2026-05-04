@@ -38,4 +38,10 @@ interface ClusterVolumes {
 
   /** List all volumes on a Cluster. */
   list is ArmResourceListByParent<ClusterVolume>;
+
+  /** Create or update a volume on a Cluster. */
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<ClusterVolume>;
+
+  /** Delete a volume from a Cluster. */
+  delete is ArmResourceDeleteWithoutOkAsync<ClusterVolume>;
 }

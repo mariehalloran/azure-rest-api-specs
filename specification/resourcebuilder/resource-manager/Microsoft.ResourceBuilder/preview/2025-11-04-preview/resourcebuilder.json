@@ -2482,10 +2482,6 @@
           "type": "string",
           "description": "Retention window to evict latest records. Used by Batch jobs."
         },
-        "blobPartitionPath": {
-          "type": "string",
-          "description": "Path to the blob partition used for data ingestion. Required for AzureStorageAccountIngestion jobs."
-        },
         "timeOffset": {
           "type": "string",
           "description": "Time offset between DateTime.UtcNow and the timestamp of the blob available in source, used for the blob partition path. Used by AzureStorageAccountIngestion jobs. Defaults to 00:00:00."
