@@ -11,3 +11,16 @@
     - ApplicationMigration.Management/ApplicationDiscovery.Management/tspconfig.yaml
     - ApplicationMigration.Management/WorkloadsDiscovery.Management/tspconfig.yaml
     - ApplicationMigration.Management/Network.Management/tspconfig.yaml
+
+- tool: LintDiff
+  reason: >
+    The triggerRefresh action on NetworkAgent uses the same pattern as the
+    existing PGSQL Agent, MongoDB MongoAgent, Oracle OracleAgent, and Storage
+    Agent — all use ArmResourceActionNoResponseContentAsync<T, void> and emit
+    `202 + default`. This is consistent across every workload agent in
+    Microsoft.ApplicationMigration. The LintDiff PostResponseCodes rule
+    flags new additions only; the sibling RPs were merged before this rule
+    was tightened.
+  rules: [PostResponseCodes]
+  paths:
+    - Microsoft.ApplicationMigration/Network/preview/2026-01-01-preview/NetworkDiscovery.json
