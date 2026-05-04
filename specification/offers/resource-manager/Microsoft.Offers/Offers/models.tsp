@@ -7,7 +7,7 @@ using TypeSpec.Http;
 using Azure.Core;
 using Azure.ResourceManager;
 
-namespace Microsoft.Commerce;
+namespace Microsoft.Offers;
 
 /**
  * Ownership classification of a product. Indicates whether the product is

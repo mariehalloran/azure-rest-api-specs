@@ -12,13 +12,13 @@ using TypeSpec.Versioning;
 using Azure.Core;
 using Azure.ResourceManager;
 
-/** Microsoft.Commerce OfferCatalog Resource Provider management API. */
-@armProviderNamespace("Microsoft.Commerce")
-@service(#{ title: "Microsoft Commerce Offer Catalog" })
-@versioned(Microsoft.Commerce.Versions)
-namespace Microsoft.Commerce;
+/** Microsoft.Offers Resource Provider management API. */
+@armProviderNamespace("Microsoft.Offers")
+@service(#{ title: "Microsoft Offers" })
+@versioned(Microsoft.Offers.Versions)
+namespace Microsoft.Offers;
 
-/** The available API versions for the Offer Catalog service. */
+/** The available API versions for the Offers service. */
 enum Versions {
   /** The 2026-04-24-preview API version. */
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
@@ -26,5 +26,5 @@ enum Versions {
   v2026_04_24_preview: "2026-04-24-preview",
 }
 
-/** The operations supported by the Microsoft.Commerce resource provider for the Offer Catalog service. */
+/** The operations supported by the Microsoft.Offers resource provider. */
 interface Operations extends Azure.ResourceManager.Operations {}

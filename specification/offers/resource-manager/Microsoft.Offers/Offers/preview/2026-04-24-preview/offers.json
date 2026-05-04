@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Microsoft Commerce Offer Catalog",
+    "title": "Microsoft Offers",
     "version": "2026-04-24-preview",
-    "description": "Microsoft.Commerce OfferCatalog Resource Provider management API.",
+    "description": "Microsoft.Offers Resource Provider management API.",
     "x-typespec-generated": [
       {
         "emitter": "@azure-tools/typespec-autorest"
@@ -47,7 +47,7 @@
     }
   ],
   "paths": {
-    "/providers/Microsoft.Commerce/operations": {
+    "/providers/Microsoft.Offers/operations": {
       "get": {
         "operationId": "Operations_List",
         "tags": [
@@ -74,7 +74,7 @@
           }
         },
         "x-ms-examples": {
-          "List all operations supported by Microsoft.Commerce/OfferCatalog": {
+          "List all operations supported by Microsoft.Offers": {
             "$ref": "./examples/Operations_List.json"
           }
         },
@@ -83,7 +83,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Commerce/upns": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/upns": {
       "get": {
         "operationId": "Upns_ListBySubscription",
         "tags": [
@@ -122,7 +122,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Commerce/upns/{upnGuid}": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/upns/{upnGuid}": {
       "get": {
         "operationId": "Upns_Get",
         "tags": [
@@ -253,7 +253,7 @@
     },
     "Upn": {
       "type": "object",
-      "description": "UPN (Unified Product Node) resource.\n\nA UPN is a subscription-scoped, read-only proxy resource that\nrepresents one transactable value-exchange in the Microsoft commercial\ncatalog. It is addressed at\n`/subscriptions/{subscriptionId}/providers/Microsoft.Commerce/upns/{upnGuid}`.",
+      "description": "UPN (Unified Product Node) resource.\n\nA UPN is a subscription-scoped, read-only proxy resource that\nrepresents one transactable value-exchange in the Microsoft commercial\ncatalog. It is addressed at\n`/subscriptions/{subscriptionId}/providers/Microsoft.Offers/upns/{upnGuid}`.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/UpnProperties",

@@ -1,36 +1,36 @@
 parameters:
   "service-dir":
-    default: "sdk/offercatalog"
+    default: "sdk/offers"
 emit:
   - "@azure-tools/typespec-autorest"
 options:
   "@azure-tools/typespec-autorest":
     emitter-output-dir: "{project-root}"
-    output-file: "{version-status}/{version}/offerCatalog.json"
+    output-file: "{version-status}/{version}/offers.json"
     examples-dir: "{project-root}/examples"
     arm-types-dir: "{project-root}/../../../../common-types/resource-management"
     use-read-only-status-schema: true
   "@azure-tools/typespec-python":
-    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-offercatalog"
-    namespace: "azure.mgmt.offercatalog"
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-offers"
+    namespace: "azure.mgmt.offers"
     generate-test: true
     generate-sample: true
     flavor: "azure"
   "@azure-tools/typespec-java":
-    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-offercatalog"
-    namespace: "com.azure.resourcemanager.offercatalog"
-    service-name: "Offer Catalog"
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-offers"
+    namespace: "com.azure.resourcemanager.offers"
+    service-name: "Offers"
     flavor: "azure"
   "@azure-tools/typespec-ts":
-    emitter-output-dir: "{output-dir}/{service-dir}/arm-offercatalog"
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-offers"
     flavor: "azure"
     experimental-extensible-enums: true
     package-details:
-      name: "@azure/arm-offercatalog"
+      name: "@azure/arm-offers"
   "@azure-tools/typespec-go":
-    service-dir: "sdk/resourcemanager/offercatalog"
-    emitter-output-dir: "{output-dir}/{service-dir}/armoffercatalog"
-    module: "github.com/Azure/azure-sdk-for-go/{service-dir}/armoffercatalog"
+    service-dir: "sdk/resourcemanager/offers"
+    emitter-output-dir: "{output-dir}/{service-dir}/armoffers"
+    module: "github.com/Azure/azure-sdk-for-go/{service-dir}/armoffers"
     fix-const-stuttering: true
     flavor: "azure"
     generate-samples: true
@@ -38,7 +38,7 @@ options:
     head-as-boolean: true
     inject-spans: true
   "@azure-typespec/http-client-csharp-mgmt":
-    namespace: "Azure.ResourceManager.OfferCatalog"
+    namespace: "Azure.ResourceManager.Offers"
     emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
 linter:
   extends:

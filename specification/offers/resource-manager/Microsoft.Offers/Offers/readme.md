@@ -1,14 +1,14 @@
-# Microsoft.Commerce OfferCatalog
+# Microsoft.Offers
 
 > see https://aka.ms/autorest
 
-This is the AutoRest configuration file for the Microsoft.Commerce Offer Catalog service.
+This is the AutoRest configuration file for the Microsoft.Offers service.
 
 ---
 
 ## Getting Started
 
-To build the SDK for Microsoft.Commerce Offer Catalog, simply [Install AutoRest](https://aka.ms/autorest) and in this folder, run:
+To build the SDK for Microsoft.Offers, simply [Install AutoRest](https://aka.ms/autorest) and in this folder, run:
 
 > `autorest`
 
@@ -18,7 +18,7 @@ To build the SDK for Microsoft.Commerce Offer Catalog, simply [Install AutoRest]
 
 ### Basic Information
 
-These are the global settings for the Offer Catalog API.
+These are the global settings for the Offers API.
 
 ```yaml
 openapi-type: arm
@@ -31,11 +31,11 @@ These settings apply only when `--tag=package-2026-04-24-preview` is specified o
 
 ```yaml $(tag) == 'package-2026-04-24-preview'
 input-file:
-  - preview/2026-04-24-preview/offerCatalog.json
+  - preview/2026-04-24-preview/offers.json
 suppressions:
   - code: AvoidAdditionalProperties
     from:
-      - offerCatalog.json
+      - offers.json
     where:
       - $.definitions.ProductSummary.properties.discoveryTags
     reason: >
