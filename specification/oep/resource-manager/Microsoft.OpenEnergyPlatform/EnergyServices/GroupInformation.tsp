@@ -26,7 +26,7 @@ model GroupInformation
 }
 
 @armResourceOperations
-interface GroupInformations {
+interface PrivateLinkResources {
   /**
    * Get the specified private link resource associated with the OAK instance.
    */

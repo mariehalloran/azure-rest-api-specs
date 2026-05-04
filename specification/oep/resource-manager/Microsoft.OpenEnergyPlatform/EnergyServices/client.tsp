@@ -10,7 +10,4 @@ using Microsoft.OpenEnergyPlatform;
   "userAssignedIdentity"
 );
 
-@@clientLocation(GroupInformations.get, "PrivateLinkResources");
-@@clientLocation(GroupInformations.listByOAKInstance, "PrivateLinkResources");
-
 @@clientLocation(LocationsOperationGroup.checkNameAvailability, "Locations");
