@@ -27,19 +27,16 @@ model PrivateEndpointConnectionProxy
   /**
    * ETag from NRP.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Existing API contract exposes this property at the envelope level; preserved for backward compatibility."
   eTag?: string;
 
   /**
    * Remote private endpoint details.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Existing API contract exposes this property at the envelope level; preserved for backward compatibility."
   remotePrivateEndpoint?: RemotePrivateEndpoint;
 
   /**
    * Operation status.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Existing API contract exposes this property at the envelope level; preserved for backward compatibility."
   status?: string;
 }
 
@@ -53,12 +50,14 @@ interface PrivateEndpointConnectionProxies {
   /**
    * (INTERNAL - DO NOT USE) Creates or updates the specified private endpoint connection proxy resource associated with the OAK instance.
    */
-  createOrUpdate is ArmResourceCreateOrReplaceAsync<PrivateEndpointConnectionProxy>;
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<
+    PrivateEndpointConnectionProxy,
+    Response = ArmResourceCreatedResponse<PrivateEndpointConnectionProxy>
+  >;
 
   /**
    * (INTERNAL - DO NOT USE) Deletes the specified private endpoint connection proxy associated with the OAK Instance.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "Existing API contract returns 200, 202, and 204; preserved for backward compatibility."
   delete is ArmResourceDeleteWithoutOkAsync<
     PrivateEndpointConnectionProxy,
     Response = ArmDeletedResponse | ArmDeleteAcceptedLroResponse | ArmDeletedNoContentResponse
@@ -67,7 +66,6 @@ interface PrivateEndpointConnectionProxies {
   /**
    * (INTERNAL - DO NOT USE) List all private endpoint connection proxies in a OAK instance.
    */
-  #suppress "@azure-tools/typespec-azure-core/casing-style" "OAK is an established acronym in this service's API surface."
   listByOAKInstance is ArmResourceListByParent<PrivateEndpointConnectionProxy>;
 
   /**

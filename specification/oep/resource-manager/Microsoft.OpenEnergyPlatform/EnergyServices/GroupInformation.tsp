@@ -26,7 +26,7 @@ model GroupInformation
 }
 
 @armResourceOperations
-interface PrivateLinkResources {
+interface GroupInformations {
   /**
    * Get the specified private link resource associated with the OAK instance.
    */
@@ -38,7 +38,6 @@ interface PrivateLinkResources {
    * List all private link resources in a OAK instance.
    */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "non-standard operations"
-  #suppress "@azure-tools/typespec-azure-core/casing-style" "OAK is an established acronym in this service's API surface."
   @operationId("PrivateLinkResources_ListByOAKInstance")
   listByOAKInstance is ArmResourceListByParent<GroupInformation>;
 }
