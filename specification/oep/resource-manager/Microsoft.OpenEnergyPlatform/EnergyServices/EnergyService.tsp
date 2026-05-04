@@ -39,11 +39,13 @@ interface EnergyServices {
   /**
    * Updates the oep resource.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/no-response-body" "Existing API contract returns body in 202 LRO response."
+  #suppress "@azure-tools/typespec-azure-resource-manager/lro-location-header" "Existing API uses Azure-AsyncOperation header (no Location)."
   @patch(#{ implicitOptionality: false })
   update is Azure.ResourceManager.Legacy.CustomPatchAsync<
     EnergyService,
     PatchModel = EnergyResourceUpdate,
-    Response = ArmResponse<EnergyService> | (ArmAcceptedLroResponse<ArmAsyncOperationHeader<FinalResult = EnergyService> &
+    Response = ArmResponse<EnergyService> | (ArmAcceptedLroResponse<LroHeaders = ArmAsyncOperationHeader<FinalResult = EnergyService> &
       Azure.Core.Foundations.RetryAfterHeader> & {
       @bodyRoot
       _: EnergyService;
@@ -54,6 +56,7 @@ interface EnergyServices {
   /**
    * Deletes oep resource
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "Existing API contract returns 200, 202, and 204; preserved for backward compatibility."
   delete is ArmResourceDeleteWithoutOkAsync<
     EnergyService,
     Response = ArmDeletedResponse | ArmDeleteAcceptedLroResponse | ArmDeletedNoContentResponse
@@ -78,6 +81,7 @@ interface EnergyServices {
   /**
    * Method that gets called if new partition is to be added in a resource.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/no-response-body" "Existing API contract returns body in 202 LRO response."
   addPartition is ArmResourceActionAsyncBase<
     EnergyService,
     DataPartitionAddOrRemoveRequest,
@@ -92,6 +96,7 @@ interface EnergyServices {
   /**
    * Method that gets called if new partition is to be removed from a resource.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/no-response-body" "Existing API contract returns body in 202 LRO response."
   removePartition is ArmResourceActionAsyncBase<
     EnergyService,
     DataPartitionAddOrRemoveRequest,

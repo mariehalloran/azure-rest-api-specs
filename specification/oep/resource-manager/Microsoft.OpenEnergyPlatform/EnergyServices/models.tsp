@@ -27,6 +27,9 @@ union CheckNameAvailabilityReason {
   AlreadyExists: "AlreadyExists",
 }
 
+/**
+ * The current provisioning state.
+ */
 union ProvisioningState {
   string,
 
@@ -122,6 +125,9 @@ union CreatedByType {
   Key: "Key",
 }
 
+/**
+ * Allowed HTTP methods.
+ */
 union AllowedMethods {
   string,
 
@@ -306,6 +312,7 @@ union GroupIdProvisioningState {
 /**
  * The current provisioning state.
  */
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Existing API surface; adding Canceled would change the documented enum values."
 union PrivateEndpointConnectionProxyProvisioningState {
   string,
 
@@ -384,22 +391,25 @@ union PackageState {
 /**
  * The type of identity used for accessing the keyvault. Possible values include: 'SystemAssigned', 'UserAssigned'
  */
-enum IdentityType {
+union IdentityType {
+  string,
+
   /**
    * Use an implicitly created system assigned managed identity to access the specified key vault.
    */
-  SystemAssigned,
+  SystemAssigned: "SystemAssigned",
 
   /**
    * Use a user-specified identity to access the specified key vault.
    */
-  UserAssigned,
+  UserAssigned: "UserAssigned",
 }
 
 /**
  * Maximum autoscale capacity limit for the energy service. Must be a power of 2 between 1 and 256 (applicable for Flex SKU).
  */
-enum AutoScaleMaxCapacity {
+union AutoScaleMaxCapacity {
+  int32,
   /**
    * 1 capacity unit
    */
@@ -455,14 +465,26 @@ model EnergyServiceList is Azure.Core.Page<EnergyService>;
  * The properties of an Energy service resource.
  */
 model EnergyServiceProperties {
+  /**
+   * The DNS name of the resource.
+   */
   @visibility(Lifecycle.Read)
   dnsName?: string;
 
+  /**
+   * The provisioning state of the resource.
+   */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
 
+  /**
+   * The auth application ID for the resource.
+   */
   authAppId?: string;
 
+  /**
+   * List of data partition names associated with this resource.
+   */
   @identifiers(#[])
   dataPartitionNames?: DataPartitionNames[];
 
@@ -533,6 +555,9 @@ model EnergyServiceProperties {
  * The list of Energy services resource's Data Partition Names.
  */
 model DataPartitionNames {
+  /**
+   * Name of the data partition.
+   */
   name?: string;
 }
 
@@ -700,6 +725,7 @@ model EnergyResourceUpdate {
   /**
    * Resource tags.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Standard ARM tags shape is Record<string>."
   tags?: Record<string>;
 
   /**
@@ -779,26 +805,25 @@ model PrivateEndpointConnectionProxyProperties {
   /**
    * The provisioning state of the private endpoint connection proxy resource.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Existing API contract; cannot change visibility without affecting clients."
   provisioningState?: PrivateEndpointConnectionProxyProvisioningState;
-}
 
-/**
- * Private endpoint connection proxy object properties.
- */
-model PrivateEndpointConnectionProxyProperties {
   /**
    * ETag from NRP.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-duplicate-property" "Existing wire shape duplicates these fields in envelope and properties; preserved for backward compatibility."
   eTag?: string;
 
   /**
    * Remote private endpoint details.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-duplicate-property" "Existing wire shape duplicates these fields in envelope and properties; preserved for backward compatibility."
   remotePrivateEndpoint?: RemotePrivateEndpoint;
 
   /**
    * Operation status.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-duplicate-property" "Existing wire shape duplicates these fields in envelope and properties; preserved for backward compatibility."
   status?: string;
 }
 
@@ -904,6 +929,7 @@ model PrivateLinkServiceProxy {
  * Remote private endpoint connection details.
  */
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "For backward compatibility"
+#suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model" "Existing model is an empty extension preserved for backward compatibility."
 model PrivateLinkServiceProxyRemotePrivateEndpointConnection
   extends RemotePrivateEndpointConnection {}
 
@@ -1015,6 +1041,9 @@ model OperationDisplay {
  * List of data partitions
  */
 model DataPartitionsList {
+  /**
+   * The list of data partition names.
+   */
   @identifiers(#[])
   dataPartitionNames?: DataPartitionNames[];
 }
