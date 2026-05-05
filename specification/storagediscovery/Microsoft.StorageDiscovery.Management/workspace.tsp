@@ -18,29 +18,13 @@ namespace Microsoft.StorageDiscovery;
  * Storage Discovery Workspace Properties
  */
 model StorageDiscoveryWorkspaceProperties {
-  @doc("The storage discovery sku.")
-  @renamedFrom(ApiVersion.v2025_06_01_preview, "tier")
-  @removed(ApiVersion.v2025_06_01_preview)
-  oldsku: StorageDiscoverySku;
-
   @doc("The storage discovery sku")
-  @added(ApiVersion.v2025_06_01_preview)
   sku?: StorageDiscoverySku = StorageDiscoverySku.Standard;
-
-  @doc("The state of storage discovery data export")
-  @madeOptional(ApiVersion.v2025_06_01_preview)
-  @removed(ApiVersion.v2025_06_01_preview)
-  exportState?: DataExportState;
 
   @doc("The description of the storage discovery workspace")
   description?: string;
 
-  @doc("The capabilities configured for the storage discovery workspace.")
-  @added(ApiVersion.v2026_07_01_preview)
-  capabilities?: StorageDiscoveryCapabilities;
-
   @doc("The view level storage discovery data estate")
-  @added(ApiVersion.v2025_06_01_preview)
   workspaceRoots: Azure.Core.armResourceIdentifier<[
     {
       type: "Microsoft.Storage/storageAccounts";
@@ -48,21 +32,9 @@ model StorageDiscoveryWorkspaceProperties {
     }
   ]>[];
 
-  @doc("The scope of the storage discovery workspace.")
-  @identifiers(#["displayName"])
-  @removed(ApiVersion.v2025_06_01_preview)
-  @renamedFrom(ApiVersion.v2025_06_01_preview, "scopes")
-  oldScopes: StorageDiscoveryScopeV1[];
-
   @doc("The scopes of the storage discovery workspace.")
   @identifiers(#["displayName"])
-  @added(ApiVersion.v2025_06_01_preview)
   scopes: StorageDiscoveryScope[];
-
-  @doc("The destinations to which the storage workspace sends data")
-  @madeOptional(ApiVersion.v2025_06_01_preview)
-  @removed(ApiVersion.v2025_06_01_preview)
-  destinations?: StorageDiscoveryDestination;
 
   @visibility(Lifecycle.Read)
   @doc("The status of the last operation.")
@@ -70,50 +42,21 @@ model StorageDiscoveryWorkspaceProperties {
 }
 
 /**
- * The state of storage discovery data export
- */
-@removed(ApiVersion.v2025_06_01_preview)
-union DataExportState {
-  @doc("Data export is stopped.")
-  Stopped: "Stopped",
-
-  @doc("Data export is running continuously")
-  Running: "Running",
-
-  string,
-}
-
-/**
  * Storage Discovery Sku
  */
-@renamedFrom(ApiVersion.v2025_06_01_preview, "StorageDiscoveryTier")
 union StorageDiscoverySku {
-  @doc("Basic Sku")
-  @removed(ApiVersion.v2025_06_01_preview)
-  Basic: "Basic",
-
   @doc("Standard Sku")
   Standard: "Standard",
 
   @doc("Free Sku")
-  @added(ApiVersion.v2025_06_01_preview)
   Free: "Free",
-
-  @doc("Premium Sku")
-  @removed(ApiVersion.v2025_06_01_preview)
-  Premium: "Premium",
 
   string,
 }
 
-@added(ApiVersion.v2025_06_01_preview)
 model StorageDiscoveryWorkspacePropertiesUpdate
-  is UpdateableProperties<OptionalProperties<OmitDefaults<OmitProperties<
-    StorageDiscoveryWorkspaceProperties,
-    "oldScopes"
-  >>>>;
+  is UpdateableProperties<OptionalProperties<OmitDefaults<StorageDiscoveryWorkspaceProperties>>>;
 
-@added(ApiVersion.v2025_06_01_preview)
 model StorageDiscoveryWorkspaceUpdate
   is UpdateableProperties<OptionalProperties<OmitDefaults<OmitProperties<
     StorageDiscoveryWorkspace,
@@ -124,32 +67,8 @@ model StorageDiscoveryWorkspaceUpdate
 }
 
 /**
- * Storage Discovery Scope V1
- */
-@removed(ApiVersion.v2025_06_01_preview)
-@renamedFrom(ApiVersion.v2025_06_01_preview, "StorageDiscoveryScope")
-model StorageDiscoveryScopeV1 {
-  @doc("Display name of the scope")
-  displayName: string;
-
-  @doc("Resource types for the scope")
-  resourceTypes: Azure.Core.armResourceIdentifier<[
-    {
-      type: "Microsoft.Storage/storageAccounts";
-    }
-  ]>[];
-
-  @doc("ARM scope URIs for the scope")
-  armScopes: string[];
-
-  @doc("Storage resource filters for the scope")
-  storageAccountFilters: StorageDiscoveryResourceFilter;
-}
-
-/**
  * Storage Discovery Scope. This had added validations
  */
-@added(ApiVersion.v2025_06_01_preview)
 model StorageDiscoveryScope {
   @doc("Display name of the collection")
   @pattern("^[a-zA-Z0-9]+([ -][a-zA-Z0-9]+)*$")
@@ -160,10 +79,6 @@ model StorageDiscoveryScope {
   @doc("Resource types for the collection")
   resourceTypes: StorageDiscoveryResourceType[];
 
-  @doc("Indicates whether the object metadata repository is enabled for this scope.")
-  @added(ApiVersion.v2026_07_01_preview)
-  objectMetadataRepositoryState?: ObjectMetadataRepositoryState;
-
   @doc("The storage account tags keys to filter")
   tagKeysOnly?: string[];
 
@@ -171,62 +86,8 @@ model StorageDiscoveryScope {
 }
 
 /**
- * The capabilities configured for a storage discovery workspace.
- */
-@added(ApiVersion.v2026_07_01_preview)
-model StorageDiscoveryCapabilities {
-  @doc("Configuration for the object metadata repository capability, which stores discovered object metadata in a customer-owned storage account container.")
-  objectMetadataRepository?: ObjectMetadataRepository;
-}
-
-/**
- * Configuration for an object metadata repository hosted in a customer-owned storage account container.
- */
-@added(ApiVersion.v2026_07_01_preview)
-model ObjectMetadataRepository {
-  @doc("The ARM resource ID of the storage account that hosts the object metadata repository.")
-  storageAccountResourceId?: Azure.Core.armResourceIdentifier<[
-    {
-      type: "Microsoft.Storage/storageAccounts";
-    }
-  ]>;
-
-  @doc("The name of the blob container in the storage account where object metadata is written.")
-  @minLength(3)
-  @maxLength(63)
-  @pattern("^[a-z0-9]([a-z0-9]|(-(?!-))){1,61}[a-z0-9]$")
-  containerName?: string;
-}
-
-/**
- * The enablement state of the object metadata repository on a storage discovery scope.
- */
-@added(ApiVersion.v2026_07_01_preview)
-union ObjectMetadataRepositoryState {
-  @doc("Object metadata repository is enabled for this scope.")
-  Enabled: "Enabled",
-
-  @doc("Object metadata repository is disabled for this scope.")
-  Disabled: "Disabled",
-
-  string,
-}
-
-/**
- * Storage resource filters for the scope
- */
-@removed(ApiVersion.v2025_06_01_preview)
-model StorageDiscoveryResourceFilter {
-  @doc("The storage account locations to filter")
-  locations: string[];
-
-  ...ArmTagsProperty;
-}
-
-/**
  * Storage Discovery Resource Type
  */
-@added(ApiVersion.v2025_06_01_preview)
 union StorageDiscoveryResourceType {
   @doc("Storage Account Resource Type")
   StorageAccounts: "Microsoft.Storage/storageAccounts",
@@ -234,34 +95,11 @@ union StorageDiscoveryResourceType {
   string,
 }
 
-/**
- * Destinations for storage discovery data
- */
-@removed(ApiVersion.v2025_06_01_preview)
-model StorageDiscoveryDestination {
-  @doc("The ADX destination sink for analytics data")
-  @renamedFrom(ApiVersion.v2025_06_01_preview, "storageAccountArmId")
-  storageAccountResourceId?: Azure.Core.armResourceIdentifier<[
-    {
-      type: "Microsoft.Storage/storageAccounts";
-    }
-  ]>;
-}
-
 @armResourceOperations
 interface StorageDiscoveryWorkspaces {
   get is ArmResourceRead<StorageDiscoveryWorkspace>;
   createOrUpdate is ArmResourceCreateOrReplaceSync<StorageDiscoveryWorkspace>;
 
-  @removed(ApiVersion.v2025_06_01_preview)
-  @renamedFrom(ApiVersion.v2025_06_01_preview, "update")
-  @sharedRoute
-  oldUpdate is ArmResourcePatchSync<
-    StorageDiscoveryWorkspace,
-    StorageDiscoveryWorkspaceProperties
-  >;
-
-  @added(ApiVersion.v2025_06_01_preview)
   @sharedRoute
   update is ArmCustomPatchSync<
     StorageDiscoveryWorkspace,
@@ -274,7 +112,6 @@ interface StorageDiscoveryWorkspaces {
 
   @autoRoute
   @post
-  @added(ApiVersion.v2025_06_01_preview)
   report is ArmResourceActionAsync<
     StorageDiscoveryWorkspace,
     GetReportContent,

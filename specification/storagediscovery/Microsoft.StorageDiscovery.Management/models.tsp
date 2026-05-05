@@ -14,7 +14,6 @@ namespace Microsoft.StorageDiscovery;
 /**
  * Request to get StorageDiscoveryWorkspace data from ADX
  */
-@renamedFrom(ApiVersion.v2025_06_01_preview, "GetReportRequest")
 model GetReportContent {
   @doc("""
     The queries to execute against Storage Discovery data.
