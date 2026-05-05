@@ -11477,12 +11477,14 @@
           "readOnly": true
         },
         "sizeInBytes": {
-          "type": "string",
+          "type": "integer",
+          "format": "int64",
           "description": "Total cluster volume size in bytes.",
           "readOnly": true
         },
         "sizeRemainingInBytes": {
-          "type": "string",
+          "type": "integer",
+          "format": "int64",
           "description": "Free space in bytes.",
           "readOnly": true
         },
@@ -13426,17 +13428,6 @@
       "type": "object",
       "description": "Reported properties of a volume on the disk.",
       "properties": {
-        "volumeId": {
-          "type": "string",
-          "description": "Unique identifier for the volume.",
-          "readOnly": true
-        },
-        "volumeNumber": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Volume/partition number.",
-          "readOnly": true
-        },
         "sizeInBytes": {
           "type": "string",
           "description": "Size of the volume in bytes.",
@@ -13450,6 +13441,43 @@
         "fileSystem": {
           "type": "string",
           "description": "File system type.",
+          "readOnly": true
+        },
+        "partitionId": {
+          "type": "string",
+          "description": "Unique identifier for the partition.",
+          "readOnly": true
+        },
+        "partitionNumber": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Partition number.",
+          "readOnly": true
+        },
+        "offsetInBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Byte offset of the partition start.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the volume.",
+          "readOnly": true
+        },
+        "isBoot": {
+          "type": "boolean",
+          "description": "Indicates if this volume is a boot volume.",
+          "readOnly": true
+        },
+        "sizeRemainingInBytes": {
+          "type": "string",
+          "description": "Available space on the volume in bytes.",
+          "readOnly": true
+        },
+        "resourceName": {
+          "type": "string",
+          "description": "Resource name of the volume.",
           "readOnly": true
         }
       }
@@ -18073,14 +18101,6 @@
           "description": "Error details.",
           "readOnly": true
         },
-        "recommendedSteps": {
-          "type": "array",
-          "description": "Recommended steps to resolve failures.",
-          "items": {
-            "type": "string"
-          },
-          "readOnly": true
-        },
         "subStages": {
           "type": "array",
           "description": "Sub-stages for this stage.",
@@ -18122,6 +18142,14 @@
         "message": {
           "type": "string",
           "description": "Message to provide more details on lifecycle status, especially in case of failures.",
+          "readOnly": true
+        },
+        "recommendedSteps": {
+          "type": "array",
+          "description": "Recommended steps to resolve failures.",
+          "items": {
+            "type": "string"
+          },
           "readOnly": true
         }
       },
@@ -18503,6 +18531,67 @@
         "vlanId": {
           "type": "string",
           "description": "VLAN ID for the network setup."
+        },
+        "interfaceDescription": {
+          "type": "string",
+          "description": "Interface description of NIC."
+        },
+        "componentId": {
+          "type": "string",
+          "description": "Component ID of NIC."
+        },
+        "driverVersion": {
+          "type": "string",
+          "description": "Driver version of NIC."
+        },
+        "defaultIsolationId": {
+          "type": "string",
+          "description": "Default isolation of management NIC."
+        },
+        "slot": {
+          "type": "string",
+          "description": "The slot attached to the NIC."
+        },
+        "switchName": {
+          "type": "string",
+          "description": "The switch attached to the NIC, if any."
+        },
+        "interfaceType": {
+          "$ref": "#/definitions/NetworkInterfaceType",
+          "description": "Type of network interface."
+        },
+        "interfaceSpeed": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Interface speed in Mbps."
+        },
+        "interfaceState": {
+          "$ref": "#/definitions/InterfaceState",
+          "description": "Current state of the interface."
+        },
+        "nicType": {
+          "type": "string",
+          "description": "The type of NIC (physical, virtual, management)."
+        },
+        "nicStatus": {
+          "type": "string",
+          "description": "The status of NIC (up, disconnected)."
+        },
+        "managementInterface": {
+          "type": "boolean",
+          "description": "Indicates if this is a management interface."
+        },
+        "rdmaCapability": {
+          "$ref": "#/definitions/RdmaCapability",
+          "description": "RDMA capability of the network adapter."
+        },
+        "networkAdapterStatus": {
+          "$ref": "#/definitions/NetworkAdapterStatus",
+          "description": "The observed state of network adapter."
+        },
+        "wifiConfiguration": {
+          "$ref": "#/definitions/WifiConfigurationReportedProperties",
+          "description": "WiFi configuration properties."
         }
       },
       "required": [
@@ -20758,6 +20847,20 @@
           "$ref": "#/definitions/EceActionStatus",
           "description": "Deployment status of job.",
           "readOnly": true
+        }
+      }
+    },
+    "ProvisionOsVolumeConfiguration": {
+      "type": "object",
+      "description": "Volume configuration for device provisioning.",
+      "properties": {
+        "configuration": {
+          "type": "array",
+          "description": "List of volume details.",
+          "items": {
+            "$ref": "#/definitions/VolumeDetails"
+          },
+          "x-ms-identifiers": []
         }
       }
     },
@@ -23024,6 +23127,10 @@
         "storage": {
           "$ref": "#/definitions/StorageConfiguration",
           "description": "Storage configuration."
+        },
+        "volume": {
+          "$ref": "#/definitions/ProvisionOsVolumeConfiguration",
+          "description": "Volume configuration."
         }
       }
     },
@@ -24021,6 +24128,32 @@
         "reserved": {
           "type": "string",
           "description": "Reserved for future volume configuration options."
+        }
+      }
+    },
+    "VolumeDetails": {
+      "type": "object",
+      "description": "Details of a volume to be configured on the device.",
+      "properties": {
+        "sizeInBytes": {
+          "type": "string",
+          "description": "Size of the volume in bytes."
+        },
+        "path": {
+          "type": "string",
+          "description": "Mount path for the volume."
+        },
+        "fileSystem": {
+          "$ref": "#/definitions/DiskFileSystemType",
+          "description": "File system type to format the volume with."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the volume."
+        },
+        "diskName": {
+          "type": "string",
+          "description": "Name of the disk on which the volume resides."
         }
       }
     },

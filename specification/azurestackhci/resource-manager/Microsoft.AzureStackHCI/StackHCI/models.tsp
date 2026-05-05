@@ -7321,6 +7321,12 @@ model LifecycleStatus {
    */
   @visibility(Lifecycle.Read)
   message?: string;
+
+  /**
+   * Recommended steps to resolve failures.
+   */
+  @visibility(Lifecycle.Read)
+  recommendedSteps?: string[];
 }
 
 /**
@@ -7369,12 +7375,6 @@ model LifecycleStage {
    */
   @visibility(Lifecycle.Read)
   error?: Azure.ResourceManager.CommonTypes.ErrorDetail;
-
-  /**
-   * Recommended steps to resolve failures.
-   */
-  @visibility(Lifecycle.Read)
-  recommendedSteps?: string[];
 
   /**
    * Sub-stages for this stage.
@@ -8372,6 +8372,11 @@ model TargetDeviceConfiguration {
    * Storage configuration.
    */
   storage?: StorageConfiguration;
+
+  /**
+   * Volume configuration.
+   */
+  volume?: ProvisionOsVolumeConfiguration;
 }
 
 /**
@@ -8395,6 +8400,49 @@ model StorageConfiguration {
    * Partition size.
    */
   partitionSize?: string;
+}
+
+/**
+ * Volume configuration for device provisioning.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProvisionOsVolumeConfiguration {
+  /**
+   * List of volume details.
+   */
+  @Azure.ResourceManager.identifiers(#[])
+  configuration?: VolumeDetails[];
+}
+
+/**
+ * Details of a volume to be configured on the device.
+ */
+@added(Versions.v2026_03_15_preview)
+model VolumeDetails {
+  /**
+   * Size of the volume in bytes.
+   */
+  sizeInBytes?: string;
+
+  /**
+   * Mount path for the volume.
+   */
+  path?: string;
+
+  /**
+   * File system type to format the volume with.
+   */
+  fileSystem?: DiskFileSystemType;
+
+  /**
+   * Name of the volume.
+   */
+  name?: string;
+
+  /**
+   * Name of the disk on which the volume resides.
+   */
+  diskName?: string;
 }
 
 /**
@@ -8446,6 +8494,81 @@ model NetworkAdapter {
    * VLAN ID for the network setup.
    */
   vlanId?: string;
+
+  /**
+   * Interface description of NIC.
+   */
+  interfaceDescription?: string;
+
+  /**
+   * Component ID of NIC.
+   */
+  componentId?: string;
+
+  /**
+   * Driver version of NIC.
+   */
+  driverVersion?: string;
+
+  /**
+   * Default isolation of management NIC.
+   */
+  defaultIsolationId?: string;
+
+  /**
+   * The slot attached to the NIC.
+   */
+  slot?: string;
+
+  /**
+   * The switch attached to the NIC, if any.
+   */
+  switchName?: string;
+
+  /**
+   * Type of network interface.
+   */
+  interfaceType?: NetworkInterfaceType;
+
+  /**
+   * Interface speed in Mbps.
+   */
+  interfaceSpeed?: int32;
+
+  /**
+   * Current state of the interface.
+   */
+  interfaceState?: InterfaceState;
+
+  /**
+   * The type of NIC (physical, virtual, management).
+   */
+  nicType?: string;
+
+  /**
+   * The status of NIC (up, disconnected).
+   */
+  nicStatus?: string;
+
+  /**
+   * Indicates if this is a management interface.
+   */
+  managementInterface?: boolean;
+
+  /**
+   * RDMA capability of the network adapter.
+   */
+  rdmaCapability?: RdmaCapability;
+
+  /**
+   * The observed state of network adapter.
+   */
+  networkAdapterStatus?: NetworkAdapterStatus;
+
+  /**
+   * WiFi configuration properties.
+   */
+  wifiConfiguration?: WifiConfigurationReportedProperties;
 }
 
 /**
@@ -9453,14 +9576,6 @@ union DiskState {
  */
 @added(Versions.v2026_03_15_preview)
 model DiskVolumeReportedProperties {
-  /** Unique identifier for the volume. */
-  @visibility(Lifecycle.Read)
-  volumeId?: string;
-
-  /** Volume/partition number. */
-  @visibility(Lifecycle.Read)
-  volumeNumber?: int32;
-
   /** Size of the volume in bytes. */
   @visibility(Lifecycle.Read)
   sizeInBytes?: string;
@@ -9472,6 +9587,34 @@ model DiskVolumeReportedProperties {
   /** File system type. */
   @visibility(Lifecycle.Read)
   fileSystem?: string;
+
+  /** Unique identifier for the partition. */
+  @visibility(Lifecycle.Read)
+  partitionId?: string;
+
+  /** Partition number. */
+  @visibility(Lifecycle.Read)
+  partitionNumber?: int32;
+
+  /** Byte offset of the partition start. */
+  @visibility(Lifecycle.Read)
+  offsetInBytes?: int64;
+
+  /** Name of the volume. */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /** Indicates if this volume is a boot volume. */
+  @visibility(Lifecycle.Read)
+  isBoot?: boolean;
+
+  /** Available space on the volume in bytes. */
+  @visibility(Lifecycle.Read)
+  sizeRemainingInBytes?: string;
+
+  /** Resource name of the volume. */
+  @visibility(Lifecycle.Read)
+  resourceName?: string;
 }
 
 /**
@@ -10903,11 +11046,11 @@ model ClusterVolumeReportedProperties {
 
   /** Total cluster volume size in bytes. */
   @visibility(Lifecycle.Read)
-  sizeInBytes?: string;
+  sizeInBytes?: int64;
 
   /** Free space in bytes. */
   @visibility(Lifecycle.Read)
-  sizeRemainingInBytes?: string;
+  sizeRemainingInBytes?: int64;
 
   /** Filesystem type (NTFS, ReFS, CSVFS_NTFS, CSVFS_ReFS). */
   @visibility(Lifecycle.Read)

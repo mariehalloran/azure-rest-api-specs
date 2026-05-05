@@ -34,11 +34,6 @@ model CodeScanReportConfigurations {
   @added(CodeScanSitesApiVersions.v2026_05_12_preview)
   @doc("The type of the migrate workload.")
   migrateWorkloadType?: MigrateWorkloadType;
-
-  @added(CodeScanSitesApiVersions.v2026_05_12_preview)
-  @doc("The list of processed repositories.")
-  @identifiers(#["repoName"])
-  processedRepos?: ProcessedRepo[];
 }
 
 @doc("Details of the code scan report.")
@@ -61,7 +56,7 @@ model CodeScanReportDetails {
 
   @added(CodeScanSitesApiVersions.v2026_05_12_preview)
   @doc("The source of the report.")
-  reportSource: ReportSource;
+  reportSource?: ReportSource;
 }
 
 @doc("Report recommendations from the code scan analysis.")
@@ -94,6 +89,11 @@ model CodeScanReportProperties {
   @doc("The recommendations suggested by the code scan report.")
   @identifiers(#["azureTarget"])
   reportRecommendations?: ReportRecommendations[];
+
+  @added(CodeScanSitesApiVersions.v2026_05_12_preview)
+  @doc("The list of processed repositories.")
+  @identifiers(#["repoName"])
+  processedRepos?: ProcessedRepo[];
 }
 
 @parentResource(CodeScanSite)
