@@ -1,0 +1,47 @@
+{
+  "title": "ServiceCatalogs_Get",
+  "operationId": "ServiceCatalogs_Get",
+  "parameters": {
+    "api-version": "2026-05-04-preview",
+    "subscriptionId": "CA1CB369-DD26-4DB2-9D43-9AFEF0F22093",
+    "resourceGroupName": "rgopenapi",
+    "serviceCatalogName": "TestMyServiceCatalog"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "serviceName": "MyServiceCatalog",
+          "provisioningState": "Succeeded",
+          "managedResourceGroupName": "mrg-TestMyServiceCatalog-westcentralus",
+          "managedOnBehalfOfConfiguration": {
+            "moboBrokerResources": [
+              {
+                "id": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/mrg-TestMyServiceCatalog-westcentralus/providers/Microsoft.Resources/moboBrokers/bnthrkwfkfeorrzvtdxbfz"
+              }
+            ]
+          },
+          "serviceUri": "https://testmyservicecatalog.westcentralus.mission.azure.com",
+          "version": "1.0.0",
+          "templateSpecId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/mrg-TestMyServiceCatalog-westcentralus/providers/Microsoft.Resources/templateSpecs/TestMyServiceCatalog",
+          "templateSpecVersion": "2026-05-04-preview"
+        },
+        "tags": {
+          "sampletag": "samplevalue"
+        },
+        "location": "westcentralus",
+        "id": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/rgopenapi/providers/Microsoft.Mission/serviceCatalogs/TestMyServiceCatalog",
+        "name": "TestMyServiceCatalog",
+        "type": "Microsoft.Mission/serviceCatalogs",
+        "systemData": {
+          "createdBy": "myAlias",
+          "createdByType": "User",
+          "createdAt": "2023-03-17T20:43:17.760Z",
+          "lastModifiedBy": "myAlias",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2023-03-17T20:43:17.760Z"
+        }
+      }
+    }
+  }
+}
