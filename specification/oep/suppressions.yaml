@@ -1,17 +1,3 @@
 - tool: TypeSpecRequirement
   path: resource-manager/Microsoft.OpenEnergyPlatform/preview/2026-02-02-preview/oep.json
   reason: OEP Resource Provider is GA product and does not need Typespec requirement check.
-- tool: BreakingChange
-  reason: >-
-    Preview API version (2026-02-02-preview). OEP does not ship typed SDKs;
-    customers interact with the service exclusively via REST/JSON (curl, ARM
-    templates, Terraform AzAPI). The findings reported by the BreakingChange
-    checker are spec-author-facing identifier changes (e.g. body parameter
-    names such as `resource` / `body`, enum value reorderings, and read-only
-    visibility tightening) introduced by migrating the spec from hand-authored
-    Swagger to TypeSpec using the standard Azure.ResourceManager templates.
-    The wire format (URL, HTTP method, request/response JSON schema, headers)
-    is unchanged, so there is no consumer impact. Per Azure API guidelines,
-    preview APIs are permitted to take breaking changes.
-  paths:
-    - Microsoft.OpenEnergyPlatform/preview/2026-02-02-preview/oep.json
