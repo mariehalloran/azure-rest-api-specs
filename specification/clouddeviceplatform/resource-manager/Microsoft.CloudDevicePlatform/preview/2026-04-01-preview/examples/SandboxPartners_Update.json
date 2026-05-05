@@ -1,0 +1,31 @@
+{
+  "operationId": "SandboxPartners_Update",
+  "title": "SandboxPartners_Update",
+  "parameters": {
+    "api-version": "2026-04-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "sandboxPartnerName": "mySandboxPartner",
+    "properties": {
+      "tags": {
+        "tagName": "tag value"
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.CloudDevicePlatform/sandboxPartners/mySandboxPartner",
+        "name": "mySandboxPartner",
+        "type": "Microsoft.CloudDevicePlatform/sandboxPartners",
+        "location": "global",
+        "tags": {
+          "tagName": "tag value"
+        },
+        "properties": {
+          "provisioningState": "Succeeded"
+        }
+      }
+    }
+  }
+}
