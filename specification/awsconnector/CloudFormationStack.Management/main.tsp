@@ -11,6 +11,7 @@ import "../shared/main.tsp";
 using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
+using Azure.ClientGenerator.Core;
 using Azure.ResourceManager;
 using Azure.Portal;
 
@@ -25,7 +26,10 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2024-12-01 api version */
-  `2024-12-01`,
+  v2024_12_01: "2024-12-01",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 //---------------------------------------------- CloudFormationStacks ----------------------------------------------
@@ -115,6 +119,7 @@ model AwsCloudFormationStackProperties {
   stackPolicyBody?: unknown;
 
   @doc("Property stackPolicyURL")
+  @clientName("stackPolicyUrl", "java")
   stackPolicyURL?: string;
 
   @doc("Property stackStatus")
@@ -131,6 +136,7 @@ model AwsCloudFormationStackProperties {
   templateBody?: unknown;
 
   @doc("Property templateURL")
+  @clientName("templateUrl", "java")
   templateURL?: string;
 
   @doc("Property timeoutInMinutes")
