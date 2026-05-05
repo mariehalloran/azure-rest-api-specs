@@ -6,6 +6,7 @@ import "./models.tsp";
 import "./EnergyService.tsp";
 
 using TypeSpec.Rest;
+using Azure.Core;
 using Azure.ResourceManager;
 using TypeSpec.Http;
 using TypeSpec.OpenAPI;
@@ -25,6 +26,23 @@ model GroupInformation
   >;
 }
 
+/**
+ * The available private link resources for an Account
+ */
+model PrivateLinkResourceListResult {
+  /**
+   * The list of available private link resources for an Account
+   */
+  @pageItems
+  value?: GroupInformation[];
+
+  /**
+   * The URI that can be used to request the next list of private link resources.
+   */
+  @nextLink
+  nextLink?: string;
+}
+
 @armResourceOperations
 interface PrivateLinkResources {
   /**
@@ -38,8 +56,12 @@ interface PrivateLinkResources {
    * List all private link resources in a OAK instance.
    */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "non-standard operations"
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "Preserving existing operationId casing (OAK acronym)."
   @operationId("PrivateLinkResources_ListByOAKInstance")
-  listByOAKInstance is ArmResourceListByParent<GroupInformation>;
+  listByOAKInstance is ArmResourceListByParent<
+    GroupInformation,
+    Response = ArmResponse<PrivateLinkResourceListResult>
+  >;
 }
 
 @@doc(GroupInformation.name, "The group ID of the private link resource.");

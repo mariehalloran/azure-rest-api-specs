@@ -30,6 +30,7 @@ interface PrivateEndpointConnections {
   /**
    * Update the state of specified private endpoint connection associated with the OAK Instance.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-put-operation-response-codes" "Preserving original response shape for backward compatibility."
   createOrUpdate is PrivateEndpointOperations.CreateOrReplaceAsync<
     EnergyService,
     PrivateEndpointConnection,
@@ -39,6 +40,7 @@ interface PrivateEndpointConnections {
   /**
    * Deletes the specified private endpoint connection associated with the OAK Instance.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "Preserving original response shape for backward compatibility."
   delete is PrivateEndpointOperations.DeleteAsync<
     EnergyService,
     PrivateEndpointConnection,
@@ -48,6 +50,7 @@ interface PrivateEndpointConnections {
   /**
    * List all private endpoint connections in a OAK instance.
    */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "Preserving existing operationId casing (OAK acronym)."
   listByOAKInstance is PrivateEndpointOperations.ListByParent<
     EnergyService,
     PrivateEndpointConnection,

@@ -13,10 +13,12 @@ using TypeSpec.OpenAPI;
 
 namespace Microsoft.OpenEnergyPlatform;
 
+@armResourceOperations
 interface LocationsOperationGroup {
   /**
    * Checks the name availability of the resource with requested resource name.
    */
+  #suppress "@azure-tools/typespec-azure-core/no-openapi" "Preserving existing operationId."
   @operationId("Locations_CheckNameAvailability")
   @autoRoute
   checkNameAvailability is ArmProviderActionSync<

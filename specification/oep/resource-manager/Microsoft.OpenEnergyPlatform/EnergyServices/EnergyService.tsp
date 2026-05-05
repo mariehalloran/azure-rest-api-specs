@@ -39,12 +39,16 @@ interface EnergyServices {
   /**
    * Updates the oep resource.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/no-response-body" "Preserving existing wire contract: 202 response includes body."
+  #suppress "@azure-tools/typespec-azure-resource-manager/lro-location-header" "Preserving existing wire contract."
   @patch(#{ implicitOptionality: false })
   update is Azure.ResourceManager.Legacy.CustomPatchAsync<
     EnergyService,
     PatchModel = EnergyResourceUpdate,
-    Response = ArmResponse<EnergyService> | (ArmAcceptedLroResponse<ArmAsyncOperationHeader<FinalResult = EnergyService> &
-      Azure.Core.Foundations.RetryAfterHeader> & {
+    Response = ArmResponse<EnergyService> | (ArmAcceptedLroResponse<
+      LroHeaders = ArmAsyncOperationHeader<FinalResult = EnergyService> &
+        Azure.Core.Foundations.RetryAfterHeader
+    > & {
       @bodyRoot
       _: EnergyService;
     }),
@@ -54,6 +58,7 @@ interface EnergyServices {
   /**
    * Deletes oep resource
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "Preserving original response shape for backward compatibility."
   delete is ArmResourceDeleteWithoutOkAsync<
     EnergyService,
     Response = ArmDeletedResponse | ArmDeleteAcceptedLroResponse | ArmDeletedNoContentResponse
@@ -78,6 +83,7 @@ interface EnergyServices {
   /**
    * Method that gets called if new partition is to be added in a resource.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/no-response-body" "Preserving existing wire contract: 202 response includes body."
   addPartition is ArmResourceActionAsyncBase<
     EnergyService,
     DataPartitionAddOrRemoveRequest,
@@ -92,6 +98,7 @@ interface EnergyServices {
   /**
    * Method that gets called if new partition is to be removed from a resource.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/no-response-body" "Preserving existing wire contract: 202 response includes body."
   removePartition is ArmResourceActionAsyncBase<
     EnergyService,
     DataPartitionAddOrRemoveRequest,

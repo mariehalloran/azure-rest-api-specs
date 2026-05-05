@@ -23,21 +23,6 @@ model PrivateEndpointConnectionProxy
     SegmentName = "privateEndpointConnectionProxies",
     NamePattern = ""
   >;
-
-  /**
-   * ETag from NRP.
-   */
-  eTag?: string;
-
-  /**
-   * Remote private endpoint details.
-   */
-  remotePrivateEndpoint?: RemotePrivateEndpoint;
-
-  /**
-   * Operation status.
-   */
-  status?: string;
 }
 
 @armResourceOperations
@@ -50,14 +35,12 @@ interface PrivateEndpointConnectionProxies {
   /**
    * (INTERNAL - DO NOT USE) Creates or updates the specified private endpoint connection proxy resource associated with the OAK instance.
    */
-  createOrUpdate is ArmResourceCreateOrReplaceAsync<
-    PrivateEndpointConnectionProxy,
-    Response = ArmResourceCreatedResponse<PrivateEndpointConnectionProxy>
-  >;
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<PrivateEndpointConnectionProxy>;
 
   /**
    * (INTERNAL - DO NOT USE) Deletes the specified private endpoint connection proxy associated with the OAK Instance.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "Preserving original response shape for backward compatibility."
   delete is ArmResourceDeleteWithoutOkAsync<
     PrivateEndpointConnectionProxy,
     Response = ArmDeletedResponse | ArmDeleteAcceptedLroResponse | ArmDeletedNoContentResponse
@@ -66,6 +49,7 @@ interface PrivateEndpointConnectionProxies {
   /**
    * (INTERNAL - DO NOT USE) List all private endpoint connection proxies in a OAK instance.
    */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "Preserving existing operationId casing (OAK acronym)."
   listByOAKInstance is ArmResourceListByParent<PrivateEndpointConnectionProxy>;
 
   /**

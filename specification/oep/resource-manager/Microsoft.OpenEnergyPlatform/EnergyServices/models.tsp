@@ -27,6 +27,7 @@ union CheckNameAvailabilityReason {
   AlreadyExists: "AlreadyExists",
 }
 
+/** Provisioning state of the resource. */
 union ProvisioningState {
   string,
 
@@ -122,6 +123,7 @@ union CreatedByType {
   Key: "Key",
 }
 
+/** Allowed HTTP methods. */
 union AllowedMethods {
   string,
 
@@ -384,6 +386,7 @@ union PackageState {
 /**
  * The type of identity used for accessing the keyvault. Possible values include: 'SystemAssigned', 'UserAssigned'
  */
+#suppress "@azure-tools/typespec-azure-core/no-enum" "Preserving existing wire contract."
 enum IdentityType {
   /**
    * Use an implicitly created system assigned managed identity to access the specified key vault.
@@ -399,6 +402,7 @@ enum IdentityType {
 /**
  * Maximum autoscale capacity limit for the energy service. Must be a power of 2 between 1 and 256 (applicable for Flex SKU).
  */
+#suppress "@azure-tools/typespec-azure-core/no-enum" "Preserving existing wire contract."
 enum AutoScaleMaxCapacity {
   /**
    * 1 capacity unit
@@ -455,14 +459,18 @@ model EnergyServiceList is Azure.Core.Page<EnergyService>;
  * The properties of an Energy service resource.
  */
 model EnergyServiceProperties {
+  /** DNS name of the OAK service. */
   @visibility(Lifecycle.Read)
   dnsName?: string;
 
+  /** Provisioning state of the resource. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
 
+  /** App ID of the application used for authentication. */
   authAppId?: string;
 
+  /** Data partition names. */
   @identifiers(#[])
   dataPartitionNames?: DataPartitionNames[];
 
@@ -533,6 +541,7 @@ model EnergyServiceProperties {
  * The list of Energy services resource's Data Partition Names.
  */
 model DataPartitionNames {
+  /** Data partition name. */
   name?: string;
 }
 
@@ -700,6 +709,7 @@ model EnergyResourceUpdate {
   /**
    * Resource tags.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Preserving existing wire contract."
   tags?: Record<string>;
 
   /**
@@ -773,18 +783,9 @@ model GroupInformationProperties
 }
 
 /**
- * Private endpoint connection proxy object property bag.
- */
-model PrivateEndpointConnectionProxyProperties {
-  /**
-   * The provisioning state of the private endpoint connection proxy resource.
-   */
-  provisioningState?: PrivateEndpointConnectionProxyProvisioningState;
-}
-
-/**
  * Private endpoint connection proxy object properties.
  */
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Preserving existing wire contract."
 model PrivateEndpointConnectionProxyProperties {
   /**
    * ETag from NRP.
@@ -903,6 +904,7 @@ model PrivateLinkServiceProxy {
 /**
  * Remote private endpoint connection details.
  */
+#suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model" "Preserving existing wire contract."
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "For backward compatibility"
 model PrivateLinkServiceProxyRemotePrivateEndpointConnection
   extends RemotePrivateEndpointConnection {}
@@ -1015,6 +1017,7 @@ model OperationDisplay {
  * List of data partitions
  */
 model DataPartitionsList {
+  /** List of data partition names. */
   @identifiers(#[])
   dataPartitionNames?: DataPartitionNames[];
 }
