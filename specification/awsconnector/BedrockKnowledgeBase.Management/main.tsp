@@ -3,9 +3,9 @@ import "@typespec/rest";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
+import "@azure-tools/typespec-azure-portal-core";
 import "@azure-tools/typespec-client-generator-core";
 import "@typespec/openapi";
-import "@azure-tools/typespec-azure-portal-core";
 import "../shared/main.tsp";
 
 using TypeSpec.Http;
@@ -28,7 +28,10 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2025-12-01-preview api version */
-  `2025-12-01-preview`,
+  v2025_12_01_preview: "2025-12-01-preview",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 //---------------------------------------------- BedrockKnowledgeBases ----------------------------------------------
