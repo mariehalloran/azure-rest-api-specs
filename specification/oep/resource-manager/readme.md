@@ -180,6 +180,15 @@ directive:
     from: meds.json
     where: $.definitions.PrivateEndpointConnectionProxy.properties
     reason: Internal NRP resource, all properties are top level properties
+  - suppress: ProvisioningStateMustBeReadOnly
+    from: Microsoft.OpenEnergyPlatform/preview/2026-02-02-preview/oep.json
+    reason: provisioningState properties are marked read-only in TypeSpec via @visibility(Lifecycle.Read), and the emitter outputs `readOnly: true` as a sibling of `$ref`. Per the JSON Reference spec, sibling keywords of `$ref` are ignored by Swagger 2.0 parsers, so Spectral cannot detect the readOnly flag. The properties are correctly read-only on the wire. Related issue - https://github.com/Azure/azure-openapi-validator/issues/637
+  - suppress: LroLocationHeader
+    from: Microsoft.OpenEnergyPlatform/preview/2026-02-02-preview/oep.json
+    reason: The PATCH on EnergyService uses an existing async pattern that returns Azure-AsyncOperation and Retry-After headers but no Location header. This wire contract predates the rule and is already suppressed at the TypeSpec level for the same operation.
+  - suppress: ProvisioningStateSpecifiedForLROPut
+    from: Microsoft.OpenEnergyPlatform/preview/2026-02-02-preview/oep.json
+    reason: PrivateEndpointConnectionProxies is an internal RPaaS-only "DO NOT USE" API consumed by the Network Resource Provider. Its 201 response intentionally omits provisioningState from the resource properties. Already suppressed at the TypeSpec level on the same model.
 ```
 
 ---
