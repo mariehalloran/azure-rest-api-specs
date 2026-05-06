@@ -31,39 +31,25 @@ union CheckNameAvailabilityReason {
 union ProvisioningState {
   string,
 
-  /**
-   * Unknown
-   */
+  /** The provisioning state is unknown. */
   Unknown: "Unknown",
 
-  /**
-   * Succeeded
-   */
+  /** The resource has been successfully provisioned. */
   Succeeded: "Succeeded",
 
-  /**
-   * Failed
-   */
+  /** Resource provisioning has failed. */
   Failed: "Failed",
 
-  /**
-   * Canceled
-   */
+  /** Resource provisioning was canceled. */
   Canceled: "Canceled",
 
-  /**
-   * Creating
-   */
+  /** The resource is being created. */
   Creating: "Creating",
 
-  /**
-   * Deleting
-   */
+  /** The resource is being deleted. */
   Deleting: "Deleting",
 
-  /**
-   * Updating
-   */
+  /** The resource is being updated. */
   Updating: "Updating",
 }
 
@@ -73,9 +59,7 @@ union ProvisioningState {
 union KeySource {
   string,
 
-  /**
-   * Microsoft.Keyvault
-   */
+  /** Use Microsoft Key Vault as the key provider for encryption. */
   `Microsoft.Keyvault`: "Microsoft.Keyvault",
 }
 
@@ -85,14 +69,10 @@ union KeySource {
 union PublicNetworkAccess {
   string,
 
-  /**
-   * Enabled
-   */
+  /** Public network access is allowed for the resource. */
   Enabled: "Enabled",
 
-  /**
-   * Disabled
-   */
+  /** Public network access is denied; the resource is reachable only via private endpoints. */
   Disabled: "Disabled",
 }
 
@@ -127,44 +107,28 @@ union CreatedByType {
 union AllowedMethods {
   string,
 
-  /**
-   * DELETE
-   */
+  /** Allow HTTP DELETE requests. */
   DELETE: "DELETE",
 
-  /**
-   * GET
-   */
+  /** Allow HTTP GET requests. */
   GET: "GET",
 
-  /**
-   * HEAD
-   */
+  /** Allow HTTP HEAD requests. */
   HEAD: "HEAD",
 
-  /**
-   * MERGE
-   */
+  /** Allow HTTP MERGE requests. */
   MERGE: "MERGE",
 
-  /**
-   * POST
-   */
+  /** Allow HTTP POST requests. */
   POST: "POST",
 
-  /**
-   * OPTIONS
-   */
+  /** Allow HTTP OPTIONS requests. */
   OPTIONS: "OPTIONS",
 
-  /**
-   * PUT
-   */
+  /** Allow HTTP PUT requests. */
   PUT: "PUT",
 
-  /**
-   * PATCH
-   */
+  /** Allow HTTP PATCH requests. */
   PATCH: "PATCH",
 }
 
@@ -289,19 +253,13 @@ union AddOnPackageName {
 union GroupIdProvisioningState {
   string,
 
-  /**
-   * Succeeded
-   */
+  /** The private link group ID has been successfully provisioned. */
   Succeeded: "Succeeded",
 
-  /**
-   * Failed
-   */
+  /** Provisioning of the private link group ID failed. */
   Failed: "Failed",
 
-  /**
-   * Canceled
-   */
+  /** Provisioning of the private link group ID was canceled. */
   Canceled: "Canceled",
 }
 
@@ -311,24 +269,16 @@ union GroupIdProvisioningState {
 union PrivateEndpointConnectionProxyProvisioningState {
   string,
 
-  /**
-   * Succeeded
-   */
+  /** The private endpoint connection proxy has been successfully provisioned. */
   Succeeded: "Succeeded",
 
-  /**
-   * Creating
-   */
+  /** The private endpoint connection proxy is being created. */
   Creating: "Creating",
 
-  /**
-   * Deleting
-   */
+  /** The private endpoint connection proxy is being deleted. */
   Deleting: "Deleting",
 
-  /**
-   * Failed
-   */
+  /** Provisioning of the private endpoint connection proxy failed. */
   Failed: "Failed",
 }
 
@@ -534,6 +484,7 @@ model EnergyServiceProperties {
   /**
    * List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.
    */
+  @identifiers(#["name"])
   addOnPackages?: AddOnPackage[];
 }
 
@@ -730,6 +681,7 @@ model EnergyServiceUpdateProperties {
   /**
    * List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.
    */
+  @identifiers(#["name"])
   addOnPackages?: AddOnPackage[];
 }
 
@@ -764,9 +716,10 @@ model DataPartitionProperties {
   name?: string;
 
   /**
-   * Name of the data partition
+   * The provisioning state of the data partition resource.
    */
-  provisioningState?: string;
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
 }
 
 /**

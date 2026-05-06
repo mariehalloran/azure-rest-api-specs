@@ -1561,42 +1561,42 @@
           {
             "name": "DELETE",
             "value": "DELETE",
-            "description": "DELETE"
+            "description": "Allow HTTP DELETE requests."
           },
           {
             "name": "GET",
             "value": "GET",
-            "description": "GET"
+            "description": "Allow HTTP GET requests."
           },
           {
             "name": "HEAD",
             "value": "HEAD",
-            "description": "HEAD"
+            "description": "Allow HTTP HEAD requests."
           },
           {
             "name": "MERGE",
             "value": "MERGE",
-            "description": "MERGE"
+            "description": "Allow HTTP MERGE requests."
           },
           {
             "name": "POST",
             "value": "POST",
-            "description": "POST"
+            "description": "Allow HTTP POST requests."
           },
           {
             "name": "OPTIONS",
             "value": "OPTIONS",
-            "description": "OPTIONS"
+            "description": "Allow HTTP OPTIONS requests."
           },
           {
             "name": "PUT",
             "value": "PUT",
-            "description": "PUT"
+            "description": "Allow HTTP PUT requests."
           },
           {
             "name": "PATCH",
             "value": "PATCH",
-            "description": "PATCH"
+            "description": "Allow HTTP PATCH requests."
           }
         ]
       }
@@ -1761,8 +1761,9 @@
           "description": "Name of the data partition"
         },
         "provisioningState": {
-          "type": "string",
-          "description": "Name of the data partition"
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the data partition resource.",
+          "readOnly": true
         }
       }
     },
@@ -1844,7 +1845,7 @@
               {
                 "name": "Microsoft.Keyvault",
                 "value": "Microsoft.Keyvault",
-                "description": "Microsoft.Keyvault"
+                "description": "Use Microsoft Key Vault as the key provider for encryption."
               }
             ]
           }
@@ -1961,12 +1962,12 @@
               {
                 "name": "Enabled",
                 "value": "Enabled",
-                "description": "Enabled"
+                "description": "Public network access is allowed for the resource."
               },
               {
                 "name": "Disabled",
                 "value": "Disabled",
-                "description": "Disabled"
+                "description": "Public network access is denied; the resource is reachable only via private endpoints."
               }
             ]
           }
@@ -2037,7 +2038,10 @@
           "description": "List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.",
           "items": {
             "$ref": "#/definitions/AddOnPackage"
-          }
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
         }
       }
     },
@@ -2054,7 +2058,10 @@
           "description": "List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.",
           "items": {
             "$ref": "#/definitions/AddOnPackage"
-          }
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
         }
       }
     },
@@ -2122,17 +2129,17 @@
           {
             "name": "Succeeded",
             "value": "Succeeded",
-            "description": "Succeeded"
+            "description": "The private link group ID has been successfully provisioned."
           },
           {
             "name": "Failed",
             "value": "Failed",
-            "description": "Failed"
+            "description": "Provisioning of the private link group ID failed."
           },
           {
             "name": "Canceled",
             "value": "Canceled",
-            "description": "Canceled"
+            "description": "Provisioning of the private link group ID was canceled."
           }
         ]
       }
@@ -2407,37 +2414,37 @@
           {
             "name": "Unknown",
             "value": "Unknown",
-            "description": "Unknown"
+            "description": "The provisioning state is unknown."
           },
           {
             "name": "Succeeded",
             "value": "Succeeded",
-            "description": "Succeeded"
+            "description": "The resource has been successfully provisioned."
           },
           {
             "name": "Failed",
             "value": "Failed",
-            "description": "Failed"
+            "description": "Resource provisioning has failed."
           },
           {
             "name": "Canceled",
             "value": "Canceled",
-            "description": "Canceled"
+            "description": "Resource provisioning was canceled."
           },
           {
             "name": "Creating",
             "value": "Creating",
-            "description": "Creating"
+            "description": "The resource is being created."
           },
           {
             "name": "Deleting",
             "value": "Deleting",
-            "description": "Deleting"
+            "description": "The resource is being deleted."
           },
           {
             "name": "Updating",
             "value": "Updating",
-            "description": "Updating"
+            "description": "The resource is being updated."
           }
         ]
       }
