@@ -45,10 +45,8 @@ interface EnergyServices {
   update is Azure.ResourceManager.Legacy.CustomPatchAsync<
     EnergyService,
     PatchModel = EnergyResourceUpdate,
-    Response = ArmResponse<EnergyService> | (ArmAcceptedLroResponse<
-      LroHeaders = ArmAsyncOperationHeader<FinalResult = EnergyService> &
-        Azure.Core.Foundations.RetryAfterHeader
-    > & {
+    Response = ArmResponse<EnergyService> | (ArmAcceptedLroResponse<LroHeaders = ArmAsyncOperationHeader<FinalResult = EnergyService> &
+      Azure.Core.Foundations.RetryAfterHeader> & {
       @bodyRoot
       _: EnergyService;
     }),
