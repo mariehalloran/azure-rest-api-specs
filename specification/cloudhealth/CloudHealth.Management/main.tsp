@@ -1192,11 +1192,22 @@ model DiscoveryError {
 @added(Versions.v2026_01_01_preview)
 @doc("Request body for getting entity health history")
 model EntityHistoryRequest {
-  @doc("Start time for the history query. Defaults to 24 hours ago if not specified.")
+  @doc("Start time for the history query. Defaults to 24 hours ago if not specified. Must be omitted when continuationToken is specified.")
   startAt?: utcDateTime;
 
-  @doc("End time for the history query. Defaults to now if not specified.")
+  @doc("End time for the history query. Defaults to now if not specified. Must be omitted when continuationToken is specified.")
   endAt?: utcDateTime;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Maximum number of health state transitions to return per page. Defaults to 1000.")
+  @maxValue(1000)
+  @minValue(1)
+  top?: int32;
+
+  @added(Versions.v2026_05_01_preview)
+  @secret
+  @doc("Continuation token from a previous response to retrieve the next page of results. Must not be combined with startAt or endAt.")
+  continuationToken?: secretString4096;
 }
 
 @added(Versions.v2026_01_01_preview)
@@ -1208,6 +1219,11 @@ model EntityHistoryResponse {
   @doc("List of health state transitions")
   @identifiers(#["occurredAt"])
   history: HealthStateTransition[];
+
+  @added(Versions.v2026_05_01_preview)
+  @secret
+  @doc("Continuation token to retrieve the next page of results. Null if there are no more results.")
+  continuationToken?: secretString4096;
 }
 
 @added(Versions.v2026_01_01_preview)
@@ -1232,11 +1248,22 @@ model SignalHistoryRequest {
   @doc("Name of the signal to get history for")
   signalName: signalName;
 
-  @doc("Start time for the history query. Defaults to 24 hours ago if not specified.")
+  @doc("Start time for the history query. Defaults to 24 hours ago if not specified. Must be omitted when continuationToken is specified.")
   startAt?: utcDateTime;
 
-  @doc("End time for the history query. Defaults to now if not specified.")
+  @doc("End time for the history query. Defaults to now if not specified. Must be omitted when continuationToken is specified.")
   endAt?: utcDateTime;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Maximum number of data points to return per page. Defaults to 1000.")
+  @maxValue(1000)
+  @minValue(1)
+  top?: int32;
+
+  @added(Versions.v2026_05_01_preview)
+  @secret
+  @doc("Continuation token from a previous response to retrieve the next page of results. Must not be combined with startAt or endAt.")
+  continuationToken?: secretString4096;
 }
 
 @added(Versions.v2026_01_01_preview)
@@ -1251,6 +1278,11 @@ model SignalHistoryResponse {
   @doc("Signal history data points")
   @identifiers(#["occurredAt"])
   history: SignalHistoryDataPoint[];
+
+  @added(Versions.v2026_05_01_preview)
+  @secret
+  @doc("Continuation token to retrieve the next page of results. Null if there are no more results.")
+  continuationToken?: secretString4096;
 }
 
 @added(Versions.v2026_01_01_preview)
@@ -1294,25 +1326,23 @@ model HealthReportRequest {
 }
 
 @added(Versions.v2026_05_01_preview)
-@doc("Request body for adding a data annotation to an entity")
-model DataAnnotationRequest {
+@doc("A single data annotation on an entity")
+model DataAnnotation {
+  @doc("Auto-assigned identifier for the annotation")
+  @visibility(Lifecycle.Read)
+  @maxLength(256)
+  annotationId?: string;
+
+  @doc("Timestamp when the annotation was created")
+  @visibility(Lifecycle.Read)
+  createdAt?: utcDateTime;
+
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Annotation details are user-defined key-value pairs with arbitrary keys that cannot be modelled with a fixed schema"
   @doc("Annotation details as a dynamic key-value pair bag. Each value is limited to 256 characters. A maximum of 10 entries is permitted per annotation.")
   annotationDetails: Record<string256>;
 
   @doc("Optional description of the annotation")
   description?: string4096;
-}
-
-@added(Versions.v2026_05_01_preview)
-@doc("A single data annotation on an entity")
-model DataAnnotation is DataAnnotationRequest {
-  @doc("Server-assigned identifier for the annotation")
-  @maxLength(36)
-  annotationId: string;
-
-  @doc("Timestamp when the annotation was created")
-  createdAt: utcDateTime;
 }
 
 @added(Versions.v2026_05_01_preview)
@@ -1575,7 +1605,7 @@ interface Entities {
   @action("addDataAnnotation")
   addDataAnnotation is ArmResourceActionSync<
     Entity,
-    DataAnnotationRequest,
+    DataAnnotation,
     DataAnnotation
   >;
 

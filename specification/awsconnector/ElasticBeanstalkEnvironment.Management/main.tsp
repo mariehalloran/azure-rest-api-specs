@@ -28,7 +28,10 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2024-12-01 api version */
-  `2024-12-01`,
+  v2024_12_01: "2024-12-01",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 //---------------------------------------------- ElasticBeanstalkEnvironments ----------------------------------------------
@@ -79,6 +82,7 @@ model AwsElasticBeanstalkEnvironmentProperties {
   description?: string;
 
   @doc("Property endpointURL")
+  @clientName("endpointUrl", "java")
   endpointURL?: string;
 
   @doc("A unique name for the environment.")
