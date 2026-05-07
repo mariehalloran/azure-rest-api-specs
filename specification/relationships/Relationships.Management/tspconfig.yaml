@@ -14,17 +14,21 @@ options:
     package-dir: "Azure.ResourceManager.Relationships"
     namespace: "{package-dir}"
     clear-output-folder: true
+    flavor: azure
   "@azure-tools/typespec-python":
     package-dir: "azure-mgmt-relationships"
     namespace: "azure.mgmt.relationships"
     generate-test: true
     generate-sample: true
+    flavor: azure
   "@azure-tools/typespec-java":
     package-dir: "azure-resourcemanager-relationships"
     namespace: "com.azure.resourcemanager.relationships"
+    flavor: azure
   "@azure-tools/typespec-ts":
     package-dir: "arm-relationships"
     experimental-extensible-enums: true
+    flavor: azure
     package-details:
       name: "@azure/arm-relationships"
   "@azure-tools/typespec-go":
