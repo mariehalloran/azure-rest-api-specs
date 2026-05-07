@@ -27,7 +27,6 @@ model Upn is Azure.ResourceManager.ProxyResource<UpnProperties> {
     SegmentName = "upns",
     NamePattern = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
   >;
-
   ...ResourceSkuProperty;
 }
 
