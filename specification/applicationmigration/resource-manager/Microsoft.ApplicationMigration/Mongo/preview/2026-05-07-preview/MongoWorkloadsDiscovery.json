@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Microsoft.ApplicationMigration management service",
-    "version": "2025-02-01-preview",
+    "version": "2026-05-07-preview",
     "description": "The Microsoft.ApplicationMigration Rest API spec.",
     "x-typespec-generated": [
       {
@@ -2855,6 +2855,10 @@
           "type": "string",
           "description": "Specifies the authentication mechanism used by MongoDB."
         },
+        "softwareAttributes": {
+          "$ref": "#/definitions/SoftwareAttributes",
+          "description": "Software-specific attributes and metadata for the discovered MongoDB instance."
+        },
         "enabledFeatures": {
           "type": "array",
           "description": "List of enabled MongoDB features.",
@@ -3035,6 +3039,10 @@
         "authenticationMechanism": {
           "type": "string",
           "description": "Specifies the authentication mechanism used by MongoDB."
+        },
+        "softwareAttributes": {
+          "$ref": "#/definitions/SoftwareAttributes",
+          "description": "Software-specific attributes and metadata for the discovered MongoDB instance."
         },
         "enabledFeatures": {
           "type": "array",
@@ -3222,6 +3230,56 @@
           "description": "Property value"
         }
       }
+    },
+    "SoftwareAttributes": {
+      "type": "object",
+      "description": "Software-specific attributes and metadata",
+      "properties": {
+        "softwareName": {
+          "type": "string",
+          "description": "Name of the software (e.g., MongoDB)"
+        },
+        "providerName": {
+          "type": "string",
+          "description": "Name of the software provider or vendor"
+        },
+        "softwareVersion": {
+          "type": "string",
+          "description": "Version of the software"
+        },
+        "softwareId": {
+          "type": "string",
+          "description": "Unique identifier for the software instance"
+        },
+        "customProperties": {
+          "type": "array",
+          "description": "List of additional custom properties with string value types",
+          "items": {
+            "$ref": "#/definitions/CustomProperties"
+          },
+          "x-ms-identifiers": [
+            "key"
+          ]
+        }
+      }
+    },
+    "CustomProperties": {
+      "type": "object",
+      "description": "Custom property with mixed value types",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Property key"
+        },
+        "value": {
+          "type": "string",
+          "description": "Property value - string"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
     },
     "SiteTagsPatch": {
       "type": "object",
