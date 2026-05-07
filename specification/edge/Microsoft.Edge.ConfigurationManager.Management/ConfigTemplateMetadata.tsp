@@ -29,7 +29,7 @@ model HierarchyMetadata {
     }
   ]>[];
 
-  @doc("Hierarchy Level")
+  @doc("Hierarchy Levels")
   level?: string;
 }
 
