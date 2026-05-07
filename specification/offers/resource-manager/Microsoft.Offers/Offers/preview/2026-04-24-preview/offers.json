@@ -202,24 +202,17 @@
     },
     "SkuSummary": {
       "type": "object",
-      "description": "Denormalized SKU summary embedded in a UPN. Only identifying and\ndiscovery-relevant SKU fields are exposed here.",
+      "description": "Additional metadata about the SKU. The SKU identity itself is exposed at\nthe resource envelope as `sku.name`; this model carries denormalized\ndescriptive fields not covered by the standard ARM SKU envelope.",
       "properties": {
-        "skuId": {
-          "type": "string",
-          "description": "The stable SKU identifier."
-        },
         "friendlyName": {
           "type": "string",
           "description": "The human-readable friendly name of the SKU."
         },
-        "type": {
+        "commercialType": {
           "$ref": "#/definitions/SkuType",
           "description": "The commercial type of the SKU."
         }
-      },
-      "required": [
-        "skuId"
-      ]
+      }
     },
     "SkuType": {
       "type": "string",
@@ -258,6 +251,10 @@
         "properties": {
           "$ref": "#/definitions/UpnProperties",
           "description": "The properties of the UPN resource."
+        },
+        "sku": {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/Sku",
+          "description": "The SKU (Stock Keeping Unit) assigned to this resource."
         }
       },
       "allOf": [
@@ -323,9 +320,9 @@
           "$ref": "#/definitions/ProductSummary",
           "description": "Denormalized product summary."
         },
-        "sku": {
+        "skuDetails": {
           "$ref": "#/definitions/SkuSummary",
-          "description": "Denormalized SKU summary."
+          "description": "Additional descriptive metadata about the SKU. The SKU identity is exposed at the resource envelope as `sku.name`."
         },
         "template": {
           "type": "string",
@@ -334,8 +331,7 @@
       },
       "required": [
         "valueExchange",
-        "product",
-        "sku"
+        "product"
       ]
     },
     "ValueExchange": {

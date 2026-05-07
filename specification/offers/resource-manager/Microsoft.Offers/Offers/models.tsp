@@ -92,18 +92,16 @@ model ProductSummary {
 }
 
 /**
- * Denormalized SKU summary embedded in a UPN. Only identifying and
- * discovery-relevant SKU fields are exposed here.
+ * Additional metadata about the SKU. The SKU identity itself is exposed at
+ * the resource envelope as `sku.name`; this model carries denormalized
+ * descriptive fields not covered by the standard ARM SKU envelope.
  */
 model SkuSummary {
-  /** The stable SKU identifier. */
-  skuId: string;
-
   /** The human-readable friendly name of the SKU. */
   friendlyName?: string;
 
   /** The commercial type of the SKU. */
-  type?: SkuType;
+  commercialType?: SkuType;
 }
 
 /**
@@ -119,8 +117,8 @@ model UpnProperties {
   /** Denormalized product summary. */
   product: ProductSummary;
 
-  /** Denormalized SKU summary. */
-  sku: SkuSummary;
+  /** Additional descriptive metadata about the SKU. The SKU identity is exposed at the resource envelope as `sku.name`. */
+  skuDetails?: SkuSummary;
 
   /** The offer-template identifier for this UPN (for example, "offer-template/az-vm"). */
   template?: string;
