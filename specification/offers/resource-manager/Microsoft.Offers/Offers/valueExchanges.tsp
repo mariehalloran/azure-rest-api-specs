@@ -25,7 +25,8 @@ namespace Microsoft.Offers;
  * `/subscriptions/{subscriptionId}/providers/Microsoft.Offers/valueExchanges/{valueExchangeId}`.
  */
 @subscriptionResource
-model ValueExchange is Azure.ResourceManager.ProxyResource<ValueExchangeProperties> {
+model ValueExchange
+  is Azure.ResourceManager.ProxyResource<ValueExchangeProperties> {
   ...ResourceNameParameter<
     Resource = ValueExchange,
     KeyName = "valueExchangeId",
@@ -49,4 +50,6 @@ interface ValueExchanges {
 @@doc(ValueExchange.name,
   "The value-exchange identifier (BigCat UPN id, e.g. `DZH318Z0995B`)."
 );
-@@doc(ValueExchange.properties, "The properties of the value-exchange resource.");
+@@doc(ValueExchange.properties,
+  "The properties of the value-exchange resource."
+);

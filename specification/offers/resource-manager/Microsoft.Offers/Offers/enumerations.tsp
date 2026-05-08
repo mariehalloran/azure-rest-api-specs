@@ -23,7 +23,8 @@ namespace Microsoft.Offers;
  * `/subscriptions/{subscriptionId}/providers/Microsoft.Offers/enumerations/{enumerationType}`.
  */
 @subscriptionResource
-model Enumeration is Azure.ResourceManager.ProxyResource<EnumerationProperties> {
+model Enumeration
+  is Azure.ResourceManager.ProxyResource<EnumerationProperties> {
   ...ResourceNameParameter<
     Resource = Enumeration,
     KeyName = "enumerationType",
