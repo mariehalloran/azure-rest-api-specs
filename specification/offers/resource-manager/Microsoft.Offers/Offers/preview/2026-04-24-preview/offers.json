@@ -43,7 +43,10 @@
       "name": "Operations"
     },
     {
-      "name": "Upns"
+      "name": "ValueExchanges"
+    },
+    {
+      "name": "Enumerations"
     }
   ],
   "paths": {
@@ -83,26 +86,34 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/upns": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/enumerations/{enumerationType}": {
       "get": {
-        "operationId": "Upns_ListBySubscription",
+        "operationId": "Enumerations_Get",
         "tags": [
-          "Upns"
+          "Enumerations"
         ],
-        "description": "List all UPN resources in the subscription.",
+        "description": "Get a single enumeration set by its type key (for example, `categories`).",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "enumerationType",
+            "in": "path",
+            "description": "The enumeration type key (for example, `categories`, `productFamilies`, `claimTypes`).",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9]*$"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/UpnListResult"
+              "$ref": "#/definitions/Enumeration"
             }
           },
           "default": {
@@ -113,22 +124,19 @@
           }
         },
         "x-ms-examples": {
-          "List all UPN resources in the subscription.": {
-            "$ref": "./examples/Upns_ListBySubscription.json"
+          "Get an enumeration set by its type key.": {
+            "$ref": "./examples/Enumerations_Get.json"
           }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/upns/{upnGuid}": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/valueExchanges/{valueExchangeId}": {
       "get": {
-        "operationId": "Upns_Get",
+        "operationId": "ValueExchanges_Get",
         "tags": [
-          "Upns"
+          "ValueExchanges"
         ],
-        "description": "Get a single UPN resource by its GUID identifier. Returns the identity\nenvelope of the UPN.",
+        "description": "Get a single value-exchange resource by its identifier. Returns the\ncanonical, stable, slim shape; the same response is returned for the\nsame id under one API version regardless of caller.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -137,19 +145,19 @@
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "name": "upnGuid",
+            "name": "valueExchangeId",
             "in": "path",
-            "description": "The GUID identifier of the UPN. Corresponds to the OCP value-exchange productCode.",
+            "description": "The value-exchange identifier (BigCat UPN id, e.g. `DZH318Z0995B`).",
             "required": true,
             "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            "pattern": "^[A-Z0-9]{12}$"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/Upn"
+              "$ref": "#/definitions/ValueExchange"
             }
           },
           "default": {
@@ -160,101 +168,174 @@
           }
         },
         "x-ms-examples": {
-          "Get a UPN by its GUID identifier.": {
-            "$ref": "./examples/Upns_Get.json"
+          "Get a value-exchange (UPN) by its identifier.": {
+            "$ref": "./examples/ValueExchanges_Get.json"
           }
         }
       }
     }
   },
   "definitions": {
-    "ProductSummary": {
+    "Availability": {
       "type": "object",
-      "description": "Denormalized product summary embedded in a UPN. Only identifying and\ndiscovery-relevant product fields are exposed here; the full product\ndocument is not retrievable as a separate resource type.",
+      "description": "Availability information for a value exchange. PCD-faithful PascalCase.",
       "properties": {
-        "productId": {
+        "AvailabilityId": {
           "type": "string",
-          "description": "The stable product identifier."
+          "description": "The stable availability identifier (typically equal to the value-exchange id)."
         },
-        "friendlyName": {
-          "type": "string",
-          "description": "The human-readable friendly name of the product."
-        },
-        "template": {
-          "type": "string",
-          "description": "The offer template identifier for this product (for example, \"offer-template/az-generic\")."
-        },
-        "discoveryTags": {
-          "type": "object",
-          "description": "Discovery tags associated with the product.",
-          "additionalProperties": {
+        "Markets": {
+          "type": "array",
+          "description": "Markets in which this availability is offered (ISO 3166 country codes).",
+          "items": {
             "type": "string"
           }
         },
-        "ownership": {
-          "$ref": "#/definitions/UpnOwnership",
-          "description": "Ownership classification of the product."
+        "ConsumptionUnitType": {
+          "type": "string",
+          "description": "Consumption unit type (for example, \"DAY\")."
+        },
+        "DisplayRank": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Display rank for ordering."
+        },
+        "AlternateIds": {
+          "type": "array",
+          "description": "Alternate identifiers.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "LastModifiedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last modified date for the availability record."
+        },
+        "Conditions": {
+          "$ref": "#/definitions/AvailabilityConditions",
+          "description": "Conditions under which the availability applies."
+        },
+        "Terms": {
+          "type": "array",
+          "description": "Purchase terms offered by this availability.",
+          "items": {
+            "$ref": "#/definitions/AvailabilityTerm"
+          },
+          "x-ms-identifiers": [
+            "TermId"
+          ]
+        },
+        "SupportedLanguages": {
+          "type": "array",
+          "description": "Synthesized intersection of `Sku.MarketProperties` and `Av.Markets`.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Meters": {
+          "type": "array",
+          "description": "Synthesized subset of `Sku.Properties.MeterData` filtered by `Av.Properties.MeterType`.",
+          "items": {
+            "$ref": "#/definitions/AvailabilityMeter"
+          },
+          "x-ms-identifiers": []
+        },
+        "Properties": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Curated PCD `Availability.Properties` subset (PascalCase keys verbatim)."
         }
       },
       "required": [
-        "productId"
+        "AvailabilityId"
       ]
     },
-    "SkuSummary": {
+    "AvailabilityConditions": {
       "type": "object",
-      "description": "Additional metadata about the SKU. The SKU identity itself is exposed at\nthe resource envelope as `sku.name`; this model carries denormalized\ndescriptive fields not covered by the standard ARM SKU envelope.",
+      "description": "Conditions under which the availability applies.",
       "properties": {
-        "friendlyName": {
+        "StartDate": {
           "type": "string",
-          "description": "The human-readable friendly name of the SKU."
+          "format": "date-time",
+          "description": "Start date of the availability window."
         },
-        "commercialType": {
-          "$ref": "#/definitions/SkuType",
-          "description": "The commercial type of the SKU."
+        "EndDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End date of the availability window. PCD sentinel `9999-...` is scrubbed to null."
+        },
+        "IsPermanent": {
+          "type": "boolean",
+          "description": "Whether the availability is permanent."
+        },
+        "SupportedCatalogVersion": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Supported catalog version."
+        },
+        "ResourceSetIds": {
+          "type": "array",
+          "description": "Resource set identifiers.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "EligibilityPredicateIds": {
+          "type": "array",
+          "description": "Eligibility predicate identifiers.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ClientConditions": {
+          "$ref": "#/definitions/ClientConditions",
+          "description": "Client-side conditions."
         }
       }
     },
-    "SkuType": {
-      "type": "string",
-      "description": "The commercial type of a SKU.",
-      "enum": [
-        "Consumption",
-        "Subscription",
-        "OneTime"
-      ],
-      "x-ms-enum": {
-        "name": "SkuType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Consumption",
-            "value": "Consumption",
-            "description": "Consumption-based SKU (pay-as-you-go)."
-          },
-          {
-            "name": "Subscription",
-            "value": "Subscription",
-            "description": "Subscription-based SKU."
-          },
-          {
-            "name": "OneTime",
-            "value": "OneTime",
-            "description": "One-time purchase SKU."
-          }
-        ]
+    "AvailabilityMeter": {
+      "type": "object",
+      "description": "A meter bound to this value exchange (synthesized from `Sku.Properties.MeterData` filtered by `Av.Properties.MeterType`).",
+      "additionalProperties": {}
+    },
+    "AvailabilityTerm": {
+      "type": "object",
+      "description": "A purchase term offered by an availability.",
+      "properties": {
+        "TermId": {
+          "type": "string",
+          "description": "The stable term identifier."
+        },
+        "TermUnits": {
+          "type": "string",
+          "description": "ISO-8601 duration for the term (for example, \"P1Y\")."
+        },
+        "TermDescription": {
+          "type": "string",
+          "description": "Human-readable term description."
+        }
       }
     },
-    "Upn": {
+    "ClientConditions": {
       "type": "object",
-      "description": "UPN (Unified Product Node) resource.\n\nA UPN is a subscription-scoped, read-only proxy resource that\nrepresents one transactable value-exchange in the Microsoft commercial\ncatalog. It is addressed at\n`/subscriptions/{subscriptionId}/providers/Microsoft.Offers/upns/{upnGuid}`.",
+      "description": "Client-side conditions for an availability.",
+      "properties": {
+        "AllowedPlatforms": {
+          "type": "array",
+          "description": "Allowed client platforms; empty list means no platform restriction.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Enumeration": {
+      "type": "object",
+      "description": "Enumeration resource.\n\nReturns one enumeration set (for example, `categories`, `productFamilies`,\n`claimTypes`) sourced from the BigCat enumeration and domain-data\ncontrollers. A single container resource type keeps new enumerations\nextensible without minting a new ARM type per enumeration.\n\nAddressed at\n`/subscriptions/{subscriptionId}/providers/Microsoft.Offers/enumerations/{enumerationType}`.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/UpnProperties",
-          "description": "The properties of the UPN resource."
-        },
-        "sku": {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/Sku",
-          "description": "The SKU (Stock Keeping Unit) assigned to this resource."
+          "$ref": "#/definitions/EnumerationProperties",
+          "description": "The properties of the enumeration resource."
         }
       },
       "allOf": [
@@ -263,121 +344,139 @@
         }
       ]
     },
-    "UpnListResult": {
+    "EnumerationProperties": {
       "type": "object",
-      "description": "The response of a Upn list operation.",
+      "description": "Properties of an enumeration set returned by the enumerations endpoint.",
       "properties": {
-        "value": {
-          "type": "array",
-          "description": "The Upn items on this page",
-          "items": {
-            "$ref": "#/definitions/Upn"
-          }
-        },
-        "nextLink": {
+        "enumerationType": {
           "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
+          "description": "The enumeration type key (for example, \"categories\", \"productFamilies\", \"claimTypes\")."
+        },
+        "values": {
+          "type": "array",
+          "description": "The enumeration values. Shape is enumeration-specific; values are passed through verbatim from the upstream BigCat catalog feed.",
+          "items": {}
         }
       },
       "required": [
-        "value"
+        "enumerationType"
       ]
     },
-    "UpnOwnership": {
-      "type": "string",
-      "description": "Ownership classification of a product. Indicates whether the product is\nowned by Microsoft (first-party) or by a third-party publisher.",
-      "enum": [
-        "1PP",
-        "3PP"
-      ],
-      "x-ms-enum": {
-        "name": "UpnOwnership",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "FirstParty",
-            "value": "1PP",
-            "description": "First-party (Microsoft-owned) product."
-          },
-          {
-            "name": "ThirdParty",
-            "value": "3PP",
-            "description": "Third-party (publisher-owned) product."
-          }
-        ]
-      }
-    },
-    "UpnProperties": {
+    "PcdPropertyBag": {
       "type": "object",
-      "description": "Properties of a UPN (Unified Product Node) resource. A UPN is the\ntransactable catalog identity and carries denormalized product and SKU\nsummaries plus the value-exchange identity.",
+      "description": "A curated PCD-faithful property bag. PascalCase keys; unbounded set.",
+      "additionalProperties": {}
+    },
+    "Product": {
+      "type": "object",
+      "description": "Denormalized product summary for a value exchange. PCD-faithful PascalCase.",
       "properties": {
-        "valueExchange": {
-          "$ref": "#/definitions/ValueExchange",
-          "description": "The value-exchange identity that this UPN represents."
-        },
-        "product": {
-          "$ref": "#/definitions/ProductSummary",
-          "description": "Denormalized product summary."
-        },
-        "skuDetails": {
-          "$ref": "#/definitions/SkuSummary",
-          "description": "Additional descriptive metadata about the SKU. The SKU identity is exposed at the resource envelope as `sku.name`."
-        },
-        "template": {
+        "ProductId": {
           "type": "string",
-          "description": "The offer-template identifier for this UPN (for example, \"offer-template/az-vm\")."
+          "description": "The stable product identifier."
+        },
+        "ProductFamily": {
+          "type": "string",
+          "description": "Product family (for example, \"Azure\")."
+        },
+        "ProductType": {
+          "type": "string",
+          "description": "Product type (for example, \"Azure\")."
+        },
+        "ProductKind": {
+          "type": "string",
+          "description": "Product kind (for example, \"Azure\")."
+        },
+        "LastModifiedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last modified date for the product record."
+        },
+        "PublisherName": {
+          "type": "string",
+          "description": "Lifted single-language publisher name from PCD `LocalizedProperties[*].PublisherName`."
+        },
+        "Properties": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Curated PCD `Product.Properties` subset (PascalCase keys verbatim)."
         }
       },
       "required": [
-        "valueExchange",
-        "product"
+        "ProductId"
+      ]
+    },
+    "Sku": {
+      "type": "object",
+      "description": "Denormalized SKU summary for a value exchange. PCD-faithful PascalCase.",
+      "properties": {
+        "SkuId": {
+          "type": "string",
+          "description": "The stable SKU identifier."
+        },
+        "SkuType": {
+          "type": "string",
+          "description": "SKU type (for example, \"enterpriseonline\")."
+        },
+        "ProductId": {
+          "type": "string",
+          "description": "The product identifier this SKU belongs to."
+        },
+        "LastModifiedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last modified date for the SKU record."
+        },
+        "Properties": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Curated PCD `Sku.Properties` subset (PascalCase keys verbatim). Includes `PartnerChannelLifecycleState` and `DeactivatedLifeCycleState`."
+        }
+      },
+      "required": [
+        "SkuId"
       ]
     },
     "ValueExchange": {
       "type": "object",
-      "description": "Value-exchange (UPN identity) metadata. The value exchange is the leaf of\nthe OCP Product -> SKU -> Value Exchange hierarchy and is the transactable\nidentity addressed by this resource.",
+      "description": "Value exchange (UPN) resource.\n\nA subscription-scoped, read-only proxy resource representing one\ntransactable value-exchange (BigCat UPN) in the Microsoft commercial\ncatalog. Returns the canonical, stable, slim VE shape; the same\n`valueExchangeId` returns the same response for all callers under one\nAPI version. No market/language/fragment inputs are accepted; for\nlocalized or market-specific content, use the hydrate action.\n\nAddressed at\n`/subscriptions/{subscriptionId}/providers/Microsoft.Offers/valueExchanges/{valueExchangeId}`.",
       "properties": {
-        "valueExchangeId": {
+        "properties": {
+          "$ref": "#/definitions/ValueExchangeProperties",
+          "description": "The properties of the value-exchange resource."
+        },
+        "eTag": {
           "type": "string",
-          "description": "The stable identifier of the value exchange."
+          "description": "If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields.",
+          "readOnly": true
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "ValueExchangeProperties": {
+      "type": "object",
+      "description": "Properties of a value exchange (UPN). Wraps the denormalized PCD trio of\nProduct, Sku, and Availability. Slim shape: large blobs (raw MeterData,\nOrderManagementData, Passthrough sub-objects, CoSell, Attributes) are\ndropped here and live on the rich hydrate response.",
+      "properties": {
+        "Product": {
+          "$ref": "#/definitions/Product",
+          "description": "Denormalized product summary."
         },
-        "unit": {
-          "$ref": "#/definitions/ValueExchangeUnit",
-          "description": "Unit metadata for the value exchange."
+        "Sku": {
+          "$ref": "#/definitions/Sku",
+          "description": "Denormalized SKU summary."
         },
-        "dimensions": {
-          "$ref": "#/definitions/ValueExchangeDimensions",
-          "description": "Dimension metadata for the value exchange."
+        "Availability": {
+          "$ref": "#/definitions/Availability",
+          "description": "Availability information for this value exchange."
         }
       },
       "required": [
-        "valueExchangeId"
+        "Product",
+        "Sku",
+        "Availability"
       ]
-    },
-    "ValueExchangeDimensions": {
-      "type": "object",
-      "description": "Dimension metadata associated with a value exchange.",
-      "properties": {
-        "region": {
-          "type": "string",
-          "description": "The Azure region dimension (for example, \"westus2\")."
-        },
-        "feature": {
-          "type": "string",
-          "description": "The feature dimension (for example, a product feature name)."
-        }
-      }
-    },
-    "ValueExchangeUnit": {
-      "type": "object",
-      "description": "Unit metadata associated with a value exchange.",
-      "properties": {
-        "hint": {
-          "type": "string",
-          "description": "A human-readable hint describing the unit (for example, \"vCPU Duration - 1 Hour\")."
-        }
-      }
     }
   },
   "parameters": {}

@@ -1,0 +1,76 @@
+{
+  "title": "Get a value-exchange (UPN) by its identifier.",
+  "operationId": "ValueExchanges_Get",
+  "parameters": {
+    "api-version": "2026-04-24-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "valueExchangeId": "DZH318Z0995B"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Offers/valueExchanges/DZH318Z0995B",
+        "name": "DZH318Z0995B",
+        "type": "Microsoft.Offers/valueExchanges",
+        "eTag": "2026-04-15T12:00:00Z||rev-7",
+        "systemData": {
+          "createdAt": "2026-04-01T00:00:00Z",
+          "lastModifiedAt": "2026-04-15T12:00:00Z",
+          "lastModifiedByType": "Application"
+        },
+        "properties": {
+          "Product": {
+            "ProductId": "DZH318Z09JCL",
+            "ProductFamily": "Azure",
+            "ProductType": "Azure",
+            "ProductKind": "Azure",
+            "LastModifiedDate": "2026-04-15T12:00:00Z",
+            "PublisherName": "Cira Apps Limited",
+            "Properties": {}
+          },
+          "Sku": {
+            "SkuId": "0001",
+            "SkuType": "enterpriseonline",
+            "ProductId": "DZH318Z09JCL",
+            "LastModifiedDate": "2026-04-15T12:00:00Z",
+            "Properties": {}
+          },
+          "Availability": {
+            "AvailabilityId": "DZH318Z0995B",
+            "Markets": [
+              "SE"
+            ],
+            "ConsumptionUnitType": "DAY",
+            "DisplayRank": 100,
+            "AlternateIds": [],
+            "LastModifiedDate": "2026-04-15T12:00:00Z",
+            "Conditions": {
+              "StartDate": "2026-01-01T00:00:00Z",
+              "IsPermanent": true,
+              "SupportedCatalogVersion": 7,
+              "ResourceSetIds": [
+                "4"
+              ],
+              "EligibilityPredicateIds": [],
+              "ClientConditions": {
+                "AllowedPlatforms": []
+              }
+            },
+            "Terms": [
+              {
+                "TermId": "term-1y",
+                "TermUnits": "P1Y",
+                "TermDescription": "1 Year Subscription"
+              }
+            ],
+            "SupportedLanguages": [
+              "en"
+            ],
+            "Meters": [],
+            "Properties": {}
+          }
+        }
+      }
+    }
+  }
+}
