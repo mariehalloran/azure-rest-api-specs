@@ -42,6 +42,10 @@ enum Versions {
   @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v3_preview")
   @useDependency(LiftrBase.Versions.v3_preview)
   v6_preview: "2026-06-02-preview",
+
+  @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v1_preview")
+  @useDependency(LiftrBase.Versions.v1_preview)
+  v7_preview: "2026-07-01-preview",
 }
 interface Operations extends Azure.ResourceManager.Operations {}
 
@@ -1029,6 +1033,26 @@ model RestoreProtectionItemRequest {
   vmDestinationInfo: VmDestinationInfo;
 }
 
+@doc("Response for count protected items operation.")
+@added(Versions.v7_preview)
+model CountProtectedItemsResponse {
+  @doc("The count of protected items.")
+  count: string;
+}
+
+@doc("Request to count protected items for the provided CCA resource IDs across subscriptions.")
+@added(Versions.v7_preview)
+model CountProtectedItemsRequest {
+  @doc("The list of CCA resource IDs.")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  @minItems(1)
+  resourceIds: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Commvault.ContentStore/cloudAccounts";
+    }
+  ]>[];
+}
+
 @armResourceOperations
 interface ProtectedItems {
   get is ArmResourceRead<ProtectedItem>;
@@ -1053,6 +1077,20 @@ interface ProtectedItems {
     @doc("The body type of the operation request.")
     request: RestoreProtectionItemRequest,
   ): ArmResponse<RestoreProtectionItemResponse> | ErrorResponse;
+}
+
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "Cross-subscription protected item count operation group"
+@added(Versions.v7_preview)
+interface ProtectedItemsOperationGroup {
+  @doc("Gets the count of protected items for provided CCA resource IDs across subscriptions.")
+  @autoRoute
+  @action("protectedItemCount")
+  countByProtectionGroups is ArmProviderActionSync<
+    Request = CountProtectedItemsRequest,
+    Response = CountProtectedItemsResponse,
+    Scope = TenantActionScope,
+    Parameters = {}
+  >;
 }
 
 @doc("Restore points of a Protected Item")
