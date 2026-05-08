@@ -1932,6 +1932,24 @@
         "errorMessage"
       ]
     },
+    "CustomProperties": {
+      "type": "object",
+      "description": "Custom property with mixed value types",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Property key"
+        },
+        "value": {
+          "type": "string",
+          "description": "Property value - string"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
+    },
     "Edition": {
       "type": "string",
       "description": "Represents the Edition of the Mongo instance.",
@@ -3231,6 +3249,19 @@
         }
       }
     },
+    "SiteTagsPatch": {
+      "type": "object",
+      "description": "The Site Tags patch resource definition.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "SoftwareAttributes": {
       "type": "object",
       "description": "Software-specific attributes and metadata",
@@ -3260,37 +3291,6 @@
           "x-ms-identifiers": [
             "key"
           ]
-        }
-      }
-    },
-    "CustomProperties": {
-      "type": "object",
-      "description": "Custom property with mixed value types",
-      "properties": {
-        "key": {
-          "type": "string",
-          "description": "Property key"
-        },
-        "value": {
-          "type": "string",
-          "description": "Property value - string"
-        }
-      },
-      "required": [
-        "key",
-        "value"
-      ]
-    },
-    "SiteTagsPatch": {
-      "type": "object",
-      "description": "The Site Tags patch resource definition.",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
         }
       }
     },
