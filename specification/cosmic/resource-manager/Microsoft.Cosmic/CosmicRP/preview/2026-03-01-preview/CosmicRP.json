@@ -1778,7 +1778,7 @@
         },
         "isolationGroup": {
           "type": "string",
-          "description": "The isolation group for this namespace.",
+          "description": "The isolation group for cluster bin-packing affinity. This field is required and cannot be changed after namespace creation.",
           "x-ms-mutability": [
             "read",
             "create"
@@ -1808,6 +1808,7 @@
         "torusTeam",
         "icmAccount",
         "icmTenant",
+        "isolationGroup",
         "nightwatchEnabled"
       ]
     },
