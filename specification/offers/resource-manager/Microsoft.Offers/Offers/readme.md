@@ -33,16 +33,46 @@ These settings apply only when `--tag=package-2026-04-24-preview` is specified o
 input-file:
   - preview/2026-04-24-preview/offers.json
 suppressions:
+  - code: DefinitionsPropertiesNamesCamelCase
+    from:
+      - offers.json
+    where:
+      - $.definitions.Product.properties.*
+      - $.definitions.Sku.properties.*
+      - $.definitions.Availability.properties.*
+      - $.definitions.AvailabilityConditions.properties.*
+      - $.definitions.ClientConditions.properties.*
+      - $.definitions.AvailabilityTerm.properties.*
+      - $.definitions.ValueExchangeProperties.properties.*
+    reason: >
+      PCD-faithful PascalCase trim. Property names are passed through verbatim
+      from the upstream BigCat catalog feed (Product, Sku, Availability and
+      sub-models). Renaming to camelCase would break the projection contract
+      with the upstream catalog source and require a translation layer for
+      every field. This is a read-only catalog projection RP.
   - code: AvoidAdditionalProperties
     from:
       - offers.json
     where:
-      - $.definitions.ProductSummary.properties.discoveryTags
+      - $.definitions.PcdPropertyBag
+      - $.definitions.AvailabilityMeter
     reason: >
-      `discoveryTags` is a free-form bag of discovery metadata sourced from
-      the upstream BigCat catalog. The set of keys is unbounded and
-      provider-defined; it cannot be modeled as an explicit schema. This is
-      catalog discovery metadata, not user-defined ARM tags.
+      Passthrough projection of BigCat PCD curated property bags; the key set
+      is server-curated and varies per product family / meter category.
+      Validation is owned by the upstream catalog source. Repo precedent:
+      computeschedule, computebulkactions, awsconnector.
+  - code: TopLevelResourcesListBySubscription
+    from:
+      - offers.json
+    where:
+      - $.definitions.ValueExchange
+      - $.definitions.Enumeration
+    reason: >
+      ValueExchange and Enumeration are singleton GET-by-id catalog projections.
+      List-by-subscription is intentionally not exposed: the catalog has
+      millions of entries and is not user-scoped, so a per-subscription list
+      would have no meaningful semantics. Lookup is always by known id from
+      a separate discovery flow.
 ```
 
 ---
