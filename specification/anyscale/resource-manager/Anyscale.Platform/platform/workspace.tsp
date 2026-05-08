@@ -18,7 +18,7 @@ namespace Anyscale.Platform;
 @resource("workspaces")
 model Workspace is ProxyResource<WorkspaceProperties> {
   /** The name of the workspace. */
-  @pattern("^[a-zA-Z0-9]*$")
+  @pattern("^[a-zA-Z0-9_-]*$")
   @key("workspaceName")
   @path
   @segment("workspaces")

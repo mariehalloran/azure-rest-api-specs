@@ -1547,6 +1547,24 @@
         }
       }
     },
+    "ApplianceData": {
+      "type": "object",
+      "description": "Data associated with a discovery appliance.",
+      "properties": {
+        "runAsAccountId": {
+          "type": "string",
+          "description": "The run-as account identifier."
+        },
+        "applianceName": {
+          "type": "string",
+          "description": "The appliance name."
+        },
+        "status": {
+          "$ref": "#/definitions/RegistrationStatus",
+          "description": "The registration status of the appliance."
+        }
+      }
+    },
     "AzureResourceProperties": {
       "type": "object",
       "description": "Common properties for all azure tracked and proxy resources.",
@@ -2069,16 +2087,24 @@
           "format": "int32",
           "description": "Number of object store buckets."
         },
-        "clusterFqdn": {
+        "connectionFqdn": {
+          "type": "string",
+          "description": "The connection FQDN to the NAS cluster."
+        },
+        "discoveredFqdns": {
           "type": "array",
-          "description": "The cluster FQDN(s).",
+          "description": "The discovered cluster FQDN(s).",
           "items": {
             "type": "string"
           }
         },
-        "runAsAccountId": {
-          "type": "string",
-          "description": "The run-as account ID for NAS access."
+        "applianceDataCollection": {
+          "type": "array",
+          "description": "The collection of appliance data associated with this NAS resource.",
+          "items": {
+            "$ref": "#/definitions/ApplianceData"
+          },
+          "x-ms-identifiers": []
         },
         "displayName": {
           "type": "string",
@@ -2161,16 +2187,24 @@
           "format": "int32",
           "description": "Number of object store buckets."
         },
-        "clusterFqdn": {
+        "connectionFqdn": {
+          "type": "string",
+          "description": "The connection FQDN to the NAS cluster."
+        },
+        "discoveredFqdns": {
           "type": "array",
-          "description": "The cluster FQDN(s).",
+          "description": "The discovered cluster FQDN(s).",
           "items": {
             "type": "string"
           }
         },
-        "runAsAccountId": {
-          "type": "string",
-          "description": "The run-as account ID for NAS access."
+        "applianceDataCollection": {
+          "type": "array",
+          "description": "The collection of appliance data associated with this NAS resource.",
+          "items": {
+            "$ref": "#/definitions/ApplianceData"
+          },
+          "x-ms-identifiers": []
         },
         "displayName": {
           "type": "string",
@@ -2352,6 +2386,30 @@
         ]
       },
       "readOnly": true
+    },
+    "RegistrationStatus": {
+      "type": "string",
+      "description": "The registration status of an appliance.",
+      "enum": [
+        "Registering",
+        "Registered"
+      ],
+      "x-ms-enum": {
+        "name": "RegistrationStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Registering",
+            "value": "Registering",
+            "description": "The appliance is in the process of registering."
+          },
+          {
+            "name": "Registered",
+            "value": "Registered",
+            "description": "The appliance is fully registered."
+          }
+        ]
+      }
     },
     "SiteTagsPatch": {
       "type": "object",
