@@ -32,15 +32,6 @@ openapi-subtype: providerHub
 tag: package-preview-2026-01
 ```
 
-### Tag: package-preview-2024-10
-
-These settings apply only when `--tag=package-preview-2024-10` is specified on the command line.
-
-```yaml $(tag) == 'package-preview-2024-10'
-input-file:
-  - Microsoft.AccessPoint/preview/2024-10-01-preview/openapi.json
-```
-
 ### Tag: package-preview-2026-01
 
 These settings apply only when `--tag=package-preview-2026-01` is specified on the command line.
