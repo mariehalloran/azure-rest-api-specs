@@ -544,7 +544,7 @@ model MongoInstanceProperties is AzureResourceProperties {
   /**
    * Software-specific attributes and metadata for the discovered MongoDB instance.
    */
-  @added(Versions.v2026_05_07_preview)
+  @added(Versions.v2026_05_01_preview)
   softwareAttributes?: SoftwareAttributes;
 
   /**
@@ -723,7 +723,7 @@ model MongoInstanceResourcePatch is AzureResourceProperties {
   /**
    * Software-specific attributes and metadata for the discovered MongoDB instance.
    */
-  @added(Versions.v2026_05_07_preview)
+  @added(Versions.v2026_05_01_preview)
   softwareAttributes?: SoftwareAttributes;
 
   /**
@@ -1159,7 +1159,7 @@ model MongoCollectionResourcePatchProperties {
 /**
  * Software-specific attributes and metadata
  */
-@added(Versions.v2026_05_07_preview)
+@added(Versions.v2026_05_01_preview)
 model SoftwareAttributes {
   /**
    * Name of the software (e.g., MongoDB)
@@ -1191,7 +1191,7 @@ model SoftwareAttributes {
 /**
  * Custom property with mixed value types
  */
-@added(Versions.v2026_05_07_preview)
+@added(Versions.v2026_05_01_preview)
 model CustomProperties {
   /**
    * Property key
