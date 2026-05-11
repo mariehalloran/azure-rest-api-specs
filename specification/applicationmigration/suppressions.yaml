@@ -12,3 +12,23 @@
     - ApplicationMigration.Management/WorkloadsDiscovery.Management/tspconfig.yaml
     - ApplicationMigration.Management/Network.Management/tspconfig.yaml
 
+- tool: LintDiff
+  reason: >
+    Suppressing PostResponseCodes for the NetworkAgent triggerRefresh action.
+    The LintDiff rule incorrectly flags valid `202 + default` async POST
+    operations — this is a known bug tracked at
+    https://github.com/Azure/azure-openapi-validator/issues/809.
+    Per upstream guidance from @markcowl
+    (https://github.com/Azure/typespec-azure/issues/857#issuecomment-2138277638),
+    services should model what they actually return: only `202` or error for
+    async POST with no synchronous completion. The triggerRefresh backend
+    (RPaaSOperationStatusPatchHelper.cs) returns no response body on success,
+    so `ArmResourceActionNoResponseContentAsync<NetworkAgent, void>` (which
+    emits `202 + default`) is the correct shape. This matches every sibling
+    workload agent in Microsoft.ApplicationMigration (PGSQL, MongoDB, Oracle,
+    Storage). Mark recommends suppressing the broken LintDiff rule as the
+    workaround until the upstream bug is fixed.
+  rules: [PostResponseCodes]
+  paths:
+    - Microsoft.ApplicationMigration/Network/preview/2026-01-01-preview/NetworkDiscovery.json
+

@@ -60,14 +60,8 @@ interface NetworkAgents {
   /**
    * Triggers a refresh of the network agent discovery.
    */
-  // The TypeSpec arm-post-operation-response-codes rule rejects 204 in
-  // 3-status-code LRO POSTs, but the LintDiff PostResponseCodes rule (the
-  // ARM source of truth) explicitly accepts `202 + 204 + default` for an
-  // LRO action whose final response has no body. The backend operationStatus
-  // GET on success returns no schema, so 204 is the correct terminal code.
-  // #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "TypeSpec rule is stricter than ARM LintDiff; success path has no response body so 204 is correct."
   @action("refresh")
-  triggerRefresh is ArmResourceActionNoContentAsync<NetworkAgent, void>;
+  triggerRefresh is ArmResourceActionNoResponseContentAsync<NetworkAgent, void>;
 }
 
 @@maxLength(NetworkAgent.name, 63);
