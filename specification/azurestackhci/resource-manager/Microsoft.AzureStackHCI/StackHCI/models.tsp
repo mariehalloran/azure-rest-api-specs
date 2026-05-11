@@ -11257,7 +11257,7 @@ model EdgeMachineUpdateProperties {
 /**
  * Properties of an Edge Machine Security Settings resource.
  */
-@added(Versions.v2026_04_01_preview)
+@added(Versions.v2026_03_15_preview)
 model EdgeMachineSecurityProperties {
   /**
    * The provisioning state of the resource.
