@@ -97,6 +97,10 @@ model RegionProperties {
   @added(Versions.v2025_10_01_preview)
   zoneResilienceSupport: string;
 
+  /** Metro info of region */
+  @added(Versions.v2026_05_01_preview)
+  metro: string;
+
   /** The provisioning state of resource. */
   @visibility(Lifecycle.Read)
   provisioningState?: ResourceProvisioningState;
