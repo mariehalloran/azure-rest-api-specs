@@ -41,6 +41,7 @@ import "./EdgeMachineUpdate.tsp";
 import "./EdgeMachineGpu.tsp";
 import "./EdgeMachineStorage.tsp";
 import "./EdgeMachineNetworkAdapters.tsp";
+import "./EdgeMachineSecuritySettings.tsp";
 import "./ValidateOwnershipVouchers.tsp";
 import "./ClusterJobs.tsp";
 import "./ClusterVolume.tsp";
@@ -75,4 +76,9 @@ enum Versions {
    * The 2026-03-15-preview API version.
    */
   v2026_03_15_preview: "2026-03-15-preview",
+
+  /**
+   * The 2026-04-01-preview API version.
+   */
+  v2026_04_01_preview: "2026-04-01-preview",
 }

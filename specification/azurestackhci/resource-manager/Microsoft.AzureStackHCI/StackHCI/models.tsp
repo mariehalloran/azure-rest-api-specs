@@ -11249,3 +11249,39 @@ model EdgeMachineUpdateProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
 }
+
+////////////////////////////////////////////////////////////////
+////// EdgeMachineSecuritySettings Models /////////////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Properties of an Edge Machine Security Settings resource.
+ */
+@added(Versions.v2026_04_01_preview)
+model EdgeMachineSecurityProperties {
+  /**
+   * The provisioning state of the resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Secure Boot setting.
+   */
+  secureBoot?: boolean;
+
+  /**
+   * Trusted Platform Module (TPM) enabled.
+   */
+  tpmEnabled?: boolean;
+
+  /**
+   * Credential Guard enabled.
+   */
+  credentialGuardEnabled?: boolean;
+
+  /**
+   * Security patch level.
+   */
+  securityPatchLevel?: string;
+}
