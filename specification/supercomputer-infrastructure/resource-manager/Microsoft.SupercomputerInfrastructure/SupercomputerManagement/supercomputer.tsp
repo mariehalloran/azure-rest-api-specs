@@ -42,6 +42,9 @@ union SupercomputerTier {
   /** A Nebius MIV50 GB300 supercomputer. */
   Offnet_Nebius_MIV50_GB300: "Offnet_Nebius_MIV50_GB300",
 
+  /** A supercomputer comprising of one or more Azure Fabric clusters. */
+  Standard_Clusters: "Standard_Clusters",
+
   string,
 }
 
