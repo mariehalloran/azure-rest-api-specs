@@ -48,9 +48,9 @@ suppressions:
       https://github.com/Azure/azure-openapi-validator/issues/809.
       Per @markcowl (https://github.com/Azure/typespec-azure/issues/857#issuecomment-2138277638),
       services should only return 202 or error for async POST when no
-      synchronous completion occurs. The triggerRefresh backend
-      (RPaaSOperationStatusPatchHelper.cs) returns no response body, so the
-      shape emitted by `ArmResourceActionNoResponseContentAsync<NetworkAgent, void>`
+      synchronous completion occurs. The triggerRefresh backend returns no
+      response body, so the shape emitted by
+      `ArmResourceActionNoResponseContentAsync<NetworkAgent, void>`
       (202 + default) is correct. Matches sibling workload agents (PGSQL,
       MongoDB, Oracle, Storage) in Microsoft.ApplicationMigration.
 ```
