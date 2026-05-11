@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Billing benefits RP",
-    "version": "2025-12-01-preview",
+    "version": "2026-02-01-preview",
     "description": "Azure Benefits RP let users create and manage benefits.",
     "x-typespec-generated": [
       {
@@ -77,6 +77,24 @@
     },
     {
       "name": "FreeServicesOperations"
+    },
+    {
+      "name": "CreditTransactions"
+    },
+    {
+      "name": "MaccTransactions"
+    },
+    {
+      "name": "ConditionalCreditTransactions"
+    },
+    {
+      "name": "SubscriptionCatalogGroupsOps"
+    },
+    {
+      "name": "BillingAccountCatalogGroupsOps"
+    },
+    {
+      "name": "BillingProfileCatalogGroupsOps"
     }
   ],
   "paths": {
@@ -197,6 +215,214 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/providers/Microsoft.BillingBenefits/catalogGroups": {
+      "get": {
+        "operationId": "BillingProfileCatalogGroupsOps_List",
+        "tags": [
+          "BillingProfileCatalogGroupsOps"
+        ],
+        "description": "List catalog groups at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "billingAccountName",
+            "in": "path",
+            "description": "The name of the billing account.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.:]+$"
+          },
+          {
+            "name": "billingProfileName",
+            "in": "path",
+            "description": "The name of the billing profile.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "$ref": "#/parameters/CatalogGroupsListParameters"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroupListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "BillingProfileCatalogGroupsList": {
+            "$ref": "./examples/CatalogGroupsBillingProfileList.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/providers/Microsoft.BillingBenefits/catalogGroups/{catalogGroupName}": {
+      "get": {
+        "operationId": "BillingProfileCatalogGroupsOps_Get",
+        "tags": [
+          "BillingProfileCatalogGroupsOps"
+        ],
+        "description": "Get a specific catalog group at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "billingAccountName",
+            "in": "path",
+            "description": "The name of the billing account.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.:]+$"
+          },
+          {
+            "name": "billingProfileName",
+            "in": "path",
+            "description": "The name of the billing profile.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "catalogGroupName",
+            "in": "path",
+            "description": "The name of the CatalogGroup",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroup"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "BillingProfileCatalogGroupsGet": {
+            "$ref": "./examples/CatalogGroupsBillingProfileGet.json"
+          }
+        }
+      }
+    },
+    "/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/providers/Microsoft.BillingBenefits/catalogGroups": {
+      "get": {
+        "operationId": "BillingAccountCatalogGroupsOps_List",
+        "tags": [
+          "BillingAccountCatalogGroupsOps"
+        ],
+        "description": "List catalog groups at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "billingAccountName",
+            "in": "path",
+            "description": "The name of the billing account.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.:]+$"
+          },
+          {
+            "$ref": "#/parameters/CatalogGroupsListParameters"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroupListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "BillingAccountCatalogGroupsList": {
+            "$ref": "./examples/CatalogGroupsBillingAccountList.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/providers/Microsoft.BillingBenefits/catalogGroups/{catalogGroupName}": {
+      "get": {
+        "operationId": "BillingAccountCatalogGroupsOps_Get",
+        "tags": [
+          "BillingAccountCatalogGroupsOps"
+        ],
+        "description": "Get a specific catalog group at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "billingAccountName",
+            "in": "path",
+            "description": "The name of the billing account.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.:]+$"
+          },
+          {
+            "name": "catalogGroupName",
+            "in": "path",
+            "description": "The name of the CatalogGroup",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroup"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "BillingAccountCatalogGroupsGet": {
+            "$ref": "./examples/CatalogGroupsBillingAccountGet.json"
+          }
         }
       }
     },
@@ -1235,6 +1461,92 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.BillingBenefits/catalogGroups": {
+      "get": {
+        "operationId": "SubscriptionCatalogGroupsOps_List",
+        "tags": [
+          "SubscriptionCatalogGroupsOps"
+        ],
+        "description": "List catalog groups at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/CatalogGroupsListParameters"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroupListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SubscriptionCatalogGroupsList": {
+            "$ref": "./examples/CatalogGroupsSubscriptionList.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.BillingBenefits/catalogGroups/{catalogGroupName}": {
+      "get": {
+        "operationId": "SubscriptionCatalogGroupsOps_Get",
+        "tags": [
+          "SubscriptionCatalogGroupsOps"
+        ],
+        "description": "Get a specific catalog group at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "catalogGroupName",
+            "in": "path",
+            "description": "The name of the CatalogGroup",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroup"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SubscriptionCatalogGroupsGet": {
+            "$ref": "./examples/CatalogGroupsSubscriptionGet.json"
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/providers/Microsoft.BillingBenefits/conditionalCredits": {
       "get": {
         "operationId": "ConditionalCredits_ListBySubscription",
@@ -1944,6 +2256,344 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/conditionalCredits/{conditionalCreditName}/transactions": {
+      "get": {
+        "operationId": "ConditionalCreditTransactions_ListByParent",
+        "tags": [
+          "ConditionalCreditTransactions"
+        ],
+        "description": "List all transactions for a conditional credit.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "conditionalCreditName",
+            "in": "path",
+            "description": "Name of the conditional credit",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ConditionalCreditTransactionsList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ConditionalCreditTransactionsList": {
+            "$ref": "./examples/ConditionalCreditTransactionsList.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/conditionalCredits/{conditionalCreditName}/transactions/{transactionName}": {
+      "get": {
+        "operationId": "ConditionalCreditTransactions_Get",
+        "tags": [
+          "ConditionalCreditTransactions"
+        ],
+        "description": "Get a specific transaction for a conditional credit.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "conditionalCreditName",
+            "in": "path",
+            "description": "Name of the conditional credit",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "transactionName",
+            "in": "path",
+            "description": "Name of the transaction",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ConditionalCreditTransaction"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ConditionalCreditTransactionGet": {
+            "$ref": "./examples/ConditionalCreditTransactionGet.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ConditionalCreditTransactions_Create",
+        "tags": [
+          "ConditionalCreditTransactions"
+        ],
+        "description": "Create or replace a transaction for a conditional credit. This operation requires administrator permissions.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "conditionalCreditName",
+            "in": "path",
+            "description": "Name of the conditional credit",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "transactionName",
+            "in": "path",
+            "description": "Name of the transaction",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Transaction create request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ConditionalCreditTransaction"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ConditionalCreditTransaction' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ConditionalCreditTransaction"
+            }
+          },
+          "201": {
+            "description": "Resource 'ConditionalCreditTransaction' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ConditionalCreditTransaction"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "URL for checking the ongoing status of the operation."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ConditionalCreditTransactionCreate": {
+            "$ref": "./examples/ConditionalCreditTransactionCreate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation",
+          "final-state-schema": "#/definitions/ConditionalCreditTransaction"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "ConditionalCreditTransactions_Update",
+        "tags": [
+          "ConditionalCreditTransactions"
+        ],
+        "description": "Update a transaction for a conditional credit, reserved for admin-only operations routed through RPaaS.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "conditionalCreditName",
+            "in": "path",
+            "description": "Name of the conditional credit",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "transactionName",
+            "in": "path",
+            "description": "Name of the transaction",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "Transaction patch request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TransactionPatchRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ConditionalCreditTransaction"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ConditionalCreditTransactionUpdate": {
+            "$ref": "./examples/ConditionalCreditTransactionUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location",
+          "final-state-schema": "#/definitions/ConditionalCreditTransaction"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "ConditionalCreditTransactions_Delete",
+        "tags": [
+          "ConditionalCreditTransactions"
+        ],
+        "description": "Delete a transaction for a conditional credit. This operation requires administrator permissions.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "conditionalCreditName",
+            "in": "path",
+            "description": "Name of the conditional credit",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "transactionName",
+            "in": "path",
+            "description": "Name of the transaction",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ConditionalCreditTransactionDelete": {
+            "$ref": "./examples/ConditionalCreditTransactionDelete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/credits": {
       "get": {
         "operationId": "Credits_ListByResourceGroup",
@@ -2111,6 +2761,12 @@
         "x-ms-examples": {
           "CreditCreate": {
             "$ref": "./examples/CreditCreate.json"
+          },
+          "CreditCreateWithInvitation": {
+            "$ref": "./examples/CreditCreateWithInvitation.json"
+          },
+          "CreditTransferCreditCreate": {
+            "$ref": "./examples/CreditTransferCreditCreate.json"
           },
           "EndCustomerInvestmentFundCreditCreate": {
             "$ref": "./examples/EndCustomerInvestmentFundCreditCreate.json"
@@ -2349,6 +3005,77 @@
         "x-ms-long-running-operation-options": {
           "final-state-via": "location",
           "final-state-schema": "#/definitions/Credit"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/credits/{creditName}/changeSponsor": {
+      "post": {
+        "operationId": "Credits_ChangeSponsor",
+        "tags": [
+          "Credits"
+        ],
+        "description": "Change the sponsor of a credit.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "creditName",
+            "in": "path",
+            "description": "Name of the credit",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChangeSponsorRequest"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "URL for checking the ongoing status of the operation."
+              },
+              "Location": {
+                "type": "string",
+                "description": "Location URI to poll for result."
+              }
+            }
+          },
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CreditChangeSponsor": {
+            "$ref": "./examples/CreditChangeSponsor.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
         },
         "x-ms-long-running-operation": true
       }
@@ -2641,6 +3368,344 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/credits/{creditName}/transactions": {
+      "get": {
+        "operationId": "CreditTransactions_ListByParent",
+        "tags": [
+          "CreditTransactions"
+        ],
+        "description": "List all transactions for a credit.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "creditName",
+            "in": "path",
+            "description": "Name of the credit",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/TransactionsList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CreditTransactionsList": {
+            "$ref": "./examples/CreditTransactionsList.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/credits/{creditName}/transactions/{transactionName}": {
+      "get": {
+        "operationId": "CreditTransactions_Get",
+        "tags": [
+          "CreditTransactions"
+        ],
+        "description": "Get a specific transaction for a credit.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "creditName",
+            "in": "path",
+            "description": "Name of the credit",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "transactionName",
+            "in": "path",
+            "description": "Name of the transaction",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CreditTransaction"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CreditTransactionGet": {
+            "$ref": "./examples/CreditTransactionGet.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "CreditTransactions_Create",
+        "tags": [
+          "CreditTransactions"
+        ],
+        "description": "Create or replace a transaction for a credit. This operation requires administrator permissions.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "creditName",
+            "in": "path",
+            "description": "Name of the credit",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "transactionName",
+            "in": "path",
+            "description": "Name of the transaction",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Transaction create request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreditTransaction"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'CreditTransaction' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/CreditTransaction"
+            }
+          },
+          "201": {
+            "description": "Resource 'CreditTransaction' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/CreditTransaction"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "URL for checking the ongoing status of the operation."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CreditTransactionCreate": {
+            "$ref": "./examples/CreditTransactionCreate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation",
+          "final-state-schema": "#/definitions/CreditTransaction"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "CreditTransactions_Update",
+        "tags": [
+          "CreditTransactions"
+        ],
+        "description": "Update a transaction for a credit, reserved for admin-only operations routed through RPaaS.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "creditName",
+            "in": "path",
+            "description": "Name of the credit",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "transactionName",
+            "in": "path",
+            "description": "Name of the transaction",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "Transaction patch request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TransactionPatchRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CreditTransaction"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CreditTransactionUpdate": {
+            "$ref": "./examples/CreditTransactionUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location",
+          "final-state-schema": "#/definitions/CreditTransaction"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "CreditTransactions_Delete",
+        "tags": [
+          "CreditTransactions"
+        ],
+        "description": "Delete a transaction for a credit. This operation requires administrator permissions.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "creditName",
+            "in": "path",
+            "description": "Name of the credit",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "transactionName",
+            "in": "path",
+            "description": "Name of the transaction",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CreditTransactionDelete": {
+            "$ref": "./examples/CreditTransactionDelete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/discounts": {
       "get": {
         "operationId": "Discounts_ResourceGroupList",
@@ -2803,6 +3868,9 @@
           },
           "DiscountsCreatePrimaryBackfill": {
             "$ref": "./examples/DiscountsCreatePrimaryBackfill.json"
+          },
+          "DiscountsCreatePrimaryWithAzurePromotion": {
+            "$ref": "./examples/DiscountsCreatePrimaryWithAzurePromotion.json"
           },
           "DiscountsCreatePrimaryWithCustomPrice": {
             "$ref": "./examples/DiscountsCreatePrimaryWithCustomPrice.json"
@@ -4003,6 +5071,344 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/maccs/{maccName}/transactions": {
+      "get": {
+        "operationId": "MaccTransactions_ListByParent",
+        "tags": [
+          "MaccTransactions"
+        ],
+        "description": "List all transactions for a MACC.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "maccName",
+            "in": "path",
+            "description": "Name of primary MACC.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/MaccTransactionsList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "MaccTransactionsList": {
+            "$ref": "./examples/MaccTransactionsList.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/maccs/{maccName}/transactions/{transactionName}": {
+      "get": {
+        "operationId": "MaccTransactions_Get",
+        "tags": [
+          "MaccTransactions"
+        ],
+        "description": "Get a specific transaction for a MACC.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "maccName",
+            "in": "path",
+            "description": "Name of primary MACC.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "transactionName",
+            "in": "path",
+            "description": "Name of the transaction",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/MaccTransaction"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "MaccTransactionGet": {
+            "$ref": "./examples/MaccTransactionGet.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "MaccTransactions_Create",
+        "tags": [
+          "MaccTransactions"
+        ],
+        "description": "Create or replace a transaction for a MACC. This operation requires administrator permissions.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "maccName",
+            "in": "path",
+            "description": "Name of primary MACC.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "transactionName",
+            "in": "path",
+            "description": "Name of the transaction",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Transaction create request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MaccTransaction"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'MaccTransaction' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/MaccTransaction"
+            }
+          },
+          "201": {
+            "description": "Resource 'MaccTransaction' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/MaccTransaction"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "URL for checking the ongoing status of the operation."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "MaccTransactionCreate": {
+            "$ref": "./examples/MaccTransactionCreate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation",
+          "final-state-schema": "#/definitions/MaccTransaction"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "MaccTransactions_Update",
+        "tags": [
+          "MaccTransactions"
+        ],
+        "description": "Update a transaction for a MACC, reserved for admin-only operations routed through RPaaS.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "maccName",
+            "in": "path",
+            "description": "Name of primary MACC.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "transactionName",
+            "in": "path",
+            "description": "Name of the transaction",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "Transaction patch request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TransactionPatchRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/MaccTransaction"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "MaccTransactionUpdate": {
+            "$ref": "./examples/MaccTransactionUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location",
+          "final-state-schema": "#/definitions/MaccTransaction"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "MaccTransactions_Delete",
+        "tags": [
+          "MaccTransactions"
+        ],
+        "description": "Delete a transaction for a MACC. This operation requires administrator permissions.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "maccName",
+            "in": "path",
+            "description": "Name of primary MACC.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "transactionName",
+            "in": "path",
+            "description": "Name of the transaction",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "MaccTransactionDelete": {
+            "$ref": "./examples/MaccTransactionDelete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/maccs/{maccName}/writeOff": {
       "post": {
         "operationId": "Maccs_WriteOff",
@@ -4113,6 +5519,36 @@
         }
       }
     },
+    "AppliedOn": {
+      "type": "string",
+      "description": "Indicates where the credit benefit is applied",
+      "enum": [
+        "Consumption",
+        "Invoice",
+        "External"
+      ],
+      "x-ms-enum": {
+        "name": "AppliedOn",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Consumption",
+            "value": "Consumption",
+            "description": "Applied on consume charges"
+          },
+          {
+            "name": "Invoice",
+            "value": "Invoice",
+            "description": "Applied on invoice"
+          },
+          {
+            "name": "External",
+            "value": "External",
+            "description": "Applied externally"
+          }
+        ]
+      }
+    },
     "AppliedScopeProperties": {
       "type": "object",
       "description": "Properties specific to applied scope type. Not required if not applicable.",
@@ -4136,6 +5572,10 @@
         "displayName": {
           "type": "string",
           "description": "Display name"
+        },
+        "benefitFilter": {
+          "type": "string",
+          "description": "A filter string passed to downstream services to categorize and apply usage benefits to specific resource models. Expected format: \"key/value\" (e.g., \"contractId/2025 H2CPU\"). The value is not validated by BillingBenefits and is forwarded as-is."
         }
       }
     },
@@ -4251,6 +5691,33 @@
     "Azure.Core.armResourceType": {
       "type": "string",
       "description": "Represents an Azure Resource Type."
+    },
+    "BenefitAppliedScopeType": {
+      "type": "string",
+      "description": "List of applied scope types supported for benefit resources.",
+      "enum": [
+        "BillingAccount",
+        "BillingProfile",
+        "Customer"
+      ],
+      "x-ms-enum": {
+        "name": "BenefitAppliedScopeType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "BillingAccount",
+            "value": "BillingAccount"
+          },
+          {
+            "name": "BillingProfile",
+            "value": "BillingProfile"
+          },
+          {
+            "name": "Customer",
+            "value": "Customer"
+          }
+        ]
+      }
     },
     "BenefitType": {
       "type": "string",
@@ -4416,6 +5883,132 @@
         },
         "value": {
           "type": "string"
+        }
+      }
+    },
+    "CatalogGroup": {
+      "type": "object",
+      "description": "A catalog group represents a BenefitResourceType + Namespace grouping used for benefit SKU discovery.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/CatalogGroupProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "CatalogGroupCapability": {
+      "type": "object",
+      "description": "A key-value pair representing a capability of the catalog group (for example, exchange or renewal support).",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The capability key (e.g., SelfServiceExchange, Renewability)."
+        },
+        "value": {
+          "type": "string",
+          "description": "The capability value (e.g., Supported, Not Supported)."
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "CatalogGroupListResult": {
+      "type": "object",
+      "description": "The response of a CatalogGroup list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The CatalogGroup items on this page",
+          "items": {
+            "$ref": "#/definitions/CatalogGroup"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "CatalogGroupProperties": {
+      "type": "object",
+      "description": "Properties of a catalog group.",
+      "properties": {
+        "resourceType": {
+          "$ref": "#/definitions/ResourceType",
+          "description": "The top-level benefit resource type (e.g., maccs, credits, conditionalCredits, discounts, savingsPlans, reservations)."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Dot-separated path encoding the category hierarchy within a benefit type (e.g., VirtualMachines, SQL.ManagedInstance). The default group namespace equals the resourceType.",
+          "x-ms-client-name": "catalogNamespace"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name for the catalog group."
+        },
+        "shortDescription": {
+          "type": "string",
+          "description": "Short description of the catalog group."
+        },
+        "longDescription": {
+          "type": "string",
+          "description": "Long description of the catalog group."
+        },
+        "learnMoreLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "Link to learn more about this catalog group. Uses the forward-link format https://go.microsoft.com/fwlink/?linkid=<linkId>."
+        },
+        "keywords": {
+          "type": "array",
+          "description": "Manifest-sourced array of search terms for this catalog group. Omitted when empty.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "icon": {
+          "type": "string",
+          "description": "The benefit type's icon as JSON-escaped SVG markup. After parsing, the value is a complete `<svg>…</svg>` element."
+        },
+        "capabilities": {
+          "type": "array",
+          "description": "Capabilities of the catalog group as key-value pairs. Omitted when a benefit type has no defined capabilities.",
+          "items": {
+            "$ref": "#/definitions/CatalogGroupCapability"
+          },
+          "x-ms-identifiers": []
+        },
+        "disclaimers": {
+          "type": "array",
+          "description": "Optional disclaimers (legal or eligibility caveats) for the catalog group. Included only when caveats apply.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "resourceType",
+        "namespace"
+      ]
+    },
+    "ChangeSponsorRequest": {
+      "type": "object",
+      "description": "Request body for the changeSponsor action on a credit.",
+      "properties": {
+        "sponsorId": {
+          "type": "string",
+          "description": "Financial code identifying the new sponsor. This is an alphanumeric identifier assigned by the billing system, for example P20567384."
         }
       }
     },
@@ -4762,6 +6355,28 @@
           "type": "string",
           "format": "arm-id",
           "description": "Fully-qualified resource identifier of the resource. Format: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/{benefitType}/{benefitName}."
+        },
+        "productDetails": {
+          "$ref": "#/definitions/ProductDetailsBase",
+          "description": "Product details including SKU title, product family, and product type.",
+          "readOnly": true
+        },
+        "appliedScopeType": {
+          "$ref": "#/definitions/BenefitAppliedScopeType",
+          "description": "Type of the applied scope for the conditional credit."
+        },
+        "invitationId": {
+          "type": "string",
+          "description": "Invitation identifier",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "consumed": {
+          "$ref": "#/definitions/Price",
+          "description": "Amount of benefit that has been consumed",
+          "readOnly": true
         }
       },
       "discriminator": "entityType",
@@ -4825,6 +6440,42 @@
           }
         ]
       }
+    },
+    "ConditionalCreditTransaction": {
+      "type": "object",
+      "description": "Transaction resource definition for ConditionalCredits",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/TransactionProperties",
+          "description": "Transaction properties"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "ConditionalCreditTransactionsList": {
+      "type": "object",
+      "description": "List of conditional credit transactions",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ConditionalCreditTransaction items on this page",
+          "items": {
+            "$ref": "#/definitions/ConditionalCreditTransaction"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
     },
     "ConditionalCreditsProvisioningState": {
       "type": "string",
@@ -5182,6 +6833,35 @@
         }
       }
     },
+    "CreditProductDetails": {
+      "type": "object",
+      "description": "Product details for a credit",
+      "properties": {
+        "skuTitle": {
+          "type": "string",
+          "description": "SKU title of the product"
+        },
+        "productFamily": {
+          "type": "string",
+          "description": "The product family."
+        },
+        "productType": {
+          "type": "string",
+          "description": "The type of the product."
+        },
+        "appliedOn": {
+          "type": "array",
+          "description": "Indicates where the credit benefit is applied (e.g., consume, invoice, or external application).",
+          "items": {
+            "$ref": "#/definitions/AppliedOn"
+          }
+        },
+        "appliedPrice": {
+          "type": "string",
+          "description": "Specifies which price point is used when applying the credit. Known values include \"MarketPrice\", \"UnitPrice\", and \"BenefitGroupPrice:<groupId>\" where <groupId> identifies the benefit group."
+        }
+      }
+    },
     "CreditProperties": {
       "type": "object",
       "description": "Properties of a credit",
@@ -5247,6 +6927,22 @@
             ]
           }
         },
+        "customerResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Customer resource id where the benefit is scoped to.",
+          "readOnly": true,
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "scopes": [
+                  "Tenant"
+                ],
+                "type": "Microsoft.Billing/billingAccounts/customers"
+              }
+            ]
+          }
+        },
         "breakdown": {
           "type": "array",
           "description": "Credit line-items/milestones/no-charge services breakdown",
@@ -5263,6 +6959,19 @@
           "type": "string",
           "description": "System identifier"
         },
+        "orderId": {
+          "type": "string",
+          "description": "Identifier of the $0 transaction created during credit acquisition.",
+          "readOnly": true
+        },
+        "fundingSystemId": {
+          "type": "string",
+          "description": "Unique identifier (UUID) of the funding lot assigned by the benefit publisher. Used in credit transfer scenarios to trace the originating credit lot.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
         "customerId": {
           "type": "string",
           "description": "Fully-qualified identifier of the customer where the savings plan is applied. Present only for Partner-led customers. Format is /providers/Microsoft.Billing/billingAccounts/{acctId:orgId}",
@@ -5272,6 +6981,28 @@
           "type": "string",
           "format": "arm-id",
           "description": "Fully-qualified resource identifier of the resource. Format: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/{benefitType}/{benefitName}."
+        },
+        "invitationId": {
+          "type": "string",
+          "description": "Invitation identifier",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "consumed": {
+          "$ref": "#/definitions/Price",
+          "description": "Amount of benefit that has been consumed",
+          "readOnly": true
+        },
+        "productDetails": {
+          "$ref": "#/definitions/CreditProductDetails",
+          "description": "Product details including SKU title, product kind, offer type, and application details",
+          "readOnly": true
+        },
+        "appliedScopeType": {
+          "$ref": "#/definitions/BenefitAppliedScopeType",
+          "description": "Type of the applied scope for the credit."
         }
       }
     },
@@ -5509,6 +7240,21 @@
       },
       "readOnly": true
     },
+    "CreditTransaction": {
+      "type": "object",
+      "description": "Transaction resource definition for Credits",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/TransactionProperties",
+          "description": "Transaction properties"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
     "CreditsList": {
       "type": "object",
       "description": "List of credits",
@@ -5642,33 +7388,6 @@
           "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
         }
       ]
-    },
-    "DiscountAppliedScopeType": {
-      "type": "string",
-      "description": "List of applied scope types supported for benefit resources.",
-      "enum": [
-        "BillingAccount",
-        "BillingProfile",
-        "Customer"
-      ],
-      "x-ms-enum": {
-        "name": "DiscountAppliedScopeType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "BillingAccount",
-            "value": "BillingAccount"
-          },
-          {
-            "name": "BillingProfile",
-            "value": "BillingProfile"
-          },
-          {
-            "name": "Customer",
-            "value": "Customer"
-          }
-        ]
-      }
     },
     "DiscountCombinationRule": {
       "type": "string",
@@ -5837,6 +7556,14 @@
             ]
           }
         },
+        "invitationId": {
+          "type": "string",
+          "description": "Invitation identifier",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
         "displayName": {
           "type": "string",
           "description": "This defines a user friendly display name for the discount."
@@ -5863,8 +7590,13 @@
           }
         },
         "appliedScopeType": {
-          "$ref": "#/definitions/DiscountAppliedScopeType",
+          "$ref": "#/definitions/BenefitAppliedScopeType",
           "description": "List of applied scopes supported for discounts."
+        },
+        "productDetails": {
+          "$ref": "#/definitions/ProductDetailsBase",
+          "description": "Product details including SKU title, product family, and product type.",
+          "readOnly": true
         }
       },
       "discriminator": "entityType",
@@ -5984,7 +7716,8 @@
         "Product",
         "Sku",
         "CustomPrice",
-        "CustomPriceMultiCurrency"
+        "CustomPriceMultiCurrency",
+        "AzurePromotion"
       ],
       "x-ms-enum": {
         "name": "DiscountType",
@@ -6009,9 +7742,30 @@
           {
             "name": "CustomPriceMultiCurrency",
             "value": "CustomPriceMultiCurrency"
+          },
+          {
+            "name": "AzurePromotion",
+            "value": "AzurePromotion",
+            "description": "Azure promotion discount type."
           }
         ]
       }
+    },
+    "DiscountTypeAzurePromotion": {
+      "type": "object",
+      "description": "Discount type properties for Azure promotion discounts.",
+      "properties": {
+        "productFamilyName": {
+          "type": "string",
+          "description": "Product family for which the discount is given. Validation: Optional"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/DiscountTypeProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "AzurePromotion"
     },
     "DiscountTypeCustomPrice": {
       "type": "object",
@@ -6423,9 +8177,22 @@
             ]
           }
         },
+        "invitationId": {
+          "type": "string",
+          "description": "Invitation identifier",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
         "systemId": {
           "type": "string",
           "description": "This is the globally unique identifier of the free services which will not change for its lifetime. Generated by the benefit publisher."
+        },
+        "productDetails": {
+          "$ref": "#/definitions/ProductDetailsBase",
+          "description": "Product details including SKU title, product family, and product type.",
+          "readOnly": true
         }
       }
     },
@@ -6831,6 +8598,28 @@
               }
             ]
           }
+        },
+        "productDetails": {
+          "$ref": "#/definitions/ProductDetailsBase",
+          "description": "Product details including SKU title, product family, and product type.",
+          "readOnly": true
+        },
+        "appliedScopeType": {
+          "$ref": "#/definitions/BenefitAppliedScopeType",
+          "description": "Type of the applied scope for the MACC."
+        },
+        "invitationId": {
+          "type": "string",
+          "description": "Invitation identifier",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "consumed": {
+          "$ref": "#/definitions/Price",
+          "description": "Amount of benefit that has been consumed",
+          "readOnly": true
         }
       },
       "required": [
@@ -6994,6 +8783,42 @@
           }
         ]
       }
+    },
+    "MaccTransaction": {
+      "type": "object",
+      "description": "Transaction resource definition for Maccs",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/TransactionProperties",
+          "description": "Transaction properties"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "MaccTransactionsList": {
+      "type": "object",
+      "description": "List of Macc transactions",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The MaccTransaction items on this page",
+          "items": {
+            "$ref": "#/definitions/MaccTransaction"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
     },
     "MaccValidateModel": {
       "type": "object",
@@ -7382,6 +9207,24 @@
       ],
       "x-ms-discriminator-value": "Primary"
     },
+    "ProductDetailsBase": {
+      "type": "object",
+      "description": "Common product detail properties shared across all benefit resources",
+      "properties": {
+        "skuTitle": {
+          "type": "string",
+          "description": "SKU title of the product"
+        },
+        "productFamily": {
+          "type": "string",
+          "description": "The product family."
+        },
+        "productType": {
+          "type": "string",
+          "description": "The type of the product."
+        }
+      }
+    },
     "ProvisioningState": {
       "type": "string",
       "description": "Provisioning state",
@@ -7575,6 +9418,11 @@
           "format": "date-time",
           "description": "This is the date-time when the Azure Hybrid Benefit needs to be reviewed."
         },
+        "benefitStartTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "This is the DateTime when the reservation benefit started."
+        },
         "reservedResourceProperties": {
           "$ref": "#/definitions/ReservationOrderAliasRequestPropertiesReservedResourceProperties",
           "description": "Properties specific to each reserved resource type. Not required if not applicable."
@@ -7674,6 +9522,11 @@
           "type": "string",
           "format": "date-time",
           "description": "This is the date-time when the Reservation needs to be reviewed."
+        },
+        "benefitStartTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "This is the DateTime when the reservation benefit started."
         },
         "reservedResourceProperties": {
           "$ref": "#/definitions/ReservationOrderAliasResponsePropertiesReservedResourceProperties",
@@ -7839,6 +9692,60 @@
         "name": {
           "type": "string"
         }
+      }
+    },
+    "ResourceType": {
+      "type": "string",
+      "description": "The top-level ARM resource type for a billing benefit (e.g., maccs, credits, savingsPlans, reservations).",
+      "enum": [
+        "Maccs",
+        "Credits",
+        "ConditionalCredits",
+        "Discounts",
+        "FreeServices",
+        "SavingsPlans",
+        "Reservations"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Maccs",
+            "value": "Maccs",
+            "description": "Microsoft Azure Consumption Commitments"
+          },
+          {
+            "name": "Credits",
+            "value": "Credits",
+            "description": "Credits applied to the customer's billing account"
+          },
+          {
+            "name": "ConditionalCredits",
+            "value": "ConditionalCredits",
+            "description": "Conditional Credits"
+          },
+          {
+            "name": "Discounts",
+            "value": "Discounts",
+            "description": "Discounts that reduce charges on eligible services"
+          },
+          {
+            "name": "FreeServices",
+            "value": "FreeServices",
+            "description": "Services provided at no charge under the billing agreement"
+          },
+          {
+            "name": "SavingsPlans",
+            "value": "SavingsPlans",
+            "description": "Savings Plan"
+          },
+          {
+            "name": "Reservations",
+            "value": "Reservations",
+            "description": "Reserved capacity or reserved instances"
+          }
+        ]
       }
     },
     "RoleAssignmentEntity": {
@@ -8690,6 +10597,166 @@
         ]
       }
     },
+    "TransactionBillingStatus": {
+      "type": "string",
+      "description": "Billing lifecycle status of a transaction.",
+      "enum": [
+        "Open",
+        "Closed"
+      ],
+      "x-ms-enum": {
+        "name": "TransactionBillingStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Open",
+            "value": "Open",
+            "description": "Charge may still change."
+          },
+          {
+            "name": "Closed",
+            "value": "Closed",
+            "description": "Charge is finalized."
+          }
+        ]
+      }
+    },
+    "TransactionChargeType": {
+      "type": "string",
+      "description": "The type of charge for a transaction.",
+      "enum": [
+        "Usage",
+        "Purchase",
+        "Refund"
+      ],
+      "x-ms-enum": {
+        "name": "TransactionChargeType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Usage",
+            "value": "Usage",
+            "description": "Usage charge. Applicable to all benefits."
+          },
+          {
+            "name": "Purchase",
+            "value": "Purchase",
+            "description": "Purchase charge. Applicable to MACC, CACO, ACO, MC only."
+          },
+          {
+            "name": "Refund",
+            "value": "Refund",
+            "description": "Refund charge. Applicable to all benefits."
+          }
+        ]
+      }
+    },
+    "TransactionPatchRequest": {
+      "type": "object",
+      "description": "Transaction patch request, reserved for admin-only operations routed through RPaaS."
+    },
+    "TransactionProductDetails": {
+      "type": "object",
+      "description": "Product details for a transaction",
+      "properties": {
+        "skuTitle": {
+          "type": "string",
+          "description": "SKU title of the product"
+        },
+        "productFamily": {
+          "type": "string",
+          "description": "The product family."
+        },
+        "productType": {
+          "type": "string",
+          "description": "The type of the product."
+        },
+        "skuProperties": {
+          "type": "string",
+          "description": "Additional SKU-level properties for the product."
+        },
+        "publisherType": {
+          "type": "string",
+          "description": "The publisher type of the product, for example \"Microsoft\" for first-party or a third-party publisher name. Additional values may be introduced in the future."
+        }
+      }
+    },
+    "TransactionProperties": {
+      "type": "object",
+      "description": "Properties of a transaction",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the transaction.",
+          "readOnly": true
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "This is the DateTime when the transaction occurred."
+        },
+        "chargeType": {
+          "$ref": "#/definitions/TransactionChargeType",
+          "description": "The type of charge for this transaction."
+        },
+        "billingStatus": {
+          "$ref": "#/definitions/TransactionBillingStatus",
+          "description": "Billing lifecycle status of this transaction."
+        },
+        "invoiceResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Fully-qualified identifier of the invoice.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "scopes": [
+                  "Tenant"
+                ],
+                "type": "Microsoft.Billing/billingAccounts"
+              }
+            ]
+          }
+        },
+        "amountInBillingCurrency": {
+          "$ref": "#/definitions/Price",
+          "description": "Transaction amount in billing currency."
+        },
+        "amountInPricingCurrency": {
+          "$ref": "#/definitions/Price",
+          "description": "Transaction amount in pricing currency."
+        },
+        "productCode": {
+          "type": "string",
+          "description": "Catalog UPN for the product associated with this transaction."
+        },
+        "productDetails": {
+          "$ref": "#/definitions/TransactionProductDetails",
+          "description": "Product details including SKU title, SKU properties, product family, type, and publisher type."
+        }
+      }
+    },
+    "TransactionsList": {
+      "type": "object",
+      "description": "List of transactions",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The CreditTransaction items on this page",
+          "items": {
+            "$ref": "#/definitions/CreditTransaction"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "Utilization": {
       "type": "object",
       "description": "Savings plan utilization",
@@ -8738,5 +10805,14 @@
       }
     }
   },
-  "parameters": {}
+  "parameters": {
+    "CatalogGroupsListParameters": {
+      "name": "$filter",
+      "in": "query",
+      "description": "OData filter expression to narrow the list of catalog groups.",
+      "required": false,
+      "type": "string",
+      "x-ms-parameter-location": "method"
+    }
+  }
 }

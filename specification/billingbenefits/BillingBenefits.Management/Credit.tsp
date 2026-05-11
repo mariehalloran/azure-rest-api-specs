@@ -137,7 +137,6 @@ interface Credits {
    * Change the sponsor of a credit.
    */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "LintDiff PostResponseCodes requires 204 for no-content LRO final response"
-  @added(Versions.v2026_02_01)
   @Azure.Core.useFinalStateVia("location")
   changeSponsor is ArmResourceActionAsyncBase<
     Credit,
