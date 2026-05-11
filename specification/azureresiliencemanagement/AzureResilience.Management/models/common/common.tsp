@@ -268,6 +268,22 @@ model FailoverRequest {
   failoverRequestProperties?: FailoverRequestProperties;
 }
 
+@added(Versions.v2026_03_01_preview)
+@doc("Additional properties for Reprotect.")
+model ReprotectRequestProperties {
+  @added(Versions.v2026_03_01_preview)
+  @doc("Selected recovery resource Ids to be processed. If not provided, all qualified resources will be processed.")
+  selectedResourceIds?: armResourceIdentifier[];
+}
+
+@added(Versions.v2026_03_01_preview)
+@doc("Reprotect post action request.")
+model ReprotectRequest {
+  @added(Versions.v2026_03_01_preview)
+  @doc("Additional properties for Reprotect.")
+  reprotectRequestProperties?: ReprotectRequestProperties;
+}
+
 @doc("Protection solution type for the resources by which recovery takes place")
 union ResourceProtectionSolutionType {
   @doc("Resource is not protected with any protection solution.")
