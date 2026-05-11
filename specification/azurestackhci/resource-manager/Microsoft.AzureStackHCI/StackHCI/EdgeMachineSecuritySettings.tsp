@@ -54,8 +54,13 @@ interface EdgeMachineSecuritySettingsOperations {
   listByEdgeMachine is ArmResourceListByParent<EdgeMachineSecuritySettings>;
 }
 
-@@doc(EdgeMachineSecuritySettings.name, "Name of edge machine security settings");
+@@doc(EdgeMachineSecuritySettings.name,
+  "Name of edge machine security settings"
+);
 @@doc(EdgeMachineSecuritySettings.properties,
   "The resource-specific properties for this resource."
 );
-@@visibility(EdgeMachineSecuritySettings.properties, Lifecycle.Read, Lifecycle.Create);
+@@visibility(EdgeMachineSecuritySettings.properties,
+  Lifecycle.Read,
+  Lifecycle.Create
+);
