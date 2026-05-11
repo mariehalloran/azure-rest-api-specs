@@ -36,6 +36,9 @@ enum Versions {
 
   @doc("Version 2025-12-01-preview")
   v2025_12_01_preview: "2025-12-01-preview",
+
+  @doc("Version 2026-04-01-preview")
+  v2026_04_01_preview: "2026-04-01-preview",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}
