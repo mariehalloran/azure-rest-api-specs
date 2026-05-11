@@ -1,18 +1,12 @@
 {
-  "operationId": "EdgeMachineSecuritySettingsOperations_Update",
-  "title": "Update edge machine security settings",
-  "description": "Update security settings for an edge machine.",
+  "operationId": "EdgeMachineSecuritySettingsOperations_Get",
+  "title": "Get edge machine security settings",
+  "description": "Get the security settings for an edge machine.",
   "parameters": {
     "subscriptionId": "12345678-1234-1234-1234-123456789012",
     "resourceGroupName": "test-rg",
     "edgeMachineName": "testEdgeMachine",
-    "securitySettingsName": "default",
-    "body": {
-      "properties": {
-        "secureBoot": false,
-        "credentialGuardEnabled": true
-      }
-    }
+    "securitySettingsName": "default"
   },
   "responses": {
     "200": {
@@ -21,10 +15,10 @@
         "name": "default",
         "type": "Microsoft.AzureStackHCI/edgeMachines/securitySettings",
         "properties": {
-          "provisioningState": "Updating",
-          "secureBoot": false,
+          "provisioningState": "Succeeded",
+          "secureBoot": true,
           "tpmEnabled": true,
-          "credentialGuardEnabled": true,
+          "credentialGuardEnabled": false,
           "securityPatchLevel": "KB5028997"
         }
       }
