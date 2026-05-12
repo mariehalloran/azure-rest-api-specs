@@ -22,7 +22,7 @@ model ExecutionPlanRunProperties {
 
   @doc("The status of the execution plan run.")
   @visibility(Lifecycle.Read)
-  @madeOptional(Versions.v2026_01_01_preview)
+  @madeOptional(Versions.v2026_02_01_preview)
   status?: ExecutionPlanRunStatus;
 
   @doc("Error details. Populated when status is Failed, Canceled, TimedOut, or Aborted.")
@@ -32,7 +32,7 @@ model ExecutionPlanRunProperties {
 
   @doc("The start time of the execution plan run.")
   @visibility(Lifecycle.Read)
-  @madeOptional(Versions.v2026_01_01_preview)
+  @madeOptional(Versions.v2026_02_01_preview)
   startTimestampInUtc?: utcDateTime;
 
   @doc("The end time of the execution plan run.")
@@ -41,12 +41,12 @@ model ExecutionPlanRunProperties {
 
   @doc("The reported timestamp of the execution plan run.")
   @visibility(Lifecycle.Read)
-  @madeOptional(Versions.v2026_01_01_preview)
+  @madeOptional(Versions.v2026_02_01_preview)
   reportedTimestampInUtc?: utcDateTime;
 
   @doc("The test runs under this execution plan run.")
   @visibility(Lifecycle.Read)
-  @madeOptional(Versions.v2026_01_01_preview)
+  @madeOptional(Versions.v2026_02_01_preview)
   @identifiers(#[])
   @maxItems(100)
   @typeChangedFrom(Versions.v2026_02_01_preview, ValidationTestRun[])

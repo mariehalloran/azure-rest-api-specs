@@ -156,6 +156,12 @@ model MarketplaceDetails {
    * Term Unit
    */
   termUnit?: string;
+
+  /**
+   * SaaS Resource Id for the marketplace subscription
+   */
+  @added(Dell.Storage.Versions.v2026_03_01_preview)
+  saasResourceId?: string;
 }
 
 /**

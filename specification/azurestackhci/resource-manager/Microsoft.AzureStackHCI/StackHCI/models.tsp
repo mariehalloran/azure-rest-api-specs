@@ -11249,3 +11249,73 @@ model EdgeMachineUpdateProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
 }
+
+////////////////////////////////////////////////////////////////
+////// EdgeMachineSecuritySettings Models /////////////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Properties of an Edge Machine Security Settings resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineSecurityProperties {
+  /**
+   * The provisioning state of the resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Compliance status values synchronized from Guest Configuration.
+   */
+  @visibility(Lifecycle.Read)
+  securityComplianceStatus?: EdgeMachineSecurityComplianceStatus;
+
+  /**
+   * First synchronization timestamp in UTC.
+   */
+  @visibility(Lifecycle.Read)
+  registrationTimestamp?: utcDateTime;
+
+  /**
+   * Most recent synchronization timestamp in UTC.
+   */
+  @visibility(Lifecycle.Read)
+  lastSyncTimestamp?: utcDateTime;
+}
+
+/**
+ * Compliance status payload for edge machine security settings.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineSecurityComplianceStatus {
+  /**
+   * FIPS compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  fipsStatus?: ComplianceStatus;
+
+  /**
+   * Secure Boot compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  secureBootStatus?: ComplianceStatus;
+
+  /**
+   * Encryption at rest compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  encryptionAtRestStatus?: ComplianceStatus;
+
+  /**
+   * SELinux policy compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  seLinuxPolicyStatus?: ComplianceStatus;
+
+  /**
+   * Security baseline compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  securityBaselineStatus?: ComplianceStatus;
+}
