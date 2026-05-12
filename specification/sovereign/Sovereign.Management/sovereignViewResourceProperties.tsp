@@ -31,15 +31,35 @@ model SovereignViewResourceProperties {
 @added(Versions.Preview20260315)
 @doc("The scope for the sovereign view in terms of the resources it would evaluate.")
 model SovereignViewScope {
-  @doc("The resource identifiers of the management groups in scope.")
-  managementGroups: armResourceIdentifier<[
+  @doc("The management groups in scope.")
+  managementGroups?: SovereignViewManagementGroupScope[];
+
+  @doc("The subscriptions in scope.")
+  subscriptions?: SovereignViewSubscriptionScope[];
+}
+
+@added(Versions.Preview20260315)
+@doc("A management group scope item for the sovereign view.")
+model SovereignViewManagementGroupScope {
+  @doc("The resource identifier of the management group.")
+  id: armResourceIdentifier<[
     {
       type: "Microsoft.Management/managementGroups";
     }
-  ]>[];
+  ]>;
 
-  @doc("The subscription ids in scope.")
-  subscriptions: uuid[];
+  @doc("The management group name.")
+  name: string;
+}
+
+@added(Versions.Preview20260315)
+@doc("A subscription scope item for the sovereign view.")
+model SovereignViewSubscriptionScope {
+  @doc("The subscription id.")
+  id: uuid;
+
+  @doc("The subscription name.")
+  name: string;
 }
 
 @added(Versions.Preview20260315)
@@ -131,8 +151,14 @@ model SovereignViewComplianceOverallSummary {
   @doc("Number of non-compliant resources for the sovereign view.")
   nonCompliantCount: int32;
 
-  @doc("Number of resources in other compliance states for the sovereign view.")
-  othersCount: int32;
+  @doc("Number of resources in conflict state for the sovereign view.")
+  conflictCount: int32;
+
+  @doc("Number of resources in not applicable state for the sovereign view.")
+  notApplicableCount: int32;
+
+  @doc("Number of resources in not evaluated state for the sovereign view.")
+  notEvaluatedCount: int32;
 }
 
 @added(Versions.Preview20260315)
@@ -150,8 +176,14 @@ model SovereignViewComplianceDimensionSummary {
   @doc("Number of non-compliant resources for the sovereign view.")
   nonCompliantCount: int32;
 
-  @doc("Number of resources in other compliance states for the sovereign view.")
-  othersCount: int32;
+  @doc("Number of resources in conflict state for the sovereign view.")
+  conflictCount: int32;
+
+  @doc("Number of resources in not applicable state for the sovereign view.")
+  notApplicableCount: int32;
+
+  @doc("Number of resources in not evaluated state for the sovereign view.")
+  notEvaluatedCount: int32;
 }
 
 @added(Versions.Preview20260315)
@@ -197,8 +229,14 @@ union PolicyComplianceState {
   @doc("The resource is not compliant with respect to the given policy.")
   NonCompliant: "NonCompliant",
 
-  @doc("The resource is in a compliance state other than compliant or non-compliant.")
-  Others: "Others",
+  @doc("The resource is in a conflict with respect to the given policy.")
+  Conflict: "Conflict",
+
+  @doc("The resource is in a compliance state that is not applicable to the given policy.")
+  NotApplicable: "NotApplicable",
+
+  @doc("The resource has not been evaluated for compliance with respect to the given policy.")
+  NotEvaluated: "NotEvaluated",
 
   string,
 }
@@ -214,6 +252,39 @@ model SovereignViewComplianceDetailsFilters {
 
   @doc("The values to filter on.")
   value: string[];
+}
+
+@added(Versions.Preview20260315)
+@doc("Supported filter fields for Sovereign View compliance details.")
+union SovereignViewFilterField {
+  @doc("Filter by subscription.")
+  subscription: "subscription",
+
+  @doc("Filter by resource group.")
+  resourceGroup: "resourceGroup",
+
+  @doc("Filter by resource name.")
+  resourceName: "resourceName",
+
+  @doc("Filter by resource type.")
+  resourceType: "resourceType",
+
+  @doc("Filter by region.")
+  region: "region",
+
+  @doc("Filter by Encryption In Transit compliance dimension.")
+  encryptionInTransit: "encryptionInTransit",
+
+  @doc("Filter by Data Residency compliance dimension.")
+  dataResidency: "dataResidency",
+
+  @doc("Filter by Encryption At Rest compliance dimension.")
+  encryptionAtRest: "encryptionAtRest",
+
+  @doc("Filter by Encryption In Use compliance dimension.")
+  encryptionInUse: "encryptionInUse",
+
+  string,
 }
 
 @added(Versions.Preview20260315)
@@ -316,9 +387,47 @@ model SovereignViewComplianceDetail {
     }
   ]>;
 
-  @doc("The compliance state of the resource for the policy assignment.")
-  policyState: PolicyComplianceState;
-
   @doc("The time when compliance was last evaluated by Azure Policy, in RFC3339 format.")
   evaluatedAt?: utcDateTime;
+}
+
+@added(Versions.Preview20260315)
+@doc("The request for the sovereign view filter values action.")
+model SovereignViewFilterValuesRequest {
+  @doc("The filter field for which values are requested.")
+  requestedFilter: SovereignViewFilterField;
+
+  @doc("Optional filters to apply before returning filter values.")
+  @identifiers(#["field", "operator"])
+  filters?: SovereignViewComplianceDetailsFilters[];
+
+  @doc("Optional search term applied to the requested filter field.")
+  searchTerm?: string;
+}
+
+@added(Versions.Preview20260315)
+@doc("The response for the sovereign view filter values action.")
+model SovereignViewFilterValuesResponse {
+  @doc("The filter field for which values are returned.")
+  requestedFilter: SovereignViewFilterField;
+
+  @doc("Total number of values available for the requested filter.")
+  totalCount: int32;
+
+  @doc("The list of filter values and their counts.")
+  @identifiers(#["value"])
+  values: SovereignViewFilterValueItem[];
+}
+
+@added(Versions.Preview20260315)
+@doc("A filter value item with the associated count.")
+model SovereignViewFilterValueItem {
+  @doc("The value for the filter.")
+  value: string;
+
+  @doc("The display name for the filter value.")
+  displayName?: string;
+
+  @doc("The count of resources that match the filter value.")
+  count: int32;
 }
