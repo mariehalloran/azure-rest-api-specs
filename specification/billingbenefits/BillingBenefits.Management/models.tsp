@@ -2857,12 +2857,6 @@ model CreditProperties {
   fundingSystemId?: string;
 
   /**
-   * Fully-qualified identifier of the customer where the savings plan is applied. Present only for Partner-led customers. Format is /providers/Microsoft.Billing/billingAccounts/{acctId:orgId}
-   */
-  @visibility(Lifecycle.Read)
-  customerId?: string;
-
-  /**
    * Fully-qualified resource identifier of the resource. Format: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/{benefitType}/{benefitName}.
    */
   resourceId?: Azure.Core.armResourceIdentifier;
