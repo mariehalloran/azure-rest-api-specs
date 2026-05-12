@@ -1003,6 +1003,14 @@
           "$ref": "#/definitions/ResourcePolicy",
           "description": "Resource policy configuration for the environment."
         },
+        "isolationGroup": {
+          "type": "string",
+          "description": "Isolation group override for cluster bin-packing affinity. When set, all NamespaceInstances in this environment are placed on this isolation group instead of the parent namespace's isolationGroup. Useful when different environments of the same namespace (e.g. dev vs prod) should target different clusters. Cannot be changed after environment creation.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
         "status": {
           "$ref": "#/definitions/EnvironmentStatus",
           "description": "The status of the environment.",
@@ -1778,7 +1786,7 @@
         },
         "isolationGroup": {
           "type": "string",
-          "description": "The isolation group for this namespace.",
+          "description": "The isolation group for cluster bin-packing affinity. This field is required and cannot be changed after namespace creation.",
           "x-ms-mutability": [
             "read",
             "create"
@@ -1808,6 +1816,7 @@
         "torusTeam",
         "icmAccount",
         "icmTenant",
+        "isolationGroup",
         "nightwatchEnabled"
       ]
     },
