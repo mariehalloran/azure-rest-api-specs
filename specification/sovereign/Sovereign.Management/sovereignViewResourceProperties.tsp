@@ -232,7 +232,7 @@ union PolicyComplianceState {
   @doc("The resource is in a conflict with respect to the given policy.")
   Conflict: "Conflict",
 
-  @doc("The resource is in a compliance state that is not applicable to the given policy.")
+  @doc("The resource is in a state that is not applicable to the given policy.")
   NotApplicable: "NotApplicable",
 
   @doc("The resource has not been evaluated for compliance with respect to the given policy.")
