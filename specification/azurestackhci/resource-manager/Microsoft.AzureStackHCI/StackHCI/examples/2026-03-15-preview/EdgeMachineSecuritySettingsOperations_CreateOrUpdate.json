@@ -8,11 +8,7 @@
     "edgeMachineName": "testEdgeMachine",
     "securitySettingsName": "default",
     "resource": {
-      "properties": {
-        "secureBoot": true,
-        "tpmEnabled": true,
-        "credentialGuardEnabled": false
-      }
+      "properties": {}
     }
   },
   "responses": {
@@ -23,10 +19,15 @@
         "type": "Microsoft.AzureStackHCI/edgeMachines/securitySettings",
         "properties": {
           "provisioningState": "Succeeded",
-          "secureBoot": true,
-          "tpmEnabled": true,
-          "credentialGuardEnabled": false,
-          "securityPatchLevel": "KB5028997"
+          "securityComplianceStatus": {
+            "fipsStatus": "Compliant",
+            "secureBootStatus": "Compliant",
+            "encryptionAtRestStatus": "Compliant",
+            "seLinuxPolicyStatus": "NonCompliant",
+            "securityBaselineStatus": "Pending"
+          },
+          "registrationTimestamp": "2026-03-10T15:04:05Z",
+          "lastSyncTimestamp": "2026-03-15T12:34:56Z"
         }
       }
     },
@@ -37,9 +38,15 @@
         "type": "Microsoft.AzureStackHCI/edgeMachines/securitySettings",
         "properties": {
           "provisioningState": "Updating",
-          "secureBoot": true,
-          "tpmEnabled": true,
-          "credentialGuardEnabled": false
+          "securityComplianceStatus": {
+            "fipsStatus": "Pending",
+            "secureBootStatus": "Pending",
+            "encryptionAtRestStatus": "Pending",
+            "seLinuxPolicyStatus": "Pending",
+            "securityBaselineStatus": "Pending"
+          },
+          "registrationTimestamp": "2026-03-10T15:04:05Z",
+          "lastSyncTimestamp": "2026-03-15T12:34:56Z"
         }
       }
     }

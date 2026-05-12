@@ -11266,22 +11266,56 @@ model EdgeMachineSecurityProperties {
   provisioningState?: ProvisioningState;
 
   /**
-   * Secure Boot setting.
+   * Compliance status values synchronized from Guest Configuration.
    */
-  secureBoot?: boolean;
+  @visibility(Lifecycle.Read)
+  securityComplianceStatus?: EdgeMachineSecurityComplianceStatus;
 
   /**
-   * Trusted Platform Module (TPM) enabled.
+   * First synchronization timestamp in UTC.
    */
-  tpmEnabled?: boolean;
+  @visibility(Lifecycle.Read)
+  registrationTimestamp?: utcDateTime;
 
   /**
-   * Credential Guard enabled.
+   * Most recent synchronization timestamp in UTC.
    */
-  credentialGuardEnabled?: boolean;
+  @visibility(Lifecycle.Read)
+  lastSyncTimestamp?: utcDateTime;
+}
+
+/**
+ * Compliance status payload for edge machine security settings.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineSecurityComplianceStatus {
+  /**
+   * FIPS compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  fipsStatus?: ComplianceStatus;
 
   /**
-   * Security patch level.
+   * Secure Boot compliance status.
    */
-  securityPatchLevel?: string;
+  @visibility(Lifecycle.Read)
+  secureBootStatus?: ComplianceStatus;
+
+  /**
+   * Encryption at rest compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  encryptionAtRestStatus?: ComplianceStatus;
+
+  /**
+   * SELinux policy compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  seLinuxPolicyStatus?: ComplianceStatus;
+
+  /**
+   * Security baseline compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  securityBaselineStatus?: ComplianceStatus;
 }

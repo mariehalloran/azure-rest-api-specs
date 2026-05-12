@@ -15844,6 +15844,37 @@
         }
       }
     },
+    "EdgeMachineSecurityComplianceStatus": {
+      "type": "object",
+      "description": "Compliance status payload for edge machine security settings.",
+      "properties": {
+        "fipsStatus": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "FIPS compliance status.",
+          "readOnly": true
+        },
+        "secureBootStatus": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "Secure Boot compliance status.",
+          "readOnly": true
+        },
+        "encryptionAtRestStatus": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "Encryption at rest compliance status.",
+          "readOnly": true
+        },
+        "seLinuxPolicyStatus": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "SELinux policy compliance status.",
+          "readOnly": true
+        },
+        "securityBaselineStatus": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "Security baseline compliance status.",
+          "readOnly": true
+        }
+      }
+    },
     "EdgeMachineSecurityProperties": {
       "type": "object",
       "description": "Properties of an Edge Machine Security Settings resource.",
@@ -15853,21 +15884,22 @@
           "description": "The provisioning state of the resource.",
           "readOnly": true
         },
-        "secureBoot": {
-          "type": "boolean",
-          "description": "Secure Boot setting."
+        "securityComplianceStatus": {
+          "$ref": "#/definitions/EdgeMachineSecurityComplianceStatus",
+          "description": "Compliance status values synchronized from Guest Configuration.",
+          "readOnly": true
         },
-        "tpmEnabled": {
-          "type": "boolean",
-          "description": "Trusted Platform Module (TPM) enabled."
-        },
-        "credentialGuardEnabled": {
-          "type": "boolean",
-          "description": "Credential Guard enabled."
-        },
-        "securityPatchLevel": {
+        "registrationTimestamp": {
           "type": "string",
-          "description": "Security patch level."
+          "format": "date-time",
+          "description": "First synchronization timestamp in UTC.",
+          "readOnly": true
+        },
+        "lastSyncTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Most recent synchronization timestamp in UTC.",
+          "readOnly": true
         }
       }
     },
