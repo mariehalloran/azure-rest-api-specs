@@ -20,6 +20,9 @@ namespace Microsoft.AzureStackHCI;
 @parentResource(EdgeMachine)
 model EdgeMachineSecuritySettings
   is Azure.ResourceManager.ProxyResource<EdgeMachineSecurityProperties> {
+  /**
+   * Name of the security settings resource
+   */
   @path
   @key("securitySettingsName")
   @segment("securitySettings")
