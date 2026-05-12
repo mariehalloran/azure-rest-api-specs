@@ -145,10 +145,10 @@ model SovereignViewComplianceOverallSummary {
   @doc("Total number of resources for the sovereign view.")
   totalResources: int32;
 
-  @doc("Number of compliant resources for the sovereign view.")
+  @doc("Number of resources in compliant state for the sovereign view.")
   compliantCount: int32;
 
-  @doc("Number of non-compliant resources for the sovereign view.")
+  @doc("Number of resources in non-compliant state for the sovereign view.")
   nonCompliantCount: int32;
 
   @doc("Number of resources in conflict state for the sovereign view.")
@@ -170,10 +170,10 @@ model SovereignViewComplianceDimensionSummary {
   @doc("Total number of resources for the sovereign view.")
   totalResources: int32;
 
-  @doc("Number of compliant resources for the sovereign view.")
+  @doc("Number of resources in compliant state for the sovereign view.")
   compliantCount: int32;
 
-  @doc("Number of non-compliant resources for the sovereign view.")
+  @doc("Number of resources in non-compliant state for the sovereign view.")
   nonCompliantCount: int32;
 
   @doc("Number of resources in conflict state for the sovereign view.")
