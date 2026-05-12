@@ -21,7 +21,10 @@
             "direction": "Outbound"
           }
         ],
-        "updateMode": "Automatic"
+        "updateMode": "Automatic",
+        "syncTo": [
+          "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/testrg/providers/Microsoft.Mission/communities/DestinationCommunity"
+        ]
       },
       "tags": {
         "sampletag": "samplevalue"
@@ -46,7 +49,18 @@
             }
           ],
           "updateMode": "Automatic",
-          "provisioningState": "Succeeded"
+          "provisioningState": "Succeeded",
+          "syncTo": [
+            "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/testrg/providers/Microsoft.Mission/communities/DestinationCommunity"
+          ],
+          "syncStatus": "Succeeded",
+          "syncDestinationStatuses": [
+            {
+              "destinationId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/testrg/providers/Microsoft.Mission/communities/DestinationCommunity/communityEndpoints/TestMyCommunityEndpoint",
+              "status": "Succeeded",
+              "lastSyncTime": "2026-04-16T12:00:00.000Z"
+            }
+          ]
         },
         "tags": {
           "sampletag": "samplevalue"
@@ -84,7 +98,17 @@
             }
           ],
           "updateMode": "Automatic",
-          "provisioningState": "Succeeded"
+          "provisioningState": "Succeeded",
+          "syncTo": [
+            "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/testrg/providers/Microsoft.Mission/communities/DestinationCommunity"
+          ],
+          "syncStatus": "InProgress",
+          "syncDestinationStatuses": [
+            {
+              "destinationId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/testrg/providers/Microsoft.Mission/communities/DestinationCommunity/communityEndpoints/TestMyCommunityEndpoint",
+              "status": "InProgress"
+            }
+          ]
         },
         "tags": {
           "sampletag": "samplevalue"

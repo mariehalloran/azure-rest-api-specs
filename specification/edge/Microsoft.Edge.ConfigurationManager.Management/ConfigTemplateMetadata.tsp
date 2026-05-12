@@ -20,7 +20,6 @@ namespace Microsoft.Edge;
 @doc("Hierarchy Ids With Level for applying config Template which will further generate ARG objects")
 model HierarchyMetadata {
   @doc("Hierarchy Ids")
-  @visibility(Lifecycle.Read)
   hierarchyIds?: Azure.Core.armResourceIdentifier<[
     {
       type: "Microsoft.Edge/Targets";
@@ -31,7 +30,6 @@ model HierarchyMetadata {
   ]>[];
 
   @doc("Hierarchy Level")
-  @visibility(Lifecycle.Read)
   level?: string;
 }
 
