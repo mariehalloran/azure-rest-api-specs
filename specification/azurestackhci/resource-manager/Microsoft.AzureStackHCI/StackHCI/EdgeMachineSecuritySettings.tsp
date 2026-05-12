@@ -53,14 +53,3 @@ interface EdgeMachineSecuritySettingsOperations {
   @added(Versions.v2026_03_15_preview)
   listByEdgeMachine is ArmResourceListByParent<EdgeMachineSecuritySettings>;
 }
-
-@@doc(EdgeMachineSecuritySettings.name,
-  "Name of edge machine security settings"
-);
-@@doc(EdgeMachineSecuritySettings.properties,
-  "The resource-specific properties for this resource."
-);
-@@visibility(EdgeMachineSecuritySettings.properties,
-  Lifecycle.Read,
-  Lifecycle.Create
-);
