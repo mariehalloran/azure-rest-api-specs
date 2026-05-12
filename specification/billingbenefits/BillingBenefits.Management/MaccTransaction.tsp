@@ -16,7 +16,6 @@ namespace Microsoft.BillingBenefits;
 /**
  * Transaction resource definition for Maccs
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/empty-updateable-properties" "Admin patches properties server-side via RPaaS; public PATCH body is intentionally empty"
 @parentResource(Macc)
 model MaccTransaction
   is Azure.ResourceManager.ProxyResource<TransactionProperties> {
@@ -36,25 +35,6 @@ interface MaccTransactions {
   get is ArmResourceRead<MaccTransaction>;
 
   /**
-   * Create or replace a transaction for a MACC. This operation requires administrator permissions.
-   */
-  create is ArmResourceCreateOrReplaceAsync<MaccTransaction>;
-
-  /**
-   * Update a transaction for a MACC, reserved for admin-only operations routed through RPaaS.
-   */
-  @patch(#{ implicitOptionality: false })
-  update is ArmCustomPatchAsync<
-    MaccTransaction,
-    PatchModel = TransactionPatchRequest
-  >;
-
-  /**
-   * Delete a transaction for a MACC. This operation requires administrator permissions.
-   */
-  delete is ArmResourceDeleteWithoutOkAsync<MaccTransaction>;
-
-  /**
    * List all transactions for a MACC.
    */
   listByParent is ArmResourceListByParent<
@@ -65,9 +45,3 @@ interface MaccTransactions {
 
 @@doc(MaccTransaction.name, "Name of the transaction");
 @@doc(MaccTransaction.properties, "Transaction properties");
-@@doc(MaccTransactions.create::parameters.resource,
-  "Transaction create request"
-);
-@@doc(MaccTransactions.update::parameters.properties,
-  "Transaction patch request"
-);

@@ -553,6 +553,9 @@
         "x-ms-examples": {
           "ReservationOrderAliasGet": {
             "$ref": "./examples/ReservationOrderAliasGet.json"
+          },
+          "ReservationOrderAliasGetWithRenewProperties": {
+            "$ref": "./examples/ReservationOrderAliasGetWithRenewProperties.json"
           }
         }
       },
@@ -618,6 +621,9 @@
         "x-ms-examples": {
           "ReservationOrderAliasCreate": {
             "$ref": "./examples/ReservationOrderAliasCreate.json"
+          },
+          "ReservationOrderAliasCreateWithRenewProperties": {
+            "$ref": "./examples/ReservationOrderAliasCreateWithRenewProperties.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -1229,6 +1235,12 @@
           "ConditionalCreditValidateUpdateRemoveMilestone": {
             "$ref": "./examples/ConditionalCreditValidateUpdateRemoveMilestone.json"
           },
+          "CreditsValidateCreate": {
+            "$ref": "./examples/CreditsValidateCreate.json"
+          },
+          "DiscountsValidateCreate": {
+            "$ref": "./examples/DiscountsValidateCreate.json"
+          },
           "MaccValidateCancel": {
             "$ref": "./examples/MaccValidateCancel.json"
           },
@@ -1304,6 +1316,9 @@
           "MaccValidateWriteOffWithMilestones": {
             "$ref": "./examples/MaccValidateWriteOffWithMilestones.json"
           },
+          "MaccsValidateCreate": {
+            "$ref": "./examples/MaccsValidateCreate.json"
+          },
           "SSCacoFlexibleValidateCreate": {
             "$ref": "./examples/SSCacoFlexibleValidateCreate.json"
           },
@@ -1318,6 +1333,9 @@
           },
           "SavingsPlanValidatePurchase": {
             "$ref": "./examples/SavingsPlanValidatePurchase.json"
+          },
+          "SavingsPlansValidateCreate": {
+            "$ref": "./examples/SavingsPlansValidateCreate.json"
           }
         }
       }
@@ -2359,239 +2377,6 @@
             "$ref": "./examples/ConditionalCreditTransactionGet.json"
           }
         }
-      },
-      "put": {
-        "operationId": "ConditionalCreditTransactions_Create",
-        "tags": [
-          "ConditionalCreditTransactions"
-        ],
-        "description": "Create or replace a transaction for a conditional credit. This operation requires administrator permissions.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "conditionalCreditName",
-            "in": "path",
-            "description": "Name of the conditional credit",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          {
-            "name": "transactionName",
-            "in": "path",
-            "description": "Name of the transaction",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Transaction create request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ConditionalCreditTransaction"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'ConditionalCreditTransaction' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ConditionalCreditTransaction"
-            }
-          },
-          "201": {
-            "description": "Resource 'ConditionalCreditTransaction' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ConditionalCreditTransaction"
-            },
-            "headers": {
-              "Azure-AsyncOperation": {
-                "type": "string",
-                "description": "URL for checking the ongoing status of the operation."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ConditionalCreditTransactionCreate": {
-            "$ref": "./examples/ConditionalCreditTransactionCreate.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation",
-          "final-state-schema": "#/definitions/ConditionalCreditTransaction"
-        },
-        "x-ms-long-running-operation": true
-      },
-      "patch": {
-        "operationId": "ConditionalCreditTransactions_Update",
-        "tags": [
-          "ConditionalCreditTransactions"
-        ],
-        "description": "Update a transaction for a conditional credit, reserved for admin-only operations routed through RPaaS.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "conditionalCreditName",
-            "in": "path",
-            "description": "Name of the conditional credit",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          {
-            "name": "transactionName",
-            "in": "path",
-            "description": "Name of the transaction",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "Transaction patch request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/TransactionPatchRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ConditionalCreditTransaction"
-            }
-          },
-          "202": {
-            "description": "Resource update request accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ConditionalCreditTransactionUpdate": {
-            "$ref": "./examples/ConditionalCreditTransactionUpdate.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location",
-          "final-state-schema": "#/definitions/ConditionalCreditTransaction"
-        },
-        "x-ms-long-running-operation": true
-      },
-      "delete": {
-        "operationId": "ConditionalCreditTransactions_Delete",
-        "tags": [
-          "ConditionalCreditTransactions"
-        ],
-        "description": "Delete a transaction for a conditional credit. This operation requires administrator permissions.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "conditionalCreditName",
-            "in": "path",
-            "description": "Name of the conditional credit",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          {
-            "name": "transactionName",
-            "in": "path",
-            "description": "Name of the transaction",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Resource deletion accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ConditionalCreditTransactionDelete": {
-            "$ref": "./examples/ConditionalCreditTransactionDelete.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/credits": {
@@ -3471,239 +3256,6 @@
             "$ref": "./examples/CreditTransactionGet.json"
           }
         }
-      },
-      "put": {
-        "operationId": "CreditTransactions_Create",
-        "tags": [
-          "CreditTransactions"
-        ],
-        "description": "Create or replace a transaction for a credit. This operation requires administrator permissions.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "creditName",
-            "in": "path",
-            "description": "Name of the credit",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          {
-            "name": "transactionName",
-            "in": "path",
-            "description": "Name of the transaction",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Transaction create request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CreditTransaction"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'CreditTransaction' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/CreditTransaction"
-            }
-          },
-          "201": {
-            "description": "Resource 'CreditTransaction' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/CreditTransaction"
-            },
-            "headers": {
-              "Azure-AsyncOperation": {
-                "type": "string",
-                "description": "URL for checking the ongoing status of the operation."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "CreditTransactionCreate": {
-            "$ref": "./examples/CreditTransactionCreate.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation",
-          "final-state-schema": "#/definitions/CreditTransaction"
-        },
-        "x-ms-long-running-operation": true
-      },
-      "patch": {
-        "operationId": "CreditTransactions_Update",
-        "tags": [
-          "CreditTransactions"
-        ],
-        "description": "Update a transaction for a credit, reserved for admin-only operations routed through RPaaS.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "creditName",
-            "in": "path",
-            "description": "Name of the credit",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          {
-            "name": "transactionName",
-            "in": "path",
-            "description": "Name of the transaction",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "Transaction patch request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/TransactionPatchRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/CreditTransaction"
-            }
-          },
-          "202": {
-            "description": "Resource update request accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "CreditTransactionUpdate": {
-            "$ref": "./examples/CreditTransactionUpdate.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location",
-          "final-state-schema": "#/definitions/CreditTransaction"
-        },
-        "x-ms-long-running-operation": true
-      },
-      "delete": {
-        "operationId": "CreditTransactions_Delete",
-        "tags": [
-          "CreditTransactions"
-        ],
-        "description": "Delete a transaction for a credit. This operation requires administrator permissions.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "creditName",
-            "in": "path",
-            "description": "Name of the credit",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          {
-            "name": "transactionName",
-            "in": "path",
-            "description": "Name of the transaction",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Resource deletion accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "CreditTransactionDelete": {
-            "$ref": "./examples/CreditTransactionDelete.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/discounts": {
@@ -3958,6 +3510,9 @@
         "x-ms-examples": {
           "DiscountGet": {
             "$ref": "./examples/DiscountsUpdate.json"
+          },
+          "DiscountsUpdateEndAt": {
+            "$ref": "./examples/DiscountsUpdateEndAt.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -5174,239 +4729,6 @@
             "$ref": "./examples/MaccTransactionGet.json"
           }
         }
-      },
-      "put": {
-        "operationId": "MaccTransactions_Create",
-        "tags": [
-          "MaccTransactions"
-        ],
-        "description": "Create or replace a transaction for a MACC. This operation requires administrator permissions.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "maccName",
-            "in": "path",
-            "description": "Name of primary MACC.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          {
-            "name": "transactionName",
-            "in": "path",
-            "description": "Name of the transaction",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Transaction create request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/MaccTransaction"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'MaccTransaction' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/MaccTransaction"
-            }
-          },
-          "201": {
-            "description": "Resource 'MaccTransaction' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/MaccTransaction"
-            },
-            "headers": {
-              "Azure-AsyncOperation": {
-                "type": "string",
-                "description": "URL for checking the ongoing status of the operation."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "MaccTransactionCreate": {
-            "$ref": "./examples/MaccTransactionCreate.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation",
-          "final-state-schema": "#/definitions/MaccTransaction"
-        },
-        "x-ms-long-running-operation": true
-      },
-      "patch": {
-        "operationId": "MaccTransactions_Update",
-        "tags": [
-          "MaccTransactions"
-        ],
-        "description": "Update a transaction for a MACC, reserved for admin-only operations routed through RPaaS.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "maccName",
-            "in": "path",
-            "description": "Name of primary MACC.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          {
-            "name": "transactionName",
-            "in": "path",
-            "description": "Name of the transaction",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "Transaction patch request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/TransactionPatchRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/MaccTransaction"
-            }
-          },
-          "202": {
-            "description": "Resource update request accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "MaccTransactionUpdate": {
-            "$ref": "./examples/MaccTransactionUpdate.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location",
-          "final-state-schema": "#/definitions/MaccTransaction"
-        },
-        "x-ms-long-running-operation": true
-      },
-      "delete": {
-        "operationId": "MaccTransactions_Delete",
-        "tags": [
-          "MaccTransactions"
-        ],
-        "description": "Delete a transaction for a MACC. This operation requires administrator permissions.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "maccName",
-            "in": "path",
-            "description": "Name of primary MACC.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          },
-          {
-            "name": "transactionName",
-            "in": "path",
-            "description": "Name of the transaction",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Resource deletion accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "MaccTransactionDelete": {
-            "$ref": "./examples/MaccTransactionDelete.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/maccs/{maccName}/writeOff": {
@@ -5726,7 +5048,10 @@
         "SavingsPlan",
         "MACC",
         "ConditionalCredits",
-        "Credits"
+        "Credits",
+        "Discounts",
+        "SavingsPlans",
+        "Maccs"
       ],
       "x-ms-enum": {
         "name": "BenefitType",
@@ -5747,6 +5072,21 @@
           {
             "name": "Credits",
             "value": "Credits"
+          },
+          {
+            "name": "Discounts",
+            "value": "Discounts",
+            "description": "Discount benefit type"
+          },
+          {
+            "name": "SavingsPlans",
+            "value": "SavingsPlans",
+            "description": "Savings Plans benefit type"
+          },
+          {
+            "name": "Maccs",
+            "value": "Maccs",
+            "description": "Maccs benefit type"
           }
         ]
       }
@@ -6874,6 +6214,10 @@
           "type": "string",
           "description": "Product UPN for the credit type"
         },
+        "displayName": {
+          "type": "string",
+          "description": "Display name"
+        },
         "reason": {
           "$ref": "#/definitions/CreditReason",
           "description": "The reason for the credit. Not required if not applicable."
@@ -7474,6 +6818,11 @@
         "displayName": {
           "type": "string",
           "description": "Display name"
+        },
+        "endAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End date of the discount. No duration will be supported. Allowed value is any date greater than or equal to startDate."
         }
       }
     },
@@ -7493,6 +6842,11 @@
           "type": "string",
           "format": "date-time",
           "description": "Start date of the discount. Value is the date the discount started or will start in the future."
+        },
+        "endAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End date of the discount. No duration will be supported. Allowed value is any date greater than or equal to startDate."
         },
         "systemId": {
           "type": "string",
@@ -7901,6 +7255,22 @@
         "applyDiscountOn"
       ]
     },
+    "DiscountValidateModel": {
+      "type": "object",
+      "description": "Discount validate model",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/DiscountProperties",
+          "description": "Discount validate properties"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/BenefitValidateModel"
+        }
+      ],
+      "x-ms-discriminator-value": "Discounts"
+    },
     "EnablementMode": {
       "type": "string",
       "description": "Represents the enablement status of a feature or settings.",
@@ -8104,6 +7474,10 @@
         "productCode": {
           "type": "string",
           "description": "This is the catalog UPN for the product."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name"
         },
         "status": {
           "$ref": "#/definitions/FreeServicesStatus",
@@ -8832,6 +8206,22 @@
       ],
       "x-ms-discriminator-value": "MACC"
     },
+    "MaccsValidateModel": {
+      "type": "object",
+      "description": "Maccs validate model",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/MaccModelProperties",
+          "description": "MACC validate properties"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/BenefitValidateModel"
+        }
+      ],
+      "x-ms-discriminator-value": "Maccs"
+    },
     "ManagedServiceIdentity": {
       "type": "object",
       "description": "Managed service identity (system assigned and/or user assigned identities)",
@@ -9324,10 +8714,38 @@
           "description": "Setting this to true will automatically purchase a new benefit on the expiration date time.",
           "default": false
         },
+        "renewAction": {
+          "$ref": "#/definitions/RenewAction",
+          "description": "Represents the renewal action for a reservation to be a new purchase or existing renewal."
+        },
         "appliedScopeProperties": {
           "$ref": "#/definitions/AppliedScopeProperties",
           "description": "Properties specific to applied scope type. Not required if not applicable."
         }
+      }
+    },
+    "RenewAction": {
+      "type": "string",
+      "description": "Represents the renewal action for a reservation to be a new purchase or existing renewal.",
+      "enum": [
+        "CreateNew",
+        "RenewExisting"
+      ],
+      "x-ms-enum": {
+        "name": "RenewAction",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "CreateNew",
+            "value": "CreateNew",
+            "description": "Represents a new purchase renewal action."
+          },
+          {
+            "name": "RenewExisting",
+            "value": "RenewExisting",
+            "description": "Represents renewal of an existing reservation."
+          }
+        ]
       }
     },
     "RenewProperties": {
@@ -9403,6 +8821,10 @@
           "type": "boolean",
           "description": "Setting this to true will automatically purchase a new benefit on the expiration date time.",
           "default": false
+        },
+        "renewAction": {
+          "$ref": "#/definitions/RenewAction",
+          "description": "Represents the renewal action for a reservation to be a new purchase or existing renewal."
         },
         "reservedResourceType": {
           "$ref": "#/definitions/ReservedResourceType",
@@ -9508,6 +8930,16 @@
           "type": "boolean",
           "description": "Setting this to true will automatically purchase a new benefit on the expiration date time.",
           "default": false
+        },
+        "renewAction": {
+          "$ref": "#/definitions/RenewAction",
+          "description": "Represents the renewal action for a reservation to be a new purchase or existing renewal."
+        },
+        "renewalPurchaseDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "This is the date-time when the reservation was renewed.",
+          "readOnly": true
         },
         "reservedResourceType": {
           "$ref": "#/definitions/ReservedResourceType",
@@ -10422,6 +9854,54 @@
         }
       }
     },
+    "SavingsPlansValidateModel": {
+      "type": "object",
+      "description": "Savings Plans validate model",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/SavingsPlanOrderAliasProperties",
+          "description": "Savings plan order alias properties"
+        },
+        "id": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the resource",
+          "readOnly": true
+        },
+        "type": {
+          "$ref": "#/definitions/Azure.Core.armResourceType",
+          "description": "The type of the resource. E.g. \"Microsoft.Compute/virtualMachines\" or \"Microsoft.Storage/storageAccounts\"",
+          "readOnly": true
+        },
+        "systemData": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/systemData",
+          "description": "Azure Resource Manager metadata containing createdBy and modifiedBy information.",
+          "readOnly": true
+        },
+        "sku": {
+          "$ref": "#/definitions/ResourceSku",
+          "description": "Savings plan SKU"
+        },
+        "kind": {
+          "type": "string",
+          "description": "Resource provider kind"
+        }
+      },
+      "required": [
+        "sku"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/BenefitValidateModel"
+        }
+      ],
+      "x-ms-discriminator-value": "SavingsPlans"
+    },
     "SellerResourceListRequest": {
       "type": "object",
       "description": "List MACCs under a billing account",
@@ -10646,10 +10126,6 @@
         ]
       }
     },
-    "TransactionPatchRequest": {
-      "type": "object",
-      "description": "Transaction patch request, reserved for admin-only operations routed through RPaaS."
-    },
     "TransactionProductDetails": {
       "type": "object",
       "description": "Product details for a transaction",
@@ -10681,8 +10157,8 @@
       "description": "Properties of a transaction",
       "properties": {
         "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Provisioning state of the transaction.",
+          "type": "string",
+          "description": "Provisioning state of the transaction as assigned by RPaaS. This indicates the last operation's status.",
           "readOnly": true
         },
         "date": {

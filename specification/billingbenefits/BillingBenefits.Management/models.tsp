@@ -269,6 +269,19 @@ union InstanceFlexibility {
 }
 
 /**
+ * Represents the renewal action for a reservation to be a new purchase or existing renewal.
+ */
+union RenewAction {
+  string,
+
+  /** Represents a new purchase renewal action. */
+  CreateNew: "CreateNew",
+
+  /** Represents renewal of an existing reservation. */
+  RenewExisting: "RenewExisting",
+}
+
+/**
  * This defines whether the entity being created is primary or affiliate. Supported values: primary, affiliate. Validation: Required, must match one of the 2 values.
  */
 union DiscountEntityType {
@@ -703,6 +716,21 @@ union BenefitType {
   ConditionalCredits: "ConditionalCredits",
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   Credits: "Credits",
+
+  /**
+   * Discount benefit type
+   */
+  Discounts: "Discounts",
+
+  /**
+   * Savings Plans benefit type
+   */
+  SavingsPlans: "SavingsPlans",
+
+  /**
+   * Maccs benefit type
+   */
+  Maccs: "Maccs",
 }
 
 /**
@@ -1318,6 +1346,11 @@ model PurchaseRequestProperties {
   renew?: boolean = false;
 
   /**
+   * Represents the renewal action for a reservation to be a new purchase or existing renewal.
+   */
+  renewAction?: RenewAction;
+
+  /**
    * Properties specific to applied scope type. Not required if not applicable.
    */
   appliedScopeProperties?: AppliedScopeProperties;
@@ -1549,6 +1582,11 @@ model ReservationOrderAliasRequestProperties {
   renew?: boolean = false;
 
   /**
+   * Represents the renewal action for a reservation to be a new purchase or existing renewal.
+   */
+  renewAction?: RenewAction;
+
+  /**
    * The type of the resource that is being reserved.
    */
   reservedResourceType?: ReservedResourceType;
@@ -1637,6 +1675,17 @@ model ReservationOrderAliasResponseProperties {
   renew?: boolean = false;
 
   /**
+   * Represents the renewal action for a reservation to be a new purchase or existing renewal.
+   */
+  renewAction?: RenewAction;
+
+  /**
+   * This is the date-time when the reservation was renewed.
+   */
+  @visibility(Lifecycle.Read)
+  renewalPurchaseDateTime?: utcDateTime;
+
+  /**
    * The type of the resource that is being reserved.
    */
   reservedResourceType?: ReservedResourceType;
@@ -1688,6 +1737,11 @@ model DiscountProperties {
    */
   // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
   startAt: utcDateTime;
+
+  /**
+   * End date of the discount. No duration will be supported. Allowed value is any date greater than or equal to startDate.
+   */
+  endAt?: utcDateTime;
 
   /**
    * This is the globally unique identifier of the Discount which will not change for the lifetime of the Discount.
@@ -1853,6 +1907,11 @@ model DiscountPatchRequestProperties {
    * Display name
    */
   displayName?: string;
+
+  /**
+   * End date of the discount. No duration will be supported. Allowed value is any date greater than or equal to startDate.
+   */
+  endAt?: utcDateTime;
 }
 
 /**
@@ -2769,6 +2828,11 @@ model CreditProperties {
   productCode?: string;
 
   /**
+   * Display name
+   */
+  displayName?: string;
+
+  /**
    * The reason for the credit. Not required if not applicable.
    */
   reason?: CreditReason;
@@ -3005,10 +3069,11 @@ union TransactionBillingStatus {
  */
 model TransactionProperties {
   /**
-   * Provisioning state of the transaction.
+   * Provisioning state of the transaction as assigned by RPaaS. This indicates the last operation's status.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Provisioning state is managed by RPaaS"
   @visibility(Lifecycle.Read)
-  provisioningState?: ProvisioningState;
+  provisioningState?: string;
 
   ...TransactionPatchProperties;
 }
@@ -3598,9 +3663,22 @@ model MaccValidateModel extends BenefitValidateModel {
 }
 
 /**
- * Savings plan validate model
+ * Maccs validate model
  */
-model SavingsPlanValidateModel extends BenefitValidateModel {
+model MaccsValidateModel extends BenefitValidateModel {
+  /**
+   * MACC validate properties
+   */
+  properties?: MaccModelProperties;
+
+  /**
+   * Type of benefit to validate. This is used to determine the model type for validation.
+   */
+  benefitType: "Maccs";
+}
+
+/** Shared properties for savings plan validate models. */
+alias SavingsPlanValidateProperties = {
   /**
    * Savings plan order alias properties
    */
@@ -3639,11 +3717,45 @@ model SavingsPlanValidateModel extends BenefitValidateModel {
    * Resource provider kind
    */
   kind?: string;
+};
+
+/**
+ * Savings Plans validate model
+ */
+model SavingsPlansValidateModel extends BenefitValidateModel {
+  ...SavingsPlanValidateProperties;
+
+  /**
+   * Type of benefit to validate. This is used to determine the model type for validation.
+   */
+  benefitType: "SavingsPlans";
+}
+
+/**
+ * Savings plan validate model
+ */
+model SavingsPlanValidateModel extends BenefitValidateModel {
+  ...SavingsPlanValidateProperties;
 
   /**
    * Type of benefit to validate. This is used to determine the model type for validation.
    */
   benefitType: "SavingsPlan";
+}
+
+/**
+ * Discount validate model
+ */
+model DiscountValidateModel extends BenefitValidateModel {
+  /**
+   * Discount validate properties
+   */
+  properties?: DiscountProperties;
+
+  /**
+   * Type of benefit to validate. This is used to determine the model type for validation.
+   */
+  benefitType: "Discounts";
 }
 
 /**
@@ -3654,6 +3766,11 @@ model FreeServicesProperties {
    * This is the catalog UPN for the product.
    */
   productCode?: string;
+
+  /**
+   * Display name
+   */
+  displayName?: string;
 
   /**
    * Current status of the free services

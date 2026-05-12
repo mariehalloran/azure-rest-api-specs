@@ -16,7 +16,6 @@ namespace Microsoft.BillingBenefits;
 /**
  * Transaction resource definition for Credits
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/empty-updateable-properties" "Admin patches properties server-side via RPaaS; public PATCH body is intentionally empty"
 @parentResource(Credit)
 model CreditTransaction
   is Azure.ResourceManager.ProxyResource<TransactionProperties> {
@@ -36,25 +35,6 @@ interface CreditTransactions {
   get is ArmResourceRead<CreditTransaction>;
 
   /**
-   * Create or replace a transaction for a credit. This operation requires administrator permissions.
-   */
-  create is ArmResourceCreateOrReplaceAsync<CreditTransaction>;
-
-  /**
-   * Update a transaction for a credit, reserved for admin-only operations routed through RPaaS.
-   */
-  @patch(#{ implicitOptionality: false })
-  update is ArmCustomPatchAsync<
-    CreditTransaction,
-    PatchModel = TransactionPatchRequest
-  >;
-
-  /**
-   * Delete a transaction for a credit. This operation requires administrator permissions.
-   */
-  delete is ArmResourceDeleteWithoutOkAsync<CreditTransaction>;
-
-  /**
    * List all transactions for a credit.
    */
   listByParent is ArmResourceListByParent<
@@ -65,9 +45,3 @@ interface CreditTransactions {
 
 @@doc(CreditTransaction.name, "Name of the transaction");
 @@doc(CreditTransaction.properties, "Transaction properties");
-@@doc(CreditTransactions.create::parameters.resource,
-  "Transaction create request"
-);
-@@doc(CreditTransactions.update::parameters.properties,
-  "Transaction patch request"
-);
