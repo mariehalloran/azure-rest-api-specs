@@ -245,7 +245,7 @@ union PolicyComplianceState {
 @doc("The filters to apply when querying for compliance details.")
 model SovereignViewComplianceDetailsFilters {
   @doc("The field to filter on.")
-  field: string;
+  field: SovereignViewFilterField;
 
   @doc("The operator to apply for the filter.")
   operator: SovereignViewComplianceDetailsFilterOperators;
