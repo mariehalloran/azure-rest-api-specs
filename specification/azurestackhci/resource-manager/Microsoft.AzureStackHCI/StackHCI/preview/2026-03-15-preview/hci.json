@@ -9376,7 +9376,6 @@
           {
             "name": "securitySettingsName",
             "in": "path",
-            "description": "Name of edge machine security settings",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9-]{3,24}$"
@@ -9429,7 +9428,6 @@
           {
             "name": "securitySettingsName",
             "in": "path",
-            "description": "Name of edge machine security settings",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9-]{3,24}$"
@@ -9512,7 +9510,6 @@
           {
             "name": "securitySettingsName",
             "in": "path",
-            "description": "Name of edge machine security settings",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9-]{3,24}$"
@@ -15877,11 +15874,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/EdgeMachineSecurityProperties",
-          "description": "The resource-specific properties for this resource.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
+          "description": "The resource-specific properties for this resource."
         }
       },
       "allOf": [
