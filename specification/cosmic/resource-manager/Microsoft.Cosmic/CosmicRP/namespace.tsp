@@ -44,9 +44,9 @@ model NamespaceProperties {
   @doc("Email Alias")
   emailAlias?: string;
 
-  @doc("The isolation group for this namespace.")
+  @doc("The isolation group for cluster bin-packing affinity. This field is required and cannot be changed after namespace creation.")
   @visibility(Lifecycle.Create, Lifecycle.Read)
-  isolationGroup?: string;
+  isolationGroup: string;
 
   @doc("Indicates whether Nightwatch monitoring is enabled for the namespace.")
   nightwatchEnabled: boolean = false;

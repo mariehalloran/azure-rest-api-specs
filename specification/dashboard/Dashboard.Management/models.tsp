@@ -74,6 +74,47 @@ union DeterministicOutboundIP {
 }
 
 /**
+ * Indicate the state for content restriction level for the Grafana instance.
+ * When set to Strict, Content Security Policy (CSP) and User Authentication are enforced.
+ */
+@added(Versions.v2026_05_01_preview)
+union ContentRestriction {
+  string,
+
+  /** Strict content restriction with full CSP enforcement */
+  Strict: "Strict",
+
+  /** Content restriction is off, relaxed CSP template is used */
+  Off: "Off",
+}
+
+/**
+ * State of the datasource syncer for the Grafana instance.
+ */
+@added(Versions.v2026_05_01_preview)
+union DatasourceSyncerState {
+  string,
+
+  /** Datasource syncer is disabled */
+  Disabled: "Disabled",
+
+  /** Datasource syncer is enabled */
+  Enabled: "Enabled",
+}
+
+/**
+ * Datasource syncer settings for the Grafana instance.
+ */
+@added(Versions.v2026_05_01_preview)
+model DatasourceSyncerSettings {
+  /** Whether the datasource syncer is enabled or disabled. */
+  state?: DatasourceSyncerState;
+
+  /** Suffix used by the datasource syncer. Case insensitive. */
+  suffix?: string;
+}
+
+/**
  * The creator will have admin access for the Grafana instance.
  */
 @added(Versions.v2025_08_01)
@@ -233,6 +274,19 @@ model ManagedGrafanaProperties {
    */
   @added(Versions.v2025_08_01)
   creatorCanAdmin?: CreatorCanAdmin;
+
+  /**
+   * Indicate the content restriction level for the Grafana instance.
+   * When set to Strict, Content Security Policy (CSP) and User Authentication are enforced.
+   */
+  @added(Versions.v2026_05_01_preview)
+  contentRestriction?: ContentRestriction;
+
+  /**
+   * Datasource syncer settings for the Grafana instance.
+   */
+  @added(Versions.v2026_05_01_preview)
+  datasourceSyncer?: DatasourceSyncerSettings;
 
   /**
    * Whether a Grafana instance uses deterministic outbound IPs.
@@ -590,6 +644,19 @@ model ManagedGrafanaPropertiesUpdateParameters {
    */
   @added(Versions.v2025_08_01)
   creatorCanAdmin?: CreatorCanAdmin;
+
+  /**
+   * Indicate the content restriction level for the Grafana instance.
+   * When set to Strict, Content Security Policy (CSP) and User Authentication are enforced.
+   */
+  @added(Versions.v2026_05_01_preview)
+  contentRestriction?: ContentRestriction;
+
+  /**
+   * Datasource syncer settings for the Grafana instance.
+   */
+  @added(Versions.v2026_05_01_preview)
+  datasourceSyncer?: DatasourceSyncerSettings;
 
   /**
    * Whether a Grafana instance uses deterministic outbound IPs.

@@ -2,7 +2,7 @@
 
 > see https://aka.ms/autorest
 
-This is the AutoRest configuration file for Microsoft.NetworkCloud.
+This is the AutoRest configuration file for NetworkCloud.
 
 ## Getting Started
 
@@ -22,7 +22,7 @@ For other options on installation see [Installing AutoRest](https://aka.ms/autor
 
 ### Basic Information
 
-These are the global settings for Microsoft.NetworkCloud.
+These are the global settings for NetworkCloud.
 
 ```yaml
 openapi-type: arm
@@ -63,7 +63,7 @@ suppressions:
 
 ### Tag: package-2025-02-01
 
-These settings apply only when `--tag=package-2024-02-01` is specified on the command line.
+These settings apply only when `--tag=package-2025-02-01` is specified on the command line.
 
 ```yaml $(tag) == 'package-2025-02-01'
 input-file:
@@ -430,7 +430,7 @@ suppressions:
     reason: False positive - properly using final-state-schema. Pending lintdiff fix.
     where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/clusters/{clusterName}/inspect"].post
   - code: PostResponseCodes
-    from: NetworkCloud.json
+    from: networkcloud.json
     where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/clusters/{clusterName}/rotateCredential"].post
     reason: "Known validator bug (azure-openapi-validator#809): LRO POST with only 202 and final-state-schema is valid per ARM RPC and TypeSpec Azure."
   - code: PostResponseCodes
@@ -487,18 +487,6 @@ These settings apply only when `--tag=package-2026-07-01` is specified on the co
 input-file:
   - Microsoft.NetworkCloud/stable/2026-07-01/networkcloud.json
 suppressions:
-  - code: PatchBodyParametersSchema
-    from: networkcloud.json
-    reason: Patch schema reuses shared definitions with required or defaulted properties. Legacy API elements.
-    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/clusters/{clusterName}"].patch.parameters[6].schema.properties.properties
-  - code: PatchBodyParametersSchema
-    from: networkcloud.json
-    reason: Patch schema reuses shared definitions with required or defaulted properties. Legacy API elements.
-    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/virtualMachines/{virtualMachineName}"].patch.parameters[6].schema.properties.properties
-  - code: PatchBodyParametersSchema
-    from: networkcloud.json
-    reason: Patch schema reuses shared definitions with required or defaulted properties. Legacy API elements.
-    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/virtualMachines/{virtualMachineName}/consoles/{consoleName}"].patch.parameters[7].schema.properties.properties
   - code: PostResponseCodes
     from: networkcloud.json
     reason: False positive - properly using final-state-schema. Pending lintdiff fix.
@@ -560,7 +548,7 @@ suppressions:
     reason: False positive - properly using final-state-schema. Pending lintdiff fix.
     where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/clusters/{clusterName}/inspect"].post
   - code: PostResponseCodes
-    from: NetworkCloud.json
+    from: networkcloud.json
     where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/clusters/{clusterName}/rotateCredential"].post
     reason: "Known validator bug (azure-openapi-validator#809): LRO POST with only 202 and final-state-schema is valid per ARM RPC and TypeSpec Azure."
   - code: PostResponseCodes

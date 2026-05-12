@@ -2536,7 +2536,7 @@
           "description": "Id of the environment created"
         },
         "ingestionKey": {
-          "type": "string",
+          "$ref": "#/definitions/SecretIngestionKey",
           "description": "Ingestion key of the environment"
         },
         "logsIngestionEndpoint": {
@@ -3536,6 +3536,13 @@
         }
       ]
     },
+    "SecretIngestionKey": {
+      "type": "string",
+      "format": "password",
+      "description": "Ingestion key with secret and read-only attributes for preview API versions.",
+      "readOnly": true,
+      "x-ms-secret": true
+    },
     "SendAadLogsStatus": {
       "type": "string",
       "description": "Indicates whether AAD logs are being sent.",
@@ -4006,7 +4013,7 @@
       "description": "Response of payload to be passed while installing VM agent.",
       "properties": {
         "ingestionKey": {
-          "type": "string",
+          "$ref": "#/definitions/SecretIngestionKey",
           "description": "Ingestion key of the environment"
         },
         "environmentId": {
