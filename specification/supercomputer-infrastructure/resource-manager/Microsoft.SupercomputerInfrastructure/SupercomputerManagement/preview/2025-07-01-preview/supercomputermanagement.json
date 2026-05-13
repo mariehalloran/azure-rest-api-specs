@@ -302,6 +302,9 @@
         "x-ms-examples": {
           "Supercomputers_CreateOrUpdate": {
             "$ref": "./examples/Supercomputers_CreateOrUpdate.json"
+          },
+          "Supercomputers_CreateOrUpdate_WithScopes": {
+            "$ref": "./examples/Supercomputers_CreateOrUpdate_WithScopes.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -2689,6 +2692,17 @@
           "$ref": "#/definitions/SupercomputerProvisioningState",
           "description": "The status of the last operation on the supercomputer.",
           "readOnly": true
+        },
+        "scopes": {
+          "type": "array",
+          "description": "A set of scopes to associate the Supercomputer with specific underlying infrastructure. This is required when creating a supercomputer with certain tiers, such as Standard_Clusters.",
+          "items": {
+            "type": "string"
+          },
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         }
       },
       "required": [
