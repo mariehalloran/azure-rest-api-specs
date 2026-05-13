@@ -294,7 +294,7 @@
         "tags": [
           "Accounts"
         ],
-        "description": "Update tags on a Context Cache Account.",
+        "description": "Update a Context Cache Account.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -319,7 +319,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/AccountTagsUpdate"
+              "$ref": "#/definitions/AccountUpdate"
             }
           }
         ],
@@ -611,6 +611,87 @@
         },
         "x-ms-long-running-operation": true
       },
+      "patch": {
+        "operationId": "Containers_Update",
+        "tags": [
+          "Containers"
+        ],
+        "description": "Update a container in a Context Cache Account.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "accountName",
+            "in": "path",
+            "description": "The name of the context cache account",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          },
+          {
+            "name": "containerName",
+            "in": "path",
+            "description": "The name of the container",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,61}[a-z0-9]$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContainerUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Container"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update a Container": {
+            "$ref": "./examples/Containers_Update.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location",
+          "final-state-schema": "#/definitions/Container"
+        },
+        "x-ms-long-running-operation": true
+      },
       "delete": {
         "operationId": "Containers_Delete",
         "tags": [
@@ -778,18 +859,31 @@
         "accountKind"
       ]
     },
-    "AccountTagsUpdate": {
+    "AccountPropertiesUpdate": {
       "type": "object",
-      "description": "The type used for updating tags in Account resources.",
+      "description": "Details of the Context Cache Account.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
+        "description": {
+          "type": "string",
+          "description": "Account description.",
+          "maxLength": 250
         }
       }
+    },
+    "AccountUpdate": {
+      "type": "object",
+      "description": "A Context Cache Account resource",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/AccountPropertiesUpdate",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
+        }
+      ]
     },
     "AiProvider": {
       "type": "string",
@@ -808,6 +902,25 @@
           }
         ]
       }
+    },
+    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
+      "type": "object",
+      "title": "Tracked Resource",
+      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/Resource"
+        }
+      ]
     },
     "Container": {
       "type": "object",
@@ -886,6 +999,34 @@
         "modelName",
         "provider"
       ]
+    },
+    "ContainerPropertiesUpdate": {
+      "type": "object",
+      "description": "Updatable properties of a container within a Context Cache Account.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Container description.",
+          "maxLength": 250
+        },
+        "timeToLive": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Time to live in days after last access before container blobs are deleted. Must be between 1 and 30.",
+          "minimum": 1,
+          "maximum": 30
+        }
+      }
+    },
+    "ContainerUpdate": {
+      "type": "object",
+      "description": "The type used for update operations of the Container.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ContainerPropertiesUpdate",
+          "description": "The updatable properties of the Container."
+        }
+      }
     },
     "ProvisioningState": {
       "type": "string",
