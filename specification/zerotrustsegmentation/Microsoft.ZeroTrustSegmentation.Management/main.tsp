@@ -41,11 +41,7 @@ model SegmentationManager is TrackedResource<SegmentationManagerProperties> {
   @doc("The managed service identities assigned to this resource.")
   identity?: SegmentationManagerManagedServiceIdentity;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "managedBy is modeled at envelope level only starting 2026-01-01-preview for versioned contract alignment."
-  @added(Versions.v2026_01_01_preview)
-  @visibility(Lifecycle.Read)
-  @doc("The fully qualified resource ID of the resource that manages this resource.")
-  managedBy?: Azure.Core.armResourceIdentifier;
+  ...ManagedByProperty;
 }
 
 @added(Versions.v2025_07_01_preview)
@@ -99,11 +95,7 @@ model SegmentationManagerProperties {
   @doc("The provisioning state of the resource.")
   provisioningState?: SegmentationManagerProvisioningState;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-duplicate-property" "managedBy is intentionally kept in properties for pre-2026 and moved to envelope for 2026+ via versioning decorators."
-  @removed(Versions.v2026_01_01_preview)
-  @visibility(Lifecycle.Read)
-  @doc("The fully qualified resource ID of the resource that manages this resource.")
-  managedBy?: Azure.Core.armResourceIdentifier;
+  ...ManagedByProperty;
 }
 
 @doc("The provisioning state of a resource type.")
