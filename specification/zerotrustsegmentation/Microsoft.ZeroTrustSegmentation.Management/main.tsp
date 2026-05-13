@@ -93,7 +93,11 @@ model SegmentationManagerProperties {
 
   @visibility(Lifecycle.Read)
   @doc("The provisioning state of the resource.")
-  provisioningState?: SegmentationManagerProvisioningState;
+  @typeChangedFrom(
+    Versions.v2026_01_01_preview,
+    SegmentationManagerProvisioningState
+  )
+  provisioningState?: ResourceProvisioningState;
 
   ...ManagedByProperty;
 }
@@ -207,6 +211,7 @@ model Vertex {
   location: string;
 
   @doc("Azure Resource Manager ID of the vertex")
+  @typeChangedFrom(Versions.v2026_01_01_preview, string)
   armId?: Azure.Core.armResourceIdentifier;
 
   @doc("Name of the vertex")

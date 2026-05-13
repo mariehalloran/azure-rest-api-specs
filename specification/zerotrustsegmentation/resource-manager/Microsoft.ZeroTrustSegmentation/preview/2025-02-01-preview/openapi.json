@@ -641,6 +641,10 @@
         "properties": {
           "$ref": "#/definitions/SegmentationManagerProperties",
           "description": "The resource-specific properties for this resource."
+        },
+        "managedBy": {
+          "type": "string",
+          "description": "The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource."
         }
       },
       "allOf": [
@@ -719,9 +723,7 @@
         },
         "managedBy": {
           "type": "string",
-          "format": "arm-id",
-          "description": "The fully qualified resource ID of the resource that manages this resource.",
-          "readOnly": true
+          "description": "The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource."
         }
       },
       "required": [
@@ -771,6 +773,10 @@
         "description": {
           "type": "string",
           "description": "The description of the segmentation manager"
+        },
+        "managedBy": {
+          "type": "string",
+          "description": "The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource."
         }
       }
     },
@@ -830,6 +836,10 @@
         "properties": {
           "$ref": "#/definitions/SegmentationManagerPropertiesUpdate",
           "description": "The resource-specific properties for this resource."
+        },
+        "managedBy": {
+          "type": "string",
+          "description": "The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource."
         }
       },
       "allOf": [
@@ -1015,7 +1025,6 @@
         },
         "armId": {
           "type": "string",
-          "format": "arm-id",
           "description": "Azure Resource Manager ID of the vertex"
         },
         "name": {
