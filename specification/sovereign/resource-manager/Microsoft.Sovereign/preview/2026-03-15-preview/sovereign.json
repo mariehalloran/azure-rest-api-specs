@@ -4010,6 +4010,10 @@
       "type": "object",
       "description": "The response for the sovereign view compliance details action.",
       "properties": {
+        "dataState": {
+          "type": "string",
+          "description": "State indicating whether the data is processed or still being processed."
+        },
         "lastEvaluated": {
           "type": "string",
           "format": "date-time",
@@ -4032,6 +4036,7 @@
         }
       },
       "required": [
+        "dataState",
         "lastEvaluated",
         "totalResources",
         "resources"
@@ -4212,6 +4217,10 @@
       "type": "object",
       "description": "The response for the sovereign view compliance summary action.",
       "properties": {
+        "dataState": {
+          "type": "string",
+          "description": "State indicating whether the data is processed or still being processed."
+        },
         "resourceId": {
           "type": "string",
           "format": "arm-id",
@@ -4245,6 +4254,7 @@
         }
       },
       "required": [
+        "dataState",
         "resourceId",
         "lastEvaluated",
         "overallSummary",
@@ -4401,6 +4411,10 @@
       "type": "object",
       "description": "The response for the sovereign view filter values action.",
       "properties": {
+        "dataState": {
+          "type": "string",
+          "description": "State indicating whether the data is processed or still being processed."
+        },
         "requestedFilter": {
           "$ref": "#/definitions/SovereignViewFilterField",
           "description": "The filter field for which values are returned."
@@ -4422,6 +4436,7 @@
         }
       },
       "required": [
+        "dataState",
         "requestedFilter",
         "totalCount",
         "values"

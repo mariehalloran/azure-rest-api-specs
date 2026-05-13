@@ -112,6 +112,9 @@ union ComplianceDimension {
 @added(Versions.Preview20260315)
 @doc("The response for the sovereign view compliance summary action.")
 model SovereignViewComplianceSummaryResponse {
+  @doc("State indicating whether the data is processed or still being processed.")
+  dataState: string;
+
   @doc("The resource identifier of the sovereign view.")
   resourceId: armResourceIdentifier<[
     {
@@ -331,6 +334,9 @@ model SovereignViewComplianceDetailsSearch {
 @added(Versions.Preview20260315)
 @doc("The response for the sovereign view compliance details action.")
 model SovereignViewComplianceDetailsResponse {
+  @doc("State indicating whether the data is processed or still being processed.")
+  dataState: string;
+
   @doc("The time when compliance was last evaluated overall, in RFC3339 format.")
   lastEvaluated: utcDateTime;
 
@@ -408,6 +414,9 @@ model SovereignViewFilterValuesRequest {
 @added(Versions.Preview20260315)
 @doc("The response for the sovereign view filter values action.")
 model SovereignViewFilterValuesResponse {
+  @doc("State indicating whether the data is processed or still being processed.")
+  dataState: string;
+
   @doc("The filter field for which values are returned.")
   requestedFilter: SovereignViewFilterField;
 
