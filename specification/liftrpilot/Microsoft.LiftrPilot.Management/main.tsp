@@ -104,6 +104,7 @@ model OrganizationResourceUpdate {
 interface Organizations {
   get is ArmResourceRead<OrganizationResource>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<OrganizationResource>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchSync<
     OrganizationResource,
@@ -163,6 +164,7 @@ model AgentResourceUpdate {
 interface Agents {
   get is ArmResourceRead<AgentResource>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<AgentResource>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchSync<AgentResource, AgentResourceUpdate>;
   delete is ArmResourceDeleteWithoutOkAsync<AgentResource>;
@@ -316,6 +318,7 @@ interface TestTrackedResources {
   get is ArmResourceRead<TestTrackedResource>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<TestTrackedResource>;
   delete is ArmResourceDeleteWithoutOkAsync<TestTrackedResource>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<TestTrackedResource, TestTrackedResourceUpdate>;
   listByResourceGroup is ArmResourceListByParent<TestTrackedResource>;
@@ -562,6 +565,7 @@ interface TestTrackedSyncResources {
   get is ArmResourceRead<TestTrackedSyncResource>;
   createOrUpdate is ArmResourceCreateOrReplaceSync<TestTrackedSyncResource>;
   delete is ArmResourceDeleteSync<TestTrackedSyncResource>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchSync<
     TestTrackedSyncResource,
@@ -706,6 +710,7 @@ interface TestWorkspaces {
   get is ArmResourceRead<TestWorkspace>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<TestWorkspace>;
   delete is ArmResourceDeleteWithoutOkAsync<TestWorkspace>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<TestWorkspace, TestWorkspaceUpdate>;
   listByTestChildPureProxyResource is ArmResourceListByParent<TestWorkspace>;
@@ -772,6 +777,7 @@ interface TestEnvironments {
   get is ArmResourceRead<TestEnvironment>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<TestEnvironment>;
   delete is ArmResourceDeleteWithoutOkAsync<TestEnvironment>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<TestEnvironment, TestEnvironmentUpdate>;
   listByTestWorkspace is ArmResourceListByParent<TestEnvironment>;

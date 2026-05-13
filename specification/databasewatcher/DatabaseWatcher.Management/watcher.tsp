@@ -104,6 +104,7 @@ union KustoOfferingType {
 interface Watchers {
   get is ArmResourceRead<Watcher>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Watcher>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     Watcher,

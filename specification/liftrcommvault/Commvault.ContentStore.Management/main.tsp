@@ -57,7 +57,6 @@ model CloudAccount is TrackedResource<CloudAccountProperties> {
   @minLength(1)
   @maxLength(50)
   @doc("Name of the Cloud Account resource")
-  @example("cloudAccountName")
   @path
   name: string;
 

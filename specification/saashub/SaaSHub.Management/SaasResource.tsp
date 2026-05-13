@@ -41,6 +41,7 @@ interface SaasResources {
   /**
    * Updates the properties of a SaaSHub Saas resource.
    */
+  #suppress "@typespec/http/deprecated-implicit-optionality" "LEGACY - DO NOT COPY"
   @Http.patch(#{ implicitOptionality: true }) // added on September 10, 2025 on RPSaaSMaster as part of the TypeSpec 1.4.0 upgrade (commit b9094b1f8122)
   update is ArmCustomPatchAsync<
     SaasResource,
