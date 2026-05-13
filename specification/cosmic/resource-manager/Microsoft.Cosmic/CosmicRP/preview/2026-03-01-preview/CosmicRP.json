@@ -89,6 +89,51 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Cosmic/checkNameAvailability": {
+      "post": {
+        "operationId": "Namespaces_CheckNameAvailability",
+        "tags": [
+          "Namespaces"
+        ],
+        "description": "Checks that the Cosmic namespace name is valid and is not already in use within the subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The CheckAvailability request",
+            "required": true,
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/CheckNameAvailabilityRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/CheckNameAvailabilityResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Checks the availability of a Cosmic namespace name.": {
+            "$ref": "./examples/Namespaces_CheckNameAvailability.json"
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/providers/Microsoft.Cosmic/namespaces": {
       "get": {
         "operationId": "Namespaces_ListBySubscription",
@@ -1229,6 +1274,40 @@
         }
       }
     },
+    "EnvironmentDefaultPolicy": {
+      "type": "object",
+      "description": "Environment-scoped default resource policy.",
+      "properties": {
+        "podResources": {
+          "type": "array",
+          "description": "Per-service pod resource specifications.",
+          "items": {
+            "$ref": "#/definitions/PodSpec"
+          },
+          "x-ms-identifiers": []
+        },
+        "os": {
+          "$ref": "#/definitions/OsType",
+          "description": "The operating system type.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipVersion": {
+          "$ref": "#/definitions/IpVersion",
+          "description": "The IP version (IPv4 or IPv6)."
+        },
+        "vmFamily": {
+          "type": "string",
+          "description": "The Azure VM family for cluster selection (e.g., 'D_FLEX', 'F_FLEX', 'DV4').",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      }
+    },
     "EnvironmentListResult": {
       "type": "object",
       "description": "The response of a Environment list operation.",
@@ -2190,11 +2269,11 @@
     },
     "ResourcePolicy": {
       "type": "object",
-      "description": "Resource policy configuration with layered ring/region/partition overrides.",
+      "description": "Resource policy configuration with layered environment/region/partition overrides.",
       "properties": {
-        "ringDefault": {
-          "$ref": "#/definitions/RingDefaultPolicy",
-          "description": "Default resource policy for the ring."
+        "environmentDefault": {
+          "$ref": "#/definitions/EnvironmentDefaultPolicy",
+          "description": "Default resource policy for the environment."
         },
         "regionOverrides": {
           "type": "array",
@@ -2204,40 +2283,6 @@
           },
           "x-ms-identifiers": [
             "name"
-          ]
-        }
-      }
-    },
-    "RingDefaultPolicy": {
-      "type": "object",
-      "description": "Ring-scoped default resource policy.",
-      "properties": {
-        "podResources": {
-          "type": "array",
-          "description": "Per-service pod resource specifications.",
-          "items": {
-            "$ref": "#/definitions/PodSpec"
-          },
-          "x-ms-identifiers": []
-        },
-        "os": {
-          "$ref": "#/definitions/OsType",
-          "description": "The operating system type.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "ipVersion": {
-          "$ref": "#/definitions/IpVersion",
-          "description": "The IP version (IPv4 or IPv6)."
-        },
-        "vmFamily": {
-          "type": "string",
-          "description": "The Azure VM family for cluster selection (e.g., 'D_FLEX', 'F_FLEX', 'DV4').",
-          "x-ms-mutability": [
-            "read",
-            "create"
           ]
         }
       }
