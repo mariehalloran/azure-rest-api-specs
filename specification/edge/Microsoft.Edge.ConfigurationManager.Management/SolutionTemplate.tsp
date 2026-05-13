@@ -4,9 +4,6 @@ import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@typespec/openapi";
-import "./ProvisioningState.tsp";
-import "@typespec/openapi";
-import "./ProvisioningState.tsp";
 import "./UpdateType.tsp";
 
 using TypeSpec.OpenAPI;

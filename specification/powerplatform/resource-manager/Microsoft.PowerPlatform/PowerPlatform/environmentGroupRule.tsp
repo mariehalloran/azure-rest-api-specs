@@ -112,7 +112,8 @@ interface EnvironmentGroupRules {
 }
 
 @@doc(EnvironmentGroupRule.name, "The rule set identifier.");
-@@doc(EnvironmentGroupRule.properties,
+@@doc(
+  EnvironmentGroupRule.properties,
   "The properties of the environment group rule."
 );
 @@doc(EnvironmentGroup.name, "The environment group identifier.");

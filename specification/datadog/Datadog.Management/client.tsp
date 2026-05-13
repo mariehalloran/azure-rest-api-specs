@@ -5,7 +5,8 @@ using Microsoft.Datadog;
 
 @@clientName(Microsoft.Datadog, "MicrosoftDatadogClient", "javascript");
 @@clientName(BillingInfoResponse, "BillingInfoResult", "csharp");
-@@clientName(CreateResourceSupportedResponse,
+@@clientName(
+  CreateResourceSupportedResponse,
   "CreateResourceSupportedResult",
   "csharp"
 );

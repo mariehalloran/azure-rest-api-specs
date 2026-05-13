@@ -113,6 +113,7 @@ interface FileSystems {
   >;
 }
 
-@@doc(LiftrBase.Storage.FileSystemResource.name,
+@@doc(
+  LiftrBase.Storage.FileSystemResource.name,
   "Name of the filesystem resource"
 );

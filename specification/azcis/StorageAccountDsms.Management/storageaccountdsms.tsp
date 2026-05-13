@@ -360,7 +360,8 @@ interface StorageAccountDsms {
   listBySubscription is ArmListBySubscription<StorageAccountDsmsResource>;
 }
 
-@@visibility(StorageAccountDsmsResource.properties,
+@@visibility(
+  StorageAccountDsmsResource.properties,
   Lifecycle.Read,
   Lifecycle.Create
 );

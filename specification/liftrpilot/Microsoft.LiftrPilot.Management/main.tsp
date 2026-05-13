@@ -635,7 +635,10 @@ interface ProviderLevelTestActions {
     @bodyRoot
     @doc("The details for ProviderLevelTestAction request.")
     request: ProviderLevelTestActionRequest,
-  ): ArmResponse<ProviderLevelTestActionResponse> | ArmAcceptedLroResponse | ErrorResponse;
+  ):
+    | ArmResponse<ProviderLevelTestActionResponse>
+    | ArmAcceptedLroResponse
+    | ErrorResponse;
 }
 
 @added(Versions.v2025_05_23_preview)
@@ -785,5 +788,8 @@ interface TestEnvironments {
     @bodyRoot
     @doc("The body type of the operation request.")
     request: RestoreTestEnvironmentRequest,
-  ): ArmResponse<RestoreTestEnvironmentResponse> | ArmAcceptedLroResponse | ErrorResponse;
+  ):
+    | ArmResponse<RestoreTestEnvironmentResponse>
+    | ArmAcceptedLroResponse
+    | ErrorResponse;
 }

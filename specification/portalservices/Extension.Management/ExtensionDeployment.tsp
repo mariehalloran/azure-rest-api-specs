@@ -68,13 +68,16 @@ interface PortalExtensionDeployments {
   stop is ArmResourceActionSync<ExtensionDeployment, void, void>;
 }
 
-@@doc(PortalExtensionDeployments.create::parameters.resource,
+@@doc(
+  PortalExtensionDeployments.create::parameters.resource,
   "deployment definition"
 );
-@@doc(PortalExtensionDeployments.update::parameters.properties,
+@@doc(
+  PortalExtensionDeployments.update::parameters.properties,
   "The updatable fields of a portal extension deployment."
 );
 
-@@clientName(PortalExtensionDeployments.update::parameters.properties,
+@@clientName(
+  PortalExtensionDeployments.update::parameters.properties,
   "parameters"
 );

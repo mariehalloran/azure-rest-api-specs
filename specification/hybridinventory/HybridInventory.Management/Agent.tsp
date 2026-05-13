@@ -67,7 +67,8 @@ interface Agents {
 @@minLength(Agent.name, 3);
 @@doc(Agent.name, "The name of agent");
 @@doc(Agent.properties, "Resource properties.");
-@@doc(Agents.createOrUpdate::parameters.resource,
+@@doc(
+  Agents.createOrUpdate::parameters.resource,
   "The request body for creating or updating agent."
 );
 @@doc(Agents.update::parameters.properties, "Agents patch payload.");

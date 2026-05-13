@@ -217,15 +217,19 @@ interface ProviderAccounts {
   listBySubscription is ArmListBySubscription<QuantumProviderAccount>;
 }
 
-@@doc(QuantumProviderAccount.name,
+@@doc(
+  QuantumProviderAccount.name,
   "The name of the Quantum ProviderAccount resource."
 );
-@@doc(QuantumProviderAccount.properties,
+@@doc(
+  QuantumProviderAccount.properties,
   "Gets or sets the properties. Define Quantum provider account's specific properties."
 );
-@@doc(ProviderAccounts.createOrUpdate::parameters.resource,
+@@doc(
+  ProviderAccounts.createOrUpdate::parameters.resource,
   "ProviderAccount details."
 );
-@@doc(ProviderAccounts.update::parameters.properties,
+@@doc(
+  ProviderAccounts.update::parameters.properties,
   "ProviderAccount details."
 );

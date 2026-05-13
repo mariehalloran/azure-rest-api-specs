@@ -65,7 +65,8 @@ interface ListActions {
     TResource extends Foundations.Resource,
     TResponse,
     TBaseParameters = BaseParameters<TResource>
-  >(
-    ...ResourceInstanceParameters<TResource, TBaseParameters>,
-  ): ArmResponse<TResponse> | ArmAcceptedLroResponse | ErrorResponse;
+  >(...ResourceInstanceParameters<TResource, TBaseParameters>):
+    | ArmResponse<TResponse>
+    | ArmAcceptedLroResponse
+    | ErrorResponse;
 }

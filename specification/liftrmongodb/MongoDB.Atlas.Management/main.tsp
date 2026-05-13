@@ -204,18 +204,18 @@ interface Projects {
   @autoRoute
   @armResourceAction(Project)
   @post
-  tierLimitReached(
-    ...ResourceInstanceParameters<Project>,
-  ): ArmResponse<TierLimitReachedResponse> | ErrorResponse;
+  tierLimitReached(...ResourceInstanceParameters<Project>):
+    | ArmResponse<TierLimitReachedResponse>
+    | ErrorResponse;
 
   @doc("List available regions by cluster tier for the project.")
   @autoRoute
   @armResourceAction(Project)
   @post
   @action("clusterTierRegions")
-  listClusterTierRegions(
-    ...ResourceInstanceParameters<Project>,
-  ): ArmResponse<RegionsByTierResponse> | ErrorResponse;
+  listClusterTierRegions(...ResourceInstanceParameters<Project>):
+    | ArmResponse<RegionsByTierResponse>
+    | ErrorResponse;
 }
 
 @doc("Response for tier limit check.")

@@ -140,25 +140,32 @@ interface SaasResources {
 
 @@maxLength(SaasResource.name, 50);
 @@minLength(SaasResource.name, 3);
-@@doc(SaasResource.name,
+@@doc(
+  SaasResource.name,
   "The name that uniquely identifies a SaaSHub Saas resource."
 );
 @@doc(SaasResource.properties, "The properties of a SaaSHub Saas resource.");
-@@doc(SaasResources.create::parameters.resource,
+@@doc(
+  SaasResources.create::parameters.resource,
   "Request parameters that are provided to the create SaaSHub Saas resource operation."
 );
-@@doc(SaasResources.update::parameters.properties,
+@@doc(
+  SaasResources.update::parameters.properties,
   "Request parameters that are provided to the update SaaSHub Saas resource operation."
 );
-@@doc(SaasResources.canMerge::parameters.body,
+@@doc(
+  SaasResources.canMerge::parameters.body,
   "Request parameters that are provided to the merge SaaSHub Saas resource operation."
 );
-@@doc(SaasResources.canUpdate::parameters.body,
+@@doc(
+  SaasResources.canUpdate::parameters.body,
   "Request parameters that are provided to the update SaaSHub Saas resource operation."
 );
-@@doc(SaasResources.merge::parameters.body,
+@@doc(
+  SaasResources.merge::parameters.body,
   "Request parameters that are provided to the merge SaaSHub Saas resource operation."
 );
-@@doc(SaasResources.refundableQuantity,
+@@doc(
+  SaasResources.refundableQuantity,
   "Gets the refundable quantity for a SaaSHub Saas resource."
 );

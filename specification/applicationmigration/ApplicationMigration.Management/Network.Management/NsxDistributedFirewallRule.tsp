@@ -120,6 +120,7 @@ model NsxDistributedFirewallRuleList
 
 @@maxLength(NsxDistributedFirewallRule.name, 63);
 @@minLength(NsxDistributedFirewallRule.name, 3);
-@@doc(NsxDistributedFirewallRule.name,
+@@doc(
+  NsxDistributedFirewallRule.name,
   "The name of the distributed firewall rule."
 );

@@ -65,7 +65,8 @@ interface OracleAgents {
 @@minLength(OracleAgent.name, 3);
 @@doc(OracleAgent.name, "The name of agent");
 @@doc(OracleAgent.properties, "Resource properties.");
-@@doc(OracleAgents.createOrUpdate::parameters.resource,
+@@doc(
+  OracleAgents.createOrUpdate::parameters.resource,
   "The request body for creating or updating agent."
 );
 @@doc(OracleAgents.update::parameters.properties, "Agents patch payload.");
