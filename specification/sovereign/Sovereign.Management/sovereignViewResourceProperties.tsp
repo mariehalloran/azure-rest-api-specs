@@ -49,7 +49,7 @@ model SovereignViewManagementGroupScope {
   ]>;
 
   @doc("The management group name.")
-  name: string;
+  name?: string;
 }
 
 @added(Versions.Preview20260315)
@@ -59,7 +59,7 @@ model SovereignViewSubscriptionScope {
   id: uuid;
 
   @doc("The subscription name.")
-  name: string;
+  name?: string;
 }
 
 @added(Versions.Preview20260315)
