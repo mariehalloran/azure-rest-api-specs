@@ -3965,12 +3965,14 @@
         "top": {
           "type": "integer",
           "format": "int32",
-          "description": "The maximum number of resources to return. Used for pagination."
+          "description": "The maximum number of resources to return. Used for pagination.",
+          "minimum": 1
         },
         "skip": {
           "type": "integer",
           "format": "int32",
-          "description": "The resources to skip when the results are returned. Used for pagination."
+          "description": "The resources to skip when the results are returned. Used for pagination.",
+          "minimum": 0
         },
         "complianceDimensions": {
           "type": "array",

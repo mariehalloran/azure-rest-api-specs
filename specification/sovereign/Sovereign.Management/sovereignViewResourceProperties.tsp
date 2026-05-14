@@ -193,9 +193,11 @@ model SovereignViewComplianceDimensionSummary {
 @doc("The request for the sovereign view compliance details action.")
 model SovereignViewComplianceDetailsRequest {
   @doc("The maximum number of resources to return. Used for pagination.")
+  @minValue(1)
   top: int32;
 
   @doc("The resources to skip when the results are returned. Used for pagination.")
+  @minValue(0)
   skip?: int32;
 
   @doc("The filters for compliance dimensions and their states to apply when querying for compliance details.")
