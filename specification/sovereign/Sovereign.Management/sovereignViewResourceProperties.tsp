@@ -448,7 +448,7 @@ model SovereignViewFilterValuesRequest {
 @doc("The response for the sovereign view filter values action.")
 model SovereignViewFilterValuesResponse {
   @doc("State indicating whether the data is processed or still being processed.")
-  dataState: string;
+  dataState: DataState;
 
   @doc("The filter field for which values are returned.")
   requestedFilter?: SovereignViewFilterField;
