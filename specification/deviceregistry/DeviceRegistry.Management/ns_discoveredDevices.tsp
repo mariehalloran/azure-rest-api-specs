@@ -41,6 +41,7 @@ model NamespaceDiscoveredDevice
 interface NamespaceDiscoveredDevices {
   get is ArmResourceRead<NamespaceDiscoveredDevice>;
   createOrReplace is ArmResourceCreateOrReplaceAsync<NamespaceDiscoveredDevice>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     NamespaceDiscoveredDevice,

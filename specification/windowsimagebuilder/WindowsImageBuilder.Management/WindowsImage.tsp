@@ -65,9 +65,11 @@ interface WindowsImages {
 
 @@doc(WindowsImage.name, "The name of the windows image ");
 @@doc(WindowsImage.properties, "The properties of the windows image");
-@@doc(WindowsImages.create::parameters.resource,
+@@doc(
+  WindowsImages.create::parameters.resource,
   "Parameters supplied to Create WindowsImage operation"
 );
-@@doc(WindowsImages.update::parameters.properties,
+@@doc(
+  WindowsImages.update::parameters.properties,
   "Additional parameters for Windows Image update."
 );

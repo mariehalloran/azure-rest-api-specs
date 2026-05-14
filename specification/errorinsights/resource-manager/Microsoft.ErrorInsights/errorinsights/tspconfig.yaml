@@ -1,0 +1,46 @@
+emit:
+  - "@azure-tools/typespec-autorest"
+options:
+  "@azure-tools/typespec-autorest":
+    use-read-only-status-schema: true
+    emitter-output-dir: "{project-root}"
+    output-file: "{emitter-output-dir}/{version-status}/{version}/microsoft-errorinsights.json"
+    arm-types-dir: "{project-root}/../../../../common-types/resource-management"
+  "@azure-tools/typespec-csharp":
+    emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.ErrorInsights"
+    clear-output-folder: true
+    model-namespace: false
+    namespace: "Azure.ResourceManager.ErrorInsights"
+    flavor: azure
+  "@azure-tools/typespec-python":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-errorinsights"
+    namespace: "azure.mgmt.errorinsights"
+    generate-test: true
+    generate-sample: true
+    flavor: azure
+  "@azure-tools/typespec-java":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-errorinsights"
+    namespace: "com.azure.resourcemanager.errorinsights"
+    service-name: "errorinsights"
+    flavor: azure
+  "@azure-tools/typespec-ts":
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-errorinsights"
+    experimental-extensible-enums: true
+    flavor: azure
+    package-details:
+      name: "@azure/arm-errorinsights"
+  "@azure-tools/typespec-go":
+    service-dir: "sdk/resourcemanager/errorinsights"
+    emitter-output-dir: "{output-dir}/{service-dir}/armerrorinsights"
+    module: "github.com/Azure/azure-sdk-for-go/{service-dir}/armerrorinsights"
+    fix-const-stuttering: true
+    generate-samples: true
+    generate-fakes: true
+    head-as-boolean: true
+    inject-spans: true
+linter:
+  extends:
+    - "@azure-tools/typespec-azure-rulesets/resource-manager"
+parameters:
+  service-dir:
+    default: sdk/errorinsights

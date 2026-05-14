@@ -71,9 +71,11 @@ interface ConditionalCreditTransactions {
 
 @@doc(ConditionalCreditTransaction.name, "Name of the transaction");
 @@doc(ConditionalCreditTransaction.properties, "Transaction properties");
-@@doc(ConditionalCreditTransactions.create::parameters.resource,
+@@doc(
+  ConditionalCreditTransactions.create::parameters.resource,
   "Transaction create request"
 );
-@@doc(ConditionalCreditTransactions.update::parameters.properties,
+@@doc(
+  ConditionalCreditTransactions.update::parameters.properties,
   "Transaction patch request"
 );

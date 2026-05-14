@@ -7111,6 +7111,11 @@
         "monitoringProperties": {
           "$ref": "#/definitions/MonitoringPropertiesOfDrill",
           "description": "Monitoring properties of the Drill."
+        },
+        "errorDetails": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details associated with the resource.",
+          "readOnly": true
         }
       },
       "discriminator": "drillType",
@@ -11204,6 +11209,11 @@
         "latestValidationStatus": {
           "$ref": "#/definitions/RecoveryPlanOperationStatus",
           "description": "The status of the most recent validation performed.",
+          "readOnly": true
+        },
+        "errorDetails": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details associated with the resource.",
           "readOnly": true
         }
       },

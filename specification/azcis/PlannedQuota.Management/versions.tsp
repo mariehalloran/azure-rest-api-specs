@@ -16,6 +16,7 @@ enum Versions {
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v3)
   v2023_08_22_preview: "2023-08-22-preview",
 
+  #suppress "@azure-tools/typespec-azure-resource-manager/version-progression" "LEGACY"
   @doc("API version 2023-08-22")
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v3)
   v2023_08_22: "2023-08-22",

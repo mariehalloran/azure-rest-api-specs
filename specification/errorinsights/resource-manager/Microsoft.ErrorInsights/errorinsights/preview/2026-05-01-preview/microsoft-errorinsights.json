@@ -1,0 +1,475 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Microsoft.ErrorInsights management service",
+    "version": "2026-05-01-preview",
+    "description": "Microsoft.ErrorInsights Resource Provider management API.",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "Errors"
+    },
+    {
+      "name": "ErrorClusters"
+    }
+  ],
+  "paths": {
+    "/{resourceUri}/providers/Microsoft.ErrorInsights/errors": {
+      "get": {
+        "operationId": "Errors_List",
+        "tags": [
+          "Errors"
+        ],
+        "description": "List error events for a resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ErrorListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List error events for a resource": {
+            "$ref": "./examples/Errors_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/{resourceUri}/providers/Microsoft.ErrorInsights/errors/{errorName}": {
+      "get": {
+        "operationId": "Errors_Get",
+        "tags": [
+          "Errors"
+        ],
+        "description": "Get an error event for a resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          },
+          {
+            "name": "errorName",
+            "in": "path",
+            "description": "The error resource name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,128}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get an error event for a resource": {
+            "$ref": "./examples/Errors_Get.json"
+          }
+        }
+      }
+    },
+    "/providers/Microsoft.ErrorInsights/errorClusters": {
+      "get": {
+        "operationId": "ErrorClusters_List",
+        "tags": [
+          "ErrorClusters"
+        ],
+        "description": "List all error clusters.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ErrorClusterListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List all error clusters": {
+            "$ref": "./examples/ErrorClusters_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.ErrorInsights/errorClusters/{clusterName}": {
+      "get": {
+        "operationId": "ErrorClusters_Get",
+        "tags": [
+          "ErrorClusters"
+        ],
+        "description": "Get an error cluster.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The error cluster name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,128}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ErrorCluster"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get an error cluster": {
+            "$ref": "./examples/ErrorClusters_Get.json"
+          }
+        }
+      }
+    },
+    "/providers/Microsoft.ErrorInsights/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List available operations for Microsoft.ErrorInsights": {
+            "$ref": "./examples/Operations_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Azure.ResourceManager.ResourceProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a resource type.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "Error": {
+      "type": "object",
+      "description": "An error event associated with an Azure resource.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ErrorProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "ErrorAttributes": {
+      "type": "object",
+      "description": "Details of the error event.",
+      "properties": {
+        "eventTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of when the error occurred."
+        },
+        "errorCode": {
+          "type": "string",
+          "description": "Error code from the Azure service (e.g., GatewayTimeout, AllocationFailed). Values are unbounded as they originate from arbitrary Azure resource providers."
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": "Detailed error message."
+        },
+        "clusterId": {
+          "type": "string",
+          "description": "Cluster identifier linking this error to a group of similar errors."
+        }
+      },
+      "required": [
+        "eventTimestamp",
+        "errorCode"
+      ]
+    },
+    "ErrorCluster": {
+      "type": "object",
+      "description": "A cluster of similar error events (tenant-scoped, global resource).",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ErrorClusterProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "ErrorClusterListResult": {
+      "type": "object",
+      "description": "The response of a ErrorCluster list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ErrorCluster items on this page",
+          "items": {
+            "$ref": "#/definitions/ErrorCluster"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ErrorClusterProperties": {
+      "type": "object",
+      "description": "Properties of an error cluster.",
+      "properties": {
+        "clusterId": {
+          "type": "string",
+          "description": "Unique hash identifier for this cluster.",
+          "readOnly": true
+        },
+        "errorCode": {
+          "type": "string",
+          "description": "Error code associated with this cluster (e.g., GatewayTimeout).",
+          "readOnly": true
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": "Representative error message for this cluster.",
+          "readOnly": true
+        },
+        "targetResourceType": {
+          "type": "string",
+          "description": "Azure resource type associated with this cluster (e.g., Microsoft.Compute/virtualMachines).",
+          "readOnly": true
+        },
+        "memberCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of error instances in this cluster.",
+          "minimum": 0,
+          "readOnly": true
+        },
+        "firstSeen": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this cluster was first observed.",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "The provisioning state of the resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "clusterId",
+        "errorCode",
+        "memberCount",
+        "firstSeen"
+      ]
+    },
+    "ErrorListResult": {
+      "type": "object",
+      "description": "The response of a Error list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Error items on this page",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ErrorProperties": {
+      "type": "object",
+      "description": "Properties of an error event.",
+      "properties": {
+        "targetResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Full ARM resource ID of the resource that encountered the error.",
+          "readOnly": true
+        },
+        "targetResourceType": {
+          "type": "string",
+          "description": "ARM resource type of the target resource (e.g., Microsoft.Sql/servers/databases).",
+          "readOnly": true
+        },
+        "errorAttributes": {
+          "$ref": "#/definitions/ErrorAttributes",
+          "description": "Error details.",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "The provisioning state of the resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "targetResourceId",
+        "targetResourceType",
+        "errorAttributes"
+      ]
+    }
+  },
+  "parameters": {
+    "Azure.ResourceManager.ResourceUriParameter": {
+      "name": "resourceUri",
+      "in": "path",
+      "description": "The fully qualified Azure Resource manager identifier of the resource.",
+      "required": true,
+      "type": "string",
+      "x-ms-parameter-location": "method",
+      "x-ms-skip-url-encoding": true
+    }
+  }
+}

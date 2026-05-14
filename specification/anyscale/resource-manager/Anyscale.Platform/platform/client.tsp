@@ -6,7 +6,8 @@ using Azure.ClientGenerator.Core;
 namespace ClientCustomizations;
 
 @@clientName(Anyscale.Platform.Clouds.get, "GetAnyscaleCloud", "csharp");
-@@clientName(Anyscale.Platform.CloudResources.get,
+@@clientName(
+  Anyscale.Platform.CloudResources.get,
   "GetAnyscaleComputeResource",
   "csharp"
 );

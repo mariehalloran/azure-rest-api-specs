@@ -80,7 +80,8 @@ interface PgsqlSites {
 @@minLength(PgsqlSite.name, 3);
 @@doc(PgsqlSite.name, "The name of Site");
 @@doc(PgsqlSite.properties, "Resource properties.");
-@@doc(PgsqlSites.createOrUpdate::parameters.resource,
+@@doc(
+  PgsqlSites.createOrUpdate::parameters.resource,
   "The machines to add to the assessment"
 );
 // @@doc(PgsqlSites.update::parameters.properties, "Clouds patch payload.");

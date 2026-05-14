@@ -62,9 +62,11 @@ interface OracleInstances {
 @@minLength(OracleInstance.name, 3);
 @@doc(OracleInstance.name, "The name of Instance");
 @@doc(OracleInstance.properties, "Resource properties.");
-@@doc(OracleInstances.createOrUpdate::parameters.resource,
+@@doc(
+  OracleInstances.createOrUpdate::parameters.resource,
   "The request body for creating or updating a OracleInstance resource."
 );
-@@doc(OracleInstances.update::parameters.properties,
+@@doc(
+  OracleInstances.update::parameters.properties,
   "The request body for updating a OracleInstance resource."
 );

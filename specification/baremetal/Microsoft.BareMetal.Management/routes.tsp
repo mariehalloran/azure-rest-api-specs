@@ -24,10 +24,9 @@ interface LocationsUtilization {
   @armResourceList(ClusterProperties)
   @route("/providers/Microsoft.BareMetal/locations/{location}/utilization")
   @get
-  list(
-    ...ApiVersionParameter,
-    ...LocationResourceParameter,
-  ): ArmResponse<ClusterList> | ErrorResponse;
+  list(...ApiVersionParameter, ...LocationResourceParameter):
+    | ArmResponse<ClusterList>
+    | ErrorResponse;
 }
 
 @armResourceOperations
@@ -44,9 +43,12 @@ interface Locations {
     @doc("The updateRoutesOnVirtualNetwork object.")
     @bodyRoot
     updateRoutesOnVirtualNetworkObject: UpdateRoutesOnVirtualNetwork,
-  ): ArmResponse<UpdateRoutesOnVirtualNetwork> | {
-    ...AcceptedResponse;
-    ...Azure.Core.Foundations.RetryAfterHeader;
-    ...ArmLroLocationHeader<FinalResult = UpdateRoutesOnVirtualNetwork>;
-  } | ErrorResponse;
+  ):
+    | ArmResponse<UpdateRoutesOnVirtualNetwork>
+    | {
+        ...AcceptedResponse;
+        ...Azure.Core.Foundations.RetryAfterHeader;
+        ...ArmLroLocationHeader<FinalResult = UpdateRoutesOnVirtualNetwork>;
+      }
+    | ErrorResponse;
 }
