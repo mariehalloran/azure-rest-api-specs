@@ -93,11 +93,8 @@ model SegmentationManagerProperties {
 
   @visibility(Lifecycle.Read)
   @doc("The provisioning state of the resource.")
-  @typeChangedFrom(
-    Versions.v2026_01_01_preview,
-    SegmentationManagerProvisioningState
-  )
-  provisioningState?: ResourceProvisioningState;
+  @typeChangedFrom(Versions.v2026_01_01_preview, ResourceProvisioningState)
+  provisioningState?: SegmentationManagerProvisioningState;
 
   ...ManagedByProperty;
 }
