@@ -2641,6 +2641,36 @@
         ]
       }
     },
+    "DataState": {
+      "type": "string",
+      "description": "The state of the report data.",
+      "enum": [
+        "Processing",
+        "Processed",
+        "Error"
+      ],
+      "x-ms-enum": {
+        "name": "DataState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Processing",
+            "value": "Processing",
+            "description": "The data is still being processed and is not yet available."
+          },
+          {
+            "name": "Processed",
+            "value": "Processed",
+            "description": "The data is processed and available."
+          },
+          {
+            "name": "Error",
+            "value": "Error",
+            "description": "An error occurred while processing the data."
+          }
+        ]
+      }
+    },
     "DecommissionedManagementGroupProperties": {
       "type": "object",
       "description": "Decommissioned management group properties.",
@@ -4013,7 +4043,7 @@
       "description": "The response for the sovereign view compliance details action.",
       "properties": {
         "dataState": {
-          "type": "string",
+          "$ref": "#/definitions/DataState",
           "description": "State indicating whether the data is processed or still being processed."
         },
         "lastEvaluated": {
@@ -4236,7 +4266,7 @@
       "description": "The response for the sovereign view compliance summary action.",
       "properties": {
         "dataState": {
-          "type": "string",
+          "$ref": "#/definitions/DataState",
           "description": "State indicating whether the data is processed or still being processed."
         },
         "resourceId": {

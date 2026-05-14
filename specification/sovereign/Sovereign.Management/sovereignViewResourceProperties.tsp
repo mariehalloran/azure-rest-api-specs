@@ -110,10 +110,25 @@ union ComplianceDimension {
 }
 
 @added(Versions.Preview20260315)
+@doc("The state of the report data.")
+union DataState {
+  @doc("The data is still being processed and is not yet available.")
+  Processing: "Processing",
+
+  @doc("The data is processed and available.")
+  Processed: "Processed",
+
+  @doc("An error occurred while processing the data.")
+  Error: "Error",
+
+  string,
+}
+
+@added(Versions.Preview20260315)
 @doc("The response for the sovereign view compliance summary action.")
 model SovereignViewComplianceSummaryResponse {
   @doc("State indicating whether the data is processed or still being processed.")
-  dataState: string;
+  dataState: DataState;
 
   @doc("The resource identifier of the sovereign view.")
   resourceId: armResourceIdentifier<[
@@ -352,7 +367,7 @@ model SovereignViewComplianceDetailsSearch {
 @doc("The response for the sovereign view compliance details action.")
 model SovereignViewComplianceDetailsResponse {
   @doc("State indicating whether the data is processed or still being processed.")
-  dataState: string;
+  dataState: DataState;
 
   @doc("The time when compliance was last evaluated overall, in RFC3339 format.")
   lastEvaluated: utcDateTime;
