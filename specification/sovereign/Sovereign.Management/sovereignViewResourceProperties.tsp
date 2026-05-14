@@ -48,7 +48,7 @@ model SovereignViewManagementGroupScope {
     }
   ]>;
 
-  @doc("The management group name.")
+  @doc("The management group name. This is a purely client side label that the service does not validate, normalize, or use for any lookup.")
   name?: string;
 }
 
@@ -58,7 +58,7 @@ model SovereignViewSubscriptionScope {
   @doc("The subscription id.")
   id: uuid;
 
-  @doc("The subscription name.")
+  @doc("The subscription name. This is a purely client side label that the service does not validate, normalize, or use for any lookup.")
   name?: string;
 }
 
