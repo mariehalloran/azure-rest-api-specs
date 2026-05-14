@@ -75,6 +75,7 @@ model SovereignViewPolicyInitiativeDetail {
   @doc("The compliance dimension associated with the policy initiative.")
   dimension: ComplianceDimension;
 
+  @visibility(Lifecycle.Read)
   @doc("The policy assignment Ids generated during assignment of the policy initiative to a scope.")
   policyAssignmentIds?: armResourceIdentifier<[
     {
