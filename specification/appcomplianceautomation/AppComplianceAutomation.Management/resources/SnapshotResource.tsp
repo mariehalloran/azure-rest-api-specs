@@ -78,6 +78,7 @@ interface SnapshotResources {
   >;
 }
 
-@@doc(SnapshotResources.download::parameters.body,
+@@doc(
+  SnapshotResources.download::parameters.body,
   "Parameters for the query operation"
 );

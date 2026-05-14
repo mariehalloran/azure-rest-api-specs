@@ -87,7 +87,8 @@ interface GenericGenevaActions {
   get is ArmResourceRead<GenericGenevaActionsResource>;
 }
 
-@@visibility(GenericGenevaActionsResource.properties,
+@@visibility(
+  GenericGenevaActionsResource.properties,
   Lifecycle.Read,
   Lifecycle.Create
 );

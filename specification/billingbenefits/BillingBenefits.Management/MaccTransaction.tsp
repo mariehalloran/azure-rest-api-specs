@@ -71,9 +71,11 @@ interface MaccTransactions {
 
 @@doc(MaccTransaction.name, "Name of the transaction");
 @@doc(MaccTransaction.properties, "Transaction properties");
-@@doc(MaccTransactions.create::parameters.resource,
+@@doc(
+  MaccTransactions.create::parameters.resource,
   "Transaction create request"
 );
-@@doc(MaccTransactions.update::parameters.properties,
+@@doc(
+  MaccTransactions.update::parameters.properties,
   "Transaction patch request"
 );

@@ -164,12 +164,15 @@ interface BingAccounts {
 @@minLength(BingAccount.name, 2);
 @@doc(BingAccount.name, "The name of the Bing account.");
 @@doc(BingAccount.properties, "Properties of Bing account.");
-@@doc(BingAccounts.create::parameters.resource,
+@@doc(
+  BingAccounts.create::parameters.resource,
   "The parameters of the account to create."
 );
-@@doc(BingAccounts.update::parameters.properties,
+@@doc(
+  BingAccounts.update::parameters.properties,
   "The parameters to update in the account."
 );
-@@doc(BingAccounts.regenerateKey::parameters.body,
+@@doc(
+  BingAccounts.regenerateKey::parameters.body,
   "Regenerate key parameters."
 );
