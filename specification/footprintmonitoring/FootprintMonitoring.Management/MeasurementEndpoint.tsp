@@ -100,9 +100,11 @@ interface MeasurementEndpoints {
 
 @@maxLength(MeasurementEndpoint.name, 64);
 @@minLength(MeasurementEndpoint.name, 5);
-@@doc(MeasurementEndpoint.name,
+@@doc(
+  MeasurementEndpoint.name,
   "Name of the Footprint measurement endpoint resource."
 );
-@@doc(MeasurementEndpoints.createOrUpdate::parameters.resource,
+@@doc(
+  MeasurementEndpoints.createOrUpdate::parameters.resource,
   "Footprint measurement endpoint creation or update parameters."
 );

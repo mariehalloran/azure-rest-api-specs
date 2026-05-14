@@ -114,7 +114,8 @@ interface DstsServiceClientIdentity {
   get is ArmResourceRead<DstsServiceClientIdentityResource>;
 }
 
-@@visibility(DstsServiceClientIdentityResource.properties,
+@@visibility(
+  DstsServiceClientIdentityResource.properties,
   Lifecycle.Read,
   Lifecycle.Create
 );

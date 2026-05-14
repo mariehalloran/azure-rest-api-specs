@@ -82,9 +82,9 @@ interface TunnelPlans {
     TResource extends Azure.ResourceManager.CommonTypes.Resource,
     TResponse extends {},
     TBaseParameters = Azure.ResourceManager.Foundations.BaseParameters<TResource>
-  >(
-    ...ResourceInstanceParameters<TResource, TBaseParameters>,
-  ): ArmResponse<TResponse> | ErrorResponse;
+  >(...ResourceInstanceParameters<TResource, TBaseParameters>):
+    | ArmResponse<TResponse>
+    | ErrorResponse;
 
   get is ArmResourceRead<TunnelPlanResource>;
   createOrUpdate is ArmResourceCreateOrReplaceSync<TunnelPlanResource>;

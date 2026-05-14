@@ -171,6 +171,7 @@ interface ResourceSubscriptions {
   createOrUpdate is ArmResourceCreateOrReplaceAsync<ResourceSubscription>;
 
   /** Updates a resource subscription (supports tags and property updates) */
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @OpenAPI.extension(
     "x-ms-examples",
     #{

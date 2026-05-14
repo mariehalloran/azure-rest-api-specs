@@ -128,6 +128,7 @@ model CommunityTrainingProperties {
 interface CommunityTrainings {
   get is ArmResourceRead<CommunityTraining>;
   create is ArmResourceCreateOrUpdateAsync<CommunityTraining>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     CommunityTraining,

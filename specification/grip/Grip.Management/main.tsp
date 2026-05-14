@@ -79,9 +79,9 @@ op ArmLocResourceListBySubscription<
   TBaseParameters = BaseParameters<TResource>,
   TParentName extends valueof string = "",
   TParentFriendlyName extends valueof string = ""
->(
-  ...LocationCollectionParametersSubscription<TResource>,
-): ArmResponse<ResourceListResult<TResource>> | ErrorResponse;
+>(...LocationCollectionParametersSubscription<TResource>):
+  | ArmResponse<ResourceListResult<TResource>>
+  | ErrorResponse;
 
 @doc("Provisioning state")
 @lroStatus
@@ -435,9 +435,9 @@ model JobDefinitionResource is ProxyResource<JobDefinitionProperties> {
 op ArmLocResourceRead<
   TResource extends ArmResource,
   TBaseParameters = BaseParameters<TResource>
->(
-  ...LocationInstanceParameters<TResource>,
-): ArmResponse<TResource> | ErrorResponse;
+>(...LocationInstanceParameters<TResource>):
+  | ArmResponse<TResource>
+  | ErrorResponse;
 
 /**
  * A resource list operation, at the scope of the resource's parent
@@ -460,9 +460,9 @@ op ArmLocResourceListByParent<
   TBaseParameters = BaseParameters<TResource>,
   TParentName extends valueof string = "",
   TParentFriendlyName extends valueof string = ""
->(
-  ...LocationCollectionParameters<TResource>,
-): ArmResponse<ResourceListResult<TResource>> | ErrorResponse;
+>(...LocationCollectionParameters<TResource>):
+  | ArmResponse<ResourceListResult<TResource>>
+  | ErrorResponse;
 
 /**
  * A resource CreateOrUpdate (PUT)
@@ -500,6 +500,7 @@ op ArmLocResourceCreateOrUpdateSync<
 op ArmLocResourceDeleteSync<
   TResource extends ArmResource,
   TBaseParameters = BaseParameters<TResource>
->(
-  ...LocationInstanceParameters<TResource, TBaseParameters>,
-): ArmDeletedResponse | ArmDeletedNoContentResponse | ErrorResponse;
+>(...LocationInstanceParameters<TResource, TBaseParameters>):
+  | ArmDeletedResponse
+  | ArmDeletedNoContentResponse
+  | ErrorResponse;

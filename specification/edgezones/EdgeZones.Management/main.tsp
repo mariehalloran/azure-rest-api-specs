@@ -130,9 +130,9 @@ model ExtendedZone is ProxyResource<ExtendedZoneProperties> {
 op ArmResourceActionNoBodySync<
   TResource extends Azure.ResourceManager.CommonTypes.Resource,
   TBaseParameters = Azure.ResourceManager.Foundations.BaseParameters<TResource>
->(
-  ...ResourceInstanceParameters<TResource, TBaseParameters>,
-): ArmResponse<TResource> | ErrorResponse;
+>(...ResourceInstanceParameters<TResource, TBaseParameters>):
+  | ArmResponse<TResource>
+  | ErrorResponse;
 
 @doc("ExtendedZone operations")
 @armResourceOperations

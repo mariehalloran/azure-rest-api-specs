@@ -28,5 +28,6 @@ enum Versions {
 
   v2024_09_30_preview: "2024-09-30-preview",
   v2025_11_20_preview: "2025-11-20-preview",
+  #suppress "@azure-tools/typespec-azure-resource-manager/version-progression" "LEGACY"
   v2025_10_13: "2025-10-13",
 }

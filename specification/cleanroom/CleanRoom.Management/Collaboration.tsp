@@ -161,9 +161,11 @@ interface Collaborations {
 
 @@doc(Collaboration.name, "Name of the collaboration.");
 @@doc(Collaboration.properties, "Resource properties.");
-@@doc(Collaborations.create::parameters.resource,
+@@doc(
+  Collaborations.create::parameters.resource,
   "The collaboration to create or update."
 );
-@@doc(Collaborations.update::parameters.properties,
+@@doc(
+  Collaborations.update::parameters.properties,
   "Resource properties to update."
 );

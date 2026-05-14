@@ -249,7 +249,8 @@ interface DstsApplications {
   get is ArmResourceRead<DstsApplicationResource>;
 }
 
-@@visibility(DstsApplicationResource.properties,
+@@visibility(
+  DstsApplicationResource.properties,
   Lifecycle.Read,
   Lifecycle.Create
 );

@@ -71,9 +71,11 @@ interface CreditTransactions {
 
 @@doc(CreditTransaction.name, "Name of the transaction");
 @@doc(CreditTransaction.properties, "Transaction properties");
-@@doc(CreditTransactions.create::parameters.resource,
+@@doc(
+  CreditTransactions.create::parameters.resource,
   "Transaction create request"
 );
-@@doc(CreditTransactions.update::parameters.properties,
+@@doc(
+  CreditTransactions.update::parameters.properties,
   "Transaction patch request"
 );

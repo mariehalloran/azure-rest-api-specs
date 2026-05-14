@@ -163,9 +163,9 @@ interface ScheduledActions {
   @list
   @get
   @doc("List resources attached to Scheduled Actions")
-  listResources(
-    ...ResourceInstanceParameters<ScheduledActionResource>,
-  ): ArmResponse<ResourceListResponse> | ErrorResponse;
+  listResources(...ResourceInstanceParameters<ScheduledActionResource>):
+    | ArmResponse<ResourceListResponse>
+    | ErrorResponse;
   @added(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
   attachResources is ArmResourceActionSync<
     ScheduledAction,

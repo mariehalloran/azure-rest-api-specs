@@ -43,6 +43,7 @@ interface Db2JobConfigurations {
 
 @@doc(Db2JobConfiguration.name, "Name of the job configuration.");
 @@doc(Db2JobConfiguration.properties, "DB2 job configurations properties");
-@@doc(Db2JobConfigurations.create::parameters.resource,
+@@doc(
+  Db2JobConfigurations.create::parameters.resource,
   "Request body representing a DB2 job configurations"
 );
