@@ -1,0 +1,48 @@
+{
+  "operationId": "Errors_List",
+  "title": "List error events for a resource",
+  "parameters": {
+    "api-version": "2026-05-01-preview",
+    "resourceUri": "subscriptions/ba94194d-4280-4382-8295-54d74d3032a2/resourceGroups/rgtest/providers/Microsoft.Sql/servers/test-sql/databases/test-store"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/ba94194d-4280-4382-8295-54d74d3032a2/resourceGroups/rgtest/providers/Microsoft.Sql/servers/test-sql/databases/test-store/providers/Microsoft.ErrorInsights/errors/a356194d-7880-4342-8695-69d74d3032a2",
+            "name": "a356194d-7880-4342-8695-69d74d3032a2",
+            "type": "Microsoft.ErrorInsights/errors",
+            "properties": {
+              "targetResourceId": "/subscriptions/ba94194d-4280-4382-8295-54d74d3032a2/resourceGroups/rgtest/providers/Microsoft.Sql/servers/test-sql/databases/test-store",
+              "targetResourceType": "Microsoft.Sql/servers/databases",
+              "errorAttributes": {
+                "eventTimestamp": "2026-03-05T16:55:55.851Z",
+                "errorCode": "GatewayTimeout",
+                "errorMessage": "Gateway server is down",
+                "clusterId": "cluster_A1B2C3D4E5F6"
+              },
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/ba94194d-4280-4382-8295-54d74d3032a2/resourceGroups/rgtest/providers/Microsoft.Sql/servers/test-sql/databases/test-store/providers/Microsoft.ErrorInsights/errors/b789234e-1234-5678-abcd-ef0123456789",
+            "name": "b789234e-1234-5678-abcd-ef0123456789",
+            "type": "Microsoft.ErrorInsights/errors",
+            "properties": {
+              "targetResourceId": "/subscriptions/ba94194d-4280-4382-8295-54d74d3032a2/resourceGroups/rgtest/providers/Microsoft.Sql/servers/test-sql/databases/test-store",
+              "targetResourceType": "Microsoft.Sql/servers/databases",
+              "errorAttributes": {
+                "eventTimestamp": "2026-03-05T17:10:22.123Z",
+                "errorCode": "AllocationFailed",
+                "errorMessage": "Allocation failed. We do not have sufficient capacity for the requested VM size in this region.",
+                "clusterId": "cluster_X9Y8Z7W6V5U4"
+              },
+              "provisioningState": "Succeeded"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
