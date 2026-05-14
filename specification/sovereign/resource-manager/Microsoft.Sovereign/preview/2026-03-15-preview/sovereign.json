@@ -4024,7 +4024,8 @@
         "totalResources": {
           "type": "integer",
           "format": "int32",
-          "description": "Total number of resources for the sovereign view."
+          "description": "Total number of resources for the sovereign view.",
+          "minimum": 0
         },
         "resources": {
           "type": "array",
@@ -4115,32 +4116,38 @@
         "totalResources": {
           "type": "integer",
           "format": "int32",
-          "description": "Total number of resources for the sovereign view."
+          "description": "Total number of resources for the sovereign view.",
+          "minimum": 0
         },
         "compliantCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of resources in compliant state for the sovereign view."
+          "description": "Number of resources in compliant state for the sovereign view.",
+          "minimum": 0
         },
         "nonCompliantCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of resources in non-compliant state for the sovereign view."
+          "description": "Number of resources in non-compliant state for the sovereign view.",
+          "minimum": 0
         },
         "conflictCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of resources in conflict state for the sovereign view."
+          "description": "Number of resources in conflict state for the sovereign view.",
+          "minimum": 0
         },
         "notApplicableCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of resources in not applicable state for the sovereign view."
+          "description": "Number of resources in not applicable state for the sovereign view.",
+          "minimum": 0
         },
         "notEvaluatedCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of resources in not evaluated state for the sovereign view."
+          "description": "Number of resources in not evaluated state for the sovereign view.",
+          "minimum": 0
         }
       },
       "required": [
@@ -4160,47 +4167,56 @@
         "totalManagementGroups": {
           "type": "integer",
           "format": "int32",
-          "description": "Total number of management groups for the sovereign view."
+          "description": "Total number of management groups for the sovereign view.",
+          "minimum": 0
         },
         "totalSubscriptions": {
           "type": "integer",
           "format": "int32",
-          "description": "Total number of subscriptions for the sovereign view."
+          "description": "Total number of subscriptions for the sovereign view.",
+          "minimum": 0
         },
         "totalResourceGroups": {
           "type": "integer",
           "format": "int32",
-          "description": "Total number of resource groups for the sovereign view."
+          "description": "Total number of resource groups for the sovereign view.",
+          "minimum": 0
         },
         "totalResources": {
           "type": "integer",
           "format": "int32",
-          "description": "Total number of resources for the sovereign view."
+          "description": "Total number of resources for the sovereign view.",
+          "minimum": 0
         },
         "compliantCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of resources in compliant state for the sovereign view."
+          "description": "Number of resources in compliant state for the sovereign view.",
+          "minimum": 0
         },
         "nonCompliantCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of resources in non-compliant state for the sovereign view."
+          "description": "Number of resources in non-compliant state for the sovereign view.",
+          "minimum": 0
         },
         "conflictCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of resources in conflict state for the sovereign view."
+          "description": "Number of resources in conflict state for the sovereign view.",
+          "minimum": 0
         },
         "notApplicableCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of resources in not applicable state for the sovereign view."
+          "description": "Number of resources in not applicable state for the sovereign view.",
+          "minimum": 0
         },
         "notEvaluatedCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of resources in not evaluated state for the sovereign view."
+          "description": "Number of resources in not evaluated state for the sovereign view.",
+          "minimum": 0
         }
       },
       "required": [
@@ -4373,7 +4389,8 @@
         "count": {
           "type": "integer",
           "format": "int32",
-          "description": "The count of resources that match the filter value."
+          "description": "The count of resources that match the filter value.",
+          "minimum": 0
         }
       },
       "required": [
@@ -4424,7 +4441,8 @@
         "totalCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Total number of values available for the requested filter."
+          "description": "Total number of values available for the requested filter.",
+          "minimum": 0
         },
         "values": {
           "type": "array",

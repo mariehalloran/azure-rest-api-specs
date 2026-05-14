@@ -137,30 +137,39 @@ model SovereignViewComplianceSummaryResponse {
 @doc("The overall compliance summary in the sovereign view compliance summary action.")
 model SovereignViewComplianceOverallSummary {
   @doc("Total number of management groups for the sovereign view.")
+  @minValue(0)
   totalManagementGroups: int32;
 
   @doc("Total number of subscriptions for the sovereign view.")
+  @minValue(0)
   totalSubscriptions: int32;
 
   @doc("Total number of resource groups for the sovereign view.")
+  @minValue(0)
   totalResourceGroups: int32;
 
   @doc("Total number of resources for the sovereign view.")
+  @minValue(0)
   totalResources: int32;
 
   @doc("Number of resources in compliant state for the sovereign view.")
+  @minValue(0)
   compliantCount: int32;
 
   @doc("Number of resources in non-compliant state for the sovereign view.")
+  @minValue(0)
   nonCompliantCount: int32;
 
   @doc("Number of resources in conflict state for the sovereign view.")
+  @minValue(0)
   conflictCount: int32;
 
   @doc("Number of resources in not applicable state for the sovereign view.")
+  @minValue(0)
   notApplicableCount: int32;
 
   @doc("Number of resources in not evaluated state for the sovereign view.")
+  @minValue(0)
   notEvaluatedCount: int32;
 }
 
@@ -171,21 +180,27 @@ model SovereignViewComplianceDimensionSummary {
   dimension: ComplianceDimension;
 
   @doc("Total number of resources for the sovereign view.")
+  @minValue(0)
   totalResources: int32;
 
   @doc("Number of resources in compliant state for the sovereign view.")
+  @minValue(0)
   compliantCount: int32;
 
   @doc("Number of resources in non-compliant state for the sovereign view.")
+  @minValue(0)
   nonCompliantCount: int32;
 
   @doc("Number of resources in conflict state for the sovereign view.")
+  @minValue(0)
   conflictCount: int32;
 
   @doc("Number of resources in not applicable state for the sovereign view.")
+  @minValue(0)
   notApplicableCount: int32;
 
   @doc("Number of resources in not evaluated state for the sovereign view.")
+  @minValue(0)
   notEvaluatedCount: int32;
 }
 
@@ -343,6 +358,7 @@ model SovereignViewComplianceDetailsResponse {
   lastEvaluated: utcDateTime;
 
   @doc("Total number of resources for the sovereign view.")
+  @minValue(0)
   totalResources: int32;
 
   @doc("The list of compliance detail resources.")
@@ -423,6 +439,7 @@ model SovereignViewFilterValuesResponse {
   requestedFilter: SovereignViewFilterField;
 
   @doc("Total number of values available for the requested filter.")
+  @minValue(0)
   totalCount: int32;
 
   @doc("The list of filter values and their counts.")
@@ -440,5 +457,6 @@ model SovereignViewFilterValueItem {
   displayName?: string;
 
   @doc("The count of resources that match the filter value.")
+  @minValue(0)
   count: int32;
 }
