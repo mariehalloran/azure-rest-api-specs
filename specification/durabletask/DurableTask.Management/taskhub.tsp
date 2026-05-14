@@ -33,14 +33,7 @@ model TaskHubProperties {
 
   @added(Versions.v2026_05_01_Preview)
   @doc("A set of Task Hub capabilities that can be enabled or disabled for a Task Hub")
-  capabilities?: TaskHubCapabilities[];
-}
-
-@doc("A Task Hub capability")
-@added(Versions.v2026_05_01_Preview)
-union TaskHubCapabilities {
-  string,
-  // during development we are not committing to a specific set of capabilities, so we are leaving this open-ended for now
+  capabilities?: string[];
 }
 
 @armResourceOperations(TaskHub)

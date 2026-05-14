@@ -2193,10 +2193,6 @@
         }
       ]
     },
-    "TaskHubCapabilities": {
-      "type": "string",
-      "x-nullable": false
-    },
     "TaskHubListResult": {
       "type": "object",
       "description": "The response of a TaskHub list operation.",
@@ -2237,7 +2233,7 @@
           "type": "array",
           "description": "A set of Task Hub capabilities that can be enabled or disabled for a Task Hub",
           "items": {
-            "$ref": "#/definitions/TaskHubCapabilities"
+            "type": "string"
           }
         }
       }
