@@ -4046,6 +4046,10 @@
           "$ref": "#/definitions/DataState",
           "description": "State indicating whether the data is processed or still being processed."
         },
+        "error": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details when dataState is Error."
+        },
         "lastEvaluated": {
           "type": "string",
           "format": "date-time",
@@ -4267,6 +4271,10 @@
           "$ref": "#/definitions/DataState",
           "description": "State indicating whether the data is processed or still being processed."
         },
+        "error": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details when dataState is Error."
+        },
         "resourceId": {
           "type": "string",
           "format": "arm-id",
@@ -4458,6 +4466,10 @@
         "dataState": {
           "$ref": "#/definitions/DataState",
           "description": "State indicating whether the data is processed or still being processed."
+        },
+        "error": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details when dataState is Error."
         },
         "requestedFilter": {
           "$ref": "#/definitions/SovereignViewFilterField",

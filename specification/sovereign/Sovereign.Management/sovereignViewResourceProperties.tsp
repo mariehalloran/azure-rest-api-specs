@@ -130,6 +130,9 @@ model SovereignViewComplianceSummaryResponse {
   @doc("State indicating whether the data is processed or still being processed.")
   dataState: DataState;
 
+  @doc("Error details when dataState is Error.")
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+
   @doc("The resource identifier of the sovereign view.")
   resourceId?: armResourceIdentifier<[
     {
@@ -369,6 +372,9 @@ model SovereignViewComplianceDetailsResponse {
   @doc("State indicating whether the data is processed or still being processed.")
   dataState: DataState;
 
+  @doc("Error details when dataState is Error.")
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+
   @doc("The time when compliance was last evaluated overall, in RFC3339 format.")
   lastEvaluated: utcDateTime;
 
@@ -449,6 +455,9 @@ model SovereignViewFilterValuesRequest {
 model SovereignViewFilterValuesResponse {
   @doc("State indicating whether the data is processed or still being processed.")
   dataState: DataState;
+
+  @doc("Error details when dataState is Error.")
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
 
   @doc("The filter field for which values are returned.")
   requestedFilter?: SovereignViewFilterField;
