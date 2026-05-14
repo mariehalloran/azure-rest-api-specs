@@ -392,7 +392,7 @@ model SovereignViewComplianceDetailsResponse {
 @doc("A compliance detail item for a resource.")
 model SovereignViewComplianceDetailResource {
   @doc("The resource identifier.")
-  resourceId: armResourceIdentifier<[]>;
+  resourceId: armResourceIdentifier;
 
   @doc("The location of the resource.")
   location: string;
