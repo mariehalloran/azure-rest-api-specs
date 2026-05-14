@@ -55,9 +55,11 @@ interface Monitors {
 
 @@doc(Monitor.name, "Name of the SAP monitor resource.");
 @@doc(Monitor.properties, "SAP monitor properties");
-@@doc(Monitors.create::parameters.resource,
+@@doc(
+  Monitors.create::parameters.resource,
   "Request body representing a SAP monitor"
 );
-@@doc(Monitors.update::parameters.properties,
+@@doc(
+  Monitors.update::parameters.properties,
   "The Update SAP workload monitor request body."
 );

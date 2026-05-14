@@ -333,6 +333,7 @@ model BundleProfile {
 interface CompositeSolutions {
   get is ArmResourceRead<CompositeSolution>;
   createOrUpdate is ArmResourceCreateOrUpdateAsync<CompositeSolution>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchSync<CompositeSolution, CompositeSolutionUpdate1>;
   delete is ArmResourceDeleteWithoutOkAsync<CompositeSolution>;
@@ -349,6 +350,7 @@ interface CompositeSolutions {
 interface CompositeSolutionDefinitions {
   get is ArmResourceRead<CompositeSolutionDefinition>;
   createOrUpdate is ArmResourceCreateOrReplaceSync<CompositeSolutionDefinition>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchSync<
     CompositeSolutionDefinition,

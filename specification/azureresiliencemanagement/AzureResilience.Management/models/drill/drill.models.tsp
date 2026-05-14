@@ -111,6 +111,11 @@ model DrillProperties {
   @doc("Monitoring properties of the Drill.")
   @added(Versions.v2026_03_01_preview)
   monitoringProperties?: MonitoringPropertiesOfDrill;
+
+  @added(Versions.v2026_03_01_preview)
+  @doc("Error details associated with the resource.")
+  @visibility(Lifecycle.Read)
+  errorDetails?: CommonTypes.ErrorDetail;
 }
 
 /**

@@ -25,6 +25,7 @@ interface Drills {
   @route(ServiceGroupRoute)
   create is ArmResourceCreateOrReplaceAsync<Drill, ServiceGroupParameters>;
 
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @route(ServiceGroupRoute)
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<

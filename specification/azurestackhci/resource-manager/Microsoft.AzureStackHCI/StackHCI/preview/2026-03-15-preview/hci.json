@@ -15841,6 +15841,22 @@
           "$ref": "#/definitions/ExtensionProfile",
           "description": "Extension details for edge machine.",
           "readOnly": true
+        },
+        "workloadInventory": {
+          "type": "array",
+          "description": "Read-only Hyper-V VM inventory reported by the device management extension for VMs visible on this node.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineWorkloadInventoryItem"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "workloadId"
+          ]
+        },
+        "workloadInventoryLastUpdated": {
+          "type": "string",
+          "description": "Last time the device management extension refreshed the local Hyper-V workload inventory.",
+          "readOnly": true
         }
       }
     },
@@ -16198,6 +16214,48 @@
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "Provisioning state of the volume resource.",
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineWorkloadInventoryItem": {
+      "type": "object",
+      "description": "Represents a single workload (Hyper-V VM) inventory entry reported by the device management extension running on the edge machine.",
+      "properties": {
+        "workloadId": {
+          "type": "string",
+          "description": "Stable device-reported workload identifier, such as the Hyper-V VM ID when available.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Hyper-V VM name.",
+          "readOnly": true
+        },
+        "resourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Optional ARM resource ID when the service can map the local VM to an ARM resource.",
+          "readOnly": true
+        },
+        "workloadType": {
+          "type": "string",
+          "description": "Workload type. For v1 this should be VirtualMachine.",
+          "readOnly": true
+        },
+        "state": {
+          "type": "string",
+          "description": "Hyper-V VM state reported by the node.",
+          "readOnly": true
+        },
+        "virtualProcessorCount": {
+          "type": "string",
+          "description": "Configured virtual processor count from Hyper-V.",
+          "readOnly": true
+        },
+        "memoryInBytes": {
+          "type": "string",
+          "description": "Maximum memory the VM can consume, in bytes.",
           "readOnly": true
         }
       }

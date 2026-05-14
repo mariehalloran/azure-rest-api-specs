@@ -88,6 +88,7 @@ model ResourceUpdateModelNoProperties<TResource extends {}>
 @doc("Template for resources with no updateable properties")
 @armResourceOperations
 interface ResourceUpdateNoProperties<TResource extends Foundations.ArmResource> {
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @autoRoute
   @doc("Update a {name}", TResource)
   @armResourceUpdate(TResource)

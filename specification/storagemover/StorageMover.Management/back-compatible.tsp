@@ -4,19 +4,23 @@ using Azure.ClientGenerator.Core;
 using Microsoft.StorageMover;
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(StorageMoverUpdateParameters.properties
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  StorageMoverUpdateParameters.properties
 );
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(AgentUpdateParameters.properties
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  AgentUpdateParameters.properties
 );
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(ProjectUpdateParameters.properties
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  ProjectUpdateParameters.properties
 );
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(JobDefinitionUpdateParameters.properties
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  JobDefinitionUpdateParameters.properties
 );
 
 @@clientName(StorageMovers.createOrUpdate::parameters.resource, "storageMover");
@@ -29,7 +33,8 @@ using Microsoft.StorageMover;
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(Agent.properties);
 
-@@clientName(Endpoints.createOrUpdate::parameters.resource,
+@@clientName(
+  Endpoints.createOrUpdate::parameters.resource,
   "endpoint",
   "!csharp"
 );
@@ -40,7 +45,8 @@ using Microsoft.StorageMover;
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(Project.properties);
 
-@@clientName(JobDefinitions.createOrUpdate::parameters.resource,
+@@clientName(
+  JobDefinitions.createOrUpdate::parameters.resource,
   "jobDefinition"
 );
 @@clientName(JobDefinitions.update::parameters.properties, "jobDefinition");
@@ -50,7 +56,8 @@ using Microsoft.StorageMover;
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(JobRun.properties);
 
-@@clientName(Connections.createOrUpdate::parameters.resource,
+@@clientName(
+  Connections.createOrUpdate::parameters.resource,
   "connection",
   "!csharp"
 );

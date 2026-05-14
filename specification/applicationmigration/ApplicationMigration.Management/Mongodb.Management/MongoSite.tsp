@@ -71,6 +71,7 @@ interface MongoSites {
 @@minLength(MongoSite.name, 3);
 @@doc(MongoSite.name, "The name of Site");
 @@doc(MongoSite.properties, "Resource properties.");
-@@doc(MongoSites.createOrUpdate::parameters.resource,
+@@doc(
+  MongoSites.createOrUpdate::parameters.resource,
   "The request body for creating or updating a MongoSite resource."
 );

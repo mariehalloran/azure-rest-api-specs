@@ -60,9 +60,11 @@ interface MongoCollections {
 @@minLength(MongoCollection.name, 3);
 @@doc(MongoCollection.name, "The name of Collection");
 @@doc(MongoCollection.properties, "Resource properties.");
-@@doc(MongoCollections.createOrUpdate::parameters.resource,
+@@doc(
+  MongoCollections.createOrUpdate::parameters.resource,
   "The request body for creating or updating a MongoCollection resource."
 );
-@@doc(MongoCollections.update::parameters.properties,
+@@doc(
+  MongoCollections.update::parameters.properties,
   "The request body for updating a MongoCollection resource."
 );

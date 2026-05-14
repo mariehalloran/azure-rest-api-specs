@@ -121,9 +121,11 @@ interface Profiles {
 @@maxLength(Profile.name, 64);
 @@minLength(Profile.name, 3);
 @@doc(Profile.name, "Name of the Footprint profile resource.");
-@@doc(Profiles.createOrUpdate::parameters.resource,
+@@doc(
+  Profiles.createOrUpdate::parameters.resource,
   "Footprint profile creation or update parameters."
 );
-@@doc(Profiles.update::parameters.properties,
+@@doc(
+  Profiles.update::parameters.properties,
   "Footprint profile update parameters."
 );

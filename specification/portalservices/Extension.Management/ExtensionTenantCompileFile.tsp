@@ -45,6 +45,7 @@ interface PortalTenant {
   ): ArmResponse<PortalTenantCompileFileResult> | ErrorResponse;
 }
 
-@@clientName(PortalTenant.compilefile::parameters.body,
+@@clientName(
+  PortalTenant.compilefile::parameters.body,
   "portalTenantCompileFile"
 );
