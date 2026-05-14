@@ -131,7 +131,7 @@ model SovereignViewComplianceSummaryResponse {
   dataState: DataState;
 
   @doc("The resource identifier of the sovereign view.")
-  resourceId: armResourceIdentifier<[
+  resourceId?: armResourceIdentifier<[
     {
       type: "Microsoft.Sovereign/sovereignViews";
     }
@@ -141,11 +141,11 @@ model SovereignViewComplianceSummaryResponse {
   lastEvaluated: utcDateTime;
 
   @doc("The overall summary of compliance across all resources in scope.")
-  overallSummary: SovereignViewComplianceOverallSummary;
+  overallSummary?: SovereignViewComplianceOverallSummary;
 
   @doc("The list of compliance summaries for the dimensions in scope.")
   @identifiers(#["dimension"])
-  dimensionSummaries: SovereignViewComplianceDimensionSummary[];
+  dimensionSummaries?: SovereignViewComplianceDimensionSummary[];
 }
 
 @added(Versions.Preview20260315)
@@ -374,11 +374,11 @@ model SovereignViewComplianceDetailsResponse {
 
   @doc("Total number of resources for the sovereign view.")
   @minValue(0)
-  totalResources: int32;
+  totalResources?: int32;
 
   @doc("The list of compliance detail resources.")
   @identifiers(#["resourceId"])
-  resources: SovereignViewComplianceDetailResource[];
+  resources?: SovereignViewComplianceDetailResource[];
 }
 
 @added(Versions.Preview20260315)
@@ -451,15 +451,15 @@ model SovereignViewFilterValuesResponse {
   dataState: string;
 
   @doc("The filter field for which values are returned.")
-  requestedFilter: SovereignViewFilterField;
+  requestedFilter?: SovereignViewFilterField;
 
   @doc("Total number of values available for the requested filter.")
   @minValue(0)
-  totalCount: int32;
+  totalCount?: int32;
 
   @doc("The list of filter values and their counts.")
   @identifiers(#["value"])
-  values: SovereignViewFilterValueItem[];
+  values?: SovereignViewFilterValueItem[];
 }
 
 @added(Versions.Preview20260315)
