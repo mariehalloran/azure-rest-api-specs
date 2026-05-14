@@ -709,6 +709,39 @@
       "type": "object",
       "description": "Segmentation manager properties",
       "properties": {
+        "scope": {
+          "type": "array",
+          "description": "The collection of Azure resource IDs that define the scope of the segmentation.",
+          "items": {
+            "type": "string",
+            "format": "arm-id",
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Microsoft.Network/virtualNetworks"
+                }
+              ]
+            }
+          }
+        },
+        "targetLogAnalyticsWorkspaceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Azure Resource ID of the Log Analytics Workspace where graph data will be stored",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.OperationalInsights/workspaces"
+              }
+            ]
+          }
+        },
+        "managedOnBehalfOfConfiguration": {
+          "$ref": "../../../../../common-types/resource-management/v5/mobo.json#/definitions/ManagedOnBehalfOfConfiguration",
+          "description": "Managed-On-Behalf-Of configuration.",
+          "readOnly": true
+        },
         "logSources": {
           "type": "array",
           "description": "The collection of ARM resource IDs for the monitored logs.",
@@ -758,6 +791,8 @@
         }
       },
       "required": [
+        "scope",
+        "targetLogAnalyticsWorkspaceId",
         "logSources",
         "analysisRunType",
         "segmentationMode"
@@ -767,6 +802,34 @@
       "type": "object",
       "description": "Segmentation manager properties",
       "properties": {
+        "scope": {
+          "type": "array",
+          "description": "The collection of Azure resource IDs that define the scope of the segmentation.",
+          "items": {
+            "type": "string",
+            "format": "arm-id",
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Microsoft.Network/virtualNetworks"
+                }
+              ]
+            }
+          }
+        },
+        "targetLogAnalyticsWorkspaceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Azure Resource ID of the Log Analytics Workspace where graph data will be stored",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.OperationalInsights/workspaces"
+              }
+            ]
+          }
+        },
         "logSources": {
           "type": "array",
           "description": "The collection of ARM resource IDs for the monitored logs.",

@@ -69,6 +69,24 @@ union SegmentationManagerManagedServiceIdentityType {
 
 @doc("Segmentation manager properties")
 model SegmentationManagerProperties {
+  @doc("The collection of Azure resource IDs that define the scope of the segmentation.")
+  scope: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Network/virtualNetworks";
+    }
+  ]>[];
+
+  @doc("Azure Resource ID of the Log Analytics Workspace where graph data will be stored")
+  targetLogAnalyticsWorkspaceId: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.OperationalInsights/workspaces";
+    }
+  ]>;
+
+  @doc("Managed-On-Behalf-Of configuration.")
+  @visibility(Lifecycle.Read)
+  managedOnBehalfOfConfiguration?: CommonTypes.ManagedOnBehalfOfConfiguration;
+
   @doc("The collection of ARM resource IDs for the monitored logs.")
   logSources: Azure.Core.armResourceIdentifier<[
     {
