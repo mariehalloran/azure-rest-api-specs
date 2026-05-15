@@ -4627,39 +4627,6 @@
         "faultDurationInMin"
       ]
     },
-    "AddOrUpdateResourcesResponse": {
-      "type": "object",
-      "description": "Response body of the AddOrUpdateResources API.",
-      "properties": {
-        "failedIncludeResourceList": {
-          "type": "array",
-          "description": "Failed Include resources.",
-          "items": {
-            "$ref": "#/definitions/FailedDrillResource"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": []
-        },
-        "failedExcludeResourceList": {
-          "type": "array",
-          "description": "Failed Exclude resources.",
-          "items": {
-            "$ref": "#/definitions/FailedDrillResource"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": []
-        },
-        "failedUpdateResourceList": {
-          "type": "array",
-          "description": "Failed Update resources.",
-          "items": {
-            "$ref": "#/definitions/FailedDrillResource"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": []
-        }
-      }
-    },
     "AdditionalParameter": {
       "type": "object",
       "description": "Definition of Name Value collection.",

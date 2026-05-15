@@ -608,6 +608,7 @@ model IncludeOrUpdateResource {
 }
 
 @doc("Response body of the AddOrUpdateResources API.")
+@removed(Versions.v2026_04_01_preview)
 model AddOrUpdateResourcesResponse {
   @doc("Failed Include resources.")
   @visibility(Lifecycle.Read)
