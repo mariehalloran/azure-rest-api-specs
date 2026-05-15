@@ -75,7 +75,4 @@ suppressions:
     - code: TenantLevelAPIsNotAllowed
       from: openapi.json
       reason: Resiliency scenarios are modelled around a SG (Service Group), which is a Tenant level resource.
-
-    - code: MISSING_APIS_IN_DEFAULT_TAG
-      reason: The recoveryChildJobs API was intentionally removed in version 2026-04-01-preview using @removed decorator.
 ```
