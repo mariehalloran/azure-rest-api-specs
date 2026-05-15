@@ -965,7 +965,17 @@
         "targetId": {
           "type": "string",
           "format": "arm-id",
-          "description": "The relationship target resource id."
+          "description": "The relationship target resource id.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Management/serviceGroups",
+                "scopes": [
+                  "Tenant"
+                ]
+              }
+            ]
+          }
         },
         "targetTenant": {
           "type": "string",
