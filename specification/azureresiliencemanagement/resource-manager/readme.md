@@ -38,6 +38,7 @@ These settings apply only when `--tag=package-2026-04-01-preview` is specified o
 ```yaml $(tag) == 'package-2026-04-01-preview'
 input-file:
   - Microsoft.AzureResilienceManagement/preview/2026-04-01-preview/openapi.json
+  - Microsoft.AzureResilienceManagement/preview/2026-03-01-preview/openapi.json
 ```
 
 ### Tag: package-2026-03-01-preview
