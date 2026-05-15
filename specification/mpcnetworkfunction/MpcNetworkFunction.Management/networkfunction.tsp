@@ -92,7 +92,10 @@ op ArmResourceCreateOrUpdate2Async<
   @doc("Resource create parameters.")
   @body
   resource: TResource,
-): ArmUpdatedResponse<TResource> | ArmCreatedResponse<TResource> | ErrorResponse;
+):
+  | ArmUpdatedResponse<TResource>
+  | ArmCreatedResponse<TResource>
+  | ErrorResponse;
 
 @doc("ARM resource update successful")
 model ArmUpdatedResponse<TResource extends Azure.ResourceManager.Foundations.ArmResource>

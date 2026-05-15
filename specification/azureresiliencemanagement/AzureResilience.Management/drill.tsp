@@ -25,6 +25,7 @@ interface Drills {
   @route(ServiceGroupRoute)
   create is ArmResourceCreateOrReplaceAsync<Drill, ServiceGroupParameters>;
 
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @route(ServiceGroupRoute)
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
@@ -95,10 +96,13 @@ interface Drills {
   >;
 
   @route(ServiceGroupRoute)
+  @removed(Versions.v2026_04_01_preview)
+  @renamedFrom(Versions.v2026_04_01_preview, "addOrUpdateResources")
+  @sharedRoute
   @armResourceAction(Drill)
   @post
   @doc("This enables the user to include, exclude or update resources from their Drill.")
-  addOrUpdateResources is ArmResourceActionAsync<
+  addOrUpdateResourcesOld is ArmResourceActionAsync<
     Drill,
     AddOrUpdateResourcesRequest,
     AddOrUpdateResourcesResponse,
@@ -109,6 +113,22 @@ interface Drills {
   >;
 
   @route(ServiceGroupRoute)
+  @added(Versions.v2026_04_01_preview)
+  @sharedRoute
+  @armResourceAction(Drill)
+  @post
+  @doc("This enables the user to include, exclude or update resources from their Drill.")
+  addOrUpdateResources is ArmResourceActionNoResponseContentAsync<
+    Drill,
+    AddOrUpdateResourcesRequest,
+    ServiceGroupAndRequestHeadersParameters,
+    LroHeaders = ArmAsyncOperationHeader &
+      ArmLroLocationHeader &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
+
+  @route(ServiceGroupRoute)
+  @removed(Versions.v2026_04_01_preview)
   @armResourceAction(Drill)
   @post
   @doc("This triggers detection of any drifts from the desired state of Resources and RBAC.")

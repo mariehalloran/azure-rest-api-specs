@@ -86,9 +86,11 @@ interface ConsortiumViews {
 
 @@doc(ConsortiumView.name, "Name of the consortium view.");
 @@doc(ConsortiumView.properties, "Resource properties.");
-@@doc(ConsortiumViews.create::parameters.resource,
+@@doc(
+  ConsortiumViews.create::parameters.resource,
   "The consortium view to create or update."
 );
-@@doc(ConsortiumViews.update::parameters.properties,
+@@doc(
+  ConsortiumViews.update::parameters.properties,
   "Resource properties to update."
 );

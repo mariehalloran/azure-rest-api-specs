@@ -60,7 +60,8 @@ interface DsmsRootFolder {
   get is ArmResourceRead<DsmsRootFolderResource>;
 }
 
-@@visibility(DsmsRootFolderResource.properties,
+@@visibility(
+  DsmsRootFolderResource.properties,
   Lifecycle.Read,
   Lifecycle.Create
 );

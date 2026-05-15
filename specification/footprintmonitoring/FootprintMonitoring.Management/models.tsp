@@ -34,10 +34,9 @@ interface Operations {
     }
   )
   @get
-  list(
-    ...ApiVersionParameter,
-    ...Azure.ResourceManager.Legacy.Provider,
-  ): ArmResponse<Azure.ResourceManager.Foundations.OperationListResult> | ErrorResponse;
+  list(...ApiVersionParameter, ...Azure.ResourceManager.Legacy.Provider):
+    | ArmResponse<Azure.ResourceManager.Foundations.OperationListResult>
+    | ErrorResponse;
 }
 /**
  * The provisioned state of the resource.

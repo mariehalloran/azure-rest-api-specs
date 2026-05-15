@@ -94,7 +94,8 @@ interface AutopilotMachineFunction {
   listBySubscription is ArmListBySubscription<AutopilotMachineFunctionResource>;
 }
 
-@@visibility(AutopilotMachineFunctionResource.properties,
+@@visibility(
+  AutopilotMachineFunctionResource.properties,
   Lifecycle.Read,
   Lifecycle.Create
 );

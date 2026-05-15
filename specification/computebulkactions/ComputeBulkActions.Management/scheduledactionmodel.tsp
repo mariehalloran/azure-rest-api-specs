@@ -17,70 +17,92 @@ namespace Microsoft.ComputeBulkActions;
 
 // --------------- Request Body Naming ---------------
 
-@@clientName(BulkActions.virtualMachinesSubmitDeallocate::parameters.body,
+@@clientName(
+  BulkActions.virtualMachinesSubmitDeallocate::parameters.body,
   "requestBody"
 );
-@@doc(BulkActions.virtualMachinesSubmitDeallocate::parameters.body,
+@@doc(
+  BulkActions.virtualMachinesSubmitDeallocate::parameters.body,
   "The request body"
 );
-@@clientName(BulkActions.virtualMachinesSubmitHibernate::parameters.body,
+@@clientName(
+  BulkActions.virtualMachinesSubmitHibernate::parameters.body,
   "requestBody"
 );
-@@doc(BulkActions.virtualMachinesSubmitHibernate::parameters.body,
+@@doc(
+  BulkActions.virtualMachinesSubmitHibernate::parameters.body,
   "The request body"
 );
-@@clientName(BulkActions.virtualMachinesSubmitStart::parameters.body,
+@@clientName(
+  BulkActions.virtualMachinesSubmitStart::parameters.body,
   "requestBody"
 );
-@@doc(BulkActions.virtualMachinesSubmitStart::parameters.body,
+@@doc(
+  BulkActions.virtualMachinesSubmitStart::parameters.body,
   "The request body"
 );
-@@clientName(BulkActions.virtualMachinesExecuteDeallocate::parameters.body,
+@@clientName(
+  BulkActions.virtualMachinesExecuteDeallocate::parameters.body,
   "requestBody"
 );
-@@doc(BulkActions.virtualMachinesExecuteDeallocate::parameters.body,
+@@doc(
+  BulkActions.virtualMachinesExecuteDeallocate::parameters.body,
   "The request body"
 );
-@@clientName(BulkActions.virtualMachinesExecuteHibernate::parameters.body,
+@@clientName(
+  BulkActions.virtualMachinesExecuteHibernate::parameters.body,
   "requestBody"
 );
-@@doc(BulkActions.virtualMachinesExecuteHibernate::parameters.body,
+@@doc(
+  BulkActions.virtualMachinesExecuteHibernate::parameters.body,
   "The request body"
 );
-@@clientName(BulkActions.virtualMachinesExecuteStart::parameters.body,
+@@clientName(
+  BulkActions.virtualMachinesExecuteStart::parameters.body,
   "requestBody"
 );
-@@doc(BulkActions.virtualMachinesExecuteStart::parameters.body,
+@@doc(
+  BulkActions.virtualMachinesExecuteStart::parameters.body,
   "The request body"
 );
-@@clientName(BulkActions.virtualMachinesExecuteCreate::parameters.body,
+@@clientName(
+  BulkActions.virtualMachinesExecuteCreate::parameters.body,
   "requestBody"
 );
-@@doc(BulkActions.virtualMachinesExecuteCreate::parameters.body,
+@@doc(
+  BulkActions.virtualMachinesExecuteCreate::parameters.body,
   "The request body"
 );
-@@clientName(BulkActions.virtualMachinesExecuteDelete::parameters.body,
+@@clientName(
+  BulkActions.virtualMachinesExecuteDelete::parameters.body,
   "requestBody"
 );
-@@doc(BulkActions.virtualMachinesExecuteDelete::parameters.body,
+@@doc(
+  BulkActions.virtualMachinesExecuteDelete::parameters.body,
   "The request body"
 );
-@@clientName(BulkActions.virtualMachinesGetOperationStatus::parameters.body,
+@@clientName(
+  BulkActions.virtualMachinesGetOperationStatus::parameters.body,
   "requestBody"
 );
-@@doc(BulkActions.virtualMachinesGetOperationStatus::parameters.body,
+@@doc(
+  BulkActions.virtualMachinesGetOperationStatus::parameters.body,
   "The request body"
 );
-@@clientName(BulkActions.virtualMachinesCancelOperations::parameters.body,
+@@clientName(
+  BulkActions.virtualMachinesCancelOperations::parameters.body,
   "requestBody"
 );
-@@doc(BulkActions.virtualMachinesCancelOperations::parameters.body,
+@@doc(
+  BulkActions.virtualMachinesCancelOperations::parameters.body,
   "The request body"
 );
-@@clientName(BulkActions.virtualMachinesGetOperationErrors::parameters.body,
+@@clientName(
+  BulkActions.virtualMachinesGetOperationErrors::parameters.body,
   "requestBody"
 );
-@@doc(BulkActions.virtualMachinesGetOperationErrors::parameters.body,
+@@doc(
+  BulkActions.virtualMachinesGetOperationErrors::parameters.body,
   "The request body"
 );
 

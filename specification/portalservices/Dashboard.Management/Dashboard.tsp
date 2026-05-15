@@ -30,6 +30,7 @@ interface Dashboards {
   get is ArmResourceRead<Dashboard>;
   @doc("Creates or updates a Dashboard.")
   createOrUpdate is ArmResourceCreateOrReplaceSync<Dashboard>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @doc("Updates an existing Dashboard.")
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchSync<Dashboard, PatchableDashboard>;

@@ -89,6 +89,51 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Cosmic/checkNameAvailability": {
+      "post": {
+        "operationId": "Namespaces_CheckNameAvailability",
+        "tags": [
+          "Namespaces"
+        ],
+        "description": "Checks that the Cosmic namespace name is valid and is not already in use within the subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The CheckAvailability request",
+            "required": true,
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/CheckNameAvailabilityRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/CheckNameAvailabilityResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Checks the availability of a Cosmic namespace name.": {
+            "$ref": "./examples/Namespaces_CheckNameAvailability.json"
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/providers/Microsoft.Cosmic/namespaces": {
       "get": {
         "operationId": "Namespaces_ListBySubscription",
@@ -1003,6 +1048,14 @@
           "$ref": "#/definitions/ResourcePolicy",
           "description": "Resource policy configuration for the environment."
         },
+        "isolationGroup": {
+          "type": "string",
+          "description": "Isolation group override for cluster bin-packing affinity. When set, all NamespaceInstances in this environment are placed on this isolation group instead of the parent namespace's isolationGroup. Useful when different environments of the same namespace (e.g. dev vs prod) should target different clusters. Cannot be changed after environment creation.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
         "status": {
           "$ref": "#/definitions/EnvironmentStatus",
           "description": "The status of the environment.",
@@ -1214,6 +1267,40 @@
         "ipVersion": {
           "$ref": "#/definitions/IpVersion",
           "description": "The IP version (IPv4 or IPv6). Defaults to IPv4.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      }
+    },
+    "EnvironmentDefaultPolicy": {
+      "type": "object",
+      "description": "Environment-scoped default resource policy.",
+      "properties": {
+        "podResources": {
+          "type": "array",
+          "description": "Per-service pod resource specifications.",
+          "items": {
+            "$ref": "#/definitions/PodSpec"
+          },
+          "x-ms-identifiers": []
+        },
+        "os": {
+          "$ref": "#/definitions/OsType",
+          "description": "The operating system type.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipVersion": {
+          "$ref": "#/definitions/IpVersion",
+          "description": "The IP version (IPv4 or IPv6)."
+        },
+        "vmFamily": {
+          "type": "string",
+          "description": "The Azure VM family for cluster selection (e.g., 'D_FLEX', 'F_FLEX', 'DV4').",
           "x-ms-mutability": [
             "read",
             "create"
@@ -1778,7 +1865,7 @@
         },
         "isolationGroup": {
           "type": "string",
-          "description": "The isolation group for this namespace.",
+          "description": "The isolation group for cluster bin-packing affinity. This field is required and cannot be changed after namespace creation.",
           "x-ms-mutability": [
             "read",
             "create"
@@ -1808,6 +1895,7 @@
         "torusTeam",
         "icmAccount",
         "icmTenant",
+        "isolationGroup",
         "nightwatchEnabled"
       ]
     },
@@ -2181,11 +2269,11 @@
     },
     "ResourcePolicy": {
       "type": "object",
-      "description": "Resource policy configuration with layered ring/region/partition overrides.",
+      "description": "Resource policy configuration with layered environment/region/partition overrides.",
       "properties": {
-        "ringDefault": {
-          "$ref": "#/definitions/RingDefaultPolicy",
-          "description": "Default resource policy for the ring."
+        "environmentDefault": {
+          "$ref": "#/definitions/EnvironmentDefaultPolicy",
+          "description": "Default resource policy for the environment."
         },
         "regionOverrides": {
           "type": "array",
@@ -2195,40 +2283,6 @@
           },
           "x-ms-identifiers": [
             "name"
-          ]
-        }
-      }
-    },
-    "RingDefaultPolicy": {
-      "type": "object",
-      "description": "Ring-scoped default resource policy.",
-      "properties": {
-        "podResources": {
-          "type": "array",
-          "description": "Per-service pod resource specifications.",
-          "items": {
-            "$ref": "#/definitions/PodSpec"
-          },
-          "x-ms-identifiers": []
-        },
-        "os": {
-          "$ref": "#/definitions/OsType",
-          "description": "The operating system type.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "ipVersion": {
-          "$ref": "#/definitions/IpVersion",
-          "description": "The IP version (IPv4 or IPv6)."
-        },
-        "vmFamily": {
-          "type": "string",
-          "description": "The Azure VM family for cluster selection (e.g., 'D_FLEX', 'F_FLEX', 'DV4').",
-          "x-ms-mutability": [
-            "read",
-            "create"
           ]
         }
       }

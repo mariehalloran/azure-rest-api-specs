@@ -85,19 +85,22 @@ interface Deployments {
 @@doc(Deployment.name, "Deployment Name.");
 @@doc(Deployments.create::parameters.resource, "Deployment details.");
 @@doc(Deployments.update::parameters.properties, "Updated tags.");
-@@doc(Deployments.calculateDeviceStates::parameters.body,
+@@doc(
+  Deployments.calculateDeviceStates::parameters.body,
   "Device state filter. Uses OData syntax. Example: deviceState eq 'Succeeded'"
 );
 
 #suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
-@@encodedName(Deployments.create::parameters.resource,
+@@encodedName(
+  Deployments.create::parameters.resource,
   "application/json",
   "deployment"
 );
 @@clientName(Deployments.create::parameters.resource, "deployment");
 
 #suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
-@@encodedName(Deployments.update::parameters.properties,
+@@encodedName(
+  Deployments.update::parameters.properties,
   "application/json",
   "tagUpdatePayload"
 );

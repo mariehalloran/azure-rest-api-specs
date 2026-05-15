@@ -95,6 +95,7 @@ model NsxDistributedFirewallPolicyList
 
 @@maxLength(NsxDistributedFirewallPolicy.name, 63);
 @@minLength(NsxDistributedFirewallPolicy.name, 3);
-@@doc(NsxDistributedFirewallPolicy.name,
+@@doc(
+  NsxDistributedFirewallPolicy.name,
   "The name of the distributed firewall policy."
 );

@@ -28,7 +28,10 @@ op ArmResourceCreateOrUpdateSyncCompliant<
   @doc("Resource create parameters.")
   @bodyRoot
   resource: TResource,
-): ArmUpdatedResponse<TResource> | ArmCreatedResponseSync<TResource> | Azure.ResourceManager.ErrorResponse;
+):
+  | ArmUpdatedResponse<TResource>
+  | ArmCreatedResponseSync<TResource>
+  | Azure.ResourceManager.ErrorResponse;
 
 @doc("ARM update operation completed successfully.")
 model ArmUpdatedResponse<TResource extends Azure.ResourceManager.Foundations.Resource>
@@ -67,4 +70,7 @@ op ArmResourceCreateOrUpdateAsyncCompliant<
   @doc("Resource create parameters.")
   @bodyRoot
   resource: TResource,
-): ArmUpdatedResponse<TResource> | ArmCreatedResponse<TResource> | Azure.ResourceManager.ErrorResponse;
+):
+  | ArmUpdatedResponse<TResource>
+  | ArmCreatedResponse<TResource>
+  | Azure.ResourceManager.ErrorResponse;

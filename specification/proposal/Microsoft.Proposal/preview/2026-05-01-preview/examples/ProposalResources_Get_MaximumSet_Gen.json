@@ -1,0 +1,58 @@
+{
+  "title": "ProposalResources_Get",
+  "operationId": "ProposalResources_Get",
+  "parameters": {
+    "api-version": "2026-05-01-preview",
+    "subscriptionId": "7939834F-7453-446A-A69F-85C1571F2BE7",
+    "resourceGroupName": "rgopenapi",
+    "name": "product-name"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "provisioningState": "Succeeded",
+          "productCode": "00000000-0000-0000-0000-000000000000",
+          "status": "Draft",
+          "lineItems": [
+            {
+              "productCode": "00000000-0000-0000-0000-000000000001",
+              "quantity": 1,
+              "resourceUri": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/virtualMachines/vm1",
+              "status": "Success"
+            },
+            {
+              "productCode": "00000000-0000-0000-0000-000000000002",
+              "quantity": 2,
+              "resourceUri": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg2/providers/Microsoft.Storage/storageAccounts/sa1",
+              "status": "InProgress"
+            },
+            {
+              "productCode": "00000000-0000-0000-0000-000000000003",
+              "quantity": 5,
+              "resourceUri": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg3/providers/Microsoft.Sql/servers/sql1",
+              "status": "Failed",
+              "errorCode": "LineItemError001",
+              "errorMessage": "The specified SQL server does not exist."
+            }
+          ]
+        },
+        "tags": {
+          "key7371": "gpwbanwmgr"
+        },
+        "location": "ytdbdhmeycrvunisolfferw",
+        "id": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Proposal/proposals/{name}",
+        "name": "wdxhvcmxqttjidplgnaas",
+        "type": "bwiqjscsrwaxheddedmqhzpi",
+        "systemData": {
+          "createdBy": "unloaqehqbipiitcgdsgntyorvsapl",
+          "createdByType": "User",
+          "createdAt": "2024-10-09T05:53:52.203Z",
+          "lastModifiedBy": "fillrbnylzukwgcrnxieankqi",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2024-10-09T05:53:52.203Z"
+        }
+      }
+    }
+  }
+}

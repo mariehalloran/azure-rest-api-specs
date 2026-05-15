@@ -131,7 +131,9 @@ interface SoftwareBillingSubscriptions {
     ...ApiVersionParameter,
     ...BillingAccountNameParameter,
     ...PaginationParameters,
-  ): ArmResponse<ResourceListResult<SoftwareBillingSubscription>> | ErrorResponse;
+  ):
+    | ArmResponse<ResourceListResult<SoftwareBillingSubscription>>
+    | ErrorResponse;
 
   /** Get a SoftwareBillingSubscription */
   @tag("SoftwareBillingSubscriptions")
@@ -304,10 +306,9 @@ interface LicenseSummary {
   @get
   @extension("x-ms-pageable", #{ nextLinkName: "nextLink" })
   @extension("x-ms-odata", "#/definitions/LicenseSummaryResource")
-  listByBillingAccount(
-    ...ApiVersionParameter,
-    ...BillingAccountNameParameter,
-  ): LicenseSummaryResult | ErrorResponse;
+  listByBillingAccount(...ApiVersionParameter, ...BillingAccountNameParameter):
+    | LicenseSummaryResult
+    | ErrorResponse;
 
   /** Refresh license summary for a billing account */
   @tag("LicenseSummary")
@@ -316,8 +317,10 @@ interface LicenseSummary {
   refreshByBillingAccount(
     ...ApiVersionParameter,
     ...BillingAccountNameParameter,
-  ): ({
-    @statusCode _: 202;
-  } & ArmLroLocationHeader &
-    Azure.Core.Foundations.RetryAfterHeader) | ErrorResponse;
+  ):
+    | ({
+        @statusCode _: 202;
+      } & ArmLroLocationHeader &
+        Azure.Core.Foundations.RetryAfterHeader)
+    | ErrorResponse;
 }

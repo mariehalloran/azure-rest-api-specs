@@ -1255,7 +1255,7 @@
             "description": "The content of the action request",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DataAnnotationRequest"
+              "$ref": "#/definitions/DataAnnotation"
             }
           }
         ],
@@ -1533,9 +1533,9 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CloudHealth/healthmodels/{healthModelName}/getRecommendedSignals": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CloudHealth/healthmodels/{healthModelName}/getSignalRecommendations": {
       "post": {
-        "operationId": "HealthModels_GetRecommendedSignals",
+        "operationId": "HealthModels_GetSignalRecommendations",
         "tags": [
           "HealthModels"
         ],
@@ -1564,7 +1564,7 @@
             "description": "The content of the action request",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/GetRecommendedSignalsRequest"
+              "$ref": "#/definitions/GetSignalRecommendationsRequest"
             }
           }
         ],
@@ -1572,7 +1572,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/GetRecommendedSignalsResponse"
+              "$ref": "#/definitions/GetSignalRecommendationsResponse"
             }
           },
           "default": {
@@ -1583,8 +1583,8 @@
           }
         },
         "x-ms-examples": {
-          "HealthModels_GetRecommendedSignals": {
-            "$ref": "./examples/HealthModels_GetRecommendedSignals.json"
+          "HealthModels_GetSignalRecommendations": {
+            "$ref": "./examples/HealthModels_GetSignalRecommendations.json"
           }
         }
       }
@@ -2344,6 +2344,94 @@
         "azureMonitorWorkspaceResourceId"
       ]
     },
+    "AzureResourceHealthSignal": {
+      "type": "object",
+      "description": "Azure resource health signal configuration",
+      "properties": {
+        "enabled": {
+          "type": "string",
+          "description": "Whether to automatically add a signal for the Azure resource's availability status from Azure Resource Health. Defaults to Enabled.",
+          "default": "Enabled",
+          "enum": [
+            "Enabled",
+            "Disabled"
+          ],
+          "x-ms-enum": {
+            "name": "ResourceHealthAvailabilityStatusSignalBehavior",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "Enabled",
+                "value": "Enabled",
+                "description": "Automatically add resource health availability status signal"
+              },
+              {
+                "name": "Disabled",
+                "value": "Disabled",
+                "description": "Do not automatically add resource health availability status signal"
+              }
+            ]
+          }
+        },
+        "signalName": {
+          "$ref": "#/definitions/string256",
+          "description": "The unique name of the Azure resource health signal. System assigned.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/AzureResourceHealthSignalStatus",
+          "description": "Current status of the Azure resource health signal.",
+          "readOnly": true
+        }
+      }
+    },
+    "AzureResourceHealthSignalStatus": {
+      "type": "object",
+      "description": "Status of an Azure Resource Health signal, including availability information reported by Azure Resource Health.",
+      "properties": {
+        "healthState": {
+          "$ref": "#/definitions/HealthState",
+          "description": "Health state of this signal",
+          "readOnly": true
+        },
+        "value": {
+          "type": "number",
+          "format": "double",
+          "description": "Reported value of the signal",
+          "readOnly": true
+        },
+        "reportedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the value was reported",
+          "readOnly": true
+        },
+        "error": {
+          "type": "string",
+          "description": "Error message if the signal status cannot be retrieved",
+          "readOnly": true
+        },
+        "additionalContext": {
+          "$ref": "#/definitions/string4096",
+          "description": "Additional context as provided by the submitter"
+        },
+        "availabilityStatus": {
+          "type": "string",
+          "description": "Availability status of the Azure resource as reported by Azure Resource Health.",
+          "readOnly": true
+        },
+        "category": {
+          "$ref": "#/definitions/string256",
+          "description": "When a context field is set to Platform, this field will reflect if the event was planned or unplanned.",
+          "readOnly": true
+        },
+        "detailedStatus": {
+          "$ref": "#/definitions/string4096",
+          "description": "Detailed status of the Azure resource as reported by Azure Resource Health.",
+          "readOnly": true
+        }
+      }
+    },
     "AzureResourceSignal": {
       "type": "object",
       "description": "An Azure Resource Metric signal instance assigned to an entity.",
@@ -2481,6 +2569,10 @@
           "x-ms-identifiers": [
             "name"
           ]
+        },
+        "resourceHealth": {
+          "$ref": "#/definitions/AzureResourceHealthSignal",
+          "description": "Optional configuration for automatically adding a signal based on the resource's availability state in Azure Resource Health."
         }
       },
       "required": [
@@ -2492,38 +2584,18 @@
       "type": "object",
       "description": "A single data annotation on an entity",
       "properties": {
-        "annotationDetails": {
-          "type": "object",
-          "description": "Annotation details as a dynamic key-value pair bag. Each value is limited to 256 characters. A maximum of 10 entries is permitted per annotation.",
-          "additionalProperties": {
-            "$ref": "#/definitions/string256"
-          }
-        },
-        "description": {
-          "$ref": "#/definitions/string4096",
-          "description": "Optional description of the annotation"
-        },
         "annotationId": {
           "type": "string",
-          "description": "Server-assigned identifier for the annotation",
-          "maxLength": 36
+          "description": "Auto-assigned identifier for the annotation",
+          "maxLength": 256,
+          "readOnly": true
         },
         "createdAt": {
           "type": "string",
           "format": "date-time",
-          "description": "Timestamp when the annotation was created"
-        }
-      },
-      "required": [
-        "annotationDetails",
-        "annotationId",
-        "createdAt"
-      ]
-    },
-    "DataAnnotationRequest": {
-      "type": "object",
-      "description": "Request body for adding a data annotation to an entity",
-      "properties": {
+          "description": "Timestamp when the annotation was created",
+          "readOnly": true
+        },
         "annotationDetails": {
           "type": "object",
           "description": "Annotation details as a dynamic key-value pair bag. Each value is limited to 256 characters. A maximum of 10 entries is permitted per annotation.",
@@ -2738,6 +2810,10 @@
           "$ref": "#/definitions/DiscoveryRuleSpecification",
           "description": "Specification of the discovery rule defining how entities are discovered."
         },
+        "addResourceHealthSignal": {
+          "$ref": "#/definitions/ResourceHealthAvailabilityStatusSignalBehavior",
+          "description": "Whether to automatically add a signal for the Azure resource's availability status from Azure Resource Health to the discovered entities."
+        },
         "error": {
           "$ref": "#/definitions/DiscoveryError",
           "description": "Error details if the last discovery operation failed.",
@@ -2754,6 +2830,7 @@
         "discoverRelationships",
         "addRecommendedSignals",
         "specification",
+        "addResourceHealthSignal",
         "entityName"
       ]
     },
@@ -3134,6 +3211,7 @@
           "type": "integer",
           "format": "int32",
           "description": "Maximum number of annotations to return per page.",
+          "default": 100,
           "minimum": 1,
           "maximum": 100
         },
@@ -3175,9 +3253,9 @@
         "annotations"
       ]
     },
-    "GetRecommendedSignalsRequest": {
+    "GetSignalRecommendationsRequest": {
       "type": "object",
-      "description": "Request body for getting recommended signals for a given Azure resource type",
+      "description": "Request body for getting recommended signals for a given Azure resource type.",
       "properties": {
         "resourceType": {
           "type": "string",
@@ -3190,24 +3268,31 @@
         "resourceType"
       ]
     },
-    "GetRecommendedSignalsResponse": {
+    "GetSignalRecommendationsResponse": {
       "type": "object",
-      "description": "Response containing recommended signal configurations for a given Azure resource type",
+      "description": "Response containing recommended signal configurations for a given Azure resource type.",
       "properties": {
-        "signals": {
+        "recommendedSignals": {
           "type": "array",
-          "description": "List of recommended signal configurations for the specified resource type.",
+          "description": "List of recommended signal configurations for the specified resource type. These signals are generally recommended to be used on the specified resource type.",
           "items": {
-            "$ref": "#/definitions/RecommendedSignal"
+            "$ref": "#/definitions/SignalConfiguration"
+          },
+          "x-ms-identifiers": [
+            "id"
+          ]
+        },
+        "recommendedConfigurations": {
+          "type": "array",
+          "description": "List of recommended configurations (thresholds etc.) for the specified resource type.",
+          "items": {
+            "$ref": "#/definitions/SignalConfiguration"
           },
           "x-ms-identifiers": [
             "id"
           ]
         }
-      },
-      "required": [
-        "signals"
-      ]
+      }
     },
     "HealthModel": {
       "type": "object",
@@ -3813,91 +3898,6 @@
       ],
       "x-ms-discriminator-value": "PrometheusMetricsQuery"
     },
-    "RecommendedSignal": {
-      "type": "object",
-      "description": "A recommended signal configuration for an Azure resource type",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier of the recommended signal."
-        },
-        "metricNamespace": {
-          "type": "string",
-          "description": "Metric namespace (e.g. 'microsoft.compute/virtualmachines').",
-          "minLength": 1,
-          "maxLength": 256
-        },
-        "metricName": {
-          "type": "string",
-          "description": "Name of the metric (e.g. 'Percentage CPU').",
-          "minLength": 1,
-          "maxLength": 256
-        },
-        "aggregationType": {
-          "$ref": "#/definitions/MetricAggregationType",
-          "description": "Type of aggregation to apply to the metric."
-        },
-        "unit": {
-          "type": "string",
-          "description": "Unit of the metric (e.g. Percent, Bytes, Count).",
-          "minLength": 1,
-          "maxLength": 100
-        },
-        "timeGrain": {
-          "type": "string",
-          "description": "Time range of the metric. ISO 8601 duration format (e.g. 'PT5M').",
-          "minLength": 1,
-          "maxLength": 100
-        },
-        "dimensionFilter": {
-          "type": "string",
-          "description": "Optional dimension filter to apply to the metric.",
-          "minLength": 1,
-          "maxLength": 256
-        },
-        "evaluationRules": {
-          "$ref": "#/definitions/EvaluationRule",
-          "description": "Evaluation rules with recommended thresholds."
-        },
-        "classification": {
-          "$ref": "#/definitions/RecommendedSignalClassification",
-          "description": "Classification of the signal indicating whether it is broadly recommended or provides suggested thresholds for optional metrics."
-        }
-      },
-      "required": [
-        "id",
-        "metricNamespace",
-        "metricName",
-        "aggregationType",
-        "timeGrain",
-        "evaluationRules",
-        "classification"
-      ]
-    },
-    "RecommendedSignalClassification": {
-      "type": "string",
-      "description": "Classification of a recommended signal",
-      "enum": [
-        "RecommendedSignal",
-        "SuggestedThresholds"
-      ],
-      "x-ms-enum": {
-        "name": "RecommendedSignalClassification",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "RecommendedSignal",
-            "value": "RecommendedSignal",
-            "description": "Signal is broadly recommended to be enabled by default for health models monitoring this resource type."
-          },
-          {
-            "name": "SuggestedThresholds",
-            "value": "SuggestedThresholds",
-            "description": "Signal is not broadly applicable, but if a user picks this metric, the provided thresholds are suggested as a starting point."
-          }
-        ]
-      }
-    },
     "Relationship": {
       "type": "object",
       "description": "A relationship (aka edge) between two entities in a health model",
@@ -4004,6 +4004,30 @@
       ],
       "x-ms-discriminator-value": "ResourceGraphQuery"
     },
+    "ResourceHealthAvailabilityStatusSignalBehavior": {
+      "type": "string",
+      "description": "Resource health availability status signal behavior",
+      "enum": [
+        "Enabled",
+        "Disabled"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceHealthAvailabilityStatusSignalBehavior",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Enabled",
+            "value": "Enabled",
+            "description": "Automatically add resource health availability status signal"
+          },
+          {
+            "name": "Disabled",
+            "value": "Disabled",
+            "description": "Do not automatically add resource health availability status signal"
+          }
+        ]
+      }
+    },
     "ResourceMetricSignalDefinitionProperties": {
       "type": "object",
       "description": "Azure Resource Metric Signal Definition properties",
@@ -4049,6 +4073,57 @@
         }
       ],
       "x-ms-discriminator-value": "AzureResourceMetric"
+    },
+    "SignalConfiguration": {
+      "type": "object",
+      "description": "A signal configuration for an Azure resource type",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the recommended signal."
+        },
+        "metricNamespace": {
+          "type": "string",
+          "description": "Metric namespace (e.g. 'microsoft.compute/virtualmachines').",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "metricName": {
+          "type": "string",
+          "description": "Name of the metric (e.g. 'Percentage CPU').",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "aggregationType": {
+          "$ref": "#/definitions/MetricAggregationType",
+          "description": "Type of aggregation to apply to the metric."
+        },
+        "unit": {
+          "type": "string",
+          "description": "Unit of the metric (e.g. Percent, Bytes, Count).",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "timeGrain": {
+          "type": "string",
+          "description": "Time range of the metric. ISO 8601 duration format (e.g. 'PT5M').",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "dimensionFilter": {
+          "type": "string",
+          "description": "Optional dimension filter to apply to the metric.",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "evaluationRules": {
+          "$ref": "#/definitions/EvaluationRule",
+          "description": "Evaluation rules with recommended thresholds."
+        }
+      },
+      "required": [
+        "id"
+      ]
     },
     "SignalDefinition": {
       "type": "object",
@@ -4443,6 +4518,10 @@
           "type": "string",
           "description": "Error message if the signal status cannot be retrieved",
           "readOnly": true
+        },
+        "additionalContext": {
+          "$ref": "#/definitions/string4096",
+          "description": "Additional context as provided by the submitter"
         }
       }
     },
