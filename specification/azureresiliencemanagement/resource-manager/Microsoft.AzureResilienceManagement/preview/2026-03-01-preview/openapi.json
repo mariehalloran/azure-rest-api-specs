@@ -5970,7 +5970,14 @@
         },
         "resourceGroup": {
           "type": "string",
-          "description": "Resource group where Drill's internal resources will be created. If not specified, defaults to 'AzureResilienceManagementDrills'. This value is immutable after drill creation."
+          "description": "Resource group where Drill's internal resources will be created. If not specified, defaults to 'AzureResilienceManagementDrills'. This value is immutable after drill creation.",
+          "minLength": 1,
+          "maxLength": 90,
+          "pattern": "^[-\\w\\._\\(\\)]+$",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         }
       },
       "required": [
@@ -5989,10 +5996,6 @@
         "region": {
           "type": "string",
           "description": "Region where Drill's internal resources will be created."
-        },
-        "resourceGroup": {
-          "type": "string",
-          "description": "Resource group where Drill's internal resources will be created. If not specified, defaults to 'AzureResilienceManagementDrills'. This value is immutable after drill creation."
         }
       }
     },
@@ -6597,7 +6600,11 @@
           "description": "Chaos Resource created for this Drill",
           "readOnly": true,
           "x-ms-arm-id-details": {
-            "allowedResources": []
+            "allowedResources": [
+              {
+                "type": "Microsoft.Chaos/workspaces"
+              }
+            ]
           }
         },
         "faultDurationInMin": {
@@ -6805,7 +6812,7 @@
           "x-ms-arm-id-details": {
             "allowedResources": [
               {
-                "type": "Microsoft.Automation/automationAccounts"
+                "type": "Microsoft.Automation/automationAccounts/runbooks"
               }
             ]
           }
