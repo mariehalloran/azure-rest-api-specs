@@ -141,7 +141,13 @@ model DependencyOfRelationship
  */
 
 @doc("ServiceGroupMember relationship properties.")
-model ServiceGroupMemberRelationshipProperties is BaseRelationshipProperties;
+model ServiceGroupMemberRelationshipProperties
+  is BaseRelationshipProperties<[
+    {
+      type: "Microsoft.Management/serviceGroups";
+      scopes: ["Tenant"];
+    }
+  ]>;
 
 @doc("Defines a ServiceGroupMember relationship resource.")
 model ServiceGroupMemberRelationship
