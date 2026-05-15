@@ -7,61 +7,17 @@
     "drillName": "drill1",
     "resource": {
       "properties": {
-        "metricsProperties": {
-          "identity": {
-            "type": "UserAssigned",
-            "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
-          },
-          "metricsToTrack": [
-            {
-              "metricName": "ypablng",
-              "metricId": "/providers/Microsoft.Monitor/slos/slo1",
-              "destinationAmwAccountUrl": "/subscriptions/191973cd-9c54-41e0-ac19-25dd9a92d5a8/resourceGroups/defaultresourcegroup-cid/providers/microsoft.monitor/accounts/defaultazuremonitorworkspace-cid"
-            }
-          ]
-        },
-        "chaosExperimentProperties": {
-          "subscription": "4e88bed3-114f-443d-9975-28f64122ec5e",
-          "region": "westus",
-          "identity": {
-            "type": "UserAssigned",
-            "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
-          },
-          "chaosExperimentIdentityForFaults": {
-            "type": "UserAssigned",
-            "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
-          }
-        },
         "executionState": "NotRunning",
         "rbacSetupMode": "AutomatedCustomRole",
         "attentionReason": {
-          "drillRbacOnExperiment": "Set",
-          "rbacNeededForDrillOnExperiment": [
-            "lcjjnucz"
-          ],
-          "drillRbacOnSlo": "Set",
-          "rbacNeededForDrillOnSlo": [
-            "lmnjpqcour"
-          ],
           "roReadiness": "UnderEdit",
-          "faultRbacOnTargets": "Set",
-          "targets": "Exists",
           "drillUserMsi": "Exists",
-          "chaosExperimentUserMsi": "Exists",
           "drillRbacOnRecoveryPlan": "Set",
           "rbacNeededForDrillOnRecoveryPlan": [
             "ayfyepziwdyxuwuexlamaadey"
           ],
-          "drillRbacOnAzureMonitoringWorkspace": "Set",
-          "rbacNeededForDrillOnAzureMonitoringWorkspace": [
-            "fgvnjvmagxv"
-          ],
           "recoveryPlanAndDrillResourcesState": "InSync",
           "serviceGroupAndDrillResourcesState": "InSync",
-          "drillRbacOnAzureHealthModel": "Set",
-          "rbacNeededForDrillOnAzureHealthModel": [
-            "yvtpfipqppawimvylrqq"
-          ],
           "runbookFaultRbacOnTargets": "Set",
           "includedResourceInDrill": "Exists",
           "drillRbacOnMonitoringResources": "Set",
@@ -102,13 +58,6 @@
           "lastRunState": "NotStarted",
           "lastRunAttestation": "Success"
         },
-        "healthModelProperties": {
-          "identity": {
-            "type": "UserAssigned",
-            "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
-          },
-          "healthModelId": "/subscriptions/ef4ab5a7-c2c0-4304-af80-af49f48af3d1/resourceGroups/DeleteDemoRG/providers/Microsoft.CloudHealth/healthmodels/ahm-demo"
-        },
         "executionReadinessState": "Ready",
         "managedOnBehalfOfConfiguration": {},
         "recoveryPlanProperties": {
@@ -127,9 +76,9 @@
           "subscription": "4e88bed3-114f-443d-9975-28f64122ec5e",
           "region": "eastus",
           "resourceGroup": "customDrillResourceGroup"
-        },
+      },
         "chaosResourceProperties": {
-          "identity": {
+      "identity": {
             "type": "UserAssigned",
             "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
           },
@@ -142,70 +91,24 @@
       "identity": {
         "type": "None",
         "userAssignedIdentities": {}
+        }
       }
-    }
   },
   "responses": {
     "200": {
       "body": {
         "properties": {
-          "metricsProperties": {
-            "identity": {
-              "type": "UserAssigned",
-              "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
-            },
-            "metricsToTrack": [
-              {
-                "metricName": "ypablng",
-                "metricId": "/providers/Microsoft.Monitor/slos/slo1",
-                "destinationAmwAccountUrl": "/subscriptions/191973cd-9c54-41e0-ac19-25dd9a92d5a8/resourceGroups/defaultresourcegroup-cid/providers/microsoft.monitor/accounts/defaultazuremonitorworkspace-cid"
-              }
-            ]
-          },
-          "chaosExperimentProperties": {
-            "subscription": "4e88bed3-114f-443d-9975-28f64122ec5e",
-            "region": "westus",
-            "identity": {
-              "type": "UserAssigned",
-              "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
-            },
-            "chaosExperimentIdentityForFaults": {
-              "type": "UserAssigned",
-              "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
-            },
-            "chaosExperimentId": "/subscriptions/62b829ee-7936-40c9-a1c9-47a93f9f3965/resourceGroups/009278f9-04c0-4e1e-88a1-1b6323e2f209/providers/Microsoft.Chaos/experiments/asdas",
-            "faultDurationInMin": 0
-          },
           "executionState": "NotRunning",
           "rbacSetupMode": "AutomatedCustomRole",
           "attentionReason": {
-            "drillRbacOnExperiment": "Set",
-            "rbacNeededForDrillOnExperiment": [
-              "lcjjnucz"
-            ],
-            "drillRbacOnSlo": "Set",
-            "rbacNeededForDrillOnSlo": [
-              "lmnjpqcour"
-            ],
             "roReadiness": "UnderEdit",
-            "faultRbacOnTargets": "Set",
-            "targets": "Exists",
             "drillUserMsi": "Exists",
-            "chaosExperimentUserMsi": "Exists",
             "drillRbacOnRecoveryPlan": "Set",
             "rbacNeededForDrillOnRecoveryPlan": [
               "ayfyepziwdyxuwuexlamaadey"
             ],
-            "drillRbacOnAzureMonitoringWorkspace": "Set",
-            "rbacNeededForDrillOnAzureMonitoringWorkspace": [
-              "fgvnjvmagxv"
-            ],
             "recoveryPlanAndDrillResourcesState": "InSync",
             "serviceGroupAndDrillResourcesState": "InSync",
-            "drillRbacOnAzureHealthModel": "Set",
-            "rbacNeededForDrillOnAzureHealthModel": [
-              "yvtpfipqppawimvylrqq"
-            ],
             "runbookFaultRbacOnTargets": "Set",
             "includedResourceInDrill": "Exists",
             "drillRbacOnMonitoringResources": "Set",
@@ -251,13 +154,6 @@
             "lastRunTime": "2025-05-05T05:36:37.151Z",
             "lastRunDuration": "PT6M"
           },
-          "healthModelProperties": {
-            "identity": {
-              "type": "UserAssigned",
-              "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
-            },
-            "healthModelId": "/subscriptions/ef4ab5a7-c2c0-4304-af80-af49f48af3d1/resourceGroups/DeleteDemoRG/providers/Microsoft.CloudHealth/healthmodels/ahm-demo"
-          },
           "executionReadinessState": "Ready",
           "managedOnBehalfOfConfiguration": {
             "moboBrokerResources": [
@@ -288,9 +184,9 @@
             "subscription": "4e88bed3-114f-443d-9975-28f64122ec5e",
             "region": "eastus",
             "resourceGroup": "customDrillResourceGroup"
-          },
-          "chaosResourceProperties": {
-            "identity": {
+        },
+        "chaosResourceProperties": {
+          "identity": {
               "type": "UserAssigned",
               "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
             },
@@ -331,63 +227,17 @@
       },
       "body": {
         "properties": {
-          "metricsProperties": {
-            "identity": {
-              "type": "UserAssigned",
-              "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
-            },
-            "metricsToTrack": [
-              {
-                "metricName": "ypablng",
-                "metricId": "/providers/Microsoft.Monitor/slos/slo1",
-                "destinationAmwAccountUrl": "/subscriptions/191973cd-9c54-41e0-ac19-25dd9a92d5a8/resourceGroups/defaultresourcegroup-cid/providers/microsoft.monitor/accounts/defaultazuremonitorworkspace-cid"
-              }
-            ]
-          },
-          "chaosExperimentProperties": {
-            "subscription": "4e88bed3-114f-443d-9975-28f64122ec5e",
-            "region": "westus",
-            "identity": {
-              "type": "UserAssigned",
-              "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
-            },
-            "chaosExperimentIdentityForFaults": {
-              "type": "UserAssigned",
-              "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
-            },
-            "chaosExperimentId": "/subscriptions/62b829ee-7936-40c9-a1c9-47a93f9f3965/resourceGroups/009278f9-04c0-4e1e-88a1-1b6323e2f209/providers/Microsoft.Chaos/experiments/asdas",
-            "faultDurationInMin": 0
-          },
           "executionState": "NotRunning",
           "rbacSetupMode": "AutomatedCustomRole",
           "attentionReason": {
-            "drillRbacOnExperiment": "Set",
-            "rbacNeededForDrillOnExperiment": [
-              "lcjjnucz"
-            ],
-            "drillRbacOnSlo": "Set",
-            "rbacNeededForDrillOnSlo": [
-              "lmnjpqcour"
-            ],
             "roReadiness": "UnderEdit",
-            "faultRbacOnTargets": "Set",
-            "targets": "Exists",
             "drillUserMsi": "Exists",
-            "chaosExperimentUserMsi": "Exists",
             "drillRbacOnRecoveryPlan": "Set",
             "rbacNeededForDrillOnRecoveryPlan": [
               "ayfyepziwdyxuwuexlamaadey"
             ],
-            "drillRbacOnAzureMonitoringWorkspace": "Set",
-            "rbacNeededForDrillOnAzureMonitoringWorkspace": [
-              "fgvnjvmagxv"
-            ],
             "recoveryPlanAndDrillResourcesState": "InSync",
             "serviceGroupAndDrillResourcesState": "InSync",
-            "drillRbacOnAzureHealthModel": "Set",
-            "rbacNeededForDrillOnAzureHealthModel": [
-              "yvtpfipqppawimvylrqq"
-            ],
             "runbookFaultRbacOnTargets": "Set",
             "includedResourceInDrill": "Exists",
             "drillRbacOnMonitoringResources": "NotSet",
@@ -432,13 +282,6 @@
             "lastRunAttestation": "Success",
             "lastRunTime": "2025-05-05T05:36:37.151Z",
             "lastRunDuration": "PT6M"
-          },
-          "healthModelProperties": {
-            "identity": {
-              "type": "UserAssigned",
-              "userAssignedIdentity": "/subscriptions/4e88bed3-114f-443d-9975-28f64122ec5e/resourcegroups/resourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami1"
-            },
-            "healthModelId": "/subscriptions/ef4ab5a7-c2c0-4304-af80-af49f48af3d1/resourceGroups/DeleteDemoRG/providers/Microsoft.CloudHealth/healthmodels/ahm-demo"
           },
           "executionReadinessState": "Ready",
           "managedOnBehalfOfConfiguration": {

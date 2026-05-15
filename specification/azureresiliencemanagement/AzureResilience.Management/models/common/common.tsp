@@ -192,6 +192,7 @@ union JobResourceType {
   RecoveryPlan: "RecoveryPlan",
 
   @doc("Recovery Orchestration Plan child created job resource.")
+  @removed(Versions.v2026_04_01_preview)
   RecoveryPlanChild: "RecoveryPlanChild",
 
   @doc("Drill Run job resource.")
