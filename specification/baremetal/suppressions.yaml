@@ -11,3 +11,12 @@
   sub-rules:
     - options.@azure-tools/typespec-ts.*
   paths: [Microsoft.BareMetal.Management/tspconfig.yaml]
+
+- tool: BreakingChange
+  reason: >
+    Intentional breaking change: moved utilization API from tenant-level to subscription-level path.
+    Old path /providers/Microsoft.BareMetal/locations/{location}/utilization replaced with
+    /subscriptions/{subscriptionId}/providers/Microsoft.BareMetal/locations/{location}/utilization.
+  paths:
+    - resource-manager/Microsoft.BareMetal/preview/2025-02-01-preview/BootstrapRP.json
+    - resource-manager/Microsoft.BareMetal/preview/2025-08-01-preview/BootstrapRP.json
