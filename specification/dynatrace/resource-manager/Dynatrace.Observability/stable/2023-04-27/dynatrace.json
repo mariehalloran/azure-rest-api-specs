@@ -1958,7 +1958,10 @@
         },
         "ingestionKey": {
           "type": "string",
-          "description": "Ingestion key of the environment"
+          "format": "password",
+          "description": "Ingestion key of the environment",
+          "readOnly": true,
+          "x-ms-secret": true
         },
         "logsIngestionEndpoint": {
           "type": "string",

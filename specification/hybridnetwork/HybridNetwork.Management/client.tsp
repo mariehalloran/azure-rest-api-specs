@@ -14,32 +14,39 @@ using TypeSpec.Http;
 @@clientName(NSDArtifactProfile, "NsdArtifactProfile", "java");
 @@clientName(NFVIs, "NfvIs", "java");
 @@clientName(AzureCoreNFVIDetails, "AzureCoreNfviDetails", "java");
-@@clientName(AzureArcK8sClusterNFVIDetails,
+@@clientName(
+  AzureArcK8sClusterNFVIDetails,
   "AzureArcK8SClusterNfviDetails",
   "java,python"
 );
-@@clientName(AzureOperatorNexusClusterNFVIDetails,
+@@clientName(
+  AzureOperatorNexusClusterNFVIDetails,
   "AzureOperatorNexusClusterNfviDetails",
   "java"
 );
-@@clientName(VirtualNetworkFunctionNFVIType,
+@@clientName(
+  VirtualNetworkFunctionNFVIType,
   "VirtualNetworkFunctionNfviType",
   "java"
 );
-@@clientName(ContainerizedNetworkFunctionNFVIType,
+@@clientName(
+  ContainerizedNetworkFunctionNFVIType,
   "ContainerizedNetworkFunctionNfviType",
   "java"
 );
-@@clientName(VirtualNetworkFunctionNetworkFunctionDefinitionVersion,
+@@clientName(
+  VirtualNetworkFunctionNetworkFunctionDefinitionVersion,
   "VirtualNetworkFunctionDefinitionVersion",
   "java,python,go"
 );
 
-@@clientName(Microsoft.HybridNetwork,
+@@clientName(
+  Microsoft.HybridNetwork,
   "HybridNetworkManagementClient",
   "python,javascript"
 );
-@@clientName(AzureArcK8sClusterNFVIDetails,
+@@clientName(
+  AzureArcK8sClusterNFVIDetails,
   "AzureArcK8SClusterNFVIDetails",
   "python"
 );
@@ -95,12 +102,16 @@ op proxyArtifactUpdateState(
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "override"
   @body
   parameters: ArtifactChangeState,
-): ArmResponse<ProxyArtifactVersionsListOverview> | ArmAcceptedLroResponse<
-  "Request of updating artifact state is accepted.",
-  ArmLroLocationHeader<FinalResult = ProxyArtifactVersionsListOverview>
-> | ErrorResponse;
+):
+  | ArmResponse<ProxyArtifactVersionsListOverview>
+  | ArmAcceptedLroResponse<
+      "Request of updating artifact state is accepted.",
+      ArmLroLocationHeader<FinalResult = ProxyArtifactVersionsListOverview>
+    >
+  | ErrorResponse;
 
-@@override(ProxyArtifact.updateState,
+@@override(
+  ProxyArtifact.updateState,
   proxyArtifactUpdateState,
   "go,javascript"
 );

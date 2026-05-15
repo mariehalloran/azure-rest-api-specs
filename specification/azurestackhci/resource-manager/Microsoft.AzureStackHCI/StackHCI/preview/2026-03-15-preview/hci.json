@@ -139,6 +139,9 @@
       "name": "EdgeMachineNetworkAdapterJobs"
     },
     {
+      "name": "EdgeMachineSecuritySettingsOperations"
+    },
+    {
       "name": "ClusterJobs"
     },
     {
@@ -9295,6 +9298,262 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/securitySettings": {
+      "get": {
+        "operationId": "EdgeMachineSecuritySettingsOperations_ListByEdgeMachine",
+        "tags": [
+          "EdgeMachineSecuritySettingsOperations"
+        ],
+        "description": "List EdgeMachineSecuritySettings by EdgeMachine",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineSecuritySettingsListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List edge machine security settings": {
+            "$ref": "./examples/EdgeMachineSecuritySettingsCollectionOps_ListByEdgeMachine.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/securitySettings/{securitySettingsName}": {
+      "get": {
+        "operationId": "EdgeMachineSecuritySettingsOperations_Get",
+        "tags": [
+          "EdgeMachineSecuritySettingsOperations"
+        ],
+        "description": "Get an EdgeMachineSecuritySettings",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "securitySettingsName",
+            "in": "path",
+            "description": "Name of the security settings resource",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineSecuritySettings"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get edge machine security settings": {
+            "$ref": "./examples/EdgeMachineSecuritySettingsOperations_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "EdgeMachineSecuritySettingsOperations_CreateOrUpdate",
+        "tags": [
+          "EdgeMachineSecuritySettingsOperations"
+        ],
+        "description": "Create or update an EdgeMachineSecuritySettings",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "securitySettingsName",
+            "in": "path",
+            "description": "Name of the security settings resource",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineSecuritySettings"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'EdgeMachineSecuritySettings' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineSecuritySettings"
+            }
+          },
+          "201": {
+            "description": "Resource 'EdgeMachineSecuritySettings' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineSecuritySettings"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create or update edge machine security settings": {
+            "$ref": "./examples/EdgeMachineSecuritySettingsOperations_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "EdgeMachineSecuritySettingsOperations_Delete",
+        "tags": [
+          "EdgeMachineSecuritySettingsOperations"
+        ],
+        "description": "Delete an EdgeMachineSecuritySettings",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "securitySettingsName",
+            "in": "path",
+            "description": "Name of the security settings resource",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete edge machine security settings": {
+            "$ref": "./examples/EdgeMachineSecuritySettingsOperations_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/updates": {
       "get": {
         "operationId": "EdgeMachineUpdates_List",
@@ -15582,8 +15841,119 @@
           "$ref": "#/definitions/ExtensionProfile",
           "description": "Extension details for edge machine.",
           "readOnly": true
+        },
+        "workloadInventory": {
+          "type": "array",
+          "description": "Read-only Hyper-V VM inventory reported by the device management extension for VMs visible on this node.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineWorkloadInventoryItem"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "workloadId"
+          ]
+        },
+        "workloadInventoryLastUpdated": {
+          "type": "string",
+          "description": "Last time the device management extension refreshed the local Hyper-V workload inventory.",
+          "readOnly": true
         }
       }
+    },
+    "EdgeMachineSecurityComplianceStatus": {
+      "type": "object",
+      "description": "Compliance status payload for edge machine security settings.",
+      "properties": {
+        "fipsStatus": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "FIPS compliance status.",
+          "readOnly": true
+        },
+        "secureBootStatus": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "Secure Boot compliance status.",
+          "readOnly": true
+        },
+        "encryptionAtRestStatus": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "Encryption at rest compliance status.",
+          "readOnly": true
+        },
+        "seLinuxPolicyStatus": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "SELinux policy compliance status.",
+          "readOnly": true
+        },
+        "securityBaselineStatus": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "Security baseline compliance status.",
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineSecurityProperties": {
+      "type": "object",
+      "description": "Properties of an Edge Machine Security Settings resource.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the resource.",
+          "readOnly": true
+        },
+        "securityComplianceStatus": {
+          "$ref": "#/definitions/EdgeMachineSecurityComplianceStatus",
+          "description": "Compliance status values synchronized from Guest Configuration.",
+          "readOnly": true
+        },
+        "registrationTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "First synchronization timestamp in UTC.",
+          "readOnly": true
+        },
+        "lastSyncTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Most recent synchronization timestamp in UTC.",
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineSecuritySettings": {
+      "type": "object",
+      "description": "Edge Machine Security Settings proxy resource",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/EdgeMachineSecurityProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "EdgeMachineSecuritySettingsListResult": {
+      "type": "object",
+      "description": "The response of a EdgeMachineSecuritySettings list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The EdgeMachineSecuritySettings items on this page",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineSecuritySettings"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
     },
     "EdgeMachineState": {
       "type": "string",
@@ -15844,6 +16214,48 @@
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "Provisioning state of the volume resource.",
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineWorkloadInventoryItem": {
+      "type": "object",
+      "description": "Represents a single workload (Hyper-V VM) inventory entry reported by the device management extension running on the edge machine.",
+      "properties": {
+        "workloadId": {
+          "type": "string",
+          "description": "Stable device-reported workload identifier, such as the Hyper-V VM ID when available.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Hyper-V VM name.",
+          "readOnly": true
+        },
+        "resourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Optional ARM resource ID when the service can map the local VM to an ARM resource.",
+          "readOnly": true
+        },
+        "workloadType": {
+          "type": "string",
+          "description": "Workload type. For v1 this should be VirtualMachine.",
+          "readOnly": true
+        },
+        "state": {
+          "type": "string",
+          "description": "Hyper-V VM state reported by the node.",
+          "readOnly": true
+        },
+        "virtualProcessorCount": {
+          "type": "string",
+          "description": "Configured virtual processor count from Hyper-V.",
+          "readOnly": true
+        },
+        "memoryInBytes": {
+          "type": "string",
+          "description": "Maximum memory the VM can consume, in bytes.",
           "readOnly": true
         }
       }
@@ -18531,6 +18943,67 @@
         "vlanId": {
           "type": "string",
           "description": "VLAN ID for the network setup."
+        },
+        "interfaceDescription": {
+          "type": "string",
+          "description": "Interface description of NIC."
+        },
+        "componentId": {
+          "type": "string",
+          "description": "Component ID of NIC."
+        },
+        "driverVersion": {
+          "type": "string",
+          "description": "Driver version of NIC."
+        },
+        "defaultIsolationId": {
+          "type": "string",
+          "description": "Default isolation of management NIC."
+        },
+        "slot": {
+          "type": "string",
+          "description": "The slot attached to the NIC."
+        },
+        "switchName": {
+          "type": "string",
+          "description": "The switch attached to the NIC, if any."
+        },
+        "interfaceType": {
+          "$ref": "#/definitions/NetworkInterfaceType",
+          "description": "Type of network interface."
+        },
+        "interfaceSpeed": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Interface speed in Mbps."
+        },
+        "interfaceState": {
+          "$ref": "#/definitions/InterfaceState",
+          "description": "Current state of the interface."
+        },
+        "nicType": {
+          "type": "string",
+          "description": "The type of NIC (physical, virtual, management)."
+        },
+        "nicStatus": {
+          "type": "string",
+          "description": "The status of NIC (up, disconnected)."
+        },
+        "managementInterface": {
+          "type": "boolean",
+          "description": "Indicates if this is a management interface."
+        },
+        "rdmaCapability": {
+          "$ref": "#/definitions/RdmaCapability",
+          "description": "RDMA capability of the network adapter."
+        },
+        "networkAdapterStatus": {
+          "$ref": "#/definitions/NetworkAdapterStatus",
+          "description": "The observed state of network adapter."
+        },
+        "wifiConfiguration": {
+          "$ref": "#/definitions/WifiConfigurationReportedProperties",
+          "description": "WiFi configuration properties."
         }
       },
       "required": [
@@ -20786,6 +21259,20 @@
           "$ref": "#/definitions/EceActionStatus",
           "description": "Deployment status of job.",
           "readOnly": true
+        }
+      }
+    },
+    "ProvisionOsVolumeConfiguration": {
+      "type": "object",
+      "description": "Volume configuration for device provisioning.",
+      "properties": {
+        "configuration": {
+          "type": "array",
+          "description": "List of volume details.",
+          "items": {
+            "$ref": "#/definitions/VolumeDetails"
+          },
+          "x-ms-identifiers": []
         }
       }
     },
@@ -23052,6 +23539,10 @@
         "storage": {
           "$ref": "#/definitions/StorageConfiguration",
           "description": "Storage configuration."
+        },
+        "volume": {
+          "$ref": "#/definitions/ProvisionOsVolumeConfiguration",
+          "description": "Volume configuration."
         }
       }
     },
@@ -24049,6 +24540,32 @@
         "reserved": {
           "type": "string",
           "description": "Reserved for future volume configuration options."
+        }
+      }
+    },
+    "VolumeDetails": {
+      "type": "object",
+      "description": "Details of a volume to be configured on the device.",
+      "properties": {
+        "sizeInBytes": {
+          "type": "string",
+          "description": "Size of the volume in bytes."
+        },
+        "path": {
+          "type": "string",
+          "description": "Mount path for the volume."
+        },
+        "fileSystem": {
+          "$ref": "#/definitions/DiskFileSystemType",
+          "description": "File system type to format the volume with."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the volume."
+        },
+        "diskName": {
+          "type": "string",
+          "description": "Name of the disk on which the volume resides."
         }
       }
     },

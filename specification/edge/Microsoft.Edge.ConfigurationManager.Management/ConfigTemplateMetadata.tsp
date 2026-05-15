@@ -19,16 +19,7 @@ namespace Microsoft.Edge;
 @added(Versions.v2025_08_01)
 @doc("Hierarchy Ids With Level for applying config Template which will further generate ARG objects")
 model HierarchyMetadata {
-  @added(Versions.v2026_03_01)
-  @doc("ArmId of Context")
-  contextId?: Azure.Core.armResourceIdentifier<[
-    {
-      type: "Microsoft.Edge/contexts";
-    }
-  ]>;
-
   @doc("Hierarchy Ids")
-  @visibility(Lifecycle.Read)
   hierarchyIds?: Azure.Core.armResourceIdentifier<[
     {
       type: "Microsoft.Edge/Targets";
@@ -39,7 +30,6 @@ model HierarchyMetadata {
   ]>[];
 
   @doc("Hierarchy Level")
-  @visibility(Lifecycle.Read)
   level?: string;
 }
 
@@ -47,13 +37,19 @@ model HierarchyMetadata {
 @added(Versions.v2025_08_01)
 @doc("ConfigTemplateMetadata Properties")
 model ConfigTemplateMetadataProperties {
+  @added(Versions.v2026_03_01)
+  @doc("ArmId of Context")
+  contextId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Edge/contexts";
+    }
+  ]>;
+
   @doc("Hierarchy ARM Ids")
-  @visibility(Lifecycle.Read)
   @identifiers(#[])
   linkedHierarchies?: HierarchyMetadata[];
 
   @doc("Hierarchy ARM Ids")
-  @visibility(Lifecycle.Read)
   @identifiers(#[])
   unLinkedHierarchies?: HierarchyMetadata[];
 
@@ -66,9 +62,35 @@ model ConfigTemplateMetadataProperties {
   provisioningState?: ProvisioningState;
 }
 
+@added(Versions.v2026_03_01)
+@doc("The updatable properties of the ConfigTemplateMetadata.")
+model ConfigTemplateMetadataUpdateProperties {
+  @doc("ArmId of Context")
+  contextId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Edge/contexts";
+    }
+  ]>;
+
+  @doc("Hierarchy ARM Ids")
+  @identifiers(#[])
+  linkedHierarchies?: HierarchyMetadata[];
+
+  @doc("Hierarchy ARM Ids")
+  @identifiers(#[])
+  unLinkedHierarchies?: HierarchyMetadata[];
+}
+
+@added(Versions.v2026_03_01)
+@doc("The type used for update operations of the ConfigTemplateMetadata.")
+model ConfigTemplateMetadataUpdate {
+  @doc("The resource-specific properties for this resource.")
+  properties?: ConfigTemplateMetadataUpdateProperties;
+}
+
 @added(Versions.v2025_08_15_preview)
 @added(Versions.v2025_08_01)
-@doc("SolutionSchema Resource")
+@doc("ConfigTemplateMetadata Resource")
 @parentResource(ConfigTemplate)
 model ConfigTemplateMetadata
   is ProxyResource<ConfigTemplateMetadataProperties> {
@@ -88,6 +110,21 @@ model ConfigTemplateMetadata
 interface ConfigTemplateMetadatas {
   @doc("Get a ConfigTemplateMetadata Resource")
   get is ArmResourceRead<ConfigTemplateMetadata>;
+
+  @added(Versions.v2026_03_01)
+  @doc("Create or update a ConfigTemplateMetadata Resource")
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<ConfigTemplateMetadata>;
+
+  @added(Versions.v2026_03_01)
+  @doc("Update a ConfigTemplateMetadata Resource")
+  update is ArmCustomPatchAsync<
+    ConfigTemplateMetadata,
+    ConfigTemplateMetadataUpdate
+  >;
+
+  @added(Versions.v2026_03_01)
+  @doc("Delete a ConfigTemplateMetadata Resource")
+  delete is ArmResourceDeleteWithoutOkAsync<ConfigTemplateMetadata>;
 
   @doc("List by ConfigTemplate")
   listByConfigTemplate is ArmResourceListByParent<ConfigTemplateMetadata>;

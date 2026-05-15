@@ -58,9 +58,11 @@ interface MongoDatabases {
 @@minLength(MongoDatabase.name, 3);
 @@doc(MongoDatabase.name, "The name of Database");
 @@doc(MongoDatabase.properties, "Resource properties.");
-@@doc(MongoDatabases.createOrUpdate::parameters.resource,
+@@doc(
+  MongoDatabases.createOrUpdate::parameters.resource,
   "The request body for creating or updating a MongoDatabase resource."
 );
-@@doc(MongoDatabases.update::parameters.properties,
+@@doc(
+  MongoDatabases.update::parameters.properties,
   "The request body for updating a MongoDatabase resource."
 );

@@ -64,7 +64,8 @@ interface MongoAgents {
 @@minLength(MongoAgent.name, 3);
 @@doc(MongoAgent.name, "The name of agent");
 @@doc(MongoAgent.properties, "Resource properties.");
-@@doc(MongoAgents.createOrUpdate::parameters.resource,
+@@doc(
+  MongoAgents.createOrUpdate::parameters.resource,
   "The request body for creating or updating agent."
 );
 @@doc(MongoAgents.update::parameters.properties, "Agents patch payload.");

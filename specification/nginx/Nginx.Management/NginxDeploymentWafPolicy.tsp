@@ -66,9 +66,11 @@ interface NginxDeploymentWafPolicies {
 }
 
 @@doc(NginxDeploymentWafPolicy.name, "The name of Waf Policy");
-@@doc(NginxDeploymentWafPolicy.properties,
+@@doc(
+  NginxDeploymentWafPolicy.properties,
   "Nginx Deployment Waf Policy Properties"
 );
-@@doc(NginxDeploymentWafPolicies.create::parameters.resource,
+@@doc(
+  NginxDeploymentWafPolicies.create::parameters.resource,
   "The Nginx Deployment Waf Policy"
 );

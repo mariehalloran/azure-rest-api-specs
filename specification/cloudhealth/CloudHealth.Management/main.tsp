@@ -4,7 +4,6 @@ import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
-using OpenAPI;
 using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
@@ -13,15 +12,21 @@ using Azure.ResourceManager;
 
 @armProviderNamespace(ProviderName)
 @service(#{ title: ProviderName })
-@armCommonTypesVersion(CommonTypes.Versions.v5)
+@armCommonTypesVersion(CommonTypes.Versions.v6)
 @versioned(Versions)
 namespace Microsoft.CloudHealth;
 
 @doc("API Versions")
 enum Versions {
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  @doc("2023-10-01-preview")
-  v2023_10_01_preview: "2023-10-01-preview",
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  @doc("2025-05-01-preview")
+  v2025_05_01_preview: "2025-05-01-preview",
+
+  @doc("2026-01-01-preview")
+  v2026_01_01_preview: "2026-01-01-preview",
+
+  @doc("2026-05-01-preview")
+  v2026_05_01_preview: "2026-05-01-preview",
 }
 
 alias ProviderName = "Microsoft.CloudHealth";
@@ -36,13 +41,18 @@ scalar stringModelResourceName extends string;
 // Regex for all our proxy resource name validations. Up to 260 characters, alphanumeric and hyphens, must start and end with an alphanumeric character
 alias proxyResourceNameRegex = "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$";
 
-@pattern(proxyResourceNameRegex)
-@doc("String with regex validation to match the proxy resource name requirements")
-scalar stringResourceName extends string;
-
 @maxLength(4096)
 @doc("String with max length validation of 4096 characters")
 scalar string4096 extends string;
+
+@maxLength(4096)
+@secret
+@doc("Secret string with max length validation of 4096 characters")
+scalar secretString4096 extends string;
+
+@maxLength(256)
+@doc("String with max length validation of 256 characters")
+scalar string256 extends string;
 
 interface Operations extends Azure.ResourceManager.Operations {}
 
@@ -59,6 +69,7 @@ model HealthModel is TrackedResource<HealthModelProperties> {
 
 @doc("HealthModel properties")
 model HealthModelProperties {
+  @removed(Versions.v2026_01_01_preview)
   @visibility(Lifecycle.Read)
   @doc("The data plane endpoint for interacting with health data")
   dataplaneEndpoint?: string;
@@ -67,6 +78,7 @@ model HealthModelProperties {
   @doc("The status of the last operation.")
   provisioningState?: HealthModelProvisioningState;
 
+  @removed(Versions.v2026_01_01_preview)
   @doc("Configure to automatically discover entities from a given scope, such as a Service Group. The discovered entities will be linked to the root entity of the health model.")
   discovery?: ModelDiscoverySettings;
 }
@@ -80,6 +92,7 @@ union HealthModelProvisioningState {
   Deleting: "Deleting",
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("Settings for automatically discovering entities for the health model.")
 model ModelDiscoverySettings {
   @doc("The scope from which entities should be automatically discovered. For example, the resource id of a Service Group.")
@@ -92,6 +105,15 @@ model ModelDiscoverySettings {
   identity?: string4096;
 }
 
+@pattern(proxyResourceNameRegex)
+@doc("Type for signal definition resource name.")
+scalar signalDefinitionName extends string;
+
+@added(Versions.v2026_01_01_preview)
+@pattern(proxyResourceNameRegex)
+@doc("Type for signal name.")
+scalar signalName extends string;
+
 @doc("A signal definition in a health model")
 @parentResource(HealthModel)
 model SignalDefinition is ProxyResource<SignalDefinitionProperties> {
@@ -99,7 +121,7 @@ model SignalDefinition is ProxyResource<SignalDefinitionProperties> {
   @key("signalDefinitionName")
   @segment("signaldefinitions")
   @path
-  name: stringResourceName;
+  name: signalDefinitionName;
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "Self-explanatory"
@@ -109,6 +131,9 @@ union SignalKind {
   AzureResourceMetric: "AzureResourceMetric",
   LogAnalyticsQuery: "LogAnalyticsQuery",
   PrometheusMetricsQuery: "PrometheusMetricsQuery",
+
+  @added(Versions.v2026_01_01_preview)
+  ExternalSignal: "External",
 }
 
 @doc("SignalDefinition properties")
@@ -130,8 +155,14 @@ model SignalDefinitionProperties {
   refreshInterval?: RefreshInterval = "PT1M";
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "approved scenario for use as Tags alternative in proxy resource"
+  @removed(Versions.v2026_01_01_preview)
   @doc("Optional set of labels (key-value pairs)") // Since Signal Definition is a proxy resource, we cannot use Azure Tags
   labels?: Record<string4096>;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "approved scenario for use as Tags alternative in proxy resource"
+  @added(Versions.v2026_01_01_preview)
+  @doc("Optional set of tags (key-value pairs)") // Since Relationship is a proxy resource, we cannot use Azure Tags
+  tags?: Record<string4096>;
 
   @doc("Unit of the signal result (e.g. Bytes, MilliSeconds, Percent, Count))")
   @minLength(1)
@@ -141,6 +172,7 @@ model SignalDefinitionProperties {
   @doc("Evaluation rules for the signal definition")
   evaluationRules: EvaluationRule;
 
+  @removed(Versions.v2026_01_01_preview)
   @visibility(Lifecycle.Read)
   @doc("Date when the signal definition was (soft-)deleted")
   deletionDate?: utcDateTime;
@@ -148,16 +180,21 @@ model SignalDefinitionProperties {
 
 @doc("Evaluation rule for a signal definition")
 model EvaluationRule {
+  @removed(Versions.v2026_01_01_preview)
   @doc("Configure to use ML-based dynamic thresholds. When used, degradedRule and unhealthyRule must not be set.")
   dynamicDetectionRule?: DynamicDetectionRule;
 
-  @doc("Degraded rule with static threshold. When used, dynamicDetectionRule must not be set.")
-  degradedRule?: ThresholdRule;
+  @doc("Degraded threshold rule.")
+  @typeChangedFrom(Versions.v2026_01_01_preview, ThresholdRule)
+  degradedRule?: ThresholdRuleV2;
 
-  @doc("Unhealthy rule with static threshold. When used, dynamicDetectionRule must not be set.")
-  unhealthyRule?: ThresholdRule;
+  @doc("Unhealthy threshold rule.")
+  @typeChangedFrom(Versions.v2026_01_01_preview, ThresholdRule)
+  @madeRequired(Versions.v2026_01_01_preview)
+  unhealthyRule: ThresholdRuleV2;
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("Threshold-based evaluation rule for a signal definition")
 model ThresholdRule {
   @doc("Operator how to compare the signal value with the threshold")
@@ -169,6 +206,41 @@ model ThresholdRule {
   threshold: string;
 }
 
+@added(Versions.v2026_01_01_preview)
+@doc("Threshold-based evaluation rule for a signal definition")
+model ThresholdRuleV2 {
+  @doc("Operator how to compare the signal value with the threshold")
+  operator: SignalOperator;
+
+  @madeOptional(Versions.v2026_05_01_preview)
+  @doc("Threshold value. Required for static operators. Not applicable when operator is Dynamic.")
+  threshold?: float64;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Sensitivity level for dynamic threshold detection. Only applicable when operator is Dynamic.")
+  sensitivity?: DynamicThresholdSensitivity;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("ISO 8601 duration for the historical look-back window used by dynamic threshold computation. Only applicable when operator is Dynamic.")
+  lookBackWindow?: string;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Sensitivity level for dynamic threshold detection")
+union DynamicThresholdSensitivity {
+  string,
+
+  @doc("Low sensitivity — fewer anomalies detected, wider threshold band")
+  Low: "Low",
+
+  @doc("Medium sensitivity — balanced detection")
+  Medium: "Medium",
+
+  @doc("High sensitivity — more anomalies detected, tighter threshold band")
+  High: "High",
+}
+
+@removed(Versions.v2026_01_01_preview)
 @doc("ML-based evaluation rule for a signal definition")
 model DynamicDetectionRule {
   @doc("ML model to use for dynamic thresholds")
@@ -186,6 +258,7 @@ model DynamicDetectionRule {
   trainingStartTime?: utcDateTime;
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("ML-based model variants")
 union DynamicThresholdModel {
   string,
@@ -194,6 +267,7 @@ union DynamicThresholdModel {
   AnomalyDetection: "AnomalyDetection",
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("Threshold direction for dynamic thresholds")
 union DynamicThresholdDirection {
   string,
@@ -255,12 +329,13 @@ model ResourceMetricSignalDefinitionProperties
   @doc("Type of aggregation to apply to the metric")
   aggregationType: MetricAggregationType;
 
+  @removed(Versions.v2026_05_01_preview)
   @doc("Optional: Dimension to split by")
   @minLength(1)
   @maxLength(256)
   dimension?: string;
 
-  @doc("Optional: Dimension filter to apply to the dimension. Must only be set if also Dimension is set.")
+  @doc("Optional: Dimension filter to apply to the metric. OData filter syntax, e.g. \"dimension eq '*'\" or \"dimension eq 'value'\"")
   @minLength(1)
   @maxLength(256)
   dimensionFilter?: string;
@@ -309,20 +384,48 @@ model PrometheusMetricsSignalDefinitionProperties
 union SignalOperator {
   string,
 
+  @removed(Versions.v2026_01_01_preview)
   @doc("Lower than")
   LowerThan: "LowerThan",
 
+  @removed(Versions.v2026_01_01_preview)
   @doc("Lower than or equal to")
   LowerOrEquals: "LowerOrEquals",
 
   @doc("Greater than")
   GreaterThan: "GreaterThan",
 
+  @removed(Versions.v2026_01_01_preview)
   @doc("Greater than or equal to")
   GreaterOrEquals: "GreaterOrEquals",
 
+  @removed(Versions.v2026_01_01_preview)
   @doc("Equal to")
   Equals: "Equals",
+
+  @added(Versions.v2026_01_01_preview)
+  @doc("Less than")
+  LessThan: "LessThan",
+
+  @added(Versions.v2026_01_01_preview)
+  @doc("Less than or equal to")
+  LessThanOrEqual: "LessThanOrEqual",
+
+  @added(Versions.v2026_01_01_preview)
+  @doc("Greater than or equal to")
+  GreaterThanOrEqual: "GreaterThanOrEqual",
+
+  @added(Versions.v2026_01_01_preview)
+  @doc("Equal to")
+  Equal: "Equal",
+
+  @added(Versions.v2026_01_01_preview)
+  @doc("Not equal to")
+  NotEqual: "NotEqual",
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Dynamic threshold — uses statistical analysis of historical signal values")
+  Dynamic: "Dynamic",
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "Self-explanatory"
@@ -337,6 +440,10 @@ union MetricAggregationType {
   Total: "Total",
 }
 
+@pattern(proxyResourceNameRegex)
+@doc("Type for authentication setting resource name.")
+scalar authenticationSettingName extends string;
+
 @doc("An authentication setting in a health model")
 @parentResource(HealthModel)
 model AuthenticationSetting is ProxyResource<AuthenticationSettingProperties> {
@@ -344,7 +451,7 @@ model AuthenticationSetting is ProxyResource<AuthenticationSettingProperties> {
   @key("authenticationSettingName")
   @segment("authenticationsettings")
   @path
-  name: stringResourceName;
+  name: authenticationSettingName;
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "Self-explanatory"
@@ -383,6 +490,10 @@ model ManagedIdentityAuthenticationSettingProperties
   managedIdentityName: string;
 }
 
+@pattern(proxyResourceNameRegex)
+@doc("Type for entity resource name.")
+scalar entityName extends string;
+
 @doc("An entity (aka node) of a health model")
 @parentResource(HealthModel)
 model Entity is ProxyResource<EntityProperties> {
@@ -390,7 +501,7 @@ model Entity is ProxyResource<EntityProperties> {
   @key("entityName")
   @segment("entities")
   @path
-  name: stringResourceName;
+  name: entityName;
 }
 
 @doc("Properties which are common across all kinds of entities")
@@ -404,6 +515,7 @@ model EntityProperties {
   @maxLength(260)
   displayName?: string;
 
+  @removed(Versions.v2026_01_01_preview)
   @doc("Entity kind")
   @minLength(1)
   @maxLength(260)
@@ -424,16 +536,28 @@ model EntityProperties {
   impact?: EntityImpact = "Standard";
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "approved scenario for use as Tags alternative in proxy resource"
+  @removed(Versions.v2026_01_01_preview)
   @doc("Optional set of labels (key-value pairs)") // Since Entity is a proxy resource, we cannot use Azure Tags
   labels?: Record<string4096>;
 
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "approved scenario for use as Tags alternative in proxy resource"
+  @added(Versions.v2026_01_01_preview)
+  @doc("Optional set of tags (key-value pairs)") // Since Relationship is a proxy resource, we cannot use Azure Tags
+  tags?: Record<string4096>;
+
+  @removed(Versions.v2026_01_01_preview)
   @doc("Signal groups which are assigned to this entity")
   signals?: SignalGroup;
 
+  @added(Versions.v2026_01_01_preview)
+  @doc("Signal groups which are assigned to this entity")
+  signalGroups?: SignalGroups;
+
   @visibility(Lifecycle.Read)
   @doc("Discovered by which discovery rule. If set, the entity cannot be deleted manually.")
-  discoveredBy?: stringResourceName;
+  discoveredBy?: discoveryRuleName;
 
+  @removed(Versions.v2026_01_01_preview)
   @visibility(Lifecycle.Read)
   @doc("Date when the entity was (soft-)deleted")
   deletionDate?: utcDateTime;
@@ -444,6 +568,30 @@ model EntityProperties {
 
   @doc("Alert configuration for this entity")
   alerts?: EntityAlerts;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("Status of a signal")
+model SignalStatus {
+  @visibility(Lifecycle.Read)
+  @doc("Health state of this signal")
+  healthState?: HealthState;
+
+  @visibility(Lifecycle.Read)
+  @doc("Reported value of the signal")
+  value?: float64;
+
+  @visibility(Lifecycle.Read)
+  @doc("Timestamp when the value was reported")
+  reportedAt?: utcDateTime;
+
+  @visibility(Lifecycle.Read)
+  @doc("Error message if the signal status cannot be retrieved")
+  error?: string;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Additional context as provided by the submitter")
+  additionalContext?: string4096;
 }
 
 @doc("Alert configuration for an entity")
@@ -508,6 +656,7 @@ model IconDefinition {
   customData?: string;
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("Contains various signal groups that can be assigned to an entity")
 model SignalGroup {
   @doc("Azure Resource Signal Group")
@@ -523,6 +672,28 @@ model SignalGroup {
   dependencies?: DependenciesSignalGroup;
 }
 
+@added(Versions.v2026_01_01_preview)
+@doc("Contains various signal groups that can be assigned to an entity")
+model SignalGroups {
+  @doc("Azure Resource Signal Group")
+  azureResource?: AzureResourceSignals;
+
+  @doc("Log Analytics Signal Group")
+  azureLogAnalytics?: LogAnalyticsSignals;
+
+  @doc("Azure Monitor Workspace Signal Group")
+  azureMonitorWorkspace?: AzureMonitorWorkspaceSignals;
+
+  @typeChangedFrom(Versions.v2026_01_01_preview, DependenciesSignalGroup)
+  @doc("Settings for dependency signals to control how the health state of child entities influences the health state of the parent entity.")
+  dependencies?: DependenciesSignalGroupV2;
+
+  @doc("List of signals which have been externally submitted for this entity.")
+  @visibility(Lifecycle.Read)
+  external?: ExternalSignalGroup;
+}
+
+@removed(Versions.v2026_01_01_preview)
 @doc("Properties for dependent entities, i.e. child entities")
 model DependenciesSignalGroup {
   @doc("Aggregation type for child dependencies.")
@@ -535,6 +706,27 @@ model DependenciesSignalGroup {
   unhealthyThreshold?: string;
 }
 
+@added(Versions.v2026_01_01_preview)
+@doc("Properties for dependent entities, i.e. child entities")
+model DependenciesSignalGroupV2 {
+  @doc("Aggregation type for child dependencies.")
+  aggregationType: DependenciesAggregationType = DependenciesAggregationType.WorstOf;
+
+  @doc("Degraded threshold for aggregation. For MinHealthy: parent is degraded when healthy count/percentage falls to or below this value. For MaxNotHealthy: parent is degraded when not-healthy count/percentage reaches or exceeds this value. Optional — if not set, there is no degraded state (transitions directly from Healthy to Unhealthy).")
+  @minValue(0)
+  degradedThreshold?: float64;
+
+  @doc("Unhealthy threshold for aggregation. For MinHealthy: parent is unhealthy when healthy count/percentage falls to or below this value. For MaxNotHealthy: parent is unhealthy when not-healthy count/percentage reaches or exceeds this value. Required when aggregationType is MinHealthy or MaxNotHealthy.")
+  @minValue(0)
+  unhealthyThreshold?: float64;
+
+  @doc("Unit type for the aggregation thresholds. Required when aggregationType is MinHealthy or MaxNotHealthy.")
+  unit?: DependenciesAggregationUnit;
+
+  @doc("If true, children with Unknown health state are excluded from aggregation calculations. Defaults to true.")
+  ignoreUnknown?: boolean = true;
+}
+
 @doc("Aggregation type for child dependencies.")
 union DependenciesAggregationType {
   string,
@@ -542,10 +734,32 @@ union DependenciesAggregationType {
   @doc("Default behavior: Worst child health state is propagated.")
   WorstOf: "WorstOf",
 
+  @removed(Versions.v2026_01_01_preview)
   @doc("Based on configurable thresholds.")
   Thresholds: "Thresholds",
+
+  @added(Versions.v2026_01_01_preview)
+  @doc("Healthy if the count/percentage of healthy children meets the threshold.")
+  MinHealthy: "MinHealthy",
+
+  @added(Versions.v2026_01_01_preview)
+  @doc("Healthy if the count/percentage of not-healthy children stays below the threshold.")
+  MaxNotHealthy: "MaxNotHealthy",
 }
 
+@added(Versions.v2026_01_01_preview)
+@doc("Unit type for dependency aggregation thresholds.")
+union DependenciesAggregationUnit {
+  string,
+
+  @doc("Threshold is an absolute count of entities.")
+  Absolute: "Absolute",
+
+  @doc("Threshold is a percentage of entities (0-100).")
+  Percentage: "Percentage",
+}
+
+@removed(Versions.v2026_01_01_preview)
 @doc("A grouping of signal assignments and link to a data source")
 model SignalAssignmentGroup {
   @doc("Signal definitions which are assigned to this signal group. All assignments are combined with an OR operator.")
@@ -554,34 +768,196 @@ model SignalAssignmentGroup {
   signalAssignments?: SignalAssignment[];
 
   @doc("Reference to the name of the authentication setting which is used for querying the data source")
-  authenticationSetting: stringResourceName;
+  authenticationSetting: authenticationSettingName;
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("Group of signal definition assignments")
 model SignalAssignment {
   @doc("Signal definitions referenced by their names. All definitions are combined with an AND operator.")
   // @maxItems(50) - until the backend supports correlation, we need to limit this to 1
   @maxItems(1)
   @minItems(1)
-  signalDefinitions: stringResourceName[];
+  signalDefinitions: signalDefinitionName[];
 }
 
+@added(Versions.v2026_01_01_preview)
+@discriminator("signalKind")
+@doc("Additional properties for signal instances assigned to an entity")
+model SignalInstanceProperties {
+  @doc("Kind of the signal instance")
+  signalKind: SignalKind;
+
+  @doc("Unique name of the signal within the entity.")
+  name: signalName;
+
+  @doc("Optional reference to a signal definition that provides default values.")
+  signalDefinitionName?: signalDefinitionName;
+
+  @visibility(Lifecycle.Read)
+  @doc("Current status of the signal.")
+  status?: SignalStatus;
+}
+
+@removed(Versions.v2026_01_01_preview)
 @doc("A grouping of signal assignments for an Azure resource")
 model AzureResourceSignalGroup is SignalAssignmentGroup {
   @doc("Azure resource ID")
   azureResourceId: armResourceIdentifier<[]>;
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("A grouping of signal assignments for a Log Analytics Workspace")
 model LogAnalyticsSignalGroup is SignalAssignmentGroup {
   @doc("Log Analytics Workspace resource ID")
   logAnalyticsWorkspaceResourceId: LogAnalyticsWorkspaceResourceId;
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("A grouping of signal assignments for a Azure Monitor Workspace")
 model AzureMonitorWorkspaceSignalGroup is SignalAssignmentGroup {
   @doc("Azure Monitor workspace resource ID")
   azureMonitorWorkspaceResourceId: AzureMonitorWorkspaceResourceId;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("An Azure Resource Metric signal instance assigned to an entity.")
+model AzureResourceSignal extends SignalInstanceProperties {
+  @doc("Kind of the signal instance")
+  signalKind: SignalKind.AzureResourceMetric;
+
+  ...OptionalProperties<OmitProperties<
+    ResourceMetricSignalDefinitionProperties,
+    "provisioningState" | "tags" | "signalKind"
+  >>;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("A Log Analytics Query signal instance assigned to an entity.")
+model LogAnalyticsSignal extends SignalInstanceProperties {
+  @doc("Kind of the signal instance")
+  signalKind: SignalKind.LogAnalyticsQuery;
+
+  ...OptionalProperties<OmitProperties<
+    LogAnalyticsQuerySignalDefinitionProperties,
+    "provisioningState" | "tags" | "signalKind"
+  >>;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("A Prometheus Metrics Query signal instance assigned to an entity.")
+model PrometheusMetricsSignal extends SignalInstanceProperties {
+  @doc("Kind of the signal instance")
+  signalKind: SignalKind.PrometheusMetricsQuery;
+
+  ...OptionalProperties<OmitProperties<
+    PrometheusMetricsSignalDefinitionProperties,
+    "provisioningState" | "tags" | "signalKind"
+  >>;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Status of an Azure Resource Health signal, including availability information reported by Azure Resource Health.")
+model AzureResourceHealthSignalStatus is SignalStatus {
+  @visibility(Lifecycle.Read)
+  @doc("Availability status of the Azure resource as reported by Azure Resource Health.")
+  availabilityStatus?: string;
+
+  @visibility(Lifecycle.Read)
+  @doc("When a context field is set to Platform, this field will reflect if the event was planned or unplanned.")
+  category?: string256;
+
+  @visibility(Lifecycle.Read)
+  @doc("Detailed status of the Azure resource as reported by Azure Resource Health.")
+  detailedStatus?: string4096;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Azure resource health signal configuration")
+model AzureResourceHealthSignal {
+  @doc("Whether to automatically add a signal for the Azure resource's availability status from Azure Resource Health. Defaults to Enabled.")
+  enabled?: ResourceHealthAvailabilityStatusSignalBehavior = ResourceHealthAvailabilityStatusSignalBehavior.Enabled;
+
+  @visibility(Lifecycle.Read)
+  @doc("The unique name of the Azure resource health signal. System assigned.")
+  signalName?: string256;
+
+  @visibility(Lifecycle.Read)
+  @doc("Current status of the Azure resource health signal.")
+  status?: AzureResourceHealthSignalStatus;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("A grouping of Azure resource signals")
+model AzureResourceSignals {
+  @doc("Reference to the name of the authentication setting which is used for querying the data source.")
+  authenticationSetting: authenticationSettingName;
+
+  @doc("Azure resource ID")
+  azureResourceId: armResourceIdentifier<[]>;
+
+  @doc("Azure resource kind (e.g., 'functionapp'). Populated by the UI for icon rendering. Can be null if not populated.")
+  @minLength(0)
+  @maxLength(256)
+  azureResourceKind?: string;
+
+  @doc("Signals assigned to this group.")
+  @maxItems(50)
+  @identifiers(#["name"])
+  signals?: AzureResourceSignal[];
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Optional configuration for automatically adding a signal based on the resource's availability state in Azure Resource Health.")
+  resourceHealth?: AzureResourceHealthSignal;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("A grouping of Log Analytics workspace signals.")
+model LogAnalyticsSignals {
+  @doc("Reference to the name of the authentication setting which is used for querying the data source.")
+  authenticationSetting: authenticationSettingName;
+
+  @doc("Log Analytics workspace resource ID.")
+  logAnalyticsWorkspaceResourceId: LogAnalyticsWorkspaceResourceId;
+
+  @doc("Signals assigned to this group.")
+  @maxItems(50)
+  @identifiers(#["name"])
+  signals?: LogAnalyticsSignal[];
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("A grouping of Azure Monitor workspace signals.")
+model AzureMonitorWorkspaceSignals {
+  @doc("Reference to the name of the authentication setting which is used for querying the data source.")
+  authenticationSetting: authenticationSettingName;
+
+  @doc("Azure Monitor workspace resource ID.")
+  azureMonitorWorkspaceResourceId: AzureMonitorWorkspaceResourceId;
+
+  @doc("Signals assigned to this signal group.")
+  @maxItems(50)
+  @identifiers(#["name"])
+  signals?: PrometheusMetricsSignal[];
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("A grouping of externally submitted signals.")
+model ExternalSignalGroup {
+  @doc("Signals assigned to this signal group.")
+  @identifiers(#["name"])
+  @visibility(Lifecycle.Read)
+  signals?: ExternalSignal[];
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("An externally submitted signal instance assigned to an entity.")
+model ExternalSignal extends SignalInstanceProperties {
+  @doc("Kind of the signal instance")
+  signalKind: SignalKind.ExternalSignal;
+
+  @doc("Evaluation rules for the external signal as submitted.")
+  evaluationRules?: EvaluationRule;
 }
 
 @doc("Type of impact an entity has on health state propagation")
@@ -608,8 +984,13 @@ union HealthState {
   @doc("Degraded status")
   Degraded: "Degraded",
 
+  @removed(Versions.v2026_01_01_preview)
   @doc("Error status (Unhealthy)")
   Error: "Error",
+
+  @added(Versions.v2026_01_01_preview)
+  @doc("Unhealthy status")
+  Unhealthy: "Unhealthy",
 
   @doc("Unknown status")
   Unknown: "Unknown",
@@ -641,6 +1022,10 @@ scalar AzureMonitorWorkspaceResourceId
     }
   ]>;
 
+@pattern(proxyResourceNameRegex)
+@doc("Type for relationship resource name.")
+scalar relationshipName extends string;
+
 @doc("A relationship (aka edge) between two entities in a health model")
 @parentResource(HealthModel)
 model Relationship is ProxyResource<RelationshipProperties> {
@@ -648,7 +1033,7 @@ model Relationship is ProxyResource<RelationshipProperties> {
   @key("relationshipName")
   @segment("relationships")
   @path
-  name: stringResourceName;
+  name: relationshipName;
 }
 
 @doc("Relationship properties")
@@ -664,24 +1049,35 @@ model RelationshipProperties {
 
   @doc("Resource name of the parent entity")
   @visibility(Lifecycle.Create, Lifecycle.Read) // this cannot be changed
-  parentEntityName: stringResourceName;
+  parentEntityName: entityName;
 
   @doc("Resource name of the child entity")
   @visibility(Lifecycle.Create, Lifecycle.Read) // this cannot be changed
-  childEntityName: stringResourceName;
+  childEntityName: entityName;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "approved scenario for use as Tags alternative in proxy resource"
+  @removed(Versions.v2026_01_01_preview)
   @doc("Optional set of labels (key-value pairs)") // Since Relationship is a proxy resource, we cannot use Azure Tags
   labels?: Record<string4096>;
 
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "approved scenario for use as Tags alternative in proxy resource"
+  @added(Versions.v2026_01_01_preview)
+  @doc("Optional set of tags (key-value pairs)") // Since Relationship is a proxy resource, we cannot use Azure Tags
+  tags?: Record<string4096>;
+
   @visibility(Lifecycle.Read)
   @doc("Discovered by which discovery rule. If set, the relationship cannot be deleted manually.")
-  discoveredBy?: stringResourceName;
+  discoveredBy?: discoveryRuleName;
 
+  @removed(Versions.v2026_01_01_preview)
   @visibility(Lifecycle.Read)
   @doc("Date when the relationship was (soft-)deleted")
   deletionDate?: utcDateTime;
 }
+
+@pattern(proxyResourceNameRegex)
+@doc("Type for discovery rule resource name.")
+scalar discoveryRuleName extends string;
 
 @doc("A discovery rule which automatically finds entities and relationships in a health model based on an Azure Resource Graph query")
 @parentResource(HealthModel)
@@ -690,7 +1086,7 @@ model DiscoveryRule is ProxyResource<DiscoveryRuleProperties> {
   @key("discoveryRuleName")
   @segment("discoveryrules")
   @path
-  name: stringResourceName;
+  name: discoveryRuleName;
 }
 
 @doc("Discovery rule properties")
@@ -704,13 +1100,14 @@ model DiscoveryRuleProperties {
   @maxLength(260)
   displayName?: string;
 
+  @removed(Versions.v2026_01_01_preview)
   @doc("Azure Resource Graph query text in KQL syntax. The query must return at least a column named 'id' which contains the resource ID of the discovered resources.")
   @minLength(1)
   @maxLength(5000)
   resourceGraphQuery: string;
 
   @doc("Reference to the name of the authentication setting which is used for querying Azure Resource Graph. The same authentication setting will also be assigned to any discovered entities.")
-  authenticationSetting: stringResourceName;
+  authenticationSetting: authenticationSettingName;
 
   @doc("Whether to create relationships between the discovered entities based on a set of built-in rules. These relationships cannot be manually deleted.")
   discoverRelationships: DiscoveryRuleRelationshipDiscoveryBehavior;
@@ -718,14 +1115,30 @@ model DiscoveryRuleProperties {
   @doc("Whether to add all recommended signals to the discovered entities.")
   addRecommendedSignals: DiscoveryRuleRecommendedSignalsBehavior;
 
+  @added(Versions.v2026_01_01_preview)
+  @doc("Specification of the discovery rule defining how entities are discovered.")
+  specification: DiscoveryRuleSpecification;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Whether to automatically add a signal for the Azure resource's availability status from Azure Resource Health to the discovered entities.")
+  addResourceHealthSignal: ResourceHealthAvailabilityStatusSignalBehavior;
+
+  @removed(Versions.v2026_01_01_preview)
   @visibility(Lifecycle.Read)
   @doc("Date when the discovery rule was (soft-)deleted.")
   deletionDate?: utcDateTime;
 
+  @removed(Versions.v2026_01_01_preview)
   @visibility(Lifecycle.Read)
   @doc("Error message if the last discovery operation failed.")
   errorMessage?: string;
 
+  @added(Versions.v2026_01_01_preview)
+  @visibility(Lifecycle.Read)
+  @doc("Error details if the last discovery operation failed.")
+  error?: DiscoveryError;
+
+  @removed(Versions.v2026_01_01_preview)
   @visibility(Lifecycle.Read)
   @doc("Number of discovered entities in the last discovery operation.")
   numberOfDiscoveredEntities?: int32;
@@ -733,6 +1146,41 @@ model DiscoveryRuleProperties {
   @visibility(Lifecycle.Read)
   @doc("Name of the entity which represents the discovery rule. Note: It might take a few minutes after creating the discovery rule until the entity is created.")
   entityName: string;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("Base model for discovery rule specifications")
+@discriminator("kind")
+model DiscoveryRuleSpecification {
+  @doc("Kind of the discovery rule specification")
+  kind: DiscoveryRuleKind;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("Discovery rule specification for an Azure Resource Graph query")
+model ResourceGraphQuerySpecification extends DiscoveryRuleSpecification {
+  @doc("Kind of the discovery rule specification")
+  kind: DiscoveryRuleKind.ResourceGraphQuery;
+
+  @doc("Azure Resource Graph query text in KQL syntax. The query must return at least a column named 'id' which contains the resource ID of the discovered resources.")
+  @minLength(1)
+  @maxLength(5000)
+  resourceGraphQuery: string;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("Discovery rule specification for an Application Insights topology query")
+model ApplicationInsightsTopologySpecification
+  extends DiscoveryRuleSpecification {
+  @doc("Kind of the discovery rule specification")
+  kind: DiscoveryRuleKind.ApplicationInsightsTopology;
+
+  @doc("Application Insights resource ID")
+  applicationInsightsResourceId: armResourceIdentifier<[
+    {
+      type: "Microsoft.Insights/components";
+    }
+  ]>;
 }
 
 @doc("Discovery rule relationship discovery behavior")
@@ -757,6 +1205,296 @@ union DiscoveryRuleRecommendedSignalsBehavior {
   Disabled: "Disabled",
 }
 
+@doc("Resource health availability status signal behavior")
+union ResourceHealthAvailabilityStatusSignalBehavior {
+  string,
+
+  @doc("Automatically add resource health availability status signal")
+  Enabled: "Enabled",
+
+  @doc("Do not automatically add resource health availability status signal")
+  Disabled: "Disabled",
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("Discovery rule specification kind discriminator")
+union DiscoveryRuleKind {
+  string,
+
+  @doc("Azure Resource Graph query based discovery")
+  ResourceGraphQuery: "ResourceGraphQuery",
+
+  @doc("Application Insights topology based discovery")
+  ApplicationInsightsTopology: "ApplicationInsightsTopology",
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("Error details for a failed discovery operation")
+model DiscoveryError {
+  @visibility(Lifecycle.Read)
+  @doc("Error message")
+  message: string;
+
+  @visibility(Lifecycle.Read)
+  @doc("Additional context information, like resource IDs or query details")
+  context?: string[];
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("Request body for getting entity health history")
+model EntityHistoryRequest {
+  @doc("Start time for the history query. Defaults to 24 hours ago if not specified. Must be omitted when continuationToken is specified.")
+  startAt?: utcDateTime;
+
+  @doc("End time for the history query. Defaults to now if not specified. Must be omitted when continuationToken is specified.")
+  endAt?: utcDateTime;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Maximum number of health state transitions to return per page. Defaults to 1000.")
+  @maxValue(1000)
+  @minValue(1)
+  top?: int32;
+
+  @added(Versions.v2026_05_01_preview)
+  @secret
+  @doc("Continuation token from a previous response to retrieve the next page of results. Must not be combined with startAt or endAt.")
+  continuationToken?: secretString4096;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("Response containing entity health state transitions")
+model EntityHistoryResponse {
+  @doc("Name of the entity")
+  entityName: entityName;
+
+  @doc("List of health state transitions")
+  @identifiers(#["occurredAt"])
+  history: HealthStateTransition[];
+
+  @added(Versions.v2026_05_01_preview)
+  @secret
+  @doc("Continuation token to retrieve the next page of results. Null if there are no more results.")
+  continuationToken?: secretString4096;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("A health state transition record")
+model HealthStateTransition {
+  @doc("Previous health state before the transition")
+  previousState: HealthState;
+
+  @doc("New health state after the transition")
+  newState: HealthState;
+
+  @doc("Timestamp when the transition occurred")
+  occurredAt: utcDateTime;
+
+  @doc("Reason of the transition")
+  reason?: string4096;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("Request body for getting signal history")
+model SignalHistoryRequest {
+  @doc("Name of the signal to get history for")
+  signalName: signalName;
+
+  @doc("Start time for the history query. Defaults to 24 hours ago if not specified. Must be omitted when continuationToken is specified.")
+  startAt?: utcDateTime;
+
+  @doc("End time for the history query. Defaults to now if not specified. Must be omitted when continuationToken is specified.")
+  endAt?: utcDateTime;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Maximum number of data points to return per page. Defaults to 1000.")
+  @maxValue(1000)
+  @minValue(1)
+  top?: int32;
+
+  @added(Versions.v2026_05_01_preview)
+  @secret
+  @doc("Continuation token from a previous response to retrieve the next page of results. Must not be combined with startAt or endAt.")
+  continuationToken?: secretString4096;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("Response containing signal history")
+model SignalHistoryResponse {
+  @doc("Name of the entity")
+  entityName: entityName;
+
+  @doc("Name of the signal")
+  signalName: signalName;
+
+  @doc("Signal history data points")
+  @identifiers(#["occurredAt"])
+  history: SignalHistoryDataPoint[];
+
+  @added(Versions.v2026_05_01_preview)
+  @secret
+  @doc("Continuation token to retrieve the next page of results. Null if there are no more results.")
+  continuationToken?: secretString4096;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("A data point in the signal time series")
+model SignalHistoryDataPoint {
+  @doc("Timestamp of the data point")
+  occurredAt: utcDateTime;
+
+  @doc("Signal value at this point in time")
+  value?: float64;
+
+  @doc("Health state at this point in time")
+  healthState: HealthState;
+
+  @doc("Additional context as provided by the submitter")
+  additionalContext?: string4096;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("Health report that's submitted for a specific signal")
+model HealthReportRequest {
+  @doc("Name of the entity signal to report health for")
+  signalName: signalName;
+
+  @doc("Health state to report for the signal")
+  healthState: HealthState;
+
+  @doc("Reported value of the signal")
+  value?: float64;
+
+  @doc("Evaluation rules that were used to determine the reported health state")
+  evaluationRules?: HealthReportEvaluationRule;
+
+  @doc("Number of minutes until the health report expires. Defaults to 60 (1 hour) if not specified.")
+  @minValue(1)
+  @maxValue(10080) // = 1 week
+  expiresInMinutes?: int32 = 60;
+
+  @doc("Optional additional context or description for the health report")
+  additionalContext?: string4096;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("A single data annotation on an entity")
+model DataAnnotation {
+  @doc("Auto-assigned identifier for the annotation")
+  @visibility(Lifecycle.Read)
+  @maxLength(256)
+  annotationId?: string;
+
+  @doc("Timestamp when the annotation was created")
+  @visibility(Lifecycle.Read)
+  createdAt?: utcDateTime;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Annotation details are user-defined key-value pairs with arbitrary keys that cannot be modelled with a fixed schema"
+  @doc("Annotation details as a dynamic key-value pair bag. Each value is limited to 256 characters. A maximum of 10 entries is permitted per annotation.")
+  annotationDetails: Record<string256>;
+
+  @doc("Optional description of the annotation")
+  description?: string4096;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Request body for querying data annotations")
+model GetDataAnnotationsRequest {
+  @doc("Start of UTC time range. Defaults to 24 hours ago if not specified. Must be omitted when continuationToken is specified.")
+  startAt?: utcDateTime;
+
+  @doc("End of UTC time range. Defaults to now if not specified. Must be omitted when continuationToken is specified.")
+  endAt?: utcDateTime;
+
+  @doc("Maximum number of annotations to return per page.")
+  @maxValue(100)
+  @minValue(1)
+  top?: int32 = 100;
+
+  @secret
+  @doc("Continuation token from a previous response to retrieve the next page of results.")
+  continuationToken?: secretString4096;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Response containing data annotations for an entity")
+model GetDataAnnotationsResponse {
+  @doc("Name of the entity")
+  entityName: entityName;
+
+  @doc("List of data annotations")
+  @identifiers(#["annotationId"])
+  annotations: DataAnnotation[];
+
+  @secret
+  @doc("Continuation token to retrieve the next page of results. Null if there are no more results.")
+  continuationToken?: secretString4096;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("Evaluation rules for the health report")
+model HealthReportEvaluationRule {
+  ...EvaluationRule;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Request body for getting recommended signals for a given Azure resource type.")
+model GetSignalRecommendationsRequest {
+  @doc("Azure resource type to get recommended signals for (e.g. 'microsoft.compute/virtualMachines').")
+  @minLength(1)
+  @maxLength(256)
+  resourceType: string;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Response containing recommended signal configurations for a given Azure resource type.")
+model GetSignalRecommendationsResponse {
+  @doc("List of recommended signal configurations for the specified resource type. These signals are generally recommended to be used on the specified resource type.")
+  @identifiers(#["id"])
+  recommendedSignals?: SignalConfiguration[];
+
+  @doc("List of recommended configurations (thresholds etc.) for the specified resource type.")
+  @identifiers(#["id"])
+  recommendedConfigurations?: SignalConfiguration[];
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("A signal configuration for an Azure resource type")
+model SignalConfiguration {
+  @doc("Unique identifier of the recommended signal.")
+  id: string;
+
+  @doc("Metric namespace (e.g. 'microsoft.compute/virtualmachines').")
+  @minLength(1)
+  @maxLength(256)
+  metricNamespace?: string;
+
+  @doc("Name of the metric (e.g. 'Percentage CPU').")
+  @minLength(1)
+  @maxLength(256)
+  metricName?: string;
+
+  @doc("Type of aggregation to apply to the metric.")
+  aggregationType?: MetricAggregationType;
+
+  @doc("Unit of the metric (e.g. Percent, Bytes, Count).")
+  @minLength(1)
+  @maxLength(100)
+  unit?: string;
+
+  @doc("Time range of the metric. ISO 8601 duration format (e.g. 'PT5M').")
+  @minLength(1)
+  @maxLength(100)
+  timeGrain?: string;
+
+  @doc("Optional dimension filter to apply to the metric.")
+  @minLength(1)
+  @maxLength(256)
+  dimensionFilter?: string;
+
+  @doc("Evaluation rules with recommended thresholds.")
+  evaluationRules?: EvaluationRule;
+}
+
 alias TimestampQueryParam = {
   @doc("Timestamp to use for the operation. When specified, the version of the resource at this point in time is retrieved. If not specified, the latest version is used.")
   @query
@@ -767,6 +1505,7 @@ alias TimestampQueryParam = {
 interface HealthModels {
   get is ArmResourceRead<HealthModel>;
   create is ArmResourceCreateOrUpdateAsync<HealthModel>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     HealthModel,
@@ -778,13 +1517,39 @@ interface HealthModels {
   delete is ArmResourceDeleteWithoutOkAsync<HealthModel>;
   listByResourceGroup is ArmResourceListByParent<HealthModel>;
   listBySubscription is ArmListBySubscription<HealthModel>;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Get recommended signal configurations for a given Azure resource type")
+  @post
+  @action("getSignalRecommendations")
+  getSignalRecommendations is ArmResourceActionSync<
+    HealthModel,
+    GetSignalRecommendationsRequest,
+    GetSignalRecommendationsResponse
+  >;
 }
 
 @armResourceOperations(SignalDefinition)
 interface SignalDefinitions {
   get is ArmResourceRead<SignalDefinition>;
-  createOrUpdate is ArmResourceCreateOrReplaceSync<SignalDefinition>;
-  delete is ArmResourceDeleteSync<SignalDefinition>;
+
+  @removed(Versions.v2026_01_01_preview)
+  @renamedFrom(Versions.v2026_01_01_preview, "createOrUpdate")
+  @sharedRoute
+  createOrUpdateV1 is ArmResourceCreateOrReplaceSync<SignalDefinition>;
+
+  @removed(Versions.v2026_01_01_preview)
+  @renamedFrom(Versions.v2026_01_01_preview, "delete")
+  @sharedRoute
+  deleteV1 is ArmResourceDeleteSync<SignalDefinition>;
+
+  @added(Versions.v2026_01_01_preview)
+  @sharedRoute
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<SignalDefinition>;
+
+  @added(Versions.v2026_01_01_preview)
+  @sharedRoute
+  delete is ArmResourceDeleteWithoutOkAsync<SignalDefinition>;
 
   listByHealthModel is ArmResourceListByParent<
     SignalDefinition,
@@ -796,8 +1561,24 @@ interface SignalDefinitions {
 @armResourceOperations(AuthenticationSetting)
 interface AuthenticationSettings {
   get is ArmResourceRead<AuthenticationSetting>;
-  createOrUpdate is ArmResourceCreateOrReplaceSync<AuthenticationSetting>;
-  delete is ArmResourceDeleteSync<AuthenticationSetting>;
+
+  @removed(Versions.v2026_01_01_preview)
+  @renamedFrom(Versions.v2026_01_01_preview, "createOrUpdate")
+  @sharedRoute
+  createOrUpdateV1 is ArmResourceCreateOrReplaceSync<AuthenticationSetting>;
+
+  @removed(Versions.v2026_01_01_preview)
+  @renamedFrom(Versions.v2026_01_01_preview, "delete")
+  @sharedRoute
+  deleteV1 is ArmResourceDeleteSync<AuthenticationSetting>;
+
+  @added(Versions.v2026_01_01_preview)
+  @sharedRoute
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<AuthenticationSetting>;
+
+  @added(Versions.v2026_01_01_preview)
+  @sharedRoute
+  delete is ArmResourceDeleteWithoutOkAsync<AuthenticationSetting>;
 
   listByHealthModel is ArmResourceListByParent<AuthenticationSetting>;
 }
@@ -805,21 +1586,102 @@ interface AuthenticationSettings {
 @armResourceOperations(Entity)
 interface Entities {
   get is ArmResourceRead<Entity>;
-  createOrUpdate is ArmResourceCreateOrReplaceSync<Entity>;
-  delete is ArmResourceDeleteSync<Entity>;
+
+  @removed(Versions.v2026_01_01_preview)
+  @renamedFrom(Versions.v2026_01_01_preview, "createOrUpdate")
+  @sharedRoute
+  createOrUpdateV1 is ArmResourceCreateOrReplaceSync<Entity>;
+
+  @removed(Versions.v2026_01_01_preview)
+  @renamedFrom(Versions.v2026_01_01_preview, "delete")
+  @sharedRoute
+  deleteV1 is ArmResourceDeleteSync<Entity>;
+
+  @added(Versions.v2026_01_01_preview)
+  @sharedRoute
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<Entity>;
+
+  @added(Versions.v2026_01_01_preview)
+  @sharedRoute
+  delete is ArmResourceDeleteWithoutOkAsync<Entity>;
 
   listByHealthModel is ArmResourceListByParent<
     Entity,
     Azure.ResourceManager.Foundations.BaseParameters<Entity> &
       TimestampQueryParam
   >;
+
+  @added(Versions.v2026_01_01_preview)
+  @doc("Retrieve the health state transition history for an entity")
+  @post
+  @action("getHistory")
+  getHistory is ArmResourceActionSync<
+    Entity,
+    EntityHistoryRequest,
+    EntityHistoryResponse
+  >;
+
+  @added(Versions.v2026_01_01_preview)
+  @doc("Retrieve the time series history for a signal on an entity")
+  @post
+  @action("getSignalHistory")
+  getSignalHistory is ArmResourceActionSync<
+    Entity,
+    SignalHistoryRequest,
+    SignalHistoryResponse
+  >;
+
+  @added(Versions.v2026_01_01_preview)
+  @doc("Ingest a health report for a specific signal on an entity (the entity must already exist)")
+  @post
+  @action("ingestHealthReport")
+  ingestHealthReport is ArmResourceActionNoContentSync<
+    Entity,
+    HealthReportRequest
+  >;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Add a data annotation to an entity")
+  @post
+  @action("addDataAnnotation")
+  addDataAnnotation is ArmResourceActionSync<
+    Entity,
+    DataAnnotation,
+    DataAnnotation
+  >;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Retrieve data annotations for an entity")
+  @post
+  @action("getDataAnnotations")
+  getDataAnnotations is ArmResourceActionSync<
+    Entity,
+    GetDataAnnotationsRequest,
+    GetDataAnnotationsResponse
+  >;
 }
 
 @armResourceOperations(Relationship)
 interface Relationships {
   get is ArmResourceRead<Relationship>;
-  createOrUpdate is ArmResourceCreateOrReplaceSync<Relationship>;
-  delete is ArmResourceDeleteSync<Relationship>;
+
+  @removed(Versions.v2026_01_01_preview)
+  @renamedFrom(Versions.v2026_01_01_preview, "createOrUpdate")
+  @sharedRoute
+  createOrUpdateV1 is ArmResourceCreateOrReplaceSync<Relationship>;
+
+  @removed(Versions.v2026_01_01_preview)
+  @renamedFrom(Versions.v2026_01_01_preview, "delete")
+  @sharedRoute
+  deleteV1 is ArmResourceDeleteSync<Relationship>;
+
+  @added(Versions.v2026_01_01_preview)
+  @sharedRoute
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<Relationship>;
+
+  @added(Versions.v2026_01_01_preview)
+  @sharedRoute
+  delete is ArmResourceDeleteWithoutOkAsync<Relationship>;
 
   listByHealthModel is ArmResourceListByParent<
     Relationship,
@@ -831,8 +1693,24 @@ interface Relationships {
 @armResourceOperations(DiscoveryRule)
 interface DiscoveryRules {
   get is ArmResourceRead<DiscoveryRule>;
-  createOrUpdate is ArmResourceCreateOrReplaceSync<DiscoveryRule>;
-  delete is ArmResourceDeleteSync<DiscoveryRule>;
+
+  @removed(Versions.v2026_01_01_preview)
+  @renamedFrom(Versions.v2026_01_01_preview, "createOrUpdate")
+  @sharedRoute
+  createOrUpdateV1 is ArmResourceCreateOrReplaceSync<DiscoveryRule>;
+
+  @removed(Versions.v2026_01_01_preview)
+  @renamedFrom(Versions.v2026_01_01_preview, "delete")
+  @sharedRoute
+  deleteV1 is ArmResourceDeleteSync<DiscoveryRule>;
+
+  @added(Versions.v2026_01_01_preview)
+  @sharedRoute
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<DiscoveryRule>;
+
+  @added(Versions.v2026_01_01_preview)
+  @sharedRoute
+  delete is ArmResourceDeleteWithoutOkAsync<DiscoveryRule>;
 
   listByHealthModel is ArmResourceListByParent<
     DiscoveryRule,

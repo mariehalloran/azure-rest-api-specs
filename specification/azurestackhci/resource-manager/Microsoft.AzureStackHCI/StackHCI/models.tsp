@@ -7522,6 +7522,67 @@ model EdgeMachineReportedProperties {
    */
   @visibility(Lifecycle.Read)
   extensionProfile?: ExtensionProfile;
+
+  /**
+   * Read-only Hyper-V VM inventory reported by the device management extension for VMs visible on this node.
+   */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["workloadId"])
+  workloadInventory?: EdgeMachineWorkloadInventoryItem[];
+
+  /**
+   * Last time the device management extension refreshed the local Hyper-V workload inventory.
+   */
+  @visibility(Lifecycle.Read)
+  workloadInventoryLastUpdated?: string;
+}
+
+/**
+ * Represents a single workload (Hyper-V VM) inventory entry reported by the device management extension running on the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineWorkloadInventoryItem {
+  /**
+   * Stable device-reported workload identifier, such as the Hyper-V VM ID when available.
+   */
+  @visibility(Lifecycle.Read)
+  workloadId?: string;
+
+  /**
+   * Hyper-V VM name.
+   */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /**
+   * Optional ARM resource ID when the service can map the local VM to an ARM resource.
+   */
+  @visibility(Lifecycle.Read)
+  resourceId?: Azure.Core.armResourceIdentifier;
+
+  /**
+   * Workload type. For v1 this should be VirtualMachine.
+   */
+  @visibility(Lifecycle.Read)
+  workloadType?: string;
+
+  /**
+   * Hyper-V VM state reported by the node.
+   */
+  @visibility(Lifecycle.Read)
+  state?: string;
+
+  /**
+   * Configured virtual processor count from Hyper-V.
+   */
+  @visibility(Lifecycle.Read)
+  virtualProcessorCount?: string;
+
+  /**
+   * Maximum memory the VM can consume, in bytes.
+   */
+  @visibility(Lifecycle.Read)
+  memoryInBytes?: string;
 }
 
 /**
@@ -8372,6 +8433,11 @@ model TargetDeviceConfiguration {
    * Storage configuration.
    */
   storage?: StorageConfiguration;
+
+  /**
+   * Volume configuration.
+   */
+  volume?: ProvisionOsVolumeConfiguration;
 }
 
 /**
@@ -8395,6 +8461,49 @@ model StorageConfiguration {
    * Partition size.
    */
   partitionSize?: string;
+}
+
+/**
+ * Volume configuration for device provisioning.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProvisionOsVolumeConfiguration {
+  /**
+   * List of volume details.
+   */
+  @Azure.ResourceManager.identifiers(#[])
+  configuration?: VolumeDetails[];
+}
+
+/**
+ * Details of a volume to be configured on the device.
+ */
+@added(Versions.v2026_03_15_preview)
+model VolumeDetails {
+  /**
+   * Size of the volume in bytes.
+   */
+  sizeInBytes?: string;
+
+  /**
+   * Mount path for the volume.
+   */
+  path?: string;
+
+  /**
+   * File system type to format the volume with.
+   */
+  fileSystem?: DiskFileSystemType;
+
+  /**
+   * Name of the volume.
+   */
+  name?: string;
+
+  /**
+   * Name of the disk on which the volume resides.
+   */
+  diskName?: string;
 }
 
 /**
@@ -8446,6 +8555,81 @@ model NetworkAdapter {
    * VLAN ID for the network setup.
    */
   vlanId?: string;
+
+  /**
+   * Interface description of NIC.
+   */
+  interfaceDescription?: string;
+
+  /**
+   * Component ID of NIC.
+   */
+  componentId?: string;
+
+  /**
+   * Driver version of NIC.
+   */
+  driverVersion?: string;
+
+  /**
+   * Default isolation of management NIC.
+   */
+  defaultIsolationId?: string;
+
+  /**
+   * The slot attached to the NIC.
+   */
+  slot?: string;
+
+  /**
+   * The switch attached to the NIC, if any.
+   */
+  switchName?: string;
+
+  /**
+   * Type of network interface.
+   */
+  interfaceType?: NetworkInterfaceType;
+
+  /**
+   * Interface speed in Mbps.
+   */
+  interfaceSpeed?: int32;
+
+  /**
+   * Current state of the interface.
+   */
+  interfaceState?: InterfaceState;
+
+  /**
+   * The type of NIC (physical, virtual, management).
+   */
+  nicType?: string;
+
+  /**
+   * The status of NIC (up, disconnected).
+   */
+  nicStatus?: string;
+
+  /**
+   * Indicates if this is a management interface.
+   */
+  managementInterface?: boolean;
+
+  /**
+   * RDMA capability of the network adapter.
+   */
+  rdmaCapability?: RdmaCapability;
+
+  /**
+   * The observed state of network adapter.
+   */
+  networkAdapterStatus?: NetworkAdapterStatus;
+
+  /**
+   * WiFi configuration properties.
+   */
+  wifiConfiguration?: WifiConfigurationReportedProperties;
 }
 
 /**
@@ -11125,4 +11309,74 @@ model EdgeMachineUpdateProperties {
    */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
+}
+
+////////////////////////////////////////////////////////////////
+////// EdgeMachineSecuritySettings Models /////////////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Properties of an Edge Machine Security Settings resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineSecurityProperties {
+  /**
+   * The provisioning state of the resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Compliance status values synchronized from Guest Configuration.
+   */
+  @visibility(Lifecycle.Read)
+  securityComplianceStatus?: EdgeMachineSecurityComplianceStatus;
+
+  /**
+   * First synchronization timestamp in UTC.
+   */
+  @visibility(Lifecycle.Read)
+  registrationTimestamp?: utcDateTime;
+
+  /**
+   * Most recent synchronization timestamp in UTC.
+   */
+  @visibility(Lifecycle.Read)
+  lastSyncTimestamp?: utcDateTime;
+}
+
+/**
+ * Compliance status payload for edge machine security settings.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineSecurityComplianceStatus {
+  /**
+   * FIPS compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  fipsStatus?: ComplianceStatus;
+
+  /**
+   * Secure Boot compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  secureBootStatus?: ComplianceStatus;
+
+  /**
+   * Encryption at rest compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  encryptionAtRestStatus?: ComplianceStatus;
+
+  /**
+   * SELinux policy compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  seLinuxPolicyStatus?: ComplianceStatus;
+
+  /**
+   * Security baseline compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  securityBaselineStatus?: ComplianceStatus;
 }

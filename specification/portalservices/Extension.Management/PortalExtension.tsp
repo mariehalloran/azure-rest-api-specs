@@ -116,31 +116,38 @@ interface PortalExtensions {
   >;
 }
 
-@@doc(PortalExtensions.createOrUpdate::parameters.resource,
+@@doc(
+  PortalExtensions.createOrUpdate::parameters.resource,
   "The parameters required to create or update a portal extension."
 );
-@@doc(PortalExtensions.update::parameters.properties,
+@@doc(
+  PortalExtensions.update::parameters.properties,
   "The updatable fields of a portal extension."
 );
-@@doc(PortalExtensions.alter::parameters.body,
+@@doc(
+  PortalExtensions.alter::parameters.body,
   "The parameters required to alter portal extension sources."
 );
-@@doc(PortalExtensions.compileFile::parameters.body,
+@@doc(
+  PortalExtensions.compileFile::parameters.body,
   "The parameters required to compile a source file."
 );
-@@doc(PortalExtensions.export::parameters.body,
+@@doc(
+  PortalExtensions.export::parameters.body,
   "The parameters required to export the extension."
 );
 
 @@clientName(PortalExtensions.export::parameters.body, "portalExtensionExport");
 
-@@clientName(PortalExtensions.compileFile::parameters.body,
+@@clientName(
+  PortalExtensions.compileFile::parameters.body,
   "portalExtensionCompileFile"
 );
 
 @@clientName(PortalExtensions.alter::parameters.body, "portalExtensionAlter");
 
-@@clientName(PortalExtensions.createOrUpdate::parameters.resource,
+@@clientName(
+  PortalExtensions.createOrUpdate::parameters.resource,
   "portalExtension"
 );
 
