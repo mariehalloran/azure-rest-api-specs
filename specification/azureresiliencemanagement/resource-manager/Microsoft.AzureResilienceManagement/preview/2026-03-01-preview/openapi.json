@@ -7165,6 +7165,10 @@
           "$ref": "#/definitions/RBACState",
           "description": "RBAC required by Drill MSI on the target resource for monitoring."
         },
+        "target": {
+          "$ref": "#/definitions/ExtensionObjectState",
+          "description": "Target extension resource is missing on the resource."
+        },
         "resourceState": {
           "type": "array",
           "description": "Drill Resource State (wrt SG and RO).",

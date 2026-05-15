@@ -152,7 +152,7 @@ model DrillResourceAttentionReason {
   monitoringRbacOnTargets?: RBACState;
 
   @doc("Target extension resource is missing on the resource.")
-  @removed(Versions.v2026_03_01_preview)
+  @removed(Versions.v2026_04_01_preview)
   target?: ExtensionObjectState;
 
   @doc("Drill Resource State (wrt SG and RO).")
