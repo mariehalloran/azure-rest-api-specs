@@ -43,20 +43,16 @@ interface NetworkInterfaceAttachments {
   listSubscription is ArmListBySubscription<NetworkInterfaceAttachment>;
 }
 
-@@Azure.ClientGenerator.Core.clientName(
-  NetworkInterfaceAttachments.createOrUpdate::parameters.resource,
+@@Azure.ClientGenerator.Core.clientName(NetworkInterfaceAttachments.createOrUpdate::parameters.resource,
   "networkInterfaceAttachmentObject"
 );
-@@clientName(
-  NetworkInterfaceAttachments.createOrUpdate::parameters.resource,
+@@clientName(NetworkInterfaceAttachments.createOrUpdate::parameters.resource,
   "networkInterfaceAttachmentObject"
 );
 
-@@Azure.ClientGenerator.Core.clientName(
-  NetworkInterfaceAttachments.update::parameters.properties,
+@@Azure.ClientGenerator.Core.clientName(NetworkInterfaceAttachments.update::parameters.properties,
   "networkInterfaceAttachmentPatch"
 );
-@@clientName(
-  NetworkInterfaceAttachments.update::parameters.properties,
+@@clientName(NetworkInterfaceAttachments.update::parameters.properties,
   "networkInterfaceAttachmentPatch"
 );

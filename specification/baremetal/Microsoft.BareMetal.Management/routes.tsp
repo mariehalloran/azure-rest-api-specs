@@ -28,21 +28,18 @@ interface Locations {
     @doc("The updateRoutesOnVirtualNetwork object.")
     @bodyRoot
     updateRoutesOnVirtualNetworkObject: UpdateRoutesOnVirtualNetwork,
-  ):
-    | ArmResponse<UpdateRoutesOnVirtualNetwork>
-    | {
-        ...AcceptedResponse;
-        ...Azure.Core.Foundations.RetryAfterHeader;
-        ...ArmLroLocationHeader<FinalResult = UpdateRoutesOnVirtualNetwork>;
-      }
-    | ErrorResponse;
+  ): ArmResponse<UpdateRoutesOnVirtualNetwork> | {
+    ...AcceptedResponse;
+    ...Azure.Core.Foundations.RetryAfterHeader;
+    ...ArmLroLocationHeader<FinalResult = UpdateRoutesOnVirtualNetwork>;
+  } | ErrorResponse;
 
   @doc("Get Utilization for Clusters.")
   @armResourceList(ClusterList)
   @autoRoute
   @action
   @get
-  utilization(...ResourceInstanceParameters<Location>):
-    | ArmResponse<ClusterList>
-    | ErrorResponse;
+  utilization(
+    ...ResourceInstanceParameters<Location>,
+  ): ArmResponse<ClusterList> | ErrorResponse;
 }
