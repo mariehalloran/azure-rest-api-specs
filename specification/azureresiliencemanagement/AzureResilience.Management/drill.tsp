@@ -112,13 +112,13 @@ interface Drills {
       Azure.Core.Foundations.RetryAfterHeader
   >;
 
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "Long-running post with no response body for v2026_04_01_preview"
   @route(ServiceGroupRoute)
   @added(Versions.v2026_04_01_preview)
   @sharedRoute
   @armResourceAction(Drill)
   @post
   @doc("This enables the user to include, exclude or update resources from their Drill.")
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "Long-running post with no response body for v2026_04_01_preview"
   addOrUpdateResources is ArmResourceActionAsync<
     Drill,
     AddOrUpdateResourcesRequest,
