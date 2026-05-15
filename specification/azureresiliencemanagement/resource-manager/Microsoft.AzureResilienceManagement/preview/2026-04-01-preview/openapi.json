@@ -66,9 +66,6 @@
       "name": "RecoveryJobs"
     },
     {
-      "name": "RecoveryChildJobs"
-    },
-    {
       "name": "RecoveryJobResources"
     },
     {
@@ -81,19 +78,7 @@
       "name": "DrillRuns"
     },
     {
-      "name": "DrillRunChildJobs"
-    },
-    {
       "name": "DrillRunResources"
-    },
-    {
-      "name": "ChaosJobs"
-    },
-    {
-      "name": "ChaosJobResources"
-    },
-    {
-      "name": "ChaosJobChildJobs"
     },
     {
       "name": "UnifiedResilienceItems"
@@ -137,11 +122,6 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "x-ms-examples": {
-          "OperationStatus_Get_MaximumSet": {
-            "$ref": "./examples/OperationStatus_Get_MaximumSet_Gen.json"
-          }
         }
       }
     },
@@ -169,14 +149,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "Operations_List_MaximumSet": {
-            "$ref": "./examples/Operations_List_MaximumSet_Gen.json"
-          },
-          "Operations_List_MinimumSet": {
-            "$ref": "./examples/Operations_List_MinimumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -219,11 +191,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "Drills_List_MaximumSet": {
-            "$ref": "./examples/Drills_List_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -264,11 +231,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "Drills_Get_MaximumSet": {
-            "$ref": "./examples/Drills_Get_MaximumSet_Gen.json"
           }
         }
       },
@@ -332,11 +294,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "Drills_Create_MaximumSet": {
-            "$ref": "./examples/Drills_Create_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -407,11 +364,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "Drills_Update_MaximumSet": {
-            "$ref": "./examples/Drills_Update_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -464,11 +416,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "Drills_Delete_MaximumSet": {
-            "$ref": "./examples/Drills_Delete_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -511,12 +458,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/AddOrUpdateResourcesResponse"
-            }
-          },
           "202": {
             "description": "Resource operation accepted.",
             "headers": {
@@ -535,16 +476,14 @@
               }
             }
           },
+          "204": {
+            "description": "Azure operation completed successfully."
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "Drills_AddOrUpdateResources_MaximumSet": {
-            "$ref": "./examples/Drills_AddOrUpdateResources_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -596,11 +535,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "DrillResources_List_MaximumSet": {
-            "$ref": "./examples/DrillResources_List_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -650,11 +584,6 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "x-ms-examples": {
-          "DrillResources_Get_MaximumSet": {
-            "$ref": "./examples/DrillResources_Get_MaximumSet_Gen.json"
-          }
         }
       }
     },
@@ -693,11 +622,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "DrillRuns_List_MaximumSet": {
-            "$ref": "./examples/DrillRuns_List_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -748,11 +672,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "DrillRuns_Get_MaximumSet": {
-            "$ref": "./examples/DrillRuns_Get_MaximumSet_Gen.json"
           }
         }
       }
@@ -832,507 +751,10 @@
             }
           }
         },
-        "x-ms-examples": {
-          "DrillRuns_AddNotes_MaximumSet": {
-            "$ref": "./examples/DrillRuns_AddNotes_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
         "x-ms-long-running-operation": true
-      }
-    },
-    "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/drills/{drillName}/drillRuns/{drillRunName}/chaosJobs": {
-      "get": {
-        "operationId": "ChaosJobs_List",
-        "tags": [
-          "ChaosJobs"
-        ],
-        "description": "List ChaosJob resources by DrillRun",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ServiceGroupBaseParameters"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "drillName",
-            "in": "path",
-            "description": "The name of the Drill",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "drillRunName",
-            "in": "path",
-            "description": "The name of the DrillRun (GUID).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ChaosJobListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ChaosJobs_List_MaximumSet": {
-            "$ref": "./examples/ChaosJobs_List_MaximumSet_Gen.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/drills/{drillName}/drillRuns/{drillRunName}/chaosJobs/{chaosJobName}": {
-      "get": {
-        "operationId": "ChaosJobs_Get",
-        "tags": [
-          "ChaosJobs"
-        ],
-        "description": "Get a ChaosJob",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ServiceGroupBaseParameters"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "drillName",
-            "in": "path",
-            "description": "The name of the Drill",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "drillRunName",
-            "in": "path",
-            "description": "The name of the DrillRun (GUID).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          },
-          {
-            "name": "chaosJobName",
-            "in": "path",
-            "description": "The unique name of the chaos job (GUID).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ChaosJob"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ChaosJobs_Get_MaximumSet": {
-            "$ref": "./examples/ChaosJobs_Get_MaximumSet_Gen.json"
-          }
-        }
-      }
-    },
-    "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/drills/{drillName}/drillRuns/{drillRunName}/chaosJobs/{chaosJobName}/chaosJobChildJobs": {
-      "get": {
-        "operationId": "ChaosJobChildJobs_List",
-        "tags": [
-          "ChaosJobChildJobs"
-        ],
-        "description": "List ChaosJobChildJob resources by ChaosJob",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ServiceGroupBaseParameters"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "drillName",
-            "in": "path",
-            "description": "The name of the Drill",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "drillRunName",
-            "in": "path",
-            "description": "The name of the DrillRun (GUID).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          },
-          {
-            "name": "chaosJobName",
-            "in": "path",
-            "description": "The unique name of the chaos job (GUID).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ChaosJobChildJobListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ChaosJobChildJobs_List_MaximumSet": {
-            "$ref": "./examples/ChaosJobChildJobs_List_MaximumSet_Gen.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/drills/{drillName}/drillRuns/{drillRunName}/chaosJobs/{chaosJobName}/chaosJobChildJobs/{chaosJobChildJobName}": {
-      "get": {
-        "operationId": "ChaosJobChildJobs_Get",
-        "tags": [
-          "ChaosJobChildJobs"
-        ],
-        "description": "Get a ChaosJobChildJob",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ServiceGroupBaseParameters"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "drillName",
-            "in": "path",
-            "description": "The name of the Drill",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "drillRunName",
-            "in": "path",
-            "description": "The name of the DrillRun (GUID).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          },
-          {
-            "name": "chaosJobName",
-            "in": "path",
-            "description": "The unique name of the chaos job (GUID).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          },
-          {
-            "name": "chaosJobChildJobName",
-            "in": "path",
-            "description": "The unique name (Guid) of the Chaos job child job",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ChaosJobChildJob"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ChaosJobChildJobs_Get_MaximumSet": {
-            "$ref": "./examples/ChaosJobChildJobs_Get_MaximumSet_Gen.json"
-          }
-        }
-      }
-    },
-    "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/drills/{drillName}/drillRuns/{drillRunName}/chaosJobs/{chaosJobName}/chaosJobResources": {
-      "get": {
-        "operationId": "ChaosJobResources_List",
-        "tags": [
-          "ChaosJobResources"
-        ],
-        "description": "List ChaosJobResource resources by ChaosJob",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ServiceGroupBaseParameters"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "drillName",
-            "in": "path",
-            "description": "The name of the Drill",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "drillRunName",
-            "in": "path",
-            "description": "The name of the DrillRun (GUID).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          },
-          {
-            "name": "chaosJobName",
-            "in": "path",
-            "description": "The unique name of the chaos job (GUID).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ChaosJobResourceListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ChaosJobResources_List_MaximumSet": {
-            "$ref": "./examples/ChaosJobResources_List_MaximumSet_Gen.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/drills/{drillName}/drillRuns/{drillRunName}/chaosJobs/{chaosJobName}/chaosJobResources/{chaosJobResourceName}": {
-      "get": {
-        "operationId": "ChaosJobResources_Get",
-        "tags": [
-          "ChaosJobResources"
-        ],
-        "description": "Get a ChaosJobResource",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ServiceGroupBaseParameters"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "drillName",
-            "in": "path",
-            "description": "The name of the Drill",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "drillRunName",
-            "in": "path",
-            "description": "The name of the DrillRun (GUID).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          },
-          {
-            "name": "chaosJobName",
-            "in": "path",
-            "description": "The unique name of the chaos job (GUID).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          },
-          {
-            "name": "chaosJobResourceName",
-            "in": "path",
-            "description": "The unique name (GUID) of the chaos job resource.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ChaosJobResource"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ChaosJobResources_Get_MaximumSet": {
-            "$ref": "./examples/ChaosJobResources_Get_MaximumSet_Gen.json"
-          }
-        }
-      }
-    },
-    "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/drills/{drillName}/drillRuns/{drillRunName}/drillRunChildJobs": {
-      "get": {
-        "operationId": "DrillRunChildJobs_List",
-        "tags": [
-          "DrillRunChildJobs"
-        ],
-        "description": "List DrillRunChildJob resources by DrillRun",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ServiceGroupBaseParameters"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "drillName",
-            "in": "path",
-            "description": "The name of the Drill",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "drillRunName",
-            "in": "path",
-            "description": "The name of the DrillRun (GUID).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/DrillRunChildJobListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DrillRunChildJobs_List_MaximumSet": {
-            "$ref": "./examples/DrillRunChildJobs_List_MaximumSet_Gen.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/drills/{drillName}/drillRuns/{drillRunName}/drillRunChildJobs/{drillRunChildJobName}": {
-      "get": {
-        "operationId": "DrillRunChildJobs_Get",
-        "tags": [
-          "DrillRunChildJobs"
-        ],
-        "description": "Get a DrillRunChildJob",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ServiceGroupBaseParameters"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "drillName",
-            "in": "path",
-            "description": "The name of the Drill",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "drillRunName",
-            "in": "path",
-            "description": "The name of the DrillRun (GUID).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          },
-          {
-            "name": "drillRunChildJobName",
-            "in": "path",
-            "description": "The unique name (Guid) of the DrillRun child job",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/DrillRunChildJob"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DrillRunChildJobs_Get_MaximumSet": {
-            "$ref": "./examples/DrillRunChildJobs_Get_MaximumSet_Gen.json"
-          }
-        }
       }
     },
     "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/drills/{drillName}/drillRuns/{drillRunName}/drillRunResources": {
@@ -1378,11 +800,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "DrillRunResources_List_MaximumSet": {
-            "$ref": "./examples/DrillRunResources_List_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -1441,11 +858,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "DrillRunResources_Get_MaximumSet": {
-            "$ref": "./examples/DrillRunResources_Get_MaximumSet_Gen.json"
           }
         }
       }
@@ -1523,11 +935,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "DrillRuns_FailOver_MaximumSet": {
-            "$ref": "./examples/DrillRuns_FailOver_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -1611,11 +1018,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "DrillRuns_MarkAsComplete_MaximumSet": {
-            "$ref": "./examples/DrillRuns_MarkAsComplete_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -1688,11 +1090,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "DrillRuns_Reprotect_MaximumSet": {
-            "$ref": "./examples/DrillRuns_Reprotect_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -1763,183 +1160,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "DrillRuns_Resume_MaximumSet": {
-            "$ref": "./examples/DrillRuns_Resume_MaximumSet_Gen.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
-      }
-    },
-    "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/drills/{drillName}/drillRuns/{drillRunName}/testFailOver": {
-      "post": {
-        "operationId": "DrillRuns_TestFailOver",
-        "tags": [
-          "DrillRuns"
-        ],
-        "description": "This initiates a new Test-Failover operation on this Drill Run.",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ServiceGroupBaseParameters"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/RequiredRequestHeaders"
-          },
-          {
-            "name": "drillName",
-            "in": "path",
-            "description": "The name of the Drill",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "drillRunName",
-            "in": "path",
-            "description": "The name of the DrillRun (GUID).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "The content of the action request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DrillRunTestFailoverRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/DrillRunActionResponse"
-            }
-          },
-          "202": {
-            "description": "Resource operation accepted.",
-            "headers": {
-              "Azure-AsyncOperation": {
-                "type": "string",
-                "description": "A link to the status monitor"
-              },
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DrillRuns_TestFailOver_MaximumSet": {
-            "$ref": "./examples/DrillRuns_TestFailOver_MaximumSet_Gen.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
-      }
-    },
-    "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/drills/{drillName}/drillRuns/{drillRunName}/testFailOverCleanup": {
-      "post": {
-        "operationId": "DrillRuns_TestFailOverCleanup",
-        "tags": [
-          "DrillRuns"
-        ],
-        "description": "This initiates a new Test-Failover Cleanup operation on this Drill Run.",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ServiceGroupBaseParameters"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/RequiredRequestHeaders"
-          },
-          {
-            "name": "drillName",
-            "in": "path",
-            "description": "The name of the Drill",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "drillRunName",
-            "in": "path",
-            "description": "The name of the DrillRun (GUID).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "The content of the action request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DrillRunTestFailoverCleanupRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/DrillRunActionResponse"
-            }
-          },
-          "202": {
-            "description": "Resource operation accepted.",
-            "headers": {
-              "Azure-AsyncOperation": {
-                "type": "string",
-                "description": "A link to the status monitor"
-              },
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DrillRuns_TestFailOverCleanup_MaximumSet": {
-            "$ref": "./examples/DrillRuns_TestFailOverCleanup_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -2015,74 +1235,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "Drills_End_MaximumSet": {
-            "$ref": "./examples/Drills_End_MaximumSet_Gen.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
-      }
-    },
-    "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/drills/{drillName}/refreshReadinessState": {
-      "post": {
-        "operationId": "Drills_RefreshReadinessState",
-        "tags": [
-          "Drills"
-        ],
-        "description": "This triggers detection of any drifts from the desired state of Resources and RBAC.",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ServiceGroupBaseParameters"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/RequiredRequestHeaders"
-          },
-          {
-            "name": "drillName",
-            "in": "path",
-            "description": "The name of the Drill",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Resource operation accepted.",
-            "headers": {
-              "Azure-AsyncOperation": {
-                "type": "string",
-                "description": "A link to the status monitor"
-              },
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Drills_RefreshReadinessState_MaximumSet": {
-            "$ref": "./examples/Drills_RefreshReadinessState_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -2139,11 +1291,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "Drills_ResyncReadinessCheck_MaximumSet": {
-            "$ref": "./examples/Drills_ResyncReadinessCheck_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -2219,11 +1366,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "Drills_Start_MaximumSet": {
-            "$ref": "./examples/Drills_Start_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -2297,11 +1439,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "Drills_ValidateForExecution_MaximumSet": {
-            "$ref": "./examples/Drills_ValidateForExecution_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -2341,14 +1478,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "GoalAssignments_List_MaximumSet": {
-            "$ref": "./examples/GoalAssignments_List_MaximumSet_Gen.json"
-          },
-          "GoalAssignments_List_MinimumSet": {
-            "$ref": "./examples/GoalAssignments_List_MinimumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -2391,11 +1520,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "GoalAssignments_Get_MaximumSet": {
-            "$ref": "./examples/GoalAssignments_Get_MaximumSet_Gen.json"
           }
         }
       },
@@ -2463,14 +1587,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "GoalAssignments_CreateOrUpdate_MaximumSet": {
-            "$ref": "./examples/GoalAssignments_CreateOrUpdate_MaximumSet_Gen.json"
-          },
-          "GoalAssignments_CreateOrUpdate_MinimumSet": {
-            "$ref": "./examples/GoalAssignments_CreateOrUpdate_MinimumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -2541,11 +1657,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "GoalAssignments_Update_MaximumSet": {
-            "$ref": "./examples/GoalAssignments_Update_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -2602,11 +1713,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "GoalAssignments_Delete_MaximumSet": {
-            "$ref": "./examples/GoalAssignments_Delete_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -2654,11 +1760,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "GoalResources_List_MaximumSet": {
-            "$ref": "./examples/GoalResources_List_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -2709,17 +1810,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "GoalResources_Get_Complete_Example": {
-            "$ref": "./examples/GoalResources_Get_Complete_Example.json"
-          },
-          "GoalResources_Get_MaximumSet": {
-            "$ref": "./examples/GoalResources_Get_MaximumSet_Gen.json"
-          },
-          "GoalResources_Get_MinimumSet": {
-            "$ref": "./examples/GoalResources_Get_MinimumSet_Gen.json"
           }
         }
       }
@@ -2788,11 +1878,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "GoalAssignments_RecommendCapacity_MaximumSet": {
-            "$ref": "./examples/GoalAssignments_RecommendCapacity_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -2852,11 +1937,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "GoalAssignments_RefreshGoalResources_MaximumSet": {
-            "$ref": "./examples/GoalAssignments_RefreshGoalResources_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -2929,11 +2009,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "GoalAssignments_UpdateGoalResources_MaximumSet": {
-            "$ref": "./examples/GoalAssignments_UpdateGoalResources_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -2973,14 +2048,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "GoalTemplates_List_MaximumSet": {
-            "$ref": "./examples/GoalTemplates_List_MaximumSet_Gen.json"
-          },
-          "GoalTemplates_List_MinimumSet": {
-            "$ref": "./examples/GoalTemplates_List_MinimumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -3023,11 +2090,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "GoalTemplates_Get_MaximumSet": {
-            "$ref": "./examples/GoalTemplates_Get_MaximumSet_Gen.json"
           }
         }
       },
@@ -3091,14 +2153,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "GoalTemplates_CreateOrUpdate_MaximumSet": {
-            "$ref": "./examples/GoalTemplates_CreateOrUpdate_MaximumSet_Gen.json"
-          },
-          "GoalTemplates_CreateOrUpdate_MinimumSet": {
-            "$ref": "./examples/GoalTemplates_CreateOrUpdate_MinimumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -3169,11 +2223,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "GoalTemplates_Update_MaximumSet": {
-            "$ref": "./examples/GoalTemplates_Update_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -3226,14 +2275,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "GoalTemplates_Delete_MaximumSet": {
-            "$ref": "./examples/GoalTemplates_Delete_MaximumSet_Gen.json"
-          },
-          "GoalTemplates_Delete_MinimumSet": {
-            "$ref": "./examples/GoalTemplates_Delete_MinimumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -3273,11 +2314,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryPlans_List_MaximumSet": {
-            "$ref": "./examples/RecoveryPlans_List_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -3320,11 +2356,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryPlans_Get_MaximumSet": {
-            "$ref": "./examples/RecoveryPlans_Get_MaximumSet_Gen.json"
           }
         }
       },
@@ -3388,11 +2419,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryPlans_CreateOrUpdate_MaximumSet": {
-            "$ref": "./examples/RecoveryPlans_CreateOrUpdate_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -3459,11 +2485,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "RecoveryPlans_Update_MaximumSet": {
-            "$ref": "./examples/RecoveryPlans_Update_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -3514,11 +2535,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryPlans_Delete_MaximumSet": {
-            "$ref": "./examples/RecoveryPlans_Delete_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -3583,11 +2599,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryPlanActions_CheckReadiness_MaximumSet": {
-            "$ref": "./examples/RecoveryPlanActions_CheckReadiness_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -3659,11 +2670,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "RecoveryPlanActions_Failover_MaximumSet": {
-            "$ref": "./examples/RecoveryPlanActions_Failover_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -3722,11 +2728,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryPlanActions_FailoverCommit_MaximumSet": {
-            "$ref": "./examples/RecoveryPlanActions_FailoverCommit_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -3789,11 +2790,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "RecoveryPlanActions_Finalize_MaximumSet": {
-            "$ref": "./examples/RecoveryPlanActions_Finalize_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -3835,11 +2831,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryJobs_List_MaximumSet": {
-            "$ref": "./examples/RecoveryJobs_List_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -3890,11 +2881,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryJobs_Get_MaximumSet": {
-            "$ref": "./examples/RecoveryJobs_Get_MaximumSet_Gen.json"
           }
         }
       }
@@ -3970,130 +2956,10 @@
             }
           }
         },
-        "x-ms-examples": {
-          "RecoveryJobs_Cancel_MaximumSet": {
-            "$ref": "./examples/RecoveryJobs_Cancel_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
         "x-ms-long-running-operation": true
-      }
-    },
-    "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/recoveryPlans/{recoveryPlanName}/recoveryJobs/{recoveryJobName}/recoveryChildJobs": {
-      "get": {
-        "operationId": "RecoveryChildJobs_List",
-        "tags": [
-          "RecoveryChildJobs"
-        ],
-        "description": "List RecoveryChildJob resources by RecoveryJob",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ServiceGroupBaseParameters"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "recoveryPlanName",
-            "in": "path",
-            "description": "The name of the recovery orchestration plan.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{5,24}$"
-          },
-          {
-            "name": "recoveryJobName",
-            "in": "path",
-            "description": "The unique name (GUID) of the recovery job.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/RecoveryChildJobListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryChildJobs_List_MaximumSet": {
-            "$ref": "./examples/RecoveryChildJobs_List_MaximumSet_Gen.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/recoveryPlans/{recoveryPlanName}/recoveryJobs/{recoveryJobName}/recoveryChildJobs/{recoveryChildJobName}": {
-      "get": {
-        "operationId": "RecoveryChildJobs_Get",
-        "tags": [
-          "RecoveryChildJobs"
-        ],
-        "description": "Get a RecoveryChildJob",
-        "parameters": [
-          {
-            "$ref": "#/parameters/ServiceGroupBaseParameters"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "recoveryPlanName",
-            "in": "path",
-            "description": "The name of the recovery orchestration plan.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{5,24}$"
-          },
-          {
-            "name": "recoveryJobName",
-            "in": "path",
-            "description": "The unique name (GUID) of the recovery job.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          },
-          {
-            "name": "recoveryChildJobName",
-            "in": "path",
-            "description": "The unique name (Guid) of the recovery child job",
-            "required": true,
-            "type": "string",
-            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/RecoveryChildJob"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryChildJobs_Get_MaximumSet": {
-            "$ref": "./examples/RecoveryChildJobs_Get_MaximumSet_Gen.json"
-          }
-        }
       }
     },
     "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/recoveryPlans/{recoveryPlanName}/recoveryJobs/{recoveryJobName}/recoveryJobResources": {
@@ -4139,11 +3005,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryJobResources_List_MaximumSet": {
-            "$ref": "./examples/RecoveryJobResources_List_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -4202,11 +3063,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryJobResources_Get_MaximumSet": {
-            "$ref": "./examples/RecoveryJobResources_Get_MaximumSet_Gen.json"
           }
         }
       }
@@ -4282,11 +3138,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "RecoveryJobs_Resume_MaximumSet": {
-            "$ref": "./examples/RecoveryJobs_Resume_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -4355,11 +3206,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "RecoveryJobs_Retry_MaximumSet": {
-            "$ref": "./examples/RecoveryJobs_Retry_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -4401,11 +3247,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryResources_List_MaximumSet": {
-            "$ref": "./examples/RecoveryResources_List_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -4456,11 +3297,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryResources_Get_MaximumSet": {
-            "$ref": "./examples/RecoveryResources_Get_MaximumSet_Gen.json"
           }
         }
       }
@@ -4526,11 +3362,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryPlanActions_Reprotect_MaximumSet": {
-            "$ref": "./examples/RecoveryPlanActions_Reprotect_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -4602,11 +3433,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "RecoveryPlanActions_TestFailover_MaximumSet": {
-            "$ref": "./examples/RecoveryPlanActions_TestFailover_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -4674,11 +3500,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryPlanActions_TestFailoverCleanup_MaximumSet": {
-            "$ref": "./examples/RecoveryPlanActions_TestFailoverCleanup_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -4750,11 +3571,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "RecoveryPlanActions_UpdateResources_MaximumSet": {
-            "$ref": "./examples/RecoveryPlanActions_UpdateResources_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -4824,11 +3640,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "RecoveryPlanActions_ValidateForFailover_MaximumSet": {
-            "$ref": "./examples/RecoveryPlanActions_ValidateForFailover_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -4887,11 +3698,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryPlanActions_ValidateForFailoverCommit_MaximumSet": {
-            "$ref": "./examples/RecoveryPlanActions_ValidateForFailoverCommit_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -4963,11 +3769,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "RecoveryPlanActions_ValidateForOperation_MaximumSet": {
-            "$ref": "./examples/RecoveryPlanActions_ValidateForOperation_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -5035,11 +3836,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "RecoveryPlanActions_ValidateForReprotect_MaximumSet": {
-            "$ref": "./examples/RecoveryPlanActions_ValidateForReprotect_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -5111,11 +3907,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "RecoveryPlanActions_ValidateForTestFailover_MaximumSet": {
-            "$ref": "./examples/RecoveryPlanActions_ValidateForTestFailover_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -5176,11 +3967,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "RecoveryPlanActions_ValidateForTestFailoverCleanup_MaximumSet": {
-            "$ref": "./examples/RecoveryPlanActions_ValidateForTestFailoverCleanup_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -5220,11 +4006,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "UnifiedResilienceItems_List_MaximumSet": {
-            "$ref": "./examples/UnifiedResilienceItems_List_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -5268,11 +4049,6 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "x-ms-examples": {
-          "UnifiedResilienceItems_Get_MaximumSet": {
-            "$ref": "./examples/UnifiedResilienceItems_Get_MaximumSet_Gen.json"
-          }
         }
       }
     },
@@ -5303,11 +4079,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "UsagePlans_ListBySubscription_MaximumSet": {
-            "$ref": "./examples/UsagePlans_ListBySubscription_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -5345,11 +4116,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "UsagePlans_ListByResourceGroup_MaximumSet": {
-            "$ref": "./examples/UsagePlans_ListByResourceGroup_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -5395,11 +4161,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "UsagePlans_Get_MaximumSet": {
-            "$ref": "./examples/UsagePlans_Get_MaximumSet_Gen.json"
           }
         }
       },
@@ -5468,11 +4229,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "UsagePlans_CreateOrUpdate_MaximumSet": {
-            "$ref": "./examples/UsagePlans_CreateOrUpdate_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
@@ -5524,11 +4280,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "UsagePlans_Update_MaximumSet": {
-            "$ref": "./examples/UsagePlans_Update_MaximumSet_Gen.json"
           }
         }
       },
@@ -5582,11 +4333,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "UsagePlans_Delete_MaximumSet": {
-            "$ref": "./examples/UsagePlans_Delete_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -5631,11 +4377,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "Enrollments_List_MaximumSet": {
-            "$ref": "./examples/Enrollments_List_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -5689,11 +4430,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "Enrollments_Get_MaximumSet": {
-            "$ref": "./examples/Enrollments_Get_MaximumSet_Gen.json"
           }
         }
       },
@@ -5770,11 +4506,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "Enrollments_CreateOrUpdate_MaximumSet": {
-            "$ref": "./examples/Enrollments_CreateOrUpdate_MaximumSet_Gen.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
@@ -5836,11 +4567,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "Enrollments_Delete_MaximumSet": {
-            "$ref": "./examples/Enrollments_Delete_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -5970,7 +4696,14 @@
         },
         "resourceGroup": {
           "type": "string",
-          "description": "Resource group where Drill's internal resources will be created. If not specified, defaults to 'AzureResilienceManagementDrills'. This value is immutable after drill creation."
+          "description": "Resource group where Drill's internal resources will be created. If not specified, defaults to 'AzureResilienceManagementDrills'. This value is immutable after drill creation.",
+          "minLength": 1,
+          "maxLength": 90,
+          "pattern": "^[-\\w\\._\\(\\)]+$",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         }
       },
       "required": [
@@ -5989,10 +4722,6 @@
         "region": {
           "type": "string",
           "description": "Region where Drill's internal resources will be created."
-        },
-        "resourceGroup": {
-          "type": "string",
-          "description": "Resource group where Drill's internal resources will be created. If not specified, defaults to 'AzureResilienceManagementDrills'. This value is immutable after drill creation."
         }
       }
     },
@@ -6047,17 +4776,6 @@
       "type": "object",
       "description": "Reason why the Drill is in NeedsAttention state, and not ready to run.",
       "properties": {
-        "drillRbacOnExperiment": {
-          "$ref": "#/definitions/RBACState",
-          "description": "Drill object does not have the necessary RBAC to run the chaos experiment."
-        },
-        "rbacNeededForDrillOnExperiment": {
-          "type": "array",
-          "description": "Permissions needed by the Drill MSI to run the chaos experiment.",
-          "items": {
-            "type": "string"
-          }
-        },
         "drillRbacOnChaosResource": {
           "$ref": "#/definitions/RBACState",
           "description": "Drill object does not have the necessary RBAC to run the chaos resource."
@@ -6080,46 +4798,9 @@
             "type": "string"
           }
         },
-        "drillRbacOnAzureMonitoringWorkspace": {
-          "$ref": "#/definitions/RBACState",
-          "description": "Drill object does not have the necessary RBAC to read the Azure Monitoring Workspace account."
-        },
-        "rbacNeededForDrillOnAzureMonitoringWorkspace": {
-          "type": "array",
-          "description": "Permissions needed by the Drill MSI to read Azure Monitoring Workspace account.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "drillRbacOnSlo": {
-          "$ref": "#/definitions/RBACState",
-          "description": "Drill object does not have the necessary RBAC to read the SLO object."
-        },
-        "rbacNeededForDrillOnSlo": {
-          "type": "array",
-          "description": "Permissions needed by the Drill MSI to read SLO object.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "drillRbacOnAzureHealthModel": {
-          "$ref": "#/definitions/RBACState",
-          "description": "Drill object does not have the necessary RBAC to read the Azure Health Model."
-        },
-        "rbacNeededForDrillOnAzureHealthModel": {
-          "type": "array",
-          "description": "Permissions needed by the Drill MSI to read Azure Health Model.",
-          "items": {
-            "type": "string"
-          }
-        },
         "roReadiness": {
           "$ref": "#/definitions/RecoveryPlanState",
           "description": "Associated RO ready or not."
-        },
-        "faultRbacOnTargets": {
-          "$ref": "#/definitions/RBACState",
-          "description": "RBAC required by Experiment MSI not setup on the target resources."
         },
         "rbacOnTargetResources": {
           "$ref": "#/definitions/RBACState",
@@ -6128,10 +4809,6 @@
         "runbookFaultRbacOnTargets": {
           "$ref": "#/definitions/RBACState",
           "description": "RBAC required by AutomationAccount for runbook MSI not setup on the target resources."
-        },
-        "targets": {
-          "$ref": "#/definitions/ExtensionObjectState",
-          "description": "One or more Target or Capability object is deleted."
         },
         "chaosResource": {
           "$ref": "#/definitions/ExtensionObjectState",
@@ -6155,10 +4832,6 @@
         "drillUserMsi": {
           "$ref": "#/definitions/ExtensionObjectState",
           "description": "User MSI associated with Drill object is deleted."
-        },
-        "chaosExperimentUserMsi": {
-          "$ref": "#/definitions/ExtensionObjectState",
-          "description": "User MSI associated with chaos experiment object is deleted."
         },
         "chaosResourceUserMsi": {
           "$ref": "#/definitions/ExtensionObjectState",
@@ -6356,229 +5029,6 @@
         }
       }
     },
-    "ChaosExperimentPropertiesOfDrill": {
-      "type": "object",
-      "description": "Chaos Experiment properties.",
-      "properties": {
-        "subscription": {
-          "type": "string",
-          "description": "Subscription for chaosExperiment resource."
-        },
-        "region": {
-          "type": "string",
-          "description": "Region for chaosExperiment resource."
-        },
-        "identity": {
-          "$ref": "#/definitions/AssociatedIdentity",
-          "description": "Identity to use for Chaos Experiment operations."
-        },
-        "chaosExperimentIdentityForFaults": {
-          "$ref": "#/definitions/AssociatedIdentity",
-          "description": "Identity to be used by the Chaos Experiment for invoking faults on resources."
-        },
-        "chaosExperimentId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "Chaos Experiment resource created for this Drill",
-          "readOnly": true,
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.Chaos/experiments"
-              }
-            ]
-          }
-        },
-        "faultDurationInMin": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Duration of faults.",
-          "minimum": 0,
-          "readOnly": true
-        }
-      }
-    },
-    "ChaosExperimentPropertiesOfDrillUpdate": {
-      "type": "object",
-      "description": "Chaos Experiment properties.",
-      "properties": {
-        "subscription": {
-          "type": "string",
-          "description": "Subscription for chaosExperiment resource."
-        },
-        "region": {
-          "type": "string",
-          "description": "Region for chaosExperiment resource."
-        },
-        "identity": {
-          "$ref": "#/definitions/AssociatedIdentityUpdate",
-          "description": "Identity to use for Chaos Experiment operations."
-        },
-        "chaosExperimentIdentityForFaults": {
-          "$ref": "#/definitions/AssociatedIdentityUpdate",
-          "description": "Identity to be used by the Chaos Experiment for invoking faults on resources."
-        }
-      }
-    },
-    "ChaosJob": {
-      "type": "object",
-      "description": "ChaosJob a AzureResilienceProviderHub resource",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/ChaosJobProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "ChaosJobChildJob": {
-      "type": "object",
-      "description": "Chaos job Child job a AzureResilienceProviderHub resource",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/ChaosJobChildJobProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "ChaosJobChildJobListResult": {
-      "type": "object",
-      "description": "The response of a ChaosJobChildJob list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The ChaosJobChildJob items on this page",
-          "items": {
-            "$ref": "#/definitions/ChaosJobChildJob"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "ChaosJobChildJobProperties": {
-      "type": "object",
-      "description": "Definition of Chaos job child job properties.",
-      "properties": {
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "The provisioning state of the recovery child job.",
-          "readOnly": true
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/ChildJobProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "ChaosExperimentChild"
-    },
-    "ChaosJobListResult": {
-      "type": "object",
-      "description": "The response of a ChaosJob list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The ChaosJob items on this page",
-          "items": {
-            "$ref": "#/definitions/ChaosJob"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "ChaosJobProperties": {
-      "type": "object",
-      "description": "Definition of Chaos job properties.",
-      "properties": {
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "The provisioning state of the recovery child job.",
-          "readOnly": true
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/JobProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "ChaosExperiment"
-    },
-    "ChaosJobResource": {
-      "type": "object",
-      "description": "Represents a chaos job resource in the Azure Resilience Management provider namespace.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/ChaosJobResourceProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "ChaosJobResourceListResult": {
-      "type": "object",
-      "description": "The response of a ChaosJobResource list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The ChaosJobResource items on this page",
-          "items": {
-            "$ref": "#/definitions/ChaosJobResource"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "ChaosJobResourceProperties": {
-      "type": "object",
-      "description": "Properties of a Chaos job resource.",
-      "properties": {
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "The provisioning state of the Drill Run Resource.",
-          "readOnly": true
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/JobResourceProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "ChaosExperiment"
-    },
     "ChaosResourcePropertiesOfDrill": {
       "type": "object",
       "description": "Chaos Resource properties.",
@@ -6597,7 +5047,11 @@
           "description": "Chaos Resource created for this Drill",
           "readOnly": true,
           "x-ms-arm-id-details": {
-            "allowedResources": []
+            "allowedResources": [
+              {
+                "type": "Microsoft.Chaos/workspaces"
+              }
+            ]
           }
         },
         "faultDurationInMin": {
@@ -6626,107 +5080,6 @@
           "description": "Identity to be used by the Chaos Resource for invoking faults on resources."
         }
       }
-    },
-    "ChildJobProperties": {
-      "type": "object",
-      "description": "Represents the properties of a child job within the Resiliency Hub.",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/JobStatus",
-          "description": "The current status of the job execution.",
-          "readOnly": true
-        },
-        "startTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The start time of the job execution.",
-          "readOnly": true
-        },
-        "endTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The end time of the job execution.",
-          "readOnly": true
-        },
-        "duration": {
-          "type": "string",
-          "format": "duration",
-          "description": "The time elapsed during the execution of this job.",
-          "readOnly": true
-        },
-        "errorDetails": {
-          "$ref": "#/definitions/JobErrorInfo",
-          "description": "Details of any errors that occurred during the execution of this job."
-        },
-        "resourceId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "The resource for which this job was created. This is typically the resource that the job is intended to manage or operate on.",
-          "readOnly": true
-        },
-        "operation": {
-          "type": "string",
-          "description": "The operation that this job is intended to perform.",
-          "readOnly": true
-        },
-        "retryDetails": {
-          "type": "array",
-          "description": "Details of any retries that have been attempted for this job.",
-          "items": {
-            "$ref": "#/definitions/JobRetryDetails"
-          },
-          "x-ms-identifiers": []
-        },
-        "jobExtendedInfo": {
-          "$ref": "#/definitions/JobExtendedInfo",
-          "description": "Additional information about the job."
-        },
-        "userComments": {
-          "type": "array",
-          "description": "User Comments.",
-          "items": {
-            "$ref": "#/definitions/JobUserComment"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": []
-        },
-        "parentJobId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "The unique identifier of the parent job under which this child job exists.",
-          "readOnly": true
-        },
-        "parentJobTaskId": {
-          "type": "string",
-          "description": "The unique identifier of the task within the parent job for which this child job is created.",
-          "readOnly": true
-        },
-        "parentJobTaskName": {
-          "type": "string",
-          "description": "The friendly name of the task within the parent job for which this child job is created.",
-          "readOnly": true
-        },
-        "parentJobResourceId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "The resource identifier of the parent job's job resource for which this child job is created.",
-          "readOnly": true
-        },
-        "parentJobRetryAttempt": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The retry count of the task within the parent job for which this child job is created.",
-          "readOnly": true
-        },
-        "jobType": {
-          "$ref": "#/definitions/JobType",
-          "description": "The discriminator for the Job Type hierarchy."
-        }
-      },
-      "discriminator": "jobType",
-      "required": [
-        "jobType"
-      ]
     },
     "CommentType": {
       "type": "string",
@@ -6805,7 +5158,7 @@
           "x-ms-arm-id-details": {
             "allowedResources": [
               {
-                "type": "Microsoft.Automation/automationAccounts"
+                "type": "Microsoft.Automation/automationAccounts/runbooks"
               }
             ]
           }
@@ -6951,8 +5304,7 @@
       "type": "string",
       "description": "Start mode of Drill.",
       "enum": [
-        "Failover",
-        "TestFailover"
+        "Failover"
       ],
       "x-ms-enum": {
         "name": "DrillMode",
@@ -6962,11 +5314,6 @@
             "name": "Failover",
             "value": "Failover",
             "description": "Failover mode."
-          },
-          {
-            "name": "TestFailover",
-            "value": "TestFailover",
-            "description": "TestFailover mode."
           }
         ]
       }
@@ -6975,10 +5322,6 @@
       "type": "object",
       "description": "PATCH properties for Drill.",
       "properties": {
-        "metricsProperties": {
-          "$ref": "#/definitions/MetricsPropertiesOfDrill",
-          "description": "Metric properties."
-        },
         "recoveryPlanProperties": {
           "$ref": "#/definitions/RecoveryPlanPropertiesOfDrill",
           "description": "Recovery Plan properties."
@@ -6987,17 +5330,9 @@
           "$ref": "#/definitions/AssetPropertiesOfDrill",
           "description": "Properties for internal resources that are created for the Drill."
         },
-        "chaosExperimentProperties": {
-          "$ref": "#/definitions/ChaosExperimentPropertiesOfDrill",
-          "description": "Chaos Experiment properties."
-        },
         "chaosResourceProperties": {
           "$ref": "#/definitions/ChaosResourcePropertiesOfDrill",
           "description": "Chaos Resource properties."
-        },
-        "healthModelProperties": {
-          "$ref": "#/definitions/HealthModelPropertiesOfDrill",
-          "description": "HealthModel properties."
         },
         "rbacSetupMode": {
           "$ref": "#/definitions/RBACSetupMode",
@@ -7031,14 +5366,6 @@
             ]
           }
         },
-        "metricsProperties": {
-          "$ref": "#/definitions/MetricsPropertiesOfDrill",
-          "description": "Metric properties."
-        },
-        "healthModelProperties": {
-          "$ref": "#/definitions/HealthModelPropertiesOfDrill",
-          "description": "HealthModel properties."
-        },
         "recoveryPlanProperties": {
           "$ref": "#/definitions/RecoveryPlanPropertiesOfDrill",
           "description": "ROPlan properties."
@@ -7050,10 +5377,6 @@
         "chaosResourceProperties": {
           "$ref": "#/definitions/ChaosResourcePropertiesOfDrill",
           "description": "Chaos Resource properties."
-        },
-        "chaosExperimentProperties": {
-          "$ref": "#/definitions/ChaosExperimentPropertiesOfDrill",
-          "description": "Chaos Experiment properties."
         },
         "executionState": {
           "$ref": "#/definitions/ExecutionState",
@@ -7142,10 +5465,6 @@
       "type": "object",
       "description": "Reason why the Drill resource is in NeedsAttention state.",
       "properties": {
-        "faultRbacOnTarget": {
-          "$ref": "#/definitions/RBACState",
-          "description": "Experiment MSI does not have the desired RBAC on the resource."
-        },
         "faultRbacOnTargetResource": {
           "$ref": "#/definitions/RBACState",
           "description": "Chaos Resource MSI does not have the desired RBAC on the resource."
@@ -7157,10 +5476,6 @@
         "monitoringRbacOnTargets": {
           "$ref": "#/definitions/RBACState",
           "description": "RBAC required by Drill MSI on the target resource for monitoring."
-        },
-        "target": {
-          "$ref": "#/definitions/ExtensionObjectState",
-          "description": "Target extension resource is missing on the resource."
         },
         "resourceState": {
           "type": "array",
@@ -7397,16 +5712,6 @@
             ]
           }
         },
-        "targetAndCapabilityAssignmentError": {
-          "$ref": "#/definitions/ErrorDetails",
-          "description": "Last Target and Capability assignment error, if any.",
-          "readOnly": true
-        },
-        "targetResourceAssignmentError": {
-          "$ref": "#/definitions/ErrorDetails",
-          "description": "Last Target Resource RBAC assignment error, if any.",
-          "readOnly": true
-        },
         "rbacAssignmentError": {
           "$ref": "#/definitions/ErrorDetails",
           "description": "Last RBAC assignment error, if any.",
@@ -7569,59 +5874,6 @@
         }
       }
     },
-    "DrillRunChildJob": {
-      "type": "object",
-      "description": "DrillRun Child Job a AzureResilienceProviderHub resource",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/DrillRunChildJobProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "DrillRunChildJobListResult": {
-      "type": "object",
-      "description": "The response of a DrillRunChildJob list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The DrillRunChildJob items on this page",
-          "items": {
-            "$ref": "#/definitions/DrillRunChildJob"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "DrillRunChildJobProperties": {
-      "type": "object",
-      "description": "Definition of Drill Run child job properties.",
-      "properties": {
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "The provisioning state of the recovery child job.",
-          "readOnly": true
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/ChildJobProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "DrillRunChild"
-    },
     "DrillRunFailoverRequest": {
       "type": "object",
       "description": "Request body for Failover API.",
@@ -7713,16 +5965,6 @@
               }
             ]
           }
-        },
-        "metricValue": {
-          "type": "string",
-          "description": "Measured aggregated Metric value through the drill run.",
-          "readOnly": true
-        },
-        "healthStatus": {
-          "$ref": "#/definitions/HealthStatus",
-          "description": "Measured health status through the drill run.",
-          "readOnly": true
         },
         "drillMode": {
           "$ref": "#/definitions/DrillMode",
@@ -7823,8 +6065,6 @@
       "enum": [
         "FaultInjection",
         "Failover",
-        "TestFailover",
-        "TestFailoverCleanup",
         "Reprotect",
         "FailoverReverse",
         "ReprotectReverse"
@@ -7842,16 +6082,6 @@
             "name": "Failover",
             "value": "Failover",
             "description": "Failover Subtasks."
-          },
-          {
-            "name": "TestFailover",
-            "value": "TestFailover",
-            "description": "TestFailover Subtasks."
-          },
-          {
-            "name": "TestFailoverCleanup",
-            "value": "TestFailoverCleanup",
-            "description": "TestFailoverCleanup Subtasks."
           },
           {
             "name": "Reprotect",
@@ -7876,8 +6106,6 @@
       "description": "Enum for DrillRun Tasks.",
       "enum": [
         "Failover",
-        "TestFailover",
-        "TestFailoverCleanup",
         "Reprotect",
         "FailoverReverse",
         "ReprotectReverse"
@@ -7890,16 +6118,6 @@
             "name": "Failover",
             "value": "Failover",
             "description": "Failover task."
-          },
-          {
-            "name": "TestFailover",
-            "value": "TestFailover",
-            "description": "TestFailover tasks."
-          },
-          {
-            "name": "TestFailoverCleanup",
-            "value": "TestFailoverCleanup",
-            "description": "TestFailoverCleanup tasks."
           },
           {
             "name": "Reprotect",
@@ -7919,29 +6137,6 @@
         ]
       }
     },
-    "DrillRunTestFailoverCleanupRequest": {
-      "type": "object",
-      "description": "Request body for TestFailoverCleanup API.",
-      "properties": {
-        "comments": {
-          "type": "string",
-          "description": "Comments for the request."
-        }
-      }
-    },
-    "DrillRunTestFailoverRequest": {
-      "type": "object",
-      "description": "Request body for TestFailover API.",
-      "properties": {
-        "failoverProperties": {
-          "$ref": "#/definitions/FailoverRequest",
-          "description": "The failover properties."
-        }
-      },
-      "required": [
-        "failoverProperties"
-      ]
-    },
     "DrillStartRequest": {
       "type": "object",
       "description": "Request body of the Start Action of Drill.",
@@ -7949,24 +6144,10 @@
         "mode": {
           "$ref": "#/definitions/DrillMode",
           "description": "Mode of starting the Drill"
-        },
-        "recoveryPlanInputs": {
-          "type": "object",
-          "description": "Inputs needed for the Recovery Orchestration Plan",
-          "properties": {
-            "failoverDirection": {
-              "type": "string",
-              "description": "Direction of the failover"
-            }
-          },
-          "required": [
-            "failoverDirection"
-          ]
         }
       },
       "required": [
-        "mode",
-        "recoveryPlanInputs"
+        "mode"
       ]
     },
     "DrillType": {
@@ -8011,10 +6192,6 @@
       "type": "object",
       "description": "The updatable properties of the Drill.",
       "properties": {
-        "metricsProperties": {
-          "$ref": "#/definitions/MetricsPropertiesOfDrillUpdate",
-          "description": "Metric properties."
-        },
         "recoveryPlanProperties": {
           "$ref": "#/definitions/RecoveryPlanPropertiesOfDrillUpdate",
           "description": "Recovery Plan properties."
@@ -8023,17 +6200,9 @@
           "$ref": "#/definitions/AssetPropertiesOfDrillUpdate",
           "description": "Properties for internal resources that are created for the Drill."
         },
-        "chaosExperimentProperties": {
-          "$ref": "#/definitions/ChaosExperimentPropertiesOfDrillUpdate",
-          "description": "Chaos Experiment properties."
-        },
         "chaosResourceProperties": {
           "$ref": "#/definitions/ChaosResourcePropertiesOfDrillUpdate",
           "description": "Chaos Resource properties."
-        },
-        "healthModelProperties": {
-          "$ref": "#/definitions/HealthModelPropertiesOfDrillUpdate",
-          "description": "HealthModel properties."
         },
         "rbacSetupMode": {
           "$ref": "#/definitions/RBACSetupMode",
@@ -8407,16 +6576,6 @@
           "x-ms-arm-id-details": {
             "allowedResources": []
           }
-        },
-        "targetAndCapabilityAssignmentError": {
-          "$ref": "#/definitions/ErrorDetails",
-          "description": "Target and Capability assignment error.",
-          "readOnly": true
-        },
-        "targetResourceAssignmentError": {
-          "$ref": "#/definitions/ErrorDetails",
-          "description": "Target resource RBAC assignment error.",
-          "readOnly": true
         },
         "rbacAssignmentError": {
           "$ref": "#/definitions/ErrorDetails",
@@ -9053,54 +7212,6 @@
         ]
       }
     },
-    "HealthModelPropertiesOfDrill": {
-      "type": "object",
-      "description": "Health Model properties.",
-      "properties": {
-        "identity": {
-          "$ref": "#/definitions/AssociatedIdentity",
-          "description": "Identity to use for Health Model operations."
-        },
-        "healthModelId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "Full ARM Id of the Health Model.",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.CloudHealth/healthmodels"
-              }
-            ]
-          }
-        }
-      },
-      "required": [
-        "identity",
-        "healthModelId"
-      ]
-    },
-    "HealthModelPropertiesOfDrillUpdate": {
-      "type": "object",
-      "description": "Health Model properties.",
-      "properties": {
-        "identity": {
-          "$ref": "#/definitions/AssociatedIdentityUpdate",
-          "description": "Identity to use for Health Model operations."
-        },
-        "healthModelId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "Full ARM Id of the Health Model.",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.CloudHealth/healthmodels"
-              }
-            ]
-          }
-        }
-      }
-    },
     "HealthStatus": {
       "type": "string",
       "description": "Enum for Health Status.",
@@ -9472,8 +7583,7 @@
         "Invalid",
         "RecoveryPlan",
         "RecoveryPlanChild",
-        "DrillRun",
-        "ChaosExperiment"
+        "DrillRun"
       ],
       "x-ms-enum": {
         "name": "JobResourceType",
@@ -9498,11 +7608,6 @@
             "name": "DrillRun",
             "value": "DrillRun",
             "description": "Drill Run job resource."
-          },
-          {
-            "name": "ChaosExperiment",
-            "value": "ChaosExperiment",
-            "description": "Chaos job resource created by Drill to represent a Experiment Run."
           }
         ]
       }
@@ -9745,11 +7850,7 @@
       "enum": [
         "Invalid",
         "RecoveryPlan",
-        "RecoveryPlanChild",
-        "DrillRun",
-        "DrillRunChild",
-        "ChaosExperiment",
-        "ChaosExperimentChild"
+        "DrillRun"
       ],
       "x-ms-enum": {
         "name": "JobType",
@@ -9766,29 +7867,9 @@
             "description": "Recovery Orchestration Plan created job."
           },
           {
-            "name": "RecoveryPlanChild",
-            "value": "RecoveryPlanChild",
-            "description": "Recovery Orchestration Plan child created job."
-          },
-          {
             "name": "DrillRun",
             "value": "DrillRun",
             "description": "Drill Oober job which represents a given instance of Drill."
-          },
-          {
-            "name": "DrillRunChild",
-            "value": "DrillRunChild",
-            "description": "Drill Run child job."
-          },
-          {
-            "name": "ChaosExperiment",
-            "value": "ChaosExperiment",
-            "description": "Chaos job created by Drill to represent a Experiment Run."
-          },
-          {
-            "name": "ChaosExperimentChild",
-            "value": "ChaosExperimentChild",
-            "description": "Chaos job's child job."
           }
         ]
       }
@@ -9914,86 +7995,6 @@
           }
         ]
       }
-    },
-    "MetricsPropertiesOfDrill": {
-      "type": "object",
-      "description": "Metrics properties.",
-      "properties": {
-        "identity": {
-          "$ref": "#/definitions/AssociatedIdentity",
-          "description": "Identity to use for metrics operations."
-        },
-        "metricsToTrack": {
-          "type": "array",
-          "description": "Metrics associated with this Drill. These will be tracked through the Drill Run.",
-          "items": {
-            "$ref": "#/definitions/MetricsToTrack"
-          },
-          "x-ms-identifiers": []
-        }
-      },
-      "required": [
-        "identity",
-        "metricsToTrack"
-      ]
-    },
-    "MetricsPropertiesOfDrillUpdate": {
-      "type": "object",
-      "description": "Metrics properties.",
-      "properties": {
-        "identity": {
-          "$ref": "#/definitions/AssociatedIdentityUpdate",
-          "description": "Identity to use for metrics operations."
-        },
-        "metricsToTrack": {
-          "type": "array",
-          "description": "Metrics associated with this Drill. These will be tracked through the Drill Run.",
-          "items": {
-            "$ref": "#/definitions/MetricsToTrack"
-          },
-          "x-ms-identifiers": []
-        }
-      }
-    },
-    "MetricsToTrack": {
-      "type": "object",
-      "description": "Metrics object",
-      "properties": {
-        "metricName": {
-          "type": "string",
-          "description": "Name of the metric.",
-          "minLength": 1
-        },
-        "metricId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "Full url of the metric.",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.Monitor/slos"
-              }
-            ]
-          }
-        },
-        "destinationAmwAccountUrl": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "Destination AMW account where the time-series data of the metric lives.",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.Automation/automationAccounts"
-              }
-            ]
-          }
-        }
-      },
-      "required": [
-        "metricName",
-        "metricId",
-        "destinationAmwAccountUrl"
-      ]
     },
     "MoboBrokerResource": {
       "type": "object",
@@ -10468,64 +8469,6 @@
           "maxLength": 100
         }
       }
-    },
-    "RecoveryChildJob": {
-      "type": "object",
-      "description": "RecoveryPlan Child Job a AzureResilienceProviderHub resource",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/RecoveryChildJobProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "RecoveryChildJobListResult": {
-      "type": "object",
-      "description": "The response of a RecoveryChildJob list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The RecoveryChildJob items on this page",
-          "items": {
-            "$ref": "#/definitions/RecoveryChildJob"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "RecoveryChildJobProperties": {
-      "type": "object",
-      "description": "Definition of recovery child job associated with Recovery Orchestration Plan.",
-      "properties": {
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "The provisioning state of the recovery child job.",
-          "readOnly": true
-        },
-        "protectionSolutionType": {
-          "$ref": "#/definitions/ResourceProtectionSolutionType",
-          "description": "A setting that indicates the protection solution selected.",
-          "readOnly": true
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/ChildJobProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "RecoveryPlanChild"
     },
     "RecoveryGroup": {
       "type": "object",

@@ -162,18 +162,22 @@ union JobType {
   RecoveryPlan: "RecoveryPlan",
 
   @doc("Recovery Orchestration Plan child created job.")
+  @removed(Versions.v2026_04_01_preview)
   RecoveryPlanChild: "RecoveryPlanChild",
 
   @doc("Drill Oober job which represents a given instance of Drill.")
   DrillRun: "DrillRun",
 
   @doc("Drill Run child job.")
+  @removed(Versions.v2026_04_01_preview)
   DrillRunChild: "DrillRunChild",
 
   @doc("Chaos job created by Drill to represent a Experiment Run.")
+  @removed(Versions.v2026_04_01_preview)
   ChaosExperiment: "ChaosExperiment",
 
   @doc("Chaos job's child job.")
+  @removed(Versions.v2026_04_01_preview)
   ChaosExperimentChild: "ChaosExperimentChild",
 
   string,
@@ -194,6 +198,7 @@ union JobResourceType {
   DrillRun: "DrillRun",
 
   @doc("Chaos job resource created by Drill to represent a Experiment Run.")
+  @removed(Versions.v2026_04_01_preview)
   ChaosExperiment: "ChaosExperiment",
 
   string,
