@@ -1,0 +1,19 @@
+{
+  "title": "Delete a Platform Landing Zone (minimum set)",
+  "operationId": "PlatformLandingZones_Delete",
+  "parameters": {
+    "platformLandingZoneName": "contoso-plz-min",
+    "api-version": "2026-02-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "projectName": "contosoMigrateProject",
+    "resourceGroupName": "rg-migrate"
+  },
+  "responses": {
+    "202": {
+      "headers": {
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Migrate/locations/eastus/operationStatuses/op5?api-version=2026-02-01-preview"
+      }
+    },
+    "204": {}
+  }
+}

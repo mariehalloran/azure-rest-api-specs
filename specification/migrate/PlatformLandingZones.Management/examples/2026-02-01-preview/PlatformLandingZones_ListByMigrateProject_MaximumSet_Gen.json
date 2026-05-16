@@ -1,0 +1,605 @@
+{
+  "title": "List Platform Landing Zones under a migrate project (maximum set)",
+  "operationId": "PlatformLandingZones_ListByParent",
+  "parameters": {
+    "api-version": "2026-02-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "projectName": "contosoMigrateProject",
+    "resourceGroupName": "rg-migrate"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "systemData": {
+              "lastModifiedAt": "2026-02-01T00:00:00Z",
+              "createdBy": "user@contoso.com",
+              "createdAt": "2026-02-01T00:00:00Z",
+              "createdByType": "User",
+              "lastModifiedBy": "user@contoso.com",
+              "lastModifiedByType": "User"
+            },
+            "name": "contoso-plz-hs",
+            "properties": {
+              "management": {
+                "recoveryServicesVault": {
+                  "crossRegionRestoreEnabled": true,
+                  "redundancy": "GeoRedundant",
+                  "vaultName": "alz-rsv"
+                },
+                "azureMonitor": {
+                  "applicationInsightsEnabled": true,
+                  "containerInsightsEnabled": true,
+                  "vmInsightsEnabled": true
+                },
+                "backup": {
+                  "enabled": true,
+                  "softDeleteRetentionInDays": 30
+                },
+                "automation": {
+                  "sku": "Basic",
+                  "accountName": "alz-automation"
+                },
+                "siteRecovery": {
+                  "enabled": true
+                },
+                "sentinel": {
+                  "enabled": true,
+                  "dataConnectors": [
+                    "AzureActivity",
+                    "SecurityEvents"
+                  ]
+                },
+                "logAnalytics": {
+                  "workspaceName": "alz-mgmt-law",
+                  "retentionInDays": 90,
+                  "dailyQuotaGb": -1.0,
+                  "sku": "PerGB2018"
+                }
+              },
+              "connectivity": {
+                "expressRoute": {
+                  "topology": "HubAndSpoke",
+                  "fastPathEnabled": false,
+                  "sku": "ErGw2AZ"
+                },
+                "topology": "HubAndSpoke",
+                "ddosProtection": {
+                  "plan": "Network"
+                },
+                "privateDns": {
+                  "privateLinkZonesEnabled": true,
+                  "customZones": [
+                    "contoso.internal"
+                  ]
+                },
+                "firewall": {
+                  "kind": "AzureFirewall",
+                  "tlsInspectionEnabled": true,
+                  "sku": "Premium",
+                  "dnsProxyEnabled": true
+                },
+                "internetEgress": "ViaHub",
+                "vpnGateway": {
+                  "generation": "Generation2",
+                  "enableBgp": true,
+                  "activeActive": true,
+                  "topology": "HubAndSpoke",
+                  "sku": "VpnGw2AZ"
+                },
+                "bastion": {
+                  "sku": "Standard",
+                  "scaleUnits": 2
+                }
+              },
+              "identity": {
+                "provider": "EntraIdWithDomainServices",
+                "domainServices": {
+                  "subnetAddressPrefix": "10.0.10.0/24",
+                  "domainName": "contoso.local"
+                }
+              },
+              "provisioningState": "Succeeded",
+              "regions": [
+                {
+                  "role": "Primary",
+                  "name": "eastus",
+                  "addressSpace": {
+                    "spoke": "10.4.0.0/16",
+                    "hub": "10.0.0.0/22"
+                  },
+                  "availabilityZones": [
+                    "1",
+                    "2",
+                    "3"
+                  ]
+                },
+                {
+                  "role": "Secondary",
+                  "name": "westus",
+                  "addressSpace": {
+                    "spoke": "10.14.0.0/16",
+                    "hub": "10.10.0.0/22"
+                  },
+                  "availabilityZones": [
+                    "1",
+                    "2",
+                    "3"
+                  ]
+                }
+              ],
+              "governance": {
+                "policyAssignmentOverrides": [
+                  {
+                    "assignmentName": "Deny-PublicIP",
+                    "enforcementMode": "Default"
+                  }
+                ],
+                "policyAssignmentMode": "AlzDefaults",
+                "requiredTags": [
+                  {
+                    "name": "Environment",
+                    "defaultValue": "Production"
+                  },
+                  {
+                    "name": "CostCenter"
+                  }
+                ],
+                "resourceLocks": [
+                  {
+                    "level": "CanNotDelete",
+                    "notes": "Protect hub networking",
+                    "scope": "Connectivity"
+                  }
+                ]
+              },
+              "security": {
+                "defenderPlans": [
+                  {
+                    "name": "Servers",
+                    "tier": "P2"
+                  },
+                  {
+                    "name": "KeyVaults",
+                    "tier": "Standard"
+                  },
+                  {
+                    "name": "Storage",
+                    "tier": "Standard"
+                  }
+                ],
+                "keyVault": {
+                  "kind": "Premium",
+                  "purgeProtectionEnabled": true,
+                  "softDeleteRetentionInDays": 90,
+                  "rbacAuthorizationEnabled": true
+                },
+                "encryption": {
+                  "customerManagedKeyEnabled": true,
+                  "customerManagedKey": {
+                    "keyName": "alzKey",
+                    "keyVaultId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-sec/providers/Microsoft.KeyVault/vaults/alz-kv"
+                  }
+                }
+              },
+              "costManagement": {
+                "savingsPlans": "ThreeYear",
+                "reservations": "StableWorkloadsOnly",
+                "budgets": [
+                  {
+                    "name": "platform-monthly",
+                    "amount": 10000,
+                    "thresholds": [
+                      50,
+                      80,
+                      100
+                    ],
+                    "notificationEmails": [
+                      "finops@contoso.com"
+                    ]
+                  }
+                ],
+                "billingAccountType": "EnterpriseAgreement"
+              },
+              "platformSubscriptions": {
+                "subscriptionModel": "Dedicated",
+                "identity": {
+                  "subscriptionId": "11111111-1111-1111-1111-111111111111"
+                },
+                "management": {
+                  "subscriptionId": "33333333-3333-3333-3333-333333333333"
+                },
+                "connectivity": {
+                  "subscriptionId": "22222222-2222-2222-2222-222222222222"
+                }
+              }
+            },
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones/contoso-plz-hs",
+            "type": "Microsoft.Migrate/migrateProjects/platformLandingZones"
+          },
+          {
+            "systemData": {
+              "lastModifiedAt": "2026-02-01T00:00:00Z",
+              "createdBy": "user@contoso.com",
+              "createdAt": "2026-02-01T00:00:00Z",
+              "createdByType": "User",
+              "lastModifiedBy": "user@contoso.com",
+              "lastModifiedByType": "User"
+            },
+            "name": "contoso-plz-vwan",
+            "properties": {
+              "management": {
+                "recoveryServicesVault": {
+                  "crossRegionRestoreEnabled": true,
+                  "redundancy": "GeoRedundant",
+                  "vaultName": "alz-rsv"
+                },
+                "azureMonitor": {
+                  "applicationInsightsEnabled": true,
+                  "containerInsightsEnabled": true,
+                  "vmInsightsEnabled": true
+                },
+                "backup": {
+                  "enabled": true,
+                  "softDeleteRetentionInDays": 30
+                },
+                "automation": {
+                  "sku": "Basic",
+                  "accountName": "alz-automation"
+                },
+                "siteRecovery": {
+                  "enabled": true
+                },
+                "sentinel": {
+                  "enabled": true,
+                  "dataConnectors": [
+                    "AzureActivity",
+                    "SecurityEvents"
+                  ]
+                },
+                "logAnalytics": {
+                  "workspaceName": "alz-mgmt-law",
+                  "retentionInDays": 90,
+                  "dailyQuotaGb": -1.0,
+                  "sku": "PerGB2018"
+                }
+              },
+              "connectivity": {
+                "ddosProtection": {
+                  "plan": "Network"
+                },
+                "expressRoute": {
+                  "topology": "VirtualWan",
+                  "scaleUnits": 2
+                },
+                "topology": "VirtualWan",
+                "privateDns": {
+                  "privateLinkZonesEnabled": true,
+                  "customZones": [
+                    "contoso.internal"
+                  ]
+                },
+                "vpnGateway": {
+                  "topology": "VirtualWan",
+                  "scaleUnits": 2
+                },
+                "firewall": {
+                  "kind": "AzureFirewall",
+                  "tlsInspectionEnabled": true,
+                  "sku": "Premium",
+                  "dnsProxyEnabled": true
+                },
+                "bastion": {
+                  "sku": "Standard",
+                  "scaleUnits": 2
+                },
+                "internetEgress": "ViaHub"
+              },
+              "identity": {
+                "provider": "EntraIdWithDomainServices",
+                "domainServices": {
+                  "subnetAddressPrefix": "10.0.10.0/24",
+                  "domainName": "contoso.local"
+                }
+              },
+              "provisioningState": "Succeeded",
+              "platformSubscriptions": {
+                "subscriptionModel": "Dedicated",
+                "identity": {
+                  "subscriptionId": "11111111-1111-1111-1111-111111111111"
+                },
+                "management": {
+                  "subscriptionId": "33333333-3333-3333-3333-333333333333"
+                },
+                "connectivity": {
+                  "subscriptionId": "22222222-2222-2222-2222-222222222222"
+                }
+              },
+              "regions": [
+                {
+                  "role": "Primary",
+                  "name": "eastus",
+                  "addressSpace": {
+                    "spoke": "10.4.0.0/16",
+                    "hub": "10.0.0.0/22"
+                  },
+                  "availabilityZones": [
+                    "1",
+                    "2",
+                    "3"
+                  ]
+                },
+                {
+                  "role": "Secondary",
+                  "name": "westus",
+                  "addressSpace": {
+                    "spoke": "10.14.0.0/16",
+                    "hub": "10.10.0.0/22"
+                  },
+                  "availabilityZones": [
+                    "1",
+                    "2",
+                    "3"
+                  ]
+                }
+              ],
+              "security": {
+                "defenderPlans": [
+                  {
+                    "name": "Servers",
+                    "tier": "P2"
+                  },
+                  {
+                    "name": "KeyVaults",
+                    "tier": "Standard"
+                  },
+                  {
+                    "name": "Storage",
+                    "tier": "Standard"
+                  }
+                ],
+                "keyVault": {
+                  "kind": "Premium",
+                  "purgeProtectionEnabled": true,
+                  "softDeleteRetentionInDays": 90,
+                  "rbacAuthorizationEnabled": true
+                },
+                "encryption": {
+                  "customerManagedKeyEnabled": true,
+                  "customerManagedKey": {
+                    "keyName": "alzKey",
+                    "keyVaultId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-sec/providers/Microsoft.KeyVault/vaults/alz-kv"
+                  }
+                }
+              },
+              "costManagement": {
+                "savingsPlans": "ThreeYear",
+                "reservations": "StableWorkloadsOnly",
+                "budgets": [
+                  {
+                    "name": "platform-monthly",
+                    "amount": 10000,
+                    "thresholds": [
+                      50,
+                      80,
+                      100
+                    ],
+                    "notificationEmails": [
+                      "finops@contoso.com"
+                    ]
+                  }
+                ],
+                "billingAccountType": "EnterpriseAgreement"
+              },
+              "governance": {
+                "policyAssignmentOverrides": [
+                  {
+                    "assignmentName": "Deny-PublicIP",
+                    "enforcementMode": "Default"
+                  }
+                ],
+                "policyAssignmentMode": "AlzDefaults",
+                "requiredTags": [
+                  {
+                    "name": "Environment",
+                    "defaultValue": "Production"
+                  },
+                  {
+                    "name": "CostCenter"
+                  }
+                ],
+                "resourceLocks": [
+                  {
+                    "level": "CanNotDelete",
+                    "notes": "Protect hub networking",
+                    "scope": "Connectivity"
+                  }
+                ]
+              }
+            },
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones/contoso-plz-vwan",
+            "type": "Microsoft.Migrate/migrateProjects/platformLandingZones"
+          },
+          {
+            "systemData": {
+              "lastModifiedAt": "2026-02-01T00:00:00Z",
+              "createdBy": "user@contoso.com",
+              "createdAt": "2026-02-01T00:00:00Z",
+              "createdByType": "User",
+              "lastModifiedBy": "user@contoso.com",
+              "lastModifiedByType": "User"
+            },
+            "name": "contoso-plz-mo",
+            "properties": {
+              "management": {
+                "recoveryServicesVault": {
+                  "crossRegionRestoreEnabled": true,
+                  "redundancy": "GeoRedundant",
+                  "vaultName": "alz-rsv"
+                },
+                "azureMonitor": {
+                  "applicationInsightsEnabled": true,
+                  "containerInsightsEnabled": true,
+                  "vmInsightsEnabled": true
+                },
+                "backup": {
+                  "enabled": true,
+                  "softDeleteRetentionInDays": 30
+                },
+                "automation": {
+                  "sku": "Basic",
+                  "accountName": "alz-automation"
+                },
+                "siteRecovery": {
+                  "enabled": true
+                },
+                "sentinel": {
+                  "enabled": true,
+                  "dataConnectors": [
+                    "AzureActivity",
+                    "SecurityEvents"
+                  ]
+                },
+                "logAnalytics": {
+                  "workspaceName": "alz-mgmt-law",
+                  "retentionInDays": 90,
+                  "dailyQuotaGb": -1.0,
+                  "sku": "PerGB2018"
+                }
+              },
+              "connectivity": {
+                "topology": "ManagementOnly",
+                "internetEgress": "DirectFromSpoke"
+              },
+              "identity": {
+                "provider": "EntraIdWithDomainServices",
+                "domainServices": {
+                  "subnetAddressPrefix": "10.0.10.0/24",
+                  "domainName": "contoso.local"
+                }
+              },
+              "provisioningState": "Succeeded",
+              "platformSubscriptions": {
+                "subscriptionModel": "Dedicated",
+                "identity": {
+                  "subscriptionId": "11111111-1111-1111-1111-111111111111"
+                },
+                "management": {
+                  "subscriptionId": "33333333-3333-3333-3333-333333333333"
+                },
+                "connectivity": {
+                  "subscriptionId": "22222222-2222-2222-2222-222222222222"
+                }
+              },
+              "regions": [
+                {
+                  "role": "Primary",
+                  "name": "eastus",
+                  "addressSpace": {
+                    "spoke": "10.4.0.0/16",
+                    "hub": "10.0.0.0/22"
+                  },
+                  "availabilityZones": [
+                    "1",
+                    "2",
+                    "3"
+                  ]
+                },
+                {
+                  "role": "Secondary",
+                  "name": "westus",
+                  "addressSpace": {
+                    "spoke": "10.14.0.0/16",
+                    "hub": "10.10.0.0/22"
+                  },
+                  "availabilityZones": [
+                    "1",
+                    "2",
+                    "3"
+                  ]
+                }
+              ],
+              "security": {
+                "defenderPlans": [
+                  {
+                    "name": "Servers",
+                    "tier": "P2"
+                  },
+                  {
+                    "name": "KeyVaults",
+                    "tier": "Standard"
+                  },
+                  {
+                    "name": "Storage",
+                    "tier": "Standard"
+                  }
+                ],
+                "keyVault": {
+                  "kind": "Premium",
+                  "purgeProtectionEnabled": true,
+                  "softDeleteRetentionInDays": 90,
+                  "rbacAuthorizationEnabled": true
+                },
+                "encryption": {
+                  "customerManagedKeyEnabled": true,
+                  "customerManagedKey": {
+                    "keyName": "alzKey",
+                    "keyVaultId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-sec/providers/Microsoft.KeyVault/vaults/alz-kv"
+                  }
+                }
+              },
+              "costManagement": {
+                "savingsPlans": "ThreeYear",
+                "reservations": "StableWorkloadsOnly",
+                "budgets": [
+                  {
+                    "name": "platform-monthly",
+                    "amount": 10000,
+                    "thresholds": [
+                      50,
+                      80,
+                      100
+                    ],
+                    "notificationEmails": [
+                      "finops@contoso.com"
+                    ]
+                  }
+                ],
+                "billingAccountType": "EnterpriseAgreement"
+              },
+              "governance": {
+                "policyAssignmentOverrides": [
+                  {
+                    "assignmentName": "Deny-PublicIP",
+                    "enforcementMode": "Default"
+                  }
+                ],
+                "policyAssignmentMode": "AlzDefaults",
+                "requiredTags": [
+                  {
+                    "name": "Environment",
+                    "defaultValue": "Production"
+                  },
+                  {
+                    "name": "CostCenter"
+                  }
+                ],
+                "resourceLocks": [
+                  {
+                    "level": "CanNotDelete",
+                    "notes": "Protect hub networking",
+                    "scope": "Connectivity"
+                  }
+                ]
+              }
+            },
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones/contoso-plz-mo",
+            "type": "Microsoft.Migrate/migrateProjects/platformLandingZones"
+          }
+        ],
+        "nextLink": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones?api-version=2026-02-01-preview&$skipToken=opaque"
+      }
+    }
+  }
+}
