@@ -108,25 +108,32 @@ interface CloudServices {
 
 @@maxLength(CloudService.name, 50);
 @@minLength(CloudService.name, 3);
-@@doc(CloudService.name,
+@@doc(
+  CloudService.name,
   "The name that uniquely identifies a SaaSHub cloud service."
 );
 @@doc(CloudService.properties, "The properties of a SaaSHub cloud service.");
-@@doc(CloudServices.create::parameters.resource,
+@@doc(
+  CloudServices.create::parameters.resource,
   "Request parameters that are provided to the create SaaSHub cloud service operation."
 );
-@@doc(CloudServices.update::parameters.properties,
+@@doc(
+  CloudServices.update::parameters.properties,
   "Request parameters that are provided to the update SaaSHub cloud service operation."
 );
-@@doc(CloudServices.canMerge::parameters.body,
+@@doc(
+  CloudServices.canMerge::parameters.body,
   "Request parameters that are provided to the merge SaaSHub cloud service operation."
 );
-@@doc(CloudServices.canUpdate::parameters.body,
+@@doc(
+  CloudServices.canUpdate::parameters.body,
   "Request parameters that are provided to the update SaaSHub cloud service operation."
 );
-@@doc(CloudServices.merge::parameters.body,
+@@doc(
+  CloudServices.merge::parameters.body,
   "Request parameters that are provided to the merge SaaSHub cloud service operation."
 );
-@@doc(CloudServices.refundableQuantity,
+@@doc(
+  CloudServices.refundableQuantity,
   "Gets the refundable quantity for a SaaSHub cloud service."
 );

@@ -70,17 +70,21 @@ interface NetworkSettingsResources {
   listBySubscription is ArmListBySubscription<NetworkSettingsResource>;
 }
 
-@@doc(NetworkSettingsResources.create::parameters.resource,
+@@doc(
+  NetworkSettingsResources.create::parameters.resource,
   "GitHub.Network networkSettings resource create parameters."
 );
-@@projectedName(NetworkSettingsResources.create::parameters.resource,
+@@projectedName(
+  NetworkSettingsResources.create::parameters.resource,
   "json",
   "networkSettings"
 );
-@@doc(NetworkSettingsResources.update::parameters.properties,
+@@doc(
+  NetworkSettingsResources.update::parameters.properties,
   "Parameters for updating the properties of the GitHub.Network resource."
 );
-@@projectedName(NetworkSettingsResources.update::parameters.properties,
+@@projectedName(
+  NetworkSettingsResources.update::parameters.properties,
   "json",
   "networkSettings"
 );

@@ -55,9 +55,11 @@ interface VirtualInstances {
 }
 
 @@doc(VirtualInstance.name, "The name of the Virtual Instance resource");
-@@doc(VirtualInstances.create::parameters.resource,
+@@doc(
+  VirtualInstances.create::parameters.resource,
   "Request body to create the Virtual Instance resource."
 );
-@@doc(VirtualInstances.update::parameters.properties,
+@@doc(
+  VirtualInstances.update::parameters.properties,
   "Request body to update the Virtual Instance resource."
 );

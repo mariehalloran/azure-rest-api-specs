@@ -22,7 +22,16 @@ These are the global settings for the Azure Resource Notifications API.
 
 ``` yaml
 openapi-type: arm
-tag: package-2025-11-19-preview
+tag: package-2026-03-01-preview
+```
+
+### Tag: package-2026-03-01-preview
+
+These settings apply only when `--tag=package-2026-03-01-preview` is specified on the command line.
+
+``` yaml $(tag) == 'package-2026-03-01-preview'
+input-file:
+- Microsoft.ResourceNotifications/preview/2026-03-01-preview/resourcenotifications.json
 ```
 
 ### Tag: package-2025-11-19-preview
@@ -40,8 +49,20 @@ input-file:
 suppressions:
   - code: GuidUsage
     from: resourcenotifications.json
-    reason: appId is an Azure Active Directory application ID which is a GUID by definition.
+    reason: appId is an AAD application ID which is a GUID by definition.
     where: $.definitions["Azure.Core.uuid"].format
+  - code: TrackedResourcesMustHavePut
+    from: resourcenotifications.json
+    reason: Namespace is read-only, pre-provisioned by the platform.
+    where: $.definitions.Namespace
+  - code: TrackedResourcePatchOperation
+    from: resourcenotifications.json
+    reason: Namespace is read-only, pre-provisioned by the platform.
+    where: $.definitions.Namespace
+  - code: AllTrackedResourcesMustHaveDelete
+    from: resourcenotifications.json
+    reason: Namespace is read-only, pre-provisioned by the platform.
+    where: $.definitions.Namespace
 ```
 
 ## Code Generation

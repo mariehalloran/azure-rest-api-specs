@@ -47,9 +47,11 @@ interface EdgeMachineExtensions {
    */
   delete is ArmResourceDeleteWithoutOkAsync<
     EdgeMachineExtension,
-    Response = ArmDeleteAcceptedLroResponse<ArmAsyncOperationHeader &
-      Azure.Core.Foundations.RetryAfterHeader &
-      ArmLroLocationHeader> | ArmDeletedNoContentResponse
+    Response =
+      | ArmDeleteAcceptedLroResponse<ArmAsyncOperationHeader &
+          Azure.Core.Foundations.RetryAfterHeader &
+          ArmLroLocationHeader>
+      | ArmDeletedNoContentResponse
   >;
 
   /**

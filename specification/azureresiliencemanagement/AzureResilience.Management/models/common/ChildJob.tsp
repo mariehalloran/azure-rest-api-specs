@@ -1,5 +1,6 @@
 import "@typespec/http";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@azure-tools/typespec-azure-core";
 import "./common.tsp";
@@ -8,6 +9,7 @@ import "./Job.tsp";
 using Azure.Core;
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 using OpenAPI;
 
@@ -16,6 +18,7 @@ namespace Microsoft.AzureResilienceManagement;
 
 // Define the main model
 @doc("Represents the properties of a child job within the Resiliency Hub.")
+@removed(Versions.v2026_04_01_preview)
 @discriminator("jobType")
 model ChildJobProperties {
   ...BaseJobProperties;

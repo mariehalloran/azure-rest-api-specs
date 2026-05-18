@@ -38,6 +38,7 @@ enum Versions {
   /**
    * The 2025-03-21 API version.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/version-progression" "LEGACY"
   v2025_03_21: "2025-03-21",
 
   /**
@@ -113,6 +114,7 @@ interface FileSystems {
   >;
 }
 
-@@doc(LiftrBase.Storage.FileSystemResource.name,
+@@doc(
+  LiftrBase.Storage.FileSystemResource.name,
   "Name of the filesystem resource"
 );

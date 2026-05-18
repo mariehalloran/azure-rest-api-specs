@@ -10219,7 +10219,7 @@
     },
     "ConfigTemplateMetadata": {
       "type": "object",
-      "description": "SolutionSchema Resource",
+      "description": "ConfigTemplateMetadata Resource",
       "properties": {
         "properties": {
           "$ref": "#/definitions/ConfigTemplateMetadataProperties",
@@ -10268,7 +10268,6 @@
           "items": {
             "$ref": "#/definitions/HierarchyMetadata"
           },
-          "readOnly": true,
           "x-ms-identifiers": []
         },
         "unLinkedHierarchies": {
@@ -10277,7 +10276,6 @@
           "items": {
             "$ref": "#/definitions/HierarchyMetadata"
           },
-          "readOnly": true,
           "x-ms-identifiers": []
         },
         "templateUniqueIdentifier": {
@@ -11506,13 +11504,11 @@
                 }
               ]
             }
-          },
-          "readOnly": true
+          }
         },
         "level": {
           "type": "string",
-          "description": "Hierarchy Level",
-          "readOnly": true
+          "description": "Hierarchy Level"
         }
       }
     },

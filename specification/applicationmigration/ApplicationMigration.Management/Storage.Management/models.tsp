@@ -683,14 +683,18 @@ model NasProperties is AzureResourceProperties {
   numberOfBuckets?: int32;
 
   /**
-   * The cluster FQDN(s).
+   * The connection FQDN to the NAS cluster.
    */
-  clusterFqdn?: string[];
+  connectionFqdn?: string;
 
   /**
-   * The run-as account ID for NAS access.
+   * The discovered cluster FQDN(s).
    */
-  runAsAccountId?: string;
+  discoveredFqdns?: string[];
+
+  /** The collection of appliance data associated with this NAS resource. */
+  @identifiers(#[])
+  applianceDataCollection?: ApplianceData[];
 
   /**
    * The display name of the NAS device.
@@ -707,6 +711,35 @@ model NasProperties is AzureResourceProperties {
    */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
   tags?: Record<string>;
+}
+
+/**
+ * The registration status of an appliance.
+ */
+@added(Versions.v2026_05_01_preview)
+union RegistrationStatus {
+  string,
+
+  /** The appliance is in the process of registering. */
+  Registering: "Registering",
+
+  /** The appliance is fully registered. */
+  Registered: "Registered",
+}
+
+/**
+ * Data associated with a discovery appliance.
+ */
+@added(Versions.v2026_05_01_preview)
+model ApplianceData {
+  /** The run-as account identifier. */
+  runAsAccountId?: string;
+
+  /** The appliance name. */
+  applianceName?: string;
+
+  /** The registration status of the appliance. */
+  status?: RegistrationStatus;
 }
 
 /**
@@ -787,14 +820,18 @@ model NasResourcePatch {
   numberOfBuckets?: int32;
 
   /**
-   * The cluster FQDN(s).
+   * The connection FQDN to the NAS cluster.
    */
-  clusterFqdn?: string[];
+  connectionFqdn?: string;
 
   /**
-   * The run-as account ID for NAS access.
+   * The discovered cluster FQDN(s).
    */
-  runAsAccountId?: string;
+  discoveredFqdns?: string[];
+
+  /** The collection of appliance data associated with this NAS resource. */
+  @identifiers(#[])
+  applianceDataCollection?: ApplianceData[];
 
   /**
    * The display name of the NAS device.

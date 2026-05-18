@@ -68,10 +68,12 @@ interface InstanceMonitors {
   listByParent is ArmResourceListByParent<InstanceMonitor>;
 }
 
-@@doc(InstanceMonitor.name,
+@@doc(
+  InstanceMonitor.name,
   "The name of the instance monitor resource. This is a singleton resource with the name 'default'."
 );
 @@doc(InstanceMonitor.properties, "Instance monitor properties");
-@@doc(InstanceMonitors.create::parameters.resource,
+@@doc(
+  InstanceMonitors.create::parameters.resource,
   "Request body representing an instance monitor resource"
 );
