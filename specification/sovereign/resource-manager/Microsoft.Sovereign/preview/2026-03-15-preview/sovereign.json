@@ -3728,7 +3728,8 @@
         "NonCompliant",
         "Conflict",
         "NotApplicable",
-        "NotEvaluated"
+        "NotEvaluated",
+        "Others"
       ],
       "x-ms-enum": {
         "name": "PolicyComplianceState",
@@ -3758,6 +3759,11 @@
             "name": "NotEvaluated",
             "value": "NotEvaluated",
             "description": "The resource has not been evaluated for compliance with respect to the given policy."
+          },
+          {
+            "name": "Others",
+            "value": "Others",
+            "description": "The resource is in a compliance state other than Compliant, NonCompliant, Conflict, NotApplicable, or NotEvaluated."
           }
         ]
       }
@@ -4177,6 +4183,12 @@
           "format": "int32",
           "description": "Number of resources in not evaluated state for the sovereign view.",
           "minimum": 0
+        },
+        "othersCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of resources in other compliance states for the sovereign view.",
+          "minimum": 0
         }
       },
       "required": [
@@ -4186,7 +4198,8 @@
         "nonCompliantCount",
         "conflictCount",
         "notApplicableCount",
-        "notEvaluatedCount"
+        "notEvaluatedCount",
+        "othersCount"
       ]
     },
     "SovereignViewComplianceOverallSummary": {
@@ -4246,6 +4259,12 @@
           "format": "int32",
           "description": "Number of resources in not evaluated state for the sovereign view.",
           "minimum": 0
+        },
+        "othersCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of resources in other compliance states for the sovereign view.",
+          "minimum": 0
         }
       },
       "required": [
@@ -4257,7 +4276,8 @@
         "nonCompliantCount",
         "conflictCount",
         "notApplicableCount",
-        "notEvaluatedCount"
+        "notEvaluatedCount",
+        "othersCount"
       ]
     },
     "SovereignViewComplianceSummaryResponse": {

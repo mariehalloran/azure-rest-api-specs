@@ -190,6 +190,10 @@ model SovereignViewComplianceOverallSummary {
   @doc("Number of resources in not evaluated state for the sovereign view.")
   @minValue(0)
   notEvaluatedCount: int32;
+
+  @doc("Number of resources in other compliance states for the sovereign view.")
+  @minValue(0)
+  othersCount: int32;
 }
 
 @added(Versions.Preview20260315)
@@ -221,6 +225,10 @@ model SovereignViewComplianceDimensionSummary {
   @doc("Number of resources in not evaluated state for the sovereign view.")
   @minValue(0)
   notEvaluatedCount: int32;
+
+  @doc("Number of resources in other compliance states for the sovereign view.")
+  @minValue(0)
+  othersCount: int32;
 }
 
 @added(Versions.Preview20260315)
@@ -276,6 +284,9 @@ union PolicyComplianceState {
 
   @doc("The resource has not been evaluated for compliance with respect to the given policy.")
   NotEvaluated: "NotEvaluated",
+
+  @doc("The resource is in a compliance state other than Compliant, NonCompliant, Conflict, NotApplicable, or NotEvaluated.")
+  Others: "Others",
 
   string,
 }
