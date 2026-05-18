@@ -396,8 +396,8 @@ model SolutionTypeSettingsProperties {
   @doc("Array of allowed values for this solution settings property.")
   allowedValues: string[];
 
-  @added(Versions.v2025_12_01_preview)
-  @madeRequired(Versions.v2025_12_01_preview)
+  @added(Versions.v2026_04_01_preview)
+  @madeRequired(Versions.v2026_04_01_preview)
   @doc("The supported host types for the current solution setting")
   hostTypes: HostType[];
 
