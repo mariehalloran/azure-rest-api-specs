@@ -22,6 +22,15 @@ model AzureFirewallConfig extends FirewallConfig {
 
   @doc("Whether TLS inspection is enabled. Requires the Premium SKU.")
   tlsInspectionEnabled?: boolean;
+
+  @doc("Threat intelligence mode used by the firewall.")
+  threatIntelMode?: ThreatIntelMode;
+
+  @doc("Intrusion Detection and Prevention System mode. Requires the Premium SKU.")
+  idpsMode?: IdpsMode;
+
+  @doc("Names of regions in which the firewall is deployed. When omitted, the firewall is deployed in every region declared on the landing zone.")
+  deployInRegions?: string[];
 }
 
 @doc("Third-party Network Virtual Appliance configuration. The PLZ resource records the design intent; deployment of the NVA itself is the customer's responsibility.")
@@ -51,6 +60,9 @@ model BastionConfig {
   @minValue(2)
   @maxValue(50)
   scaleUnits?: int32;
+
+  @doc("Names of regions in which Bastion is deployed. When omitted, Bastion is deployed in every region declared on the landing zone.")
+  deployInRegions?: string[];
 }
 
 @doc("Azure DDoS Protection configuration.")
@@ -66,6 +78,9 @@ model PrivateDnsConfig {
 
   @doc("Additional custom Private DNS zones to deploy, e.g. [\"contoso.internal\"].")
   customZones?: string[];
+
+  @doc("Whether centralized Private DNS resolution via the connectivity subscription is enabled. When true, spoke VNets resolve Private Link records through the hub.")
+  centralizedResolutionEnabled?: boolean;
 }
 
 @doc("VPN Gateway configuration. Available shapes are selected by the topology discriminator and gated by Connectivity.topology.")
@@ -73,6 +88,9 @@ model PrivateDnsConfig {
 model VpnGatewayConfig {
   @doc("Topology this VPN configuration applies to.")
   topology: ConnectivityTopology;
+
+  @doc("Names of regions in which a VPN Gateway is deployed. When omitted, a VPN Gateway is deployed in every region declared on the landing zone.")
+  deployInRegions?: string[];
 }
 
 @doc("VPN Gateway configuration for hub-and-spoke topology (deploys an Azure VPN Gateway in the hub).")
@@ -109,6 +127,9 @@ model VirtualWanVpnGatewayConfig extends VpnGatewayConfig {
 model ExpressRouteConfig {
   @doc("Topology this ExpressRoute configuration applies to.")
   topology: ConnectivityTopology;
+
+  @doc("Names of regions in which an ExpressRoute Gateway is deployed. When omitted, an ExpressRoute Gateway is deployed in every region declared on the landing zone.")
+  deployInRegions?: string[];
 }
 
 @doc("ExpressRoute Gateway configuration for hub-and-spoke topology.")

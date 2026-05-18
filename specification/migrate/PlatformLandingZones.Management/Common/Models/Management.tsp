@@ -32,6 +32,9 @@ model AzureMonitorConfig {
 
   @doc("Whether Application Insights is provisioned in the management subscription.")
   applicationInsightsEnabled?: boolean;
+
+  @doc("Whether Network Insights is enabled for the landing zone.")
+  networkInsightsEnabled?: boolean;
 }
 
 @doc("Microsoft Sentinel configuration.")
@@ -62,6 +65,9 @@ model RecoveryServicesVault {
 
   @doc("Whether cross-region restore is enabled. Requires GeoRedundant redundancy.")
   crossRegionRestoreEnabled?: boolean;
+
+  @doc("Whether vault immutability is enabled. When true, recovery points cannot be deleted before expiry.")
+  immutabilityEnabled?: boolean;
 }
 
 @doc("Backup configuration.")
@@ -79,6 +85,15 @@ model BackupConfig {
 model SiteRecoveryConfig {
   @doc("Whether Site Recovery is enabled for the landing zone.")
   enabled: boolean;
+}
+
+@doc("Azure Update Manager configuration. Centralizes patch orchestration for landing-zone VMs.")
+model UpdateManagementConfig {
+  @doc("Whether Azure Update Manager is enabled for the landing zone.")
+  enabled: boolean;
+
+  @doc("Name of the default maintenance configuration applied to enrolled VMs.")
+  maintenanceConfigurationName?: string;
 }
 
 @doc("Management plane configuration for the landing zone.")
@@ -103,4 +118,7 @@ model Management {
 
   @doc("Azure Site Recovery configuration.")
   siteRecovery?: SiteRecoveryConfig;
+
+  @doc("Azure Update Manager configuration.")
+  updateManagement?: UpdateManagementConfig;
 }

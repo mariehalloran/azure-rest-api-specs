@@ -105,6 +105,34 @@ union AzureFirewallSku {
   Premium: "Premium",
 }
 
+@doc("Threat intelligence mode for Azure Firewall.")
+union ThreatIntelMode {
+  string,
+
+  @doc("Threat intelligence is disabled.")
+  Off: "Off",
+
+  @doc("Traffic matching threat intelligence is logged as an alert without blocking.")
+  Alert: "Alert",
+
+  @doc("Traffic matching threat intelligence is blocked and logged.")
+  Deny: "Deny",
+}
+
+@doc("Intrusion Detection and Prevention System mode for Azure Firewall Premium.")
+union IdpsMode {
+  string,
+
+  @doc("IDPS is disabled.")
+  Off: "Off",
+
+  @doc("IDPS inspects traffic and logs detections without blocking.")
+  Alert: "Alert",
+
+  @doc("IDPS inspects traffic and both alerts on and blocks detected threats.")
+  Deny: "Deny",
+}
+
 @doc("Third-party Network Virtual Appliance vendor recorded in the design.")
 union NvaVendor {
   string,
@@ -401,6 +429,32 @@ union PolicyEnforcementMode {
 
   @doc("Policies are evaluated but effects are not enforced. Useful for testing.")
   DoNotEnforce: "DoNotEnforce",
+}
+
+@doc("Azure Policy effect applied when an assignment is evaluated.")
+union PolicyEffect {
+  string,
+
+  @doc("Block the non-compliant request.")
+  Deny: "Deny",
+
+  @doc("Log non-compliance without blocking.")
+  Audit: "Audit",
+
+  @doc("Block creation of non-compliant audit log entries.")
+  AuditIfNotExists: "AuditIfNotExists",
+
+  @doc("Deploy a remediation when the related resource does not exist.")
+  DeployIfNotExists: "DeployIfNotExists",
+
+  @doc("Modify the resource to bring it into compliance.")
+  Modify: "Modify",
+
+  @doc("Append fields to the resource to bring it into compliance.")
+  Append: "Append",
+
+  @doc("Disable evaluation of the assignment.")
+  Disabled: "Disabled",
 }
 
 @doc("Azure Resource Manager lock level.")

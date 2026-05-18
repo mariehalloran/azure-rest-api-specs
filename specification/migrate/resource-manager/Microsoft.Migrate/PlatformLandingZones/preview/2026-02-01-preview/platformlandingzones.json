@@ -281,6 +281,9 @@
           },
           "Create a Platform Landing Zone (VirtualWan, maximum set)": {
             "$ref": "./examples/PlatformLandingZones_CreateOrUpdate_MaximumSet_VirtualWan_Gen.json"
+          },
+          "PlatformLandingZones_CreateOrUpdate_MaximumSet_HubAndSpoke_Nva": {
+            "$ref": "./examples/PlatformLandingZones_CreateOrUpdate_MaximumSet_HubAndSpoke_Nva_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -516,6 +519,21 @@
         "tlsInspectionEnabled": {
           "type": "boolean",
           "description": "Whether TLS inspection is enabled. Requires the Premium SKU."
+        },
+        "threatIntelMode": {
+          "$ref": "#/definitions/ThreatIntelMode",
+          "description": "Threat intelligence mode used by the firewall."
+        },
+        "idpsMode": {
+          "$ref": "#/definitions/IdpsMode",
+          "description": "Intrusion Detection and Prevention System mode. Requires the Premium SKU."
+        },
+        "deployInRegions": {
+          "type": "array",
+          "description": "Names of regions in which the firewall is deployed. When omitted, the firewall is deployed in every region declared on the landing zone.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -573,6 +591,10 @@
         "applicationInsightsEnabled": {
           "type": "boolean",
           "description": "Whether Application Insights is provisioned in the management subscription."
+        },
+        "networkInsightsEnabled": {
+          "type": "boolean",
+          "description": "Whether Network Insights is enabled for the landing zone."
         }
       },
       "required": [
@@ -613,6 +635,13 @@
           "description": "Number of scale units. Only valid when sku is Standard or Premium; ignored for Basic.",
           "minimum": 2,
           "maximum": 50
+        },
+        "deployInRegions": {
+          "type": "array",
+          "description": "Names of regions in which Bastion is deployed. When omitted, Bastion is deployed in every region declared on the landing zone.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -788,6 +817,14 @@
           "x-ms-identifiers": [
             "name"
           ]
+        },
+        "costAnomalyAlertsEnabled": {
+          "type": "boolean",
+          "description": "Whether Cost Management anomaly alerts are enabled for the landing zone."
+        },
+        "tagInheritanceEnabled": {
+          "type": "boolean",
+          "description": "Whether tag inheritance from subscription to resource is enabled in Cost Management."
         }
       },
       "required": [
@@ -1078,6 +1115,13 @@
         "topology": {
           "$ref": "#/definitions/ConnectivityTopology",
           "description": "Topology this ExpressRoute configuration applies to."
+        },
+        "deployInRegions": {
+          "type": "array",
+          "description": "Names of regions in which an ExpressRoute Gateway is deployed. When omitted, an ExpressRoute Gateway is deployed in every region declared on the landing zone.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "discriminator": "topology",
@@ -1202,6 +1246,7 @@
             "$ref": "#/definitions/PolicyAssignmentOverride"
           },
           "x-ms-identifiers": [
+            "scope",
             "assignmentName"
           ]
         },
@@ -1214,6 +1259,20 @@
           "x-ms-identifiers": [
             "scope"
           ]
+        },
+        "allowedLocations": {
+          "type": "array",
+          "description": "Allowed Azure regions enforced via policy at the landing-zone scope.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deniedResourceTypes": {
+          "type": "array",
+          "description": "Resource types denied via policy at the landing-zone scope (e.g. \"Microsoft.ClassicCompute/virtualMachines\").",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -1286,6 +1345,29 @@
         "domainServices": {
           "$ref": "#/definitions/DomainServicesConfig",
           "description": "Domain Services configuration. Required when provider is EntraIdWithDomainServices or HybridAdDs; ignored when provider is EntraIdOnly."
+        },
+        "entraConnectEnabled": {
+          "type": "boolean",
+          "description": "Whether Microsoft Entra Connect (or Microsoft Entra Cloud Sync) is used to synchronize on-premises identities. Only meaningful when provider is HybridAdDs."
+        },
+        "privilegedIdentityManagementEnabled": {
+          "type": "boolean",
+          "description": "Whether Microsoft Entra Privileged Identity Management (PIM) is enabled for just-in-time elevation of privileged roles."
+        },
+        "conditionalAccessEnabled": {
+          "type": "boolean",
+          "description": "Whether Conditional Access policies are enforced for landing-zone administrators."
+        },
+        "mfaForAdminsEnabled": {
+          "type": "boolean",
+          "description": "Whether multi-factor authentication is required for all administrative accounts."
+        },
+        "breakGlassAccountCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of break-glass (emergency access) accounts to provision. Microsoft recommends at least 2.",
+          "minimum": 0,
+          "maximum": 10
         }
       },
       "required": [
@@ -1318,6 +1400,36 @@
             "name": "HybridAdDs",
             "value": "HybridAdDs",
             "description": "Hybrid identity with on-premises Active Directory Domain Services synchronized via Microsoft Entra Connect."
+          }
+        ]
+      }
+    },
+    "IdpsMode": {
+      "type": "string",
+      "description": "Intrusion Detection and Prevention System mode for Azure Firewall Premium.",
+      "enum": [
+        "Off",
+        "Alert",
+        "Deny"
+      ],
+      "x-ms-enum": {
+        "name": "IdpsMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Off",
+            "value": "Off",
+            "description": "IDPS is disabled."
+          },
+          {
+            "name": "Alert",
+            "value": "Alert",
+            "description": "IDPS inspects traffic and logs detections without blocking."
+          },
+          {
+            "name": "Deny",
+            "value": "Deny",
+            "description": "IDPS inspects traffic and both alerts on and blocks detected threats."
           }
         ]
       }
@@ -1498,6 +1610,10 @@
         "siteRecovery": {
           "$ref": "#/definitions/SiteRecoveryConfig",
           "description": "Azure Site Recovery configuration."
+        },
+        "updateManagement": {
+          "$ref": "#/definitions/UpdateManagementConfig",
+          "description": "Azure Update Manager configuration."
         }
       },
       "required": [
@@ -1625,13 +1741,18 @@
             "type": "integer",
             "format": "int32"
           }
+        },
+        "scope": {
+          "$ref": "#/definitions/AlzManagementGroupScope",
+          "description": "ALZ management-group scope at which the budget applies."
         }
       },
       "required": [
         "name",
         "amount",
         "notificationEmails",
-        "thresholds"
+        "thresholds",
+        "scope"
       ]
     },
     "PlatformLandingZoneListResult": {
@@ -1726,6 +1847,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "deployHub": {
+          "type": "boolean",
+          "description": "Whether a connectivity hub (or VirtualWan virtual hub) is deployed in this region. Defaults to true. Set to false for regions that are pure DR targets and rely on hubs in other regions."
+        },
+        "deploySidecar": {
+          "type": "boolean",
+          "description": "Whether the per-region sidecar VNet (used for shared platform services such as DNS resolvers or NVA management) is deployed in this region. Defaults to true."
         }
       },
       "required": [
@@ -1804,21 +1933,93 @@
     },
     "PolicyAssignmentOverride": {
       "type": "object",
-      "description": "Override of a single ALZ policy assignment.",
+      "description": "Override of a single ALZ policy assignment at a specific management-group scope.",
       "properties": {
+        "scope": {
+          "$ref": "#/definitions/AlzManagementGroupScope",
+          "description": "ALZ management-group scope at which this override applies. The same assignment may be overridden differently at different scopes."
+        },
         "assignmentName": {
           "type": "string",
           "description": "Display name of the ALZ policy assignment being overridden."
         },
         "enforcementMode": {
           "$ref": "#/definitions/PolicyEnforcementMode",
-          "description": "Enforcement mode for this assignment."
+          "description": "Enforcement mode to apply for this assignment at the chosen scope. Omit to inherit the baseline."
+        },
+        "effect": {
+          "$ref": "#/definitions/PolicyEffect",
+          "description": "Policy effect to apply for this assignment at the chosen scope. Omit to inherit the baseline."
+        },
+        "parameters": {
+          "type": "array",
+          "description": "Parameter overrides applied to the assignment. Omit to inherit the baseline.",
+          "items": {
+            "$ref": "#/definitions/PolicyParameterOverride"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
         }
       },
       "required": [
-        "assignmentName",
-        "enforcementMode"
+        "scope",
+        "assignmentName"
       ]
+    },
+    "PolicyEffect": {
+      "type": "string",
+      "description": "Azure Policy effect applied when an assignment is evaluated.",
+      "enum": [
+        "Deny",
+        "Audit",
+        "AuditIfNotExists",
+        "DeployIfNotExists",
+        "Modify",
+        "Append",
+        "Disabled"
+      ],
+      "x-ms-enum": {
+        "name": "PolicyEffect",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Deny",
+            "value": "Deny",
+            "description": "Block the non-compliant request."
+          },
+          {
+            "name": "Audit",
+            "value": "Audit",
+            "description": "Log non-compliance without blocking."
+          },
+          {
+            "name": "AuditIfNotExists",
+            "value": "AuditIfNotExists",
+            "description": "Block creation of non-compliant audit log entries."
+          },
+          {
+            "name": "DeployIfNotExists",
+            "value": "DeployIfNotExists",
+            "description": "Deploy a remediation when the related resource does not exist."
+          },
+          {
+            "name": "Modify",
+            "value": "Modify",
+            "description": "Modify the resource to bring it into compliance."
+          },
+          {
+            "name": "Append",
+            "value": "Append",
+            "description": "Append fields to the resource to bring it into compliance."
+          },
+          {
+            "name": "Disabled",
+            "value": "Disabled",
+            "description": "Disable evaluation of the assignment."
+          }
+        ]
+      }
     },
     "PolicyEnforcementMode": {
       "type": "string",
@@ -1844,6 +2045,24 @@
         ]
       }
     },
+    "PolicyParameterOverride": {
+      "type": "object",
+      "description": "Single Azure Policy parameter override applied to an assignment.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Parameter name as defined on the policy assignment."
+        },
+        "value": {
+          "type": "string",
+          "description": "Parameter value, serialized as a string."
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ]
+    },
     "PrivateDnsConfig": {
       "type": "object",
       "description": "Private DNS configuration.",
@@ -1858,6 +2077,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "centralizedResolutionEnabled": {
+          "type": "boolean",
+          "description": "Whether centralized Private DNS resolution via the connectivity subscription is enabled. When true, spoke VNets resolve Private Link records through the hub."
         }
       },
       "required": [
@@ -1879,6 +2102,10 @@
         "crossRegionRestoreEnabled": {
           "type": "boolean",
           "description": "Whether cross-region restore is enabled. Requires GeoRedundant redundancy."
+        },
+        "immutabilityEnabled": {
+          "type": "boolean",
+          "description": "Whether vault immutability is enabled. When true, recovery points cannot be deleted before expiry."
         }
       },
       "required": [
@@ -2155,6 +2382,53 @@
       ],
       "x-ms-discriminator-value": "ThirdPartyNva"
     },
+    "ThreatIntelMode": {
+      "type": "string",
+      "description": "Threat intelligence mode for Azure Firewall.",
+      "enum": [
+        "Off",
+        "Alert",
+        "Deny"
+      ],
+      "x-ms-enum": {
+        "name": "ThreatIntelMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Off",
+            "value": "Off",
+            "description": "Threat intelligence is disabled."
+          },
+          {
+            "name": "Alert",
+            "value": "Alert",
+            "description": "Traffic matching threat intelligence is logged as an alert without blocking."
+          },
+          {
+            "name": "Deny",
+            "value": "Deny",
+            "description": "Traffic matching threat intelligence is blocked and logged."
+          }
+        ]
+      }
+    },
+    "UpdateManagementConfig": {
+      "type": "object",
+      "description": "Azure Update Manager configuration. Centralizes patch orchestration for landing-zone VMs.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether Azure Update Manager is enabled for the landing zone."
+        },
+        "maintenanceConfigurationName": {
+          "type": "string",
+          "description": "Name of the default maintenance configuration applied to enrolled VMs."
+        }
+      },
+      "required": [
+        "enabled"
+      ]
+    },
     "VaultRedundancy": {
       "type": "string",
       "description": "Recovery Services vault redundancy.",
@@ -2236,6 +2510,13 @@
         "topology": {
           "$ref": "#/definitions/ConnectivityTopology",
           "description": "Topology this VPN configuration applies to."
+        },
+        "deployInRegions": {
+          "type": "array",
+          "description": "Names of regions in which a VPN Gateway is deployed. When omitted, a VPN Gateway is deployed in every region declared on the landing zone.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "discriminator": "topology",

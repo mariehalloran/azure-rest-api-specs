@@ -1,11 +1,191 @@
 {
-  "title": "Create a Platform Landing Zone (ManagementOnly, maximum set)",
+  "title": "PlatformLandingZones_CreateOrUpdate_MaximumSet_HubAndSpoke_Nva",
   "operationId": "PlatformLandingZones_Create",
   "parameters": {
     "subscriptionId": "00000000-0000-0000-0000-000000000000",
     "api-version": "2026-02-01-preview",
     "resource": {
       "properties": {
+        "security": {
+          "defenderPlans": [
+            {
+              "name": "Servers",
+              "tier": "P2"
+            },
+            {
+              "name": "KeyVaults",
+              "tier": "Standard"
+            },
+            {
+              "name": "Storage",
+              "tier": "Standard"
+            }
+          ],
+          "keyVault": {
+            "kind": "Premium",
+            "purgeProtectionEnabled": true,
+            "softDeleteRetentionInDays": 90,
+            "rbacAuthorizationEnabled": true
+          },
+          "encryption": {
+            "customerManagedKeyEnabled": true,
+            "customerManagedKey": {
+              "keyName": "alzKey",
+              "keyVaultId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-sec/providers/Microsoft.KeyVault/vaults/alz-kv"
+            }
+          }
+        },
+        "governance": {
+          "policyAssignmentOverrides": [
+            {
+              "scope": "Corp",
+              "assignmentName": "Deny-PublicIP",
+              "enforcementMode": "DoNotEnforce",
+              "effect": "Audit",
+              "parameters": [
+                {
+                  "name": "effect",
+                  "value": "Audit"
+                }
+              ]
+            }
+          ],
+          "policyAssignmentMode": "AlzDefaults",
+          "requiredTags": [
+            {
+              "name": "Environment",
+              "defaultValue": "Production"
+            },
+            {
+              "name": "CostCenter"
+            }
+          ],
+          "resourceLocks": [
+            {
+              "level": "CanNotDelete",
+              "notes": "Protect hub networking",
+              "scope": "Connectivity"
+            }
+          ],
+        "allowedLocations": ["eastus", "westus"],
+        "deniedResourceTypes": ["Microsoft.ClassicCompute/virtualMachines"]
+        },
+        "identity": {
+          "provider": "EntraIdWithDomainServices",
+          "domainServices": {
+            "subnetAddressPrefix": "10.0.10.0/24",
+            "domainName": "contoso.local"
+          },
+          "entraConnectEnabled": true,
+          "privilegedIdentityManagementEnabled": true,
+          "conditionalAccessEnabled": true,
+          "mfaForAdminsEnabled": true,
+          "breakGlassAccountCount": 2
+        },
+        "connectivity": {
+          "expressRoute": {
+            "topology": "HubAndSpoke",
+            "fastPathEnabled": false,
+            "sku": "ErGw2AZ",
+            "deployInRegions": ["eastus"]
+          },
+          "topology": "HubAndSpoke",
+          "ddosProtection": {
+            "plan": "Network"
+          },
+          "privateDns": {
+            "privateLinkZonesEnabled": true,
+            "customZones": [
+              "contoso.internal"
+            ],
+          "centralizedResolutionEnabled": true
+          },
+          "firewall": {
+            "kind": "ThirdPartyNva",
+            "vendor": "PaloAlto",
+            "subnetAddressPrefix": "10.0.20.0/26"
+          },
+          "internetEgress": "ViaHub",
+          "vpnGateway": {
+            "generation": "Generation2",
+            "enableBgp": true,
+            "activeActive": true,
+            "topology": "HubAndSpoke",
+            "sku": "VpnGw2AZ",
+            "deployInRegions": ["eastus"]
+          },
+          "bastion": {
+            "sku": "Standard",
+            "scaleUnits": 2,
+            "deployInRegions": ["eastus"]
+          }
+        },
+        "platformSubscriptions": {
+          "subscriptionModel": "Dedicated",
+          "identity": {
+            "subscriptionId": "11111111-1111-1111-1111-111111111111"
+          },
+          "management": {
+            "subscriptionId": "33333333-3333-3333-3333-333333333333"
+          },
+          "connectivity": {
+            "subscriptionId": "22222222-2222-2222-2222-222222222222"
+          }
+        },
+        "costManagement": {
+          "savingsPlans": "ThreeYear",
+          "reservations": "StableWorkloadsOnly",
+          "budgets": [
+            {
+              "name": "platform-monthly",
+              "amount": 10000,
+              "thresholds": [
+                50,
+                80,
+                100
+              ],
+              "notificationEmails": [
+                "finops@contoso.com"
+              ],
+            "scope": "LandingZones"
+            }
+          ],
+          "billingAccountType": "EnterpriseAgreement",
+          "costAnomalyAlertsEnabled": true,
+          "tagInheritanceEnabled": true
+        },
+        "regions": [
+          {
+            "role": "Primary",
+            "name": "eastus",
+            "addressSpace": {
+              "spoke": "10.4.0.0/16",
+              "hub": "10.0.0.0/22"
+            },
+            "availabilityZones": [
+              "1",
+              "2",
+              "3"
+            ],
+            "deployHub": true,
+            "deploySidecar": true
+          },
+          {
+            "role": "Secondary",
+            "name": "westus",
+            "addressSpace": {
+              "spoke": "10.14.0.0/16",
+              "hub": "10.10.0.0/22"
+            },
+            "availabilityZones": [
+              "1",
+              "2",
+              "3"
+            ],
+            "deployHub": false,
+            "deploySidecar": true
+          }
+        ],
         "management": {
           "recoveryServicesVault": {
             "crossRegionRestoreEnabled": true,
@@ -47,156 +227,10 @@
             "enabled": true,
             "maintenanceConfigurationName": "alz-monthly-patch"
         }
-        },
-        "connectivity": {
-          "topology": "ManagementOnly",
-          "internetEgress": "DirectFromSpoke"
-        },
-        "identity": {
-          "provider": "EntraIdWithDomainServices",
-          "domainServices": {
-            "subnetAddressPrefix": "10.0.10.0/24",
-            "domainName": "contoso.local"
-          },
-          "entraConnectEnabled": true,
-          "privilegedIdentityManagementEnabled": true,
-          "conditionalAccessEnabled": true,
-          "mfaForAdminsEnabled": true,
-          "breakGlassAccountCount": 2
-        },
-        "regions": [
-          {
-            "role": "Primary",
-            "name": "eastus",
-            "addressSpace": {
-              "spoke": "10.4.0.0/16",
-              "hub": "10.0.0.0/22"
-            },
-            "availabilityZones": [
-              "1",
-              "2",
-              "3"
-            ],
-            "deployHub": true,
-            "deploySidecar": true
-          },
-          {
-            "role": "Secondary",
-            "name": "westus",
-            "addressSpace": {
-              "spoke": "10.14.0.0/16",
-              "hub": "10.10.0.0/22"
-            },
-            "availabilityZones": [
-              "1",
-              "2",
-              "3"
-            ],
-            "deployHub": false,
-            "deploySidecar": true
-          }
-        ],
-        "governance": {
-          "policyAssignmentOverrides": [
-            {
-              "scope": "Corp",
-              "assignmentName": "Deny-PublicIP",
-              "enforcementMode": "DoNotEnforce",
-              "effect": "Audit",
-              "parameters": [
-                {
-                  "name": "effect",
-                  "value": "Audit"
-                }
-              ]
-            }
-          ],
-          "policyAssignmentMode": "AlzDefaults",
-          "requiredTags": [
-            {
-              "name": "Environment",
-              "defaultValue": "Production"
-            },
-            {
-              "name": "CostCenter"
-            }
-          ],
-          "resourceLocks": [
-            {
-              "level": "CanNotDelete",
-              "notes": "Protect hub networking",
-              "scope": "Connectivity"
-            }
-          ],
-        "allowedLocations": ["eastus", "westus"],
-        "deniedResourceTypes": ["Microsoft.ClassicCompute/virtualMachines"]
-        },
-        "security": {
-          "defenderPlans": [
-            {
-              "name": "Servers",
-              "tier": "P2"
-            },
-            {
-              "name": "KeyVaults",
-              "tier": "Standard"
-            },
-            {
-              "name": "Storage",
-              "tier": "Standard"
-            }
-          ],
-          "keyVault": {
-            "kind": "Premium",
-            "purgeProtectionEnabled": true,
-            "softDeleteRetentionInDays": 90,
-            "rbacAuthorizationEnabled": true
-          },
-          "encryption": {
-            "customerManagedKeyEnabled": true,
-            "customerManagedKey": {
-              "keyName": "alzKey",
-              "keyVaultId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-sec/providers/Microsoft.KeyVault/vaults/alz-kv"
-            }
-          }
-        },
-        "costManagement": {
-          "savingsPlans": "ThreeYear",
-          "reservations": "StableWorkloadsOnly",
-          "budgets": [
-            {
-              "name": "platform-monthly",
-              "amount": 10000,
-              "thresholds": [
-                50,
-                80,
-                100
-              ],
-              "notificationEmails": [
-                "finops@contoso.com"
-              ],
-            "scope": "LandingZones"
-            }
-          ],
-          "billingAccountType": "EnterpriseAgreement",
-          "costAnomalyAlertsEnabled": true,
-          "tagInheritanceEnabled": true
-        },
-        "platformSubscriptions": {
-          "subscriptionModel": "Dedicated",
-          "identity": {
-            "subscriptionId": "11111111-1111-1111-1111-111111111111"
-          },
-          "management": {
-            "subscriptionId": "33333333-3333-3333-3333-333333333333"
-          },
-          "connectivity": {
-            "subscriptionId": "22222222-2222-2222-2222-222222222222"
-          }
         }
       }
     },
-    "platformLandingZoneName": "contoso-plz-mo",
+    "platformLandingZoneName": "contoso-plz-hs-nva",
     "resourceGroupName": "rg-migrate",
     "projectName": "contosoMigrateProject"
   },
@@ -211,7 +245,7 @@
           "lastModifiedBy": "user@contoso.com",
           "lastModifiedByType": "User"
         },
-        "name": "contoso-plz-mo",
+        "name": "contoso-plz-hs-nva",
         "properties": {
           "management": {
             "recoveryServicesVault": {
@@ -256,8 +290,42 @@
           }
           },
           "connectivity": {
-            "topology": "ManagementOnly",
-            "internetEgress": "DirectFromSpoke"
+            "expressRoute": {
+              "topology": "HubAndSpoke",
+              "fastPathEnabled": false,
+              "sku": "ErGw2AZ",
+              "deployInRegions": ["eastus"]
+            },
+            "topology": "HubAndSpoke",
+            "ddosProtection": {
+              "plan": "Network"
+            },
+            "privateDns": {
+              "privateLinkZonesEnabled": true,
+              "customZones": [
+                "contoso.internal"
+              ],
+            "centralizedResolutionEnabled": true
+            },
+            "firewall": {
+            "kind": "ThirdPartyNva",
+            "vendor": "PaloAlto",
+            "subnetAddressPrefix": "10.0.20.0/26"
+          },
+            "internetEgress": "ViaHub",
+            "vpnGateway": {
+              "generation": "Generation2",
+              "enableBgp": true,
+              "activeActive": true,
+              "topology": "HubAndSpoke",
+              "sku": "VpnGw2AZ",
+              "deployInRegions": ["eastus"]
+            },
+            "bastion": {
+              "sku": "Standard",
+              "scaleUnits": 2,
+              "deployInRegions": ["eastus"]
+            }
           },
           "identity": {
             "provider": "EntraIdWithDomainServices",
@@ -272,18 +340,6 @@
             "breakGlassAccountCount": 2
           },
           "provisioningState": "Provisioning",
-          "platformSubscriptions": {
-            "subscriptionModel": "Dedicated",
-            "identity": {
-              "subscriptionId": "11111111-1111-1111-1111-111111111111"
-            },
-            "management": {
-              "subscriptionId": "33333333-3333-3333-3333-333333333333"
-            },
-            "connectivity": {
-              "subscriptionId": "22222222-2222-2222-2222-222222222222"
-            }
-          },
           "regions": [
             {
               "role": "Primary",
@@ -316,6 +372,41 @@
               "deploySidecar": true
             }
           ],
+          "governance": {
+            "policyAssignmentOverrides": [
+              {
+                "scope": "Corp",
+                "assignmentName": "Deny-PublicIP",
+                "enforcementMode": "DoNotEnforce",
+                "effect": "Audit",
+                "parameters": [
+                  {
+                    "name": "effect",
+                    "value": "Audit"
+                  }
+                ]
+              }
+            ],
+            "policyAssignmentMode": "AlzDefaults",
+            "requiredTags": [
+              {
+                "name": "Environment",
+                "defaultValue": "Production"
+              },
+              {
+                "name": "CostCenter"
+              }
+            ],
+            "resourceLocks": [
+              {
+                "level": "CanNotDelete",
+                "notes": "Protect hub networking",
+                "scope": "Connectivity"
+              }
+            ],
+          "allowedLocations": ["eastus", "westus"],
+          "deniedResourceTypes": ["Microsoft.ClassicCompute/virtualMachines"]
+          },
           "security": {
             "defenderPlans": [
               {
@@ -367,47 +458,24 @@
             "costAnomalyAlertsEnabled": true,
           "tagInheritanceEnabled": true
           },
-          "governance": {
-            "policyAssignmentOverrides": [
-              {
-                "scope": "Corp",
-                "assignmentName": "Deny-PublicIP",
-                "enforcementMode": "DoNotEnforce",
-                "effect": "Audit",
-                "parameters": [
-                  {
-                    "name": "effect",
-                    "value": "Audit"
-                  }
-                ]
-              }
-            ],
-            "policyAssignmentMode": "AlzDefaults",
-            "requiredTags": [
-              {
-                "name": "Environment",
-                "defaultValue": "Production"
-              },
-              {
-                "name": "CostCenter"
-              }
-            ],
-            "resourceLocks": [
-              {
-                "level": "CanNotDelete",
-                "notes": "Protect hub networking",
-                "scope": "Connectivity"
-              }
-            ],
-          "allowedLocations": ["eastus", "westus"],
-          "deniedResourceTypes": ["Microsoft.ClassicCompute/virtualMachines"]
+          "platformSubscriptions": {
+            "subscriptionModel": "Dedicated",
+            "identity": {
+              "subscriptionId": "11111111-1111-1111-1111-111111111111"
+            },
+            "management": {
+              "subscriptionId": "33333333-3333-3333-3333-333333333333"
+            },
+            "connectivity": {
+              "subscriptionId": "22222222-2222-2222-2222-222222222222"
+            }
           }
         },
-        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones/contoso-plz-mo",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones/contoso-plz-hs",
         "type": "Microsoft.Migrate/migrateProjects/platformLandingZones"
       },
       "headers": {
-        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Migrate/locations/eastus/operationStatuses/op4?api-version=2026-02-01-preview"
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Migrate/locations/eastus/operationStatuses/op2?api-version=2026-02-01-preview"
       }
     },
     "200": {
@@ -420,7 +488,7 @@
           "lastModifiedBy": "user@contoso.com",
           "lastModifiedByType": "User"
         },
-        "name": "contoso-plz-mo",
+        "name": "contoso-plz-hs-nva",
         "properties": {
           "management": {
             "recoveryServicesVault": {
@@ -465,8 +533,42 @@
           }
           },
           "connectivity": {
-            "topology": "ManagementOnly",
-            "internetEgress": "DirectFromSpoke"
+            "expressRoute": {
+              "topology": "HubAndSpoke",
+              "fastPathEnabled": false,
+              "sku": "ErGw2AZ",
+              "deployInRegions": ["eastus"]
+            },
+            "topology": "HubAndSpoke",
+            "ddosProtection": {
+              "plan": "Network"
+            },
+            "privateDns": {
+              "privateLinkZonesEnabled": true,
+              "customZones": [
+                "contoso.internal"
+              ],
+            "centralizedResolutionEnabled": true
+            },
+            "firewall": {
+            "kind": "ThirdPartyNva",
+            "vendor": "PaloAlto",
+            "subnetAddressPrefix": "10.0.20.0/26"
+          },
+            "internetEgress": "ViaHub",
+            "vpnGateway": {
+              "generation": "Generation2",
+              "enableBgp": true,
+              "activeActive": true,
+              "topology": "HubAndSpoke",
+              "sku": "VpnGw2AZ",
+              "deployInRegions": ["eastus"]
+            },
+            "bastion": {
+              "sku": "Standard",
+              "scaleUnits": 2,
+              "deployInRegions": ["eastus"]
+            }
           },
           "identity": {
             "provider": "EntraIdWithDomainServices",
@@ -481,18 +583,6 @@
             "breakGlassAccountCount": 2
           },
           "provisioningState": "Succeeded",
-          "platformSubscriptions": {
-            "subscriptionModel": "Dedicated",
-            "identity": {
-              "subscriptionId": "11111111-1111-1111-1111-111111111111"
-            },
-            "management": {
-              "subscriptionId": "33333333-3333-3333-3333-333333333333"
-            },
-            "connectivity": {
-              "subscriptionId": "22222222-2222-2222-2222-222222222222"
-            }
-          },
           "regions": [
             {
               "role": "Primary",
@@ -525,6 +615,41 @@
               "deploySidecar": true
             }
           ],
+          "governance": {
+            "policyAssignmentOverrides": [
+              {
+                "scope": "Corp",
+                "assignmentName": "Deny-PublicIP",
+                "enforcementMode": "DoNotEnforce",
+                "effect": "Audit",
+                "parameters": [
+                  {
+                    "name": "effect",
+                    "value": "Audit"
+                  }
+                ]
+              }
+            ],
+            "policyAssignmentMode": "AlzDefaults",
+            "requiredTags": [
+              {
+                "name": "Environment",
+                "defaultValue": "Production"
+              },
+              {
+                "name": "CostCenter"
+              }
+            ],
+            "resourceLocks": [
+              {
+                "level": "CanNotDelete",
+                "notes": "Protect hub networking",
+                "scope": "Connectivity"
+              }
+            ],
+          "allowedLocations": ["eastus", "westus"],
+          "deniedResourceTypes": ["Microsoft.ClassicCompute/virtualMachines"]
+          },
           "security": {
             "defenderPlans": [
               {
@@ -576,43 +701,20 @@
             "costAnomalyAlertsEnabled": true,
           "tagInheritanceEnabled": true
           },
-          "governance": {
-            "policyAssignmentOverrides": [
-              {
-                "scope": "Corp",
-                "assignmentName": "Deny-PublicIP",
-                "enforcementMode": "DoNotEnforce",
-                "effect": "Audit",
-                "parameters": [
-                  {
-                    "name": "effect",
-                    "value": "Audit"
-                  }
-                ]
-              }
-            ],
-            "policyAssignmentMode": "AlzDefaults",
-            "requiredTags": [
-              {
-                "name": "Environment",
-                "defaultValue": "Production"
-              },
-              {
-                "name": "CostCenter"
-              }
-            ],
-            "resourceLocks": [
-              {
-                "level": "CanNotDelete",
-                "notes": "Protect hub networking",
-                "scope": "Connectivity"
-              }
-            ],
-          "allowedLocations": ["eastus", "westus"],
-          "deniedResourceTypes": ["Microsoft.ClassicCompute/virtualMachines"]
+          "platformSubscriptions": {
+            "subscriptionModel": "Dedicated",
+            "identity": {
+              "subscriptionId": "11111111-1111-1111-1111-111111111111"
+            },
+            "management": {
+              "subscriptionId": "33333333-3333-3333-3333-333333333333"
+            },
+            "connectivity": {
+              "subscriptionId": "22222222-2222-2222-2222-222222222222"
+            }
           }
         },
-        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones/contoso-plz-mo",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones/contoso-plz-hs",
         "type": "Microsoft.Migrate/migrateProjects/platformLandingZones"
       }
     }

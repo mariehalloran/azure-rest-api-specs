@@ -38,8 +38,16 @@
         "governance": {
           "policyAssignmentOverrides": [
             {
+              "scope": "Corp",
               "assignmentName": "Deny-PublicIP",
-              "enforcementMode": "Default"
+              "enforcementMode": "DoNotEnforce",
+              "effect": "Audit",
+              "parameters": [
+                {
+                  "name": "effect",
+                  "value": "Audit"
+                }
+              ]
             }
           ],
           "policyAssignmentMode": "AlzDefaults",
@@ -58,20 +66,28 @@
               "notes": "Protect hub networking",
               "scope": "Connectivity"
             }
-          ]
+          ],
+        "allowedLocations": ["eastus", "westus"],
+        "deniedResourceTypes": ["Microsoft.ClassicCompute/virtualMachines"]
         },
         "identity": {
           "provider": "EntraIdWithDomainServices",
           "domainServices": {
             "subnetAddressPrefix": "10.0.10.0/24",
             "domainName": "contoso.local"
-          }
+          },
+          "entraConnectEnabled": true,
+          "privilegedIdentityManagementEnabled": true,
+          "conditionalAccessEnabled": true,
+          "mfaForAdminsEnabled": true,
+          "breakGlassAccountCount": 2
         },
         "connectivity": {
           "expressRoute": {
             "topology": "HubAndSpoke",
             "fastPathEnabled": false,
-            "sku": "ErGw2AZ"
+            "sku": "ErGw2AZ",
+            "deployInRegions": ["eastus"]
           },
           "topology": "HubAndSpoke",
           "ddosProtection": {
@@ -81,13 +97,17 @@
             "privateLinkZonesEnabled": true,
             "customZones": [
               "contoso.internal"
-            ]
+            ],
+          "centralizedResolutionEnabled": true
           },
           "firewall": {
             "kind": "AzureFirewall",
             "tlsInspectionEnabled": true,
             "sku": "Premium",
-            "dnsProxyEnabled": true
+            "dnsProxyEnabled": true,
+            "threatIntelMode": "Alert",
+            "idpsMode": "Alert",
+            "deployInRegions": ["eastus"]
           },
           "internetEgress": "ViaHub",
           "vpnGateway": {
@@ -95,11 +115,13 @@
             "enableBgp": true,
             "activeActive": true,
             "topology": "HubAndSpoke",
-            "sku": "VpnGw2AZ"
+            "sku": "VpnGw2AZ",
+            "deployInRegions": ["eastus"]
           },
           "bastion": {
             "sku": "Standard",
-            "scaleUnits": 2
+            "scaleUnits": 2,
+            "deployInRegions": ["eastus"]
           }
         },
         "platformSubscriptions": {
@@ -128,10 +150,13 @@
               ],
               "notificationEmails": [
                 "finops@contoso.com"
-              ]
+              ],
+            "scope": "LandingZones"
             }
           ],
-          "billingAccountType": "EnterpriseAgreement"
+          "billingAccountType": "EnterpriseAgreement",
+          "costAnomalyAlertsEnabled": true,
+          "tagInheritanceEnabled": true
         },
         "regions": [
           {
@@ -145,7 +170,9 @@
               "1",
               "2",
               "3"
-            ]
+            ],
+            "deployHub": true,
+            "deploySidecar": true
           },
           {
             "role": "Secondary",
@@ -158,19 +185,23 @@
               "1",
               "2",
               "3"
-            ]
+            ],
+            "deployHub": false,
+            "deploySidecar": true
           }
         ],
         "management": {
           "recoveryServicesVault": {
             "crossRegionRestoreEnabled": true,
             "redundancy": "GeoRedundant",
-            "vaultName": "alz-rsv"
+            "vaultName": "alz-rsv",
+            "immutabilityEnabled": true
           },
           "azureMonitor": {
             "applicationInsightsEnabled": true,
             "containerInsightsEnabled": true,
-            "vmInsightsEnabled": true
+            "vmInsightsEnabled": true,
+            "networkInsightsEnabled": true
           },
           "backup": {
             "enabled": true,
@@ -195,7 +226,11 @@
             "retentionInDays": 90,
             "dailyQuotaGb": -1.0,
             "sku": "PerGB2018"
-          }
+          },
+        "updateManagement": {
+            "enabled": true,
+            "maintenanceConfigurationName": "alz-monthly-patch"
+        }
         }
       }
     },
@@ -220,12 +255,14 @@
             "recoveryServicesVault": {
               "crossRegionRestoreEnabled": true,
               "redundancy": "GeoRedundant",
-              "vaultName": "alz-rsv"
+              "vaultName": "alz-rsv",
+              "immutabilityEnabled": true
             },
             "azureMonitor": {
               "applicationInsightsEnabled": true,
               "containerInsightsEnabled": true,
-              "vmInsightsEnabled": true
+              "vmInsightsEnabled": true,
+              "networkInsightsEnabled": true
             },
             "backup": {
               "enabled": true,
@@ -250,13 +287,18 @@
               "retentionInDays": 90,
               "dailyQuotaGb": -1.0,
               "sku": "PerGB2018"
-            }
+            },
+          "updateManagement": {
+              "enabled": true,
+              "maintenanceConfigurationName": "alz-monthly-patch"
+          }
           },
           "connectivity": {
             "expressRoute": {
               "topology": "HubAndSpoke",
               "fastPathEnabled": false,
-              "sku": "ErGw2AZ"
+              "sku": "ErGw2AZ",
+              "deployInRegions": ["eastus"]
             },
             "topology": "HubAndSpoke",
             "ddosProtection": {
@@ -266,13 +308,17 @@
               "privateLinkZonesEnabled": true,
               "customZones": [
                 "contoso.internal"
-              ]
+              ],
+            "centralizedResolutionEnabled": true
             },
             "firewall": {
               "kind": "AzureFirewall",
               "tlsInspectionEnabled": true,
               "sku": "Premium",
-              "dnsProxyEnabled": true
+              "dnsProxyEnabled": true,
+              "threatIntelMode": "Alert",
+              "idpsMode": "Alert",
+              "deployInRegions": ["eastus"]
             },
             "internetEgress": "ViaHub",
             "vpnGateway": {
@@ -280,11 +326,13 @@
               "enableBgp": true,
               "activeActive": true,
               "topology": "HubAndSpoke",
-              "sku": "VpnGw2AZ"
+              "sku": "VpnGw2AZ",
+              "deployInRegions": ["eastus"]
             },
             "bastion": {
               "sku": "Standard",
-              "scaleUnits": 2
+              "scaleUnits": 2,
+              "deployInRegions": ["eastus"]
             }
           },
           "identity": {
@@ -292,7 +340,12 @@
             "domainServices": {
               "subnetAddressPrefix": "10.0.10.0/24",
               "domainName": "contoso.local"
-            }
+            },
+            "entraConnectEnabled": true,
+            "privilegedIdentityManagementEnabled": true,
+            "conditionalAccessEnabled": true,
+            "mfaForAdminsEnabled": true,
+            "breakGlassAccountCount": 2
           },
           "provisioningState": "Provisioning",
           "regions": [
@@ -307,7 +360,9 @@
                 "1",
                 "2",
                 "3"
-              ]
+              ],
+              "deployHub": true,
+              "deploySidecar": true
             },
             {
               "role": "Secondary",
@@ -320,14 +375,24 @@
                 "1",
                 "2",
                 "3"
-              ]
+              ],
+              "deployHub": false,
+              "deploySidecar": true
             }
           ],
           "governance": {
             "policyAssignmentOverrides": [
               {
+                "scope": "Corp",
                 "assignmentName": "Deny-PublicIP",
-                "enforcementMode": "Default"
+                "enforcementMode": "DoNotEnforce",
+                "effect": "Audit",
+                "parameters": [
+                  {
+                    "name": "effect",
+                    "value": "Audit"
+                  }
+                ]
               }
             ],
             "policyAssignmentMode": "AlzDefaults",
@@ -346,7 +411,9 @@
                 "notes": "Protect hub networking",
                 "scope": "Connectivity"
               }
-            ]
+            ],
+          "allowedLocations": ["eastus", "westus"],
+          "deniedResourceTypes": ["Microsoft.ClassicCompute/virtualMachines"]
           },
           "security": {
             "defenderPlans": [
@@ -391,10 +458,13 @@
                 ],
                 "notificationEmails": [
                   "finops@contoso.com"
-                ]
+                ],
+              "scope": "LandingZones"
               }
             ],
-            "billingAccountType": "EnterpriseAgreement"
+            "billingAccountType": "EnterpriseAgreement",
+            "costAnomalyAlertsEnabled": true,
+          "tagInheritanceEnabled": true
           },
           "platformSubscriptions": {
             "subscriptionModel": "Dedicated",
@@ -432,12 +502,14 @@
             "recoveryServicesVault": {
               "crossRegionRestoreEnabled": true,
               "redundancy": "GeoRedundant",
-              "vaultName": "alz-rsv"
+              "vaultName": "alz-rsv",
+              "immutabilityEnabled": true
             },
             "azureMonitor": {
               "applicationInsightsEnabled": true,
               "containerInsightsEnabled": true,
-              "vmInsightsEnabled": true
+              "vmInsightsEnabled": true,
+              "networkInsightsEnabled": true
             },
             "backup": {
               "enabled": true,
@@ -462,13 +534,18 @@
               "retentionInDays": 90,
               "dailyQuotaGb": -1.0,
               "sku": "PerGB2018"
-            }
+            },
+          "updateManagement": {
+              "enabled": true,
+              "maintenanceConfigurationName": "alz-monthly-patch"
+          }
           },
           "connectivity": {
             "expressRoute": {
               "topology": "HubAndSpoke",
               "fastPathEnabled": false,
-              "sku": "ErGw2AZ"
+              "sku": "ErGw2AZ",
+              "deployInRegions": ["eastus"]
             },
             "topology": "HubAndSpoke",
             "ddosProtection": {
@@ -478,13 +555,17 @@
               "privateLinkZonesEnabled": true,
               "customZones": [
                 "contoso.internal"
-              ]
+              ],
+            "centralizedResolutionEnabled": true
             },
             "firewall": {
               "kind": "AzureFirewall",
               "tlsInspectionEnabled": true,
               "sku": "Premium",
-              "dnsProxyEnabled": true
+              "dnsProxyEnabled": true,
+              "threatIntelMode": "Alert",
+              "idpsMode": "Alert",
+              "deployInRegions": ["eastus"]
             },
             "internetEgress": "ViaHub",
             "vpnGateway": {
@@ -492,11 +573,13 @@
               "enableBgp": true,
               "activeActive": true,
               "topology": "HubAndSpoke",
-              "sku": "VpnGw2AZ"
+              "sku": "VpnGw2AZ",
+              "deployInRegions": ["eastus"]
             },
             "bastion": {
               "sku": "Standard",
-              "scaleUnits": 2
+              "scaleUnits": 2,
+              "deployInRegions": ["eastus"]
             }
           },
           "identity": {
@@ -504,7 +587,12 @@
             "domainServices": {
               "subnetAddressPrefix": "10.0.10.0/24",
               "domainName": "contoso.local"
-            }
+            },
+            "entraConnectEnabled": true,
+            "privilegedIdentityManagementEnabled": true,
+            "conditionalAccessEnabled": true,
+            "mfaForAdminsEnabled": true,
+            "breakGlassAccountCount": 2
           },
           "provisioningState": "Succeeded",
           "regions": [
@@ -519,7 +607,9 @@
                 "1",
                 "2",
                 "3"
-              ]
+              ],
+              "deployHub": true,
+              "deploySidecar": true
             },
             {
               "role": "Secondary",
@@ -532,14 +622,24 @@
                 "1",
                 "2",
                 "3"
-              ]
+              ],
+              "deployHub": false,
+              "deploySidecar": true
             }
           ],
           "governance": {
             "policyAssignmentOverrides": [
               {
+                "scope": "Corp",
                 "assignmentName": "Deny-PublicIP",
-                "enforcementMode": "Default"
+                "enforcementMode": "DoNotEnforce",
+                "effect": "Audit",
+                "parameters": [
+                  {
+                    "name": "effect",
+                    "value": "Audit"
+                  }
+                ]
               }
             ],
             "policyAssignmentMode": "AlzDefaults",
@@ -558,7 +658,9 @@
                 "notes": "Protect hub networking",
                 "scope": "Connectivity"
               }
-            ]
+            ],
+          "allowedLocations": ["eastus", "westus"],
+          "deniedResourceTypes": ["Microsoft.ClassicCompute/virtualMachines"]
           },
           "security": {
             "defenderPlans": [
@@ -603,10 +705,13 @@
                 ],
                 "notificationEmails": [
                   "finops@contoso.com"
-                ]
+                ],
+              "scope": "LandingZones"
               }
             ],
-            "billingAccountType": "EnterpriseAgreement"
+            "billingAccountType": "EnterpriseAgreement",
+            "costAnomalyAlertsEnabled": true,
+          "tagInheritanceEnabled": true
           },
           "platformSubscriptions": {
             "subscriptionModel": "Dedicated",

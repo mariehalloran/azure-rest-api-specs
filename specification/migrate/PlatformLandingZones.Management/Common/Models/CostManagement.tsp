@@ -19,6 +19,9 @@ model PlatformLandingZoneBudget {
 
   @doc("Thresholds in percent (0-1000) of the budget amount at which notifications fire.")
   thresholds: int32[];
+
+  @doc("ALZ management-group scope at which the budget applies.")
+  scope: AlzManagementGroupScope;
 }
 
 @doc("Cost management configuration for the landing zone.")
@@ -35,4 +38,10 @@ model CostManagement {
   @doc("Budgets configured on the landing zone.")
   @identifiers(#["name"])
   budgets?: PlatformLandingZoneBudget[];
+
+  @doc("Whether Cost Management anomaly alerts are enabled for the landing zone.")
+  costAnomalyAlertsEnabled?: boolean;
+
+  @doc("Whether tag inheritance from subscription to resource is enabled in Cost Management.")
+  tagInheritanceEnabled?: boolean;
 }

@@ -14,13 +14,32 @@ model RequiredTag {
   defaultValue?: string;
 }
 
-@doc("Override of a single ALZ policy assignment.")
+@doc("Override of a single ALZ policy assignment at a specific management-group scope.")
 model PolicyAssignmentOverride {
+  @doc("ALZ management-group scope at which this override applies. The same assignment may be overridden differently at different scopes.")
+  scope: AlzManagementGroupScope;
+
   @doc("Display name of the ALZ policy assignment being overridden.")
   assignmentName: string;
 
-  @doc("Enforcement mode for this assignment.")
-  enforcementMode: PolicyEnforcementMode;
+  @doc("Enforcement mode to apply for this assignment at the chosen scope. Omit to inherit the baseline.")
+  enforcementMode?: PolicyEnforcementMode;
+
+  @doc("Policy effect to apply for this assignment at the chosen scope. Omit to inherit the baseline.")
+  effect?: PolicyEffect;
+
+  @doc("Parameter overrides applied to the assignment. Omit to inherit the baseline.")
+  @identifiers(#["name"])
+  parameters?: PolicyParameterOverride[];
+}
+
+@doc("Single Azure Policy parameter override applied to an assignment.")
+model PolicyParameterOverride {
+  @doc("Parameter name as defined on the policy assignment.")
+  name: string;
+
+  @doc("Parameter value, serialized as a string.")
+  value: string;
 }
 
 @doc("Resource Manager lock applied at an ALZ management group scope.")
@@ -45,10 +64,16 @@ model Governance {
   requiredTags?: RequiredTag[];
 
   @doc("Per-assignment overrides applied on top of the ALZ baseline. Only relevant when policyAssignmentMode is AlzDefaults.")
-  @identifiers(#["assignmentName"])
+  @identifiers(#["scope", "assignmentName"])
   policyAssignmentOverrides?: PolicyAssignmentOverride[];
 
   @doc("Resource Manager locks applied at ALZ management group scopes.")
   @identifiers(#["scope"])
   resourceLocks?: ResourceLockPolicy[];
+
+  @doc("Allowed Azure regions enforced via policy at the landing-zone scope.")
+  allowedLocations?: string[];
+
+  @doc("Resource types denied via policy at the landing-zone scope (e.g. \"Microsoft.ClassicCompute/virtualMachines\").")
+  deniedResourceTypes?: string[];
 }
