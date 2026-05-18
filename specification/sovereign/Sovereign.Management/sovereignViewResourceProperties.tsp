@@ -297,31 +297,31 @@ model SovereignViewComplianceDetailsFilters {
 @doc("Supported filter fields for Sovereign View compliance details.")
 union SovereignViewFilterField {
   @doc("Filter by subscription.")
-  subscription: "subscription",
+  subscription: "Subscription",
 
   @doc("Filter by resource group.")
-  resourceGroup: "resourceGroup",
+  resourceGroup: "ResourceGroup",
 
   @doc("Filter by resource name.")
-  resourceName: "resourceName",
+  resourceName: "ResourceName",
 
   @doc("Filter by resource type.")
-  resourceType: "resourceType",
+  resourceType: "ResourceType",
 
   @doc("Filter by region.")
-  region: "region",
+  region: "Region",
 
   @doc("Filter by Encryption In Transit compliance dimension.")
-  encryptionInTransit: "encryptionInTransit",
+  encryptionInTransit: "EncryptionInTransit",
 
   @doc("Filter by Data Residency compliance dimension.")
-  dataResidency: "dataResidency",
+  dataResidency: "DataResidency",
 
   @doc("Filter by Encryption At Rest compliance dimension.")
-  encryptionAtRest: "encryptionAtRest",
+  encryptionAtRest: "EncryptionAtRest",
 
   @doc("Filter by Encryption In Use compliance dimension.")
-  encryptionInUse: "encryptionInUse",
+  encryptionInUse: "EncryptionInUse",
 
   string,
 }
