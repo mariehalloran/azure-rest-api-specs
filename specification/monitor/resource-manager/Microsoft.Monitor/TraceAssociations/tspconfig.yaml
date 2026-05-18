@@ -1,0 +1,46 @@
+parameters:
+  "service-dir":
+    default: "sdk/monitor"
+emit:
+  - "@azure-tools/typespec-autorest"
+linter:
+  extends:
+    - "@azure-tools/typespec-azure-rulesets/resource-manager"
+options:
+  "@azure-tools/typespec-autorest":
+    use-read-only-status-schema: true
+    omit-unreachable-types: true
+    emitter-output-dir: "{project-root}"
+    output-file: "{version-status}/{version}/traceAssociations.json"
+    examples-dir: "{project-root}/examples"
+    arm-types-dir: "{project-root}/../../../../common-types/resource-management"
+  "@azure-tools/typespec-python":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-monitor-traceassociations"
+    namespace: "azure.mgmt.monitor.traceassociations"
+    generate-test: true
+    generate-sample: true
+    flavor: "azure"
+  "@azure-tools/typespec-java":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-monitor-traceassociations"
+    namespace: "com.azure.resourcemanager.monitor.traceassociations"
+    service-name: "MonitorTraceAssociations"
+    flavor: azure
+  "@azure-tools/typespec-ts":
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-monitor-traceassociations"
+    flavor: azure
+    experimental-extensible-enums: true
+    package-details:
+      name: "@azure/arm-monitor-traceassociations"
+  "@azure-tools/typespec-go":
+    service-dir: "sdk/resourcemanager/monitor"
+    emitter-output-dir: "{output-dir}/{service-dir}/armmonitortraceassociations"
+    module: "github.com/Azure/azure-sdk-for-go/{service-dir}/armmonitortraceassociations"
+    fix-const-stuttering: true
+    flavor: "azure"
+    generate-samples: true
+    generate-fakes: true
+    head-as-boolean: true
+    inject-spans: true
+  "@azure-typespec/http-client-csharp-mgmt":
+    namespace: "Azure.ResourceManager.Monitor.TraceAssociations"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"

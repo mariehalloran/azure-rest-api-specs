@@ -110,11 +110,13 @@ model DrillResourceProperties {
   ]>;
 
   @doc("Last Target and Capability assignment error, if any.")
+  @removed(Versions.v2026_04_01_preview)
   @visibility(Lifecycle.Read)
   targetAndCapabilityAssignmentError?: ErrorDetails;
 
   @doc("Last Target Resource RBAC assignment error, if any.")
   @added(Versions.v2026_03_01_preview)
+  @removed(Versions.v2026_04_01_preview)
   @visibility(Lifecycle.Read)
   targetResourceAssignmentError?: ErrorDetails;
 
@@ -135,6 +137,7 @@ model DrillResourceProperties {
 @doc("Reason why the Drill resource is in NeedsAttention state.")
 model DrillResourceAttentionReason {
   @doc("Experiment MSI does not have the desired RBAC on the resource.")
+  @removed(Versions.v2026_04_01_preview)
   faultRbacOnTarget?: RBACState;
 
   @doc("Chaos Resource MSI does not have the desired RBAC on the resource.")
@@ -149,6 +152,7 @@ model DrillResourceAttentionReason {
   monitoringRbacOnTargets?: RBACState;
 
   @doc("Target extension resource is missing on the resource.")
+  @removed(Versions.v2026_04_01_preview)
   target?: ExtensionObjectState;
 
   @doc("Drill Resource State (wrt SG and RO).")

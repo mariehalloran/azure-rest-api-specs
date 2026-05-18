@@ -94,8 +94,8 @@ union ConfirmationStatus {
 }
 
 @added(Versions.v2026_03_01_preview)
-@doc("Enum for the solution provider name of a high availability solution.")
-union SolutionProviderName {
+@doc("Identifies a high-availability solution that can be applied to a resource (for example, zone-pinned VM with ZRS disk).")
+union SolutionDisplayName {
   string,
 
   @doc("Zone pinned VM with ZRS disk.")
@@ -120,8 +120,8 @@ union ReasonForRequestingConfirmation {
 @added(Versions.v2026_03_01_preview)
 @doc("Represents a user confirmation for a high availability solution.")
 model UserConfirmationForHighAvailabilityItem {
-  @doc("The solution provider name of the high availability solution.")
-  solutionDisplayName: SolutionProviderName;
+  @doc("The solution display name of the high availability solution.")
+  solutionDisplayName: SolutionDisplayName;
 
   @doc("The confirmation status of the high availability solution.")
   confirmationStatus: ConfirmationStatus;

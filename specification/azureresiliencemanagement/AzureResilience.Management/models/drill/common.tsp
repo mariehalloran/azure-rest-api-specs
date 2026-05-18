@@ -65,7 +65,7 @@ model CustomFaultDetails {
   @doc("ID of ARM resource used for automation (e.g. Automation runbook URL).")
   scriptResourceId: armResourceIdentifier<[
     {
-      type: "Microsoft.Automation/automationAccounts";
+      type: "Microsoft.Automation/automationAccounts/runbooks";
     }
   ]>;
 }
