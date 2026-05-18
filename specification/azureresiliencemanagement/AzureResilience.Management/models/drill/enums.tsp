@@ -55,6 +55,7 @@ union DrillMode {
   Failover: "Failover",
 
   @doc("TestFailover mode.")
+  @removed(Versions.v2026_04_01_preview)
   TestFailover: "TestFailover",
 }
 
@@ -266,9 +267,11 @@ union DrillRunSubtasks {
   Failover: "Failover",
 
   @doc("TestFailover Subtasks.")
+  @removed(Versions.v2026_04_01_preview)
   TestFailover: "TestFailover",
 
   @doc("TestFailoverCleanup Subtasks.")
+  @removed(Versions.v2026_04_01_preview)
   TestFailoverCleanup: "TestFailoverCleanup",
 
   @doc("Reprotect Subtasks.")
@@ -326,9 +329,11 @@ union DrillRunTasks {
   Failover: "Failover",
 
   @doc("TestFailover tasks.")
+  @removed(Versions.v2026_04_01_preview)
   TestFailover: "TestFailover",
 
   @doc("TestFailoverCleanup tasks.")
+  @removed(Versions.v2026_04_01_preview)
   TestFailoverCleanup: "TestFailoverCleanup",
 
   @doc("Reprotect task.")
