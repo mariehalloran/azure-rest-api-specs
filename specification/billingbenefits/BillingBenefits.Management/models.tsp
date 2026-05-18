@@ -2803,11 +2803,6 @@ model TransactionProductDetails {
   ...ProductDetailsBase;
 
   /**
-   * Additional SKU-level properties for the product.
-   */
-  skuProperties?: string;
-
-  /**
    * The publisher type of the product, for example "Microsoft" for first-party or a third-party publisher name. Additional values may be introduced in the future.
    */
   publisherType?: string;
