@@ -99,6 +99,9 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/OdataFilterParameter"
           }
         ],
         "responses": {
@@ -141,6 +144,9 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/OdataFilterParameter"
           }
         ],
         "responses": {
@@ -979,7 +985,7 @@
       "description": "Properties of the application entitlement.",
       "properties": {
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/ProvisioningState",
           "description": "The provisioning state of the resource.",
           "readOnly": true
         },
@@ -996,6 +1002,17 @@
         "applicationDisplayName": {
           "type": "string",
           "description": "The application display name.",
+          "readOnly": true
+        },
+        "pcCode": {
+          "type": "string",
+          "description": "The Profit Center (PC) code used for cross-charging usage of this application entitlement, captured at onboarding time.",
+          "readOnly": true
+        },
+        "businessJustification": {
+          "type": "string",
+          "description": "Business justification captured at onboarding time. Reused as the default Comments value for every automation request created under this entitlement. Free-form text MUST NOT contain customer data, PII, or secrets.",
+          "maxLength": 500,
           "readOnly": true
         },
         "onboardingRequestId": {
@@ -1047,7 +1064,23 @@
         "lastQuotaUsageDate": {
           "type": "string",
           "format": "date-time",
-          "description": "The date when the quota was last used.",
+          "description": "The date when the quota was last used. Omitted from the response when the entitlement has not been used yet.",
+          "readOnly": true
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date when the application entitlement expires. Past this date the entitlement is no longer usable for automation.",
+          "readOnly": true
+        },
+        "requesterTenantId": {
+          "type": "string",
+          "description": "The Microsoft Entra tenant ID (GUID) of the user who submitted the onboarding request, captured at onboarding time.",
+          "readOnly": true
+        },
+        "requesterObjectId": {
+          "type": "string",
+          "description": "The Microsoft Entra object ID (GUID) of the user who submitted the onboarding request, captured at onboarding time.",
           "readOnly": true
         }
       }
@@ -1160,11 +1193,6 @@
           "description": "The provisioning state of the resource.",
           "readOnly": true
         },
-        "onboardingRequestId": {
-          "type": "string",
-          "description": "The onboarding request ID (GUID) that authorized this automation request. Populated for requests created through the automation flow.",
-          "readOnly": true
-        },
         "requestType": {
           "$ref": "#/definitions/RequestType",
           "description": "The type of request to create."
@@ -1180,7 +1208,7 @@
         },
         "businessJustification": {
           "type": "string",
-          "description": "Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time)."
+          "description": "Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time). Free-form text MUST NOT contain customer data, PII, or secrets."
         },
         "context": {
           "$ref": "#/definitions/RequestContext",
@@ -1212,6 +1240,11 @@
           "$ref": "#/definitions/RequestFulfillmentDetails",
           "description": "The fulfillment result details. Populated when the request reaches Completed status.",
           "readOnly": true
+        },
+        "onboardingRequestId": {
+          "type": "string",
+          "description": "The ID (GUID) of the onboarding request; equal to the resource 'name'.",
+          "readOnly": true
         }
       },
       "required": [
@@ -1239,7 +1272,7 @@
         },
         "businessJustification": {
           "type": "string",
-          "description": "Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time)."
+          "description": "Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time). Free-form text MUST NOT contain customer data, PII, or secrets."
         },
         "context": {
           "$ref": "#/definitions/RequestContextUpdate",
@@ -1317,37 +1350,6 @@
         }
       ]
     },
-    "Azure.ResourceManager.ResourceProvisioningState": {
-      "type": "string",
-      "description": "The provisioning state of a resource type.",
-      "enum": [
-        "Succeeded",
-        "Failed",
-        "Canceled"
-      ],
-      "x-ms-enum": {
-        "name": "ResourceProvisioningState",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Succeeded",
-            "value": "Succeeded",
-            "description": "Resource has been created."
-          },
-          {
-            "name": "Failed",
-            "value": "Failed",
-            "description": "Resource creation failed."
-          },
-          {
-            "name": "Canceled",
-            "value": "Canceled",
-            "description": "Resource creation was canceled."
-          }
-        ]
-      },
-      "readOnly": true
-    },
     "CancelRequestBody": {
       "type": "object",
       "description": "The request body for cancelling an automation request.",
@@ -1389,6 +1391,10 @@
         "tenantId": {
           "type": "string",
           "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
         },
         "fulfillmentDetail": {
           "$ref": "#/definitions/FieldLedRequestFulfillmentDetail",
@@ -1436,6 +1442,10 @@
         "tenantId": {
           "type": "string",
           "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
         },
         "signupEntity": {
           "$ref": "#/definitions/SignupEntityUpdate",
@@ -1527,6 +1537,10 @@
           "type": "string",
           "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
         },
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
+        },
         "fulfillmentDetail": {
           "$ref": "#/definitions/FieldLedRequestFulfillmentDetail",
           "description": "The account fulfillment details. Populated after account creation is completed.",
@@ -1569,6 +1583,10 @@
         "tenantId": {
           "type": "string",
           "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
         },
         "signupEntity": {
           "$ref": "#/definitions/SignupEntityUpdate",
@@ -1697,6 +1715,10 @@
           "type": "string",
           "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
         },
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
+        },
         "fulfillmentDetail": {
           "$ref": "#/definitions/FieldLedRequestFulfillmentDetail",
           "description": "The account fulfillment details. Populated after account creation is completed.",
@@ -1743,6 +1765,10 @@
         "tenantId": {
           "type": "string",
           "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
         },
         "signupEntity": {
           "$ref": "#/definitions/SignupEntityUpdate",
@@ -2100,6 +2126,10 @@
           "type": "string",
           "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
         },
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
+        },
         "fulfillmentDetail": {
           "$ref": "#/definitions/FieldLedRequestFulfillmentDetail",
           "description": "The account fulfillment details. Populated after account creation is completed.",
@@ -2146,6 +2176,10 @@
         "tenantId": {
           "type": "string",
           "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
         },
         "signupEntity": {
           "$ref": "#/definitions/SignupEntityUpdate",
@@ -2398,5 +2432,15 @@
       }
     }
   },
-  "parameters": {}
+  "parameters": {
+    "OdataFilterParameter": {
+      "name": "$filter",
+      "in": "query",
+      "description": "OData filter expression. Supports a limited subset of OData filter syntax for filtering the result list.",
+      "required": false,
+      "type": "string",
+      "x-ms-parameter-location": "method",
+      "x-ms-client-name": "filter"
+    }
+  }
 }
