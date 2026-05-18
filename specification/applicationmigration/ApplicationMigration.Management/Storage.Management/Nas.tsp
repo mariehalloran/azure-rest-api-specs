@@ -63,7 +63,8 @@ interface NAS {
 @@minLength(Nas.name, 3);
 @@doc(Nas.name, "The name of NAS device");
 @@doc(Nas.properties, "Resource properties.");
-@@doc(NAS.createOrUpdate::parameters.resource,
+@@doc(
+  NAS.createOrUpdate::parameters.resource,
   "The NAS resource to create or update."
 );
 @@doc(NAS.update::parameters.properties, "NAS patch payload.");

@@ -19,9 +19,6 @@ namespace Microsoft.CloudHealth;
 @doc("API Versions")
 enum Versions {
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
-  @doc("2023-10-01-preview")
-  v2023_10_01_preview: "2023-10-01-preview",
-
   @doc("2025-05-01-preview")
   v2025_05_01_preview: "2025-05-01-preview",
 
@@ -591,6 +588,10 @@ model SignalStatus {
   @visibility(Lifecycle.Read)
   @doc("Error message if the signal status cannot be retrieved")
   error?: string;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Additional context as provided by the submitter")
+  additionalContext?: string4096;
 }
 
 @doc("Alert configuration for an entity")
@@ -855,6 +856,37 @@ model PrometheusMetricsSignal extends SignalInstanceProperties {
   >>;
 }
 
+@added(Versions.v2026_05_01_preview)
+@doc("Status of an Azure Resource Health signal, including availability information reported by Azure Resource Health.")
+model AzureResourceHealthSignalStatus is SignalStatus {
+  @visibility(Lifecycle.Read)
+  @doc("Availability status of the Azure resource as reported by Azure Resource Health.")
+  availabilityStatus?: string;
+
+  @visibility(Lifecycle.Read)
+  @doc("When a context field is set to Platform, this field will reflect if the event was planned or unplanned.")
+  category?: string256;
+
+  @visibility(Lifecycle.Read)
+  @doc("Detailed status of the Azure resource as reported by Azure Resource Health.")
+  detailedStatus?: string4096;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Azure resource health signal configuration")
+model AzureResourceHealthSignal {
+  @doc("Whether to automatically add a signal for the Azure resource's availability status from Azure Resource Health. Defaults to Enabled.")
+  enabled?: ResourceHealthAvailabilityStatusSignalBehavior = ResourceHealthAvailabilityStatusSignalBehavior.Enabled;
+
+  @visibility(Lifecycle.Read)
+  @doc("The unique name of the Azure resource health signal. System assigned.")
+  signalName?: string256;
+
+  @visibility(Lifecycle.Read)
+  @doc("Current status of the Azure resource health signal.")
+  status?: AzureResourceHealthSignalStatus;
+}
+
 @added(Versions.v2026_01_01_preview)
 @doc("A grouping of Azure resource signals")
 model AzureResourceSignals {
@@ -873,6 +905,10 @@ model AzureResourceSignals {
   @maxItems(50)
   @identifiers(#["name"])
   signals?: AzureResourceSignal[];
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Optional configuration for automatically adding a signal based on the resource's availability state in Azure Resource Health.")
+  resourceHealth?: AzureResourceHealthSignal;
 }
 
 @added(Versions.v2026_01_01_preview)
@@ -1083,6 +1119,10 @@ model DiscoveryRuleProperties {
   @doc("Specification of the discovery rule defining how entities are discovered.")
   specification: DiscoveryRuleSpecification;
 
+  @added(Versions.v2026_05_01_preview)
+  @doc("Whether to automatically add a signal for the Azure resource's availability status from Azure Resource Health to the discovered entities.")
+  addResourceHealthSignal: ResourceHealthAvailabilityStatusSignalBehavior;
+
   @removed(Versions.v2026_01_01_preview)
   @visibility(Lifecycle.Read)
   @doc("Date when the discovery rule was (soft-)deleted.")
@@ -1162,6 +1202,17 @@ union DiscoveryRuleRecommendedSignalsBehavior {
   Enabled: "Enabled",
 
   @doc("Do not automatically add recommended signals")
+  Disabled: "Disabled",
+}
+
+@doc("Resource health availability status signal behavior")
+union ResourceHealthAvailabilityStatusSignalBehavior {
+  string,
+
+  @doc("Automatically add resource health availability status signal")
+  Enabled: "Enabled",
+
+  @doc("Do not automatically add resource health availability status signal")
   Disabled: "Disabled",
 }
 
@@ -1326,25 +1377,23 @@ model HealthReportRequest {
 }
 
 @added(Versions.v2026_05_01_preview)
-@doc("Request body for adding a data annotation to an entity")
-model DataAnnotationRequest {
+@doc("A single data annotation on an entity")
+model DataAnnotation {
+  @doc("Auto-assigned identifier for the annotation")
+  @visibility(Lifecycle.Read)
+  @maxLength(256)
+  annotationId?: string;
+
+  @doc("Timestamp when the annotation was created")
+  @visibility(Lifecycle.Read)
+  createdAt?: utcDateTime;
+
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Annotation details are user-defined key-value pairs with arbitrary keys that cannot be modelled with a fixed schema"
   @doc("Annotation details as a dynamic key-value pair bag. Each value is limited to 256 characters. A maximum of 10 entries is permitted per annotation.")
   annotationDetails: Record<string256>;
 
   @doc("Optional description of the annotation")
   description?: string4096;
-}
-
-@added(Versions.v2026_05_01_preview)
-@doc("A single data annotation on an entity")
-model DataAnnotation is DataAnnotationRequest {
-  @doc("Server-assigned identifier for the annotation")
-  @maxLength(36)
-  annotationId: string;
-
-  @doc("Timestamp when the annotation was created")
-  createdAt: utcDateTime;
 }
 
 @added(Versions.v2026_05_01_preview)
@@ -1359,7 +1408,7 @@ model GetDataAnnotationsRequest {
   @doc("Maximum number of annotations to return per page.")
   @maxValue(100)
   @minValue(1)
-  top?: int32;
+  top?: int32 = 100;
 
   @secret
   @doc("Continuation token from a previous response to retrieve the next page of results.")
@@ -1388,8 +1437,8 @@ model HealthReportEvaluationRule {
 }
 
 @added(Versions.v2026_05_01_preview)
-@doc("Request body for getting recommended signals for a given Azure resource type")
-model GetRecommendedSignalsRequest {
+@doc("Request body for getting recommended signals for a given Azure resource type.")
+model GetSignalRecommendationsRequest {
   @doc("Azure resource type to get recommended signals for (e.g. 'microsoft.compute/virtualMachines').")
   @minLength(1)
   @maxLength(256)
@@ -1397,43 +1446,35 @@ model GetRecommendedSignalsRequest {
 }
 
 @added(Versions.v2026_05_01_preview)
-@doc("Response containing recommended signal configurations for a given Azure resource type")
-model GetRecommendedSignalsResponse {
-  @doc("List of recommended signal configurations for the specified resource type.")
+@doc("Response containing recommended signal configurations for a given Azure resource type.")
+model GetSignalRecommendationsResponse {
+  @doc("List of recommended signal configurations for the specified resource type. These signals are generally recommended to be used on the specified resource type.")
   @identifiers(#["id"])
-  signals: RecommendedSignal[];
+  recommendedSignals?: SignalConfiguration[];
+
+  @doc("List of recommended configurations (thresholds etc.) for the specified resource type.")
+  @identifiers(#["id"])
+  recommendedConfigurations?: SignalConfiguration[];
 }
 
 @added(Versions.v2026_05_01_preview)
-@doc("Classification of a recommended signal")
-union RecommendedSignalClassification {
-  string,
-
-  @doc("Signal is broadly recommended to be enabled by default for health models monitoring this resource type.")
-  RecommendedSignal: "RecommendedSignal",
-
-  @doc("Signal is not broadly applicable, but if a user picks this metric, the provided thresholds are suggested as a starting point.")
-  SuggestedThresholds: "SuggestedThresholds",
-}
-
-@added(Versions.v2026_05_01_preview)
-@doc("A recommended signal configuration for an Azure resource type")
-model RecommendedSignal {
+@doc("A signal configuration for an Azure resource type")
+model SignalConfiguration {
   @doc("Unique identifier of the recommended signal.")
   id: string;
 
   @doc("Metric namespace (e.g. 'microsoft.compute/virtualmachines').")
   @minLength(1)
   @maxLength(256)
-  metricNamespace: string;
+  metricNamespace?: string;
 
   @doc("Name of the metric (e.g. 'Percentage CPU').")
   @minLength(1)
   @maxLength(256)
-  metricName: string;
+  metricName?: string;
 
   @doc("Type of aggregation to apply to the metric.")
-  aggregationType: MetricAggregationType;
+  aggregationType?: MetricAggregationType;
 
   @doc("Unit of the metric (e.g. Percent, Bytes, Count).")
   @minLength(1)
@@ -1443,7 +1484,7 @@ model RecommendedSignal {
   @doc("Time range of the metric. ISO 8601 duration format (e.g. 'PT5M').")
   @minLength(1)
   @maxLength(100)
-  timeGrain: string;
+  timeGrain?: string;
 
   @doc("Optional dimension filter to apply to the metric.")
   @minLength(1)
@@ -1451,10 +1492,7 @@ model RecommendedSignal {
   dimensionFilter?: string;
 
   @doc("Evaluation rules with recommended thresholds.")
-  evaluationRules: EvaluationRule;
-
-  @doc("Classification of the signal indicating whether it is broadly recommended or provides suggested thresholds for optional metrics.")
-  classification: RecommendedSignalClassification;
+  evaluationRules?: EvaluationRule;
 }
 
 alias TimestampQueryParam = {
@@ -1467,6 +1505,7 @@ alias TimestampQueryParam = {
 interface HealthModels {
   get is ArmResourceRead<HealthModel>;
   create is ArmResourceCreateOrUpdateAsync<HealthModel>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     HealthModel,
@@ -1482,11 +1521,11 @@ interface HealthModels {
   @added(Versions.v2026_05_01_preview)
   @doc("Get recommended signal configurations for a given Azure resource type")
   @post
-  @action("getRecommendedSignals")
-  getRecommendedSignals is ArmResourceActionSync<
+  @action("getSignalRecommendations")
+  getSignalRecommendations is ArmResourceActionSync<
     HealthModel,
-    GetRecommendedSignalsRequest,
-    GetRecommendedSignalsResponse
+    GetSignalRecommendationsRequest,
+    GetSignalRecommendationsResponse
   >;
 }
 
@@ -1607,7 +1646,7 @@ interface Entities {
   @action("addDataAnnotation")
   addDataAnnotation is ArmResourceActionSync<
     Entity,
-    DataAnnotationRequest,
+    DataAnnotation,
     DataAnnotation
   >;
 

@@ -75,6 +75,7 @@ interface ScopingConfigurationResources {
   list is ArmResourceListByParent<ScopingConfigurationResource>;
 }
 
-@@doc(ScopingConfigurationResources.createOrUpdate::parameters.parameters,
+@@doc(
+  ScopingConfigurationResources.createOrUpdate::parameters.parameters,
   "Parameters for the create or update operation"
 );

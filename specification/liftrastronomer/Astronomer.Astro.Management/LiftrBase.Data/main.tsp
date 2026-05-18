@@ -20,6 +20,7 @@ enum Versions {
   @useDependency(LiftrBase.Versions.v2024_08_27_preview)
   v2024_08_27_preview: "2024-08-27-preview",
 
+  #suppress "@azure-tools/typespec-azure-resource-manager/version-progression" "LEGACY"
   @doc("Dependent on LiftrBase.Versions.v2024_08_27")
   @useDependency(LiftrBase.Versions.v2024_08_27)
   v2024_08_27: "2024-08-27",

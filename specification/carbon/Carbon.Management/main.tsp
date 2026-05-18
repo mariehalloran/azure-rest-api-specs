@@ -527,7 +527,7 @@ interface CarbonService {
   @post
   @armResourceAction(CarbonEmissionDataAvailableDateRange)
   @route("/providers/Microsoft.Carbon/queryCarbonEmissionDataAvailableDateRange")
-  queryCarbonEmissionDataAvailableDateRange(
-    ...ApiVersionParameter,
-  ): ArmResponse<CarbonEmissionDataAvailableDateRange> | ErrorResponse;
+  queryCarbonEmissionDataAvailableDateRange(...ApiVersionParameter):
+    | ArmResponse<CarbonEmissionDataAvailableDateRange>
+    | ErrorResponse;
 }

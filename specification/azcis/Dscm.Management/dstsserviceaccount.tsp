@@ -117,7 +117,8 @@ interface DstsServiceAccount {
   get is ArmResourceRead<DstsServiceAccountResource>;
 }
 
-@@visibility(DstsServiceAccountResource.properties,
+@@visibility(
+  DstsServiceAccountResource.properties,
   Lifecycle.Read,
   Lifecycle.Create
 );

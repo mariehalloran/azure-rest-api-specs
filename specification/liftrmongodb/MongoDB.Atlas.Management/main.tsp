@@ -117,6 +117,7 @@ interface Operations extends Azure.ResourceManager.Operations {}
 interface Organizations {
   get is ArmResourceRead<OrganizationResource>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<OrganizationResource>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     OrganizationResource,
@@ -204,18 +205,18 @@ interface Projects {
   @autoRoute
   @armResourceAction(Project)
   @post
-  tierLimitReached(
-    ...ResourceInstanceParameters<Project>,
-  ): ArmResponse<TierLimitReachedResponse> | ErrorResponse;
+  tierLimitReached(...ResourceInstanceParameters<Project>):
+    | ArmResponse<TierLimitReachedResponse>
+    | ErrorResponse;
 
   @doc("List available regions by cluster tier for the project.")
   @autoRoute
   @armResourceAction(Project)
   @post
   @action("clusterTierRegions")
-  listClusterTierRegions(
-    ...ResourceInstanceParameters<Project>,
-  ): ArmResponse<RegionsByTierResponse> | ErrorResponse;
+  listClusterTierRegions(...ResourceInstanceParameters<Project>):
+    | ArmResponse<RegionsByTierResponse>
+    | ErrorResponse;
 }
 
 @doc("Response for tier limit check.")

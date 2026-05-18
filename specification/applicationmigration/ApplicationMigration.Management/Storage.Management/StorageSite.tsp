@@ -73,7 +73,8 @@ interface StorageSites {
 @@minLength(StorageSite.name, 3);
 @@doc(StorageSite.name, "The name of Site");
 @@doc(StorageSite.properties, "Resource properties.");
-@@doc(StorageSites.createOrUpdate::parameters.resource,
+@@doc(
+  StorageSites.createOrUpdate::parameters.resource,
   "The machines to add to the assessment"
 );
 // @@doc(StorageSites.update::parameters.properties, "Clouds patch payload.");

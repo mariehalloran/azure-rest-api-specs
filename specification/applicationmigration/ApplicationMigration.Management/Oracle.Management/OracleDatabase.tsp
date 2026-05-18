@@ -63,9 +63,11 @@ interface OracleDatabases {
 @@minLength(OracleDatabase.name, 3);
 @@doc(OracleDatabase.name, "The name of Database");
 @@doc(OracleDatabase.properties, "Resource properties.");
-@@doc(OracleDatabases.createOrUpdate::parameters.resource,
+@@doc(
+  OracleDatabases.createOrUpdate::parameters.resource,
   "The request body for creating or updating a OracleDatabase resource."
 );
-@@doc(OracleDatabases.update::parameters.properties,
+@@doc(
+  OracleDatabases.update::parameters.properties,
   "The request body for updating a OracleDatabase resource."
 );

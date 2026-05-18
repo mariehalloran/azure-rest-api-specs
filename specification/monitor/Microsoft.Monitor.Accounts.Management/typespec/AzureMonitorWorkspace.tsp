@@ -119,19 +119,23 @@ namespace Microsoft.Monitor {
     listByAzureMonitorWorkspace is ArmResourceListByParent<ExportRuleResource>;
   }
 
-  @@doc(AzureMonitorWorkspaceResource.name,
+  @@doc(
+    AzureMonitorWorkspaceResource.name,
     "The name of the Azure Monitor Workspace. The name is case insensitive"
   );
   @@doc(AzureMonitorWorkspaceResource.properties, "Resource properties");
-  @@doc(AzureMonitorWorkspaces.createOrUpdate::parameters.resource,
+  @@doc(
+    AzureMonitorWorkspaces.createOrUpdate::parameters.resource,
     "Properties that need to be specified to create a new Azure Monitor Workspace"
   );
 
-  @@doc(ExportRuleResource.name,
+  @@doc(
+    ExportRuleResource.name,
     "The name of the export rule. The name is case insensitive"
   );
   @@doc(ExportRuleResource.properties, "Export rule properties");
-  @@doc(ExportRules.createOrUpdate::parameters.resource,
+  @@doc(
+    ExportRules.createOrUpdate::parameters.resource,
     "Properties that need to be specified to create a new export rule"
   );
 }
