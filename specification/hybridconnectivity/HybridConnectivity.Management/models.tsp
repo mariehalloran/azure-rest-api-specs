@@ -33,9 +33,11 @@ union ServiceName {
   SSH: "SSH",
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "For backward compatibility"
   WAC: "WAC",
+
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "For backward compatibility"
   @added(Versions.v2026_04_01_preview)
   GVMO: "GVMO",
+
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "For backward compatibility"
   @added(Versions.v2026_04_01_preview)
   GVMOBOOTSTRAP: "GVMOBOOTSTRAP",
