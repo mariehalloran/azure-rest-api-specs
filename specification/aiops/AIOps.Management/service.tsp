@@ -80,6 +80,7 @@ interface Services {
   listBySubscription is ArmListBySubscription<Service>;
 
   /** Update a Microsoft.AIOps service resource. */
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @Azure.Core.useFinalStateVia("azure-async-operation")
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<

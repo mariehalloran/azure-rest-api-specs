@@ -1,0 +1,375 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Azure Monitor Trace Associations",
+    "version": "2026-01-01-preview",
+    "description": "Provides operations for managing trace associations between Azure resources and Azure Monitor Workspaces.",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "TraceAssociations"
+    }
+  ],
+  "paths": {
+    "/{resourceUri}/providers/Microsoft.Monitor/traceAssociations": {
+      "get": {
+        "operationId": "TraceAssociations_ListByScope",
+        "tags": [
+          "TraceAssociations"
+        ],
+        "description": "Lists trace associations for the specified scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/TraceAssociationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List trace associations by scope": {
+            "$ref": "./examples/TraceAssociations_ListByScope.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/{resourceUri}/providers/Microsoft.Monitor/traceAssociations/{name}": {
+      "get": {
+        "operationId": "TraceAssociations_Get",
+        "tags": [
+          "TraceAssociations"
+        ],
+        "description": "Returns the trace association for the specified scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "description": "The name of the TraceAssociation",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "default"
+            ],
+            "x-ms-enum": {
+              "name": "TraceAssociationName",
+              "modelAsString": true,
+              "values": [
+                {
+                  "name": "Default",
+                  "value": "default",
+                  "description": "The default and only valid singleton name."
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/TraceAssociation"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get trace association": {
+            "$ref": "./examples/TraceAssociations_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "TraceAssociations_CreateOrUpdate",
+        "tags": [
+          "TraceAssociations"
+        ],
+        "description": "Creates or updates a trace association for the specified scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "description": "The name of the TraceAssociation",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "default"
+            ],
+            "x-ms-enum": {
+              "name": "TraceAssociationName",
+              "modelAsString": true,
+              "values": [
+                {
+                  "name": "Default",
+                  "value": "default",
+                  "description": "The default and only valid singleton name."
+                }
+              ]
+            }
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TraceAssociation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'TraceAssociation' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/TraceAssociation"
+            }
+          },
+          "201": {
+            "description": "Resource 'TraceAssociation' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/TraceAssociation"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create or update a trace association on an App Insights component": {
+            "$ref": "./examples/TraceAssociations_CreateOrUpdate.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "TraceAssociations_Delete",
+        "tags": [
+          "TraceAssociations"
+        ],
+        "description": "Deletes the trace association for the specified scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "description": "The name of the TraceAssociation",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "default"
+            ],
+            "x-ms-enum": {
+              "name": "TraceAssociationName",
+              "modelAsString": true,
+              "values": [
+                {
+                  "name": "Default",
+                  "value": "default",
+                  "description": "The default and only valid singleton name."
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete trace association": {
+            "$ref": "./examples/TraceAssociations_Delete.json"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a resource.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "TraceAssociation": {
+      "type": "object",
+      "description": "A trace association extension resource that maps a scope to an Azure Monitor Workspace for trace routing. Each scope can have at most one direct association. Multi-homing is achieved through inheritance from parent scopes.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/TraceAssociationProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "TraceAssociationListResult": {
+      "type": "object",
+      "description": "The response of a TraceAssociation list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The TraceAssociation items on this page",
+          "items": {
+            "$ref": "#/definitions/TraceAssociation"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "TraceAssociationProperties": {
+      "type": "object",
+      "description": "Properties of a trace association that maps a scope to an Azure Monitor Workspace.",
+      "properties": {
+        "azureMonitorWorkspaceResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Resource ID of the target Azure Monitor Workspace. Must exist at creation time.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Monitor/accounts"
+              }
+            ]
+          }
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The resource provisioning state.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "azureMonitorWorkspaceResourceId"
+      ]
+    }
+  },
+  "parameters": {
+    "Azure.ResourceManager.ResourceUriParameter": {
+      "name": "resourceUri",
+      "in": "path",
+      "description": "The fully qualified Azure Resource manager identifier of the resource.",
+      "required": true,
+      "type": "string",
+      "x-ms-parameter-location": "method",
+      "x-ms-skip-url-encoding": true
+    }
+  }
+}

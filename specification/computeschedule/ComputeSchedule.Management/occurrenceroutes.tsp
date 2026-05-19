@@ -48,9 +48,9 @@ interface Occurrences {
   @list
   @get
   @doc("List resources attached to Scheduled Actions for the given occurrence")
-  listResources(
-    ...ResourceInstanceParameters<OccurrenceResource>,
-  ): ArmResponse<OccurrenceResourceListResponse> | ErrorResponse;
+  listResources(...ResourceInstanceParameters<OccurrenceResource>):
+    | ArmResponse<OccurrenceResourceListResponse>
+    | ErrorResponse;
   cancel is ArmResourceActionSync<
     Occurrence,
     CancelOccurrenceRequest,

@@ -268,18 +268,18 @@ model PartitionCapacity {
 
 // ─── Resource policy models ─────────────────────────────────────────
 
-@doc("Resource policy configuration with layered ring/region/partition overrides.")
+@doc("Resource policy configuration with layered environment/region/partition overrides.")
 model ResourcePolicy {
-  @doc("Default resource policy for the ring.")
-  ringDefault?: RingDefaultPolicy;
+  @doc("Default resource policy for the environment.")
+  environmentDefault?: EnvironmentDefaultPolicy;
 
   @doc("Per-region resource policy overrides keyed by canonical location.")
   @identifiers(#["name"])
   regionOverrides?: RegionOverride[];
 }
 
-@doc("Ring-scoped default resource policy.")
-model RingDefaultPolicy {
+@doc("Environment-scoped default resource policy.")
+model EnvironmentDefaultPolicy {
   @doc("Per-service pod resource specifications.")
   @identifiers(#[])
   podResources?: PodSpec[];

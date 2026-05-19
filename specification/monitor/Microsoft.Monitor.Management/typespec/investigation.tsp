@@ -467,10 +467,12 @@ interface Investigations {
 }
 
 #suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
-@@encodedName(Investigations.createOrUpdateAtResource::parameters.resource,
+@@encodedName(
+  Investigations.createOrUpdateAtResource::parameters.resource,
   "application/json",
   "investigation"
 );
-@@doc(Investigations.createOrUpdateAtResource::parameters.resource,
+@@doc(
+  Investigations.createOrUpdateAtResource::parameters.resource,
   "Investigation body to create/update"
 );

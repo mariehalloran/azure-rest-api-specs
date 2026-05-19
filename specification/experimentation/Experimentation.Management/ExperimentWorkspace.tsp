@@ -72,9 +72,11 @@ interface ExperimentWorkspaces {
 
 @@doc(ExperimentWorkspace.name, "The name of the experimentation workspace.");
 @@doc(ExperimentWorkspace.properties, "Resource properties.");
-@@doc(ExperimentWorkspaces.createOrUpdate::parameters.resource,
+@@doc(
+  ExperimentWorkspaces.createOrUpdate::parameters.resource,
   "Parameters supplied to the CreateOrUpdate experiment workspace operation."
 );
-@@doc(ExperimentWorkspaces.update::parameters.properties,
+@@doc(
+  ExperimentWorkspaces.update::parameters.properties,
   "Parameters supplied to the update experiment workspace operation."
 );

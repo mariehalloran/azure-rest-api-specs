@@ -67,13 +67,16 @@ interface PortalExtensionVersions {
   listByExtensions is ArmResourceListByParent<ExtensionVersion>;
 }
 
-@@doc(PortalExtensionVersions.create::parameters.resource,
+@@doc(
+  PortalExtensionVersions.create::parameters.resource,
   "extension version definition."
 );
-@@doc(PortalExtensionVersions.update::parameters.properties,
+@@doc(
+  PortalExtensionVersions.update::parameters.properties,
   "The updatable fields of a portal extension version."
 );
 
-@@clientName(PortalExtensionVersions.update::parameters.properties,
+@@clientName(
+  PortalExtensionVersions.update::parameters.properties,
   "parameters"
 );
