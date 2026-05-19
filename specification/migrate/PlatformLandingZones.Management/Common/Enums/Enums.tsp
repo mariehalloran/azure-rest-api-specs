@@ -457,6 +457,20 @@ union PolicyEffect {
   Disabled: "Disabled",
 }
 
+@doc("Version control system used by the generator to materialize the landing-zone IaC and CI pipelines. Maps to the chosen ALZ accelerator bootstrap module (alz/azuredevops, alz/github, or alz/local).")
+union VersionControlSystem {
+  string,
+
+  @doc("Azure DevOps Repos + Pipelines (alz/azuredevops bootstrap).")
+  AzureDevOps: "AzureDevOps",
+
+  @doc("GitHub repository + GitHub Actions workflows (alz/github bootstrap).")
+  GitHub: "GitHub",
+
+  @doc("No CI surface; the operator runs terraform from a workstation (alz/local bootstrap).")
+  Local: "Local",
+}
+
 @doc("Azure Resource Manager lock level.")
 union ResourceLockLevel {
   string,

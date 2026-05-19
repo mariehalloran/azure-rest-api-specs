@@ -58,6 +58,9 @@ model PlatformLandingZoneProperties {
   @doc("Cost management configuration.")
   costManagement?: CostManagement;
 
+  @doc("Version control system the generator will use when materializing the landing-zone IaC and CI pipelines. When omitted, the generator service applies its default (currently GitHub).")
+  versionControlSystem?: VersionControlSystem;
+
   @visibility(Lifecycle.Read)
   @doc("Provisioning state of the Platform Landing Zone resource.")
   provisioningState?: ResourceProvisioningState;

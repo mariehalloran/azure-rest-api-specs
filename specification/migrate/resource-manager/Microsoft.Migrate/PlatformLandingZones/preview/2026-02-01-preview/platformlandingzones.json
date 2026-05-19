@@ -1818,6 +1818,10 @@
           "$ref": "#/definitions/CostManagement",
           "description": "Cost management configuration."
         },
+        "versionControlSystem": {
+          "$ref": "#/definitions/VersionControlSystem",
+          "description": "Version control system the generator will use when materializing the landing-zone IaC and CI pipelines. When omitted, the generator service applies its default (currently GitHub)."
+        },
         "provisioningState": {
           "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "Provisioning state of the Platform Landing Zone resource.",
@@ -2455,6 +2459,36 @@
             "name": "GeoRedundant",
             "value": "GeoRedundant",
             "description": "Geo redundant storage. Required to enable cross-region restore."
+          }
+        ]
+      }
+    },
+    "VersionControlSystem": {
+      "type": "string",
+      "description": "Version control system used by the generator to materialize the landing-zone IaC and CI pipelines. Maps to the chosen ALZ accelerator bootstrap module (alz/azuredevops, alz/github, or alz/local).",
+      "enum": [
+        "AzureDevOps",
+        "GitHub",
+        "Local"
+      ],
+      "x-ms-enum": {
+        "name": "VersionControlSystem",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "AzureDevOps",
+            "value": "AzureDevOps",
+            "description": "Azure DevOps Repos + Pipelines (alz/azuredevops bootstrap)."
+          },
+          {
+            "name": "GitHub",
+            "value": "GitHub",
+            "description": "GitHub repository + GitHub Actions workflows (alz/github bootstrap)."
+          },
+          {
+            "name": "Local",
+            "value": "Local",
+            "description": "No CI surface; the operator runs terraform from a workstation (alz/local bootstrap)."
           }
         ]
       }
