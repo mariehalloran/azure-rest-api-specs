@@ -178,116 +178,116 @@
   "definitions": {
     "Availability": {
       "type": "object",
-      "description": "Availability information for a value exchange. PCD-faithful PascalCase.",
+      "description": "Availability information for a value exchange.",
       "properties": {
-        "AvailabilityId": {
+        "availabilityId": {
           "type": "string",
           "description": "The stable availability identifier (typically equal to the value-exchange id)."
         },
-        "Markets": {
+        "markets": {
           "type": "array",
           "description": "Markets in which this availability is offered (ISO 3166 country codes).",
           "items": {
             "type": "string"
           }
         },
-        "ConsumptionUnitType": {
+        "consumptionUnitType": {
           "type": "string",
           "description": "Consumption unit type (for example, \"DAY\")."
         },
-        "DisplayRank": {
+        "displayRank": {
           "type": "integer",
           "format": "int32",
           "description": "Display rank for ordering."
         },
-        "AlternateIds": {
+        "alternateIds": {
           "type": "array",
           "description": "Alternate identifiers.",
           "items": {
             "type": "string"
           }
         },
-        "LastModifiedDate": {
+        "lastModifiedDate": {
           "type": "string",
           "format": "date-time",
           "description": "Last modified date for the availability record."
         },
-        "Conditions": {
+        "conditions": {
           "$ref": "#/definitions/AvailabilityConditions",
           "description": "Conditions under which the availability applies."
         },
-        "Terms": {
+        "terms": {
           "type": "array",
           "description": "Purchase terms offered by this availability.",
           "items": {
             "$ref": "#/definitions/AvailabilityTerm"
           },
           "x-ms-identifiers": [
-            "TermId"
+            "termId"
           ]
         },
-        "SupportedLanguages": {
+        "supportedLanguages": {
           "type": "array",
-          "description": "Synthesized intersection of `Sku.MarketProperties` and `Av.Markets`.",
+          "description": "Synthesized intersection of the SKU's market properties and the availability's markets.",
           "items": {
             "type": "string"
           }
         },
-        "Meters": {
+        "meters": {
           "type": "array",
-          "description": "Synthesized subset of `Sku.Properties.MeterData` filtered by `Av.Properties.MeterType`.",
+          "description": "Synthesized subset of the SKU's meter data filtered by the availability's meter type.",
           "items": {
             "$ref": "#/definitions/AvailabilityMeter"
           },
           "x-ms-identifiers": []
         },
-        "Properties": {
+        "properties": {
           "$ref": "#/definitions/PcdPropertyBag",
-          "description": "Curated PCD `Availability.Properties` subset (PascalCase keys verbatim)."
+          "description": "Curated availability property subset projected from the upstream catalog."
         }
       },
       "required": [
-        "AvailabilityId"
+        "availabilityId"
       ]
     },
     "AvailabilityConditions": {
       "type": "object",
       "description": "Conditions under which the availability applies.",
       "properties": {
-        "StartDate": {
+        "startDate": {
           "type": "string",
           "format": "date-time",
           "description": "Start date of the availability window."
         },
-        "EndDate": {
+        "endDate": {
           "type": "string",
           "format": "date-time",
-          "description": "End date of the availability window. PCD sentinel `9999-...` is scrubbed to null."
+          "description": "End date of the availability window. The upstream `9999-...` sentinel is scrubbed to null."
         },
-        "IsPermanent": {
+        "isPermanent": {
           "type": "boolean",
           "description": "Whether the availability is permanent."
         },
-        "SupportedCatalogVersion": {
+        "supportedCatalogVersion": {
           "type": "integer",
           "format": "int32",
           "description": "Supported catalog version."
         },
-        "ResourceSetIds": {
+        "resourceSetIds": {
           "type": "array",
           "description": "Resource set identifiers.",
           "items": {
             "type": "string"
           }
         },
-        "EligibilityPredicateIds": {
+        "eligibilityPredicateIds": {
           "type": "array",
           "description": "Eligibility predicate identifiers.",
           "items": {
             "type": "string"
           }
         },
-        "ClientConditions": {
+        "clientConditions": {
           "$ref": "#/definitions/ClientConditions",
           "description": "Client-side conditions."
         }
@@ -295,22 +295,22 @@
     },
     "AvailabilityMeter": {
       "type": "object",
-      "description": "A meter bound to this value exchange (synthesized from `Sku.Properties.MeterData` filtered by `Av.Properties.MeterType`).",
+      "description": "A meter bound to this value exchange (synthesized from the upstream meter data, filtered by meter type).",
       "additionalProperties": {}
     },
     "AvailabilityTerm": {
       "type": "object",
       "description": "A purchase term offered by an availability.",
       "properties": {
-        "TermId": {
+        "termId": {
           "type": "string",
           "description": "The stable term identifier."
         },
-        "TermUnits": {
+        "termUnits": {
           "type": "string",
           "description": "ISO-8601 duration for the term (for example, \"P1Y\")."
         },
-        "TermDescription": {
+        "termDescription": {
           "type": "string",
           "description": "Human-readable term description."
         }
@@ -320,7 +320,7 @@
       "type": "object",
       "description": "Client-side conditions for an availability.",
       "properties": {
-        "AllowedPlatforms": {
+        "allowedPlatforms": {
           "type": "array",
           "description": "Allowed client platforms; empty list means no platform restriction.",
           "items": {
@@ -364,75 +364,75 @@
     },
     "PcdPropertyBag": {
       "type": "object",
-      "description": "A curated PCD-faithful property bag. PascalCase keys; unbounded set.",
+      "description": "A curated property bag projected from the upstream catalog. Unbounded key set.",
       "additionalProperties": {}
     },
     "Product": {
       "type": "object",
-      "description": "Denormalized product summary for a value exchange. PCD-faithful PascalCase.",
+      "description": "Denormalized product summary for a value exchange.",
       "properties": {
-        "ProductId": {
+        "productId": {
           "type": "string",
           "description": "The stable product identifier."
         },
-        "ProductFamily": {
+        "productFamily": {
           "type": "string",
           "description": "Product family (for example, \"Azure\")."
         },
-        "ProductType": {
+        "productType": {
           "type": "string",
           "description": "Product type (for example, \"Azure\")."
         },
-        "ProductKind": {
+        "productKind": {
           "type": "string",
           "description": "Product kind (for example, \"Azure\")."
         },
-        "LastModifiedDate": {
+        "lastModifiedDate": {
           "type": "string",
           "format": "date-time",
           "description": "Last modified date for the product record."
         },
-        "PublisherName": {
+        "publisherName": {
           "type": "string",
-          "description": "Lifted single-language publisher name from PCD `LocalizedProperties[*].PublisherName`."
+          "description": "Lifted single-language publisher name from the upstream catalog feed."
         },
-        "Properties": {
+        "properties": {
           "$ref": "#/definitions/PcdPropertyBag",
-          "description": "Curated PCD `Product.Properties` subset (PascalCase keys verbatim)."
+          "description": "Curated product property subset projected from the upstream catalog."
         }
       },
       "required": [
-        "ProductId"
+        "productId"
       ]
     },
     "Sku": {
       "type": "object",
-      "description": "Denormalized SKU summary for a value exchange. PCD-faithful PascalCase.",
+      "description": "Denormalized SKU summary for a value exchange.",
       "properties": {
-        "SkuId": {
+        "skuId": {
           "type": "string",
           "description": "The stable SKU identifier."
         },
-        "SkuType": {
+        "skuType": {
           "type": "string",
           "description": "SKU type (for example, \"enterpriseonline\")."
         },
-        "ProductId": {
+        "productId": {
           "type": "string",
           "description": "The product identifier this SKU belongs to."
         },
-        "LastModifiedDate": {
+        "lastModifiedDate": {
           "type": "string",
           "format": "date-time",
           "description": "Last modified date for the SKU record."
         },
-        "Properties": {
+        "properties": {
           "$ref": "#/definitions/PcdPropertyBag",
-          "description": "Curated PCD `Sku.Properties` subset (PascalCase keys verbatim). Includes `PartnerChannelLifecycleState` and `DeactivatedLifeCycleState`."
+          "description": "Curated SKU property subset projected from the upstream catalog. Includes partner channel and deactivated lifecycle state."
         }
       },
       "required": [
-        "SkuId"
+        "skuId"
       ]
     },
     "ValueExchange": {
@@ -457,25 +457,25 @@
     },
     "ValueExchangeProperties": {
       "type": "object",
-      "description": "Properties of a value exchange (UPN). Wraps the denormalized PCD trio of\nProduct, Sku, and Availability. Slim shape: large blobs (raw MeterData,\nOrderManagementData, Passthrough sub-objects, CoSell, Attributes) are\ndropped here and live on the rich hydrate response.",
+      "description": "Properties of a value exchange (UPN). Wraps the denormalized trio of\nProduct, Sku, and Availability. Slim shape: large blobs (raw meter data,\norder management data, passthrough sub-objects, co-sell, attributes) are\ndropped here and live on the rich hydrate response.",
       "properties": {
-        "Product": {
+        "product": {
           "$ref": "#/definitions/Product",
           "description": "Denormalized product summary."
         },
-        "Sku": {
+        "sku": {
           "$ref": "#/definitions/Sku",
           "description": "Denormalized SKU summary."
         },
-        "Availability": {
+        "availability": {
           "$ref": "#/definitions/Availability",
           "description": "Availability information for this value exchange."
         }
       },
       "required": [
-        "Product",
-        "Sku",
-        "Availability"
+        "product",
+        "sku",
+        "availability"
       ]
     }
   },
