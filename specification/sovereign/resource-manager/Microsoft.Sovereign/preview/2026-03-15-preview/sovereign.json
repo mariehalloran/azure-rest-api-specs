@@ -2410,7 +2410,8 @@
         "DataResidency",
         "EncryptionAtRest",
         "EncryptionInTransit",
-        "EncryptionInUse"
+        "EncryptionInUse",
+        "ControlledNetworkExposure"
       ],
       "x-ms-enum": {
         "name": "ComplianceDimension",
@@ -2435,6 +2436,11 @@
             "name": "EncryptionInUse",
             "value": "EncryptionInUse",
             "description": "Encryption in use compliance dimension."
+          },
+          {
+            "name": "ControlledNetworkExposure",
+            "value": "ControlledNetworkExposure",
+            "description": "Controlled network exposure compliance dimension."
           }
         ]
       }
@@ -4370,7 +4376,8 @@
         "EncryptionInTransit",
         "DataResidency",
         "EncryptionAtRest",
-        "EncryptionInUse"
+        "EncryptionInUse",
+        "ControlledNetworkExposure"
       ],
       "x-ms-enum": {
         "name": "SovereignViewFilterField",
@@ -4420,6 +4427,11 @@
             "name": "encryptionInUse",
             "value": "EncryptionInUse",
             "description": "Filter by Encryption In Use compliance dimension."
+          },
+          {
+            "name": "controlledNetworkExposure",
+            "value": "ControlledNetworkExposure",
+            "description": "Filter by Controlled Network Exposure compliance dimension."
           }
         ]
       }

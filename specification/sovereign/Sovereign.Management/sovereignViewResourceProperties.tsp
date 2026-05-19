@@ -107,6 +107,9 @@ union ComplianceDimension {
   @doc("Encryption in use compliance dimension.")
   EncryptionInUse: "EncryptionInUse",
 
+  @doc("Controlled network exposure compliance dimension.")
+  ControlledNetworkExposure: "ControlledNetworkExposure",
+
   string,
 }
 
@@ -333,6 +336,9 @@ union SovereignViewFilterField {
 
   @doc("Filter by Encryption In Use compliance dimension.")
   encryptionInUse: "EncryptionInUse",
+
+  @doc("Filter by Controlled Network Exposure compliance dimension.")
+  controlledNetworkExposure: "ControlledNetworkExposure",
 
   string,
 }
