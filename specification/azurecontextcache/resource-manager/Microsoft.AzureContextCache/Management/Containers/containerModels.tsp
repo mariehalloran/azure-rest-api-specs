@@ -37,7 +37,7 @@ model ContainerProperties {
   provisioningState?: ProvisioningState;
 }
 
-/** Updatable properties of a container within a Context Cache Account */
+/** Updatable properties of a container within a Context Cache Account. */
 model ContainerPropertiesUpdate {
   /** Container description. */
   @maxLength(250)

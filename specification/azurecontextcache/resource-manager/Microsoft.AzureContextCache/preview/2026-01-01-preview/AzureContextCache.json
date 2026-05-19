@@ -972,7 +972,7 @@
         "timeToLive": {
           "type": "integer",
           "format": "int32",
-          "description": "The Time to Live (TTL) in days between 1-30 days for this container, after which it will be automatically deleted.",
+          "description": "The Time to Live (TTL) in days between 1-30 days for this container, after which it will be automatically deleted. If not specified at creation time, it defaults to 1 day.",
           "default": 1,
           "minimum": 1,
           "maximum": 30
