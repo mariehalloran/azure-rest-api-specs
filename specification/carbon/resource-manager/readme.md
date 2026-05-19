@@ -65,9 +65,6 @@ See configuration in [readme.csharp.md](./readme.csharp.md)
 
 See configuration in [readme.java.md](./readme.java.md)
 
-## Node.js
-
-See configuration in [readme.nodejs.md](./readme.nodejs.md)
 
 ## Python
 
