@@ -861,7 +861,7 @@
     },
     "AccountPropertiesUpdate": {
       "type": "object",
-      "description": "Details of the Context Cache Account.",
+      "description": "Updatable properties of a Prompt Service Account.",
       "properties": {
         "description": {
           "type": "string",
@@ -872,18 +872,20 @@
     },
     "AccountUpdate": {
       "type": "object",
-      "description": "A Context Cache Account resource",
+      "description": "The type used for update operations of the Account.",
       "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
         "properties": {
           "$ref": "#/definitions/AccountPropertiesUpdate",
-          "description": "The resource-specific properties for this resource."
+          "description": "The updatable properties of the Account."
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
-        }
-      ]
+      }
     },
     "AiProvider": {
       "type": "string",
@@ -902,25 +904,6 @@
           }
         ]
       }
-    },
-    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
-      "type": "object",
-      "title": "Tracked Resource",
-      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/Resource"
-        }
-      ]
     },
     "Container": {
       "type": "object",
@@ -972,7 +955,11 @@
         },
         "modelName": {
           "type": "string",
-          "description": "The model name associated with this container (e.g., gpt-4, claude-3)."
+          "description": "The model name associated with this container (e.g., gpt-4, claude-3).",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         },
         "provider": {
           "$ref": "#/definitions/AiProvider",
@@ -986,6 +973,7 @@
           "type": "integer",
           "format": "int32",
           "description": "The Time to Live (TTL) in days between 1-30 days for this container, after which it will be automatically deleted.",
+          "default": 1,
           "minimum": 1,
           "maximum": 30
         },

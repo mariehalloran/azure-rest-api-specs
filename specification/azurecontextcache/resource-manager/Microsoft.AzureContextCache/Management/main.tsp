@@ -48,7 +48,7 @@ interface Accounts {
   createOrUpdate is ArmResourceCreateOrUpdateAsync<Account>;
 
   /** Update a Context Cache Account. */
-  update is ArmResourcePatchAsync<Account, AccountProperties>;
+  update is ArmCustomPatchAsync<Account, AccountUpdate>;
 
   /** Delete a Context Cache Account. */
   delete is ArmResourceDeleteWithoutOkAsync<Account>;

@@ -20,6 +20,7 @@ model ContainerProperties {
   description?: string;
 
   /** The model name associated with this container (e.g., gpt-4, claude-3). */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   modelName: string;
 
   /** The AI provider associated with this container. */
@@ -29,7 +30,7 @@ model ContainerProperties {
   /** The Time to Live (TTL) in days between 1-30 days for this container, after which it will be automatically deleted. */
   @minValue(1)
   @maxValue(30)
-  timeToLive?: int32;
+  timeToLive?: int32 = 1;
 
   /** The status of the last operation. */
   @visibility(Lifecycle.Read)
@@ -38,18 +39,18 @@ model ContainerProperties {
 
 @doc("Updatable properties of a container within a Context Cache Account.")
 model ContainerPropertiesUpdate {
-  @doc("Container description.")
+  /** Container description. */
   @maxLength(250)
   description?: string;
 
-  @doc("Time to live in days after last access before container blobs are deleted. Must be between 1 and 30.")
+  /** Time to live in days after last access before container blobs are deleted. Must be between 1 and 30. */
   @minValue(1)
   @maxValue(30)
   timeToLive?: int32;
 }
 
-@doc("The type used for update operations of the Container.")
+/** The type used for update operations of the Container. */
 model ContainerUpdate {
-  @doc("The updatable properties of the Container.")
+  /** The updatable properties of the Container. */
   properties?: ContainerPropertiesUpdate;
 }
