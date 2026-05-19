@@ -61,10 +61,6 @@ swagger-to-sdk:
 ## C#
 See configuration in [readme.csharp.md](./readme.csharp.md)
 
-## Go
-
-See configuration in [readme.go.md](./readme.go.md)
-
 ## Java
 
 See configuration in [readme.java.md](./readme.java.md)
