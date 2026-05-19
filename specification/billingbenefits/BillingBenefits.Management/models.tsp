@@ -2769,7 +2769,7 @@ model ProductDetailsBase {
   skuTitle?: string;
 
   /**
-   * The product family.
+   * The product family, for example "Azure" or "M365".
    */
   productFamily?: string;
 
@@ -2801,6 +2801,11 @@ model CreditProductDetails {
  */
 model TransactionProductDetails {
   ...ProductDetailsBase;
+
+  /**
+   * The service family of the product, for example "Compute" or "Databases".
+   */
+  serviceFamily?: string;
 
   /**
    * The publisher type of the product, for example "Microsoft" for first-party or a third-party publisher name. Additional values may be introduced in the future.
