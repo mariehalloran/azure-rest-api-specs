@@ -86,6 +86,45 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/enumerations": {
+      "get": {
+        "operationId": "Enumerations_ListBySubscription",
+        "tags": [
+          "Enumerations"
+        ],
+        "description": "List all enumeration sets in the subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EnumerationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List enumeration sets in the subscription.": {
+            "$ref": "./examples/Enumerations_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/enumerations/{enumerationType}": {
       "get": {
         "operationId": "Enumerations_Get",
@@ -127,6 +166,45 @@
           "Get an enumeration set by its type key.": {
             "$ref": "./examples/Enumerations_Get.json"
           }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/valueExchanges": {
+      "get": {
+        "operationId": "ValueExchanges_ListBySubscription",
+        "tags": [
+          "ValueExchanges"
+        ],
+        "description": "List all value-exchange catalog resources in the subscription. Paginated;\nfollow `nextLink` to enumerate the full catalog.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValueExchangeListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List value-exchange (UPN) resources in the subscription.": {
+            "$ref": "./examples/ValueExchanges_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
         }
       }
     },
@@ -344,6 +422,27 @@
         }
       ]
     },
+    "EnumerationListResult": {
+      "type": "object",
+      "description": "The response of a Enumeration list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Enumeration items on this page",
+          "items": {
+            "$ref": "#/definitions/Enumeration"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "EnumerationProperties": {
       "type": "object",
       "description": "Properties of an enumeration set returned by the enumerations endpoint.",
@@ -453,6 +552,27 @@
         {
           "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
+      ]
+    },
+    "ValueExchangeListResult": {
+      "type": "object",
+      "description": "The response of a ValueExchange list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ValueExchange items on this page",
+          "items": {
+            "$ref": "#/definitions/ValueExchange"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
       ]
     },
     "ValueExchangeProperties": {

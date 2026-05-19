@@ -45,6 +45,12 @@ interface ValueExchanges {
    * same id under one API version regardless of caller.
    */
   get is ArmResourceRead<ValueExchange>;
+
+  /**
+   * List all value-exchange catalog resources in the subscription. Paginated;
+   * follow `nextLink` to enumerate the full catalog.
+   */
+  listBySubscription is ArmListBySubscription<ValueExchange>;
 }
 
 @@doc(ValueExchange.name,

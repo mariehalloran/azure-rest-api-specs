@@ -40,6 +40,11 @@ interface Enumerations {
    * Get a single enumeration set by its type key (for example, `categories`).
    */
   get is ArmResourceRead<Enumeration>;
+
+  /**
+   * List all enumeration sets in the subscription.
+   */
+  listBySubscription is ArmListBySubscription<Enumeration>;
 }
 
 @@doc(Enumeration.name,

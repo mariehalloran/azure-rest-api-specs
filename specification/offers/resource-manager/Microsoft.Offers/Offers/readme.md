@@ -44,18 +44,6 @@ suppressions:
       is server-curated and varies per product family / meter category.
       Validation is owned by the upstream catalog source. Repo precedent:
       computeschedule, computebulkactions, awsconnector.
-  - code: TopLevelResourcesListBySubscription
-    from:
-      - offers.json
-    where:
-      - $.definitions.ValueExchange
-      - $.definitions.Enumeration
-    reason: >
-      ValueExchange and Enumeration are singleton GET-by-id catalog projections.
-      List-by-subscription is intentionally not exposed: the catalog has
-      millions of entries and is not user-scoped, so a per-subscription list
-      would have no meaningful semantics. Lookup is always by known id from
-      a separate discovery flow.
 ```
 
 ---

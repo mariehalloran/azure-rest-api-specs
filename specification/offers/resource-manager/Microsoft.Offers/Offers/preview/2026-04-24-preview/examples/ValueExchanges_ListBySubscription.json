@@ -1,0 +1,80 @@
+{
+  "title": "List value-exchange (UPN) resources in the subscription.",
+  "operationId": "ValueExchanges_ListBySubscription",
+  "parameters": {
+    "api-version": "2026-04-24-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Offers/valueExchanges/DZH318Z0995B",
+            "name": "DZH318Z0995B",
+            "type": "Microsoft.Offers/valueExchanges",
+            "eTag": "2026-04-15T12:00:00Z||rev-7",
+            "systemData": {
+              "createdAt": "2026-04-01T00:00:00Z",
+              "lastModifiedAt": "2026-04-15T12:00:00Z",
+              "lastModifiedByType": "Application"
+            },
+            "properties": {
+              "product": {
+                "productId": "DZH318Z09JCL",
+                "productFamily": "Azure",
+                "productType": "Azure",
+                "productKind": "Azure",
+                "lastModifiedDate": "2026-04-15T12:00:00Z",
+                "publisherName": "Cira Apps Limited",
+                "properties": {}
+              },
+              "sku": {
+                "skuId": "0001",
+                "skuType": "enterpriseonline",
+                "productId": "DZH318Z09JCL",
+                "lastModifiedDate": "2026-04-15T12:00:00Z",
+                "properties": {}
+              },
+              "availability": {
+                "availabilityId": "DZH318Z0995B",
+                "markets": [
+                  "SE"
+                ],
+                "consumptionUnitType": "DAY",
+                "displayRank": 100,
+                "alternateIds": [],
+                "lastModifiedDate": "2026-04-15T12:00:00Z",
+                "conditions": {
+                  "startDate": "2026-01-01T00:00:00Z",
+                  "isPermanent": true,
+                  "supportedCatalogVersion": 7,
+                  "resourceSetIds": [
+                    "4"
+                  ],
+                  "eligibilityPredicateIds": [],
+                  "clientConditions": {
+                    "allowedPlatforms": []
+                  }
+                },
+                "terms": [
+                  {
+                    "termId": "term-1y",
+                    "termUnits": "P1Y",
+                    "termDescription": "1 Year Subscription"
+                  }
+                ],
+                "supportedLanguages": [
+                  "en"
+                ],
+                "meters": [],
+                "properties": {}
+              }
+            }
+          }
+        ],
+        "nextLink": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Offers/valueExchanges?api-version=2026-04-24-preview&%24skiptoken=opaque-continuation-token"
+      }
+    }
+  }
+}
