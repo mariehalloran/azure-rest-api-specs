@@ -27,7 +27,7 @@ model ContainerProperties {
   @visibility(Lifecycle.Create, Lifecycle.Read)
   provider: AiProvider;
 
-  /** The Time to Live (TTL) in days between 1-30 days for this container, after which it will be automatically deleted. */
+  /** The Time to Live (TTL) in days between 1-30 days for this container, after which it will be automatically deleted. If not specified at creation time, it defaults to 1 day. */
   @minValue(1)
   @maxValue(30)
   timeToLive?: int32 = 1;
@@ -37,7 +37,7 @@ model ContainerProperties {
   provisioningState?: ProvisioningState;
 }
 
-@doc("Updatable properties of a container within a Context Cache Account.")
+/** Updatable properties of a container within a Context Cache Account */
 model ContainerPropertiesUpdate {
   /** Container description. */
   @maxLength(250)
