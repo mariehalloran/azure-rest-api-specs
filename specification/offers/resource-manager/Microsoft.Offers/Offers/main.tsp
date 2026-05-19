@@ -29,3 +29,7 @@ enum Versions {
 
 /** The operations supported by the Microsoft.Offers resource provider. */
 interface Operations extends Azure.ResourceManager.Operations {}
+
+@@doc(Operations.list,
+  "List the operations for the Microsoft.Offers resource provider."
+);
