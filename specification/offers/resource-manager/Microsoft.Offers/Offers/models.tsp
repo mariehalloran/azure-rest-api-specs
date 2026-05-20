@@ -110,7 +110,7 @@ model AvailabilityTerm {
   termId?: string;
 
   /** ISO-8601 duration for the term (for example, "P1Y"). */
-  termUnits?: string;
+  termUnits?: duration;
 
   /** Human-readable term description. */
   termDescription?: string;
