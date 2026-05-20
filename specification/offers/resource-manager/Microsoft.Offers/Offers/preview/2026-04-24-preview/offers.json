@@ -184,7 +184,8 @@
       "properties": {
         "availabilityId": {
           "type": "string",
-          "description": "The stable availability identifier (typically equal to the value-exchange id)."
+          "description": "The stable availability identifier (typically equal to the value-exchange id).",
+          "maxLength": 64
         },
         "markets": {
           "type": "array",
@@ -195,7 +196,8 @@
         },
         "consumptionUnitType": {
           "type": "string",
-          "description": "Consumption unit type (for example, \"DAY\")."
+          "description": "Consumption unit type (for example, \"DAY\").",
+          "maxLength": 64
         },
         "displayRank": {
           "type": "integer",
@@ -306,7 +308,8 @@
       "properties": {
         "termId": {
           "type": "string",
-          "description": "The stable term identifier."
+          "description": "The stable term identifier.",
+          "maxLength": 64
         },
         "termUnits": {
           "type": "string",
@@ -315,7 +318,8 @@
         },
         "termDescription": {
           "type": "string",
-          "description": "Human-readable term description."
+          "description": "Human-readable term description.",
+          "maxLength": 256
         }
       }
     },
@@ -339,6 +343,7 @@
         "enumerationType": {
           "type": "string",
           "description": "The enumeration type key (for example, `categories`, `productFamilies`, `claimTypes`).",
+          "maxLength": 64,
           "pattern": "^[a-zA-Z][a-zA-Z0-9]*$"
         }
       },
@@ -352,7 +357,8 @@
       "properties": {
         "enumerationType": {
           "type": "string",
-          "description": "The enumeration type key the result corresponds to."
+          "description": "The enumeration type key the result corresponds to.",
+          "maxLength": 64
         },
         "values": {
           "type": "array",
@@ -386,7 +392,8 @@
       "properties": {
         "valueExchangeId": {
           "type": "string",
-          "description": "The value-exchange identifier the result corresponds to."
+          "description": "The value-exchange identifier the result corresponds to.",
+          "pattern": "^[A-Z0-9]{12}$"
         },
         "properties": {
           "$ref": "#/definitions/ValueExchangeProperties",
@@ -409,19 +416,23 @@
       "properties": {
         "productId": {
           "type": "string",
-          "description": "The stable product identifier."
+          "description": "The stable product identifier.",
+          "maxLength": 64
         },
         "productFamily": {
           "type": "string",
-          "description": "Product family (for example, \"Azure\")."
+          "description": "Product family (for example, \"Azure\").",
+          "maxLength": 64
         },
         "productType": {
           "type": "string",
-          "description": "Product type (for example, \"Azure\")."
+          "description": "Product type (for example, \"Azure\").",
+          "maxLength": 64
         },
         "productKind": {
           "type": "string",
-          "description": "Product kind (for example, \"Azure\")."
+          "description": "Product kind (for example, \"Azure\").",
+          "maxLength": 64
         },
         "lastModifiedDate": {
           "type": "string",
@@ -430,7 +441,8 @@
         },
         "publisherName": {
           "type": "string",
-          "description": "Lifted single-language publisher name from the upstream catalog feed."
+          "description": "Lifted single-language publisher name from the upstream catalog feed.",
+          "maxLength": 256
         },
         "properties": {
           "$ref": "#/definitions/PcdPropertyBag",
@@ -447,15 +459,18 @@
       "properties": {
         "skuId": {
           "type": "string",
-          "description": "The stable SKU identifier."
+          "description": "The stable SKU identifier.",
+          "maxLength": 64
         },
         "skuType": {
           "type": "string",
-          "description": "SKU type (for example, \"enterpriseonline\")."
+          "description": "SKU type (for example, \"enterpriseonline\").",
+          "maxLength": 64
         },
         "productId": {
           "type": "string",
-          "description": "The product identifier this SKU belongs to."
+          "description": "The product identifier this SKU belongs to.",
+          "maxLength": 64
         },
         "lastModifiedDate": {
           "type": "string",

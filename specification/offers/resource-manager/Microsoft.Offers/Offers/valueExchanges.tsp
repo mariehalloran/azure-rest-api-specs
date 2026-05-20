@@ -21,6 +21,7 @@ model LookupValueExchangeRequest {
 /** The result of a value-exchange lookup. */
 model LookupValueExchangeResult {
   /** The value-exchange identifier the result corresponds to. */
+  @pattern("^[A-Z0-9]{12}$")
   valueExchangeId: string;
 
   /** The denormalized, slim value-exchange projection. */

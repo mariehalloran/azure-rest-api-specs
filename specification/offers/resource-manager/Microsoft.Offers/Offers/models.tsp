@@ -27,21 +27,26 @@ model PcdPropertyBag is Record<unknown>;
 /** Denormalized product summary for a value exchange. */
 model Product {
   /** The stable product identifier. */
+  @maxLength(64)
   productId: string;
 
   /** Product family (for example, "Azure"). */
+  @maxLength(64)
   productFamily?: string;
 
   /** Product type (for example, "Azure"). */
+  @maxLength(64)
   productType?: string;
 
   /** Product kind (for example, "Azure"). */
+  @maxLength(64)
   productKind?: string;
 
   /** Last modified date for the product record. */
   lastModifiedDate?: utcDateTime;
 
   /** Lifted single-language publisher name from the upstream catalog feed. */
+  @maxLength(256)
   publisherName?: string;
 
   /** Curated product property subset projected from the upstream catalog. */
@@ -55,12 +60,15 @@ model Product {
 /** Denormalized SKU summary for a value exchange. */
 model Sku {
   /** The stable SKU identifier. */
+  @maxLength(64)
   skuId: string;
 
   /** SKU type (for example, "enterpriseonline"). */
+  @maxLength(64)
   skuType?: string;
 
   /** The product identifier this SKU belongs to. */
+  @maxLength(64)
   productId?: string;
 
   /** Last modified date for the SKU record. */
@@ -107,12 +115,14 @@ model ClientConditions {
 /** A purchase term offered by an availability. */
 model AvailabilityTerm {
   /** The stable term identifier. */
+  @maxLength(64)
   termId?: string;
 
   /** ISO-8601 duration for the term (for example, "P1Y"). */
   termUnits?: duration;
 
   /** Human-readable term description. */
+  @maxLength(256)
   termDescription?: string;
 }
 
@@ -123,12 +133,14 @@ model AvailabilityMeter is Record<unknown>;
 /** Availability information for a value exchange. */
 model Availability {
   /** The stable availability identifier (typically equal to the value-exchange id). */
+  @maxLength(64)
   availabilityId: string;
 
   /** Markets in which this availability is offered (ISO 3166 country codes). */
   markets?: string[];
 
   /** Consumption unit type (for example, "DAY"). */
+  @maxLength(64)
   consumptionUnitType?: string;
 
   /** Display rank for ordering. */

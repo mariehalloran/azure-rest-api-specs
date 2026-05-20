@@ -14,6 +14,7 @@ namespace Microsoft.Offers;
 /** Request body for looking up an enumeration set by its type key. */
 model LookupEnumerationRequest {
   /** The enumeration type key (for example, `categories`, `productFamilies`, `claimTypes`). */
+  @maxLength(64)
   @pattern("^[a-zA-Z][a-zA-Z0-9]*$")
   enumerationType: string;
 }
@@ -21,6 +22,7 @@ model LookupEnumerationRequest {
 /** The result of an enumeration lookup. */
 model LookupEnumerationResult {
   /** The enumeration type key the result corresponds to. */
+  @maxLength(64)
   enumerationType: string;
 
   /** The enumeration values. Values are passed through verbatim from the upstream catalog feed. */
