@@ -77,7 +77,7 @@
           }
         },
         "x-ms-examples": {
-          "List all operations supported by Microsoft.Offers": {
+          "List all operations supported by Microsoft.Offers.": {
             "$ref": "./examples/Operations_List.json"
           }
         },
@@ -86,52 +86,13 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/enumerations": {
-      "get": {
-        "operationId": "Enumerations_ListBySubscription",
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/lookupEnumeration": {
+      "post": {
+        "operationId": "Enumerations_Lookup",
         "tags": [
           "Enumerations"
         ],
-        "description": "List all enumeration sets in the subscription.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/EnumerationListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "List enumeration sets in the subscription.": {
-            "$ref": "./examples/Enumerations_ListBySubscription.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/enumerations/{enumerationType}": {
-      "get": {
-        "operationId": "Enumerations_Get",
-        "tags": [
-          "Enumerations"
-        ],
-        "description": "Get a single enumeration set by its type key (for example, `categories`).",
+        "description": "Look up a single enumeration set by its type key (for example,\n`categories`). The catalog is globally keyed: the same `enumerationType`\nreturns the same response for all callers under one API version. Modeled\nas a POST action because the response is identical for every caller in a\nsubscription and the catalog is not a per-subscription resource\ncollection.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -140,19 +101,20 @@
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "name": "enumerationType",
-            "in": "path",
-            "description": "The enumeration type key (for example, `categories`, `productFamilies`, `claimTypes`).",
+            "name": "body",
+            "in": "body",
+            "description": "The request body",
             "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z][a-zA-Z0-9]*$"
+            "schema": {
+              "$ref": "#/definitions/LookupEnumerationRequest"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/Enumeration"
+              "$ref": "#/definitions/LookupEnumerationResult"
             }
           },
           "default": {
@@ -163,58 +125,19 @@
           }
         },
         "x-ms-examples": {
-          "Get an enumeration set by its type key.": {
-            "$ref": "./examples/Enumerations_Get.json"
+          "Look up an enumeration set by its type key.": {
+            "$ref": "./examples/Enumerations_Lookup.json"
           }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/valueExchanges": {
-      "get": {
-        "operationId": "ValueExchanges_ListBySubscription",
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/lookupValueExchange": {
+      "post": {
+        "operationId": "ValueExchanges_Lookup",
         "tags": [
           "ValueExchanges"
         ],
-        "description": "List all value-exchange catalog resources in the subscription. Paginated;\nfollow `nextLink` to enumerate the full catalog.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ValueExchangeListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "List value-exchange (UPN) resources in the subscription.": {
-            "$ref": "./examples/ValueExchanges_ListBySubscription.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/valueExchanges/{valueExchangeId}": {
-      "get": {
-        "operationId": "ValueExchanges_Get",
-        "tags": [
-          "ValueExchanges"
-        ],
-        "description": "Get a single value-exchange resource by its identifier. Returns the\ncanonical, stable, slim shape; the same response is returned for the\nsame id under one API version regardless of caller.",
+        "description": "Look up a single value-exchange (UPN) by its identifier. The catalog is\nglobally keyed: the same `valueExchangeId` returns the same response for\nall callers under one API version. Modeled as a POST action because the\nresponse is identical for every caller in a subscription and the catalog\nis not a per-subscription resource collection.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -223,19 +146,20 @@
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "name": "valueExchangeId",
-            "in": "path",
-            "description": "The value-exchange identifier (BigCat UPN id, e.g. `DZH318Z0995B`).",
+            "name": "body",
+            "in": "body",
+            "description": "The request body",
             "required": true,
-            "type": "string",
-            "pattern": "^[A-Z0-9]{12}$"
+            "schema": {
+              "$ref": "#/definitions/LookupValueExchangeRequest"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/ValueExchange"
+              "$ref": "#/definitions/LookupValueExchangeResult"
             }
           },
           "default": {
@@ -246,8 +170,8 @@
           }
         },
         "x-ms-examples": {
-          "Get a value-exchange (UPN) by its identifier.": {
-            "$ref": "./examples/ValueExchanges_Get.json"
+          "Look up a value-exchange (UPN) by its identifier.": {
+            "$ref": "./examples/ValueExchanges_Lookup.json"
           }
         }
       }
@@ -407,58 +331,68 @@
         }
       }
     },
-    "Enumeration": {
+    "LookupEnumerationRequest": {
       "type": "object",
-      "description": "Enumeration resource.\n\nReturns one enumeration set (for example, `categories`, `productFamilies`,\n`claimTypes`) sourced from the BigCat enumeration and domain-data\ncontrollers. A single container resource type keeps new enumerations\nextensible without minting a new ARM type per enumeration.\n\nAddressed at\n`/subscriptions/{subscriptionId}/providers/Microsoft.Offers/enumerations/{enumerationType}`.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/EnumerationProperties",
-          "description": "The properties of the enumeration resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "EnumerationListResult": {
-      "type": "object",
-      "description": "The response of a Enumeration list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The Enumeration items on this page",
-          "items": {
-            "$ref": "#/definitions/Enumeration"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "EnumerationProperties": {
-      "type": "object",
-      "description": "Properties of an enumeration set returned by the enumerations endpoint.",
+      "description": "Request body for looking up an enumeration set by its type key.",
       "properties": {
         "enumerationType": {
           "type": "string",
-          "description": "The enumeration type key (for example, \"categories\", \"productFamilies\", \"claimTypes\")."
+          "description": "The enumeration type key (for example, `categories`, `productFamilies`, `claimTypes`).",
+          "pattern": "^[a-zA-Z][a-zA-Z0-9]*$"
+        }
+      },
+      "required": [
+        "enumerationType"
+      ]
+    },
+    "LookupEnumerationResult": {
+      "type": "object",
+      "description": "The result of an enumeration lookup.",
+      "properties": {
+        "enumerationType": {
+          "type": "string",
+          "description": "The enumeration type key the result corresponds to."
         },
         "values": {
           "type": "array",
-          "description": "The enumeration values. Shape is enumeration-specific; values are passed through verbatim from the upstream BigCat catalog feed.",
+          "description": "The enumeration values. Shape is enumeration-specific; values are passed through verbatim from the upstream catalog feed.",
           "items": {}
         }
       },
       "required": [
         "enumerationType"
+      ]
+    },
+    "LookupValueExchangeRequest": {
+      "type": "object",
+      "description": "Request body for looking up a value exchange (UPN) by its identifier.",
+      "properties": {
+        "valueExchangeId": {
+          "type": "string",
+          "description": "The value-exchange identifier (BigCat UPN id, e.g. `DZH318Z0995B`).",
+          "pattern": "^[A-Z0-9]{12}$"
+        }
+      },
+      "required": [
+        "valueExchangeId"
+      ]
+    },
+    "LookupValueExchangeResult": {
+      "type": "object",
+      "description": "The result of a value-exchange lookup.",
+      "properties": {
+        "valueExchangeId": {
+          "type": "string",
+          "description": "The value-exchange identifier the result corresponds to."
+        },
+        "properties": {
+          "$ref": "#/definitions/ValueExchangeProperties",
+          "description": "The denormalized, slim value-exchange projection."
+        }
+      },
+      "required": [
+        "valueExchangeId",
+        "properties"
       ]
     },
     "PcdPropertyBag": {
@@ -532,47 +466,6 @@
       },
       "required": [
         "skuId"
-      ]
-    },
-    "ValueExchange": {
-      "type": "object",
-      "description": "Value exchange (UPN) resource.\n\nA subscription-scoped, read-only proxy resource representing one\ntransactable value-exchange (BigCat UPN) in the Microsoft commercial\ncatalog. Returns the canonical, stable, slim VE shape; the same\n`valueExchangeId` returns the same response for all callers under one\nAPI version. No market/language/fragment inputs are accepted; for\nlocalized or market-specific content, use the hydrate action.\n\nAddressed at\n`/subscriptions/{subscriptionId}/providers/Microsoft.Offers/valueExchanges/{valueExchangeId}`.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/ValueExchangeProperties",
-          "description": "The properties of the value-exchange resource."
-        },
-        "eTag": {
-          "type": "string",
-          "description": "If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields.",
-          "readOnly": true
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "ValueExchangeListResult": {
-      "type": "object",
-      "description": "The response of a ValueExchange list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The ValueExchange items on this page",
-          "items": {
-            "$ref": "#/definitions/ValueExchange"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
       ]
     },
     "ValueExchangeProperties": {

@@ -11,43 +11,39 @@ using Azure.ResourceManager;
 
 namespace Microsoft.Offers;
 
-/**
- * Enumeration resource.
- *
- * Returns one enumeration set (for example, `categories`, `productFamilies`,
- * `claimTypes`) sourced from the BigCat enumeration and domain-data
- * controllers. A single container resource type keeps new enumerations
- * extensible without minting a new ARM type per enumeration.
- *
- * Addressed at
- * `/subscriptions/{subscriptionId}/providers/Microsoft.Offers/enumerations/{enumerationType}`.
- */
-@subscriptionResource
-model Enumeration
-  is Azure.ResourceManager.ProxyResource<EnumerationProperties> {
-  ...ResourceNameParameter<
-    Resource = Enumeration,
-    KeyName = "enumerationType",
-    SegmentName = "enumerations",
-    NamePattern = "^[a-zA-Z][a-zA-Z0-9]*$"
-  >;
+/** Request body for looking up an enumeration set by its type key. */
+model LookupEnumerationRequest {
+  /** The enumeration type key (for example, `categories`, `productFamilies`, `claimTypes`). */
+  @pattern("^[a-zA-Z][a-zA-Z0-9]*$")
+  enumerationType: string;
 }
 
-/** Read-only operations on enumeration catalog resources. */
+/** The result of an enumeration lookup. */
+model LookupEnumerationResult {
+  /** The enumeration type key the result corresponds to. */
+  enumerationType: string;
+
+  /** The enumeration values. Shape is enumeration-specific; values are passed through verbatim from the upstream catalog feed. */
+  values?: unknown[];
+}
+
+/** Read-only catalog lookup actions for enumeration sets. */
 @armResourceOperations
 interface Enumerations {
   /**
-   * Get a single enumeration set by its type key (for example, `categories`).
+   * Look up a single enumeration set by its type key (for example,
+   * `categories`). The catalog is globally keyed: the same `enumerationType`
+   * returns the same response for all callers under one API version. Modeled
+   * as a POST action because the response is identical for every caller in a
+   * subscription and the catalog is not a per-subscription resource
+   * collection.
    */
-  get is ArmResourceRead<Enumeration>;
-
-  /**
-   * List all enumeration sets in the subscription.
-   */
-  listBySubscription is ArmListBySubscription<Enumeration>;
+  @autoRoute
+  @action("lookupEnumeration")
+  lookup is ArmProviderActionSync<
+    Request = LookupEnumerationRequest,
+    Response = LookupEnumerationResult,
+    Scope = SubscriptionActionScope,
+    Parameters = {}
+  >;
 }
-
-@@doc(Enumeration.name,
-  "The enumeration type key (for example, `categories`, `productFamilies`, `claimTypes`)."
-);
-@@doc(Enumeration.properties, "The properties of the enumeration resource.");

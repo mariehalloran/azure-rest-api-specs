@@ -168,7 +168,6 @@ model Availability {
  * order management data, passthrough sub-objects, co-sell, attributes) are
  * dropped here and live on the rich hydrate response.
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Value exchange is a read-only catalog projection synthesized from the upstream BigCat feed; no ARM provisioning lifecycle applies. The resource has no create/update/delete operations and therefore no provisioning state to track."
 model ValueExchangeProperties {
   /** Denormalized product summary. */
   product: Product;
@@ -178,18 +177,4 @@ model ValueExchangeProperties {
 
   /** Availability information for this value exchange. */
   availability: Availability;
-}
-
-// =============================================================================
-// Enumeration
-// =============================================================================
-
-/** Properties of an enumeration set returned by the enumerations endpoint. */
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Enumeration is a read-only catalog projection of static domain data sourced from the upstream BigCat enumeration controllers; no ARM provisioning lifecycle applies. The resource has no create/update/delete operations and therefore no provisioning state to track."
-model EnumerationProperties {
-  /** The enumeration type key (for example, "categories", "productFamilies", "claimTypes"). */
-  enumerationType: string;
-
-  /** The enumeration values. Shape is enumeration-specific; values are passed through verbatim from the upstream BigCat catalog feed. */
-  values?: unknown[];
 }

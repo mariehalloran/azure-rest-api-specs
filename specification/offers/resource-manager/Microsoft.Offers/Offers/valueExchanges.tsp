@@ -11,51 +11,38 @@ using Azure.ResourceManager;
 
 namespace Microsoft.Offers;
 
-/**
- * Value exchange (UPN) resource.
- *
- * A subscription-scoped, read-only proxy resource representing one
- * transactable value-exchange (BigCat UPN) in the Microsoft commercial
- * catalog. Returns the canonical, stable, slim VE shape; the same
- * `valueExchangeId` returns the same response for all callers under one
- * API version. No market/language/fragment inputs are accepted; for
- * localized or market-specific content, use the hydrate action.
- *
- * Addressed at
- * `/subscriptions/{subscriptionId}/providers/Microsoft.Offers/valueExchanges/{valueExchangeId}`.
- */
-@subscriptionResource
-model ValueExchange
-  is Azure.ResourceManager.ProxyResource<ValueExchangeProperties> {
-  ...ResourceNameParameter<
-    Resource = ValueExchange,
-    KeyName = "valueExchangeId",
-    SegmentName = "valueExchanges",
-    NamePattern = "^[A-Z0-9]{12}$"
-  >;
-  ...EntityTagProperty;
+/** Request body for looking up a value exchange (UPN) by its identifier. */
+model LookupValueExchangeRequest {
+  /** The value-exchange identifier (BigCat UPN id, e.g. `DZH318Z0995B`). */
+  @pattern("^[A-Z0-9]{12}$")
+  valueExchangeId: string;
 }
 
-/** Read-only operations on value-exchange catalog resources. */
+/** The result of a value-exchange lookup. */
+model LookupValueExchangeResult {
+  /** The value-exchange identifier the result corresponds to. */
+  valueExchangeId: string;
+
+  /** The denormalized, slim value-exchange projection. */
+  properties: ValueExchangeProperties;
+}
+
+/** Read-only catalog lookup actions for value-exchange (UPN) entries. */
 @armResourceOperations
 interface ValueExchanges {
   /**
-   * Get a single value-exchange resource by its identifier. Returns the
-   * canonical, stable, slim shape; the same response is returned for the
-   * same id under one API version regardless of caller.
+   * Look up a single value-exchange (UPN) by its identifier. The catalog is
+   * globally keyed: the same `valueExchangeId` returns the same response for
+   * all callers under one API version. Modeled as a POST action because the
+   * response is identical for every caller in a subscription and the catalog
+   * is not a per-subscription resource collection.
    */
-  get is ArmResourceRead<ValueExchange>;
-
-  /**
-   * List all value-exchange catalog resources in the subscription. Paginated;
-   * follow `nextLink` to enumerate the full catalog.
-   */
-  listBySubscription is ArmListBySubscription<ValueExchange>;
+  @autoRoute
+  @action("lookupValueExchange")
+  lookup is ArmProviderActionSync<
+    Request = LookupValueExchangeRequest,
+    Response = LookupValueExchangeResult,
+    Scope = SubscriptionActionScope,
+    Parameters = {}
+  >;
 }
-
-@@doc(ValueExchange.name,
-  "The value-exchange identifier (BigCat UPN id, e.g. `DZH318Z0995B`)."
-);
-@@doc(ValueExchange.properties,
-  "The properties of the value-exchange resource."
-);
