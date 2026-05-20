@@ -7528,7 +7528,7 @@
           "description": "Expiration date and time of the free services"
         },
         "provisioningState": {
-          "type": "string",
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "Provisioning state of Free Services as assigned by RPaaS. This indicates the last operation's status. For all practical purposes, this can be ignored. For current status of Free Services resource, refer to FreeServicesStatus.",
           "readOnly": true
         },
@@ -7868,7 +7868,7 @@
       "description": "MACC properties",
       "properties": {
         "provisioningState": {
-          "type": "string",
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "Provisioning state of MACC as assigned by RPaaS. This indicates the last operation's status. For all practical purposes, this can be ignored. For current status of MACC resource, refer to MaccStatus.",
           "readOnly": true
         },

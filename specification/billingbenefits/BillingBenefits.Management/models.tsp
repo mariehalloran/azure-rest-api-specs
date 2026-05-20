@@ -2399,9 +2399,8 @@ model MaccModelProperties {
   /**
    * Provisioning state of MACC as assigned by RPaaS. This indicates the last operation's status. For all practical purposes, this can be ignored. For current status of MACC resource, refer to MaccStatus.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @visibility(Lifecycle.Read)
-  provisioningState?: string;
+  provisioningState?: ResourceProvisioningState;
 
   /**
    * Represents the current status of the MACC.
@@ -3789,9 +3788,8 @@ model FreeServicesProperties {
   /**
    * Provisioning state of Free Services as assigned by RPaaS. This indicates the last operation's status. For all practical purposes, this can be ignored. For current status of Free Services resource, refer to FreeServicesStatus.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @visibility(Lifecycle.Read)
-  provisioningState?: string;
+  provisioningState?: ResourceProvisioningState;
 
   ...BenefitBillingScopeProperties;
 
