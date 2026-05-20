@@ -19,9 +19,8 @@ namespace Microsoft.AzureStackHCI;
  * and the latest reported capacity snapshot collated by the service.
  *
  * The resource is hydrated by the service during cluster deployment with the
- * conventional singleton name `default`. The v1 API supports GET (single), LIST, and
- * PATCH (for Day N policy edits). PUT and DELETE are not exposed; clients cannot
- * create or remove the resource directly.
+ * conventional singleton name `default`. The v1 API supports GET (single), LIST,
+ * PUT (createOrUpdate), PATCH (for Day N policy edits), and DELETE.
  */
 @added(Versions.v2026_03_15_preview)
 @parentResource(Cluster)
@@ -36,8 +35,8 @@ model CapacitySetting
 }
 
 /**
- * Operations for Capacity Settings. v1 exposes GET (single), LIST by cluster, and
- * PATCH for Day N capacity policy edits. PUT and DELETE are intentionally omitted.
+ * Operations for Capacity Settings. v1 exposes GET (single), LIST by cluster,
+ * PUT (createOrUpdate), PATCH for Day N capacity policy edits, and DELETE.
  */
 @added(Versions.v2026_03_15_preview)
 @armResourceOperations
@@ -54,6 +53,13 @@ interface CapacitySettings {
   listByClusters is ArmResourceListByParent<CapacitySetting>;
 
   /**
+   * Create or update the Capacity Settings singleton for a cluster. Only
+   * `appliedPolicy` fields are client-settable; reported capacity and provisioning
+   * state remain service-owned.
+   */
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<CapacitySetting>;
+
+  /**
    * Update the applied capacity policy on the Capacity Settings singleton (Day N
    * edits). Only `appliedPolicy` fields are updatable; reported capacity and
    * provisioning state remain service-owned.
@@ -62,13 +68,9 @@ interface CapacitySettings {
     CapacitySetting,
     PatchModel = CapacitySettingPatch
   >;
-}
 
-@@doc(
-  CapacitySetting.name,
-  "Name of the Capacity Settings singleton resource."
-);
-@@doc(
-  CapacitySetting.properties,
-  "The resource-specific properties for this resource."
-);
+  /**
+   * Delete the Capacity Settings singleton for a cluster.
+   */
+  delete is ArmResourceDeleteWithoutOkAsync<CapacitySetting>;
+}
