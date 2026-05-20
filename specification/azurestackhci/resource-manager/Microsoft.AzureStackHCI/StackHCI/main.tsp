@@ -45,6 +45,7 @@ import "./EdgeMachineSecuritySettings.tsp";
 import "./ValidateOwnershipVouchers.tsp";
 import "./ClusterJobs.tsp";
 import "./ClusterVolume.tsp";
+import "./CapacitySetting.tsp";
 import "./DevicePool.tsp";
 
 using TypeSpec.Rest;
