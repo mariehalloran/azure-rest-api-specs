@@ -26,6 +26,10 @@ model PlatformLandingZoneBudget {
 
 @doc("Cost management configuration for the landing zone.")
 model CostManagement {
+  @doc("ISO-4217 billing currency used for budgets and Bill of Materials cost estimates (e.g., \"USD\", \"EUR\").")
+  @pattern("^[A-Z]{3}$")
+  currency: string;
+
   @doc("Billing account type.")
   billingAccountType: BillingAccountType;
 

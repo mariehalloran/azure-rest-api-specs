@@ -4,6 +4,7 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
 import "./Common/ArmModels/PlatformLandingZone.tsp";
+import "./Common/ArmModels/BillOfMaterials.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
@@ -24,4 +25,10 @@ interface PlatformLandingZones {
 
   @doc("Delete a Platform Landing Zone resource.")
   delete is ArmResourceDeleteWithoutOkAsync<PlatformLandingZone>;
+}
+
+@armResourceOperations
+interface BillOfMaterialsOperations {
+  @doc("Get the Bill of Materials for a Platform Landing Zone.")
+  get is ArmResourceRead<BillOfMaterials>;
 }

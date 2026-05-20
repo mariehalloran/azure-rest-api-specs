@@ -44,6 +44,9 @@
     },
     {
       "name": "PlatformLandingZones"
+    },
+    {
+      "name": "BillOfMaterialsOperations"
     }
   ],
   "paths": {
@@ -362,6 +365,61 @@
         },
         "x-ms-long-running-operation": true
       }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/migrateProjects/{projectName}/platformLandingZones/{platformLandingZoneName}/billOfMaterials/default": {
+      "get": {
+        "operationId": "BillOfMaterialsOperations_Get",
+        "tags": [
+          "BillOfMaterialsOperations"
+        ],
+        "description": "Get the Bill of Materials for a Platform Landing Zone.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Migrate Project Name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          },
+          {
+            "name": "platformLandingZoneName",
+            "in": "path",
+            "description": "Platform Landing Zone name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/BillOfMaterials"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get the Bill of Materials for a Platform Landing Zone": {
+            "$ref": "./examples/BillOfMaterialsOperations_Get.json"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -678,6 +736,95 @@
         ]
       }
     },
+    "BillOfMaterials": {
+      "type": "object",
+      "description": "Bill of Materials for a Platform Landing Zone. A read-only, cost-bearing inventory of the Azure resources implied by the parent landing zone design, aggregated by (resourceType, sku, location).",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/BillOfMaterialsProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "BillOfMaterialsItem": {
+      "type": "object",
+      "description": "A single aggregated line item in the Bill of Materials. Identical resources across subscriptions/spokes are collapsed into a single row whose quantity reflects the multiplicity.",
+      "properties": {
+        "resourceType": {
+          "type": "string",
+          "description": "ARM resource type, for example 'Microsoft.KeyVault/vaults'."
+        },
+        "sku": {
+          "type": "string",
+          "description": "SKU of the resource, for example 'standard' or 'Standard_D2s_v5'."
+        },
+        "location": {
+          "type": "string",
+          "description": "Azure region for this aggregated row."
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of resources of this (resourceType, sku, location) implied by the landing zone design.",
+          "minimum": 1
+        },
+        "estimatedMonthlyCost": {
+          "type": "number",
+          "format": "decimal",
+          "description": "Estimated total monthly cost for this row in the declared currency (line total = unit price x quantity).",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "resourceType",
+        "sku",
+        "location",
+        "quantity",
+        "estimatedMonthlyCost"
+      ]
+    },
+    "BillOfMaterialsProperties": {
+      "type": "object",
+      "description": "Properties of the Bill of Materials. Generated as part of the parent Platform Landing Zone's async PUT; to refresh prices, re-PUT the parent. While the parent is Creating with no prior success, GET returns 404; while Updating/Failed/Canceled after at least one successful generation, GET returns the previous Bill of Materials.",
+      "properties": {
+        "currency": {
+          "type": "string",
+          "description": "ISO-4217 currency for all amounts in this Bill of Materials. Echoed from the parent Platform Landing Zone's costManagement.currency.",
+          "pattern": "^[A-Z]{3}$",
+          "readOnly": true
+        },
+        "totalEstimatedMonthlyCost": {
+          "type": "number",
+          "format": "decimal",
+          "description": "Total estimated monthly cost across all items, in the declared currency.",
+          "minimum": 0,
+          "readOnly": true
+        },
+        "items": {
+          "type": "array",
+          "description": "Aggregated Bill of Materials line items.",
+          "items": {
+            "$ref": "#/definitions/BillOfMaterialsItem"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "resourceType",
+            "sku",
+            "location"
+          ]
+        }
+      },
+      "required": [
+        "currency",
+        "totalEstimatedMonthlyCost",
+        "items"
+      ]
+    },
     "BillingAccountType": {
       "type": "string",
       "description": "Customer billing account type.",
@@ -796,6 +943,11 @@
       "type": "object",
       "description": "Cost management configuration for the landing zone.",
       "properties": {
+        "currency": {
+          "type": "string",
+          "description": "ISO-4217 billing currency used for budgets and Bill of Materials cost estimates (e.g., \"USD\", \"EUR\").",
+          "pattern": "^[A-Z]{3}$"
+        },
         "billingAccountType": {
           "$ref": "#/definitions/BillingAccountType",
           "description": "Billing account type."
@@ -828,6 +980,7 @@
         }
       },
       "required": [
+        "currency",
         "billingAccountType",
         "reservations",
         "savingsPlans"
