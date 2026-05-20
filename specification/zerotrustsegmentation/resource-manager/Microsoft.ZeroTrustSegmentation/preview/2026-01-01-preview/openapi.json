@@ -788,26 +788,6 @@
           "description": "Managed-On-Behalf-Of configuration.",
           "readOnly": true
         },
-        "logSources": {
-          "type": "array",
-          "description": "The collection of ARM resource IDs for the monitored logs.",
-          "items": {
-            "type": "string",
-            "format": "arm-id",
-            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
-            "x-ms-arm-id-details": {
-              "allowedResources": [
-                {
-                  "type": "Microsoft.Network/networkWatchers/flowLogs"
-                }
-              ]
-            }
-          }
-        },
-        "analysisRunType": {
-          "$ref": "#/definitions/AnalysisRunType",
-          "description": "The analysis run type"
-        },
         "startTime": {
           "type": "string",
           "format": "date-time",
@@ -817,10 +797,6 @@
           "type": "string",
           "format": "date-time",
           "description": "The end time of a snapshot run"
-        },
-        "segmentationMode": {
-          "$ref": "#/definitions/SegmentationMode",
-          "description": "The mode of segmentation to be applied"
         },
         "description": {
           "type": "string",
@@ -838,10 +814,7 @@
       },
       "required": [
         "scope",
-        "targetLogAnalyticsWorkspaceId",
-        "logSources",
-        "analysisRunType",
-        "segmentationMode"
+        "targetLogAnalyticsWorkspaceId"
       ]
     },
     "SegmentationManagerPropertiesUpdate": {
@@ -876,26 +849,6 @@
             ]
           }
         },
-        "logSources": {
-          "type": "array",
-          "description": "The collection of ARM resource IDs for the monitored logs.",
-          "items": {
-            "type": "string",
-            "format": "arm-id",
-            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
-            "x-ms-arm-id-details": {
-              "allowedResources": [
-                {
-                  "type": "Microsoft.Network/networkWatchers/flowLogs"
-                }
-              ]
-            }
-          }
-        },
-        "analysisRunType": {
-          "$ref": "#/definitions/AnalysisRunType",
-          "description": "The analysis run type"
-        },
         "startTime": {
           "type": "string",
           "format": "date-time",
@@ -905,10 +858,6 @@
           "type": "string",
           "format": "date-time",
           "description": "The end time of a snapshot run"
-        },
-        "segmentationMode": {
-          "$ref": "#/definitions/SegmentationMode",
-          "description": "The mode of segmentation to be applied"
         },
         "description": {
           "type": "string",

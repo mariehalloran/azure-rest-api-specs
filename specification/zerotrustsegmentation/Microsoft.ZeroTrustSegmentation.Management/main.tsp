@@ -69,6 +69,7 @@ union SegmentationManagerManagedServiceIdentityType {
 
 @doc("Segmentation manager properties")
 model SegmentationManagerProperties {
+  @added(Versions.v2026_01_01_preview)
   @doc("The collection of Azure resource IDs that define the scope of the segmentation.")
   scope: Azure.Core.armResourceIdentifier<[
     {
@@ -76,6 +77,7 @@ model SegmentationManagerProperties {
     }
   ]>[];
 
+  @added(Versions.v2026_01_01_preview)
   @doc("Azure Resource ID of the Log Analytics Workspace where graph data will be stored")
   targetLogAnalyticsWorkspaceId: Azure.Core.armResourceIdentifier<[
     {
@@ -83,10 +85,12 @@ model SegmentationManagerProperties {
     }
   ]>;
 
+  @added(Versions.v2026_01_01_preview)
   @doc("Managed-On-Behalf-Of configuration.")
   @visibility(Lifecycle.Read)
   managedOnBehalfOfConfiguration?: CommonTypes.ManagedOnBehalfOfConfiguration;
 
+  @removed(Versions.v2026_01_01_preview)
   @doc("The collection of ARM resource IDs for the monitored logs.")
   logSources: Azure.Core.armResourceIdentifier<[
     {
@@ -94,6 +98,7 @@ model SegmentationManagerProperties {
     }
   ]>[];
 
+  @removed(Versions.v2026_01_01_preview)
   @doc("The analysis run type")
   analysisRunType: AnalysisRunType;
 
@@ -103,6 +108,7 @@ model SegmentationManagerProperties {
   @doc("The end time of a snapshot run")
   endTime?: utcDateTime;
 
+  @removed(Versions.v2026_01_01_preview)
   @doc("The mode of segmentation to be applied")
   segmentationMode: SegmentationMode;
 
