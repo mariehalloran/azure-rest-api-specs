@@ -5015,6 +5015,37 @@
       "type": "string",
       "description": "Represents an Azure Resource Type."
     },
+    "Azure.ResourceManager.ResourceProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a resource type.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          }
+        ]
+      },
+      "readOnly": true
+    },
     "BenefitAppliedScopeType": {
       "type": "string",
       "description": "List of applied scope types supported for benefit resources.",
@@ -10160,7 +10191,7 @@
       "description": "Properties of a transaction",
       "properties": {
         "provisioningState": {
-          "type": "string",
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "Provisioning state of the transaction as assigned by RPaaS. This indicates the last operation's status.",
           "readOnly": true
         },

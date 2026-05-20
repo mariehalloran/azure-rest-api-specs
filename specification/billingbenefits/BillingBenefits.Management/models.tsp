@@ -2803,7 +2803,7 @@ model TransactionProductDetails {
   ...ProductDetailsBase;
 
   /**
-   * The service family of the product, for example "Compute" or "Databases".
+   * Grouping of Azure services by core function (e.g., Compute, Databases).
    */
   serviceFamily?: string;
 
@@ -3071,9 +3071,8 @@ model TransactionProperties {
   /**
    * Provisioning state of the transaction as assigned by RPaaS. This indicates the last operation's status.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Provisioning state is managed by RPaaS"
   @visibility(Lifecycle.Read)
-  provisioningState?: string;
+  provisioningState?: ResourceProvisioningState;
 
   ...TransactionPatchProperties;
 }
