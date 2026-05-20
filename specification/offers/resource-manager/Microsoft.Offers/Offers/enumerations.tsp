@@ -23,8 +23,8 @@ model LookupEnumerationResult {
   /** The enumeration type key the result corresponds to. */
   enumerationType: string;
 
-  /** The enumeration values. Shape is enumeration-specific; values are passed through verbatim from the upstream catalog feed. */
-  values?: unknown[];
+  /** The enumeration values. Values are passed through verbatim from the upstream catalog feed. */
+  values?: string[];
 }
 
 /** Read-only catalog lookup actions for enumeration sets. */

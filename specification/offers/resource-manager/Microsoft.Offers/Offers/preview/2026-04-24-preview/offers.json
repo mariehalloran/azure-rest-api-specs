@@ -355,8 +355,10 @@
         },
         "values": {
           "type": "array",
-          "description": "The enumeration values. Shape is enumeration-specific; values are passed through verbatim from the upstream catalog feed.",
-          "items": {}
+          "description": "The enumeration values. Values are passed through verbatim from the upstream catalog feed.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
