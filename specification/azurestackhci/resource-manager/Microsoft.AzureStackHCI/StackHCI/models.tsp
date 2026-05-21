@@ -22,7 +22,7 @@ union HciJobType {
   RepairServer: "RepairServer",
 
   /** Job to configure local availability zones for the cluster. */
-  LocalAvailabilityZone: "LocalAvailabilityZone",
+  ConfigureLocalAvailabilityZone: "ConfigureLocalAvailabilityZone",
 
   // PRIVATE PREVIEW - Arc Gateway and GPU job types
   /** Job to configure arc gateway for the cluster. */
@@ -6774,9 +6774,10 @@ model LocalAvailabilityZoneConfiguration {
 
 /** Properties for configuring local availability zones in the cluster. */
 @added(Versions.v2026_03_15_preview)
-model HciConfigureLocalAvailabilityZoneJobProperties extends ClusterJobProperties {
+model HciConfigureLocalAvailabilityZoneJobProperties
+  extends ClusterJobProperties {
   /** ClusterJob Type to support polymorphic resource. */
-  jobType: HciJobType.LocalAvailabilityZone;
+  jobType: HciJobType.ConfigureLocalAvailabilityZone;
 
   /** Configuration for local availability zones including naming prefix and zone-to-node mappings. */
   localAvailabilityZoneConfiguration: LocalAvailabilityZoneConfiguration;
@@ -7830,7 +7831,7 @@ model StorageProfile {
   poolableDisksCount?: int64;
 
   /**
-   * Local availability zone name assigned to this edge machine after a LocalAvailabilityZone job succeeds.
+   * Local availability zone name assigned to this edge machine after a ConfigureLocalAvailabilityZone job succeeds.
    */
   @visibility(Lifecycle.Read)
   localAvailabilityZoneName?: string;

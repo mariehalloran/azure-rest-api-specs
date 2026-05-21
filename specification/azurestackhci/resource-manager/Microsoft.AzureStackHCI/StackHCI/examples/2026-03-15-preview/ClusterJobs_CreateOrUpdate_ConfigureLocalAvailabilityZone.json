@@ -1,18 +1,53 @@
 {
-  "title": "ClusterJobs_Get_LocalAvailabilityZoneJob",
-  "operationId": "ClusterJobs_Get",
+  "title": "ClusterJobs_CreateOrUpdate_configure-lazJob",
+  "operationId": "ClusterJobs_CreateOrUpdate",
   "parameters": {
     "subscriptionId": "fd3c3665-1729-4b7b-9a38-238e83b0f98b",
     "resourceGroupName": "test-rg",
     "clusterName": "myCluster",
-    "jobsName": "localavailabilityzone",
-    "api-version": "2026-03-15-preview"
+    "jobsName": "configure-laz",
+    "api-version": "2026-03-15-preview",
+    "resource": {
+      "properties": {
+        "jobType": "ConfigureLocalAvailabilityZone",
+        "deploymentMode": "Deploy",
+        "localAvailabilityZoneConfiguration": {
+          "prefix": "Rack",
+          "zones": [
+            {
+              "nodes": [
+                "ASRR1N42R13U17",
+                "ASRR1N42R13U18"
+              ]
+            },
+            {
+              "nodes": [
+                "ASRR1N42R13U19",
+                "ASRR1N42R13U20"
+              ]
+            },
+            {
+              "nodes": [
+                "ASRR1N42R13U21",
+                "ASRR1N42R13U22"
+              ]
+            },
+            {
+              "nodes": [
+                "ASRR1N42R13U23",
+                "ASRR1N42R13U24"
+              ]
+            }
+          ]
+        }
+      }
+    }
   },
   "responses": {
     "200": {
       "body": {
-        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/test-rg/providers/Microsoft.AzureStackHCI/clusters/myCluster/jobs/localavailabilityzone",
-        "name": "localavailabilityzone",
+        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/test-rg/providers/Microsoft.AzureStackHCI/clusters/myCluster/jobs/configure-laz",
+        "name": "configure-laz",
         "type": "Microsoft.AzureStackHCI/clusters/jobs",
         "systemData": {
           "createdBy": "user@microsoft.com",
@@ -23,7 +58,7 @@
           "lastModifiedAt": "2024-01-29T10:43:27.9471574Z"
         },
         "properties": {
-          "jobType": "LocalAvailabilityZone",
+          "jobType": "ConfigureLocalAvailabilityZone",
           "deploymentMode": "Deploy",
           "localAvailabilityZoneConfiguration": {
             "prefix": "Rack",
@@ -119,6 +154,59 @@
             }
           },
           "provisioningState": "Succeeded",
+          "status": "NotSpecified"
+        }
+      }
+    },
+    "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/providers/Microsoft.AzureStackHCI/locations/eastus/operationStatuses/fakeid?api-version=2026-03-15-preview"
+      },
+      "body": {
+        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/test-rg/providers/Microsoft.AzureStackHCI/clusters/myCluster/jobs/configure-laz",
+        "name": "configure-laz",
+        "type": "Microsoft.AzureStackHCI/clusters/jobs",
+        "systemData": {
+          "createdBy": "user@microsoft.com",
+          "createdByType": "User",
+          "createdAt": "2024-01-29T10:43:27.9471574Z",
+          "lastModifiedBy": "user@microsoft.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2024-01-29T10:43:27.9471574Z"
+        },
+        "properties": {
+          "jobType": "ConfigureLocalAvailabilityZone",
+          "deploymentMode": "Deploy",
+          "localAvailabilityZoneConfiguration": {
+            "prefix": "Rack",
+            "zones": [
+              {
+                "nodes": [
+                  "ASRR1N42R13U17",
+                  "ASRR1N42R13U18"
+                ]
+              },
+              {
+                "nodes": [
+                  "ASRR1N42R13U19",
+                  "ASRR1N42R13U20"
+                ]
+              },
+              {
+                "nodes": [
+                  "ASRR1N42R13U21",
+                  "ASRR1N42R13U22"
+                ]
+              },
+              {
+                "nodes": [
+                  "ASRR1N42R13U23",
+                  "ASRR1N42R13U24"
+                ]
+              }
+            ]
+          },
+          "provisioningState": "Accepted",
           "status": "NotSpecified"
         }
       }
