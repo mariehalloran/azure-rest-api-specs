@@ -20917,7 +20917,8 @@
       "properties": {
         "desiredConfiguration": {
           "$ref": "#/definitions/ProxyConfigurationDetail",
-          "description": "The intended proxy configuration as set from the cloud.\nUpdated at Apply job creation time. Seeded from webProxy in\nTargetDeviceConfiguration when the EdgeMachine first reaches Purposed."
+          "description": "The intended proxy configuration as set from the cloud.\nUpdated at Apply job creation time. Seeded from webProxy in\nTargetDeviceConfiguration when the EdgeMachine first reaches Purposed.",
+          "readOnly": true
         },
         "reportedConfiguration": {
           "$ref": "#/definitions/ProxyConfigurationReportedDetail",
