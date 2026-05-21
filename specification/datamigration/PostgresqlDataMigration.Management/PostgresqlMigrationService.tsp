@@ -12,12 +12,6 @@ namespace Microsoft.DataMigration;
 
 @doc("Properties of the MigrationService resource.")
 model MigrationServiceProperties {
-  @doc("Source database engine type")
-  sourceEngine: MigrationServiceSourceEngine;
-
-  @doc("Target database engine type")
-  targetEngine: MigrationServiceTargetEngine;
-
   @doc("The provisioning state of the migration service.")
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;

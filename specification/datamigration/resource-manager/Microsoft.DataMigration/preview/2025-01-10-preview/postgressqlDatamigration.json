@@ -1291,6 +1291,10 @@
           "$ref": "#/definitions/SslConfiguration",
           "description": "SSL configuration"
         },
+        "engine": {
+          "$ref": "#/definitions/DatabaseEngine",
+          "description": "Database engine type for this endpoint"
+        },
         "serverResourceId": {
           "type": "string",
           "description": "Server resource ID"
@@ -1306,6 +1310,7 @@
         "port",
         "credentials",
         "ssl",
+        "engine",
         "type"
       ]
     },
@@ -1549,6 +1554,36 @@
         "source",
         "target"
       ]
+    },
+    "DatabaseEngine": {
+      "type": "string",
+      "description": "The database engine type for connectivity testing.",
+      "enum": [
+        "Oracle",
+        "PostgreSQL",
+        "Azure Database for PostgreSQL"
+      ],
+      "x-ms-enum": {
+        "name": "DatabaseEngine",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Oracle",
+            "value": "Oracle",
+            "description": "Oracle database engine"
+          },
+          {
+            "name": "PostgreSQL",
+            "value": "PostgreSQL",
+            "description": "PostgreSQL database engine"
+          },
+          {
+            "name": "AzureDatabaseForPostgreSQL",
+            "value": "Azure Database for PostgreSQL",
+            "description": "Azure Database for PostgreSQL"
+          }
+        ]
+      }
     },
     "DatabaseInfo": {
       "type": "object",
@@ -2394,79 +2429,11 @@
       "type": "object",
       "description": "Properties of the MigrationService resource.",
       "properties": {
-        "sourceEngine": {
-          "$ref": "#/definitions/MigrationServiceSourceEngine",
-          "description": "Source database engine type"
-        },
-        "targetEngine": {
-          "$ref": "#/definitions/MigrationServiceTargetEngine",
-          "description": "Target database engine type"
-        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "The provisioning state of the migration service.",
           "readOnly": true
         }
-      },
-      "required": [
-        "sourceEngine",
-        "targetEngine"
-      ]
-    },
-    "MigrationServicePropertiesUpdate": {
-      "type": "object",
-      "description": "Properties of the MigrationService resource.",
-      "properties": {
-        "sourceEngine": {
-          "$ref": "#/definitions/MigrationServiceSourceEngine",
-          "description": "Source database engine type"
-        },
-        "targetEngine": {
-          "$ref": "#/definitions/MigrationServiceTargetEngine",
-          "description": "Target database engine type"
-        }
-      }
-    },
-    "MigrationServiceSourceEngine": {
-      "type": "string",
-      "description": "The source database engine type for migration service.",
-      "enum": [
-        "Oracle",
-        "PostgreSQL"
-      ],
-      "x-ms-enum": {
-        "name": "MigrationServiceSourceEngine",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Oracle",
-            "value": "Oracle",
-            "description": "Oracle database engine"
-          },
-          {
-            "name": "PostgreSQL",
-            "value": "PostgreSQL",
-            "description": "PostgreSQL database engine"
-          }
-        ]
-      }
-    },
-    "MigrationServiceTargetEngine": {
-      "type": "string",
-      "description": "The target database engine type for migration service.",
-      "enum": [
-        "Azure Database for PostgreSQL"
-      ],
-      "x-ms-enum": {
-        "name": "MigrationServiceTargetEngine",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "AzureDatabaseForPostgreSQL",
-            "value": "Azure Database for PostgreSQL",
-            "description": "Azure Database for PostgreSQL"
-          }
-        ]
       }
     },
     "MigrationServiceUpdate": {
@@ -2474,7 +2441,7 @@
       "description": "A migration service resource.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/MigrationServicePropertiesUpdate",
+          "$ref": "#/definitions/MigrationServiceProperties",
           "description": "The resource-specific properties for this resource."
         }
       },
@@ -2974,6 +2941,10 @@
       "type": "object",
       "description": "Source database configuration.",
       "properties": {
+        "sourceEngine": {
+          "$ref": "#/definitions/SourceDatabaseEngine",
+          "description": "Source database engine type"
+        },
         "serverResourceId": {
           "type": "string",
           "description": "Server resource ID"
@@ -2987,16 +2958,16 @@
         }
       },
       "required": [
+        "sourceEngine",
         "connectionEndPoints"
       ]
     },
     "SourceDatabaseEngine": {
       "type": "string",
-      "description": "The source database engine type.",
+      "description": "The source database engine type for migration service.",
       "enum": [
-        "oracle",
-        "postgres",
-        "azure_postgres_flexible"
+        "Oracle",
+        "PostgreSQL"
       ],
       "x-ms-enum": {
         "name": "SourceDatabaseEngine",
@@ -3004,18 +2975,13 @@
         "values": [
           {
             "name": "Oracle",
-            "value": "oracle",
+            "value": "Oracle",
             "description": "Oracle database engine"
           },
           {
-            "name": "Postgres",
-            "value": "postgres",
+            "name": "PostgreSQL",
+            "value": "PostgreSQL",
             "description": "PostgreSQL database engine"
-          },
-          {
-            "name": "AzurePostgresFlexible",
-            "value": "azure_postgres_flexible",
-            "description": "Azure PostgreSQL Flexible Server"
           }
         ]
       }
@@ -3290,6 +3256,10 @@
       "type": "object",
       "description": "Target database configuration.",
       "properties": {
+        "targetEngine": {
+          "$ref": "#/definitions/TargetDatabaseEngine",
+          "description": "Target database engine type"
+        },
         "serverResourceId": {
           "type": "string",
           "description": "Server resource ID"
@@ -3303,29 +3273,24 @@
         }
       },
       "required": [
+        "targetEngine",
         "connectionEndPoints"
       ]
     },
     "TargetDatabaseEngine": {
       "type": "string",
-      "description": "The source database engine type.",
+      "description": "The target database engine type for migration service.",
       "enum": [
-        "azure_postgres_flexible",
-        "azure_postgres_orion"
+        "Azure Database for PostgreSQL"
       ],
       "x-ms-enum": {
         "name": "TargetDatabaseEngine",
         "modelAsString": true,
         "values": [
           {
-            "name": "AzurePostgresFlexible",
-            "value": "azure_postgres_flexible",
-            "description": "Azure PostgreSQL Flexible Server"
-          },
-          {
-            "name": "AzurePostgresOrion",
-            "value": "azure_postgres_orion",
-            "description": "Azure PostgreSQL Orion"
+            "name": "AzureDatabaseForPostgreSQL",
+            "value": "Azure Database for PostgreSQL",
+            "description": "Azure Database for PostgreSQL"
           }
         ]
       }

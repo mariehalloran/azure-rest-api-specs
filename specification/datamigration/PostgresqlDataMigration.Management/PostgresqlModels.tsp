@@ -18,7 +18,7 @@ union MigrationMode {
 }
 
 @doc("The source database engine type for migration service.")
-union MigrationServiceSourceEngine {
+union SourceDatabaseEngine {
   string,
 
   @doc("Oracle database engine")
@@ -29,8 +29,22 @@ union MigrationServiceSourceEngine {
 }
 
 @doc("The target database engine type for migration service.")
-union MigrationServiceTargetEngine {
+union TargetDatabaseEngine {
   string,
+
+  @doc("Azure Database for PostgreSQL")
+  AzureDatabaseForPostgreSQL: "Azure Database for PostgreSQL",
+}
+
+@doc("The database engine type for connectivity testing.")
+union DatabaseEngine {
+  string,
+
+  @doc("Oracle database engine")
+  Oracle: "Oracle",
+
+  @doc("PostgreSQL database engine")
+  PostgreSQL: "PostgreSQL",
 
   @doc("Azure Database for PostgreSQL")
   AzureDatabaseForPostgreSQL: "Azure Database for PostgreSQL",
@@ -62,31 +76,6 @@ union MigrationTargetType {
 
   @doc("Azure PostgreSQL Horizon DB")
   AzurePostgreSQLHorizonDb: "AzurePostgreSQLHorizonDb",
-}
-
-@doc("The source database engine type.")
-union SourceDatabaseEngine {
-  string,
-
-  @doc("Oracle database engine")
-  Oracle: "oracle",
-
-  @doc("PostgreSQL database engine")
-  Postgres: "postgres",
-
-  @doc("Azure PostgreSQL Flexible Server")
-  AzurePostgresFlexible: "azure_postgres_flexible",
-}
-
-@doc("The source database engine type.")
-union TargetDatabaseEngine {
-  string,
-
-  @doc("Azure PostgreSQL Flexible Server")
-  AzurePostgresFlexible: "azure_postgres_flexible",
-
-  @doc("Azure PostgreSQL Orion")
-  AzurePostgresOrion: "azure_postgres_orion",
 }
 
 @doc("The authentication method for database connection.")
@@ -351,6 +340,9 @@ model ConnectionEndpoint {
 model CheckConnectivityEndpoint {
   ...ConnectionEndpoint;
 
+  @doc("Database engine type for this endpoint")
+  engine: DatabaseEngine;
+
   @doc("Server resource ID")
   serverResourceId?: string;
 
@@ -360,6 +352,9 @@ model CheckConnectivityEndpoint {
 
 @doc("Source database configuration.")
 model SourceConfiguration {
+  @doc("Source database engine type")
+  sourceEngine: SourceDatabaseEngine;
+
   @doc("Server resource ID")
   serverResourceId?: string;
 
@@ -370,6 +365,9 @@ model SourceConfiguration {
 
 @doc("Target database configuration.")
 model TargetConfiguration {
+  @doc("Target database engine type")
+  targetEngine: TargetDatabaseEngine;
+
   @doc("Server resource ID")
   serverResourceId?: string;
 
