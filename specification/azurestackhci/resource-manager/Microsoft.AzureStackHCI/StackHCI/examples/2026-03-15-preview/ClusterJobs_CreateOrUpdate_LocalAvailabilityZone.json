@@ -1,42 +1,54 @@
 {
-  "title": "ClusterJobs_CreateOrUpdate_ConfigureLocalAvailabilityZoneJob",
+  "title": "ClusterJobs_CreateOrUpdate_LocalAvailabilityZoneJob",
   "operationId": "ClusterJobs_CreateOrUpdate",
   "parameters": {
     "subscriptionId": "fd3c3665-1729-4b7b-9a38-238e83b0f98b",
     "resourceGroupName": "test-rg",
     "clusterName": "myCluster",
-    "jobsName": "configurelocalavailabilityzone",
+    "jobsName": "localavailabilityzone",
     "api-version": "2026-03-15-preview",
     "resource": {
       "properties": {
-        "jobType": "ConfigureLocalAvailabilityZone",
+        "jobType": "LocalAvailabilityZone",
         "deploymentMode": "Deploy",
-        "localAvailabilityZoneCount": 2,
-        "localAvailabilityZones": [
-          {
-            "localAvailabilityZoneName": "Zone1",
-            "nodes": [
-              "ASRR1N42R13U17",
-              "ASRR1N42R13U18"
-            ]
-          },
-          {
-            "localAvailabilityZoneName": "Zone2",
-            "nodes": [
-              "ASRR1N42R13U19",
-              "ASRR1N42R13U20"
-            ]
-          }
-        ]
+        "localAvailabilityZoneConfiguration": {
+          "prefix": "Rack",
+          "zones": [
+            {
+              "nodes": [
+                "ASRR1N42R13U17",
+                "ASRR1N42R13U18"
+              ]
+            },
+            {
+              "nodes": [
+                "ASRR1N42R13U19",
+                "ASRR1N42R13U20"
+              ]
+            },
+            {
+              "nodes": [
+                "ASRR1N42R13U21",
+                "ASRR1N42R13U22"
+              ]
+            },
+            {
+              "nodes": [
+                "ASRR1N42R13U23",
+                "ASRR1N42R13U24"
+              ]
+            }
+          ]
+        }
       }
     }
   },
   "responses": {
     "200": {
       "body": {
-        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/user-pvtrp-rg/providers/Microsoft.AzureStackHCI/clusters/hciclu3/jobs/configurelocalavailabilityzone",
-        "name": "configurelocalavailabilityzone",
-        "type": "Microsoft.azurestackhci/clusters/jobs",
+        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/test-rg/providers/Microsoft.AzureStackHCI/clusters/myCluster/jobs/localavailabilityzone",
+        "name": "localavailabilityzone",
+        "type": "Microsoft.AzureStackHCI/clusters/jobs",
         "systemData": {
           "createdBy": "user@microsoft.com",
           "createdByType": "User",
@@ -46,25 +58,37 @@
           "lastModifiedAt": "2024-01-29T10:43:27.9471574Z"
         },
         "properties": {
-          "jobType": "ConfigureLocalAvailabilityZone",
+          "jobType": "LocalAvailabilityZone",
           "deploymentMode": "Deploy",
-          "localAvailabilityZoneCount": 2,
-          "localAvailabilityZones": [
-            {
-              "localAvailabilityZoneName": "Zone1",
-              "nodes": [
-                "ASRR1N42R13U17",
-                "ASRR1N42R13U18"
-              ]
-            },
-            {
-              "localAvailabilityZoneName": "Zone2",
-              "nodes": [
-                "ASRR1N42R13U19",
-                "ASRR1N42R13U20"
-              ]
-            }
-          ],
+          "localAvailabilityZoneConfiguration": {
+            "prefix": "Rack",
+            "zones": [
+              {
+                "nodes": [
+                  "ASRR1N42R13U17",
+                  "ASRR1N42R13U18"
+                ]
+              },
+              {
+                "nodes": [
+                  "ASRR1N42R13U19",
+                  "ASRR1N42R13U20"
+                ]
+              },
+              {
+                "nodes": [
+                  "ASRR1N42R13U21",
+                  "ASRR1N42R13U22"
+                ]
+              },
+              {
+                "nodes": [
+                  "ASRR1N42R13U23",
+                  "ASRR1N42R13U24"
+                ]
+              }
+            ]
+          },
           "reportedProperties": {
             "validationStatus": {
               "status": "Error",
@@ -139,9 +163,9 @@
         "Azure-AsyncOperation": "https://management.azure.com/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/providers/Microsoft.AzureStackHCI/locations/eastus/operationStatuses/fakeid?api-version=2026-03-15-preview"
       },
       "body": {
-        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/user-pvtrp-rg/providers/Microsoft.AzureStackHCI/clusters/hciclu3/jobs/configurelocalavailabilityzone",
-        "name": "configurelocalavailabilityzone",
-        "type": "Microsoft.azurestackhci/clusters/jobs",
+        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/test-rg/providers/Microsoft.AzureStackHCI/clusters/myCluster/jobs/localavailabilityzone",
+        "name": "localavailabilityzone",
+        "type": "Microsoft.AzureStackHCI/clusters/jobs",
         "systemData": {
           "createdBy": "user@microsoft.com",
           "createdByType": "User",
@@ -151,25 +175,37 @@
           "lastModifiedAt": "2024-01-29T10:43:27.9471574Z"
         },
         "properties": {
-          "jobType": "ConfigureLocalAvailabilityZone",
+          "jobType": "LocalAvailabilityZone",
           "deploymentMode": "Deploy",
-          "localAvailabilityZoneCount": 2,
-          "localAvailabilityZones": [
-            {
-              "localAvailabilityZoneName": "Zone1",
-              "nodes": [
-                "ASRR1N42R13U17",
-                "ASRR1N42R13U18"
-              ]
-            },
-            {
-              "localAvailabilityZoneName": "Zone2",
-              "nodes": [
-                "ASRR1N42R13U19",
-                "ASRR1N42R13U20"
-              ]
-            }
-          ],
+          "localAvailabilityZoneConfiguration": {
+            "prefix": "Rack",
+            "zones": [
+              {
+                "nodes": [
+                  "ASRR1N42R13U17",
+                  "ASRR1N42R13U18"
+                ]
+              },
+              {
+                "nodes": [
+                  "ASRR1N42R13U19",
+                  "ASRR1N42R13U20"
+                ]
+              },
+              {
+                "nodes": [
+                  "ASRR1N42R13U21",
+                  "ASRR1N42R13U22"
+                ]
+              },
+              {
+                "nodes": [
+                  "ASRR1N42R13U23",
+                  "ASRR1N42R13U24"
+                ]
+              }
+            ]
+          },
           "provisioningState": "Accepted",
           "status": "NotSpecified"
         }

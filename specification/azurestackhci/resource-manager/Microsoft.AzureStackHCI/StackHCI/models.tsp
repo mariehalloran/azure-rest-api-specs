@@ -22,7 +22,7 @@ union HciJobType {
   RepairServer: "RepairServer",
 
   /** Job to configure local availability zones for the cluster. */
-  ConfigureLocalAvailabilityZone: "ConfigureLocalAvailabilityZone",
+  LocalAvailabilityZone: "LocalAvailabilityZone",
 
   // PRIVATE PREVIEW - Arc Gateway and GPU job types
   /** Job to configure arc gateway for the cluster. */
@@ -6751,30 +6751,35 @@ model HciRepairServerJobProperties extends ClusterJobProperties {
 ////////// Local Availability Zone Config Job Models //////////
 ////////////////////////////////////////////////////////////////
 
-/** Mapping of a local availability zone to its assigned nodes. */
+/** A single local availability zone entry containing the list of nodes belonging to it. */
 @added(Versions.v2026_03_15_preview)
-model LocalAvailabilityZoneNodeAssignment {
-  /** Name of the local availability zone (e.g., Zone1, Zone2). */
-  localAvailabilityZoneName: string;
-
-  /** List of node names assigned to this local availability zone. */
+model LocalAvailabilityZoneEntry {
+  /** List of node names assigned to this local availability zone. All cluster nodes must appear exactly once across all zone entries. */
   nodes: string[];
+}
+
+/** Configuration for local availability zones, including the naming prefix and zone-to-node mappings. */
+@added(Versions.v2026_03_15_preview)
+model LocalAvailabilityZoneConfiguration {
+  /** Naming prefix used to generate local availability zone names (Prefix1..PrefixN). */
+  @pattern("^[a-zA-Z0-9-]{1,8}$")
+  prefix: string;
+
+  /** Array of zone-to-node mappings. Each entry specifies the nodes belonging to one local availability zone. Maximum 8 zones allowed. Each zone must contain at least one node. Every cluster node must be assigned to exactly one zone. */
+  @minItems(1)
+  @maxItems(8)
+  @Azure.ResourceManager.identifiers(#[])
+  zones: LocalAvailabilityZoneEntry[];
 }
 
 /** Properties for configuring local availability zones in the cluster. */
 @added(Versions.v2026_03_15_preview)
 model HciConfigureLocalAvailabilityZoneJobProperties extends ClusterJobProperties {
   /** ClusterJob Type to support polymorphic resource. */
-  jobType: HciJobType.ConfigureLocalAvailabilityZone;
+  jobType: HciJobType.LocalAvailabilityZone;
 
-  /** Number of local availability zones to create (1-2). */
-  @minValue(1)
-  @maxValue(2)
-  localAvailabilityZoneCount: int32;
-
-  /** Mapping of local availability zone names to their assigned nodes. */
-  @Azure.ResourceManager.identifiers(#["localAvailabilityZoneName"])
-  localAvailabilityZones: LocalAvailabilityZoneNodeAssignment[];
+  /** Configuration for local availability zones including naming prefix and zone-to-node mappings. */
+  localAvailabilityZoneConfiguration: LocalAvailabilityZoneConfiguration;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -7825,7 +7830,7 @@ model StorageProfile {
   poolableDisksCount?: int64;
 
   /**
-   * Local availability zone name assigned to this edge machine after a ConfigureLocalAvailabilityZone job succeeds.
+   * Local availability zone name assigned to this edge machine after a LocalAvailabilityZone job succeeds.
    */
   @visibility(Lifecycle.Read)
   localAvailabilityZoneName?: string;
