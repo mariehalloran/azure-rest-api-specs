@@ -45,7 +45,7 @@
       "name": "EnrollmentPrograms"
     },
     {
-      "name": "MaiCppPrograms"
+      "name": "MaicppPrograms"
     }
   ],
   "paths": {
@@ -126,11 +126,11 @@
     },
     "/subscriptions/{subscriptionId}/providers/Microsoft.PartnerEnrollment/maicppprograms": {
       "get": {
-        "operationId": "MaiCppPrograms_ListBySubscription",
+        "operationId": "MaicppPrograms_ListBySubscription",
         "tags": [
-          "MaiCppPrograms"
+          "MaicppPrograms"
         ],
-        "description": "List MaiCppProgram resources by subscription ID",
+        "description": "List MaicppProgram resources by subscription ID",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
@@ -143,7 +143,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/MaiCppProgramListResult"
+              "$ref": "#/definitions/MaicppProgramListResult"
             }
           },
           "default": {
@@ -154,8 +154,8 @@
           }
         },
         "x-ms-examples": {
-          "ListMaiCppProgramsBySubscription": {
-            "$ref": "./examples/MaiCppPrograms_ListBySubscription.json"
+          "ListMaicppProgramsBySubscription": {
+            "$ref": "./examples/MaicppPrograms_ListBySubscription.json"
           }
         },
         "x-ms-pageable": {
@@ -428,11 +428,11 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PartnerEnrollment/maicppprograms": {
       "get": {
-        "operationId": "MaiCppPrograms_ListByResourceGroup",
+        "operationId": "MaicppPrograms_ListByResourceGroup",
         "tags": [
-          "MaiCppPrograms"
+          "MaicppPrograms"
         ],
-        "description": "List MaiCppProgram resources by resource group",
+        "description": "List MaicppProgram resources by resource group",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
@@ -448,7 +448,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/MaiCppProgramListResult"
+              "$ref": "#/definitions/MaicppProgramListResult"
             }
           },
           "default": {
@@ -459,8 +459,8 @@
           }
         },
         "x-ms-examples": {
-          "ListMaiCppProgramsByResourceGroup": {
-            "$ref": "./examples/MaiCppPrograms_ListByResourceGroup.json"
+          "ListMaicppProgramsByResourceGroup": {
+            "$ref": "./examples/MaicppPrograms_ListByResourceGroup.json"
           }
         },
         "x-ms-pageable": {
@@ -468,13 +468,13 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PartnerEnrollment/maicppprograms/{maiCppProgramName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PartnerEnrollment/maicppprograms/{maicppProgramName}": {
       "get": {
-        "operationId": "MaiCppPrograms_Get",
+        "operationId": "MaicppPrograms_Get",
         "tags": [
-          "MaiCppPrograms"
+          "MaicppPrograms"
         ],
-        "description": "Get a MaiCppProgram",
+        "description": "Get a MaicppProgram",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
@@ -486,9 +486,9 @@
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "name": "maiCppProgramName",
+            "name": "maicppProgramName",
             "in": "path",
-            "description": "The name of the MaiCppProgram resource.",
+            "description": "The name of the MaicppProgram resource.",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9-]{3,24}$"
@@ -498,7 +498,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/MaiCppProgram"
+              "$ref": "#/definitions/MaicppProgram"
             }
           },
           "default": {
@@ -509,17 +509,17 @@
           }
         },
         "x-ms-examples": {
-          "GetMaiCppProgram": {
-            "$ref": "./examples/MaiCppPrograms_Get.json"
+          "GetMaicppProgram": {
+            "$ref": "./examples/MaicppPrograms_Get.json"
           }
         }
       },
       "put": {
-        "operationId": "MaiCppPrograms_CreateOrUpdate",
+        "operationId": "MaicppPrograms_CreateOrUpdate",
         "tags": [
-          "MaiCppPrograms"
+          "MaicppPrograms"
         ],
-        "description": "Create a MaiCppProgram",
+        "description": "Create a MaicppProgram",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
@@ -531,9 +531,9 @@
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "name": "maiCppProgramName",
+            "name": "maicppProgramName",
             "in": "path",
-            "description": "The name of the MaiCppProgram resource.",
+            "description": "The name of the MaicppProgram resource.",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9-]{3,24}$"
@@ -544,21 +544,21 @@
             "description": "Resource create parameters.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/MaiCppProgram"
+              "$ref": "#/definitions/MaicppProgram"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Resource 'MaiCppProgram' update operation succeeded",
+            "description": "Resource 'MaicppProgram' update operation succeeded",
             "schema": {
-              "$ref": "#/definitions/MaiCppProgram"
+              "$ref": "#/definitions/MaicppProgram"
             }
           },
           "201": {
-            "description": "Resource 'MaiCppProgram' create operation succeeded",
+            "description": "Resource 'MaicppProgram' create operation succeeded",
             "schema": {
-              "$ref": "#/definitions/MaiCppProgram"
+              "$ref": "#/definitions/MaicppProgram"
             },
             "headers": {
               "Azure-AsyncOperation": {
@@ -580,8 +580,8 @@
           }
         },
         "x-ms-examples": {
-          "CreateMaiCppProgram": {
-            "$ref": "./examples/MaiCppPrograms_CreateOrUpdate.json"
+          "CreateMaicppProgram": {
+            "$ref": "./examples/MaicppPrograms_CreateOrUpdate.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -590,11 +590,11 @@
         "x-ms-long-running-operation": true
       },
       "patch": {
-        "operationId": "MaiCppPrograms_Update",
+        "operationId": "MaicppPrograms_Update",
         "tags": [
-          "MaiCppPrograms"
+          "MaicppPrograms"
         ],
-        "description": "Update a MaiCppProgram",
+        "description": "Update a MaicppProgram",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
@@ -606,9 +606,9 @@
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "name": "maiCppProgramName",
+            "name": "maicppProgramName",
             "in": "path",
-            "description": "The name of the MaiCppProgram resource.",
+            "description": "The name of the MaicppProgram resource.",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9-]{3,24}$"
@@ -619,7 +619,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/MaiCppProgramUpdate"
+              "$ref": "#/definitions/MaicppProgramUpdate"
             }
           }
         ],
@@ -627,7 +627,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/MaiCppProgram"
+              "$ref": "#/definitions/MaicppProgram"
             }
           },
           "default": {
@@ -638,17 +638,17 @@
           }
         },
         "x-ms-examples": {
-          "UpdateMaiCppProgram": {
-            "$ref": "./examples/MaiCppPrograms_Update.json"
+          "UpdateMaicppProgram": {
+            "$ref": "./examples/MaicppPrograms_Update.json"
           }
         }
       },
       "delete": {
-        "operationId": "MaiCppPrograms_Delete",
+        "operationId": "MaicppPrograms_Delete",
         "tags": [
-          "MaiCppPrograms"
+          "MaicppPrograms"
         ],
-        "description": "Delete a MaiCppProgram",
+        "description": "Delete a MaicppProgram",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
@@ -660,9 +660,9 @@
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "name": "maiCppProgramName",
+            "name": "maicppProgramName",
             "in": "path",
-            "description": "The name of the MaiCppProgram resource.",
+            "description": "The name of the MaicppProgram resource.",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9-]{3,24}$"
@@ -683,8 +683,8 @@
           }
         },
         "x-ms-examples": {
-          "DeleteMaiCppProgram": {
-            "$ref": "./examples/MaiCppPrograms_Delete.json"
+          "DeleteMaicppProgram": {
+            "$ref": "./examples/MaicppPrograms_Delete.json"
           }
         }
       }
@@ -808,12 +808,12 @@
         }
       ]
     },
-    "MaiCppProgram": {
+    "MaicppProgram": {
       "type": "object",
-      "description": "A MaiCppProgram resource representing a Microsoft AI Cloud Partner Program registration.",
+      "description": "A MaicppProgram resource representing a Microsoft AI Cloud Partner Program registration.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/MaiCppProgramProperties",
+          "$ref": "#/definitions/MaicppProgramProperties",
           "description": "The resource-specific properties for this resource."
         }
       },
@@ -823,15 +823,15 @@
         }
       ]
     },
-    "MaiCppProgramListResult": {
+    "MaicppProgramListResult": {
       "type": "object",
-      "description": "The response of a MaiCppProgram list operation.",
+      "description": "The response of a MaicppProgram list operation.",
       "properties": {
         "value": {
           "type": "array",
-          "description": "The MaiCppProgram items on this page",
+          "description": "The MaicppProgram items on this page",
           "items": {
-            "$ref": "#/definitions/MaiCppProgram"
+            "$ref": "#/definitions/MaicppProgram"
           }
         },
         "nextLink": {
@@ -844,9 +844,9 @@
         "value"
       ]
     },
-    "MaiCppProgramProperties": {
+    "MaicppProgramProperties": {
       "type": "object",
-      "description": "Details of the MaiCppProgram.",
+      "description": "Details of the MaicppProgram.",
       "properties": {
         "programId": {
           "type": "string",
@@ -877,9 +877,9 @@
         "billingAccountId"
       ]
     },
-    "MaiCppProgramPropertiesUpdate": {
+    "MaicppProgramPropertiesUpdate": {
       "type": "object",
-      "description": "Details of the MaiCppProgram.",
+      "description": "Details of the MaicppProgram.",
       "properties": {
         "programId": {
           "type": "string",
@@ -891,12 +891,12 @@
         }
       }
     },
-    "MaiCppProgramUpdate": {
+    "MaicppProgramUpdate": {
       "type": "object",
-      "description": "A MaiCppProgram resource representing a Microsoft AI Cloud Partner Program registration.",
+      "description": "A MaicppProgram resource representing a Microsoft AI Cloud Partner Program registration.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/MaiCppProgramPropertiesUpdate",
+          "$ref": "#/definitions/MaicppProgramPropertiesUpdate",
           "description": "The resource-specific properties for this resource."
         }
       },
