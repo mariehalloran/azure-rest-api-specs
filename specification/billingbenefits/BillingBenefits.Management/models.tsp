@@ -3039,13 +3039,6 @@ model TransactionProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ResourceProvisioningState;
 
-  ...TransactionPatchProperties;
-}
-
-/**
- * Transaction patch request properties
- */
-model TransactionPatchProperties {
   /**
    * This is the DateTime when the transaction occurred.
    */
@@ -3091,12 +3084,6 @@ model TransactionPatchProperties {
    */
   productDetails?: TransactionProductDetails;
 }
-
-/**
- * Transaction patch request, reserved for admin-only operations routed through RPaaS.
- */
-#suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model" "Empty patch body intentional - admin patches properties server-side via RPaaS"
-model TransactionPatchRequest {}
 
 /**
  * List of transactions
