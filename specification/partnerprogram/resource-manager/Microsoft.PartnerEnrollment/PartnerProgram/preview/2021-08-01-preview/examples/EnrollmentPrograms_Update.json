@@ -1,0 +1,45 @@
+{
+  "operationId": "EnrollmentPrograms_Update",
+  "title": "UpdateEnrollmentProgram",
+  "parameters": {
+    "api-version": "2021-08-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "testrg",
+    "enrollmentProgramName": "Jack",
+    "properties": {
+      "tags": {
+        "env": "test"
+      },
+      "properties": {
+        "programId": "6F73EEAE-54C3-40B4-AC0E-0BCA24543149",
+        "billingAccountId": "ba-pga-1"
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.PartnerEnrollment/enrollmentPrograms/Jack",
+        "name": "Jack",
+        "type": "Microsoft.PartnerEnrollment/enrollmentPrograms",
+        "location": "eastus",
+        "tags": {},
+        "properties": {
+          "programId": "6F73EEAE-54C3-40B4-AC0E-0BCA24543149",
+          "billingAccountId": "ba-pga-1",
+          "provisioningState": "Succeeded",
+          "enrollmentId": "3c75a390-4955-4d22-a1df-1d663ccba601",
+          "status": "notRegistered"
+        },
+        "systemData": {
+          "createdBy": "someone@example.com",
+          "createdByType": "User",
+          "createdAt": "2024-01-01T00:00:00Z",
+          "lastModifiedBy": "someone@example.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2024-01-01T00:00:00Z"
+        }
+      }
+    }
+  }
+}

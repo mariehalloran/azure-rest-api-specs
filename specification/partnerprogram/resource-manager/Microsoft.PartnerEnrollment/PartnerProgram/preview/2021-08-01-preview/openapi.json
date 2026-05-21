@@ -1,0 +1,965 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Microsoft.PartnerEnrollment",
+    "version": "2021-08-01-preview",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "EnrollmentPrograms"
+    },
+    {
+      "name": "MaiCppPrograms"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.PartnerEnrollment/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ListOperations": {
+            "$ref": "./examples/Operations_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.PartnerEnrollment/enrollmentPrograms": {
+      "get": {
+        "operationId": "EnrollmentPrograms_ListBySubscription",
+        "tags": [
+          "EnrollmentPrograms"
+        ],
+        "description": "List EnrollmentProgram resources by subscription ID",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EnrollmentProgramListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ListEnrollmentProgramsBySubscription": {
+            "$ref": "./examples/EnrollmentPrograms_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.PartnerEnrollment/maicppprograms": {
+      "get": {
+        "operationId": "MaiCppPrograms_ListBySubscription",
+        "tags": [
+          "MaiCppPrograms"
+        ],
+        "description": "List MaiCppProgram resources by subscription ID",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/MaiCppProgramListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ListMaiCppProgramsBySubscription": {
+            "$ref": "./examples/MaiCppPrograms_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PartnerEnrollment/enrollmentPrograms": {
+      "get": {
+        "operationId": "EnrollmentPrograms_ListByResourceGroup",
+        "tags": [
+          "EnrollmentPrograms"
+        ],
+        "description": "List EnrollmentProgram resources by resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EnrollmentProgramListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ListEnrollmentProgramsByResourceGroup": {
+            "$ref": "./examples/EnrollmentPrograms_ListByResourceGroup.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PartnerEnrollment/enrollmentPrograms/{enrollmentProgramName}": {
+      "get": {
+        "operationId": "EnrollmentPrograms_Get",
+        "tags": [
+          "EnrollmentPrograms"
+        ],
+        "description": "Get a EnrollmentProgram",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "enrollmentProgramName",
+            "in": "path",
+            "description": "The name of the employee",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EnrollmentProgram"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "GetEnrollmentProgram": {
+            "$ref": "./examples/EnrollmentPrograms_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "EnrollmentPrograms_CreateOrUpdate",
+        "tags": [
+          "EnrollmentPrograms"
+        ],
+        "description": "Create a EnrollmentProgram",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "enrollmentProgramName",
+            "in": "path",
+            "description": "The name of the employee",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnrollmentProgram"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'EnrollmentProgram' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/EnrollmentProgram"
+            }
+          },
+          "201": {
+            "description": "Resource 'EnrollmentProgram' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/EnrollmentProgram"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CreateEnrollmentProgram": {
+            "$ref": "./examples/EnrollmentPrograms_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "EnrollmentPrograms_Update",
+        "tags": [
+          "EnrollmentPrograms"
+        ],
+        "description": "Update a EnrollmentProgram",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "enrollmentProgramName",
+            "in": "path",
+            "description": "The name of the employee",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnrollmentProgramUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EnrollmentProgram"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "UpdateEnrollmentProgram": {
+            "$ref": "./examples/EnrollmentPrograms_Update.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "EnrollmentPrograms_Delete",
+        "tags": [
+          "EnrollmentPrograms"
+        ],
+        "description": "Delete a EnrollmentProgram",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "enrollmentProgramName",
+            "in": "path",
+            "description": "The name of the employee",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "DeleteEnrollmentProgram": {
+            "$ref": "./examples/EnrollmentPrograms_Delete.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PartnerEnrollment/maicppprograms": {
+      "get": {
+        "operationId": "MaiCppPrograms_ListByResourceGroup",
+        "tags": [
+          "MaiCppPrograms"
+        ],
+        "description": "List MaiCppProgram resources by resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/MaiCppProgramListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ListMaiCppProgramsByResourceGroup": {
+            "$ref": "./examples/MaiCppPrograms_ListByResourceGroup.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PartnerEnrollment/maicppprograms/{maiCppProgramName}": {
+      "get": {
+        "operationId": "MaiCppPrograms_Get",
+        "tags": [
+          "MaiCppPrograms"
+        ],
+        "description": "Get a MaiCppProgram",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "maiCppProgramName",
+            "in": "path",
+            "description": "The name of the MaiCppProgram resource.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/MaiCppProgram"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "GetMaiCppProgram": {
+            "$ref": "./examples/MaiCppPrograms_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "MaiCppPrograms_CreateOrUpdate",
+        "tags": [
+          "MaiCppPrograms"
+        ],
+        "description": "Create a MaiCppProgram",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "maiCppProgramName",
+            "in": "path",
+            "description": "The name of the MaiCppProgram resource.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MaiCppProgram"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'MaiCppProgram' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/MaiCppProgram"
+            }
+          },
+          "201": {
+            "description": "Resource 'MaiCppProgram' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/MaiCppProgram"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CreateMaiCppProgram": {
+            "$ref": "./examples/MaiCppPrograms_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "MaiCppPrograms_Update",
+        "tags": [
+          "MaiCppPrograms"
+        ],
+        "description": "Update a MaiCppProgram",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "maiCppProgramName",
+            "in": "path",
+            "description": "The name of the MaiCppProgram resource.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MaiCppProgramUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/MaiCppProgram"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "UpdateMaiCppProgram": {
+            "$ref": "./examples/MaiCppPrograms_Update.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "MaiCppPrograms_Delete",
+        "tags": [
+          "MaiCppPrograms"
+        ],
+        "description": "Delete a MaiCppProgram",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "maiCppProgramName",
+            "in": "path",
+            "description": "The name of the MaiCppProgram resource.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "DeleteMaiCppProgram": {
+            "$ref": "./examples/MaiCppPrograms_Delete.json"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
+      "type": "object",
+      "title": "Tracked Resource",
+      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/Resource"
+        }
+      ]
+    },
+    "EnrollmentProgram": {
+      "type": "object",
+      "description": "A PartnerProgramProviderHub resource",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/EnrollmentProgramProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "EnrollmentProgramListResult": {
+      "type": "object",
+      "description": "The response of a EnrollmentProgram list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The EnrollmentProgram items on this page",
+          "items": {
+            "$ref": "#/definitions/EnrollmentProgram"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "EnrollmentProgramProperties": {
+      "type": "object",
+      "description": "Details of the PartnerProgram EnrollmentProgram.",
+      "properties": {
+        "programId": {
+          "type": "string",
+          "description": "Identifier of the partner program."
+        },
+        "billingAccountId": {
+          "type": "string",
+          "description": "Billing account identifier associated with the enrollment."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The status of the last operation.",
+          "readOnly": true
+        },
+        "enrollmentId": {
+          "type": "string",
+          "description": "Identifier returned by the Enrollment State service for this enrollment.",
+          "readOnly": true
+        },
+        "status": {
+          "type": "string",
+          "description": "Current status of the enrollment as reported by the Enrollment State service.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "programId",
+        "billingAccountId"
+      ]
+    },
+    "EnrollmentProgramPropertiesUpdate": {
+      "type": "object",
+      "description": "Details of the PartnerProgram EnrollmentProgram.",
+      "properties": {
+        "programId": {
+          "type": "string",
+          "description": "Identifier of the partner program."
+        },
+        "billingAccountId": {
+          "type": "string",
+          "description": "Billing account identifier associated with the enrollment."
+        }
+      }
+    },
+    "EnrollmentProgramUpdate": {
+      "type": "object",
+      "description": "A PartnerProgramProviderHub resource",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/EnrollmentProgramPropertiesUpdate",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
+        }
+      ]
+    },
+    "MaiCppProgram": {
+      "type": "object",
+      "description": "A MaiCppProgram resource representing a Microsoft AI Cloud Partner Program registration.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/MaiCppProgramProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "MaiCppProgramListResult": {
+      "type": "object",
+      "description": "The response of a MaiCppProgram list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The MaiCppProgram items on this page",
+          "items": {
+            "$ref": "#/definitions/MaiCppProgram"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "MaiCppProgramProperties": {
+      "type": "object",
+      "description": "Details of the MaiCppProgram.",
+      "properties": {
+        "programId": {
+          "type": "string",
+          "description": "Identifier of the partner program."
+        },
+        "billingAccountId": {
+          "type": "string",
+          "description": "Billing account identifier associated with the enrollment."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The status of the last operation.",
+          "readOnly": true
+        },
+        "enrollmentId": {
+          "type": "string",
+          "description": "Identifier returned by the Enrollment State service for this enrollment.",
+          "readOnly": true
+        },
+        "status": {
+          "type": "string",
+          "description": "Current status of the enrollment as reported by the Enrollment State service.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "programId",
+        "billingAccountId"
+      ]
+    },
+    "MaiCppProgramPropertiesUpdate": {
+      "type": "object",
+      "description": "Details of the MaiCppProgram.",
+      "properties": {
+        "programId": {
+          "type": "string",
+          "description": "Identifier of the partner program."
+        },
+        "billingAccountId": {
+          "type": "string",
+          "description": "Billing account identifier associated with the enrollment."
+        }
+      }
+    },
+    "MaiCppProgramUpdate": {
+      "type": "object",
+      "description": "A MaiCppProgram resource representing a Microsoft AI Cloud Partner Program registration.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/MaiCppProgramPropertiesUpdate",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
+        }
+      ]
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "description": "The status of the current operation.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Provisioning",
+        "Updating",
+        "Deleting",
+        "Accepted"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          },
+          {
+            "name": "Provisioning",
+            "value": "Provisioning",
+            "description": "Initial provisioning in progress"
+          },
+          {
+            "name": "Updating",
+            "value": "Updating",
+            "description": "Update in progress"
+          },
+          {
+            "name": "Deleting",
+            "value": "Deleting",
+            "description": "Deletion in progress"
+          },
+          {
+            "name": "Accepted",
+            "value": "Accepted",
+            "description": "Change accepted for processing"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {}
+}
