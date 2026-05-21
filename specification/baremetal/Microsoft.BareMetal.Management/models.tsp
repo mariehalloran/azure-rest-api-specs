@@ -299,6 +299,100 @@ model NetworkInterfaceAttachmentPatchProperties {
 }
 
 /**
+ * Managed Console Connection resource.
+ */
+@added(Versions.v2026_04_01_preview)
+model ManagedConsoleConnection
+  is TrackedResource<ManagedConsoleConnectionProperties> {
+  /**
+   * The name of the Managed Console Connection resource.
+   */
+  @maxLength(63)
+  @minLength(3)
+  @pattern("^[-\\w\\._\\(\\)]+$")
+  @path
+  @key("managedConsoleConnectionName")
+  @segment("managedConsoleConnections")
+  @visibility(Lifecycle.Read)
+  name: string;
+}
+
+/**
+ * Properties of a Managed Console Connection.
+ */
+@added(Versions.v2026_04_01_preview)
+model ManagedConsoleConnectionProperties {
+  /** IPv4 address to be allocated in the subnet of the associated connection. */
+  ipAddress?: string;
+
+  /** The baremetal-delegated subnet resource ID. */
+  subnetResourceId: Azure.Core.armResourceIdentifier<[]>;
+
+  /** VLAN ID assigned to the subnet of the associated connection. */
+  vlan: int32;
+
+  /** ID of the baremetal device in GUID format. */
+  @pattern("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
+  deviceId: string;
+
+  /** Routes associated with the connection. */
+  @Azure.ResourceManager.identifiers(#["id"])
+  routes?: ManagedConsoleConnectionRoute[];
+
+  /** The network interface resource URI. */
+  @visibility(Lifecycle.Read)
+  networkInterfaceUri?: Azure.Core.armResourceIdentifier<[]>;
+
+  /** The current provisioning state. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/**
+ * Route entry for a Managed Console Connection.
+ */
+@added(Versions.v2026_04_01_preview)
+model ManagedConsoleConnectionRoute {
+  /** Name of the route. */
+  name: string;
+
+  /** ARM resource ID of the route. */
+  id: Azure.Core.armResourceIdentifier<[]>;
+
+  /** Route properties. */
+  properties?: ManagedConsoleConnectionRouteProperties;
+}
+
+/**
+ * Properties of a route entry.
+ */
+@added(Versions.v2026_04_01_preview)
+model ManagedConsoleConnectionRouteProperties {
+  /** The destination address prefix. */
+  addressPrefix: string;
+
+  /** The type of Azure hop the packet should be sent to. */
+  nextHopType: string;
+
+  /** The IP address packets should be forwarded to. */
+  nextHopIpAddress: string;
+
+  /** Whether BGP override is enabled. */
+  hasBgpOverride: boolean;
+}
+
+/**
+ * Model representing a Managed Console Connection update (tags only).
+ */
+@added(Versions.v2026_04_01_preview)
+model ManagedConsoleConnectionUpdate {
+  /** Resource tags. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Patch tags object"
+  @visibility(Lifecycle.Read, Lifecycle.Create, Lifecycle.Update)
+  tags?: Record<string>;
+}
+
+/**
  * Custom Page for Clusters
  */
 model ClusterPage<T extends {}> {
