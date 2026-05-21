@@ -10972,6 +10972,7 @@ model ProxyConfigurationProperties {
    * Updated at Apply job creation time. Seeded from webProxy in
    * TargetDeviceConfiguration when the EdgeMachine first reaches Purposed.
    */
+  @visibility(Lifecycle.Read)
   desiredConfiguration?: ProxyConfigurationDetail;
 
   /**
