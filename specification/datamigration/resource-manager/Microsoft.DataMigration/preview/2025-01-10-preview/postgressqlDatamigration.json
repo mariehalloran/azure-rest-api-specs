@@ -94,7 +94,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.DataMigration/postgresqlMigrationServices": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.DataMigration/databaseMigrationServices": {
       "get": {
         "operationId": "PostgresqlMigrationServices_ListBySubscription",
         "tags": [
@@ -133,7 +133,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices": {
       "get": {
         "operationId": "PostgresqlMigrationServices_ListByResourceGroup",
         "tags": [
@@ -175,7 +175,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}": {
       "get": {
         "operationId": "PostgresqlMigrationServices_Get",
         "tags": [
@@ -381,7 +381,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/discoverDatabaseObjects": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/discoverDatabaseObjects": {
       "post": {
         "operationId": "PostgresqlMigrationServices_DiscoverDatabaseObjects",
         "tags": [
@@ -455,7 +455,7 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations": {
       "get": {
         "operationId": "PostgresqlDatabaseMigrations_ListByMigrationService",
         "tags": [
@@ -505,7 +505,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}": {
       "get": {
         "operationId": "PostgresqlDatabaseMigrations_Get",
         "tags": [
@@ -758,7 +758,7 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/databaseStatuses": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/databaseStatuses": {
       "get": {
         "operationId": "DatabaseStatuses_List",
         "tags": [
@@ -816,7 +816,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/databaseStatuses/{sourceDatabaseName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/databaseStatuses/{sourceDatabaseName}": {
       "get": {
         "operationId": "DatabaseStatuses_Get",
         "tags": [
@@ -879,7 +879,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/schemaStatuses": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/schemaStatuses": {
       "get": {
         "operationId": "SchemaStatuses_List",
         "tags": [
@@ -937,7 +937,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/schemaStatuses/{sourceSchemaName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/schemaStatuses/{sourceSchemaName}": {
       "get": {
         "operationId": "SchemaStatuses_Get",
         "tags": [
@@ -1000,7 +1000,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/tableStatuses": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/tableStatuses": {
       "get": {
         "operationId": "TableStatuses_List",
         "tags": [
@@ -1058,7 +1058,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/tableStatuses/{sourceTableName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/tableStatuses/{sourceTableName}": {
       "get": {
         "operationId": "TableStatuses_Get",
         "tags": [
@@ -1121,7 +1121,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/testConnectivity": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/testConnectivity": {
       "post": {
         "operationId": "PostgresqlMigrationServices_TestConnectivity",
         "tags": [
