@@ -104,6 +104,11 @@ model ComputeDeviceProperties {
   @doc("The cluster where the device is located")
   @visibility(Lifecycle.Read)
   clusterName?: string;
+
+  @added(Versions.v2026_04_22_preview)
+  @doc("The CPU architecture of the device")
+  @visibility(Lifecycle.Read)
+  cpu?: CpuArchitecture;
 }
 
 @armResourceOperations
