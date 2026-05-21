@@ -1,6 +1,6 @@
 {
   "parameters": {
-    "api-version": "2025-01-01-preview",
+    "api-version": "2026-06-01-preview",
     "subscriptionId": "subid",
     "resourceGroupName": "rg1"
   },
@@ -25,6 +25,7 @@
               "description": "This is a test PKI",
               "provisioningState": "Success",
               "uri": "https://testpki.eastus.pki.azure.net/",
+              "authorizationType": "AzureRbac",
               "allowedList": [
                 "80b155c8-bf4a-80a7-bd7e-97bcc1394927"
               ]
@@ -47,6 +48,7 @@
               "description": "This is a second test PKI",
               "provisioningState": "Success",
               "uri": "https://testpki2.eastus.pki.azure.net/",
+              "authorizationType": "AzureRbac",
               "allowedList": [
                 "80b155c8-bf4a-80a7-bd7e-97bcc1394927"
               ]

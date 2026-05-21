@@ -3,7 +3,7 @@
   "info": {
     "title": "MicrosoftPki",
     "description": "Describes PKI (Private Key Infrastructure) resource and operations.",
-    "version": "2025-01-01-preview"
+    "version": "2026-06-01-preview"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -445,6 +445,19 @@
           "description": "The authorized users list to this PKI.",
           "items": {
             "type": "string"
+          }
+        },
+        "authorizationType": {
+          "type": "string",
+          "description": "The type of authorization that should be used for this PKI.",
+          "enum": [
+            "AzureRbac",
+            "Legacy",
+            "AzureRbacFallbackAllowedList"
+          ],
+          "x-ms-enum": {
+            "name": "AuthorizationType",
+            "modelAsString": true
           }
         }
       }
