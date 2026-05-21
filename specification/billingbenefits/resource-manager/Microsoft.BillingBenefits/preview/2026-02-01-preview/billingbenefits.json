@@ -5687,7 +5687,7 @@
           }
         },
         "provisioningState": {
-          "$ref": "#/definitions/ConditionalCreditsProvisioningState",
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "The provisioning state of the resource",
           "readOnly": true
         },
@@ -5850,44 +5850,6 @@
       "required": [
         "value"
       ]
-    },
-    "ConditionalCreditsProvisioningState": {
-      "type": "string",
-      "description": "The provisioning state of the resource",
-      "enum": [
-        "Unknown",
-        "Succeeded",
-        "Failed",
-        "Canceled",
-        "Pending"
-      ],
-      "x-ms-enum": {
-        "name": "ConditionalCreditsProvisioningState",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Unknown",
-            "value": "Unknown"
-          },
-          {
-            "name": "Succeeded",
-            "value": "Succeeded"
-          },
-          {
-            "name": "Failed",
-            "value": "Failed"
-          },
-          {
-            "name": "Canceled",
-            "value": "Canceled"
-          },
-          {
-            "name": "Pending",
-            "value": "Pending"
-          }
-        ]
-      },
-      "readOnly": true
     },
     "ConditionalCreditsValidateModel": {
       "type": "object",
@@ -6329,7 +6291,7 @@
           }
         },
         "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "Provisioning state",
           "readOnly": true
         },
@@ -6887,7 +6849,7 @@
           "description": "This is the globally unique identifier of the Discount which will not change for the lifetime of the Discount."
         },
         "provisioningState": {
-          "$ref": "#/definitions/DiscountProvisioningState",
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "The state of the resource. Supported values are Pending, Failed, Succeeded, Canceled.",
           "readOnly": true
         },
@@ -6988,44 +6950,6 @@
         "productCode",
         "startAt"
       ]
-    },
-    "DiscountProvisioningState": {
-      "type": "string",
-      "description": "Provisioning states of Discount.",
-      "enum": [
-        "Unknown",
-        "Pending",
-        "Succeeded",
-        "Canceled",
-        "Failed"
-      ],
-      "x-ms-enum": {
-        "name": "DiscountProvisioningState",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Unknown",
-            "value": "Unknown"
-          },
-          {
-            "name": "Pending",
-            "value": "Pending"
-          },
-          {
-            "name": "Succeeded",
-            "value": "Succeeded"
-          },
-          {
-            "name": "Canceled",
-            "value": "Canceled"
-          },
-          {
-            "name": "Failed",
-            "value": "Failed"
-          }
-        ]
-      },
-      "readOnly": true
     },
     "DiscountRuleType": {
       "type": "string",

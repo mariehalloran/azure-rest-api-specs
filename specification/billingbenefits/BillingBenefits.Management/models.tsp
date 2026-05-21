@@ -293,23 +293,6 @@ union DiscountEntityType {
 }
 
 /**
- * Provisioning states of Discount.
- */
-union DiscountProvisioningState {
-  string,
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Unknown: "Unknown",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Pending: "Pending",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Succeeded: "Succeeded",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Canceled: "Canceled",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Failed: "Failed",
-}
-
-/**
  * Represents the current status of the discount.
  */
 union DiscountStatus {
@@ -632,23 +615,6 @@ union ConditionalCreditEntityType {
   Primary: "Primary",
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   Contributor: "Contributor",
-}
-
-/**
- * The provisioning state of the resource
- */
-union ConditionalCreditsProvisioningState {
-  string,
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Unknown: "Unknown",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Succeeded: "Succeeded",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Failed: "Failed",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Canceled: "Canceled",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Pending: "Pending",
 }
 
 /**
@@ -1752,7 +1718,7 @@ model DiscountProperties {
    * The state of the resource. Supported values are Pending, Failed, Succeeded, Canceled.
    */
   @visibility(Lifecycle.Read)
-  provisioningState?: DiscountProvisioningState;
+  provisioningState?: ResourceProvisioningState;
 
   ...BenefitBillingScopeProperties;
 
@@ -2900,7 +2866,7 @@ model CreditProperties {
    * Provisioning state
    */
   @visibility(Lifecycle.Read)
-  provisioningState?: ProvisioningState;
+  provisioningState?: ResourceProvisioningState;
 
   /**
    * System identifier
@@ -3188,7 +3154,7 @@ model ConditionalCreditProperties {
    * The provisioning state of the resource
    */
   @visibility(Lifecycle.Read)
-  provisioningState?: ConditionalCreditsProvisioningState;
+  provisioningState?: ResourceProvisioningState;
 
   /**
    * The status of the conditional credit
