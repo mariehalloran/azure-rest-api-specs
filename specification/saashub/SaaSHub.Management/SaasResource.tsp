@@ -2,10 +2,12 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@typespec/openapi";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "./SaasResourceModels.tsp";
 import "./SharedModels.tsp";
 
 using Azure.ResourceManager;
+using TypeSpec.Versioning;
 
 namespace Microsoft.SaaSHub;
 /**
@@ -39,7 +41,8 @@ interface SaasResources {
   /**
    * Updates the properties of a SaaSHub Saas resource.
    */
-  @Http.patch(#{ implicitOptionality: true })
+  #suppress "@typespec/http/deprecated-implicit-optionality" "LEGACY - DO NOT COPY"
+  @Http.patch(#{ implicitOptionality: true }) // added on September 10, 2025 on RPSaaSMaster as part of the TypeSpec 1.4.0 upgrade (commit b9094b1f8122)
   update is ArmCustomPatchAsync<
     SaasResource,
     SaasResource,
@@ -103,6 +106,18 @@ interface SaasResources {
   >;
 
   /**
+   * Transfers a SaasResource to another partner tenant.
+   * Only available starting in API version 2026-03-31-preview.
+   */
+  @added(SaaSHubVersions.v2026_03_31_preview)
+  transferToPartner is ArmResourceActionAsync<
+    SaasResource,
+    Microsoft.SaaSHub.TransferToPartnerRequest,
+    SaasResource,
+    BaseParameters = ApiVersionParameter
+  >;
+
+  /**
    * Merges multiple Saas resources into one target Saas resource. The resource name in URL is the target, and the list of source Saas resource and quantity will be specified in request payload
    */
   merge is ArmResourceActionAsync<
@@ -126,25 +141,32 @@ interface SaasResources {
 
 @@maxLength(SaasResource.name, 50);
 @@minLength(SaasResource.name, 3);
-@@doc(SaasResource.name,
+@@doc(
+  SaasResource.name,
   "The name that uniquely identifies a SaaSHub Saas resource."
 );
 @@doc(SaasResource.properties, "The properties of a SaaSHub Saas resource.");
-@@doc(SaasResources.create::parameters.resource,
+@@doc(
+  SaasResources.create::parameters.resource,
   "Request parameters that are provided to the create SaaSHub Saas resource operation."
 );
-@@doc(SaasResources.update::parameters.properties,
+@@doc(
+  SaasResources.update::parameters.properties,
   "Request parameters that are provided to the update SaaSHub Saas resource operation."
 );
-@@doc(SaasResources.canMerge::parameters.body,
+@@doc(
+  SaasResources.canMerge::parameters.body,
   "Request parameters that are provided to the merge SaaSHub Saas resource operation."
 );
-@@doc(SaasResources.canUpdate::parameters.body,
+@@doc(
+  SaasResources.canUpdate::parameters.body,
   "Request parameters that are provided to the update SaaSHub Saas resource operation."
 );
-@@doc(SaasResources.merge::parameters.body,
+@@doc(
+  SaasResources.merge::parameters.body,
   "Request parameters that are provided to the merge SaaSHub Saas resource operation."
 );
-@@doc(SaasResources.refundableQuantity,
+@@doc(
+  SaasResources.refundableQuantity,
   "Gets the refundable quantity for a SaaSHub Saas resource."
 );

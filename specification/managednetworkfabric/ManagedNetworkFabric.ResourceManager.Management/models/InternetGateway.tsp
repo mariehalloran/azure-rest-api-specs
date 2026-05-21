@@ -6,13 +6,7 @@ namespace Microsoft.ManagedNetworkFabric;
 @doc("Internet Gateway Properties defines the properties of the resource.")
 model InternetGatewayProperties {
   ...AnnotationResource;
-
-  @doc("ARM Resource ID of the Internet Gateway Rule.")
-  internetGatewayRuleId?: Azure.Core.armResourceIdentifier<[
-    {
-      type: "Microsoft.ManagedNetworkFabric/internetGatewayRules";
-    }
-  ]>;
+  ...InternetGatewayPatchableProperties;
 
   @doc("IPv4 Address of Internet Gateway.")
   @visibility(Lifecycle.Read)
@@ -48,19 +42,20 @@ model InternetGatewayProperties {
   provisioningState?: ProvisioningState;
 }
 
+@doc("Internet Gateway Patchable Properties defines the patchable properties of the resource.")
+model InternetGatewayPatchableProperties {
+  @doc("ARM Resource ID of the Internet Gateway Rule.")
+  internetGatewayRuleId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedNetworkFabric/internetGatewayRules";
+    }
+  ]>;
+}
+
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Extending instead of spreading to avoid breaking changes in patch model"
 @doc("The Internet Gateway patch resource definition.")
-model InternetGatewayPatch {
-  ...TagsUpdate;
-
+model InternetGatewayPatch extends TagsUpdate {
   @doc("Resource properties.")
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated?: InternetGatewayPatchProperties;
-
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
-  @doc("Resource properties.")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties?: InternetGatewayPatchProperties;
 }
 

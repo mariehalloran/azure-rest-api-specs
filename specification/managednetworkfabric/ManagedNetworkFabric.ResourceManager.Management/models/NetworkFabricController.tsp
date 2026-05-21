@@ -8,14 +8,7 @@ namespace Microsoft.ManagedNetworkFabric;
 @doc("NetworkFabricControllerProperties defines the resource properties.")
 model NetworkFabricControllerProperties {
   ...AnnotationResource;
-
-  @doc("As part of an update, the Infrastructure ExpressRoute CircuitID should be provided to create and Provision a NFC. This Express route is dedicated for Infrastructure services. (This is a Mandatory attribute)")
-  @Azure.ResourceManager.identifiers(#["expressRouteCircuitId"])
-  infrastructureExpressRouteConnections?: ExpressRouteConnectionInformation[];
-
-  @doc("As part of an update, the workload ExpressRoute CircuitID should be provided to create and Provision a NFC. This Express route is dedicated for Workload services. (This is a Mandatory attribute).")
-  @Azure.ResourceManager.identifiers(#["expressRouteCircuitId"])
-  workloadExpressRouteConnections?: ExpressRouteConnectionInformation[];
+  ...NetworkFabricControllerPatchableProperties;
 
   @doc("InfrastructureServices IP ranges.")
   @visibility(Lifecycle.Read)
@@ -82,6 +75,17 @@ model NetworkFabricControllerProperties {
   vmProfile?: VmProfile;
 }
 
+@doc("Network Fabric Controller updatable properties")
+model NetworkFabricControllerPatchableProperties {
+  @doc("As part of an update, the Infrastructure ExpressRoute CircuitID should be provided to create and Provision a NFC. This Express route is dedicated for Infrastructure services. (This is a Mandatory attribute)")
+  @Azure.ResourceManager.identifiers(#["expressRouteCircuitId"])
+  infrastructureExpressRouteConnections?: ExpressRouteConnectionInformation[];
+
+  @doc("As part of an update, the workload ExpressRoute CircuitID should be provided to create and Provision a NFC. This Express route is dedicated for Workload services. (This is a Mandatory attribute).")
+  @Azure.ResourceManager.identifiers(#["expressRouteCircuitId"])
+  workloadExpressRouteConnections?: ExpressRouteConnectionInformation[];
+}
+
 @doc("Network Fabric Controller services.")
 model ControllerServices {
   @doc("The IPv4 Address space is optional, if the value is not defined at the time of NFC creation, then the default value 10.0.0.0/19 is considered. The IPV4 address subnet is an optional attribute.")
@@ -115,19 +119,10 @@ model ExpressRouteConnectionInformation {
   expressRouteAuthorizationKey: string;
 }
 
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Extending instead of spread to avoid breaking changes in patch models"
 @doc("The Network Fabric Controller Patch payload definition.")
-model NetworkFabricControllerPatch {
-  ...TagsUpdate;
-
+model NetworkFabricControllerPatch extends TagsUpdate {
   @doc("Network Fabric Controller patch properties.")
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated?: NetworkFabricControllerPatchProperties;
-
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
-  @doc("Network Fabric Controller patch properties.")
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
-  @added(Versions.v2025_07_15)
   properties?: NetworkFabricControllerPatchProperties;
 
   @added(Versions.v2025_07_15)

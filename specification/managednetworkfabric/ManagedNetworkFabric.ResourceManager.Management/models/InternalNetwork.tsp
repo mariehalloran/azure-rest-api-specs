@@ -9,6 +9,7 @@ namespace Microsoft.ManagedNetworkFabric;
 @doc("Internal Network Properties defines the properties of the resource.")
 model InternalNetworkProperties {
   ...AnnotationResource;
+  ...ExtensionEnumProperty;
 
   @doc("Maximum transmission unit. Default value is 1500.")
   @maxValue(9200)
@@ -98,9 +99,6 @@ model InternalNetworkProperties {
   @doc("To check whether monitoring of internal network is enabled or not.")
   isMonitoringEnabled?: IsMonitoringEnabled = IsMonitoringEnabled.False;
 
-  @doc("Extension. Example: NoExtension | NPB.")
-  extension?: Extension = Extension.NoExtension;
-
   @doc("Vlan identifier. Example: 1001.")
   @maxValue(4094)
   @minValue(100)
@@ -147,10 +145,15 @@ model InternalNetworkProperties {
   administrativeState?: AdministrativeState;
 }
 
-@doc("BGP configuration properties")
-model BgpConfiguration {
-  ...AnnotationResource;
+@doc("Extension property.")
+model ExtensionEnumProperty {
+  @doc("Extension. Example: NoExtension | NPB.")
+  extension?: Extension = Extension.NoExtension;
+}
 
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Extending instead of spread to avoid breaking changes"
+@doc("BGP configuration properties")
+model BgpConfiguration extends AnnotationResource {
   @doc("BFD configuration properties")
   bfdConfiguration?: BfdConfiguration;
 
@@ -205,10 +208,9 @@ model BgpConfiguration {
   v6OverV4BgpSession?: V6OverV4BgpSessionState = V6OverV4BgpSessionState.Disabled;
 }
 
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Extending instead of spread to avoid breaking changes"
 @doc("BGP configuration properties.")
-model BgpPatchConfiguration {
-  ...AnnotationResource;
-
+model BgpPatchConfiguration extends AnnotationResource {
   @doc("BFD configuration properties")
   bfdConfiguration?: BfdPatchConfiguration;
 
@@ -287,10 +289,9 @@ model NeighborAddress {
 @doc("Neighbor Address properties.")
 model NeighborAddressPatch is NeighborAddress;
 
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Extending instead of spread to avoid breaking changes"
 @doc("Connected Subnet properties.")
-model ConnectedSubnet {
-  ...AnnotationResource;
-
+model ConnectedSubnet extends AnnotationResource {
   @doc("Prefix of the Connected Subnet.")
   @minLength(1)
   prefix: string;
@@ -302,14 +303,6 @@ model ConnectedSubnetPatch is ConnectedSubnet;
 @doc("The InternalNetwork patch resource definition.")
 model InternalNetworkPatch {
   @doc("InternalNetwork Patch properties.")
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated?: InternalNetworkPatchProperties;
-
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
-  @doc("InternalNetwork Patch properties.")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties?: InternalNetworkPatchProperties;
 }
 
@@ -489,17 +482,17 @@ model InternalNetworkUpdateBgpAdministrativeStateRequest {
   administrativeState?: BgpAdministrativeState;
 }
 
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Extending common error response for InternalNetwork BGP Administrative State response"
 @doc("Internal Network Administrative State Response")
 @added(Versions.v2024_06_15_preview)
-model InternalNetworkBgpAdministrativeStateResponse {
+model InternalNetworkBgpAdministrativeStateResponse
+  extends CommonErrorResponse {
   // The response contains an array of objects. Each object contains the neighbor address and the state.
   // The response is an array of objects because the request can contain multiple neighbor addresses.
   @doc("NeighborAddress administrative status")
   @Azure.ResourceManager.identifiers(#[])
   @minItems(1)
   neighborAddressAdministrativeStatus?: NeighborAddressBgpAdministrativeStatus[];
-
-  ...ErrorResponse;
 }
 
 @doc("Internal Network Administrative State Response")
@@ -562,17 +555,17 @@ model InternalNetworkUpdateBfdAdministrativeStateResponseProperties {
   neighborAddressAdministrativeStatus?: NeighborAddressBfdAdministrativeStatus[];
 }
 
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Extending common error response for InternalNetwork BFD Administrative State response"
 @doc("Internal Network BFD Administrative State response")
 @added(Versions.v2024_06_15_preview)
-model InternalNetworkBfdAdministrativeStateResponse {
+model InternalNetworkBfdAdministrativeStateResponse
+  extends CommonErrorResponse {
   // The response contains an array of objects. Each object contains the neighbor address and the state.
   // The response is an array of objects because the request can contain multiple neighbor addresses.
   @doc("NeighborAddress administrative status")
   @Azure.ResourceManager.identifiers(#[])
   @minItems(1)
   neighborAddressAdministrativeStatus?: NeighborAddressBfdAdministrativeStatus[];
-
-  ...ErrorResponse;
 }
 
 @doc("Internal Network RouteType.")

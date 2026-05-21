@@ -26,6 +26,26 @@ enum Versions {
   @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v1_preview")
   @useDependency(LiftrBase.Versions.v1_preview)
   v2_preview: "2025-01-01-preview",
+
+  @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v1_preview")
+  @useDependency(LiftrBase.Versions.v1_preview)
+  v3_preview: "2026-03-01-preview",
+
+  @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v1_preview")
+  @useDependency(LiftrBase.Versions.v1_preview)
+  v4_preview: "2026-05-01-preview",
+
+  @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v1_preview")
+  @useDependency(LiftrBase.Versions.v1_preview)
+  v5_preview: "2026-06-01-preview",
+
+  @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v3_preview")
+  @useDependency(LiftrBase.Versions.v3_preview)
+  v6_preview: "2026-06-02-preview",
+
+  @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v1_preview")
+  @useDependency(LiftrBase.Versions.v1_preview)
+  v7_preview: "2026-07-01-preview",
 }
 interface Operations extends Azure.ResourceManager.Operations {}
 
@@ -37,11 +57,49 @@ model CloudAccount is TrackedResource<CloudAccountProperties> {
   @minLength(1)
   @maxLength(50)
   @doc("Name of the Cloud Account resource")
-  @example("cloudAccountName")
   @path
   name: string;
 
   ...ManagedServiceIdentityProperty;
+}
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is a well-known acronym"
+@doc("SaaS-related data properties")
+@added(Versions.v6_preview)
+model SaaSData {
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is a well-known acronym"
+  @doc("SaaS resource id")
+  saaSResourceId?: string;
+}
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is a well-known acronym"
+@doc("SaaS guid for Activate and Validate SaaS Resource")
+@added(Versions.v6_preview)
+model ActivateSaaSParameterRequest {
+  @doc("SaaS guid for Activate and Validate SaaS Resource")
+  saaSGuid: string;
+}
+
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "SaaS response model"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is a well-known acronym"
+@doc("Marketplace SaaS resource details.")
+@added(Versions.v6_preview)
+model SaaSResourceDetailsResponse
+  extends Azure.ResourceManager.CommonTypes.ProxyResource {
+  @doc("Id of the Marketplace SaaS Resource")
+  saaSResourceId?: string;
+}
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is a well-known acronym"
+@doc("Response of get latest linked SaaS resource operation")
+@added(Versions.v6_preview)
+model LatestLinkedSaaSResponse {
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is a well-known acronym"
+  @doc("SaaS resource id")
+  saaSResourceId?: string;
+
+  @doc("Flag indicating if the SaaS resource is hidden")
+  isHiddenSaaS?: boolean;
 }
 
 @armResourceOperations
@@ -52,6 +110,27 @@ interface CloudAccounts {
   delete is ArmResourceDeleteWithoutOkAsync<CloudAccount>;
   listByResourceGroup is ArmResourceListByParent<CloudAccount>;
   listBySubscription is ArmListBySubscription<CloudAccount>;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/lro-location-header" "SaaS link operation"
+  @doc("Links a new SaaS to the cloud account.")
+  @summary("Links a new SaaS to the cloud account.")
+  @Azure.Core.useFinalStateVia("azure-async-operation")
+  @added(Versions.v6_preview)
+  linkSaaS is ArmResourceActionAsync<
+    CloudAccount,
+    SaaSData,
+    ArmResponse<CloudAccount>,
+    LroHeaders = ArmCombinedLroHeaders<FinalResult = CloudAccount> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
+
+  @doc("Returns the latest SaaS linked to the cloud account.")
+  @added(Versions.v6_preview)
+  latestLinkedSaaS is ArmResourceActionSync<
+    CloudAccount,
+    void,
+    ArmResponse<LatestLinkedSaaSResponse>
+  >;
 }
 
 @doc("Properties specific to Commvault Cloud Account resource")
@@ -59,6 +138,21 @@ model CloudAccountProperties is BaseResourceProperties {
   @doc("SSO URL for the Commvault Cloud Account")
   @visibility(Lifecycle.Read)
   ssoUrl?: string;
+}
+
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "SaaS operation group"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is a well-known acronym"
+@added(Versions.v6_preview)
+interface SaaSOperationGroup {
+  @doc("Resolve the token to get the SaaS resource ID and activate the SaaS resource")
+  @autoRoute
+  @action("activateSaaS")
+  activateResource is ArmProviderActionAsync<
+    Request = ActivateSaaSParameterRequest,
+    Response = SaaSResourceDetailsResponse,
+    Scope = SubscriptionActionScope,
+    Parameters = {}
+  >;
 }
 
 @doc("A Commvault Storage Resource")
@@ -301,6 +395,23 @@ union BackUpType {
 
   @doc("Both incremental and full backups")
   Both: "BOTH",
+
+  string,
+}
+
+@doc("The level of backup")
+union BackupLevel {
+  @doc("Full backup level")
+  Full: "FULL",
+
+  @doc("Incremental backup level")
+  Incremental: "INCREMENTAL",
+
+  @doc("Differential backup level")
+  Differential: "DIFFERENTIAL",
+
+  @doc("Synthetic full backup level")
+  SyntheticFull: "SYNTHETIC_FULL",
 
   string,
 }
@@ -647,6 +758,83 @@ model StopBackupProtectionGroupRequest {
   comment?: string;
 }
 
+@doc("The properties of BackupProtectionGroupRequest")
+model BackupProtectionGroupRequest {
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "identifiers not applicable across version type change"
+  @doc("The vm list details.")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  @typeChangedFrom(Versions.v5_preview, VmList)
+  vmList: VmListItem[];
+
+  @added(Versions.v5_preview)
+  @doc("The backup options for the VM backup")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  backupOptions: BackupOptions;
+}
+
+@doc("Backup job response for a Protection Group")
+model BackupProtectionGroupResponse {
+  @doc("The Commvault response for taskId")
+  @visibility(Lifecycle.Read)
+  taskId: int32;
+
+  @doc("The jobIds returned from Commvault.")
+  @visibility(Lifecycle.Read)
+  jobIds: string[];
+}
+
+@doc("The VM list item for backup")
+model VmListItem {
+  @doc("The GUID of the VM to backup")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  vmGuid: string;
+}
+
+@doc("The VM list wrapper for backup request")
+model VmList {
+  @doc("The list of VM GUIDs to backup")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  @Azure.ResourceManager.identifiers(#[])
+  vmGuid: VmGuid[];
+
+  @removed(Versions.v5_preview)
+  @doc("The backup options for the VM backup")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  backupOptions: BackupOptions;
+}
+
+@doc("The VM GUID identifier")
+model VmGuid {
+  @doc("The identifier of the VM")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  id: string;
+}
+
+@doc("The backup options for the VM backup")
+model BackupOptions {
+  @doc("Indicates whether to stop backup or not for the VM")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  @madeOptional(Versions.v5_preview)
+  @typeChangedFrom(Versions.v5_preview, string)
+  backupLevel?: BackupLevel;
+
+  @doc("The name of the backup job to be shown in Commvault")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  jobDescription: string;
+
+  @doc("Indicates whether to run backup immediately or not for the VM")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  backupCopyImmediately: boolean;
+
+  @doc("Indicates whether to run snapshot backup or not for the VM, if false, it will run regular backup")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  runSnapShotBackup: boolean;
+
+  @doc("Indicates whether to notify the user on job completion")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  notifyUserOnJobCompletion: boolean;
+}
+
 @armResourceOperations
 interface ProtectionGroups {
   get is ArmResourceRead<ProtectionGroup>;
@@ -678,6 +866,28 @@ interface ProtectionGroups {
     @doc("The body type of the operation request.")
     request: RestoreProtectionItemRequest,
   ): ArmResponse<RestoreProtectionItemResponse> | ErrorResponse;
+
+  @doc("Resume Backup for a Protection Group.")
+  @armResourceAction(ProtectionGroup)
+  @action("resumeBackup")
+  @post
+  @added(Versions.v3_preview)
+  resumeBackup(...ResourceInstanceParameters<ProtectionGroup>):
+    | ArmNoContentResponse<"Resource operation accepted.">
+    | ErrorResponse;
+
+  @doc("Ad-hoc backup of protected items resource in given protection group.")
+  @armResourceAction(ProtectionGroup)
+  @action("backup")
+  @post
+  @added(Versions.v4_preview)
+  backup(
+    ...ResourceInstanceParameters<ProtectionGroup>,
+
+    @bodyRoot
+    @doc("The body type of the operation request.")
+    request: BackupProtectionGroupRequest,
+  ): ArmResponse<BackupProtectionGroupResponse> | ErrorResponse;
 }
 
 @parentResource(ProtectionGroup)
@@ -781,10 +991,18 @@ model VmInfo {
   @visibility(Lifecycle.Read, Lifecycle.Create)
   targetVmGuid?: string;
 
+  @added(Versions.v1_preview)
+  @removed(Versions.v3_preview)
   @doc("The vmTag of the VM.")
   @visibility(Lifecycle.Read, Lifecycle.Create)
   @Azure.ResourceManager.identifiers(#[])
   vmtag?: VmTag[];
+
+  @added(Versions.v3_preview)
+  @doc("The vmTag of the VM.")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  @Azure.ResourceManager.identifiers(#[])
+  vmtags?: VmTag[];
 }
 
 @doc("The properties of VmDestinationInfo")
@@ -814,6 +1032,26 @@ model RestoreProtectionItemRequest {
   vmDestinationInfo: VmDestinationInfo;
 }
 
+@doc("Response for count protected items operation.")
+@added(Versions.v7_preview)
+model CountProtectedItemsResponse {
+  @doc("The count of protected items.")
+  count: string;
+}
+
+@doc("Request to count protected items for the provided CCA resource IDs across subscriptions.")
+@added(Versions.v7_preview)
+model CountProtectedItemsRequest {
+  @doc("The list of CCA resource IDs.")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  @minItems(1)
+  resourceIds: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Commvault.ContentStore/cloudAccounts";
+    }
+  ]>[];
+}
+
 @armResourceOperations
 interface ProtectedItems {
   get is ArmResourceRead<ProtectedItem>;
@@ -823,9 +1061,9 @@ interface ProtectedItems {
   @armResourceAction(ProtectedItem)
   @action("getRestorePoints")
   @post
-  getRestorePoints(
-    ...ResourceInstanceParameters<ProtectedItem>,
-  ): ArmResponse<RestorePoints> | ErrorResponse;
+  getRestorePoints(...ResourceInstanceParameters<ProtectedItem>):
+    | ArmResponse<RestorePoints>
+    | ErrorResponse;
 
   @doc("Restore resource for a protected item.")
   @armResourceAction(ProtectedItem)
@@ -838,6 +1076,20 @@ interface ProtectedItems {
     @doc("The body type of the operation request.")
     request: RestoreProtectionItemRequest,
   ): ArmResponse<RestoreProtectionItemResponse> | ErrorResponse;
+}
+
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "Cross-subscription protected item count operation group"
+@added(Versions.v7_preview)
+interface ProtectedItemsOperationGroup {
+  @doc("Gets the count of protected items for provided CCA resource IDs across subscriptions.")
+  @autoRoute
+  @action("protectedItemCount")
+  countByProtectionGroups is ArmProviderActionSync<
+    Request = CountProtectedItemsRequest,
+    Response = CountProtectedItemsResponse,
+    Scope = TenantActionScope,
+    Parameters = {}
+  >;
 }
 
 @doc("Restore points of a Protected Item")

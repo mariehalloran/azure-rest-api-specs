@@ -1,0 +1,83 @@
+{
+  "operationId": "Operations_List",
+  "title": "List Available Operations",
+  "parameters": {
+    "api-version": "2026-01-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "Microsoft.AzureContextCache/accounts/read",
+            "display": {
+              "provider": "Microsoft Azure Context Cache",
+              "resource": "Azure Context Cache Accounts",
+              "operation": "Read Azure Context Cache Account",
+              "description": "Gets or lists Azure Context Cache accounts"
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.AzureContextCache/accounts/write",
+            "display": {
+              "provider": "Microsoft Azure Context Cache",
+              "resource": "Azure Context Cache Accounts",
+              "operation": "Create or Update Azure Context Cache Account",
+              "description": "Creates or updates an Azure Context Cache account"
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.AzureContextCache/accounts/delete",
+            "display": {
+              "provider": "Microsoft Azure Context Cache",
+              "resource": "Azure Context Cache Accounts",
+              "operation": "Delete Azure Context Cache Account",
+              "description": "Deletes an Azure Context Cache account"
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.AzureContextCache/accounts/containers/read",
+            "display": {
+              "provider": "Microsoft Azure Context Cache",
+              "resource": "Containers",
+              "operation": "Read Container",
+              "description": "Gets or lists containers in an Azure Context Cache account"
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.AzureContextCache/accounts/containers/write",
+            "display": {
+              "provider": "Microsoft Azure Context Cache",
+              "resource": "Containers",
+              "operation": "Create or Update Container",
+              "description": "Creates or updates a container in an Azure Context Cache account"
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.AzureContextCache/accounts/containers/delete",
+            "display": {
+              "provider": "Microsoft Azure Context Cache",
+              "resource": "Containers",
+              "operation": "Delete Container",
+              "description": "Deletes a container from an Azure Context Cache account"
+            },
+            "isDataAction": false
+          }
+        ]
+      }
+    },
+    "default": {
+      "body": {
+        "error": {
+          "code": "InternalServerError",
+          "message": "An unexpected error occurred"
+        }
+      }
+    }
+  }
+}

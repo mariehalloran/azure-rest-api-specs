@@ -23,17 +23,8 @@ model InternalNetwork extends Azure.ResourceManager.Foundations.ProxyResource {
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** The Internal Network Properties */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: InternalNetworkProperties;
-
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
   @doc("The Internal Network Properties")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties: InternalNetworkProperties;
 }
 
@@ -53,7 +44,10 @@ interface InternalNetworks {
   delete is ArmResourceDeleteWithoutOkAsync<InternalNetwork>;
 
   @doc("Displays InternalNetworks list by resource group GET method.")
-  listByL3IsolationDomain is ArmResourceListByParent<InternalNetwork>;
+  listByL3IsolationDomain is ArmResourceListByParent<
+    InternalNetwork,
+    Response = InternalNetworksList
+  >;
 
   @doc("Update Administrative state of  InternalNetworks on resources referred by their resource ids.")
   @action("updateAdministrativeState")
@@ -154,33 +148,43 @@ interface InternalNetworks {
 }
 
 @@doc(InternalNetworks.create::parameters.resource, "Request payload.");
-@@doc(InternalNetworks.update::parameters.properties,
+@@doc(
+  InternalNetworks.update::parameters.properties,
   "InternalNetwork properties to update. Only annotations are supported."
 );
-@@doc(InternalNetworks.updateAdministrativeState::parameters.body,
+@@doc(
+  InternalNetworks.updateAdministrativeState::parameters.body,
   "Request payload."
 );
-@@doc(InternalNetworks.updateAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  InternalNetworks.updateAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(InternalNetworks.updateBgpAdministrativeStateDeprecatedV2::parameters.body,
+@@doc(
+  InternalNetworks.updateBgpAdministrativeStateDeprecatedV2::parameters.body,
   "Request payload."
 );
-@@doc(InternalNetworks.updateBgpAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  InternalNetworks.updateBgpAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(InternalNetworks.updateBgpAdministrativeState::parameters.body,
+@@doc(
+  InternalNetworks.updateBgpAdministrativeState::parameters.body,
   "Request payload."
 );
-@@doc(InternalNetworks.updateStaticRouteBfdAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  InternalNetworks.updateStaticRouteBfdAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(InternalNetworks.updateStaticRouteBfdAdministrativeState::parameters.body,
+@@doc(
+  InternalNetworks.updateStaticRouteBfdAdministrativeState::parameters.body,
   "Request payload."
 );
-@@doc(InternalNetworks.updateBfdAdministrativeState::parameters.body,
+@@doc(
+  InternalNetworks.updateBfdAdministrativeState::parameters.body,
   "Request payload."
 );
-@@doc(InternalNetworks.updateBfdAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  InternalNetworks.updateBfdAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );

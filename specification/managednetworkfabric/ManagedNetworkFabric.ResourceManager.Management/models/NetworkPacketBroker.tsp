@@ -80,10 +80,9 @@ model NetworkPacketBrokerPatchProperties {
   ]>;
 }
 
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Extending instead of spread to avoid breaking changes"
 @doc("The NetworkPacketBroker patch resource definition.")
-model NetworkPacketBrokerPatch {
-  ...TagsUpdate;
-
+model NetworkPacketBrokerPatch extends TagsUpdate {
   @doc("NetworkPacketBroker patch properties.")
   @added(Versions.v2026_01_15_preview)
   properties?: NetworkPacketBrokerPatchProperties;

@@ -45,6 +45,9 @@ union DatasetKind {
   /** ARM (Azure Resource Manager) managed resource dataset. */
   ArmResource: "ArmResource",
 
+  /** ARM (Azure Resource Manager) relationship dataset. */
+  ArmRelationship: "ArmRelationship",
+
   string,
 }
 
@@ -54,11 +57,23 @@ model DatasetProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ResourceProvisioningState;
 
-  /** Dataset schema definition. */
+  /** Custom Dataset schema definition. */
   schema?: DatasetColumn[];
+
+  /** ArmResource ArmResourceDatasetSchema object. */
+  armResourceSchema?: ArmResourceDatasetSchema;
+
+  /** ArmRelationship ArmRelationshipDatasetSchema object. */
+  armRelationshipSchema?: ArmRelationshipDatasetSchema;
 
   /** Azure regions where the dataset exists. */
   locations?: string[];
+
+  /** Reference to an existing data connection resource that provides the source connection for this dataset. */
+  connection?: DataConnectionReference;
+
+  /** Path (e.g. blob prefix) within the target specified by the connection. Applicable only for StorageAccount kind connections. */
+  path?: string;
 }
 
 /** Dataset column */
@@ -71,6 +86,18 @@ model DatasetColumn {
 
   /** Description of the column. */
   description?: string;
+}
+
+/** ARM resource dataset schema. */
+model ArmResourceDatasetSchema {
+  /** The type of the ARM resource. */
+  type: string;
+}
+
+/** ARM relationship dataset schema. */
+model ArmRelationshipDatasetSchema {
+  /** The type of the ARM relationship. */
+  type: string;
 }
 
 /** Dataset column type */

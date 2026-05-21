@@ -20,15 +20,7 @@ model RoutePolicy extends Azure.ResourceManager.Foundations.TrackedResource {
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** The RoutePolicy properties */
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: RoutePolicyProperties;
-
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
   @doc("The RoutePolicy properties")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties: RoutePolicyProperties;
 }
 
@@ -48,10 +40,16 @@ interface RoutePolicies {
   delete is ArmResourceDeleteWithoutOkAsync<RoutePolicy>;
 
   @doc("Implements RoutePolicies list by resource group GET method.")
-  listByResourceGroup is ArmResourceListByParent<RoutePolicy>;
+  listByResourceGroup is ArmResourceListByParent<
+    RoutePolicy,
+    Response = RoutePoliciesListResult
+  >;
 
   @doc("Implements RoutePolicies list by subscription GET method.")
-  listBySubscription is ArmListBySubscription<RoutePolicy>;
+  listBySubscription is ArmListBySubscription<
+    RoutePolicy,
+    Response = RoutePoliciesListResult
+  >;
 
   @doc("Updated the admin state for this Route Policy.")
   @action("updateAdministrativeState")
@@ -103,18 +101,23 @@ interface RoutePolicies {
 }
 
 @@doc(RoutePolicies.create::parameters.resource, "Request payload.");
-@@doc(RoutePolicies.update::parameters.properties,
+@@doc(
+  RoutePolicies.update::parameters.properties,
   "Route Policy properties to update."
 );
-@@doc(RoutePolicies.updateAdministrativeState::parameters.body,
+@@doc(
+  RoutePolicies.updateAdministrativeState::parameters.body,
   "Request payload."
 );
-@@doc(RoutePolicies.updateAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  RoutePolicies.updateAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(RoutePolicies.validateConfigurationDeprecated::parameters.body,
+@@doc(
+  RoutePolicies.validateConfigurationDeprecated::parameters.body,
   "Validate configuration properties."
 );
-@@doc(RoutePolicies.validateConfiguration::parameters.body,
+@@doc(
+  RoutePolicies.validateConfiguration::parameters.body,
   "Validate configuration properties."
 );

@@ -18,15 +18,7 @@ model NetworkTapRule extends Azure.ResourceManager.Foundations.TrackedResource {
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** The NetworkTapRule Properties */
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: NetworkTapRuleProperties;
-
-  /** The NetworkTapRule Properties */
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
+  @doc("The NetworkTapRule Properties")
   properties: NetworkTapRuleProperties;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
@@ -51,10 +43,16 @@ interface NetworkTapRules {
   delete is ArmResourceDeleteWithoutOkAsync<NetworkTapRule>;
 
   @doc("List all the Network Tap Rule resources in the given resource group.")
-  listByResourceGroup is ArmResourceListByParent<NetworkTapRule>;
+  listByResourceGroup is ArmResourceListByParent<
+    NetworkTapRule,
+    Response = NetworkTapRulesListResult
+  >;
 
   @doc("List all the Network Tap Rule resources in the given subscription.")
-  listBySubscription is ArmListBySubscription<NetworkTapRule>;
+  listBySubscription is ArmListBySubscription<
+    NetworkTapRule,
+    Response = NetworkTapRulesListResult
+  >;
 
   @doc("Implements the operation to the underlying resources.")
   updateAdministrativeState is ArmResourceActionAsync<
@@ -107,15 +105,19 @@ interface NetworkTapRules {
 }
 
 @@doc(NetworkTapRules.create::parameters.resource, "Request payload.");
-@@doc(NetworkTapRules.update::parameters.properties,
+@@doc(
+  NetworkTapRules.update::parameters.properties,
   "Network Tap Rule properties to update."
 );
-@@doc(NetworkTapRules.updateAdministrativeState::parameters.body,
+@@doc(
+  NetworkTapRules.updateAdministrativeState::parameters.body,
   "Request payload."
 );
-@@doc(NetworkTapRules.validateConfigurationDeprecated::parameters.body,
+@@doc(
+  NetworkTapRules.validateConfigurationDeprecated::parameters.body,
   "Validate configuration properties."
 );
-@@doc(NetworkTapRules.validateConfiguration::parameters.body,
+@@doc(
+  NetworkTapRules.validateConfiguration::parameters.body,
   "Validate configuration properties."
 );

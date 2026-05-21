@@ -3,14 +3,23 @@ import "@typespec/http";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@typespec/versioning";
+import "@typespec/openapi";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Foundations;
 using TypeSpec.Versioning;
+using TypeSpec.OpenAPI;
 
 namespace Dynatrace.Observability;
+
+/**
+ * Ingestion key with secret and read-only attributes for all API versions.
+ */
+@secret
+@extension("readOnly", true)
+scalar SecretIngestionKey extends string;
 
 /**
  * Indicates whether metrics are being sent.
@@ -591,8 +600,8 @@ model VMExtensionPayload {
   /**
    * Ingestion key of the environment
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "TODO: Check if this is a secret and add @secret or update reason"
-  ingestionKey?: string;
+  @typeChangedFrom(Versions.v2025_11_03_preview, string)
+  ingestionKey?: SecretIngestionKey;
 
   /**
    * Id of the environment created
@@ -843,8 +852,7 @@ model EnvironmentInfo {
   /**
    * Ingestion key of the environment
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "TODO: Check if this is a secret and add @secret or update reason"
-  ingestionKey?: string;
+  ingestionKey?: SecretIngestionKey;
 
   /**
    * Ingestion endpoint used for sending logs
@@ -916,9 +924,27 @@ model UserInfo {
   phoneNumber?: string;
 
   /**
+   * Company name of the user
+   */
+  @added(Versions.v2026_01_07_preview)
+  company?: string;
+
+  /**
    * Country of the user
    */
   country?: string;
+
+  /**
+   * State of the user
+   */
+  @added(Versions.v2026_01_07_preview)
+  state?: string;
+
+  /**
+   * Job title of the user
+   */
+  @added(Versions.v2026_01_07_preview)
+  jobTitle?: string;
 }
 
 /**
@@ -1383,7 +1409,7 @@ model AdminUserDetails {
    * Phone number of the user used by Dynatrace for contacting them if needed
    */
   @maxLength(40)
-  phoneNumber: string;
+  phoneNumber?: string;
 
   /**
    * Company name of the admin user
@@ -1398,12 +1424,12 @@ model AdminUserDetails {
   /**
    * State of the admin user
    */
-  state: string;
+  state?: string;
 
   /**
    * Job title of the admin user
    */
-  jobTitle: string;
+  jobTitle?: string;
 }
 
 /**

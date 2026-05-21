@@ -37,6 +37,7 @@ interface StorageTasksOperationGroup {
   >;
 }
 
-@@doc(StorageTasksOperationGroup.previewActions::parameters.body,
+@@doc(
+  StorageTasksOperationGroup.previewActions::parameters.body,
   "The parameters to preview action condition."
 );

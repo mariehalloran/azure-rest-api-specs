@@ -21,15 +21,7 @@ model InternetGatewayRule
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** The Internet Gateway Rule properties */
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: InternetGatewayRuleProperties;
-
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
   @doc("The Internet Gateway Rule properties")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties: InternetGatewayRuleProperties;
 }
 
@@ -49,13 +41,20 @@ interface InternetGatewayRules {
   delete is ArmResourceDeleteWithoutOkAsync<InternetGatewayRule>;
 
   @doc("Implements Internet Gateway Rules list by resource group GET method.")
-  listByResourceGroup is ArmResourceListByParent<InternetGatewayRule>;
+  listByResourceGroup is ArmResourceListByParent<
+    InternetGatewayRule,
+    Response = InternetGatewayRulesListResult
+  >;
 
   @doc("List all Internet Gateway rules in the given subscription.")
-  listBySubscription is ArmListBySubscription<InternetGatewayRule>;
+  listBySubscription is ArmListBySubscription<
+    InternetGatewayRule,
+    Response = InternetGatewayRulesListResult
+  >;
 }
 
 @@doc(InternetGatewayRules.create::parameters.resource, "Request payload.");
-@@doc(InternetGatewayRules.update::parameters.properties,
+@@doc(
+  InternetGatewayRules.update::parameters.properties,
   "Internet Gateway Rule properties to update."
 );

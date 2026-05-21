@@ -1,9 +1,8 @@
 import "@typespec/rest";
 import "@typespec/http";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
-
-using TypeSpec.Http;
 
 namespace Microsoft.DataMigration;
 
@@ -16,6 +15,53 @@ union MigrationMode {
 
   @doc("Online migration mode")
   Online: "online",
+}
+
+@doc("The source database engine type for migration service.")
+union MigrationServiceSourceEngine {
+  string,
+
+  @doc("Oracle database engine")
+  Oracle: "Oracle",
+
+  @doc("PostgreSQL database engine")
+  PostgreSQL: "PostgreSQL",
+}
+
+@doc("The target database engine type for migration service.")
+union MigrationServiceTargetEngine {
+  string,
+
+  @doc("Azure Database for PostgreSQL")
+  AzureDatabaseForPostgreSQL: "Azure Database for PostgreSQL",
+}
+
+@doc("The source platform type for database migration.")
+union MigrationSourceType {
+  string,
+
+  @doc("Amazon Web Services")
+  AWS: "AWS",
+
+  @doc("Google Cloud Platform")
+  GCP: "GCP",
+
+  @doc("Oracle Cloud")
+  Oracle: "Oracle",
+
+  @doc("On-premises")
+  OnPrem: "OnPrem",
+}
+
+@doc("The target platform type for database migration.")
+union MigrationTargetType {
+  string,
+
+  @doc("Azure PostgreSQL Flexible Server")
+  AzurePostgreSQLFlexibleServer: "AzurePostgreSQLFlexibleServer",
+
+  @doc("Azure PostgreSQL Horizon DB")
+  AzurePostgreSQLHorizonDb: "AzurePostgreSQLHorizonDb",
 }
 
 @doc("The source database engine type.")
@@ -174,21 +220,15 @@ union ConnectionStatus {
   Failed: "Failed",
 }
 
-@doc("The validation status.")
-union ValidationStatus {
+@doc("The connection endpoint type.")
+union ConnectionType {
   string,
 
-  @doc("Validation succeeded")
-  Succeeded: "Succeeded",
+  @doc("Source connection")
+  Source: "Source",
 
-  @doc("Validation failed")
-  Failed: "Failed",
-
-  @doc("Validation in progress")
-  InProgress: "InProgress",
-
-  @doc("Validation pending")
-  Pending: "Pending",
+  @doc("Target connection")
+  Target: "Target",
 }
 
 @doc("The migration phase.")
@@ -223,6 +263,45 @@ union ErrorSeverity {
 
   @doc("Information")
   Info: "Info",
+}
+
+@doc("The readiness state of validation.")
+union ValidationState {
+  string,
+
+  @doc("The validation is currently in progress.")
+  InProgress: "InProgress",
+
+  @doc("The validation has completed successfully.")
+  Succeeded: "Succeeded",
+
+  @doc("The validation has failed.")
+  Failed: "Failed",
+}
+
+@doc("The readiness status of a check.")
+union ValidationStatus {
+  string,
+
+  @doc("The check completed successfully without issues.")
+  Succeeded: "Succeeded",
+
+  @doc("The check failed with errors.")
+  Failed: "Failed",
+
+  @doc("The check completed with warnings.")
+  Warning: "Warning",
+}
+
+@doc("Diagnostic severity level.")
+union DiagnosticSeverity {
+  string,
+
+  @doc("Warning level diagnostic")
+  Warning: "Warning",
+
+  @doc("Error level diagnostic")
+  Error: "Error",
 }
 
 @doc("SSL configuration for database connection.")
@@ -268,11 +347,19 @@ model ConnectionEndpoint {
   ssl: SslConfiguration;
 }
 
+@doc("Connection endpoint for connectivity testing with type indicator.")
+model CheckConnectivityEndpoint {
+  ...ConnectionEndpoint;
+
+  @doc("Server resource ID")
+  serverResourceId?: string;
+
+  @doc("Connection endpoint type")
+  type: ConnectionType;
+}
+
 @doc("Source database configuration.")
 model SourceConfiguration {
-  @doc("Database engine type")
-  engine: SourceDatabaseEngine;
-
   @doc("Server resource ID")
   serverResourceId?: string;
 
@@ -283,9 +370,6 @@ model SourceConfiguration {
 
 @doc("Target database configuration.")
 model TargetConfiguration {
-  @doc("Database engine type")
-  engine: TargetDatabaseEngine;
-
   @doc("Server resource ID")
   serverResourceId?: string;
 
@@ -318,46 +402,169 @@ model DatabaseMapping {
   targetConnectionName: string;
 }
 
-@doc("Compute profile configuration.")
-model ComputeProfile {
-  @doc("Compute subnet resource ID")
-  computeSubnetResourceId: string;
-}
-
-@doc("Migration job settings.")
+@doc("Migration job setting key-value pair.")
 model MigrationJobSettings {
-  @doc("Validate only flag")
-  validateOnly: boolean;
+  @doc("The setting name.")
+  settingName: string;
+
+  @doc("The setting value.")
+  settingValue: string;
 }
 
-@doc("Migration statistics.")
-model MigrationStatistics {
-  @doc("Total number of tables")
-  tablesTotal: int32;
+@doc("Per-database migration status summary.")
+model DatabaseSummary {
+  @doc("Source database name")
+  sourceDatabaseName: string;
 
-  @doc("Number of completed tables")
-  tablesCompleted: int32;
+  @doc("Target database name")
+  targetDatabaseName: string;
 
-  @doc("Number of failed tables")
-  tablesFailed: int32;
+  @doc("Aggregated status")
+  status: MigrationState;
 
-  @doc("Number of tables in progress")
-  tablesInProgress: int32;
+  @doc("Start time")
+  startedAt?: utcDateTime;
 
-  @doc("Number of pending tables")
-  tablesPending: int32;
+  @doc("End time")
+  endedAt?: utcDateTime;
 
-  @doc("Percentage complete")
-  percentComplete: int32;
+  @doc("Total schemas")
+  totalSchemas: int32;
+
+  @doc("Completed schemas")
+  completedSchemas: int32;
+
+  @doc("Failed schemas")
+  failedSchemas: int32;
+
+  @doc("In-progress schemas")
+  inProgressSchemas: int32;
+
+  @doc("Total tables")
+  totalTables: int32;
+
+  @doc("Completed tables")
+  completedTables: int32;
+
+  @doc("Failed tables")
+  failedTables: int32;
+
+  @doc("In-progress tables")
+  inProgressTables: int32;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "No identifier properties for this array"
+  @doc("Errors at database scope")
+  errors: MigrationError[];
 }
 
-@doc("Migration progress information.")
-model MigrationProgress {
-  @doc("Current migration phase")
-  migrationPhase: MigrationPhase;
+@doc("Per-schema migration status.")
+model SchemaSummaryModel {
+  @doc("Source database name")
+  sourceDatabaseName: string;
 
-  @doc("Migration statistics")
-  migrationStatistics: MigrationStatistics;
+  @doc("Source schema name")
+  sourceSchemaName: string;
+
+  @doc("Target database name")
+  targetDatabaseName: string;
+
+  @doc("Target schema name")
+  targetSchemaName: string;
+
+  @doc("Migration status")
+  status: MigrationState;
+
+  @doc("Start time")
+  startedAt?: utcDateTime;
+
+  @doc("End time")
+  endedAt?: utcDateTime;
+
+  @doc("Total tables")
+  totalTables: int32;
+
+  @doc("Completed tables")
+  completedTables: int32;
+
+  @doc("Failed tables")
+  failedTables: int32;
+
+  @doc("In-progress tables")
+  inProgressTables: int32;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "No identifier properties for this array"
+  @doc("Errors at schema scope")
+  errors: MigrationError[];
+}
+
+@doc("Per-table migration progress.")
+model TableProgressModel {
+  @doc("Source database name")
+  sourceDatabaseName: string;
+
+  @doc("Source schema name")
+  sourceSchemaName: string;
+
+  @doc("Source table name")
+  sourceTableName: string;
+
+  @doc("Target database name")
+  targetDatabaseName: string;
+
+  @doc("Target schema name")
+  targetSchemaName: string;
+
+  @doc("Target table name")
+  targetTableName: string;
+
+  @doc("Migration status")
+  status: MigrationState;
+
+  @doc("Start time")
+  startedAt?: utcDateTime;
+
+  @doc("End time")
+  endedAt?: utcDateTime;
+
+  @doc("Rows copied")
+  rowsCopied: int64;
+
+  @doc("Estimated total rows")
+  totalRows: int64;
+
+  @doc("Bytes copied")
+  bytesCopied: int64;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "No identifier properties for this array"
+  @doc("Errors at table scope")
+  errors: MigrationError[];
+}
+
+@doc("Properties wrapper for DatabaseStatusResource (child proxy resource).")
+model DatabaseStatusProperties {
+  ...DatabaseSummary;
+
+  @doc("Provisioning state")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+@doc("Properties wrapper for SchemaStatusResource (child proxy resource).")
+model SchemaStatusProperties {
+  ...SchemaSummaryModel;
+
+  @doc("Provisioning state")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+@doc("Properties wrapper for TableStatusResource (child proxy resource).")
+model TableStatusProperties {
+  ...TableProgressModel;
+
+  @doc("Provisioning state")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
 }
 
 @doc("Error information.")
@@ -378,33 +585,6 @@ model MigrationError {
   details: string;
 }
 
-@doc("Database migration status.")
-model DatabaseMigrationStatus {
-  @doc("Database name")
-  databaseName: string;
-
-  @doc("Migration status")
-  migrationStatus: MigrationState;
-
-  @doc("Validation status")
-  validationStatus: ValidationStatus;
-
-  @doc("Migration progress")
-  migrationProgress: MigrationProgress;
-
-  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "No identifier properties for this array"
-  @doc("List of errors")
-  errors: MigrationError[];
-
-  @doc("Creation timestamp")
-  @visibility(Lifecycle.Read)
-  createdAt: utcDateTime;
-
-  @doc("Last updated timestamp")
-  @visibility(Lifecycle.Read)
-  lastUpdatedAt: utcDateTime;
-}
-
 @doc("Overall migration status.")
 model MigrationStatus {
   @doc("Current state of the migration")
@@ -416,6 +596,61 @@ model MigrationStatus {
 
   @doc("Last updated timestamp")
   lastUpdatedAt: utcDateTime;
+}
+
+@doc("Diagnostic information for validation result.")
+model ValidationDiagnostics {
+  @doc("Diagnostic code")
+  code: string;
+
+  @doc("Diagnostic message")
+  message: string;
+
+  @doc("Severity of the diagnostic")
+  severity: DiagnosticSeverity;
+
+  @doc("Diagnostic hint to help resolve issues")
+  diagnosticHint: string;
+}
+
+@doc("Validation result for a pre-migration check.")
+model ValidationResult {
+  @doc("Status of the validation check")
+  status: ValidationStatus;
+
+  @doc("Diagnostics information")
+  diagnostics?: ValidationDiagnostics;
+}
+
+@doc("Summary of a pre-migration validation.")
+model PreMigrationValidationSummary {
+  @doc("Name of the validation")
+  validationName: string;
+
+  @doc("State of this specific validation")
+  state: ValidationState;
+
+  @doc("Detailed validation result for this check")
+  validationResult?: ValidationResult;
+
+  @doc("Scope of the validation check")
+  scope?: string;
+
+  @doc("Object name related to the validation")
+  objectName?: string;
+
+  @doc("Component related to the validation")
+  component?: string;
+}
+
+@doc("Pre-migration validation status.")
+model PreMigrationValidationStatus {
+  @doc("Overall state of the pre-migration validation")
+  state: ValidationState;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "validationName is the identifier"
+  @doc("List of pre-migration validation summaries")
+  preMigrationValidationSummaries?: PreMigrationValidationSummary[];
 }
 
 @doc("Properties of the DatabaseMigration resource.")
@@ -432,6 +667,14 @@ model DatabaseMigrationProperties {
   @visibility(Lifecycle.Create, Lifecycle.Read)
   migrationMode: MigrationMode;
 
+  @doc("Migration source type")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  sourceType: MigrationSourceType;
+
+  @doc("Migration target type")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  targetType: MigrationTargetType;
+
   @doc("Source database configuration")
   @visibility(Lifecycle.Create, Lifecycle.Read)
   source: SourceConfiguration;
@@ -445,19 +688,13 @@ model DatabaseMigrationProperties {
   @visibility(Lifecycle.Create, Lifecycle.Read)
   mappingDefinitions: DatabaseMapping[];
 
-  @doc("Compute profile")
-  @visibility(Lifecycle.Create, Lifecycle.Read)
-  computeProfile: ComputeProfile;
-
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "settingName is the identifier"
   @doc("Migration job settings")
   @visibility(Lifecycle.Create, Lifecycle.Read)
-  migrationJobsettings: MigrationJobSettings;
+  migrationJobSettings: MigrationJobSettings[];
 
   @doc("The type of operation to perform on the migration")
   operationType?: MigrationOperationType;
-
-  @doc("List of database names to apply the operation to. If not specified, applies to all databases.")
-  databaseNames?: string[];
 
   @doc("Provisioning state")
   @visibility(Lifecycle.Read)
@@ -467,10 +704,57 @@ model DatabaseMigrationProperties {
   @visibility(Lifecycle.Read)
   migrationStatus?: MigrationStatus;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "databaseName is the identifier"
-  @doc("List of database migration statuses")
+  @doc("Pre-migration validation status")
   @visibility(Lifecycle.Read)
-  databases?: DatabaseMigrationStatus[];
+  preMigrationValidations?: PreMigrationValidationStatus;
+
+  @doc("Total number of databases in this migration")
+  @visibility(Lifecycle.Read)
+  totalDatabases?: int32;
+
+  @doc("Number of databases that completed successfully")
+  @visibility(Lifecycle.Read)
+  completedDatabases?: int32;
+
+  @doc("Number of databases that failed")
+  @visibility(Lifecycle.Read)
+  failedDatabases?: int32;
+
+  @doc("Number of databases currently in progress")
+  @visibility(Lifecycle.Read)
+  inProgressDatabases?: int32;
+
+  @doc("Total number of schemas in this migration")
+  @visibility(Lifecycle.Read)
+  totalSchemas?: int32;
+
+  @doc("Number of schemas that completed successfully")
+  @visibility(Lifecycle.Read)
+  completedSchemas?: int32;
+
+  @doc("Number of schemas that failed")
+  @visibility(Lifecycle.Read)
+  failedSchemas?: int32;
+
+  @doc("Number of schemas currently in progress")
+  @visibility(Lifecycle.Read)
+  inProgressSchemas?: int32;
+
+  @doc("Total number of tables in this migration")
+  @visibility(Lifecycle.Read)
+  totalTables?: int32;
+
+  @doc("Number of tables that completed successfully")
+  @visibility(Lifecycle.Read)
+  completedTables?: int32;
+
+  @doc("Number of tables that failed")
+  @visibility(Lifecycle.Read)
+  failedTables?: int32;
+
+  @doc("Number of tables currently in progress")
+  @visibility(Lifecycle.Read)
+  inProgressTables?: int32;
 
   @doc("Migration start time")
   @visibility(Lifecycle.Read)
@@ -483,14 +767,9 @@ model DatabaseMigrationProperties {
 
 @doc("Request body for testing connectivity.")
 model TestConnectivityRequest {
-  @doc("Source database configuration")
-  source: SourceConfiguration;
-
-  @doc("Target database configuration")
-  target: TargetConfiguration;
-
-  @doc("Compute profile configuration")
-  computeProfile: ComputeProfile;
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "No identifier properties for this array"
+  @doc("Connection endpoints to test")
+  connectionEndpoints: CheckConnectivityEndpoint[];
 }
 
 @doc("Connection test result for a single endpoint.")
@@ -509,12 +788,8 @@ model ConnectionTestResult {
 @doc("Properties of the connectivity test response.")
 model ConnectivityTestProperties {
   #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "connectionName is the identifier"
-  @doc("Source connection test results")
-  source: ConnectionTestResult[];
-
-  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "connectionName is the identifier"
-  @doc("Target connection test results")
-  target: ConnectionTestResult[];
+  @doc("Connection test results")
+  connectionTestResults: ConnectionTestResult[];
 }
 
 @doc("Response for testing connectivity.")
@@ -533,9 +808,6 @@ model DiscoverDatabaseObjectsRequest {
 
   @doc("Target database configuration")
   target: TargetConfiguration;
-
-  @doc("Compute profile configuration")
-  computeProfile: ComputeProfile;
 }
 
 @doc("Schema information.")

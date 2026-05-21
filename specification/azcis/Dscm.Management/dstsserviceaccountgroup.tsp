@@ -153,7 +153,8 @@ interface DstsServiceAccountGroup {
   get is ArmResourceRead<DstsServiceAccountGroupResource>;
 }
 
-@@visibility(DstsServiceAccountGroupResource.properties,
+@@visibility(
+  DstsServiceAccountGroupResource.properties,
   Lifecycle.Read,
   Lifecycle.Create
 );

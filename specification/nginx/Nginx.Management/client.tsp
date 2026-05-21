@@ -9,15 +9,18 @@ using Azure.Core;
 @@clientName(Nginx.NginxPlus, "NginxManagementClient", "python");
 
 // CommonTypes
-@@clientName(Azure.ResourceManager.CommonTypes.ManagedServiceIdentity,
+@@clientName(
+  Azure.ResourceManager.CommonTypes.ManagedServiceIdentity,
   "IdentityProperties",
   "!csharp"
 );
-@@clientName(Azure.ResourceManager.CommonTypes.UserAssignedIdentity,
+@@clientName(
+  Azure.ResourceManager.CommonTypes.UserAssignedIdentity,
   "UserIdentityProperties",
   "!csharp"
 );
-@@clientName(Azure.ResourceManager.CommonTypes.ManagedServiceIdentityType,
+@@clientName(
+  Azure.ResourceManager.CommonTypes.ManagedServiceIdentityType,
   "IdentityType",
   "!csharp"
 );
@@ -29,7 +32,8 @@ using Azure.Core;
 @@clientLocation(NginxDeployments.createOrUpdate, "Deployments", "!csharp");
 @@clientLocation(NginxDeployments.update, "Deployments", "!csharp");
 @@clientLocation(NginxDeployments.delete, "Deployments", "!csharp");
-@@clientLocation(NginxDeployments.listByResourceGroup,
+@@clientLocation(
+  NginxDeployments.listByResourceGroup,
   "Deployments",
   "!csharp"
 );
@@ -37,64 +41,78 @@ using Azure.Core;
 // Java client name overrides to maintain consistent casing
 @@clientName(NginxPublicIPAddress, "NginxPublicIpAddress", "java");
 @@clientName(NginxPrivateIPAddress, "NginxPrivateIpAddress", "java");
-@@clientName(NginxPrivateIPAllocationMethod,
+@@clientName(
+  NginxPrivateIPAllocationMethod,
   "NginxPrivateIpAllocationMethod",
   "java"
 );
-@@clientName(NginxFrontendIPConfiguration,
+@@clientName(
+  NginxFrontendIPConfiguration,
   "NginxFrontendIpConfiguration",
   "java"
 );
 
 // Java property name overrides to maintain consistent casing
-@@clientName(NginxNetworkProfile.frontEndIPConfiguration,
+@@clientName(
+  NginxNetworkProfile.frontEndIPConfiguration,
   "frontEndIpConfiguration",
   "java"
 );
-@@clientName(NginxFrontendIPConfiguration.publicIPAddresses,
+@@clientName(
+  NginxFrontendIPConfiguration.publicIPAddresses,
   "publicIpAddresses",
   "java"
 );
-@@clientName(NginxFrontendIPConfiguration.privateIPAddresses,
+@@clientName(
+  NginxFrontendIPConfiguration.privateIPAddresses,
   "privateIpAddresses",
   "java"
 );
-@@clientName(NginxPrivateIPAddress.privateIPAddress,
+@@clientName(
+  NginxPrivateIPAddress.privateIPAddress,
   "privateIpAddress",
   "java"
 );
-@@clientName(NginxPrivateIPAddress.privateIPAllocationMethod,
+@@clientName(
+  NginxPrivateIPAddress.privateIPAllocationMethod,
   "privateIpAllocationMethod",
   "java"
 );
 
-@@alternateType(NginxNetworkInterfaceConfiguration.subnetId,
+@@alternateType(
+  NginxNetworkInterfaceConfiguration.subnetId,
   Azure.Core.armResourceIdentifier,
   "csharp"
 );
-@@alternateType(NginxPrivateIPAddress.privateIPAddress,
+@@alternateType(
+  NginxPrivateIPAddress.privateIPAddress,
   Azure.Core.ipV4Address,
   "csharp"
 );
-@@alternateType(NginxPrivateIPAddress.subnetId,
+@@alternateType(
+  NginxPrivateIPAddress.subnetId,
   Azure.Core.armResourceIdentifier,
   "csharp"
 );
-@@alternateType(NginxCertificateProperties.keyVaultSecretCreated,
+@@alternateType(
+  NginxCertificateProperties.keyVaultSecretCreated,
   utcDateTime,
   "csharp"
 );
 
 @@clientName(AnalysisCreate, "NginxAnalysisContent", "csharp");
-@@clientName(NginxCertificateErrorResponseBody,
+@@clientName(
+  NginxCertificateErrorResponseBody,
   "NginxCertificateError",
   "csharp"
 );
-@@clientName(NginxConfigurationResponseProperties,
+@@clientName(
+  NginxConfigurationResponseProperties,
   "NginxConfigurationProperties",
   "csharp"
 );
-@@clientName(NginxConfigurationRequestProperties,
+@@clientName(
+  NginxConfigurationRequestProperties,
   "NginxConfigurationCreateOrUpdateProperties",
   "csharp"
 );
@@ -108,60 +126,72 @@ using Azure.Core;
 @@clientName(WebApplicationFirewallSettings, "NginxWafSettings", "csharp");
 @@clientName(WebApplicationFirewallStatus, "NginxWafStatus", "csharp");
 @@clientName(WebApplicationFirewallPackage, "NginxWafPackage", "csharp");
-@@clientName(WebApplicationFirewallComponentVersions,
+@@clientName(
+  WebApplicationFirewallComponentVersions,
   "NginxWafComponentVersions",
   "csharp"
 );
 
 @@clientName(AnalysisCreateConfig, "NginxAnalysisConfig", "csharp");
-@@clientName(ActivationState,
+@@clientName(
+  ActivationState,
   "WebApplicationFirewallActivationState",
   "csharp"
 );
 @@clientName(AnalysisResultData, "NginxAnalysisResultDetails", "csharp");
 @@clientName(Level, "NginxDiagnosticLevel", "csharp");
 @@clientName(NginxConfigurationResponse, "NginxConfiguration", "csharp,go");
-@@clientName(NginxConfigurationResponseProperties,
+@@clientName(
+  NginxConfigurationResponseProperties,
   "NginxConfigurationProperties",
   "csharp,go"
 );
 @@clientName(NginxDeploymentApiKeyResponse, "NginxDeploymentApiKey", "csharp");
-@@clientName(NginxDeploymentApiKeyResponseProperties,
+@@clientName(
+  NginxDeploymentApiKeyResponseProperties,
   "NginxDeploymentApiKeyProperties",
   "csharp"
 );
-@@clientName(NginxConfigurationProtectedFileRequest,
+@@clientName(
+  NginxConfigurationProtectedFileRequest,
   "NginxConfigurationProtectedFileContent",
   "csharp"
 );
-@@clientName(NginxConfigurationProtectedFileResponse,
+@@clientName(
+  NginxConfigurationProtectedFileResponse,
   "NginxConfigurationProtectedFileResult",
   "csharp"
 );
 
-@@alternateType(NginxDeploymentUpdateParameters.location,
+@@alternateType(
+  NginxDeploymentUpdateParameters.location,
   azureLocation,
   "csharp"
 );
 @@clientName(ResourceSku, "NginxResourceSku", "csharp");
-@@clientName(WebApplicationFirewallStatus,
+@@clientName(
+  WebApplicationFirewallStatus,
   "WebApplicationFirewallStatus",
   "csharp"
 );
-@@clientName(WebApplicationFirewallPackage,
+@@clientName(
+  WebApplicationFirewallPackage,
   "WebApplicationFirewallPackage",
   "csharp"
 );
-@@clientName(WebApplicationFirewallComponentVersions,
+@@clientName(
+  WebApplicationFirewallComponentVersions,
   "WebApplicationFirewallComponentVersions",
   "csharp"
 );
-@@clientName(WebApplicationFirewallSettings,
+@@clientName(
+  WebApplicationFirewallSettings,
   "WebApplicationFirewallSettings",
   "csharp"
 );
 @@clientName(NginxDeployments.wafPolicyList, "GetWafPolicies", "csharp");
-@@clientName(NginxDeployments.defaultWafPolicyList,
+@@clientName(
+  NginxDeployments.defaultWafPolicyList,
   "GetDefaultWafPolicies",
   "csharp"
 );

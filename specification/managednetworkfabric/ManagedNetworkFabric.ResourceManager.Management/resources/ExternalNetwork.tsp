@@ -22,17 +22,8 @@ model ExternalNetwork extends Azure.ResourceManager.Foundations.ProxyResource {
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** External Network Properties */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: ExternalNetworkProperties;
-
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
   @doc("External Network Properties")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties: ExternalNetworkProperties;
 }
 
@@ -52,7 +43,10 @@ interface ExternalNetworks {
   delete is ArmResourceDeleteWithoutOkAsync<ExternalNetwork>;
 
   @doc("Implements External Networks list by resource group GET method.")
-  listByL3IsolationDomain is ArmResourceListByParent<ExternalNetwork>;
+  listByL3IsolationDomain is ArmResourceListByParent<
+    ExternalNetwork,
+    Response = ExternalNetworksList
+  >;
 
   @doc("Executes update operation to enable or disable administrative State for externalNetwork.")
   @action("updateAdministrativeState")
@@ -120,24 +114,31 @@ interface ExternalNetworks {
 }
 
 @@doc(ExternalNetworks.create::parameters.resource, "Request payload.");
-@@doc(ExternalNetworks.update::parameters.properties,
+@@doc(
+  ExternalNetworks.update::parameters.properties,
   "ExternalNetwork properties to update. Only annotations are supported."
 );
-@@doc(ExternalNetworks.updateAdministrativeState::parameters.body,
+@@doc(
+  ExternalNetworks.updateAdministrativeState::parameters.body,
   "Request payload."
 );
-@@doc(ExternalNetworks.updateAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  ExternalNetworks.updateAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(ExternalNetworks.updateStaticRouteBfdAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  ExternalNetworks.updateStaticRouteBfdAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(ExternalNetworks.updateStaticRouteBfdAdministrativeState::parameters.body,
+@@doc(
+  ExternalNetworks.updateStaticRouteBfdAdministrativeState::parameters.body,
   "Request payload."
 );
-@@doc(ExternalNetworks.updateBfdAdministrativeState::parameters.body,
+@@doc(
+  ExternalNetworks.updateBfdAdministrativeState::parameters.body,
   "Request payload."
 );
-@@doc(ExternalNetworks.updateBfdAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  ExternalNetworks.updateBfdAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );

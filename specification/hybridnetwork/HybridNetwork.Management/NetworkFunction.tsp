@@ -58,10 +58,13 @@ interface NetworkFunctions {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   delete is ArmResourceDeleteWithoutOkAsync<
     NetworkFunction,
-    Response = ArmDeletedResponse | ArmAcceptedLroResponse<
-      "Accepted. The header contains 'Azure-AsyncOperation' header pointing to an operations resource. The operation URI can be queried to find the current state of the operation.",
-      LroHeaders = ArmLroLocationHeader
-    > | ArmNoContentResponse<"Request is successful. Resource with the specified name does not exist.">,
+    Response =
+      | ArmDeletedResponse
+      | ArmAcceptedLroResponse<
+          "Accepted. The header contains 'Azure-AsyncOperation' header pointing to an operations resource. The operation URI can be queried to find the current state of the operation.",
+          LroHeaders = ArmLroLocationHeader
+        >
+      | ArmNoContentResponse<"Request is successful. Resource with the specified name does not exist.">,
     LroHeaders = ArmLroLocationHeader
   >;
 
@@ -81,10 +84,12 @@ interface NetworkFunctions {
   executeRequest is NetworkFunctionsOps.ActionSync<
     Resource = NetworkFunction,
     Request = ExecuteRequestParameters,
-    Response = OkResponse | ArmAcceptedLroResponse<
-      "Accepted. The header contains 'Azure-AsyncOperation' header which can be used to monitor the progress of the operation.",
-      ArmLroLocationHeader
-    >
+    Response =
+      | OkResponse
+      | ArmAcceptedLroResponse<
+          "Accepted. The header contains 'Azure-AsyncOperation' header which can be used to monitor the progress of the operation.",
+          ArmLroLocationHeader
+        >
   >;
 }
 
@@ -101,18 +106,23 @@ alias NetworkFunctionsOps = Azure.ResourceManager.Legacy.LegacyOperations<
 
 @@doc(NetworkFunction.name, "Resource name for the network function resource.");
 @@doc(NetworkFunction.properties, "Network function properties.");
-@@doc(NetworkFunctions.createOrUpdate::parameters.resource,
+@@doc(
+  NetworkFunctions.createOrUpdate::parameters.resource,
   "Parameters supplied in the body to the create or update network function operation."
 );
-@@doc(NetworkFunctions.updateTags::parameters.properties,
+@@doc(
+  NetworkFunctions.updateTags::parameters.properties,
   "Parameters supplied to the update network function tags operation."
 );
-@@doc(NetworkFunctions.executeRequest::parameters.body,
+@@doc(
+  NetworkFunctions.executeRequest::parameters.body,
   "Payload for execute request post call."
 );
-@@doc(NetworkFunction.identity,
+@@doc(
+  NetworkFunction.identity,
   "The managed identity of the network function."
 );
-@@doc(NetworkFunction.etag,
+@@doc(
+  NetworkFunction.etag,
   "A unique read-only string that changes whenever the resource is updated."
 );

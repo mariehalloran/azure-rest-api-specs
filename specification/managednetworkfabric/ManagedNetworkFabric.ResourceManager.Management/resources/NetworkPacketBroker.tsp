@@ -20,15 +20,7 @@ model NetworkPacketBroker
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** The NetworkPacketBroker properties */
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: NetworkPacketBrokerProperties;
-
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
   @doc("The NetworkPacketBroker properties")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties: NetworkPacketBrokerProperties;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
@@ -53,13 +45,20 @@ interface NetworkPacketBrokers {
   delete is ArmResourceDeleteWithoutOkAsync<NetworkPacketBroker>;
 
   @doc("Displays NetworkPacketBrokers list by resource group GET method.")
-  listByResourceGroup is ArmResourceListByParent<NetworkPacketBroker>;
+  listByResourceGroup is ArmResourceListByParent<
+    NetworkPacketBroker,
+    Response = NetworkPacketBrokersListResult
+  >;
 
   @doc("Displays Network Packet Brokers list by subscription GET method.")
-  listBySubscription is ArmListBySubscription<NetworkPacketBroker>;
+  listBySubscription is ArmListBySubscription<
+    NetworkPacketBroker,
+    Response = NetworkPacketBrokersListResult
+  >;
 }
 
 @@doc(NetworkPacketBrokers.create::parameters.resource, "Request payload.");
-@@doc(NetworkPacketBrokers.update::parameters.properties,
+@@doc(
+  NetworkPacketBrokers.update::parameters.properties,
   "Network Packet Broker properties to update."
 );

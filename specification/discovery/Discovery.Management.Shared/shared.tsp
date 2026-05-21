@@ -25,6 +25,9 @@ enum Versions {
 
   @doc("The 2026-02-01-preview version of the Microsoft.Discovery.Shared.")
   `2026-02-01-preview`,
+
+  @doc("The 2026-06-01 version of the Microsoft.Discovery.Shared.")
+  `2026-06-01`,
 }
 
 @access(Access.internal)

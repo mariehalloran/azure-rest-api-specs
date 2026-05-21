@@ -119,6 +119,12 @@
     },
     {
       "name": "NetworkBootstrapInterfaces"
+    },
+    {
+      "name": "EdgeConnectors"
+    },
+    {
+      "name": "Fabrics"
     }
   ],
   "paths": {
@@ -175,9 +181,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/AccessControlListListResult"
+              "$ref": "#/definitions/AccessControlListsListResult"
             }
           },
           "default": {
@@ -190,6 +196,84 @@
         "x-ms-examples": {
           "AccessControlLists_ListBySubscription_MaximumSet_Gen": {
             "$ref": "./examples/AccessControlLists_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ManagedNetworkFabric/edgeConnectors": {
+      "get": {
+        "operationId": "EdgeConnectors_ListBySubscription",
+        "tags": [
+          "EdgeConnectors"
+        ],
+        "description": "Lists EdgeConnectors by subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EdgeConnectorListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeConnectors_ListBySubscription_MaximumSet_Gen": {
+            "$ref": "./examples/EdgeConnectors_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ManagedNetworkFabric/fabrics": {
+      "get": {
+        "operationId": "Fabrics_ListBySubscription",
+        "tags": [
+          "Fabrics"
+        ],
+        "description": "Lists Fabrics by subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/FabricListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Fabrics_ListBySubscription_MaximumSet_Gen": {
+            "$ref": "./examples/Fabrics_ListBySubscription.json"
           }
         },
         "x-ms-pageable": {
@@ -214,9 +298,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/InternetGatewayRuleListResult"
+              "$ref": "#/definitions/InternetGatewayRulesListResult"
             }
           },
           "default": {
@@ -253,9 +337,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/InternetGatewayListResult"
+              "$ref": "#/definitions/InternetGatewaysListResult"
             }
           },
           "default": {
@@ -292,9 +376,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/IpCommunityListResult"
+              "$ref": "#/definitions/IpCommunitiesListResult"
             }
           },
           "default": {
@@ -370,9 +454,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/IpPrefixListResult"
+              "$ref": "#/definitions/IpPrefixesListResult"
             }
           },
           "default": {
@@ -409,9 +493,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/L2IsolationDomainListResult"
+              "$ref": "#/definitions/L2IsolationDomainsListResult"
             }
           },
           "default": {
@@ -448,9 +532,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/L3IsolationDomainListResult"
+              "$ref": "#/definitions/L3IsolationDomainsListResult"
             }
           },
           "default": {
@@ -487,9 +571,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NeighborGroupListResult"
+              "$ref": "#/definitions/NeighborGroupsListResult"
             }
           },
           "default": {
@@ -565,9 +649,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkDeviceSkuListResult"
+              "$ref": "#/definitions/NetworkDeviceSkusListResult"
             }
           },
           "default": {
@@ -648,9 +732,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkDeviceListResult"
+              "$ref": "#/definitions/NetworkDevicesListResult"
             }
           },
           "default": {
@@ -687,9 +771,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkFabricControllerListResult"
+              "$ref": "#/definitions/NetworkFabricControllersListResult"
             }
           },
           "default": {
@@ -726,9 +810,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkFabricSkuListResult"
+              "$ref": "#/definitions/NetworkFabricSkusListResult"
             }
           },
           "default": {
@@ -809,9 +893,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkFabricListResult"
+              "$ref": "#/definitions/NetworkFabricsListResult"
             }
           },
           "default": {
@@ -887,9 +971,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkPacketBrokerListResult"
+              "$ref": "#/definitions/NetworkPacketBrokersListResult"
             }
           },
           "default": {
@@ -926,9 +1010,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkRackListResult"
+              "$ref": "#/definitions/NetworkRacksListResult"
             }
           },
           "default": {
@@ -965,9 +1049,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkTapRuleListResult"
+              "$ref": "#/definitions/NetworkTapRulesListResult"
             }
           },
           "default": {
@@ -1004,9 +1088,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkTapListResult"
+              "$ref": "#/definitions/NetworkTapsListResult"
             }
           },
           "default": {
@@ -1043,9 +1127,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/RoutePolicyListResult"
+              "$ref": "#/definitions/RoutePoliciesListResult"
             }
           },
           "default": {
@@ -1085,9 +1169,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/AccessControlListListResult"
+              "$ref": "#/definitions/AccessControlListsListResult"
             }
           },
           "default": {
@@ -1178,7 +1262,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -1256,7 +1340,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "Access Control List properties to update.",
             "required": true,
@@ -1568,6 +1652,601 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedNetworkFabric/edgeConnectors": {
+      "get": {
+        "operationId": "EdgeConnectors_ListByResourceGroup",
+        "tags": [
+          "EdgeConnectors"
+        ],
+        "description": "Lists EdgeConnectors by resource group.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EdgeConnectorListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeConnectors_ListByResourceGroup_MaximumSet_Gen": {
+            "$ref": "./examples/EdgeConnectors_ListByResourceGroup.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedNetworkFabric/edgeConnectors/{edgeConnectorName}": {
+      "get": {
+        "operationId": "EdgeConnectors_Get",
+        "tags": [
+          "EdgeConnectors"
+        ],
+        "description": "Gets the specified EdgeConnector.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeConnectorName",
+            "in": "path",
+            "description": "Name of the EdgeConnector.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EdgeConnector"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeConnectors_Get_MaximumSet_Gen": {
+            "$ref": "./examples/EdgeConnectors_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "EdgeConnectors_Create",
+        "tags": [
+          "EdgeConnectors"
+        ],
+        "description": "Creates an EdgeConnector.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeConnectorName",
+            "in": "path",
+            "description": "Name of the EdgeConnector.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Request payload.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EdgeConnector"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'EdgeConnector' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/EdgeConnector"
+            }
+          },
+          "201": {
+            "description": "Resource 'EdgeConnector' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/EdgeConnector"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeConnectors_Create_MaximumSet_Gen": {
+            "$ref": "./examples/EdgeConnectors_Create.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "EdgeConnectors_Update",
+        "tags": [
+          "EdgeConnectors"
+        ],
+        "description": "Updates an EdgeConnector.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeConnectorName",
+            "in": "path",
+            "description": "Name of the EdgeConnector.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "EdgeConnector properties to update.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EdgeConnectorPatch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EdgeConnector"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeConnectors_Update_MaximumSet_Gen": {
+            "$ref": "./examples/EdgeConnectors_Update.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "EdgeConnectors_Delete",
+        "tags": [
+          "EdgeConnectors"
+        ],
+        "description": "Deletes the specified EdgeConnector.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeConnectorName",
+            "in": "path",
+            "description": "Name of the EdgeConnector.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeConnectors_Delete_MaximumSet_Gen": {
+            "$ref": "./examples/EdgeConnectors_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedNetworkFabric/fabrics": {
+      "get": {
+        "operationId": "Fabrics_ListByResourceGroup",
+        "tags": [
+          "Fabrics"
+        ],
+        "description": "Lists Fabrics by resource group.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/FabricListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Fabrics_ListByResourceGroup_MaximumSet_Gen": {
+            "$ref": "./examples/Fabrics_ListByResourceGroup.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedNetworkFabric/fabrics/{fabricName}": {
+      "get": {
+        "operationId": "Fabrics_Get",
+        "tags": [
+          "Fabrics"
+        ],
+        "description": "Gets the specified Fabric.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "fabricName",
+            "in": "path",
+            "description": "Name of the Fabric.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Fabric"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Fabrics_Get_MaximumSet_Gen": {
+            "$ref": "./examples/Fabrics_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "Fabrics_Create",
+        "tags": [
+          "Fabrics"
+        ],
+        "description": "Creates a Fabric.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "fabricName",
+            "in": "path",
+            "description": "Name of the Fabric.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Request payload.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Fabric"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'Fabric' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Fabric"
+            }
+          },
+          "201": {
+            "description": "Resource 'Fabric' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Fabric"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Fabrics_Create_Managed_MaximumSet_Gen": {
+            "$ref": "./examples/Fabrics_Create_Managed.json"
+          },
+          "Fabrics_Create_MaximumSet_Gen": {
+            "$ref": "./examples/Fabrics_Create.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "Fabrics_Update",
+        "tags": [
+          "Fabrics"
+        ],
+        "description": "Updates a Fabric.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "fabricName",
+            "in": "path",
+            "description": "Name of the Fabric.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Fabric properties to update.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FabricPatch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Fabric"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Fabrics_Update_MaximumSet_Gen": {
+            "$ref": "./examples/Fabrics_Update.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "Fabrics_Delete",
+        "tags": [
+          "Fabrics"
+        ],
+        "description": "Deletes the specified Fabric.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "fabricName",
+            "in": "path",
+            "description": "Name of the Fabric.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Fabrics_Delete_MaximumSet_Gen": {
+            "$ref": "./examples/Fabrics_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedNetworkFabric/internetGatewayRules": {
       "get": {
         "operationId": "InternetGatewayRules_ListByResourceGroup",
@@ -1588,9 +2267,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/InternetGatewayRuleListResult"
+              "$ref": "#/definitions/InternetGatewayRulesListResult"
             }
           },
           "default": {
@@ -1681,7 +2360,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -1756,7 +2435,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "Internet Gateway Rule properties to update.",
             "required": true,
@@ -1884,9 +2563,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/InternetGatewayListResult"
+              "$ref": "#/definitions/InternetGatewaysListResult"
             }
           },
           "default": {
@@ -1977,7 +2656,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -2052,7 +2731,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "API to update certain properties of the InternetGateway resource..",
             "required": true,
@@ -2180,9 +2859,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/IpCommunityListResult"
+              "$ref": "#/definitions/IpCommunitiesListResult"
             }
           },
           "default": {
@@ -2273,7 +2952,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -2348,7 +3027,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "IP Community properties to update.",
             "required": true,
@@ -2569,7 +3248,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -2644,7 +3323,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "IP Extended Community properties to update.",
             "required": true,
@@ -2772,9 +3451,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/IpPrefixListResult"
+              "$ref": "#/definitions/IpPrefixesListResult"
             }
           },
           "default": {
@@ -2865,7 +3544,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -2940,7 +3619,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "IP Prefix properties to update.",
             "required": true,
@@ -3068,9 +3747,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/L2IsolationDomainListResult"
+              "$ref": "#/definitions/L2IsolationDomainsListResult"
             }
           },
           "default": {
@@ -3161,7 +3840,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -3236,7 +3915,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "API to update certain properties of the L2 Isolation Domain resource..",
             "required": true,
@@ -3568,9 +4247,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/L3IsolationDomainListResult"
+              "$ref": "#/definitions/L3IsolationDomainsListResult"
             }
           },
           "default": {
@@ -3661,7 +4340,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -3736,7 +4415,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "API to update certain properties of the L3 Isolation Domain resource.",
             "required": true,
@@ -3937,9 +4616,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/ExternalNetworkListResult"
+              "$ref": "#/definitions/ExternalNetworksList"
             }
           },
           "default": {
@@ -4046,7 +4725,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -4129,7 +4808,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "ExternalNetwork properties to update. Only annotations are supported.",
             "required": true,
@@ -4519,9 +5198,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/InternalNetworkListResult"
+              "$ref": "#/definitions/InternalNetworksList"
             }
           },
           "default": {
@@ -4628,7 +5307,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -4711,7 +5390,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "InternalNetwork properties to update. Only annotations are supported.",
             "required": true,
@@ -5314,9 +5993,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NeighborGroupListResult"
+              "$ref": "#/definitions/NeighborGroupsListResult"
             }
           },
           "default": {
@@ -5407,7 +6086,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -5482,7 +6161,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "Neighbor Group properties to update. Only annotations are supported.",
             "required": true,
@@ -6733,9 +7412,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkDeviceListResult"
+              "$ref": "#/definitions/NetworkDevicesListResult"
             }
           },
           "default": {
@@ -6826,7 +7505,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -6901,7 +7580,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "Network Device properties to update.",
             "required": true,
@@ -7037,9 +7716,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkInterfaceListResult"
+              "$ref": "#/definitions/NetworkInterfacesList"
             }
           },
           "default": {
@@ -7146,7 +7825,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -7229,7 +7908,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "NetworkInterface properties to update. Only tags are supported.",
             "required": true,
@@ -8020,9 +8699,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkFabricControllerListResult"
+              "$ref": "#/definitions/NetworkFabricControllersListResult"
             }
           },
           "default": {
@@ -8113,7 +8792,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -8188,7 +8867,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "Network Fabric Controller properties to update.",
             "required": true,
@@ -8316,9 +8995,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkFabricListResult"
+              "$ref": "#/definitions/NetworkFabricsListResult"
             }
           },
           "default": {
@@ -8409,7 +9088,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -8484,7 +9163,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "Network Fabric properties to update.",
             "required": true,
@@ -9114,9 +9793,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkToNetworkInterconnectListResult"
+              "$ref": "#/definitions/NetworkToNetworkInterconnectsList"
             }
           },
           "default": {
@@ -9223,7 +9902,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -9306,7 +9985,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "Network to Network Interconnect properties to update.",
             "required": true,
@@ -10846,9 +11525,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkPacketBrokerListResult"
+              "$ref": "#/definitions/NetworkPacketBrokersListResult"
             }
           },
           "default": {
@@ -10939,7 +11618,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -11014,7 +11693,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "Network Packet Broker properties to update.",
             "required": true,
@@ -11142,9 +11821,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkRackListResult"
+              "$ref": "#/definitions/NetworkRacksListResult"
             }
           },
           "default": {
@@ -11235,7 +11914,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -11310,7 +11989,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "Network Rack properties to update.",
             "required": true,
@@ -11438,9 +12117,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkTapRuleListResult"
+              "$ref": "#/definitions/NetworkTapRulesListResult"
             }
           },
           "default": {
@@ -11531,7 +12210,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -11606,7 +12285,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "Network Tap Rule properties to update.",
             "required": true,
@@ -11938,9 +12617,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/NetworkTapListResult"
+              "$ref": "#/definitions/NetworkTapsListResult"
             }
           },
           "default": {
@@ -12031,7 +12710,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -12106,7 +12785,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "Network Tap properties to update.",
             "required": true,
@@ -12373,9 +13052,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "The request has succeeded.",
             "schema": {
-              "$ref": "#/definitions/RoutePolicyListResult"
+              "$ref": "#/definitions/RoutePoliciesListResult"
             }
           },
           "default": {
@@ -12466,7 +13145,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Request payload.",
             "required": true,
@@ -12541,7 +13220,7 @@
             "pattern": "^[a-zA-Z]{1}[a-zA-Z0-9-_]{2,127}$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "Route Policy properties to update.",
             "required": true,
@@ -12920,47 +13599,10 @@
         }
       }
     },
-    "AccessControlListListResult": {
-      "type": "object",
-      "description": "The response of a AccessControlList list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The AccessControlList items on this page",
-          "items": {
-            "$ref": "#/definitions/AccessControlList"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "AccessControlListMatchCondition": {
       "type": "object",
       "description": "Defines the match condition that is supported to filter the traffic.",
       "properties": {
-        "protocolTypes": {
-          "type": "array",
-          "description": "List of the protocols that need to be matched.",
-          "minItems": 1,
-          "items": {
-            "type": "string"
-          }
-        },
-        "vlanMatchCondition": {
-          "$ref": "#/definitions/VlanMatchCondition",
-          "description": "Vlan match condition that needs to be matched."
-        },
-        "ipCondition": {
-          "$ref": "#/definitions/IpMatchCondition",
-          "description": "IP condition that needs to be matched."
-        },
         "etherTypes": {
           "type": "array",
           "description": "List of ether type values that need to be matched.",
@@ -13016,27 +13658,17 @@
           "$ref": "#/definitions/IcmpConfigurationProperties",
           "description": "Internet Control Message Protocol (ICMP) configuration"
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/CommonMatchConditions"
+        }
+      ]
     },
     "AccessControlListMatchConditionPatch": {
       "type": "object",
       "description": "Defines the match condition that is supported to filter the traffic.",
       "properties": {
-        "protocolTypes": {
-          "type": "array",
-          "description": "List of the protocols that need to be matched.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "vlanMatchCondition": {
-          "$ref": "#/definitions/VlanMatchConditionPatch",
-          "description": "Vlan match condition that needs to be matched."
-        },
-        "ipCondition": {
-          "$ref": "#/definitions/IpMatchConditionPatch",
-          "description": "IP condition that needs to be matched."
-        },
         "etherTypes": {
           "type": "array",
           "description": "List of ether type values that need to be matched.",
@@ -13092,7 +13724,12 @@
           "$ref": "#/definitions/IcmpConfigurationPatchProperties",
           "description": "Internet Control Message Protocol (ICMP) configuration"
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/CommonMatchConditionsPatch"
+        }
+      ]
     },
     "AccessControlListMatchConfiguration": {
       "type": "object",
@@ -13178,19 +13815,17 @@
       "type": "object",
       "description": "The Access Control Lists patch resource definition.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/AccessControlListPatchProperties",
           "description": "Access Control Lists patch properties.",
           "x-ms-client-flatten": true
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "AccessControlListPatchProperties": {
       "type": "object",
@@ -13257,28 +13892,6 @@
       "type": "object",
       "description": "Defines the port condition that needs to be matched.",
       "properties": {
-        "portType": {
-          "$ref": "#/definitions/PortType",
-          "description": "Port type that needs to be matched."
-        },
-        "layer4Protocol": {
-          "$ref": "#/definitions/Layer4Protocol",
-          "description": "Layer4 protocol type that needs to be matched."
-        },
-        "ports": {
-          "type": "array",
-          "description": "List of the Ports that need to be matched.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "portGroupNames": {
-          "type": "array",
-          "description": "List of the port Group Names that need to be matched.",
-          "items": {
-            "type": "string"
-          }
-        },
         "flags": {
           "type": "array",
           "description": "List of protocol flags that need to be matched. Example: established | initial | <List-of-TCP-flags>. List of eligible TCP Flags are ack, fin, not-ack, not-fin, not-psh, not-rst, not-syn, not-urg, psh, rst, syn, urg",
@@ -13287,36 +13900,16 @@
           }
         }
       },
-      "required": [
-        "layer4Protocol"
+      "allOf": [
+        {
+          "$ref": "#/definitions/PortCondition"
+        }
       ]
     },
     "AccessControlListPortConditionPatch": {
       "type": "object",
       "description": "Defines the port condition that needs to be matched.",
       "properties": {
-        "portType": {
-          "$ref": "#/definitions/PortType",
-          "description": "Port type that needs to be matched."
-        },
-        "layer4Protocol": {
-          "$ref": "#/definitions/Layer4Protocol",
-          "description": "Layer4 protocol type that needs to be matched."
-        },
-        "ports": {
-          "type": "array",
-          "description": "List of the Ports that need to be matched.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "portGroupNames": {
-          "type": "array",
-          "description": "List of the port Group Names that need to be matched.",
-          "items": {
-            "type": "string"
-          }
-        },
         "flags": {
           "type": "array",
           "description": "List of protocol flags that need to be matched. Example: established | initial | <List-of-TCP-flags>. List of eligible TCP Flags are ack, fin, not-ack, not-fin, not-psh, not-rst, not-syn, not-urg, psh, rst, syn, urg",
@@ -13324,7 +13917,12 @@
             "type": "string"
           }
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/PortConditionPatch"
+        }
+      ]
     },
     "AccessControlListProperties": {
       "type": "object",
@@ -13452,6 +14050,27 @@
       },
       "required": [
         "configurationType"
+      ]
+    },
+    "AccessControlListsListResult": {
+      "type": "object",
+      "description": "Paged collection of AccessControlList items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The AccessControlList items on this page",
+          "items": {
+            "$ref": "#/definitions/AccessControlList"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
       ]
     },
     "AclActionType": {
@@ -13768,6 +14387,16 @@
         ]
       }
     },
+    "AnnotationResource": {
+      "type": "object",
+      "description": "Switch configuration entries require a description to discern between configuration group",
+      "properties": {
+        "annotation": {
+          "type": "string",
+          "description": "Switch configuration description."
+        }
+      }
+    },
     "ArmConfigurationDiffOperationResponse": {
       "type": "object",
       "description": "Arm Configuration Diff Response V2.",
@@ -14007,10 +14636,6 @@
       "type": "object",
       "description": "BGP configuration properties",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "bfdConfiguration": {
           "$ref": "#/definitions/BfdConfiguration",
           "description": "BFD configuration properties"
@@ -14135,16 +14760,17 @@
       },
       "required": [
         "peerASN"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
       ]
     },
     "BgpPatchConfiguration": {
       "type": "object",
       "description": "BGP configuration properties.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "bfdConfiguration": {
           "$ref": "#/definitions/BfdPatchConfiguration",
           "description": "BFD configuration properties"
@@ -14223,7 +14849,12 @@
           "$ref": "#/definitions/V6OverV4BgpSessionState",
           "description": "v6 over v4 bgp session."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
+      ]
     },
     "BitRate": {
       "type": "object",
@@ -15096,6 +15727,49 @@
         }
       }
     },
+    "CommonMatchConditions": {
+      "type": "object",
+      "description": "Defines the common match conditions of the ACL and Network Tap Rule.",
+      "properties": {
+        "protocolTypes": {
+          "type": "array",
+          "description": "List of the protocols that need to be matched.",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "vlanMatchCondition": {
+          "$ref": "#/definitions/VlanMatchCondition",
+          "description": "Vlan match condition that needs to be matched."
+        },
+        "ipCondition": {
+          "$ref": "#/definitions/IpMatchCondition",
+          "description": "IP condition that needs to be matched."
+        }
+      }
+    },
+    "CommonMatchConditionsPatch": {
+      "type": "object",
+      "description": "Defines the common match conditions of the ACL and Network Tap Rule.",
+      "properties": {
+        "protocolTypes": {
+          "type": "array",
+          "description": "List of the protocols that need to be matched.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "vlanMatchCondition": {
+          "$ref": "#/definitions/VlanMatchConditionPatch",
+          "description": "Vlan match condition that needs to be matched."
+        },
+        "ipCondition": {
+          "$ref": "#/definitions/IpMatchConditionPatch",
+          "description": "IP condition that needs to be matched."
+        }
+      }
+    },
     "CommonPostActionResponseForDeviceROCommands": {
       "type": "object",
       "description": "Common response for device Ro Commands.",
@@ -15119,10 +15793,6 @@
       "type": "object",
       "description": "The current status of an async operation.",
       "properties": {
-        "error": {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorDetail",
-          "description": "The error object."
-        },
         "endTime": {
           "type": "string",
           "format": "date-time",
@@ -15169,16 +15839,17 @@
       },
       "required": [
         "status"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+        }
       ]
     },
     "CommonPostActionResponseForDeviceUpdate": {
       "type": "object",
       "description": "Common response for device updates.",
       "properties": {
-        "error": {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorDetail",
-          "description": "The error object."
-        },
         "configurationState": {
           "$ref": "#/definitions/ConfigurationState",
           "description": "Gets the configuration state.",
@@ -15198,22 +15869,28 @@
             "type": "string"
           }
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+        }
+      ]
     },
     "CommonPostActionResponseForStateUpdate": {
       "type": "object",
       "description": "Common response for the state updates.",
       "properties": {
-        "error": {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorDetail",
-          "description": "The error object."
-        },
         "configurationState": {
           "$ref": "#/definitions/ConfigurationState",
           "description": "Gets the configuration state.",
           "readOnly": true
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+        }
+      ]
     },
     "CommunityActionTypes": {
       "type": "string",
@@ -15456,10 +16133,6 @@
       "type": "object",
       "description": "Connected Subnet properties.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "prefix": {
           "type": "string",
           "description": "Prefix of the Connected Subnet.",
@@ -15468,16 +16141,17 @@
       },
       "required": [
         "prefix"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
       ]
     },
     "ConnectedSubnetPatch": {
       "type": "object",
       "description": "Connected Subnet properties.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "prefix": {
           "type": "string",
           "description": "Prefix of the Connected Subnet.",
@@ -15486,6 +16160,11 @@
       },
       "required": [
         "prefix"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
       ]
     },
     "ConnectedSubnetRoutePolicy": {
@@ -15506,6 +16185,42 @@
           "$ref": "#/definitions/L3ExportRoutePolicyPatch",
           "description": "Array of ARM Resource ID of the RoutePolicies."
         }
+      }
+    },
+    "ConnectivityModel": {
+      "type": "string",
+      "description": "Connectivity model for EdgeConnector.",
+      "enum": [
+        "none",
+        "direct",
+        "arcProxy",
+        "expressRoute"
+      ],
+      "x-ms-enum": {
+        "name": "ConnectivityModel",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "none",
+            "value": "none",
+            "description": "No connectivity."
+          },
+          {
+            "name": "direct",
+            "value": "direct",
+            "description": "Direct IP reachability."
+          },
+          {
+            "name": "arcProxy",
+            "value": "arcProxy",
+            "description": "Arc Proxy tunnel."
+          },
+          {
+            "name": "expressRoute",
+            "value": "expressRoute",
+            "description": "ExpressRoute private peering."
+          }
+        ]
       }
     },
     "ControlPlanAclIpMatchCondition": {
@@ -15919,6 +16634,36 @@
         }
       }
     },
+    "ControllerType": {
+      "type": "string",
+      "description": "Controller type for device interaction.",
+      "enum": [
+        "ciscoAci",
+        "aristaCloudVision",
+        "direct"
+      ],
+      "x-ms-enum": {
+        "name": "ControllerType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "ciscoAci",
+            "value": "ciscoAci",
+            "description": "Cisco ACI APIC REST API."
+          },
+          {
+            "name": "aristaCloudVision",
+            "value": "aristaCloudVision",
+            "description": "Arista CloudVision API."
+          },
+          {
+            "name": "direct",
+            "value": "direct",
+            "description": "Direct gNMI/SSH."
+          }
+        ]
+      }
+    },
     "DestinationPatchProperties": {
       "type": "object",
       "description": "The network tap destination properties.",
@@ -16277,6 +17022,125 @@
         }
       }
     },
+    "EdgeConnector": {
+      "type": "object",
+      "description": "EdgeConnector represents the mechanism by which a collection of on-prem infrastructure (Fabric) is connected to Azure.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/EdgeConnectorProperties",
+          "description": "EdgeConnector properties."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "EdgeConnectorListResult": {
+      "type": "object",
+      "description": "The response of a EdgeConnector list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The EdgeConnector items on this page",
+          "items": {
+            "$ref": "#/definitions/EdgeConnector"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "EdgeConnectorPatch": {
+      "type": "object",
+      "description": "EdgeConnector patch body.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/EdgeConnectorPatchableProperties",
+          "description": "Resource properties."
+        }
+      }
+    },
+    "EdgeConnectorPatchableProperties": {
+      "type": "object",
+      "description": "EdgeConnector patchable properties.",
+      "properties": {
+        "connectivityModel": {
+          "$ref": "#/definitions/ConnectivityModel",
+          "description": "How the EdgeConnector establishes connectivity to on-prem infrastructure."
+        },
+        "version": {
+          "type": "string",
+          "description": "Software version of the control plane."
+        }
+      }
+    },
+    "EdgeConnectorProperties": {
+      "type": "object",
+      "description": "EdgeConnectorProperties defines the resource properties.",
+      "properties": {
+        "connectivityModel": {
+          "$ref": "#/definitions/ConnectivityModel",
+          "description": "How the EdgeConnector establishes connectivity to on-prem infrastructure."
+        },
+        "version": {
+          "type": "string",
+          "description": "Software version of the control plane."
+        },
+        "managedFabricIds": {
+          "type": "array",
+          "description": "ARM resource IDs of Fabric resources managed by this EdgeConnector.",
+          "items": {
+            "type": "string",
+            "format": "arm-id",
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Microsoft.ManagedNetworkFabric/fabrics"
+                }
+              ]
+            }
+          },
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the resource.",
+          "readOnly": true
+        }
+      }
+    },
+    "EnableDisableOnResources": {
+      "type": "object",
+      "description": "Update administrative state on list of resources.",
+      "properties": {
+        "resourceIds": {
+          "type": "array",
+          "description": "Network Fabrics or Network Rack resource Id.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "EnableDisableState": {
       "type": "string",
       "description": "Administrative state.",
@@ -16586,27 +17450,6 @@
           }
         }
       }
-    },
-    "ExternalNetworkListResult": {
-      "type": "object",
-      "description": "The response of a ExternalNetwork list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The ExternalNetwork items on this page",
-          "items": {
-            "$ref": "#/definitions/ExternalNetwork"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
     },
     "ExternalNetworkPatch": {
       "type": "object",
@@ -17164,6 +18007,66 @@
         }
       }
     },
+    "ExternalNetworksList": {
+      "type": "object",
+      "description": "Paged collection of ExternalNetwork items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ExternalNetwork items on this page",
+          "items": {
+            "$ref": "#/definitions/ExternalNetwork"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "Fabric": {
+      "type": "object",
+      "description": "Represents a physical network deployment hosting infrastructure network configuration.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/FabricProperties",
+          "description": "Fabric properties."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "FabricListResult": {
+      "type": "object",
+      "description": "The response of a Fabric list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Fabric items on this page",
+          "items": {
+            "$ref": "#/definitions/Fabric"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "FabricLockProperties": {
       "type": "object",
       "description": "Network Fabric Lock Configuration.",
@@ -17177,6 +18080,160 @@
           "description": "NetworkFabric Lock Type."
         }
       }
+    },
+    "FabricPatch": {
+      "type": "object",
+      "description": "Fabric patch body.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/FabricPatchableProperties",
+          "description": "Resource properties."
+        }
+      }
+    },
+    "FabricPatchableProperties": {
+      "type": "object",
+      "description": "Fabric patchable properties.",
+      "properties": {
+        "infrastructureNetworks": {
+          "$ref": "#/definitions/PatchInfrastructureNetworks",
+          "description": "Infrastructure network definitions."
+        },
+        "infrastructureServices": {
+          "$ref": "#/definitions/PatchInfrastructureServices",
+          "description": "Infrastructure service endpoints."
+        },
+        "operationPolicy": {
+          "$ref": "#/definitions/OperationPolicy",
+          "description": "Operation policy for device interaction."
+        },
+        "controllerEndpoint": {
+          "type": "string",
+          "description": "URL of the SDN controller API endpoint."
+        },
+        "controllerCredentialRef": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the Key Vault secret for controller credentials.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.KeyVault/vaults/secrets"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "FabricProperties": {
+      "type": "object",
+      "description": "FabricProperties defines the resource properties.",
+      "properties": {
+        "infrastructureNetworks": {
+          "$ref": "#/definitions/InfrastructureNetworks",
+          "description": "Infrastructure network definitions."
+        },
+        "infrastructureServices": {
+          "$ref": "#/definitions/InfrastructureServices",
+          "description": "Infrastructure service endpoints."
+        },
+        "operationPolicy": {
+          "$ref": "#/definitions/OperationPolicy",
+          "description": "Operation policy for device interaction."
+        },
+        "controllerEndpoint": {
+          "type": "string",
+          "description": "URL of the SDN controller API endpoint."
+        },
+        "controllerCredentialRef": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the Key Vault secret for controller credentials.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.KeyVault/vaults/secrets"
+              }
+            ]
+          }
+        },
+        "edgeConnectorId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the EdgeConnector.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.ManagedNetworkFabric/edgeConnectors"
+              }
+            ]
+          }
+        },
+        "managementMode": {
+          "$ref": "#/definitions/ManagementMode",
+          "description": "Management mode.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "controllerType": {
+          "$ref": "#/definitions/ControllerType",
+          "description": "Controller type for device interaction."
+        },
+        "rackCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of physical racks."
+        },
+        "fabricSku": {
+          "type": "string",
+          "description": "Predefined topology identifier."
+        },
+        "customerVnetId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM ID of the customer's Azure VNet.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Network/virtualNetworks"
+              }
+            ]
+          }
+        },
+        "customerSubnetId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM ID of the customer's subnet.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Network/virtualNetworks/subnets"
+              }
+            ]
+          }
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "managementMode"
+      ]
     },
     "FabricSkuType": {
       "type": "string",
@@ -17663,6 +18720,151 @@
         }
       }
     },
+    "InfraNetwork": {
+      "type": "object",
+      "description": "Infrastructure network definition.",
+      "properties": {
+        "vlanId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "802.1Q VLAN ID.",
+          "minimum": 1,
+          "maximum": 4094
+        },
+        "ipv4Subnet": {
+          "type": "string",
+          "description": "IPv4 subnet in CIDR notation."
+        },
+        "ipv4Gateway": {
+          "type": "string",
+          "description": "Default gateway IP."
+        },
+        "ipv4StartAddr": {
+          "type": "string",
+          "description": "Start of allocatable IP range."
+        },
+        "ipv4EndAddr": {
+          "type": "string",
+          "description": "End of allocatable IP range."
+        },
+        "mtu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum Transmission Unit."
+        }
+      },
+      "required": [
+        "vlanId",
+        "ipv4Subnet",
+        "ipv4Gateway",
+        "ipv4StartAddr",
+        "ipv4EndAddr"
+      ]
+    },
+    "InfraNetworkOptionalIp": {
+      "type": "object",
+      "description": "Infrastructure network with optional IP fields.",
+      "properties": {
+        "vlanId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "802.1Q VLAN ID.",
+          "minimum": 1,
+          "maximum": 4094
+        },
+        "ipv4Subnet": {
+          "type": "string",
+          "description": "IPv4 subnet in CIDR notation."
+        },
+        "ipv4Gateway": {
+          "type": "string",
+          "description": "Default gateway IP."
+        },
+        "ipv4StartAddr": {
+          "type": "string",
+          "description": "Start of allocatable IP range."
+        },
+        "ipv4EndAddr": {
+          "type": "string",
+          "description": "End of allocatable IP range."
+        },
+        "mtu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum Transmission Unit."
+        }
+      },
+      "required": [
+        "vlanId"
+      ]
+    },
+    "InfrastructureNetworks": {
+      "type": "object",
+      "description": "Named infrastructure network definitions.",
+      "properties": {
+        "management": {
+          "$ref": "#/definitions/InfraNetwork",
+          "description": "OAM management network. Typical VLAN: 39."
+        },
+        "pxe": {
+          "$ref": "#/definitions/InfraNetwork",
+          "description": "PXE boot network. Typical VLAN: 40."
+        },
+        "bmc": {
+          "$ref": "#/definitions/InfraNetwork",
+          "description": "BMC/iDRAC network. Typical VLAN: 41."
+        },
+        "storage": {
+          "$ref": "#/definitions/InfraNetwork",
+          "description": "Storage data plane network. Typical VLAN: 42."
+        },
+        "storageMgmt": {
+          "$ref": "#/definitions/InfraNetworkOptionalIp",
+          "description": "Storage management plane network. Typical VLAN: 37."
+        },
+        "pdu": {
+          "$ref": "#/definitions/InfraNetwork",
+          "description": "PDU management network. Typical VLAN: 43."
+        }
+      },
+      "required": [
+        "management",
+        "pxe",
+        "bmc",
+        "storage"
+      ]
+    },
+    "InfrastructureServices": {
+      "type": "object",
+      "description": "Infrastructure service endpoints.",
+      "properties": {
+        "platformProxy": {
+          "$ref": "#/definitions/PlatformProxy",
+          "description": "Platform proxy configuration."
+        },
+        "ntpServers": {
+          "type": "array",
+          "description": "NTP server IPs or hostnames.",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "dnsServers": {
+          "type": "array",
+          "description": "DNS server IPs.",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "platformProxy",
+        "ntpServers",
+        "dnsServers"
+      ]
+    },
     "InterfaceType": {
       "type": "string",
       "description": "The Interface Type. Example: Management/Data",
@@ -17744,27 +18946,6 @@
           "description": "BMP Export Policy configuration."
         }
       }
-    },
-    "InternalNetworkListResult": {
-      "type": "object",
-      "description": "The response of a InternalNetwork list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The InternalNetwork items on this page",
-          "items": {
-            "$ref": "#/definitions/InternalNetwork"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
     },
     "InternalNetworkPatch": {
       "type": "object",
@@ -17874,6 +19055,31 @@
           "type": "string",
           "description": "Switch configuration description."
         },
+        "extension": {
+          "type": "string",
+          "description": "Extension. Example: NoExtension | NPB.",
+          "default": "NoExtension",
+          "enum": [
+            "NoExtension",
+            "NPB"
+          ],
+          "x-ms-enum": {
+            "name": "Extension",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "NoExtension",
+                "value": "NoExtension",
+                "description": "Extension-NoExtension"
+              },
+              {
+                "name": "NPB",
+                "value": "NPB",
+                "description": "Extension-NPB"
+              }
+            ]
+          }
+        },
         "mtu": {
           "type": "integer",
           "format": "int32",
@@ -17957,31 +19163,6 @@
                 "name": "False",
                 "value": "False",
                 "description": "IsMonitoringEnabled-False"
-              }
-            ]
-          }
-        },
-        "extension": {
-          "type": "string",
-          "description": "Extension. Example: NoExtension | NPB.",
-          "default": "NoExtension",
-          "enum": [
-            "NoExtension",
-            "NPB"
-          ],
-          "x-ms-enum": {
-            "name": "Extension",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "NoExtension",
-                "value": "NoExtension",
-                "description": "Extension-NoExtension"
-              },
-              {
-                "name": "NPB",
-                "value": "NPB",
-                "description": "Extension-NPB"
               }
             ]
           }
@@ -18251,6 +19432,27 @@
         }
       }
     },
+    "InternalNetworksList": {
+      "type": "object",
+      "description": "Paged collection of InternalNetwork items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The InternalNetwork items on this page",
+          "items": {
+            "$ref": "#/definitions/InternalNetwork"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "InternetGateway": {
       "type": "object",
       "description": "The Internet Gateway resource definition.",
@@ -18270,44 +19472,21 @@
         }
       ]
     },
-    "InternetGatewayListResult": {
-      "type": "object",
-      "description": "The response of a InternetGateway list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The InternetGateway items on this page",
-          "items": {
-            "$ref": "#/definitions/InternetGateway"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "InternetGatewayPatch": {
       "type": "object",
       "description": "The Internet Gateway patch resource definition.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/InternetGatewayPatchProperties",
           "description": "Resource properties.",
           "x-ms-client-flatten": true
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "InternetGatewayPatchProperties": {
       "type": "object",
@@ -18412,27 +19591,6 @@
         }
       ]
     },
-    "InternetGatewayRuleListResult": {
-      "type": "object",
-      "description": "The response of a InternetGatewayRule list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The InternetGatewayRule items on this page",
-          "items": {
-            "$ref": "#/definitions/InternetGatewayRule"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "InternetGatewayRulePatch": {
       "type": "object",
       "description": "The Internet Gateway Rules patch resource definition.",
@@ -18450,10 +19608,6 @@
       "type": "object",
       "description": "Internet Gateway Rule Properties defines the resource properties.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "ruleProperties": {
           "$ref": "#/definitions/RuleProperties",
           "description": "Rules for the InternetGateways"
@@ -18479,6 +19633,74 @@
       },
       "required": [
         "ruleProperties"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
+      ]
+    },
+    "InternetGatewayRulesListResult": {
+      "type": "object",
+      "description": "Paged collection of InternetGatewayRule items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The InternetGatewayRule items on this page",
+          "items": {
+            "$ref": "#/definitions/InternetGatewayRule"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "InternetGatewaysListResult": {
+      "type": "object",
+      "description": "Paged collection of InternetGateway items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The InternetGateway items on this page",
+          "items": {
+            "$ref": "#/definitions/InternetGateway"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "IpCommunitiesListResult": {
+      "type": "object",
+      "description": "Paged collection of IpCommunity items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The IpCommunity items on this page",
+          "items": {
+            "$ref": "#/definitions/IpCommunity"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
       ]
     },
     "IpCommunity": {
@@ -18513,44 +19735,21 @@
         }
       }
     },
-    "IpCommunityListResult": {
-      "type": "object",
-      "description": "The response of a IpCommunity list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The IpCommunity items on this page",
-          "items": {
-            "$ref": "#/definitions/IpCommunity"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "IpCommunityPatch": {
       "type": "object",
       "description": "The IP Community patch resource definition.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/IpCommunityPatchableProperties",
           "description": "IP Community patchable properties.",
           "x-ms-client-flatten": true
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "IpCommunityPatchableProperties": {
       "type": "object",
@@ -18714,19 +19913,17 @@
       "type": "object",
       "description": "The IP Extended Communities patch resource definition.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/IpExtendedCommunityPatchProperties",
           "description": "IP Extended Community patchable properties.",
           "x-ms-client-flatten": true
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "IpExtendedCommunityPatchProperties": {
       "type": "object",
@@ -18754,6 +19951,14 @@
           "type": "string",
           "description": "Switch configuration description."
         },
+        "ipExtendedCommunityRules": {
+          "type": "array",
+          "description": "List of IP Extended Community Rules.",
+          "items": {
+            "$ref": "#/definitions/IpExtendedCommunityRule"
+          },
+          "x-ms-identifiers": []
+        },
         "networkFabricId": {
           "type": "string",
           "format": "arm-id",
@@ -18766,14 +19971,6 @@
               }
             ]
           }
-        },
-        "ipExtendedCommunityRules": {
-          "type": "array",
-          "description": "List of IP Extended Community Rules.",
-          "items": {
-            "$ref": "#/definitions/IpExtendedCommunityRule"
-          },
-          "x-ms-identifiers": []
         },
         "lastOperation": {
           "$ref": "#/definitions/LastOperationProperties",
@@ -18951,44 +20148,21 @@
         }
       ]
     },
-    "IpPrefixListResult": {
-      "type": "object",
-      "description": "The response of a IpPrefix list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The IpPrefix items on this page",
-          "items": {
-            "$ref": "#/definitions/IpPrefix"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "IpPrefixPatch": {
       "type": "object",
       "description": "The IP Prefix patch resource definition.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/IpPrefixPatchProperties",
           "description": "IP Prefix patchable properties.",
           "x-ms-client-flatten": true
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "IpPrefixPatchProperties": {
       "type": "object",
@@ -19096,6 +20270,27 @@
         "networkPrefix"
       ]
     },
+    "IpPrefixesListResult": {
+      "type": "object",
+      "description": "Paged collection of IpPrefix items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The IpPrefix items on this page",
+          "items": {
+            "$ref": "#/definitions/IpPrefix"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "IsMonitoringEnabled": {
       "type": "string",
       "description": "To check whether monitoring of internal network is enabled or not.",
@@ -19195,38 +20390,10 @@
         }
       ]
     },
-    "L2IsolationDomainListResult": {
-      "type": "object",
-      "description": "The response of a L2IsolationDomain list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The L2IsolationDomain items on this page",
-          "items": {
-            "$ref": "#/definitions/L2IsolationDomain"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "L2IsolationDomainPatch": {
       "type": "object",
       "description": "The L2 Isolation Domain patch resource definition.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/L2IsolationDomainPatchProperties",
           "description": "L2 Isolation Domain resource patch properties.",
@@ -19236,16 +20403,17 @@
           "$ref": "#/definitions/ManagedServiceIdentityPatch",
           "description": "The managed service identities assigned to this resource."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "L2IsolationDomainPatchProperties": {
       "type": "object",
       "description": "L2 Isolation Domain Patch Properties defines the patchable properties of the resource.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "mtu": {
           "type": "integer",
           "format": "int32",
@@ -19269,16 +20437,17 @@
             ]
           }
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
+      ]
     },
     "L2IsolationDomainProperties": {
       "type": "object",
       "description": "L2Isolation Domain Properties defines the properties of the resource.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "networkFabricId": {
           "type": "string",
           "format": "arm-id",
@@ -19367,6 +20536,32 @@
       "required": [
         "networkFabricId",
         "vlanId"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
+      ]
+    },
+    "L2IsolationDomainsListResult": {
+      "type": "object",
+      "description": "Paged collection of L2IsolationDomain items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The L2IsolationDomain items on this page",
+          "items": {
+            "$ref": "#/definitions/L2IsolationDomain"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
       ]
     },
     "L3ExportRoutePolicy": {
@@ -19452,38 +20647,10 @@
         }
       ]
     },
-    "L3IsolationDomainListResult": {
-      "type": "object",
-      "description": "The response of a L3IsolationDomain list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The L3IsolationDomain items on this page",
-          "items": {
-            "$ref": "#/definitions/L3IsolationDomain"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "L3IsolationDomainPatch": {
       "type": "object",
       "description": "The L3 Isolation Domain patch resource definition.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/L3IsolationDomainPatchProperties",
           "description": "L3 Isolation Domain resource patch properties.",
@@ -19493,7 +20660,12 @@
           "$ref": "#/definitions/ManagedServiceIdentityPatch",
           "description": "The managed service identities assigned to this resource."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "L3IsolationDomainPatchProperties": {
       "type": "object",
@@ -19664,6 +20836,27 @@
         "networkFabricId"
       ]
     },
+    "L3IsolationDomainsListResult": {
+      "type": "object",
+      "description": "Paged collection of L3IsolationDomain items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The L3IsolationDomain items on this page",
+          "items": {
+            "$ref": "#/definitions/L3IsolationDomain"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "L3OptionBPatchProperties": {
       "type": "object",
       "description": "Option B configuration.",
@@ -19798,6 +20991,50 @@
         }
       }
     },
+    "Layer3IpPrefixPatchProperties": {
+      "type": "object",
+      "description": "Layer 3 primary and secondary IP Address prefixes.",
+      "properties": {
+        "primaryIpv4Prefix": {
+          "type": "string",
+          "description": "IPv4 Address Prefix."
+        },
+        "primaryIpv6Prefix": {
+          "type": "string",
+          "description": "IPv6 Address Prefix."
+        },
+        "secondaryIpv4Prefix": {
+          "type": "string",
+          "description": "Secondary IPv4 Address Prefix."
+        },
+        "secondaryIpv6Prefix": {
+          "type": "string",
+          "description": "Secondary IPv6 Address Prefix."
+        }
+      }
+    },
+    "Layer3IpPrefixProperties": {
+      "type": "object",
+      "description": "Layer 3 primary and secondary IP Address prefixes.",
+      "properties": {
+        "primaryIpv4Prefix": {
+          "type": "string",
+          "description": "IPv4 Address Prefix."
+        },
+        "primaryIpv6Prefix": {
+          "type": "string",
+          "description": "IPv6 Address Prefix."
+        },
+        "secondaryIpv4Prefix": {
+          "type": "string",
+          "description": "Secondary IPv4 Address Prefix."
+        },
+        "secondaryIpv6Prefix": {
+          "type": "string",
+          "description": "Secondary IPv6 Address Prefix."
+        }
+      }
+    },
     "Layer4Protocol": {
       "type": "string",
       "description": "Layer4 protocol type that needs to be matched.",
@@ -19908,6 +21145,30 @@
             "name": "UserAssignedIdentity",
             "value": "UserAssignedIdentity",
             "description": "User Assigned Identity."
+          }
+        ]
+      }
+    },
+    "ManagementMode": {
+      "type": "string",
+      "description": "Management mode for the Fabric.",
+      "enum": [
+        "unmanaged",
+        "managed"
+      ],
+      "x-ms-enum": {
+        "name": "ManagementMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "unmanaged",
+            "value": "unmanaged",
+            "description": "Customer manages devices."
+          },
+          {
+            "name": "managed",
+            "value": "managed",
+            "description": "RP manages devices."
           }
         ]
       }
@@ -20205,38 +21466,10 @@
         }
       }
     },
-    "NeighborGroupListResult": {
-      "type": "object",
-      "description": "The response of a NeighborGroup list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The NeighborGroup items on this page",
-          "items": {
-            "$ref": "#/definitions/NeighborGroup"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "NeighborGroupPatch": {
       "type": "object",
       "description": "The Neighbor Group Patch definition.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/NeighborGroupPatchProperties",
           "description": "Neighbor Group Patch properties.",
@@ -20246,7 +21479,12 @@
           "$ref": "#/definitions/ManagedServiceIdentityPatch",
           "description": "The managed service identities assigned to this resource."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "NeighborGroupPatchProperties": {
       "type": "object",
@@ -20406,6 +21644,27 @@
         "status"
       ]
     },
+    "NeighborGroupsListResult": {
+      "type": "object",
+      "description": "Paged collection of NeighborGroup items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The NeighborGroup items on this page",
+          "items": {
+            "$ref": "#/definitions/NeighborGroup"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "NetworkBootstrapDevice": {
       "type": "object",
       "description": "The Network Bootstrap Device resource definition.",
@@ -20454,13 +21713,6 @@
       "type": "object",
       "description": "The Network Bootstrap Device Patch Parameters defines the patch parameters of the resource.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/NetworkBootstrapDevicePatchProperties",
           "description": "Network Bootstrap Device Patch properties.",
@@ -20470,7 +21722,12 @@
           "$ref": "#/definitions/ManagedServiceIdentityPatch",
           "description": "The managed service identities assigned to this resource."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "NetworkBootstrapDevicePatchProperties": {
       "type": "object",
@@ -20525,6 +21782,22 @@
           "type": "string",
           "description": "Serial number of the device. Format of serial Number - Make;Model;HardwareRevisionId;SerialNumber.",
           "minLength": 1
+        },
+        "controlPlaneAcls": {
+          "type": "array",
+          "description": "Control Plane Access Control List ARM resource IDs.",
+          "items": {
+            "type": "string",
+            "format": "arm-id",
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Microsoft.ManagedNetworkFabric/accessControlLists"
+                }
+              ]
+            }
+          }
         },
         "version": {
           "type": "string",
@@ -20596,22 +21869,6 @@
           "$ref": "#/definitions/OperationalState",
           "description": "Operational state of networkBootstrapDevice indicating if the device is reachable and services are available.",
           "readOnly": true
-        },
-        "controlPlaneAcls": {
-          "type": "array",
-          "description": "Control Plane Access Control List ARM resource IDs.",
-          "items": {
-            "type": "string",
-            "format": "arm-id",
-            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
-            "x-ms-arm-id-details": {
-              "allowedResources": [
-                {
-                  "type": "Microsoft.ManagedNetworkFabric/accessControlLists"
-                }
-              ]
-            }
-          }
         },
         "secretRotationStatus": {
           "type": "array",
@@ -20961,24 +22218,26 @@
       "type": "object",
       "description": "Network Bootstrap Interface Patch properties.",
       "properties": {
-        "annotation": {
+        "serialNumber": {
           "type": "string",
-          "description": "Switch configuration description."
+          "description": "Serial number of the interface. Format of serial Number - Make;Model;HardwareRevisionId;SerialNumber.",
+          "minLength": 1
         },
         "additionalDescription": {
           "type": "string",
           "description": "Additional description of the interface."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
+      ]
     },
     "NetworkBootstrapInterfaceProperties": {
       "type": "object",
       "description": "Network Bootstrap Interface Properties defines the properties of the resource.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "Provisioning state of the resource.",
@@ -21028,12 +22287,22 @@
           "description": "IPv6Address of the interface.",
           "readOnly": true
         },
+        "serialNumber": {
+          "type": "string",
+          "description": "Serial number of the interface. Format of serial Number - Make;Model;HardwareRevisionId;SerialNumber.",
+          "minLength": 1
+        },
         "operationalState": {
           "$ref": "#/definitions/OperationalState",
           "description": "Operational state of networkBootstrapInterface indicating if the interface is reachable",
           "readOnly": true
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
+      ]
     },
     "NetworkDevice": {
       "type": "object",
@@ -21058,38 +22327,10 @@
         }
       ]
     },
-    "NetworkDeviceListResult": {
-      "type": "object",
-      "description": "The response of a NetworkDevice list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The NetworkDevice items on this page",
-          "items": {
-            "$ref": "#/definitions/NetworkDevice"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "NetworkDevicePatchParameters": {
       "type": "object",
       "description": "The Network Device Patch Parameters defines the patch parameters of the resource.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/NetworkDevicePatchParametersProperties",
           "description": "Network Device Patch properties.",
@@ -21099,7 +22340,12 @@
           "$ref": "#/definitions/ManagedServiceIdentityPatch",
           "description": "The managed service identities assigned to this resource."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "NetworkDevicePatchParametersProperties": {
       "type": "object",
@@ -21541,27 +22787,6 @@
         }
       ]
     },
-    "NetworkDeviceSkuListResult": {
-      "type": "object",
-      "description": "The response of a NetworkDeviceSku list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The NetworkDeviceSku items on this page",
-          "items": {
-            "$ref": "#/definitions/NetworkDeviceSku"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "NetworkDeviceSkuProperties": {
       "type": "object",
       "description": "Network Device SKU Properties defines the properties of the resource.",
@@ -21609,6 +22834,27 @@
       },
       "required": [
         "model"
+      ]
+    },
+    "NetworkDeviceSkusListResult": {
+      "type": "object",
+      "description": "Paged collection of NetworkDeviceSku items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The NetworkDeviceSku items on this page",
+          "items": {
+            "$ref": "#/definitions/NetworkDeviceSku"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
       ]
     },
     "NetworkDeviceUpdateAdministrativeStateResponse": {
@@ -21742,6 +22988,27 @@
         "status"
       ]
     },
+    "NetworkDevicesListResult": {
+      "type": "object",
+      "description": "Paged collection of NetworkDevice items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The NetworkDevice items on this page",
+          "items": {
+            "$ref": "#/definitions/NetworkDevice"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "NetworkFabric": {
       "type": "object",
       "description": "The Network Fabric resource definition.",
@@ -21788,38 +23055,10 @@
         }
       ]
     },
-    "NetworkFabricControllerListResult": {
-      "type": "object",
-      "description": "The response of a NetworkFabricController list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The NetworkFabricController items on this page",
-          "items": {
-            "$ref": "#/definitions/NetworkFabricController"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "NetworkFabricControllerPatch": {
       "type": "object",
       "description": "The Network Fabric Controller Patch payload definition.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/NetworkFabricControllerPatchProperties",
           "description": "Network Fabric Controller patch properties.",
@@ -21829,7 +23068,12 @@
           "$ref": "#/definitions/ManagedServiceIdentityPatch",
           "description": "The managed service identities assigned to this resource."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "NetworkFabricControllerPatchProperties": {
       "type": "object",
@@ -22022,15 +23266,15 @@
         }
       }
     },
-    "NetworkFabricListResult": {
+    "NetworkFabricControllersListResult": {
       "type": "object",
-      "description": "The response of a NetworkFabric list operation.",
+      "description": "Paged collection of NetworkFabricController items",
       "properties": {
         "value": {
           "type": "array",
-          "description": "The NetworkFabric items on this page",
+          "description": "The NetworkFabricController items on this page",
           "items": {
-            "$ref": "#/definitions/NetworkFabric"
+            "$ref": "#/definitions/NetworkFabricController"
           }
         },
         "nextLink": {
@@ -22109,13 +23353,6 @@
       "type": "object",
       "description": "The Network Fabric resource definition.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/NetworkFabricPatchProperties",
           "description": "Network Fabric Patch properties.",
@@ -22125,7 +23362,12 @@
           "$ref": "#/definitions/ManagedServiceIdentityPatch",
           "description": "The managed service identities assigned to this resource."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "NetworkFabricPatchProperties": {
       "type": "object",
@@ -22166,10 +23408,6 @@
           "minimum": 1,
           "maximum": 4294967295
         },
-        "storageAccountConfiguration": {
-          "$ref": "#/definitions/StorageAccountPatchConfiguration",
-          "description": "Bring your own storage account configurations for Network Fabric."
-        },
         "terminalServerConfiguration": {
           "$ref": "#/definitions/TerminalServerPatchConfiguration",
           "description": "Network and credentials configuration already applied to terminal server."
@@ -22177,6 +23415,10 @@
         "managementNetworkConfiguration": {
           "$ref": "#/definitions/ManagementNetworkPatchConfiguration",
           "description": "Configuration to be used to setup the management network."
+        },
+        "storageAccountConfiguration": {
+          "$ref": "#/definitions/StorageAccountPatchConfiguration",
+          "description": "Bring your own storage account configurations for Network Fabric."
         },
         "hardwareAlertThreshold": {
           "type": "integer",
@@ -22259,10 +23501,6 @@
       "type": "object",
       "description": "Network Fabric Properties defines the properties of the resource.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "networkFabricSku": {
           "type": "string",
           "description": "Supported Network Fabric SKU.Example: Compute / Aggregate racks. Once the user chooses a particular SKU, only supported racks can be added to the Network Fabric. The SKU determines whether it is a single / multi rack Network Fabric.",
@@ -22518,6 +23756,11 @@
         "fabricASN",
         "terminalServerConfiguration",
         "managementNetworkConfiguration"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
       ]
     },
     "NetworkFabricRefreshDeviceTypes": {
@@ -22799,27 +24042,6 @@
         }
       ]
     },
-    "NetworkFabricSkuListResult": {
-      "type": "object",
-      "description": "The response of a NetworkFabricSku list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The NetworkFabricSku items on this page",
-          "items": {
-            "$ref": "#/definitions/NetworkFabricSku"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "NetworkFabricSkuProperties": {
       "type": "object",
       "description": "Network Fabric SKU Properties define properties of the resource.",
@@ -22859,6 +24081,27 @@
         }
       }
     },
+    "NetworkFabricSkusListResult": {
+      "type": "object",
+      "description": "Paged collection of NetworkFabricSku items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The NetworkFabricSku items on this page",
+          "items": {
+            "$ref": "#/definitions/NetworkFabricSku"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "NetworkFabricUpgradeAction": {
       "type": "string",
       "description": "Action to be performed while upgrading the fabric.",
@@ -22883,6 +24126,27 @@
         ]
       }
     },
+    "NetworkFabricsListResult": {
+      "type": "object",
+      "description": "Paged collection of NetworkFabric items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The NetworkFabric items on this page",
+          "items": {
+            "$ref": "#/definitions/NetworkFabric"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "NetworkInterface": {
       "type": "object",
       "description": "Defines the NetworkInterface resource.",
@@ -22906,27 +24170,6 @@
         }
       ]
     },
-    "NetworkInterfaceListResult": {
-      "type": "object",
-      "description": "The response of a NetworkInterface list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The NetworkInterface items on this page",
-          "items": {
-            "$ref": "#/definitions/NetworkInterface"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "NetworkInterfacePatch": {
       "type": "object",
       "description": "The NetworkInterfacePatch resource definition.",
@@ -22946,24 +24189,21 @@
       "type": "object",
       "description": "Network Interface Patch properties.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "additionalDescription": {
           "type": "string",
           "description": "Additional description of the interface."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
+      ]
     },
     "NetworkInterfaceProperties": {
       "type": "object",
       "description": "Network Interface Properties defines the properties of the resource.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "physicalIdentifier": {
           "type": "string",
           "description": "Physical Identifier of the network interface.",
@@ -23036,7 +24276,33 @@
           "description": "Operational state of networkInterface indicating if the interface is reachable",
           "readOnly": true
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
+      ]
+    },
+    "NetworkInterfacesList": {
+      "type": "object",
+      "description": "Paged collection of NetworkInterface items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The NetworkInterface items on this page",
+          "items": {
+            "$ref": "#/definitions/NetworkInterface"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
     },
     "NetworkMonitor": {
       "type": "object",
@@ -23044,7 +24310,7 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/NetworkMonitorProperties",
-          "description": "The NetworkFabric Properties",
+          "description": "The NetworkMonitor properties.",
           "x-ms-client-flatten": true
         }
       },
@@ -23082,19 +24348,17 @@
       "type": "object",
       "description": "The Network Monitor Patch resource definition.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/NetworkMonitorPatchProperties",
           "description": "Network Monitor Patch properties.",
           "x-ms-client-flatten": true
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "NetworkMonitorPatchProperties": {
       "type": "object",
@@ -23110,10 +24374,6 @@
       "type": "object",
       "description": "Network Monitor Properties defines the properties of the resource.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "bmpConfiguration": {
           "$ref": "#/definitions/BmpConfigurationProperties",
           "description": "BMP Configurations for the Network Fabric."
@@ -23138,7 +24398,12 @@
           "description": "Administrative state of the resource.",
           "readOnly": true
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
+      ]
     },
     "NetworkPacketBroker": {
       "type": "object",
@@ -23163,38 +24428,10 @@
         }
       ]
     },
-    "NetworkPacketBrokerListResult": {
-      "type": "object",
-      "description": "The response of a NetworkPacketBroker list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The NetworkPacketBroker items on this page",
-          "items": {
-            "$ref": "#/definitions/NetworkPacketBroker"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "NetworkPacketBrokerPatch": {
       "type": "object",
       "description": "The NetworkPacketBroker patch resource definition.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/NetworkPacketBrokerPatchProperties",
           "description": "NetworkPacketBroker patch properties."
@@ -23203,7 +24440,12 @@
           "$ref": "#/definitions/ManagedServiceIdentityPatch",
           "description": "The managed service identities assigned to this resource."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "NetworkPacketBrokerPatchProperties": {
       "type": "object",
@@ -23344,6 +24586,27 @@
         "networkFabricId"
       ]
     },
+    "NetworkPacketBrokersListResult": {
+      "type": "object",
+      "description": "Paged collection of NetworkPacketBroker items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The NetworkPacketBroker items on this page",
+          "items": {
+            "$ref": "#/definitions/NetworkPacketBroker"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "NetworkRack": {
       "type": "object",
       "description": "The Network Rack resource definition.",
@@ -23363,27 +24626,6 @@
         }
       ]
     },
-    "NetworkRackListResult": {
-      "type": "object",
-      "description": "The response of a NetworkRack list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The NetworkRack items on this page",
-          "items": {
-            "$ref": "#/definitions/NetworkRack"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "NetworkRackPatch": {
       "type": "object",
       "description": "Network Rack patch resource definition.",
@@ -23401,10 +24643,6 @@
       "type": "object",
       "description": "Network Rack Properties defines the properties of the resource.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "networkRackType": {
           "$ref": "#/definitions/NetworkRackType",
           "description": "Network Rack SKU name."
@@ -23456,6 +24694,11 @@
       },
       "required": [
         "networkFabricId"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
       ]
     },
     "NetworkRackType": {
@@ -23488,6 +24731,27 @@
         ]
       }
     },
+    "NetworkRacksListResult": {
+      "type": "object",
+      "description": "Paged collection of NetworkRack items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The NetworkRack items on this page",
+          "items": {
+            "$ref": "#/definitions/NetworkRack"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "NetworkTap": {
       "type": "object",
       "description": "The Network Tap resource definition.",
@@ -23511,38 +24775,10 @@
         }
       ]
     },
-    "NetworkTapListResult": {
-      "type": "object",
-      "description": "The response of a NetworkTap list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The NetworkTap items on this page",
-          "items": {
-            "$ref": "#/definitions/NetworkTap"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "NetworkTapPatch": {
       "type": "object",
       "description": "The NetworkFabric resource definition.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/NetworkTapPatchProperties",
           "description": "NetworkTap resource patch properties.",
@@ -23552,16 +24788,17 @@
           "$ref": "#/definitions/ManagedServiceIdentityPatch",
           "description": "The managed service identities assigned to this resource."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "NetworkTapPatchProperties": {
       "type": "object",
       "description": "The Network Tap resource patch definition.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "pollingType": {
           "$ref": "#/definitions/PollingType",
           "description": "Polling type."
@@ -23574,16 +24811,17 @@
           },
           "x-ms-identifiers": []
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
+      ]
     },
     "NetworkTapProperties": {
       "type": "object",
       "description": "Network Tap Properties defines the properties of the resource.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "networkPacketBrokerId": {
           "type": "string",
           "format": "arm-id",
@@ -23687,6 +24925,11 @@
       "required": [
         "networkPacketBrokerId",
         "destinations"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
       ]
     },
     "NetworkTapResyncResponse": {
@@ -23846,47 +25089,10 @@
         }
       }
     },
-    "NetworkTapRuleListResult": {
-      "type": "object",
-      "description": "The response of a NetworkTapRule list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The NetworkTapRule items on this page",
-          "items": {
-            "$ref": "#/definitions/NetworkTapRule"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "NetworkTapRuleMatchCondition": {
       "type": "object",
       "description": "Defines the match condition that is supported to filter the traffic.",
       "properties": {
-        "protocolTypes": {
-          "type": "array",
-          "description": "List of the protocols that need to be matched.",
-          "minItems": 1,
-          "items": {
-            "type": "string"
-          }
-        },
-        "vlanMatchCondition": {
-          "$ref": "#/definitions/VlanMatchCondition",
-          "description": "Vlan match condition that needs to be matched."
-        },
-        "ipCondition": {
-          "$ref": "#/definitions/IpMatchCondition",
-          "description": "IP condition that needs to be matched."
-        },
         "encapsulationType": {
           "type": "string",
           "description": "Encapsulation Type that needs to be matched.",
@@ -23916,27 +25122,17 @@
           "$ref": "#/definitions/PortCondition",
           "description": "Defines the port condition that needs to be matched."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/CommonMatchConditions"
+        }
+      ]
     },
     "NetworkTapRuleMatchConditionPatch": {
       "type": "object",
       "description": "Defines the match condition that is supported to filter the traffic.",
       "properties": {
-        "protocolTypes": {
-          "type": "array",
-          "description": "List of the protocols that need to be matched.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "vlanMatchCondition": {
-          "$ref": "#/definitions/VlanMatchConditionPatch",
-          "description": "Vlan match condition that needs to be matched."
-        },
-        "ipCondition": {
-          "$ref": "#/definitions/IpMatchConditionPatch",
-          "description": "IP condition that needs to be matched."
-        },
         "encapsulationType": {
           "$ref": "#/definitions/EncapsulationType",
           "description": "Encapsulation Type that needs to be matched."
@@ -23945,7 +25141,12 @@
           "$ref": "#/definitions/PortConditionPatch",
           "description": "Defines the port condition that needs to be matched."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/CommonMatchConditionsPatch"
+        }
+      ]
     },
     "NetworkTapRuleMatchConfiguration": {
       "type": "object",
@@ -24027,13 +25228,6 @@
       "type": "object",
       "description": "The NetworkTapRule resource definition.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/NetworkTapRulePatchProperties",
           "description": "Network Tap Rule Patch properties.",
@@ -24043,7 +25237,12 @@
           "$ref": "#/definitions/ManagedServiceIdentityPatch",
           "description": "The managed service identities assigned to this resource."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "NetworkTapRulePatchProperties": {
       "type": "object",
@@ -24062,14 +25261,6 @@
           "format": "uri",
           "description": "Network Tap Rules file URL."
         },
-        "identitySelector": {
-          "$ref": "#/definitions/IdentitySelectorPatch",
-          "description": "The selection of the managed identity to use with this storage account. The identity type must be either system assigned or user assigned."
-        },
-        "globalNetworkTapRuleActions": {
-          "$ref": "#/definitions/GlobalNetworkTapRuleActionPatchProperties",
-          "description": "Global network tap rule actions"
-        },
         "matchConfigurations": {
           "type": "array",
           "description": "List of match configurations.",
@@ -24086,6 +25277,14 @@
             "$ref": "#/definitions/CommonDynamicMatchConfigurationPatch"
           },
           "x-ms-identifiers": []
+        },
+        "identitySelector": {
+          "$ref": "#/definitions/IdentitySelectorPatch",
+          "description": "The selection of the managed identity to use with this storage account. The identity type must be either system assigned or user assigned."
+        },
+        "globalNetworkTapRuleActions": {
+          "$ref": "#/definitions/GlobalNetworkTapRuleActionPatchProperties",
+          "description": "Global network tap rule actions"
         }
       }
     },
@@ -24127,6 +25326,11 @@
             "$ref": "#/definitions/CommonDynamicMatchConfiguration"
           },
           "x-ms-identifiers": []
+        },
+        "networkTapId": {
+          "type": "string",
+          "description": "The ARM resource Id of the NetworkTap.",
+          "readOnly": true
         },
         "networkTapIds": {
           "type": "array",
@@ -24259,6 +25463,48 @@
         "status"
       ]
     },
+    "NetworkTapRulesListResult": {
+      "type": "object",
+      "description": "Paged collection of NetworkTapRule items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The NetworkTapRule items on this page",
+          "items": {
+            "$ref": "#/definitions/NetworkTapRule"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "NetworkTapsListResult": {
+      "type": "object",
+      "description": "Paged collection of NetworkTap items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The NetworkTap items on this page",
+          "items": {
+            "$ref": "#/definitions/NetworkTap"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "NetworkToNetworkInterconnect": {
       "type": "object",
       "description": "The Network To Network Interconnect resource definition.",
@@ -24278,52 +25524,21 @@
         }
       ]
     },
-    "NetworkToNetworkInterconnectListResult": {
-      "type": "object",
-      "description": "The response of a NetworkToNetworkInterconnect list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The NetworkToNetworkInterconnect items on this page",
-          "items": {
-            "$ref": "#/definitions/NetworkToNetworkInterconnect"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "NetworkToNetworkInterconnectPatch": {
       "type": "object",
       "description": "The Network To Network Interconnect resource patch definition.",
       "properties": {
-        "id": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "Fully qualified resource ID for the resource. E.g. '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}'",
-          "readOnly": true
-        },
-        "type": {
-          "type": "string",
-          "description": "The type of the resource. E.g. 'Microsoft.Compute/virtualMachines' or 'Microsoft.Storage/storageAccounts'",
-          "readOnly": true
-        },
-        "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/systemData",
-          "description": "Azure Resource Manager metadata containing createdBy and modifiedBy information.",
-          "readOnly": true
-        },
         "properties": {
           "$ref": "#/definitions/NetworkToNetworkInterconnectPatchProperties",
-          "description": "Resource properties."
+          "description": "Resource properties.",
+          "x-ms-client-flatten": true
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/ProxyResourceBase"
+        }
+      ]
     },
     "NetworkToNetworkInterconnectPatchProperties": {
       "type": "object",
@@ -24520,6 +25735,27 @@
       },
       "required": [
         "useOptionB"
+      ]
+    },
+    "NetworkToNetworkInterconnectsList": {
+      "type": "object",
+      "description": "Paged collection of NetworkToNetworkInterconnect items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The NetworkToNetworkInterconnect items on this page",
+          "items": {
+            "$ref": "#/definitions/NetworkToNetworkInterconnect"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
       ]
     },
     "NniBmpPatchProperties": {
@@ -24776,6 +26012,30 @@
         }
       }
     },
+    "OperationPolicy": {
+      "type": "string",
+      "description": "Operation policy for device interaction.",
+      "enum": [
+        "validateOnly",
+        "fullControl"
+      ],
+      "x-ms-enum": {
+        "name": "OperationPolicy",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "validateOnly",
+            "value": "validateOnly",
+            "description": "Read device state and report drift."
+          },
+          {
+            "name": "fullControl",
+            "value": "fullControl",
+            "description": "Read, write, and remediate drift."
+          }
+        ]
+      }
+    },
     "OperationalState": {
       "type": "string",
       "description": "Operational State represents the current runtime condition of a networking resource. It reflects the actual health, reachability, and availability of the resource at a given point in time.",
@@ -24816,22 +26076,6 @@
       "type": "object",
       "description": "OptionB Layer3 Configuration properties.",
       "properties": {
-        "primaryIpv4Prefix": {
-          "type": "string",
-          "description": "IPv4 Address Prefix."
-        },
-        "primaryIpv6Prefix": {
-          "type": "string",
-          "description": "IPv6 Address Prefix."
-        },
-        "secondaryIpv4Prefix": {
-          "type": "string",
-          "description": "Secondary IPv4 Address Prefix."
-        },
-        "secondaryIpv6Prefix": {
-          "type": "string",
-          "description": "Secondary IPv6 Address Prefix."
-        },
         "peerASN": {
           "type": "integer",
           "format": "int64",
@@ -24876,28 +26120,17 @@
       "required": [
         "peerASN",
         "vlanId"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/Layer3IpPrefixProperties"
+        }
       ]
     },
     "OptionBLayer3ConfigurationPatchProperties": {
       "type": "object",
       "description": "Common properties for Layer3Configuration.",
       "properties": {
-        "primaryIpv4Prefix": {
-          "type": "string",
-          "description": "IPv4 Address Prefix."
-        },
-        "primaryIpv6Prefix": {
-          "type": "string",
-          "description": "IPv6 Address Prefix."
-        },
-        "secondaryIpv4Prefix": {
-          "type": "string",
-          "description": "Secondary IPv4 Address Prefix."
-        },
-        "secondaryIpv6Prefix": {
-          "type": "string",
-          "description": "Secondary IPv6 Address Prefix."
-        },
         "peerASN": {
           "type": "integer",
           "format": "int64",
@@ -24937,7 +26170,12 @@
           },
           "x-ms-identifiers": []
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Layer3IpPrefixPatchProperties"
+        }
+      ]
     },
     "OptionBLayer3PrefixLimitPatchProperties": {
       "type": "object",
@@ -24958,6 +26196,115 @@
           "type": "integer",
           "format": "int32",
           "description": "Maximum number of routes allowed."
+        }
+      }
+    },
+    "PatchInfraNetwork": {
+      "type": "object",
+      "description": "Infrastructure network definition for PATCH. All fields optional.",
+      "properties": {
+        "vlanId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "802.1Q VLAN ID.",
+          "minimum": 1,
+          "maximum": 4094
+        },
+        "ipv4Subnet": {
+          "type": "string",
+          "description": "IPv4 subnet in CIDR notation."
+        },
+        "ipv4Gateway": {
+          "type": "string",
+          "description": "Default gateway IP."
+        },
+        "ipv4StartAddr": {
+          "type": "string",
+          "description": "Start of allocatable IP range."
+        },
+        "ipv4EndAddr": {
+          "type": "string",
+          "description": "End of allocatable IP range."
+        },
+        "mtu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum Transmission Unit."
+        }
+      }
+    },
+    "PatchInfrastructureNetworks": {
+      "type": "object",
+      "description": "Infrastructure network definitions for PATCH. No networks required.",
+      "properties": {
+        "management": {
+          "$ref": "#/definitions/PatchInfraNetwork",
+          "description": "OAM management network."
+        },
+        "pxe": {
+          "$ref": "#/definitions/PatchInfraNetwork",
+          "description": "PXE boot network."
+        },
+        "bmc": {
+          "$ref": "#/definitions/PatchInfraNetwork",
+          "description": "BMC/iDRAC network."
+        },
+        "storage": {
+          "$ref": "#/definitions/PatchInfraNetwork",
+          "description": "Storage data plane network."
+        },
+        "storageMgmt": {
+          "$ref": "#/definitions/PatchInfraNetwork",
+          "description": "Storage management plane network."
+        },
+        "pdu": {
+          "$ref": "#/definitions/PatchInfraNetwork",
+          "description": "PDU management network."
+        }
+      }
+    },
+    "PatchInfrastructureServices": {
+      "type": "object",
+      "description": "Infrastructure service endpoints for PATCH. All fields optional.",
+      "properties": {
+        "platformProxy": {
+          "$ref": "#/definitions/PatchPlatformProxy",
+          "description": "Platform proxy configuration."
+        },
+        "ntpServers": {
+          "type": "array",
+          "description": "NTP server IPs or hostnames.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dnsServers": {
+          "type": "array",
+          "description": "DNS server IPs.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PatchPlatformProxy": {
+      "type": "object",
+      "description": "Platform proxy configuration for PATCH. All fields optional.",
+      "properties": {
+        "httpProxy": {
+          "type": "string",
+          "description": "HTTP proxy endpoint URL."
+        },
+        "httpsProxy": {
+          "type": "string",
+          "description": "HTTPS proxy endpoint URL."
+        },
+        "noProxy": {
+          "type": "array",
+          "description": "CIDRs, hostnames, and domain suffixes that bypass the proxy.",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -24984,6 +26331,32 @@
           }
         ]
       }
+    },
+    "PlatformProxy": {
+      "type": "object",
+      "description": "Platform proxy configuration.",
+      "properties": {
+        "httpProxy": {
+          "type": "string",
+          "description": "HTTP proxy endpoint URL."
+        },
+        "httpsProxy": {
+          "type": "string",
+          "description": "HTTPS proxy endpoint URL."
+        },
+        "noProxy": {
+          "type": "array",
+          "description": "CIDRs, hostnames, and domain suffixes that bypass the proxy.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "httpProxy",
+        "httpsProxy",
+        "noProxy"
+      ]
     },
     "PoliceRateConfigurationProperties": {
       "type": "object",
@@ -25318,6 +26691,28 @@
       },
       "readOnly": true
     },
+    "ProxyResourceBase": {
+      "type": "object",
+      "description": "ProxyResourceBase with no property bag",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Fully qualified resource ID for the resource. E.g. '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}'",
+          "readOnly": true
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource. E.g. 'Microsoft.Compute/virtualMachines' or 'Microsoft.Storage/storageAccounts'",
+          "readOnly": true
+        },
+        "systemData": {
+          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/systemData",
+          "description": "Azure Resource Manager metadata containing createdBy and modifiedBy information.",
+          "readOnly": true
+        }
+      }
+    },
     "QosConfigurationState": {
       "type": "string",
       "description": "NetworkFabric QoS ConfigurationState.",
@@ -25502,6 +26897,27 @@
         "configurationRegenerationType"
       ]
     },
+    "RoutePoliciesListResult": {
+      "type": "object",
+      "description": "Paged collection of RoutePolicy items",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The RoutePolicy items on this page",
+          "items": {
+            "$ref": "#/definitions/RoutePolicy"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "RoutePolicy": {
       "type": "object",
       "description": "The RoutePolicy resource definition.",
@@ -25575,44 +26991,21 @@
         ]
       }
     },
-    "RoutePolicyListResult": {
-      "type": "object",
-      "description": "The response of a RoutePolicy list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The RoutePolicy items on this page",
-          "items": {
-            "$ref": "#/definitions/RoutePolicy"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "RoutePolicyPatch": {
       "type": "object",
       "description": "The Route Policy patch resource definition.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "$ref": "#/definitions/RoutePolicyPatchableProperties",
           "description": "The RoutePolicy patchable properties.",
           "x-ms-client-flatten": true
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/TagsUpdate"
+        }
+      ]
     },
     "RoutePolicyPatchableProperties": {
       "type": "object",
@@ -25742,10 +27135,6 @@
       "type": "object",
       "description": "Route Policy Statement properties.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "sequenceNumber": {
           "type": "integer",
           "format": "int64",
@@ -25766,16 +27155,17 @@
         "sequenceNumber",
         "condition",
         "action"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
       ]
     },
     "RoutePolicyStatementProperties": {
       "type": "object",
       "description": "Route Policy Statement properties.",
       "properties": {
-        "annotation": {
-          "type": "string",
-          "description": "Switch configuration description."
-        },
         "sequenceNumber": {
           "type": "integer",
           "format": "int64",
@@ -25796,6 +27186,11 @@
         "sequenceNumber",
         "condition",
         "action"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/AnnotationResource"
+        }
       ]
     },
     "RoutePrefixLimitPatchProperties": {
@@ -26630,6 +28025,19 @@
         ]
       }
     },
+    "TagsUpdate": {
+      "type": "object",
+      "description": "Base tracked resource type for PATCH updates.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "TapRuleActionType": {
       "type": "string",
       "description": "Type of actions that can be performed.",
@@ -26890,18 +28298,16 @@
       "type": "object",
       "description": "Update administrative state on list of resources.",
       "properties": {
-        "resourceIds": {
-          "type": "array",
-          "description": "Network Fabrics or Network Rack resource Id.",
-          "items": {
-            "type": "string"
-          }
-        },
         "state": {
           "$ref": "#/definitions/EnableDisableState",
           "description": "Administrative state."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/EnableDisableOnResources"
+        }
+      ]
     },
     "UpdateAdministrativeStateResponse": {
       "type": "object",
@@ -26997,18 +28403,16 @@
       "type": "object",
       "description": "Update the administrative state on list of resources.",
       "properties": {
-        "resourceIds": {
-          "type": "array",
-          "description": "Network Fabrics or Network Rack resource Id.",
-          "items": {
-            "type": "string"
-          }
-        },
         "state": {
           "$ref": "#/definitions/DeviceAdministrativeState",
           "description": "Administrative state."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/EnableDisableOnResources"
+        }
+      ]
     },
     "UpdateVersion": {
       "type": "object",
@@ -27024,15 +28428,16 @@
       "type": "object",
       "description": "Model used for Upgrade Network Fabric Properties",
       "properties": {
-        "version": {
-          "type": "string",
-          "description": "Specify the version."
-        },
         "action": {
           "$ref": "#/definitions/NetworkFabricUpgradeAction",
           "description": "Action to be performed while upgrading the fabric."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/UpdateVersion"
+        }
+      ]
     },
     "UpgradeProfileProperties": {
       "type": "object",
@@ -27497,24 +28902,13 @@
         "bfdConfiguration": {
           "$ref": "#/definitions/BfdPatchConfiguration",
           "description": "BFD Configuration properties."
-        },
-        "primaryIpv4Prefix": {
-          "type": "string",
-          "description": "IPv4 Address Prefix."
-        },
-        "primaryIpv6Prefix": {
-          "type": "string",
-          "description": "IPv6 Address Prefix."
-        },
-        "secondaryIpv4Prefix": {
-          "type": "string",
-          "description": "Secondary IPv4 Address Prefix."
-        },
-        "secondaryIpv6Prefix": {
-          "type": "string",
-          "description": "Secondary IPv6 Address Prefix."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Layer3IpPrefixPatchProperties"
+        }
+      ]
     },
     "VpnOptionAProperties": {
       "type": "object",
@@ -27545,27 +28939,16 @@
         "bfdConfiguration": {
           "$ref": "#/definitions/BfdConfiguration",
           "description": "BFD Configuration properties."
-        },
-        "primaryIpv4Prefix": {
-          "type": "string",
-          "description": "IPv4 Address Prefix."
-        },
-        "primaryIpv6Prefix": {
-          "type": "string",
-          "description": "IPv6 Address Prefix."
-        },
-        "secondaryIpv4Prefix": {
-          "type": "string",
-          "description": "Secondary IPv4 Address Prefix."
-        },
-        "secondaryIpv6Prefix": {
-          "type": "string",
-          "description": "Secondary IPv6 Address Prefix."
         }
       },
       "required": [
         "vlanId",
         "peerASN"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/Layer3IpPrefixProperties"
+        }
       ]
     },
     "VpnOptionBPatchProperties": {

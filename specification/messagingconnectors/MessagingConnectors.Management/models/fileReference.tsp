@@ -23,7 +23,6 @@ import "./connector/sourceConnector/sourceDataFormatModels/sourceDataFormat.tsp"
 import "./connector/sourceConnector/sourceConnector.tsp";
 import "./dataSourceModels/dataSourceProperties.tsp";
 import "./dataSourceModels/azureDataExplorerSourceConnector.tsp";
-import "./dataSourceModels/azureDataExplorerSourceConnector.tsp";
 import "./dataSourceModels/azureServiceBusSourceConnector.tsp";
 import "./dataSourceModels/confluentSourceConnector.tsp";
 import "./dataSourceModels/cosmosDbSourceConnector.tsp";
@@ -45,7 +44,9 @@ import "./dataSourceModels/azureBlobSourceConnector.tsp";
 import "./dataSourceModels/oracleSourceConnector.tsp";
 import "./dataSourceModels/httpSourceConnector.tsp";
 import "./dataSourceModels/mongoDbSourceConnector.tsp";
+import "./dataSourceModels/ioTHubSourceConnector.tsp";
 import "./dataSourceModels/deltaChangeFeedSourceConnector.tsp";
+import "./dataSourceModels/generalSourceConnector.tsp";
 import "./fetchCdcSchemaModels/schemaProperties/schemaProperties.tsp";
 import "./fetchCdcSchemaModels/schemaProperties/postgreSql/postgreSqlSchemaProperties.tsp";
 import "./fetchCdcSchemaModels/schemaProperties/sqlServer/sqlServerSchemaProperties.tsp";

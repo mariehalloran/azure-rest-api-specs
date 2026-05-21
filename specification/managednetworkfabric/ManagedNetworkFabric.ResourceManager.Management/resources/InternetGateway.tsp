@@ -21,15 +21,8 @@ model InternetGateway
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** The Internet Gateway Properties */
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: InternetGatewayProperties;
-
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
   @doc("The Internet Gateway Properties")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties: InternetGatewayProperties;
 }
 
@@ -49,13 +42,20 @@ interface InternetGateways {
   delete is ArmResourceDeleteWithoutOkAsync<InternetGateway>;
 
   @doc("Displays Internet Gateways list by resource group GET method.")
-  listByResourceGroup is ArmResourceListByParent<InternetGateway>;
+  listByResourceGroup is ArmResourceListByParent<
+    InternetGateway,
+    Response = InternetGatewaysListResult
+  >;
 
   @doc("Displays Internet Gateways list by subscription GET method.")
-  listBySubscription is ArmListBySubscription<InternetGateway>;
+  listBySubscription is ArmListBySubscription<
+    InternetGateway,
+    Response = InternetGatewaysListResult
+  >;
 }
 
 @@doc(InternetGateways.create::parameters.resource, "Request payload.");
-@@doc(InternetGateways.update::parameters.properties,
+@@doc(
+  InternetGateways.update::parameters.properties,
   "API to update certain properties of the InternetGateway resource.."
 );

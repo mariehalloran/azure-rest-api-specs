@@ -20,15 +20,7 @@ model NeighborGroup extends Azure.ResourceManager.Foundations.TrackedResource {
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** The NeighborGroup Properties */
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: NeighborGroupProperties;
-
-  /** The NeighborGroup Properties */
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
+  @doc("The NeighborGroup Properties")
   properties: NeighborGroupProperties;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
@@ -53,10 +45,16 @@ interface NeighborGroups {
   delete is ArmResourceDeleteWithoutOkAsync<NeighborGroup>;
 
   @doc("Displays NeighborGroups list by resource group GET method.")
-  listByResourceGroup is ArmResourceListByParent<NeighborGroup>;
+  listByResourceGroup is ArmResourceListByParent<
+    NeighborGroup,
+    Response = NeighborGroupsListResult
+  >;
 
   @doc("Displays NeighborGroups list by subscription GET method.")
-  listBySubscription is ArmListBySubscription<NeighborGroup>;
+  listBySubscription is ArmListBySubscription<
+    NeighborGroup,
+    Response = NeighborGroupsListResult
+  >;
 
   @doc("Resync the Neighbor Group after a configuration change.")
   @added(Versions.v2025_07_15)
@@ -68,6 +66,7 @@ interface NeighborGroups {
 }
 
 @@doc(NeighborGroups.create::parameters.resource, "Request payload.");
-@@doc(NeighborGroups.update::parameters.properties,
+@@doc(
+  NeighborGroups.update::parameters.properties,
   "Neighbor Group properties to update. Only annotations are supported."
 );

@@ -19,15 +19,7 @@ model NetworkTap extends Azure.ResourceManager.Foundations.TrackedResource {
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** The NetworkTap Properties */
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: NetworkTapProperties;
-
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
   @doc("The NetworkTap Properties")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties: NetworkTapProperties;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
@@ -52,10 +44,16 @@ interface NetworkTaps {
   delete is ArmResourceDeleteWithoutOkAsync<NetworkTap>;
 
   @doc("Displays Network Taps list by resource group GET method.")
-  listByResourceGroup is ArmResourceListByParent<NetworkTap>;
+  listByResourceGroup is ArmResourceListByParent<
+    NetworkTap,
+    Response = NetworkTapsListResult
+  >;
 
   @doc("Displays Network Taps list by subscription GET method.")
-  listBySubscription is ArmListBySubscription<NetworkTap>;
+  listBySubscription is ArmListBySubscription<
+    NetworkTap,
+    Response = NetworkTapsListResult
+  >;
 
   @doc("Implements the operation to the underlying resources.")
   @action("updateAdministrativeState")
@@ -97,12 +95,15 @@ interface NetworkTaps {
 }
 
 @@doc(NetworkTaps.create::parameters.resource, "Request payload.");
-@@doc(NetworkTaps.update::parameters.properties,
+@@doc(
+  NetworkTaps.update::parameters.properties,
   "Network Tap properties to update."
 );
-@@doc(NetworkTaps.updateAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  NetworkTaps.updateAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(NetworkTaps.updateAdministrativeState::parameters.body,
+@@doc(
+  NetworkTaps.updateAdministrativeState::parameters.body,
   "Request payload."
 );

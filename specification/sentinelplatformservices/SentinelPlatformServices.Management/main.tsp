@@ -73,6 +73,7 @@ interface Operations extends Azure.ResourceManager.Operations {}
 interface SentinelPlatformServices {
   get is ArmResourceRead<SentinelPlatformService>;
   createOrUpdate is ArmResourceCreateOrReplaceSync<SentinelPlatformService>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchSync<
     SentinelPlatformService,

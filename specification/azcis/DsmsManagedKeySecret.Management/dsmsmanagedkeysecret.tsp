@@ -110,7 +110,8 @@ interface DsmsManagedKeySecret {
   get is ArmResourceRead<DsmsManagedKeySecretResource>;
 }
 
-@@visibility(DsmsManagedKeySecretResource.properties,
+@@visibility(
+  DsmsManagedKeySecretResource.properties,
   Lifecycle.Read,
   Lifecycle.Create
 );

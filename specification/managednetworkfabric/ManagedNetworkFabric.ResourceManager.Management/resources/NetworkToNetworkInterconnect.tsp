@@ -27,15 +27,6 @@ model NetworkToNetworkInterconnect
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
   @doc("The NetworkToNetworkInterconnect Properties")
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: NetworkToNetworkInterconnectProperties;
-
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
-  @doc("The NetworkToNetworkInterconnect Properties")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties: NetworkToNetworkInterconnectProperties;
 }
 
@@ -58,7 +49,10 @@ interface NetworkToNetworkInterconnects {
   delete is ArmResourceDeleteWithoutOkAsync<NetworkToNetworkInterconnect>;
 
   @doc("Implements Network To Network Interconnects list by Network Fabric GET method.")
-  listByNetworkFabric is ArmResourceListByParent<NetworkToNetworkInterconnect>;
+  listByNetworkFabric is ArmResourceListByParent<
+    NetworkToNetworkInterconnect,
+    Response = NetworkToNetworkInterconnectsList
+  >;
 
   @doc("Updates the NPB Static Route BFD Administrative State.")
   @removed(Versions.v2024_06_15_preview)
@@ -128,27 +122,35 @@ interface NetworkToNetworkInterconnects {
   >;
 }
 
-@@doc(NetworkToNetworkInterconnects.create::parameters.resource,
+@@doc(
+  NetworkToNetworkInterconnects.create::parameters.resource,
   "Request payload."
 );
-@@doc(NetworkToNetworkInterconnects.update::parameters.properties,
+@@doc(
+  NetworkToNetworkInterconnects.update::parameters.properties,
   "Network to Network Interconnect properties to update."
 );
-@@doc(NetworkToNetworkInterconnects.updateNpbStaticRouteBfdAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  NetworkToNetworkInterconnects.updateNpbStaticRouteBfdAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(NetworkToNetworkInterconnects.updateNpbStaticRouteBfdAdministrativeState::parameters.body,
+@@doc(
+  NetworkToNetworkInterconnects.updateNpbStaticRouteBfdAdministrativeState::parameters.body,
   "Request payload."
 );
-@@doc(NetworkToNetworkInterconnects.updateAdministrativeState::parameters.body,
+@@doc(
+  NetworkToNetworkInterconnects.updateAdministrativeState::parameters.body,
   "Request payload."
 );
-@@doc(NetworkToNetworkInterconnects.updateBfdAdministrativeState::parameters.body,
+@@doc(
+  NetworkToNetworkInterconnects.updateBfdAdministrativeState::parameters.body,
   "Request payload."
 );
-@@doc(NetworkToNetworkInterconnects.updateAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  NetworkToNetworkInterconnects.updateAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(NetworkToNetworkInterconnects.updateBfdAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  NetworkToNetworkInterconnects.updateBfdAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );

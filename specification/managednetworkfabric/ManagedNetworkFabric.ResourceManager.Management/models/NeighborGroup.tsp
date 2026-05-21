@@ -58,6 +58,12 @@ model NeighborGroupProperties {
   administrativeState?: AdministrativeState;
 }
 
+@doc("Neighbor Group Patchable Properties defines the patchable properties of the resource.")
+model NeighborGroupPatchableProperties {
+  @doc("An array of destination IPv4 Addresses or IPv6 Addresses.")
+  destination?: NeighborGroupDestinationPatch;
+}
+
 @doc("An array of destination IPv4 Addresses or IPv6 Addresses.")
 model NeighborGroupDestination {
   @doc("Array of IPv4 Addresses.")
@@ -72,19 +78,10 @@ model NeighborGroupDestination {
 @doc("An array of destination IPv4 Addresses or IPv6 Addresses.")
 model NeighborGroupDestinationPatch is NeighborGroupDestination;
 
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Extending instead of spreading to avoid breaking changes in patch model"
 @doc("The Neighbor Group Patch definition.")
-model NeighborGroupPatch {
-  ...TagsUpdate;
-
+model NeighborGroupPatch extends TagsUpdate {
   @doc("Neighbor Group Patch properties.")
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated?: NeighborGroupPatchProperties;
-
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
-  @doc("Neighbor Group Patch properties.")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties?: NeighborGroupPatchProperties;
 
   @added(Versions.v2025_07_15)
@@ -95,9 +92,7 @@ model NeighborGroupPatch {
 @doc("Neighbor Group Patch properties.")
 model NeighborGroupPatchProperties {
   ...AnnotationResource;
-
-  @doc("An array of destination IPv4 Addresses or IPv6 Addresses.")
-  destination?: NeighborGroupDestinationPatch;
+  ...NeighborGroupPatchableProperties;
 }
 
 @doc("Response for Neighbor Group Resync operation.")

@@ -19,15 +19,7 @@ model IpCommunity extends Azure.ResourceManager.Foundations.TrackedResource {
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** The IP Community Properties */
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: IpCommunityProperties;
-
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
   @doc("The IP Community Properties")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties: IpCommunityProperties;
 }
 
@@ -47,13 +39,20 @@ interface IpCommunities {
   delete is ArmResourceDeleteWithoutOkAsync<IpCommunity>;
 
   @doc("Implements IP Communities list by resource group GET method.")
-  listByResourceGroup is ArmResourceListByParent<IpCommunity>;
+  listByResourceGroup is ArmResourceListByParent<
+    IpCommunity,
+    Response = IpCommunitiesListResult
+  >;
 
   @doc("Implements IP Communities list by subscription GET method.")
-  listBySubscription is ArmListBySubscription<IpCommunity>;
+  listBySubscription is ArmListBySubscription<
+    IpCommunity,
+    Response = IpCommunitiesListResult
+  >;
 }
 
 @@doc(IpCommunities.create::parameters.resource, "Request payload.");
-@@doc(IpCommunities.update::parameters.properties,
+@@doc(
+  IpCommunities.update::parameters.properties,
   "IP Community properties to update."
 );

@@ -20,15 +20,7 @@ model NetworkFabricSku extends Azure.ResourceManager.Foundations.ProxyResource {
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** The Network Fabric Sku properties */
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: NetworkFabricSkuProperties;
-
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
   @doc("The Network Fabric SKU properties.")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties: NetworkFabricSkuProperties;
 }
 
@@ -38,5 +30,8 @@ interface NetworkFabricSkus {
   get is ArmResourceRead<NetworkFabricSku>;
 
   @doc("Implements Network Fabric SKUs list by subscription GET method.")
-  listBySubscription is ArmResourceListByParent<NetworkFabricSku>;
+  listBySubscription is ArmResourceListByParent<
+    NetworkFabricSku,
+    Response = NetworkFabricSkusListResult
+  >;
 }

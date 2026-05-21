@@ -4,10 +4,9 @@ using TypeSpec.Versioning;
 
 namespace Microsoft.ManagedNetworkFabric;
 
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Extending instead of spread to avoid breaking changes"
 @doc("Network Bootstrap Interface Properties defines the properties of the resource.")
-model NetworkBootstrapInterfaceProperties {
-  ...AnnotationResource;
-
+model NetworkBootstrapInterfaceProperties extends AnnotationResource {
   @doc("Provisioning state of the resource.")
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
@@ -49,7 +48,6 @@ model NetworkBootstrapInterfaceProperties {
 
   @doc("Serial number of the interface. Format of serial Number - Make;Model;HardwareRevisionId;SerialNumber.")
   @minLength(1)
-  @removed(Versions.v2026_01_15_preview)
   serialNumber?: string;
 
   @doc("Operational state of networkBootstrapInterface indicating if the interface is reachable")
@@ -60,19 +58,15 @@ model NetworkBootstrapInterfaceProperties {
 
 @doc("The NetworkBootstrapInterfacePatch resource definition.")
 model NetworkBootstrapInterfacePatch {
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
   @doc("Network Bootstrap Interface Patch properties.")
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties?: NetworkBootstrapInterfacePatchProperties;
 }
 
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Extending instead of spread to avoid breaking changes in patch models"
 @doc("Network Bootstrap Interface Patch properties.")
-model NetworkBootstrapInterfacePatchProperties {
-  ...AnnotationResource;
-
+model NetworkBootstrapInterfacePatchProperties extends AnnotationResource {
   @doc("Serial number of the interface. Format of serial Number - Make;Model;HardwareRevisionId;SerialNumber.")
   @minLength(1)
-  @removed(Versions.v2026_01_15_preview)
   serialNumber?: string;
 
   @doc("Additional description of the interface.")

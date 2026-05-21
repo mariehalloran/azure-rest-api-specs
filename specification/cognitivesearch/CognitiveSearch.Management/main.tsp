@@ -31,6 +31,7 @@ model Indexer is TrackedResource<IndexerProperties> {
 interface IndexerOperations {
   get is ArmResourceRead<Indexer>;
   createOrUpdate is ArmResourceCreateOrUpdateAsync<Indexer>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     Indexer,
