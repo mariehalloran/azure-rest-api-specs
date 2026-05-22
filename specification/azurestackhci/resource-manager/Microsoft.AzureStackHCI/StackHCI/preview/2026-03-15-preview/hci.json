@@ -9624,6 +9624,374 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/proxyConfigurations": {
+      "get": {
+        "operationId": "ProxyConfigurations_List",
+        "tags": [
+          "ProxyConfigurations"
+        ],
+        "description": "List proxy configuration resources by Edge Machine.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ProxyConfigurationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ProxyConfigurations_List": {
+            "$ref": "./examples/ProxyConfigurations_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/proxyConfigurations/default": {
+      "get": {
+        "operationId": "ProxyConfigurations_Get",
+        "tags": [
+          "ProxyConfigurations"
+        ],
+        "description": "Get the proxy configuration of an Edge Machine.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ProxyConfiguration"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ProxyConfigurations_Get": {
+            "$ref": "./examples/ProxyConfigurations_Get.json"
+          },
+          "ProxyConfigurations_Get_Drifted": {
+            "$ref": "./examples/ProxyConfigurations_Get_Drifted.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/proxyConfigurations/default/jobs": {
+      "get": {
+        "operationId": "ProxyConfigurationJobs_List",
+        "tags": [
+          "ProxyConfigurationJobs"
+        ],
+        "description": "List proxy configuration jobs.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ProxyConfigurationJobListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ProxyConfigurationJobs_List": {
+            "$ref": "./examples/ProxyConfigurationJobs_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/proxyConfigurations/default/jobs/{jobName}": {
+      "get": {
+        "operationId": "ProxyConfigurationJobs_Get",
+        "tags": [
+          "ProxyConfigurationJobs"
+        ],
+        "description": "Get a specific proxy configuration job.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the ProxyConfigurationJob",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ProxyConfigurationJob"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ProxyConfigurationJobs_Get_Apply": {
+            "$ref": "./examples/ProxyConfigurationJobs_Get_Apply.json"
+          },
+          "ProxyConfigurationJobs_Get_Sync": {
+            "$ref": "./examples/ProxyConfigurationJobs_Get_Sync.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ProxyConfigurationJobs_CreateOrUpdate",
+        "tags": [
+          "ProxyConfigurationJobs"
+        ],
+        "description": "Create or update a proxy configuration job.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the ProxyConfigurationJob",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProxyConfigurationJob"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ProxyConfigurationJob' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ProxyConfigurationJob"
+            }
+          },
+          "201": {
+            "description": "Resource 'ProxyConfigurationJob' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ProxyConfigurationJob"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ProxyConfigurationJobs_CreateOrUpdate_Apply": {
+            "$ref": "./examples/ProxyConfigurationJobs_CreateOrUpdate_Apply.json"
+          },
+          "ProxyConfigurationJobs_CreateOrUpdate_ApplyDisable": {
+            "$ref": "./examples/ProxyConfigurationJobs_CreateOrUpdate_ApplyDisable.json"
+          },
+          "ProxyConfigurationJobs_CreateOrUpdate_Sync": {
+            "$ref": "./examples/ProxyConfigurationJobs_CreateOrUpdate_Sync.json"
+          },
+          "ProxyConfigurationJobs_CreateOrUpdate_SyncAcceptReported": {
+            "$ref": "./examples/ProxyConfigurationJobs_CreateOrUpdate_SyncAcceptReported.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "ProxyConfigurationJobs_Delete",
+        "tags": [
+          "ProxyConfigurationJobs"
+        ],
+        "description": "Delete a proxy configuration job.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the ProxyConfigurationJob",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ProxyConfigurationJobs_Delete": {
+            "$ref": "./examples/ProxyConfigurationJobs_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/securitySettings": {
       "get": {
         "operationId": "EdgeMachineSecuritySettingsOperations_ListByEdgeMachine",
@@ -10128,374 +10496,6 @@
         "x-ms-examples": {
           "EdgeMachineUpdates_Delete": {
             "$ref": "./examples/EdgeMachineUpdates_Delete.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/proxyConfigurations": {
-      "get": {
-        "operationId": "ProxyConfigurations_List",
-        "tags": [
-          "ProxyConfigurations"
-        ],
-        "description": "List proxy configuration resources by Edge Machine.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "edgeMachineName",
-            "in": "path",
-            "description": "Name of Device",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ProxyConfigurationListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ProxyConfigurations_List": {
-            "$ref": "./examples/ProxyConfigurations_List.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/proxyConfigurations/default": {
-      "get": {
-        "operationId": "ProxyConfigurations_Get",
-        "tags": [
-          "ProxyConfigurations"
-        ],
-        "description": "Get the proxy configuration of an Edge Machine.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "edgeMachineName",
-            "in": "path",
-            "description": "Name of Device",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ProxyConfiguration"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ProxyConfigurations_Get": {
-            "$ref": "./examples/ProxyConfigurations_Get.json"
-          },
-          "ProxyConfigurations_Get_Drifted": {
-            "$ref": "./examples/ProxyConfigurations_Get_Drifted.json"
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/proxyConfigurations/default/jobs": {
-      "get": {
-        "operationId": "ProxyConfigurationJobs_List",
-        "tags": [
-          "ProxyConfigurationJobs"
-        ],
-        "description": "List proxy configuration jobs.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "edgeMachineName",
-            "in": "path",
-            "description": "Name of Device",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ProxyConfigurationJobListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ProxyConfigurationJobs_List": {
-            "$ref": "./examples/ProxyConfigurationJobs_List.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/proxyConfigurations/default/jobs/{jobName}": {
-      "get": {
-        "operationId": "ProxyConfigurationJobs_Get",
-        "tags": [
-          "ProxyConfigurationJobs"
-        ],
-        "description": "Get a specific proxy configuration job.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "edgeMachineName",
-            "in": "path",
-            "description": "Name of Device",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
-          },
-          {
-            "name": "jobName",
-            "in": "path",
-            "description": "The name of the ProxyConfigurationJob",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ProxyConfigurationJob"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ProxyConfigurationJobs_Get_Apply": {
-            "$ref": "./examples/ProxyConfigurationJobs_Get_Apply.json"
-          },
-          "ProxyConfigurationJobs_Get_Sync": {
-            "$ref": "./examples/ProxyConfigurationJobs_Get_Sync.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "ProxyConfigurationJobs_CreateOrUpdate",
-        "tags": [
-          "ProxyConfigurationJobs"
-        ],
-        "description": "Create or update a proxy configuration job.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "edgeMachineName",
-            "in": "path",
-            "description": "Name of Device",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
-          },
-          {
-            "name": "jobName",
-            "in": "path",
-            "description": "The name of the ProxyConfigurationJob",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ProxyConfigurationJob"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'ProxyConfigurationJob' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ProxyConfigurationJob"
-            }
-          },
-          "201": {
-            "description": "Resource 'ProxyConfigurationJob' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ProxyConfigurationJob"
-            },
-            "headers": {
-              "Azure-AsyncOperation": {
-                "type": "string",
-                "description": "A link to the status monitor"
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ProxyConfigurationJobs_CreateOrUpdate_Apply": {
-            "$ref": "./examples/ProxyConfigurationJobs_CreateOrUpdate_Apply.json"
-          },
-          "ProxyConfigurationJobs_CreateOrUpdate_ApplyDisable": {
-            "$ref": "./examples/ProxyConfigurationJobs_CreateOrUpdate_ApplyDisable.json"
-          },
-          "ProxyConfigurationJobs_CreateOrUpdate_Sync": {
-            "$ref": "./examples/ProxyConfigurationJobs_CreateOrUpdate_Sync.json"
-          },
-          "ProxyConfigurationJobs_CreateOrUpdate_SyncAcceptReported": {
-            "$ref": "./examples/ProxyConfigurationJobs_CreateOrUpdate_SyncAcceptReported.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        },
-        "x-ms-long-running-operation": true
-      },
-      "delete": {
-        "operationId": "ProxyConfigurationJobs_Delete",
-        "tags": [
-          "ProxyConfigurationJobs"
-        ],
-        "description": "Delete a proxy configuration job.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "edgeMachineName",
-            "in": "path",
-            "description": "Name of Device",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
-          },
-          {
-            "name": "jobName",
-            "in": "path",
-            "description": "The name of the ProxyConfigurationJob",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Resource deletion accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ProxyConfigurationJobs_Delete": {
-            "$ref": "./examples/ProxyConfigurationJobs_Delete.json"
           }
         },
         "x-ms-long-running-operation-options": {
