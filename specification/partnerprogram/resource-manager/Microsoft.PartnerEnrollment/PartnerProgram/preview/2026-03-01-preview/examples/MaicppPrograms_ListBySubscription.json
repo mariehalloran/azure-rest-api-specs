@@ -1,8 +1,8 @@
 {
-  "operationId": "EnrollmentPrograms_ListBySubscription",
-  "title": "ListEnrollmentProgramsBySubscription",
+  "operationId": "MaicppPrograms_ListBySubscription",
+  "title": "ListMaicppProgramsBySubscription",
   "parameters": {
-    "api-version": "2021-08-01-preview",
+    "api-version": "2026-03-01-preview",
     "subscriptionId": "00000000-0000-0000-0000-000000000000"
   },
   "responses": {
@@ -10,14 +10,13 @@
       "body": {
         "value": [
           {
-            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.PartnerEnrollment/enrollmentPrograms/Jack",
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.PartnerEnrollment/maicppprograms/Jack",
             "name": "Jack",
-            "type": "Microsoft.PartnerEnrollment/enrollmentPrograms",
+            "type": "Microsoft.PartnerEnrollment/maicppprograms",
             "location": "eastus",
             "tags": {},
             "properties": {
               "programId": "6F73EEAE-54C3-40B4-AC0E-0BCA24543149",
-              "billingAccountId": "ba-pga-1",
               "provisioningState": "Succeeded",
               "enrollmentId": "3c75a390-4955-4d22-a1df-1d663ccba601",
               "status": "notRegistered"

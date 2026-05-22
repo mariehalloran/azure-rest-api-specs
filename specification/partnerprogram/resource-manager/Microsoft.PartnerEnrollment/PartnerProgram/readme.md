@@ -11,14 +11,14 @@ This is the AutoRest configuration file for PartnerProgram.
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-preview-2021-08-01
+tag: package-preview-2026-03-01
 ```
 
-### Tag: package-preview-2021-08-01
+### Tag: package-preview-2026-03-01
 
-These settings apply only when `--tag=package-preview-2021-08-01` is specified on the command line.
+These settings apply only when `--tag=package-preview-2026-03-01` is specified on the command line.
 
-```yaml $(tag) == 'package-preview-2021-08-01'
+```yaml $(tag) == 'package-preview-2026-03-01'
 input-file:
-  - preview/2021-08-01-preview/openapi.json
+  - preview/2026-03-01-preview/openapi.json
 ```

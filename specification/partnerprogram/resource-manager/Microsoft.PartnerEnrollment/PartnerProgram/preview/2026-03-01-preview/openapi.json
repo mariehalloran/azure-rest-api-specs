@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Microsoft.PartnerEnrollment",
-    "version": "2021-08-01-preview",
+    "version": "2026-03-01-preview",
     "x-typespec-generated": [
       {
         "emitter": "@azure-tools/typespec-autorest"
@@ -42,9 +42,6 @@
       "name": "Operations"
     },
     {
-      "name": "EnrollmentPrograms"
-    },
-    {
       "name": "MaicppPrograms"
     }
   ],
@@ -78,45 +75,6 @@
         "x-ms-examples": {
           "ListOperations": {
             "$ref": "./examples/Operations_List.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.PartnerEnrollment/enrollmentPrograms": {
-      "get": {
-        "operationId": "EnrollmentPrograms_ListBySubscription",
-        "tags": [
-          "EnrollmentPrograms"
-        ],
-        "description": "List EnrollmentProgram resources by subscription ID",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/EnrollmentProgramListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ListEnrollmentProgramsBySubscription": {
-            "$ref": "./examples/EnrollmentPrograms_ListBySubscription.json"
           }
         },
         "x-ms-pageable": {
@@ -160,269 +118,6 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PartnerEnrollment/enrollmentPrograms": {
-      "get": {
-        "operationId": "EnrollmentPrograms_ListByResourceGroup",
-        "tags": [
-          "EnrollmentPrograms"
-        ],
-        "description": "List EnrollmentProgram resources by resource group",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/EnrollmentProgramListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ListEnrollmentProgramsByResourceGroup": {
-            "$ref": "./examples/EnrollmentPrograms_ListByResourceGroup.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PartnerEnrollment/enrollmentPrograms/{enrollmentProgramName}": {
-      "get": {
-        "operationId": "EnrollmentPrograms_Get",
-        "tags": [
-          "EnrollmentPrograms"
-        ],
-        "description": "Get a EnrollmentProgram",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "enrollmentProgramName",
-            "in": "path",
-            "description": "The name of the employee",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/EnrollmentProgram"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "GetEnrollmentProgram": {
-            "$ref": "./examples/EnrollmentPrograms_Get.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "EnrollmentPrograms_CreateOrUpdate",
-        "tags": [
-          "EnrollmentPrograms"
-        ],
-        "description": "Create a EnrollmentProgram",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "enrollmentProgramName",
-            "in": "path",
-            "description": "The name of the employee",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/EnrollmentProgram"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'EnrollmentProgram' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/EnrollmentProgram"
-            }
-          },
-          "201": {
-            "description": "Resource 'EnrollmentProgram' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/EnrollmentProgram"
-            },
-            "headers": {
-              "Azure-AsyncOperation": {
-                "type": "string",
-                "description": "A link to the status monitor"
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "CreateEnrollmentProgram": {
-            "$ref": "./examples/EnrollmentPrograms_CreateOrUpdate.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        },
-        "x-ms-long-running-operation": true
-      },
-      "patch": {
-        "operationId": "EnrollmentPrograms_Update",
-        "tags": [
-          "EnrollmentPrograms"
-        ],
-        "description": "Update a EnrollmentProgram",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "enrollmentProgramName",
-            "in": "path",
-            "description": "The name of the employee",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "The resource properties to be updated.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/EnrollmentProgramUpdate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/EnrollmentProgram"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "UpdateEnrollmentProgram": {
-            "$ref": "./examples/EnrollmentPrograms_Update.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "EnrollmentPrograms_Delete",
-        "tags": [
-          "EnrollmentPrograms"
-        ],
-        "description": "Delete a EnrollmentProgram",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "enrollmentProgramName",
-            "in": "path",
-            "description": "The name of the employee",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "DeleteEnrollmentProgram": {
-            "$ref": "./examples/EnrollmentPrograms_Delete.json"
-          }
         }
       }
     },
@@ -710,104 +405,6 @@
         }
       ]
     },
-    "EnrollmentProgram": {
-      "type": "object",
-      "description": "A PartnerProgramProviderHub resource",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/EnrollmentProgramProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
-        }
-      ]
-    },
-    "EnrollmentProgramListResult": {
-      "type": "object",
-      "description": "The response of a EnrollmentProgram list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The EnrollmentProgram items on this page",
-          "items": {
-            "$ref": "#/definitions/EnrollmentProgram"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "EnrollmentProgramProperties": {
-      "type": "object",
-      "description": "Details of the PartnerProgram EnrollmentProgram.",
-      "properties": {
-        "programId": {
-          "type": "string",
-          "description": "Identifier of the partner program."
-        },
-        "billingAccountId": {
-          "type": "string",
-          "description": "Billing account identifier associated with the enrollment."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "The status of the last operation.",
-          "readOnly": true
-        },
-        "enrollmentId": {
-          "type": "string",
-          "description": "Identifier returned by the Enrollment State service for this enrollment.",
-          "readOnly": true
-        },
-        "status": {
-          "type": "string",
-          "description": "Current status of the enrollment as reported by the Enrollment State service.",
-          "readOnly": true
-        }
-      },
-      "required": [
-        "programId",
-        "billingAccountId"
-      ]
-    },
-    "EnrollmentProgramPropertiesUpdate": {
-      "type": "object",
-      "description": "Details of the PartnerProgram EnrollmentProgram.",
-      "properties": {
-        "programId": {
-          "type": "string",
-          "description": "Identifier of the partner program."
-        },
-        "billingAccountId": {
-          "type": "string",
-          "description": "Billing account identifier associated with the enrollment."
-        }
-      }
-    },
-    "EnrollmentProgramUpdate": {
-      "type": "object",
-      "description": "A PartnerProgramProviderHub resource",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/EnrollmentProgramPropertiesUpdate",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
-        }
-      ]
-    },
     "MaicppProgram": {
       "type": "object",
       "description": "A MaicppProgram resource representing a Microsoft AI Cloud Partner Program registration.",
@@ -852,10 +449,6 @@
           "type": "string",
           "description": "Identifier of the partner program."
         },
-        "billingAccountId": {
-          "type": "string",
-          "description": "Billing account identifier associated with the enrollment."
-        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "The status of the last operation.",
@@ -873,8 +466,7 @@
         }
       },
       "required": [
-        "programId",
-        "billingAccountId"
+        "programId"
       ]
     },
     "MaicppProgramPropertiesUpdate": {
@@ -884,10 +476,6 @@
         "programId": {
           "type": "string",
           "description": "Identifier of the partner program."
-        },
-        "billingAccountId": {
-          "type": "string",
-          "description": "Billing account identifier associated with the enrollment."
         }
       }
     },
