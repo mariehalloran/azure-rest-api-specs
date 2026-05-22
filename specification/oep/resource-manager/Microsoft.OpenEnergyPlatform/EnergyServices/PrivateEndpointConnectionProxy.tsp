@@ -43,7 +43,10 @@ interface PrivateEndpointConnectionProxies {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "Preserving original response shape for backward compatibility."
   delete is ArmResourceDeleteWithoutOkAsync<
     PrivateEndpointConnectionProxy,
-    Response = ArmDeletedResponse | ArmDeleteAcceptedLroResponse | ArmDeletedNoContentResponse
+    Response =
+      | ArmDeletedResponse
+      | ArmDeleteAcceptedLroResponse
+      | ArmDeletedNoContentResponse
   >;
 
   /**
@@ -62,15 +65,19 @@ interface PrivateEndpointConnectionProxies {
   >;
 }
 
-@@doc(PrivateEndpointConnectionProxy.name,
+@@doc(
+  PrivateEndpointConnectionProxy.name,
   "The ID of the private endpoint connection proxy object."
 );
-@@doc(PrivateEndpointConnectionProxy.properties,
+@@doc(
+  PrivateEndpointConnectionProxy.properties,
   "Private endpoint connection proxy object property bag."
 );
-@@doc(PrivateEndpointConnectionProxies.createOrUpdate::parameters.resource,
+@@doc(
+  PrivateEndpointConnectionProxies.createOrUpdate::parameters.resource,
   "The parameters for creating a private endpoint connection proxy."
 );
-@@doc(PrivateEndpointConnectionProxies.validate::parameters.body,
+@@doc(
+  PrivateEndpointConnectionProxies.validate::parameters.body,
   "The parameters for creating a private endpoint connection proxy."
 );

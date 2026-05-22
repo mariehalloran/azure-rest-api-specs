@@ -45,11 +45,13 @@ interface EnergyServices {
   update is Azure.ResourceManager.Legacy.CustomPatchAsync<
     EnergyService,
     PatchModel = EnergyResourceUpdate,
-    Response = ArmResponse<EnergyService> | (ArmAcceptedLroResponse<LroHeaders = ArmAsyncOperationHeader<FinalResult = EnergyService> &
-      Azure.Core.Foundations.RetryAfterHeader> & {
-      @bodyRoot
-      _: EnergyService;
-    }),
+    Response =
+      | ArmResponse<EnergyService>
+      | (ArmAcceptedLroResponse<LroHeaders = ArmAsyncOperationHeader<FinalResult = EnergyService> &
+          Azure.Core.Foundations.RetryAfterHeader> & {
+          @bodyRoot
+          _: EnergyService;
+        }),
     OptionalRequestBody = true
   >;
 
@@ -59,7 +61,10 @@ interface EnergyServices {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "Preserving original response shape for backward compatibility."
   delete is ArmResourceDeleteWithoutOkAsync<
     EnergyService,
-    Response = ArmDeletedResponse | ArmDeleteAcceptedLroResponse | ArmDeletedNoContentResponse
+    Response =
+      | ArmDeletedResponse
+      | ArmDeleteAcceptedLroResponse
+      | ArmDeletedNoContentResponse
   >;
 
   /**
@@ -126,16 +131,20 @@ interface EnergyServices {
 @@maxLength(EnergyService.name, 15);
 @@minLength(EnergyService.name, 1);
 @@doc(EnergyService.name, "The resource name.");
-@@doc(EnergyService.properties,
+@@doc(
+  EnergyService.properties,
   "The properties of an Energy service resource."
 );
 @@doc(EnergyServices.create::parameters.resource, "Request body.");
-@@doc(EnergyServices.update::parameters.properties,
+@@doc(
+  EnergyServices.update::parameters.properties,
   "Energy Resource Update definition"
 );
-@@doc(EnergyServices.addPartition::parameters.body,
+@@doc(
+  EnergyServices.addPartition::parameters.body,
   "add partition action payload"
 );
-@@doc(EnergyServices.removePartition::parameters.body,
+@@doc(
+  EnergyServices.removePartition::parameters.body,
   "remove partition action payload"
 );

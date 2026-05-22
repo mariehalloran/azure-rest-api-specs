@@ -184,7 +184,7 @@ version uplift — the spec was already 84% on v6 prior to migration.
 ### P. Removed top-level `parameters` definitions (3) — _refactor only_
 `DataPartitionIdParameter`, `GroupIdParameter`,
 `PrivateEndpointConnectionProxyIdParameter` are no longer in the shared
-`parameters` section because TypeSpec inlines path parameters into operations.
+`parameters` section because TypeSpec embeds path parameters into operations.
 The path templates (`{dataPartitionId}`, `{groupId}`,
 `{privateEndpointConnectionProxyId}`) are unchanged in operation paths.
 
