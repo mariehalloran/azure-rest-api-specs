@@ -26,7 +26,11 @@ using Microsoft.OpenEnergyPlatform;
 // (HTTP request body JSON) is unchanged; these names only affect the SDK
 // method signature parameter identifier.
 @@clientName(EnergyServices.create::parameters.resource, "body");
+@@clientName(EnergyServices.update::parameters.properties, "body");
 @@clientName(PrivateEndpointConnectionProxies.createOrUpdate::parameters.resource,
+  "privateEndpointConnectionProxy"
+);
+@@clientName(PrivateEndpointConnectionProxies.validate::parameters.body,
   "privateEndpointConnectionProxy"
 );
 @@clientName(PrivateEndpointConnections.createOrUpdate::parameters.resource,
