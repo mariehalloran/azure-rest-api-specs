@@ -45,10 +45,10 @@ interface Accounts {
   get is ArmResourceRead<Account>;
 
   /** Create or update a Context Cache Account. */
-  createOrUpdate is ArmResourceCreateOrReplaceAsync<Account>;
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<Account>;
 
-  /** Update tags on a Context Cache Account. */
-  update is ArmTagsPatchAsync<Account>;
+  /** Update a Context Cache Account. */
+  update is ArmCustomPatchAsync<Account, AccountUpdate>;
 
   /** Delete a Context Cache Account. */
   delete is ArmResourceDeleteWithoutOkAsync<Account>;
@@ -77,7 +77,10 @@ interface Containers {
   get is ArmResourceRead<Container>;
 
   /** Create or update a container in a Context Cache Account. */
-  createOrUpdate is ArmResourceCreateOrReplaceAsync<Container>;
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<Container>;
+
+  /** Update a container in a Context Cache Account. */
+  update is ArmCustomPatchAsync<Container, ContainerUpdate>;
 
   /** Delete a container from a Context Cache Account. */
   delete is ArmResourceDeleteWithoutOkAsync<Container>;

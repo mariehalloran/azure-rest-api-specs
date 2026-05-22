@@ -99,3 +99,17 @@ union WorkloadType {
 
   string,
 }
+
+@doc("CPU architecture type")
+union CpuArchitecture {
+  @doc("Intel 64-bit architecture")
+  Intel64: "Intel64",
+
+  @doc("AMD 64-bit architecture")
+  AMD64: "AMD64",
+
+  @doc("ARM 64-bit architecture")
+  ARM64: "ARM64",
+
+  string,
+}
