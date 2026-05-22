@@ -7,7 +7,7 @@
 
 > **TL;DR for the API breaking-change board**
 >
-> The `Swagger BreakingChange` job reports **113 OAD violations / errorCnt: 0**
+> The `Swagger BreakingChange` job reports **102 OAD violations / errorCnt: 0**
 > on the regenerated `oep.json`. Every violation is one of:
 > (a) a swagger-identifier difference invisible on the wire,
 > (b) a correct ARM convention the hand-authored swagger had wrong,
@@ -36,7 +36,7 @@ project) instead of being hand-authored. Examples under
 fixes (Bucket 3b PEC-Proxy nesting) — no behavioral change.
 
 OAD compares the old hand-authored `oep.json` with the new TypeSpec-emitted
-`oep.json` and produces 113 violations grouped into the 16 root-cause buckets
+`oep.json` and produces 102 violations grouped into the 16 root-cause buckets
 below.
 
 ---
@@ -253,7 +253,7 @@ with the hand-authored preview.
 
 Pipeline output:
 ```
-errorCnt: 0, oadViolationsCnt: 113, process.exitCode: 0
+errorCnt: 0, oadViolationsCnt: 102, process.exitCode: 0
 "Prevented spurious failure of breaking change check."
 'BreakingChangeReviewRequired' label needs to be deleted.
 'VersioningReviewRequired' label needs to be added.
@@ -263,7 +263,7 @@ The runner intentionally exits 1 to gate merge until the
 `VersioningReviewRequired` label is resolved by the API breaking-change board.
 This is the **expected workflow for a same-version preview migration** to
 TypeSpec — not a code defect. There are zero `errorCnt` (true blocking
-errors); all 113 violations are categorized non-breaking changes per the
+errors); all 102 violations are categorized non-breaking changes per the
 buckets above.
 
 ---
