@@ -13229,6 +13229,31 @@
       ],
       "x-ms-discriminator-value": "DeleteVolume"
     },
+    "DeploymentCapacityPolicy": {
+      "type": "object",
+      "description": "Day Zero capacity placement policy supplied via Deployment Settings. Mirrors the\npatchable shape of AppliedCapacityPolicy so the values can be plumbed into the\nCapacity Settings singleton at cluster creation time.",
+      "properties": {
+        "cpuOvercommitRatio": {
+          "type": "number",
+          "format": "float",
+          "description": "Cluster-wide CPU overcommit ratio used to calculate effective vCPU capacity.",
+          "minimum": 1
+        },
+        "failureDomainReservationCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of failure domains to reserve for n+1/n+2 style placement planning.",
+          "minimum": 0
+        },
+        "reservedNodes": {
+          "type": "array",
+          "description": "Explicit node names held back from placement for upgrade or maintenance.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "DeploymentCluster": {
       "type": "object",
       "description": "AzureStackHCI Cluster deployment properties.",
@@ -21529,6 +21554,10 @@
         "customLocation": {
           "type": "string",
           "description": "The name of custom location."
+        },
+        "capacityPolicy": {
+          "$ref": "#/definitions/DeploymentCapacityPolicy",
+          "description": "Optional Day Zero capacity policy used to seed the cluster's Capacity Settings\nsingleton during deployment. When omitted, the service uses its own defaults."
         }
       }
     },
