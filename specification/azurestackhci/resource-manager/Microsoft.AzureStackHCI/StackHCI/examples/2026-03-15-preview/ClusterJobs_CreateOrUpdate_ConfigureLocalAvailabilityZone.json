@@ -1,57 +1,54 @@
 {
-  "title": "ClusterJobs_CreateOrUpdate_ConfigureFaultDomainJob",
+  "title": "ClusterJobs_CreateOrUpdate_configure-lazJob",
   "operationId": "ClusterJobs_CreateOrUpdate",
   "parameters": {
     "subscriptionId": "fd3c3665-1729-4b7b-9a38-238e83b0f98b",
     "resourceGroupName": "test-rg",
     "clusterName": "myCluster",
-    "jobsName": "configurefaultdomain",
+    "jobsName": "configure-laz",
     "api-version": "2026-03-15-preview",
     "resource": {
       "properties": {
-        "jobType": "ConfigureFaultDomain",
+        "jobType": "ConfigureLocalAvailabilityZone",
         "deploymentMode": "Deploy",
-        "faultDomainCount": 4,
-        "faultDomainPrefix": "Rack",
-        "nodeAssignment": [
-          {
-            "faultDomainName": "Rack1",
-            "nodes": [
-              "ASRR1N42R13U17",
-              "ASRR1N42R13U18"
-            ]
-          },
-          {
-            "faultDomainName": "Rack2",
-            "nodes": [
-              "ASRR1N42R13U19",
-              "ASRR1N42R13U20"
-            ]
-          },
-          {
-            "faultDomainName": "Rack3",
-            "nodes": [
-              "ASRR1N42R13U21",
-              "ASRR1N42R13U22"
-            ]
-          },
-          {
-            "faultDomainName": "Rack4",
-            "nodes": [
-              "ASRR1N42R13U23",
-              "ASRR1N42R13U24"
-            ]
-          }
-        ]
+        "localAvailabilityZoneConfiguration": {
+          "prefix": "Rack",
+          "zones": [
+            {
+              "nodes": [
+                "ASRR1N42R13U17",
+                "ASRR1N42R13U18"
+              ]
+            },
+            {
+              "nodes": [
+                "ASRR1N42R13U19",
+                "ASRR1N42R13U20"
+              ]
+            },
+            {
+              "nodes": [
+                "ASRR1N42R13U21",
+                "ASRR1N42R13U22"
+              ]
+            },
+            {
+              "nodes": [
+                "ASRR1N42R13U23",
+                "ASRR1N42R13U24"
+              ]
+            }
+          ]
+        }
       }
     }
   },
   "responses": {
     "200": {
       "body": {
-        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/user-pvtrp-rg/providers/Microsoft.AzureStackHCI/clusters/hciclu3/jobs/configurefaultdomain",
-        "name": "configurefaultdomain",
-        "type": "Microsoft.azurestackhci/clusters/jobs",
+        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/test-rg/providers/Microsoft.AzureStackHCI/clusters/myCluster/jobs/configure-laz",
+        "name": "configure-laz",
+        "type": "Microsoft.AzureStackHCI/clusters/jobs",
         "systemData": {
           "createdBy": "user@microsoft.com",
           "createdByType": "User",
@@ -61,48 +58,45 @@
           "lastModifiedAt": "2024-01-29T10:43:27.9471574Z"
         },
         "properties": {
-          "jobType": "ConfigureFaultDomain",
+          "jobType": "ConfigureLocalAvailabilityZone",
           "deploymentMode": "Deploy",
-          "faultDomainCount": 4,
-          "faultDomainPrefix": "Rack",
-          "nodeAssignment": [
-            {
-              "faultDomainName": "Rack1",
-              "nodes": [
-                "ASRR1N42R13U17",
-                "ASRR1N42R13U18"
-              ]
-            },
-            {
-              "faultDomainName": "Rack2",
-              "nodes": [
-                "ASRR1N42R13U19",
-                "ASRR1N42R13U20"
-              ]
-            },
-            {
-              "faultDomainName": "Rack3",
-              "nodes": [
-                "ASRR1N42R13U21",
-                "ASRR1N42R13U22"
-              ]
-            },
-            {
-              "faultDomainName": "Rack4",
-              "nodes": [
-                "ASRR1N42R13U23",
-                "ASRR1N42R13U24"
-              ]
-            }
-          ],
+          "localAvailabilityZoneConfiguration": {
+            "prefix": "Rack",
+            "zones": [
+              {
+                "nodes": [
+                  "ASRR1N42R13U17",
+                  "ASRR1N42R13U18"
+                ]
+              },
+              {
+                "nodes": [
+                  "ASRR1N42R13U19",
+                  "ASRR1N42R13U20"
+                ]
+              },
+              {
+                "nodes": [
+                  "ASRR1N42R13U21",
+                  "ASRR1N42R13U22"
+                ]
+              },
+              {
+                "nodes": [
+                  "ASRR1N42R13U23",
+                  "ASRR1N42R13U24"
+                ]
+              }
+            ]
+          },
           "reportedProperties": {
             "validationStatus": {
               "status": "Error",
               "steps": [
                 {
                   "fullStepIndex": "0",
-                  "name": "Fault Domain Configuration",
-                  "description": "Configure Fault Domains.",
+                  "name": "Local Availability Zone Configuration",
+                  "description": "Configure Local Availability Zones.",
                   "startTimeUtc": "2023-06-09T00:08:19",
                   "endTimeUtc": "2023-06-09T04:01:47",
                   "status": "Error",
@@ -132,8 +126,8 @@
               "steps": [
                 {
                   "fullStepIndex": "0",
-                  "name": "Fault Domain Configuration",
-                  "description": "Configure Fault Domains.",
+                  "name": "Local Availability Zone Configuration",
+                  "description": "Configure Local Availability Zones.",
                   "startTimeUtc": "2023-06-09T00:08:19",
                   "endTimeUtc": "2023-06-09T04:01:47",
                   "status": "Error",
@@ -169,9 +163,9 @@
         "Azure-AsyncOperation": "https://management.azure.com/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/providers/Microsoft.AzureStackHCI/locations/eastus/operationStatuses/fakeid?api-version=2026-03-15-preview"
       },
       "body": {
-        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/user-pvtrp-rg/providers/Microsoft.AzureStackHCI/clusters/hciclu3/jobs/configurefaultdomain",
-        "name": "configurefaultdomain",
-        "type": "Microsoft.azurestackhci/clusters/jobs",
+        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/test-rg/providers/Microsoft.AzureStackHCI/clusters/myCluster/jobs/configure-laz",
+        "name": "configure-laz",
+        "type": "Microsoft.AzureStackHCI/clusters/jobs",
         "systemData": {
           "createdBy": "user@microsoft.com",
           "createdByType": "User",
@@ -181,40 +175,37 @@
           "lastModifiedAt": "2024-01-29T10:43:27.9471574Z"
         },
         "properties": {
-          "jobType": "ConfigureFaultDomain",
+          "jobType": "ConfigureLocalAvailabilityZone",
           "deploymentMode": "Deploy",
-          "faultDomainCount": 4,
-          "faultDomainPrefix": "Rack",
-          "nodeAssignment": [
-            {
-              "faultDomainName": "Rack1",
-              "nodes": [
-                "ASRR1N42R13U17",
-                "ASRR1N42R13U18"
-              ]
-            },
-            {
-              "faultDomainName": "Rack2",
-              "nodes": [
-                "ASRR1N42R13U19",
-                "ASRR1N42R13U20"
-              ]
-            },
-            {
-              "faultDomainName": "Rack3",
-              "nodes": [
-                "ASRR1N42R13U21",
-                "ASRR1N42R13U22"
-              ]
-            },
-            {
-              "faultDomainName": "Rack4",
-              "nodes": [
-                "ASRR1N42R13U23",
-                "ASRR1N42R13U24"
-              ]
-            }
-          ],
+          "localAvailabilityZoneConfiguration": {
+            "prefix": "Rack",
+            "zones": [
+              {
+                "nodes": [
+                  "ASRR1N42R13U17",
+                  "ASRR1N42R13U18"
+                ]
+              },
+              {
+                "nodes": [
+                  "ASRR1N42R13U19",
+                  "ASRR1N42R13U20"
+                ]
+              },
+              {
+                "nodes": [
+                  "ASRR1N42R13U21",
+                  "ASRR1N42R13U22"
+                ]
+              },
+              {
+                "nodes": [
+                  "ASRR1N42R13U23",
+                  "ASRR1N42R13U24"
+                ]
+              }
+            ]
+          },
           "provisioningState": "Accepted",
           "status": "NotSpecified"
         }

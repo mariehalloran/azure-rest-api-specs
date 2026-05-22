@@ -21,8 +21,8 @@ union HciJobType {
   /** Job to repair a server in the cluster. */
   RepairServer: "RepairServer",
 
-  /** Job to configure fault domains for the cluster. */
-  ConfigureFaultDomain: "ConfigureFaultDomain",
+  /** Job to configure local availability zones for the cluster. */
+  ConfigureLocalAvailabilityZone: "ConfigureLocalAvailabilityZone",
 
   // PRIVATE PREVIEW - Arc Gateway and GPU job types
   /** Job to configure arc gateway for the cluster. */
@@ -2555,6 +2555,13 @@ model ClusterReportedProperties {
    */
   @visibility(Lifecycle.Read)
   hardwareClass?: HardwareClass = HardwareClass.Medium;
+
+  /**
+   * Number of local availability zones configured in the cluster.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  localAvailabilityZoneCount?: int32;
 }
 
 /**
@@ -6741,36 +6748,39 @@ model HciRepairServerJobProperties extends ClusterJobProperties {
 }
 
 ////////////////////////////////////////////////////////////////
-////////////// Fault Domain Config Job Models /////////////////
+////////// Local Availability Zone Config Job Models //////////
 ////////////////////////////////////////////////////////////////
 
-/** Mapping of a fault domain to its assigned nodes. */
+/** A single local availability zone entry containing the list of nodes belonging to it. */
 @added(Versions.v2026_03_15_preview)
-model FaultDomainNodeAssignment {
-  /** Name of the fault domain (e.g., Rack1, Rack2). */
-  faultDomainName: string;
-
-  /** List of node names assigned to this fault domain. */
+model LocalAvailabilityZoneEntry {
+  /** List of node names assigned to this local availability zone. All cluster nodes must appear exactly once across all zone entries. */
   nodes: string[];
 }
 
-/** Properties for configuring fault domains in the cluster. */
+/** Configuration for local availability zones, including the naming prefix and zone-to-node mappings. */
 @added(Versions.v2026_03_15_preview)
-model HciConfigureFaultDomainJobProperties extends ClusterJobProperties {
+model LocalAvailabilityZoneConfiguration {
+  /** Naming prefix used to generate local availability zone names (Prefix1..PrefixN). */
+  @pattern("^[a-zA-Z0-9-]{1,8}$")
+  prefix: string;
+
+  /** Array of zone-to-node mappings. Each entry specifies the nodes belonging to one local availability zone. Maximum 8 zones allowed. Each zone must contain at least one node. Every cluster node must be assigned to exactly one zone. */
+  @minItems(1)
+  @maxItems(8)
+  @Azure.ResourceManager.identifiers(#[])
+  zones: LocalAvailabilityZoneEntry[];
+}
+
+/** Properties for configuring local availability zones in the cluster. */
+@added(Versions.v2026_03_15_preview)
+model HciConfigureLocalAvailabilityZoneJobProperties
+  extends ClusterJobProperties {
   /** ClusterJob Type to support polymorphic resource. */
-  jobType: HciJobType.ConfigureFaultDomain;
+  jobType: HciJobType.ConfigureLocalAvailabilityZone;
 
-  /** Number of fault domains to create (1-8). */
-  @minValue(1)
-  @maxValue(8)
-  faultDomainCount: int32;
-
-  /** Naming prefix for fault domains. Each fault domain is named <Prefix>1, <Prefix>2, etc. */
-  faultDomainPrefix: string;
-
-  /** Mapping of fault domain names to their assigned nodes. */
-  @Azure.ResourceManager.identifiers(#["faultDomainName"])
-  nodeAssignment: FaultDomainNodeAssignment[];
+  /** Configuration for local availability zones including naming prefix and zone-to-node mappings. */
+  localAvailabilityZoneConfiguration: LocalAvailabilityZoneConfiguration;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -7819,6 +7829,12 @@ model StorageProfile {
    */
   @visibility(Lifecycle.Read)
   poolableDisksCount?: int64;
+
+  /**
+   * Local availability zone name assigned to this edge machine after a ConfigureLocalAvailabilityZone job succeeds.
+   */
+  @visibility(Lifecycle.Read)
+  localAvailabilityZoneName?: string;
 }
 /**
  * details of validation failure
