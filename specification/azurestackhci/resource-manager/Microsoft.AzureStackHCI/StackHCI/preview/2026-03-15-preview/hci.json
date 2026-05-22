@@ -3831,9 +3831,6 @@
           "ClusterJobs_Get_ConfigureArcGatewayJob": {
             "$ref": "./examples/ClusterJobs_Get_ConfigureArcGatewayJob.json"
           },
-          "ClusterJobs_Get_ConfigureFaultDomainJob": {
-            "$ref": "./examples/ClusterJobs_Get_ConfigureFaultDomainJob.json"
-          },
           "ClusterJobs_Get_ConfigureSdnIntegrationJob": {
             "$ref": "./examples/ClusterJobs_Get_ConfigureSdnIntegrationJob.json"
           },
@@ -3851,6 +3848,9 @@
           },
           "ClusterJobs_Get_VmConnectRemoveJob": {
             "$ref": "./examples/ClusterJobs_Get_VmConnectRemoveJob.json"
+          },
+          "ClusterJobs_Get_configure-lazJob": {
+            "$ref": "./examples/ClusterJobs_Get_ConfigureLocalAvailabilityZoneJob.json"
           }
         }
       },
@@ -3936,9 +3936,6 @@
           "ClusterJobs_CreateOrUpdate_ConfigureCVMJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureCVM.json"
           },
-          "ClusterJobs_CreateOrUpdate_ConfigureFaultDomainJob": {
-            "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureFaultDomain.json"
-          },
           "ClusterJobs_CreateOrUpdate_ConfigureSdnIntegration_Enable": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureSdnIntegration_Enable.json"
           },
@@ -3956,6 +3953,9 @@
           },
           "ClusterJobs_CreateOrUpdate_VmConnectRemoveJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_VmConnectRemove.json"
+          },
+          "ClusterJobs_CreateOrUpdate_configure-lazJob": {
+            "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureLocalAvailabilityZone.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -12363,6 +12363,12 @@
             ]
           },
           "readOnly": true
+        },
+        "localAvailabilityZoneCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of local availability zones configured in the cluster.",
+          "readOnly": true
         }
       }
     },
@@ -17518,27 +17524,6 @@
         }
       }
     },
-    "FaultDomainNodeAssignment": {
-      "type": "object",
-      "description": "Mapping of a fault domain to its assigned nodes.",
-      "properties": {
-        "faultDomainName": {
-          "type": "string",
-          "description": "Name of the fault domain (e.g., Rack1, Rack2)."
-        },
-        "nodes": {
-          "type": "array",
-          "description": "List of node names assigned to this fault domain.",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": [
-        "faultDomainName",
-        "nodes"
-      ]
-    },
     "ForcePushNetworkAdapterJobProperties": {
       "type": "object",
       "description": "Properties for force push of network adapter configuration.",
@@ -17926,43 +17911,24 @@
       ],
       "x-ms-discriminator-value": "ConfigureCVM"
     },
-    "HciConfigureFaultDomainJobProperties": {
+    "HciConfigureLocalAvailabilityZoneJobProperties": {
       "type": "object",
-      "description": "Properties for configuring fault domains in the cluster.",
+      "description": "Properties for configuring local availability zones in the cluster.",
       "properties": {
-        "faultDomainCount": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of fault domains to create (1-8).",
-          "minimum": 1,
-          "maximum": 8
-        },
-        "faultDomainPrefix": {
-          "type": "string",
-          "description": "Naming prefix for fault domains. Each fault domain is named <Prefix>1, <Prefix>2, etc."
-        },
-        "nodeAssignment": {
-          "type": "array",
-          "description": "Mapping of fault domain names to their assigned nodes.",
-          "items": {
-            "$ref": "#/definitions/FaultDomainNodeAssignment"
-          },
-          "x-ms-identifiers": [
-            "faultDomainName"
-          ]
+        "localAvailabilityZoneConfiguration": {
+          "$ref": "#/definitions/LocalAvailabilityZoneConfiguration",
+          "description": "Configuration for local availability zones including naming prefix and zone-to-node mappings."
         }
       },
       "required": [
-        "faultDomainCount",
-        "faultDomainPrefix",
-        "nodeAssignment"
+        "localAvailabilityZoneConfiguration"
       ],
       "allOf": [
         {
           "$ref": "#/definitions/ClusterJobProperties"
         }
       ],
-      "x-ms-discriminator-value": "ConfigureFaultDomain"
+      "x-ms-discriminator-value": "ConfigureLocalAvailabilityZone"
     },
     "HciConfigureSdnIntegrationJobProperties": {
       "type": "object",
@@ -18396,7 +18362,7 @@
       "enum": [
         "AddServer",
         "RepairServer",
-        "ConfigureFaultDomain",
+        "ConfigureLocalAvailabilityZone",
         "ConfigureArcGateway",
         "GpuCreatePartition",
         "GpuSwitchMode",
@@ -18420,9 +18386,9 @@
             "description": "Job to repair a server in the cluster."
           },
           {
-            "name": "ConfigureFaultDomain",
-            "value": "ConfigureFaultDomain",
-            "description": "Job to configure fault domains for the cluster."
+            "name": "ConfigureLocalAvailabilityZone",
+            "value": "ConfigureLocalAvailabilityZone",
+            "description": "Job to configure local availability zones for the cluster."
           },
           {
             "name": "ConfigureArcGateway",
@@ -19442,6 +19408,47 @@
       },
       "required": [
         "devices"
+      ]
+    },
+    "LocalAvailabilityZoneConfiguration": {
+      "type": "object",
+      "description": "Configuration for local availability zones, including the naming prefix and zone-to-node mappings.",
+      "properties": {
+        "prefix": {
+          "type": "string",
+          "description": "Naming prefix used to generate local availability zone names (Prefix1..PrefixN).",
+          "pattern": "^[a-zA-Z0-9-]{1,8}$"
+        },
+        "zones": {
+          "type": "array",
+          "description": "Array of zone-to-node mappings. Each entry specifies the nodes belonging to one local availability zone. Maximum 8 zones allowed. Each zone must contain at least one node. Every cluster node must be assigned to exactly one zone.",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/definitions/LocalAvailabilityZoneEntry"
+          },
+          "x-ms-identifiers": []
+        }
+      },
+      "required": [
+        "prefix",
+        "zones"
+      ]
+    },
+    "LocalAvailabilityZoneEntry": {
+      "type": "object",
+      "description": "A single local availability zone entry containing the list of nodes belonging to it.",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "description": "List of node names assigned to this local availability zone. All cluster nodes must appear exactly once across all zone entries.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "nodes"
       ]
     },
     "LocalAvailabilityZones": {
@@ -24396,6 +24403,11 @@
           "type": "integer",
           "format": "int64",
           "description": "Number of storage disks in the device with $CanPool as true.",
+          "readOnly": true
+        },
+        "localAvailabilityZoneName": {
+          "type": "string",
+          "description": "Local availability zone name assigned to this edge machine after a ConfigureLocalAvailabilityZone job succeeds.",
           "readOnly": true
         }
       }
