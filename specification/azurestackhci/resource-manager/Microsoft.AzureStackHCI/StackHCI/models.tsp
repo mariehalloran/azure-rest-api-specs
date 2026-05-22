@@ -3785,6 +3785,38 @@ model OptionalServices {
    * The name of custom location.
    */
   customLocation?: string;
+
+  /**
+   * Optional Day Zero capacity policy used to seed the cluster's Capacity Settings
+   * singleton during deployment. When omitted, the service uses its own defaults.
+   */
+  @added(Versions.v2026_03_15_preview)
+  capacityPolicy?: DeploymentCapacityPolicy;
+}
+
+/**
+ * Day Zero capacity placement policy supplied via Deployment Settings. Mirrors the
+ * patchable shape of AppliedCapacityPolicy so the values can be plumbed into the
+ * Capacity Settings singleton at cluster creation time.
+ */
+@added(Versions.v2026_03_15_preview)
+model DeploymentCapacityPolicy {
+  /**
+   * Cluster-wide CPU overcommit ratio used to calculate effective vCPU capacity.
+   */
+  @minValue(1.0)
+  cpuOvercommitRatio?: float32;
+
+  /**
+   * Number of failure domains to reserve for n+1/n+2 style placement planning.
+   */
+  @minValue(0)
+  failureDomainReservationCount?: int32;
+
+  /**
+   * Explicit node names held back from placement for upgrade or maintenance.
+   */
+  reservedNodes?: string[];
 }
 
 /**
