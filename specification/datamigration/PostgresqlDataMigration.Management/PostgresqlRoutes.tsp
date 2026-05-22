@@ -55,9 +55,10 @@ interface PostgresqlDatabaseMigrations {
   createOrUpdate is ArmResourceCreateOrReplaceSync<DatabaseMigration>;
 
   @doc("Updates a database migration. Supports cancel and cutover operations.")
-  update is ArmResourcePatchSync<
+  @patch(#{ implicitOptionality: false })
+  update is ArmCustomPatchSync<
     DatabaseMigration,
-    DatabaseMigrationProperties
+    PatchModel = DatabaseMigrationPatch
   >;
 
   @doc("Deletes a database migration.")

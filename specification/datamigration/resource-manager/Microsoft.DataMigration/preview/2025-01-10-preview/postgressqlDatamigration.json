@@ -665,7 +665,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DatabaseMigrationUpdate"
+              "$ref": "#/definitions/DatabaseMigrationPatch"
             }
           }
         ],
@@ -1665,6 +1665,26 @@
         "value"
       ]
     },
+    "DatabaseMigrationPatch": {
+      "type": "object",
+      "description": "The request body for updating a database migration.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/DatabaseMigrationPatchProperties",
+          "description": "The database migration update properties."
+        }
+      }
+    },
+    "DatabaseMigrationPatchProperties": {
+      "type": "object",
+      "description": "Properties for updating a database migration.",
+      "properties": {
+        "operationType": {
+          "$ref": "#/definitions/MigrationOperationType",
+          "description": "The type of operation to perform on the migration"
+        }
+      }
+    },
     "DatabaseMigrationProperties": {
       "type": "object",
       "description": "Properties of the DatabaseMigration resource.",
@@ -1866,36 +1886,6 @@
         "target",
         "mappingDefinitions",
         "migrationJobSettings"
-      ]
-    },
-    "DatabaseMigrationPropertiesUpdate": {
-      "type": "object",
-      "description": "Properties of the DatabaseMigration resource.",
-      "properties": {
-        "operationType": {
-          "$ref": "#/definitions/MigrationOperationType",
-          "description": "The type of operation to perform on the migration",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
-        }
-      }
-    },
-    "DatabaseMigrationUpdate": {
-      "type": "object",
-      "description": "A database migration resource.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/DatabaseMigrationPropertiesUpdate",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
       ]
     },
     "DatabaseStatusProperties": {

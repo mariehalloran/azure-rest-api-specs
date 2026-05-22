@@ -764,6 +764,18 @@ model DatabaseMigrationProperties {
   endedAt?: utcDateTime;
 }
 
+@doc("The request body for updating a database migration.")
+model DatabaseMigrationPatch {
+  @doc("The database migration update properties.")
+  properties?: DatabaseMigrationPatchProperties;
+}
+
+@doc("Properties for updating a database migration.")
+model DatabaseMigrationPatchProperties {
+  @doc("The type of operation to perform on the migration")
+  operationType?: MigrationOperationType;
+}
+
 @doc("Request body for testing connectivity.")
 model TestConnectivityRequest {
   #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "No identifier properties for this array"
