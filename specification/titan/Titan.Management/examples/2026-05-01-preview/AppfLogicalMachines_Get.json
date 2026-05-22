@@ -1,0 +1,46 @@
+{
+  "title": "AppfLogicalMachines_Get",
+  "operationId": "AppfLogicalMachines_Get",
+  "parameters": {
+    "api-version": "2026-05-01-preview",
+    "location": "eastus",
+    "appfLogicalMachine": "MAD20ISBRP021"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "status": "Active",
+          "machineStatus": "Running",
+          "managementType": "BareMetal",
+          "manatree": "AzureCompute",
+          "cloud": "Public",
+          "environment": "Production",
+          "machineFunction": "Compute",
+          "manatreeContact": "team@microsoft.com",
+          "repair": "None",
+          "cluster": "MAD20-Cluster01",
+          "environmentName": "Prod-EastUS",
+          "inventoryType": "Physical",
+          "machineType": "Server",
+          "provisioningState": "Succeeded"
+        },
+        "id": "/providers/Microsoft.Titan/locations/eastus/appfLogicalMachines/MAD20ISBRP021",
+        "name": "MAD20ISBRP021",
+        "type": "Microsoft.Titan/locations/eastus/appfLogicalMachines",
+        "location": "eastus",
+        "tags": {
+          "ms.inv.v0.owner.serviceTreeId": "910ae907-bee4-4fdb-bdbc-c82a51981843"
+        },
+        "systemData": {
+          "createdBy": "user@microsoft.com",
+          "createdByType": "User",
+          "createdAt": "2026-01-15T10:00:00.000Z",
+          "lastModifiedBy": "user@microsoft.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-01-15T10:00:00.000Z"
+        }
+      }
+    }
+  }
+}
