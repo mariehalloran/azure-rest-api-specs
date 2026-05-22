@@ -1749,7 +1749,10 @@
         },
         "operationType": {
           "$ref": "#/definitions/MigrationOperationType",
-          "description": "The type of operation to perform on the migration"
+          "description": "The type of operation to perform on the migration",
+          "x-ms-mutability": [
+            "update"
+          ]
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
@@ -1869,7 +1872,10 @@
       "properties": {
         "operationType": {
           "$ref": "#/definitions/MigrationOperationType",
-          "description": "The type of operation to perform on the migration"
+          "description": "The type of operation to perform on the migration",
+          "x-ms-mutability": [
+            "update"
+          ]
         }
       }
     },

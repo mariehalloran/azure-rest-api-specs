@@ -692,6 +692,7 @@ model DatabaseMigrationProperties {
   migrationJobSettings: MigrationJobSettings[];
 
   @doc("The type of operation to perform on the migration")
+  @visibility(Lifecycle.Update)
   operationType?: MigrationOperationType;
 
   @doc("Provisioning state")
