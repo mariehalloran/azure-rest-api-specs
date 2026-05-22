@@ -5087,50 +5087,66 @@
     },
     "BenefitType": {
       "type": "string",
-      "description": "Represents benefit model type for validation.",
+      "description": "Represents benefit model type for validation. Includes all resource types\nplus legacy singular-form values used by the validate API.",
       "enum": [
-        "SavingsPlan",
-        "MACC",
-        "ConditionalCredits",
+        "Maccs",
         "Credits",
+        "ConditionalCredits",
         "Discounts",
+        "FreeServices",
         "SavingsPlans",
-        "Maccs"
+        "Reservations",
+        "SavingsPlan",
+        "MACC"
       ],
       "x-ms-enum": {
         "name": "BenefitType",
         "modelAsString": true,
         "values": [
           {
-            "name": "SavingsPlan",
-            "value": "SavingsPlan"
-          },
-          {
-            "name": "MACC",
-            "value": "MACC"
-          },
-          {
-            "name": "ConditionalCredits",
-            "value": "ConditionalCredits"
+            "name": "Maccs",
+            "value": "Maccs",
+            "description": "Microsoft Azure Consumption Commitments"
           },
           {
             "name": "Credits",
-            "value": "Credits"
+            "value": "Credits",
+            "description": "Credits applied to the customer's billing account"
+          },
+          {
+            "name": "ConditionalCredits",
+            "value": "ConditionalCredits",
+            "description": "Conditional Credits"
           },
           {
             "name": "Discounts",
             "value": "Discounts",
-            "description": "Discount benefit type"
+            "description": "Discounts that reduce charges on eligible services"
+          },
+          {
+            "name": "FreeServices",
+            "value": "FreeServices",
+            "description": "Services provided at no charge under the billing agreement"
           },
           {
             "name": "SavingsPlans",
             "value": "SavingsPlans",
-            "description": "Savings Plans benefit type"
+            "description": "Savings Plan"
           },
           {
-            "name": "Maccs",
-            "value": "Maccs",
-            "description": "Maccs benefit type"
+            "name": "Reservations",
+            "value": "Reservations",
+            "description": "Reserved capacity or reserved instances"
+          },
+          {
+            "name": "SavingsPlan",
+            "value": "SavingsPlan",
+            "description": "Savings Plan (singular form, used by validate API)"
+          },
+          {
+            "name": "MACC",
+            "value": "MACC",
+            "description": "MACC (legacy form, used by validate API)"
           }
         ]
       }

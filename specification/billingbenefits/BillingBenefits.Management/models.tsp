@@ -684,33 +684,17 @@ union MilestoneStatus {
 }
 
 /**
- * Represents benefit model type for validation.
+ * Represents benefit model type for validation. Includes all resource types
+ * plus legacy singular-form values used by the validate API.
  */
 union BenefitType {
-  string,
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  ResourceType,
+
+  /** Savings Plan (singular form, used by validate API) */
   SavingsPlan: "SavingsPlan",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+
+  /** MACC (legacy form, used by validate API) */
   MACC: "MACC",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  ConditionalCredits: "ConditionalCredits",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Credits: "Credits",
-
-  /**
-   * Discount benefit type
-   */
-  Discounts: "Discounts",
-
-  /**
-   * Savings Plans benefit type
-   */
-  SavingsPlans: "SavingsPlans",
-
-  /**
-   * Maccs benefit type
-   */
-  Maccs: "Maccs",
 }
 
 /**
