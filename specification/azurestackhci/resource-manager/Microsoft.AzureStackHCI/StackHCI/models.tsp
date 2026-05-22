@@ -12148,3 +12148,198 @@ model CapacitySettingPatchProperties {
    */
   appliedPolicy?: AppliedCapacityPolicy;
 }
+
+////////////////////////////////////////////////////////////////
+///// PRIVATE PREVIEW - Edge Machine Proxy Configuration Models ////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Properties of a proxy configuration resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProxyConfigurationProperties {
+  /**
+   * The intended proxy configuration as set from the cloud.
+   * Updated at Apply job creation time. Seeded from webProxy in
+   * TargetDeviceConfiguration when the EdgeMachine first reaches Purposed.
+   */
+  @visibility(Lifecycle.Read)
+  desiredConfiguration?: ProxyConfigurationDetail;
+
+  /**
+   * The actual proxy configuration last reported by the device via the RP data path.
+   */
+  @visibility(Lifecycle.Read)
+  reportedConfiguration?: ProxyConfigurationReportedDetail;
+
+  /**
+   * Indicates whether desiredConfiguration and reportedConfiguration are in sync.
+   */
+  @visibility(Lifecycle.Read)
+  configurationState?: ProxyConfigurationState;
+
+  /** Provisioning state of the proxy configuration resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/**
+ * The desired proxy configuration set from the cloud.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProxyConfigurationDetail {
+  /** Connection URI of the proxy server (e.g., 'http://proxy.contoso.com'). Required when isEnabled is true. */
+  connectionUri?: string;
+
+  /** Port number of the proxy server. Required when isEnabled is true. */
+  port?: string;
+
+  /** List of addresses or patterns that should bypass the proxy. */
+  bypassList?: string[];
+
+  /** Whether the proxy should be active on the device. */
+  isEnabled?: boolean;
+}
+
+/**
+ * The actual proxy configuration as last reported by the device.
+ * Written by the RP data path; read-only for customers.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProxyConfigurationReportedDetail {
+  /** Connection URI as reported by the device. */
+  @visibility(Lifecycle.Read)
+  connectionUri?: string;
+
+  /** Port number as reported by the device. */
+  @visibility(Lifecycle.Read)
+  port?: string;
+
+  /** Bypass list as reported by the device. */
+  @visibility(Lifecycle.Read)
+  bypassList?: string[];
+
+  /** Whether the proxy is currently active on the device, as reported. */
+  @visibility(Lifecycle.Read)
+  isEnabled?: boolean;
+
+  /** UTC timestamp of the last device report received by the RP. */
+  @visibility(Lifecycle.Read)
+  lastReportedTimestamp?: utcDateTime;
+}
+
+/**
+ * Indicates whether the desired and reported proxy configurations are in sync.
+ */
+@added(Versions.v2026_03_15_preview)
+union ProxyConfigurationState {
+  string,
+
+  /** Desired and reported configurations match. */
+  InSync: "InSync",
+
+  /** Desired and reported configurations diverge. A Sync job must be submitted before a new Apply job is accepted. */
+  Drifted: "Drifted",
+}
+
+////////////////////////////////////////////////////////////////
+// PRIVATE PREVIEW - Proxy Configuration Job Models ////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Base properties for a proxy configuration job.
+ */
+@added(Versions.v2026_03_15_preview)
+@discriminator("jobType")
+model ProxyConfigurationJobProperties {
+  /** Type of proxy configuration job. Determines the polymorphic subtype. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  jobType: ProxyConfigurationJobType;
+
+  /** Provisioning state of the proxy configuration job resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /** Unique, immutable job identifier. */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /** UTC time at which the job started. */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /** UTC time at which the job completed. */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /** Status of the job. */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+
+  /** Error details. */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+}
+
+/**
+ * Type of proxy configuration job.
+ */
+@added(Versions.v2026_03_15_preview)
+union ProxyConfigurationJobType {
+  string,
+
+  /** Push a new proxy configuration to the device. Updates desiredConfiguration on the proxy resource at job creation time. Rejected if configurationState is Drifted or if a ConfigureNetworking, ProvisionOs, or DownloadOs EdgeMachine job is in-flight. */
+  Apply: "Apply",
+
+  /** Reconcile a configuration drift. Does not require a clean configurationState — this is the intended remediation path. Sub-typed by syncDirection. */
+  Sync: "Sync",
+}
+
+/**
+ * Properties for an Apply job that pushes a new proxy configuration to the device.
+ */
+@added(Versions.v2026_03_15_preview)
+model ApplyProxyConfigurationJobProperties
+  extends ProxyConfigurationJobProperties {
+  /** Type of proxy configuration job. */
+  jobType: ProxyConfigurationJobType.Apply;
+
+  /** Whether to enable or disable the proxy on the device. When false, the proxy is disabled on the device but connectionUri and port are preserved in desiredConfiguration. */
+  isEnabled: boolean;
+
+  /** Connection URI of the proxy server. Required when isEnabled is true. */
+  connectionUri?: string;
+
+  /** Port number of the proxy server. Required when isEnabled is true. */
+  port?: string;
+
+  /** List of addresses or patterns that should bypass the proxy. */
+  bypassList?: string[];
+}
+
+/**
+ * Properties for a Sync job that reconciles configuration drift.
+ */
+@added(Versions.v2026_03_15_preview)
+model SyncProxyConfigurationJobProperties
+  extends ProxyConfigurationJobProperties {
+  /** Type of proxy configuration job. */
+  jobType: ProxyConfigurationJobType.Sync;
+
+  /** Direction of the sync operation. */
+  syncDirection: ProxySyncDirection;
+}
+
+/**
+ * Direction of a proxy configuration sync operation.
+ */
+@added(Versions.v2026_03_15_preview)
+union ProxySyncDirection {
+  string,
+
+  /** Re-push the current desiredConfiguration to the device. Use to recover after a failed Apply or to override an unwanted local device change. */
+  SyncToDevice: "SyncToDevice",
+
+  /** Copy reportedConfiguration into desiredConfiguration. Use to acknowledge and canonicalize a locally-made change on the device, clearing the Drifted state. */
+  AcceptReported: "AcceptReported",
+}
