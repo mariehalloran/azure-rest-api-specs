@@ -20,7 +20,7 @@ interface PostgresqlMigrationServices {
   create is ArmResourceCreateOrReplaceSync<MigrationService>;
 
   @doc("Updates a migration service.")
-  update is ArmResourcePatchSync<MigrationService, MigrationServiceProperties>;
+  update is ArmTagsPatchSync<MigrationService>;
 
   @doc("Deletes a migration service.")
   delete is ArmResourceDeleteSync<MigrationService>;
@@ -57,7 +57,7 @@ interface PostgresqlDatabaseMigrations {
   @doc("Updates a database migration. Supports cancel and cutover operations.")
   update is ArmResourcePatchSync<
     DatabaseMigration,
-    DatabaseMigrationProperties
+    DatabaseMigrationUpdateProperties
   >;
 
   @doc("Deletes a database migration.")

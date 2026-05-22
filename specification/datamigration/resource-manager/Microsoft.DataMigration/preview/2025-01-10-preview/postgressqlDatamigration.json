@@ -311,7 +311,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/MigrationServiceUpdate"
+              "$ref": "#/definitions/MigrationServiceTagsUpdate"
             }
           }
         ],
@@ -1239,25 +1239,6 @@
         ]
       }
     },
-    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
-      "type": "object",
-      "title": "Tracked Resource",
-      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/Resource"
-        }
-      ]
-    },
     "CheckConnectivityEndpoint": {
       "type": "object",
       "description": "Connection endpoint for connectivity testing with type indicator.",
@@ -1907,6 +1888,16 @@
         }
       ]
     },
+    "DatabaseMigrationUpdateProperties": {
+      "type": "object",
+      "description": "Updatable properties of the DatabaseMigration resource.",
+      "properties": {
+        "operationType": {
+          "$ref": "#/definitions/MigrationOperationType",
+          "description": "The type of operation to perform on the migration"
+        }
+      }
+    },
     "DatabaseStatusProperties": {
       "type": "object",
       "description": "Properties wrapper for DatabaseStatusResource (child proxy resource).",
@@ -2436,20 +2427,18 @@
         }
       }
     },
-    "MigrationServiceUpdate": {
+    "MigrationServiceTagsUpdate": {
       "type": "object",
-      "description": "A migration service resource.",
+      "description": "The type used for updating tags in MigrationService resources.",
       "properties": {
-        "properties": {
-          "$ref": "#/definitions/MigrationServiceProperties",
-          "description": "The resource-specific properties for this resource."
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
-        }
-      ]
+      }
     },
     "MigrationSourceType": {
       "type": "string",

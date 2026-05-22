@@ -651,6 +651,12 @@ model PreMigrationValidationStatus {
   preMigrationValidationSummaries?: PreMigrationValidationSummary[];
 }
 
+@doc("Updatable properties of the DatabaseMigration resource.")
+model DatabaseMigrationUpdateProperties {
+  @doc("The type of operation to perform on the migration")
+  operationType?: MigrationOperationType;
+}
+
 @doc("Properties of the DatabaseMigration resource.")
 model DatabaseMigrationProperties {
   @doc("Migration name")
