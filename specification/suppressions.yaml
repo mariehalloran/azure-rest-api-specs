@@ -9,6 +9,7 @@
     - accesspoint/AccessPoint.Management
     - advisorresilience/AdvisorResilience.Management
     - agricultureplatform/AgriculturePlatform.Management
+    - aiops/AIOps.Management
     - applicationmigration/ApplicationMigration.Management/ApplicationDiscovery.Management
     - applicationmigration/ApplicationMigration.Management/CodeScanSites.Management
     - applicationmigration/ApplicationMigration.Management/ConnectionHubs.Management
@@ -170,15 +171,12 @@
     - messagingcatalog/MessagingCatalog.Management
     - messagingconnectors/MessagingConnectors.Management
     - microsoftinventory/Inventory.Management
-    - mission/Mission.Management
     - monitor/Microsoft.Monitor.Accounts.Management
     - monitor/Microsoft.Monitor.CrossTenantPermissions.Management
     - monitor/Microsoft.Monitor.Management
     - monitor/Microsoft.Monitor.Operations.Management
     - monitor/Microsoft.Monitor.PipelineGroups.Management
     - monitor/Microsoft.Monitor.Settings.Management
-    - monitor/Microsoft.Monitor.Slis.Management
-    - monitor/Microsoft.Monitor.Slis.SignalPreview.Management
     - mycroft/Mycroft.Management
     - napster/Napster.CompanionAPI.Management
     - netappinternal/NetappInternal.Management
@@ -205,6 +203,7 @@
     - portalservices/Extension.Management
     - portalservices/TenantSettings.Management
     - powerautomate/PowerAutomate.Management
+    - powerpages/PowerPages.Management
     - powerplatformconnector/PowerPlatformConnector.Management
     - premonition/Insights.Management
     - programmableconnectivity/ProgrammableConnectivity.Management
@@ -243,7 +242,6 @@
     - symphony/Symphony.Management
     - tenantgovernance/TenantGovernance.Management
     - terraform/Microsoft.AzureTerraform.Management
-    - throttling/Microsoft.Throttling.Management
     - titan/Titan.Management
     - touchcast/Touchcast.CogCache.Management
     - trustedlaunch/TrustedLaunch.Management
@@ -270,11 +268,10 @@
   paths:
     - awsconnector/resource-manager/Microsoft.AwsConnector/preview/2023-12-01-preview/*.json
     - awsconnector/resource-manager/Microsoft.AwsConnector/preview/2024-08-01-preview/*.json
+    - awsconnector/resource-manager/Microsoft.AwsConnector/stable/2024-12-01/*.json
     - azureintegrationspaces/resource-manager/Microsoft.IntegrationSpaces/preview/2023-11-14-preview/openapi.json
     - azurestackhci/resource-manager/Microsoft.AzureStackHCI/StackHCI/preview/2024-07-01-preview/hci.json
     - azurestackhci/resource-manager/Microsoft.AzureStackHCI/StackHCI/preview/2024-11-01-preview/hci.json
-    - azurestackhci/resource-manager/Microsoft.AzureStackHCI/operations/preview/2024-11-01-preview/operations.json
-    - azurestackhci/resource-manager/Microsoft.AzureStackHCI/operations/preview/2024-12-01-preview/operations.json
     - baremetal/resource-manager/Microsoft.BareMetal/preview/2024-06-01-preview/BootstrapRP.json
     - baremetal/resource-manager/Microsoft.BareMetal/preview/2024-12-01-preview/BootstrapRP.json
     - carbon/resource-manager/Microsoft.Carbon/preview/2023-04-01-preview/main.json
@@ -296,26 +293,12 @@
     - hybridaks/resource-manager/Microsoft.HybridContainerService/preview/2024-09-01-preview/openapi.json
     - hybridaks/resource-manager/Microsoft.HybridContainerService/preview/2025-02-01-preview/openapi.json
     - informatica/resource-manager/Informatica.DataManagement/preview/2023-08-20-preview/openapi.json
-    - messagingconnectors/resource-manager/Microsoft.MessagingConnectors/preview/2024-01-20-preview/messagingconnectors.json
-    - messagingconnectors/resource-manager/Microsoft.MessagingConnectors/preview/2024-03-10-preview/messagingconnectors.json
-    - messagingconnectors/resource-manager/Microsoft.MessagingConnectors/preview/2024-05-01-preview/messagingconnectors.json
-    - messagingconnectors/resource-manager/Microsoft.MessagingConnectors/preview/2024-08-01-preview/messagingconnectors.json
-    - messagingconnectors/resource-manager/Microsoft.MessagingConnectors/preview/2024-09-01-preview/messagingconnectors.json
-    - messagingconnectors/resource-manager/Microsoft.MessagingConnectors/preview/2024-10-01-preview/messagingconnectors.json
-    - messagingconnectors/resource-manager/Microsoft.MessagingConnectors/preview/2024-11-01-preview/messagingconnectors.json
-    - messagingconnectors/resource-manager/Microsoft.MessagingConnectors/preview/2024-12-01-preview/messagingconnectors.json
-    - messagingconnectors/resource-manager/Microsoft.MessagingConnectors/preview/2024-12-17-preview/messagingconnectors.json
-    - messagingconnectors/resource-manager/Microsoft.MessagingConnectors/preview/2024-12-24-preview/messagingconnectors.json
     - messagingconnectors/resource-manager/Microsoft.MessagingConnectors/preview/2025-01-01-preview/messagingconnectors.json
-    - mission/resource-manager/Microsoft.Mission/preview/2022-10-31-preview/openapi.json
-    - mission/resource-manager/Microsoft.Mission/preview/2022-08-02-preview/openapi.json
-    - mission/resource-manager/Microsoft.Mission/preview/2022-12-07-preview/openapi.json
     - playwrighttesting/resource-manager/Microsoft.AzurePlaywrightService/preview/2023-10-01-preview/playwrighttesting.json
     - playwrighttesting/resource-manager/Microsoft.AzurePlaywrightService/preview/2024-01-01-preview/playwrighttesting.json
     - playwrighttesting/resource-manager/Microsoft.AzurePlaywrightService/preview/2024-08-01-preview/playwrighttesting.json
     - scvmm/resource-manager/Microsoft.ScVmm/stable/2023-10-07/scvmm.json
     - scvmm/resource-manager/Microsoft.ScVmm/stable/2024-06-01/scvmm.json
-    - solarwinds/resource-manager/SolarWinds.Observability/preview/2023-07-21-preview/openapi.json
     - splitio/resource-manager/SplitIO.Experimentation/preview/2024-03-01-preview/splitio.json
     - liftrastronomer/resource-manager/Astronomer.Astro/preview/2023-06-01-preview/astronomer.json
     - liftrastronomer/resource-manager/Astronomer.Astro/preview/2023-07-01-preview/astronomer.json
@@ -347,7 +330,6 @@
     - fairfieldgardens/FairfieldGardens.Management
     - github-network/GitHub.Network.Management
     - grip/Grip.Management
-    - hardware/Microsoft.Hardware
     - healthdataaiservices/HealthDataAIServices.Management
     - healthmodel/HealthModel.Management
     - hybridonboarding/ExtensionManager.Management
@@ -357,7 +339,6 @@
     - kx/Microsoft.KX.Management
     - managedsc/resource-manager/Microsoft.ManagedStorageClass/cadl
     - manufacturingplatform/Manufacturingplatform.Management
-    - mobilenetwork/MobileNetwork.Management
     - mobilepacketcore/MobilePacketCore.Management
     - mpcnetworkfunction/MpcNetworkFunction.Management
     - networkanalytics/NetworkAnalytics.Management
@@ -370,73 +351,12 @@
   reason: Remove specs contain incorrect or missing emitter options or parameters
   rules: [SdkTspConfigValidation]
   sub-rules:
-    - parameters.service-dir.default
-    - options.@azure-tools/typespec-go.*
-    - options.@azure-tools/typespec-java.*
-    - options.@azure-tools/typespec-python.*
-    - options.@azure-tools/typespec-ts.*
-  paths: [appsecurity/AppSecurity.Management/tspconfig.yaml]
-
-- tool: TypeSpecValidation
-  reason: Remove specs contain incorrect or missing emitter options or parameters
-  rules: [SdkTspConfigValidation]
-  sub-rules:
     - options.@azure-tools/typespec-go.*
     - parameters.service-dir.default
     - options.@azure-tools/typespec-java.*
     - options.@azure-tools/typespec-python.*
     - options.@azure-tools/typespec-ts.*
   paths: [azuredevopsplatform/Microsoft.AzureDevOpsPlatform/tspconfig.yaml]
-
-- tool: TypeSpecValidation
-  reason: Remove specs contain incorrect or missing emitter options or parameters
-  rules: [SdkTspConfigValidation]
-  sub-rules:
-    - options.@azure-tools/typespec-ts.*
-  paths: [azurestackhci/AzureStackHCI.StackHCI.Management/tspconfig.yaml]
-
-- tool: TypeSpecValidation
-  reason: Remove specs contain incorrect or missing emitter options or parameters
-  rules: [SdkTspConfigValidation]
-  sub-rules:
-    - options.@azure-tools/typespec-ts.*
-  paths: [azurestackhci/AzureStackHCI.StackHCIVM.Management/tspconfig.yaml]
-
-- tool: TypeSpecValidation
-  reason: Remove specs contain incorrect or missing emitter options or parameters
-  rules: [SdkTspConfigValidation]
-  sub-rules:
-    - options.@azure-tools/typespec-ts.*
-  paths: [azurestackhci/Operations.Management/tspconfig.yaml]
-
-- tool: TypeSpecValidation
-  reason: Remove specs contain incorrect or missing emitter options or parameters
-  rules: [SdkTspConfigValidation]
-  sub-rules:
-    - options.@azure-tools/typespec-go.*
-    - parameters.service-dir.default
-    - options.@azure-tools/typespec-java.*
-    - options.@azure-tools/typespec-python.*
-    - options.@azure-tools/typespec-ts.*
-  paths: [hardware/Microsoft.Hardware/tspconfig.yaml]
-
-- tool: TypeSpecValidation
-  reason: Remove specs contain incorrect or missing emitter options or parameters
-  rules: [SdkTspConfigValidation]
-  sub-rules:
-    - parameters.service-dir.default
-    - options.@azure-tools/typespec-go.*
-    - options.@azure-tools/typespec-java.*
-    - options.@azure-tools/typespec-python.*
-    - options.@azure-tools/typespec-ts.*
-  paths: [mobilenetwork/MobileNetwork.Management/tspconfig.yaml]
-
-- tool: TypeSpecValidation
-  reason: Remove specs contain incorrect or missing emitter options or parameters
-  rules: [SdkTspConfigValidation]
-  sub-rules:
-    - options.@azure-tools/typespec-ts.*
-  paths: [modsimworkbench/Microsoft.ModSimWorkbench.Management/tspconfig.yaml]
 
 - tool: TypeSpecValidation
   reason: Remove specs contain incorrect or missing emitter options or parameters
@@ -459,10 +379,3 @@
     - options.@azure-tools/typespec-python.*
     - options.@azure-tools/typespec-ts.*
   paths: [secretmanagementtestsvc/SecretManagementSampleProvider/tspconfig.yaml]
-
-- tool: TypeSpecValidation
-  reason: Remove specs contain incorrect or missing emitter options or parameters
-  rules: [SdkTspConfigValidation]
-  sub-rules:
-    - options.@azure-tools/typespec-ts.*
-  paths: [solarwinds/SolarWinds.Management/tspconfig.yaml]

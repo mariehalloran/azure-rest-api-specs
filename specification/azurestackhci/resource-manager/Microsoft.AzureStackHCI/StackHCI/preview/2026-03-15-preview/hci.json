@@ -112,6 +112,9 @@
       "name": "EdgeMachineMetadataOperations"
     },
     {
+      "name": "EdgeMachineUpdates"
+    },
+    {
       "name": "EdgeMachineGpus"
     },
     {
@@ -136,10 +139,16 @@
       "name": "EdgeMachineNetworkAdapterJobs"
     },
     {
+      "name": "EdgeMachineSecuritySettingsOperations"
+    },
+    {
       "name": "ClusterJobs"
     },
     {
       "name": "ClusterVolumes"
+    },
+    {
+      "name": "CapacitySettings"
     },
     {
       "name": "DevicePools"
@@ -2856,6 +2865,323 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/clusters/{clusterName}/capacitySettings": {
+      "get": {
+        "operationId": "CapacitySettings_ListByClusters",
+        "tags": [
+          "CapacitySettings"
+        ],
+        "description": "List the Capacity Settings singletons under a cluster. The collection contains the\nsingle `default` resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the cluster.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CapacitySettingListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Capacity Settings by Cluster": {
+            "$ref": "./examples/ListCapacitySettingsByCluster.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/clusters/{clusterName}/capacitySettings/{capacitySettingsName}": {
+      "get": {
+        "operationId": "CapacitySettings_Get",
+        "tags": [
+          "CapacitySettings"
+        ],
+        "description": "Get the Capacity Settings singleton for a cluster.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the cluster.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "capacitySettingsName",
+            "in": "path",
+            "description": "Name of the Capacity Settings singleton. Always `default` in v1.",
+            "required": true,
+            "type": "string",
+            "default": "default",
+            "pattern": "^default$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CapacitySetting"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get CapacitySettings": {
+            "$ref": "./examples/GetCapacitySettings.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "CapacitySettings_CreateOrUpdate",
+        "tags": [
+          "CapacitySettings"
+        ],
+        "description": "Create or update the Capacity Settings singleton for a cluster. Only\n`appliedPolicy` fields are client-settable; reported capacity and provisioning\nstate remain service-owned.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the cluster.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "capacitySettingsName",
+            "in": "path",
+            "description": "Name of the Capacity Settings singleton. Always `default` in v1.",
+            "required": true,
+            "type": "string",
+            "default": "default",
+            "pattern": "^default$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CapacitySetting"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'CapacitySetting' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/CapacitySetting"
+            }
+          },
+          "201": {
+            "description": "Resource 'CapacitySetting' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/CapacitySetting"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create or update Capacity Settings": {
+            "$ref": "./examples/CreateOrUpdateCapacitySettings.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "CapacitySettings_Update",
+        "tags": [
+          "CapacitySettings"
+        ],
+        "description": "Update the applied capacity policy on the Capacity Settings singleton (Day N\nedits). Only `appliedPolicy` fields are updatable; reported capacity and\nprovisioning state remain service-owned.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the cluster.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "capacitySettingsName",
+            "in": "path",
+            "description": "Name of the Capacity Settings singleton. Always `default` in v1.",
+            "required": true,
+            "type": "string",
+            "default": "default",
+            "pattern": "^default$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CapacitySettingPatch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CapacitySetting"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update Capacity Settings policy (Day N edit)": {
+            "$ref": "./examples/UpdateCapacitySettings.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "CapacitySettings_Delete",
+        "tags": [
+          "CapacitySettings"
+        ],
+        "description": "Delete the Capacity Settings singleton for a cluster.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the cluster.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "capacitySettingsName",
+            "in": "path",
+            "description": "Name of the Capacity Settings singleton. Always `default` in v1.",
+            "required": true,
+            "type": "string",
+            "default": "default",
+            "pattern": "^default$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete Capacity Settings": {
+            "$ref": "./examples/DeleteCapacitySettings.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/clusters/{clusterName}/changeRing": {
       "post": {
         "operationId": "Clusters_ChangeRing",
@@ -3511,9 +3837,6 @@
           "ClusterJobs_Get_ConfigureArcGatewayJob": {
             "$ref": "./examples/ClusterJobs_Get_ConfigureArcGatewayJob.json"
           },
-          "ClusterJobs_Get_ConfigureFaultDomainJob": {
-            "$ref": "./examples/ClusterJobs_Get_ConfigureFaultDomainJob.json"
-          },
           "ClusterJobs_Get_ConfigureSdnIntegrationJob": {
             "$ref": "./examples/ClusterJobs_Get_ConfigureSdnIntegrationJob.json"
           },
@@ -3531,6 +3854,9 @@
           },
           "ClusterJobs_Get_VmConnectRemoveJob": {
             "$ref": "./examples/ClusterJobs_Get_VmConnectRemoveJob.json"
+          },
+          "ClusterJobs_Get_configure-lazJob": {
+            "$ref": "./examples/ClusterJobs_Get_ConfigureLocalAvailabilityZoneJob.json"
           }
         }
       },
@@ -3616,9 +3942,6 @@
           "ClusterJobs_CreateOrUpdate_ConfigureCVMJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureCVM.json"
           },
-          "ClusterJobs_CreateOrUpdate_ConfigureFaultDomainJob": {
-            "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureFaultDomain.json"
-          },
           "ClusterJobs_CreateOrUpdate_ConfigureSdnIntegration_Enable": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureSdnIntegration_Enable.json"
           },
@@ -3636,6 +3959,9 @@
           },
           "ClusterJobs_CreateOrUpdate_VmConnectRemoveJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_VmConnectRemove.json"
+          },
+          "ClusterJobs_CreateOrUpdate_configure-lazJob": {
+            "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureLocalAvailabilityZone.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -4688,6 +5014,85 @@
         "x-ms-examples": {
           "Delete Security Settings": {
             "$ref": "./examples/DeleteSecuritySettings.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/clusters/{clusterName}/securitySettings/{securitySettingsName}/remediate": {
+      "post": {
+        "operationId": "SecuritySettings_Remediate",
+        "tags": [
+          "SecuritySettings"
+        ],
+        "description": "Remediate a group of settings within SecuritySetting",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the cluster.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "securitySettingsName",
+            "in": "path",
+            "description": "Name of security setting",
+            "required": true,
+            "type": "string",
+            "default": "default",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Recommendation"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Action completed successfully."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Remediate Security Settings": {
+            "$ref": "./examples/RemediateSecuritySettings.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -5990,6 +6395,155 @@
             "$ref": "./examples/ClusterVolumes_Get.json"
           }
         }
+      },
+      "put": {
+        "operationId": "ClusterVolumes_CreateOrUpdate",
+        "tags": [
+          "ClusterVolumes"
+        ],
+        "description": "Create or update a volume on a Cluster.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the cluster.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "volumeName",
+            "in": "path",
+            "description": "The name of the ClusterVolume",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ClusterVolume"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ClusterVolume' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ClusterVolume"
+            }
+          },
+          "201": {
+            "description": "Resource 'ClusterVolume' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ClusterVolume"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ClusterVolumes_CreateOrUpdate": {
+            "$ref": "./examples/ClusterVolumes_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "ClusterVolumes_Delete",
+        "tags": [
+          "ClusterVolumes"
+        ],
+        "description": "Delete a volume from a Cluster.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the cluster.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "volumeName",
+            "in": "path",
+            "description": "The name of the ClusterVolume",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ClusterVolumes_Delete": {
+            "$ref": "./examples/ClusterVolumes_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/devicePools": {
@@ -9070,6 +9624,518 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/securitySettings": {
+      "get": {
+        "operationId": "EdgeMachineSecuritySettingsOperations_ListByEdgeMachine",
+        "tags": [
+          "EdgeMachineSecuritySettingsOperations"
+        ],
+        "description": "List EdgeMachineSecuritySettings by EdgeMachine",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineSecuritySettingsListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List edge machine security settings": {
+            "$ref": "./examples/EdgeMachineSecuritySettingsCollectionOps_ListByEdgeMachine.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/securitySettings/{securitySettingsName}": {
+      "get": {
+        "operationId": "EdgeMachineSecuritySettingsOperations_Get",
+        "tags": [
+          "EdgeMachineSecuritySettingsOperations"
+        ],
+        "description": "Get an EdgeMachineSecuritySettings",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "securitySettingsName",
+            "in": "path",
+            "description": "Name of the security settings resource",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineSecuritySettings"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get edge machine security settings": {
+            "$ref": "./examples/EdgeMachineSecuritySettingsOperations_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "EdgeMachineSecuritySettingsOperations_CreateOrUpdate",
+        "tags": [
+          "EdgeMachineSecuritySettingsOperations"
+        ],
+        "description": "Create or update an EdgeMachineSecuritySettings",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "securitySettingsName",
+            "in": "path",
+            "description": "Name of the security settings resource",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineSecuritySettings"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'EdgeMachineSecuritySettings' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineSecuritySettings"
+            }
+          },
+          "201": {
+            "description": "Resource 'EdgeMachineSecuritySettings' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineSecuritySettings"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create or update edge machine security settings": {
+            "$ref": "./examples/EdgeMachineSecuritySettingsOperations_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "EdgeMachineSecuritySettingsOperations_Delete",
+        "tags": [
+          "EdgeMachineSecuritySettingsOperations"
+        ],
+        "description": "Delete an EdgeMachineSecuritySettings",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "securitySettingsName",
+            "in": "path",
+            "description": "Name of the security settings resource",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete edge machine security settings": {
+            "$ref": "./examples/EdgeMachineSecuritySettingsOperations_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/updates": {
+      "get": {
+        "operationId": "EdgeMachineUpdates_List",
+        "tags": [
+          "EdgeMachineUpdates"
+        ],
+        "description": "List EdgeMachine update resources by EdgeMachine.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineUpdateListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeMachineUpdates_List": {
+            "$ref": "./examples/EdgeMachineUpdates_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/updates/{default}": {
+      "get": {
+        "operationId": "EdgeMachineUpdates_Get",
+        "tags": [
+          "EdgeMachineUpdates"
+        ],
+        "description": "Get EdgeMachine update.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "default",
+            "in": "path",
+            "description": "Name of EdgeMachine update",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineUpdate"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeMachineUpdates_Get": {
+            "$ref": "./examples/EdgeMachineUpdates_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "EdgeMachineUpdates_CreateOrUpdate",
+        "tags": [
+          "EdgeMachineUpdates"
+        ],
+        "description": "Create or update EdgeMachine update.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "default",
+            "in": "path",
+            "description": "Name of EdgeMachine update",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'EdgeMachineUpdate' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineUpdate"
+            }
+          },
+          "201": {
+            "description": "Resource 'EdgeMachineUpdate' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineUpdate"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeMachineUpdates_CreateOrUpdate": {
+            "$ref": "./examples/EdgeMachineUpdates_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "EdgeMachineUpdates_Delete",
+        "tags": [
+          "EdgeMachineUpdates"
+        ],
+        "description": "Delete EdgeMachine update.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "default",
+            "in": "path",
+            "description": "Name of EdgeMachine update",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeMachineUpdates_Delete": {
+            "$ref": "./examples/EdgeMachineUpdates_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/proxyConfigurations": {
       "get": {
         "operationId": "ProxyConfigurations_List",
@@ -9870,6 +10936,31 @@
         "serverResourceId"
       ]
     },
+    "AppliedCapacityPolicy": {
+      "type": "object",
+      "description": "Cluster-wide placement policy used by capacity calculations. Day Zero values are\nhydrated from Deployment Settings; missing values are filled in with service defaults.\nDay N updates use PATCH on the Capacity Settings singleton.",
+      "properties": {
+        "cpuOvercommitRatio": {
+          "type": "number",
+          "format": "float",
+          "description": "Cluster-wide CPU overcommit ratio used to calculate effective vCPU capacity. Default: 1.0.",
+          "minimum": 1
+        },
+        "failureDomainReservationCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of failure domains to reserve for n+1/n+2 style placement planning. Default: 0.",
+          "minimum": 0
+        },
+        "reservedNodes": {
+          "type": "array",
+          "description": "Explicit node names or machine references held back from placement for upgrade or\nmaintenance. Empty by default.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "ApplyConfigurationNetworkAdapterJobProperties": {
       "type": "object",
       "description": "Properties for applying network adapter configuration.",
@@ -10433,6 +11524,517 @@
             "description": "The system will notify the user when update content becomes available."
           }
         ]
+      }
+    },
+    "CapacityCpuSnapshot": {
+      "type": "object",
+      "description": "Cluster-wide CPU capacity summary. Useful for fleet reporting and coarse filtering;\nnot a single-workload fit signal. Final placement must evaluate machines[] with\nworkload-specific constraints.",
+      "properties": {
+        "physicalCoreCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Physical CPU core count (P-core count) aggregated across cluster machines.",
+          "readOnly": true
+        },
+        "logicalCoreCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Logical CPU core count (L-core count) aggregated across cluster machines.",
+          "readOnly": true
+        },
+        "processorCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Processor package count aggregated across cluster machines.",
+          "readOnly": true
+        },
+        "socketCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "CPU socket count aggregated across cluster machines.",
+          "readOnly": true
+        },
+        "cpuOvercommitRatio": {
+          "type": "number",
+          "format": "float",
+          "description": "Effective cluster policy value mirrored from appliedPolicy.cpuOvercommitRatio.",
+          "readOnly": true
+        },
+        "totalEffectiveVirtualCpuCapacity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total cluster vCPU supply after applying cpuOvercommitRatio, before allocation\nand reservation. For v1 this is calculated from logicalCoreCount * cpuOvercommitRatio.",
+          "readOnly": true
+        },
+        "workloadAllocatedVirtualCpu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "vCPU already allocated to workloads. This is not runtime CPU utilization.",
+          "readOnly": true
+        },
+        "policyReservedVirtualCpu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "vCPU withheld by reserved nodes, failure-domain reservation policy, upgrade, or\nmaintenance policy.",
+          "readOnly": true
+        },
+        "aggregateAvailableVirtualCpu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total remaining vCPU across nodes, derived from node-level availability after\nmachine-level system reserve, workload allocation, and policy reservation. This\nis a summed value and must not be treated as the largest VM that can fit.",
+          "readOnly": true
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last CPU inventory or consumption update.",
+          "readOnly": true
+        }
+      }
+    },
+    "CapacityGpuSnapshot": {
+      "type": "object",
+      "description": "Cluster-wide GPU capacity summary. Per-GPU details remain available through the\nEdgeMachineGpu resource tree.",
+      "properties": {
+        "totalGpuCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total GPU resources discovered across edge machines.",
+          "readOnly": true
+        },
+        "assignableGpuCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Count of GPUs where properties.assignable is true.",
+          "readOnly": true
+        },
+        "consumedGpuCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Count of GPUs assigned in DDA mode or otherwise consumed by workloads.",
+          "readOnly": true
+        },
+        "totalPartitionCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Sum of GPU-P partitionDetails.totalPartitions across GPUs in partitioned mode.",
+          "readOnly": true
+        },
+        "consumedPartitionCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Sum of GPU-P partitionDetails.assignedPartitions across GPUs in partitioned mode.",
+          "readOnly": true
+        },
+        "effectiveAvailablePartitionCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "GPU-P partitions available for placement after assignments and reservation policy.",
+          "readOnly": true
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last GPU inventory update time.",
+          "readOnly": true
+        }
+      }
+    },
+    "CapacityMachineConnectivityStatus": {
+      "type": "string",
+      "description": "Connectivity status reported by Arc for a cluster machine.",
+      "enum": [
+        "Connected",
+        "Disconnected",
+        "Expired",
+        "Unknown"
+      ],
+      "x-ms-enum": {
+        "name": "CapacityMachineConnectivityStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Connected",
+            "value": "Connected",
+            "description": "The machine is connected to Arc."
+          },
+          {
+            "name": "Disconnected",
+            "value": "Disconnected",
+            "description": "The machine is disconnected from Arc."
+          },
+          {
+            "name": "Expired",
+            "value": "Expired",
+            "description": "The machine has expired Arc credentials."
+          },
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "The connectivity status is unknown."
+          }
+        ]
+      }
+    },
+    "CapacityMachineSnapshot": {
+      "type": "object",
+      "description": "Per-machine capacity breakdown. Includes identifiers, node state, connectivity, and\nthe CPU, memory, and GPU facts upper-layer placement systems need for fit-aware\ndecisions.",
+      "properties": {
+        "machineName": {
+          "type": "string",
+          "description": "Cluster node name as reported by Arc (properties.displayName).",
+          "readOnly": true
+        },
+        "edgeMachineResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the corresponding EdgeMachine resource when available.",
+          "readOnly": true,
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.AzureStackHCI/edgeMachines"
+              }
+            ]
+          }
+        },
+        "arcMachineResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the corresponding Arc for Server machine resource when available.",
+          "readOnly": true,
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.HybridCompute/machines"
+              }
+            ]
+          }
+        },
+        "machineState": {
+          "$ref": "#/definitions/CapacityMachineState",
+          "description": "Cluster-perspective state of the machine, such as whether it is active, reserved,\ndraining, or excluded from placement.",
+          "readOnly": true
+        },
+        "connectivityStatus": {
+          "$ref": "#/definitions/CapacityMachineConnectivityStatus",
+          "description": "Connectivity status reported by Arc for the underlying machine.",
+          "readOnly": true
+        },
+        "cpu": {
+          "$ref": "#/definitions/MachineCpuCapacity",
+          "description": "Node-local CPU capacity breakdown.",
+          "readOnly": true
+        },
+        "memory": {
+          "$ref": "#/definitions/MachineMemoryCapacity",
+          "description": "Node-local memory capacity breakdown.",
+          "readOnly": true
+        },
+        "gpu": {
+          "$ref": "#/definitions/MachineGpuCapacity",
+          "description": "Node-local GPU capacity breakdown.",
+          "readOnly": true
+        }
+      }
+    },
+    "CapacityMachineState": {
+      "type": "string",
+      "description": "Cluster-perspective state of a machine for capacity and placement.",
+      "enum": [
+        "Active",
+        "Reserved",
+        "Draining",
+        "Maintenance",
+        "Excluded",
+        "Unknown"
+      ],
+      "x-ms-enum": {
+        "name": "CapacityMachineState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Active",
+            "value": "Active",
+            "description": "The machine is an active placement target."
+          },
+          {
+            "name": "Reserved",
+            "value": "Reserved",
+            "description": "The machine is explicitly reserved (for example, listed in appliedPolicy.reservedNodes)."
+          },
+          {
+            "name": "Draining",
+            "value": "Draining",
+            "description": "The machine is being drained for maintenance or upgrade."
+          },
+          {
+            "name": "Maintenance",
+            "value": "Maintenance",
+            "description": "The machine is in maintenance and not a placement target."
+          },
+          {
+            "name": "Excluded",
+            "value": "Excluded",
+            "description": "The machine is excluded from placement for another reason."
+          },
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "The machine is in an unknown state."
+          }
+        ]
+      }
+    },
+    "CapacityMemorySnapshot": {
+      "type": "object",
+      "description": "Cluster-wide memory capacity summary. Useful for reporting and coarse filtering;\nnot a single-workload fit guarantee.",
+      "properties": {
+        "totalBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total memory across cluster machines, in bytes.",
+          "readOnly": true
+        },
+        "workloadAllocatedBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Memory allocated to workloads across the cluster. This is not runtime memory pressure.",
+          "readOnly": true
+        },
+        "policyReservedBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Memory withheld for host OS, Azure Local platform services, reserved nodes,\nfailure-domain reservation policy, upgrade, or maintenance policy.",
+          "readOnly": true
+        },
+        "aggregateAvailableBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total remaining memory across nodes after workload allocation and\npolicy/platform reservation. Summed value; not a per-node fit guarantee.",
+          "readOnly": true
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last memory update time.",
+          "readOnly": true
+        }
+      }
+    },
+    "CapacityNetworkingSnapshot": {
+      "type": "object",
+      "description": "Cluster-wide workload networking capacity summary. Represents workload logical\nnetworks and the static IP address pools VMs can attach to. Infrastructure logical\nnetworks are excluded.",
+      "properties": {
+        "totalLogicalNetworkCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Count of workload logical networks known to the cluster. Infrastructure logical\nnetworks are excluded.",
+          "readOnly": true
+        },
+        "availableLogicalNetworkCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Count of workload logical networks that can accept new VM network interfaces.\nFor static IP networks, this requires at least one available static IP address.",
+          "readOnly": true
+        },
+        "staticLogicalNetworkCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Count of workload logical networks using static IP address pools.",
+          "readOnly": true
+        },
+        "dhcpLogicalNetworkCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Count of workload logical networks using DHCP address assignment. DHCP IP pool\ncapacity is not calculated in v1.",
+          "readOnly": true
+        },
+        "totalStaticIpAddressCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total allocatable static IP addresses across workload logical network IP pools.",
+          "readOnly": true
+        },
+        "allocatedStaticIpAddressCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Static IP addresses already assigned or reserved for VM network interfaces across\nworkload logical networks.",
+          "readOnly": true
+        },
+        "effectiveAvailableStaticIpAddressCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Remaining allocatable static IP addresses across workload logical networks after\nassignments and reservations.",
+          "readOnly": true
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last logical network or IP pool capacity update time.",
+          "readOnly": true
+        }
+      }
+    },
+    "CapacitySetting": {
+      "type": "object",
+      "description": "Capacity Settings singleton child resource of a cluster. Exposes placement-oriented\ncapacity information for Azure Local clusters, including the applied capacity policy\nand the latest reported capacity snapshot collated by the service.\n\nThe resource is hydrated by the service during cluster deployment with the\nconventional singleton name `default`. The v1 API supports GET (single), LIST,\nPUT (createOrUpdate), PATCH (for Day N policy edits), and DELETE.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/CapacitySettingProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "CapacitySettingListResult": {
+      "type": "object",
+      "description": "The response of a CapacitySetting list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The CapacitySetting items on this page",
+          "items": {
+            "$ref": "#/definitions/CapacitySetting"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "CapacitySettingPatch": {
+      "type": "object",
+      "description": "Patch shape for Day N edits to Capacity Settings. Only appliedPolicy fields are\nupdatable; reportedCapacity, provisioningState, and lastUpdated remain service-owned.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/CapacitySettingPatchProperties",
+          "description": "The patchable properties of the Capacity Settings resource."
+        }
+      }
+    },
+    "CapacitySettingPatchProperties": {
+      "type": "object",
+      "description": "Patchable properties of the Capacity Settings resource for Day N edits.",
+      "properties": {
+        "appliedPolicy": {
+          "$ref": "#/definitions/AppliedCapacityPolicy",
+          "description": "Updated placement policy to apply to capacity calculations."
+        }
+      }
+    },
+    "CapacitySettingProperties": {
+      "type": "object",
+      "description": "Properties of the Capacity Settings singleton child resource. Capacity Settings\nis hydrated by the service during cluster deployment and surfaces the applied\ncapacity policy plus the latest reported capacity snapshot collated from cluster\nservices and edge machines.",
+      "properties": {
+        "appliedPolicy": {
+          "$ref": "#/definitions/AppliedCapacityPolicy",
+          "description": "Placement settings currently applied to capacity calculations. Service-hydrated\nduring cluster deployment and updatable through PATCH for Day N edits."
+        },
+        "reportedCapacity": {
+          "$ref": "#/definitions/ReportedCapacitySnapshot",
+          "description": "The latest aggregate capacity snapshot reported by the cluster, with effective\navailability already adjusted by the applied policy. Read-only.",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the Capacity Settings resource.",
+          "readOnly": true
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last time the top-level Capacity Settings projection was refreshed by the service.",
+          "readOnly": true
+        }
+      }
+    },
+    "CapacityStorageSnapshot": {
+      "type": "object",
+      "description": "Cluster-wide storage capacity aggregate derived from eligible user volumes\nprojected by the Cluster Volume resource.",
+      "properties": {
+        "totalBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Sum of reportedProperties.sizeInBytes across user volumes.",
+          "readOnly": true
+        },
+        "consumedBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Sum of sizeInBytes minus sizeRemainingInBytes across user volumes.",
+          "readOnly": true
+        },
+        "effectiveAvailableBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Sum of reportedProperties.sizeRemainingInBytes across user volumes.",
+          "readOnly": true
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last storage update time.",
+          "readOnly": true
+        }
+      }
+    },
+    "CapacityWorkloadConsumption": {
+      "type": "object",
+      "description": "Placement-relevant workload allocation record, collated from EdgeMachine workload\ninventory reported by the device management extension. For v1 this is intentionally\nVM-shaped and does not distinguish between standalone Hyper-V VMs, Azure-created VMs,\nor VMs that back AKS nodes.",
+      "properties": {
+        "workloadId": {
+          "type": "string",
+          "description": "Stable device-reported workload identifier, such as the Hyper-V VM ID when available.",
+          "readOnly": true
+        },
+        "workloadName": {
+          "type": "string",
+          "description": "Hyper-V VM name reported by the node.",
+          "readOnly": true
+        },
+        "resourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Optional ARM resource ID when the service can map the local VM to an ARM resource.",
+          "readOnly": true
+        },
+        "workloadType": {
+          "type": "string",
+          "description": "Workload type. For v1 this should be VirtualMachine.",
+          "readOnly": true
+        },
+        "machineName": {
+          "type": "string",
+          "description": "Cluster node name that currently hosts the workload.",
+          "readOnly": true
+        },
+        "workloadState": {
+          "type": "string",
+          "description": "Hyper-V VM state reported by the node.",
+          "readOnly": true
+        },
+        "virtualCpu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Configured virtual processor count from Hyper-V used for vCPU allocation accounting.",
+          "readOnly": true
+        },
+        "memoryBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Maximum memory the VM can consume, in bytes, used for memory allocation accounting.\nFor a dynamic memory VM this is the Hyper-V maximum memory value; for a fixed\nmemory VM this is the configured startup memory.",
+          "readOnly": true
+        }
       }
     },
     "ChangeRingRequest": {
@@ -11169,6 +12771,12 @@
             ]
           },
           "readOnly": true
+        },
+        "localAvailabilityZoneCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of local availability zones configured in the cluster.",
+          "readOnly": true
         }
       }
     },
@@ -11373,6 +12981,11 @@
           "description": "Cluster volume mount path. This can be a CSV path or device path depending on the backing storage.",
           "readOnly": true
         },
+        "volumeId": {
+          "type": "string",
+          "description": "Volume GUID. Primary identifier for the cluster volume.",
+          "readOnly": true
+        },
         "clusterResourceId": {
           "type": "string",
           "description": "Cluster resource GUID for a PDR-backed volume when applicable.",
@@ -11393,12 +13006,14 @@
           "readOnly": true
         },
         "sizeInBytes": {
-          "type": "string",
+          "type": "integer",
+          "format": "int64",
           "description": "Total cluster volume size in bytes.",
           "readOnly": true
         },
         "sizeRemainingInBytes": {
-          "type": "string",
+          "type": "integer",
+          "format": "int64",
           "description": "Free space in bytes.",
           "readOnly": true
         },
@@ -11437,7 +13052,7 @@
           "description": "Current owner node for the cluster volume when applicable.",
           "readOnly": true
         },
-        "isDedupeEnabled": {
+        "isDedupEnabled": {
           "type": "boolean",
           "description": "Whether data deduplication is enabled.",
           "readOnly": true
@@ -12663,6 +14278,24 @@
         "link"
       ]
     },
+    "DesiredSetting": {
+      "type": "object",
+      "description": "Desired security setting.",
+      "properties": {
+        "settingName": {
+          "type": "string",
+          "description": "Name of the setting."
+        },
+        "value": {
+          "type": "string",
+          "description": "Value of the setting."
+        }
+      },
+      "required": [
+        "settingName",
+        "value"
+      ]
+    },
     "DeviceConfiguration": {
       "type": "object",
       "description": "The device Configuration for edge device.",
@@ -13324,17 +14957,6 @@
       "type": "object",
       "description": "Reported properties of a volume on the disk.",
       "properties": {
-        "volumeId": {
-          "type": "string",
-          "description": "Unique identifier for the volume.",
-          "readOnly": true
-        },
-        "volumeNumber": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Volume/partition number.",
-          "readOnly": true
-        },
         "sizeInBytes": {
           "type": "string",
           "description": "Size of the volume in bytes.",
@@ -13348,6 +14970,43 @@
         "fileSystem": {
           "type": "string",
           "description": "File system type.",
+          "readOnly": true
+        },
+        "partitionId": {
+          "type": "string",
+          "description": "Unique identifier for the partition.",
+          "readOnly": true
+        },
+        "partitionNumber": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Partition number.",
+          "readOnly": true
+        },
+        "offsetInBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Byte offset of the partition start.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the volume.",
+          "readOnly": true
+        },
+        "isBoot": {
+          "type": "boolean",
+          "description": "Indicates if this volume is a boot volume.",
+          "readOnly": true
+        },
+        "sizeRemainingInBytes": {
+          "type": "string",
+          "description": "Available space on the volume in bytes.",
+          "readOnly": true
+        },
+        "resourceName": {
+          "type": "string",
+          "description": "Resource name of the volume.",
           "readOnly": true
         }
       }
@@ -15452,8 +17111,119 @@
           "$ref": "#/definitions/ExtensionProfile",
           "description": "Extension details for edge machine.",
           "readOnly": true
+        },
+        "workloadInventory": {
+          "type": "array",
+          "description": "Read-only Hyper-V VM inventory reported by the device management extension for VMs visible on this node.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineWorkloadInventoryItem"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "workloadId"
+          ]
+        },
+        "workloadInventoryLastUpdated": {
+          "type": "string",
+          "description": "Last time the device management extension refreshed the local Hyper-V workload inventory.",
+          "readOnly": true
         }
       }
+    },
+    "EdgeMachineSecurityComplianceStatus": {
+      "type": "object",
+      "description": "Compliance status payload for edge machine security settings.",
+      "properties": {
+        "fipsStatus": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "FIPS compliance status.",
+          "readOnly": true
+        },
+        "secureBootStatus": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "Secure Boot compliance status.",
+          "readOnly": true
+        },
+        "encryptionAtRestStatus": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "Encryption at rest compliance status.",
+          "readOnly": true
+        },
+        "seLinuxPolicyStatus": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "SELinux policy compliance status.",
+          "readOnly": true
+        },
+        "securityBaselineStatus": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "Security baseline compliance status.",
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineSecurityProperties": {
+      "type": "object",
+      "description": "Properties of an Edge Machine Security Settings resource.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the resource.",
+          "readOnly": true
+        },
+        "securityComplianceStatus": {
+          "$ref": "#/definitions/EdgeMachineSecurityComplianceStatus",
+          "description": "Compliance status values synchronized from Guest Configuration.",
+          "readOnly": true
+        },
+        "registrationTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "First synchronization timestamp in UTC.",
+          "readOnly": true
+        },
+        "lastSyncTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Most recent synchronization timestamp in UTC.",
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineSecuritySettings": {
+      "type": "object",
+      "description": "Edge Machine Security Settings proxy resource",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/EdgeMachineSecurityProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "EdgeMachineSecuritySettingsListResult": {
+      "type": "object",
+      "description": "The response of a EdgeMachineSecuritySettings list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The EdgeMachineSecuritySettings items on this page",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineSecuritySettings"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
     },
     "EdgeMachineState": {
       "type": "string",
@@ -15520,6 +17290,107 @@
           }
         ]
       }
+    },
+    "EdgeMachineUpdate": {
+      "type": "object",
+      "description": "EdgeMachine Update resource that stores validated update configurations for an edge machine.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/EdgeMachineUpdateProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "EdgeMachineUpdateInfo": {
+      "type": "object",
+      "description": "Represents an available update for an edge machine.",
+      "properties": {
+        "vsrVersion": {
+          "type": "string",
+          "description": "The VSR version of the update."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The display name of the update."
+        },
+        "releaseNotesLink": {
+          "type": "string",
+          "description": "Link to the release notes for this update."
+        },
+        "totalSizeBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total size of the update in bytes."
+        },
+        "rebootRequired": {
+          "type": "boolean",
+          "description": "Indicates whether a reboot is required after installing this update."
+        },
+        "estimatedInstallTimeMinutes": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Estimated time in minutes to install this update."
+        },
+        "updateType": {
+          "type": "string",
+          "description": "The type of update (e.g., FullImage)."
+        },
+        "arcAgentVersion": {
+          "type": "string",
+          "description": "The Arc agent version included in this update."
+        }
+      },
+      "required": [
+        "vsrVersion"
+      ]
+    },
+    "EdgeMachineUpdateListResult": {
+      "type": "object",
+      "description": "The response of a EdgeMachineUpdate list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The EdgeMachineUpdate items on this page",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineUpdate"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "EdgeMachineUpdateProperties": {
+      "type": "object",
+      "description": "Properties for EdgeMachineUpdate resource.",
+      "properties": {
+        "values": {
+          "type": "array",
+          "description": "The list of available updates.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineUpdateInfo"
+          },
+          "x-ms-identifiers": []
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the updates resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "values"
+      ]
     },
     "EdgeMachineValidateRequest": {
       "type": "object",
@@ -15613,6 +17484,48 @@
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "Provisioning state of the volume resource.",
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineWorkloadInventoryItem": {
+      "type": "object",
+      "description": "Represents a single workload (Hyper-V VM) inventory entry reported by the device management extension running on the edge machine.",
+      "properties": {
+        "workloadId": {
+          "type": "string",
+          "description": "Stable device-reported workload identifier, such as the Hyper-V VM ID when available.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Hyper-V VM name.",
+          "readOnly": true
+        },
+        "resourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Optional ARM resource ID when the service can map the local VM to an ARM resource.",
+          "readOnly": true
+        },
+        "workloadType": {
+          "type": "string",
+          "description": "Workload type. For v1 this should be VirtualMachine.",
+          "readOnly": true
+        },
+        "state": {
+          "type": "string",
+          "description": "Hyper-V VM state reported by the node.",
+          "readOnly": true
+        },
+        "virtualProcessorCount": {
+          "type": "string",
+          "description": "Configured virtual processor count from Hyper-V.",
+          "readOnly": true
+        },
+        "memoryInBytes": {
+          "type": "string",
+          "description": "Maximum memory the VM can consume, in bytes.",
           "readOnly": true
         }
       }
@@ -16019,27 +17932,6 @@
         }
       }
     },
-    "FaultDomainNodeAssignment": {
-      "type": "object",
-      "description": "Mapping of a fault domain to its assigned nodes.",
-      "properties": {
-        "faultDomainName": {
-          "type": "string",
-          "description": "Name of the fault domain (e.g., Rack1, Rack2)."
-        },
-        "nodes": {
-          "type": "array",
-          "description": "List of node names assigned to this fault domain.",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": [
-        "faultDomainName",
-        "nodes"
-      ]
-    },
     "ForcePushNetworkAdapterJobProperties": {
       "type": "object",
       "description": "Properties for force push of network adapter configuration.",
@@ -16427,43 +18319,24 @@
       ],
       "x-ms-discriminator-value": "ConfigureCVM"
     },
-    "HciConfigureFaultDomainJobProperties": {
+    "HciConfigureLocalAvailabilityZoneJobProperties": {
       "type": "object",
-      "description": "Properties for configuring fault domains in the cluster.",
+      "description": "Properties for configuring local availability zones in the cluster.",
       "properties": {
-        "faultDomainCount": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of fault domains to create (1-8).",
-          "minimum": 1,
-          "maximum": 8
-        },
-        "faultDomainPrefix": {
-          "type": "string",
-          "description": "Naming prefix for fault domains. Each fault domain is named <Prefix>1, <Prefix>2, etc."
-        },
-        "nodeAssignment": {
-          "type": "array",
-          "description": "Mapping of fault domain names to their assigned nodes.",
-          "items": {
-            "$ref": "#/definitions/FaultDomainNodeAssignment"
-          },
-          "x-ms-identifiers": [
-            "faultDomainName"
-          ]
+        "localAvailabilityZoneConfiguration": {
+          "$ref": "#/definitions/LocalAvailabilityZoneConfiguration",
+          "description": "Configuration for local availability zones including naming prefix and zone-to-node mappings."
         }
       },
       "required": [
-        "faultDomainCount",
-        "faultDomainPrefix",
-        "nodeAssignment"
+        "localAvailabilityZoneConfiguration"
       ],
       "allOf": [
         {
           "$ref": "#/definitions/ClusterJobProperties"
         }
       ],
-      "x-ms-discriminator-value": "ConfigureFaultDomain"
+      "x-ms-discriminator-value": "ConfigureLocalAvailabilityZone"
     },
     "HciConfigureSdnIntegrationJobProperties": {
       "type": "object",
@@ -16897,7 +18770,7 @@
       "enum": [
         "AddServer",
         "RepairServer",
-        "ConfigureFaultDomain",
+        "ConfigureLocalAvailabilityZone",
         "ConfigureArcGateway",
         "GpuCreatePartition",
         "GpuSwitchMode",
@@ -16921,9 +18794,9 @@
             "description": "Job to repair a server in the cluster."
           },
           {
-            "name": "ConfigureFaultDomain",
-            "value": "ConfigureFaultDomain",
-            "description": "Job to configure fault domains for the cluster."
+            "name": "ConfigureLocalAvailabilityZone",
+            "value": "ConfigureLocalAvailabilityZone",
+            "description": "Job to configure local availability zones for the cluster."
           },
           {
             "name": "ConfigureArcGateway",
@@ -17870,14 +19743,6 @@
           "description": "Error details.",
           "readOnly": true
         },
-        "recommendedSteps": {
-          "type": "array",
-          "description": "Recommended steps to resolve failures.",
-          "items": {
-            "type": "string"
-          },
-          "readOnly": true
-        },
         "subStages": {
           "type": "array",
           "description": "Sub-stages for this stage.",
@@ -17920,6 +19785,14 @@
           "type": "string",
           "description": "Message to provide more details on lifecycle status, especially in case of failures.",
           "readOnly": true
+        },
+        "recommendedSteps": {
+          "type": "array",
+          "description": "Recommended steps to resolve failures.",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
         }
       },
       "required": [
@@ -17943,6 +19816,47 @@
       },
       "required": [
         "devices"
+      ]
+    },
+    "LocalAvailabilityZoneConfiguration": {
+      "type": "object",
+      "description": "Configuration for local availability zones, including the naming prefix and zone-to-node mappings.",
+      "properties": {
+        "prefix": {
+          "type": "string",
+          "description": "Naming prefix used to generate local availability zone names (Prefix1..PrefixN).",
+          "pattern": "^[a-zA-Z0-9-]{1,8}$"
+        },
+        "zones": {
+          "type": "array",
+          "description": "Array of zone-to-node mappings. Each entry specifies the nodes belonging to one local availability zone. Maximum 8 zones allowed. Each zone must contain at least one node. Every cluster node must be assigned to exactly one zone.",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/definitions/LocalAvailabilityZoneEntry"
+          },
+          "x-ms-identifiers": []
+        }
+      },
+      "required": [
+        "prefix",
+        "zones"
+      ]
+    },
+    "LocalAvailabilityZoneEntry": {
+      "type": "object",
+      "description": "A single local availability zone entry containing the list of nodes belonging to it.",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "description": "List of node names assigned to this local availability zone. All cluster nodes must appear exactly once across all zone entries.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "nodes"
       ]
     },
     "LocalAvailabilityZones": {
@@ -18227,6 +20141,175 @@
       },
       "readOnly": true
     },
+    "MachineComplianceState": {
+      "type": "object",
+      "description": "Compliance state on a single machine.",
+      "properties": {
+        "machineName": {
+          "type": "string",
+          "description": "Name of the machine.",
+          "readOnly": true
+        },
+        "value": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "Compliance state value of the setting.",
+          "readOnly": true
+        },
+        "percentScore": {
+          "type": "string",
+          "description": "Compliance score of the setting.",
+          "readOnly": true
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason for the compliance state of the machine.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "machineName",
+        "value",
+        "reason"
+      ]
+    },
+    "MachineCpuCapacity": {
+      "type": "object",
+      "description": "Node-local CPU capacity values used for fit-aware placement. CPU overcommit\nremains a cluster-level policy and is not exposed per machine; effective vCPU\nvalues here already reflect that policy.",
+      "properties": {
+        "physicalCoreCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Physical CPU core count on the machine.",
+          "readOnly": true
+        },
+        "logicalCoreCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Logical CPU core count on the machine.",
+          "readOnly": true
+        },
+        "processorCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Processor package count on the machine.",
+          "readOnly": true
+        },
+        "socketCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "CPU socket count on the machine.",
+          "readOnly": true
+        },
+        "effectiveVirtualCpuCapacity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Node-local vCPU supply after applying the cluster-level CPU overcommit policy.",
+          "readOnly": true
+        },
+        "systemReservedVirtualCpu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Service-computed vCPU-equivalent host and platform reserve on this machine. The\ninitial implementation may compute this as a percentage of the machine's effective\nvCPU capacity; later implementations can replace the rule with CPU model-aware\ncalculation while preserving this field.",
+          "readOnly": true
+        },
+        "workloadAllocatedVirtualCpu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "vCPU already allocated to workloads on this machine.",
+          "readOnly": true
+        },
+        "policyReservedVirtualCpu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "vCPU withheld from this machine because the node or its failure domain is reserved.",
+          "readOnly": true
+        },
+        "availableVirtualCpu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Node-local vCPU available for placement after system reserve, workload allocation,\nand policy reservation. Upper-layer systems should use this value with memory and\nother constraints to evaluate VM fit.",
+          "readOnly": true
+        }
+      }
+    },
+    "MachineGpuCapacity": {
+      "type": "object",
+      "description": "Node-local GPU capacity values used for placement. Per-GPU details remain available\nthrough the EdgeMachineGpu resource tree under each machine.",
+      "properties": {
+        "totalGpuCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total GPUs on this machine.",
+          "readOnly": true
+        },
+        "assignableGpuCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Count of GPUs on this machine where properties.assignable is true.",
+          "readOnly": true
+        },
+        "consumedGpuCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Count of GPUs on this machine assigned in DDA mode or otherwise consumed by workloads.",
+          "readOnly": true
+        },
+        "totalPartitionCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Sum of GPU-P partitionDetails.totalPartitions across GPUs on this machine in\npartitioned mode.",
+          "readOnly": true
+        },
+        "consumedPartitionCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Sum of GPU-P partitionDetails.assignedPartitions across GPUs on this machine in\npartitioned mode.",
+          "readOnly": true
+        },
+        "effectiveAvailablePartitionCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "GPU-P partitions available for placement on this machine after assignments and\nreservation policy.",
+          "readOnly": true
+        }
+      }
+    },
+    "MachineMemoryCapacity": {
+      "type": "object",
+      "description": "Node-local memory capacity values used for fit-aware placement.",
+      "properties": {
+        "totalBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total memory on the machine, in bytes.",
+          "readOnly": true
+        },
+        "systemReservedBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Memory withheld for host OS and Azure Local platform services on this machine.",
+          "readOnly": true
+        },
+        "workloadAllocatedBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Memory allocated to workloads on this machine.",
+          "readOnly": true
+        },
+        "policyReservedBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Memory withheld from this machine because the node or its failure domain is reserved.",
+          "readOnly": true
+        },
+        "availableBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Node-local memory available for placement after system reserve, workload allocation,\nand policy reservation.",
+          "readOnly": true
+        }
+      }
+    },
     "NetworkAdapter": {
       "type": "object",
       "description": "Network adapter configuration.",
@@ -18269,6 +20352,67 @@
         "vlanId": {
           "type": "string",
           "description": "VLAN ID for the network setup."
+        },
+        "interfaceDescription": {
+          "type": "string",
+          "description": "Interface description of NIC."
+        },
+        "componentId": {
+          "type": "string",
+          "description": "Component ID of NIC."
+        },
+        "driverVersion": {
+          "type": "string",
+          "description": "Driver version of NIC."
+        },
+        "defaultIsolationId": {
+          "type": "string",
+          "description": "Default isolation of management NIC."
+        },
+        "slot": {
+          "type": "string",
+          "description": "The slot attached to the NIC."
+        },
+        "switchName": {
+          "type": "string",
+          "description": "The switch attached to the NIC, if any."
+        },
+        "interfaceType": {
+          "$ref": "#/definitions/NetworkInterfaceType",
+          "description": "Type of network interface."
+        },
+        "interfaceSpeed": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Interface speed in Mbps."
+        },
+        "interfaceState": {
+          "$ref": "#/definitions/InterfaceState",
+          "description": "Current state of the interface."
+        },
+        "nicType": {
+          "type": "string",
+          "description": "The type of NIC (physical, virtual, management)."
+        },
+        "nicStatus": {
+          "type": "string",
+          "description": "The status of NIC (up, disconnected)."
+        },
+        "managementInterface": {
+          "type": "boolean",
+          "description": "Indicates if this is a management interface."
+        },
+        "rdmaCapability": {
+          "$ref": "#/definitions/RdmaCapability",
+          "description": "RDMA capability of the network adapter."
+        },
+        "networkAdapterStatus": {
+          "$ref": "#/definitions/NetworkAdapterStatus",
+          "description": "The observed state of network adapter."
+        },
+        "wifiConfiguration": {
+          "$ref": "#/definitions/WifiConfigurationReportedProperties",
+          "description": "WiFi configuration properties."
         }
       },
       "required": [
@@ -20527,6 +22671,20 @@
         }
       }
     },
+    "ProvisionOsVolumeConfiguration": {
+      "type": "object",
+      "description": "Volume configuration for device provisioning.",
+      "properties": {
+        "configuration": {
+          "type": "array",
+          "description": "List of volume details.",
+          "items": {
+            "$ref": "#/definitions/VolumeDetails"
+          },
+          "x-ms-identifiers": []
+        }
+      }
+    },
     "ProvisioningDetails": {
       "type": "object",
       "description": "Details for device provisioning.",
@@ -21151,6 +23309,19 @@
         ]
       }
     },
+    "Recommendation": {
+      "type": "object",
+      "description": "Name of the recommendation.",
+      "properties": {
+        "recommendationName": {
+          "type": "string",
+          "description": "Name of the recommendation."
+        }
+      },
+      "required": [
+        "recommendationName"
+      ]
+    },
     "ReconcileArcSettingsRequest": {
       "type": "object",
       "description": "Request for reconciling Arc Settings.",
@@ -21580,6 +23751,95 @@
         "serverName"
       ]
     },
+    "ReportedCapacitySnapshot": {
+      "type": "object",
+      "description": "Aggregate, placement-oriented capacity snapshot reported by the cluster. All\nproperties are read-only and reflect the latest service-collated view.",
+      "properties": {
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last time the aggregate snapshot was updated.",
+          "readOnly": true
+        },
+        "storage": {
+          "$ref": "#/definitions/CapacityStorageSnapshot",
+          "description": "Storage capacity aggregated from eligible user Cluster Volume resources.\nInfrastructure volumes are excluded.",
+          "readOnly": true
+        },
+        "cpu": {
+          "$ref": "#/definitions/CapacityCpuSnapshot",
+          "description": "CPU capacity summary including P-core, L-core, policy-adjusted vCPU, and consumption.",
+          "readOnly": true
+        },
+        "memory": {
+          "$ref": "#/definitions/CapacityMemorySnapshot",
+          "description": "Memory capacity summary including supply, allocation, and policy reservation.",
+          "readOnly": true
+        },
+        "gpu": {
+          "$ref": "#/definitions/CapacityGpuSnapshot",
+          "description": "GPU capacity summary including device, mode, partition, and assignment data.",
+          "readOnly": true
+        },
+        "networking": {
+          "$ref": "#/definitions/CapacityNetworkingSnapshot",
+          "description": "Workload networking capacity summary covering workload logical networks and\nstatic IP address pools. Infrastructure logical networks are excluded.",
+          "readOnly": true
+        },
+        "machines": {
+          "type": "array",
+          "description": "Per-machine capacity breakdown for cluster nodes. Upper-layer placement systems\nshould use this list, with workload-specific constraints, to evaluate VM fit.",
+          "items": {
+            "$ref": "#/definitions/CapacityMachineSnapshot"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "machineName"
+          ]
+        },
+        "workloads": {
+          "type": "array",
+          "description": "Placement-relevant workload allocation records collated from EdgeMachine\nworkload inventory across the cluster.",
+          "items": {
+            "$ref": "#/definitions/CapacityWorkloadConsumption"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "workloadId"
+          ]
+        }
+      }
+    },
+    "ReportedComplianceState": {
+      "type": "object",
+      "description": "Reported compliance state of a security setting.",
+      "properties": {
+        "settingName": {
+          "type": "string",
+          "description": "Name of the setting.",
+          "readOnly": true
+        },
+        "value": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "Aggregated compliance state value of the setting across all nodes of the cluster.",
+          "readOnly": true
+        },
+        "perMachineStates": {
+          "type": "array",
+          "description": "Per machine compliance state value and reason for it.",
+          "items": {
+            "$ref": "#/definitions/MachineComplianceState"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        }
+      },
+      "required": [
+        "settingName",
+        "value",
+        "perMachineStates"
+      ]
+    },
     "ReportedProperties": {
       "type": "object",
       "description": "Reported properties pushed from edge device.",
@@ -21999,6 +24259,31 @@
         ]
       }
     },
+    "SecurityBaseline": {
+      "type": "object",
+      "description": "Compliance state of the security baseline.",
+      "properties": {
+        "securityBaselineCompliance": {
+          "$ref": "#/definitions/ComplianceStatus",
+          "description": "Status of compliance.",
+          "readOnly": true
+        },
+        "percentScore": {
+          "type": "string",
+          "description": "Aggregated compliance score across cluster nodes.",
+          "readOnly": true
+        },
+        "perMachineStates": {
+          "type": "array",
+          "description": "Per machine compliance state value and reason for it.",
+          "items": {
+            "$ref": "#/definitions/MachineComplianceState"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        }
+      }
+    },
     "SecurityComplianceStatus": {
       "type": "object",
       "description": "Security compliance properties of the resource",
@@ -22021,6 +24306,11 @@
         "dataInTransitProtected": {
           "$ref": "#/definitions/ComplianceStatus",
           "description": "Indicates whether HCI cluster has data in-transit protection.",
+          "readOnly": true
+        },
+        "securityBaseline": {
+          "$ref": "#/definitions/SecurityBaseline",
+          "description": "Contains details about HCI cluster's compliance with security baseline.",
           "readOnly": true
         },
         "lastUpdated": {
@@ -22109,6 +24399,23 @@
               }
             ]
           }
+        },
+        "desiredSettings": {
+          "type": "array",
+          "description": "Desired security settings.",
+          "items": {
+            "$ref": "#/definitions/DesiredSetting"
+          },
+          "x-ms-identifiers": []
+        },
+        "reportedComplianceStates": {
+          "type": "array",
+          "description": "Reported compliance states for security settings.",
+          "items": {
+            "$ref": "#/definitions/ReportedComplianceState"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
         },
         "securityComplianceStatus": {
           "$ref": "#/definitions/SecurityComplianceStatus",
@@ -22785,6 +25092,11 @@
           "format": "int64",
           "description": "Number of storage disks in the device with $CanPool as true.",
           "readOnly": true
+        },
+        "localAvailabilityZoneName": {
+          "type": "string",
+          "description": "Local availability zone name assigned to this edge machine after a ConfigureLocalAvailabilityZone job succeeds.",
+          "readOnly": true
         }
       }
     },
@@ -22999,6 +25311,10 @@
         "storage": {
           "$ref": "#/definitions/StorageConfiguration",
           "description": "Storage configuration."
+        },
+        "volume": {
+          "$ref": "#/definitions/ProvisionOsVolumeConfiguration",
+          "description": "Volume configuration."
         }
       }
     },
@@ -23996,6 +26312,32 @@
         "reserved": {
           "type": "string",
           "description": "Reserved for future volume configuration options."
+        }
+      }
+    },
+    "VolumeDetails": {
+      "type": "object",
+      "description": "Details of a volume to be configured on the device.",
+      "properties": {
+        "sizeInBytes": {
+          "type": "string",
+          "description": "Size of the volume in bytes."
+        },
+        "path": {
+          "type": "string",
+          "description": "Mount path for the volume."
+        },
+        "fileSystem": {
+          "$ref": "#/definitions/DiskFileSystemType",
+          "description": "File system type to format the volume with."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the volume."
+        },
+        "diskName": {
+          "type": "string",
+          "description": "Name of the disk on which the volume resides."
         }
       }
     },

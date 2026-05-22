@@ -89,7 +89,8 @@ interface AadApplication {
   listBySubscription is ArmListBySubscription<AadApplicationResource>;
 }
 
-@@visibility(AadApplicationResource.properties,
+@@visibility(
+  AadApplicationResource.properties,
   Lifecycle.Read,
   Lifecycle.Create
 );

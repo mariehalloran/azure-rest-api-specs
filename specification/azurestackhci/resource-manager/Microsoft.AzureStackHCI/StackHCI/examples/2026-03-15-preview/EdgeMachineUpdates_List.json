@@ -1,0 +1,46 @@
+{
+  "title": "EdgeMachineUpdates_List",
+  "operationId": "EdgeMachineUpdates_List",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "fd3c3665-1729-4b7b-9a38-238e83b0f98b",
+    "resourceGroupName": "test-rg",
+    "edgeMachineName": "machine1"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "properties": {
+              "values": [
+                {
+                  "vsrVersion": "1.2605.1.2",
+                  "displayName": "Azure Stack HCI Cumulative Update - May 2026",
+                  "releaseNotesLink": "https://learn.microsoft.com/azure-stack-hci/release-notes/may-2026",
+                  "totalSizeBytes": 4294967296,
+                  "rebootRequired": true,
+                  "estimatedInstallTimeMinutes": 45,
+                  "updateType": "FullImage",
+                  "arcAgentVersion": "1.45.102.0"
+                }
+              ],
+              "provisioningState": "Succeeded"
+            },
+            "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/test-rg/providers/Microsoft.AzureStackHCI/edgeMachines/machine1/updates/default",
+            "name": "default",
+            "type": "Microsoft.AzureStackHCI/edgeMachines/updates",
+            "systemData": {
+              "createdBy": "user1@contoso.com",
+              "createdByType": "User",
+              "createdAt": "2024-07-01T17:02:21.168Z",
+              "lastModifiedBy": "user1@contoso.com",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2024-07-01T17:02:21.168Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

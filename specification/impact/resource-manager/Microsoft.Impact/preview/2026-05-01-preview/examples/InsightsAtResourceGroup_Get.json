@@ -1,0 +1,33 @@
+{
+  "operationId": "Insights_GetByResourceGroup",
+  "title": "Get Insight by workloadImpactName and insightName at resource group scope",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "impact-rg",
+    "api-version": "2026-05-01-preview",
+    "workloadImpactName": "impact-rg-001",
+    "insightName": "insight.rg.001"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/impact-rg/providers/Microsoft.Impact/workloadImpacts/impact-rg-001/insights/insight.rg.001",
+        "name": "insight.rg.001",
+        "type": "Microsoft.Impact/workloadImpacts/insights",
+        "properties": {
+          "category": "Diagnostics",
+          "insightUniqueId": "00000000-0000-0000-0000-000000000000",
+          "content": {
+            "title": "Diagnostics completed",
+            "description": "Diagnostics identified a transient platform issue."
+          },
+          "impact": {
+            "impactId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/impact-rg/providers/Microsoft.Impact/workloadImpacts/impact-rg-001",
+            "impactedResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Compute/virtualMachines/vm1",
+            "startTime": "2018-11-08T00:00:00Z"
+          }
+        }
+      }
+    }
+  }
+}

@@ -23,9 +23,11 @@ using Microsoft.CleanRoom;
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(Contract.properties);
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "@Azure.ClientGenerator.Core.Legacy.flattenProperty decorator is not recommended to use."
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(ConsortiumViewContract.properties
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  ConsortiumViewContract.properties
 );
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "@Azure.ClientGenerator.Core.Legacy.flattenProperty decorator is not recommended to use."
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(AddCollaboratorInput.collaborator
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  AddCollaboratorInput.collaborator
 );

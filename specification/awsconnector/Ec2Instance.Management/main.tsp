@@ -23,7 +23,10 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2024-12-01 api version */
-  `2024-12-01`,
+  v2024_12_01: "2024-12-01",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 //---------------------------------------------- Ec2Instances ----------------------------------------------
@@ -3728,6 +3731,12 @@ interface Ec2Instances {
   Stop is ArmResourceActionAsync<
     Ec2Instance,
     StopEc2InstanceOptions,
+    Azure.ResourceManager.Foundations.OperationStatusResult
+  >;
+  @added(Versions.v2026_05_31_preview)
+  Restart is ArmResourceActionAsync<
+    Ec2Instance,
+    void,
     Azure.ResourceManager.Foundations.OperationStatusResult
   >;
 }

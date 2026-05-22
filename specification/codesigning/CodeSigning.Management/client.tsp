@@ -13,20 +13,24 @@ using Azure.Core;
 @@clientName(CertificateProfile, "TrustedSigningCertificateProfile", "csharp");
 @@clientName(CertificateStatus, "TrustedSigningCertificateStatus", "csharp");
 @@clientName(ProvisioningState, "TrustedSigningProvisioningState", "csharp");
-@@clientName(CheckNameAvailability,
+@@clientName(
+  CheckNameAvailability,
   "TrustedSigningAccountNameAvailabilityContent",
   "csharp"
 );
 @@clientName(CheckNameAvailability.type, "ResourceType", "csharp");
-@@clientName(CheckNameAvailabilityResult,
+@@clientName(
+  CheckNameAvailabilityResult,
   "TrustedSigningAccountNameAvailabilityResult",
   "csharp"
 );
-@@clientName(CheckNameAvailabilityResult.nameAvailable,
+@@clientName(
+  CheckNameAvailabilityResult.nameAvailable,
   "IsNameAvailable",
   "csharp"
 );
-@@clientName(NameUnavailabilityReason,
+@@clientName(
+  NameUnavailabilityReason,
   "TrustedSigningAccountNameUnavailabilityReason",
   "csharp"
 );
@@ -39,15 +43,18 @@ using Azure.Core;
 @@clientName(Certificate.expiryDate, "ExpireOn", "csharp");
 @@clientName(Revocation.status, "RevocationStatus", "csharp");
 
-@@clientName(CodeSigningAccounts.checkNameAvailability,
+@@clientName(
+  CodeSigningAccounts.checkNameAvailability,
   "CheckTrustedSigningAccountNameAvailability",
   "csharp"
 );
-@@clientName(CodeSigningAccounts.checkNameAvailability::parameters.body,
+@@clientName(
+  CodeSigningAccounts.checkNameAvailability::parameters.body,
   "content",
   "csharp"
 );
-@@clientName(CertificateProfiles.revokeCertificate::parameters.body,
+@@clientName(
+  CertificateProfiles.revokeCertificate::parameters.body,
   "content",
   "csharp"
 );

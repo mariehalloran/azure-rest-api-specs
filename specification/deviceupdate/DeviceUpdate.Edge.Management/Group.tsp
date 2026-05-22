@@ -77,7 +77,8 @@ interface Groups {
 @@clientName(Groups.create::parameters.resource, "group");
 
 #suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
-@@encodedName(Groups.update::parameters.properties,
+@@encodedName(
+  Groups.update::parameters.properties,
   "application/json",
   "tagUpdatePayload"
 );

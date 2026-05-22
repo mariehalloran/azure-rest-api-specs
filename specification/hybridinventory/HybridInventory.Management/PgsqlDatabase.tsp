@@ -69,7 +69,8 @@ interface PgsqlDatabases {
 @@minLength(PgsqlDatabase.name, 3);
 @@doc(PgsqlDatabase.name, "The name of Database");
 @@doc(PgsqlDatabase.properties, "Resource properties.");
-@@doc(PgsqlDatabases.createOrUpdate::parameters.resource,
+@@doc(
+  PgsqlDatabases.createOrUpdate::parameters.resource,
   "The machines to add to the assessment"
 );
 @@doc(PgsqlDatabases.update::parameters.properties, "Clouds patch payload.");

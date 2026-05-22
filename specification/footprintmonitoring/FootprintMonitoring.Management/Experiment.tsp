@@ -108,6 +108,7 @@ interface Experiments {
 @@maxLength(Experiment.name, 64);
 @@minLength(Experiment.name, 5);
 @@doc(Experiment.name, "Name of the Footprint experiment resource.");
-@@doc(Experiments.createOrUpdate::parameters.resource,
+@@doc(
+  Experiments.createOrUpdate::parameters.resource,
   "Footprint experiment creation or update parameters."
 );

@@ -69,7 +69,7 @@
             ]
           },
           "resourcePolicy": {
-            "ringDefault": {
+            "environmentDefault": {
               "podResources": [
                 {
                   "cores": "0.5",
@@ -81,7 +81,8 @@
                 }
               ],
               "os": "Linux",
-              "ipVersion": "IPv4"
+              "ipVersion": "IPv4",
+              "vmFamily": "D_FLEX"
             },
             "regionOverrides": [
               {
@@ -103,7 +104,8 @@
                           "replicas": 5,
                           "rollingUpdateReplicaPercentage": 10
                         }
-                      ]
+                      ],
+                      "vmFamily": "D_FLEX"
                     }
                   }
                 ]
@@ -127,7 +129,8 @@
                     "id": "instance-eastus-primary-a",
                     "partition": "primary",
                     "routingPartition": "primary",
-                    "clusterResourceId": "/subscriptions/5C4A0939-B396-4DCB-A217-BBC6A736791F/resourceGroups/rgCosmicRP/providers/Microsoft.ContainerService/managedClusters/cluster-eastus-1"
+                    "clusterResourceId": "/subscriptions/5C4A0939-B396-4DCB-A217-BBC6A736791F/resourceGroups/rgCosmicRP/providers/Microsoft.ContainerService/managedClusters/cluster-eastus-1",
+                    "status": "Ready"
                   }
                 ],
                 "networking": {

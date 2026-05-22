@@ -1949,7 +1949,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SovereignViewResourceTagsUpdate"
+              "$ref": "#/definitions/SovereignViewResourcePatch"
             }
           }
         ],
@@ -1958,6 +1958,20 @@
             "description": "Azure operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SovereignViewResource"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
             }
           },
           "default": {
@@ -1971,7 +1985,11 @@
           "SovereignViewOperations_Update": {
             "$ref": "./examples/SovereignViewOperations_Update.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       },
       "delete": {
         "operationId": "SovereignViewOperations_Delete",
@@ -4148,6 +4166,10 @@
         "properties": {
           "$ref": "#/definitions/SovereignViewResourceProperties",
           "description": "The resource-specific properties for this resource."
+        },
+        "identity": {
+          "$ref": "../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/SystemAssignedServiceIdentity",
+          "description": "The managed service identities assigned to this resource."
         }
       },
       "allOf": [
@@ -4176,6 +4198,23 @@
       "required": [
         "value"
       ]
+    },
+    "SovereignViewResourcePatch": {
+      "type": "object",
+      "description": "The patch model for the sovereign view resource type.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "identity": {
+          "$ref": "../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/SystemAssignedServiceIdentity",
+          "description": "The managed service identities assigned to this resource."
+        }
+      }
     },
     "SovereignViewResourceProperties": {
       "type": "object",
@@ -4213,19 +4252,6 @@
         "scope",
         "policyInitiatives"
       ]
-    },
-    "SovereignViewResourceTagsUpdate": {
-      "type": "object",
-      "description": "The type used for updating tags in SovereignViewResource resources.",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      }
     },
     "SovereignViewScope": {
       "type": "object",

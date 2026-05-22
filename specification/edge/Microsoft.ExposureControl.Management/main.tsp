@@ -100,6 +100,7 @@ interface ExposureWorkflows
       Azure.Core.StandardListQueryParameters &
       Azure.Core.FilterQueryParameter
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchSync<ExposureWorkflow, ExposureWorkflowUpdate>;
 }

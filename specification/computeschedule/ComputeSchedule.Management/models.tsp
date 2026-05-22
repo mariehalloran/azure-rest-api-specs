@@ -156,6 +156,24 @@ union DistributionStrategy {
   string,
 }
 
+@doc("The result of capacity prediction for deallocating VMs with a capacity check")
+@added(Microsoft.ComputeSchedule.Versions.`2026-04-27-preview`)
+union CapacityPrediction {
+  @doc("Very Low capacity is predicted at the desired restart time")
+  VeryLow: "VeryLow",
+
+  @doc("Low capacity is predicted at the desired restart time")
+  Low: "Low",
+
+  @doc("Medium capacity is predicted at the desired restart time")
+  Medium: "Medium",
+
+  @doc("High capacity is predicted at the desired restart time")
+  High: "High",
+
+  string,
+}
+
 // ------------------ Common Values ---------------
 alias Params = {
   ...ApiVersionParameter;
@@ -274,6 +292,14 @@ model ResourceOperationDetails {
 
   @doc("Retry policy the user can pass")
   retryPolicy?: RetryPolicy;
+
+  @doc("Capacity prediction for the deallocate with capacity check operation")
+  @added(Versions.`2026-04-27-preview`)
+  capacityPrediction?: CapacityPrediction;
+
+  @doc("The quality score of the capacity check prediction")
+  @added(Versions.`2026-04-27-preview`)
+  capacityPredictionQualityScore?: int32;
 }
 
 @doc("High level response from an operation on a resource")
@@ -426,6 +452,27 @@ model ExecuteStartRequest {
 
   @doc("Correlationid item")
   correlationid: string;
+}
+
+// ----------- ExecuteDeallocateWithCapacityCheck ---------
+@added(Microsoft.ComputeSchedule.Versions.`2026-04-27-preview`)
+@doc("The request for deallocating VMs with a capacity check, which verifies capacity predictions at the desired start time before proceeding with deallocation")
+model ExecuteDeallocateWithCapacityCheckRequest {
+  ...ExecuteDeallocateRequest;
+
+  @doc("The desired start time at which the VMs should be restarted. Capacity predictions are checked for this time to determine if deallocation is safe.")
+  desiredFutureStartTime: DesiredStartTime;
+}
+
+@added(Microsoft.ComputeSchedule.Versions.`2026-04-27-preview`)
+@doc("The desired start time for the VMs, used to check capacity predictions")
+model DesiredStartTime {
+  #suppress "@azure-tools/typespec-azure-core/no-offsetdatetime" "Prefer using `utcDateTime` when representing a datetime unless an offset is necessary."
+  @doc("The date and time at which the VMs should be started")
+  dateTime: offsetDateTime;
+
+  @doc("The timezone for the start time")
+  timeZone?: string;
 }
 
 // ----------- ExecuteCreate ---------

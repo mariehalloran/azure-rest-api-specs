@@ -25,6 +25,10 @@ union AzureTarget {
   @doc("App Service Native.")
   AzureAppService: "AzureAppService",
 
+  @added(CodeScanSitesApiVersions.v2026_05_12_preview)
+  @doc("Azure Container Apps.")
+  ContainerApps: "ContainerApps",
+
   string,
 }
 
@@ -172,6 +176,16 @@ model ReferenceLink {
 
   @doc("The label of the reference link.")
   label: string;
+}
+
+@added(CodeScanSitesApiVersions.v2026_05_12_preview)
+@doc("Per-repository details for a code scan issue.")
+model IssueRepoInfo {
+  @doc("The repository name.")
+  name: string;
+
+  @doc("The number of occurrences of this issue in this repository.")
+  occurrences: int32;
 }
 
 @doc("Cloud Suitability for Azure.")

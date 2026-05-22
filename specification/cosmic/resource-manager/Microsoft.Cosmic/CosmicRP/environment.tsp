@@ -31,6 +31,7 @@ model Environment is TrackedResource<EnvironmentProperties> {
 @friendlyName("CosmicEnvironmentProperties")
 model EnvironmentProperties {
   @doc("Platform ring classification (e.g. test, sdf, msit, prod).")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   platformRing?: CosmicRing;
 
   @doc("Topology configuration including per-location networking and partition declarations.")
@@ -41,6 +42,10 @@ model EnvironmentProperties {
 
   @doc("Resource policy configuration for the environment.")
   resourcePolicy?: ResourcePolicy;
+
+  @doc("Isolation group override for cluster bin-packing affinity. When set, all NamespaceInstances in this environment are placed on this isolation group instead of the parent namespace's isolationGroup. Useful when different environments of the same namespace (e.g. dev vs prod) should target different clusters. Cannot be changed after environment creation.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  isolationGroup?: string;
 
   @doc("The status of the environment.")
   @visibility(Lifecycle.Read)

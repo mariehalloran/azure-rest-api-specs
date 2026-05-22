@@ -202,6 +202,7 @@ model DenyAssignmentExclusion {
 interface Calculations {
   get is ArmResourceRead<CalculationResource>;
   createOrUpdate is ArmResourceCreateOrUpdateAsync<CalculationResource>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     CalculationResource,

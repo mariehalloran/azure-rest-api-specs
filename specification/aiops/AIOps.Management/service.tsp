@@ -1,0 +1,96 @@
+import "@typespec/rest";
+import "@typespec/http";
+import "@azure-tools/typespec-azure-core";
+import "@azure-tools/typespec-azure-resource-manager";
+
+using TypeSpec.Rest;
+using TypeSpec.Http;
+using Azure.Core;
+using Azure.ResourceManager;
+
+namespace Microsoft.AIOps;
+
+/** The resource provisioning state. */
+@lroStatus
+union ProvisioningState {
+  ResourceProvisioningState,
+
+  /** The resource is being created. */
+  Creating: "Creating",
+
+  /** The resource is being updated. */
+  Updating: "Updating",
+
+  /** The resource is being deleted. */
+  Deleting: "Deleting",
+
+  string,
+}
+
+/** Properties of the Microsoft.AIOps service resource. */
+model ServiceProperties {
+  /** User-friendly display name for the Microsoft.AIOps service. */
+  displayName?: string;
+
+  /** Detailed description of the Microsoft.AIOps service resource. */
+  description?: string;
+
+  /** Provisioning state of the Microsoft.AIOps service. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /** Data plane endpoint URL generated during provisioning. */
+  @visibility(Lifecycle.Read)
+  dataplaneEndpoint?: url;
+}
+
+/** A Microsoft.AIOps service resource representing a BRAIN tenant. */
+model Service is TrackedResource<ServiceProperties> {
+  ...ResourceNameParameter<
+    Service,
+    KeyName = "serviceName",
+    SegmentName = "services",
+    NamePattern = "^[a-zA-Z][a-zA-Z0-9-]{1,22}[a-zA-Z0-9]$"
+  >;
+
+  /** The managed identity for the resource. */
+  ...ManagedServiceIdentityProperty;
+}
+
+/** Operations for managing Microsoft.AIOps service resources. */
+@armResourceOperations
+interface Services {
+  /** Get a Microsoft.AIOps service resource. */
+  get is ArmResourceRead<Service>;
+
+  /** Create or update a Microsoft.AIOps service resource. */
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<Service>;
+
+  /** Delete a Microsoft.AIOps service resource. */
+  @Azure.Core.useFinalStateVia("azure-async-operation")
+  delete is ArmResourceDeleteWithoutOkAsync<
+    Service,
+    LroHeaders = ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
+  >;
+
+  /** List Microsoft.AIOps service resources by resource group. */
+  listByResourceGroup is ArmResourceListByParent<Service>;
+
+  /** List Microsoft.AIOps service resources by subscription. */
+  listBySubscription is ArmListBySubscription<Service>;
+
+  /** Update a Microsoft.AIOps service resource. */
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
+  @Azure.Core.useFinalStateVia("azure-async-operation")
+  @patch(#{ implicitOptionality: true })
+  update is ArmCustomPatchAsync<
+    Service,
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      Service,
+      ServiceProperties
+    >,
+    LroHeaders = ArmAsyncOperationHeader<FinalResult = Service> &
+      ArmLroLocationHeader<FinalResult = Service> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
+}

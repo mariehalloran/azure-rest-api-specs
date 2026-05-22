@@ -9,39 +9,47 @@ using Microsoft.IoTOperations;
 @@clientName(Microsoft.IoTOperations, "IoTOperationsManagementClient", "java");
 
 // CSharp Client configuration
-@@clientName(BrokerAuthenticationResource,
+@@clientName(
+  BrokerAuthenticationResource,
   "IotOperationsBrokerAuthentication",
   "csharp"
 );
-@@clientName(BrokerAuthenticationProperties,
+@@clientName(
+  BrokerAuthenticationProperties,
   "IotOperationsBrokerAuthenticationProperties",
   "csharp"
 );
-@@clientName(BrokerAuthorizationResource,
+@@clientName(
+  BrokerAuthorizationResource,
   "IotOperationsBrokerAuthorization",
   "csharp"
 );
-@@clientName(BrokerAuthorizationProperties,
+@@clientName(
+  BrokerAuthorizationProperties,
   "IotOperationsBrokerAuthorizationProperties",
   "csharp"
 );
 @@clientName(BrokerListenerResource, "IotOperationsBrokerListener", "csharp");
-@@clientName(BrokerListenerProperties,
+@@clientName(
+  BrokerListenerProperties,
   "IotOperationsBrokerListenerProperties",
   "csharp"
 );
 @@clientName(BrokerResource, "IotOperationsBroker", "csharp");
 @@clientName(BrokerProperties, "IotOperationsBrokerProperties", "csharp");
-@@clientName(DataflowEndpointResource,
+@@clientName(
+  DataflowEndpointResource,
   "IotOperationsDataflowEndpoint",
   "csharp"
 );
-@@clientName(DataflowEndpointProperties,
+@@clientName(
+  DataflowEndpointProperties,
   "IotOperationsDataflowEndpointProperties",
   "csharp"
 );
 @@clientName(DataflowProfileResource, "IotOperationsDataflowProfile", "csharp");
-@@clientName(DataflowProfileProperties,
+@@clientName(
+  DataflowProfileProperties,
   "IotOperationsDataflowProfileProperties",
   "csharp"
 );
@@ -60,7 +68,8 @@ using Microsoft.IoTOperations;
 @@clientName(DataflowOperation, "DataflowOperationProperties", "csharp");
 @@clientName(EndpointType, "DataflowEndpointType", "csharp");
 @@clientName(ExtendedLocation, "IotOperationsExtendedLocation", "csharp");
-@@clientName(ExtendedLocationType,
+@@clientName(
+  ExtendedLocationType,
   "IotOperationsExtendedLocationType",
   "csharp"
 );
@@ -78,28 +87,33 @@ using Microsoft.IoTOperations;
 @@clientName(SelfCheck, "BrokerDiagnosticSelfCheck", "csharp");
 @@clientName(SelfTracing, "DiagnosticSelfTracing", "csharp");
 @@clientName(ServiceType, "BlockerListenerServiceType", "csharp");
-@@clientName(SourceSerializationFormat,
+@@clientName(
+  SourceSerializationFormat,
   "DataflowSourceSerializationFormat",
   "csharp"
 );
 @@clientName(TlsCertMethod, "ListenerPortTlsCertMethod", "csharp");
 @@clientName(TlsProperties, "IotOperationsTlsProperties", "csharp");
 @@clientName(Traces, "BrokerDiagnosticTraces", "csharp");
-@@clientName(Versions.`2024-11-01`,
+@@clientName(
+  Versions.`2024-11-01`,
   "$DO_NOT_NORMALIZE$V2024-11-01",
   "javascript"
 );
 @@clientName(Versions.`2025-04-01`, "V20250401", "javascript");
 
-@@clientName(AkriConnectorTemplateHelmDeleteConfiguration.wait,
+@@clientName(
+  AkriConnectorTemplateHelmDeleteConfiguration.wait,
   "waitForResources",
   "java"
 );
-@@clientName(AkriConnectorTemplateHelmInstallConfiguration.wait,
+@@clientName(
+  AkriConnectorTemplateHelmInstallConfiguration.wait,
   "waitForResources",
   "java"
 );
-@@clientName(AkriConnectorTemplateHelmUpgradeConfiguration.wait,
+@@clientName(
+  AkriConnectorTemplateHelmUpgradeConfiguration.wait,
   "waitForResources",
   "java"
 );

@@ -60,9 +60,11 @@ interface MongoInstances {
 @@minLength(MongoInstance.name, 3);
 @@doc(MongoInstance.name, "The name of Instance");
 @@doc(MongoInstance.properties, "Resource properties.");
-@@doc(MongoInstances.createOrUpdate::parameters.resource,
+@@doc(
+  MongoInstances.createOrUpdate::parameters.resource,
   "The request body for creating or updating a MongoInstance resource."
 );
-@@doc(MongoInstances.update::parameters.properties,
+@@doc(
+  MongoInstances.update::parameters.properties,
   "The request body for updating a MongoInstance resource."
 );

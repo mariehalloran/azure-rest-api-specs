@@ -20,6 +20,7 @@ enum Versions {
   /**
    * The 2025-03-21 API version.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/version-progression" "LEGACY"
   v2025_03_21: "2025-03-21",
 
   /**
@@ -156,6 +157,12 @@ model MarketplaceDetails {
    * Term Unit
    */
   termUnit?: string;
+
+  /**
+   * SaaS Resource Id for the marketplace subscription
+   */
+  @added(Dell.Storage.Versions.v2026_03_01_preview)
+  saasResourceId?: string;
 }
 
 /**

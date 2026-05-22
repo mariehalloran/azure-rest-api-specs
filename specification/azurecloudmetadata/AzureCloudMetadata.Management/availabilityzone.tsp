@@ -40,9 +40,13 @@ model AvailabilityProperties {
   /** Resource Id of parent */
   regionResourceId: string;
 
-  /** Future changes of region. */
+  /** Future changes of the Availability. */
   @added(Versions.v2025_10_01_preview)
   futureChanges: string;
+
+  /** The customer workloads the zone supports. */
+  @added(Versions.v2026_05_01_preview)
+  supportedCustomerWorkloads: string;
 
   /** The provisioning state of resource. */
   @visibility(Lifecycle.Read)

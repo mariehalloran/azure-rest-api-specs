@@ -3,6 +3,7 @@ import "@typespec/http";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./models.tsp";
+import "./migration.tsp";
 
 using Azure.ResourceManager;
 using TypeSpec.Http;
@@ -43,8 +44,9 @@ model NamespaceProperties {
   @doc("Email Alias")
   emailAlias?: string;
 
-  @doc("The isolation group for this namespace.")
-  isolationGroup?: string;
+  @doc("The isolation group for cluster bin-packing affinity. This field is required and cannot be changed after namespace creation.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  isolationGroup: string;
 
   @doc("Indicates whether Nightwatch monitoring is enabled for the namespace.")
   nightwatchEnabled: boolean = false;
@@ -71,4 +73,27 @@ interface Namespaces {
   delete is ArmResourceDeleteWithoutOkAsync<Namespace>;
   listByResourceGroup is ArmResourceListByParent<Namespace>;
   listBySubscription is ArmListBySubscription<Namespace>;
+
+  @doc("Preview an environment resource in ARM without writing to inventory. Used for experimentation before committing to migration.")
+  @action("preview")
+  preview is ArmResourceActionSync<
+    Namespace,
+    PreviewRequest,
+    ArmResponse<PreviewResponse>
+  >;
+
+  @doc("Validate an environment by comparing the ARM resource against live inventory. Returns a list of differences.")
+  @action("validate")
+  validate is ArmResourceActionSync<
+    Namespace,
+    ValidateRequest,
+    ArmResponse<ValidateResponse>
+  >;
+
+  @doc("Migrate an environment to ARM management. One-time, irreversible ownership transfer that flips the source label on all targeted instances.")
+  @action("migrate")
+  migrate is ArmResourceActionAsync<Namespace, MigrateRequest, MigrateResponse>;
+
+  @doc("Checks that the Cosmic namespace name is valid and is not already in use within the subscription.")
+  checkNameAvailability is checkGlobalNameAvailability;
 }
