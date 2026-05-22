@@ -134,6 +134,20 @@ union ProvisioningState {
 }
 
 /**
+ * Provisioning state for billing benefit resources. Includes the standard terminal states
+ * (Succeeded, Failed, Canceled) plus benefit-specific transition states.
+ */
+union BenefitProvisioningState {
+  ResourceProvisioningState,
+
+  /** The resource provisioning request has been accepted but processing has not yet started. */
+  Pending: "Pending",
+
+  /** The resource provisioning state is unknown. */
+  Unknown: "Unknown",
+}
+
+/**
  * Represent benefit term in ISO 8601 format.
  */
 union Term {
@@ -1718,7 +1732,7 @@ model DiscountProperties {
    * The state of the resource. Supported values are Pending, Failed, Succeeded, Canceled.
    */
   @visibility(Lifecycle.Read)
-  provisioningState?: ResourceProvisioningState;
+  provisioningState?: BenefitProvisioningState;
 
   ...BenefitBillingScopeProperties;
 
@@ -2366,7 +2380,7 @@ model MaccModelProperties {
    * Provisioning state of MACC as assigned by RPaaS. This indicates the last operation's status. For all practical purposes, this can be ignored. For current status of MACC resource, refer to MaccStatus.
    */
   @visibility(Lifecycle.Read)
-  provisioningState?: ResourceProvisioningState;
+  provisioningState?: BenefitProvisioningState;
 
   /**
    * Represents the current status of the MACC.
@@ -2866,7 +2880,7 @@ model CreditProperties {
    * Provisioning state
    */
   @visibility(Lifecycle.Read)
-  provisioningState?: ResourceProvisioningState;
+  provisioningState?: BenefitProvisioningState;
 
   /**
    * System identifier
@@ -3037,7 +3051,7 @@ model TransactionProperties {
    * Provisioning state of the transaction as assigned by RPaaS. This indicates the last operation's status.
    */
   @visibility(Lifecycle.Read)
-  provisioningState?: ResourceProvisioningState;
+  provisioningState?: BenefitProvisioningState;
 
   /**
    * This is the DateTime when the transaction occurred.
@@ -3141,7 +3155,7 @@ model ConditionalCreditProperties {
    * The provisioning state of the resource
    */
   @visibility(Lifecycle.Read)
-  provisioningState?: ResourceProvisioningState;
+  provisioningState?: BenefitProvisioningState;
 
   /**
    * The status of the conditional credit
@@ -3742,7 +3756,7 @@ model FreeServicesProperties {
    * Provisioning state of Free Services as assigned by RPaaS. This indicates the last operation's status. For all practical purposes, this can be ignored. For current status of Free Services resource, refer to FreeServicesStatus.
    */
   @visibility(Lifecycle.Read)
-  provisioningState?: ResourceProvisioningState;
+  provisioningState?: BenefitProvisioningState;
 
   ...BenefitBillingScopeProperties;
 

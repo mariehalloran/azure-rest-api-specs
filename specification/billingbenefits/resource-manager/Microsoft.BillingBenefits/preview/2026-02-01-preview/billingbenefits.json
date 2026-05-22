@@ -5015,37 +5015,6 @@
       "type": "string",
       "description": "Represents an Azure Resource Type."
     },
-    "Azure.ResourceManager.ResourceProvisioningState": {
-      "type": "string",
-      "description": "The provisioning state of a resource type.",
-      "enum": [
-        "Succeeded",
-        "Failed",
-        "Canceled"
-      ],
-      "x-ms-enum": {
-        "name": "ResourceProvisioningState",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Succeeded",
-            "value": "Succeeded",
-            "description": "Resource has been created."
-          },
-          {
-            "name": "Failed",
-            "value": "Failed",
-            "description": "Resource creation failed."
-          },
-          {
-            "name": "Canceled",
-            "value": "Canceled",
-            "description": "Resource creation was canceled."
-          }
-        ]
-      },
-      "readOnly": true
-    },
     "BenefitAppliedScopeType": {
       "type": "string",
       "description": "List of applied scope types supported for benefit resources.",
@@ -5072,6 +5041,49 @@
           }
         ]
       }
+    },
+    "BenefitProvisioningState": {
+      "type": "string",
+      "description": "Provisioning state for billing benefit resources. Includes the standard terminal states\n(Succeeded, Failed, Canceled) plus benefit-specific transition states.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Pending",
+        "Unknown"
+      ],
+      "x-ms-enum": {
+        "name": "BenefitProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          },
+          {
+            "name": "Pending",
+            "value": "Pending",
+            "description": "The resource provisioning request has been accepted but processing has not yet started."
+          },
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "The resource provisioning state is unknown."
+          }
+        ]
+      },
+      "readOnly": true
     },
     "BenefitType": {
       "type": "string",
@@ -5687,7 +5699,7 @@
           }
         },
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/BenefitProvisioningState",
           "description": "The provisioning state of the resource",
           "readOnly": true
         },
@@ -6291,7 +6303,7 @@
           }
         },
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/BenefitProvisioningState",
           "description": "Provisioning state",
           "readOnly": true
         },
@@ -6849,7 +6861,7 @@
           "description": "This is the globally unique identifier of the Discount which will not change for the lifetime of the Discount."
         },
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/BenefitProvisioningState",
           "description": "The state of the resource. Supported values are Pending, Failed, Succeeded, Canceled.",
           "readOnly": true
         },
@@ -7452,7 +7464,7 @@
           "description": "Expiration date and time of the free services"
         },
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/BenefitProvisioningState",
           "description": "Provisioning state of Free Services as assigned by RPaaS. This indicates the last operation's status. For all practical purposes, this can be ignored. For current status of Free Services resource, refer to FreeServicesStatus.",
           "readOnly": true
         },
@@ -7792,7 +7804,7 @@
       "description": "MACC properties",
       "properties": {
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/BenefitProvisioningState",
           "description": "Provisioning state of MACC as assigned by RPaaS. This indicates the last operation's status. For all practical purposes, this can be ignored. For current status of MACC resource, refer to MaccStatus.",
           "readOnly": true
         },
@@ -10115,7 +10127,7 @@
       "description": "Properties of a transaction",
       "properties": {
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/BenefitProvisioningState",
           "description": "Provisioning state of the transaction as assigned by RPaaS. This indicates the last operation's status.",
           "readOnly": true
         },
