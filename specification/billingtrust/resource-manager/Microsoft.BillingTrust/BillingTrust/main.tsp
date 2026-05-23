@@ -562,66 +562,63 @@ interface Rules {
   //
   // Why this exists: rules are server-instantiated during the parent
   // assessment's ResourceCreationBegin, but RPaaS's tracked-resources
-  // cache for ProxyOnly+Extension child types is only populated by
+  // cache for ProxyOnly+Extension child types is populated only by
   // PUT-shaped operations going through the ARM/RPaaS validator.
-  // Without a PUT operation declared here, our worker's back-PUT
+  // Without a PUT declared here, our worker's back-PUT
   // (RpaasRuleProjector.ProjectRuleAsync) fails RPaaS's
-  // `provider-api-validation` check with HTTP 412
+  // `provider-api-validation` with HTTP 412
   // `HttpPayloadAPISpecValidationFailed`, the cache never populates,
-  // and customer GET on `/rules/{name}` then 404s at the ARM front
-  // door's tracked-cache short-circuit.
+  // and customer GET on `/rules/{name}` 404s at the ARM front door's
+  // tracked-cache short-circuit.
   //
   // Customer-facing rules contract (architect spec §5.2) is PATCH-only.
-  // End-user PUT is rejected by the runtime: `RuleController.OnValidateCreate`
-  // returns the documented RPaaS soft-reject (`200 OK` +
+  // End-user PUT is rejected by `RuleController.OnValidateCreate` with
+  // the documented RPaaS soft-reject (`200 OK` +
   // `{status:failed, error:{Code:OperationNotAllowed,…}}` per
-  // `rpaasextensionapi.md` §50-67). RPaaS surfaces this as a 4xx to ARM
-  // so the customer sees the OperationNotAllowed error.
+  // `rpaasextensionapi.md` §50-67); RPaaS surfaces this as a 4xx to ARM.
   //
-  // Per EngHub `urp_mrp_comm.md` §17-18: UserRP calls to MetaRP via the
+  // Per EngHub `urp_mrp_comm.md` §17-18, UserRP→MetaRP calls via the
   // registered 1P identity bypass UserRP extensions entirely — so our
-  // back-PUT never hits `OnValidateCreate`. That's exactly the design
-  // point we want: customer PUT is rejected, RP PUT goes through.
+  // back-PUT never hits `OnValidateCreate`. Customer PUT is rejected;
+  // RP PUT goes through.
   //
-  // The operation is Sync (200/201, no LRO) because the back-PUT just
-  // refreshes the cache body; the actual evaluation LRO is owned by
-  // the assessment-level Create flow.
+  // Sync (no LRO) because the back-PUT just refreshes the cache body;
+  // the actual evaluation LRO is owned by the assessment-level Create
+  // flow.
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-name-pattern" "Rule names are deterministic server-instantiated names (Qualify_Edu, Verify_Business, …) per template; pattern is enforced at the model level."
   @doc("Create or update a Rule. Rules are created by the service when the parent assessment is created and are not directly creatable by end users — calls from end users are rejected with `OperationNotAllowed`. Use PATCH to modify rule fields that the customer is authorized to change.")
   createOrUpdate is ArmResourceCreateOrReplaceSync<Rule>;
 
-  // PATCH cannot change a rule's `kind`. The patch body is discriminated by
-  // `kind` so each rule kind ships its own patchable field set on a derived
-  // subtype (e.g. EduQualificationRulePatchProperties.supplementalDocuments).
-  // The base RulePatchProperties carries only the discriminator; the runtime
-  // PATCH controller rejects a kind that does not match the existing rule.
+  // PATCH cannot change a rule's `kind`. The patch body is discriminated
+  // by `kind`; each rule kind ships its own patchable field set on a
+  // derived subtype (e.g. EduQualificationRulePatchProperties
+  // .supplementalDocuments). The base RulePatchProperties carries only
+  // the discriminator; the runtime PATCH controller rejects a kind that
+  // does not match the existing rule.
   //
-  // The arm-resource-patch linter expects every patchable field to live on the
-  // base resource Properties model. Per-kind patchable fields live on the
-  // discriminated patch subtypes — the correct ARM design when patchable
-  // fields are kind-specific. The linter cannot reason about discriminated
-  // subtypes; this suppression documents the deliberate design choice.
+  // The arm-resource-patch linter expects every patchable field on the
+  // base Properties model and cannot reason about discriminated
+  // subtypes. This suppression documents the deliberate design choice.
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-patch" "By design: the PATCH body is discriminated by `kind`. Per-kind patchable fields live on derived subtypes (e.g. EduQualificationRulePatchProperties.supplementalDocuments) because they are semantically meaningful only for that kind; service-side PATCH enforces both kind and state. Future kinds add their own RulePatchProperties subtype."
   @doc("Update a Rule. The PATCH body is discriminated by `kind` and must match the existing rule's kind. For `eduQualification` rules, only `supplementalDocuments` is patchable, and only when `evaluationState == actionRequired`. For `businessVerification` rules, the patchable fields are `supplementalDocuments` and `externalId`, and only when `evaluationState` is `pending` or `actionRequired`. All other field/state combinations are rejected with 400 InvalidParameterValue or 409 RuleNotActionable.")
   update is ArmCustomPatchSync<Rule, RulePatchProperties>;
 
-  // NOTE: Rule deliberately does NOT support DELETE. Rule lifecycle is owned
-  // by the parent Assessment — rules are instantiated when the assessment is
-  // created (from the assessmentType template) and removed when the assessment
-  // is deleted. Customers cannot independently delete rules. This is an
-  // intentional deviation from the ARM convention that proxy resources should
+  // NOTE: Rule deliberately does NOT support DELETE — rule lifecycle is
+  // owned by the parent Assessment (instantiated on assessment Create
+  // from the template; removed when the assessment is deleted).
+  // Intentional deviation from the ARM convention that proxy resources
   // support DELETE.
 
-  // NOTE: A `present` action applicable only to verifiedCredential rules is
-  // deferred to a future API version. VerifiedCredential rules are not part
-  // of the current scope — no template in scope uses them. The action and its
-  // `PresentResponse` model will be re-added when VerifiedCredential ships.
+  // NOTE: A `present` action applicable only to verifiedCredential rules
+  // is deferred to a future API version — no template in scope uses
+  // verifiedCredential. The action and its `PresentResponse` model will
+  // be re-added when VerifiedCredential ships.
 }
 
-// NOTE: Reviews and provider-level actions `eventAssessment` and `hydrateReview`
-// were intentionally removed in this revision. Reviews require additional ARM
-// API review sign-off as a tenant-level API; event assessment and review
-// hydration are not part of the current scope and were not registered in the
-// ProviderHub manifest, so leaving them in TypeSpec would advertise endpoints
-// that ARM front door would 404. They will be re-added (with manifest
-// registrations and sign-off) when those features are implemented.
+// NOTE: Reviews and provider-level actions `eventAssessment` and
+// `hydrateReview` are intentionally not declared. Reviews require ARM
+// API review sign-off as a tenant-level API; eventAssessment and
+// hydrateReview are out of current scope and not registered in the
+// ProviderHub manifest, so declaring them in TypeSpec would advertise
+// endpoints the ARM front door would 404. They will be re-added (with
+// manifest registrations and sign-off) when those features ship.
