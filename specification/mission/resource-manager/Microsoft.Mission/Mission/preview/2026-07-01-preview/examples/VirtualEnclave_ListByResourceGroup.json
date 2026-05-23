@@ -24,30 +24,13 @@
             },
             "properties": {
               "provisioningState": "Succeeded",
-              "addressSpaces": [
-                {
-                  "prefixLength": 23,
-                  "addressSpace": "10.1.0.0/23",
-                  "ownership": "customerManaged"
-                },
-                {
-                  "prefixLength": 25,
-                  "addressSpace": "192.168.0.0/25",
-                  "ownership": "productManaged"
-                }
-              ],
-              "networkName": "my-enclave-vnet",
-              "subnetConfigurations": [
-                {
-                  "subnetName": "test",
-                  "subnetResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/TestMyRg/providers/Microsoft.KeyVault/vaults/TestMyKeyVault1",
-                  "networkPrefixSize": 26,
-                  "addressPrefix": "10.0.0.0/26",
-                  "networkSecurityGroupResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/TestMyRg/providers/Microsoft.KeyVault/vaults/TestMyKeyVault1",
-                  "subnetDelegation": null
-                }
-              ],
-              "allowSubnetCommunication": true,
+              "managedOnBehalfOfConfiguration": {
+                "moboBrokerResources": [
+                  {
+                    "id": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/TestMyRg/providers/Microsoft.Resources/moboBrokers/bnthrkwfkfeorrzvtdxbfz"
+                  }
+                ]
+              },
               "communityResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/TestMyRg/providers/microsoft.mission/communities/TestMyCommunity",
               "enclaveDefaultSettings": {
                 "keyVaultResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/TestMyRg/providers/Microsoft.KeyVault/vaults/TestMyKeyVault1",
@@ -120,7 +103,57 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "monitoringSettings": {
+                "diagnosticDestinations": [
+                  {
+                    "destinationType": "CommunityWorkspace"
+                  },
+                  {
+                    "destinationType": "EnclaveWorkspace",
+                    "diagnosticSettingsName": "customName"
+                  },
+                  {
+                    "destinationType": "CustomWorkspace",
+                    "customWorkspaceResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/rgopenapi/providers/Microsoft.OperationalInsights/workspaces/CustomWorkspace",
+                    "diagnosticSettingsName": "customName"
+                  },
+                  {
+                    "destinationType": "CustomWorkspace",
+                    "customWorkspaceResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/rgopenapi/providers/Microsoft.OperationalInsights/workspaces/CustomWorkspace",
+                    "diagnosticSettingsName": "customName"
+                  }
+                ],
+                "flowLogDestination": {
+                  "destinationType": "CustomWorkspace",
+                  "customWorkspaceResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/rgopenapi/providers/Microsoft.OperationalInsights/workspaces/CustomWorkspace",
+                  "diagnosticSettingsName": "customName"
+                }
+              },
+              "subnetConfigurations": [
+                {
+                  "subnetName": "test",
+                  "subnetResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/TestMyRg/providers/Microsoft.KeyVault/vaults/TestMyKeyVault1",
+                  "networkPrefixSize": 26,
+                  "addressPrefix": "10.0.0.0/26",
+                  "networkSecurityGroupResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/TestMyRg/providers/Microsoft.KeyVault/vaults/TestMyKeyVault1",
+                  "subnetDelegation": null
+                }
+              ],
+              "allowSubnetCommunication": true,
+              "addressSpaces": [
+                {
+                  "prefixLength": 23,
+                  "addressSpace": "10.1.0.0/23",
+                  "ownership": "customerManaged"
+                },
+                {
+                  "prefixLength": 25,
+                  "addressSpace": "192.168.0.0/25",
+                  "ownership": "productManaged"
+                }
+              ],
+              "networkName": "my-enclave-vnet"
             },
             "tags": {
               "Tag1": "Value1"
