@@ -8004,6 +8004,10 @@
         "monitoringSettings": {
           "$ref": "#/definitions/MonitoringSettingsPatchModel",
           "description": "Virtual Enclave Monitoring Settings for diagnostic and virtual network flow logs"
+        },
+        "allowSubnetCommunication": {
+          "type": "boolean",
+          "description": "Whether subnets can communicate with each other."
         }
       }
     },
