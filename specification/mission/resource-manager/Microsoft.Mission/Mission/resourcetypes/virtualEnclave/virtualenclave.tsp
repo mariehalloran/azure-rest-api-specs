@@ -137,6 +137,9 @@ model EnclaveDefaultSettingsModel {
 model EnclaveAddressSpacesModel {
   @doc("Enclave Address Space")
   enclaveAddressSpace?: string;
+
+  @doc("Managed Address Space")
+  managedAddressSpace?: string;
 }
 
 @added(Microsoft.Mission.Versions.v2026_07_01_preview)
