@@ -2,7 +2,7 @@
   "title": "VirtualEnclave_Get",
   "operationId": "VirtualEnclave_Get",
   "parameters": {
-    "api-version": "2026-05-04-preview",
+    "api-version": "2026-07-01-preview",
     "subscriptionId": "CA1CB369-DD26-4DB2-9D43-9AFEF0F22093",
     "resourceGroupName": "rgopenapi",
     "virtualEnclaveName": "TestMyEnclave"
@@ -23,21 +23,6 @@
         },
         "properties": {
           "provisioningState": "Succeeded",
-          "enclaveVirtualNetwork": {
-            "networkSize": "small",
-            "customCidrRange": "10.0.0.0/24",
-            "subnetConfigurations": [
-              {
-                "subnetName": "test",
-                "subnetResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/TestMyRg/providers/Microsoft.KeyVault/vaults/TestMyKeyVault1",
-                "networkPrefixSize": 26,
-                "addressPrefix": "10.0.0.0/26",
-                "networkSecurityGroupResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/TestMyRg/providers/Microsoft.KeyVault/vaults/TestMyKeyVault1",
-                "subnetDelegation": null
-              }
-            ],
-            "allowSubnetCommunication": true
-          },
           "managedOnBehalfOfConfiguration": {
             "moboBrokerResources": [
               {
@@ -143,7 +128,31 @@
               "customWorkspaceResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/rgopenapi/providers/Microsoft.OperationalInsights/workspaces/CustomWorkspace",
               "diagnosticSettingsName": "customName"
             }
-          }
+          },
+          "subnetConfigurations": [
+            {
+              "subnetName": "test",
+              "subnetResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/TestMyRg/providers/Microsoft.KeyVault/vaults/TestMyKeyVault1",
+              "networkPrefixSize": 26,
+              "addressPrefix": "10.0.0.0/26",
+              "networkSecurityGroupResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/TestMyRg/providers/Microsoft.KeyVault/vaults/TestMyKeyVault1",
+              "subnetDelegation": null
+            }
+          ],
+          "allowSubnetCommunication": true,
+          "addressSpaces": [
+            {
+              "prefixLength": 23,
+              "addressSpace": "10.1.0.0/23",
+              "ownership": "customerManaged"
+            },
+            {
+              "prefixLength": 25,
+              "addressSpace": "192.168.0.0/25",
+              "ownership": "productManaged"
+            }
+          ],
+          "networkName": "my-enclave-vnet"
         },
         "tags": {
           "Tag1": "Value1"

@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Microsoft.Mission",
-    "version": "2026-05-04-preview",
+    "version": "2026-07-01-preview",
     "description": "Microsoft Mission Resource Provider management API.",
     "x-typespec-generated": [
       {
@@ -4423,6 +4423,53 @@
         ]
       }
     },
+    "AddressSpaceEntry": {
+      "type": "object",
+      "description": "An address space entry for the enclave. Customer entries have ownership 'customerManaged'; the RP-injected managed address space has ownership 'productManaged' and is always the last element.",
+      "properties": {
+        "prefixLength": {
+          "type": "integer",
+          "format": "int32",
+          "description": "CIDR prefix length (e.g., 22, 23, 24). Determines the size of the address space."
+        },
+        "addressSpace": {
+          "type": "string",
+          "description": "CIDR notation address space. Optional — if omitted, RP allocates based on prefixLength. If provided, used as-is (custom address space)."
+        },
+        "ownership": {
+          "$ref": "#/definitions/AddressSpaceOwnership",
+          "description": "Indicates whether this address space is customer-managed or product-managed. Product-managed entries are RP-injected and always the last element(s) in the array.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "prefixLength"
+      ]
+    },
+    "AddressSpaceOwnership": {
+      "type": "string",
+      "description": "Indicates who manages the address space lifecycle.",
+      "enum": [
+        "customerManaged",
+        "productManaged"
+      ],
+      "x-ms-enum": {
+        "name": "AddressSpaceOwnership",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "customerManaged",
+            "value": "customerManaged",
+            "description": "Customer-provided address space. Customer specifies prefixLength, RP allocates CIDR."
+          },
+          {
+            "name": "productManaged",
+            "value": "productManaged",
+            "description": "Product-managed address space. RP-injected for internal platform use (e.g., hub connectivity)."
+          }
+        ]
+      }
+    },
     "ApprovalActionRequest": {
       "type": "object",
       "description": "Request body for calling post-action",
@@ -4946,14 +4993,18 @@
           "$ref": "#/definitions/CommunityResourceId",
           "description": "Resource Id of the Community"
         },
-        "enclaveVirtualNetwork": {
-          "$ref": "#/definitions/EnclaveVirtualNetworkModel",
-          "description": "Information about the enclave virtual network"
+        "prefixLength": {
+          "type": "integer",
+          "format": "int32",
+          "description": "CIDR prefix length (e.g., 22, 23, 24). Determines the size of the address space to check."
+        },
+        "addressSpace": {
+          "type": "string",
+          "description": "Specific CIDR address space to check availability for. If omitted, RP checks for any available space of the given prefixLength."
         }
       },
       "required": [
-        "communityResourceId",
-        "enclaveVirtualNetwork"
+        "communityResourceId"
       ]
     },
     "CheckAddressSpaceAvailabilityResponse": {
@@ -5728,20 +5779,6 @@
         ]
       }
     },
-    "EnclaveAddressSpacesModel": {
-      "type": "object",
-      "description": "Enclave Address Spaces",
-      "properties": {
-        "enclaveAddressSpace": {
-          "type": "string",
-          "description": "Enclave Address Space"
-        },
-        "managedAddressSpace": {
-          "type": "string",
-          "description": "Managed Address Space"
-        }
-      }
-    },
     "EnclaveConnectionPatchModel": {
       "type": "object",
       "description": "Enclave Connection Patch Resource",
@@ -6231,49 +6268,6 @@
       "required": [
         "value"
       ]
-    },
-    "EnclaveVirtualNetworkModel": {
-      "type": "object",
-      "description": "Enclave Virtual Network Properties",
-      "properties": {
-        "networkName": {
-          "type": "string",
-          "description": "Network Name."
-        },
-        "networkSize": {
-          "type": "string",
-          "description": "Network Size.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "customCidrRange": {
-          "type": "string",
-          "description": "Custom CIDR Range.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "subnetConfigurations": {
-          "type": "array",
-          "description": "Subnet Configurations.",
-          "items": {
-            "$ref": "#/definitions/SubnetConfiguration"
-          },
-          "x-ms-identifiers": []
-        },
-        "allowSubnetCommunication": {
-          "type": "boolean",
-          "description": "Allow Subnet Communication.",
-          "default": false,
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        }
-      }
     },
     "FirewallPolicyResourceId": {
       "type": "string",
@@ -7939,10 +7933,6 @@
       "type": "object",
       "description": "Virtual Enclave Patchable Properties",
       "properties": {
-        "enclaveVirtualNetwork": {
-          "$ref": "#/definitions/EnclaveVirtualNetworkModel",
-          "description": "Virtual Network."
-        },
         "bastionEnabled": {
           "type": "boolean",
           "description": "Deploy Bastion service (True or False)."
@@ -7979,6 +7969,22 @@
           },
           "x-ms-identifiers": []
         },
+        "addressSpaces": {
+          "type": "array",
+          "description": "Address spaces for the enclave. Supports multiple entries. Customer specifies prefixLength, RP allocates and injects the addressSpace CIDR. Product-managed address spaces (ownership=productManaged) are RP-injected and always appear at the end of the array.",
+          "items": {
+            "$ref": "#/definitions/AddressSpaceEntry"
+          },
+          "x-ms-identifiers": []
+        },
+        "subnetConfigurations": {
+          "type": "array",
+          "description": "Subnet configurations for the enclave network.",
+          "items": {
+            "$ref": "#/definitions/SubnetConfiguration"
+          },
+          "x-ms-identifiers": []
+        },
         "enclaveDefaultSettings": {
           "$ref": "#/definitions/EnclaveDefaultSettingsPatchModel",
           "description": "Enclave default settings."
@@ -8008,15 +8014,6 @@
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "Provisioning State.",
-          "readOnly": true
-        },
-        "enclaveVirtualNetwork": {
-          "$ref": "#/definitions/EnclaveVirtualNetworkModel",
-          "description": "Virtual Network."
-        },
-        "enclaveAddressSpaces": {
-          "$ref": "#/definitions/EnclaveAddressSpacesModel",
-          "description": "Enclave Address Spaces",
           "readOnly": true
         },
         "communityResourceId": {
@@ -8126,6 +8123,36 @@
           },
           "x-ms-identifiers": []
         },
+        "addressSpaces": {
+          "type": "array",
+          "description": "Address spaces for the enclave. Supports multiple entries. Customer specifies prefixLength, RP allocates and injects the addressSpace CIDR. Product-managed address spaces (ownership=productManaged) are RP-injected and always appear at the end of the array.",
+          "items": {
+            "$ref": "#/definitions/AddressSpaceEntry"
+          },
+          "x-ms-identifiers": []
+        },
+        "networkName": {
+          "type": "string",
+          "description": "The name of the enclave's virtual network.",
+          "readOnly": true
+        },
+        "subnetConfigurations": {
+          "type": "array",
+          "description": "Subnet configurations for the enclave network.",
+          "items": {
+            "$ref": "#/definitions/SubnetConfiguration"
+          },
+          "x-ms-identifiers": []
+        },
+        "allowSubnetCommunication": {
+          "type": "boolean",
+          "description": "Whether subnets can communicate with each other.",
+          "default": false,
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
         "enclaveDefaultSettings": {
           "$ref": "#/definitions/EnclaveDefaultSettingsModel",
           "description": "Enclave default settings."
@@ -8148,7 +8175,6 @@
         }
       },
       "required": [
-        "enclaveVirtualNetwork",
         "communityResourceId"
       ]
     },

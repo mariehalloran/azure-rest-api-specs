@@ -7,19 +7,9 @@
     "communityName": "TestMyCommunity",
     "checkAddressSpaceAvailabilityRequest": {
       "communityResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/TestMyRg/providers/Microsoft.Mission/communities/TestMyCommunity",
-      "enclaveVirtualNetwork": {
-        "networkSize": "small",
-        "customCidrRange": "10.0.0.0/24",
-        "subnetConfigurations": [
-          {
-            "subnetName": "test",
-            "networkPrefixSize": 26
-          }
-        ],
-        "allowSubnetCommunication": true
-      }
+      "prefixLength": 23
     },
-    "api-version": "2026-05-04-preview"
+    "api-version": "2026-07-01-preview"
   },
   "responses": {
     "200": {
