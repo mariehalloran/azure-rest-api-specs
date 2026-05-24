@@ -87,15 +87,18 @@ interface WebhookResources {
   >;
 }
 
-@@doc(WebhookResources.createOrUpdate::parameters.parameters,
+@@doc(
+  WebhookResources.createOrUpdate::parameters.parameters,
   "Parameters for the create or update operation"
 );
-@@doc(WebhookResources.update::parameters.properties,
+@@doc(
+  WebhookResources.update::parameters.properties,
   "Parameters for the create or update operation"
 );
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Deprecated: Using encodedName for the body property is meaningless."
-@@encodedName(WebhookResources.update::parameters.properties,
+@@encodedName(
+  WebhookResources.update::parameters.properties,
   "application/json",
   "parameters"
 );

@@ -75,21 +75,24 @@ interface Updates {
 
 @@maxLength(Update.name, 173);
 @@minLength(Update.name, 7);
-@@doc(Update.name,
+@@doc(
+  Update.name,
   "Concatenated update provider, name and version separated by underscore."
 );
 @@doc(Updates.create::parameters.resource, "Update details.");
 @@doc(Updates.modify::parameters.properties, "Updated tags.");
 
 #suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
-@@encodedName(Updates.create::parameters.resource,
+@@encodedName(
+  Updates.create::parameters.resource,
   "application/json",
   "update"
 );
 @@clientName(Updates.create::parameters.resource, "update");
 
 #suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
-@@encodedName(Updates.modify::parameters.properties,
+@@encodedName(
+  Updates.modify::parameters.properties,
   "application/json",
   "tagUpdatePayload"
 );

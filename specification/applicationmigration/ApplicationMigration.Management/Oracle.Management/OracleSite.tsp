@@ -66,6 +66,7 @@ interface OracleSites {
 @@minLength(OracleSite.name, 3);
 @@doc(OracleSite.name, "The name of Site");
 @@doc(OracleSite.properties, "Resource properties.");
-@@doc(OracleSites.createOrUpdate::parameters.resource,
+@@doc(
+  OracleSites.createOrUpdate::parameters.resource,
   "The request body for creating or updating a OracleSite resource."
 );

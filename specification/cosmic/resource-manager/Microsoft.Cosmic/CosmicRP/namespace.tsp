@@ -93,4 +93,7 @@ interface Namespaces {
   @doc("Migrate an environment to ARM management. One-time, irreversible ownership transfer that flips the source label on all targeted instances.")
   @action("migrate")
   migrate is ArmResourceActionAsync<Namespace, MigrateRequest, MigrateResponse>;
+
+  @doc("Checks that the Cosmic namespace name is valid and is not already in use within the subscription.")
+  checkNameAvailability is checkGlobalNameAvailability;
 }
