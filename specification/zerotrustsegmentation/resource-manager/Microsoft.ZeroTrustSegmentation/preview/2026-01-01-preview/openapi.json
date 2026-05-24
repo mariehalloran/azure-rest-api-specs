@@ -704,57 +704,12 @@
         ]
       }
     },
-    "SegmentationManagerManagedServiceIdentityTypeV2026Preview": {
-      "type": "string",
-      "description": "The type of managed service identity for API version 2026-01-01-preview.",
-      "enum": [
-        "None",
-        "UserAssigned"
-      ],
-      "x-ms-enum": {
-        "name": "SegmentationManagerManagedServiceIdentityTypeV2026Preview",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "None",
-            "value": "None",
-            "description": "No managed identity is assigned to this resource."
-          },
-          {
-            "name": "UserAssigned",
-            "value": "UserAssigned",
-            "description": "User Assigned Managed Identity"
-          }
-        ]
-      }
-    },
-    "SegmentationManagerManagedServiceIdentityV2026Preview": {
+    "SegmentationManagerManagedServiceIdentityUpdate": {
       "type": "object",
-      "description": "Managed service identity for the segmentation manager in API version 2026-01-01-preview.",
+      "description": "Managed service identity for the segmentation manager.",
       "properties": {
         "type": {
-          "$ref": "#/definitions/SegmentationManagerManagedServiceIdentityTypeV2026Preview",
-          "description": "The type of managed service identity."
-        },
-        "userAssignedIdentities": {
-          "type": "object",
-          "description": "The user assigned identities associated with the resource.",
-          "additionalProperties": {
-            "$ref": "../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/UserAssignedIdentity",
-            "x-nullable": true
-          }
-        }
-      },
-      "required": [
-        "type"
-      ]
-    },
-    "SegmentationManagerManagedServiceIdentityV2026PreviewUpdate": {
-      "type": "object",
-      "description": "Managed service identity for the segmentation manager in API version 2026-01-01-preview.",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/SegmentationManagerManagedServiceIdentityTypeV2026Preview",
+          "$ref": "#/definitions/SegmentationManagerManagedServiceIdentityType",
           "description": "The type of managed service identity."
         },
         "userAssignedIdentities": {
@@ -993,7 +948,7 @@
           "description": "The resource-specific properties for this resource."
         },
         "identity": {
-          "$ref": "#/definitions/SegmentationManagerManagedServiceIdentityV2026Preview",
+          "$ref": "#/definitions/SegmentationManagerManagedServiceIdentity",
           "description": "The managed service identities assigned to this resource."
         },
         "managedBy": {
@@ -1037,7 +992,7 @@
           "description": "The resource-specific properties for this resource."
         },
         "identity": {
-          "$ref": "#/definitions/SegmentationManagerManagedServiceIdentityV2026PreviewUpdate",
+          "$ref": "#/definitions/SegmentationManagerManagedServiceIdentityUpdate",
           "description": "The managed service identities assigned to this resource."
         },
         "managedBy": {

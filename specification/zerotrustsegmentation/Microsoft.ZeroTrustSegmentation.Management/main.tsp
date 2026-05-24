@@ -106,32 +106,9 @@ model SegmentationManagerV2026Preview
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Adding property for versioning"
   @doc("The managed service identities assigned to this resource.")
-  identity?: SegmentationManagerManagedServiceIdentityV2026Preview;
+  identity?: SegmentationManagerManagedServiceIdentity;
 
   ...ManagedByProperty;
-}
-
-@added(Versions.v2026_01_01_preview)
-@doc("Managed service identity for the segmentation manager in API version 2026-01-01-preview.")
-model SegmentationManagerManagedServiceIdentityV2026Preview {
-  @doc("The type of managed service identity.")
-  type: SegmentationManagerManagedServiceIdentityTypeV2026Preview;
-
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Following ARM pattern for user assigned identities"
-  @doc("The user assigned identities associated with the resource.")
-  userAssignedIdentities?: Record<Azure.ResourceManager.CommonTypes.UserAssignedIdentity | null>;
-}
-
-@added(Versions.v2026_01_01_preview)
-@doc("The type of managed service identity for API version 2026-01-01-preview.")
-union SegmentationManagerManagedServiceIdentityTypeV2026Preview {
-  @doc("No managed identity is assigned to this resource.")
-  "None",
-
-  @doc("User Assigned Managed Identity")
-  "UserAssigned",
-
-  string,
 }
 
 @added(Versions.v2026_01_01_preview)
