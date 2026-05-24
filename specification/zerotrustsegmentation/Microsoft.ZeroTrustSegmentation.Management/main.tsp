@@ -50,9 +50,7 @@ model SegmentationManagerManagedServiceIdentity {
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Following ARM pattern for user assigned identities"
   @doc("The user assigned identities associated with the resource.")
-  userAssignedIdentities?: Record<
-    | Azure.ResourceManager.CommonTypes.UserAssignedIdentity
-    | null>;
+  userAssignedIdentities?: Record<Azure.ResourceManager.CommonTypes.UserAssignedIdentity | null>;
 }
 
 @added(Versions.v2025_07_01_preview)
@@ -108,7 +106,7 @@ model SegmentationManagerV2026Preview
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Adding property for versioning"
   @doc("The managed service identities assigned to this resource.")
-  identity?: SegmentationManagerManagedServiceIdentity;
+  identity: SegmentationManagerManagedServiceIdentity;
 
   ...ManagedByProperty;
 }
