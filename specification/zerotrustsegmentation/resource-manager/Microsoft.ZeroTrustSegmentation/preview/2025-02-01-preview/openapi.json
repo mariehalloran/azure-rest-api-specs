@@ -672,10 +672,6 @@
         "properties": {
           "$ref": "#/definitions/SegmentationManagerProperties",
           "description": "The resource-specific properties for this resource."
-        },
-        "managedBy": {
-          "type": "string",
-          "description": "The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource."
         }
       },
       "allOf": [
@@ -811,55 +807,6 @@
         }
       }
     },
-    "SegmentationManagerProvisioningState": {
-      "type": "string",
-      "description": "The provisioning state of a resource type.",
-      "enum": [
-        "Succeeded",
-        "Failed",
-        "Canceled",
-        "Provisioning",
-        "Deleting",
-        "Accepted"
-      ],
-      "x-ms-enum": {
-        "name": "SegmentationManagerProvisioningState",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Succeeded",
-            "value": "Succeeded",
-            "description": "Resource has been created."
-          },
-          {
-            "name": "Failed",
-            "value": "Failed",
-            "description": "Resource creation failed."
-          },
-          {
-            "name": "Canceled",
-            "value": "Canceled",
-            "description": "Resource creation was canceled."
-          },
-          {
-            "name": "Provisioning",
-            "value": "Provisioning",
-            "description": "Resource provisioning in progress."
-          },
-          {
-            "name": "Deleting",
-            "value": "Deleting",
-            "description": "Resource deletion in progress."
-          },
-          {
-            "name": "Accepted",
-            "value": "Accepted",
-            "description": "Resource provisioning request has been accepted."
-          }
-        ]
-      },
-      "readOnly": true
-    },
     "SegmentationManagerUpdate": {
       "type": "object",
       "description": "A zero trust segmentation resource. this resource defines the SegmentationManager.",
@@ -867,10 +814,6 @@
         "properties": {
           "$ref": "#/definitions/SegmentationManagerPropertiesUpdate",
           "description": "The resource-specific properties for this resource."
-        },
-        "managedBy": {
-          "type": "string",
-          "description": "The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource."
         }
       },
       "allOf": [

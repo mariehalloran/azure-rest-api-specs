@@ -40,8 +40,6 @@ model SegmentationManager is TrackedResource<SegmentationManagerProperties> {
   @added(Versions.v2025_07_01_preview)
   @doc("The managed service identities assigned to this resource.")
   identity?: SegmentationManagerManagedServiceIdentity;
-
-  ...ManagedByProperty;
 }
 
 @added(Versions.v2025_07_01_preview)
@@ -69,28 +67,6 @@ union SegmentationManagerManagedServiceIdentityType {
 
 @doc("Segmentation manager properties")
 model SegmentationManagerProperties {
-  @added(Versions.v2026_01_01_preview)
-  @doc("The collection of Azure resource IDs that define the scope of the segmentation.")
-  scope: Azure.Core.armResourceIdentifier<[
-    {
-      type: "Microsoft.Network/virtualNetworks";
-    }
-  ]>[];
-
-  @added(Versions.v2026_01_01_preview)
-  @doc("Azure Resource ID of the Log Analytics Workspace where graph data will be stored")
-  targetLogAnalyticsWorkspaceId: Azure.Core.armResourceIdentifier<[
-    {
-      type: "Microsoft.OperationalInsights/workspaces";
-    }
-  ]>;
-
-  @added(Versions.v2026_01_01_preview)
-  @doc("Managed-On-Behalf-Of configuration.")
-  @visibility(Lifecycle.Read)
-  managedOnBehalfOfConfiguration?: CommonTypes.ManagedOnBehalfOfConfiguration;
-
-  @removed(Versions.v2026_01_01_preview)
   @doc("The collection of ARM resource IDs for the monitored logs.")
   logSources: Azure.Core.armResourceIdentifier<[
     {
@@ -98,7 +74,6 @@ model SegmentationManagerProperties {
     }
   ]>[];
 
-  @removed(Versions.v2026_01_01_preview)
   @doc("The analysis run type")
   analysisRunType: AnalysisRunType;
 
@@ -108,21 +83,93 @@ model SegmentationManagerProperties {
   @doc("The end time of a snapshot run")
   endTime?: utcDateTime;
 
-  @removed(Versions.v2026_01_01_preview)
   @doc("The mode of segmentation to be applied")
   segmentationMode: SegmentationMode;
 
   @doc("The description of the segmentation manager")
   description?: string;
 
-  @visibility(Lifecycle.Read)
-  @doc("The provisioning state of the resource.")
-  @typeChangedFrom(Versions.v2026_01_01_preview, ResourceProvisioningState)
-  provisioningState?: SegmentationManagerProvisioningState;
+  ...DefaultProvisioningStateProperty;
+  ...ManagedByProperty;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("A zero trust segmentation resource for API version 2026-01-01-preview.")
+model SegmentationManagerV2026Preview
+  is TrackedResource<SegmentationManagerPropertiesV2026Preview> {
+  @doc("Name of the segmentation manager")
+  @key("segmentationManagerName")
+  @pattern("^[a-zA-Z0-9-]{3,250}$")
+  @path
+  @segment("segmentationManagers")
+  name: string;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Adding property for versioning"
+  @doc("The managed service identities assigned to this resource.")
+  identity?: SegmentationManagerManagedServiceIdentityV2026Preview;
 
   ...ManagedByProperty;
 }
 
+@added(Versions.v2026_01_01_preview)
+@doc("Managed service identity for the segmentation manager in API version 2026-01-01-preview.")
+model SegmentationManagerManagedServiceIdentityV2026Preview {
+  @doc("The type of managed service identity.")
+  type: SegmentationManagerManagedServiceIdentityTypeV2026Preview;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Following ARM pattern for user assigned identities"
+  @doc("The user assigned identities associated with the resource.")
+  userAssignedIdentities?: Record<Azure.ResourceManager.CommonTypes.UserAssignedIdentity | null>;
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("The type of managed service identity for API version 2026-01-01-preview.")
+union SegmentationManagerManagedServiceIdentityTypeV2026Preview {
+  @doc("No managed identity is assigned to this resource.")
+  "None",
+
+  @doc("User Assigned Managed Identity")
+  "UserAssigned",
+
+  string,
+}
+
+@added(Versions.v2026_01_01_preview)
+@doc("Segmentation manager properties for API version 2026-01-01-preview.")
+model SegmentationManagerPropertiesV2026Preview {
+  @doc("The collection of Azure resource IDs that define the scope of the segmentation.")
+  scope: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Network/virtualNetworks";
+    }
+  ]>[];
+
+  @doc("Azure Resource ID of the Log Analytics Workspace where graph data will be stored")
+  targetLogAnalyticsWorkspaceId: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.OperationalInsights/workspaces";
+    }
+  ]>;
+
+  @doc("Managed-On-Behalf-Of configuration.")
+  @visibility(Lifecycle.Read)
+  managedOnBehalfOfConfiguration?: CommonTypes.ManagedOnBehalfOfConfiguration;
+
+  @doc("The start time of a snapshot run")
+  startTime?: utcDateTime;
+
+  @doc("The end time of a snapshot run")
+  endTime?: utcDateTime;
+
+  @doc("The description of the segmentation manager")
+  description?: string;
+
+  @visibility(Lifecycle.Read)
+  @doc("The provisioning state of the resource.")
+  provisioningState?: SegmentationManagerProvisioningState;
+}
+
+@added(Versions.v2026_01_01_preview)
 @doc("The provisioning state of a resource type.")
 @Azure.Core.lroStatus
 union SegmentationManagerProvisioningState {
@@ -232,8 +279,7 @@ model Vertex {
   location: string;
 
   @doc("Azure Resource Manager ID of the vertex")
-  @typeChangedFrom(Versions.v2026_01_01_preview, string)
-  armId?: Azure.Core.armResourceIdentifier;
+  armId?: string;
 
   @doc("Name of the vertex")
   name?: string;
@@ -304,50 +350,39 @@ interface Operations extends Azure.ResourceManager.Operations {}
 
 @armResourceOperations
 interface SegmentationManagers {
+  // 2025 operations (available in 2025 API versions, removed in 2026).
+  @sharedRoute
+  @removed(Versions.v2026_01_01_preview)
   get is ArmResourceRead<SegmentationManager>;
+
   @list
+  @sharedRoute
+  @removed(Versions.v2026_01_01_preview)
   listByResourceGroup is ArmResourceListByParent<SegmentationManager>;
+
   @list
+  @sharedRoute
+  @removed(Versions.v2026_01_01_preview)
   listBySubscription is ArmListBySubscription<SegmentationManager>;
 
   @sharedRoute
   @removed(Versions.v2026_01_01_preview)
-  @renamedFrom(Versions.v2026_01_01_preview, "createOrReplace")
-  createOrReplaceSync is ArmResourceCreateOrReplaceSync<SegmentationManager>;
-
-  @sharedRoute
-  @added(Versions.v2026_01_01_preview)
-  createOrReplace is ArmResourceCreateOrReplaceAsync<SegmentationManager>;
+  createOrReplace is ArmResourceCreateOrReplaceSync<SegmentationManager>;
 
   @sharedRoute
   @removed(Versions.v2026_01_01_preview)
-  @renamedFrom(Versions.v2026_01_01_preview, "update")
-  updateSync is ArmResourcePatchSync<
-    SegmentationManager,
-    SegmentationManagerProperties
-  >;
-
-  @sharedRoute
-  @added(Versions.v2026_01_01_preview)
-  update is ArmResourcePatchAsync<
+  update is ArmResourcePatchSync<
     SegmentationManager,
     SegmentationManagerProperties
   >;
 
   @sharedRoute
   @removed(Versions.v2026_01_01_preview)
-  @renamedFrom(Versions.v2026_01_01_preview, "delete")
-  deleteSync is ArmResourceDeleteSync<SegmentationManager>;
-
-  // Async delete for 2026+
-  @sharedRoute
-  @added(Versions.v2026_01_01_preview)
-  delete is ArmResourceDeleteWithoutOkAsync<SegmentationManager>;
+  delete is ArmResourceDeleteSync<SegmentationManager>;
 
   @sharedRoute
   @removed(Versions.v2026_01_01_preview)
-  @renamedFrom(Versions.v2026_01_01_preview, "setLabels")
-  setLabelsSync is ArmResourceActionNoContentSync<
+  setLabels is ArmResourceActionNoContentSync<
     SegmentationManager,
     SetLabelsRequest
   >;
@@ -359,11 +394,48 @@ interface SegmentationManagers {
     GetGraphResponse
   >;
 
+  // 2026 operations (introduced in 2026-01-01-preview).
+  @sharedRoute
+  @renamedFrom(Versions.v2026_01_01_preview, "get")
+  @added(Versions.v2026_01_01_preview)
+  getAsync is ArmResourceRead<SegmentationManagerV2026Preview>;
+
+  @list
+  @sharedRoute
+  @renamedFrom(Versions.v2026_01_01_preview, "listByResourceGroup")
+  @added(Versions.v2026_01_01_preview)
+  listByResourceGroupAsync is ArmResourceListByParent<SegmentationManagerV2026Preview>;
+
+  @list
+  @sharedRoute
+  @renamedFrom(Versions.v2026_01_01_preview, "listBySubscription")
+  @added(Versions.v2026_01_01_preview)
+  listBySubscriptionAsync is ArmListBySubscription<SegmentationManagerV2026Preview>;
+
+  @sharedRoute
+  @renamedFrom(Versions.v2026_01_01_preview, "createOrReplace")
+  @added(Versions.v2026_01_01_preview)
+  createOrReplaceAsync is ArmResourceCreateOrReplaceAsync<SegmentationManagerV2026Preview>;
+
+  @sharedRoute
+  @renamedFrom(Versions.v2026_01_01_preview, "update")
+  @added(Versions.v2026_01_01_preview)
+  updateAsync is ArmResourcePatchAsync<
+    SegmentationManagerV2026Preview,
+    SegmentationManagerPropertiesV2026Preview
+  >;
+
+  @sharedRoute
+  @renamedFrom(Versions.v2026_01_01_preview, "delete")
+  @added(Versions.v2026_01_01_preview)
+  deleteAsync is ArmResourceDeleteWithoutOkAsync<SegmentationManagerV2026Preview>;
+
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "Required to align with PostResponseCodes"
+  @renamedFrom(Versions.v2026_01_01_preview, "setWorkloadSegments")
   @added(Versions.v2026_01_01_preview)
   @doc("Set segments for the provided workloads. This API can be used to update or remove workload segments.")
-  setWorkloadSegments is ArmResourceActionNoContentAsync<
-    SegmentationManager,
+  setWorkloadSegmentsAsync is ArmResourceActionNoContentAsync<
+    SegmentationManagerV2026Preview,
     SetWorkloadSegmentsRequest
   >;
 }
