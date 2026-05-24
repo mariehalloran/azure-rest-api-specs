@@ -112,6 +112,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "List SegmentationManager by subscription": {
+            "$ref": "./examples/SegmentationManagerListBySubscription.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -147,6 +152,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "List SegmentationManagers by resource group": {
+            "$ref": "./examples/SegmentationManagerListByResourceGroup.json"
           }
         },
         "x-ms-pageable": {
@@ -192,6 +202,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Get a SegmentationManager": {
+            "$ref": "./examples/SegmentationManagerGet.json"
           }
         }
       },
@@ -258,6 +273,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Create or update a SegmentationManager": {
+            "$ref": "./examples/SegmentationManagerPut.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -327,6 +347,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "Update a SegmentationManager": {
+            "$ref": "./examples/SegmentationManagerPatch.json"
+          }
+        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -380,6 +405,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a SegmentationManager": {
+            "$ref": "./examples/SegmentationManagerDelete.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -446,6 +476,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Set segments for workloads": {
+            "$ref": "./examples/SegmentationManagers_SetWorkloadSegments.json"
           }
         },
         "x-ms-long-running-operation-options": {
