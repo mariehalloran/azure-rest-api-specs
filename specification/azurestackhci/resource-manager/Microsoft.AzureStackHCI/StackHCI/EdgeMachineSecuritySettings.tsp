@@ -55,4 +55,14 @@ interface EdgeMachineSecuritySettingsOperations {
    */
   @added(Versions.v2026_03_15_preview)
   listByEdgeMachine is ArmResourceListByParent<EdgeMachineSecuritySettings>;
+
+  /**
+   * Trigger refresh sync for edge machine security settings.
+   */
+  @added(Versions.v2026_03_15_preview)
+  refresh is ArmResourceActionAsync<
+    EdgeMachineSecuritySettings,
+    void,
+    EdgeMachineSecuritySettings
+  >;
 }
