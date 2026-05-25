@@ -12112,20 +12112,29 @@
     },
     "ChangeRingRequest": {
       "type": "object",
+      "description": "Request body for the change-ring action on a cluster.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/ChangeRingRequestProperties"
+          "$ref": "#/definitions/ChangeRingRequestProperties",
+          "description": "Properties of the change-ring request."
         }
-      }
+      },
+      "required": [
+        "properties"
+      ]
     },
     "ChangeRingRequestProperties": {
       "type": "object",
+      "description": "Properties for the change-ring request.",
       "properties": {
         "targetRing": {
           "type": "string",
           "description": "The target ring for the cluster."
         }
-      }
+      },
+      "required": [
+        "targetRing"
+      ]
     },
     "CheckUpdatesRequest": {
       "type": "object",
@@ -12152,7 +12161,7 @@
         },
         "claimedBy": {
           "type": "string",
-          "description": "Resource Id of group device belongs to."
+          "description": "Identifier of the group the device belongs to."
         }
       },
       "required": [
@@ -14440,7 +14449,7 @@
         },
         "claimedBy": {
           "type": "string",
-          "description": "Resource Id of group device belongs to.",
+          "description": "Identifier of the group the device belongs to.",
           "readOnly": true
         }
       }
@@ -18997,7 +19006,7 @@
         },
         "sdnProperties": {
           "$ref": "#/definitions/SdnProperties",
-          "description": "oftware Defined Networking Properties of the cluster",
+          "description": "Software Defined Networking Properties of the device.",
           "readOnly": true
         }
       }
