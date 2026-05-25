@@ -12857,17 +12857,27 @@
       "type": "object",
       "description": "Represents the Software Defined Networking (SDN) configuration state of the Azure Stack HCI cluster.",
       "properties": {
+        "sdnStatus": {
+          "$ref": "#/definitions/SdnStatus",
+          "description": "Indicates the current Software Defined Networking (SDN) status of the resource, which may be an individual device or a cluster.",
+          "readOnly": true
+        },
+        "sdnDomainName": {
+          "type": "string",
+          "description": "The fully qualified domain name (FQDN) associated with the SDN deployment. This value is propagated from the Device Management Extension to the cluster resource. It is typically in the format `<sdnPrefix>-nc.<domain>` when SDN is enabled. May be null or absent in unsupported or disabled states.",
+          "readOnly": true
+        },
+        "sdnApiAddress": {
+          "type": "string",
+          "description": "Represents the API address for the SDN deployment.",
+          "readOnly": true
+        },
         "sdnIntegrationIntent": {
           "$ref": "#/definitions/SdnIntegrationIntent",
           "description": "Indicates whether Software Defined Networking (SDN) integration should be enabled or disabled for this deployment.",
           "readOnly": true
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/SdnProperties"
-        }
-      ]
+      }
     },
     "ClusterVolume": {
       "type": "object",
@@ -18349,8 +18359,8 @@
           ]
         },
         "witnessType": {
-          "type": "string",
-          "description": "Use a cloud witness if you have internet access and if you use an Azure Storage account to provide a vote on cluster quorum. A cloud witness uses Azure Blob Storage to read or write a blob file and then uses it to arbitrate in split-brain resolution. Only allowed values are 'Cloud', 'FileShare'"
+          "$ref": "#/definitions/WitnessType",
+          "description": "Use a cloud witness if you have internet access and if you use an Azure Storage account to provide a vote on cluster quorum. A cloud witness uses Azure Blob Storage to read or write a blob file and then uses it to arbitrate in split-brain resolution."
         },
         "witnessPath": {
           "type": "string",
@@ -26695,6 +26705,30 @@
             "name": "Enabled",
             "value": "Enabled",
             "description": "Windows Server Subscription is enabled."
+          }
+        ]
+      }
+    },
+    "WitnessType": {
+      "type": "string",
+      "description": "Witness type for an Azure Stack HCI cluster.",
+      "enum": [
+        "Cloud",
+        "FileShare"
+      ],
+      "x-ms-enum": {
+        "name": "WitnessType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Cloud",
+            "value": "Cloud",
+            "description": "Cloud witness backed by an Azure Storage account."
+          },
+          {
+            "name": "FileShare",
+            "value": "FileShare",
+            "description": "File-share witness on a local SMB share."
           }
         ]
       }

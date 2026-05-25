@@ -672,6 +672,20 @@ union HardwareClass {
 }
 
 /**
+ * Witness type for an Azure Stack HCI cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+union WitnessType {
+  string,
+
+  /** Cloud witness backed by an Azure Storage account. */
+  Cloud: "Cloud",
+
+  /** File-share witness on a local SMB share. */
+  FileShare: "FileShare",
+}
+
+/**
  * Type of secrets to store
  */
 union SecretsType {
@@ -6618,9 +6632,10 @@ union IgvmStatus {
 /**
  * Represents the Software Defined Networking (SDN) configuration state of the Azure Stack HCI cluster.
  */
-#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "For backward compatibility"
 @added(Versions.v2026_03_15_preview)
-model ClusterSdnProperties extends SdnProperties {
+model ClusterSdnProperties {
+  ...SdnProperties;
+
   /**
    * Indicates whether Software Defined Networking (SDN) integration should be enabled or disabled for this deployment.
    */
@@ -6762,8 +6777,8 @@ model HciAddServerJobProperties extends ClusterJobProperties {
   @Azure.ResourceManager.identifiers(#["secretName"])
   secrets?: EceDeploymentSecrets[];
 
-  /** Use a cloud witness if you have internet access and if you use an Azure Storage account to provide a vote on cluster quorum. A cloud witness uses Azure Blob Storage to read or write a blob file and then uses it to arbitrate in split-brain resolution. Only allowed values are 'Cloud', 'FileShare' */
-  witnessType?: string;
+  /** Use a cloud witness if you have internet access and if you use an Azure Storage account to provide a vote on cluster quorum. A cloud witness uses Azure Blob Storage to read or write a blob file and then uses it to arbitrate in split-brain resolution. */
+  witnessType?: WitnessType;
 
   /** Specify the fileshare path for the local witness for your Azure Stack HCI cluster. */
   witnessPath?: string;
