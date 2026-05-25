@@ -1,0 +1,11 @@
+- tool: LintDiff
+  paths:
+    - resource-manager/Microsoft.FoundryLocal/foundrylocal/preview/2026-05-01-preview/openapi.json
+  rules:
+    - AvoidAdditionalProperties
+  reason: >-
+    Microsoft.FoundryLocal uses the Extensions/configurationSettings pattern
+    (same as Microsoft.KubernetesConfiguration/extensions). The configurationSettings,
+    configurationProtectedSettings, and status properties are intentionally
+    Record<string> (additionalProperties) to allow opaque key-value configuration
+    without requiring spec changes for each new setting.
