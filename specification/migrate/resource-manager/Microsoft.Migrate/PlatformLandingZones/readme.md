@@ -39,4 +39,8 @@ suppressions:
     reason: AMH feature is widely adopted and requires additionalProperties for these swagger properties.
   - code: DescriptionMustNotBeNodeName
     reason: Migrate Project swagger is not in typespec.
+  - code: NestedResourcesMustHaveListOperation
+    reason: BillOfMaterials is a singleton ('default') projection of its parent Platform Landing Zone and therefore has no list operation by design.
+  - code: ValidFormats
+    reason: Bill of Materials monetary amounts use decimal128 to avoid float rounding for currency totals. The autorest emitter renders this as 'format: decimal' which is intentional and reviewed by the API stewardship board.
 ```
