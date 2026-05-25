@@ -37,22 +37,6 @@ These settings apply only when `--tag=package-2026-01-01-preview` is specified o
 ```yaml $(tag) == 'package-2026-01-01-preview'
 input-file:
   - preview/2026-01-01-preview/NetworkDiscovery.json
-suppressions:
-  - code: PostResponseCodes
-    from: NetworkDiscovery.json
-    where:
-      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApplicationMigration/networkSites/{siteName}/agents/{agentName}/refresh"].post
-    reason: >
-      The LintDiff PostResponseCodes rule incorrectly flags valid `202 + default`
-      async POST operations. Known upstream bug:
-      https://github.com/Azure/azure-openapi-validator/issues/809.
-      Per @markcowl (https://github.com/Azure/typespec-azure/issues/857#issuecomment-2138277638),
-      services should only return 202 or error for async POST when no
-      synchronous completion occurs. The triggerRefresh backend returns no
-      response body, so the shape emitted by
-      `ArmResourceActionNoResponseContentAsync<NetworkAgent, void>`
-      (202 + default) is correct. Matches sibling workload agents (PGSQL,
-      MongoDB, Oracle, Storage) in Microsoft.ApplicationMigration.
 ```
 
 # Code Generation
