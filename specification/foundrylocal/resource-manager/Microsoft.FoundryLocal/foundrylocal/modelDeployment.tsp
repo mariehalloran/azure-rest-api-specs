@@ -23,13 +23,16 @@ model ModelDeploymentProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ResourceProvisioningState;
 
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Extensions pattern uses Record<string> for opaque configurationSettings"
   @doc("Configuration settings as name-value pairs for the model deployment.")
   configurationSettings?: Record<string>;
 
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Extensions pattern uses Record<string> for opaque configurationProtectedSettings"
   @doc("Configuration settings that are sensitive, as name-value pairs. Write-only — never returned on GET.")
   @secret
   configurationProtectedSettings?: Record<string>;
 
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Extensions pattern uses Record<string> for opaque status"
   @doc("Read-only status of the model deployment reported from the cluster.")
   @visibility(Lifecycle.Read)
   status?: Record<string>;

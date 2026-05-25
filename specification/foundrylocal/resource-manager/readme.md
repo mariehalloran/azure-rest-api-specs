@@ -36,5 +36,5 @@ These settings apply only when `--tag=package-2026-05-01-preview` is specified o
 
 ```yaml $(tag) == 'package-2026-05-01-preview'
 input-file:
-  - Microsoft.FoundryLocal/preview/2026-05-01-preview/foundrylocal.json
+  - Microsoft.FoundryLocal/foundrylocal/preview/2026-05-01-preview/openapi.json
 ```
