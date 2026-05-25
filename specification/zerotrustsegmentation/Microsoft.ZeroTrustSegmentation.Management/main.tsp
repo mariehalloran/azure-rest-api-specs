@@ -342,14 +342,6 @@ interface SegmentationManagersV2025 {
   @sharedRoute
   get is ArmResourceRead<SegmentationManagerV2025>;
 
-  @list
-  @sharedRoute
-  listByResourceGroup is ArmResourceListByParent<SegmentationManagerV2025>;
-
-  @list
-  @sharedRoute
-  listBySubscription is ArmListBySubscription<SegmentationManagerV2025>;
-
   @sharedRoute
   createOrReplace is ArmResourceCreateOrReplaceSync<SegmentationManagerV2025>;
 
@@ -361,6 +353,14 @@ interface SegmentationManagersV2025 {
 
   @sharedRoute
   delete is ArmResourceDeleteSync<SegmentationManagerV2025>;
+
+  @list
+  @sharedRoute
+  listByResourceGroup is ArmResourceListByParent<SegmentationManagerV2025>;
+
+  @list
+  @sharedRoute
+  listBySubscription is ArmListBySubscription<SegmentationManagerV2025>;
 
   setLabels is ArmResourceActionNoContentSync<
     SegmentationManagerV2025,
@@ -380,14 +380,6 @@ interface SegmentationManagers {
   @sharedRoute
   get is ArmResourceRead<SegmentationManager>;
 
-  @list
-  @sharedRoute
-  listByResourceGroup is ArmResourceListByParent<SegmentationManager>;
-
-  @list
-  @sharedRoute
-  listBySubscription is ArmListBySubscription<SegmentationManager>;
-
   @sharedRoute
   createOrReplace is ArmResourceCreateOrReplaceAsync<SegmentationManager>;
 
@@ -399,6 +391,14 @@ interface SegmentationManagers {
 
   @sharedRoute
   delete is ArmResourceDeleteWithoutOkAsync<SegmentationManager>;
+
+  @list
+  @sharedRoute
+  listByResourceGroup is ArmResourceListByParent<SegmentationManager>;
+
+  @list
+  @sharedRoute
+  listBySubscription is ArmListBySubscription<SegmentationManager>;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "Required to align with PostResponseCodes"
   @doc("Set segments for the provided workloads. This API can be used to update or remove workload segments.")
