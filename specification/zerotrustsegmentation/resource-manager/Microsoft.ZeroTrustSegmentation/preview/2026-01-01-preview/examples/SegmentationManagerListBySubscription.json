@@ -2,8 +2,6 @@
   "operationId": "SegmentationManagers_ListBySubscription",
   "title": "List SegmentationManager by subscription",
   "parameters": {
-    "segmentationManagerName": "sample-segmentationManager",
-    "resourceGroupName": "sample-rg",
     "api-version": "2026-01-01-preview",
     "subscriptionId": "123e4567-e89b-12d3-a456-426614174000"
   },
@@ -12,26 +10,26 @@
       "body": {
         "value": [
           {
-            "id": "/subscriptions/sample-subscription-id/resourceGroups/sample-rg/providers/Microsoft.ZeroTrustSegmentation/segmentationManagers/sample-segmentationManager",
+            "id": "/subscriptions/123e4567-e89b-12d3-a456-426614174000/resourceGroups/sample-rg/providers/Microsoft.ZeroTrustSegmentation/segmentationManagers/sample-segmentationManager",
             "name": "sample-segmentationManager",
             "type": "Microsoft.ZeroTrustSegmentation/segmentationManagers",
             "location": "westeurope",
-            "managedBy": "subscriptions/{subscription-id}/resourceGroups/{resource-group}/providers/Microsoft.ZeroTrustSegmentation/networkManagers/{resource-name}",
+            "managedBy": "/subscriptions/123e4567-e89b-12d3-a456-426614174000/resourceGroups/sample-rg/providers/Microsoft.ZeroTrustSegmentation/networkManagers/sample-networkManager",
             "identity": {
               "type": "UserAssigned",
               "userAssignedIdentities": {
-                "/subscriptions/{subscription-id}/resourceGroups/{resource-group}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identity-name}": {}
+                "/subscriptions/123e4567-e89b-12d3-a456-426614174000/resourceGroups/sample-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sample-identity": {}
               }
             },
             "properties": {
               "scope": [
-                "/subscriptions/{subscription-id}/resourceGroups/{resource-group}/providers/{resource-provider}/{resource-type}/{resource-name}"
+                "/subscriptions/123e4567-e89b-12d3-a456-426614174000/resourceGroups/sample-rg/providers/Microsoft.Network/virtualNetworks/sample-vnet"
               ],
-              "targetLogAnalyticsWorkspaceId": "/subscriptions/{subscription-id}/resourceGroups/{resource-group}/providers/Microsoft.OperationalInsights/workspaces/{resource-name}",
+              "targetLogAnalyticsWorkspaceId": "/subscriptions/123e4567-e89b-12d3-a456-426614174000/resourceGroups/sample-rg/providers/Microsoft.OperationalInsights/workspaces/sample-law",
               "managedOnBehalfOfConfiguration": {
                 "moboBrokerResources": [
                   {
-                    "id": "/subscriptions/{subscription-id}/resourceGroups/{resource-group}/providers/Microsoft.ZeroTrustSegmentation/networkManagers/{resource-name}/moboBrokers/{mobo-broker-name}"
+                    "id": "/subscriptions/123e4567-e89b-12d3-a456-426614174000/resourceGroups/sample-rg/providers/Microsoft.ZeroTrustSegmentation/networkManagers/sample-networkManager/moboBrokers/sample-mobo-broker"
                   }
                 ]
               },
