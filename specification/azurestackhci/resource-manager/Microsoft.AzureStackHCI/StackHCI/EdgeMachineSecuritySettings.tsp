@@ -60,9 +60,8 @@ interface EdgeMachineSecuritySettingsOperations {
    * Trigger refresh sync for edge machine security settings.
    */
   @added(Versions.v2026_03_15_preview)
-  refresh is ArmResourceActionAsync<
+  refresh is ArmResourceActionNoResponseContentAsync<
     EdgeMachineSecuritySettings,
-    void,
-    EdgeMachineSecuritySettings
+    void
   >;
 }
