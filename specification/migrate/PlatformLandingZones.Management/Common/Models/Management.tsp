@@ -96,6 +96,12 @@ model UpdateManagementConfig {
   maintenanceConfigurationName?: string;
 }
 
+@doc("Azure Monitor Baseline Alerts (AMBA) configuration. AMBA is the Microsoft-recommended baseline set of alert rules for ALZ platform services.")
+model AmbaConfig {
+  @doc("Whether the AMBA baseline alert rule set is deployed.")
+  enabled: boolean;
+}
+
 @doc("Management plane configuration for the landing zone.")
 model Management {
   @doc("Log Analytics workspace configuration.")
@@ -121,4 +127,7 @@ model Management {
 
   @doc("Azure Update Manager configuration.")
   updateManagement?: UpdateManagementConfig;
+
+  @doc("Azure Monitor Baseline Alerts configuration.")
+  amba?: AmbaConfig;
 }

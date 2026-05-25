@@ -40,6 +40,20 @@ union InternetEgressModel {
   DirectFromSpoke: "DirectFromSpoke",
 }
 
+@doc("Deployment scale tier of the landing zone. Selects how much of the ALZ topology is materialized.")
+union ScaleTier {
+  string,
+
+  @doc("Lightweight landing zone with reduced platform footprint.")
+  Lite: "Lite",
+
+  @doc("Full ALZ topology including all platform services.")
+  Full: "Full",
+
+  @doc("Management-only landing zone with no platform-managed network connectivity. When selected, Connectivity.topology must also be ManagementOnly.")
+  ManagementOnly: "ManagementOnly",
+}
+
 // =============================================================================
 // Subscription model
 // =============================================================================

@@ -40,6 +40,10 @@ model BillOfMaterialsProperties {
   @doc("Aggregated Bill of Materials line items.")
   @identifiers(#["resourceType", "sku", "location"])
   items: BillOfMaterialsItem[];
+
+  @visibility(Lifecycle.Read)
+  @doc("Timestamp at which the prices in this Bill of Materials were snapshotted from the Azure Retail Prices API.")
+  pricingSnapshotAt?: utcDateTime;
 }
 
 @doc("A single aggregated line item in the Bill of Materials. Identical resources across subscriptions/spokes are collapsed into a single row whose quantity reflects the multiplicity.")

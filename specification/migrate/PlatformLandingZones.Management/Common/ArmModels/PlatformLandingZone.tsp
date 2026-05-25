@@ -33,6 +33,13 @@ model PlatformLandingZone is ProxyResource<PlatformLandingZoneProperties> {
 
 @doc("Properties of a Platform Landing Zone. This envelope is grown incrementally as sub-blocks are introduced.")
 model PlatformLandingZoneProperties {
+  @doc("Deployment scale tier of the landing zone. When set to ManagementOnly, Connectivity.topology must also be ManagementOnly.")
+  scaleTier?: ScaleTier;
+
+  @visibility(Lifecycle.Create)
+  @doc("ARM resource id of the parent management group under which the ALZ management group hierarchy will be created. Create-only; cannot be changed after the landing zone is created.")
+  parentManagementGroupId?: string;
+
   @doc("Platform subscription topology.")
   platformSubscriptions?: PlatformSubscriptions;
 

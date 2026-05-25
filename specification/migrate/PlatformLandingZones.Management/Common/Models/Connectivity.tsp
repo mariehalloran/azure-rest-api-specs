@@ -29,6 +29,9 @@ model AzureFirewallConfig extends FirewallConfig {
   @doc("Intrusion Detection and Prevention System mode. Requires the Premium SKU.")
   idpsMode?: IdpsMode;
 
+  @doc("Subnet CIDR (AzureFirewallSubnet) allocated to Azure Firewall in the hub.")
+  subnetAddressPrefix?: string;
+
   @doc("Names of regions in which the firewall is deployed. When omitted, the firewall is deployed in every region declared on the landing zone.")
   deployInRegions?: string[];
 }
@@ -61,6 +64,9 @@ model BastionConfig {
   @maxValue(50)
   scaleUnits?: int32;
 
+  @doc("Subnet CIDR (AzureBastionSubnet) allocated to Azure Bastion in the hub.")
+  subnetAddressPrefix?: string;
+
   @doc("Names of regions in which Bastion is deployed. When omitted, Bastion is deployed in every region declared on the landing zone.")
   deployInRegions?: string[];
 }
@@ -81,6 +87,18 @@ model PrivateDnsConfig {
 
   @doc("Whether centralized Private DNS resolution via the connectivity subscription is enabled. When true, spoke VNets resolve Private Link records through the hub.")
   centralizedResolutionEnabled?: boolean;
+
+  @doc("Whether a Private DNS zone is auto-registered (records for VMs in linked VNets are created automatically).")
+  autoRegistrationZoneEnabled?: boolean;
+
+  @doc("Name of the Private DNS zone used for auto-registration, e.g. 'contoso.internal'.")
+  autoRegistrationZoneName?: string;
+
+  @doc("Subnet CIDR allocated to the Private DNS Resolver inbound endpoint.")
+  resolverInboundSubnetAddressPrefix?: string;
+
+  @doc("Subnet CIDR allocated to the Private DNS Resolver outbound endpoint.")
+  resolverOutboundSubnetAddressPrefix?: string;
 }
 
 @doc("VPN Gateway configuration. Available shapes are selected by the topology discriminator and gated by Connectivity.topology.")
@@ -180,4 +198,7 @@ model Connectivity {
 
   @doc("ExpressRoute configuration. Discriminator value must equal Connectivity.topology.")
   expressRoute?: ExpressRouteConfig;
+
+  @doc("Subnet CIDR (GatewaySubnet) allocated to VPN and ExpressRoute gateways in the hub. Hoisted here because the GatewaySubnet is shared by both gateway types.")
+  gatewaySubnetAddressPrefix?: string;
 }

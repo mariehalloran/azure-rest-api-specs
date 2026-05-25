@@ -495,6 +495,19 @@
         ]
       }
     },
+    "AmbaConfig": {
+      "type": "object",
+      "description": "Azure Monitor Baseline Alerts (AMBA) configuration. AMBA is the Microsoft-recommended baseline set of alert rules for ALZ platform services.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the AMBA baseline alert rule set is deployed."
+        }
+      },
+      "required": [
+        "enabled"
+      ]
+    },
     "AutomationConfig": {
       "type": "object",
       "description": "Azure Automation account configuration.",
@@ -585,6 +598,10 @@
         "idpsMode": {
           "$ref": "#/definitions/IdpsMode",
           "description": "Intrusion Detection and Prevention System mode. Requires the Premium SKU."
+        },
+        "subnetAddressPrefix": {
+          "type": "string",
+          "description": "Subnet CIDR (AzureFirewallSubnet) allocated to Azure Firewall in the hub."
         },
         "deployInRegions": {
           "type": "array",
@@ -693,6 +710,10 @@
           "description": "Number of scale units. Only valid when sku is Standard or Premium; ignored for Basic.",
           "minimum": 2,
           "maximum": 50
+        },
+        "subnetAddressPrefix": {
+          "type": "string",
+          "description": "Subnet CIDR (AzureBastionSubnet) allocated to Azure Bastion in the hub."
         },
         "deployInRegions": {
           "type": "array",
@@ -817,6 +838,12 @@
             "sku",
             "location"
           ]
+        },
+        "pricingSnapshotAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp at which the prices in this Bill of Materials were snapshotted from the Azure Retail Prices API.",
+          "readOnly": true
         }
       },
       "required": [
@@ -902,6 +929,10 @@
         "expressRoute": {
           "$ref": "#/definitions/ExpressRouteConfig",
           "description": "ExpressRoute configuration. Discriminator value must equal Connectivity.topology."
+        },
+        "gatewaySubnetAddressPrefix": {
+          "type": "string",
+          "description": "Subnet CIDR (GatewaySubnet) allocated to VPN and ExpressRoute gateways in the hub. Hoisted here because the GatewaySubnet is shared by both gateway types."
         }
       },
       "required": [
@@ -1060,6 +1091,10 @@
         "management": {
           "$ref": "#/definitions/ExistingSubscriptionRef",
           "description": "Subscription that hosts the management platform."
+        },
+        "security": {
+          "$ref": "#/definitions/ExistingSubscriptionRef",
+          "description": "Subscription that hosts the security platform. Per CAF Ready guidance, a dedicated security subscription is recommended alongside identity, connectivity, and management."
         }
       },
       "allOf": [
@@ -1767,6 +1802,10 @@
         "updateManagement": {
           "$ref": "#/definitions/UpdateManagementConfig",
           "description": "Azure Update Manager configuration."
+        },
+        "amba": {
+          "$ref": "#/definitions/AmbaConfig",
+          "description": "Azure Monitor Baseline Alerts configuration."
         }
       },
       "required": [
@@ -1933,6 +1972,17 @@
       "type": "object",
       "description": "Properties of a Platform Landing Zone. This envelope is grown incrementally as sub-blocks are introduced.",
       "properties": {
+        "scaleTier": {
+          "$ref": "#/definitions/ScaleTier",
+          "description": "Deployment scale tier of the landing zone. When set to ManagementOnly, Connectivity.topology must also be ManagementOnly."
+        },
+        "parentManagementGroupId": {
+          "type": "string",
+          "description": "ARM resource id of the parent management group under which the ALZ management group hierarchy will be created. Create-only; cannot be changed after the landing zone is created.",
+          "x-ms-mutability": [
+            "create"
+          ]
+        },
         "platformSubscriptions": {
           "$ref": "#/definitions/PlatformSubscriptions",
           "description": "Platform subscription topology."
@@ -2238,6 +2288,22 @@
         "centralizedResolutionEnabled": {
           "type": "boolean",
           "description": "Whether centralized Private DNS resolution via the connectivity subscription is enabled. When true, spoke VNets resolve Private Link records through the hub."
+        },
+        "autoRegistrationZoneEnabled": {
+          "type": "boolean",
+          "description": "Whether a Private DNS zone is auto-registered (records for VMs in linked VNets are created automatically)."
+        },
+        "autoRegistrationZoneName": {
+          "type": "string",
+          "description": "Name of the Private DNS zone used for auto-registration, e.g. 'contoso.internal'."
+        },
+        "resolverInboundSubnetAddressPrefix": {
+          "type": "string",
+          "description": "Subnet CIDR allocated to the Private DNS Resolver inbound endpoint."
+        },
+        "resolverOutboundSubnetAddressPrefix": {
+          "type": "string",
+          "description": "Subnet CIDR allocated to the Private DNS Resolver outbound endpoint."
         }
       },
       "required": [
@@ -2435,6 +2501,36 @@
         ]
       }
     },
+    "ScaleTier": {
+      "type": "string",
+      "description": "Deployment scale tier of the landing zone. Selects how much of the ALZ topology is materialized.",
+      "enum": [
+        "Lite",
+        "Full",
+        "ManagementOnly"
+      ],
+      "x-ms-enum": {
+        "name": "ScaleTier",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Lite",
+            "value": "Lite",
+            "description": "Lightweight landing zone with reduced platform footprint."
+          },
+          {
+            "name": "Full",
+            "value": "Full",
+            "description": "Full ALZ topology including all platform services."
+          },
+          {
+            "name": "ManagementOnly",
+            "value": "ManagementOnly",
+            "description": "Management-only landing zone with no platform-managed network connectivity. When selected, Connectivity.topology must also be ManagementOnly."
+          }
+        ]
+      }
+    },
     "Security": {
       "type": "object",
       "description": "Security configuration for the landing zone.",
@@ -2456,11 +2552,16 @@
         "encryption": {
           "$ref": "#/definitions/EncryptionConfig",
           "description": "Encryption configuration for platform services."
+        },
+        "securityContactEmail": {
+          "type": "string",
+          "description": "Email address that receives Microsoft Defender for Cloud security alerts and Azure security contact notifications."
         }
       },
       "required": [
         "defenderPlans",
-        "keyVault"
+        "keyVault",
+        "securityContactEmail"
       ]
     },
     "SentinelConfig": {

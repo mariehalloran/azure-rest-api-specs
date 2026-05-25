@@ -28,6 +28,9 @@ model DedicatedPlatformSubscriptions extends PlatformSubscriptions {
 
   @doc("Subscription that hosts the management platform.")
   management?: ExistingSubscriptionRef;
+
+  @doc("Subscription that hosts the security platform. Per CAF Ready guidance, a dedicated security subscription is recommended alongside identity, connectivity, and management.")
+  security?: ExistingSubscriptionRef;
 }
 
 @doc("Shared subscription model: a single subscription hosts all platform functions.")

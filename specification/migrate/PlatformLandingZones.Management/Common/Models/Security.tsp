@@ -63,4 +63,7 @@ model Security {
 
   @doc("Encryption configuration for platform services.")
   encryption?: EncryptionConfig;
+
+  @doc("Email address that receives Microsoft Defender for Cloud security alerts and Azure security contact notifications.")
+  securityContactEmail: string;
 }
