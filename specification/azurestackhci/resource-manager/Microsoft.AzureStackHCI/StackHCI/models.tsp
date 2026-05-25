@@ -4041,6 +4041,13 @@ model DeploymentStep {
    */
   @visibility(Lifecycle.Read)
   exception?: string[];
+
+  /**
+   * error details.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
 }
 
 /**
@@ -6417,6 +6424,21 @@ model EdgeDeviceDisks {
    */
   @visibility(Lifecycle.Read)
   type?: string;
+
+  /** Model number of the hardware. */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  `model`?: string;
+
+  /** The manufacturer of the disk. */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  manufacturer?: string;
+
+  /** Indicates whether the manufacturer is supported. */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  isSupported?: boolean;
 }
 
 /**
