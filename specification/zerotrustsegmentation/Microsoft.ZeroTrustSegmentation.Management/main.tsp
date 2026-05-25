@@ -28,7 +28,10 @@ enum Versions {
 }
 
 @doc("A zero trust segmentation resource. this resource defines the SegmentationManager.")
-model SegmentationManager is TrackedResource<SegmentationManagerProperties> {
+@renamedFrom(Versions.v2026_01_01_preview, "SegmentationManager")
+@removed(Versions.v2026_01_01_preview)
+model SegmentationManagerV2025
+  is TrackedResource<SegmentationManagerPropertiesV2025> {
   @doc("Name of the segmentation manager")
   @key("segmentationManagerName")
   @pattern("^[a-zA-Z0-9-]{3,250}$")
@@ -66,7 +69,9 @@ union SegmentationManagerManagedServiceIdentityType {
 }
 
 @doc("Segmentation manager properties")
-model SegmentationManagerProperties {
+@renamedFrom(Versions.v2026_01_01_preview, "SegmentationManagerProperties")
+@removed(Versions.v2026_01_01_preview)
+model SegmentationManagerPropertiesV2025 {
   @doc("The collection of ARM resource IDs for the monitored logs.")
   logSources: Azure.Core.armResourceIdentifier<[
     {
@@ -95,8 +100,7 @@ model SegmentationManagerProperties {
 
 @added(Versions.v2026_01_01_preview)
 @doc("A zero trust segmentation resource for API version 2026-01-01-preview.")
-model SegmentationManagerV2026Preview
-  is TrackedResource<SegmentationManagerPropertiesV2026Preview> {
+model SegmentationManager is TrackedResource<SegmentationManagerProperties> {
   @doc("Name of the segmentation manager")
   @key("segmentationManagerName")
   @pattern("^[a-zA-Z0-9-]{3,250}$")
@@ -113,7 +117,7 @@ model SegmentationManagerV2026Preview
 
 @added(Versions.v2026_01_01_preview)
 @doc("Segmentation manager properties for API version 2026-01-01-preview.")
-model SegmentationManagerPropertiesV2026Preview {
+model SegmentationManagerProperties {
   @doc("The collection of Azure resource IDs that define the scope of the segmentation.")
   scope: Azure.Core.armResourceIdentifier<[
     {
@@ -326,93 +330,91 @@ model TrafficWeights {
 interface Operations extends Azure.ResourceManager.Operations {}
 
 @armResourceOperations
-interface SegmentationManagers {
+@renamedFrom(Versions.v2026_01_01_preview, "SegmentationManagers")
+@removed(Versions.v2026_01_01_preview)
+interface SegmentationManagersV2025 {
   // 2025 operations (available in 2025 API versions, removed in 2026).
   @sharedRoute
   @removed(Versions.v2026_01_01_preview)
-  get is ArmResourceRead<SegmentationManager>;
+  get is ArmResourceRead<SegmentationManagerV2025>;
 
   @list
   @sharedRoute
   @removed(Versions.v2026_01_01_preview)
-  listByResourceGroup is ArmResourceListByParent<SegmentationManager>;
+  listByResourceGroup is ArmResourceListByParent<SegmentationManagerV2025>;
 
   @list
   @sharedRoute
   @removed(Versions.v2026_01_01_preview)
-  listBySubscription is ArmListBySubscription<SegmentationManager>;
+  listBySubscription is ArmListBySubscription<SegmentationManagerV2025>;
 
   @sharedRoute
   @removed(Versions.v2026_01_01_preview)
-  createOrReplace is ArmResourceCreateOrReplaceSync<SegmentationManager>;
+  createOrReplace is ArmResourceCreateOrReplaceSync<SegmentationManagerV2025>;
 
   @sharedRoute
   @removed(Versions.v2026_01_01_preview)
   update is ArmResourcePatchSync<
-    SegmentationManager,
-    SegmentationManagerProperties
+    SegmentationManagerV2025,
+    SegmentationManagerPropertiesV2025
   >;
 
   @sharedRoute
   @removed(Versions.v2026_01_01_preview)
-  delete is ArmResourceDeleteSync<SegmentationManager>;
+  delete is ArmResourceDeleteSync<SegmentationManagerV2025>;
 
   @sharedRoute
   @removed(Versions.v2026_01_01_preview)
   setLabels is ArmResourceActionNoContentSync<
-    SegmentationManager,
+    SegmentationManagerV2025,
     SetLabelsRequest
   >;
 
   @removed(Versions.v2026_01_01_preview)
   getGraph is ArmResourceActionSync<
-    SegmentationManager,
+    SegmentationManagerV2025,
     GetGraphRequest,
     GetGraphResponse
   >;
+}
 
-  // 2026 operations (introduced in 2026-01-01-preview).
+@armResourceOperations
+@added(Versions.v2026_01_01_preview)
+interface SegmentationManagers {
   @sharedRoute
-  @renamedFrom(Versions.v2026_01_01_preview, "get")
   @added(Versions.v2026_01_01_preview)
-  getAsync is ArmResourceRead<SegmentationManagerV2026Preview>;
-
-  @list
-  @sharedRoute
-  @renamedFrom(Versions.v2026_01_01_preview, "listByResourceGroup")
-  @added(Versions.v2026_01_01_preview)
-  listByResourceGroupAsync is ArmResourceListByParent<SegmentationManagerV2026Preview>;
+  get is ArmResourceRead<SegmentationManager>;
 
   @list
   @sharedRoute
-  @renamedFrom(Versions.v2026_01_01_preview, "listBySubscription")
   @added(Versions.v2026_01_01_preview)
-  listBySubscriptionAsync is ArmListBySubscription<SegmentationManagerV2026Preview>;
+  listByResourceGroup is ArmResourceListByParent<SegmentationManager>;
+
+  @list
+  @sharedRoute
+  @added(Versions.v2026_01_01_preview)
+  listBySubscription is ArmListBySubscription<SegmentationManager>;
 
   @sharedRoute
-  @renamedFrom(Versions.v2026_01_01_preview, "createOrReplace")
   @added(Versions.v2026_01_01_preview)
-  createOrReplaceAsync is ArmResourceCreateOrReplaceAsync<SegmentationManagerV2026Preview>;
+  createOrReplace is ArmResourceCreateOrReplaceAsync<SegmentationManager>;
 
   @sharedRoute
-  @renamedFrom(Versions.v2026_01_01_preview, "update")
   @added(Versions.v2026_01_01_preview)
-  updateAsync is ArmResourcePatchAsync<
-    SegmentationManagerV2026Preview,
-    SegmentationManagerPropertiesV2026Preview
+  update is ArmResourcePatchAsync<
+    SegmentationManager,
+    SegmentationManagerProperties
   >;
 
   @sharedRoute
-  @renamedFrom(Versions.v2026_01_01_preview, "delete")
   @added(Versions.v2026_01_01_preview)
-  deleteAsync is ArmResourceDeleteWithoutOkAsync<SegmentationManagerV2026Preview>;
+  delete is ArmResourceDeleteWithoutOkAsync<SegmentationManager>;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "Required to align with PostResponseCodes"
-  @renamedFrom(Versions.v2026_01_01_preview, "setWorkloadSegments")
   @added(Versions.v2026_01_01_preview)
   @doc("Set segments for the provided workloads. This API can be used to update or remove workload segments.")
-  setWorkloadSegmentsAsync is ArmResourceActionNoContentAsync<
-    SegmentationManagerV2026Preview,
+  setWorkloadSegments is ArmResourceActionNoContentAsync<
+    SegmentationManager,
     SetWorkloadSegmentsRequest
   >;
 }

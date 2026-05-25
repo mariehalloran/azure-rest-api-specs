@@ -85,11 +85,11 @@
     },
     "/subscriptions/{subscriptionId}/providers/Microsoft.ZeroTrustSegmentation/segmentationManagers": {
       "get": {
-        "operationId": "SegmentationManagers_ListBySubscriptionAsync",
+        "operationId": "SegmentationManagers_ListBySubscription",
         "tags": [
           "SegmentationManagers"
         ],
-        "description": "List SegmentationManagerV2026Preview resources by subscription ID",
+        "description": "List SegmentationManager resources by subscription ID",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -102,7 +102,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SegmentationManagerV2026PreviewListResult"
+              "$ref": "#/definitions/SegmentationManagerListResult"
             }
           },
           "default": {
@@ -112,11 +112,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "List SegmentationManager by subscription": {
-            "$ref": "./examples/SegmentationManagerListBySubscription.json"
-          }
-        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -124,11 +119,11 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSegmentation/segmentationManagers": {
       "get": {
-        "operationId": "SegmentationManagers_ListByResourceGroupAsync",
+        "operationId": "SegmentationManagers_ListByResourceGroup",
         "tags": [
           "SegmentationManagers"
         ],
-        "description": "List SegmentationManagerV2026Preview resources by resource group",
+        "description": "List SegmentationManager resources by resource group",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -144,7 +139,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SegmentationManagerV2026PreviewListResult"
+              "$ref": "#/definitions/SegmentationManagerListResult"
             }
           },
           "default": {
@@ -154,11 +149,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "List SegmentationManagers by resource group": {
-            "$ref": "./examples/SegmentationManagerListByResourceGroup.json"
-          }
-        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -166,11 +156,11 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSegmentation/segmentationManagers/{segmentationManagerName}": {
       "get": {
-        "operationId": "SegmentationManagers_GetAsync",
+        "operationId": "SegmentationManagers_Get",
         "tags": [
           "SegmentationManagers"
         ],
-        "description": "Get a SegmentationManagerV2026Preview",
+        "description": "Get a SegmentationManager",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -194,7 +184,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SegmentationManagerV2026Preview"
+              "$ref": "#/definitions/SegmentationManager"
             }
           },
           "default": {
@@ -203,19 +193,14 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "x-ms-examples": {
-          "Get a SegmentationManager": {
-            "$ref": "./examples/SegmentationManagerGet.json"
-          }
         }
       },
       "put": {
-        "operationId": "SegmentationManagers_CreateOrReplaceAsync",
+        "operationId": "SegmentationManagers_CreateOrReplace",
         "tags": [
           "SegmentationManagers"
         ],
-        "description": "Create a SegmentationManagerV2026Preview",
+        "description": "Create a SegmentationManager",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -240,21 +225,21 @@
             "description": "Resource create parameters.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SegmentationManagerV2026Preview"
+              "$ref": "#/definitions/SegmentationManager"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Resource 'SegmentationManagerV2026Preview' update operation succeeded",
+            "description": "Resource 'SegmentationManager' update operation succeeded",
             "schema": {
-              "$ref": "#/definitions/SegmentationManagerV2026Preview"
+              "$ref": "#/definitions/SegmentationManager"
             }
           },
           "201": {
-            "description": "Resource 'SegmentationManagerV2026Preview' create operation succeeded",
+            "description": "Resource 'SegmentationManager' create operation succeeded",
             "schema": {
-              "$ref": "#/definitions/SegmentationManagerV2026Preview"
+              "$ref": "#/definitions/SegmentationManager"
             },
             "headers": {
               "Azure-AsyncOperation": {
@@ -275,22 +260,17 @@
             }
           }
         },
-        "x-ms-examples": {
-          "Create or update a SegmentationManager": {
-            "$ref": "./examples/SegmentationManagerPut.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true
       },
       "patch": {
-        "operationId": "SegmentationManagers_UpdateAsync",
+        "operationId": "SegmentationManagers_Update",
         "tags": [
           "SegmentationManagers"
         ],
-        "description": "Update a SegmentationManagerV2026Preview",
+        "description": "Update a SegmentationManager",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -315,7 +295,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SegmentationManagerV2026PreviewUpdate"
+              "$ref": "#/definitions/SegmentationManagerUpdate"
             }
           }
         ],
@@ -323,7 +303,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/SegmentationManagerV2026Preview"
+              "$ref": "#/definitions/SegmentationManager"
             }
           },
           "202": {
@@ -347,22 +327,17 @@
             }
           }
         },
-        "x-ms-examples": {
-          "Update a SegmentationManager": {
-            "$ref": "./examples/SegmentationManagerPatch.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
         "x-ms-long-running-operation": true
       },
       "delete": {
-        "operationId": "SegmentationManagers_DeleteAsync",
+        "operationId": "SegmentationManagers_Delete",
         "tags": [
           "SegmentationManagers"
         ],
-        "description": "Delete a SegmentationManagerV2026Preview",
+        "description": "Delete a SegmentationManager",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -407,20 +382,15 @@
             }
           }
         },
-        "x-ms-examples": {
-          "Delete a SegmentationManager": {
-            "$ref": "./examples/SegmentationManagerDelete.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
         "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSegmentation/segmentationManagers/{segmentationManagerName}/setWorkloadSegmentsAsync": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ZeroTrustSegmentation/segmentationManagers/{segmentationManagerName}/setWorkloadSegments": {
       "post": {
-        "operationId": "SegmentationManagers_SetWorkloadSegmentsAsync",
+        "operationId": "SegmentationManagers_SetWorkloadSegments",
         "tags": [
           "SegmentationManagers"
         ],
@@ -478,11 +448,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "Set segments for workloads": {
-            "$ref": "./examples/SegmentationManagers_SetWorkloadSegments.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -533,37 +498,6 @@
           "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/Resource"
         }
       ]
-    },
-    "Azure.ResourceManager.ResourceProvisioningState": {
-      "type": "string",
-      "description": "The provisioning state of a resource type.",
-      "enum": [
-        "Succeeded",
-        "Failed",
-        "Canceled"
-      ],
-      "x-ms-enum": {
-        "name": "ResourceProvisioningState",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Succeeded",
-            "value": "Succeeded",
-            "description": "Resource has been created."
-          },
-          {
-            "name": "Failed",
-            "value": "Failed",
-            "description": "Resource creation failed."
-          },
-          {
-            "name": "Canceled",
-            "value": "Canceled",
-            "description": "Resource creation was canceled."
-          }
-        ]
-      },
-      "readOnly": true
     },
     "Edge": {
       "type": "object",
@@ -677,7 +611,7 @@
     },
     "SegmentationManager": {
       "type": "object",
-      "description": "A zero trust segmentation resource. this resource defines the SegmentationManager.",
+      "description": "A zero trust segmentation resource for API version 2026-01-01-preview.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/SegmentationManagerProperties",
@@ -686,12 +620,40 @@
         "identity": {
           "$ref": "#/definitions/SegmentationManagerManagedServiceIdentity",
           "description": "The managed service identities assigned to this resource."
+        },
+        "managedBy": {
+          "type": "string",
+          "description": "The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource."
         }
       },
+      "required": [
+        "identity"
+      ],
       "allOf": [
         {
           "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
         }
+      ]
+    },
+    "SegmentationManagerListResult": {
+      "type": "object",
+      "description": "The response of a SegmentationManager list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The SegmentationManager items on this page",
+          "items": {
+            "$ref": "#/definitions/SegmentationManager"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
       ]
     },
     "SegmentationManagerManagedServiceIdentity": {
@@ -759,64 +721,6 @@
     },
     "SegmentationManagerProperties": {
       "type": "object",
-      "description": "Segmentation manager properties",
-      "properties": {
-        "logSources": {
-          "type": "array",
-          "description": "The collection of ARM resource IDs for the monitored logs.",
-          "items": {
-            "type": "string",
-            "format": "arm-id",
-            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
-            "x-ms-arm-id-details": {
-              "allowedResources": [
-                {
-                  "type": "Microsoft.Network/networkWatchers/flowLogs"
-                }
-              ]
-            }
-          }
-        },
-        "analysisRunType": {
-          "$ref": "#/definitions/AnalysisRunType",
-          "description": "The analysis run type"
-        },
-        "startTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The start time of a snapshot run"
-        },
-        "endTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The end time of a snapshot run"
-        },
-        "segmentationMode": {
-          "$ref": "#/definitions/SegmentationMode",
-          "description": "The mode of segmentation to be applied"
-        },
-        "description": {
-          "type": "string",
-          "description": "The description of the segmentation manager"
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
-          "description": "The provisioning state of the resource.",
-          "readOnly": true
-        },
-        "managedBy": {
-          "type": "string",
-          "description": "The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource."
-        }
-      },
-      "required": [
-        "logSources",
-        "analysisRunType",
-        "segmentationMode"
-      ]
-    },
-    "SegmentationManagerPropertiesV2026Preview": {
-      "type": "object",
       "description": "Segmentation manager properties for API version 2026-01-01-preview.",
       "properties": {
         "scope": {
@@ -877,7 +781,7 @@
         "targetLogAnalyticsWorkspaceId"
       ]
     },
-    "SegmentationManagerPropertiesV2026PreviewUpdate": {
+    "SegmentationManagerPropertiesUpdate": {
       "type": "object",
       "description": "Segmentation manager properties for API version 2026-01-01-preview.",
       "properties": {
@@ -974,59 +878,12 @@
       },
       "readOnly": true
     },
-    "SegmentationManagerV2026Preview": {
+    "SegmentationManagerUpdate": {
       "type": "object",
       "description": "A zero trust segmentation resource for API version 2026-01-01-preview.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/SegmentationManagerPropertiesV2026Preview",
-          "description": "The resource-specific properties for this resource."
-        },
-        "identity": {
-          "$ref": "#/definitions/SegmentationManagerManagedServiceIdentity",
-          "description": "The managed service identities assigned to this resource."
-        },
-        "managedBy": {
-          "type": "string",
-          "description": "The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource."
-        }
-      },
-      "required": [
-        "identity"
-      ],
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
-        }
-      ]
-    },
-    "SegmentationManagerV2026PreviewListResult": {
-      "type": "object",
-      "description": "The response of a SegmentationManagerV2026Preview list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The SegmentationManagerV2026Preview items on this page",
-          "items": {
-            "$ref": "#/definitions/SegmentationManagerV2026Preview"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "SegmentationManagerV2026PreviewUpdate": {
-      "type": "object",
-      "description": "A zero trust segmentation resource for API version 2026-01-01-preview.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/SegmentationManagerPropertiesV2026PreviewUpdate",
+          "$ref": "#/definitions/SegmentationManagerPropertiesUpdate",
           "description": "The resource-specific properties for this resource."
         },
         "identity": {
