@@ -20,5 +20,5 @@ These settings apply only when `--tag=package-preview-2026-03-01` is specified o
 
 ```yaml $(tag) == 'package-preview-2026-03-01'
 input-file:
-  - preview/2026-03-01-preview/openapi.json
+  - preview/2026-05-25-preview/openapi.json
 ```
