@@ -30,6 +30,33 @@ openapi-subtype: rpaas
 tag: package-2026-05-01-preview
 ```
 
+### Suppression
+
+```yaml
+directive:
+  - suppress: AvoidAdditionalProperties
+    from: openapi.json
+    where: $.definitions.ModelDeploymentProperties.properties.configurationSettings
+    reason: >-
+      K8s Bridge Extensions pattern requires configurationSettings as an opaque
+      key-value map (Record<string>). Same pattern used by
+      Microsoft.KubernetesConfiguration/extensions.
+  - suppress: AvoidAdditionalProperties
+    from: openapi.json
+    where: $.definitions.ModelDeploymentProperties.properties.configurationProtectedSettings
+    reason: >-
+      K8s Bridge Extensions pattern requires configurationProtectedSettings as an
+      opaque key-value map (Record<string>). Same pattern used by
+      Microsoft.KubernetesConfiguration/extensions.
+  - suppress: AvoidAdditionalProperties
+    from: openapi.json
+    where: $.definitions.ModelDeploymentProperties.properties.status
+    reason: >-
+      K8s Bridge Extensions pattern returns status as an opaque key-value map
+      (Record<string>). Same pattern used by
+      Microsoft.KubernetesConfiguration/extensions.
+```
+
 ### Tag: package-preview-2026-05-01
 
 These settings apply only when `--tag=package-2026-05-01-preview` is specified on the command line.
