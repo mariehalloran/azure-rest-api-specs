@@ -59,9 +59,7 @@ interface EdgeMachineSecuritySettingsOperations {
   /**
    * Trigger refresh sync for edge machine security settings.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "The final response has no content, so 204 is returned."
   @added(Versions.v2026_03_15_preview)
-  refresh is ArmResourceActionNoResponseContentAsync<
-    EdgeMachineSecuritySettings,
-    void
-  >;
+  refresh is ArmResourceActionNoContentAsync<EdgeMachineSecuritySettings, void>;
 }
