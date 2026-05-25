@@ -12,12 +12,6 @@ namespace Microsoft.DataMigration;
 
 @doc("Properties of the MigrationService resource.")
 model MigrationServiceProperties {
-  @doc("Source database engine type")
-  sourceEngine: MigrationServiceSourceEngine;
-
-  @doc("Target database engine type")
-  targetEngine: MigrationServiceTargetEngine;
-
   @doc("The provisioning state of the migration service.")
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
@@ -27,7 +21,7 @@ model MigrationServiceProperties {
 model MigrationService is TrackedResource<MigrationServiceProperties> {
   @doc("The migration service name.")
   @key("serviceName")
-  @segment("postgresqlMigrationServices")
+  @segment("databaseMigrationServices")
   @path
   @pattern("^[a-zA-Z0-9-]*$")
   name: string;

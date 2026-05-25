@@ -24,7 +24,16 @@ These are the properties for a compute device resource.
 ```yaml
 openapi-type: arm
 openapi-subtype: providerHub
-tag: package-2026-04-22-preview
+tag: package-2026-05-01-preview
+```
+
+### Tag: package-2026-05-01-preview
+
+These settings apply only when `--tag=package-2026-05-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-05-01-preview'
+input-file:
+  - Microsoft.Titan/preview/2026-05-01-preview/titan.json
 ```
 
 ### Tag: package-2024-06-24-preview
