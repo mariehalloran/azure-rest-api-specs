@@ -1,5 +1,6 @@
 import "@typespec/http";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@azure-tools/typespec-azure-core";
 import "../common/common.tsp";
@@ -10,6 +11,7 @@ import "./recoveryJob.tsp";
 using Azure.Core;
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 using OpenAPI;
 
@@ -17,6 +19,7 @@ using OpenAPI;
 namespace Microsoft.AzureResilienceManagement;
 
 // Define the main model
+@removed(Versions.v2026_04_01_preview)
 @doc("Definition of recovery child job associated with Recovery Orchestration Plan.")
 model RecoveryChildJobProperties extends ChildJobProperties {
   @doc("Discriminator for the Job Type hierarchy.")
@@ -33,6 +36,7 @@ model RecoveryChildJobProperties extends ChildJobProperties {
 
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-path-segment-invalid-chars" "Existing Template"
 #suppress "@azure-tools/typespec-providerhub-controller/no-resource-operations" "Operation not supported for it"
+@removed(Versions.v2026_04_01_preview)
 @parentResource(RecoveryJob)
 @doc("RecoveryPlan Child Job a AzureResilienceProviderHub resource")
 model RecoveryChildJob is ProxyResource<RecoveryChildJobProperties> {

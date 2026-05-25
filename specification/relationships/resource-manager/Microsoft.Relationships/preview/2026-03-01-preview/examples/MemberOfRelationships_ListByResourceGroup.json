@@ -1,0 +1,46 @@
+{
+  "title": "MemberOfRelationships_ListByResourceGroup",
+  "operationId": "MemberOfRelationships_ListByResourceGroup",
+  "parameters": {
+    "api-version": "2026-03-01-preview",
+    "subscriptionId": "a925f2f7-5c63-4b7b-8799-25a5f97bc3b2",
+    "resourceGroupName": "testrg"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/a925f2f7-5c63-4b7b-8799-25a5f97bc3b2/resourceGroups/testrg/providers/Microsoft.Web/sites/app1/providers/Microsoft.Relationships/memberOf/memberOf1",
+            "type": "Microsoft.Relationships/memberOf",
+            "properties": {
+              "sourceId": "/subscriptions/a925f2f7-5c63-4b7b-8799-25a5f97bc3b2/resourceGroups/testrg/providers/Microsoft.Web/sites/app1",
+              "targetId": "/subscriptions/a925f2f7-5c63-4b7b-8799-25a5f97bc3b2/resourceGroups/testrg",
+              "targetTenant": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+              "metadata": {
+                "sourceType": "Microsoft.Web/sites",
+                "targetType": "Microsoft.Resources/subscriptions/resourceGroups"
+              },
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/a925f2f7-5c63-4b7b-8799-25a5f97bc3b2/resourceGroups/testrg/providers/Microsoft.Storage/storageAccounts/teststorage/providers/Microsoft.Relationships/memberOf/memberOf2",
+            "type": "Microsoft.Relationships/memberOf",
+            "properties": {
+              "sourceId": "/subscriptions/a925f2f7-5c63-4b7b-8799-25a5f97bc3b2/resourceGroups/testrg/providers/Microsoft.Storage/storageAccounts/teststorage",
+              "targetId": "/subscriptions/a925f2f7-5c63-4b7b-8799-25a5f97bc3b2/resourceGroups/testrg",
+              "targetTenant": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+              "metadata": {
+                "sourceType": "Microsoft.Storage/storageAccounts",
+                "targetType": "Microsoft.Resources/subscriptions/resourceGroups"
+              },
+              "provisioningState": "Succeeded"
+            }
+          }
+        ],
+        "nextLink": "https://management.azure.com/subscriptions/a925f2f7-5c63-4b7b-8799-25a5f97bc3b2/resourceGroups/testrg/providers/Microsoft.Relationships/memberOf?api-version=2023-09-01-preview&$skipToken=abc123"
+      }
+    }
+  }
+}

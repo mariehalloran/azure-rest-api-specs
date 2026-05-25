@@ -123,9 +123,11 @@ interface Consortiums {
 
 @@doc(Consortium.name, "Name of the consortium.");
 @@doc(Consortium.properties, "Resource properties.");
-@@doc(Consortiums.create::parameters.resource,
+@@doc(
+  Consortiums.create::parameters.resource,
   "The consortium to create or update."
 );
-@@doc(Consortiums.update::parameters.properties,
+@@doc(
+  Consortiums.update::parameters.properties,
   "Resource properties to update."
 );

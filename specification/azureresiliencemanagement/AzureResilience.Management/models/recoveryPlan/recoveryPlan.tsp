@@ -8,6 +8,7 @@ import "./recoveryGroup.tsp";
 using Azure.Core;
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 using OpenAPI;
 
@@ -105,6 +106,11 @@ model RecoveryPlanProperties {
   @doc("The status of the most recent validation performed.")
   @visibility(Lifecycle.Read)
   latestValidationStatus?: RecoveryPlanOperationStatus;
+
+  @added(Versions.v2026_03_01_preview)
+  @doc("Error details associated with the resource.")
+  @visibility(Lifecycle.Read)
+  errorDetails?: CommonTypes.ErrorDetail;
 }
 
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-path-segment-invalid-chars" "Existing Template"

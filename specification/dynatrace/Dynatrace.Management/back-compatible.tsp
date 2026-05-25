@@ -3,7 +3,8 @@ import "@azure-tools/typespec-client-generator-core";
 using Azure.ClientGenerator.Core;
 using Dynatrace.Observability;
 
-@@clientName(MonitoredSubscriptions.createOrUpdate::parameters.resource,
+@@clientName(
+  MonitoredSubscriptions.createOrUpdate::parameters.resource,
   "body"
 );
 @@clientName(MonitoredSubscriptions.update::parameters.properties, "body");
@@ -16,16 +17,19 @@ using Dynatrace.Observability;
 @@clientLocation(MonitorResources.listByResourceGroup, "Monitors");
 @@clientLocation(MonitorResources.listBySubscriptionId, "Monitors");
 @@clientLocation(MonitorResources.listMonitoredResources, "Monitors");
-@@clientName(MonitorResources.listMonitoredResources::parameters.body,
+@@clientName(
+  MonitorResources.listMonitoredResources::parameters.body,
   "request"
 );
 @@clientLocation(MonitorResources.getVMHostPayload, "Monitors");
 @@clientLocation(MonitorResources.manageAgentInstallation, "Monitors");
-@@clientName(MonitorResources.manageAgentInstallation::parameters.body,
+@@clientName(
+  MonitorResources.manageAgentInstallation::parameters.body,
   "request"
 );
 @@clientLocation(MonitorResources.manageSreAgentConnectors, "Monitors");
-@@clientName(MonitorResources.manageSreAgentConnectors::parameters.body,
+@@clientName(
+  MonitorResources.manageSreAgentConnectors::parameters.body,
   "request"
 );
 @@clientLocation(MonitorResources.listMonitoredComputeResources, "Monitors");
@@ -38,7 +42,8 @@ using Dynatrace.Observability;
 @@clientLocation(MonitorResources.getSSODetails, "Monitors");
 @@clientName(MonitorResources.getSSODetails::parameters.body, "request");
 @@clientLocation(MonitorResources.listLinkableEnvironments, "Monitors");
-@@clientName(MonitorResources.listLinkableEnvironments::parameters.body,
+@@clientName(
+  MonitorResources.listLinkableEnvironments::parameters.body,
   "request"
 );
 @@clientLocation(MonitorResources.latestLinkedSaaS, "Monitors");
@@ -52,21 +57,26 @@ using Dynatrace.Observability;
 @@clientLocation(DynatraceSingleSignOnResources.createOrUpdate, "SingleSignOn");
 @@clientLocation(DynatraceSingleSignOnResources.list, "SingleSignOn");
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FixME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(DynatraceSingleSignOnResource.properties
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  DynatraceSingleSignOnResource.properties
 );
 
-@@clientLocation(MonitorsOperationGroup.getAllConnectedResourcesCount,
+@@clientLocation(
+  MonitorsOperationGroup.getAllConnectedResourcesCount,
   "Monitors"
 );
-@@clientLocation(MonitorsOperationGroup.getMarketplaceSaaSResourceDetails,
+@@clientLocation(
+  MonitorsOperationGroup.getMarketplaceSaaSResourceDetails,
   "Monitors"
 );
 
 @@clientLocation(CreationSupportedOperationGroup.list, "CreationSupported");
 @@clientLocation(CreationSupportedOperationGroup.get, "CreationSupported");
-@@clientName(MonitorsOperationGroup.getAllConnectedResourcesCount::parameters.body,
+@@clientName(
+  MonitorsOperationGroup.getAllConnectedResourcesCount::parameters.body,
   "request"
 );
-@@clientName(MonitorsOperationGroup.getMarketplaceSaaSResourceDetails::parameters.body,
+@@clientName(
+  MonitorsOperationGroup.getMarketplaceSaaSResourceDetails::parameters.body,
   "request"
 );

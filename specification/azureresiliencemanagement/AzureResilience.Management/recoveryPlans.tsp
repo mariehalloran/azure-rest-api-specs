@@ -328,6 +328,7 @@ interface RecoveryJobs {
 
 @armResourceOperations
 @doc("Operations for managing recovery child jobs.")
+@removed(Versions.v2026_04_01_preview)
 interface RecoveryChildJobs {
   @route(ServiceGroupRoute)
   get is ArmResourceRead<RecoveryChildJob, ServiceGroupParameters>;

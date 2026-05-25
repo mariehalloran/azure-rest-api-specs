@@ -64,7 +64,8 @@ interface PgsqlInstances {
 @@minLength(PgsqlInstance.name, 3);
 @@doc(PgsqlInstance.name, "The name of Instance");
 @@doc(PgsqlInstance.properties, "Resource properties.");
-@@doc(PgsqlInstances.createOrUpdate::parameters.resource,
+@@doc(
+  PgsqlInstances.createOrUpdate::parameters.resource,
   "The machines to add to the assessment"
 );
 @@doc(PgsqlInstances.update::parameters.properties, "Clouds patch payload.");
