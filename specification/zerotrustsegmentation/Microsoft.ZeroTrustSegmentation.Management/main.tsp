@@ -99,11 +99,11 @@ model SegmentationManagerPropertiesV2025 {
 }
 
 @added(Versions.v2026_01_01_preview)
-@doc("A zero trust segmentation resource for API version 2026-01-01-preview.")
+@doc("A zero trust segmentation resource.")
 model SegmentationManager is TrackedResource<SegmentationManagerProperties> {
   @doc("Name of the segmentation manager")
   @key("segmentationManagerName")
-  @pattern("^[a-zA-Z0-9-]{3,250}$")
+  @pattern("^[a-zA-Z0-9-]{3,80}$")
   @path
   @segment("segmentationManagers")
   name: string;
@@ -116,7 +116,7 @@ model SegmentationManager is TrackedResource<SegmentationManagerProperties> {
 }
 
 @added(Versions.v2026_01_01_preview)
-@doc("Segmentation manager properties for API version 2026-01-01-preview.")
+@doc("Segmentation manager properties.")
 model SegmentationManagerProperties {
   @doc("The collection of Azure resource IDs that define the scope of the segmentation.")
   scope: Azure.Core.armResourceIdentifier<[
@@ -135,15 +135,6 @@ model SegmentationManagerProperties {
   @doc("Managed-On-Behalf-Of configuration.")
   @visibility(Lifecycle.Read)
   managedOnBehalfOfConfiguration?: CommonTypes.ManagedOnBehalfOfConfiguration;
-
-  @doc("The start time of a snapshot run")
-  startTime?: utcDateTime;
-
-  @doc("The end time of a snapshot run")
-  endTime?: utcDateTime;
-
-  @doc("The description of the segmentation manager")
-  description?: string;
 
   @visibility(Lifecycle.Read)
   @doc("The provisioning state of the resource.")
@@ -166,6 +157,7 @@ union SegmentationManagerProvisioningState {
   Accepted: "Accepted",
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("Specifies the mode of segmentation to be applied.")
 union SegmentationMode {
   string,
@@ -177,6 +169,7 @@ union SegmentationMode {
   Automatic: "Automatic",
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("Analysis run type")
 union AnalysisRunType {
   string,
@@ -188,6 +181,7 @@ union AnalysisRunType {
   Continuous: "Continuous",
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("Set label record")
 model SetLabelRecord {
   @doc("IP address of the workload")
@@ -201,6 +195,7 @@ model SetLabelRecord {
   labels?: LabelPair[];
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("Represent a label as key-value pair")
 model LabelPair {
   @doc("Label key")
@@ -210,6 +205,7 @@ model LabelPair {
   value: string;
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("The request model for the SetLabels API")
 model SetLabelsRequest {
   @doc("List of labels that need to be updated")
@@ -217,6 +213,7 @@ model SetLabelsRequest {
   labels: SetLabelRecord[];
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("The request model for the GetGraph API")
 model GetGraphRequest {
   @doc("The start time of the graph")
@@ -226,12 +223,14 @@ model GetGraphRequest {
   endTime: utcDateTime;
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("The response model for the GetGraph API")
 model GetGraphResponse {
   @doc("Graph representation")
   graph: Graph;
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("Graph representation model")
 model Graph {
   @doc("List of vertices in the graph")
@@ -245,6 +244,7 @@ model Graph {
   totalTrafficWeights: TotalTrafficWeights;
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("Vertex model representing a node in the network")
 model Vertex {
   @doc("Unique identifier for the vertex")
@@ -270,6 +270,7 @@ model Vertex {
   labels: LabelPair[];
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("Edge model representing a connection between two vertices")
 model Edge {
   @doc("Source vertex ID")
@@ -285,6 +286,7 @@ model Edge {
   trafficWeights: TrafficWeights;
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("Total traffic weights for all edges in the graph")
 model TotalTrafficWeights {
   @doc("Total incoming packets")
@@ -306,6 +308,7 @@ model TotalTrafficWeights {
   totalOutConnections: float32;
 }
 
+@removed(Versions.v2026_01_01_preview)
 @doc("TrafficWeights model")
 model TrafficWeights {
   @doc("Incoming packet weight as a percentage")
@@ -335,42 +338,33 @@ interface Operations extends Azure.ResourceManager.Operations {}
 interface SegmentationManagersV2025 {
   // 2025 operations (available in 2025 API versions, removed in 2026).
   @sharedRoute
-  @removed(Versions.v2026_01_01_preview)
   get is ArmResourceRead<SegmentationManagerV2025>;
 
   @list
   @sharedRoute
-  @removed(Versions.v2026_01_01_preview)
   listByResourceGroup is ArmResourceListByParent<SegmentationManagerV2025>;
 
   @list
   @sharedRoute
-  @removed(Versions.v2026_01_01_preview)
   listBySubscription is ArmListBySubscription<SegmentationManagerV2025>;
 
   @sharedRoute
-  @removed(Versions.v2026_01_01_preview)
   createOrReplace is ArmResourceCreateOrReplaceSync<SegmentationManagerV2025>;
 
   @sharedRoute
-  @removed(Versions.v2026_01_01_preview)
   update is ArmResourcePatchSync<
     SegmentationManagerV2025,
     SegmentationManagerPropertiesV2025
   >;
 
   @sharedRoute
-  @removed(Versions.v2026_01_01_preview)
   delete is ArmResourceDeleteSync<SegmentationManagerV2025>;
 
-  @sharedRoute
-  @removed(Versions.v2026_01_01_preview)
   setLabels is ArmResourceActionNoContentSync<
     SegmentationManagerV2025,
     SetLabelsRequest
   >;
 
-  @removed(Versions.v2026_01_01_preview)
   getGraph is ArmResourceActionSync<
     SegmentationManagerV2025,
     GetGraphRequest,
@@ -382,36 +376,29 @@ interface SegmentationManagersV2025 {
 @added(Versions.v2026_01_01_preview)
 interface SegmentationManagers {
   @sharedRoute
-  @added(Versions.v2026_01_01_preview)
   get is ArmResourceRead<SegmentationManager>;
 
   @list
   @sharedRoute
-  @added(Versions.v2026_01_01_preview)
   listByResourceGroup is ArmResourceListByParent<SegmentationManager>;
 
   @list
   @sharedRoute
-  @added(Versions.v2026_01_01_preview)
   listBySubscription is ArmListBySubscription<SegmentationManager>;
 
   @sharedRoute
-  @added(Versions.v2026_01_01_preview)
   createOrReplace is ArmResourceCreateOrReplaceAsync<SegmentationManager>;
 
   @sharedRoute
-  @added(Versions.v2026_01_01_preview)
   update is ArmResourcePatchAsync<
     SegmentationManager,
     SegmentationManagerProperties
   >;
 
   @sharedRoute
-  @added(Versions.v2026_01_01_preview)
   delete is ArmResourceDeleteWithoutOkAsync<SegmentationManager>;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "Required to align with PostResponseCodes"
-  @added(Versions.v2026_01_01_preview)
   @doc("Set segments for the provided workloads. This API can be used to update or remove workload segments.")
   setWorkloadSegments is ArmResourceActionNoContentAsync<
     SegmentationManager,

@@ -177,7 +177,7 @@
             "description": "Name of the segmentation manager",
             "required": true,
             "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,250}$"
+            "pattern": "^[a-zA-Z0-9-]{3,80}$"
           }
         ],
         "responses": {
@@ -217,7 +217,7 @@
             "description": "Name of the segmentation manager",
             "required": true,
             "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,250}$"
+            "pattern": "^[a-zA-Z0-9-]{3,80}$"
           },
           {
             "name": "resource",
@@ -287,7 +287,7 @@
             "description": "Name of the segmentation manager",
             "required": true,
             "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,250}$"
+            "pattern": "^[a-zA-Z0-9-]{3,80}$"
           },
           {
             "name": "properties",
@@ -354,7 +354,7 @@
             "description": "Name of the segmentation manager",
             "required": true,
             "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,250}$"
+            "pattern": "^[a-zA-Z0-9-]{3,80}$"
           }
         ],
         "responses": {
@@ -411,7 +411,7 @@
             "description": "Name of the segmentation manager",
             "required": true,
             "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,250}$"
+            "pattern": "^[a-zA-Z0-9-]{3,80}$"
           },
           {
             "name": "body",
@@ -456,30 +456,6 @@
     }
   },
   "definitions": {
-    "AnalysisRunType": {
-      "type": "string",
-      "description": "Analysis run type",
-      "enum": [
-        "OneTime",
-        "Continuous"
-      ],
-      "x-ms-enum": {
-        "name": "AnalysisRunType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "OneTime",
-            "value": "OneTime",
-            "description": "Single run"
-          },
-          {
-            "name": "Continuous",
-            "value": "Continuous",
-            "description": "Continuous run"
-          }
-        ]
-      }
-    },
     "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
       "type": "object",
       "title": "Tracked Resource",
@@ -499,119 +475,9 @@
         }
       ]
     },
-    "Edge": {
-      "type": "object",
-      "description": "Edge model representing a connection between two vertices",
-      "properties": {
-        "source": {
-          "type": "string",
-          "description": "Source vertex ID"
-        },
-        "target": {
-          "type": "string",
-          "description": "Target vertex ID"
-        },
-        "hourT": {
-          "type": "integer",
-          "format": "int64",
-          "description": "Timestamp of the edge in milliseconds since epoch"
-        },
-        "trafficWeights": {
-          "$ref": "#/definitions/TrafficWeights",
-          "description": "Traffic weights associated with the edge"
-        }
-      },
-      "required": [
-        "source",
-        "target",
-        "hourT",
-        "trafficWeights"
-      ]
-    },
-    "GetGraphRequest": {
-      "type": "object",
-      "description": "The request model for the GetGraph API",
-      "properties": {
-        "startTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The start time of the graph"
-        },
-        "endTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The end time of the graph"
-        }
-      },
-      "required": [
-        "startTime",
-        "endTime"
-      ]
-    },
-    "GetGraphResponse": {
-      "type": "object",
-      "description": "The response model for the GetGraph API",
-      "properties": {
-        "graph": {
-          "$ref": "#/definitions/Graph",
-          "description": "Graph representation"
-        }
-      },
-      "required": [
-        "graph"
-      ]
-    },
-    "Graph": {
-      "type": "object",
-      "description": "Graph representation model",
-      "properties": {
-        "vertices": {
-          "type": "array",
-          "description": "List of vertices in the graph",
-          "items": {
-            "$ref": "#/definitions/Vertex"
-          }
-        },
-        "edges": {
-          "type": "array",
-          "description": "List of edges connecting the vertices in the graph",
-          "items": {
-            "$ref": "#/definitions/Edge"
-          },
-          "x-ms-identifiers": []
-        },
-        "totalTrafficWeights": {
-          "$ref": "#/definitions/TotalTrafficWeights",
-          "description": "Total weights for all edges in the graph"
-        }
-      },
-      "required": [
-        "vertices",
-        "edges",
-        "totalTrafficWeights"
-      ]
-    },
-    "LabelPair": {
-      "type": "object",
-      "description": "Represent a label as key-value pair",
-      "properties": {
-        "key": {
-          "type": "string",
-          "description": "Label key"
-        },
-        "value": {
-          "type": "string",
-          "description": "Label value"
-        }
-      },
-      "required": [
-        "key",
-        "value"
-      ]
-    },
     "SegmentationManager": {
       "type": "object",
-      "description": "A zero trust segmentation resource for API version 2026-01-01-preview.",
+      "description": "A zero trust segmentation resource.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/SegmentationManagerProperties",
@@ -721,7 +587,7 @@
     },
     "SegmentationManagerProperties": {
       "type": "object",
-      "description": "Segmentation manager properties for API version 2026-01-01-preview.",
+      "description": "Segmentation manager properties.",
       "properties": {
         "scope": {
           "type": "array",
@@ -756,20 +622,6 @@
           "description": "Managed-On-Behalf-Of configuration.",
           "readOnly": true
         },
-        "startTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The start time of a snapshot run"
-        },
-        "endTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The end time of a snapshot run"
-        },
-        "description": {
-          "type": "string",
-          "description": "The description of the segmentation manager"
-        },
         "provisioningState": {
           "$ref": "#/definitions/SegmentationManagerProvisioningState",
           "description": "The provisioning state of the resource.",
@@ -783,7 +635,7 @@
     },
     "SegmentationManagerPropertiesUpdate": {
       "type": "object",
-      "description": "Segmentation manager properties for API version 2026-01-01-preview.",
+      "description": "Segmentation manager properties.",
       "properties": {
         "scope": {
           "type": "array",
@@ -812,20 +664,6 @@
               }
             ]
           }
-        },
-        "startTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The start time of a snapshot run"
-        },
-        "endTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The end time of a snapshot run"
-        },
-        "description": {
-          "type": "string",
-          "description": "The description of the segmentation manager"
         }
       }
     },
@@ -880,7 +718,7 @@
     },
     "SegmentationManagerUpdate": {
       "type": "object",
-      "description": "A zero trust segmentation resource for API version 2026-01-01-preview.",
+      "description": "A zero trust segmentation resource.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/SegmentationManagerPropertiesUpdate",
@@ -899,73 +737,6 @@
         {
           "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
         }
-      ]
-    },
-    "SegmentationMode": {
-      "type": "string",
-      "description": "Specifies the mode of segmentation to be applied.",
-      "enum": [
-        "None",
-        "Automatic"
-      ],
-      "x-ms-enum": {
-        "name": "SegmentationMode",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "None",
-            "value": "None",
-            "description": "No segmentation applied"
-          },
-          {
-            "name": "Automatic",
-            "value": "Automatic",
-            "description": "Automatic Mode"
-          }
-        ]
-      }
-    },
-    "SetLabelRecord": {
-      "type": "object",
-      "description": "Set label record",
-      "properties": {
-        "ipAddress": {
-          "type": "string",
-          "description": "IP address of the workload"
-        },
-        "macAddress": {
-          "type": "string",
-          "description": "MAC address of the workload"
-        },
-        "labels": {
-          "type": "array",
-          "description": "Labels as key-value pairs",
-          "items": {
-            "$ref": "#/definitions/LabelPair"
-          },
-          "x-ms-identifiers": []
-        }
-      },
-      "required": [
-        "ipAddress",
-        "macAddress"
-      ]
-    },
-    "SetLabelsRequest": {
-      "type": "object",
-      "description": "The request model for the SetLabels API",
-      "properties": {
-        "labels": {
-          "type": "array",
-          "description": "List of labels that need to be updated",
-          "items": {
-            "$ref": "#/definitions/SetLabelRecord"
-          },
-          "x-ms-identifiers": []
-        }
-      },
-      "required": [
-        "labels"
       ]
     },
     "SetWorkloadSegmentRecord": {
@@ -1022,139 +793,6 @@
       },
       "required": [
         "workloadSegments"
-      ]
-    },
-    "TotalTrafficWeights": {
-      "type": "object",
-      "description": "Total traffic weights for all edges in the graph",
-      "properties": {
-        "totalInPackets": {
-          "type": "number",
-          "format": "float",
-          "description": "Total incoming packets"
-        },
-        "totalInBytes": {
-          "type": "number",
-          "format": "float",
-          "description": "Total incoming bytes"
-        },
-        "totalInConnections": {
-          "type": "number",
-          "format": "float",
-          "description": "Total incoming connections"
-        },
-        "totalOutPackets": {
-          "type": "number",
-          "format": "float",
-          "description": "Total outgoing packets"
-        },
-        "totalOutBytes": {
-          "type": "number",
-          "format": "float",
-          "description": "Total outgoing bytes"
-        },
-        "totalOutConnections": {
-          "type": "number",
-          "format": "float",
-          "description": "Total outgoing connections"
-        }
-      },
-      "required": [
-        "totalInPackets",
-        "totalInBytes",
-        "totalInConnections",
-        "totalOutPackets",
-        "totalOutBytes",
-        "totalOutConnections"
-      ]
-    },
-    "TrafficWeights": {
-      "type": "object",
-      "description": "TrafficWeights model",
-      "properties": {
-        "inPacketWeight": {
-          "type": "number",
-          "format": "float",
-          "description": "Incoming packet weight as a percentage"
-        },
-        "inByteWeight": {
-          "type": "number",
-          "format": "float",
-          "description": "Incoming byte weight as a percentage"
-        },
-        "inConnectionWeight": {
-          "type": "number",
-          "format": "float",
-          "description": "Incoming connection weight as a percentage"
-        },
-        "outPacketWeight": {
-          "type": "number",
-          "format": "float",
-          "description": "Outgoing packet weight as a percentage"
-        },
-        "outByteWeight": {
-          "type": "number",
-          "format": "float",
-          "description": "Outgoing byte weight as a percentage"
-        },
-        "outConnectionWeight": {
-          "type": "number",
-          "format": "float",
-          "description": "Outgoing connection weight as a percentage"
-        }
-      },
-      "required": [
-        "inPacketWeight",
-        "inByteWeight",
-        "inConnectionWeight",
-        "outPacketWeight",
-        "outByteWeight",
-        "outConnectionWeight"
-      ]
-    },
-    "Vertex": {
-      "type": "object",
-      "description": "Vertex model representing a node in the network",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the vertex"
-        },
-        "ipAddress": {
-          "type": "string",
-          "description": "IP address of the vertex"
-        },
-        "macAddress": {
-          "type": "string",
-          "description": "MAC address of the vertex"
-        },
-        "location": {
-          "type": "string",
-          "description": "Geographical location of the vertex"
-        },
-        "armId": {
-          "type": "string",
-          "description": "Azure Resource Manager ID of the vertex"
-        },
-        "name": {
-          "type": "string",
-          "description": "Name of the vertex"
-        },
-        "labels": {
-          "type": "array",
-          "description": "Labels associated with the vertex as key-value pairs",
-          "items": {
-            "$ref": "#/definitions/LabelPair"
-          },
-          "x-ms-identifiers": []
-        }
-      },
-      "required": [
-        "id",
-        "ipAddress",
-        "macAddress",
-        "location",
-        "labels"
       ]
     }
   },
