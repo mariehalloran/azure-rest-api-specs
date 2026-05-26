@@ -4041,6 +4041,13 @@
         "search": {
           "$ref": "#/definitions/SovereignViewComplianceDetailsSearch",
           "description": "The search to apply when querying for compliance details."
+        },
+        "policyStatesSortingOrder": {
+          "type": "array",
+          "description": "The order of compliance states to sort by when sorting on a compliance dimension. This field is only applicable when the sort field is a compliance dimension.",
+          "items": {
+            "$ref": "#/definitions/PolicyComplianceState"
+          }
         }
       },
       "required": [

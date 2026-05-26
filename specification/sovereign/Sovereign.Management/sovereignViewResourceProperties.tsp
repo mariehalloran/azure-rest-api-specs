@@ -258,6 +258,9 @@ model SovereignViewComplianceDetailsRequest {
 
   @doc("The search to apply when querying for compliance details.")
   search?: SovereignViewComplianceDetailsSearch;
+
+  @doc("The order of compliance states to sort by when sorting on a compliance dimension. This field is only applicable when the sort field is a compliance dimension.")
+  policyStatesSortingOrder?: PolicyComplianceState[];
 }
 
 @added(Versions.Preview20260315)
