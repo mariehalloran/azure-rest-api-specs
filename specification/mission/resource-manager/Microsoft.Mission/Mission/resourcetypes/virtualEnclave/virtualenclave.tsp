@@ -158,9 +158,11 @@ union AddressSpaceOwnership {
 @doc("An address space entry for the enclave. Customer entries have ownership 'customerManaged'; the RP-injected managed address space has ownership 'productManaged' and is always the last element.")
 model AddressSpaceEntry {
   @doc("CIDR prefix length (e.g., 22, 23, 24). Determines the size of the address space.")
+  @minValue(8)
+  @maxValue(29)
   prefixLength: int32;
 
-  @doc("CIDR notation address space. Optional — if omitted, RP allocates based on prefixLength. If provided, used as-is (custom address space).")
+  @doc("CIDR notation address space (e.g., '10.0.0.0/23'). Optional — if omitted, RP allocates based on prefixLength. If provided, used as-is (custom address space).")
   addressSpace?: string;
 
   @doc("Indicates whether this address space is customer-managed or product-managed. Product-managed entries are RP-injected and always the last element(s) in the array.")
@@ -257,7 +259,7 @@ model VirtualEnclaveBaseModel {
 
   @added(Microsoft.Mission.Versions.v2026_07_01_preview)
   @doc("Address spaces for the enclave. Supports multiple entries. Customer specifies prefixLength, RP allocates and injects the addressSpace CIDR. Product-managed address spaces (ownership=productManaged) are RP-injected and always appear at the end of the array.")
-  @identifiers(#[])
+  @identifiers(#["addressSpace"])
   addressSpaces?: AddressSpaceEntry[];
 
   @added(Microsoft.Mission.Versions.v2026_07_01_preview)
@@ -267,11 +269,11 @@ model VirtualEnclaveBaseModel {
 
   @added(Microsoft.Mission.Versions.v2026_07_01_preview)
   @doc("Subnet configurations for the enclave network.")
-  @identifiers(#[])
+  @identifiers(#["subnetResourceId"])
   subnetConfigurations?: SubnetConfiguration[];
 
   @added(Microsoft.Mission.Versions.v2026_07_01_preview)
-  @doc("Whether subnets can communicate with each other.")
+  @doc("Whether subnets within the enclave can communicate with each other.")
   @visibility(Lifecycle.Read, Lifecycle.Create)
   allowSubnetCommunication?: boolean = false;
 }
@@ -319,7 +321,7 @@ model VirtualEnclavePatchProperties
   monitoringSettings?: MonitoringSettingsPatchModel;
 
   @added(Microsoft.Mission.Versions.v2026_07_01_preview)
-  @doc("Whether subnets can communicate with each other.")
+  @doc("Whether subnets within the enclave can communicate with each other.")
   allowSubnetCommunication?: boolean;
 }
 

@@ -4430,11 +4430,13 @@
         "prefixLength": {
           "type": "integer",
           "format": "int32",
-          "description": "CIDR prefix length (e.g., 22, 23, 24). Determines the size of the address space."
+          "description": "CIDR prefix length (e.g., 22, 23, 24). Determines the size of the address space.",
+          "minimum": 8,
+          "maximum": 29
         },
         "addressSpace": {
           "type": "string",
-          "description": "CIDR notation address space. Optional — if omitted, RP allocates based on prefixLength. If provided, used as-is (custom address space)."
+          "description": "CIDR notation address space (e.g., '10.0.0.0/23'). Optional — if omitted, RP allocates based on prefixLength. If provided, used as-is (custom address space)."
         },
         "ownership": {
           "$ref": "#/definitions/AddressSpaceOwnership",
@@ -7975,7 +7977,9 @@
           "items": {
             "$ref": "#/definitions/AddressSpaceEntry"
           },
-          "x-ms-identifiers": []
+          "x-ms-identifiers": [
+            "addressSpace"
+          ]
         },
         "subnetConfigurations": {
           "type": "array",
@@ -7983,7 +7987,9 @@
           "items": {
             "$ref": "#/definitions/SubnetConfiguration"
           },
-          "x-ms-identifiers": []
+          "x-ms-identifiers": [
+            "subnetResourceId"
+          ]
         },
         "enclaveDefaultSettings": {
           "$ref": "#/definitions/EnclaveDefaultSettingsPatchModel",
@@ -8007,7 +8013,7 @@
         },
         "allowSubnetCommunication": {
           "type": "boolean",
-          "description": "Whether subnets can communicate with each other."
+          "description": "Whether subnets within the enclave can communicate with each other."
         }
       }
     },
@@ -8133,7 +8139,9 @@
           "items": {
             "$ref": "#/definitions/AddressSpaceEntry"
           },
-          "x-ms-identifiers": []
+          "x-ms-identifiers": [
+            "addressSpace"
+          ]
         },
         "networkName": {
           "type": "string",
@@ -8146,11 +8154,13 @@
           "items": {
             "$ref": "#/definitions/SubnetConfiguration"
           },
-          "x-ms-identifiers": []
+          "x-ms-identifiers": [
+            "subnetResourceId"
+          ]
         },
         "allowSubnetCommunication": {
           "type": "boolean",
-          "description": "Whether subnets can communicate with each other.",
+          "description": "Whether subnets within the enclave can communicate with each other.",
           "default": false,
           "x-ms-mutability": [
             "read",
