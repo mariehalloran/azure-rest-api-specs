@@ -21,8 +21,8 @@ union HciJobType {
   /** Job to repair a server in the cluster. */
   RepairServer: "RepairServer",
 
-  /** Job to configure fault domains for the cluster. */
-  ConfigureFaultDomain: "ConfigureFaultDomain",
+  /** Job to configure local availability zones for the cluster. */
+  ConfigureLocalAvailabilityZone: "ConfigureLocalAvailabilityZone",
 
   // PRIVATE PREVIEW - Arc Gateway and GPU job types
   /** Job to configure arc gateway for the cluster. */
@@ -669,6 +669,20 @@ union HardwareClass {
    * The hardware class is large.
    */
   Large: "Large",
+}
+
+/**
+ * Witness type for an Azure Stack HCI cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+union WitnessType {
+  string,
+
+  /** Cloud witness backed by an Azure Storage account. */
+  Cloud: "Cloud",
+
+  /** File-share witness on a local SMB share. */
+  FileShare: "FileShare",
 }
 
 /**
@@ -2555,6 +2569,13 @@ model ClusterReportedProperties {
    */
   @visibility(Lifecycle.Read)
   hardwareClass?: HardwareClass = HardwareClass.Medium;
+
+  /**
+   * Number of local availability zones configured in the cluster.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  localAvailabilityZoneCount?: int32;
 }
 
 /**
@@ -2843,20 +2864,24 @@ model SoftwareAssuranceChangeRequestProperties {
   softwareAssuranceIntent?: SoftwareAssuranceIntent;
 }
 
-#suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+/**
+ * Request body for the change-ring action on a cluster.
+ */
 @added(Versions.v2026_03_15_preview)
 model ChangeRingRequest {
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  properties?: ChangeRingRequestProperties;
+  /** Properties of the change-ring request. */
+  properties: ChangeRingRequestProperties;
 }
 
-#suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+/**
+ * Properties for the change-ring request.
+ */
 @added(Versions.v2026_03_15_preview)
 model ChangeRingRequestProperties {
   /**
    * The target ring for the cluster.
    */
-  targetRing?: string;
+  targetRing: string;
 }
 
 /**
@@ -3778,6 +3803,38 @@ model OptionalServices {
    * The name of custom location.
    */
   customLocation?: string;
+
+  /**
+   * Optional Day Zero capacity policy used to seed the cluster's Capacity Settings
+   * singleton during deployment. When omitted, the service uses its own defaults.
+   */
+  @added(Versions.v2026_03_15_preview)
+  capacityPolicy?: DeploymentCapacityPolicy;
+}
+
+/**
+ * Day Zero capacity placement policy supplied via Deployment Settings. Mirrors the
+ * patchable shape of AppliedCapacityPolicy so the values can be plumbed into the
+ * Capacity Settings singleton at cluster creation time.
+ */
+@added(Versions.v2026_03_15_preview)
+model DeploymentCapacityPolicy {
+  /**
+   * Cluster-wide CPU overcommit ratio used to calculate effective vCPU capacity.
+   */
+  @minValue(1.0)
+  cpuOvercommitRatio?: float32;
+
+  /**
+   * Number of failure domains to reserve for n+1/n+2 style placement planning.
+   */
+  @minValue(0)
+  failureDomainReservationCount?: int32;
+
+  /**
+   * Explicit node names held back from placement for upgrade or maintenance.
+   */
+  reservedNodes?: string[];
 }
 
 /**
@@ -4002,6 +4059,13 @@ model DeploymentStep {
    */
   @visibility(Lifecycle.Read)
   exception?: string[];
+
+  /**
+   * error details.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
 }
 
 /**
@@ -5932,9 +5996,7 @@ model HciNetworkProfile {
   @visibility(Lifecycle.Read)
   hostNetwork?: HciEdgeDeviceHostNetwork;
 
-  /** 
-    oftware Defined Networking Properties of the cluster
-   */
+  /** Software Defined Networking Properties of the device. */
   @visibility(Lifecycle.Read)
   @added(Versions.v2026_03_15_preview)
   sdnProperties?: SdnProperties;
@@ -6378,6 +6440,21 @@ model EdgeDeviceDisks {
    */
   @visibility(Lifecycle.Read)
   type?: string;
+
+  /** Model number of the hardware. */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  `model`?: string;
+
+  /** The manufacturer of the disk. */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  manufacturer?: string;
+
+  /** Indicates whether the manufacturer is supported. */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  isSupported?: boolean;
 }
 
 /**
@@ -6557,9 +6634,10 @@ union IgvmStatus {
 /**
  * Represents the Software Defined Networking (SDN) configuration state of the Azure Stack HCI cluster.
  */
-#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "For backward compatibility"
 @added(Versions.v2026_03_15_preview)
-model ClusterSdnProperties extends SdnProperties {
+model ClusterSdnProperties {
+  ...SdnProperties;
+
   /**
    * Indicates whether Software Defined Networking (SDN) integration should be enabled or disabled for this deployment.
    */
@@ -6701,8 +6779,8 @@ model HciAddServerJobProperties extends ClusterJobProperties {
   @Azure.ResourceManager.identifiers(#["secretName"])
   secrets?: EceDeploymentSecrets[];
 
-  /** Use a cloud witness if you have internet access and if you use an Azure Storage account to provide a vote on cluster quorum. A cloud witness uses Azure Blob Storage to read or write a blob file and then uses it to arbitrate in split-brain resolution. Only allowed values are 'Cloud', 'FileShare' */
-  witnessType?: string;
+  /** Use a cloud witness if you have internet access and if you use an Azure Storage account to provide a vote on cluster quorum. A cloud witness uses Azure Blob Storage to read or write a blob file and then uses it to arbitrate in split-brain resolution. */
+  witnessType?: WitnessType;
 
   /** Specify the fileshare path for the local witness for your Azure Stack HCI cluster. */
   witnessPath?: string;
@@ -6741,36 +6819,39 @@ model HciRepairServerJobProperties extends ClusterJobProperties {
 }
 
 ////////////////////////////////////////////////////////////////
-////////////// Fault Domain Config Job Models /////////////////
+////////// Local Availability Zone Config Job Models //////////
 ////////////////////////////////////////////////////////////////
 
-/** Mapping of a fault domain to its assigned nodes. */
+/** A single local availability zone entry containing the list of nodes belonging to it. */
 @added(Versions.v2026_03_15_preview)
-model FaultDomainNodeAssignment {
-  /** Name of the fault domain (e.g., Rack1, Rack2). */
-  faultDomainName: string;
-
-  /** List of node names assigned to this fault domain. */
+model LocalAvailabilityZoneEntry {
+  /** List of node names assigned to this local availability zone. All cluster nodes must appear exactly once across all zone entries. */
   nodes: string[];
 }
 
-/** Properties for configuring fault domains in the cluster. */
+/** Configuration for local availability zones, including the naming prefix and zone-to-node mappings. */
 @added(Versions.v2026_03_15_preview)
-model HciConfigureFaultDomainJobProperties extends ClusterJobProperties {
+model LocalAvailabilityZoneConfiguration {
+  /** Naming prefix used to generate local availability zone names (Prefix1..PrefixN). */
+  @pattern("^[a-zA-Z0-9-]{1,8}$")
+  prefix: string;
+
+  /** Array of zone-to-node mappings. Each entry specifies the nodes belonging to one local availability zone. Maximum 8 zones allowed. Each zone must contain at least one node. Every cluster node must be assigned to exactly one zone. */
+  @minItems(1)
+  @maxItems(8)
+  @Azure.ResourceManager.identifiers(#[])
+  zones: LocalAvailabilityZoneEntry[];
+}
+
+/** Properties for configuring local availability zones in the cluster. */
+@added(Versions.v2026_03_15_preview)
+model HciConfigureLocalAvailabilityZoneJobProperties
+  extends ClusterJobProperties {
   /** ClusterJob Type to support polymorphic resource. */
-  jobType: HciJobType.ConfigureFaultDomain;
+  jobType: HciJobType.ConfigureLocalAvailabilityZone;
 
-  /** Number of fault domains to create (1-8). */
-  @minValue(1)
-  @maxValue(8)
-  faultDomainCount: int32;
-
-  /** Naming prefix for fault domains. Each fault domain is named <Prefix>1, <Prefix>2, etc. */
-  faultDomainPrefix: string;
-
-  /** Mapping of fault domain names to their assigned nodes. */
-  @Azure.ResourceManager.identifiers(#["faultDomainName"])
-  nodeAssignment: FaultDomainNodeAssignment[];
+  /** Configuration for local availability zones including naming prefix and zone-to-node mappings. */
+  localAvailabilityZoneConfiguration: LocalAvailabilityZoneConfiguration;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -6896,7 +6977,7 @@ model ClaimDeviceRequest {
   devices: Azure.Core.armResourceIdentifier[];
 
   /**
-   * Resource Id of group device belongs to.
+   * Identifier of the group the device belongs to.
    */
   claimedBy?: string;
 }
@@ -6979,7 +7060,7 @@ model DeviceDetail {
   deviceResourceId?: Azure.Core.armResourceIdentifier;
 
   /**
-   * Resource Id of group device belongs to.
+   * Identifier of the group the device belongs to.
    */
   @visibility(Lifecycle.Read)
   claimedBy?: string;
@@ -7819,6 +7900,12 @@ model StorageProfile {
    */
   @visibility(Lifecycle.Read)
   poolableDisksCount?: int64;
+
+  /**
+   * Local availability zone name assigned to this edge machine after a ConfigureLocalAvailabilityZone job succeeds.
+   */
+  @visibility(Lifecycle.Read)
+  localAvailabilityZoneName?: string;
 }
 /**
  * details of validation failure
@@ -8240,7 +8327,7 @@ model OsProvisionProfile {
   /**
    * GPG Public Key used for package verification
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "GPG Public Key is not sensitive information"
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "gpgPubKey holds only the GPG public key block used by the device to verify package signatures during OS provisioning. It contains no private key material."
   gpgPubKey?: string;
 
   /**
@@ -8287,7 +8374,7 @@ model DownloadOsProfile {
   /**
    * GPG Public Key used for package verification
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "GPG Public Key is not sensitive information"
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "gpgPubKey holds only the GPG public key block used by the device to verify package signatures during OS provisioning. It contains no private key material."
   gpgPubKey?: string;
 }
 
@@ -8716,7 +8803,7 @@ model TimeConfiguration {
 /**
  * Represents properties of a kubernetes version.
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "KubernetesVersion is a read-only catalog proxy resource exposing available versions; it has no lifecycle and therefore no provisioningState."
 @added(Versions.v2026_03_15_preview)
 model KubernetesVersionProperties {
   /**
@@ -8778,7 +8865,7 @@ model ClusterJobListResult is Azure.Core.Page<ClusterJob>;
 /**
  * Represents properties of a os image resource.
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "OsImage is a read-only catalog proxy resource exposing available OS images; it has no lifecycle and therefore no provisioningState."
 @added(Versions.v2026_03_15_preview)
 model OsImageProperties {
   /**
@@ -8809,7 +8896,7 @@ model OsImageProperties {
 /**
  * Represents properties of a platform update resource.
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "PlatformUpdate is a read-only catalog proxy resource exposing available platform updates; it has no lifecycle and therefore no provisioningState."
 @added(Versions.v2026_03_15_preview)
 model PlatformUpdateProperties {
   /**
@@ -8967,7 +9054,7 @@ union OwnershipVoucherValidationStatus {
 /**
  * Represents properties of a update content resource.
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "UpdateContent is a read-only catalog proxy resource exposing update payloads; it has no lifecycle and therefore no provisioningState."
 @added(Versions.v2026_03_15_preview)
 model UpdateContentProperties {
   /**
@@ -12099,4 +12186,199 @@ model CapacitySettingPatchProperties {
    * Updated placement policy to apply to capacity calculations.
    */
   appliedPolicy?: AppliedCapacityPolicy;
+}
+
+////////////////////////////////////////////////////////////////
+///// PRIVATE PREVIEW - Edge Machine Proxy Configuration Models ////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Properties of a proxy configuration resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProxyConfigurationProperties {
+  /**
+   * The intended proxy configuration as set from the cloud.
+   * Updated at Apply job creation time. Seeded from webProxy in
+   * TargetDeviceConfiguration when the EdgeMachine first reaches Purposed.
+   */
+  @visibility(Lifecycle.Read)
+  desiredConfiguration?: ProxyConfigurationDetail;
+
+  /**
+   * The actual proxy configuration last reported by the device via the RP data path.
+   */
+  @visibility(Lifecycle.Read)
+  reportedConfiguration?: ProxyConfigurationReportedDetail;
+
+  /**
+   * Indicates whether desiredConfiguration and reportedConfiguration are in sync.
+   */
+  @visibility(Lifecycle.Read)
+  configurationState?: ProxyConfigurationState;
+
+  /** Provisioning state of the proxy configuration resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/**
+ * The desired proxy configuration set from the cloud.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProxyConfigurationDetail {
+  /** Connection URI of the proxy server (e.g., 'http://proxy.contoso.com'). Required when isEnabled is true. */
+  connectionUri?: string;
+
+  /** Port number of the proxy server. Required when isEnabled is true. */
+  port?: string;
+
+  /** List of addresses or patterns that should bypass the proxy. */
+  bypassList?: string[];
+
+  /** Whether the proxy should be active on the device. */
+  isEnabled?: boolean;
+}
+
+/**
+ * The actual proxy configuration as last reported by the device.
+ * Written by the RP data path; read-only for customers.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProxyConfigurationReportedDetail {
+  /** Connection URI as reported by the device. */
+  @visibility(Lifecycle.Read)
+  connectionUri?: string;
+
+  /** Port number as reported by the device. */
+  @visibility(Lifecycle.Read)
+  port?: string;
+
+  /** Bypass list as reported by the device. */
+  @visibility(Lifecycle.Read)
+  bypassList?: string[];
+
+  /** Whether the proxy is currently active on the device, as reported. */
+  @visibility(Lifecycle.Read)
+  isEnabled?: boolean;
+
+  /** UTC timestamp of the last device report received by the RP. */
+  @visibility(Lifecycle.Read)
+  lastReportedTimestamp?: utcDateTime;
+}
+
+/**
+ * Indicates whether the desired and reported proxy configurations are in sync.
+ */
+@added(Versions.v2026_03_15_preview)
+union ProxyConfigurationState {
+  string,
+
+  /** Desired and reported configurations match. */
+  InSync: "InSync",
+
+  /** Desired and reported configurations diverge. A Sync job must be submitted before a new Apply job is accepted. */
+  Drifted: "Drifted",
+}
+
+////////////////////////////////////////////////////////////////
+// PRIVATE PREVIEW - Proxy Configuration Job Models ////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Base properties for a proxy configuration job.
+ */
+@added(Versions.v2026_03_15_preview)
+@discriminator("jobType")
+model ProxyConfigurationJobProperties {
+  /** Type of proxy configuration job. Determines the polymorphic subtype. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  jobType: ProxyConfigurationJobType;
+
+  /** Provisioning state of the proxy configuration job resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /** Unique, immutable job identifier. */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /** UTC time at which the job started. */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /** UTC time at which the job completed. */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /** Status of the job. */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+
+  /** Error details. */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+}
+
+/**
+ * Type of proxy configuration job.
+ */
+@added(Versions.v2026_03_15_preview)
+union ProxyConfigurationJobType {
+  string,
+
+  /** Push a new proxy configuration to the device. Updates desiredConfiguration on the proxy resource at job creation time. Rejected if configurationState is Drifted or if a ConfigureNetworking, ProvisionOs, or DownloadOs EdgeMachine job is in-flight. */
+  Apply: "Apply",
+
+  /** Reconcile a configuration drift. Does not require a clean configurationState — this is the intended remediation path. Sub-typed by syncDirection. */
+  Sync: "Sync",
+}
+
+/**
+ * Properties for an Apply job that pushes a new proxy configuration to the device.
+ */
+@added(Versions.v2026_03_15_preview)
+model ApplyProxyConfigurationJobProperties
+  extends ProxyConfigurationJobProperties {
+  /** Type of proxy configuration job. */
+  jobType: ProxyConfigurationJobType.Apply;
+
+  /** Whether to enable or disable the proxy on the device. When false, the proxy is disabled on the device but connectionUri and port are preserved in desiredConfiguration. */
+  isEnabled: boolean;
+
+  /** Connection URI of the proxy server. Required when isEnabled is true. */
+  connectionUri?: string;
+
+  /** Port number of the proxy server. Required when isEnabled is true. */
+  port?: string;
+
+  /** List of addresses or patterns that should bypass the proxy. */
+  bypassList?: string[];
+}
+
+/**
+ * Properties for a Sync job that reconciles configuration drift.
+ */
+@added(Versions.v2026_03_15_preview)
+model SyncProxyConfigurationJobProperties
+  extends ProxyConfigurationJobProperties {
+  /** Type of proxy configuration job. */
+  jobType: ProxyConfigurationJobType.Sync;
+
+  /** Direction of the sync operation. */
+  syncDirection: ProxySyncDirection;
+}
+
+/**
+ * Direction of a proxy configuration sync operation.
+ */
+@added(Versions.v2026_03_15_preview)
+union ProxySyncDirection {
+  string,
+
+  /** Re-push the current desiredConfiguration to the device. Use to recover after a failed Apply or to override an unwanted local device change. */
+  SyncToDevice: "SyncToDevice",
+
+  /** Copy reportedConfiguration into desiredConfiguration. Use to acknowledge and canonicalize a locally-made change on the device, clearing the Drifted state. */
+  AcceptReported: "AcceptReported",
 }

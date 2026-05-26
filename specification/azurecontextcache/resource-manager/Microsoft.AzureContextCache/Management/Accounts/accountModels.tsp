@@ -27,3 +27,19 @@ model AccountProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
 }
+
+/** Updatable properties of a Prompt Service Account. */
+model AccountPropertiesUpdate {
+  /** Account description. */
+  @maxLength(250)
+  description?: string;
+}
+
+/** The type used for update operations of the Account. */
+model AccountUpdate {
+  /** Resource tags. */
+  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+
+  /** The updatable properties of the Account. */
+  properties?: AccountPropertiesUpdate;
+}
