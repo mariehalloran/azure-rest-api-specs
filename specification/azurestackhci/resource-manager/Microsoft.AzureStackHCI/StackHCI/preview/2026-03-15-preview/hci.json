@@ -152,6 +152,12 @@
     },
     {
       "name": "DevicePools"
+    },
+    {
+      "name": "ProxyConfigurations"
+    },
+    {
+      "name": "ProxyConfigurationJobs"
     }
   ],
   "paths": {
@@ -3831,9 +3837,6 @@
           "ClusterJobs_Get_ConfigureArcGatewayJob": {
             "$ref": "./examples/ClusterJobs_Get_ConfigureArcGatewayJob.json"
           },
-          "ClusterJobs_Get_ConfigureFaultDomainJob": {
-            "$ref": "./examples/ClusterJobs_Get_ConfigureFaultDomainJob.json"
-          },
           "ClusterJobs_Get_ConfigureSdnIntegrationJob": {
             "$ref": "./examples/ClusterJobs_Get_ConfigureSdnIntegrationJob.json"
           },
@@ -3851,6 +3854,9 @@
           },
           "ClusterJobs_Get_VmConnectRemoveJob": {
             "$ref": "./examples/ClusterJobs_Get_VmConnectRemoveJob.json"
+          },
+          "ClusterJobs_Get_configure-lazJob": {
+            "$ref": "./examples/ClusterJobs_Get_ConfigureLocalAvailabilityZoneJob.json"
           }
         }
       },
@@ -3936,9 +3942,6 @@
           "ClusterJobs_CreateOrUpdate_ConfigureCVMJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureCVM.json"
           },
-          "ClusterJobs_CreateOrUpdate_ConfigureFaultDomainJob": {
-            "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureFaultDomain.json"
-          },
           "ClusterJobs_CreateOrUpdate_ConfigureSdnIntegration_Enable": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureSdnIntegration_Enable.json"
           },
@@ -3956,6 +3959,9 @@
           },
           "ClusterJobs_CreateOrUpdate_VmConnectRemoveJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_VmConnectRemove.json"
+          },
+          "ClusterJobs_CreateOrUpdate_configure-lazJob": {
+            "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureLocalAvailabilityZone.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -9044,6 +9050,9 @@
           "EdgeMachineJobs_Get_ProvisionOs": {
             "$ref": "./examples/EdgeMachineJobs_Get_ProvisionOs.json"
           },
+          "EdgeMachineJobs_Get_ProvisionOs_Failed": {
+            "$ref": "./examples/EdgeMachineJobs_Get_ProvisionOs_Failed.json"
+          },
           "EdgeMachineJobs_Get_RemoteSupport": {
             "$ref": "./examples/EdgeMachineJobs_Get_RemoteSupport.json"
           }
@@ -9618,6 +9627,374 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/proxyConfigurations": {
+      "get": {
+        "operationId": "ProxyConfigurations_List",
+        "tags": [
+          "ProxyConfigurations"
+        ],
+        "description": "List proxy configuration resources by Edge Machine.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ProxyConfigurationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ProxyConfigurations_List": {
+            "$ref": "./examples/ProxyConfigurations_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/proxyConfigurations/default": {
+      "get": {
+        "operationId": "ProxyConfigurations_Get",
+        "tags": [
+          "ProxyConfigurations"
+        ],
+        "description": "Get the proxy configuration of an Edge Machine.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ProxyConfiguration"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ProxyConfigurations_Get": {
+            "$ref": "./examples/ProxyConfigurations_Get.json"
+          },
+          "ProxyConfigurations_Get_Drifted": {
+            "$ref": "./examples/ProxyConfigurations_Get_Drifted.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/proxyConfigurations/default/jobs": {
+      "get": {
+        "operationId": "ProxyConfigurationJobs_List",
+        "tags": [
+          "ProxyConfigurationJobs"
+        ],
+        "description": "List proxy configuration jobs.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ProxyConfigurationJobListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ProxyConfigurationJobs_List": {
+            "$ref": "./examples/ProxyConfigurationJobs_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/proxyConfigurations/default/jobs/{jobName}": {
+      "get": {
+        "operationId": "ProxyConfigurationJobs_Get",
+        "tags": [
+          "ProxyConfigurationJobs"
+        ],
+        "description": "Get a specific proxy configuration job.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the ProxyConfigurationJob",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ProxyConfigurationJob"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ProxyConfigurationJobs_Get_Apply": {
+            "$ref": "./examples/ProxyConfigurationJobs_Get_Apply.json"
+          },
+          "ProxyConfigurationJobs_Get_Sync": {
+            "$ref": "./examples/ProxyConfigurationJobs_Get_Sync.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ProxyConfigurationJobs_CreateOrUpdate",
+        "tags": [
+          "ProxyConfigurationJobs"
+        ],
+        "description": "Create or update a proxy configuration job.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the ProxyConfigurationJob",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProxyConfigurationJob"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ProxyConfigurationJob' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ProxyConfigurationJob"
+            }
+          },
+          "201": {
+            "description": "Resource 'ProxyConfigurationJob' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ProxyConfigurationJob"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ProxyConfigurationJobs_CreateOrUpdate_Apply": {
+            "$ref": "./examples/ProxyConfigurationJobs_CreateOrUpdate_Apply.json"
+          },
+          "ProxyConfigurationJobs_CreateOrUpdate_ApplyDisable": {
+            "$ref": "./examples/ProxyConfigurationJobs_CreateOrUpdate_ApplyDisable.json"
+          },
+          "ProxyConfigurationJobs_CreateOrUpdate_Sync": {
+            "$ref": "./examples/ProxyConfigurationJobs_CreateOrUpdate_Sync.json"
+          },
+          "ProxyConfigurationJobs_CreateOrUpdate_SyncAcceptReported": {
+            "$ref": "./examples/ProxyConfigurationJobs_CreateOrUpdate_SyncAcceptReported.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "ProxyConfigurationJobs_Delete",
+        "tags": [
+          "ProxyConfigurationJobs"
+        ],
+        "description": "Delete a proxy configuration job.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the ProxyConfigurationJob",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ProxyConfigurationJobs_Delete": {
+            "$ref": "./examples/ProxyConfigurationJobs_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/securitySettings": {
       "get": {
         "operationId": "EdgeMachineSecuritySettingsOperations_ListByEdgeMachine",
@@ -9866,6 +10243,76 @@
         "x-ms-examples": {
           "Delete edge machine security settings": {
             "$ref": "./examples/EdgeMachineSecuritySettingsOperations_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/securitySettings/{securitySettingsName}/refresh": {
+      "post": {
+        "operationId": "EdgeMachineSecuritySettingsOperations_Refresh",
+        "tags": [
+          "EdgeMachineSecuritySettingsOperations"
+        ],
+        "description": "Trigger refresh sync for edge machine security settings.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "securitySettingsName",
+            "in": "path",
+            "description": "Name of the security settings resource",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Action completed successfully."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Refresh edge machine security settings": {
+            "$ref": "./examples/EdgeMachineSecuritySettingsOperations_Refresh.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -10605,6 +11052,40 @@
         }
       ],
       "x-ms-discriminator-value": "ApplyConfiguration"
+    },
+    "ApplyProxyConfigurationJobProperties": {
+      "type": "object",
+      "description": "Properties for an Apply job that pushes a new proxy configuration to the device.",
+      "properties": {
+        "isEnabled": {
+          "type": "boolean",
+          "description": "Whether to enable or disable the proxy on the device. When false, the proxy is disabled on the device but connectionUri and port are preserved in desiredConfiguration."
+        },
+        "connectionUri": {
+          "type": "string",
+          "description": "Connection URI of the proxy server. Required when isEnabled is true."
+        },
+        "port": {
+          "type": "string",
+          "description": "Port number of the proxy server. Required when isEnabled is true."
+        },
+        "bypassList": {
+          "type": "array",
+          "description": "List of addresses or patterns that should bypass the proxy.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "isEnabled"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/ProxyConfigurationJobProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "Apply"
     },
     "ArcConnectivityProperties": {
       "type": "object",
@@ -12363,6 +12844,12 @@
             ]
           },
           "readOnly": true
+        },
+        "localAvailabilityZoneCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of local availability zones configured in the cluster.",
+          "readOnly": true
         }
       }
     },
@@ -13223,6 +13710,31 @@
       ],
       "x-ms-discriminator-value": "DeleteVolume"
     },
+    "DeploymentCapacityPolicy": {
+      "type": "object",
+      "description": "Day Zero capacity placement policy supplied via Deployment Settings. Mirrors the\npatchable shape of AppliedCapacityPolicy so the values can be plumbed into the\nCapacity Settings singleton at cluster creation time.",
+      "properties": {
+        "cpuOvercommitRatio": {
+          "type": "number",
+          "format": "float",
+          "description": "Cluster-wide CPU overcommit ratio used to calculate effective vCPU capacity.",
+          "minimum": 1
+        },
+        "failureDomainReservationCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of failure domains to reserve for n+1/n+2 style placement planning.",
+          "minimum": 0
+        },
+        "reservedNodes": {
+          "type": "array",
+          "description": "Explicit node names held back from placement for upgrade or maintenance.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "DeploymentCluster": {
       "type": "object",
       "description": "AzureStackHCI Cluster deployment properties.",
@@ -13812,6 +14324,11 @@
           "items": {
             "type": "string"
           },
+          "readOnly": true
+        },
+        "error": {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "error details.",
           "readOnly": true
         }
       }
@@ -14941,6 +15458,21 @@
         "type": {
           "type": "string",
           "description": "The type of the disk. For example, S2D or SAN.",
+          "readOnly": true
+        },
+        "model": {
+          "type": "string",
+          "description": "Model number of the hardware.",
+          "readOnly": true
+        },
+        "manufacturer": {
+          "type": "string",
+          "description": "The manufacturer of the disk.",
+          "readOnly": true
+        },
+        "isSupported": {
+          "type": "boolean",
+          "description": "Indicates whether the manufacturer is supported.",
           "readOnly": true
         }
       },
@@ -17518,27 +18050,6 @@
         }
       }
     },
-    "FaultDomainNodeAssignment": {
-      "type": "object",
-      "description": "Mapping of a fault domain to its assigned nodes.",
-      "properties": {
-        "faultDomainName": {
-          "type": "string",
-          "description": "Name of the fault domain (e.g., Rack1, Rack2)."
-        },
-        "nodes": {
-          "type": "array",
-          "description": "List of node names assigned to this fault domain.",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": [
-        "faultDomainName",
-        "nodes"
-      ]
-    },
     "ForcePushNetworkAdapterJobProperties": {
       "type": "object",
       "description": "Properties for force push of network adapter configuration.",
@@ -17926,43 +18437,24 @@
       ],
       "x-ms-discriminator-value": "ConfigureCVM"
     },
-    "HciConfigureFaultDomainJobProperties": {
+    "HciConfigureLocalAvailabilityZoneJobProperties": {
       "type": "object",
-      "description": "Properties for configuring fault domains in the cluster.",
+      "description": "Properties for configuring local availability zones in the cluster.",
       "properties": {
-        "faultDomainCount": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of fault domains to create (1-8).",
-          "minimum": 1,
-          "maximum": 8
-        },
-        "faultDomainPrefix": {
-          "type": "string",
-          "description": "Naming prefix for fault domains. Each fault domain is named <Prefix>1, <Prefix>2, etc."
-        },
-        "nodeAssignment": {
-          "type": "array",
-          "description": "Mapping of fault domain names to their assigned nodes.",
-          "items": {
-            "$ref": "#/definitions/FaultDomainNodeAssignment"
-          },
-          "x-ms-identifiers": [
-            "faultDomainName"
-          ]
+        "localAvailabilityZoneConfiguration": {
+          "$ref": "#/definitions/LocalAvailabilityZoneConfiguration",
+          "description": "Configuration for local availability zones including naming prefix and zone-to-node mappings."
         }
       },
       "required": [
-        "faultDomainCount",
-        "faultDomainPrefix",
-        "nodeAssignment"
+        "localAvailabilityZoneConfiguration"
       ],
       "allOf": [
         {
           "$ref": "#/definitions/ClusterJobProperties"
         }
       ],
-      "x-ms-discriminator-value": "ConfigureFaultDomain"
+      "x-ms-discriminator-value": "ConfigureLocalAvailabilityZone"
     },
     "HciConfigureSdnIntegrationJobProperties": {
       "type": "object",
@@ -18396,7 +18888,7 @@
       "enum": [
         "AddServer",
         "RepairServer",
-        "ConfigureFaultDomain",
+        "ConfigureLocalAvailabilityZone",
         "ConfigureArcGateway",
         "GpuCreatePartition",
         "GpuSwitchMode",
@@ -18420,9 +18912,9 @@
             "description": "Job to repair a server in the cluster."
           },
           {
-            "name": "ConfigureFaultDomain",
-            "value": "ConfigureFaultDomain",
-            "description": "Job to configure fault domains for the cluster."
+            "name": "ConfigureLocalAvailabilityZone",
+            "value": "ConfigureLocalAvailabilityZone",
+            "description": "Job to configure local availability zones for the cluster."
           },
           {
             "name": "ConfigureArcGateway",
@@ -19442,6 +19934,47 @@
       },
       "required": [
         "devices"
+      ]
+    },
+    "LocalAvailabilityZoneConfiguration": {
+      "type": "object",
+      "description": "Configuration for local availability zones, including the naming prefix and zone-to-node mappings.",
+      "properties": {
+        "prefix": {
+          "type": "string",
+          "description": "Naming prefix used to generate local availability zone names (Prefix1..PrefixN).",
+          "pattern": "^[a-zA-Z0-9-]{1,8}$"
+        },
+        "zones": {
+          "type": "array",
+          "description": "Array of zone-to-node mappings. Each entry specifies the nodes belonging to one local availability zone. Maximum 8 zones allowed. Each zone must contain at least one node. Every cluster node must be assigned to exactly one zone.",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/definitions/LocalAvailabilityZoneEntry"
+          },
+          "x-ms-identifiers": []
+        }
+      },
+      "required": [
+        "prefix",
+        "zones"
+      ]
+    },
+    "LocalAvailabilityZoneEntry": {
+      "type": "object",
+      "description": "A single local availability zone entry containing the list of nodes belonging to it.",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "description": "List of node names assigned to this local availability zone. All cluster nodes must appear exactly once across all zone entries.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "nodes"
       ]
     },
     "LocalAvailabilityZones": {
@@ -21522,6 +22055,10 @@
         "customLocation": {
           "type": "string",
           "description": "The name of custom location."
+        },
+        "capacityPolicy": {
+          "$ref": "#/definitions/DeploymentCapacityPolicy",
+          "description": "Optional Day Zero capacity policy used to seed the cluster's Capacity Settings\nsingleton during deployment. When omitted, the service uses its own defaults."
         }
       }
     },
@@ -22482,6 +23019,286 @@
         ]
       },
       "readOnly": true
+    },
+    "ProxyConfiguration": {
+      "type": "object",
+      "description": "Proxy configuration for an Edge Machine.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ProxyConfigurationProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "ProxyConfigurationDetail": {
+      "type": "object",
+      "description": "The desired proxy configuration set from the cloud.",
+      "properties": {
+        "connectionUri": {
+          "type": "string",
+          "description": "Connection URI of the proxy server (e.g., 'http://proxy.contoso.com'). Required when isEnabled is true."
+        },
+        "port": {
+          "type": "string",
+          "description": "Port number of the proxy server. Required when isEnabled is true."
+        },
+        "bypassList": {
+          "type": "array",
+          "description": "List of addresses or patterns that should bypass the proxy.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isEnabled": {
+          "type": "boolean",
+          "description": "Whether the proxy should be active on the device."
+        }
+      }
+    },
+    "ProxyConfigurationJob": {
+      "type": "object",
+      "description": "A job that mutates the proxy configuration on an edge machine.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ProxyConfigurationJobProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "ProxyConfigurationJobListResult": {
+      "type": "object",
+      "description": "The response of a ProxyConfigurationJob list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ProxyConfigurationJob items on this page",
+          "items": {
+            "$ref": "#/definitions/ProxyConfigurationJob"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ProxyConfigurationJobProperties": {
+      "type": "object",
+      "description": "Base properties for a proxy configuration job.",
+      "properties": {
+        "jobType": {
+          "$ref": "#/definitions/ProxyConfigurationJobType",
+          "description": "Type of proxy configuration job. Determines the polymorphic subtype.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the proxy configuration job resource.",
+          "readOnly": true
+        },
+        "jobId": {
+          "type": "string",
+          "description": "Unique, immutable job identifier.",
+          "readOnly": true
+        },
+        "startTimeUtc": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC time at which the job started.",
+          "readOnly": true
+        },
+        "endTimeUtc": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC time at which the job completed.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/JobStatus",
+          "description": "Status of the job.",
+          "readOnly": true
+        },
+        "error": {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details.",
+          "readOnly": true
+        }
+      },
+      "discriminator": "jobType",
+      "required": [
+        "jobType"
+      ]
+    },
+    "ProxyConfigurationJobType": {
+      "type": "string",
+      "description": "Type of proxy configuration job.",
+      "enum": [
+        "Apply",
+        "Sync"
+      ],
+      "x-ms-enum": {
+        "name": "ProxyConfigurationJobType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Apply",
+            "value": "Apply",
+            "description": "Push a new proxy configuration to the device. Updates desiredConfiguration on the proxy resource at job creation time. Rejected if configurationState is Drifted or if a ConfigureNetworking, ProvisionOs, or DownloadOs EdgeMachine job is in-flight."
+          },
+          {
+            "name": "Sync",
+            "value": "Sync",
+            "description": "Reconcile a configuration drift. Does not require a clean configurationState — this is the intended remediation path. Sub-typed by syncDirection."
+          }
+        ]
+      }
+    },
+    "ProxyConfigurationListResult": {
+      "type": "object",
+      "description": "The response of a ProxyConfiguration list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ProxyConfiguration items on this page",
+          "items": {
+            "$ref": "#/definitions/ProxyConfiguration"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ProxyConfigurationProperties": {
+      "type": "object",
+      "description": "Properties of a proxy configuration resource.",
+      "properties": {
+        "desiredConfiguration": {
+          "$ref": "#/definitions/ProxyConfigurationDetail",
+          "description": "The intended proxy configuration as set from the cloud.\nUpdated at Apply job creation time. Seeded from webProxy in\nTargetDeviceConfiguration when the EdgeMachine first reaches Purposed.",
+          "readOnly": true
+        },
+        "reportedConfiguration": {
+          "$ref": "#/definitions/ProxyConfigurationReportedDetail",
+          "description": "The actual proxy configuration last reported by the device via the RP data path.",
+          "readOnly": true
+        },
+        "configurationState": {
+          "$ref": "#/definitions/ProxyConfigurationState",
+          "description": "Indicates whether desiredConfiguration and reportedConfiguration are in sync.",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the proxy configuration resource.",
+          "readOnly": true
+        }
+      }
+    },
+    "ProxyConfigurationReportedDetail": {
+      "type": "object",
+      "description": "The actual proxy configuration as last reported by the device.\nWritten by the RP data path; read-only for customers.",
+      "properties": {
+        "connectionUri": {
+          "type": "string",
+          "description": "Connection URI as reported by the device.",
+          "readOnly": true
+        },
+        "port": {
+          "type": "string",
+          "description": "Port number as reported by the device.",
+          "readOnly": true
+        },
+        "bypassList": {
+          "type": "array",
+          "description": "Bypass list as reported by the device.",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "isEnabled": {
+          "type": "boolean",
+          "description": "Whether the proxy is currently active on the device, as reported.",
+          "readOnly": true
+        },
+        "lastReportedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC timestamp of the last device report received by the RP.",
+          "readOnly": true
+        }
+      }
+    },
+    "ProxyConfigurationState": {
+      "type": "string",
+      "description": "Indicates whether the desired and reported proxy configurations are in sync.",
+      "enum": [
+        "InSync",
+        "Drifted"
+      ],
+      "x-ms-enum": {
+        "name": "ProxyConfigurationState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "InSync",
+            "value": "InSync",
+            "description": "Desired and reported configurations match."
+          },
+          {
+            "name": "Drifted",
+            "value": "Drifted",
+            "description": "Desired and reported configurations diverge. A Sync job must be submitted before a new Apply job is accepted."
+          }
+        ]
+      }
+    },
+    "ProxySyncDirection": {
+      "type": "string",
+      "description": "Direction of a proxy configuration sync operation.",
+      "enum": [
+        "SyncToDevice",
+        "AcceptReported"
+      ],
+      "x-ms-enum": {
+        "name": "ProxySyncDirection",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "SyncToDevice",
+            "value": "SyncToDevice",
+            "description": "Re-push the current desiredConfiguration to the device. Use to recover after a failed Apply or to override an unwanted local device change."
+          },
+          {
+            "name": "AcceptReported",
+            "value": "AcceptReported",
+            "description": "Copy reportedConfiguration into desiredConfiguration. Use to acknowledge and canonicalize a locally-made change on the device, clearing the Drifted state."
+          }
+        ]
+      }
     },
     "Publisher": {
       "type": "object",
@@ -24397,6 +25214,11 @@
           "format": "int64",
           "description": "Number of storage disks in the device with $CanPool as true.",
           "readOnly": true
+        },
+        "localAvailabilityZoneName": {
+          "type": "string",
+          "description": "Local availability zone name assigned to this edge machine after a ConfigureLocalAvailabilityZone job succeeds.",
+          "readOnly": true
         }
       }
     },
@@ -24568,6 +25390,25 @@
         }
       ],
       "x-ms-discriminator-value": "SyncConfiguration"
+    },
+    "SyncProxyConfigurationJobProperties": {
+      "type": "object",
+      "description": "Properties for a Sync job that reconciles configuration drift.",
+      "properties": {
+        "syncDirection": {
+          "$ref": "#/definitions/ProxySyncDirection",
+          "description": "Direction of the sync operation."
+        }
+      },
+      "required": [
+        "syncDirection"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/ProxyConfigurationJobProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "Sync"
     },
     "TargetDeviceConfiguration": {
       "type": "object",
