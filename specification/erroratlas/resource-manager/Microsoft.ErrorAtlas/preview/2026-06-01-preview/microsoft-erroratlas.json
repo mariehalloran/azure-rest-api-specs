@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Microsoft.ErrorAtlas management service",
-    "version": "2025-05-01-preview",
+    "version": "2026-06-01-preview",
     "description": "Microsoft.ErrorAtlas Resource Provider management API.",
     "x-typespec-generated": [
       {
@@ -41,6 +41,9 @@
   "tags": [
     {
       "name": "Operations"
+    },
+    {
+      "name": "UnassignedErrors"
     }
   ],
   "paths": {
@@ -79,6 +82,83 @@
           "nextLinkName": "nextLink"
         }
       }
+    },
+    "/providers/Microsoft.ErrorAtlas/unassignedErrors": {
+      "get": {
+        "operationId": "UnassignedErrors_List",
+        "tags": [
+          "UnassignedErrors"
+        ],
+        "description": "List unassigned error events.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/UnassignedErrorListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List unassigned error events": {
+            "$ref": "./examples/UnassignedErrors_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.ErrorAtlas/unassignedErrors/{unassignedErrorName}": {
+      "get": {
+        "operationId": "UnassignedErrors_Get",
+        "tags": [
+          "UnassignedErrors"
+        ],
+        "description": "Get an unassigned error event.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "unassignedErrorName",
+            "in": "path",
+            "description": "The unassigned error resource name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,128}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/UnassignedError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get an unassigned error event": {
+            "$ref": "./examples/UnassignedErrors_Get.json"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -113,6 +193,21 @@
       },
       "readOnly": true
     },
+    "UnassignedError": {
+      "type": "object",
+      "description": "An unassigned error event pending cluster assignment (tenant-scoped, global resource).",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/UnassignedErrorProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
     "UnassignedErrorAttributes": {
       "type": "object",
       "description": "Details of the unassigned error event.",
@@ -134,6 +229,27 @@
       "required": [
         "eventTimestamp",
         "errorCode"
+      ]
+    },
+    "UnassignedErrorListResult": {
+      "type": "object",
+      "description": "The response of a UnassignedError list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The UnassignedError items on this page",
+          "items": {
+            "$ref": "#/definitions/UnassignedError"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
       ]
     },
     "UnassignedErrorProperties": {
