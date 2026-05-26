@@ -60,9 +60,9 @@ op ArmLocResourceListByParent<
   TBaseParameters = BaseParameters<TResource>,
   TParentName extends valueof string = "",
   TParentFriendlyName extends valueof string = ""
->(
-  ...LocationCollectionParameters<TResource>,
-): ArmResponse<ResourceListResult<TResource>> | ErrorResponse;
+>(...LocationCollectionParameters<TResource>):
+  | ArmResponse<ResourceListResult<TResource>>
+  | ErrorResponse;
 
 /// Templates
 /**
@@ -79,6 +79,6 @@ op ArmLocResourceListByParent<
 op ArmLocResourceRead<
   TResource extends Foundations.Resource,
   TBaseParameters = BaseParameters<TResource>
->(
-  ...LocationInstanceParameters<TResource>,
-): ArmResponse<TResource> | ErrorResponse;
+>(...LocationInstanceParameters<TResource>):
+  | ArmResponse<TResource>
+  | ErrorResponse;

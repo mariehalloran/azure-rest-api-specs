@@ -45,11 +45,6 @@ alias proxyResourceNameRegex = "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$";
 @doc("String with max length validation of 4096 characters")
 scalar string4096 extends string;
 
-@maxLength(4096)
-@secret
-@doc("Secret string with max length validation of 4096 characters")
-scalar secretString4096 extends string;
-
 @maxLength(256)
 @doc("String with max length validation of 256 characters")
 scalar string256 extends string;
@@ -184,11 +179,11 @@ model EvaluationRule {
   @doc("Configure to use ML-based dynamic thresholds. When used, degradedRule and unhealthyRule must not be set.")
   dynamicDetectionRule?: DynamicDetectionRule;
 
-  @doc("Degraded threshold rule.")
+  @doc("Degraded rule with static threshold.")
   @typeChangedFrom(Versions.v2026_01_01_preview, ThresholdRule)
   degradedRule?: ThresholdRuleV2;
 
-  @doc("Unhealthy threshold rule.")
+  @doc("Unhealthy rule with static threshold.")
   @typeChangedFrom(Versions.v2026_01_01_preview, ThresholdRule)
   @madeRequired(Versions.v2026_01_01_preview)
   unhealthyRule: ThresholdRuleV2;
@@ -213,7 +208,7 @@ model ThresholdRuleV2 {
   operator: SignalOperator;
 
   @madeOptional(Versions.v2026_05_01_preview)
-  @doc("Threshold value. Required for static operators. Not applicable when operator is Dynamic.")
+  @doc("Threshold value")
   threshold?: float64;
 
   @added(Versions.v2026_05_01_preview)
@@ -222,7 +217,25 @@ model ThresholdRuleV2 {
 
   @added(Versions.v2026_05_01_preview)
   @doc("ISO 8601 duration for the historical look-back window used by dynamic threshold computation. Only applicable when operator is Dynamic.")
-  lookBackWindow?: string;
+  lookBackWindow?: LookBackWindow;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Allowed look-back window durations for dynamic threshold computation")
+union LookBackWindow {
+  string,
+
+  @doc("Five minutes")
+  PT5M: "PT5M",
+
+  @doc("Fifteen minutes")
+  PT15M: "PT15M",
+
+  @doc("Thirty minutes")
+  PT30M: "PT30M",
+
+  @doc("One hour")
+  PT1H: "PT1H",
 }
 
 @added(Versions.v2026_05_01_preview)
@@ -335,7 +348,7 @@ model ResourceMetricSignalDefinitionProperties
   @maxLength(256)
   dimension?: string;
 
-  @doc("Optional: Dimension filter to apply to the metric. OData filter syntax, e.g. \"dimension eq '*'\" or \"dimension eq 'value'\"")
+  @doc("Optional: Dimension filter to apply to the dimension. Must only be set if also Dimension is set.")
   @minLength(1)
   @maxLength(256)
   dimensionFilter?: string;
@@ -424,7 +437,7 @@ union SignalOperator {
   NotEqual: "NotEqual",
 
   @added(Versions.v2026_05_01_preview)
-  @doc("Dynamic threshold — uses statistical analysis of historical signal values")
+  @doc("Dynamic threshold — uses deviation from a ML-computed baseline to determine health state transitions. Only valid for the unhealthy threshold rule. Requires `sensitivity` and `lookBackWindow` on the rule; `threshold` is ignored.")
   Dynamic: "Dynamic",
 }
 
@@ -860,23 +873,46 @@ model PrometheusMetricsSignal extends SignalInstanceProperties {
 @doc("Status of an Azure Resource Health signal, including availability information reported by Azure Resource Health.")
 model AzureResourceHealthSignalStatus is SignalStatus {
   @visibility(Lifecycle.Read)
-  @doc("Availability status of the Azure resource as reported by Azure Resource Health.")
-  availabilityStatus?: string;
+  @doc("Availability state of the Azure resource as reported by Azure Resource Health.")
+  @added(Versions.v2026_05_01_preview)
+  availabilityState?: ResourceHealthAvailabilityState;
 
   @visibility(Lifecycle.Read)
-  @doc("When a context field is set to Platform, this field will reflect if the event was planned or unplanned.")
-  category?: string256;
+  @doc("Whether the status changing event was planned or unplanned.")
+  @added(Versions.v2026_05_01_preview)
+  category?: ResourceHealthCategory;
 
   @visibility(Lifecycle.Read)
   @doc("Detailed status of the Azure resource as reported by Azure Resource Health.")
+  @added(Versions.v2026_05_01_preview)
   detailedStatus?: string4096;
+
+  @visibility(Lifecycle.Read)
+  @doc("Human-readable summary of the current availability state from Azure Resource Health.")
+  @added(Versions.v2026_05_01_preview)
+  summary?: string;
+
+  @visibility(Lifecycle.Read)
+  @doc("Reason type for the current availability state (e.g. 'Unplanned', 'Planned', 'UserInitiated').")
+  @added(Versions.v2026_05_01_preview)
+  reasonType?: ResourceHealthReasonType;
+
+  @visibility(Lifecycle.Read)
+  @doc("Whether the current availability state is 'Persistent' or 'Transient'.")
+  @added(Versions.v2026_05_01_preview)
+  reasonChronicity?: ResourceHealthReasonChronicity;
+
+  @visibility(Lifecycle.Read)
+  @doc("Timestamp when Azure Resource Health observed the current availability state.")
+  @added(Versions.v2026_05_01_preview)
+  availabilityReportedTime?: utcDateTime;
 }
 
 @added(Versions.v2026_05_01_preview)
 @doc("Azure resource health signal configuration")
 model AzureResourceHealthSignal {
-  @doc("Whether to automatically add a signal for the Azure resource's availability status from Azure Resource Health. Defaults to Enabled.")
-  enabled?: ResourceHealthAvailabilityStatusSignalBehavior = ResourceHealthAvailabilityStatusSignalBehavior.Enabled;
+  @doc("Whether to automatically add a signal for the Azure resource's availability state from Azure Resource Health. Defaults to Enabled.")
+  enabled?: ResourceHealthAvailabilityStateSignalBehavior = ResourceHealthAvailabilityStateSignalBehavior.Enabled;
 
   @visibility(Lifecycle.Read)
   @doc("The unique name of the Azure resource health signal. System assigned.")
@@ -1120,8 +1156,8 @@ model DiscoveryRuleProperties {
   specification: DiscoveryRuleSpecification;
 
   @added(Versions.v2026_05_01_preview)
-  @doc("Whether to automatically add a signal for the Azure resource's availability status from Azure Resource Health to the discovered entities.")
-  addResourceHealthSignal: ResourceHealthAvailabilityStatusSignalBehavior;
+  @doc("Whether to automatically add a signal for the Azure resource's availability state from Azure Resource Health to the discovered entities. Defaults to `Enabled`: discovery rules updated via this API version without setting this field will begin emitting a Resource Health availability signal. Pass `Disabled` to preserve pre-`2026-05-01-preview` behavior.")
+  addResourceHealthSignal?: ResourceHealthAvailabilityStateSignalBehavior = ResourceHealthAvailabilityStateSignalBehavior.Enabled;
 
   @removed(Versions.v2026_01_01_preview)
   @visibility(Lifecycle.Read)
@@ -1205,15 +1241,73 @@ union DiscoveryRuleRecommendedSignalsBehavior {
   Disabled: "Disabled",
 }
 
-@doc("Resource health availability status signal behavior")
-union ResourceHealthAvailabilityStatusSignalBehavior {
+@doc("Resource health availability state signal behavior")
+@added(Versions.v2026_05_01_preview)
+union ResourceHealthAvailabilityStateSignalBehavior {
   string,
 
-  @doc("Automatically add resource health availability status signal")
+  @doc("Automatically add resource health availability state signal")
   Enabled: "Enabled",
 
-  @doc("Do not automatically add resource health availability status signal")
+  @doc("Do not automatically add resource health availability state signal")
   Disabled: "Disabled",
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Availability state of an Azure resource as reported by Azure Resource Health.")
+union ResourceHealthAvailabilityState {
+  string,
+
+  @doc("The resource is available.")
+  Available: "Available",
+
+  @doc("The resource is unavailable.")
+  Unavailable: "Unavailable",
+
+  @doc("The resource is degraded.")
+  Degraded: "Degraded",
+
+  @doc("The resource availability state is unknown.")
+  Unknown: "Unknown",
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Whether an Azure Resource Health status changing event was planned or unplanned.")
+union ResourceHealthCategory {
+  string,
+
+  @doc("The event was planned.")
+  Planned: "Planned",
+
+  @doc("The event was unplanned.")
+  Unplanned: "Unplanned",
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Reason type for the current Azure Resource Health availability state.")
+union ResourceHealthReasonType {
+  string,
+
+  @doc("Unplanned reason.")
+  Unplanned: "Unplanned",
+
+  @doc("Planned reason.")
+  Planned: "Planned",
+
+  @doc("User-initiated reason.")
+  UserInitiated: "UserInitiated",
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Whether the current Azure Resource Health availability state is persistent or transient.")
+union ResourceHealthReasonChronicity {
+  string,
+
+  @doc("Persistent state.")
+  Persistent: "Persistent",
+
+  @doc("Transient state.")
+  Transient: "Transient",
 }
 
 @added(Versions.v2026_01_01_preview)
@@ -1243,22 +1337,22 @@ model DiscoveryError {
 @added(Versions.v2026_01_01_preview)
 @doc("Request body for getting entity health history")
 model EntityHistoryRequest {
-  @doc("Start time for the history query. Defaults to 24 hours ago if not specified. Must be omitted when continuationToken is specified.")
+  @doc("Start time for the history query. Defaults to 24 hours ago if not specified.")
   startAt?: utcDateTime;
 
-  @doc("End time for the history query. Defaults to now if not specified. Must be omitted when continuationToken is specified.")
+  @doc("End time for the history query. Defaults to now if not specified.")
   endAt?: utcDateTime;
 
   @added(Versions.v2026_05_01_preview)
   @doc("Maximum number of health state transitions to return per page. Defaults to 1000.")
   @maxValue(1000)
   @minValue(1)
-  top?: int32;
+  top?: int32 = 1000;
 
   @added(Versions.v2026_05_01_preview)
-  @secret
-  @doc("Continuation token from a previous response to retrieve the next page of results. Must not be combined with startAt or endAt.")
-  continuationToken?: secretString4096;
+  @doc("An opaque string value that identifies the portion of the result set to be returned with the next operation. Must not be combined with startAt or endAt.")
+  @continuationToken
+  nextMarker?: string4096;
 }
 
 @added(Versions.v2026_01_01_preview)
@@ -1272,9 +1366,9 @@ model EntityHistoryResponse {
   history: HealthStateTransition[];
 
   @added(Versions.v2026_05_01_preview)
-  @secret
-  @doc("Continuation token to retrieve the next page of results. Null if there are no more results.")
-  continuationToken?: secretString4096;
+  @doc("An opaque string value that identifies the portion of the result set to be returned with the next operation.")
+  @continuationToken
+  nextMarker?: string4096;
 }
 
 @added(Versions.v2026_01_01_preview)
@@ -1299,22 +1393,22 @@ model SignalHistoryRequest {
   @doc("Name of the signal to get history for")
   signalName: signalName;
 
-  @doc("Start time for the history query. Defaults to 24 hours ago if not specified. Must be omitted when continuationToken is specified.")
+  @doc("Start time for the history query. Defaults to 24 hours ago if not specified.")
   startAt?: utcDateTime;
 
-  @doc("End time for the history query. Defaults to now if not specified. Must be omitted when continuationToken is specified.")
+  @doc("End time for the history query. Defaults to now if not specified.")
   endAt?: utcDateTime;
 
   @added(Versions.v2026_05_01_preview)
   @doc("Maximum number of data points to return per page. Defaults to 1000.")
   @maxValue(1000)
   @minValue(1)
-  top?: int32;
+  top?: int32 = 1000;
 
   @added(Versions.v2026_05_01_preview)
-  @secret
-  @doc("Continuation token from a previous response to retrieve the next page of results. Must not be combined with startAt or endAt.")
-  continuationToken?: secretString4096;
+  @doc("An opaque string value that identifies the portion of the result set to be returned with the next operation. Must not be combined with startAt or endAt.")
+  @continuationToken
+  nextMarker?: string4096;
 }
 
 @added(Versions.v2026_01_01_preview)
@@ -1331,9 +1425,9 @@ model SignalHistoryResponse {
   history: SignalHistoryDataPoint[];
 
   @added(Versions.v2026_05_01_preview)
-  @secret
-  @doc("Continuation token to retrieve the next page of results. Null if there are no more results.")
-  continuationToken?: secretString4096;
+  @doc("An opaque string value that identifies the portion of the result set to be returned with the next operation.")
+  @continuationToken
+  nextMarker?: string4096;
 }
 
 @added(Versions.v2026_01_01_preview)
@@ -1389,7 +1483,18 @@ model DataAnnotation {
   createdAt?: utcDateTime;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Annotation details are user-defined key-value pairs with arbitrary keys that cannot be modelled with a fixed schema"
-  @doc("Annotation details as a dynamic key-value pair bag. Each value is limited to 256 characters. A maximum of 10 entries is permitted per annotation.")
+  @doc("Annotation details as a dynamic key-value pair bag. Service-enforced limits: a maximum of 10 entries per annotation and a maximum value length of 256 characters. Requests exceeding these limits will be rejected with a 400 response.")
+  annotationDetails: Record<string256>;
+
+  @doc("Optional description of the annotation")
+  description?: string4096;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Request body for adding a data annotation.")
+model AddDataAnnotationRequest {
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Annotation details are user-defined key-value pairs with arbitrary keys that cannot be modelled with a fixed schema"
+  @doc("Annotation details as a dynamic key-value pair bag. Service-enforced limits: a maximum of 10 entries per annotation and a maximum value length of 256 characters. Requests exceeding these limits will be rejected with a 400 response.")
   annotationDetails: Record<string256>;
 
   @doc("Optional description of the annotation")
@@ -1399,20 +1504,20 @@ model DataAnnotation {
 @added(Versions.v2026_05_01_preview)
 @doc("Request body for querying data annotations")
 model GetDataAnnotationsRequest {
-  @doc("Start of UTC time range. Defaults to 24 hours ago if not specified. Must be omitted when continuationToken is specified.")
+  @doc("Start of UTC time range. Defaults to 24 hours ago if not specified.")
   startAt?: utcDateTime;
 
-  @doc("End of UTC time range. Defaults to now if not specified. Must be omitted when continuationToken is specified.")
+  @doc("End of UTC time range. Defaults to now if not specified.")
   endAt?: utcDateTime;
 
-  @doc("Maximum number of annotations to return per page.")
+  @doc("Maximum number of annotations to return per page. Defaults to 100.")
   @maxValue(100)
   @minValue(1)
   top?: int32 = 100;
 
-  @secret
-  @doc("Continuation token from a previous response to retrieve the next page of results.")
-  continuationToken?: secretString4096;
+  @doc("An opaque string value that identifies the portion of the result set to be returned with the next operation. Must not be combined with startAt or endAt.")
+  @continuationToken
+  nextMarker?: string4096;
 }
 
 @added(Versions.v2026_05_01_preview)
@@ -1425,9 +1530,9 @@ model GetDataAnnotationsResponse {
   @identifiers(#["annotationId"])
   annotations: DataAnnotation[];
 
-  @secret
-  @doc("Continuation token to retrieve the next page of results. Null if there are no more results.")
-  continuationToken?: secretString4096;
+  @doc("An opaque string value that identifies the portion of the result set to be returned with the next operation.")
+  @continuationToken
+  nextMarker?: string4096;
 }
 
 @added(Versions.v2026_01_01_preview)
@@ -1437,31 +1542,24 @@ model HealthReportEvaluationRule {
 }
 
 @added(Versions.v2026_05_01_preview)
-@doc("Request body for getting recommended signals for a given Azure resource type.")
-model GetSignalRecommendationsRequest {
-  @doc("Azure resource type to get recommended signals for (e.g. 'microsoft.compute/virtualMachines').")
-  @minLength(1)
-  @maxLength(256)
-  resourceType: string;
-}
-
-@added(Versions.v2026_05_01_preview)
-@doc("Response containing recommended signal configurations for a given Azure resource type.")
+@doc("Response from `getSignalRecommendations` containing two independent suggestion streams for the Azure resource type represented by the target Entity. `recommendedSignals` lists signals broadly recommended to be enabled by default; `recommendedConfigurations` lists additional metrics that are not broadly applicable but, if a caller chooses to monitor one of them, ship with suggested starting-point thresholds. The two arrays are independent — items are not paired by index, and callers should treat them as two separate suggestion streams.")
 model GetSignalRecommendationsResponse {
-  @doc("List of recommended signal configurations for the specified resource type. These signals are generally recommended to be used on the specified resource type.")
-  @identifiers(#["id"])
-  recommendedSignals?: SignalConfiguration[];
+  @doc("Signals that are broadly recommended to be enabled by default for health models monitoring an Entity of this resource type. Each entry is a complete signal configuration (metric, aggregation, thresholds) ready to be added to a health model. Independent of `recommendedConfigurations` — not paired by index.")
+  @identifiers(#["signalId"])
+  recommendedSignals: SignalConfiguration[];
 
-  @doc("List of recommended configurations (thresholds etc.) for the specified resource type.")
-  @identifiers(#["id"])
-  recommendedConfigurations?: SignalConfiguration[];
+  @doc("Additional signal configurations for metrics that are not broadly applicable to every health model for an Entity of this resource type, but if a caller chooses to monitor one of these metrics, the provided thresholds are suggested as a starting point. Independent of `recommendedSignals` — not paired by index.")
+  @identifiers(#["signalId"])
+  recommendedConfigurations: SignalConfiguration[];
 }
 
 @added(Versions.v2026_05_01_preview)
 @doc("A signal configuration for an Azure resource type")
 model SignalConfiguration {
-  @doc("Unique identifier of the recommended signal.")
-  id: string;
+  @doc("Unique identifier of the recommended signal configuration.")
+  @minLength(1)
+  @maxLength(256)
+  signalId: string;
 
   @doc("Metric namespace (e.g. 'microsoft.compute/virtualmachines').")
   @minLength(1)
@@ -1505,6 +1603,7 @@ alias TimestampQueryParam = {
 interface HealthModels {
   get is ArmResourceRead<HealthModel>;
   create is ArmResourceCreateOrUpdateAsync<HealthModel>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     HealthModel,
@@ -1516,16 +1615,6 @@ interface HealthModels {
   delete is ArmResourceDeleteWithoutOkAsync<HealthModel>;
   listByResourceGroup is ArmResourceListByParent<HealthModel>;
   listBySubscription is ArmListBySubscription<HealthModel>;
-
-  @added(Versions.v2026_05_01_preview)
-  @doc("Get recommended signal configurations for a given Azure resource type")
-  @post
-  @action("getSignalRecommendations")
-  getSignalRecommendations is ArmResourceActionSync<
-    HealthModel,
-    GetSignalRecommendationsRequest,
-    GetSignalRecommendationsResponse
-  >;
 }
 
 @armResourceOperations(SignalDefinition)
@@ -1645,7 +1734,7 @@ interface Entities {
   @action("addDataAnnotation")
   addDataAnnotation is ArmResourceActionSync<
     Entity,
-    DataAnnotation,
+    AddDataAnnotationRequest,
     DataAnnotation
   >;
 
@@ -1657,6 +1746,16 @@ interface Entities {
     Entity,
     GetDataAnnotationsRequest,
     GetDataAnnotationsResponse
+  >;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Get recommended signal configurations for a given Entity (only applicable for Entities representing Azure resources)")
+  @post
+  @action("getSignalRecommendations")
+  getSignalRecommendations is ArmResourceActionSync<
+    Entity,
+    void,
+    GetSignalRecommendationsResponse
   >;
 }
 

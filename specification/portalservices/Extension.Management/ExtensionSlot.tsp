@@ -60,10 +60,12 @@ interface PortalExtensionSlots {
   listByExtensions is ArmResourceListByParent<ExtensionSlot>;
 }
 
-@@doc(PortalExtensionSlots.createOrUpdate::parameters.resource,
+@@doc(
+  PortalExtensionSlots.createOrUpdate::parameters.resource,
   "The slot deployment definition"
 );
-@@doc(PortalExtensionSlots.update::parameters.properties,
+@@doc(
+  PortalExtensionSlots.update::parameters.properties,
   "The updatable fields of a portal extension slot."
 );
 

@@ -454,8 +454,8 @@ interface DataProducts {
     "x-ms-long-running-operation-options",
     #{ `final-state-via`: "location" }
   )
-  getRegionalCapacity(
-    ...ApiVersionParameter,
-    ...SubscriptionIdParameter,
-  ): ArmResponse<RegionalDataProductCapacities> | ArmAcceptedLroResponse | ErrorResponse;
+  getRegionalCapacity(...ApiVersionParameter, ...SubscriptionIdParameter):
+    | ArmResponse<RegionalDataProductCapacities>
+    | ArmAcceptedLroResponse
+    | ErrorResponse;
 }

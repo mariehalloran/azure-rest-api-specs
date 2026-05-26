@@ -107,6 +107,7 @@ alias NamespaceAssetPropertiesUpdate = {
 interface NamespaceAssets {
   get is ArmResourceRead<NamespaceAsset>;
   createOrReplace is ArmResourceCreateOrReplaceAsync<NamespaceAsset>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     NamespaceAsset,

@@ -124,6 +124,7 @@ namespace Vast.Data {
   interface Clusters {
     get is ArmResourceRead<ClusterResource>;
     createOrUpdate is ArmResourceCreateOrReplaceAsync<ClusterResource>;
+    #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
     @patch(#{ implicitOptionality: true })
     update is ArmCustomPatchAsync<ClusterResource, ClusterResourceUpdate>;
     delete is ArmResourceDeleteWithoutOkAsync<ClusterResource>;

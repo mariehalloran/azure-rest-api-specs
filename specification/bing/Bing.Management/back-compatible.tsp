@@ -3,7 +3,8 @@ import "@azure-tools/typespec-client-generator-core";
 using Azure.ClientGenerator.Core;
 using Microsoft.Bing;
 
-@@clientName(CustomSearchConfigurations.createOrUpdate::parameters.resource,
+@@clientName(
+  CustomSearchConfigurations.createOrUpdate::parameters.resource,
   "customSearchConfiguration"
 );
 
@@ -30,7 +31,8 @@ using Microsoft.Bing;
 
 @@clientName(checkSkuAvailability::parameters.body, "parameters");
 
-@@clientName(CheckSkuAvailabilityParameter,
+@@clientName(
+  CheckSkuAvailabilityParameter,
   "CheckSkuAvailabilityContent",
   "csharp"
 );
@@ -52,7 +54,8 @@ using Microsoft.Bing;
 
 // CustomSearchConfigurations interface operations
 @@clientLocation(CustomSearchConfigurations.get, "CustomSearchConfiguration");
-@@clientLocation(CustomSearchConfigurations.delete,
+@@clientLocation(
+  CustomSearchConfigurations.delete,
   "CustomSearchConfiguration"
 );
 

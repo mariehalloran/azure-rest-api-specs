@@ -20,6 +20,15 @@ union MongoDbSnapshotMode {
   string,
 }
 
+@doc("MongoDb connection string option.")
+model MongoDbConnectionOption {
+  @doc("Connection string option name.")
+  key: string;
+
+  @doc("Value associated with the key.")
+  value: string;
+}
+
 @doc("MongoDbConnector tracks a MongoDb replica set or a MongoDb shared cluster for document changes in databases and collections, recording those changes as events in Kafka topics")
 model MongoDbSourceConnectorProperties extends DataSourceProperties {
   @doc("Type of MongoDbSourceConnector")
@@ -40,6 +49,10 @@ model MongoDbSourceConnectorProperties extends DataSourceProperties {
 
   @doc("Enables or disables TLS/SSL for the connection.")
   enableTls?: boolean;
+
+  @doc("Connection options to be added to the MongoDb connection string. These are additional connection string options as defined in the MongoDb connection string specification.")
+  @Azure.ResourceManager.identifiers(#[])
+  connectionOptions?: MongoDbConnectionOption[];
 
   @doc("A comma-separated list of regular expressions that match database names to be monitored. By default, all databases are monitored.")
   databaseIncludeList?: string;
