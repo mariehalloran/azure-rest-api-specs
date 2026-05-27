@@ -4452,21 +4452,21 @@
       "type": "string",
       "description": "Indicates who manages the address space lifecycle.",
       "enum": [
-        "customerManaged",
-        "productManaged"
+        "CustomerManaged",
+        "ProductManaged"
       ],
       "x-ms-enum": {
         "name": "AddressSpaceOwnership",
         "modelAsString": true,
         "values": [
           {
-            "name": "customerManaged",
-            "value": "customerManaged",
+            "name": "CustomerManaged",
+            "value": "CustomerManaged",
             "description": "Customer-provided address space. Customer specifies prefixLength, RP allocates CIDR."
           },
           {
-            "name": "productManaged",
-            "value": "productManaged",
+            "name": "ProductManaged",
+            "value": "ProductManaged",
             "description": "Product-managed address space. RP-injected for internal platform use (e.g., hub connectivity)."
           }
         ]
@@ -5625,7 +5625,8 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/DedicatedHubProperties",
-          "description": "The resource-specific properties for this resource."
+          "description": "The resource-specific properties for this resource.",
+          "x-ms-client-flatten": true
         }
       },
       "allOf": [

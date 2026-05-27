@@ -83,6 +83,7 @@ model SubnetConfiguration {
   networkSecurityGroupResourceId?: NsgResourceId;
 }
 
+@removed(Microsoft.Mission.Versions.v2026_07_01_preview)
 @doc("Enclave Virtual Network Properties")
 model EnclaveVirtualNetworkModel {
   @renamedFrom(Microsoft.Mission.Versions.v2025_05_01_preview, "name")
@@ -148,10 +149,10 @@ union AddressSpaceOwnership {
   string,
 
   @doc("Customer-provided address space. Customer specifies prefixLength, RP allocates CIDR.")
-  customerManaged: "customerManaged",
+  CustomerManaged: "CustomerManaged",
 
   @doc("Product-managed address space. RP-injected for internal platform use (e.g., hub connectivity).")
-  productManaged: "productManaged",
+  ProductManaged: "ProductManaged",
 }
 
 @added(Microsoft.Mission.Versions.v2026_07_01_preview)

@@ -265,6 +265,32 @@
               "approvalPolicy": "NotRequired"
             }
           },
+          "monitoringSettings": {
+            "diagnosticDestinations": [
+              {
+                "destinationType": "CommunityWorkspace"
+              },
+              {
+                "destinationType": "EnclaveWorkspace",
+                "diagnosticSettingsName": "customName"
+              },
+              {
+                "destinationType": "CustomWorkspace",
+                "customWorkspaceResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/rgopenapi/providers/Microsoft.OperationalInsights/workspaces/CustomWorkspace",
+                "diagnosticSettingsName": "customName"
+              },
+              {
+                "destinationType": "CustomWorkspace",
+                "customWorkspaceResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/rgopenapi/providers/Microsoft.OperationalInsights/workspaces/CustomWorkspace",
+                "diagnosticSettingsName": "customName"
+              }
+            ],
+            "flowLogDestination": {
+              "destinationType": "CustomWorkspace",
+              "customWorkspaceResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/rgopenapi/providers/Microsoft.OperationalInsights/workspaces/CustomWorkspace",
+              "diagnosticSettingsName": "customName"
+            }
+          },
           "subnetConfigurations": [
             {
               "subnetName": "test",
@@ -276,12 +302,12 @@
             {
               "prefixLength": 23,
               "addressSpace": "10.1.0.0/23",
-              "ownership": "customerManaged"
+              "ownership": "CustomerManaged"
             },
             {
               "prefixLength": 25,
               "addressSpace": "192.168.0.0/25",
-              "ownership": "productManaged"
+              "ownership": "ProductManaged"
             }
           ],
           "networkName": "my-enclave-vnet"
@@ -342,6 +368,7 @@
             ],
             "justification": "Off"
           },
+          "dedicatedHubResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/TestResourceGroup/providers/Microsoft.Mission/communities/TestMyCommunity/dedicatedHubs/TestDedicatedHub",
           "bastionEnabled": true,
           "workloadResourceVisibility": "Disabled",
           "rbacInheritance": "Disabled",
@@ -418,6 +445,32 @@
               "approvalPolicy": "NotRequired"
             }
           },
+          "monitoringSettings": {
+            "diagnosticDestinations": [
+              {
+                "destinationType": "CommunityWorkspace"
+              },
+              {
+                "destinationType": "EnclaveWorkspace",
+                "diagnosticSettingsName": "customName"
+              },
+              {
+                "destinationType": "CustomWorkspace",
+                "customWorkspaceResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/rgopenapi/providers/Microsoft.OperationalInsights/workspaces/CustomWorkspace",
+                "diagnosticSettingsName": "customName"
+              },
+              {
+                "destinationType": "CustomWorkspace",
+                "customWorkspaceResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/rgopenapi/providers/Microsoft.OperationalInsights/workspaces/CustomWorkspace",
+                "diagnosticSettingsName": "customName"
+              }
+            ],
+            "flowLogDestination": {
+              "destinationType": "CustomWorkspace",
+              "customWorkspaceResourceId": "/subscriptions/c64f6eca-bdc5-4bc2-88d6-f8f1dc23f86c/resourceGroups/rgopenapi/providers/Microsoft.OperationalInsights/workspaces/CustomWorkspace",
+              "diagnosticSettingsName": "customName"
+            }
+          },
           "subnetConfigurations": [
             {
               "subnetName": "test",
@@ -429,12 +482,12 @@
             {
               "prefixLength": 23,
               "addressSpace": "10.1.0.0/23",
-              "ownership": "customerManaged"
+              "ownership": "CustomerManaged"
             },
             {
               "prefixLength": 25,
               "addressSpace": "192.168.0.0/25",
-              "ownership": "productManaged"
+              "ownership": "ProductManaged"
             }
           ],
           "networkName": "my-enclave-vnet"
