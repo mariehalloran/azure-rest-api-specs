@@ -161,3 +161,84 @@ interface PublicIpAddresses {
   get is ArmResourceRead<PublicIpAddress>;
   list is ArmResourceListByParent<PublicIpAddress>;
 }
+
+@added(Versions.v2026_05_01_preview)
+@doc("APPF Logical Machine resource")
+@parentResource(TenantLocationResource)
+model AppfLogicalMachineResource
+  is ProxyResource<AppfLogicalMachineProperties> {
+  @doc("The APPF Logical Machine identifier")
+  @segment("appfLogicalMachines")
+  @key("appfLogicalMachine")
+  @visibility(Lifecycle.Read)
+  @path
+  @pattern(resourceNameRegex)
+  name: string;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("APPF Logical Machine Properties")
+model AppfLogicalMachineProperties {
+  @doc("The status of the APPF logical machine")
+  @visibility(Lifecycle.Read)
+  status: string;
+
+  @doc("The machine status")
+  @visibility(Lifecycle.Read)
+  machineStatus: string;
+
+  @doc("The management type")
+  @visibility(Lifecycle.Read)
+  managementType: string;
+
+  @doc("The manatree")
+  @visibility(Lifecycle.Read)
+  manatree: string;
+
+  @doc("The cloud environment")
+  @visibility(Lifecycle.Read)
+  cloud: string;
+
+  @doc("The environment")
+  @visibility(Lifecycle.Read)
+  environment: string;
+
+  @doc("The machine function")
+  @visibility(Lifecycle.Read)
+  machineFunction: string;
+
+  @doc("The manatree contact")
+  @visibility(Lifecycle.Read)
+  manatreeContact: string;
+
+  @doc("The repair status")
+  @visibility(Lifecycle.Read)
+  repair: string;
+
+  @doc("The cluster name")
+  @visibility(Lifecycle.Read)
+  cluster: string;
+
+  @doc("The environment name")
+  @visibility(Lifecycle.Read)
+  environmentName: string;
+
+  @doc("The inventory type")
+  @visibility(Lifecycle.Read)
+  inventoryType: string;
+
+  @doc("The machine type")
+  @visibility(Lifecycle.Read)
+  machineType: string;
+
+  @doc("The status of the last operation")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ResourceProvisioningState;
+}
+
+@armResourceOperations
+@added(Versions.v2026_05_01_preview)
+interface AppfLogicalMachines {
+  get is ArmResourceRead<AppfLogicalMachineResource>;
+  list is ArmResourceListByParent<AppfLogicalMachineResource>;
+}
