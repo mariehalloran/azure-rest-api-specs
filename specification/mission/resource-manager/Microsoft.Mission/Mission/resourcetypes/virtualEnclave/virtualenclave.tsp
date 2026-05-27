@@ -269,7 +269,7 @@ model VirtualEnclaveBaseModel {
 
   @added(Microsoft.Mission.Versions.v2026_07_01_preview)
   @doc("Subnet configurations for the enclave network.")
-  @identifiers(#["subnetResourceId"])
+  @identifiers(#["subnetName"])
   subnetConfigurations?: SubnetConfiguration[];
 
   @added(Microsoft.Mission.Versions.v2026_07_01_preview)
