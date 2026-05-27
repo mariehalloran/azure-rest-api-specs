@@ -21,8 +21,6 @@ enum Versions {
 
 interface Operations extends Azure.ResourceManager.Operations {}
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-path-segment-invalid-chars" "Existing Template"
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-key-invalid-chars" "Existing template"
 @doc("A ProgramProviderHub resource")
 model EduEnrollment is TrackedResource<EduEnrollmentProperties> {
   @doc("The name of the edu enrollment")
@@ -86,7 +84,7 @@ model DomainGroup {
 
   @visibility(Lifecycle.Create, Lifecycle.Read)
   @doc("The Entra tenant ID that owns these domains. Defaults to the caller's tenant if omitted.")
-  tenantId?: string;
+  tenantId?: Azure.Core.uuid;
 
   @visibility(Lifecycle.Read)
   @doc("The assessment state of this domain group.")
@@ -114,11 +112,18 @@ model EduEnrollmentProperties {
   error?: EnrollmentError;
 }
 
+@doc("The type used for update operations of the EduEnrollment.")
+model EduEnrollmentPatch {
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "ARM tags are represented as a string map."
+  @doc("Resource tags.")
+  tags?: Record<string>;
+}
+
 @armResourceOperations(EduEnrollment)
 interface EduEnrollments {
   get is ArmResourceRead<EduEnrollment>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<EduEnrollment>;
-  update is ArmResourcePatchSync<EduEnrollment, EduEnrollmentProperties>;
+  update is ArmCustomPatchSync<EduEnrollment, EduEnrollmentPatch>;
   delete is ArmResourceDeleteSync<EduEnrollment>;
   listByResourceGroup is ArmResourceListByParent<EduEnrollment>;
   listBySubscription is ArmListBySubscription<EduEnrollment>;

@@ -314,7 +314,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/EduEnrollmentUpdate"
+              "$ref": "#/definitions/EduEnrollmentPatch"
             }
           }
         ],
@@ -386,24 +386,10 @@
     }
   },
   "definitions": {
-    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
-      "type": "object",
-      "title": "Tracked Resource",
-      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/Resource"
-        }
-      ]
+    "Azure.Core.uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Universally Unique Identifier"
     },
     "DomainGroup": {
       "type": "object",
@@ -422,7 +408,7 @@
           ]
         },
         "tenantId": {
-          "type": "string",
+          "$ref": "#/definitions/Azure.Core.uuid",
           "description": "The Entra tenant ID that owns these domains. Defaults to the caller's tenant if omitted.",
           "x-ms-mutability": [
             "read",
@@ -517,6 +503,19 @@
         "value"
       ]
     },
+    "EduEnrollmentPatch": {
+      "type": "object",
+      "description": "The type used for update operations of the EduEnrollment.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "EduEnrollmentProperties": {
       "type": "object",
       "description": "Details of the Program EduEnrollment.",
@@ -547,25 +546,6 @@
       },
       "required": [
         "domains"
-      ]
-    },
-    "EduEnrollmentPropertiesUpdate": {
-      "type": "object",
-      "description": "Details of the Program EduEnrollment."
-    },
-    "EduEnrollmentUpdate": {
-      "type": "object",
-      "description": "A ProgramProviderHub resource",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/EduEnrollmentPropertiesUpdate",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
-        }
       ]
     },
     "EnrollmentError": {
