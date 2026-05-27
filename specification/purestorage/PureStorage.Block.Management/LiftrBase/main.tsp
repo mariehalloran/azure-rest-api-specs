@@ -24,10 +24,10 @@ enum Versions {
   v1_stable: "2024-11-01",
 
   #suppress "@azure-tools/typespec-azure-resource-manager/version-progression" "Legacy"
-  @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1")
+  @doc("Dependent on Azure.ResourceManager.CommonTypes.Versions.v5")
   v2026_01_01_preview: "2026-01-01-preview",
 
-  @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1")
+  @doc("Dependent on Azure.ResourceManager.CommonTypes.Versions.v5")
   v2026_03_01_preview: "2026-03-01-preview",
 }
 

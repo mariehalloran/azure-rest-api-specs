@@ -17,6 +17,9 @@ union CloudEventsType {
   @doc("CdcEventSchemaSetCloudEventsConfig")
   CdcEventSchemaSet: "CdcEventSchemaSet",
 
+  @doc("SchemaSetCloudEventsConfig")
+  SchemaSet: "SchemaSet",
+
   string,
 }
 
@@ -109,4 +112,48 @@ model CdcEventSchemaSetCloudEventsConfig extends CloudEventsConfig {
 
   @doc("Configuration for register")
   autoRegisterConfig?: AutoRegisterConfig;
+}
+
+@doc("SchemaSet auto register types")
+union SchemaSetAutoRegisterType {
+  @doc("Change data capture auto register type.")
+  Cdc: "Cdc",
+
+  string,
+}
+
+@doc("Configuration for SchemaSet auto register.")
+model SchemaSetAutoRegisterConfig {
+  @doc("The auto register type.")
+  autoRegisterType: SchemaSetAutoRegisterType;
+
+  @doc("The catalog URL of auto register schema.")
+  catalogUrl: string;
+
+  @doc("The message group id of auto register schema.")
+  messageGroupId: string;
+
+  @doc("The schema group id of auto register schema.")
+  schemaGroupId: string;
+
+  @doc("The cloud event source of auto register schema.")
+  cloudEventSource: string;
+}
+
+@doc("SchemaSet cloud events transform config.")
+model SchemaSetCloudEventsConfig extends CloudEventsConfig {
+  @doc("Type of SchemaSetCloudEventsConfig.")
+  type: CloudEventsType.SchemaSet;
+
+  @doc("Auth of SchemaSet")
+  authentication: Models.Auth.Authentication;
+
+  @doc("The catalog URL.")
+  catalogUrl: string;
+
+  @doc("The endpoint id.")
+  endpointId: string;
+
+  @doc("Configuration for auto register")
+  autoRegisterConfig?: SchemaSetAutoRegisterConfig;
 }
