@@ -1,0 +1,44 @@
+{
+  "operationId": "SegmentationManagers_ListBySubscription",
+  "title": "List SegmentationManager by subscription",
+  "parameters": {
+    "api-version": "2026-01-01-preview",
+    "subscriptionId": "123e4567-e89b-12d3-a456-426614174000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/123e4567-e89b-12d3-a456-426614174000/resourceGroups/sample-rg/providers/Microsoft.ZeroTrustSegmentation/segmentationManagers/sample-segmentationManager",
+            "name": "sample-segmentationManager",
+            "type": "Microsoft.ZeroTrustSegmentation/segmentationManagers",
+            "location": "westeurope",
+            "managedBy": "/subscriptions/123e4567-e89b-12d3-a456-426614174000/resourceGroups/sample-rg/providers/Microsoft.ZeroTrustSegmentation/networkManagers/sample-networkManager",
+            "identity": {
+              "type": "UserAssigned",
+              "userAssignedIdentities": {
+                "/subscriptions/123e4567-e89b-12d3-a456-426614174000/resourceGroups/sample-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/sample-identity": {}
+              }
+            },
+            "properties": {
+              "scope": [
+                "/subscriptions/123e4567-e89b-12d3-a456-426614174000/resourceGroups/sample-rg/providers/Microsoft.Network/virtualNetworks/sample-vnet"
+              ],
+              "targetLogAnalyticsWorkspaceId": "/subscriptions/123e4567-e89b-12d3-a456-426614174000/resourceGroups/sample-rg/providers/Microsoft.OperationalInsights/workspaces/sample-law",
+              "managedOnBehalfOfConfiguration": {
+                "moboBrokerResources": [
+                  {
+                    "id": "/subscriptions/123e4567-e89b-12d3-a456-426614174000/resourceGroups/sample-rg/providers/Microsoft.ZeroTrustSegmentation/networkManagers/sample-networkManager/moboBrokers/sample-mobo-broker"
+                  }
+                ]
+              },
+              "provisioningState": "Succeeded"
+            }
+          }
+        ],
+        "nextLink": "https://next-link.com"
+      }
+    }
+  }
+}
