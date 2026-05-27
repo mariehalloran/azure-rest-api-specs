@@ -9050,6 +9050,9 @@
           "EdgeMachineJobs_Get_ProvisionOs": {
             "$ref": "./examples/EdgeMachineJobs_Get_ProvisionOs.json"
           },
+          "EdgeMachineJobs_Get_ProvisionOs_Failed": {
+            "$ref": "./examples/EdgeMachineJobs_Get_ProvisionOs_Failed.json"
+          },
           "EdgeMachineJobs_Get_RemoteSupport": {
             "$ref": "./examples/EdgeMachineJobs_Get_RemoteSupport.json"
           }
@@ -10240,6 +10243,76 @@
         "x-ms-examples": {
           "Delete edge machine security settings": {
             "$ref": "./examples/EdgeMachineSecuritySettingsOperations_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/securitySettings/{securitySettingsName}/refresh": {
+      "post": {
+        "operationId": "EdgeMachineSecuritySettingsOperations_Refresh",
+        "tags": [
+          "EdgeMachineSecuritySettingsOperations"
+        ],
+        "description": "Trigger refresh sync for edge machine security settings.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "securitySettingsName",
+            "in": "path",
+            "description": "Name of the security settings resource",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Action completed successfully."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Refresh edge machine security settings": {
+            "$ref": "./examples/EdgeMachineSecuritySettingsOperations_Refresh.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -12039,20 +12112,29 @@
     },
     "ChangeRingRequest": {
       "type": "object",
+      "description": "Request body for the change-ring action on a cluster.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/ChangeRingRequestProperties"
+          "$ref": "#/definitions/ChangeRingRequestProperties",
+          "description": "Properties of the change-ring request."
         }
-      }
+      },
+      "required": [
+        "properties"
+      ]
     },
     "ChangeRingRequestProperties": {
       "type": "object",
+      "description": "Properties for the change-ring request.",
       "properties": {
         "targetRing": {
           "type": "string",
           "description": "The target ring for the cluster."
         }
-      }
+      },
+      "required": [
+        "targetRing"
+      ]
     },
     "CheckUpdatesRequest": {
       "type": "object",
@@ -12079,7 +12161,7 @@
         },
         "claimedBy": {
           "type": "string",
-          "description": "Resource Id of group device belongs to."
+          "description": "Identifier of the group the device belongs to."
         }
       },
       "required": [
@@ -12784,17 +12866,27 @@
       "type": "object",
       "description": "Represents the Software Defined Networking (SDN) configuration state of the Azure Stack HCI cluster.",
       "properties": {
+        "sdnStatus": {
+          "$ref": "#/definitions/SdnStatus",
+          "description": "Indicates the current Software Defined Networking (SDN) status of the resource, which may be an individual device or a cluster.",
+          "readOnly": true
+        },
+        "sdnDomainName": {
+          "type": "string",
+          "description": "The fully qualified domain name (FQDN) associated with the SDN deployment. This value is propagated from the Device Management Extension to the cluster resource. It is typically in the format `<sdnPrefix>-nc.<domain>` when SDN is enabled. May be null or absent in unsupported or disabled states.",
+          "readOnly": true
+        },
+        "sdnApiAddress": {
+          "type": "string",
+          "description": "Represents the API address for the SDN deployment.",
+          "readOnly": true
+        },
         "sdnIntegrationIntent": {
           "$ref": "#/definitions/SdnIntegrationIntent",
           "description": "Indicates whether Software Defined Networking (SDN) integration should be enabled or disabled for this deployment.",
           "readOnly": true
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/SdnProperties"
-        }
-      ]
+      }
     },
     "ClusterVolume": {
       "type": "object",
@@ -14252,6 +14344,11 @@
             "type": "string"
           },
           "readOnly": true
+        },
+        "error": {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "error details.",
+          "readOnly": true
         }
       }
     },
@@ -14352,7 +14449,7 @@
         },
         "claimedBy": {
           "type": "string",
-          "description": "Resource Id of group device belongs to.",
+          "description": "Identifier of the group the device belongs to.",
           "readOnly": true
         }
       }
@@ -15380,6 +15477,21 @@
         "type": {
           "type": "string",
           "description": "The type of the disk. For example, S2D or SAN.",
+          "readOnly": true
+        },
+        "model": {
+          "type": "string",
+          "description": "Model number of the hardware.",
+          "readOnly": true
+        },
+        "manufacturer": {
+          "type": "string",
+          "description": "The manufacturer of the disk.",
+          "readOnly": true
+        },
+        "isSupported": {
+          "type": "boolean",
+          "description": "Indicates whether the manufacturer is supported.",
           "readOnly": true
         }
       },
@@ -18256,8 +18368,8 @@
           ]
         },
         "witnessType": {
-          "type": "string",
-          "description": "Use a cloud witness if you have internet access and if you use an Azure Storage account to provide a vote on cluster quorum. A cloud witness uses Azure Blob Storage to read or write a blob file and then uses it to arbitrate in split-brain resolution. Only allowed values are 'Cloud', 'FileShare'"
+          "$ref": "#/definitions/WitnessType",
+          "description": "Use a cloud witness if you have internet access and if you use an Azure Storage account to provide a vote on cluster quorum. A cloud witness uses Azure Blob Storage to read or write a blob file and then uses it to arbitrate in split-brain resolution."
         },
         "witnessPath": {
           "type": "string",
@@ -18894,7 +19006,7 @@
         },
         "sdnProperties": {
           "$ref": "#/definitions/SdnProperties",
-          "description": "oftware Defined Networking Properties of the cluster",
+          "description": "Software Defined Networking Properties of the device.",
           "readOnly": true
         }
       }
@@ -26602,6 +26714,30 @@
             "name": "Enabled",
             "value": "Enabled",
             "description": "Windows Server Subscription is enabled."
+          }
+        ]
+      }
+    },
+    "WitnessType": {
+      "type": "string",
+      "description": "Witness type for an Azure Stack HCI cluster.",
+      "enum": [
+        "Cloud",
+        "FileShare"
+      ],
+      "x-ms-enum": {
+        "name": "WitnessType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Cloud",
+            "value": "Cloud",
+            "description": "Cloud witness backed by an Azure Storage account."
+          },
+          {
+            "name": "FileShare",
+            "value": "FileShare",
+            "description": "File-share witness on a local SMB share."
           }
         ]
       }

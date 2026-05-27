@@ -4,6 +4,7 @@ import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./operation.tsp";
+import "./unassignedErrors.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
@@ -22,4 +23,8 @@ enum Versions {
   /** 2025-05-01-preview version */
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   v2025_05_01_preview: "2025-05-01-preview",
+
+  /** 2026-06-01-preview version */
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  v2026_06_01_preview: "2026-06-01-preview",
 }
