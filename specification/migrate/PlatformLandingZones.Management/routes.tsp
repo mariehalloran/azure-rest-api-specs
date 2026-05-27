@@ -25,6 +25,17 @@ interface PlatformLandingZones {
 
   @doc("Delete a Platform Landing Zone resource.")
   delete is ArmResourceDeleteWithoutOkAsync<PlatformLandingZone>;
+
+  @doc("Evolve the Platform Landing Zone design. Long-running POST action with no request body. Status is polled via GET on the resource itself; observe properties.evolvedDesign transitioning NotStarted -> InProgress -> Complete. Legal only when evolvedDesign is NotStarted; otherwise returns 409 Conflict.")
+  evolveDesign is ArmResourceActionAsync<
+    PlatformLandingZone,
+    void,
+    {
+      @body body: void;
+    },
+    LroHeaders = ArmLroLocationHeader<FinalResult = void> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
 }
 
 @armResourceOperations

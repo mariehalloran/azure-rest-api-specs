@@ -420,6 +420,71 @@
           }
         }
       }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/migrateProjects/{projectName}/platformLandingZones/{platformLandingZoneName}/evolveDesign": {
+      "post": {
+        "operationId": "PlatformLandingZones_EvolveDesign",
+        "tags": [
+          "PlatformLandingZones"
+        ],
+        "description": "Evolve the Platform Landing Zone design. Long-running POST action with no request body. Status is polled via GET on the resource itself; observe properties.evolvedDesign transitioning NotStarted -> InProgress -> Complete. Legal only when evolvedDesign is NotStarted; otherwise returns 409 Conflict.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Migrate Project Name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          },
+          {
+            "name": "platformLandingZoneName",
+            "in": "path",
+            "description": "Platform Landing Zone name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully."
+          },
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
     }
   },
   "definitions": {
@@ -1248,6 +1313,36 @@
         ]
       }
     },
+    "DesignEvolutionState": {
+      "type": "string",
+      "description": "Server-owned lifecycle state of the platform landing zone design evolution. Monotonically progresses NotStarted -> InProgress -> Complete in response to the evolveDesign action.",
+      "enum": [
+        "NotStarted",
+        "InProgress",
+        "Complete"
+      ],
+      "x-ms-enum": {
+        "name": "DesignEvolutionState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "NotStarted",
+            "value": "NotStarted",
+            "description": "The design has not been evolved. Re-PUTs recompute only the bill of materials."
+          },
+          {
+            "name": "InProgress",
+            "value": "InProgress",
+            "description": "The evolveDesign action has been accepted and the worker is generating the design document and IaC artifacts."
+          },
+          {
+            "name": "Complete",
+            "value": "Complete",
+            "description": "The design has been evolved. Subsequent PUTs regenerate the full pipeline artifacts."
+          }
+        ]
+      }
+    },
     "DomainServicesConfig": {
       "type": "object",
       "description": "Domain Services configuration. Required when IdentityConfig.provider is EntraIdWithDomainServices or HybridAdDs.",
@@ -2024,6 +2119,11 @@
         "versionControlSystem": {
           "$ref": "#/definitions/VersionControlSystem",
           "description": "Version control system the generator will use when materializing the landing-zone IaC and CI pipelines. When omitted, the generator service applies its default (currently GitHub)."
+        },
+        "evolvedDesign": {
+          "$ref": "#/definitions/DesignEvolutionState",
+          "description": "Server-owned state of the design evolution lifecycle. Monotonically progresses NotStarted -> InProgress -> Complete in response to the evolveDesign action. Read-only; ignored on input.",
+          "readOnly": true
         },
         "provisioningState": {
           "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
