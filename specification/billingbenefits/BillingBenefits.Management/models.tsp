@@ -142,9 +142,6 @@ union BenefitProvisioningState {
 
   /** The resource provisioning request has been accepted but processing has not yet started. */
   Pending: "Pending",
-
-  /** The resource provisioning state is unknown. */
-  Unknown: "Unknown",
 }
 
 /**
