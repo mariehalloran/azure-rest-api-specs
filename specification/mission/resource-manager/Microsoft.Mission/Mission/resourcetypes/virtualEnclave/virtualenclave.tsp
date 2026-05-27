@@ -259,7 +259,7 @@ model VirtualEnclaveBaseModel {
 
   @added(Microsoft.Mission.Versions.v2026_07_01_preview)
   @doc("Address spaces for the enclave. Supports multiple entries. Customer specifies prefixLength, RP allocates and injects the addressSpace CIDR. Product-managed address spaces (ownership=productManaged) are RP-injected and always appear at the end of the array.")
-  @identifiers(#["addressSpace"])
+  @identifiers(#[])
   addressSpaces?: AddressSpaceEntry[];
 
   @added(Microsoft.Mission.Versions.v2026_07_01_preview)

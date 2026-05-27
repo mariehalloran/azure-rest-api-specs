@@ -15,8 +15,10 @@ model CheckAddressSpaceAvailabilityRequest {
   enclaveVirtualNetwork: EnclaveVirtualNetworkModel;
 
   @added(Microsoft.Mission.Versions.v2026_07_01_preview)
+  @minValue(8)
+  @maxValue(29)
   @doc("CIDR prefix length (e.g., 22, 23, 24). Determines the size of the address space to check.")
-  prefixLength?: int32;
+  prefixLength: int32;
 
   @added(Microsoft.Mission.Versions.v2026_07_01_preview)
   @doc("Specific CIDR address space to check availability for. If omitted, RP checks for any available space of the given prefixLength.")

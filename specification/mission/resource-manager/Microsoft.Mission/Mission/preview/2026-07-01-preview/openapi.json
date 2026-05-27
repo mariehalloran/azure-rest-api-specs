@@ -4998,7 +4998,9 @@
         "prefixLength": {
           "type": "integer",
           "format": "int32",
-          "description": "CIDR prefix length (e.g., 22, 23, 24). Determines the size of the address space to check."
+          "description": "CIDR prefix length (e.g., 22, 23, 24). Determines the size of the address space to check.",
+          "minimum": 8,
+          "maximum": 29
         },
         "addressSpace": {
           "type": "string",
@@ -5006,7 +5008,8 @@
         }
       },
       "required": [
-        "communityResourceId"
+        "communityResourceId",
+        "prefixLength"
       ]
     },
     "CheckAddressSpaceAvailabilityResponse": {
@@ -7977,9 +7980,7 @@
           "items": {
             "$ref": "#/definitions/AddressSpaceEntry"
           },
-          "x-ms-identifiers": [
-            "addressSpace"
-          ]
+          "x-ms-identifiers": []
         },
         "subnetConfigurations": {
           "type": "array",
@@ -8139,9 +8140,7 @@
           "items": {
             "$ref": "#/definitions/AddressSpaceEntry"
           },
-          "x-ms-identifiers": [
-            "addressSpace"
-          ]
+          "x-ms-identifiers": []
         },
         "networkName": {
           "type": "string",
