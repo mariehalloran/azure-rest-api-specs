@@ -8,6 +8,22 @@ using Azure.ResourceManager;
 
 namespace Microsoft.FoundryLocal;
 
+@doc("Provisioning state of a ModelDeployment resource.")
+union ProvisioningState {
+  ResourceProvisioningState,
+
+  @doc("The resource request has been accepted for processing.")
+  Accepted: "Accepted",
+
+  @doc("The resource is being provisioned.")
+  Provisioning: "Provisioning",
+
+  @doc("The resource is being deleted.")
+  Deleting: "Deleting",
+
+  string,
+}
+
 @doc("A ModelDeployment resource managed via K8sBridge on an Arc-connected cluster.")
 model ModelDeployment is TrackedResource<ModelDeploymentProperties> {
   ...ResourceNameParameter<
@@ -21,15 +37,16 @@ model ModelDeployment is TrackedResource<ModelDeploymentProperties> {
 model ModelDeploymentProperties {
   @doc("The provisioning state of the resource.")
   @visibility(Lifecycle.Read)
-  provisioningState?: ResourceProvisioningState;
+  provisioningState?: ProvisioningState;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Extensions pattern uses Record<string> for opaque configurationSettings"
   @doc("Configuration settings as name-value pairs for the model deployment.")
   configurationSettings?: Record<string>;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Extensions pattern uses Record<string> for opaque configurationProtectedSettings"
-  @doc("Configuration settings that are sensitive, as name-value pairs. Write-only — never returned on GET.")
+  @doc("Configuration settings that are sensitive, as name-value pairs.")
   @secret
+  @visibility(Lifecycle.Create, Lifecycle.Update)
   configurationProtectedSettings?: Record<string>;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Extensions pattern uses Record<string> for opaque status"
