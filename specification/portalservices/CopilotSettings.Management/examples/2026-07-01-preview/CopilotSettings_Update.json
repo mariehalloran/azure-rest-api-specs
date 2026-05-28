@@ -1,0 +1,49 @@
+{
+  "operationId": "CopilotSettings_Update",
+  "title": "Update Copilot Settings with agent settings",
+  "parameters": {
+    "name": "default",
+    "api-version": "2026-07-01-preview",
+    "properties": {
+      "properties": {
+        "accessControlEnabled": false,
+        "agentSettings": {
+          "enableGa": false,
+          "enablePreview": true,
+          "agents": {
+            "agentA": {
+              "state": "Disabled"
+            },
+            "agentB": {
+              "state": "Enabled"
+            }
+          }
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "accessControlEnabled": false,
+          "agentSettings": {
+            "enableGa": false,
+            "enablePreview": true,
+            "agents": {
+              "agentA": {
+                "state": "Disabled"
+              },
+              "agentB": {
+                "state": "Enabled"
+              }
+            }
+          }
+        },
+        "id": "/providers/Microsoft.Portal/copilotSettings/default",
+        "name": "default",
+        "type": "Microsoft.PortalServices/copilotSettings"
+      }
+    }
+  }
+}

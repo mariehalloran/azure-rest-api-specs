@@ -204,6 +204,93 @@ suppressions:
     where: $.paths["/providers/Microsoft.PortalServices/settings/default"]
 ```
 
+### Tag: package-2026-07-01-preview
+
+These settings apply only when `--tag=package-2026-07-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-07-01-preview'
+input-file:
+  - Microsoft.PortalServices/copilotSettings/preview/2026-07-01-preview/copilotSettings.json
+suppressions:
+  - code: EvenSegmentedPathForPutOperation
+    reason: >
+      The resource type copilotSettings in the Microsoft.PortalServices resource provider is @singleton
+      (OpenAPI path ends with /default). This is a false positive. Related issue:https://github.com/Azure/azure-openapi-validator/issues/646.
+    from:
+      - copilotSettings.json
+    where: $.paths["/providers/Microsoft.PortalServices/copilotSettings/default"]
+  - code: XmsPageableForListCalls
+    reason: >
+      The resource type copilotSettings in the Microsoft.PortalServices resource provider @singleton
+      (OpenAPI path ends with /default). This is a false positive. Related issue:https://github.com/Azure/azure-openapi-validator/issues/646.
+    from:
+      - copilotSettings.json
+    where: $.paths["/providers/Microsoft.PortalServices/copilotSettings/default"]
+  - code: TopLevelResourcesListBySubscription
+    reason: >
+      The resource type copilotSettings in the Microsoft.PortalServices resource provider is @tenantResource,
+      so subscription list operation is not valid. This is a false positive.
+    from:
+      - copilotSettings.json
+    where: $.paths["/providers/Microsoft.PortalServices/copilotSettings/default"]
+  - code: PathForTrackedResourceTypes
+    reason: >
+      The resource type copilotSettings is a tenant-level singleton resource exposed at /providers/.../default.
+      Subscription and resource-group path requirements for tracked resources do not apply to this API shape.
+    from:
+      - copilotSettings.json
+    where: $.paths["/providers/Microsoft.PortalServices/copilotSettings/default"]
+  - code: RequestSchemaForTrackedResourcesMustHaveTags
+    reason: >
+      The copilotSettings resource is a tenant-level singleton proxy resource, not a tracked ARM resource.
+      Tracked-resource tag requirements are not applicable for this API path shape.
+    from:
+      - copilotSettings.json
+    where: $.paths["/providers/Microsoft.PortalServices/copilotSettings/default"].put
+  - code: UnSupportedPatchProperties
+    reason: >
+      This API is a tenant-level singleton proxy resource. The validator flags location in the patch schema,
+      but this is part of the inherited envelope shape and not treated as a patchable business property.
+    from:
+      - copilotSettings.json
+    where: $.definitions.CopilotSettingsResourceUpdate
+  - code: TenantLevelAPIsNotAllowed
+    reason: >
+      The resource type copilotSettings in the Microsoft.PortalServices resource provider is @tenantResource,
+      and has received exception sign-off approval by PAS team and ARM team.
+    from:
+      - copilotSettings.json
+    where: $.paths["/providers/Microsoft.PortalServices/copilotSettings/default"]
+  - code: AvoidAdditionalProperties
+    reason: >
+      The agents field is an intentional dictionary keyed by dynamic agent identifiers managed by the service.
+      additionalProperties is required to model this extensible map shape.
+    from:
+      - copilotSettings.json
+    where: $.definitions.CopilotAgentSettings
+  - code: AvoidAdditionalProperties
+    reason: >
+      Update payload supports the same dynamic agents dictionary shape as create/read models.
+      additionalProperties is required for extensible agent maps.
+    from:
+      - copilotSettings.json
+    where: $.definitions.CopilotAgentSettingsUpdate
+  - code: AvoidAdditionalProperties
+    reason: >
+      The agents property is intentionally an open-ended map and requires additionalProperties
+      to represent dynamic service-defined keys.
+    from:
+      - copilotSettings.json
+    where: $.definitions.CopilotAgentSettings.properties.agents.additionalProperties
+  - code: OBJECT_ADDITIONAL_PROPERTIES
+    reason: >
+      The agents field is an intentional dynamic dictionary keyed by service-managed agent identifiers.
+      This API intentionally models the map via additionalProperties for forward compatibility.
+    from:
+      - copilotSettings.json
+    where: $.definitions.CopilotAgentSettings.properties.agents.additionalProperties
+```
+
 ### Tag: package-2025-09-10-preview
 
 These settings apply only when `--tag=package-2025-09-10-preview` is specified on the command line.

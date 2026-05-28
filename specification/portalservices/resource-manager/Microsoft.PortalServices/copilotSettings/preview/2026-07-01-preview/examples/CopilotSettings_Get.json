@@ -1,0 +1,32 @@
+{
+  "operationId": "CopilotSettings_Get",
+  "title": "Get Copilot Settings with agent settings",
+  "parameters": {
+    "name": "default",
+    "api-version": "2026-07-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "accessControlEnabled": true,
+          "agentSettings": {
+            "enableGa": true,
+            "enablePreview": false,
+            "agents": {
+              "agentA": {
+                "state": "Enabled"
+              },
+              "agentB": {
+                "state": "Disabled"
+              }
+            }
+          }
+        },
+        "id": "/providers/Microsoft.Portal/copilotSettings/default",
+        "name": "default",
+        "type": "Microsoft.PortalServices/copilotSettings"
+      }
+    }
+  }
+}
