@@ -672,6 +672,20 @@ union HardwareClass {
 }
 
 /**
+ * Witness type for an Azure Stack HCI cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+union WitnessType {
+  string,
+
+  /** Cloud witness backed by an Azure Storage account. */
+  Cloud: "Cloud",
+
+  /** File-share witness on a local SMB share. */
+  FileShare: "FileShare",
+}
+
+/**
  * Type of secrets to store
  */
 union SecretsType {
@@ -2850,20 +2864,24 @@ model SoftwareAssuranceChangeRequestProperties {
   softwareAssuranceIntent?: SoftwareAssuranceIntent;
 }
 
-#suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+/**
+ * Request body for the change-ring action on a cluster.
+ */
 @added(Versions.v2026_03_15_preview)
 model ChangeRingRequest {
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  properties?: ChangeRingRequestProperties;
+  /** Properties of the change-ring request. */
+  properties: ChangeRingRequestProperties;
 }
 
-#suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+/**
+ * Properties for the change-ring request.
+ */
 @added(Versions.v2026_03_15_preview)
 model ChangeRingRequestProperties {
   /**
    * The target ring for the cluster.
    */
-  targetRing?: string;
+  targetRing: string;
 }
 
 /**
@@ -4041,6 +4059,13 @@ model DeploymentStep {
    */
   @visibility(Lifecycle.Read)
   exception?: string[];
+
+  /**
+   * error details.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
 }
 
 /**
@@ -5971,9 +5996,7 @@ model HciNetworkProfile {
   @visibility(Lifecycle.Read)
   hostNetwork?: HciEdgeDeviceHostNetwork;
 
-  /** 
-    oftware Defined Networking Properties of the cluster
-   */
+  /** Software Defined Networking Properties of the device. */
   @visibility(Lifecycle.Read)
   @added(Versions.v2026_03_15_preview)
   sdnProperties?: SdnProperties;
@@ -6417,6 +6440,21 @@ model EdgeDeviceDisks {
    */
   @visibility(Lifecycle.Read)
   type?: string;
+
+  /** Model number of the hardware. */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  `model`?: string;
+
+  /** The manufacturer of the disk. */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  manufacturer?: string;
+
+  /** Indicates whether the manufacturer is supported. */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  isSupported?: boolean;
 }
 
 /**
@@ -6596,9 +6634,10 @@ union IgvmStatus {
 /**
  * Represents the Software Defined Networking (SDN) configuration state of the Azure Stack HCI cluster.
  */
-#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "For backward compatibility"
 @added(Versions.v2026_03_15_preview)
-model ClusterSdnProperties extends SdnProperties {
+model ClusterSdnProperties {
+  ...SdnProperties;
+
   /**
    * Indicates whether Software Defined Networking (SDN) integration should be enabled or disabled for this deployment.
    */
@@ -6740,8 +6779,8 @@ model HciAddServerJobProperties extends ClusterJobProperties {
   @Azure.ResourceManager.identifiers(#["secretName"])
   secrets?: EceDeploymentSecrets[];
 
-  /** Use a cloud witness if you have internet access and if you use an Azure Storage account to provide a vote on cluster quorum. A cloud witness uses Azure Blob Storage to read or write a blob file and then uses it to arbitrate in split-brain resolution. Only allowed values are 'Cloud', 'FileShare' */
-  witnessType?: string;
+  /** Use a cloud witness if you have internet access and if you use an Azure Storage account to provide a vote on cluster quorum. A cloud witness uses Azure Blob Storage to read or write a blob file and then uses it to arbitrate in split-brain resolution. */
+  witnessType?: WitnessType;
 
   /** Specify the fileshare path for the local witness for your Azure Stack HCI cluster. */
   witnessPath?: string;
@@ -6938,7 +6977,7 @@ model ClaimDeviceRequest {
   devices: Azure.Core.armResourceIdentifier[];
 
   /**
-   * Resource Id of group device belongs to.
+   * Identifier of the group the device belongs to.
    */
   claimedBy?: string;
 }
@@ -7021,7 +7060,7 @@ model DeviceDetail {
   deviceResourceId?: Azure.Core.armResourceIdentifier;
 
   /**
-   * Resource Id of group device belongs to.
+   * Identifier of the group the device belongs to.
    */
   @visibility(Lifecycle.Read)
   claimedBy?: string;
@@ -8288,7 +8327,7 @@ model OsProvisionProfile {
   /**
    * GPG Public Key used for package verification
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "GPG Public Key is not sensitive information"
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "gpgPubKey holds only the GPG public key block used by the device to verify package signatures during OS provisioning. It contains no private key material."
   gpgPubKey?: string;
 
   /**
@@ -8335,7 +8374,7 @@ model DownloadOsProfile {
   /**
    * GPG Public Key used for package verification
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "GPG Public Key is not sensitive information"
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "gpgPubKey holds only the GPG public key block used by the device to verify package signatures during OS provisioning. It contains no private key material."
   gpgPubKey?: string;
 }
 
@@ -8764,7 +8803,7 @@ model TimeConfiguration {
 /**
  * Represents properties of a kubernetes version.
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "KubernetesVersion is a read-only catalog proxy resource exposing available versions; it has no lifecycle and therefore no provisioningState."
 @added(Versions.v2026_03_15_preview)
 model KubernetesVersionProperties {
   /**
@@ -8826,7 +8865,7 @@ model ClusterJobListResult is Azure.Core.Page<ClusterJob>;
 /**
  * Represents properties of a os image resource.
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "OsImage is a read-only catalog proxy resource exposing available OS images; it has no lifecycle and therefore no provisioningState."
 @added(Versions.v2026_03_15_preview)
 model OsImageProperties {
   /**
@@ -8857,7 +8896,7 @@ model OsImageProperties {
 /**
  * Represents properties of a platform update resource.
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "PlatformUpdate is a read-only catalog proxy resource exposing available platform updates; it has no lifecycle and therefore no provisioningState."
 @added(Versions.v2026_03_15_preview)
 model PlatformUpdateProperties {
   /**
@@ -9015,7 +9054,7 @@ union OwnershipVoucherValidationStatus {
 /**
  * Represents properties of a update content resource.
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "UpdateContent is a read-only catalog proxy resource exposing update payloads; it has no lifecycle and therefore no provisioningState."
 @added(Versions.v2026_03_15_preview)
 model UpdateContentProperties {
   /**
@@ -9572,6 +9611,15 @@ union DiskFileSystemType {
 
   /** ReFS file system (Windows). */
   ReFS: "ReFS",
+
+  /** vfat file system (Linux/cross-platform). */
+  vfat: "vfat",
+
+  /** FAT32 file system. */
+  fat32: "fat32",
+
+  /** FAT file system. */
+  fat: "fat",
 }
 
 /**
