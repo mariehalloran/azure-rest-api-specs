@@ -49,6 +49,8 @@ Old hand-authored swagger used `body` / `privateEndpointConnection` /
 TypeSpec's `Azure.ResourceManager` operation templates emit the ARM-canonical
 `resource`.
 
+*As you clearly know from below, all of these can be mitigated using `@clientName` augment decorators, see: [Customizing Request Payload Parameter Names](https://azure.github.io/typespec-azure/docs/migrate-swagger/faq/breakingchange/#customizing-request-payload-parameter-names)  which provides details on hwo to rename parameters for each operation template.*
+
 | Operation                                          | Old name                          | New name   |
 |----------------------------------------------------|-----------------------------------|------------|
 | `EnergyServices_Create`                            | `body`                            | `resource` |
@@ -68,14 +70,19 @@ never appears in the HTTP request bytes.
 @@clientName(PrivateEndpointConnections.createOrUpdate::parameters.resource,
   "privateEndpointConnection");
 ```
+
+** The convention for ARM conversions is to put this client decoration in a file `back-compatible.tsp` referenced from main.tsp.  This will change the name for client emitters *and* typespec-autorest. **
+
 Generated SDK method signatures keep the legacy parameter names.
 
 ### B. `api-version` declared as required PUT parameter (1 op) — _false positive_
+// ok
 Old swagger omitted the explicit declaration; ARM treats api-version as
 implicitly required on every operation. The new swagger makes the existing
 requirement explicit. **Wire impact: NONE.**
 
 ### C. PUT `EnergyService` gained `200` response (1 op) — _correct ARM_
+// ok
 TypeSpec emits both `200` and `201` for PUT (the ARM long-running create-or-
 replace pattern). The old swagger only declared `201`. The service has always
 returned both. **Wire impact: NONE; documents existing behavior.**
@@ -87,11 +94,15 @@ whether the swagger declared them. **Wire impact: NONE; back-compat documentatio
 of headers the service has always returned.**
 
 ### E. PATCH dropped `Location` header on 202 (1 op) — _verified intentional_
+// ok
 PATCH retains `Azure-AsyncOperation` + `Retry-After`. PATCH LRO normatively
 uses `Azure-AsyncOperation` only (the `Location` header pattern is for PUT/POST
 create flows). The hand-authored swagger over-declared. **Wire impact: NONE.**
 
 ### F. `provisioningState` `readOnly` flag (2 properties) — _emitter sibling-keyword artifact_
+// here you should try using this in tspconfig.yaml: https://azure.github.io/typespec-azure/docs/emitters/typespec-
+//autorest/reference/emitter/#use-read-only-status-schema  There *are* some issues with differences between 
+//different linters and their acceptance of sibling refs (live validation, for example, uses Spectral)
 `EnergyServiceProperties.provisioningState` and
 `GroupInformationProperties.provisioningState` are correctly read-only in
 TypeSpec via `@visibility(Lifecycle.Read)`, and the emitter writes
@@ -105,13 +116,19 @@ Suppressed in `readme.md` with link to
 
 ### G. `AutoScaleMaxCapacity` `int32` → `number` (1) — _accepted, see triage doc_
 Type widening is back-compat for clients deserializing JSON numbers.
+
+// The main issue here would be sdks, as long as no sdk issues, this is ok 
+
 **Wire impact: NONE.**
 
 ### H. `CorsRulesList.maxAgeInSeconds` minimum constraint (1) — _verified back-compat_
+** why not use the `@minValue(0)` constraint? 
 Minimum value updated to match service-side validation. **Wire impact: NONE
 for valid inputs.**
 
 ### I. `PrivateEndpointConnectionProxyProperties` visibility shifts (4)
+
+// ok
 Properties (`provisioningState`, `eTag`, `remotePrivateEndpoint`, `status`) are
 now correctly response-only via `@visibility(Lifecycle.Read)`. The "missing
 from request schema" violations reflect that they were never legal in a request
@@ -122,6 +139,7 @@ body — this is a correctness fix, not a contract change.
 justification. **Wire impact: NONE for external customers.**
 
 ### J. PATCH gained optional `properties` body wrapper (1) — _ARM pattern_
+// here 'properties' is the *name of the body parameter for PATCH* if you used a different parameter name, you should update using back-compatible.tsp and @clientName
 TypeSpec emits the ARM-standard `{ "properties": { ... } }` envelope on PATCH.
 The service accepts the wrapped form. Old swagger had a custom partial-update
 shape. **Wire impact: NONE; envelope is the documented ARM PATCH contract.**
@@ -133,6 +151,9 @@ objects were diffed value-for-value against the inline forms (see
 **Wire impact: NONE.**
 
 ### L. Enum `x-ms-enum.name` changed (3) — _SDK-only, see client.tsp_
+
+** here, use back-compatible.tsp so this appears in swagger as well **
+
 Affected: `KeySource`, `AllowedMethods`, `ReadyForUpgrade`. SDK-generated type
 names follow `x-ms-enum.name`. Where pinned-SDK customers depend on the legacy
 type name, `@clientName` overrides preserve them. The string values on the wire
@@ -154,6 +175,7 @@ documents existing required behavior.**
 
 ### O. `common-types` v3/v5 stragglers normalized to v6 (~50 violations) — _consistency fix, not version uplift_
 
+// ok
 The hand-authored swagger **inconsistently mixed** common-types versions:
 **90 refs already on v6 (84%)**, 15 stragglers on v3 (14%), and 1 stray v5 ref.
 TypeSpec's `@armCommonTypesVersion` decorator is necessarily **global** — there
@@ -175,6 +197,7 @@ All v6 additions on the normalized refs are forward-compatible:
 - `Sku` exposes `tier`/`size`/`family`/`capacity` (optional request fields, default-null)
 - `nextLink` gains `format: uri` (correctness annotation)
 - `TrackedResource` `allOf` shape modernized (14× same root cause)
+- 'groupIds' from PrivateEndpointConnectionProeprties also optional+read-only (forward compatible)
 
 **Wire impact: NONE.** Pinned-SDK clients ignore unknown fields; regenerated
 SDKs gain richer types matching the service behavior. The change is a
@@ -280,3 +303,10 @@ buckets above.
 All other buckets are either correctness fixes (B, C, D, F, I, J, M),
 documented refactors (E, K, N, P), or covered by existing suppressions with
 linked rationale.
+
+## Untracked breaking changes
+
+- https://github.com/avazhappilly/azure-rest-api-specs-pr/blob/0bf2f98a697118637ed6cc6cbec694ee4918fee5/specification/oep/resource-manager/Microsoft.OpenEnergyPlatform/preview/2026-02-02-preview/oep.json#L2375:9
+  RemotePrivateEndpointConnection -> PrivateLinkServiceRemotePrivateEndpointConnection (client)
+- https://github.com/avazhappilly/azure-rest-api-specs-pr/blob/0bf2f98a697118637ed6cc6cbec694ee4918fee5/specification/common-types/resource-management/v6/types.json#L393:9
+  Identity-> ManagedServiceIdentity (client)
