@@ -1,0 +1,63 @@
+{
+  "operationId": "ModelDeployments_Update",
+  "title": "Update a ModelDeployment",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg1",
+    "modelDeploymentName": "phi-4-deployment",
+    "api-version": "2026-05-01-preview",
+    "properties": {
+      "tags": {
+        "environment": "production"
+      },
+      "properties": {
+        "configurationSettings": {
+          "replicas": "3"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.FoundryLocal/modelDeployments/phi-4-deployment",
+        "name": "phi-4-deployment",
+        "type": "Microsoft.FoundryLocal/modelDeployments",
+        "location": "eastus",
+        "extendedLocation": {
+          "name": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ExtendedLocation/customLocations/my-custom-location",
+          "type": "CustomLocation"
+        },
+        "tags": {
+          "environment": "production"
+        },
+        "properties": {
+          "provisioningState": "Succeeded",
+          "configurationSettings": {
+            "model.catalogName": "phi-4",
+            "workloadType": "generative",
+            "compute": "gpu",
+            "replicas": "3"
+          },
+          "status": {
+            "state": "Updating"
+          }
+        },
+        "systemData": {
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2026-05-20T00:00:00.000Z",
+          "lastModifiedBy": "user@example.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-05-20T00:00:00.000Z"
+        }
+      }
+    },
+    "202": {
+      "headers": {
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.FoundryLocal/locations/eastus/operationStatuses/operationId?api-version=2026-05-01-preview",
+        "Retry-After": 10
+      }
+    }
+  }
+}

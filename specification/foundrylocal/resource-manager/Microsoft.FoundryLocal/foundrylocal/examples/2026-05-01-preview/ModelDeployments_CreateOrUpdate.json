@@ -1,0 +1,108 @@
+{
+  "operationId": "ModelDeployments_CreateOrUpdate",
+  "title": "Create or update a ModelDeployment",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg1",
+    "modelDeploymentName": "phi-4-deployment",
+    "api-version": "2026-05-01-preview",
+    "resource": {
+      "location": "eastus",
+      "extendedLocation": {
+        "name": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ExtendedLocation/customLocations/my-custom-location",
+        "type": "CustomLocation"
+      },
+      "properties": {
+        "configurationSettings": {
+          "model.catalogName": "phi-4",
+          "model.catalogVersion": "latest",
+          "workloadType": "generative",
+          "compute": "gpu",
+          "replicas": "1",
+          "runtime": "onnx-genai",
+          "resources.requests.cpu": "100m",
+          "resources.requests.memory": "256Mi",
+          "resources.limits.cpu": "1000m",
+          "resources.limits.memory": "1Gi"
+        },
+        "configurationProtectedSettings": {
+          "registry.password": "secret-value"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.FoundryLocal/modelDeployments/phi-4-deployment",
+        "name": "phi-4-deployment",
+        "type": "Microsoft.FoundryLocal/modelDeployments",
+        "location": "eastus",
+        "extendedLocation": {
+          "name": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ExtendedLocation/customLocations/my-custom-location",
+          "type": "CustomLocation"
+        },
+        "properties": {
+          "provisioningState": "Succeeded",
+          "configurationSettings": {
+            "model.catalogName": "phi-4",
+            "model.catalogVersion": "latest",
+            "workloadType": "generative",
+            "compute": "gpu",
+            "replicas": "1",
+            "runtime": "onnx-genai",
+            "resources.requests.cpu": "100m",
+            "resources.requests.memory": "256Mi",
+            "resources.limits.cpu": "1000m",
+            "resources.limits.memory": "1Gi"
+          },
+          "status": {}
+        },
+        "systemData": {
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2026-05-20T00:00:00.000Z",
+          "lastModifiedBy": "user@example.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-05-20T00:00:00.000Z"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.FoundryLocal/modelDeployments/phi-4-deployment",
+        "name": "phi-4-deployment",
+        "type": "Microsoft.FoundryLocal/modelDeployments",
+        "location": "eastus",
+        "extendedLocation": {
+          "name": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ExtendedLocation/customLocations/my-custom-location",
+          "type": "CustomLocation"
+        },
+        "properties": {
+          "provisioningState": "Accepted",
+          "configurationSettings": {
+            "model.catalogName": "phi-4",
+            "model.catalogVersion": "latest",
+            "workloadType": "generative",
+            "compute": "gpu",
+            "replicas": "1",
+            "runtime": "onnx-genai",
+            "resources.requests.cpu": "100m",
+            "resources.requests.memory": "256Mi",
+            "resources.limits.cpu": "1000m",
+            "resources.limits.memory": "1Gi"
+          },
+          "status": {}
+        },
+        "systemData": {
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2026-05-20T00:00:00.000Z",
+          "lastModifiedBy": "user@example.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-05-20T00:00:00.000Z"
+        }
+      }
+    }
+  }
+}
