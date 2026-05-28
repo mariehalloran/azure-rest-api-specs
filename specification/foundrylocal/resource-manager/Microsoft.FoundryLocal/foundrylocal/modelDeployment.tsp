@@ -55,12 +55,25 @@ model ModelDeploymentProperties {
   status?: Record<string>;
 }
 
+@doc("Updatable properties of a ModelDeployment resource.")
+model ModelDeploymentUpdateProperties {
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Extensions pattern uses Record<string> for opaque configurationSettings"
+  @doc("Configuration settings as name-value pairs for the model deployment.")
+  configurationSettings?: Record<string>;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Extensions pattern uses Record<string> for opaque configurationProtectedSettings"
+  @doc("Configuration settings that are sensitive, as name-value pairs.")
+  @secret
+  @visibility(Lifecycle.Create, Lifecycle.Update)
+  configurationProtectedSettings?: Record<string>;
+}
+
 @armResourceOperations
 interface ModelDeployments {
   get is ArmResourceRead<ModelDeployment>;
   createOrUpdate is ArmResourceCreateOrUpdateAsync<ModelDeployment>;
   delete is ArmResourceDeleteWithoutOkAsync<ModelDeployment>;
-  update is ArmResourcePatchAsync<ModelDeployment, ModelDeploymentProperties>;
+  update is ArmResourcePatchAsync<ModelDeployment, ModelDeploymentUpdateProperties>;
   listByResourceGroup is ArmResourceListByParent<ModelDeployment>;
   listBySubscription is ArmListBySubscription<ModelDeployment>;
 }
