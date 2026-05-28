@@ -73,11 +73,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "List provider operations": {
-            "$ref": "./examples/Operations_List.json"
-          }
-        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -110,11 +105,6 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "List ModelDeployments by subscription": {
-            "$ref": "./examples/ModelDeployments_ListBySubscription.json"
           }
         },
         "x-ms-pageable": {
@@ -152,11 +142,6 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "List ModelDeployments by resource group": {
-            "$ref": "./examples/ModelDeployments_ListByResourceGroup.json"
           }
         },
         "x-ms-pageable": {
@@ -202,11 +187,6 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "Get a ModelDeployment": {
-            "$ref": "./examples/ModelDeployments_Get.json"
           }
         }
       },
@@ -273,11 +253,6 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "Create or update a ModelDeployment": {
-            "$ref": "./examples/ModelDeployments_CreateOrUpdate.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -347,11 +322,6 @@
             }
           }
         },
-        "x-ms-examples": {
-          "Update a ModelDeployment": {
-            "$ref": "./examples/ModelDeployments_Update.json"
-          }
-        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -405,11 +375,6 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "Delete a ModelDeployment": {
-            "$ref": "./examples/ModelDeployments_Delete.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -481,37 +446,6 @@
         }
       ]
     },
-    "Azure.ResourceManager.ResourceProvisioningState": {
-      "type": "string",
-      "description": "The provisioning state of a resource type.",
-      "enum": [
-        "Succeeded",
-        "Failed",
-        "Canceled"
-      ],
-      "x-ms-enum": {
-        "name": "ResourceProvisioningState",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Succeeded",
-            "value": "Succeeded",
-            "description": "Resource has been created."
-          },
-          {
-            "name": "Failed",
-            "value": "Failed",
-            "description": "Resource creation failed."
-          },
-          {
-            "name": "Canceled",
-            "value": "Canceled",
-            "description": "Resource creation was canceled."
-          }
-        ]
-      },
-      "readOnly": true
-    },
     "ModelDeployment": {
       "type": "object",
       "description": "A ModelDeployment resource managed via K8sBridge on an Arc-connected cluster.",
@@ -560,7 +494,7 @@
       "description": "Properties of a ModelDeployment resource.",
       "properties": {
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/ProvisioningState",
           "description": "The provisioning state of the resource.",
           "readOnly": true
         },
@@ -574,10 +508,14 @@
         "configurationProtectedSettings": {
           "type": "object",
           "format": "password",
-          "description": "Configuration settings that are sensitive, as name-value pairs. Write-only — never returned on GET.",
+          "description": "Configuration settings that are sensitive, as name-value pairs.",
           "additionalProperties": {
             "type": "string"
           },
+          "x-ms-mutability": [
+            "update",
+            "create"
+          ],
           "x-ms-secret": true
         },
         "status": {
@@ -604,6 +542,81 @@
           "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
         }
       ]
+    },
+    "ModelDeploymentUpdateProperties": {
+      "type": "object",
+      "description": "Updatable properties of a ModelDeployment resource.",
+      "properties": {
+        "configurationSettings": {
+          "type": "object",
+          "description": "Configuration settings as name-value pairs for the model deployment.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "configurationProtectedSettings": {
+          "type": "object",
+          "format": "password",
+          "description": "Configuration settings that are sensitive, as name-value pairs.",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-ms-mutability": [
+            "update",
+            "create"
+          ],
+          "x-ms-secret": true
+        }
+      }
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "description": "Provisioning state of a ModelDeployment resource.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Accepted",
+        "Provisioning",
+        "Deleting"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          },
+          {
+            "name": "Accepted",
+            "value": "Accepted",
+            "description": "The resource request has been accepted for processing."
+          },
+          {
+            "name": "Provisioning",
+            "value": "Provisioning",
+            "description": "The resource is being provisioned."
+          },
+          {
+            "name": "Deleting",
+            "value": "Deleting",
+            "description": "The resource is being deleted."
+          }
+        ]
+      },
+      "readOnly": true
     }
   },
   "parameters": {}
