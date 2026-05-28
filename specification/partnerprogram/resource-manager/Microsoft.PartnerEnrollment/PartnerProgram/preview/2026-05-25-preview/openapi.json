@@ -284,60 +284,6 @@
         },
         "x-ms-long-running-operation": true
       },
-      "patch": {
-        "operationId": "MaicppPrograms_Update",
-        "tags": [
-          "MaicppPrograms"
-        ],
-        "description": "Update a MaicppProgram",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "maicppProgramName",
-            "in": "path",
-            "description": "The name of the MaicppProgram resource.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "The resource properties to be updated.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/MaicppProgramUpdate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/MaicppProgram"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "UpdateMaicppProgram": {
-            "$ref": "./examples/MaicppPrograms_Update.json"
-          }
-        }
-      },
       "delete": {
         "operationId": "MaicppPrograms_Delete",
         "tags": [
@@ -386,25 +332,6 @@
     }
   },
   "definitions": {
-    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
-      "type": "object",
-      "title": "Tracked Resource",
-      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/Resource"
-        }
-      ]
-    },
     "MaicppProgram": {
       "type": "object",
       "description": "A MaicppProgram resource representing a Microsoft AI Cloud Partner Program registration.",
@@ -467,31 +394,6 @@
       },
       "required": [
         "programId"
-      ]
-    },
-    "MaicppProgramPropertiesUpdate": {
-      "type": "object",
-      "description": "Details of the MaicppProgram.",
-      "properties": {
-        "programId": {
-          "type": "string",
-          "description": "Identifier of the partner program."
-        }
-      }
-    },
-    "MaicppProgramUpdate": {
-      "type": "object",
-      "description": "A MaicppProgram resource representing a Microsoft AI Cloud Partner Program registration.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/MaicppProgramPropertiesUpdate",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
-        }
       ]
     },
     "ProvisioningState": {
