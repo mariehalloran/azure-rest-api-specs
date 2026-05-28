@@ -9,7 +9,7 @@ using Azure.ResourceManager;
 @doc("Microsoft.Cosmic Resource Provider Management API.")
 namespace Microsoft.Cosmic;
 
-// ─── Cosmic Ring Definition ─────────────────────────────────────────────
+// --- Cosmic Ring Definition ---------------------------------------------
 
 @doc("Cosmic Rings.")
 union CosmicRing {
@@ -67,7 +67,7 @@ union CosmicRing {
   string,
 }
 
-// ─── Provisioning state ─────────────────────────────────────────────
+// --- Provisioning state ---------------------------------------------
 
 @doc("The provisioning state of a Cosmic resource.")
 union CosmicProvisioningState {
@@ -88,7 +88,7 @@ union CosmicProvisioningState {
   string,
 }
 
-// ─── Environment enums ───────────────────────────────────────────────
+// --- Environment enums -----------------------------------------------
 
 @doc("The operating system type for the compute nodes.")
 union OsType {
@@ -200,7 +200,7 @@ union InstanceProvisioningStatus {
   string,
 }
 
-// ─── Topology models ────────────────────────────────────────────────
+// --- Topology models ------------------------------------------------
 
 @doc("Optional per-location topology declarations including networking and partition identity.")
 model Topology {
@@ -224,6 +224,9 @@ model TopologyLocation {
   @doc("BYOIP configuration for egress traffic.")
   egressPublicIps?: EgressPublicIps;
 
+  @doc("BYOIP configuration for instance-level public IP.")
+  instanceLevelPublicIp?: InstanceLevelPublicIp;
+
   @doc("Optional declared partition set for this location.")
   @identifiers(#["name"])
   partitions?: TopologyPartition[];
@@ -235,7 +238,7 @@ model TopologyPartition {
   name: string;
 }
 
-// ─── Capacity models ────────────────────────────────────────────────
+// --- Capacity models ------------------------------------------------
 
 @doc("Capacity configuration for the environment.")
 model CapacityPolicy {
@@ -266,7 +269,7 @@ model PartitionCapacity {
   instanceCount: int32;
 }
 
-// ─── Resource policy models ─────────────────────────────────────────
+// --- Resource policy models -----------------------------------------
 
 @doc("Resource policy configuration with layered environment/region/partition overrides.")
 model ResourcePolicy {
@@ -363,7 +366,7 @@ model InstanceQuota {
   podResources?: PodSpec[];
 }
 
-// ─── Pod resource models ─────────────────────────────────────────────
+// --- Pod resource models ---------------------------------------------
 
 @doc("Pod resource envelope.")
 model PodSpec {
@@ -386,7 +389,7 @@ model PodSpec {
   rollingUpdateReplicaPercentage?: int32;
 }
 
-// ─── Environment read-only status models ─────────────────────────────
+// --- Environment read-only status models -----------------------------
 
 @doc("Status of the environment.")
 model EnvironmentStatus {
@@ -443,14 +446,58 @@ model Instance {
 
   @doc("The provisioning status of this instance on the backing cluster.")
   status?: InstanceProvisioningStatus;
+
+  @doc("Identities applied to this instance. Each entry's identityType distinguishes pod vs workload.")
+  @visibility(Lifecycle.Read)
+  @identifiers(#["clientId"])
+  identities?: InstanceIdentity[];
 }
 
-// ─── Networking models ───────────────────────────────────────────────
+// --- Identity model --------------------------------------------------
+
+@doc("The kind of managed identity exposed on an Instance.")
+union InstanceIdentityType {
+  @doc("Pod identity used by namespace pods (sourced from the placement's ring-level identity).")
+  Pod: "Pod",
+
+  @doc("Workload (federated) identity (sourced from the placement's cluster-level identity).")
+  Workload: "Workload",
+
+  string,
+}
+
+@doc("User-assigned managed identity exposed on an Instance.")
+model InstanceIdentity {
+  @doc("The kind of identity (Pod or Workload).")
+  identityType: InstanceIdentityType;
+
+  @doc("Client ID of the user-assigned managed identity.")
+  clientId: string;
+
+  @doc("ARM resource ID of the user-assigned managed identity.")
+  resourceId?: Azure.Core.armResourceIdentifier;
+
+  @doc("Principal (object) ID of the user-assigned managed identity. Matches ARM common-types UserAssignedIdentity.principalId.")
+  principalId: string;
+}
+
+// --- Networking models -----------------------------------------------
+
+@doc("Azure public-IP tag types. Extensible - new values may be added without a breaking change.")
+union IpTagType {
+  @doc("Routing preference for the IP (Internet, Microsoft, etc.).")
+  RoutingPreference: "RoutingPreference",
+
+  @doc("First-party Azure service usage tag.")
+  FirstPartyUsage: "FirstPartyUsage",
+
+  string,
+}
 
 @doc("Ingress public IP configuration using BYOIP.")
 model IngressPublicIp {
   @doc("The IP tag type for ingress.")
-  ipTagType: string;
+  ipTagType: IpTagType;
 
   @doc("The IP tag value for ingress.")
   ipTagValue: string;
@@ -466,7 +513,7 @@ model IngressPublicIp {
 model EgressPublicIps {
   @doc("The IP tag type for egress.")
   @visibility(Lifecycle.Create, Lifecycle.Read)
-  ipTagType?: string;
+  ipTagType?: IpTagType;
 
   @doc("The IP tag value for egress.")
   @visibility(Lifecycle.Create, Lifecycle.Read)
@@ -474,6 +521,27 @@ model EgressPublicIps {
 
   @doc("The IP capacity for egress.")
   ipCapacity?: string;
+
+  @doc("The IP version (IPv4 or IPv6). Defaults to IPv4.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  ipVersion?: IpVersion;
+}
+
+@doc("BYOIP configuration for instance-level public IP (ILPIP).")
+model InstanceLevelPublicIp {
+  @doc("Prefix length of the IP block.")
+  @minValue(0)
+  @maxValue(128)
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  prefixLength?: int32;
+
+  @doc("The IP tag type.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  ipTagType?: IpTagType;
+
+  @doc("The IP tag value.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  ipTagValue?: string;
 
   @doc("The IP version (IPv4 or IPv6). Defaults to IPv4.")
   @visibility(Lifecycle.Create, Lifecycle.Read)
