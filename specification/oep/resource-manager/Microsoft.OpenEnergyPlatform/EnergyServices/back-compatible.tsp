@@ -34,3 +34,18 @@ using Microsoft.OpenEnergyPlatform;
   PrivateEndpointConnections.createOrUpdate::parameters.resource,
   "privateEndpointConnection"
 );
+
+// -----------------------------------------------------------------------------
+// Bucket L: preserve legacy camelCase x-ms-enum.name values from the
+// hand-authored swagger. TypeSpec autogenerates PascalCase names from the
+// union identifier (KeySource, AllowedMethods, ReadyForUpgrade). The
+// pre-migration swagger used camelCase (keySource, allowedMethods,
+// readyForUpgrade). Renaming via @@clientName here ensures both
+// typespec-autorest (swagger x-ms-enum.name) AND client emitters preserve
+// the legacy identifiers. Wire impact: NONE — the enum string values on the
+// wire are unchanged.
+// -----------------------------------------------------------------------------
+
+@@clientName(KeySource, "keySource");
+@@clientName(AllowedMethods, "allowedMethods");
+@@clientName(ReadyForUpgrade, "readyForUpgrade");

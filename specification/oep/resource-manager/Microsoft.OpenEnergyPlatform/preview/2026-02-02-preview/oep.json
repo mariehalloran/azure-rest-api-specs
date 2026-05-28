@@ -1541,66 +1541,6 @@
         ]
       }
     },
-    "AllowedMethods": {
-      "type": "string",
-      "description": "Allowed HTTP methods.",
-      "enum": [
-        "DELETE",
-        "GET",
-        "HEAD",
-        "MERGE",
-        "POST",
-        "OPTIONS",
-        "PUT",
-        "PATCH"
-      ],
-      "x-ms-enum": {
-        "name": "AllowedMethods",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "DELETE",
-            "value": "DELETE",
-            "description": "Allow HTTP DELETE requests."
-          },
-          {
-            "name": "GET",
-            "value": "GET",
-            "description": "Allow HTTP GET requests."
-          },
-          {
-            "name": "HEAD",
-            "value": "HEAD",
-            "description": "Allow HTTP HEAD requests."
-          },
-          {
-            "name": "MERGE",
-            "value": "MERGE",
-            "description": "Allow HTTP MERGE requests."
-          },
-          {
-            "name": "POST",
-            "value": "POST",
-            "description": "Allow HTTP POST requests."
-          },
-          {
-            "name": "OPTIONS",
-            "value": "OPTIONS",
-            "description": "Allow HTTP OPTIONS requests."
-          },
-          {
-            "name": "PUT",
-            "value": "PUT",
-            "description": "Allow HTTP PUT requests."
-          },
-          {
-            "name": "PATCH",
-            "value": "PATCH",
-            "description": "Allow HTTP PATCH requests."
-          }
-        ]
-      }
-    },
     "AutoScaleMaxCapacity": {
       "type": "number",
       "description": "Maximum autoscale capacity limit for the energy service. Must be a power of 2 between 1 and 256 (applicable for Flex SKU).",
@@ -1708,7 +1648,7 @@
           "type": "array",
           "description": "List of allowed HTTP methods",
           "items": {
-            "$ref": "#/definitions/AllowedMethods"
+            "$ref": "#/definitions/allowedMethods"
           }
         },
         "allowedOrigins": {
@@ -1839,7 +1779,7 @@
             "Microsoft.Keyvault"
           ],
           "x-ms-enum": {
-            "name": "KeySource",
+            "name": "keySource",
             "modelAsString": true,
             "values": [
               {
@@ -2633,7 +2573,7 @@
             "NotReady"
           ],
           "x-ms-enum": {
-            "name": "ReadyForUpgrade",
+            "name": "readyForUpgrade",
             "modelAsString": true,
             "values": [
               {
@@ -2693,6 +2633,66 @@
         }
       ],
       "x-ms-discriminator-value": "Wellbore"
+    },
+    "allowedMethods": {
+      "type": "string",
+      "description": "Allowed HTTP methods.",
+      "enum": [
+        "DELETE",
+        "GET",
+        "HEAD",
+        "MERGE",
+        "POST",
+        "OPTIONS",
+        "PUT",
+        "PATCH"
+      ],
+      "x-ms-enum": {
+        "name": "allowedMethods",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "DELETE",
+            "value": "DELETE",
+            "description": "Allow HTTP DELETE requests."
+          },
+          {
+            "name": "GET",
+            "value": "GET",
+            "description": "Allow HTTP GET requests."
+          },
+          {
+            "name": "HEAD",
+            "value": "HEAD",
+            "description": "Allow HTTP HEAD requests."
+          },
+          {
+            "name": "MERGE",
+            "value": "MERGE",
+            "description": "Allow HTTP MERGE requests."
+          },
+          {
+            "name": "POST",
+            "value": "POST",
+            "description": "Allow HTTP POST requests."
+          },
+          {
+            "name": "OPTIONS",
+            "value": "OPTIONS",
+            "description": "Allow HTTP OPTIONS requests."
+          },
+          {
+            "name": "PUT",
+            "value": "PUT",
+            "description": "Allow HTTP PUT requests."
+          },
+          {
+            "name": "PATCH",
+            "value": "PATCH",
+            "description": "Allow HTTP PATCH requests."
+          }
+        ]
+      }
     }
   },
   "parameters": {}
