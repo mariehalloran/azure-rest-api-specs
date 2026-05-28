@@ -51,14 +51,10 @@ namespace Microsoft.BillingBenefits;
  */
 enum Versions {
   /**
-   * The 2025-12-01-preview API version.
+   * The 2026-02-01-preview API version.
    */
-  v2025_12_01_preview: "2025-12-01-preview",
-
-  /**
-   * The 2026-02-01 API version.
-   */
-  v2026_02_01: "2026-02-01",
+  @Azure.Core.previewVersion
+  v2026_02_01_preview: "2026-02-01-preview",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}

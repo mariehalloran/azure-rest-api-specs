@@ -14,7 +14,6 @@ namespace Microsoft.BillingBenefits;
 /**
  * A catalog group represents a BenefitResourceType + Namespace grouping used for benefit SKU discovery.
  */
-@added(Versions.v2026_02_01)
 model CatalogGroup
   is Azure.ResourceManager.ProxyResource<CatalogGroupProperties> {
   ...ResourceNameParameter<
@@ -28,7 +27,6 @@ model CatalogGroup
 /**
  * Additional parameters for the CatalogGroups list operation.
  */
-@added(Versions.v2026_02_01)
 model CatalogGroupsListParameters {
   /**
    * OData filter expression to narrow the list of catalog groups.
@@ -40,7 +38,6 @@ model CatalogGroupsListParameters {
 /**
  * Reusable CatalogGroup extension operations for a specific target scope.
  */
-@added(Versions.v2026_02_01)
 interface CatalogGroupsExtensionOps<Scope extends Azure.ResourceManager.Foundations.SimpleResource> {
   /**
    * List catalog groups at the target scope.
@@ -85,17 +82,14 @@ alias BillingProfileScope = Extension.ExternalChildResource<
   Description = "The name of the billing profile."
 >;
 
-@added(Versions.v2026_02_01)
 @armResourceOperations
 interface SubscriptionCatalogGroupsOps
   extends CatalogGroupsExtensionOps<SubscriptionScope> {}
 
-@added(Versions.v2026_02_01)
 @armResourceOperations
 interface BillingAccountCatalogGroupsOps
   extends CatalogGroupsExtensionOps<BillingAccountScope> {}
 
-@added(Versions.v2026_02_01)
 @armResourceOperations
 interface BillingProfileCatalogGroupsOps
   extends CatalogGroupsExtensionOps<BillingProfileScope> {}
