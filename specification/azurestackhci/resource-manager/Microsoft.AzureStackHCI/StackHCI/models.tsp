@@ -9611,6 +9611,15 @@ union DiskFileSystemType {
 
   /** ReFS file system (Windows). */
   ReFS: "ReFS",
+
+  /** vfat file system (Linux/cross-platform). */
+  vfat: "vfat",
+
+  /** FAT32 file system. */
+  fat32: "fat32",
+
+  /** FAT file system. */
+  fat: "fat",
 }
 
 /**
