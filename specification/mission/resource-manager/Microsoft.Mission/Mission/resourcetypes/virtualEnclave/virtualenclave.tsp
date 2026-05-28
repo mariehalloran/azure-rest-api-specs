@@ -156,12 +156,12 @@ union AddressSpaceOwnership {
 }
 
 @added(Microsoft.Mission.Versions.v2026_07_01_preview)
-@doc("An address space entry for the enclave. Customer entries have ownership 'customerManaged'; the RP-injected managed address space has ownership 'productManaged' and is always the last element.")
+@doc("An address space entry for the enclave. Customer entries have ownership 'CustomerManaged'; the RP-injected managed address space has ownership 'ProductManaged' and is always the last element.")
 model AddressSpaceEntry {
   @doc("CIDR prefix length (e.g., 22, 23, 24). Determines the size of the address space.")
   @minValue(8)
-  @maxValue(29)
-  prefixLength: int32;
+  @maxValue(26)
+  prefixLength?: int32;
 
   @doc("CIDR notation address space (e.g., '10.0.0.0/23'). Optional — if omitted, RP allocates based on prefixLength. If provided, used as-is (custom address space).")
   addressSpace?: string;
