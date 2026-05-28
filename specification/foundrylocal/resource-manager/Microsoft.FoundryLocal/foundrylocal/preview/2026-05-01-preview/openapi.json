@@ -73,6 +73,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "List provider operations": {
+            "$ref": "./examples/Operations_List.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -105,6 +110,11 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "List ModelDeployments by subscription": {
+            "$ref": "./examples/ModelDeployments_ListBySubscription.json"
           }
         },
         "x-ms-pageable": {
@@ -142,6 +152,11 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "List ModelDeployments by resource group": {
+            "$ref": "./examples/ModelDeployments_ListByResourceGroup.json"
           }
         },
         "x-ms-pageable": {
@@ -187,6 +202,11 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Get a ModelDeployment": {
+            "$ref": "./examples/ModelDeployments_Get.json"
           }
         }
       },
@@ -253,6 +273,11 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Create or update a ModelDeployment": {
+            "$ref": "./examples/ModelDeployments_CreateOrUpdate.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -322,6 +347,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "Update a ModelDeployment": {
+            "$ref": "./examples/ModelDeployments_Update.json"
+          }
+        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -375,6 +405,11 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a ModelDeployment": {
+            "$ref": "./examples/ModelDeployments_Delete.json"
           }
         },
         "x-ms-long-running-operation-options": {
