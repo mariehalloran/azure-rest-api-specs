@@ -212,9 +212,12 @@ model Topology {
 @doc("Per-location topology configuration including networking and optional partition declarations.")
 model TopologyLocation {
   @doc("Canonical Azure region name.")
+  @minLength(1)
   name: string;
 
   @doc("Optional SNAT ports to allocate per node.")
+  @minValue(0)
+  @maxValue(64000)
   snatPortsPerNode?: int32;
 
   @doc("BYOIP configuration for ingress traffic.")
@@ -235,6 +238,9 @@ model TopologyLocation {
 @doc("Declared partition identity for a location.")
 model TopologyPartition {
   @doc("The partition name.")
+  @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
+  @minLength(3)
+  @maxLength(24)
   name: string;
 }
 
@@ -250,9 +256,11 @@ model CapacityPolicy {
 @doc("Per-location desired capacity.")
 model LocationCapacity {
   @doc("Canonical Azure region name.")
+  @minLength(1)
   name: string;
 
   @doc("Total desired instance count in this location.")
+  @minValue(1)
   totalInstanceCount?: int32;
 
   @doc("Optional breakdown of capacity by partition key.")
@@ -263,9 +271,13 @@ model LocationCapacity {
 @doc("Explicit capacity configuration for a specific partition.")
 model PartitionCapacity {
   @doc("The partition name.")
+  @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
+  @minLength(3)
+  @maxLength(24)
   name: string;
 
   @doc("The number of instances to realize for this partition.")
+  @minValue(1)
   instanceCount: int32;
 }
 
@@ -302,6 +314,7 @@ model EnvironmentDefaultPolicy {
 @doc("Region-scoped policy overrides.")
 model RegionOverride {
   @doc("Canonical Azure region name.")
+  @minLength(1)
   name: string;
 
   @doc("Region-level default policy.")
@@ -321,6 +334,9 @@ model RegionDefaultPolicy {
 @doc("Partition-scoped policy overrides.")
 model PartitionOverride {
   @doc("The partition name.")
+  @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
+  @minLength(3)
+  @maxLength(24)
   name: string;
 
   @doc("Partition-level default policy.")
@@ -349,6 +365,7 @@ model PartitionDefaultPolicy {
 @doc("Migration-only per-instance resource override.")
 model InstanceOverride {
   @doc("Opaque RP instance identifier (GUID).")
+  @pattern("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
   instanceId: string;
 
   @doc("Optional per-instance quota override.")
@@ -371,21 +388,28 @@ model InstanceQuota {
 @doc("Pod resource envelope.")
 model PodSpec {
   @doc("CPU cores requested per pod (e.g. '0.5', '2').")
+  @pattern("^([0-9]*\\.?[0-9]+)$")
   cores?: string;
 
   @doc("Memory requested per pod (e.g. '512Mi', '2Gi').")
+  @pattern("^[0-9]+(\\.[0-9]+)?(Mi|Gi)$")
   memory?: string;
 
   @doc("CPU cores limit per pod. If unset, defaults to approximately 2x the request.")
+  @pattern("^([0-9]*\\.?[0-9]+)$")
   coresLimit?: string;
 
   @doc("Memory limit per pod. If unset, defaults to approximately 2x the request.")
+  @pattern("^[0-9]+(\\.[0-9]+)?(Mi|Gi)$")
   memoryLimit?: string;
 
   @doc("Number of replicas per cluster.")
+  @minValue(1)
   replicas?: int32;
 
   @doc("Percentage of replicas considered during rolling updates.")
+  @minValue(0)
+  @maxValue(25)
   rollingUpdateReplicaPercentage?: int32;
 }
 
@@ -520,6 +544,7 @@ model EgressPublicIps {
   ipTagValue?: string;
 
   @doc("The IP capacity for egress.")
+  @pattern("^(2|4|8|16)$")
   ipCapacity?: string;
 
   @doc("The IP version (IPv4 or IPv6). Defaults to IPv4.")
