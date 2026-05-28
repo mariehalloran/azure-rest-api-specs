@@ -2315,7 +2315,7 @@
           "description": "Remote private link service connection state"
         },
         "remotePrivateEndpointConnection": {
-          "$ref": "#/definitions/PrivateLinkServiceProxyRemotePrivateEndpointConnection",
+          "$ref": "#/definitions/RemotePrivateEndpointConnection",
           "description": "Remote private endpoint connection details."
         },
         "groupConnectivityInformation": {
@@ -2327,15 +2327,6 @@
           "x-ms-identifiers": []
         }
       }
-    },
-    "PrivateLinkServiceProxyRemotePrivateEndpointConnection": {
-      "type": "object",
-      "description": "Remote private endpoint connection details.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/RemotePrivateEndpointConnection"
-        }
-      ]
     },
     "ProvisioningState": {
       "type": "string",

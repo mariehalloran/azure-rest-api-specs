@@ -846,7 +846,7 @@ model PrivateLinkServiceProxy {
   /**
    * Remote private endpoint connection details.
    */
-  remotePrivateEndpointConnection?: PrivateLinkServiceProxyRemotePrivateEndpointConnection;
+  remotePrivateEndpointConnection?: RemotePrivateEndpointConnection;
 
   /**
    * Group connectivity information.
@@ -854,14 +854,6 @@ model PrivateLinkServiceProxy {
   @identifiers(#[])
   groupConnectivityInformation?: GroupConnectivityInformation[];
 }
-
-/**
- * Remote private endpoint connection details.
- */
-#suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model" "Preserving existing wire contract."
-#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "For backward compatibility"
-model PrivateLinkServiceProxyRemotePrivateEndpointConnection
-  extends RemotePrivateEndpointConnection {}
 
 /**
  * Remote private endpoint connection details.
