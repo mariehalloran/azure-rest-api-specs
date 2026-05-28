@@ -1668,7 +1668,8 @@
         "maxAgeInSeconds": {
           "type": "integer",
           "format": "int32",
-          "description": "Max amount of time that a browser than cache the preflight OPTIONS request"
+          "description": "Max amount of time that a browser than cache the preflight OPTIONS request",
+          "minimum": 0
         }
       }
     },
@@ -2082,7 +2083,8 @@
             "description": "Provisioning of the private link group ID was canceled."
           }
         ]
-      }
+      },
+      "readOnly": true
     },
     "GroupInformation": {
       "type": "object",
@@ -2387,7 +2389,8 @@
             "description": "The resource is being updated."
           }
         ]
-      }
+      },
+      "readOnly": true
     },
     "ReferenceDataProperties": {
       "type": "object",

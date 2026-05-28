@@ -603,6 +603,7 @@ model CorsRulesList {
   /**
    * Max amount of time that a browser than cache the preflight OPTIONS request
    */
+  @minValue(0)
   maxAgeInSeconds?: int32;
 }
 
