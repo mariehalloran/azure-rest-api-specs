@@ -1051,6 +1051,8 @@
         "isolationGroup": {
           "type": "string",
           "description": "Isolation group override for cluster bin-packing affinity. When set, all NamespaceInstances in this environment are placed on this isolation group instead of the parent namespace's isolationGroup. Useful when different environments of the same namespace (e.g. dev vs prod) should target different clusters. Cannot be changed after environment creation.",
+          "minLength": 1,
+          "maxLength": 63,
           "x-ms-mutability": [
             "read",
             "create"
@@ -1262,7 +1264,8 @@
         },
         "ipCapacity": {
           "type": "string",
-          "description": "The IP capacity for egress."
+          "description": "The IP capacity for egress.",
+          "pattern": "^(2|4|8|16)$"
         },
         "ipVersion": {
           "$ref": "#/definitions/IpVersion",
@@ -1608,7 +1611,8 @@
       "properties": {
         "instanceId": {
           "type": "string",
-          "description": "Opaque RP instance identifier (GUID)."
+          "description": "Opaque RP instance identifier (GUID).",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
         },
         "instanceQuota": {
           "$ref": "#/definitions/InstanceQuota",
@@ -1749,12 +1753,14 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "Canonical Azure region name."
+          "description": "Canonical Azure region name.",
+          "minLength": 1
         },
         "totalInstanceCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Total desired instance count in this location."
+          "description": "Total desired instance count in this location.",
+          "minimum": 1
         },
         "partitions": {
           "type": "array",
@@ -1971,6 +1977,9 @@
         "workload": {
           "type": "string",
           "description": "Workload name this resource belongs to.",
+          "minLength": 3,
+          "maxLength": 63,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$",
           "x-ms-mutability": [
             "read",
             "create"
@@ -1978,27 +1987,38 @@
         },
         "serviceTreeId": {
           "type": "string",
-          "description": "The ServiceTree GUID (with all letters in lower case) for billing"
+          "description": "The ServiceTree GUID (with all letters in lower case) for billing",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
         },
         "torusTeam": {
           "type": "string",
-          "description": "Torus Team Name"
+          "description": "Torus Team Name",
+          "minLength": 3,
+          "maxLength": 63,
+          "pattern": "^[a-zA-Z0-9]([-a-zA-Z0-9_]*[a-zA-Z0-9])?$"
         },
         "icmAccount": {
           "type": "string",
-          "description": "The IcM Account for Escalations"
+          "description": "The IcM Account for Escalations",
+          "pattern": "^[a-zA-Z0-9\\-/_& ]+$"
         },
         "icmTenant": {
           "type": "string",
-          "description": "The IcM tenant for auditing"
+          "description": "The IcM tenant for auditing",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_/-]+$"
         },
         "emailAlias": {
           "type": "string",
-          "description": "Email Alias"
+          "description": "Email Alias",
+          "pattern": "^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$"
         },
         "isolationGroup": {
           "type": "string",
           "description": "The isolation group for cluster bin-packing affinity. This field is required and cannot be changed after namespace creation.",
+          "minLength": 1,
+          "maxLength": 63,
           "x-ms-mutability": [
             "read",
             "create"
@@ -2055,23 +2075,32 @@
       "properties": {
         "serviceTreeId": {
           "type": "string",
-          "description": "The ServiceTree GUID (with all letters in lower case) for billing"
+          "description": "The ServiceTree GUID (with all letters in lower case) for billing",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
         },
         "torusTeam": {
           "type": "string",
-          "description": "Torus Team Name"
+          "description": "Torus Team Name",
+          "minLength": 3,
+          "maxLength": 63,
+          "pattern": "^[a-zA-Z0-9]([-a-zA-Z0-9_]*[a-zA-Z0-9])?$"
         },
         "icmAccount": {
           "type": "string",
-          "description": "The IcM Account for Escalations"
+          "description": "The IcM Account for Escalations",
+          "pattern": "^[a-zA-Z0-9\\-/_& ]+$"
         },
         "icmTenant": {
           "type": "string",
-          "description": "The IcM tenant for auditing"
+          "description": "The IcM tenant for auditing",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_/-]+$"
         },
         "emailAlias": {
           "type": "string",
-          "description": "Email Alias"
+          "description": "Email Alias",
+          "pattern": "^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$"
         },
         "nightwatchEnabled": {
           "type": "boolean",
@@ -2130,12 +2159,16 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The partition name."
+          "description": "The partition name.",
+          "minLength": 3,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
         },
         "instanceCount": {
           "type": "integer",
           "format": "int32",
-          "description": "The number of instances to realize for this partition."
+          "description": "The number of instances to realize for this partition.",
+          "minimum": 1
         }
       },
       "required": [
@@ -2179,7 +2212,10 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The partition name."
+          "description": "The partition name.",
+          "minLength": 3,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
         },
         "partitionDefault": {
           "$ref": "#/definitions/PartitionDefaultPolicy",
@@ -2206,29 +2242,36 @@
       "properties": {
         "cores": {
           "type": "string",
-          "description": "CPU cores requested per pod (e.g. '0.5', '2')."
+          "description": "CPU cores requested per pod (e.g. '0.5', '2').",
+          "pattern": "^([0-9]*\\.?[0-9]+)$"
         },
         "memory": {
           "type": "string",
-          "description": "Memory requested per pod (e.g. '512Mi', '2Gi')."
+          "description": "Memory requested per pod (e.g. '512Mi', '2Gi').",
+          "pattern": "^[0-9]+(\\.[0-9]+)?(Mi|Gi)$"
         },
         "coresLimit": {
           "type": "string",
-          "description": "CPU cores limit per pod. If unset, defaults to approximately 2x the request."
+          "description": "CPU cores limit per pod. If unset, defaults to approximately 2x the request.",
+          "pattern": "^([0-9]*\\.?[0-9]+)$"
         },
         "memoryLimit": {
           "type": "string",
-          "description": "Memory limit per pod. If unset, defaults to approximately 2x the request."
+          "description": "Memory limit per pod. If unset, defaults to approximately 2x the request.",
+          "pattern": "^[0-9]+(\\.[0-9]+)?(Mi|Gi)$"
         },
         "replicas": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of replicas per cluster."
+          "description": "Number of replicas per cluster.",
+          "minimum": 1
         },
         "rollingUpdateReplicaPercentage": {
           "type": "integer",
           "format": "int32",
-          "description": "Percentage of replicas considered during rolling updates."
+          "description": "Percentage of replicas considered during rolling updates.",
+          "minimum": 0,
+          "maximum": 25
         }
       }
     },
@@ -2379,7 +2422,8 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "Canonical Azure region name."
+          "description": "Canonical Azure region name.",
+          "minLength": 1
         },
         "regionDefault": {
           "$ref": "#/definitions/RegionDefaultPolicy",
@@ -2442,12 +2486,15 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "Canonical Azure region name."
+          "description": "Canonical Azure region name.",
+          "minLength": 1
         },
         "snatPortsPerNode": {
           "type": "integer",
           "format": "int32",
-          "description": "Optional SNAT ports to allocate per node."
+          "description": "Optional SNAT ports to allocate per node.",
+          "minimum": 0,
+          "maximum": 64000
         },
         "ingressPublicIps": {
           "type": "array",
@@ -2489,7 +2536,10 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The partition name."
+          "description": "The partition name.",
+          "minLength": 3,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
         }
       },
       "required": [
