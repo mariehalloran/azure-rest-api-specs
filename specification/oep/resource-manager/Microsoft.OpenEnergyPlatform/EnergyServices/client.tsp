@@ -23,21 +23,6 @@ using Microsoft.OpenEnergyPlatform;
   "python,java"
 );
 
-// Preserve SDK source-compat with the previously published preview by keeping
-// the legacy body-parameter names on the generated client. The wire contract
-// (HTTP request body JSON) is unchanged; these names only affect the SDK
-// method signature parameter identifier.
-@@clientName(EnergyServices.create::parameters.resource, "body");
-@@clientName(EnergyServices.update::parameters.properties, "body");
-@@clientName(
-  PrivateEndpointConnectionProxies.createOrUpdate::parameters.resource,
-  "privateEndpointConnectionProxy"
-);
-@@clientName(
-  PrivateEndpointConnectionProxies.validate::parameters.body,
-  "privateEndpointConnectionProxy"
-);
-@@clientName(
-  PrivateEndpointConnections.createOrUpdate::parameters.resource,
-  "privateEndpointConnection"
-);
+// NOTE: body-parameter @@clientName overrides for the swagger migration
+// (Bucket A) were moved to back-compatible.tsp so that typespec-autorest
+// also sees them. See contract-preservation-summary.md.
