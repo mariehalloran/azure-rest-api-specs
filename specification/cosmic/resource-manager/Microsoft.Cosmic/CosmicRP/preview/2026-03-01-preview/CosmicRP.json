@@ -239,7 +239,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           }
         ],
@@ -286,7 +286,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -363,7 +363,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -419,7 +419,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           }
         ],
@@ -483,7 +483,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           }
         ],
@@ -535,7 +535,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -592,7 +592,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -679,7 +679,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -745,7 +745,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -819,7 +819,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -836,7 +836,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/MigrateResponse"
+              "$ref": "#/definitions/MigrateResult"
             }
           },
           "202": {
@@ -895,7 +895,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -912,7 +912,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/PreviewResponse"
+              "$ref": "#/definitions/PreviewResult"
             }
           },
           "default": {
@@ -953,7 +953,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -970,7 +970,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/ValidateResponse"
+              "$ref": "#/definitions/ValidateResult"
             }
           },
           "default": {
@@ -1245,7 +1245,7 @@
       "description": "Egress public IP configuration using BYOIP.",
       "properties": {
         "ipTagType": {
-          "type": "string",
+          "$ref": "#/definitions/IpTagType",
           "description": "The IP tag type for egress.",
           "x-ms-mutability": [
             "read",
@@ -1443,7 +1443,7 @@
       "description": "Ingress public IP configuration using BYOIP.",
       "properties": {
         "ipTagType": {
-          "type": "string",
+          "$ref": "#/definitions/IpTagType",
           "description": "The IP tag type for ingress."
         },
         "ipTagValue": {
@@ -1491,12 +1491,116 @@
         "status": {
           "$ref": "#/definitions/InstanceProvisioningStatus",
           "description": "The provisioning status of this instance on the backing cluster."
+        },
+        "identities": {
+          "type": "array",
+          "description": "Identities applied to this instance. Each entry's identityType distinguishes pod vs workload.",
+          "items": {
+            "$ref": "#/definitions/InstanceIdentity"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "clientId"
+          ]
         }
       },
       "required": [
         "id",
         "partition"
       ]
+    },
+    "InstanceIdentity": {
+      "type": "object",
+      "description": "User-assigned managed identity exposed on an Instance.",
+      "properties": {
+        "identityType": {
+          "$ref": "#/definitions/InstanceIdentityType",
+          "description": "The kind of identity (Pod or Workload)."
+        },
+        "clientId": {
+          "type": "string",
+          "description": "Client ID of the user-assigned managed identity."
+        },
+        "resourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the user-assigned managed identity."
+        },
+        "principalId": {
+          "type": "string",
+          "description": "Principal (object) ID of the user-assigned managed identity. Matches ARM common-types UserAssignedIdentity.principalId."
+        }
+      },
+      "required": [
+        "identityType",
+        "clientId",
+        "principalId"
+      ]
+    },
+    "InstanceIdentityType": {
+      "type": "string",
+      "description": "The kind of managed identity exposed on an Instance.",
+      "enum": [
+        "Pod",
+        "Workload"
+      ],
+      "x-ms-enum": {
+        "name": "InstanceIdentityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Pod",
+            "value": "Pod",
+            "description": "Pod identity used by namespace pods (sourced from the placement's ring-level identity)."
+          },
+          {
+            "name": "Workload",
+            "value": "Workload",
+            "description": "Workload (federated) identity (sourced from the placement's cluster-level identity)."
+          }
+        ]
+      }
+    },
+    "InstanceLevelPublicIp": {
+      "type": "object",
+      "description": "BYOIP configuration for instance-level public IP (ILPIP).",
+      "properties": {
+        "prefixLength": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Prefix length of the IP block.",
+          "minimum": 0,
+          "maximum": 128,
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipTagType": {
+          "$ref": "#/definitions/IpTagType",
+          "description": "The IP tag type.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipTagValue": {
+          "type": "string",
+          "description": "The IP tag value.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipVersion": {
+          "$ref": "#/definitions/IpVersion",
+          "description": "The IP version (IPv4 or IPv6). Defaults to IPv4.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      }
     },
     "InstanceOverride": {
       "type": "object",
@@ -1591,6 +1695,30 @@
         }
       }
     },
+    "IpTagType": {
+      "type": "string",
+      "description": "Azure public-IP tag types. Extensible - new values may be added without a breaking change.",
+      "enum": [
+        "RoutingPreference",
+        "FirstPartyUsage"
+      ],
+      "x-ms-enum": {
+        "name": "IpTagType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "RoutingPreference",
+            "value": "RoutingPreference",
+            "description": "Routing preference for the IP (Internet, Microsoft, etc.)."
+          },
+          {
+            "name": "FirstPartyUsage",
+            "value": "FirstPartyUsage",
+            "description": "First-party Azure service usage tag."
+          }
+        ]
+      }
+    },
     "IpVersion": {
       "type": "string",
       "description": "IP Version",
@@ -1650,13 +1778,18 @@
         "environmentName": {
           "type": "string",
           "description": "The name of the environment to migrate."
+        },
+        "platformRing": {
+          "$ref": "#/definitions/CosmicRing",
+          "description": "Platform ring classification (e.g. test, sdf, msit, prod). Used by APIM to route the request to the target ring's RP instance."
         }
       },
       "required": [
-        "environmentName"
+        "environmentName",
+        "platformRing"
       ]
     },
-    "MigrateResponse": {
+    "MigrateResult": {
       "type": "object",
       "description": "Response body for the migrate action.",
       "properties": {
@@ -1789,7 +1922,7 @@
           {
             "name": "PartiallySucceeded",
             "value": "PartiallySucceeded",
-            "description": "Migration partially succeeded — some instances could not be migrated."
+            "description": "Migration partially succeeded - some instances could not be migrated."
           }
         ]
       },
@@ -2117,7 +2250,7 @@
         "properties"
       ]
     },
-    "PreviewResponse": {
+    "PreviewResult": {
       "type": "object",
       "description": "Response body for the preview action. Includes the stored environment properties along with projected inventory status showing how existing brownfield instances map to the ARM model.",
       "properties": {
@@ -2331,6 +2464,10 @@
           "$ref": "#/definitions/EgressPublicIps",
           "description": "BYOIP configuration for egress traffic."
         },
+        "instanceLevelPublicIp": {
+          "$ref": "#/definitions/InstanceLevelPublicIp",
+          "description": "BYOIP configuration for instance-level public IP."
+        },
         "partitions": {
           "type": "array",
           "description": "Optional declared partition set for this location.",
@@ -2366,13 +2503,18 @@
         "environmentName": {
           "type": "string",
           "description": "The name of the environment to validate."
+        },
+        "platformRing": {
+          "$ref": "#/definitions/CosmicRing",
+          "description": "Platform ring classification (e.g. test, sdf, msit, prod). Used by APIM to route the request to the target ring's RP instance."
         }
       },
       "required": [
-        "environmentName"
+        "environmentName",
+        "platformRing"
       ]
     },
-    "ValidateResponse": {
+    "ValidateResult": {
       "type": "object",
       "description": "Response body for the validate action.",
       "properties": {
