@@ -73,7 +73,10 @@ interface ModelDeployments {
   get is ArmResourceRead<ModelDeployment>;
   createOrUpdate is ArmResourceCreateOrUpdateAsync<ModelDeployment>;
   delete is ArmResourceDeleteWithoutOkAsync<ModelDeployment>;
-  update is ArmResourcePatchAsync<ModelDeployment, ModelDeploymentUpdateProperties>;
+  update is ArmResourcePatchAsync<
+    ModelDeployment,
+    ModelDeploymentUpdateProperties
+  >;
   listByResourceGroup is ArmResourceListByParent<ModelDeployment>;
   listBySubscription is ArmListBySubscription<ModelDeployment>;
 }
