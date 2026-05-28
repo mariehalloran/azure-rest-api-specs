@@ -18,7 +18,7 @@ model Namespace is TrackedResource<NamespaceProperties> {
   @segment("namespaces")
   @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
   @minLength(3)
-  @maxLength(63)
+  @maxLength(35)
   @path
   name: string;
 }
@@ -79,7 +79,7 @@ interface Namespaces {
   preview is ArmResourceActionSync<
     Namespace,
     PreviewRequest,
-    ArmResponse<PreviewResponse>
+    ArmResponse<PreviewResult>
   >;
 
   @doc("Validate an environment by comparing the ARM resource against live inventory. Returns a list of differences.")
@@ -87,12 +87,12 @@ interface Namespaces {
   validate is ArmResourceActionSync<
     Namespace,
     ValidateRequest,
-    ArmResponse<ValidateResponse>
+    ArmResponse<ValidateResult>
   >;
 
   @doc("Migrate an environment to ARM management. One-time, irreversible ownership transfer that flips the source label on all targeted instances.")
   @action("migrate")
-  migrate is ArmResourceActionAsync<Namespace, MigrateRequest, MigrateResponse>;
+  migrate is ArmResourceActionAsync<Namespace, MigrateRequest, MigrateResult>;
 
   @doc("Checks that the Cosmic namespace name is valid and is not already in use within the subscription.")
   checkNameAvailability is checkGlobalNameAvailability;
