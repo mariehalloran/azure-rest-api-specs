@@ -4425,14 +4425,14 @@
     },
     "AddressSpaceEntry": {
       "type": "object",
-      "description": "An address space entry for the enclave. Customer entries have ownership 'customerManaged'; the RP-injected managed address space has ownership 'productManaged' and is always the last element.",
+      "description": "An address space entry for the enclave. Customer entries have ownership 'CustomerManaged'; the RP-injected managed address space has ownership 'ProductManaged' and is always the last element.",
       "properties": {
         "prefixLength": {
           "type": "integer",
           "format": "int32",
           "description": "CIDR prefix length (e.g., 22, 23, 24). Determines the size of the address space.",
           "minimum": 8,
-          "maximum": 29
+          "maximum": 26
         },
         "addressSpace": {
           "type": "string",
@@ -4443,10 +4443,7 @@
           "description": "Indicates whether this address space is customer-managed or product-managed. Product-managed entries are RP-injected and always the last element(s) in the array.",
           "readOnly": true
         }
-      },
-      "required": [
-        "prefixLength"
-      ]
+      }
     },
     "AddressSpaceOwnership": {
       "type": "string",
@@ -5000,7 +4997,7 @@
           "format": "int32",
           "description": "CIDR prefix length (e.g., 22, 23, 24). Determines the size of the address space to check.",
           "minimum": 8,
-          "maximum": 29
+          "maximum": 26
         },
         "addressSpace": {
           "type": "string",
@@ -5008,8 +5005,7 @@
         }
       },
       "required": [
-        "communityResourceId",
-        "prefixLength"
+        "communityResourceId"
       ]
     },
     "CheckAddressSpaceAvailabilityResponse": {
