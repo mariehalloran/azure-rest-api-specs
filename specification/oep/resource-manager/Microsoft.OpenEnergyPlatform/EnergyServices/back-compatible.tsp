@@ -10,7 +10,7 @@ using Microsoft.OpenEnergyPlatform;
 // These augment decorators preserve the legacy swagger body-parameter names
 // from the hand-authored 2026-02-02-preview spec. Placing them here (in a file
 // imported by main.tsp) ensures BOTH typespec-autorest (swagger emission) AND
-// the TCGC-based client emitters apply the renames. If these decorators lived
+// the client-generator-core based emitters apply the renames. If these decorators lived
 // only in client.tsp, the swagger would carry the new ARM-template defaults
 // ("resource", "properties") and produce spurious BreakingChange OAD
 // violations even though the wire contract is unchanged.
