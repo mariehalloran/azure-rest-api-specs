@@ -220,40 +220,35 @@ model Rule is ProxyResource<RuleProperties> {
 @doc("Base properties of a Rule resource. Polymorphic by `kind` — kind-specific writable fields live on derived models.")
 @discriminator("kind")
 model RuleProperties {
-  // Visibility note for the back-channel PUT (see `interface Rules.createOrUpdate`):
-  //   `evaluationState` and `error` are conceptually read-only from a
-  //   customer's perspective — they're never directly set by end users.
-  //   But the RP back-PUT (issued by our worker with the BillingTrust
-  //   1P FPA identity) must include them in the request body so the
-  //   RPaaS-side cache reflects the latest evaluator state. To make
-  //   RPaaS's `provider-api-validation` accept the body, the fields are
-  //   declared with `Lifecycle.Read, Lifecycle.Create, Lifecycle.Update`.
-  //   The OpenAPI surface advertises them as writable, but the runtime
-  //   `RuleController.OnValidateCreate` soft-rejects every customer PUT
-  //   with `OperationNotAllowed` (200 OK + `{status:failed, …}` per
-  //   `rpaasextensionapi.md` §50-67). Per `urp_mrp_comm.md` §17-18, UserRP
-  //   extensions are NOT invoked when the UserRP itself calls MetaRP
-  //   with its 1P identity — so our back-PUT bypasses the gate.
+  // Read-only contract for evaluator-owned fields (`evaluationState`, `error`):
+  //   These are conceptually read-only from a customer's perspective — they
+  //   are set by the BillingTrust evaluator and surfaced via the GET /LIST
+  //   response. Customers cannot modify them via PUT/PATCH.
   //
-  //   `kind` is the discriminator; SDK clients cannot change a rule's
-  //   kind via any operation, so it's `Lifecycle.Read` only. Our back-PUT
-  //   body still carries `kind` because TypeSpec's discriminator emits it
+  //   The RP back-PUT (issued by our worker with the BillingTrust 1P FPA
+  //   identity) does carry these fields in the request body — and that is
+  //   compatible with `Lifecycle.Read` on the spec, per ARM/RPaaS OAPI021
+  //   (the server tolerates read-only fields in PUT bodies).
+  //
+  //   `kind` is the discriminator; SDK clients cannot change a rule's kind
+  //   via any operation, so it's `Lifecycle.Read` only. Our back-PUT body
+  //   still carries `kind` because TypeSpec's discriminator emits it
   //   regardless of mutability.
   //
-  //   `provisioningState` stays `Lifecycle.Read` because RPaaS/MetaRP
-  //   owns it end-to-end via operationStatus PATCH — the projector also
-  //   strips it from the wire via `NullValueHandling.Ignore`.
+  //   `provisioningState` stays `Lifecycle.Read` because RPaaS/MetaRP owns
+  //   it end-to-end via operationStatus PATCH — the projector also strips
+  //   it from the wire via `NullValueHandling.Ignore`.
 
   @doc("The kind of rule. Acts as a discriminator for kind-specific properties.")
   @visibility(Lifecycle.Read)
   kind: RuleKind;
 
-  @doc("The evaluation state of the rule")
-  @visibility(Lifecycle.Read, Lifecycle.Create, Lifecycle.Update)
+  @doc("The evaluation state of the rule. Server-managed.")
+  @visibility(Lifecycle.Read)
   evaluationState?: RuleState;
 
-  @doc("Error information when evaluationState is failed or actionRequired")
-  @visibility(Lifecycle.Read, Lifecycle.Create, Lifecycle.Update)
+  @doc("Error information when evaluationState is `failed` or `actionRequired`. Server-managed.")
+  @visibility(Lifecycle.Read)
   error?: Azure.ResourceManager.CommonTypes.ErrorDetail;
 
   @doc("The provisioning state of the resource")
@@ -285,16 +280,16 @@ model EduQualificationRuleProperties extends RuleProperties {
 model BusinessVerificationRuleProperties extends RuleProperties {
   kind: RuleKind.BusinessVerification;
 
-  @doc("Sold-to identity used for business verification. Populated from the billing account at the time the rule is created.")
-  @visibility(Lifecycle.Read, Lifecycle.Create, Lifecycle.Update)
+  @doc("Sold-to identity used for business verification. Populated from the billing account at the time the rule is created. Server-managed.")
+  @visibility(Lifecycle.Read)
   soldTo?: SoldTo;
 
-  @doc("Registration number context (allowed types and registration id). Populated from the billing account at the time the rule is created.")
-  @visibility(Lifecycle.Read, Lifecycle.Create, Lifecycle.Update)
+  @doc("Registration number context (allowed types and registration id). Populated from the billing account at the time the rule is created. Server-managed.")
+  @visibility(Lifecycle.Read)
   registrationNumber?: RegistrationNumber;
 
-  @doc("Tax ids associated with the sold-to identity. Populated from the billing account at the time the rule is created.")
-  @visibility(Lifecycle.Read, Lifecycle.Create, Lifecycle.Update)
+  @doc("Tax ids associated with the sold-to identity. Populated from the billing account at the time the rule is created. Server-managed.")
+  @visibility(Lifecycle.Read)
   @Azure.ResourceManager.identifiers(#[])
   taxIds?: TaxId[];
 
@@ -370,48 +365,76 @@ model EduInitialValue extends InitialRuleValueBase {
 // Sold-to / registration-number / tax-ids are server-populated from BillingRP.
 // If a future API version needs BV seed values, add the model then.
 
-@doc("Sold-to identity used for business verification.")
+@doc("""
+  Sold-to identity used for business verification.
+  
+  **Data classification — Personally Identifiable Information (PII):** This
+  model carries customer/contact PII (names, email, phone, postal address).
+  Producers (service code paths populating SoldTo) and consumers (anything
+  emitting it to logs / telemetry) MUST treat individual field values as
+  PII and avoid clear-text logging. BillingTrust's existing runtime
+  discipline keeps SoldTo out of Geneva logs (see
+  `Services/Rpaas/RpaasRuleProjector.cs` — raw bodies and parsed error
+  messages are filtered before emission). Downstream consumers of the
+  public OpenAPI surface should follow the same convention. Tracked for
+  follow-up alignment with ARM ARG002 (control-plane PII guidance) — see
+  PR description.
+  """)
 model SoldTo {
-  @doc("First address line.")
+  @doc("First address line. PII — postal address.")
+  @maxLength(256)
   addressLine1?: string;
 
-  @doc("Second address line.")
+  @doc("Second address line. PII — postal address.")
+  @maxLength(256)
   addressLine2?: string;
 
-  @doc("Third address line.")
+  @doc("Third address line. PII — postal address.")
+  @maxLength(256)
   addressLine3?: string;
 
-  @doc("City of the address.")
+  @doc("City of the address. PII — postal address.")
+  @maxLength(100)
   city?: string;
 
-  @doc("ISO 3166-1 alpha-2 country code.")
+  @doc("Country of the sold-to address. Accepts either an ISO 3166-1 alpha-2 country code (e.g. `US`) or a country name (e.g. `United States`) — populated verbatim from the billing account.")
+  @maxLength(100)
   country?: string;
 
   @doc("Company name.")
+  @maxLength(256)
   companyName?: string;
 
-  @doc("District or sub-region.")
+  @doc("District or sub-region. PII — postal address.")
+  @maxLength(100)
   district?: string;
 
-  @doc("Contact email address.")
+  @doc("Contact email address (free-form string; format not validated server-side). PII — contact.")
+  @maxLength(256)
   email?: string;
 
-  @doc("Contact first name.")
+  @doc("Contact first name. PII — contact.")
+  @maxLength(100)
   firstName?: string;
 
-  @doc("Contact last name.")
+  @doc("Contact last name. PII — contact.")
+  @maxLength(100)
   lastName?: string;
 
-  @doc("Contact middle name.")
+  @doc("Contact middle name. PII — contact.")
+  @maxLength(100)
   middleName?: string;
 
-  @doc("Contact phone number (E.164).")
+  @doc("Contact phone number (free-form string; format not validated server-side). PII — contact.")
+  @maxLength(50)
   phoneNumber?: string;
 
-  @doc("Postal or ZIP code.")
+  @doc("Postal or ZIP code. PII — postal address.")
+  @maxLength(50)
   postalCode?: string;
 
-  @doc("State, province, or region.")
+  @doc("State, province, or region. PII — postal address.")
+  @maxLength(100)
   region?: string;
 }
 
@@ -420,11 +443,26 @@ model RegistrationNumber {
   @doc("Allowed registration-number types based on the billing-account country (e.g. `VAT`, `GST`, `EIN`).")
   type?: string[];
 
-  @doc("Caller-supplied registration number value.")
-  id?: string;
+  @doc("Registration number value (e.g. the VAT / GST / EIN identifier string).")
+  @maxLength(100)
+  value?: string;
 
   @doc("Whether a registration number is required for the sold-to country.")
-  required?: boolean;
+  registrationRequirement?: RegistrationRequirement;
+}
+
+@doc("Whether a registration number is required for the sold-to country. Extensible — additional states may be introduced as country-specific tax requirements evolve.")
+union RegistrationRequirement {
+  string,
+
+  @doc("A registration number is required for the sold-to country.")
+  Required: "required",
+
+  @doc("A registration number is optional for the sold-to country.")
+  Optional: "optional",
+
+  @doc("A registration number is not applicable for the sold-to country.")
+  NotApplicable: "notApplicable",
 }
 
 @doc("Status of a tax id record.")
@@ -443,29 +481,35 @@ union TaxIdStatus {
 
 @doc("Tax id entry associated with the sold-to identity.")
 model TaxId {
-  @doc("Tax id value.")
-  id?: string;
+  @doc("Tax id value (e.g. the VAT / GST / EIN identifier string).")
+  @maxLength(100)
+  value?: string;
 
   @doc("ISO 3166-1 alpha-2 country code the tax id is registered in.")
+  @maxLength(100)
   country?: string;
 
   @doc("Scope of the tax id (e.g. `Federal`, `State`).")
+  @maxLength(100)
   scope?: string;
 
   @doc("Status of the tax id.")
   status?: TaxIdStatus;
 
   @doc("Type of tax id (e.g. `VAT`, `GST`, `EIN`). Extensible — additional types may be returned as upstream registries evolve.")
+  @maxLength(100)
   type?: string;
 }
 
 @doc("External-registry identifier (e.g. DUNS) used to disambiguate ambiguous verification matches.")
 model ExternalId {
   @doc("Identifier type. Currently `DUNS` is supported.")
+  @maxLength(100)
   type: string;
 
-  @doc("Identifier value.")
-  id: string;
+  @doc("Identifier value (e.g. the DUNS number string).")
+  @maxLength(100)
+  value: string;
 }
 
 @doc("A domain entry within an education qualification rule. `domainNames` and `tenantId` are supplied on creation; `state` and `error` are returned by the service.")
@@ -478,12 +522,12 @@ model DomainEntry {
   @visibility(Lifecycle.Create, Lifecycle.Read)
   tenantId?: Azure.Core.uuid;
 
-  @doc("The verification state of this domain entry.")
-  @visibility(Lifecycle.Read, Lifecycle.Create, Lifecycle.Update)
+  @doc("The verification state of this domain entry. Server-managed.")
+  @visibility(Lifecycle.Read)
   state?: DomainEntryState;
 
-  @doc("Error detail when state is `failed` or `actionRequired`. Omitted otherwise.")
-  @visibility(Lifecycle.Read, Lifecycle.Create, Lifecycle.Update)
+  @doc("Error detail when state is `failed` or `actionRequired`. Omitted otherwise. Server-managed.")
+  @visibility(Lifecycle.Read)
   error?: Azure.ResourceManager.CommonTypes.ErrorDetail;
 }
 
@@ -505,6 +549,7 @@ interface Assessments {
   get is ArmResourceRead<Assessment>;
 
   @doc("Create or update an Assessment. Long-running operation — returns 200 (replace) or 201 (create) with the `Azure-AsyncOperation` polling header on both responses.")
+  @Azure.Core.useFinalStateVia("azure-async-operation")
   createOrUpdate is ArmResourceCreateOrReplaceAsync<
     Assessment,
     LroHeaders = Azure.ResourceManager.ArmCombinedLroHeaders &
@@ -536,6 +581,7 @@ interface Assessments {
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "False positive: ArmResourceDeleteWithoutOkAsync correctly returns 202+204 for an async delete; linter mistakes it for a synchronous delete missing 200."
   @doc("Delete an assessment. Long-running operation — returns 202 + 204 + default with `Azure-AsyncOperation` (preferred) and `Location` polling headers.")
+  @Azure.Core.useFinalStateVia("azure-async-operation")
   delete is ArmResourceDeleteWithoutOkAsync<
     Assessment,
     LroHeaders = Azure.ResourceManager.ArmCombinedLroHeaders &
@@ -567,7 +613,7 @@ interface Rules {
   // Without a PUT declared here, our worker's back-PUT
   // (RpaasRuleProjector.ProjectRuleAsync) fails RPaaS's
   // `provider-api-validation` with HTTP 412
-  // `HttpPayloadAPISpecValidationFailed`, the cache never populates,
+  // `HttpResponsePayloadAPISpecValidationFailed`, the cache never populates,
   // and customer GET on `/rules/{name}` 404s at the ARM front door's
   // tracked-cache short-circuit.
   //

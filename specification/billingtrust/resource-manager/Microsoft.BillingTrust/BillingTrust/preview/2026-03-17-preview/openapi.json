@@ -758,34 +758,22 @@
       "properties": {
         "soldTo": {
           "$ref": "#/definitions/SoldTo",
-          "description": "Sold-to identity used for business verification. Populated from the billing account at the time the rule is created.",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
+          "description": "Sold-to identity used for business verification. Populated from the billing account at the time the rule is created. Server-managed.",
+          "readOnly": true
         },
         "registrationNumber": {
           "$ref": "#/definitions/RegistrationNumber",
-          "description": "Registration number context (allowed types and registration id). Populated from the billing account at the time the rule is created.",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
+          "description": "Registration number context (allowed types and registration id). Populated from the billing account at the time the rule is created. Server-managed.",
+          "readOnly": true
         },
         "taxIds": {
           "type": "array",
-          "description": "Tax ids associated with the sold-to identity. Populated from the billing account at the time the rule is created.",
+          "description": "Tax ids associated with the sold-to identity. Populated from the billing account at the time the rule is created. Server-managed.",
           "items": {
             "$ref": "#/definitions/TaxId"
           },
-          "x-ms-identifiers": [],
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
+          "readOnly": true,
+          "x-ms-identifiers": []
         },
         "externalId": {
           "$ref": "#/definitions/ExternalId",
@@ -842,21 +830,13 @@
         },
         "state": {
           "$ref": "#/definitions/DomainEntryState",
-          "description": "The verification state of this domain entry.",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
+          "description": "The verification state of this domain entry. Server-managed.",
+          "readOnly": true
         },
         "error": {
           "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
-          "description": "Error detail when state is `failed` or `actionRequired`. Omitted otherwise.",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
+          "description": "Error detail when state is `failed` or `actionRequired`. Omitted otherwise. Server-managed.",
+          "readOnly": true
         }
       },
       "required": [
@@ -987,16 +967,18 @@
       "properties": {
         "type": {
           "type": "string",
-          "description": "Identifier type. Currently `DUNS` is supported."
+          "description": "Identifier type. Currently `DUNS` is supported.",
+          "maxLength": 100
         },
-        "id": {
+        "value": {
           "type": "string",
-          "description": "Identifier value."
+          "description": "Identifier value (e.g. the DUNS number string).",
+          "maxLength": 100
         }
       },
       "required": [
         "type",
-        "id"
+        "value"
       ]
     },
     "GenerateUploadTokenResponse": {
@@ -1088,14 +1070,45 @@
             "type": "string"
           }
         },
-        "id": {
+        "value": {
           "type": "string",
-          "description": "Caller-supplied registration number value."
+          "description": "Registration number value (e.g. the VAT / GST / EIN identifier string).",
+          "maxLength": 100
         },
-        "required": {
-          "type": "boolean",
+        "registrationRequirement": {
+          "$ref": "#/definitions/RegistrationRequirement",
           "description": "Whether a registration number is required for the sold-to country."
         }
+      }
+    },
+    "RegistrationRequirement": {
+      "type": "string",
+      "description": "Whether a registration number is required for the sold-to country. Extensible — additional states may be introduced as country-specific tax requirements evolve.",
+      "enum": [
+        "required",
+        "optional",
+        "notApplicable"
+      ],
+      "x-ms-enum": {
+        "name": "RegistrationRequirement",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Required",
+            "value": "required",
+            "description": "A registration number is required for the sold-to country."
+          },
+          {
+            "name": "Optional",
+            "value": "optional",
+            "description": "A registration number is optional for the sold-to country."
+          },
+          {
+            "name": "NotApplicable",
+            "value": "notApplicable",
+            "description": "A registration number is not applicable for the sold-to country."
+          }
+        ]
       }
     },
     "Rule": {
@@ -1183,21 +1196,13 @@
         },
         "evaluationState": {
           "$ref": "#/definitions/RuleState",
-          "description": "The evaluation state of the rule",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
+          "description": "The evaluation state of the rule. Server-managed.",
+          "readOnly": true
         },
         "error": {
           "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
-          "description": "Error information when evaluationState is failed or actionRequired",
-          "x-ms-mutability": [
-            "read",
-            "update",
-            "create"
-          ]
+          "description": "Error information when evaluationState is `failed` or `actionRequired`. Server-managed.",
+          "readOnly": true
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
@@ -1285,63 +1290,77 @@
     },
     "SoldTo": {
       "type": "object",
-      "description": "Sold-to identity used for business verification.",
+      "description": "Sold-to identity used for business verification.\n\n**Data classification — Personally Identifiable Information (PII):** This\nmodel carries customer/contact PII (names, email, phone, postal address).\nProducers (service code paths populating SoldTo) and consumers (anything\nemitting it to logs / telemetry) MUST treat individual field values as\nPII and avoid clear-text logging. BillingTrust's existing runtime\ndiscipline keeps SoldTo out of Geneva logs (see\n`Services/Rpaas/RpaasRuleProjector.cs` — raw bodies and parsed error\nmessages are filtered before emission). Downstream consumers of the\npublic OpenAPI surface should follow the same convention. Tracked for\nfollow-up alignment with ARM ARG002 (control-plane PII guidance) — see\nPR description.",
       "properties": {
         "addressLine1": {
           "type": "string",
-          "description": "First address line."
+          "description": "First address line. PII — postal address.",
+          "maxLength": 256
         },
         "addressLine2": {
           "type": "string",
-          "description": "Second address line."
+          "description": "Second address line. PII — postal address.",
+          "maxLength": 256
         },
         "addressLine3": {
           "type": "string",
-          "description": "Third address line."
+          "description": "Third address line. PII — postal address.",
+          "maxLength": 256
         },
         "city": {
           "type": "string",
-          "description": "City of the address."
+          "description": "City of the address. PII — postal address.",
+          "maxLength": 100
         },
         "country": {
           "type": "string",
-          "description": "ISO 3166-1 alpha-2 country code."
+          "description": "Country of the sold-to address. Accepts either an ISO 3166-1 alpha-2 country code (e.g. `US`) or a country name (e.g. `United States`) — populated verbatim from the billing account.",
+          "maxLength": 100
         },
         "companyName": {
           "type": "string",
-          "description": "Company name."
+          "description": "Company name.",
+          "maxLength": 256
         },
         "district": {
           "type": "string",
-          "description": "District or sub-region."
+          "description": "District or sub-region. PII — postal address.",
+          "maxLength": 100
         },
         "email": {
           "type": "string",
-          "description": "Contact email address."
+          "description": "Contact email address (free-form string; format not validated server-side). PII — contact.",
+          "maxLength": 256
         },
         "firstName": {
           "type": "string",
-          "description": "Contact first name."
+          "description": "Contact first name. PII — contact.",
+          "maxLength": 100
         },
         "lastName": {
           "type": "string",
-          "description": "Contact last name."
+          "description": "Contact last name. PII — contact.",
+          "maxLength": 100
         },
         "middleName": {
           "type": "string",
-          "description": "Contact middle name."
+          "description": "Contact middle name. PII — contact.",
+          "maxLength": 100
         },
         "phoneNumber": {
           "type": "string",
-          "description": "Contact phone number (E.164)."
+          "description": "Contact phone number (free-form string; format not validated server-side). PII — contact.",
+          "maxLength": 50
         },
         "postalCode": {
           "type": "string",
-          "description": "Postal or ZIP code."
+          "description": "Postal or ZIP code. PII — postal address.",
+          "maxLength": 50
         },
         "region": {
           "type": "string",
-          "description": "State, province, or region."
+          "description": "State, province, or region. PII — postal address.",
+          "maxLength": 100
         }
       }
     },
@@ -1349,17 +1368,20 @@
       "type": "object",
       "description": "Tax id entry associated with the sold-to identity.",
       "properties": {
-        "id": {
+        "value": {
           "type": "string",
-          "description": "Tax id value."
+          "description": "Tax id value (e.g. the VAT / GST / EIN identifier string).",
+          "maxLength": 100
         },
         "country": {
           "type": "string",
-          "description": "ISO 3166-1 alpha-2 country code the tax id is registered in."
+          "description": "ISO 3166-1 alpha-2 country code the tax id is registered in.",
+          "maxLength": 100
         },
         "scope": {
           "type": "string",
-          "description": "Scope of the tax id (e.g. `Federal`, `State`)."
+          "description": "Scope of the tax id (e.g. `Federal`, `State`).",
+          "maxLength": 100
         },
         "status": {
           "$ref": "#/definitions/TaxIdStatus",
@@ -1367,7 +1389,8 @@
         },
         "type": {
           "type": "string",
-          "description": "Type of tax id (e.g. `VAT`, `GST`, `EIN`). Extensible — additional types may be returned as upstream registries evolve."
+          "description": "Type of tax id (e.g. `VAT`, `GST`, `EIN`). Extensible — additional types may be returned as upstream registries evolve.",
+          "maxLength": 100
         }
       }
     },
