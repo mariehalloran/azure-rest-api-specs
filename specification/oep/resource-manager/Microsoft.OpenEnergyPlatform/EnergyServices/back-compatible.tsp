@@ -73,7 +73,8 @@ using Microsoft.OpenEnergyPlatform;
 // language: restored to Identity.
 // -----------------------------------------------------------------------------
 
-@@clientName(EdsKeyVaultPropertiesIdentity,
+@@clientName(
+  EdsKeyVaultPropertiesIdentity,
   "Identity",
   "python,csharp,java,javascript,go"
 );

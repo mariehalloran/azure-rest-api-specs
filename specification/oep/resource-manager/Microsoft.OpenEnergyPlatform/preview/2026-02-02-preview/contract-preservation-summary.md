@@ -215,7 +215,7 @@ All v6 additions on the normalized refs are forward-compatible:
 - `Sku` exposes `tier`/`size`/`family`/`capacity` (optional request fields, default-null)
 - `nextLink` gains `format: uri` (correctness annotation)
 - `TrackedResource` `allOf` shape modernized (14× same root cause)
-- 'groupIds' from PrivateEndpointConnectionProeprties also optional+read-only (forward compatible)
+- 'groupIds' from PrivateEndpointConnectionProperties also optional+read-only (forward compatible)
 
 **Wire impact: NONE.** Pinned-SDK clients ignore unknown fields; regenerated
 SDKs gain richer types matching the service behavior. The change is a
