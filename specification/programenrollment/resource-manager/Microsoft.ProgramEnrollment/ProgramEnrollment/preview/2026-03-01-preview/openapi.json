@@ -364,8 +364,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -381,7 +392,11 @@
           "Delete an edu enrollment": {
             "$ref": "./examples/EduEnrollments_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     }
   },
@@ -420,9 +435,9 @@
           "description": "The assessment state of this domain group.",
           "readOnly": true
         },
-        "error": {
-          "$ref": "#/definitions/EnrollmentError",
-          "description": "Error detail when state is failed or actionRequired. Omitted otherwise.",
+        "failureReason": {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Failure detail when state is Failed or ActionRequired. Omitted otherwise.",
           "readOnly": true
         }
       },
@@ -434,10 +449,10 @@
       "type": "string",
       "description": "The assessment state of a domain group.",
       "enum": [
-        "pending",
-        "actionRequired",
-        "failed",
-        "succeeded"
+        "Pending",
+        "ActionRequired",
+        "Failed",
+        "Succeeded"
       ],
       "x-ms-enum": {
         "name": "DomainGroupState",
@@ -445,22 +460,22 @@
         "values": [
           {
             "name": "Pending",
-            "value": "pending",
+            "value": "Pending",
             "description": "Assessment is pending."
           },
           {
             "name": "ActionRequired",
-            "value": "actionRequired",
+            "value": "ActionRequired",
             "description": "Action is required to complete assessment."
           },
           {
             "name": "Failed",
-            "value": "failed",
+            "value": "Failed",
             "description": "Assessment failed."
           },
           {
             "name": "Succeeded",
-            "value": "succeeded",
+            "value": "Succeeded",
             "description": "Assessment succeeded."
           }
         ]
@@ -469,7 +484,7 @@
     },
     "EduEnrollment": {
       "type": "object",
-      "description": "A ProgramProviderHub resource",
+      "description": "An education program enrollment that groups Entra domains under a single sovereign/edu program scope.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/EduEnrollmentProperties",
@@ -532,38 +547,22 @@
           "items": {
             "$ref": "#/definitions/DomainGroup"
           },
-          "x-ms-identifiers": [],
+          "x-ms-identifiers": [
+            "tenantId"
+          ],
           "x-ms-mutability": [
             "read",
             "create"
           ]
         },
-        "error": {
-          "$ref": "#/definitions/EnrollmentError",
-          "description": "Error detail when provisioningState is Failed. Omitted otherwise.",
+        "failureReason": {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Failure detail when provisioningState is Failed. Omitted otherwise.",
           "readOnly": true
         }
       },
       "required": [
         "domains"
-      ]
-    },
-    "EnrollmentError": {
-      "type": "object",
-      "description": "Error detail for a failed enrollment or domain group.",
-      "properties": {
-        "code": {
-          "type": "string",
-          "description": "The error code."
-        },
-        "message": {
-          "type": "string",
-          "description": "A human-readable description of the error."
-        }
-      },
-      "required": [
-        "code",
-        "message"
       ]
     },
     "ProvisioningState": {
@@ -575,8 +574,7 @@
         "Canceled",
         "Provisioning",
         "Updating",
-        "Deleting",
-        "Accepted"
+        "Deleting"
       ],
       "x-ms-enum": {
         "name": "ProvisioningState",
@@ -611,11 +609,6 @@
             "name": "Deleting",
             "value": "Deleting",
             "description": "Deletion in progress"
-          },
-          {
-            "name": "Accepted",
-            "value": "Accepted",
-            "description": "Change accepted for processing"
           }
         ]
       },

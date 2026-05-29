@@ -21,7 +21,7 @@ enum Versions {
 
 interface Operations extends Azure.ResourceManager.Operations {}
 
-@doc("A ProgramProviderHub resource")
+@doc("An education program enrollment that groups Entra domains under a single sovereign/edu program scope.")
 model EduEnrollment is TrackedResource<EduEnrollmentProperties> {
   @doc("The name of the edu enrollment")
   @pattern("^[a-zA-Z0-9-]{3,24}$")
@@ -44,9 +44,6 @@ union ProvisioningState {
 
   @doc("Deletion in progress")
   Deleting: "Deleting",
-
-  @doc("Change accepted for processing")
-  Accepted: "Accepted",
 }
 
 @doc("The assessment state of a domain group.")
@@ -54,25 +51,16 @@ union DomainGroupState {
   string,
 
   @doc("Assessment is pending.")
-  Pending: "pending",
+  Pending: "Pending",
 
   @doc("Action is required to complete assessment.")
-  ActionRequired: "actionRequired",
+  ActionRequired: "ActionRequired",
 
   @doc("Assessment failed.")
-  Failed: "failed",
+  Failed: "Failed",
 
   @doc("Assessment succeeded.")
-  Succeeded: "succeeded",
-}
-
-@doc("Error detail for a failed enrollment or domain group.")
-model EnrollmentError {
-  @doc("The error code.")
-  code: string;
-
-  @doc("A human-readable description of the error.")
-  message: string;
+  Succeeded: "Succeeded",
 }
 
 @doc("A group of edu domains scoped to an Entra tenant.")
@@ -91,8 +79,8 @@ model DomainGroup {
   state?: DomainGroupState;
 
   @visibility(Lifecycle.Read)
-  @doc("Error detail when state is failed or actionRequired. Omitted otherwise.")
-  error?: EnrollmentError;
+  @doc("Failure detail when state is Failed or ActionRequired. Omitted otherwise.")
+  failureReason?: Azure.ResourceManager.CommonTypes.ErrorDetail;
 }
 
 @doc("Details of the Program EduEnrollment.")
@@ -104,12 +92,12 @@ model EduEnrollmentProperties {
   @visibility(Lifecycle.Create, Lifecycle.Read)
   @doc("The domain groups associated with this enrollment.")
   @minItems(1)
-  @identifiers(#[])
+  @identifiers(#["tenantId"])
   domains: DomainGroup[];
 
   @visibility(Lifecycle.Read)
-  @doc("Error detail when provisioningState is Failed. Omitted otherwise.")
-  error?: EnrollmentError;
+  @doc("Failure detail when provisioningState is Failed. Omitted otherwise.")
+  failureReason?: Azure.ResourceManager.CommonTypes.ErrorDetail;
 }
 
 @doc("The type used for update operations of the EduEnrollment.")
@@ -124,7 +112,7 @@ interface EduEnrollments {
   get is ArmResourceRead<EduEnrollment>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<EduEnrollment>;
   update is ArmCustomPatchSync<EduEnrollment, EduEnrollmentPatch>;
-  delete is ArmResourceDeleteSync<EduEnrollment>;
+  delete is ArmResourceDeleteWithoutOkAsync<EduEnrollment>;
   listByResourceGroup is ArmResourceListByParent<EduEnrollment>;
   listBySubscription is ArmListBySubscription<EduEnrollment>;
 }
