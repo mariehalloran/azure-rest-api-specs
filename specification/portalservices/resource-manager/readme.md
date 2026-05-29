@@ -263,22 +263,22 @@ suppressions:
     where: $.paths["/providers/Microsoft.PortalServices/copilotSettings/default"]
   - code: AvoidAdditionalProperties
     reason: >
-      The agents field is an intentional dictionary keyed by dynamic agent identifiers managed by the service.
-      additionalProperties is required to model this extensible map shape.
+      The agents payload is intentionally modeled as an extensible dictionary keyed by
+      dynamic service-defined identifiers, so additionalProperties is required.
     from:
       - copilotSettings.json
     where: $.definitions.CopilotAgentSettings
   - code: AvoidAdditionalProperties
     reason: >
-      Update payload supports the same dynamic agents dictionary shape as create/read models.
-      additionalProperties is required for extensible agent maps.
+      The agents payload is intentionally modeled as an extensible dictionary keyed by
+      dynamic service-defined identifiers, so additionalProperties is required.
     from:
       - copilotSettings.json
     where: $.definitions.CopilotAgentSettingsUpdate
   - code: AvoidAdditionalProperties
     reason: >
-      The agents property is intentionally an open-ended map and requires additionalProperties
-      to represent dynamic service-defined keys.
+      The agents payload is intentionally modeled as an extensible dictionary keyed by
+      dynamic service-defined identifiers, so additionalProperties is required.
     from:
       - copilotSettings.json
     where: $.definitions.CopilotAgentSettings.properties.agents.additionalProperties
