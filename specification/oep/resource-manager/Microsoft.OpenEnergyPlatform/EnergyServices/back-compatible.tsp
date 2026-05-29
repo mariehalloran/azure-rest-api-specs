@@ -49,3 +49,31 @@ using Microsoft.OpenEnergyPlatform;
 @@clientName(KeySource, "keySource");
 @@clientName(AllowedMethods, "allowedMethods");
 @@clientName(ReadyForUpgrade, "readyForUpgrade");
+
+// -----------------------------------------------------------------------------
+// A5.2: preserve the legacy `Identity` SDK type name for the inline
+// keyvault-access identity object — scoped to CLIENT emitters only.
+//
+// In the hand-authored swagger, this was an anonymous inline object under
+// `EdsKeyVaultProperties.identity`. TypeSpec requires the model to be named
+// (`EdsKeyVaultPropertiesIdentity`) and the autorest emitter produces a
+// `#/definitions/EdsKeyVaultPropertiesIdentity` $ref.
+//
+// We CANNOT rename it globally because common-types/v3/types.json defines a
+// top-level `Identity` schema (principalId/tenantId/type) that is transitively
+// reachable from this spec; renaming our model to `Identity` in swagger
+// causes OAD to do name-based matching across the reachable definition pool
+// and diff our shape against the unrelated v3 Identity, producing 5 spurious
+// schema-shape violations.
+//
+// Scoping the rename to client emitters only (python, csharp, java,
+// javascript, go) preserves the historic SDK class name without touching the
+// swagger that OAD compares. Wire impact: NONE. Swagger schema name:
+// unchanged (still EdsKeyVaultPropertiesIdentity). SDK class name in each
+// language: restored to Identity.
+// -----------------------------------------------------------------------------
+
+@@clientName(EdsKeyVaultPropertiesIdentity,
+  "Identity",
+  "python,csharp,java,javascript,go"
+);

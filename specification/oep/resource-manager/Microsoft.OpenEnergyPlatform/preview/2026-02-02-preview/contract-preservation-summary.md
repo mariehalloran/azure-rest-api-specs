@@ -43,13 +43,13 @@ below.
 
 ## 2. Categorized changes — root cause and contract impact
 
-### A. PUT body parameter renamed (5 ops) — _swagger identifier only_
+### A. PUT body parameter renamed (5 ops) — _swagger identifier only, preserved via `back-compatible.tsp`_
 Old hand-authored swagger used `body` / `privateEndpointConnection` /
 `privateEndpointConnectionProxy` as the `name` of the PUT body parameter.
 TypeSpec's `Azure.ResourceManager` operation templates emit the ARM-canonical
-`resource`.
-
-*As you clearly know from below, all of these can be mitigated using `@clientName` augment decorators, see: [Customizing Request Payload Parameter Names](https://azure.github.io/typespec-azure/docs/migrate-swagger/faq/breakingchange/#customizing-request-payload-parameter-names)  which provides details on hwo to rename parameters for each operation template.*
+`resource`. Per SME guidance, the legacy names are restored via `@@clientName`
+augment decorators in `back-compatible.tsp`, which ensures both
+typespec-autorest (swagger emission) AND client emitters apply the renames.
 
 | Operation                                          | Old name                          | New name   |
 |----------------------------------------------------|-----------------------------------|------------|
@@ -62,27 +62,24 @@ TypeSpec's `Azure.ResourceManager` operation templates emit the ARM-canonical
 **Wire impact: NONE.** The Swagger `body.name` is a swagger/SDK-identifier; it
 never appears in the HTTP request bytes.
 
-**SDK impact: NONE.** Mitigated via `client.tsp`:
+**SDK impact: NONE.** Mitigated via `back-compatible.tsp`:
 ```tsp
 @@clientName(EnergyServices.create::parameters.resource, "body");
+@@clientName(EnergyServices.update::parameters.properties, "body");
 @@clientName(PrivateEndpointConnectionProxies.createOrUpdate::parameters.resource,
   "privateEndpointConnectionProxy");
 @@clientName(PrivateEndpointConnections.createOrUpdate::parameters.resource,
   "privateEndpointConnection");
 ```
 
-** The convention for ARM conversions is to put this client decoration in a file `back-compatible.tsp` referenced from main.tsp.  This will change the name for client emitters *and* typespec-autorest. **
-
 Generated SDK method signatures keep the legacy parameter names.
 
 ### B. `api-version` declared as required PUT parameter (1 op) — _false positive_
-// ok
 Old swagger omitted the explicit declaration; ARM treats api-version as
 implicitly required on every operation. The new swagger makes the existing
 requirement explicit. **Wire impact: NONE.**
 
 ### C. PUT `EnergyService` gained `200` response (1 op) — _correct ARM_
-// ok
 TypeSpec emits both `200` and `201` for PUT (the ARM long-running create-or-
 replace pattern). The old swagger only declared `201`. The service has always
 returned both. **Wire impact: NONE; documents existing behavior.**
@@ -94,41 +91,64 @@ whether the swagger declared them. **Wire impact: NONE; back-compat documentatio
 of headers the service has always returned.**
 
 ### E. PATCH dropped `Location` header on 202 (1 op) — _verified intentional_
-// ok
 PATCH retains `Azure-AsyncOperation` + `Retry-After`. PATCH LRO normatively
 uses `Azure-AsyncOperation` only (the `Location` header pattern is for PUT/POST
 create flows). The hand-authored swagger over-declared. **Wire impact: NONE.**
 
-### F. `provisioningState` `readOnly` flag (2 properties) — _emitter sibling-keyword artifact_
-// here you should try using this in tspconfig.yaml: https://azure.github.io/typespec-azure/docs/emitters/typespec-
-//autorest/reference/emitter/#use-read-only-status-schema  There *are* some issues with differences between 
-//different linters and their acceptance of sibling refs (live validation, for example, uses Spectral)
-`EnergyServiceProperties.provisioningState` and
+### F. `provisioningState` `readOnly` flag (2 properties) — _emitter sibling-keyword artifact, mitigated via `use-read-only-status-schema`_
+Resolved by enabling `use-read-only-status-schema: true` in `tspconfig.yaml`
+(per SME guidance). `EnergyServiceProperties.provisioningState` and
 `GroupInformationProperties.provisioningState` are correctly read-only in
-TypeSpec via `@visibility(Lifecycle.Read)`, and the emitter writes
-`readOnly: true` as a sibling of `$ref`. Per JSON Reference, sibling keywords of
-`$ref` are ignored by Swagger 2.0 parsers, so the readonly flag is invisible
+TypeSpec via `@visibility(Lifecycle.Read)`, and the emitter now writes
+`readOnly: true` as a sibling of `$ref`. Per JSON Reference, sibling keywords
+of `$ref` are ignored by Swagger 2.0 parsers, so the readonly flag is invisible
 to Spectral.
 
 Suppressed in `readme.md` with link to
 [azure-openapi-validator#637](https://github.com/Azure/azure-openapi-validator/issues/637).
 **Wire impact: NONE; properties are read-only in service behavior.**
 
-### G. `AutoScaleMaxCapacity` `int32` → `number` (1) — _accepted, see triage doc_
-Type widening is back-compat for clients deserializing JSON numbers.
+### G. `AutoScaleMaxCapacity` `int32` → `number` (1) — _accepted, preview-only_
 
-// The main issue here would be sdks, as long as no sdk issues, this is ok 
+**Property scope:** `autoScaleMaxCapacity` exists **only in the preview API
+version (`2026-02-02-preview`)** — it is not present in the stable
+`2025-12-15` contract, so there is no GA SDK surface to break.
 
-**Wire impact: NONE.**
+**Wire impact: NONE.** Server still emits/accepts the same integer values
+(`1, 2, 4, 8, 16, 32, 64, 128, 256`); HTTP bytes are byte-identical.
 
-### H. `CorsRulesList.maxAgeInSeconds` minimum constraint (1) — _verified back-compat_
-** why not use the `@minValue(0)` constraint? 
-Minimum value updated to match service-side validation. **Wire impact: NONE
-for valid inputs.**
+**Root cause:** The `typespec-autorest` emitter emits a closed integer-literal
+enum as `type: number` with `modelAsString: false` regardless of source form.
+Source-side workarounds attempted and rejected:
+- `@encode("int32")` — not valid on enums (`decorator-wrong-target`); on the
+  property emits a `known-encoding` warning and no schema change.
+- `union AutoScaleMaxCapacity { int32, 1, 2, ... }` — still emits
+  `type: number`, **and** flips `modelAsString` to `true` (would introduce a
+  new breaking change).
+
+**Per-language SDK paper analysis (closed integer enum):**
+
+| Language | Backing type now | Backing type after | Risk |
+|---|---|---|---|
+| Python | `IntEnum` | `IntEnum` | None |
+| JS/TS  | numeric literal union | numeric literal union | None |
+| Java   | `enum` | `enum` | None |
+| .NET   | `enum : int` | `enum : double` (possible) | Source-compat break for new SDK consumers |
+| Go     | `int32` typed const | `float64` typed const (possible) | Source-compat break for new SDK consumers |
+
+Because the property is **preview-only**, no pinned-GA SDK customer is
+affected. Any .NET/Go shift only surfaces when a customer regenerates against
+the new preview spec, at which point they are already opting in to preview
+churn. Preview-version SDK packages are explicitly excluded from
+breaking-change guarantees per the [Azure SDK breaking change
+policy](https://azure.github.io/azure-sdk/policies_breakingchanges.html).
+
+### H. `CorsRulesList.maxAgeInSeconds` minimum constraint (1) — _verified back-compat, `@minValue(0)` applied_
+Minimum value updated to match service-side validation, declared via
+`@minValue(0)` in TypeSpec per SME guidance. **Wire impact: NONE for valid
+inputs.**
 
 ### I. `PrivateEndpointConnectionProxyProperties` visibility shifts (4)
-
-// ok
 Properties (`provisioningState`, `eTag`, `remotePrivateEndpoint`, `status`) are
 now correctly response-only via `@visibility(Lifecycle.Read)`. The "missing
 from request schema" violations reflect that they were never legal in a request
@@ -139,10 +159,11 @@ body — this is a correctness fix, not a contract change.
 justification. **Wire impact: NONE for external customers.**
 
 ### J. PATCH gained optional `properties` body wrapper (1) — _ARM pattern_
-// here 'properties' is the *name of the body parameter for PATCH* if you used a different parameter name, you should update using back-compatible.tsp and @clientName
 TypeSpec emits the ARM-standard `{ "properties": { ... } }` envelope on PATCH.
 The service accepts the wrapped form. Old swagger had a custom partial-update
-shape. **Wire impact: NONE; envelope is the documented ARM PATCH contract.**
+shape. The PATCH body parameter name `properties` is renamed back to the
+legacy `body` identifier via `back-compatible.tsp`. **Wire impact: NONE;
+envelope is the documented ARM PATCH contract.**
 
 ### K. Inline enum → named `$ref` (29 occurrences) — _verified parity_
 TypeSpec promotes enum literals to named definitions. All 5 enums + 2 wrapping
@@ -150,14 +171,12 @@ objects were diffed value-for-value against the inline forms (see
 `preview-diff-triage.md` items 15–21). Members and casing are identical.
 **Wire impact: NONE.**
 
-### L. Enum `x-ms-enum.name` changed (3) — _SDK-only, see client.tsp_
-
-** here, use back-compatible.tsp so this appears in swagger as well **
-
+### L. Enum `x-ms-enum.name` changed (3) — _SDK identifiers preserved via `back-compatible.tsp`_
 Affected: `KeySource`, `AllowedMethods`, `ReadyForUpgrade`. SDK-generated type
-names follow `x-ms-enum.name`. Where pinned-SDK customers depend on the legacy
-type name, `@clientName` overrides preserve them. The string values on the wire
-are unchanged. **Wire impact: NONE.**
+names follow `x-ms-enum.name`. The legacy camelCase names are restored for
+both typespec-autorest (swagger `x-ms-enum.name`) and client emitters via
+`@@clientName` overrides in `back-compatible.tsp`. The string values on the
+wire are unchanged. **Wire impact: NONE.**
 
 ### M. List response `value` array became required (5 ops) — _ARM convention_
 ARM pageable list responses must always include `value` (possibly empty). The
@@ -175,7 +194,6 @@ documents existing required behavior.**
 
 ### O. `common-types` v3/v5 stragglers normalized to v6 (~50 violations) — _consistency fix, not version uplift_
 
-// ok
 The hand-authored swagger **inconsistently mixed** common-types versions:
 **90 refs already on v6 (84%)**, 15 stragglers on v3 (14%), and 1 stray v5 ref.
 TypeSpec's `@armCommonTypesVersion` decorator is necessarily **global** — there
@@ -306,7 +324,44 @@ linked rationale.
 
 ## Untracked breaking changes
 
-- https://github.com/avazhappilly/azure-rest-api-specs-pr/blob/0bf2f98a697118637ed6cc6cbec694ee4918fee5/specification/oep/resource-manager/Microsoft.OpenEnergyPlatform/preview/2026-02-02-preview/oep.json#L2375:9
-  RemotePrivateEndpointConnection -> PrivateLinkServiceRemotePrivateEndpointConnection (client)
-- https://github.com/avazhappilly/azure-rest-api-specs-pr/blob/0bf2f98a697118637ed6cc6cbec694ee4918fee5/specification/common-types/resource-management/v6/types.json#L393:9
-  Identity-> ManagedServiceIdentity (client)
+### A5.1. `RemotePrivateEndpointConnection` wrapper — _RESOLVED_
+
+The TypeSpec migration originally introduced an empty wrapper type
+`PrivateLinkServiceProxyRemotePrivateEndpointConnection` around the legacy
+`RemotePrivateEndpointConnection` definition. Refactored `models.tsp` to
+eliminate the wrapper — both old and new now reference
+`#/definitions/RemotePrivateEndpointConnection`. No SDK-visible rename.
+**Wire impact: NONE.**
+
+### A5.2. `EdsKeyVaultProperties.identity` inline → named definition — _SDK class name preserved via scoped `@@clientName`_
+
+In the hand-authored swagger, `EdsKeyVaultProperties.identity` was an
+anonymous inline object. TypeSpec requires the model to be named; the emitter
+produces a named definition `#/definitions/EdsKeyVaultPropertiesIdentity`.
+
+**Resolution:** A per-emitter scoped `@@clientName` in `back-compatible.tsp`
+restores the legacy `Identity` SDK class name in client emitters only,
+without renaming the schema in the autorest-emitted swagger:
+
+```tsp
+@@clientName(EdsKeyVaultPropertiesIdentity,
+  "Identity",
+  "python,csharp,java,javascript,go"
+);
+```
+
+**Why scoped and not global?** A global rename to `Identity` causes OAD to
+match our schema against `common-types/v3/types.json#/definitions/Identity`
+(an older ARM identity type with `principalId`/`tenantId`/`type` that is
+transitively reachable from this spec), producing 5 spurious schema-shape
+violations. Scoping the rename to client emitters keeps the swagger schema
+name unchanged (`EdsKeyVaultPropertiesIdentity`), so no OAD collision occurs.
+
+**Wire impact: NONE.** Property names (`identityType`,
+`userAssignedIdentityId`) and enum values (`SystemAssigned`, `UserAssigned`)
+are byte-identical. **SDK impact: NONE** — generated SDK class name in each
+target language is restored to `Identity`, matching the historic
+auto-generated name from the anonymous inline form. The autorest swagger
+schema name is `EdsKeyVaultPropertiesIdentity` (visible to OAD only;
+emit-time only). Per-language SDK breaking-change gates on the PR will
+validate this preservation across all 5 language SDKs.
