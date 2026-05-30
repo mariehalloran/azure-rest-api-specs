@@ -301,4 +301,8 @@ suppressions:
     reason: The property fields are in camel case to match the request and response payload of the confluent APIs.
   - code: RequiredPropertiesMissingInResourceModel
     reason: Our service is RPaaS service and this is coming because of new validation rule. Adding the suppression as recommended by the breaking change team, as the values were marked as optional in earlier PRs.
+  - code: XmsResourceInPutResponse
+    from: confluent.json
+    where: $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.Confluent/agreements/default"].put
+    reason: "Pre-existing issue from TypeSpec migration (PR #34671 on main). ConfluentAgreementResource is not a tracked ARM resource and does not extend a base resource type, so x-ms-azure-resource is not emitted."
 ```
