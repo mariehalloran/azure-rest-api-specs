@@ -28,7 +28,9 @@ model SegmentationManagerManagedServiceIdentity {
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Following ARM pattern for user assigned identities"
   @doc("The user assigned identities associated with the resource.")
-  userAssignedIdentities?: Record<Azure.ResourceManager.CommonTypes.UserAssignedIdentity | null>;
+  userAssignedIdentities?: Record<
+    | Azure.ResourceManager.CommonTypes.UserAssignedIdentity
+    | null>;
 }
 
 @doc("The type of managed service identity.")
