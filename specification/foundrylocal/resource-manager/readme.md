@@ -69,6 +69,20 @@ directive:
       K8s Bridge Extensions pattern requires configurationProtectedSettings as an
       opaque key-value map (Record<string>). Same pattern used by
       Microsoft.KubernetesConfiguration/extensions.
+  - suppress: AvoidAdditionalProperties
+    from: openapi.json
+    where: $.definitions.ModelDeploymentPatchProperties.properties.configurationSettings
+    reason: >-
+      K8s Bridge Extensions pattern requires configurationSettings as an opaque
+      key-value map (Record<string>). Same pattern used by
+      Microsoft.KubernetesConfiguration/extensions.
+  - suppress: AvoidAdditionalProperties
+    from: openapi.json
+    where: $.definitions.ModelDeploymentPatchProperties.properties.configurationProtectedSettings
+    reason: >-
+      K8s Bridge Extensions pattern requires configurationProtectedSettings as an
+      opaque key-value map (Record<string>). Same pattern used by
+      Microsoft.KubernetesConfiguration/extensions.
 ```
 
 ### Tag: package-2026-05-01-preview

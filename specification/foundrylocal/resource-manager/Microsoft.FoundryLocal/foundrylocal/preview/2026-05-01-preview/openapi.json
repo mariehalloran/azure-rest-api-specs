@@ -462,25 +462,6 @@
         ]
       }
     },
-    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
-      "type": "object",
-      "title": "Tracked Resource",
-      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/Resource"
-        }
-      ]
-    },
     "ModelDeployment": {
       "type": "object",
       "description": "A ModelDeployment resource managed via K8sBridge on an Arc-connected cluster.",
@@ -524,6 +505,32 @@
         "value"
       ]
     },
+    "ModelDeploymentPatchProperties": {
+      "type": "object",
+      "description": "Updatable properties of a ModelDeployment resource.",
+      "properties": {
+        "configurationSettings": {
+          "type": "object",
+          "description": "Configuration settings as name-value pairs for the model deployment.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "configurationProtectedSettings": {
+          "type": "object",
+          "format": "password",
+          "description": "Configuration settings that are sensitive, as name-value pairs.",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-ms-mutability": [
+            "update",
+            "create"
+          ],
+          "x-ms-secret": true
+        }
+      }
+    },
     "ModelDeploymentProperties": {
       "type": "object",
       "description": "Properties of a ModelDeployment resource.",
@@ -565,22 +572,24 @@
     },
     "ModelDeploymentUpdate": {
       "type": "object",
-      "description": "A ModelDeployment resource managed via K8sBridge on an Arc-connected cluster.",
+      "description": "The type used for update operations of the ModelDeployment.",
       "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
         "properties": {
-          "$ref": "#/definitions/ModelDeploymentProperties",
+          "$ref": "#/definitions/ModelDeploymentUpdateProperties",
           "description": "The resource-specific properties for this resource."
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
-        }
-      ]
+      }
     },
     "ModelDeploymentUpdateProperties": {
       "type": "object",
-      "description": "Updatable properties of a ModelDeployment resource.",
+      "description": "The updatable properties of the ModelDeployment.",
       "properties": {
         "configurationSettings": {
           "type": "object",
