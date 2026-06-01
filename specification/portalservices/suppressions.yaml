@@ -1,25 +1,30 @@
 - tool: TypeSpecValidation
-  paths:
-    - Extension.Management/tspconfig.yaml
-    - Dashboard.Management/tspconfig.yaml
-  rules:
-    - SdkTspConfigValidation
+  reason: >
+    Not ready to generate SDKs from TypeSpec.
+    Responsibility: Service team with SDK team collaboration.
+    More info: https://aka.ms/azsdk/spec-gen-sdk-config.
+    Comment: Remove specs contain incorrect or missing emitter options or parameters
+  rules: [SdkTspConfigValidation]
   sub-rules:
     - parameters.service-dir.default
     - options.@azure-tools/typespec-go.*
     - options.@azure-tools/typespec-java.*
     - options.@azure-tools/typespec-python.*
     - options.@azure-tools/typespec-ts.*
-  reason: These two resources are not related to tenant settings and should not be validated by tenant settings-specific rules. Also remove specs containing incorrect or missing emitter options or parameters
+  paths: 
+    - CopilotConnectors.Management/tspconfig.yaml
+    - AzureCoreExperiencesAssistant.Management/tspconfig.yaml
+    - CopilotSettings.Management/tspconfig.yaml
+    - Dashboard.Management/tspconfig.yaml
+    - Extension.Management/tspconfig.yaml
 
 - tool: TypeSpecValidation
-  rules:
-    - FolderStructure
-  reason: Portalservices specs currently use legacy folder layout; migration to folder structure v2 is tracked separately.
-  paths:
-    - Copilots.Management
-    - CopilotSettings.Management
-    - Dashboard.Management
-    - Extension.Management
-    - TenantSettings.Management
-    - resource-manager
+  reason: >
+    Not ready to generate SDKs from TypeSpec.
+    Responsibility: Service team with SDK team collaboration.
+    More info: https://aka.ms/azsdk/spec-gen-sdk-config.
+    Comment: Remove specs contain incorrect or missing emitter options or parameters
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - options.@azure-tools/typespec-ts.*
+  paths: [TenantSettings.Management/tspconfig.yaml]
