@@ -37,6 +37,21 @@ These settings apply only when `--tag=package-2026-07-01-preview` is specified o
 ```yaml $(tag) == 'package-2026-07-01-preview'
 input-file:
   - Microsoft.PortalServices/copilotSettings/preview/2026-07-01-preview/copilotSettings.json
+suppressions:
+  - code: PathForTrackedResourceTypes
+    reason: >
+      The resource type copilotSettings in the Microsoft.PortalServices resource provider is a proxy resource that
+      contains location property, it is not a tracked resource. This is a false positive.
+    from:
+      - copilotSettings.json
+    where: $.paths["/providers/Microsoft.PortalServices/copilotSettings/default"]
+  - code: RequestSchemaForTrackedResourcesMustHaveTags
+    reason: >
+      The resource type copilotSettings in the Microsoft.PortalServices resource provider is a proxy resource that
+      contains location property, it is not a tracked resource. This is a false positive.
+    from:
+      - copilotSettings.json
+    where: $.paths["/providers/Microsoft.PortalServices/copilotSettings/default"].put
 ```
 
 ### Tag: package-2025-11-01
