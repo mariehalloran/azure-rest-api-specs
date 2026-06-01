@@ -3,7 +3,6 @@ import "./validationExecutionPlan.tsp";
 import "./validationTestRun.tsp";
 
 using TypeSpec.Rest;
-using TypeSpec.Versioning;
 using Azure.Core;
 using Azure.ResourceManager;
 
@@ -22,102 +21,79 @@ model ExecutionPlanRunProperties {
 
   @doc("The status of the execution plan run.")
   @visibility(Lifecycle.Read)
-  @madeOptional(Versions.v2026_02_01_preview)
   status?: ExecutionPlanRunStatus;
-
-  @doc("Error details. Populated when status is Failed, Canceled, TimedOut, or Aborted.")
-  @visibility(Lifecycle.Read)
-  @added(Versions.v2026_03_01_preview)
-  error?: Azure.ResourceManager.Foundations.ErrorDetail;
 
   @doc("The start time of the execution plan run.")
   @visibility(Lifecycle.Read)
-  @madeOptional(Versions.v2026_02_01_preview)
-  startTimestampInUtc?: utcDateTime;
+  startedAt?: utcDateTime;
 
-  @doc("The end time of the execution plan run.")
+  @doc("The completion time of the execution plan run.")
   @visibility(Lifecycle.Read)
-  endTimestampInUtc?: utcDateTime;
+  completedAt?: utcDateTime;
 
-  @doc("The reported timestamp of the execution plan run.")
+  @doc("The time at which the execution result was reported.")
   @visibility(Lifecycle.Read)
-  @madeOptional(Versions.v2026_02_01_preview)
-  reportedTimestampInUtc?: utcDateTime;
+  reportedAt?: utcDateTime;
 
-  @doc("The test runs under this execution plan run.")
+  @doc("Summary of tests executed for this run.")
   @visibility(Lifecycle.Read)
-  @madeOptional(Versions.v2026_02_01_preview)
-  @identifiers(#[])
-  @maxItems(100)
-  @typeChangedFrom(Versions.v2026_02_01_preview, ValidationTestRun[])
-  testRuns?: ValidationTestRunDetails[];
+  testRunSummary?: TestRunSummary;
+
+  @doc("Snapshot of the execution plan configuration captured at trigger time.")
+  @visibility(Lifecycle.Read)
+  planConfigurationSnapshot?: string;
 
   @doc("The provisioning state of the execution plan run.")
   @visibility(Lifecycle.Read)
-  @typeChangedFrom(Versions.v2026_03_01_preview, ResourceProvisioningState)
-  provisioningState?: ExecutionPlanRunProvisioningState;
-}
-
-@doc("The provisioning state of the execution plan run.")
-@lroStatus
-union ExecutionPlanRunProvisioningState {
-  ResourceProvisioningState,
-
-  @doc("The execution plan run is in progress.")
-  Creating: "Creating",
-
-  @doc("The execution plan run is running.")
-  Running: "Running",
-
-  @doc("The execution plan run is waiting.")
-  Waiting: "Waiting",
-
-  @doc("The execution plan run is partially executed.")
-  Processing: "Processing",
-
-  string,
+  provisioningState?: ResourceProvisioningState;
 }
 
 @doc("The status of the execution plan run.")
 @lroStatus
 union ExecutionPlanRunStatus {
-  @doc("The execution plan run is succeeded.")
+  @doc("The execution plan run succeeded.")
   Succeeded: "Succeeded",
+
+  @doc("The execution plan run has been queued.")
+  Queued: "Queued",
 
   @doc("The execution plan run is running.")
   Running: "Running",
 
-  @doc("The execution plan run is canceled.")
-  Canceled: "Canceled",
+  @doc("The execution plan run is completed.")
+  Completed: "Completed",
 
   @doc("The execution plan run is failed.")
   Failed: "Failed",
 
-  @doc("The execution plan run is waiting.")
-  Waiting: "Waiting",
-
-  @doc("The execution plan run is skipped.")
-  Skipped: "Skipped",
-
-  @doc("The execution plan run is paused.")
-  Paused: "Paused",
-
-  @doc("The execution plan run is suspended.")
-  Suspended: "Suspended",
-
   @doc("The execution plan run is timed out.")
   TimedOut: "TimedOut",
-
-  @doc("The execution plan run is aborted.")
-  Aborted: "Aborted",
-
-  @doc("The execution plan run is ignored.")
-  Ignored: "Ignored",
 
   @doc("The execution plan run is unknown.")
   Unknown: "Unknown",
 
   string,
+}
+
+@doc("Execution summary details for a validation test run collection.")
+model TestRunSummary {
+  @doc("Total number of tests executed.")
+  totalTests?: int32;
+
+  @doc("Number of passed tests.")
+  passedTests?: int32;
+
+  @doc("Number of failed tests.")
+  failedTests?: int32;
+
+  @doc("Number of skipped tests.")
+  skippedTests?: int32;
+
+  @doc("Overall result for the execution plan run.")
+  overallResult?: string;
+
+  @doc("Human-readable summary message.")
+  message?: string;
 }
 
 @armResourceOperations
@@ -127,9 +103,11 @@ interface ValidationExecutionPlanRuns {
   get is ArmResourceRead<ExecutionPlanRun>;
 
   @doc("Create or update a validation test execution plan")
+  @Azure.Core.useFinalStateVia("azure-async-operation")
   createOrUpdate is ArmResourceCreateOrReplaceAsync<ExecutionPlanRun>;
 
   @doc("Delete a validation test execution plan run resource")
+  @Azure.Core.useFinalStateVia("azure-async-operation")
   delete is ArmResourceDeleteWithoutOkAsync<ExecutionPlanRun>;
 
   @doc("List Validation test execution plan runs for an execution plan")

@@ -1,9 +1,7 @@
 import "./common.tsp";
 import "./cloudValidation.tsp";
-import "@typespec/versioning";
 
 using TypeSpec.Rest;
-using TypeSpec.Versioning;
 using Azure.Core;
 using Azure.ResourceManager;
 
@@ -35,13 +33,11 @@ model ValidationExecutionPlanProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ValidationExecutionPlanProvisioningState;
 
-  @doc("Error details. Populated when provisioningState is Failed or Canceled.")
-  @visibility(Lifecycle.Read)
-  @added(Versions.v2026_03_01_preview)
-  error?: Azure.ResourceManager.Foundations.ErrorDetail;
-
   @doc("The overall state of the resource.")
   overallState?: ValidationExecutionPlanOverallState;
+
+  @doc("Provider-specific opaque configuration serialized as a JSON string.")
+  providerConfiguration?: string;
 }
 
 @doc("The execution plan resource provisioning state.")
@@ -79,16 +75,19 @@ interface ValidationExecutionPlans {
   get is ArmResourceRead<ValidationExecutionPlan>;
 
   @doc("Create or update a validation test execution plan")
+  @Azure.Core.useFinalStateVia("azure-async-operation")
   createOrUpdate is ArmResourceCreateOrReplaceAsync<ValidationExecutionPlan>;
 
   @doc("Update a validation test execution plan")
   @parameterVisibility(Lifecycle.Update)
+  @Azure.Core.useFinalStateVia("azure-async-operation")
   update is ArmResourcePatchAsync<
     ValidationExecutionPlan,
     ValidationExecutionPlanProperties
   >;
 
   @doc("Delete a validation test execution plan")
+  @Azure.Core.useFinalStateVia("azure-async-operation")
   delete is ArmResourceDeleteWithoutOkAsync<ValidationExecutionPlan>;
 
   @doc("List validation test execution plans by resource group")
