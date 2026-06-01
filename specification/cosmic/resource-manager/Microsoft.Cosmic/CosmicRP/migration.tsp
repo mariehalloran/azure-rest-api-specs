@@ -8,7 +8,7 @@ using Azure.ResourceManager;
 
 namespace Microsoft.Cosmic;
 
-// ─── Preview models ─────────────────────────────────────────────────
+// --- Preview models -------------------------------------------------
 
 @doc("Request body for the preview action.")
 model PreviewRequest {
@@ -20,7 +20,7 @@ model PreviewRequest {
 }
 
 @doc("Response body for the preview action. Includes the stored environment properties along with projected inventory status showing how existing brownfield instances map to the ARM model.")
-model PreviewResponse {
+model PreviewResult {
   @doc("The name of the previewed environment.")
   environmentName: string;
 
@@ -28,16 +28,19 @@ model PreviewResponse {
   properties: EnvironmentProperties;
 }
 
-// ─── Validate models ────────────────────────────────────────────────
+// --- Validate models ------------------------------------------------
 
 @doc("Request body for the validate action.")
 model ValidateRequest {
   @doc("The name of the environment to validate.")
   environmentName: string;
+
+  @doc("Platform ring classification (e.g. test, sdf, msit, prod). Used by APIM to route the request to the target ring's RP instance.")
+  platformRing: CosmicRing;
 }
 
 @doc("Response body for the validate action.")
-model ValidateResponse {
+model ValidateResult {
   @doc("Whether the ARM template is consistent with inventory.")
   isConsistent: boolean;
 
@@ -90,16 +93,19 @@ union ValidationDifferenceType {
   string,
 }
 
-// ─── Migrate models ─────────────────────────────────────────────────
+// --- Migrate models -------------------------------------------------
 
 @doc("Request body for the migrate action.")
 model MigrateRequest {
   @doc("The name of the environment to migrate.")
   environmentName: string;
+
+  @doc("Platform ring classification (e.g. test, sdf, msit, prod). Used by APIM to route the request to the target ring's RP instance.")
+  platformRing: CosmicRing;
 }
 
 @doc("Response body for the migrate action.")
-model MigrateResponse {
+model MigrateResult {
   @doc("The name of the environment that was migrated.")
   environmentName: string;
 
@@ -128,7 +134,7 @@ union MigrationStatus {
   @doc("Migration failed.")
   Failed: "Failed",
 
-  @doc("Migration partially succeeded — some instances could not be migrated.")
+  @doc("Migration partially succeeded - some instances could not be migrated.")
   PartiallySucceeded: "PartiallySucceeded",
 
   string,
