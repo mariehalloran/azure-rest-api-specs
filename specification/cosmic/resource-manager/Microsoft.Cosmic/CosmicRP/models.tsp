@@ -239,7 +239,7 @@ model TopologyLocation {
 model TopologyPartition {
   @doc("The partition name.")
   @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
-  @minLength(3)
+  @minLength(2)
   @maxLength(24)
   name: string;
 }
@@ -272,7 +272,7 @@ model LocationCapacity {
 model PartitionCapacity {
   @doc("The partition name.")
   @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
-  @minLength(3)
+  @minLength(2)
   @maxLength(24)
   name: string;
 
@@ -335,7 +335,7 @@ model RegionDefaultPolicy {
 model PartitionOverride {
   @doc("The partition name.")
   @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
-  @minLength(3)
+  @minLength(2)
   @maxLength(24)
   name: string;
 
