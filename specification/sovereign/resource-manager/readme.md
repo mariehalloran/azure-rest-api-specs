@@ -84,7 +84,7 @@ suppressions:
   - code: GuidUsage
     from: sovereign.json
     where:
-      - $.definitions["SovereignViewScope"].properties.subscriptions.items.format
+      - $.definitions["SovereignViewSubscriptionScope"].properties.id.format
       - $.definitions["Azure.Core.uuid"].format
     reason: Subscription Ids are uuids.
 ```
