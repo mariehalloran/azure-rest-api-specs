@@ -56,42 +56,6 @@
     }
   ],
   "paths": {
-    "/providers/Microsoft.BareMetal/locations/{location}/utilization": {
-      "get": {
-        "operationId": "LocationsUtilization_List",
-        "description": "Get the Utilization for all clusters in the given location\nNew API route starting from 2025-02-01-preview",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/LocationParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ClusterList"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "LocationsUtilization_List_MaximumSet": {
-            "$ref": "./examples/LocationsUtilization_List_MaximumSet_Gen.json"
-          },
-          "LocationsUtilization_List_MinimumSet": {
-            "$ref": "./examples/LocationsUtilization_List_MinimumSet_Gen.json"
-          }
-        }
-      }
-    },
     "/providers/Microsoft.BareMetal/operations": {
       "get": {
         "operationId": "Operations_List",
@@ -239,6 +203,50 @@
           "final-state-via": "location"
         },
         "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.BareMetal/locations/{location}/utilization": {
+      "get": {
+        "operationId": "Locations_Utilization",
+        "tags": [
+          "Locations"
+        ],
+        "description": "Get Utilization for Clusters.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "location",
+            "in": "path",
+            "description": "A location in a subscription",
+            "required": true,
+            "type": "string",
+            "pattern": "^[-\\w\\._]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ClusterList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Locations_Utilization_MaximumSet": {
+            "$ref": "./examples/Locations_Utilization_MaximumSet_Gen.json"
+          }
+        }
       }
     },
     "/subscriptions/{subscriptionId}/providers/Microsoft.BareMetal/networkInterfaceAttachments": {

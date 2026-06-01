@@ -1,6 +1,6 @@
 suppressions:
   azure-sdk-for-go:
-    - package: 'sdk/resourcemanager/billingbenefits/armbillingbenefits'
+    - package: "sdk/resourcemanager/billingbenefits/armbillingbenefits"
       breaking-changes:
         - Function `*RPClient.ValidatePurchase` has been removed
         - Operation `*SavingsPlanClient.Update` has been changed to LRO, use `*SavingsPlanClient.BeginUpdate` instead.

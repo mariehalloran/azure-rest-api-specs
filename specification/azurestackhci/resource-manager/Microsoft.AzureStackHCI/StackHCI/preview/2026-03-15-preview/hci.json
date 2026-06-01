@@ -14809,7 +14809,10 @@
         "ext4",
         "xfs",
         "NTFS",
-        "ReFS"
+        "ReFS",
+        "vfat",
+        "fat32",
+        "fat"
       ],
       "x-ms-enum": {
         "name": "DiskFileSystemType",
@@ -14834,6 +14837,21 @@
             "name": "ReFS",
             "value": "ReFS",
             "description": "ReFS file system (Windows)."
+          },
+          {
+            "name": "vfat",
+            "value": "vfat",
+            "description": "vfat file system (Linux/cross-platform)."
+          },
+          {
+            "name": "fat32",
+            "value": "fat32",
+            "description": "FAT32 file system."
+          },
+          {
+            "name": "fat",
+            "value": "fat",
+            "description": "FAT file system."
           }
         ]
       }
@@ -16341,6 +16359,22 @@
           "$ref": "#/definitions/GpuPartitionDetails",
           "description": "Details of the GPU specifically in GPU-P mode.",
           "readOnly": true
+        },
+        "acceleratorType": {
+          "type": "string",
+          "description": "The type of the accelerator.",
+          "readOnly": true
+        },
+        "memoryModel": {
+          "type": "string",
+          "description": "The memory model of the GPU. Possible values are 'Dedicated VRAM', 'Unified (Shared System Memory)', and 'Unified (SoC LPDDR)'.",
+          "readOnly": true
+        },
+        "totalMemoryInBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The total memory of the GPU in bytes.",
+          "readOnly": true
         }
       }
     },
@@ -17511,6 +17545,10 @@
       "type": "object",
       "description": "Properties for EdgeMachineUpdate resource.",
       "properties": {
+        "solutionType": {
+          "$ref": "#/definitions/ProvisioningOsType",
+          "description": "The solution type for the available updates."
+        },
         "values": {
           "type": "array",
           "description": "The list of available updates.",

@@ -9198,6 +9198,24 @@ model EdgeMachineGpuProperties {
    */
   @visibility(Lifecycle.Read)
   partitionDetails?: GpuPartitionDetails;
+
+  /**
+   * The type of the accelerator.
+   */
+  @visibility(Lifecycle.Read)
+  acceleratorType?: string;
+
+  /**
+   * The memory model of the GPU. Possible values are 'Dedicated VRAM', 'Unified (Shared System Memory)', and 'Unified (SoC LPDDR)'.
+   */
+  @visibility(Lifecycle.Read)
+  memoryModel?: string;
+
+  /**
+   * The total memory of the GPU in bytes.
+   */
+  @visibility(Lifecycle.Read)
+  totalMemoryInBytes?: int64;
 }
 
 /**
@@ -9611,6 +9629,15 @@ union DiskFileSystemType {
 
   /** ReFS file system (Windows). */
   ReFS: "ReFS",
+
+  /** vfat file system (Linux/cross-platform). */
+  vfat: "vfat",
+
+  /** FAT32 file system. */
+  fat32: "fat32",
+
+  /** FAT file system. */
+  fat: "fat",
 }
 
 /**
@@ -11387,6 +11414,9 @@ model EdgeMachineUpdateInfo {
 /** Properties for EdgeMachineUpdate resource. */
 @added(Versions.v2026_03_15_preview)
 model EdgeMachineUpdateProperties {
+  /** The solution type for the available updates. */
+  solutionType?: ProvisioningOsType;
+
   /** The list of available updates. */
   @identifiers(#[])
   values: EdgeMachineUpdateInfo[];

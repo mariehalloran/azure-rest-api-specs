@@ -139,3 +139,11 @@ scalar IPGroupResourceId
       type: "Microsoft.Network/IpGroups",
     }
   ]>;
+
+@added(Microsoft.Mission.Versions.v2026_05_04_preview)
+scalar ServiceCatalogResourceId
+  extends armResourceIdentifier<[
+    {
+      type: "Microsoft.Mission/serviceCatalogs",
+    }
+  ]>;
