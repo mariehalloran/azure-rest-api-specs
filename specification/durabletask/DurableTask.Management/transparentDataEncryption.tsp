@@ -34,6 +34,9 @@ model TransparentDataEncryptionProperties {
 
   @doc("The URI of the key in Key Vault to be used for transparent data encryption")
   keyVaultKeyUri?: url;
+
+  @doc("Indicates whether auto-rotation of the customer-managed keys is enabled for transparent data encryption")
+  autoRotationEnabled?: boolean;
 }
 
 @added(Versions.v2026_05_01_Preview)
