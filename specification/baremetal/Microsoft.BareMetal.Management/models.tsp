@@ -321,7 +321,7 @@ model ManagedConsoleConnection
  * Properties for creating Managed Console Connection via PUT.
  */
 @added(Versions.v2026_04_01_preview)
-model ManagedConsoleConnectionProperties {
+model ManagedConsoleConnectionCreateProperties {
   /** IPv4 address to be allocated in the subnet of the associated connection. */
   ipAddress: string;
 
@@ -338,7 +338,14 @@ model ManagedConsoleConnectionProperties {
   /** Routes associated with the connection. */
   @Azure.ResourceManager.identifiers(#["id"])
   routes?: ManagedConsoleConnectionRoute[];
+}
 
+/**
+ * Full properties of a Managed Console Connection.
+ */
+@added(Versions.v2026_04_01_preview)
+model ManagedConsoleConnectionProperties
+  is ManagedConsoleConnectionCreateProperties {
   /** The network interface resource URI. */
   @visibility(Lifecycle.Read)
   networkInterfaceUri?: Azure.Core.armResourceIdentifier<[]>;
