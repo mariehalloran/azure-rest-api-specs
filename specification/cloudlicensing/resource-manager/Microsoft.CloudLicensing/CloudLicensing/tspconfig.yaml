@@ -1,0 +1,46 @@
+emit:
+  - "@azure-tools/typespec-autorest"
+parameters:
+  service-dir:
+    default: "sdk/cloudlicensing"
+options:
+  "@azure-tools/typespec-autorest":
+    use-read-only-status-schema: true
+    emitter-output-dir: "{project-root}"
+    output-file: "{version-status}/{version}/openapi.json"
+    arm-types-dir: "{project-root}/../../../../common-types/resource-management"
+  "@azure-tools/typespec-java":
+    flavor: azure
+    package-dir: "azure-resourcemanager-cloudlicensing"
+    namespace: "com.azure.resourcemanager.cloudlicensing"
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-cloudlicensing"
+  "@azure-tools/typespec-ts":
+    flavor: azure
+    experimental-extensible-enums: true
+    package-dir: "arm-cloudlicensing"
+    package-name: "@azure/arm-cloudlicensing"
+    package-details:
+      name: "@azure/arm-cloudlicensing"
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-cloudlicensing"
+  "@azure-tools/typespec-go":
+    service-dir: "sdk/resourcemanager/cloudlicensing"
+    package-dir: "armcloudlicensing"
+    module: "github.com/Azure/azure-sdk-for-go/{service-dir}/{package-dir}"
+    fix-const-stuttering: true
+    generate-examples: true
+    generate-samples: true
+    generate-fakes: true
+    head-as-boolean: true
+    inject-spans: true
+    emitter-output-dir: "{output-dir}/{service-dir}/armcloudlicensing"
+  "@azure-tools/typespec-python":
+    flavor: azure
+    package-dir: "azure-mgmt-cloudlicensing"
+    package-name: "{package-dir}"
+    namespace: "azure.mgmt.cloudlicensing"
+    generate-test: true
+    generate-sample: true
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-cloudlicensing"
+linter:
+  extends:
+    - "@azure-tools/typespec-azure-rulesets/resource-manager"

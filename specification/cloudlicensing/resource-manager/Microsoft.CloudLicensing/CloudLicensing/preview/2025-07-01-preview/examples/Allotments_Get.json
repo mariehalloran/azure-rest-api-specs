@@ -1,0 +1,46 @@
+{
+  "operationId": "Allotments_Get",
+  "title": "Get a license allotment",
+  "parameters": {
+    "api-version": "2025-07-01-preview",
+    "resourceUri": "subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/example-rg/providers/Microsoft.SaaSHub/cloudServices/mcl-test-cs",
+    "allotmentName": "enterprise-licenses"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/example-rg/providers/Microsoft.SaaSHub/cloudServices/mcl-test-cs/providers/Microsoft.CloudLicensing/allotments/enterprise-licenses",
+        "name": "enterprise-licenses",
+        "type": "Microsoft.CloudLicensing/allotments",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "sourceType": "asset",
+          "owner": {
+            "type": "tenant",
+            "id": "00000000-0000-0000-0000-000000000001"
+          },
+          "allottable": {
+            "catalogId": "DZH318Z0BQ3Z:0001:DZH318Z0BMGP",
+            "aadSkuId": "c7df2760-2c81-4ef7-bb25-d5191b90c7f1",
+            "aadSkuPartNumber": "ENTERPRISEPACK"
+          },
+          "quantity": 100,
+          "state": "active",
+          "reasonCodes": [],
+          "beneficiaryTenantId": "00000000-0000-0000-0000-000000000001",
+          "startDate": "2026-04-01T00:00:00Z",
+          "nextLifecycleDate": "2027-04-01T00:00:00Z",
+          "subscriptionEndDate": "2027-04-01T00:00:00Z"
+        },
+        "systemData": {
+          "createdBy": "user@contoso.com",
+          "createdByType": "User",
+          "createdAt": "2026-04-01T00:00:00Z",
+          "lastModifiedBy": "user@contoso.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-04-01T00:00:00Z"
+        }
+      }
+    }
+  }
+}
