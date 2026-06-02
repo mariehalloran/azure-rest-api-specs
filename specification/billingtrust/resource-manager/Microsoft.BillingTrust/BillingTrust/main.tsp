@@ -502,7 +502,8 @@ model TaxId {
   value?: string;
 
   @doc("ISO 3166-1 alpha-2 country code the tax id is registered in.")
-  @maxLength(100)
+  @maxLength(2)
+  @pattern("^[A-Za-z]{2}$")
   country?: string;
 
   @doc("Scope of the tax id (e.g. `Federal`, `State`).")
