@@ -21,24 +21,6 @@ enum Versions {
 
 interface Operations extends Azure.ResourceManager.Operations {}
 
-@doc("The status of the current operation.")
-@Azure.Core.lroStatus
-union ProvisioningState {
-  ResourceProvisioningState,
-
-  @doc("Initial provisioning in progress")
-  Provisioning: "Provisioning",
-
-  @doc("Update in progress")
-  Updating: "Updating",
-
-  @doc("Deletion in progress")
-  Deleting: "Deleting",
-
-  @doc("Change accepted for processing")
-  Accepted: "Accepted",
-}
-
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-path-segment-invalid-chars" "Existing Template"
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-key-invalid-chars" "Existing template"
 @doc("A MaicppProgram resource representing a Microsoft AI Cloud Partner Program registration.")
@@ -53,12 +35,13 @@ model MaicppProgram is ProxyResource<MaicppProgramProperties> {
 
 @doc("Details of the MaicppProgram.")
 model MaicppProgramProperties {
-  @doc("Identifier of the partner program.")
-  programId: string;
+  @visibility(Lifecycle.Read)
+  @doc("Identifier of the partner program. Populated by the service on create.")
+  programId?: string;
 
   @visibility(Lifecycle.Read)
-  @doc("The status of the last operation.")
-  provisioningState?: ProvisioningState;
+  @doc("Billing account identifier associated with this enrollment. Populated by the service on create.")
+  billingAccountId?: string;
 
   @visibility(Lifecycle.Read)
   @doc("Identifier returned by the Enrollment State service for this enrollment.")
@@ -72,7 +55,7 @@ model MaicppProgramProperties {
 @armResourceOperations(MaicppProgram)
 interface MaicppPrograms {
   get is ArmResourceRead<MaicppProgram>;
-  createOrUpdate is ArmResourceCreateOrReplaceAsync<MaicppProgram>;
+  createOrUpdate is ArmResourceCreateOrReplaceSync<MaicppProgram>;
   delete is ArmResourceDeleteSync<MaicppProgram>;
   listByResourceGroup is ArmResourceListByParent<MaicppProgram>;
   listBySubscription is ArmListBySubscription<MaicppProgram>;
