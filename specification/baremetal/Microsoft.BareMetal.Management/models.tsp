@@ -307,7 +307,7 @@ model ManagedConsoleConnection
   /**
    * The name of the Managed Console Connection resource.
    */
-  @maxLength(63)
+  @maxLength(75)
   @minLength(3)
   @pattern("^[-\\w\\._\\(\\)]+$")
   @path
