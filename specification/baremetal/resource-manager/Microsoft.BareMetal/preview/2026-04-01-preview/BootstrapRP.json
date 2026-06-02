@@ -1779,7 +1779,7 @@
     },
     "ManagedConsoleConnectionProperties": {
       "type": "object",
-      "description": "Properties of a Managed Console Connection.",
+      "description": "Properties for creating Managed Console Connection via PUT.",
       "properties": {
         "ipAddress": {
           "type": "string",
@@ -1829,6 +1829,7 @@
         }
       },
       "required": [
+        "ipAddress",
         "subnetResourceId",
         "vlan",
         "deviceId"

@@ -318,12 +318,12 @@ model ManagedConsoleConnection
 }
 
 /**
- * Properties of a Managed Console Connection.
+ * Properties for creating Managed Console Connection via PUT.
  */
 @added(Versions.v2026_04_01_preview)
 model ManagedConsoleConnectionProperties {
   /** IPv4 address to be allocated in the subnet of the associated connection. */
-  ipAddress?: string;
+  ipAddress: string;
 
   /** The baremetal-delegated subnet resource ID. */
   subnetResourceId: Azure.Core.armResourceIdentifier<[]>;
