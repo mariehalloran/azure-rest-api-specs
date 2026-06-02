@@ -238,6 +238,20 @@ model RuleProperties {
   //   `provisioningState` stays `Lifecycle.Read` because RPaaS/MetaRP owns
   //   it end-to-end via operationStatus PATCH — the projector also strips
   //   it from the wire via `NullValueHandling.Ignore`.
+  //
+  // Known emitter limitation — readOnly + $ref sibling pattern:
+  //   Properties typed as `$ref` (e.g. `error` -> ErrorDetail, `kind` ->
+  //   RuleKind, `soldTo` -> SoldTo) emit `{ "$ref": "...", "readOnly": true }`
+  //   in the openapi.json. Per JSON Schema, siblings of `$ref` are ignored
+  //   by strict validators, so `readOnly: true` is silently dropped. The
+  //   correct output would be `{ "allOf": [{ "$ref": "..." }], "readOnly": true }`.
+  //   This is a known limitation of @azure-tools/typespec-autorest (the
+  //   emitter does not wrap read-only $ref properties in allOf). The
+  //   TypeSpec source (@visibility(Lifecycle.Read)) is correct; the
+  //   emitter output is the artifact that is wrong. Properties whose target
+  //   type is a standalone enum with top-level readOnly (evaluationState,
+  //   provisioningState) are unaffected. Tracked for resolution via
+  //   the typespec-autorest emitter; no fix is available in TypeSpec source.
 
   @doc("The kind of rule. Acts as a discriminator for kind-specific properties.")
   @visibility(Lifecycle.Read)
@@ -397,8 +411,9 @@ model SoldTo {
   @maxLength(100)
   city?: string;
 
-  @doc("Country of the sold-to address. Accepts either an ISO 3166-1 alpha-2 country code (e.g. `US`) or a country name (e.g. `United States`) — populated verbatim from the billing account.")
-  @maxLength(100)
+  @doc("ISO 3166-1 alpha-2 country code of the sold-to address (e.g. `US`, `IE`, `GB`). Populated from the billing account.")
+  @maxLength(2)
+  @pattern("^[A-Za-z]{2}$")
   country?: string;
 
   @doc("Company name.")
@@ -409,8 +424,9 @@ model SoldTo {
   @maxLength(100)
   district?: string;
 
-  @doc("Contact email address (free-form string; format not validated server-side). PII — contact.")
+  @doc("Contact email address. PII — contact.")
   @maxLength(256)
+  @pattern("^[^@]+@[^@]+\\.[^@]+$")
   email?: string;
 
   @doc("Contact first name. PII — contact.")
@@ -598,41 +614,82 @@ interface Assessments {
   >;
 }
 
-#suppress "@azure-tools/typespec-azure-resource-manager/no-resource-delete-operation" "By design: rule lifecycle is owned by the parent Assessment. Rules are instantiated when the assessment is created (from the assessmentType template) and removed when the assessment is deleted. Customers cannot independently delete rules — this is an intentional deviation from the ARM convention that proxy resources support DELETE. See comments in the interface body for details."
+#suppress "@azure-tools/typespec-azure-resource-manager/no-resource-delete-operation" "By design: rule lifecycle is owned by the parent Assessment — rules are instantiated when the assessment is created and removed when it is deleted. Customers cannot independently delete rules. PUT-without-DELETE is an intentional asymmetry: PUT is the minimum the RPaaS tracked-resource cache needs to function; DELETE is correctly absent because rule removal does not round-trip through MetaRP. Peer precedents: Microsoft.HealthModel/HealthModelVersions ('cannot be deleted individually'), Microsoft.HealthModel/Snapshots ('cannot be deleted individually'), Microsoft.Monitor/AzureMonitorWorkspace metrics container ('always present with the workspace and cannot be deleted')."
 @armResourceOperations(Rule)
 interface Rules {
   get is ArmResourceRead<Rule>;
   list is ArmResourceListByParent<Rule>;
 
-  // Back-channel createOrUpdate (PUT) — RP-only.
+  // Design rationale: why Rules.createOrUpdate (PUT) is in the public spec
   //
-  // Why this exists: rules are server-instantiated during the parent
-  // assessment's ResourceCreationBegin, but RPaaS's tracked-resources
-  // cache for ProxyOnly+Extension child types is populated only by
-  // PUT-shaped operations going through the ARM/RPaaS validator.
-  // Without a PUT declared here, our worker's back-PUT
-  // (RpaasRuleProjector.ProjectRuleAsync) fails RPaaS's
-  // `provider-api-validation` with HTTP 412
-  // `HttpResponsePayloadAPISpecValidationFailed`, the cache never populates,
-  // and customer GET on `/rules/{name}` 404s at the ARM front door's
-  // tracked-cache short-circuit.
+  //   This PUT is required by RPaaS platform mechanics and MUST remain in
+  //   the public spec. Removing it breaks the service — customer GETs on
+  //   rules 404 permanently.
   //
-  // Customer-facing rules contract (architect spec §5.2) is PATCH-only.
-  // End-user PUT is rejected by `RuleController.OnValidateCreate` with
-  // the documented RPaaS soft-reject (`200 OK` +
-  // `{status:failed, error:{Code:OperationNotAllowed,…}}` per
-  // `rpaasextensionapi.md` §50-67); RPaaS surfaces this as a 4xx to ARM.
+  //   Mechanism: rules are server-instantiated during the parent assessment's
+  //   ResourceCreationBegin. RPaaS's tracked-resources cache for
+  //   ProxyOnly+Extension child types is populated ONLY by PUT-shaped
+  //   operations going through the ARM/RPaaS swagger validator. Without a PUT
+  //   declared here, our worker's back-PUT (RpaasRuleProjector.ProjectRuleAsync)
+  //   fails RPaaS provider-api-validation with HTTP 412
+  //   HttpResponsePayloadAPISpecValidationFailed, the cache never populates,
+  //   and customer GET on /rules/{name} 404s at the ARM front door's
+  //   tracked-cache short-circuit.
   //
-  // Per EngHub `urp_mrp_comm.md` §17-18, UserRP→MetaRP calls via the
-  // registered 1P identity bypass UserRP extensions entirely — so our
-  // back-PUT never hits `OnValidateCreate`. Customer PUT is rejected;
-  // RP PUT goes through.
+  //   Customer protection: end-user PUT is rejected by
+  //   RuleController.OnValidateCreate with the documented RPaaS soft-reject
+  //   (200 OK + {status:failed, error:{Code:OperationNotAllowed}}) per the
+  //   RPaaS Extension API Contract (Response Status Codes for
+  //   ResourceCreationValidate). RPaaS surfaces this as 4xx to ARM; customer
+  //   SDKs see a clean failure. Per the API Contracts for UserRP to
+  //   communicate with MetaRP through ARM (PUT/PATCH section), UserRP
+  //   extensions are not invoked when UserRP calls MetaRP with its own 1P
+  //   identity, so the back-PUT bypasses OnValidateCreate.
+  //
+  //   Peer-RP precedent (same topology — extension singleton + proxy child,
+  //   public PUT without restriction, no @disallowedEndUserOperations or
+  //   @internal):
+  //     - Microsoft.ScVmm: virtualMachineInstances/default/guestAgents
+  //       (specification/scvmm/ScVmm.Management/GuestAgent.tsp:34)
+  //     - Microsoft.ConnectedVMwarevSphere:
+  //       virtualMachineInstances/default/guestAgents
+  //       (specification/connectedvmware/.../connectedvmware.json ~line 3110)
+  //
+  //   The Internal ARM API Contracts process is not realized for
+  //   RPaaS-extension RTs in practice — the cache layer reads the SAME spec
+  //   registered through ProviderHub for customer reads.
+  //
+  // Design rationale: why DELETE is absent (PUT-without-DELETE asymmetry)
+  //
+  //   DELETE has no equivalent runtime requirement — rule lifecycle is driven
+  //   entirely from the parent Assessment delete cascade. There is no per-rule
+  //   delete that needs to round-trip through MetaRP. The
+  //   no-resource-delete-operation suppression above captures this rationale.
+  //   Peer precedents for PUT-without-DELETE on a parent-owned child proxy:
+  //     - Microsoft.HealthModel/HealthModelVersions:
+  //       "Health Model Versions cannot be deleted individually."
+  //     - Microsoft.HealthModel/Snapshots:
+  //       "Snapshots cannot be deleted individually."
+  //     - Microsoft.Monitor/AzureMonitorWorkspace metrics container:
+  //       "Metrics container is always present with the Azure Monitor
+  //       Workspace and cannot be deleted."
   //
   // Sync (no LRO) because the back-PUT just refreshes the cache body;
   // the actual evaluation LRO is owned by the assessment-level Create
   // flow.
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-name-pattern" "Rule names are deterministic server-instantiated names (Qualify_Edu, Verify_Business, …) per template; pattern is enforced at the model level."
-  @doc("Create or update a Rule. Rules are created by the service when the parent assessment is created and are not directly creatable by end users — calls from end users are rejected with `OperationNotAllowed`. Use PATCH to modify rule fields that the customer is authorized to change.")
+  @doc("""
+    Create or update a Rule. **This operation is required for RPaaS tracked-resource
+    cache population and MUST remain in the public spec.** Rules are created by the
+    service when the parent assessment is created; they are not directly creatable
+    by end users. All customer PUT calls are rejected at runtime with
+    `OperationNotAllowed` via the RPaaS ResourceCreationValidate extension.
+    Use PATCH to modify rule fields that the customer is authorized to change.
+    Peer RPs with the same topology (extension singleton parent + proxy child)
+    declare an identical public PUT for the same RPaaS cache-population reason:
+    Microsoft.ScVmm/virtualMachineInstances/guestAgents,
+    Microsoft.ConnectedVMwarevSphere/virtualMachineInstances/guestAgents.
+    """)
   createOrUpdate is ArmResourceCreateOrReplaceSync<Rule>;
 
   // PATCH cannot change a rule's `kind`. The patch body is discriminated

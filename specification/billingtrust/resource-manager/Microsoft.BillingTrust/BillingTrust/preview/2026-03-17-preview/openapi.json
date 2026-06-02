@@ -396,7 +396,7 @@
         "tags": [
           "Rules"
         ],
-        "description": "Create or update a Rule. Rules are created by the service when the parent assessment is created and are not directly creatable by end users — calls from end users are rejected with `OperationNotAllowed`. Use PATCH to modify rule fields that the customer is authorized to change.",
+        "description": "Create or update a Rule. **This operation is required for RPaaS tracked-resource\ncache population and MUST remain in the public spec.** Rules are created by the\nservice when the parent assessment is created; they are not directly creatable\nby end users. All customer PUT calls are rejected at runtime with\n`OperationNotAllowed` via the RPaaS ResourceCreationValidate extension.\nUse PATCH to modify rule fields that the customer is authorized to change.\nPeer RPs with the same topology (extension singleton parent + proxy child)\ndeclare an identical public PUT for the same RPaaS cache-population reason:\nMicrosoft.ScVmm/virtualMachineInstances/guestAgents,\nMicrosoft.ConnectedVMwarevSphere/virtualMachineInstances/guestAgents.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -1320,8 +1320,9 @@
         },
         "country": {
           "type": "string",
-          "description": "Country of the sold-to address. Accepts either an ISO 3166-1 alpha-2 country code (e.g. `US`) or a country name (e.g. `United States`) — populated verbatim from the billing account.",
-          "maxLength": 100
+          "description": "ISO 3166-1 alpha-2 country code of the sold-to address (e.g. `US`, `IE`, `GB`). Populated from the billing account.",
+          "maxLength": 2,
+          "pattern": "^[A-Za-z]{2}$"
         },
         "companyName": {
           "type": "string",
@@ -1335,8 +1336,9 @@
         },
         "email": {
           "type": "string",
-          "description": "Contact email address (free-form string; format not validated server-side). PII — contact.",
-          "maxLength": 256
+          "description": "Contact email address. PII — contact.",
+          "maxLength": 256,
+          "pattern": "^[^@]+@[^@]+\\.[^@]+$"
         },
         "firstName": {
           "type": "string",
