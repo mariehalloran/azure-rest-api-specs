@@ -213,6 +213,9 @@
             "$ref": "./examples/Assessments_CreateOrUpdate_PayeeProfile.json"
           }
         },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "x-ms-long-running-operation": true
       },
       "delete": {
@@ -263,6 +266,9 @@
           "Delete the Edu assessment for an enrollment": {
             "$ref": "./examples/Assessments_Delete.json"
           }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true
       }
