@@ -323,12 +323,15 @@ model ManagedConsoleConnection
 @added(Versions.v2026_04_01_preview)
 model ManagedConsoleConnectionCreateProperties {
   /** IPv4 address to be allocated in the subnet of the associated connection. */
+  @pattern("^(?:\\d{1,3}\\.){3}\\d{1,3}$")
   ipAddress: string;
 
   /** The baremetal-delegated subnet resource ID. */
   subnetResourceId: Azure.Core.armResourceIdentifier<[]>;
 
   /** VLAN ID assigned to the subnet of the associated connection. */
+  @minValue(1)
+  @maxValue(4094)
   vlan: int32;
 
   /** ID of the baremetal device in GUID format. */
@@ -371,6 +374,29 @@ model ManagedConsoleConnectionRoute {
 }
 
 /**
+ * The type of Azure hop the packet should be sent to.
+ */
+@added(Versions.v2026_04_01_preview)
+union NextHopType {
+  string,
+
+  @doc("Virtual network gateway")
+  VirtualNetworkGateway: "VirtualNetworkGateway",
+
+  @doc("VNet local")
+  VnetLocal: "VnetLocal",
+
+  @doc("Internet")
+  Internet: "Internet",
+
+  @doc("Virtual appliance")
+  VirtualAppliance: "VirtualAppliance",
+
+  @doc("None")
+  None: "None",
+}
+
+/**
  * Properties of a route entry.
  */
 @added(Versions.v2026_04_01_preview)
@@ -379,7 +405,7 @@ model ManagedConsoleConnectionRouteProperties {
   addressPrefix: string;
 
   /** The type of Azure hop the packet should be sent to. */
-  nextHopType: string;
+  nextHopType: NextHopType;
 
   /** The IP address packets should be forwarded to. */
   nextHopIpAddress: string;

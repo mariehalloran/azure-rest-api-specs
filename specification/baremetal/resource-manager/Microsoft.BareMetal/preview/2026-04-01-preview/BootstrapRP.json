@@ -1783,7 +1783,8 @@
       "properties": {
         "ipAddress": {
           "type": "string",
-          "description": "IPv4 address to be allocated in the subnet of the associated connection."
+          "description": "IPv4 address to be allocated in the subnet of the associated connection.",
+          "pattern": "^(?:\\d{1,3}\\.){3}\\d{1,3}$"
         },
         "subnetResourceId": {
           "type": "string",
@@ -1796,7 +1797,9 @@
         "vlan": {
           "type": "integer",
           "format": "int32",
-          "description": "VLAN ID assigned to the subnet of the associated connection."
+          "description": "VLAN ID assigned to the subnet of the associated connection.",
+          "minimum": 1,
+          "maximum": 4094
         },
         "deviceId": {
           "type": "string",
@@ -1870,7 +1873,7 @@
           "description": "The destination address prefix."
         },
         "nextHopType": {
-          "type": "string",
+          "$ref": "#/definitions/NextHopType",
           "description": "The type of Azure hop the packet should be sent to."
         },
         "nextHopIpAddress": {
@@ -2090,6 +2093,48 @@
         "privateIpAddressVersion",
         "primary"
       ]
+    },
+    "NextHopType": {
+      "type": "string",
+      "description": "The type of Azure hop the packet should be sent to.",
+      "enum": [
+        "VirtualNetworkGateway",
+        "VnetLocal",
+        "Internet",
+        "VirtualAppliance",
+        "None"
+      ],
+      "x-ms-enum": {
+        "name": "NextHopType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "VirtualNetworkGateway",
+            "value": "VirtualNetworkGateway",
+            "description": "Virtual network gateway"
+          },
+          {
+            "name": "VnetLocal",
+            "value": "VnetLocal",
+            "description": "VNet local"
+          },
+          {
+            "name": "Internet",
+            "value": "Internet",
+            "description": "Internet"
+          },
+          {
+            "name": "VirtualAppliance",
+            "value": "VirtualAppliance",
+            "description": "Virtual appliance"
+          },
+          {
+            "name": "None",
+            "value": "None",
+            "description": "None"
+          }
+        ]
+      }
     },
     "PeeringLinkProvisioningState": {
       "type": "string",

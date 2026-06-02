@@ -43,19 +43,11 @@ interface ManagedConsoleConnections {
   listSubscription is ArmListBySubscription<ManagedConsoleConnection>;
 }
 
-@@Azure.ClientGenerator.Core.clientName(
-  ManagedConsoleConnections.createOrUpdate::parameters.resource,
-  "managedConsoleConnectionObject"
-);
 @@clientName(
   ManagedConsoleConnections.createOrUpdate::parameters.resource,
   "managedConsoleConnectionObject"
 );
 
-@@Azure.ClientGenerator.Core.clientName(
-  ManagedConsoleConnections.update::parameters.properties,
-  "managedConsoleConnectionObject"
-);
 @@clientName(
   ManagedConsoleConnections.update::parameters.properties,
   "managedConsoleConnectionObject"
