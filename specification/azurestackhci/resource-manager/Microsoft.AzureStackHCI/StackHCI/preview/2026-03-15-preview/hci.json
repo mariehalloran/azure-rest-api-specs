@@ -3813,7 +3813,7 @@
             "description": "Name of ClusterJob",
             "required": true,
             "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+            "pattern": "^[a-zA-Z0-9-]{3,64}$"
           }
         ],
         "responses": {
@@ -3837,6 +3837,9 @@
           "ClusterJobs_Get_ConfigureArcGatewayJob": {
             "$ref": "./examples/ClusterJobs_Get_ConfigureArcGatewayJob.json"
           },
+          "ClusterJobs_Get_ConfigureLocalAvailabilityZone": {
+            "$ref": "./examples/ClusterJobs_Get_ConfigureLocalAvailabilityZoneJob.json"
+          },
           "ClusterJobs_Get_ConfigureSdnIntegrationJob": {
             "$ref": "./examples/ClusterJobs_Get_ConfigureSdnIntegrationJob.json"
           },
@@ -3854,9 +3857,6 @@
           },
           "ClusterJobs_Get_VmConnectRemoveJob": {
             "$ref": "./examples/ClusterJobs_Get_VmConnectRemoveJob.json"
-          },
-          "ClusterJobs_Get_configure-lazJob": {
-            "$ref": "./examples/ClusterJobs_Get_ConfigureLocalAvailabilityZoneJob.json"
           }
         }
       },
@@ -3889,7 +3889,7 @@
             "description": "Name of ClusterJob",
             "required": true,
             "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+            "pattern": "^[a-zA-Z0-9-]{3,64}$"
           },
           {
             "name": "resource",
@@ -3942,6 +3942,9 @@
           "ClusterJobs_CreateOrUpdate_ConfigureCVMJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureCVM.json"
           },
+          "ClusterJobs_CreateOrUpdate_ConfigureLocalAvailabilityZone": {
+            "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureLocalAvailabilityZone.json"
+          },
           "ClusterJobs_CreateOrUpdate_ConfigureSdnIntegration_Enable": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureSdnIntegration_Enable.json"
           },
@@ -3959,9 +3962,6 @@
           },
           "ClusterJobs_CreateOrUpdate_VmConnectRemoveJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_VmConnectRemove.json"
-          },
-          "ClusterJobs_CreateOrUpdate_configure-lazJob": {
-            "$ref": "./examples/ClusterJobs_CreateOrUpdate_ConfigureLocalAvailabilityZone.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -3998,7 +3998,7 @@
             "description": "Name of ClusterJob",
             "required": true,
             "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+            "pattern": "^[a-zA-Z0-9-]{3,64}$"
           }
         ],
         "responses": {
@@ -16359,6 +16359,22 @@
           "$ref": "#/definitions/GpuPartitionDetails",
           "description": "Details of the GPU specifically in GPU-P mode.",
           "readOnly": true
+        },
+        "acceleratorType": {
+          "type": "string",
+          "description": "The type of the accelerator.",
+          "readOnly": true
+        },
+        "memoryModel": {
+          "type": "string",
+          "description": "The memory model of the GPU. Possible values are 'Dedicated VRAM', 'Unified (Shared System Memory)', and 'Unified (SoC LPDDR)'.",
+          "readOnly": true
+        },
+        "totalMemoryInBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The total memory of the GPU in bytes.",
+          "readOnly": true
         }
       }
     },
@@ -17529,6 +17545,10 @@
       "type": "object",
       "description": "Properties for EdgeMachineUpdate resource.",
       "properties": {
+        "solutionType": {
+          "$ref": "#/definitions/ProvisioningOsType",
+          "description": "The solution type for the available updates."
+        },
         "values": {
           "type": "array",
           "description": "The list of available updates.",
