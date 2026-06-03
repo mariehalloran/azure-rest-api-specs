@@ -1,0 +1,26 @@
+{
+  "operationId": "UnassignedErrors_Get",
+  "title": "Get an unassigned error event",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "unassignedErrorName": "c456789d-1234-5678-abcd-ef0123456789"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/providers/Microsoft.ErrorAtlas/unassignedErrors/c456789d-1234-5678-abcd-ef0123456789",
+        "name": "c456789d-1234-5678-abcd-ef0123456789",
+        "type": "Microsoft.ErrorAtlas/unassignedErrors",
+        "properties": {
+          "targetResourceType": "Microsoft.Sql/servers/databases",
+          "errorAttributes": {
+            "eventTimestamp": "2026-03-05T16:55:55.851Z",
+            "errorCode": "GatewayTimeout",
+            "errorMessage": "Gateway server is down"
+          },
+          "provisioningState": "Succeeded"
+        }
+      }
+    }
+  }
+}

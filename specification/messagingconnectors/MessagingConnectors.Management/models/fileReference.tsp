@@ -1,4 +1,5 @@
 import "./authModels/authModel.tsp";
+import "./commonModels/configKeyValuePair.tsp";
 import "./authModels/connectionString.tsp";
 import "./authModels/usernamePassword.tsp";
 import "./authModels/accessKey.tsp";
