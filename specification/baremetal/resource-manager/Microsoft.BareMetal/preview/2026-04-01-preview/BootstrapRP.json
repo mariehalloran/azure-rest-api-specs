@@ -1870,7 +1870,8 @@
       "properties": {
         "addressPrefix": {
           "type": "string",
-          "description": "The destination address prefix."
+          "description": "The destination address prefix.",
+          "pattern": "^(?:\\d{1,3}\\.){3}\\d{1,3}/(?:[0-9]|[12]\\d|3[0-2])$"
         },
         "nextHopType": {
           "$ref": "#/definitions/NextHopType",
@@ -1878,7 +1879,8 @@
         },
         "nextHopIpAddress": {
           "type": "string",
-          "description": "The IP address packets should be forwarded to."
+          "description": "The IP address packets should be forwarded to.",
+          "pattern": "^(?:\\d{1,3}\\.){3}\\d{1,3}$"
         },
         "hasBgpOverride": {
           "type": "boolean",
@@ -1904,8 +1906,7 @@
           },
           "x-ms-mutability": [
             "read",
-            "update",
-            "create"
+            "update"
           ]
         }
       }

@@ -402,12 +402,14 @@ union NextHopType {
 @added(Versions.v2026_04_01_preview)
 model ManagedConsoleConnectionRouteProperties {
   /** The destination address prefix. */
+  @pattern("^(?:\\d{1,3}\\.){3}\\d{1,3}/(?:[0-9]|[12]\\d|3[0-2])$")
   addressPrefix: string;
 
   /** The type of Azure hop the packet should be sent to. */
   nextHopType: NextHopType;
 
   /** The IP address packets should be forwarded to. */
+  @pattern("^(?:\\d{1,3}\\.){3}\\d{1,3}$")
   nextHopIpAddress: string;
 
   /** Whether BGP override is enabled. */
@@ -421,7 +423,7 @@ model ManagedConsoleConnectionRouteProperties {
 model ManagedConsoleConnectionUpdate {
   /** Resource tags. */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Patch tags object"
-  @visibility(Lifecycle.Read, Lifecycle.Create, Lifecycle.Update)
+  @visibility(Lifecycle.Read, Lifecycle.Update)
   tags?: Record<string>;
 }
 
