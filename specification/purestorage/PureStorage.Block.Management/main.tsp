@@ -1502,6 +1502,7 @@ model VolumeGroupSnapshot is ProxyResource<VolumeGroupSnapshotProperties> {
   name: string;
 }
 
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-list-response" "VolumeGroupSnapshotListResult includes count and totalCount fields for pagination metadata beyond value and nextLink"
 @added(Versions.v2026_05_01_preview)
 @doc("Paged list result for volume group snapshots")
 model VolumeGroupSnapshotListResult {
