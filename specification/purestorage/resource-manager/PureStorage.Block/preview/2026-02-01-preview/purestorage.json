@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "PureStorage.Block",
-    "version": "2026-01-01-preview",
+    "version": "2026-02-01-preview",
     "x-typespec-generated": [
       {
         "emitter": "@azure-tools/typespec-autorest"
@@ -64,6 +64,12 @@
     },
     {
       "name": "Volumes"
+    },
+    {
+      "name": "RecoverableVolumeGroups"
+    },
+    {
+      "name": "VolumeGroupSnapshots"
     }
   ],
   "paths": {
@@ -2328,6 +2334,189 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PureStorage.Block/storagePools/{storagePoolName}/recoverableVolumeGroups": {
+      "get": {
+        "operationId": "RecoverableVolumeGroups_ListByStoragePool",
+        "tags": [
+          "RecoverableVolumeGroups"
+        ],
+        "description": "List all recoverable volume groups in a storage pool",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storagePoolName",
+            "in": "path",
+            "description": "Name of the storage pool",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 127,
+            "pattern": "^[a-zA-Z0-9\\-_]{1,127}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/RecoverableVolumeGroupListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "RecoverableVolumeGroups_ListByStoragePool": {
+            "$ref": "./examples/RecoverableVolumeGroups_ListByStoragePool_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PureStorage.Block/storagePools/{storagePoolName}/recoverableVolumeGroups/{recoverableVolumeGroupName}": {
+      "get": {
+        "operationId": "RecoverableVolumeGroups_Get",
+        "tags": [
+          "RecoverableVolumeGroups"
+        ],
+        "description": "Get a recoverable volume group",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storagePoolName",
+            "in": "path",
+            "description": "Name of the storage pool",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 127,
+            "pattern": "^[a-zA-Z0-9\\-_]{1,127}$"
+          },
+          {
+            "name": "recoverableVolumeGroupName",
+            "in": "path",
+            "description": "Name of the recoverable volume group",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]{0,62}[A-Za-z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/RecoverableVolumeGroup"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "RecoverableVolumeGroups_Get": {
+            "$ref": "./examples/RecoverableVolumeGroups_Get_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "RecoverableVolumeGroups_Delete",
+        "tags": [
+          "RecoverableVolumeGroups"
+        ],
+        "description": "Eradicate a recoverable volume group",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storagePoolName",
+            "in": "path",
+            "description": "Name of the storage pool",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 127,
+            "pattern": "^[a-zA-Z0-9\\-_]{1,127}$"
+          },
+          {
+            "name": "recoverableVolumeGroupName",
+            "in": "path",
+            "description": "Name of the recoverable volume group",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]{0,62}[A-Za-z0-9]$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "RecoverableVolumeGroups_Delete": {
+            "$ref": "./examples/RecoverableVolumeGroups_Delete_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PureStorage.Block/storagePools/{storagePoolName}/repairAvsConnection": {
       "post": {
         "operationId": "StoragePools_RepairAvsConnection",
@@ -2866,6 +3055,428 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PureStorage.Block/storagePools/{storagePoolName}/volumeGroups/{volumeGroupName}/overwrite": {
+      "post": {
+        "operationId": "VolumeGroups_Overwrite",
+        "tags": [
+          "VolumeGroups"
+        ],
+        "description": "Restores a volume group to a specific snapshot state, including volume structure and data",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storagePoolName",
+            "in": "path",
+            "description": "Name of the storage pool",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 127,
+            "pattern": "^[a-zA-Z0-9\\-_]{1,127}$"
+          },
+          {
+            "name": "volumeGroupName",
+            "in": "path",
+            "description": "Name of the volume group",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 40,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]{0,38}[A-Za-z0-9]$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VolumeGroupOverwriteRequest"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "VolumeGroups_Overwrite": {
+            "$ref": "./examples/VolumeGroups_Overwrite_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PureStorage.Block/storagePools/{storagePoolName}/volumeGroups/{volumeGroupName}/snapshots": {
+      "get": {
+        "operationId": "VolumeGroupSnapshots_ListByVolumeGroup",
+        "tags": [
+          "VolumeGroupSnapshots"
+        ],
+        "description": "List all snapshots for a given volume group",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storagePoolName",
+            "in": "path",
+            "description": "Name of the storage pool",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 127,
+            "pattern": "^[a-zA-Z0-9\\-_]{1,127}$"
+          },
+          {
+            "name": "volumeGroupName",
+            "in": "path",
+            "description": "Name of the volume group",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 40,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]{0,38}[A-Za-z0-9]$"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "OData filter expression (e.g. filter=substringof('sna', name) and space/unique gt 1000)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "description": "OData order-by expression (e.g. orderby=name asc)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "description": "Maximum number of results to return per page",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Number of results to skip (page offset)",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/VolumeGroupSnapshotListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "VolumeGroupSnapshots_ListByVolumeGroup": {
+            "$ref": "./examples/VolumeGroupSnapshots_ListByVolumeGroup_MaximumSet_Gen.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PureStorage.Block/storagePools/{storagePoolName}/volumeGroups/{volumeGroupName}/snapshots/{snapshotName}": {
+      "get": {
+        "operationId": "VolumeGroupSnapshots_Get",
+        "tags": [
+          "VolumeGroupSnapshots"
+        ],
+        "description": "Get a volume group snapshot",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storagePoolName",
+            "in": "path",
+            "description": "Name of the storage pool",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 127,
+            "pattern": "^[a-zA-Z0-9\\-_]{1,127}$"
+          },
+          {
+            "name": "volumeGroupName",
+            "in": "path",
+            "description": "Name of the volume group",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 40,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]{0,38}[A-Za-z0-9]$"
+          },
+          {
+            "name": "snapshotName",
+            "in": "path",
+            "description": "Name of the volume group snapshot",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z0-9-]{0,63}[A-Za-z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/VolumeGroupSnapshot"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "VolumeGroupSnapshots_Get": {
+            "$ref": "./examples/VolumeGroupSnapshots_Get_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "VolumeGroupSnapshots_Create",
+        "tags": [
+          "VolumeGroupSnapshots"
+        ],
+        "description": "Create a manual snapshot of a volume group, or recover from an existing snapshot by providing sourceSnapshotResourceId",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storagePoolName",
+            "in": "path",
+            "description": "Name of the storage pool",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 127,
+            "pattern": "^[a-zA-Z0-9\\-_]{1,127}$"
+          },
+          {
+            "name": "volumeGroupName",
+            "in": "path",
+            "description": "Name of the volume group",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 40,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]{0,38}[A-Za-z0-9]$"
+          },
+          {
+            "name": "snapshotName",
+            "in": "path",
+            "description": "Name of the volume group snapshot",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z0-9-]{0,63}[A-Za-z0-9]$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VolumeGroupSnapshot"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'VolumeGroupSnapshot' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/VolumeGroupSnapshot"
+            }
+          },
+          "201": {
+            "description": "Resource 'VolumeGroupSnapshot' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/VolumeGroupSnapshot"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "VolumeGroupSnapshots_Create": {
+            "$ref": "./examples/VolumeGroupSnapshots_Create_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "VolumeGroupSnapshots_Delete",
+        "tags": [
+          "VolumeGroupSnapshots"
+        ],
+        "description": "Delete a volume group snapshot",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storagePoolName",
+            "in": "path",
+            "description": "Name of the storage pool",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 127,
+            "pattern": "^[a-zA-Z0-9\\-_]{1,127}$"
+          },
+          {
+            "name": "volumeGroupName",
+            "in": "path",
+            "description": "Name of the volume group",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 40,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]{0,38}[A-Za-z0-9]$"
+          },
+          {
+            "name": "snapshotName",
+            "in": "path",
+            "description": "Name of the volume group snapshot",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z0-9-]{0,63}[A-Za-z0-9]$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "VolumeGroupSnapshots_Delete": {
+            "$ref": "./examples/VolumeGroupSnapshots_Delete_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PureStorage.Block/storagePools/{storagePoolName}/volumeGroups/{volumeGroupName}/volumes": {
       "get": {
         "operationId": "Volumes_ListByVolumeGroup",
@@ -3266,6 +3877,101 @@
         },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PureStorage.Block/storagePools/{storagePoolName}/volumeGroups/{volumeGroupName}/volumes/{volumeName}/overwrite": {
+      "post": {
+        "operationId": "Volumes_Overwrite",
+        "tags": [
+          "Volumes"
+        ],
+        "description": "Overwrites the content of a volume from another volume or a snapshot",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storagePoolName",
+            "in": "path",
+            "description": "Name of the storage pool",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 127,
+            "pattern": "^[a-zA-Z0-9\\-_]{1,127}$"
+          },
+          {
+            "name": "volumeGroupName",
+            "in": "path",
+            "description": "Name of the volume group",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 40,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]{0,38}[A-Za-z0-9]$"
+          },
+          {
+            "name": "volumeName",
+            "in": "path",
+            "description": "Name of the volume",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9-]{0,62}[A-Za-z0-9]$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VolumeOverwriteRequest"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Volumes_Overwrite": {
+            "$ref": "./examples/Volumes_Overwrite_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true
       }
@@ -3842,6 +4548,40 @@
             "create"
           ]
         },
+        "sourceType": {
+          "$ref": "#/definitions/VolumeSourceType",
+          "description": "Indicates the source type for volume creation",
+          "x-ms-mutability": [
+            "create"
+          ]
+        },
+        "sourceVolumeSnapshot": {
+          "$ref": "#/definitions/VolumeSnapshotSource",
+          "description": "Source volume group snapshot and volume snapshot name to restore from",
+          "x-ms-mutability": [
+            "create"
+          ]
+        },
+        "sourceSerialNumber": {
+          "type": "string",
+          "description": "Serial number of the source volume to import",
+          "x-ms-mutability": [
+            "create"
+          ]
+        },
+        "sourceRecoverableVolumeResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Azure resource ID of the soft-deleted volume to recover within the same volume group",
+          "x-ms-mutability": [
+            "create"
+          ]
+        },
+        "softDeletion": {
+          "$ref": "#/definitions/DestroyedStateProperties",
+          "description": "Soft-deletion state of the volume",
+          "readOnly": true
+        },
         "provisioningState": {
           "$ref": "#/definitions/LiftrBase.ProvisioningState",
           "description": "Provisioning state of the resource",
@@ -3930,6 +4670,37 @@
       },
       "required": [
         "iscsi"
+      ]
+    },
+    "DestroyedStateProperties": {
+      "type": "object",
+      "description": "Soft-deletion (destroyed) state of a resource",
+      "properties": {
+        "destroyed": {
+          "type": "boolean",
+          "description": "If false, the resource is active; if true, the resource has been destroyed",
+          "readOnly": true
+        },
+        "destroyedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date and time at which the resource was destroyed, as an RFC 3339 timestamp",
+          "readOnly": true
+        },
+        "previousName": {
+          "type": "string",
+          "description": "Name of the resource before it was destroyed",
+          "readOnly": true
+        },
+        "eradicationTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date at which the resource will be eradicated and impossible to recover, as an RFC 3339 timestamp",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "destroyed"
       ]
     },
     "HealthDetails": {
@@ -4416,6 +5187,79 @@
         "min",
         "max"
       ]
+    },
+    "RecoverableVolumeGroup": {
+      "type": "object",
+      "description": "A destroyed volume group that is pending eradication",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/RecoverableVolumeGroupProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "RecoverableVolumeGroupListResult": {
+      "type": "object",
+      "description": "The response of a RecoverableVolumeGroup list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The RecoverableVolumeGroup items on this page",
+          "items": {
+            "$ref": "#/definitions/RecoverableVolumeGroup"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "RecoverableVolumeGroupProperties": {
+      "type": "object",
+      "description": "Properties of a recoverable volume group",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date and time at which the volume group was created, as an RFC 3339 timestamp",
+          "readOnly": true
+        },
+        "softDeletion": {
+          "$ref": "#/definitions/DestroyedStateProperties",
+          "description": "Soft-deletion state of the recoverable volume group",
+          "readOnly": true
+        },
+        "performanceParameters": {
+          "$ref": "#/definitions/PerformanceParameters",
+          "description": "Performance parameters of the volume group",
+          "readOnly": true
+        },
+        "protectionParameters": {
+          "$ref": "#/definitions/ProtectionParameters",
+          "description": "Protection parameters of the volume group",
+          "readOnly": true
+        },
+        "space": {
+          "$ref": "#/definitions/Space",
+          "description": "Storage space usage of the volume group",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/LiftrBase.ProvisioningState",
+          "description": "Provisioning state of the resource",
+          "readOnly": true
+        }
+      }
     },
     "Reservation": {
       "type": "object",
@@ -5135,6 +5979,20 @@
         "value"
       ]
     },
+    "VolumeGroupOverwriteRequest": {
+      "type": "object",
+      "description": "Request to overwrite all volumes in a volume group from a snapshot",
+      "properties": {
+        "sourceSnapshotResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Azure resource ID of the volume group snapshot to restore from"
+        }
+      },
+      "required": [
+        "sourceSnapshotResourceId"
+      ]
+    },
     "VolumeGroupProperties": {
       "type": "object",
       "description": "Properties of a volume group",
@@ -5157,6 +6015,29 @@
             "create"
           ]
         },
+        "sourceType": {
+          "$ref": "#/definitions/VolumeGroupSourceType",
+          "description": "Indicates the source type for volume group creation",
+          "x-ms-mutability": [
+            "create"
+          ]
+        },
+        "sourceSnapshotResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Azure resource ID of the volume group snapshot to restore from",
+          "x-ms-mutability": [
+            "create"
+          ]
+        },
+        "sourceRecoverableVolumeGroupResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Azure resource ID of the soft-deleted volume group to recover",
+          "x-ms-mutability": [
+            "create"
+          ]
+        },
         "performanceParameters": {
           "$ref": "#/definitions/PerformanceParameters",
           "description": "Performance parameters for the volume group"
@@ -5170,6 +6051,137 @@
           "description": "Provisioning state of the resource",
           "readOnly": true
         }
+      }
+    },
+    "VolumeGroupSnapshot": {
+      "type": "object",
+      "description": "A snapshot of a volume group",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/VolumeGroupSnapshotProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "VolumeGroupSnapshotListResult": {
+      "type": "object",
+      "description": "Paged list result for volume group snapshots",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "Array of volume group snapshots",
+          "items": {
+            "$ref": "#/definitions/VolumeGroupSnapshot"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to fetch the next page of results"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of snapshots in this response page"
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total number of snapshots"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "VolumeGroupSnapshotProperties": {
+      "type": "object",
+      "description": "Properties of a volume group snapshot",
+      "properties": {
+        "sourceSnapshotResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Azure resource ID of the source snapshot to recover from; omit for a new manual snapshot",
+          "x-ms-mutability": [
+            "create"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date and time at which the snapshot was created, as an RFC 3339 timestamp",
+          "readOnly": true
+        },
+        "createdByPolicy": {
+          "type": "boolean",
+          "description": "Whether the snapshot was created by a protection policy",
+          "readOnly": true
+        },
+        "softDeletion": {
+          "$ref": "#/definitions/DestroyedStateProperties",
+          "description": "Soft-deletion state of the snapshot",
+          "readOnly": true
+        },
+        "space": {
+          "$ref": "#/definitions/Space",
+          "description": "Storage space usage of the snapshot",
+          "readOnly": true
+        },
+        "volumeSnapshots": {
+          "type": "array",
+          "description": "List of individual volume snapshots included in this volume group snapshot; populated on single-get, empty or omitted on list for performance",
+          "items": {
+            "$ref": "#/definitions/VolumeSnapshotInfo"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/LiftrBase.ProvisioningState",
+          "description": "Provisioning state of the resource",
+          "readOnly": true
+        }
+      }
+    },
+    "VolumeGroupSourceType": {
+      "type": "string",
+      "description": "Source type for volume group creation",
+      "enum": [
+        "none",
+        "volumeGroup",
+        "snapshot",
+        "recoverableVolumeGroup"
+      ],
+      "x-ms-enum": {
+        "name": "VolumeGroupSourceType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "none",
+            "value": "none",
+            "description": "No source; create an empty volume group"
+          },
+          {
+            "name": "volumeGroup",
+            "value": "volumeGroup",
+            "description": "Clone from an existing volume group"
+          },
+          {
+            "name": "snapshot",
+            "value": "snapshot",
+            "description": "Restore from a volume group snapshot"
+          },
+          {
+            "name": "recoverableVolumeGroup",
+            "value": "recoverableVolumeGroup",
+            "description": "Recover a soft-deleted volume group"
+          }
+        ]
       }
     },
     "VolumeGroupStatus": {
@@ -5257,6 +6269,37 @@
         "value"
       ]
     },
+    "VolumeOverwriteRequest": {
+      "type": "object",
+      "description": "Request to overwrite a volume's content from another volume or a snapshot",
+      "properties": {
+        "sourceType": {
+          "$ref": "#/definitions/VolumeSourceType",
+          "description": "Source type for the overwrite operation"
+        },
+        "sourceVolumeGroupResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Azure resource ID of the source volume group. Required when sourceType is 'snapshot' or when the source volume belongs to a different volume group than the target."
+        },
+        "sourceVolumeSnapshot": {
+          "$ref": "#/definitions/VolumeSnapshotSource",
+          "description": "Source volume group snapshot and volume snapshot name to restore from. Used when sourceType is 'snapshot'."
+        },
+        "sourceSerialNumber": {
+          "type": "string",
+          "description": "Serial number of the source volume to overwrite from. Used when sourceType is 'serialNumber'."
+        },
+        "sourceVolumeResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Azure resource ID of the source volume to clone from. Used when sourceType is 'volume'."
+        }
+      },
+      "required": [
+        "sourceType"
+      ]
+    },
     "VolumeProperties": {
       "type": "object",
       "description": "Volume properties",
@@ -5324,6 +6367,98 @@
       "required": [
         "softDeletion"
       ]
+    },
+    "VolumeSnapshotInfo": {
+      "type": "object",
+      "description": "Information about an individual volume snapshot within a volume group snapshot",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the volume snapshot",
+          "readOnly": true
+        },
+        "space": {
+          "$ref": "#/definitions/Space",
+          "description": "Storage space usage of the volume snapshot",
+          "readOnly": true
+        },
+        "provisionedSize": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Provisioned size of the volume, in bytes",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "VolumeSnapshotSource": {
+      "type": "object",
+      "description": "Identifies the specific volume snapshot within a volume group snapshot to restore from",
+      "properties": {
+        "volumeGroupSnapshotResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Azure resource ID of the volume group snapshot containing the desired volume snapshot",
+          "x-ms-mutability": [
+            "create"
+          ]
+        },
+        "volumeSnapshotName": {
+          "type": "string",
+          "description": "Name of the volume snapshot within the volume group snapshot",
+          "x-ms-mutability": [
+            "create"
+          ]
+        }
+      },
+      "required": [
+        "volumeGroupSnapshotResourceId",
+        "volumeSnapshotName"
+      ]
+    },
+    "VolumeSourceType": {
+      "type": "string",
+      "description": "Source type for volume creation",
+      "enum": [
+        "none",
+        "volume",
+        "serialNumber",
+        "snapshot",
+        "recoverableVolume"
+      ],
+      "x-ms-enum": {
+        "name": "VolumeSourceType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "none",
+            "value": "none",
+            "description": "No source; create an empty volume with the specified provisioned size"
+          },
+          {
+            "name": "volume",
+            "value": "volume",
+            "description": "Clone from an existing volume"
+          },
+          {
+            "name": "serialNumber",
+            "value": "serialNumber",
+            "description": "Import a volume by its serial number"
+          },
+          {
+            "name": "snapshot",
+            "value": "snapshot",
+            "description": "Restore from a volume group snapshot"
+          },
+          {
+            "name": "recoverableVolume",
+            "value": "recoverableVolume",
+            "description": "Recover a soft-deleted volume within the same volume group"
+          }
+        ]
+      }
     },
     "VolumeType": {
       "type": "string",

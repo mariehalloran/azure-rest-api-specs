@@ -40,7 +40,12 @@ enum Versions {
   @useDependency(LiftrBase.Storage.Versions.v1_preview)
   v2026_01_01_preview: "2026-01-01-preview",
 
-  @doc("Version 4 preview with ActivateSaas support.")
+  @doc("Version 4 preview with Volume Group Snapshot support.")
+  @useDependency(LiftrBase.Versions.v2026_02_01_preview)
+  @useDependency(LiftrBase.Storage.Versions.v1_preview)
+  v2026_02_01_preview: "2026-02-01-preview",
+
+  @doc("Version 5 preview with ActivateSaas support.")
   @useDependency(LiftrBase.Versions.v2026_03_01_preview)
   @useDependency(LiftrBase.Storage.Versions.v1_preview)
   v2026_03_01_preview: "2026-03-01-preview",
@@ -983,6 +988,21 @@ model VolumeGroupProperties {
   @visibility(Lifecycle.Create)
   sourceVolumeGroupResourceId?: Azure.Core.armResourceIdentifier;
 
+  @added(Versions.v2026_02_01_preview)
+  @doc("Indicates the source type for volume group creation")
+  @visibility(Lifecycle.Create)
+  sourceType?: VolumeGroupSourceType;
+
+  @added(Versions.v2026_02_01_preview)
+  @doc("Azure resource ID of the volume group snapshot to restore from")
+  @visibility(Lifecycle.Create)
+  sourceSnapshotResourceId?: Azure.Core.armResourceIdentifier;
+
+  @added(Versions.v2026_02_01_preview)
+  @doc("Azure resource ID of the soft-deleted volume group to recover")
+  @visibility(Lifecycle.Create)
+  sourceRecoverableVolumeGroupResourceId?: Azure.Core.armResourceIdentifier;
+
   @doc("Performance parameters for the volume group")
   performanceParameters?: PerformanceParameters;
 
@@ -1042,6 +1062,32 @@ model ConnectionParametersResponse {
   iscsi: IscsiConnectionParameters;
 }
 
+@added(Versions.v2026_02_01_preview)
+@doc("Request to overwrite all volumes in a volume group from a snapshot")
+model VolumeGroupOverwriteRequest {
+  @doc("Azure resource ID of the volume group snapshot to restore from")
+  sourceSnapshotResourceId: Azure.Core.armResourceIdentifier;
+}
+
+@added(Versions.v2026_02_01_preview)
+@doc("Request to overwrite a volume's content from another volume or a snapshot")
+model VolumeOverwriteRequest {
+  @doc("Source type for the overwrite operation")
+  sourceType: VolumeSourceType;
+
+  @doc("Azure resource ID of the source volume group. Required when sourceType is 'snapshot' or when the source volume belongs to a different volume group than the target.")
+  sourceVolumeGroupResourceId?: Azure.Core.armResourceIdentifier;
+
+  @doc("Source volume group snapshot and volume snapshot name to restore from. Used when sourceType is 'snapshot'.")
+  sourceVolumeSnapshot?: VolumeSnapshotSource;
+
+  @doc("Serial number of the source volume to overwrite from. Used when sourceType is 'serialNumber'.")
+  sourceSerialNumber?: string;
+
+  @doc("Azure resource ID of the source volume to clone from. Used when sourceType is 'volume'.")
+  sourceVolumeResourceId?: Azure.Core.armResourceIdentifier;
+}
+
 @added(Versions.v2026_01_01_preview)
 @doc("Volume group status information")
 model VolumeGroupStatus {
@@ -1089,6 +1135,15 @@ interface VolumeGroups {
   getStatus(...ResourceInstanceParameters<VolumeGroup>):
     | ArmResponse<VolumeGroupStatus>
     | ErrorResponse;
+
+  @added(Versions.v2026_02_01_preview)
+  @doc("Restores a volume group to a specific snapshot state, including volume structure and data")
+  @Azure.Core.useFinalStateVia("azure-async-operation")
+  overwrite is ArmResourceActionNoResponseContentAsync<
+    VolumeGroup,
+    VolumeGroupOverwriteRequest,
+    LroHeaders = ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
+  >;
 }
 
 @added(Versions.v2026_01_01_preview)
@@ -1101,9 +1156,60 @@ model Volume is ProxyResource<AzureVolumeProperties> {
   @visibility(Lifecycle.Read)
   @path
   @minLength(2)
-  @maxLength(40)
-  @pattern("^[A-Za-z][A-Za-z0-9-]{0,38}[A-Za-z0-9]$")
+  @maxLength(64)
+  @pattern("^[A-Za-z][A-Za-z0-9-]{0,62}[A-Za-z0-9]$")
   name: string;
+}
+
+@added(Versions.v2026_02_01_preview)
+@doc("Source type for volume creation")
+union VolumeSourceType {
+  @doc("No source; create an empty volume with the specified provisioned size")
+  none: "none",
+
+  @doc("Clone from an existing volume")
+  volume: "volume",
+
+  @doc("Import a volume by its serial number")
+  serialNumber: "serialNumber",
+
+  @doc("Restore from a volume group snapshot")
+  snapshot: "snapshot",
+
+  @doc("Recover a soft-deleted volume within the same volume group")
+  recoverableVolume: "recoverableVolume",
+
+  string,
+}
+
+@added(Versions.v2026_02_01_preview)
+@doc("Source type for volume group creation")
+union VolumeGroupSourceType {
+  @doc("No source; create an empty volume group")
+  none: "none",
+
+  @doc("Clone from an existing volume group")
+  volumeGroup: "volumeGroup",
+
+  @doc("Restore from a volume group snapshot")
+  snapshot: "snapshot",
+
+  @doc("Recover a soft-deleted volume group")
+  recoverableVolumeGroup: "recoverableVolumeGroup",
+
+  string,
+}
+
+@added(Versions.v2026_02_01_preview)
+@doc("Identifies the specific volume snapshot within a volume group snapshot to restore from")
+model VolumeSnapshotSource {
+  @doc("Azure resource ID of the volume group snapshot containing the desired volume snapshot")
+  @visibility(Lifecycle.Create)
+  volumeGroupSnapshotResourceId: Azure.Core.armResourceIdentifier;
+
+  @doc("Name of the volume snapshot within the volume group snapshot")
+  @visibility(Lifecycle.Create)
+  volumeSnapshotName: string;
 }
 
 @added(Versions.v2026_01_01_preview)
@@ -1133,6 +1239,31 @@ model AzureVolumeProperties {
   @visibility(Lifecycle.Create)
   sourceVolumeGroupResourceId?: Azure.Core.armResourceIdentifier;
 
+  @added(Versions.v2026_02_01_preview)
+  @doc("Indicates the source type for volume creation")
+  @visibility(Lifecycle.Create)
+  sourceType?: VolumeSourceType;
+
+  @added(Versions.v2026_02_01_preview)
+  @doc("Source volume group snapshot and volume snapshot name to restore from")
+  @visibility(Lifecycle.Create)
+  sourceVolumeSnapshot?: VolumeSnapshotSource;
+
+  @added(Versions.v2026_02_01_preview)
+  @doc("Serial number of the source volume to import")
+  @visibility(Lifecycle.Create)
+  sourceSerialNumber?: string;
+
+  @added(Versions.v2026_02_01_preview)
+  @doc("Azure resource ID of the soft-deleted volume to recover within the same volume group")
+  @visibility(Lifecycle.Create)
+  sourceRecoverableVolumeResourceId?: Azure.Core.armResourceIdentifier;
+
+  @added(Versions.v2026_02_01_preview)
+  @doc("Soft-deletion state of the volume")
+  @visibility(Lifecycle.Read)
+  softDeletion?: DestroyedStateProperties;
+
   @doc("Provisioning state of the resource")
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
@@ -1159,6 +1290,75 @@ interface Volumes {
   delete is ArmResourceDeleteWithoutOkAsync<Volume>;
   @doc("List volumes by volume group")
   listByVolumeGroup is ArmResourceListByParent<Volume>;
+
+  @added(Versions.v2026_02_01_preview)
+  @doc("Overwrites the content of a volume from another volume or a snapshot")
+  @Azure.Core.useFinalStateVia("azure-async-operation")
+  overwrite is ArmResourceActionNoResponseContentAsync<
+    Volume,
+    VolumeOverwriteRequest,
+    LroHeaders = ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
+  >;
+}
+
+@added(Versions.v2026_02_01_preview)
+@doc("Properties of a recoverable volume group")
+model RecoverableVolumeGroupProperties {
+  @doc("Date and time at which the volume group was created, as an RFC 3339 timestamp")
+  @visibility(Lifecycle.Read)
+  createdAt?: utcDateTime;
+
+  @doc("Soft-deletion state of the recoverable volume group")
+  @visibility(Lifecycle.Read)
+  softDeletion?: DestroyedStateProperties;
+
+  @doc("Performance parameters of the volume group")
+  @visibility(Lifecycle.Read)
+  performanceParameters?: PerformanceParameters;
+
+  @doc("Protection parameters of the volume group")
+  @visibility(Lifecycle.Read)
+  protectionParameters?: ProtectionParameters;
+
+  @doc("Storage space usage of the volume group")
+  @visibility(Lifecycle.Read)
+  space?: Space;
+
+  @doc("Provisioning state of the resource")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+@added(Versions.v2026_02_01_preview)
+@doc("A destroyed volume group that is pending eradication")
+@parentResource(StoragePool)
+model RecoverableVolumeGroup
+  is ProxyResource<RecoverableVolumeGroupProperties> {
+  @doc("Name of the recoverable volume group")
+  @segment("recoverableVolumeGroups")
+  @key("recoverableVolumeGroupName")
+  @visibility(Lifecycle.Read)
+  @path
+  @minLength(2)
+  @maxLength(64)
+  @pattern("^[A-Za-z][A-Za-z0-9-]{0,62}[A-Za-z0-9]$")
+  name: string;
+}
+
+@added(Versions.v2026_02_01_preview)
+@armResourceOperations
+interface RecoverableVolumeGroups {
+  @added(Versions.v2026_02_01_preview)
+  @doc("Get a recoverable volume group")
+  get is ArmResourceRead<RecoverableVolumeGroup>;
+
+  @added(Versions.v2026_02_01_preview)
+  @doc("List all recoverable volume groups in a storage pool")
+  listByStoragePool is ArmResourceListByParent<RecoverableVolumeGroup>;
+
+  @added(Versions.v2026_02_01_preview)
+  @doc("Eradicate a recoverable volume group")
+  delete is ArmResourceDeleteWithoutOkAsync<RecoverableVolumeGroup>;
 }
 
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is the correct casing for Software as a Service"
@@ -1215,5 +1415,146 @@ interface SaaSOperationGroup {
     Response = SaaSResourceDetailsResponse,
     Scope = SubscriptionActionScope,
     Parameters = {}
+  >;
+}
+
+@added(Versions.v2026_02_01_preview)
+@doc("Soft-deletion (destroyed) state of a resource")
+model DestroyedStateProperties {
+  @doc("If false, the resource is active; if true, the resource has been destroyed")
+  @visibility(Lifecycle.Read)
+  destroyed: boolean;
+
+  @doc("Date and time at which the resource was destroyed, as an RFC 3339 timestamp")
+  @visibility(Lifecycle.Read)
+  destroyedAt?: utcDateTime;
+
+  @doc("Name of the resource before it was destroyed")
+  @visibility(Lifecycle.Read)
+  previousName?: string;
+
+  @doc("Date at which the resource will be eradicated and impossible to recover, as an RFC 3339 timestamp")
+  @visibility(Lifecycle.Read)
+  eradicationTimestamp?: utcDateTime;
+}
+
+@added(Versions.v2026_02_01_preview)
+@doc("Information about an individual volume snapshot within a volume group snapshot")
+model VolumeSnapshotInfo {
+  @doc("Name of the volume snapshot")
+  @visibility(Lifecycle.Read)
+  name: string;
+
+  @doc("Storage space usage of the volume snapshot")
+  @visibility(Lifecycle.Read)
+  space?: Space;
+
+  @doc("Provisioned size of the volume, in bytes")
+  @visibility(Lifecycle.Read)
+  provisionedSize?: int64;
+}
+
+@added(Versions.v2026_02_01_preview)
+@doc("Properties of a volume group snapshot")
+model VolumeGroupSnapshotProperties {
+  @doc("Azure resource ID of the source snapshot to recover from; omit for a new manual snapshot")
+  @visibility(Lifecycle.Create)
+  sourceSnapshotResourceId?: Azure.Core.armResourceIdentifier;
+
+  @doc("Date and time at which the snapshot was created, as an RFC 3339 timestamp")
+  @visibility(Lifecycle.Read)
+  createdAt?: utcDateTime;
+
+  @doc("Whether the snapshot was created by a protection policy")
+  @visibility(Lifecycle.Read)
+  createdByPolicy?: boolean;
+
+  @doc("Soft-deletion state of the snapshot")
+  @visibility(Lifecycle.Read)
+  softDeletion?: DestroyedStateProperties;
+
+  @doc("Storage space usage of the snapshot")
+  @visibility(Lifecycle.Read)
+  space?: Space;
+
+  @doc("List of individual volume snapshots included in this volume group snapshot; populated on single-get, empty or omitted on list for performance")
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  volumeSnapshots?: VolumeSnapshotInfo[];
+
+  @doc("Provisioning state of the resource")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+@added(Versions.v2026_02_01_preview)
+@doc("A snapshot of a volume group")
+@parentResource(VolumeGroup)
+model VolumeGroupSnapshot is ProxyResource<VolumeGroupSnapshotProperties> {
+  @doc("Name of the volume group snapshot")
+  @segment("snapshots")
+  @key("snapshotName")
+  @visibility(Lifecycle.Read)
+  @path
+  @minLength(1)
+  @maxLength(64)
+  @pattern("^[A-Za-z0-9-]{0,63}[A-Za-z0-9]$")
+  name: string;
+}
+
+@added(Versions.v2026_02_01_preview)
+@doc("Paged list result for volume group snapshots")
+model VolumeGroupSnapshotListResult {
+  @doc("Array of volume group snapshots")
+  @pageItems
+  value: VolumeGroupSnapshot[];
+
+  @doc("URL to fetch the next page of results")
+  nextLink?: url;
+
+  @doc("Number of snapshots in this response page")
+  count?: int32;
+
+  @doc("Total number of snapshots")
+  totalCount?: int32;
+}
+
+@added(Versions.v2026_02_01_preview)
+@armResourceOperations
+interface VolumeGroupSnapshots {
+  @added(Versions.v2026_02_01_preview)
+  @doc("Get a volume group snapshot")
+  get is ArmResourceRead<VolumeGroupSnapshot>;
+
+  @added(Versions.v2026_02_01_preview)
+  @doc("Create a manual snapshot of a volume group, or recover from an existing snapshot by providing sourceSnapshotResourceId")
+  create is ArmResourceCreateOrUpdateAsync<VolumeGroupSnapshot>;
+
+  @added(Versions.v2026_02_01_preview)
+  @doc("Delete a volume group snapshot")
+  delete is ArmResourceDeleteWithoutOkAsync<VolumeGroupSnapshot>;
+
+  @added(Versions.v2026_02_01_preview)
+  @doc("List all snapshots for a given volume group")
+  listByVolumeGroup is ArmResourceListByParent<
+    VolumeGroupSnapshot,
+    Parameters = {
+      @doc("OData filter expression (e.g. filter=substringof('sna', name) and space/unique gt 1000)")
+      @query
+      filter?: string;
+
+      @doc("OData order-by expression (e.g. orderby=name asc)")
+      @query
+      orderby?: string;
+
+      @doc("Maximum number of results to return per page")
+      @query
+      top?: int32;
+
+      @doc("Number of results to skip (page offset)")
+      @query
+      skip?: int32;
+    },
+    Response = ArmResponse<VolumeGroupSnapshotListResult>
   >;
 }
