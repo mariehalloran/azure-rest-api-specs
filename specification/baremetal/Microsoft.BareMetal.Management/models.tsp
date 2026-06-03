@@ -386,13 +386,13 @@ union NextHopType {
   @doc("VNet local")
   VnetLocal: "VnetLocal",
 
-  @doc("Internet")
+  @doc("Route to the internet")
   Internet: "Internet",
 
   @doc("Virtual appliance")
   VirtualAppliance: "VirtualAppliance",
 
-  @doc("None")
+  @doc("No next hop")
   None: "None",
 }
 
