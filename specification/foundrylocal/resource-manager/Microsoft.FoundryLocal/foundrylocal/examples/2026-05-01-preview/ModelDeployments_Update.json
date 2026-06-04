@@ -40,7 +40,25 @@
             "replicas": "3"
           },
           "status": {
-            "state": "Updating"
+            "phase": "Updating",
+            "message": "Rolling out updated configuration.",
+            "endpointUrl": "https://phi-4-deployment.contoso.com/invoke",
+            "readyReplicas": 1,
+            "conditions": [
+              {
+                "type": "Progressing",
+                "status": "True",
+                "reason": "ReplicaSetUpdated",
+                "message": "Scaling to 3 replicas",
+                "lastTransitionTime": "2026-05-20T01:00:00Z"
+              }
+            ],
+            "resolvedModel": {
+              "name": "phi-4",
+              "variant": "cpu-fp16",
+              "image": "mcr.microsoft.com/foundrylocal/phi-4:latest"
+            },
+            "lastObservedAt": "2026-05-20T01:00:00Z"
           }
         },
         "systemData": {

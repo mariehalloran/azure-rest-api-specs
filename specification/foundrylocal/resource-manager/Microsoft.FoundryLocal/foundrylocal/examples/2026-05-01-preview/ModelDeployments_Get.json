@@ -33,15 +33,31 @@
             "resources.limits.memory": "1Gi"
           },
           "status": {
-            "state": "Running",
-            "deploymentReady": "true",
-            "message": "Model deployment is running",
-            "replicas.desired": "1",
-            "replicas.ready": "1",
-            "replicas.available": "1",
-            "internalEndpoint": "http://phi-4-deployment.foundry-local.svc.cluster.local:5000",
-            "resolvedModel.name": "phi-4",
-            "resolvedModel.image": "mcr.microsoft.com/foundrylocal/phi-4:latest"
+            "phase": "Running",
+            "message": "Deployment is healthy and serving traffic.",
+            "endpointUrl": "https://phi-4-deployment.contoso.com/invoke",
+            "readyReplicas": 1,
+            "conditions": [
+              {
+                "type": "Available",
+                "status": "True",
+                "reason": "AllReplicasReady",
+                "message": "1/1 replicas ready",
+                "lastTransitionTime": "2026-05-20T00:01:30Z"
+              },
+              {
+                "type": "Progressing",
+                "status": "True",
+                "reason": "NewReplicaSetAvailable",
+                "lastTransitionTime": "2026-05-20T00:00:00Z"
+              }
+            ],
+            "resolvedModel": {
+              "name": "phi-4",
+              "variant": "cpu-fp16",
+              "image": "mcr.microsoft.com/foundrylocal/phi-4:latest"
+            },
+            "lastObservedAt": "2026-05-20T00:01:30Z"
           }
         },
         "systemData": {
