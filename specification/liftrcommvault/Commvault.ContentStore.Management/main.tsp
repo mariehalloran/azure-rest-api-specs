@@ -46,6 +46,10 @@ enum Versions {
   @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v1_preview")
   @useDependency(LiftrBase.Versions.v1_preview)
   v7_preview: "2026-07-01-preview",
+
+  @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v1_preview")
+  @useDependency(LiftrBase.Versions.v1_preview)
+  v8_preview: "2026-07-03-preview",
 }
 interface Operations extends Azure.ResourceManager.Operations {}
 
@@ -138,6 +142,16 @@ model CloudAccountProperties is BaseResourceProperties {
   @doc("SSO URL for the Commvault Cloud Account")
   @visibility(Lifecycle.Read)
   ssoUrl?: string;
+
+  @doc("The backup administrator principal provided during CCA create. Required on create (enforced by backend), ignored on update.")
+  @added(Versions.v8_preview)
+  @visibility(Lifecycle.Create)
+  backupAdminOnCcaCreate?: EntityInfo;
+
+  @doc("The multi-person authorization (MPA) administrator principal provided during CCA create. Required on create (enforced by backend), ignored on update.")
+  @added(Versions.v8_preview)
+  @visibility(Lifecycle.Create)
+  multiPersonAuthorizationOnCcaCreate?: EntityInfo;
 }
 
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "SaaS operation group"
@@ -1108,4 +1122,107 @@ model RestoreProtectionItemResponse {
   @doc("The jobIds returned from Commvault.")
   @visibility(Lifecycle.Read)
   jobIds: string[];
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Entity Type – represents either a user or a group in Entra ID
+// ──────────────────────────────────────────────────────────────────────────────
+
+@doc("The type of the entity")
+@added(Versions.v8_preview)
+union EntityType {
+  @doc("The entity is an Entra user")
+  User: "User",
+
+  @doc("The entity is an Entra security group")
+  Group: "Group",
+
+  string,
+}
+
+@doc("Information about an Entra entity (user or group) assigned to a role")
+@added(Versions.v8_preview)
+model EntityInfo {
+  @doc("The unique identifier (UUID) of the Entra entity")
+  id?: string;
+
+  @doc("The display name of the Entra entity")
+  displayName?: string;
+
+  @doc("The type of entity - user or group")
+  entityType?: EntityType;
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Role Mapping – singleton child resource of CloudAccount (one per CCA)
+// Stores the mapping of Entra security groups to Commvault roles.
+// Created alongside CCA via ARM template deployment (dependsOn CCA).
+// Liftr translates this JSON contract to the Commvault XML `:roleMapping` API.
+// Pattern reference: Dynatrace MonitoredSubscriptionProperties (@singleton)
+// ──────────────────────────────────────────────────────────────────────────────
+
+@doc("A Commvault Role Mapping Resource. Singleton per Cloud Account - maps Entra security groups to Commvault roles for RBAC enforcement.")
+@parentResource(CloudAccount)
+@singleton("default")
+@added(Versions.v8_preview)
+model RoleMapping is ProxyResource<RoleMappingProperties> {
+  ...ResourceNameParameter<
+    Resource = RoleMapping,
+    KeyName = "roleMappingName",
+    SegmentName = "roleMappings",
+    NamePattern = ""
+  >;
+}
+
+@doc("The properties of Commvault Role Mapping")
+@added(Versions.v8_preview)
+model RoleMappingProperties {
+  @doc("The list of role assignments mapping roles to Entra entities (users and groups)")
+  @Azure.ResourceManager.identifiers(#[])
+  roles?: RoleAssignment[];
+
+  @doc("Provisioning state of the resource.")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ResourceProvisioningState;
+}
+
+@doc("A role assignment mapping a Commvault role to one or more Entra entities (users or groups)")
+@added(Versions.v8_preview)
+model RoleAssignment {
+  @doc("The name of the Commvault role")
+  roleName?: RoleName;
+
+  @doc("The Entra entities (users or groups) assigned to this role")
+  @Azure.ResourceManager.identifiers(#[])
+  entities?: EntityInfo[];
+}
+
+@doc("Supported Commvault role names")
+@added(Versions.v8_preview)
+union RoleName {
+  @doc("Backup Administrator - full access to all resources")
+  BackupAdmin: "BackupAdmin",
+
+  @doc("Backup Operator - can manage resources but cannot delete storage or plans")
+  BackupOperator: "BackupOperator",
+
+  @doc("Backup User - can manage protection groups, read-only on plans and storage")
+  BackupUser: "BackupUser",
+
+  @doc("Security Administrator - can manage CCA enrollment and user management")
+  SecurityAdmin: "SecurityAdmin",
+
+  @doc("MPA Administrator - can authorize critical operations protected by MPA")
+  MultiPersonAuthorization: "MultiPersonAuthorization",
+
+  string,
+}
+
+@armResourceOperations
+@added(Versions.v8_preview)
+interface RoleMappings {
+  get is ArmResourceRead<RoleMapping>;
+  createOrUpdate is ArmResourceCreateOrReplaceSync<RoleMapping>;
+  delete is ArmResourceDeleteSync<RoleMapping>;
+  list is ArmResourceListByParent<RoleMapping>;
 }

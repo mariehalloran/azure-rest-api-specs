@@ -312,6 +312,48 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Sovereign/checkNameAvailability": {
+      "post": {
+        "operationId": "Operations_CheckNameAvailability",
+        "description": "Implements global CheckNameAvailability operations",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The CheckAvailability request",
+            "required": true,
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/CheckNameAvailabilityRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/CheckNameAvailabilityResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Operations_CheckNameAvailability": {
+            "$ref": "./examples/Operations_CheckNameAvailability.json"
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/providers/Microsoft.Sovereign/landingZoneAccounts": {
       "get": {
         "operationId": "LandingZoneAccountOperations_ListBySubscription",
@@ -442,6 +484,51 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Sovereign/locations/{location}/checkNameAvailability": {
+      "post": {
+        "operationId": "Operations_CheckNameAvailabilityLocal",
+        "description": "Implements local CheckNameAvailability operations",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The CheckAvailability request",
+            "required": true,
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/CheckNameAvailabilityRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/CheckNameAvailabilityResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Operations_CheckNameAvailabilityLocal": {
+            "$ref": "./examples/Operations_CheckNameAvailabilityLocal.json"
+          }
         }
       }
     },
@@ -2154,6 +2241,62 @@
           }
         }
       }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sovereign/sovereignViews/{sovereignViewName}/filterValues": {
+      "post": {
+        "operationId": "SovereignViewOperations_FilterValues",
+        "tags": [
+          "SovereignViewOperations"
+        ],
+        "description": "Gets filter values for the Sovereign View resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "sovereignViewName",
+            "in": "path",
+            "description": "The name of the Sovereign View resource.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,64}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SovereignViewFilterValuesRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SovereignViewFilterValuesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SovereignViewOperations_FilterValues": {
+            "$ref": "./examples/SovereignViewOperations_FilterValues.json"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -2267,7 +2410,8 @@
         "DataResidency",
         "EncryptionAtRest",
         "EncryptionInTransit",
-        "EncryptionInUse"
+        "EncryptionInUse",
+        "ControlledNetworkExposure"
       ],
       "x-ms-enum": {
         "name": "ComplianceDimension",
@@ -2292,6 +2436,11 @@
             "name": "EncryptionInUse",
             "value": "EncryptionInUse",
             "description": "Encryption in use compliance dimension."
+          },
+          {
+            "name": "ControlledNetworkExposure",
+            "value": "ControlledNetworkExposure",
+            "description": "Controlled network exposure compliance dimension."
           }
         ]
       }
@@ -2494,6 +2643,36 @@
             "name": "zh_TW",
             "value": "zh-TW",
             "description": "Chinese (Traditional)"
+          }
+        ]
+      }
+    },
+    "DataState": {
+      "type": "string",
+      "description": "The state of the report data.",
+      "enum": [
+        "Processing",
+        "Processed",
+        "Error"
+      ],
+      "x-ms-enum": {
+        "name": "DataState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Processing",
+            "value": "Processing",
+            "description": "The data is still being processed and is not yet available."
+          },
+          {
+            "name": "Processed",
+            "value": "Processed",
+            "description": "The data is processed and available."
+          },
+          {
+            "name": "Error",
+            "value": "Error",
+            "description": "An error occurred while processing the data."
           }
         ]
       }
@@ -3553,6 +3732,9 @@
       "enum": [
         "Compliant",
         "NonCompliant",
+        "Conflict",
+        "NotApplicable",
+        "NotEvaluated",
         "Others"
       ],
       "x-ms-enum": {
@@ -3570,9 +3752,24 @@
             "description": "The resource is not compliant with respect to the given policy."
           },
           {
+            "name": "Conflict",
+            "value": "Conflict",
+            "description": "The resource is in a conflict with respect to the given policy."
+          },
+          {
+            "name": "NotApplicable",
+            "value": "NotApplicable",
+            "description": "The resource is in a state that is not applicable to the given policy."
+          },
+          {
+            "name": "NotEvaluated",
+            "value": "NotEvaluated",
+            "description": "The resource has not been evaluated for compliance with respect to the given policy."
+          },
+          {
             "name": "Others",
             "value": "Others",
-            "description": "The resource is in a compliance state other than compliant or non-compliant."
+            "description": "The resource is in a compliance state other than Compliant, NonCompliant, Conflict, NotApplicable, or NotEvaluated."
           }
         ]
       }
@@ -3694,10 +3891,6 @@
             ]
           }
         },
-        "policyState": {
-          "$ref": "#/definitions/PolicyComplianceState",
-          "description": "The compliance state of the resource for the policy assignment."
-        },
         "evaluatedAt": {
           "type": "string",
           "format": "date-time",
@@ -3706,8 +3899,7 @@
       },
       "required": [
         "policyInitiativeId",
-        "policyAssignmentId",
-        "policyState"
+        "policyAssignmentId"
       ]
     },
     "SovereignViewComplianceDetailResource": {
@@ -3717,10 +3909,7 @@
         "resourceId": {
           "type": "string",
           "format": "arm-id",
-          "description": "The resource identifier.",
-          "x-ms-arm-id-details": {
-            "allowedResources": []
-          }
+          "description": "The resource identifier."
         },
         "location": {
           "type": "string",
@@ -3787,7 +3976,7 @@
       "description": "The filters to apply when querying for compliance details.",
       "properties": {
         "field": {
-          "type": "string",
+          "$ref": "#/definitions/SovereignViewFilterField",
           "description": "The field to filter on."
         },
         "operator": {
@@ -3815,12 +4004,14 @@
         "top": {
           "type": "integer",
           "format": "int32",
-          "description": "The maximum number of resources to return. Used for pagination."
+          "description": "The maximum number of resources to return. Used for pagination.",
+          "minimum": 1
         },
         "skip": {
           "type": "integer",
           "format": "int32",
-          "description": "The resources to skip when the results are returned. Used for pagination."
+          "description": "The resources to skip when the results are returned. Used for pagination.",
+          "minimum": 0
         },
         "complianceDimensions": {
           "type": "array",
@@ -3850,6 +4041,13 @@
         "search": {
           "$ref": "#/definitions/SovereignViewComplianceDetailsSearch",
           "description": "The search to apply when querying for compliance details."
+        },
+        "sortingOrder": {
+          "type": "array",
+          "description": "The order of sorting to apply when querying for compliance details. Works with policy states.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -3860,6 +4058,14 @@
       "type": "object",
       "description": "The response for the sovereign view compliance details action.",
       "properties": {
+        "dataState": {
+          "$ref": "#/definitions/DataState",
+          "description": "State indicating whether the data is processed or still being processed."
+        },
+        "error": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details when dataState is Error."
+        },
         "lastEvaluated": {
           "type": "string",
           "format": "date-time",
@@ -3868,7 +4074,8 @@
         "totalResources": {
           "type": "integer",
           "format": "int32",
-          "description": "Total number of resources for the sovereign view."
+          "description": "Total number of resources for the sovereign view.",
+          "minimum": 0
         },
         "resources": {
           "type": "array",
@@ -3882,9 +4089,8 @@
         }
       },
       "required": [
-        "lastEvaluated",
-        "totalResources",
-        "resources"
+        "dataState",
+        "lastEvaluated"
       ]
     },
     "SovereignViewComplianceDetailsSearch": {
@@ -3958,22 +4164,44 @@
         "totalResources": {
           "type": "integer",
           "format": "int32",
-          "description": "Total number of resources for the sovereign view."
+          "description": "Total number of resources for the sovereign view.",
+          "minimum": 0
         },
         "compliantCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of compliant resources for the sovereign view."
+          "description": "Number of resources in compliant state for the sovereign view.",
+          "minimum": 0
         },
         "nonCompliantCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of non-compliant resources for the sovereign view."
+          "description": "Number of resources in non-compliant state for the sovereign view.",
+          "minimum": 0
+        },
+        "conflictCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of resources in conflict state for the sovereign view.",
+          "minimum": 0
+        },
+        "notApplicableCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of resources in not applicable state for the sovereign view.",
+          "minimum": 0
+        },
+        "notEvaluatedCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of resources in not evaluated state for the sovereign view.",
+          "minimum": 0
         },
         "othersCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of resources in other compliance states for the sovereign view."
+          "description": "Number of resources in other compliance states for the sovereign view.",
+          "minimum": 0
         }
       },
       "required": [
@@ -3981,6 +4209,9 @@
         "totalResources",
         "compliantCount",
         "nonCompliantCount",
+        "conflictCount",
+        "notApplicableCount",
+        "notEvaluatedCount",
         "othersCount"
       ]
     },
@@ -3991,37 +4222,62 @@
         "totalManagementGroups": {
           "type": "integer",
           "format": "int32",
-          "description": "Total number of management groups for the sovereign view."
+          "description": "Total number of management groups for the sovereign view.",
+          "minimum": 0
         },
         "totalSubscriptions": {
           "type": "integer",
           "format": "int32",
-          "description": "Total number of subscriptions for the sovereign view."
+          "description": "Total number of subscriptions for the sovereign view.",
+          "minimum": 0
         },
         "totalResourceGroups": {
           "type": "integer",
           "format": "int32",
-          "description": "Total number of resource groups for the sovereign view."
+          "description": "Total number of resource groups for the sovereign view.",
+          "minimum": 0
         },
         "totalResources": {
           "type": "integer",
           "format": "int32",
-          "description": "Total number of resources for the sovereign view."
+          "description": "Total number of resources for the sovereign view.",
+          "minimum": 0
         },
         "compliantCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of compliant resources for the sovereign view."
+          "description": "Number of resources in compliant state for the sovereign view.",
+          "minimum": 0
         },
         "nonCompliantCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of non-compliant resources for the sovereign view."
+          "description": "Number of resources in non-compliant state for the sovereign view.",
+          "minimum": 0
+        },
+        "conflictCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of resources in conflict state for the sovereign view.",
+          "minimum": 0
+        },
+        "notApplicableCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of resources in not applicable state for the sovereign view.",
+          "minimum": 0
+        },
+        "notEvaluatedCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of resources in not evaluated state for the sovereign view.",
+          "minimum": 0
         },
         "othersCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of resources in other compliance states for the sovereign view."
+          "description": "Number of resources in other compliance states for the sovereign view.",
+          "minimum": 0
         }
       },
       "required": [
@@ -4031,6 +4287,9 @@
         "totalResources",
         "compliantCount",
         "nonCompliantCount",
+        "conflictCount",
+        "notApplicableCount",
+        "notEvaluatedCount",
         "othersCount"
       ]
     },
@@ -4038,6 +4297,14 @@
       "type": "object",
       "description": "The response for the sovereign view compliance summary action.",
       "properties": {
+        "dataState": {
+          "$ref": "#/definitions/DataState",
+          "description": "State indicating whether the data is processed or still being processed."
+        },
+        "error": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details when dataState is Error."
+        },
         "resourceId": {
           "type": "string",
           "format": "arm-id",
@@ -4071,10 +4338,8 @@
         }
       },
       "required": [
-        "resourceId",
-        "lastEvaluated",
-        "overallSummary",
-        "dimensionSummaries"
+        "dataState",
+        "lastEvaluated"
       ]
     },
     "SovereignViewDimensionDetail": {
@@ -4104,6 +4369,192 @@
         "dimension",
         "state",
         "complianceDetails"
+      ]
+    },
+    "SovereignViewFilterField": {
+      "type": "string",
+      "description": "Supported filter fields for Sovereign View compliance details.",
+      "enum": [
+        "Subscription",
+        "ResourceGroup",
+        "ResourceName",
+        "ResourceType",
+        "Region",
+        "EncryptionInTransit",
+        "DataResidency",
+        "EncryptionAtRest",
+        "EncryptionInUse",
+        "ControlledNetworkExposure"
+      ],
+      "x-ms-enum": {
+        "name": "SovereignViewFilterField",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "subscription",
+            "value": "Subscription",
+            "description": "Filter by subscription."
+          },
+          {
+            "name": "resourceGroup",
+            "value": "ResourceGroup",
+            "description": "Filter by resource group."
+          },
+          {
+            "name": "resourceName",
+            "value": "ResourceName",
+            "description": "Filter by resource name."
+          },
+          {
+            "name": "resourceType",
+            "value": "ResourceType",
+            "description": "Filter by resource type."
+          },
+          {
+            "name": "region",
+            "value": "Region",
+            "description": "Filter by region."
+          },
+          {
+            "name": "encryptionInTransit",
+            "value": "EncryptionInTransit",
+            "description": "Filter by Encryption In Transit compliance dimension."
+          },
+          {
+            "name": "dataResidency",
+            "value": "DataResidency",
+            "description": "Filter by Data Residency compliance dimension."
+          },
+          {
+            "name": "encryptionAtRest",
+            "value": "EncryptionAtRest",
+            "description": "Filter by Encryption At Rest compliance dimension."
+          },
+          {
+            "name": "encryptionInUse",
+            "value": "EncryptionInUse",
+            "description": "Filter by Encryption In Use compliance dimension."
+          },
+          {
+            "name": "controlledNetworkExposure",
+            "value": "ControlledNetworkExposure",
+            "description": "Filter by Controlled Network Exposure compliance dimension."
+          }
+        ]
+      }
+    },
+    "SovereignViewFilterValueItem": {
+      "type": "object",
+      "description": "A filter value item with the associated count.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "The value for the filter."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The display name for the filter value."
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The count of resources that match the filter value.",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "value",
+        "count"
+      ]
+    },
+    "SovereignViewFilterValuesRequest": {
+      "type": "object",
+      "description": "The request for the sovereign view filter values action.",
+      "properties": {
+        "requestedFilter": {
+          "$ref": "#/definitions/SovereignViewFilterField",
+          "description": "The filter field for which values are requested."
+        },
+        "filters": {
+          "type": "array",
+          "description": "Optional filters to apply before returning filter values.",
+          "items": {
+            "$ref": "#/definitions/SovereignViewComplianceDetailsFilters"
+          },
+          "x-ms-identifiers": [
+            "field",
+            "operator"
+          ]
+        },
+        "searchTerm": {
+          "type": "string",
+          "description": "Optional search term applied to the requested filter field."
+        }
+      },
+      "required": [
+        "requestedFilter"
+      ]
+    },
+    "SovereignViewFilterValuesResponse": {
+      "type": "object",
+      "description": "The response for the sovereign view filter values action.",
+      "properties": {
+        "dataState": {
+          "$ref": "#/definitions/DataState",
+          "description": "State indicating whether the data is processed or still being processed."
+        },
+        "error": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details when dataState is Error."
+        },
+        "requestedFilter": {
+          "$ref": "#/definitions/SovereignViewFilterField",
+          "description": "The filter field for which values are returned."
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total number of values available for the requested filter.",
+          "minimum": 0
+        },
+        "values": {
+          "type": "array",
+          "description": "The list of filter values and their counts.",
+          "items": {
+            "$ref": "#/definitions/SovereignViewFilterValueItem"
+          },
+          "x-ms-identifiers": [
+            "value"
+          ]
+        }
+      },
+      "required": [
+        "dataState"
+      ]
+    },
+    "SovereignViewManagementGroupScope": {
+      "type": "object",
+      "description": "A management group scope item for the sovereign view.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "The resource identifier of the management group.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Management/managementGroups"
+              }
+            ]
+          }
+        },
+        "name": {
+          "type": "string",
+          "description": "The management group name. This is a purely client side label that the service does not validate, normalize, or use for any lookup."
+        }
+      },
+      "required": [
+        "id"
       ]
     },
     "SovereignViewPolicyInitiativeDetail": {
@@ -4140,7 +4591,8 @@
                 }
               ]
             }
-          }
+          },
+          "readOnly": true
         },
         "policyVersion": {
           "type": "string",
@@ -4259,31 +4711,35 @@
       "properties": {
         "managementGroups": {
           "type": "array",
-          "description": "The resource identifiers of the management groups in scope.",
+          "description": "The management groups in scope.",
           "items": {
-            "type": "string",
-            "format": "arm-id",
-            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
-            "x-ms-arm-id-details": {
-              "allowedResources": [
-                {
-                  "type": "Microsoft.Management/managementGroups"
-                }
-              ]
-            }
+            "$ref": "#/definitions/SovereignViewManagementGroupScope"
           }
         },
         "subscriptions": {
           "type": "array",
-          "description": "The subscription ids in scope.",
+          "description": "The subscriptions in scope.",
           "items": {
-            "$ref": "#/definitions/Azure.Core.uuid"
+            "$ref": "#/definitions/SovereignViewSubscriptionScope"
           }
+        }
+      }
+    },
+    "SovereignViewSubscriptionScope": {
+      "type": "object",
+      "description": "A subscription scope item for the sovereign view.",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The subscription id."
+        },
+        "name": {
+          "type": "string",
+          "description": "The subscription name. This is a purely client side label that the service does not validate, normalize, or use for any lookup."
         }
       },
       "required": [
-        "managementGroups",
-        "subscriptions"
+        "id"
       ]
     },
     "Tags": {
