@@ -28,6 +28,7 @@ union CheckNameAvailabilityReason {
 }
 
 /** Provisioning state of the resource. */
+@Azure.Core.lroStatus
 union ProvisioningState {
   string,
 
@@ -250,6 +251,7 @@ union AddOnPackageName {
 /**
  * The provisioning state of private link group ID.
  */
+@Azure.Core.lroStatus
 union GroupIdProvisioningState {
   string,
 
@@ -267,6 +269,7 @@ union GroupIdProvisioningState {
  * The current provisioning state.
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Preserving existing wire contract: legacy preview does not include Canceled."
+@Azure.Core.lroStatus
 union PrivateEndpointConnectionProxyProvisioningState {
   string,
 
