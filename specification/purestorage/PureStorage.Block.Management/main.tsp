@@ -500,7 +500,7 @@ model PlatformConsoleActivationCode {
 @added(Versions.v2026_05_01_preview)
 @doc("SSH host key provided by the server for host verification")
 model SshHostKey {
-  @doc("SSH key algorithm type (e.g. ssh-ed25519, ecdsa-sha2-nistp256)")
+  @doc("SSH key algorithm type")
   type: string;
 
   @doc("Fingerprint algorithm used (e.g. SHA256)")
