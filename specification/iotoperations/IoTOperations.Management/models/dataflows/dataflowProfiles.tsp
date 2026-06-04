@@ -59,12 +59,81 @@ model DataflowProfileProperties {
 @doc("DataflowProfile Diagnostics properties")
 model ProfileDiagnostics {
   ...MetricProperties;
+
+  /**
+   * Profile-wide debugging configuration shared by all dataflow graphs under this profile.
+   * Defines where diagnostic events are published and how often they are sampled.
+   * When omitted, no diagnostic infrastructure is created and any graph-level debugging opt-in is ignored.
+   * Updates to this block take effect on running pods without triggering a restart.
+   */
+  @added(Versions.`2026-06-01-preview`)
+  debuggingSettings?: ProfileDebuggingSettings;
 }
 
-/** DataflowProfile status. */
+/**
+ * Profile-wide settings controlling how diagnostic events are emitted from dataflow graphs.
+ * Individual graphs opt in to debugging; this block defines the shared destination and sampling policy they use.
+ */
+@added(Versions.`2026-06-01-preview`)
+model ProfileDebuggingSettings {
+  /** Destination where diagnostic events for opted-in graphs are published. Required when debugging is configured. */
+  destinationSettings: ProfileDebuggingDestinationSettings;
+
+  /**
+   * Sampling policy that determines which messages produce diagnostic events as they traverse the pipeline.
+   * When absent, no sampling-based diagnostics are emitted.
+   */
+  samplingPolicy?: ProfileDebuggingSamplingPolicy;
+}
+
+/** Destination configuration for diagnostic events emitted by debugging-enabled dataflow graphs. */
+@added(Versions.`2026-06-01-preview`)
+model ProfileDebuggingDestinationSettings {
+  /**
+   * Name of a DataflowEndpoint resource that diagnostic events are published to.
+   * Only MQTT endpoints are supported in the initial release; the reference is rejected with an InvalidDataflow error otherwise.
+   * Each event is published to the topic `diagnostics/{pipeline-name}` derived at publish time.
+   */
+  endpointRef: string;
+}
+
+/**
+ * Sampling policy that selects which messages flowing through a dataflow graph are tagged for diagnostics.
+ * Tagged messages carry a correlation ID that links every diagnostic event emitted during their traversal.
+ * NOTE - only the settings property matching `method` is allowed per entry.
+ */
+@added(Versions.`2026-06-01-preview`)
+model ProfileDebuggingSamplingPolicy {
+  /** The sampling method. */
+  method: ProfileDebuggingSamplingMethod;
+
+  /** Settings controlling the count-based sampling cadence. */
+  countSettings?: ProfileDebuggingCountSettings;
+}
+
+/** Supported sampling strategies for selecting messages to diagnose. */
+@added(Versions.`2026-06-01-preview`)
+union ProfileDebuggingSamplingMethod {
+  string,
+
+  /** Tag every Nth message flowing through the graph for diagnostics. */
+  Count: "Count",
+}
+
+/** Settings controlling the cadence of count-based diagnostic sampling. */
+@added(Versions.`2026-06-01-preview`)
+model ProfileDebuggingCountSettings {
+  /**
+   * Emit diagnostic events for every Nth message processed by the graph (e.g. 100 emits diagnostics for one out of every 100 messages).
+   */
+  @minValue(1)
+  nth: int64;
+}
+
+/** Read-only runtime status reported by the service for a DataflowProfile. */
 @added(Versions.`2025-12-01-preview`)
 model DataflowProfileStatus {
-  /** The health state of the DataflowProfile. */
+  /** Aggregated health state of the DataflowProfile and the resources it manages. */
   @visibility(Lifecycle.Read)
   healthState?: ResourceHealthStatus;
 }
