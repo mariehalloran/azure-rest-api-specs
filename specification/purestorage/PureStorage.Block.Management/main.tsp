@@ -1101,8 +1101,8 @@ model Volume is ProxyResource<AzureVolumeProperties> {
   @visibility(Lifecycle.Read)
   @path
   @minLength(2)
-  @maxLength(40)
-  @pattern("^[A-Za-z][A-Za-z0-9-]{0,38}[A-Za-z0-9]$")
+  @maxLength(64)
+  @pattern("^[A-Za-z][A-Za-z0-9-]{0,62}[A-Za-z0-9]$")
   name: string;
 }
 
