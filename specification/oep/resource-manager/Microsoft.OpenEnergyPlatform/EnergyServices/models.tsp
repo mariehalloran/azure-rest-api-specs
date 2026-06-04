@@ -266,6 +266,7 @@ union GroupIdProvisioningState {
 /**
  * The current provisioning state.
  */
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Preserving existing wire contract: legacy preview does not include Canceled."
 union PrivateEndpointConnectionProxyProvisioningState {
   string,
 
@@ -755,6 +756,12 @@ model PrivateEndpointConnectionProxyProperties {
    * Operation status.
    */
   status?: string;
+
+  /**
+   * The provisioning state of the private endpoint connection proxy resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: PrivateEndpointConnectionProxyProvisioningState;
 }
 
 /**

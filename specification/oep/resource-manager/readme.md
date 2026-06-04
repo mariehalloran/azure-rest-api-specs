@@ -165,12 +165,18 @@ input-file:
 suppressions:
   - code: ProvisioningStateMustBeReadOnly
     from: oep.json
+    where:
+      - $.definitions.DataPartitionProperties.properties.provisioningState
+      - $.definitions.EnergyServiceProperties.properties.provisioningState
+      - $.definitions.GroupInformationProperties.properties.provisioningState
     reason: "provisioningState properties are marked read-only in TypeSpec via @visibility(Lifecycle.Read), and the emitter outputs readOnly=true as a sibling of $ref. Per the JSON Reference spec, sibling keywords of $ref are ignored by Swagger 2.0 parsers, so Spectral cannot detect the readOnly flag. The properties are correctly read-only on the wire. Related issue - https://github.com/Azure/azure-openapi-validator/issues/637"
   - code: LroLocationHeader
     from: oep.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OpenEnergyPlatform/energyServices/{resourceName}"].patch
     reason: "The PATCH on EnergyService uses an existing async pattern that returns Azure-AsyncOperation and Retry-After headers but no Location header. This wire contract predates the rule and is already suppressed at the TypeSpec level for the same operation."
   - code: ProvisioningStateSpecifiedForLROPut
     from: oep.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OpenEnergyPlatform/energyServices/{resourceName}/privateEndpointConnectionProxies/{privateEndpointConnectionProxyId}"].put
     reason: "PrivateEndpointConnectionProxies is an internal RPaaS-only DO NOT USE API consumed by the Network Resource Provider. Its 201 response intentionally omits provisioningState from the resource properties. Already suppressed at the TypeSpec level on the same model."
 ```
 

@@ -2261,8 +2261,50 @@
         "status": {
           "type": "string",
           "description": "Operation status."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/PrivateEndpointConnectionProxyProvisioningState",
+          "description": "The provisioning state of the private endpoint connection proxy resource.",
+          "readOnly": true
         }
       }
+    },
+    "PrivateEndpointConnectionProxyProvisioningState": {
+      "type": "string",
+      "description": "The current provisioning state.",
+      "enum": [
+        "Succeeded",
+        "Creating",
+        "Deleting",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "PrivateEndpointConnectionProxyProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "The private endpoint connection proxy has been successfully provisioned."
+          },
+          {
+            "name": "Creating",
+            "value": "Creating",
+            "description": "The private endpoint connection proxy is being created."
+          },
+          {
+            "name": "Deleting",
+            "value": "Deleting",
+            "description": "The private endpoint connection proxy is being deleted."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Provisioning of the private endpoint connection proxy failed."
+          }
+        ]
+      },
+      "readOnly": true
     },
     "PrivateLinkResourceListResult": {
       "type": "object",
