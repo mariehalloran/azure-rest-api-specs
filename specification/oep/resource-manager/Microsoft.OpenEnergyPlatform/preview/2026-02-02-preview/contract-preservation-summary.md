@@ -158,7 +158,7 @@ body — this is a correctness fix, not a contract change.
 `ProvisioningStateSpecifiedForLROPut` is suppressed in `readme.md` with that
 justification. **Wire impact: NONE for external customers.**
 
-**Addendum (post-RPaaS review, comment #4 from `razvanbadea-msft`):** the
+**Addendum (post-RPaaS review, comment #4):** the
 `provisioningState` property was inadvertently dropped during migration and has
 been restored on `PrivateEndpointConnectionProxyProperties` with
 `@visibility(Lifecycle.Read)`. This produces 2 additional
