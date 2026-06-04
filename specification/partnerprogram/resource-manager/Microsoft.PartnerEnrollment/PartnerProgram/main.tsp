@@ -29,6 +29,7 @@ model MaicppProgram is ProxyResource<MaicppProgramProperties> {
   @doc("The name of the MaicppProgram resource. Always `default` because this is a singleton resource.")
   @key("maicppProgramName")
   @segment("maicppprograms")
+  @pattern("^default$")
   @path
   name: string;
 }
@@ -49,6 +50,10 @@ union EnrollmentStatus {
 
 @doc("Details of the MaicppProgram.")
 model MaicppProgramProperties {
+  @visibility(Lifecycle.Read)
+  @doc("Provisioning state of the resource.")
+  provisioningState?: ResourceProvisioningState;
+
   @visibility(Lifecycle.Read)
   @doc("Identifier of the partner program. Populated by the service on create.")
   programId?: string;
