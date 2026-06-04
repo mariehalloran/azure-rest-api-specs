@@ -1966,7 +1966,6 @@ model AzureBlobStorageSinkConnectorServiceInfo
   /**
    * Azure Blob Storage Account Key
    */
-  @secret
   storageAccountKey?: string;
 
   /**
@@ -2021,7 +2020,6 @@ model AzureCosmosDBSinkConnectorServiceInfo
   /**
    * Azure Cosmos Database Master Key
    */
-  @secret
   cosmosMasterKey?: string;
 
   /**
@@ -2065,7 +2063,6 @@ model AzureCosmosDBSourceConnectorServiceInfo
   /**
    * Azure Cosmos Database Master Key
    */
-  @secret
   cosmosMasterKey?: string;
 
   /**
@@ -2118,7 +2115,6 @@ model AzureSynapseAnalyticsSinkConnectorServiceInfo
   /**
    * Azure Synapse SQL login details
    */
-  @secret
   synapseSqlPassword?: string;
 
   /**
@@ -2154,13 +2150,11 @@ model KafkaAzureBlobStorageSinkConnectorInfo extends PartnerInfoBase {
   /**
    * Kafka API Key
    */
-  @secret
   apiKey?: string;
 
   /**
    * Kafka API Key Secret
    */
-  @secret
   apiSecret?: string;
 
   /**
@@ -2227,7 +2221,6 @@ model KafkaAzureBlobStorageSourceConnectorInfo extends PartnerInfoBase {
   /**
    * Kafka API Key
    */
-  @secret
   apiKey?: string;
 
   /**
@@ -2291,13 +2284,11 @@ model KafkaAzureCosmosDBSinkConnectorInfo extends PartnerInfoBase {
   /**
    * Kafka API Key
    */
-  @secret
   apiKey?: string;
 
   /**
    * Kafka API Key Secret
    */
-  @secret
   apiSecret?: string;
 
   /**
@@ -2365,7 +2356,6 @@ model KafkaAzureCosmosDBSourceConnectorInfo extends PartnerInfoBase {
   /**
    * Kafka API Key
    */
-  @secret
   apiKey?: string;
 
   /**
@@ -2428,13 +2418,11 @@ model KafkaAzureSynapseAnalyticsSinkConnectorInfo extends PartnerInfoBase {
   /**
    * Kafka API Key
    */
-  @secret
   apiKey?: string;
 
   /**
    * Kafka API Key Secret
    */
-  @secret
   apiSecret?: string;
 
   /**
