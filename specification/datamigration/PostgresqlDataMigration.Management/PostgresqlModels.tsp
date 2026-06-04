@@ -180,8 +180,11 @@ union MigrationState {
   @doc("Migration is being cancelled")
   Cancelling: "Cancelling",
 
-  @doc("Cutover is in progress")
-  CutoverInProgress: "CutoverInProgress",
+  @doc("Waiting for cutover trigger")
+  WaitingForCutover: "WaitingForCutover",
+
+  @doc("Post-cutover replication catch-up is in progress")
+  PostCutoverReplicationCatchUp: "PostCutoverReplicationCatchUp",
 }
 
 @doc("The type of migration operation.")
@@ -453,6 +456,19 @@ model DatabaseSummary {
   #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "No identifier properties for this array"
   @doc("Errors at database scope")
   errors: MigrationError[];
+
+  @doc("Change data capture (CDC) status for online replication.")
+  @visibility(Lifecycle.Read)
+  changeDataCapture?: ChangeDataCapture;
+}
+
+@doc("Change data capture replication status during online migration.")
+model ChangeDataCapture {
+  @doc("Time-based replication lag in seconds between source and target.")
+  replicationLagInSeconds?: int32;
+
+  @doc("WAL-based replication lag in bytes between source and target.")
+  replicationLagInBytes?: int64;
 }
 
 @doc("Per-schema migration status.")
