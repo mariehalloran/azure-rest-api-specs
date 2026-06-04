@@ -120,6 +120,10 @@ model CopilotSettingsProperties {
   @doc("Boolean indicating if role-based access control is enabled for copilot in this tenant.")
   accessControlEnabled: boolean;
 
+  /** The agent mode configuration properties. */
+  @added(Versions.v2025_09_10_preview)
+  agentMode?: AgentModeProperties;
+
   @added(Versions.v2025_08_01_preview)
   @doc("The setting for Bring Your Own Storage (BYOS) for copilot in this tenant. If set, copilot will use specified cosmos DB account for storing copilot chat data.")
   cosmosResourceId?: Azure.Core.armResourceIdentifier<[
@@ -146,8 +150,4 @@ model CopilotSettingsProperties {
   @doc("The status of the last provisioning operation performed on the resource.")
   @visibility(Lifecycle.Read)
   provisioningState?: ResourceProvisioningState;
-
-  /** The agent mode configuration properties. */
-  @added(Versions.v2025_09_10_preview)
-  agentMode?: AgentModeProperties;
 }

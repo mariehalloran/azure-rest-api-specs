@@ -486,6 +486,10 @@
           "type": "boolean",
           "description": "Boolean indicating if role-based access control is enabled for copilot in this tenant."
         },
+        "agentMode": {
+          "$ref": "#/definitions/AgentModeProperties",
+          "description": "The agent mode configuration properties."
+        },
         "cosmosResourceId": {
           "type": "string",
           "format": "arm-id",
@@ -506,10 +510,6 @@
           "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "The status of the last provisioning operation performed on the resource.",
           "readOnly": true
-        },
-        "agentMode": {
-          "$ref": "#/definitions/AgentModeProperties",
-          "description": "The agent mode configuration properties."
         }
       },
       "required": [
@@ -523,6 +523,10 @@
         "accessControlEnabled": {
           "type": "boolean",
           "description": "Boolean indicating if role-based access control is enabled for copilot in this tenant."
+        },
+        "agentMode": {
+          "$ref": "#/definitions/AgentModePropertiesUpdate",
+          "description": "The agent mode configuration properties."
         },
         "cosmosResourceId": {
           "type": "string",
@@ -539,10 +543,6 @@
         "agentSettings": {
           "$ref": "#/definitions/CopilotAgentSettings",
           "description": "Agent settings for this tenant, including GA/preview enablement and per-agent overrides."
-        },
-        "agentMode": {
-          "$ref": "#/definitions/AgentModePropertiesUpdate",
-          "description": "The agent mode configuration properties."
         }
       }
     },
