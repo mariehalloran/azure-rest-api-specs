@@ -43,6 +43,12 @@ suppressions:
     reason: The resource provider name 'PureStorage.Block' cannot have 'Microsoft' in it as it is a Azure Native ISV service`.
   - code: OperationIdNounVerb
     reason: Volumes and VolumeGroups have parent child relationship so this is expected. It is False positive.
+  - code: GetCollectionOnlyHasValueAndNextLink
+    reason: VolumeGroupSnapshotListResult intentionally includes count and totalCount pagination metadata fields required by the service API.
+  - code: PostResponseCodes
+    reason: VolumeGroups_Overwrite and Volumes_Overwrite are async LRO POST actions using azure-async-operation polling. The 204 final state is returned by the polling endpoint, not the original POST URL, consistent with the existing enableAvsConnection/disableAvsConnection pattern in this spec.
+  - code: XmsPageableForListCalls
+    reason: Backend does not support nextLink-based pagination for list operations. Results are returned in a single response.
 ```
 
 ### Tag: package-2026-03-01-preview
