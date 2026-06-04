@@ -158,6 +158,26 @@ body — this is a correctness fix, not a contract change.
 `ProvisioningStateSpecifiedForLROPut` is suppressed in `readme.md` with that
 justification. **Wire impact: NONE for external customers.**
 
+**Addendum (post-RPaaS review, comment #4 from `razvanbadea-msft`):** the
+`provisioningState` property was inadvertently dropped during migration and has
+been restored on `PrivateEndpointConnectionProxyProperties` with
+`@visibility(Lifecycle.Read)`. This produces 2 additional
+`1029 - ReadonlyPropertyChanged` findings (raising the breaking-change job from
+88 → 90 errors), both of which are direct, expected consequences of restoring
+the property and marking it correctly read-only:
+
+| # | Path | Old → New |
+|---|---|---|
+| I.1 | `definitions.PrivateEndpointConnectionProxyProperties.properties.provisioningState` | `readOnly: false → true` (property level) |
+| I.2 | `definitions.PrivateEndpointConnectionProxyProvisioningState` | `readOnly: false → true` (definition level — emitter consolidates `readOnly` onto the union when every usage is read-only) |
+
+**SDK / client impact: none meaningful.** `PrivateEndpointConnectionProxy` is a
+platform-managed child resource (RPaaS↔NRP); customers do not — and never did
+— set `provisioningState` themselves. SDK generators already treat
+`provisioningState` as read-only by convention, so emitted SDK shapes are
+unchanged. The 2 added entries are wire-protocol noise from `oad`, not behavior
+changes.
+
 ### J. PATCH gained optional `properties` body wrapper (1) — _ARM pattern_
 TypeSpec emits the ARM-standard `{ "properties": { ... } }` envelope on PATCH.
 The service accepts the wrapped form. Old swagger had a custom partial-update
