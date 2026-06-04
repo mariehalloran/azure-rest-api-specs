@@ -2162,6 +2162,59 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PureStorage.Block/storagePools/{storagePoolName}/configurePlatformConsoleAuth": {
+      "post": {
+        "operationId": "StoragePools_ConfigurePlatformConsoleAuth",
+        "tags": [
+          "StoragePools"
+        ],
+        "description": "Configure authentication settings for platform console access to the storage pool",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storagePoolName",
+            "in": "path",
+            "description": "Name of the storage pool",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 127,
+            "pattern": "^[a-zA-Z0-9\\-_]{1,127}$"
+          },
+          {
+            "name": "config",
+            "in": "body",
+            "description": "Platform console authentication configuration",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PlatformConsoleAuthConfig"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/PlatformConsoleAuthResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PureStorage.Block/storagePools/{storagePoolName}/disableAvsConnection": {
       "post": {
         "operationId": "StoragePools_DisableAvsConnection",
@@ -2521,6 +2574,50 @@
         "x-ms-examples": {
           "StoragePools_GetHealthStatus": {
             "$ref": "./examples/StoragePools_GetHealthStatus_MaximumSet_Gen.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PureStorage.Block/storagePools/{storagePoolName}/listPlatformConsoleActivationCode": {
+      "post": {
+        "operationId": "StoragePools_ListPlatformConsoleActivationCode",
+        "tags": [
+          "StoragePools"
+        ],
+        "description": "Returns a one-time activation code for platform console access to the storage pool",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storagePoolName",
+            "in": "path",
+            "description": "Name of the storage pool",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 127,
+            "pattern": "^[a-zA-Z0-9\\-_]{1,127}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/PlatformConsoleActivationCode"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
           }
         }
       }
@@ -5373,6 +5470,182 @@
         "bandwidthLimit"
       ]
     },
+    "PlatformConsoleAccessSettings": {
+      "type": "object",
+      "description": "Access settings for a platform console interface",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether this console interface access is enabled"
+        }
+      },
+      "required": [
+        "enabled"
+      ]
+    },
+    "PlatformConsoleAccessSettingsUpdate": {
+      "type": "object",
+      "description": "Access settings for a platform console interface",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether this console interface access is enabled"
+        }
+      }
+    },
+    "PlatformConsoleActivationCode": {
+      "type": "object",
+      "description": "One-time activation code for platform console access",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Username to use when activating the console session"
+        },
+        "activationCode": {
+          "type": "string",
+          "format": "password",
+          "description": "One-time activation code for platform console access",
+          "x-ms-secret": true
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Expiry time of the activation code in RFC3339 format"
+        }
+      },
+      "required": [
+        "username",
+        "activationCode",
+        "expiresAt"
+      ]
+    },
+    "PlatformConsoleAuthConfig": {
+      "type": "object",
+      "description": "Base model for platform console authentication configuration. Extend with a type-specific subtype for each auth mechanism.",
+      "properties": {
+        "authType": {
+          "$ref": "#/definitions/PlatformConsoleAuthType",
+          "description": "Authentication type discriminator"
+        }
+      },
+      "discriminator": "authType",
+      "required": [
+        "authType"
+      ]
+    },
+    "PlatformConsoleAuthResult": {
+      "type": "object",
+      "description": "Base model for platform console authentication result. Actual type depends on the authType used in the request.",
+      "properties": {
+        "authType": {
+          "$ref": "#/definitions/PlatformConsoleAuthType",
+          "description": "Authentication type discriminator"
+        }
+      },
+      "discriminator": "authType",
+      "required": [
+        "authType"
+      ]
+    },
+    "PlatformConsoleAuthType": {
+      "type": "string",
+      "description": "Discriminator values for platform console authentication types. Extensible to support new auth mechanisms without API changes.",
+      "enum": [
+        "ssh"
+      ],
+      "x-ms-enum": {
+        "name": "PlatformConsoleAuthType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "ssh",
+            "value": "ssh",
+            "description": "SSH public key authentication"
+          }
+        ]
+      }
+    },
+    "PlatformConsoleSettings": {
+      "type": "object",
+      "description": "Settings for platform console access to the storage pool",
+      "properties": {
+        "gui": {
+          "$ref": "#/definitions/PlatformConsoleAccessSettings",
+          "description": "GUI access settings"
+        },
+        "api": {
+          "$ref": "#/definitions/PlatformConsoleAccessSettings",
+          "description": "API access settings"
+        },
+        "cli": {
+          "$ref": "#/definitions/PlatformConsoleAccessSettings",
+          "description": "CLI access settings"
+        },
+        "subnets": {
+          "type": "array",
+          "description": "Subnets configured for platform console access",
+          "items": {
+            "$ref": "#/definitions/PlatformConsoleSubnet"
+          }
+        },
+        "defaultUsername": {
+          "type": "string",
+          "description": "Default username for console access (system-populated)",
+          "readOnly": true
+        }
+      }
+    },
+    "PlatformConsoleSettingsUpdate": {
+      "type": "object",
+      "description": "Settings for platform console access to the storage pool",
+      "properties": {
+        "gui": {
+          "$ref": "#/definitions/PlatformConsoleAccessSettingsUpdate",
+          "description": "GUI access settings"
+        },
+        "api": {
+          "$ref": "#/definitions/PlatformConsoleAccessSettingsUpdate",
+          "description": "API access settings"
+        },
+        "cli": {
+          "$ref": "#/definitions/PlatformConsoleAccessSettingsUpdate",
+          "description": "CLI access settings"
+        },
+        "subnets": {
+          "type": "array",
+          "description": "Subnets configured for platform console access",
+          "items": {
+            "$ref": "#/definitions/PlatformConsoleSubnet"
+          }
+        }
+      }
+    },
+    "PlatformConsoleSubnet": {
+      "type": "object",
+      "description": "Subnet configuration for platform console access",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Azure resource ID of the subnet"
+        },
+        "managementIpAddress": {
+          "type": "string",
+          "description": "Management IP address assigned to the subnet (system-populated)",
+          "readOnly": true
+        },
+        "serviceBackendIps": {
+          "type": "array",
+          "description": "Service backend IP addresses assigned to the subnet (system-populated)",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
     "ProtectionParameters": {
       "type": "object",
       "description": "Protection parameters for volume group",
@@ -5831,6 +6104,93 @@
         "shared"
       ]
     },
+    "SshHostKey": {
+      "type": "object",
+      "description": "SSH host key provided by the server for host verification",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "SSH key algorithm type (e.g. ssh-ed25519, ecdsa-sha2-nistp256)"
+        },
+        "fingerprintAlgorithm": {
+          "type": "string",
+          "description": "Fingerprint algorithm used (e.g. SHA256)"
+        },
+        "fingerprint": {
+          "type": "string",
+          "description": "Fingerprint of the host key"
+        }
+      },
+      "required": [
+        "type",
+        "fingerprintAlgorithm",
+        "fingerprint"
+      ]
+    },
+    "SshPlatformConsoleAuthConfig": {
+      "type": "object",
+      "description": "SSH-based platform console authentication configuration",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Username to associate with the SSH public key"
+        },
+        "publicKey": {
+          "type": "string",
+          "description": "SSH public key in OpenSSH authorized_keys format"
+        },
+        "role": {
+          "type": "string",
+          "description": "Role to assign to the user on the platform console"
+        }
+      },
+      "required": [
+        "username",
+        "publicKey",
+        "role"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/PlatformConsoleAuthConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "ssh"
+    },
+    "SshPlatformConsoleAuthResult": {
+      "type": "object",
+      "description": "SSH-based platform console authentication result",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Username that was configured for the console session"
+        },
+        "role": {
+          "type": "string",
+          "description": "Role assigned to the user on the platform console"
+        },
+        "serverHostKeys": {
+          "type": "array",
+          "description": "SSH host keys provided by the server for client-side host verification",
+          "items": {
+            "$ref": "#/definitions/SshHostKey"
+          },
+          "x-ms-identifiers": [
+            "fingerprint"
+          ]
+        }
+      },
+      "required": [
+        "username",
+        "role",
+        "serverHostKeys"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/PlatformConsoleAuthResult"
+        }
+      ],
+      "x-ms-discriminator-value": "ssh"
+    },
     "StoragePool": {
       "type": "object",
       "description": "Storage pool resource",
@@ -5984,6 +6344,10 @@
             "read",
             "create"
           ]
+        },
+        "platformConsoleSettings": {
+          "$ref": "#/definitions/PlatformConsoleSettings",
+          "description": "Platform console access settings for the storage pool"
         }
       },
       "required": [
@@ -6023,6 +6387,10 @@
           "type": "integer",
           "format": "int64",
           "description": "Total bandwidth provisioned for the pool, in MB/s"
+        },
+        "platformConsoleSettings": {
+          "$ref": "#/definitions/PlatformConsoleSettingsUpdate",
+          "description": "Platform console access settings for the storage pool"
         }
       }
     },

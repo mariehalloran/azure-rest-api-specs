@@ -262,6 +262,52 @@ model StoragePoolProperties {
   @doc("Azure resource ID of the Pure Storage Cloud service (reservation resource) this storage pool belongs to")
   @visibility(Lifecycle.Create, Lifecycle.Read)
   reservationResourceId: string;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Platform console access settings for the storage pool")
+  platformConsoleSettings?: PlatformConsoleSettings;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Settings for platform console access to the storage pool")
+model PlatformConsoleSettings {
+  @doc("GUI access settings")
+  gui?: PlatformConsoleAccessSettings;
+
+  @doc("API access settings")
+  api?: PlatformConsoleAccessSettings;
+
+  @doc("CLI access settings")
+  cli?: PlatformConsoleAccessSettings;
+
+  @doc("Subnets configured for platform console access")
+  subnets?: PlatformConsoleSubnet[];
+
+  @doc("Default username for console access (system-populated)")
+  @visibility(Lifecycle.Read)
+  defaultUsername?: string;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Access settings for a platform console interface")
+model PlatformConsoleAccessSettings {
+  @doc("Whether this console interface access is enabled")
+  enabled: boolean;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Subnet configuration for platform console access")
+model PlatformConsoleSubnet {
+  @doc("Azure resource ID of the subnet")
+  id: string;
+
+  @doc("Management IP address assigned to the subnet (system-populated)")
+  @visibility(Lifecycle.Read)
+  managementIpAddress?: string;
+
+  @doc("Service backend IP addresses assigned to the subnet (system-populated)")
+  @visibility(Lifecycle.Read)
+  serviceBackendIps?: string[];
 }
 
 @doc("Network in which the storage pool will be made available")
@@ -413,6 +459,111 @@ interface StoragePools {
         ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
       >
     | ErrorResponse;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Returns a one-time activation code for platform console access to the storage pool")
+  @armResourceAction(StoragePool)
+  @action("listPlatformConsoleActivationCode")
+  @post
+  listPlatformConsoleActivationCode(
+    ...ResourceInstanceParameters<StoragePool>,
+  ): ArmResponse<PlatformConsoleActivationCode> | ErrorResponse;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Configure authentication settings for platform console access to the storage pool")
+  @armResourceAction(StoragePool)
+  @action("configurePlatformConsoleAuth")
+  @post
+  configurePlatformConsoleAuth(
+    ...ResourceInstanceParameters<StoragePool>,
+
+    @doc("Platform console authentication configuration")
+    @body
+    config: PlatformConsoleAuthConfig,
+  ): ArmResponse<PlatformConsoleAuthResult> | ErrorResponse;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("One-time activation code for platform console access")
+model PlatformConsoleActivationCode {
+  @doc("Username to use when activating the console session")
+  username: string;
+
+  @doc("One-time activation code for platform console access")
+  @secret
+  activationCode: string;
+
+  @doc("Expiry time of the activation code in RFC3339 format")
+  expiresAt: utcDateTime;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("SSH host key provided by the server for host verification")
+model SshHostKey {
+  @doc("SSH key algorithm type (e.g. ssh-ed25519, ecdsa-sha2-nistp256)")
+  type: string;
+
+  @doc("Fingerprint algorithm used (e.g. SHA256)")
+  fingerprintAlgorithm: string;
+
+  @doc("Fingerprint of the host key")
+  fingerprint: string;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Discriminator values for platform console authentication types. Extensible to support new auth mechanisms without API changes.")
+union PlatformConsoleAuthType {
+  @doc("SSH public key authentication")
+  ssh: "ssh",
+
+  string,
+}
+
+@added(Versions.v2026_05_01_preview)
+@discriminator("authType")
+@doc("Base model for platform console authentication configuration. Extend with a type-specific subtype for each auth mechanism.")
+model PlatformConsoleAuthConfig {
+  @doc("Authentication type discriminator")
+  authType: PlatformConsoleAuthType;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("SSH-based platform console authentication configuration")
+model SshPlatformConsoleAuthConfig extends PlatformConsoleAuthConfig {
+  authType: "ssh";
+
+  @doc("Username to associate with the SSH public key")
+  username: string;
+
+  @doc("SSH public key in OpenSSH authorized_keys format")
+  publicKey: string;
+
+  @doc("Role to assign to the user on the platform console")
+  role: string;
+}
+
+@added(Versions.v2026_05_01_preview)
+@discriminator("authType")
+@doc("Base model for platform console authentication result. Actual type depends on the authType used in the request.")
+model PlatformConsoleAuthResult {
+  @doc("Authentication type discriminator")
+  authType: PlatformConsoleAuthType;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("SSH-based platform console authentication result")
+model SshPlatformConsoleAuthResult extends PlatformConsoleAuthResult {
+  authType: "ssh";
+
+  @doc("Username that was configured for the console session")
+  username: string;
+
+  @doc("Role assigned to the user on the platform console")
+  role: string;
+
+  @doc("SSH host keys provided by the server for client-side host verification")
+  @identifiers(#["fingerprint"])
+  serverHostKeys: SshHostKey[];
 }
 
 @doc("Limits constraining certain resource properties")
