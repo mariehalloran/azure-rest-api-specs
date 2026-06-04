@@ -362,16 +362,74 @@
       },
       "readOnly": true
     },
-    "CopilotAgentConfiguration": {
+    "CopilotAgentName": {
+      "type": "string",
+      "description": "Known Copilot agent identifiers. Extensible -- new agents may be added by the service without an API version bump.",
+      "enum": [
+        "TroubleshootingAgent",
+        "DeploymentCompetency",
+        "MigrationAgentCompetency",
+        "ResiliencyAgentCompetency",
+        "OptimizationAgentCompetency",
+        "ObservabilityAgent"
+      ],
+      "x-ms-enum": {
+        "name": "CopilotAgentName",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "TroubleshootingAgent",
+            "value": "TroubleshootingAgent",
+            "description": "The troubleshooting agent."
+          },
+          {
+            "name": "DeploymentCompetency",
+            "value": "DeploymentCompetency",
+            "description": "The deployment competency agent."
+          },
+          {
+            "name": "MigrationAgentCompetency",
+            "value": "MigrationAgentCompetency",
+            "description": "The migration competency agent."
+          },
+          {
+            "name": "ResiliencyAgentCompetency",
+            "value": "ResiliencyAgentCompetency",
+            "description": "The resiliency competency agent."
+          },
+          {
+            "name": "OptimizationAgentCompetency",
+            "value": "OptimizationAgentCompetency",
+            "description": "The optimization competency agent."
+          },
+          {
+            "name": "ObservabilityAgent",
+            "value": "ObservabilityAgent",
+            "description": "The observability agent."
+          }
+        ]
+      }
+    },
+    "CopilotAgentOverride": {
       "type": "object",
-      "description": "Agent configuration for Copilot.",
+      "description": "Per-agent configuration override for a tenant.",
       "properties": {
+        "name": {
+          "$ref": "#/definitions/CopilotAgentName",
+          "description": "The agent identifier.",
+          "x-ms-mutability": [
+            "read",
+            "update",
+            "create"
+          ]
+        },
         "state": {
           "$ref": "#/definitions/CopilotAgentState",
-          "description": "The current state of the agent."
+          "description": "The state of the agent for this tenant."
         }
       },
       "required": [
+        "name",
         "state"
       ]
     },
@@ -388,10 +446,10 @@
           "description": "Whether tenant is opted into future preview agents for this tenant."
         },
         "agents": {
-          "type": "object",
-          "description": "Agent settings keyed by agent identifier.",
-          "additionalProperties": {
-            "$ref": "#/definitions/CopilotAgentConfiguration"
+          "type": "array",
+          "description": "Per-agent overrides for this tenant, identified by agent name.",
+          "items": {
+            "$ref": "#/definitions/CopilotAgentOverride"
           }
         }
       }

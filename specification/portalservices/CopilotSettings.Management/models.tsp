@@ -58,9 +58,37 @@ union CopilotAgentState {
   "Disabled",
 }
 
-/** Agent configuration for Copilot. */
-model CopilotAgentConfiguration {
-  /** The current state of the agent. */
+/** Known Copilot agent identifiers. Extensible -- new agents may be added by the service without an API version bump. */
+union CopilotAgentName {
+  string,
+
+  /** The troubleshooting agent. */
+  TroubleshootingAgent: "TroubleshootingAgent",
+
+  /** The deployment competency agent. */
+  DeploymentCompetency: "DeploymentCompetency",
+
+  /** The migration competency agent. */
+  MigrationAgentCompetency: "MigrationAgentCompetency",
+
+  /** The resiliency competency agent. */
+  ResiliencyAgentCompetency: "ResiliencyAgentCompetency",
+
+  /** The optimization competency agent. */
+  OptimizationAgentCompetency: "OptimizationAgentCompetency",
+
+  /** The observability agent. */
+  ObservabilityAgent: "ObservabilityAgent",
+}
+
+/** Per-agent configuration override for a tenant. */
+model CopilotAgentOverride {
+  /** The agent identifier. */
+  @key
+  @visibility(Lifecycle.Create, Lifecycle.Read, Lifecycle.Update)
+  name: CopilotAgentName;
+
+  /** The state of the agent for this tenant. */
   state: CopilotAgentState;
 }
 
@@ -72,9 +100,8 @@ model CopilotAgentSettings {
   /** Whether tenant is opted into future preview agents for this tenant. */
   enablePreview?: boolean;
 
-  /** Agent settings keyed by agent identifier. */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Agent identifiers are an open-ended catalog managed server-side; new agents are added without API version changes. Values are strongly typed as CopilotAgentOverride."
-  agents?: Record<CopilotAgentConfiguration>;
+  /** Per-agent overrides for this tenant, identified by agent name. */
+  agents?: CopilotAgentOverride[];
 }
 
 /** The agent mode configuration properties. */
