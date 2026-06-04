@@ -24,6 +24,113 @@ union ProvisioningState {
   string,
 }
 
+@doc("Observed lifecycle phase of a model deployment on the cluster.")
+union ModelDeploymentPhase {
+  @doc("The deployment has been accepted by the cluster but not yet scheduled.")
+  Pending: "Pending",
+
+  @doc("The deployment is being created on the cluster.")
+  Creating: "Creating",
+
+  @doc("The deployment is in the operational phase. Detailed readiness is reported via conditions.")
+  Running: "Running",
+
+  @doc("The deployment is being updated.")
+  Updating: "Updating",
+
+  @doc("The deployment has encountered an error.")
+  Error: "Error",
+
+  @doc("The deployment is being terminated.")
+  Terminating: "Terminating",
+
+  string,
+}
+
+@doc("Standard Kubernetes-style condition type for a model deployment.")
+union ModelDeploymentConditionType {
+  @doc("Whether the deployment is currently available and serving traffic.")
+  Available: "Available",
+
+  @doc("Whether the deployment is currently being rolled out.")
+  Progressing: "Progressing",
+
+  @doc("Whether the deployment is in a degraded state.")
+  Degraded: "Degraded",
+
+  string,
+}
+
+@doc("Standard Kubernetes-style condition status.")
+union ModelDeploymentConditionStatus {
+  @doc("The condition is currently true.")
+  True: "True",
+
+  @doc("The condition is currently false.")
+  False: "False",
+
+  @doc("The current condition status is unknown.")
+  Unknown: "Unknown",
+
+  string,
+}
+
+@doc("Detailed status condition reported for a model deployment.")
+model ModelDeploymentCondition {
+  @doc("Condition type.")
+  type: ModelDeploymentConditionType;
+
+  @doc("Condition status.")
+  status: ModelDeploymentConditionStatus;
+
+  @doc("Machine-readable reason for the condition's last transition.")
+  reason?: string;
+
+  @doc("Human-readable message describing the condition.")
+  message?: string;
+
+  @doc("Timestamp of the last transition for this condition.")
+  lastTransitionTime?: utcDateTime;
+}
+
+@doc("Identifies the specific model variant the cluster resolved and deployed.")
+model ResolvedModel {
+  @doc("Resolved model identifier (catalog name) on the cluster.")
+  name?: string;
+
+  @doc("Selected variant identifier within the model (e.g., 'cpu-fp16', 'gpu-int8').")
+  variant?: string;
+
+  @doc("Container image deployed by the cluster.")
+  image?: string;
+}
+
+@doc("Observed status of a model deployment as reported by the cluster.")
+model ModelDeploymentStatus {
+  @doc("Current lifecycle phase of the deployment on the cluster.")
+  phase?: ModelDeploymentPhase;
+
+  @doc("Latest human-readable status message.")
+  message?: string;
+
+  @doc("Inference endpoint URL exposed by the deployment, once ready.")
+  endpointUrl?: url;
+
+  @doc("Number of replicas currently in the Ready condition.")
+  @minValue(0)
+  readyReplicas?: int32;
+
+  @doc("Latest condition states reported by the cluster.")
+  @identifiers(#["type"])
+  conditions?: ModelDeploymentCondition[];
+
+  @doc("Information about the model variant the cluster resolved and deployed for this request.")
+  resolvedModel?: ResolvedModel;
+
+  @doc("Timestamp when the cluster last refreshed this status block.")
+  lastObservedAt?: utcDateTime;
+}
+
 @doc("A model deployment running on an Azure Arc-enabled Kubernetes cluster.")
 model ModelDeployment is TrackedResource<ModelDeploymentProperties> {
   ...ResourceNameParameter<
@@ -57,10 +164,9 @@ model ModelDeploymentProperties {
   @visibility(Lifecycle.Create, Lifecycle.Update)
   configurationProtectedSettings?: Record<string>;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Extensions pattern uses Record<string> for opaque status"
-  @doc("Read-only status of the model deployment reported from the cluster.")
+  @doc("Observed status of the model deployment as reported by the cluster.")
   @visibility(Lifecycle.Read)
-  status?: Record<string>;
+  status?: ModelDeploymentStatus;
 }
 
 @doc("The type used for update operations of the ModelDeployment.")

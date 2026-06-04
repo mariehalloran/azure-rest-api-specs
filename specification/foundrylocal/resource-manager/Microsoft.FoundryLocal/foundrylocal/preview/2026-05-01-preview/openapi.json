@@ -498,6 +498,97 @@
         }
       ]
     },
+    "ModelDeploymentCondition": {
+      "type": "object",
+      "description": "Detailed status condition reported for a model deployment.",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ModelDeploymentConditionType",
+          "description": "Condition type."
+        },
+        "status": {
+          "$ref": "#/definitions/ModelDeploymentConditionStatus",
+          "description": "Condition status."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Machine-readable reason for the condition's last transition."
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable message describing the condition."
+        },
+        "lastTransitionTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the last transition for this condition."
+        }
+      },
+      "required": [
+        "type",
+        "status"
+      ]
+    },
+    "ModelDeploymentConditionStatus": {
+      "type": "string",
+      "description": "Standard Kubernetes-style condition status.",
+      "enum": [
+        "True",
+        "False",
+        "Unknown"
+      ],
+      "x-ms-enum": {
+        "name": "ModelDeploymentConditionStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "True",
+            "value": "True",
+            "description": "The condition is currently true."
+          },
+          {
+            "name": "False",
+            "value": "False",
+            "description": "The condition is currently false."
+          },
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "The current condition status is unknown."
+          }
+        ]
+      }
+    },
+    "ModelDeploymentConditionType": {
+      "type": "string",
+      "description": "Standard Kubernetes-style condition type for a model deployment.",
+      "enum": [
+        "Available",
+        "Progressing",
+        "Degraded"
+      ],
+      "x-ms-enum": {
+        "name": "ModelDeploymentConditionType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Available",
+            "value": "Available",
+            "description": "Whether the deployment is currently available and serving traffic."
+          },
+          {
+            "name": "Progressing",
+            "value": "Progressing",
+            "description": "Whether the deployment is currently being rolled out."
+          },
+          {
+            "name": "Degraded",
+            "value": "Degraded",
+            "description": "Whether the deployment is in a degraded state."
+          }
+        ]
+      }
+    },
     "ModelDeploymentListResult": {
       "type": "object",
       "description": "The response of a ModelDeployment list operation.",
@@ -518,6 +609,54 @@
       "required": [
         "value"
       ]
+    },
+    "ModelDeploymentPhase": {
+      "type": "string",
+      "description": "Observed lifecycle phase of a model deployment on the cluster.",
+      "enum": [
+        "Pending",
+        "Creating",
+        "Running",
+        "Updating",
+        "Error",
+        "Terminating"
+      ],
+      "x-ms-enum": {
+        "name": "ModelDeploymentPhase",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Pending",
+            "value": "Pending",
+            "description": "The deployment has been accepted by the cluster but not yet scheduled."
+          },
+          {
+            "name": "Creating",
+            "value": "Creating",
+            "description": "The deployment is being created on the cluster."
+          },
+          {
+            "name": "Running",
+            "value": "Running",
+            "description": "The deployment is in the operational phase. Detailed readiness is reported via conditions."
+          },
+          {
+            "name": "Updating",
+            "value": "Updating",
+            "description": "The deployment is being updated."
+          },
+          {
+            "name": "Error",
+            "value": "Error",
+            "description": "The deployment has encountered an error."
+          },
+          {
+            "name": "Terminating",
+            "value": "Terminating",
+            "description": "The deployment is being terminated."
+          }
+        ]
+      }
     },
     "ModelDeploymentProperties": {
       "type": "object",
@@ -549,12 +688,53 @@
           "x-ms-secret": true
         },
         "status": {
-          "type": "object",
-          "description": "Read-only status of the model deployment reported from the cluster.",
-          "additionalProperties": {
-            "type": "string"
-          },
+          "$ref": "#/definitions/ModelDeploymentStatus",
+          "description": "Observed status of the model deployment as reported by the cluster.",
           "readOnly": true
+        }
+      }
+    },
+    "ModelDeploymentStatus": {
+      "type": "object",
+      "description": "Observed status of a model deployment as reported by the cluster.",
+      "properties": {
+        "phase": {
+          "$ref": "#/definitions/ModelDeploymentPhase",
+          "description": "Current lifecycle phase of the deployment on the cluster."
+        },
+        "message": {
+          "type": "string",
+          "description": "Latest human-readable status message."
+        },
+        "endpointUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Inference endpoint URL exposed by the deployment, once ready."
+        },
+        "readyReplicas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of replicas currently in the Ready condition.",
+          "minimum": 0
+        },
+        "conditions": {
+          "type": "array",
+          "description": "Latest condition states reported by the cluster.",
+          "items": {
+            "$ref": "#/definitions/ModelDeploymentCondition"
+          },
+          "x-ms-identifiers": [
+            "type"
+          ]
+        },
+        "resolvedModel": {
+          "$ref": "#/definitions/ResolvedModel",
+          "description": "Information about the model variant the cluster resolved and deployed for this request."
+        },
+        "lastObservedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the cluster last refreshed this status block."
         }
       }
     },
@@ -666,6 +846,24 @@
       "required": [
         "extendedLocation"
       ]
+    },
+    "ResolvedModel": {
+      "type": "object",
+      "description": "Identifies the specific model variant the cluster resolved and deployed.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Resolved model identifier (catalog name) on the cluster."
+        },
+        "variant": {
+          "type": "string",
+          "description": "Selected variant identifier within the model (e.g., 'cpu-fp16', 'gpu-int8')."
+        },
+        "image": {
+          "type": "string",
+          "description": "Container image deployed by the cluster."
+        }
+      }
     }
   },
   "parameters": {}

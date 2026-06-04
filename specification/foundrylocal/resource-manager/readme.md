@@ -38,37 +38,24 @@ directive:
     from: openapi.json
     where: $.definitions.ModelDeploymentProperties.properties.configurationSettings
     reason: >-
-      Extensions pattern requires configurationSettings as an opaque
-      key-value map (Record<string>). Same pattern used by
-      Microsoft.KubernetesConfiguration/extensions.
+      Pass-through key-value map forwarded to the cluster operator's CRD spec.
+      The cluster operator owns the schema and performs validation.
   - suppress: AvoidAdditionalProperties
     from: openapi.json
     where: $.definitions.ModelDeploymentProperties.properties.configurationProtectedSettings
     reason: >-
-      Extensions pattern requires configurationProtectedSettings as an
-      opaque key-value map (Record<string>). Same pattern used by
-      Microsoft.KubernetesConfiguration/extensions.
-  - suppress: AvoidAdditionalProperties
-    from: openapi.json
-    where: $.definitions.ModelDeploymentProperties.properties.status
-    reason: >-
-      Extensions pattern returns status as an opaque key-value map
-      (Record<string>). Same pattern used by
-      Microsoft.KubernetesConfiguration/extensions.
+      Pass-through secret key-value map (write-only).
   - suppress: AvoidAdditionalProperties
     from: openapi.json
     where: $.definitions.ModelDeploymentUpdateProperties.properties.configurationSettings
     reason: >-
-      Extensions pattern requires configurationSettings as an opaque
-      key-value map (Record<string>). Same pattern used by
-      Microsoft.KubernetesConfiguration/extensions.
+      Pass-through key-value map forwarded to the cluster operator's CRD spec.
+      The cluster operator owns the schema and performs validation.
   - suppress: AvoidAdditionalProperties
     from: openapi.json
     where: $.definitions.ModelDeploymentUpdateProperties.properties.configurationProtectedSettings
     reason: >-
-      Extensions pattern requires configurationProtectedSettings as an
-      opaque key-value map (Record<string>). Same pattern used by
-      Microsoft.KubernetesConfiguration/extensions.
+      Pass-through secret key-value map (write-only).
 ```
 
 ### Tag: package-2026-05-01-preview
