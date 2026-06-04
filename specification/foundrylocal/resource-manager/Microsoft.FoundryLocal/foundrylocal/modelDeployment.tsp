@@ -24,7 +24,7 @@ union ProvisioningState {
   string,
 }
 
-@doc("A ModelDeployment resource managed via K8sBridge on an Arc-connected cluster.")
+@doc("A model deployment running on an Azure Arc-enabled Kubernetes cluster.")
 model ModelDeployment is TrackedResource<ModelDeploymentProperties> {
   ...ResourceNameParameter<
     ModelDeployment,
@@ -63,8 +63,18 @@ model ModelDeploymentProperties {
   status?: Record<string>;
 }
 
-@doc("Updatable properties of a ModelDeployment resource.")
-model ModelDeploymentPatchProperties {
+@doc("The type used for update operations of the ModelDeployment.")
+model ModelDeploymentUpdate {
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Standard ARM resource tags are modeled as Record<string>."
+  @doc("Resource tags.")
+  tags?: Record<string>;
+
+  @doc("The resource-specific properties for this resource.")
+  properties?: ModelDeploymentUpdateProperties;
+}
+
+@doc("The updatable properties of the ModelDeployment.")
+model ModelDeploymentUpdateProperties {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Extensions pattern uses Record<string> for opaque configurationSettings"
   @doc("Configuration settings as name-value pairs for the model deployment.")
   configurationSettings?: Record<string>;
@@ -87,10 +97,7 @@ interface ModelDeployments {
   >;
   update is ArmCustomPatchAsync<
     ModelDeployment,
-    Azure.ResourceManager.Foundations.ResourceUpdateModel<
-      ModelDeployment,
-      ModelDeploymentPatchProperties
-    >,
+    ModelDeploymentUpdate,
     LroHeaders = ArmCombinedLroHeaders<ArmOperationStatus, ModelDeployment> &
       Azure.Core.Foundations.RetryAfterHeader
   >;

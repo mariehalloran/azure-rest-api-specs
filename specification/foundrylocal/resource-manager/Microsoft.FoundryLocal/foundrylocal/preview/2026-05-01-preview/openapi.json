@@ -474,7 +474,7 @@
     },
     "ModelDeployment": {
       "type": "object",
-      "description": "A ModelDeployment resource managed via K8sBridge on an Arc-connected cluster.",
+      "description": "A model deployment running on an Azure Arc-enabled Kubernetes cluster.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/ModelDeploymentProperties",
@@ -518,32 +518,6 @@
       "required": [
         "value"
       ]
-    },
-    "ModelDeploymentPatchProperties": {
-      "type": "object",
-      "description": "Updatable properties of a ModelDeployment resource.",
-      "properties": {
-        "configurationSettings": {
-          "type": "object",
-          "description": "Configuration settings as name-value pairs for the model deployment.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "configurationProtectedSettings": {
-          "type": "object",
-          "format": "password",
-          "description": "Configuration settings that are sensitive, as name-value pairs.",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "x-ms-mutability": [
-            "update",
-            "create"
-          ],
-          "x-ms-secret": true
-        }
-      }
     },
     "ModelDeploymentProperties": {
       "type": "object",
