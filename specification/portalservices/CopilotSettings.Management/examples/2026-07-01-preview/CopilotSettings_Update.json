@@ -10,14 +10,16 @@
         "agentSettings": {
           "enableGa": false,
           "enablePreview": true,
-          "agents": {
-            "agentA": {
+          "agents": [
+            {
+              "name": "MigrationAgentCompetency",
               "state": "Disabled"
             },
-            "agentB": {
+            {
+              "name": "DeploymentCompetency",
               "state": "Enabled"
             }
-          }
+          ]
         }
       }
     }
@@ -30,14 +32,16 @@
           "agentSettings": {
             "enableGa": false,
             "enablePreview": true,
-            "agents": {
-              "agentA": {
+            "agents": [
+              {
+                "name": "MigrationAgentCompetency",
                 "state": "Disabled"
               },
-              "agentB": {
+              {
+                "name": "DeploymentCompetency",
                 "state": "Enabled"
               }
-            }
+            ]
           }
         },
         "id": "/providers/Microsoft.Portal/copilotSettings/default",
