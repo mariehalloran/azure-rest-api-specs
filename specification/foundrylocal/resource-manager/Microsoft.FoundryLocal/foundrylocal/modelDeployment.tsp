@@ -72,13 +72,19 @@ model ModelDeploymentPatchProperties {
 interface ModelDeployments {
   get is ArmResourceRead<ModelDeployment>;
   createOrUpdate is ArmResourceCreateOrUpdateAsync<ModelDeployment>;
-  delete is ArmResourceDeleteWithoutOkAsync<ModelDeployment>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    ModelDeployment,
+    LroHeaders = ArmCombinedLroHeaders<ArmOperationStatus, ModelDeployment> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
   update is ArmCustomPatchAsync<
     ModelDeployment,
     Azure.ResourceManager.Foundations.ResourceUpdateModel<
       ModelDeployment,
       ModelDeploymentPatchProperties
-    >
+    >,
+    LroHeaders = ArmCombinedLroHeaders<ArmOperationStatus, ModelDeployment> &
+      Azure.Core.Foundations.RetryAfterHeader
   >;
   listByResourceGroup is ArmResourceListByParent<ModelDeployment>;
   listBySubscription is ArmListBySubscription<ModelDeployment>;
