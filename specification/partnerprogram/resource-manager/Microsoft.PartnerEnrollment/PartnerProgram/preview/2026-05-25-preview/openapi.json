@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Microsoft.PartnerEnrollment",
+    "title": "PartnerEnrollmentClient",
     "version": "2026-05-25-preview",
     "x-typespec-generated": [
       {
@@ -163,7 +163,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PartnerEnrollment/maicppprograms/{maicppProgramName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PartnerEnrollment/maicppprograms/default": {
       "get": {
         "operationId": "MaicppPrograms_Get",
         "tags": [
@@ -179,14 +179,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "maicppProgramName",
-            "in": "path",
-            "description": "The name of the MaicppProgram resource.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
           }
         ],
         "responses": {
@@ -224,14 +216,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "maicppProgramName",
-            "in": "path",
-            "description": "The name of the MaicppProgram resource.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
           },
           {
             "name": "resource",
@@ -284,14 +268,6 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "maicppProgramName",
-            "in": "path",
-            "description": "The name of the MaicppProgram resource.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
           }
         ],
         "responses": {
@@ -317,9 +293,39 @@
     }
   },
   "definitions": {
+    "EnrollmentStatus": {
+      "type": "string",
+      "description": "Current status of the partner enrollment as reported by the Enrollment State service.",
+      "enum": [
+        "notRegistered",
+        "initialized",
+        "unknown"
+      ],
+      "x-ms-enum": {
+        "name": "EnrollmentStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "NotRegistered",
+            "value": "notRegistered",
+            "description": "The enrollment has been submitted but is not yet registered with the Enrollment State service."
+          },
+          {
+            "name": "Initialized",
+            "value": "initialized",
+            "description": "The enrollment has been initialized and acknowledged by the Enrollment State service."
+          },
+          {
+            "name": "Unknown",
+            "value": "unknown",
+            "description": "The enrollment status could not be determined or has not yet been reported by the Enrollment State service."
+          }
+        ]
+      }
+    },
     "MaicppProgram": {
       "type": "object",
-      "description": "A MaicppProgram resource representing a Microsoft AI Cloud Partner Program registration.",
+      "description": "A MaicppProgram resource representing a Microsoft AI Cloud Partner Program registration. This is a singleton resource: at most one instance with the fixed name `default` can exist per resource group.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/MaicppProgramProperties",
@@ -373,7 +379,7 @@
           "readOnly": true
         },
         "status": {
-          "type": "string",
+          "$ref": "#/definitions/EnrollmentStatus",
           "description": "Current status of the enrollment as reported by the Enrollment State service.",
           "readOnly": true
         }
