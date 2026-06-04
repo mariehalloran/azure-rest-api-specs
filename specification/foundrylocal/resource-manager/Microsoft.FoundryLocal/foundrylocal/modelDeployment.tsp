@@ -30,7 +30,15 @@ model ModelDeployment is TrackedResource<ModelDeploymentProperties> {
     ModelDeployment,
     NamePattern = "^[a-z]([a-z0-9]*(-[a-z0-9]+)*)?$"
   >;
-  ...ExtendedLocationProperty;
+  ...RequiredExtendedLocationProperty;
+}
+
+@doc("Model representing the required `extendedLocation` envelope property for this Arc-only resource.")
+model RequiredExtendedLocationProperty {
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Arc-only resource requires extendedLocation in the resource envelope (Extended Locations §18)."
+  @doc("The Arc-enabled cluster extended location where this model deployment runs.")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  extendedLocation: Foundations.ExtendedLocation;
 }
 
 @doc("Properties of a ModelDeployment resource.")

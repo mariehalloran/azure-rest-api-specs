@@ -482,12 +482,16 @@
         },
         "extendedLocation": {
           "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.ExtendedLocation",
+          "description": "The Arc-enabled cluster extended location where this model deployment runs.",
           "x-ms-mutability": [
             "read",
             "create"
           ]
         }
       },
+      "required": [
+        "extendedLocation"
+      ],
       "allOf": [
         {
           "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
@@ -671,6 +675,23 @@
         ]
       },
       "readOnly": true
+    },
+    "RequiredExtendedLocationProperty": {
+      "type": "object",
+      "description": "Model representing the required `extendedLocation` envelope property for this Arc-only resource.",
+      "properties": {
+        "extendedLocation": {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.ExtendedLocation",
+          "description": "The Arc-enabled cluster extended location where this model deployment runs.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      },
+      "required": [
+        "extendedLocation"
+      ]
     }
   },
   "parameters": {}
