@@ -163,13 +163,6 @@ These settings apply only when `--tag=package-2026-02-02-preview` is specified o
 input-file:
   - Microsoft.OpenEnergyPlatform/preview/2026-02-02-preview/oep.json
 suppressions:
-  - code: ProvisioningStateMustBeReadOnly
-    from: oep.json
-    where:
-      - $.definitions.DataPartitionProperties.properties.provisioningState
-      - $.definitions.EnergyServiceProperties.properties.provisioningState
-      - $.definitions.GroupInformationProperties.properties.provisioningState
-    reason: "provisioningState properties are marked read-only in TypeSpec via @visibility(Lifecycle.Read), and the emitter outputs readOnly=true as a sibling of $ref. Per the JSON Reference spec, sibling keywords of $ref are ignored by Swagger 2.0 parsers, so Spectral cannot detect the readOnly flag. The properties are correctly read-only on the wire. Related issue - https://github.com/Azure/azure-openapi-validator/issues/637"
   - code: LroLocationHeader
     from: oep.json
     reason: "The PATCH on EnergyService uses an existing async pattern that returns Azure-AsyncOperation and Retry-After headers but no Location header. This wire contract predates the rule and is already suppressed at the TypeSpec level for the same operation. Note: scoping via `where:` was attempted but is not honored by LintDiff's `suppressions:` block — file-wide is required for this rule code."
