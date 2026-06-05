@@ -155,10 +155,32 @@ union ScheduleType {
   string,
 }
 
+/** A run of a pipeline. */
+@parentResource(Pipeline)
+model PipelineRun is ProxyResource<PipelineRunProperties> {
+  /** The identifier of the pipeline run. */
+  @segment("runs")
+  @key("runId")
+  @visibility(Lifecycle.Read)
+  @path
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,63}$")
+  name: string;
+}
+
+/** Pipeline run properties. */
+model PipelineRunProperties {
+  /** Provisioning state of the pipeline run. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ResourceProvisioningState;
+}
+
 @armResourceOperations
 interface Pipelines {
   get is ArmResourceRead<Pipeline>;
   createOrUpdate is ArmResourceCreateOrReplaceSync<Pipeline>;
   delete is ArmResourceDeleteSync<Pipeline>;
   list is ArmResourceListByParent<Pipeline>;
+
+  /** Trigger a run of the pipeline. */
+  triggerRun is ArmResourceActionSync<Pipeline, void, PipelineRun>;
 }
