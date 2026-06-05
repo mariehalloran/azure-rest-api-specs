@@ -26,7 +26,13 @@ using OpenAPI;
 @armCommonTypesVersion("v5")
 namespace Microsoft.Sovereign;
 
-interface Operations extends Azure.ResourceManager.Operations {}
+interface Operations extends Azure.ResourceManager.Operations {
+  @added(Versions.Preview20260315)
+  checkNameAvailability is checkGlobalNameAvailability;
+
+  @added(Versions.Preview20260315)
+  checkNameAvailabilityLocal is checkLocalNameAvailability;
+}
 
 // Landing zone configuration Resource Type
 @removed(Versions.Preview20241031)
@@ -195,6 +201,16 @@ interface SovereignViewOperations {
     SovereignViewResource,
     SovereignViewComplianceDetailsRequest,
     SovereignViewComplianceDetailsResponse
+  >;
+
+  @action("filterValues")
+  @doc("Gets filter values for the Sovereign View resource.")
+  @added(Versions.Preview20260315)
+  @armResourceAction(SovereignViewResource)
+  filterValues is ArmResourceActionSync<
+    SovereignViewResource,
+    SovereignViewFilterValuesRequest,
+    SovereignViewFilterValuesResponse
   >;
 }
 

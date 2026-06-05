@@ -24,6 +24,8 @@ import "./operations/anchors/networkAnchorOperations.tsp";
 import "./operations/anchors/resourceAnchorOperations.tsp";
 import "./operations/basedb/dbSystemOperations.tsp";
 import "./operations/basedb/dbVersionOperations.tsp";
+import "./operations/basedb/dbEditionOperations.tsp";
+import "./operations/common/dbShapeOperations.tsp";
 import "./operations/goldengate/connectionOperations.tsp";
 import "./operations/goldengate/deploymentOperations.tsp";
 import "./operations/managedidentity/managedIdentityResourceOperations.tsp";
