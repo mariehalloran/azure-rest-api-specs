@@ -53,6 +53,15 @@
     },
     {
       "name": "Validation Execution Plan Run Interfaces"
+    },
+    {
+      "name": "Validation Test Run Interfaces"
+    },
+    {
+      "name": "Validation Test Interfaces"
+    },
+    {
+      "name": "Validation Test Category Interfaces"
     }
   ],
   "paths": {
@@ -92,6 +101,230 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.Validate/validationTestCategories": {
+      "get": {
+        "operationId": "ValidationTestCategories_List",
+        "tags": [
+          "Validation Test Category Interfaces"
+        ],
+        "description": "List validation test category catalog entries",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestCategoryListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.Validate/validationTestCategories/{validationTestCategoryName}": {
+      "get": {
+        "operationId": "ValidationTestCategories_Get",
+        "tags": [
+          "Validation Test Category Interfaces"
+        ],
+        "description": "Get a validation test category catalog entry",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "validationTestCategoryName",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestCategory"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "ValidationTestCategories_CreateOrUpdate",
+        "tags": [
+          "Validation Test Category Interfaces"
+        ],
+        "description": "Create or update a validation test category catalog entry",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "validationTestCategoryName",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ValidationTestCategory"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ValidationTestCategory' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestCategory"
+            }
+          },
+          "201": {
+            "description": "Resource 'ValidationTestCategory' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestCategory"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/providers/Microsoft.Validate/validationTests": {
+      "get": {
+        "operationId": "ValidationTests_List",
+        "tags": [
+          "Validation Test Interfaces"
+        ],
+        "description": "List validation test catalog entries",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.Validate/validationTests/{validationTestName}": {
+      "get": {
+        "operationId": "ValidationTests_Get",
+        "tags": [
+          "Validation Test Interfaces"
+        ],
+        "description": "Get a validation test catalog entry",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "validationTestName",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidationTest"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "ValidationTests_CreateOrUpdate",
+        "tags": [
+          "Validation Test Interfaces"
+        ],
+        "description": "Create or update a validation test catalog entry",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "validationTestName",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ValidationTest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ValidationTest' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ValidationTest"
+            }
+          },
+          "201": {
+            "description": "Resource 'ValidationTest' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ValidationTest"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
         }
       }
     },
@@ -1220,6 +1453,133 @@
         },
         "x-ms-long-running-operation": true
       }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Validate/cloudValidations/{cloudValidationName}/validationExecutionPlans/{validationExecutionPlanName}/executionPlanRuns/{executionPlanRunName}/validationTestRuns": {
+      "get": {
+        "operationId": "ValidationTestRuns_ListByExecutionPlanRun",
+        "tags": [
+          "Validation Test Run Interfaces"
+        ],
+        "description": "List validation test runs for an execution plan run",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "cloudValidationName",
+            "in": "path",
+            "description": "The name of the CloudValidation",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "validationExecutionPlanName",
+            "in": "path",
+            "description": "The name of the ValidationExecutionPlan",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "executionPlanRunName",
+            "in": "path",
+            "description": "The name of the ExecutionPlanRun",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestRunListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Validate/cloudValidations/{cloudValidationName}/validationExecutionPlans/{validationExecutionPlanName}/executionPlanRuns/{executionPlanRunName}/validationTestRuns/{validationTestRunName}": {
+      "get": {
+        "operationId": "ValidationTestRuns_Get",
+        "tags": [
+          "Validation Test Run Interfaces"
+        ],
+        "description": "Get a validation test run details",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "cloudValidationName",
+            "in": "path",
+            "description": "The name of the CloudValidation",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "validationExecutionPlanName",
+            "in": "path",
+            "description": "The name of the ValidationExecutionPlan",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "executionPlanRunName",
+            "in": "path",
+            "description": "The name of the ExecutionPlanRun",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "validationTestRunName",
+            "in": "path",
+            "description": "The name of the ValidationTestRun",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestRun"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1418,13 +1778,13 @@
         "startTimestampInUtc": {
           "type": "string",
           "format": "date-time",
-          "description": "The start time of the execution plan run.",
+          "description": "The start timestamp of the execution plan run.",
           "readOnly": true
         },
         "endTimestampInUtc": {
           "type": "string",
           "format": "date-time",
-          "description": "The end time of the execution plan run.",
+          "description": "The end timestamp of the execution plan run.",
           "readOnly": true
         },
         "reportedTimestampInUtc": {
@@ -1455,10 +1815,11 @@
       "description": "The status of the execution plan run.",
       "enum": [
         "Succeeded",
+        "Waiting",
         "Running",
+        "Completed",
         "Canceled",
         "Failed",
-        "Waiting",
         "Skipped",
         "Paused",
         "Suspended",
@@ -1474,12 +1835,22 @@
           {
             "name": "Succeeded",
             "value": "Succeeded",
-            "description": "The execution plan run is succeeded."
+            "description": "The execution plan run succeeded."
+          },
+          {
+            "name": "Waiting",
+            "value": "Waiting",
+            "description": "The execution plan run has been queued."
           },
           {
             "name": "Running",
             "value": "Running",
             "description": "The execution plan run is running."
+          },
+          {
+            "name": "Completed",
+            "value": "Completed",
+            "description": "The execution plan run is completed."
           },
           {
             "name": "Canceled",
@@ -1490,11 +1861,6 @@
             "name": "Failed",
             "value": "Failed",
             "description": "The execution plan run is failed."
-          },
-          {
-            "name": "Waiting",
-            "value": "Waiting",
-            "description": "The execution plan run is waiting."
           },
           {
             "name": "Skipped",
@@ -1747,6 +2113,71 @@
         }
       ]
     },
+    "ValidationTest": {
+      "type": "object",
+      "description": "Validation test catalog entry.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ValidationTestProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "ValidationTestCategory": {
+      "type": "object",
+      "description": "Validation test category catalog entry.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ValidationTestCategoryProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "ValidationTestCategoryListResult": {
+      "type": "object",
+      "description": "The response of a ValidationTestCategory list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ValidationTestCategory items on this page",
+          "items": {
+            "$ref": "#/definitions/ValidationTestCategory"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ValidationTestCategoryProperties": {
+      "type": "object",
+      "description": "Validation test category properties.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Validation test category description."
+        },
+        "parentCategoryId": {
+          "type": "string",
+          "description": "Parent validation test category id."
+        }
+      }
+    },
     "ValidationTestFailureDetails": {
       "type": "object",
       "description": "Detailed information about test failure.",
@@ -1781,6 +2212,27 @@
         }
       }
     },
+    "ValidationTestListResult": {
+      "type": "object",
+      "description": "The response of a ValidationTest list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ValidationTest items on this page",
+          "items": {
+            "$ref": "#/definitions/ValidationTest"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "ValidationTestPassDetails": {
       "type": "object",
       "description": "Detailed information about test pass.",
@@ -1802,6 +2254,50 @@
         }
       }
     },
+    "ValidationTestProperties": {
+      "type": "object",
+      "description": "Validation test catalog properties.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Validation test description."
+        },
+        "version": {
+          "type": "string",
+          "description": "Validation test version."
+        },
+        "categoryIds": {
+          "type": "array",
+          "description": "Validation test category ids.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "overallState": {
+          "type": "string",
+          "description": "Overall state of the validation test."
+        },
+        "testStoreUri": {
+          "type": "string",
+          "description": "URI of the test artifact in TestStore."
+        }
+      }
+    },
+    "ValidationTestRun": {
+      "type": "object",
+      "description": "Validation Test Run represents execution instance(s) of a Validation Test instance under execution plan.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ValidationTestRunProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
     "ValidationTestRunDetails": {
       "type": "object",
       "description": "Validation Test Run represents execution instance(s) of a Validation Test instance under execution plan.",
@@ -1820,6 +2316,27 @@
           "description": "The properties of the test run."
         }
       }
+    },
+    "ValidationTestRunListResult": {
+      "type": "object",
+      "description": "The response of a ValidationTestRun list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ValidationTestRun items on this page",
+          "items": {
+            "$ref": "#/definitions/ValidationTestRun"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
     },
     "ValidationTestRunProperties": {
       "type": "object",

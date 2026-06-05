@@ -93,14 +93,6 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        },
-        "x-ms-examples": {
-          "Operations_List_MaximumSet_Gen": {
-            "$ref": "./examples/Operations_List_MaximumSet_Gen.json"
-          },
-          "Operations_List_MinimumSet_Gen": {
-            "$ref": "./examples/Operations_List_MinimumSet_Gen.json"
-          }
         }
       }
     },
@@ -132,11 +124,6 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        },
-        "x-ms-examples": {
-          "ValidationTestCategories_List_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationTestCategories_List_MaximumSet_Gen.json"
-          }
         }
       }
     },
@@ -170,11 +157,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestCategories_Get_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationTestCategories_Get_MaximumSet_Gen.json"
           }
         }
       },
@@ -223,11 +205,6 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "x-ms-examples": {
-          "ValidationTestCategories_CreateOrUpdate_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationTestCategories_CreateOrUpdate_MaximumSet_Gen.json"
-          }
         }
       }
     },
@@ -259,11 +236,6 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        },
-        "x-ms-examples": {
-          "ValidationTests_List_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationTests_List_MaximumSet_Gen.json"
-          }
         }
       }
     },
@@ -297,11 +269,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTests_Get_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationTests_Get_MaximumSet_Gen.json"
           }
         }
       },
@@ -349,11 +316,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTests_CreateOrUpdate_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationTests_CreateOrUpdate_MaximumSet_Gen.json"
           }
         }
       }
@@ -404,11 +366,6 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        },
-        "x-ms-examples": {
-          "CloudValidations_ListBySubscription_MaximumSet_Gen": {
-            "$ref": "./examples/CloudValidations_ListBySubscription_MaximumSet_Gen.json"
-          }
         }
       }
     },
@@ -466,11 +423,6 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        },
-        "x-ms-examples": {
-          "ValidationExecutionPlans_ListBySubscription_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationExecutionPlans_ListBySubscription_MaximumSet_Gen.json"
-          }
         }
       }
     },
@@ -507,11 +459,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "OperationStatus_Get_MaximumSet_Gen": {
-            "$ref": "./examples/OperationStatus_Get_MaximumSet_Gen.json"
           }
         }
       }
@@ -565,11 +512,6 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        },
-        "x-ms-examples": {
-          "CloudValidations_ListByResourceGroup_MaximumSet_Gen": {
-            "$ref": "./examples/CloudValidations_ListByResourceGroup_MaximumSet_Gen.json"
-          }
         }
       }
     },
@@ -611,11 +553,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "CloudValidations_Get_MaximumSet_Gen": {
-            "$ref": "./examples/CloudValidations_Get_MaximumSet_Gen.json"
           }
         }
       },
@@ -687,12 +624,7 @@
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
-        "x-ms-long-running-operation": true,
-        "x-ms-examples": {
-          "CloudValidations_CreateOrUpdate_MaximumSet_Gen": {
-            "$ref": "./examples/CloudValidations_CreateOrUpdate_MaximumSet_Gen.json"
-          }
-        }
+        "x-ms-long-running-operation": true
       },
       "patch": {
         "operationId": "CloudValidations_Update",
@@ -759,12 +691,7 @@
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
-        "x-ms-long-running-operation": true,
-        "x-ms-examples": {
-          "CloudValidations_Update_MaximumSet_Gen": {
-            "$ref": "./examples/CloudValidations_Update_MaximumSet_Gen.json"
-          }
-        }
+        "x-ms-long-running-operation": true
       },
       "delete": {
         "operationId": "CloudValidations_Delete",
@@ -819,12 +746,7 @@
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
-        "x-ms-long-running-operation": true,
-        "x-ms-examples": {
-          "CloudValidations_Delete_MaximumSet_Gen": {
-            "$ref": "./examples/CloudValidations_Delete_MaximumSet_Gen.json"
-          }
-        }
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Validate/cloudValidations/{cloudValidationName}/validationExecutionPlans": {
@@ -884,11 +806,6 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        },
-        "x-ms-examples": {
-          "ValidationExecutionPlans_ListByResourceGroup_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationExecutionPlans_ListByResourceGroup_MaximumSet_Gen.json"
-          }
         }
       }
     },
@@ -938,11 +855,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationExecutionPlans_Get_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationExecutionPlans_Get_MaximumSet_Gen.json"
           }
         }
       },
@@ -1022,12 +934,7 @@
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
-        "x-ms-long-running-operation": true,
-        "x-ms-examples": {
-          "ValidationExecutionPlans_CreateOrUpdate_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationExecutionPlans_CreateOrUpdate_MaximumSet_Gen.json"
-          }
-        }
+        "x-ms-long-running-operation": true
       },
       "patch": {
         "operationId": "ValidationExecutionPlans_Update",
@@ -1102,12 +1009,7 @@
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
-        "x-ms-long-running-operation": true,
-        "x-ms-examples": {
-          "ValidationExecutionPlans_Update_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationExecutionPlans_Update_MaximumSet_Gen.json"
-          }
-        }
+        "x-ms-long-running-operation": true
       },
       "delete": {
         "operationId": "ValidationExecutionPlans_Delete",
@@ -1170,12 +1072,7 @@
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
-        "x-ms-long-running-operation": true,
-        "x-ms-examples": {
-          "ValidationExecutionPlans_Delete_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationExecutionPlans_Delete_MaximumSet_Gen.json"
-          }
-        }
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Validate/cloudValidations/{cloudValidationName}/validationExecutionPlans/{validationExecutionPlanName}/executionPlanRuns": {
@@ -1243,11 +1140,6 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        },
-        "x-ms-examples": {
-          "ValidationExecutionPlanRuns_ListByExecutionPlan_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationExecutionPlanRuns_ListByExecutionPlan_MaximumSet_Gen.json"
-          }
         }
       }
     },
@@ -1305,11 +1197,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationExecutionPlanRuns_Get_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationExecutionPlanRuns_Get_MaximumSet_Gen.json"
           }
         }
       },
@@ -1397,12 +1284,7 @@
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
-        "x-ms-long-running-operation": true,
-        "x-ms-examples": {
-          "ValidationExecutionPlanRuns_CreateOrUpdate_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationExecutionPlanRuns_CreateOrUpdate_MaximumSet_Gen.json"
-          }
-        }
+        "x-ms-long-running-operation": true
       },
       "delete": {
         "operationId": "ValidationExecutionPlanRuns_Delete",
@@ -1473,12 +1355,7 @@
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
-        "x-ms-long-running-operation": true,
-        "x-ms-examples": {
-          "ValidationExecutionPlanRuns_Delete_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationExecutionPlanRuns_Delete_MaximumSet_Gen.json"
-          }
-        }
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Validate/cloudValidations/{cloudValidationName}/validationExecutionPlans/{validationExecutionPlanName}/executionPlanRuns/{executionPlanRunName}/validationTestRuns": {
@@ -1539,11 +1416,6 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        },
-        "x-ms-examples": {
-          "ValidationTestRuns_ListByExecutionPlanRun_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationTestRuns_ListByExecutionPlanRun_MaximumSet_Gen.json"
-          }
         }
       }
     },
@@ -1609,11 +1481,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestRuns_Get_MaximumSet_Gen": {
-            "$ref": "./examples/ValidationTestRuns_Get_MaximumSet_Gen.json"
           }
         }
       }
@@ -1737,6 +1604,11 @@
           "description": "The provisioning state of the resource.",
           "readOnly": true
         },
+        "error": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details. Populated when provisioningState is Failed or Canceled.",
+          "readOnly": true
+        },
         "overallState": {
           "$ref": "#/definitions/CloudValidationOverallState",
           "description": "The overall state of the resource."
@@ -1812,6 +1684,39 @@
           "description": "The status of the execution plan run.",
           "readOnly": true
         },
+        "error": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details. Populated when status is Failed, Canceled, TimedOut, or Aborted.",
+          "readOnly": true
+        },
+        "startTimestampInUtc": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The start timestamp of the execution plan run.",
+          "readOnly": true
+        },
+        "endTimestampInUtc": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The end timestamp of the execution plan run.",
+          "readOnly": true
+        },
+        "reportedTimestampInUtc": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The reported timestamp of the execution plan run.",
+          "readOnly": true
+        },
+        "testRuns": {
+          "type": "array",
+          "description": "The test runs under this execution plan run.",
+          "maxItems": 100,
+          "items": {
+            "$ref": "#/definitions/ValidationTestRunDetails"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        },
         "startedAt": {
           "type": "string",
           "format": "date-time",
@@ -1841,11 +1746,66 @@
           "readOnly": true
         },
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/ExecutionPlanRunProvisioningState",
           "description": "The provisioning state of the execution plan run.",
           "readOnly": true
         }
       }
+    },
+    "ExecutionPlanRunProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of the execution plan run.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Creating",
+        "Running",
+        "Waiting",
+        "Processing"
+      ],
+      "x-ms-enum": {
+        "name": "ExecutionPlanRunProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          },
+          {
+            "name": "Creating",
+            "value": "Creating",
+            "description": "The execution plan run is in progress."
+          },
+          {
+            "name": "Running",
+            "value": "Running",
+            "description": "The execution plan run is running."
+          },
+          {
+            "name": "Waiting",
+            "value": "Waiting",
+            "description": "The execution plan run is waiting."
+          },
+          {
+            "name": "Processing",
+            "value": "Processing",
+            "description": "The execution plan run is partially executed."
+          }
+        ]
+      },
+      "readOnly": true
     },
     "ExecutionPlanRunStatus": {
       "type": "string",
@@ -1855,8 +1815,14 @@
         "Queued",
         "Running",
         "Completed",
+        "Canceled",
         "Failed",
+        "Skipped",
+        "Paused",
+        "Suspended",
         "TimedOut",
+        "Aborted",
+        "Ignored",
         "Unknown"
       ],
       "x-ms-enum": {
@@ -1884,14 +1850,44 @@
             "description": "The execution plan run is completed."
           },
           {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "The execution plan run is canceled."
+          },
+          {
             "name": "Failed",
             "value": "Failed",
             "description": "The execution plan run is failed."
           },
           {
+            "name": "Skipped",
+            "value": "Skipped",
+            "description": "The execution plan run is skipped."
+          },
+          {
+            "name": "Paused",
+            "value": "Paused",
+            "description": "The execution plan run is paused."
+          },
+          {
+            "name": "Suspended",
+            "value": "Suspended",
+            "description": "The execution plan run is suspended."
+          },
+          {
             "name": "TimedOut",
             "value": "TimedOut",
             "description": "The execution plan run is timed out."
+          },
+          {
+            "name": "Aborted",
+            "value": "Aborted",
+            "description": "The execution plan run is aborted."
+          },
+          {
+            "name": "Ignored",
+            "value": "Ignored",
+            "description": "The execution plan run is ignored."
           },
           {
             "name": "Unknown",
@@ -1909,7 +1905,7 @@
         "Succeeded",
         "Failed",
         "Canceled",
-        "Provisioning",
+        "Creating",
         "Updating",
         "Disabling",
         "Deleting",
@@ -1935,8 +1931,8 @@
             "description": "Resource creation was canceled."
           },
           {
-            "name": "Provisioning",
-            "value": "Provisioning",
+            "name": "Creating",
+            "value": "Creating",
             "description": "The resource is being provisioned."
           },
           {
@@ -2070,6 +2066,11 @@
         "provisioningState": {
           "$ref": "#/definitions/ValidationExecutionPlanProvisioningState",
           "description": "The provisioning state of the resource.",
+          "readOnly": true
+        },
+        "error": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details. Populated when provisioningState is Failed or Canceled.",
           "readOnly": true
         },
         "overallState": {
@@ -2336,6 +2337,25 @@
           "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
       ]
+    },
+    "ValidationTestRunDetails": {
+      "type": "object",
+      "description": "Validation Test Run represents execution instance(s) of a Validation Test instance under execution plan.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the test run.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the test run."
+        },
+        "properties": {
+          "$ref": "#/definitions/ValidationTestRunProperties",
+          "description": "The properties of the test run."
+        }
+      }
     },
     "ValidationTestRunListResult": {
       "type": "object",
