@@ -354,57 +354,6 @@ enum IdentityType {
 }
 
 /**
- * Maximum autoscale capacity limit for the energy service. Must be a power of 2 between 1 and 256 (applicable for Flex SKU).
- */
-#suppress "@azure-tools/typespec-azure-core/no-enum" "Preserving existing wire contract."
-enum AutoScaleMaxCapacity {
-  /**
-   * 1 capacity unit
-   */
-  `1`: 1,
-
-  /**
-   * 2 capacity units
-   */
-  `2`: 2,
-
-  /**
-   * 4 capacity units
-   */
-  `4`: 4,
-
-  /**
-   * 8 capacity units
-   */
-  `8`: 8,
-
-  /**
-   * 16 capacity units
-   */
-  `16`: 16,
-
-  /**
-   * 32 capacity units
-   */
-  `32`: 32,
-
-  /**
-   * 64 capacity units
-   */
-  `64`: 64,
-
-  /**
-   * 128 capacity units
-   */
-  `128`: 128,
-
-  /**
-   * 256 capacity units
-   */
-  `256`: 256,
-}
-
-/**
  * The list of oep resources.
  */
 model EnergyServiceList is Azure.Core.Page<EnergyService>;
@@ -462,7 +411,7 @@ model EnergyServiceProperties {
   /**
    * Maximum autoscale capacity limit for the energy service. Must be a power of 2 between 1 and 256 (applicable for Flex SKU).
    */
-  autoScaleMaxCapacity?: AutoScaleMaxCapacity;
+  autoScaleMaxCapacity?: int32;
 
   /**
    * Specifies whether geo-redundancy is enabled or disabled for the energy service.

@@ -108,40 +108,49 @@ Suppressed in `readme.md` with link to
 [azure-openapi-validator#637](https://github.com/Azure/azure-openapi-validator/issues/637).
 **Wire impact: NONE; properties are read-only in service behavior.**
 
-### G. `AutoScaleMaxCapacity` `int32` → `number` (1) — _accepted, preview-only_
+### G. `AutoScaleMaxCapacity` enum → plain `int32` — _RESOLVED post-RPaaS review_
+
+**Resolution (post-RPaaS review):** `autoScaleMaxCapacity` is now typed as a
+plain `int32`, matching the shape of
+`common-types/resource-management/v6/types.json#/definitions/Sku.capacity`
+(`{ "type": "integer", "format": "int32" }`). The custom
+`AutoScaleMaxCapacity` enum has been removed from the spec; the doc comment
+on the property still records the service-side constraint ("must be a power
+of 2 between 1 and 256, applicable for Flex SKU"), and the service continues
+to enforce that range server-side. This matches the established v6
+`Sku.capacity` pattern of relying on server-side validation rather than a
+closed client-side enum.
 
 **Property scope:** `autoScaleMaxCapacity` exists **only in the preview API
 version (`2026-02-02-preview`)** — it is not present in the stable
 `2025-12-15` contract, so there is no GA SDK surface to break.
 
-**Wire impact: NONE.** Server still emits/accepts the same integer values
-(`1, 2, 4, 8, 16, 32, 64, 128, 256`); HTTP bytes are byte-identical.
+**Net wire effect** vs. the legacy preview shape:
 
-**Root cause:** The `typespec-autorest` emitter emits a closed integer-literal
-enum as `type: number` with `modelAsString: false` regardless of source form.
-Source-side workarounds attempted and rejected:
-- `@encode("int32")` — not valid on enums (`decorator-wrong-target`); on the
-  property emits a `known-encoding` warning and no schema change.
-- `union AutoScaleMaxCapacity { int32, 1, 2, ... }` — still emits
-  `type: number`, **and** flips `modelAsString` to `true` (would introduce a
-  new breaking change).
-
-**Per-language SDK paper analysis (closed integer enum):**
-
-| Language | Backing type now | Backing type after | Risk |
+| Aspect | Legacy preview | Post-fix | Δ |
 |---|---|---|---|
-| Python | `IntEnum` | `IntEnum` | None |
-| JS/TS  | numeric literal union | numeric literal union | None |
-| Java   | `enum` | `enum` | None |
-| .NET   | `enum : int` | `enum : double` (possible) | Source-compat break for new SDK consumers |
-| Go     | `int32` typed const | `float64` typed const (possible) | Source-compat break for new SDK consumers |
+| `type` | `integer` (with closed enum) | `integer` | — |
+| `format` | `int32` | `int32` | — |
+| `enum` | `[1, 2, 4, ..., 256]` | _(removed — service-side validation)_ | More permissive; backward-compatible for valid inputs |
+| `x-ms-enum` | present | _(removed)_ | Cleaner SDK output |
 
-Because the property is **preview-only**, no pinned-GA SDK customer is
-affected. Any .NET/Go shift only surfaces when a customer regenerates against
-the new preview spec, at which point they are already opting in to preview
-churn. Preview-version SDK packages are explicitly excluded from
-breaking-change guarantees per the [Azure SDK breaking change
-policy](https://azure.github.io/azure-sdk/policies_breakingchanges.html).
+Server still emits/accepts the same integer values (`1, 2, 4, 8, 16, 32,
+64, 128, 256`); HTTP bytes are byte-identical for valid clients. **Wire
+impact: NONE for valid inputs.**
+
+**Per-language SDK impact:** all targeted languages (Python, JS/TS, Java,
+.NET, Go) now emit a plain `int32` field instead of a closed enum. SDK-side
+range validation drops out, but server enforcement is unchanged. This is a
+strict improvement over the previously documented "preview-only `int32` →
+`number`" risk: there is no longer any backing-type ambiguity.
+
+**Alternatives empirically tested and rejected** (none produced
+`{ type: integer, format: int32 }` on a closed enum via the autorest emitter):
+- `union AutoScaleMaxCapacity { int32, 1, 2, ... }` — emits `type: number` and
+  flips `x-ms-enum.modelAsString` `false → true` (a *new* breaking change).
+- `@encode("int32")` on the property — rejected by Azure-Core
+  `known-encoding` rule; emits `type: string, format: int32`.
+- `enum X extends int32 { ... }` — invalid TypeSpec syntax (parser error).
 
 ### H. `CorsRulesList.maxAgeInSeconds` minimum constraint (1) — _verified back-compat, `@minValue(0)` applied_
 Minimum value updated to match service-side validation, declared via
