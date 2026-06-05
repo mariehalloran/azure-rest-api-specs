@@ -28,7 +28,7 @@ interface Operations extends Azure.ResourceManager.Operations {}
 model MaicppProgram is ProxyResource<MaicppProgramProperties> {
   @doc("The name of the MaicppProgram resource. Always `default` because this is a singleton resource.")
   @key("maicppProgramName")
-  @segment("maicppprograms")
+  @segment("maicppPrograms")
   @pattern("^default$")
   @path
   name: string;
@@ -39,16 +39,22 @@ union EnrollmentStatus {
   string,
 
   @doc("The enrollment has been submitted but is not yet registered with the Enrollment State service.")
-  NotRegistered: "notRegistered",
+  NotRegistered: "NotRegistered",
 
   @doc("The enrollment has been initialized and acknowledged by the Enrollment State service.")
-  Initialized: "initialized",
+  Initialized: "Initialized",
 
   @doc("The enrollment status could not be determined or has not yet been reported by the Enrollment State service.")
-  Unknown: "unknown",
+  Unknown: "Unknown",
 }
 
-@doc("Details of the MaicppProgram.")
+@doc("""
+  Properties of the MaicppProgram singleton resource. All properties are server-populated and read-only:
+  creating the `default` resource via PUT with an empty `properties` body is the enrollment trigger itself
+  (no client-supplied input is accepted), and the service returns the derived state — `provisioningState`,
+  `programId`, `billingAccountId`, `enrollmentId`, and `status` — in the response. There are no writable
+  properties by design; any future client-supplied configuration will be added here as non-read-only fields.
+  """)
 model MaicppProgramProperties {
   @visibility(Lifecycle.Read)
   @doc("Provisioning state of the resource.")
