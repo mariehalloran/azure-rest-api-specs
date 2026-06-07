@@ -452,8 +452,7 @@ model ResourceSkuRestrictionInfo {
  * The list of WebIQ accounts operation response.
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "AI is a valid acronym in WebIQ"
-model WebIQAccountEnumerateSkusResult
-  is Azure.Core.Page<WebIQResourceAndSku>;
+model WebIQAccountEnumerateSkusResult is Azure.Core.Page<WebIQResourceAndSku>;
 
 /**
  * WebIQ resource type and SKU.
