@@ -882,152 +882,6 @@
     }
   },
   "definitions": {
-    "WebIQAccount": {
-      "type": "object",
-      "description": "WebIQ Account is an Azure resource representing the provisioned account, its type, location and SKU.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/WebIQAccountProperties",
-          "description": "Properties of WebIQ account."
-        },
-        "eTag": {
-          "type": "string",
-          "description": "If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields.",
-          "readOnly": true
-        },
-        "kind": {
-          "type": "string",
-          "description": "Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value.",
-          "pattern": "^[-\\w\\._,\\(\\\\\\)]+$",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "sku": {
-          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/Sku",
-          "description": "The SKU (Stock Keeping Unit) assigned to this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
-        }
-      ]
-    },
-    "WebIQAccountEnumerateSkusResult": {
-      "type": "object",
-      "description": "The list of WebIQ accounts operation response.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The WebIQResourceAndSku items on this page",
-          "items": {
-            "$ref": "#/definitions/WebIQResourceAndSku"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "WebIQAccountListResult": {
-      "type": "object",
-      "description": "The response of a WebIQAccount list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The WebIQAccount items on this page",
-          "items": {
-            "$ref": "#/definitions/WebIQAccount"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "WebIQAccountProperties": {
-      "type": "object",
-      "description": "Properties of WebIQ account.",
-      "properties": {
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Gets the status of the WebIQ account at the time the operation was called.",
-          "readOnly": true
-        },
-        "endpoint": {
-          "type": "string",
-          "format": "uri",
-          "description": "Endpoint of the created account.",
-          "readOnly": true
-        },
-        "internalId": {
-          "type": "string",
-          "description": "An internal identifier.",
-          "readOnly": true
-        },
-        "statisticsEnabled": {
-          "type": "boolean",
-          "description": "(WebIQ Only) A flag indicating whether WebIQ Statistics is enabled."
-        }
-      }
-    },
-    "WebIQAccountUpdate": {
-      "type": "object",
-      "description": "The request body for updating an WebIQ account.",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "sku": {
-          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/Sku",
-          "description": "The SKU of WebIQ account."
-        },
-        "properties": {
-          "$ref": "#/definitions/WebIQAccountUpdateProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      }
-    },
-    "WebIQAccountUpdateProperties": {
-      "type": "object",
-      "description": "The updatable properties of an WebIQ account.",
-      "properties": {
-        "statisticsEnabled": {
-          "type": "boolean",
-          "description": "(WebIQ Only) A flag indicating whether WebIQ Statistics is enabled."
-        }
-      }
-    },
-    "WebIQResourceAndSku": {
-      "type": "object",
-      "description": "WebIQ resource type and SKU.",
-      "properties": {
-        "resourceType": {
-          "type": "string",
-          "description": "Resource Namespace and Type"
-        },
-        "sku": {
-          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/Sku",
-          "description": "The SKU of WebIQ account."
-        }
-      }
-    },
     "AllowedDomain": {
       "type": "object",
       "description": "An allowed domain for WebIQ Custom Search configuration.",
@@ -1776,6 +1630,152 @@
       "required": [
         "value"
       ]
+    },
+    "WebIQAccount": {
+      "type": "object",
+      "description": "WebIQ Account is an Azure resource representing the provisioned account, its type, location and SKU.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/WebIQAccountProperties",
+          "description": "Properties of WebIQ account."
+        },
+        "eTag": {
+          "type": "string",
+          "description": "If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields.",
+          "readOnly": true
+        },
+        "kind": {
+          "type": "string",
+          "description": "Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value.",
+          "pattern": "^[-\\w\\._,\\(\\\\\\)]+$",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "sku": {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/Sku",
+          "description": "The SKU (Stock Keeping Unit) assigned to this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "WebIQAccountEnumerateSkusResult": {
+      "type": "object",
+      "description": "The list of WebIQ accounts operation response.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The WebIQResourceAndSku items on this page",
+          "items": {
+            "$ref": "#/definitions/WebIQResourceAndSku"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "WebIQAccountListResult": {
+      "type": "object",
+      "description": "The response of a WebIQAccount list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The WebIQAccount items on this page",
+          "items": {
+            "$ref": "#/definitions/WebIQAccount"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "WebIQAccountProperties": {
+      "type": "object",
+      "description": "Properties of WebIQ account.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Gets the status of the WebIQ account at the time the operation was called.",
+          "readOnly": true
+        },
+        "endpoint": {
+          "type": "string",
+          "format": "uri",
+          "description": "Endpoint of the created account.",
+          "readOnly": true
+        },
+        "internalId": {
+          "type": "string",
+          "description": "An internal identifier.",
+          "readOnly": true
+        },
+        "statisticsEnabled": {
+          "type": "boolean",
+          "description": "(WebIQ Only) A flag indicating whether WebIQ Statistics is enabled."
+        }
+      }
+    },
+    "WebIQAccountUpdate": {
+      "type": "object",
+      "description": "The request body for updating an WebIQ account.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "sku": {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/Sku",
+          "description": "The SKU of WebIQ account."
+        },
+        "properties": {
+          "$ref": "#/definitions/WebIQAccountUpdateProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      }
+    },
+    "WebIQAccountUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of an WebIQ account.",
+      "properties": {
+        "statisticsEnabled": {
+          "type": "boolean",
+          "description": "(WebIQ Only) A flag indicating whether WebIQ Statistics is enabled."
+        }
+      }
+    },
+    "WebIQResourceAndSku": {
+      "type": "object",
+      "description": "WebIQ resource type and SKU.",
+      "properties": {
+        "resourceType": {
+          "type": "string",
+          "description": "Resource Namespace and Type"
+        },
+        "sku": {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/Sku",
+          "description": "The SKU of WebIQ account."
+        }
+      }
     }
   },
   "parameters": {}

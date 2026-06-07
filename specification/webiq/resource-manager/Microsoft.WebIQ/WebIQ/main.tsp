@@ -21,6 +21,7 @@ using TypeSpec.Versioning;
 @service(#{ title: "Azure WebIQ Resources" })
 @versioned(Versions)
 @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
+#suppress "@azure-tools/typespec-azure-core/casing-style" "WebIQ is the official product name"
 namespace Microsoft.WebIQ;
 
 /**
