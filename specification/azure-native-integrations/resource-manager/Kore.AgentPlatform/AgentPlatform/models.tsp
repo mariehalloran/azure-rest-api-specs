@@ -281,18 +281,23 @@ model RestoreWorkspaceRequest {
 
 // =============================================================================
 // SaaS Decoupling models (Liftr Standard)
+//
+// "SaaS" is the industry-standard abbreviation for Software as a Service and is
+// retained verbatim in model and property names for consistency with the
+// Liftr/marketplace ecosystem. Per-statement #suppress directives below silence
+// the casing-style linter; TypeSpec requires one per declaration.
 // =============================================================================
 
 /** SaaS-related data properties. Contains the full list of SaaS resource IDs to link. */
-#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is the standard abbreviation for Software as a Service"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model SaaSData {
   /** List of SaaS resource IDs to link to this Organization. */
-  #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is standard abbreviation"
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
   saaSResourceIds: string[];
 }
 
 /** SaaS guid & PublisherId for Activate and Validate SaaS Resource. */
-#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is standard abbreviation"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model ActivateSaaSParameterRequest {
   /** SaaS guid for Activate and Validate SaaS Resource. */
   saasGuid: string;
@@ -303,7 +308,7 @@ model ActivateSaaSParameterRequest {
 
 /** Marketplace SaaS resource details. */
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Using extends for proxy resource model"
-#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is standard abbreviation"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model SaaSResourceDetailsResponse
   extends Azure.ResourceManager.CommonTypes.ProxyResource {
   /** Id of the Marketplace SaaS Resource. */
@@ -311,10 +316,10 @@ model SaaSResourceDetailsResponse
 }
 
 /** Individual SaaS resource linked to the Organization. */
-#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is standard abbreviation"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model LinkedSaaSItem {
   /** SaaS resource id. */
-  #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is standard abbreviation"
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
   saaSResourceId: string;
 
   /** Flag indicating if the SaaS resource is hidden. */
@@ -322,7 +327,7 @@ model LinkedSaaSItem {
 }
 
 /** Response containing the list of SaaS resources linked to the Organization. */
-#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is standard abbreviation"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model LinkedSaaSListResponse {
   /** List of SaaS resources linked to this Organization. */
   @identifiers(#["saaSResourceId"])

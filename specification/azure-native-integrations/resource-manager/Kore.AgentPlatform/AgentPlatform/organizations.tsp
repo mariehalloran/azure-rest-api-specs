@@ -102,16 +102,9 @@ interface Organizations {
   >;
 
   /** Links SaaS resources to the organization. Accepts the full list of SaaS assets to be linked. */
-  #suppress "@azure-tools/typespec-azure-resource-manager/lro-location-header" "LRO uses azure-async-operation header"
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "void-returning LRO action; 202 + default is sufficient."
   @summary("Links SaaS resources to the organization.")
-  @Azure.Core.useFinalStateVia("azure-async-operation")
-  linkSaaS is ArmResourceActionAsync<
-    OrganizationResource,
-    SaaSData,
-    ArmResponse<OrganizationResource>,
-    LroHeaders = ArmCombinedLroHeaders<FinalResult = OrganizationResource> &
-      Azure.Core.Foundations.RetryAfterHeader
-  >;
+  linkSaaS is ArmResourceActionAsync<OrganizationResource, SaaSData, void>;
 
   /** Returns the list of SaaS resources linked to the organization. */
   listLinkedSaaS is ArmResourceActionSync<
@@ -123,11 +116,16 @@ interface Organizations {
 
 // =============================================================================
 // Subscription-level SaaS operations
+//
+// "SaaS" is the industry-standard abbreviation for Software as a Service and is
+// retained verbatim in model, interface, and operation names for consistency
+// with the Liftr/marketplace ecosystem. Per-statement #suppress directives
+// below silence the casing-style linter; TypeSpec requires one per declaration.
 // =============================================================================
 
 /** Subscription-level SaaS activation operations. */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "Subscription-level SaaS operation"
-#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is standard abbreviation"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 interface SaaSOperationGroup {
   /** Resolve the token to get the SaaS resource ID and activate the SaaS resource. */
   @autoRoute
