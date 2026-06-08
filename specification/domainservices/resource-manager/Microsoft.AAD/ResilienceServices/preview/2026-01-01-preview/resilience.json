@@ -44,6 +44,9 @@
     },
     {
       "name": "ResilienceServices"
+    },
+    {
+      "name": "ResilienceHosts"
     }
   ],
   "paths": {
@@ -408,9 +411,393 @@
         },
         "x-ms-long-running-operation": true
       }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AAD/resilienceServices/{resilienceServiceName}/hosts": {
+      "get": {
+        "operationId": "ResilienceHosts_ListByParent",
+        "tags": [
+          "ResilienceHosts"
+        ],
+        "description": "List ResilienceHost resources by ResilienceService",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "resilienceServiceName",
+            "in": "path",
+            "description": "The name of the ResilienceService",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ResilienceHostListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AAD/resilienceServices/{resilienceServiceName}/hosts/{resilienceHostName}": {
+      "get": {
+        "operationId": "ResilienceHosts_Get",
+        "tags": [
+          "ResilienceHosts"
+        ],
+        "description": "Get a ResilienceHost",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "resilienceServiceName",
+            "in": "path",
+            "description": "The name of the ResilienceService",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "resilienceHostName",
+            "in": "path",
+            "description": "The name of the ResilienceHost",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ResilienceHost"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "ResilienceHosts_CreateOrUpdate",
+        "tags": [
+          "ResilienceHosts"
+        ],
+        "description": "Create a ResilienceHost",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "resilienceServiceName",
+            "in": "path",
+            "description": "The name of the ResilienceService",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "resilienceHostName",
+            "in": "path",
+            "description": "The name of the ResilienceHost",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResilienceHost"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ResilienceHost' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ResilienceHost"
+            }
+          },
+          "201": {
+            "description": "Resource 'ResilienceHost' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ResilienceHost"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "ResilienceHosts_Update",
+        "tags": [
+          "ResilienceHosts"
+        ],
+        "description": "Update a ResilienceHost",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "resilienceServiceName",
+            "in": "path",
+            "description": "The name of the ResilienceService",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "resilienceHostName",
+            "in": "path",
+            "description": "The name of the ResilienceHost",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResilienceHostUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ResilienceHost"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "ResilienceHosts_Delete",
+        "tags": [
+          "ResilienceHosts"
+        ],
+        "description": "Delete a ResilienceHost",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "resilienceServiceName",
+            "in": "path",
+            "description": "The name of the ResilienceService",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "resilienceHostName",
+            "in": "path",
+            "description": "The name of the ResilienceHost",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
     }
   },
   "definitions": {
+    "AttestationServiceConfig": {
+      "type": "object",
+      "description": "Configuration for the customer attestation service. Fields are populated by the service after the first host attests successfully.",
+      "properties": {
+        "ipAddress": {
+          "type": "string",
+          "description": "IP address of the attestation service.",
+          "readOnly": true
+        },
+        "domainName": {
+          "type": "string",
+          "description": "Domain name of the attestation service.",
+          "readOnly": true
+        }
+      }
+    },
+    "HostNetworkConfig": {
+      "type": "object",
+      "description": "Network configuration for a resilience host.",
+      "properties": {
+        "mode": {
+          "$ref": "#/definitions/NetworkMode",
+          "description": "Network mode. 'default' uses NAT and ignores the other network fields; 'custom' uses the supplied network settings."
+        },
+        "internetSwitchName": {
+          "type": "string",
+          "description": "Name of the internet switch the nested virtual machine is connected to. Required when mode is 'custom'."
+        },
+        "ipV4Address": {
+          "type": "string",
+          "description": "IPv4 address of the nested virtual machine. Required when mode is 'custom'."
+        },
+        "netMask": {
+          "type": "string",
+          "description": "Subnet mask of the nested virtual machine. Required when mode is 'custom'."
+        },
+        "gatewayIpV4Address": {
+          "type": "string",
+          "description": "Gateway IPv4 address of the nested virtual machine. Required when mode is 'custom'."
+        },
+        "primaryDnsIpV4Address": {
+          "type": "string",
+          "description": "Primary DNS IPv4 address. Required when mode is 'custom'."
+        },
+        "alternateDnsIpV4Address": {
+          "type": "string",
+          "description": "Alternate DNS IPv4 address. Optional when mode is 'custom'."
+        }
+      },
+      "required": [
+        "mode"
+      ]
+    },
+    "HostStorageConfig": {
+      "type": "object",
+      "description": "Storage configuration for a resilience host.",
+      "properties": {
+        "rootFolder": {
+          "type": "string",
+          "description": "Optional folder under which to install the resilience service. Immutable after the host is created.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      }
+    },
+    "NetworkMode": {
+      "type": "string",
+      "description": "Network mode for a resilience host.",
+      "enum": [
+        "default",
+        "custom"
+      ],
+      "x-ms-enum": {
+        "name": "NetworkMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Default",
+            "value": "default",
+            "description": "Default network mode; the host uses NAT and other network fields are ignored."
+          },
+          {
+            "name": "Custom",
+            "value": "custom",
+            "description": "Custom network mode; the host uses the supplied network settings."
+          }
+        ]
+      }
+    },
     "ProvisioningState": {
       "type": "string",
       "description": "The resource provisioning state.",
@@ -466,14 +853,54 @@
       },
       "readOnly": true
     },
-    "ResilienceProperties": {
+    "ResilienceHost": {
       "type": "object",
-      "description": "Resilience properties",
+      "description": "Entra Resilience Host. Child resource representing a physical host running the nested virtual machine, attached to a parent Entra Resilience Service.",
       "properties": {
-        "arcResourceId": {
+        "properties": {
+          "$ref": "#/definitions/ResilienceHostProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "ResilienceHostListResult": {
+      "type": "object",
+      "description": "The response of a ResilienceHost list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ResilienceHost items on this page",
+          "items": {
+            "$ref": "#/definitions/ResilienceHost"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ResilienceHostProperties": {
+      "type": "object",
+      "description": "Resilience host properties.",
+      "properties": {
+        "arcMachineResourceId": {
           "type": "string",
           "format": "arm-id",
-          "description": "The Azure Resource Manager (ARM) resource ID of the Azure Arc instance linked to the resilience service",
+          "description": "The Azure Resource Manager (ARM) resource ID of the Azure Arc machine that hosts the nested virtual machine. Immutable after the host is created; to point at a different Arc machine, delete and recreate the host.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
           "x-ms-arm-id-details": {
             "allowedResources": [
               {
@@ -485,6 +912,53 @@
             ]
           }
         },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The status of the last operation on this host.",
+          "readOnly": true
+        },
+        "storage": {
+          "$ref": "#/definitions/HostStorageConfig",
+          "description": "Storage configuration for the resilience host."
+        },
+        "network": {
+          "$ref": "#/definitions/HostNetworkConfig",
+          "description": "Network configuration for the resilience host."
+        }
+      },
+      "required": [
+        "arcMachineResourceId",
+        "network"
+      ]
+    },
+    "ResilienceHostUpdate": {
+      "type": "object",
+      "description": "The type used for update operations of the ResilienceHost.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ResilienceHostUpdateProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      }
+    },
+    "ResilienceHostUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of the ResilienceHost.",
+      "properties": {
+        "storage": {
+          "$ref": "#/definitions/HostStorageConfig",
+          "description": "Storage configuration for the resilience host."
+        },
+        "network": {
+          "$ref": "#/definitions/HostNetworkConfig",
+          "description": "Network configuration for the resilience host."
+        }
+      }
+    },
+    "ResilienceProperties": {
+      "type": "object",
+      "description": "Resilience properties",
+      "properties": {
         "tenantId": {
           "type": "string",
           "description": "Tenant ID",
@@ -494,16 +968,20 @@
           "$ref": "#/definitions/ProvisioningState",
           "description": "The status of the last operation.",
           "readOnly": true
+        },
+        "attestationService": {
+          "$ref": "#/definitions/AttestationServiceConfig",
+          "description": "Configuration for the customer attestation service used by hosts in this resilience service. Populated by the service after host attestation; not writable by clients.",
+          "readOnly": true
         }
       },
       "required": [
-        "arcResourceId",
         "tenantId"
       ]
     },
     "ResilienceService": {
       "type": "object",
-      "description": "Resilience resource",
+      "description": "Entra Resilience Service. Parent resource that aggregates one or more resilience hosts and provides the shared infrastructure that those hosts rely on.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/ResilienceProperties",
@@ -546,31 +1024,6 @@
           "description": "Resource tags.",
           "additionalProperties": {
             "type": "string"
-          }
-        },
-        "properties": {
-          "$ref": "#/definitions/ResilienceServiceUpdateProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      }
-    },
-    "ResilienceServiceUpdateProperties": {
-      "type": "object",
-      "description": "The updatable properties of the ResilienceService.",
-      "properties": {
-        "arcResourceId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "The Azure Resource Manager (ARM) resource ID of the Azure Arc instance linked to the resilience service",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.HybridCompute/machines",
-                "scopes": [
-                  "Tenant"
-                ]
-              }
-            ]
           }
         }
       }
