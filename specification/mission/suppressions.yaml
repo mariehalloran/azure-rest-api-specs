@@ -7,10 +7,3 @@
   sub-rules:
     - options.@azure-tools/typespec-ts.*
   paths: [Mission.Management/tspconfig.yaml]
-
-- tool: BreakingChange
-  reason: Adding new POST sync action endpoint and AzureLocal enum value. These are purely additive changes to preview APIs.
-  paths:
-    - resource-manager/Microsoft.Mission/Mission/preview/2026-05-01-preview/openapi.json
-    - resource-manager/Microsoft.Mission/Mission/preview/2026-05-04-preview/openapi.json
-    - resource-manager/Microsoft.Mission/Mission/preview/2026-07-01-preview/openapi.json
