@@ -1,0 +1,1631 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Kore.AgentPlatform",
+    "version": "2026-06-01-preview",
+    "description": "Kore.AgentPlatform Resource Provider for managing Kore AI Agent Platform\nOrganizations and their Workspaces.\n\nOrganizations are top-level tracked ARM resources. Each Organization is\nprovisioned together with a default Workspace. Additional Workspaces are\nmanaged through POST actions on the parent Organization\n(`createWorkspace`, `deleteWorkspace`, `restoreWorkspace`).\nGET and LIST on workspaces are exposed as a child proxy resource type.\n\nService-to-service authentication between Liftr and Kore uses federated\nMicrosoft Entra credentials and is enforced at the runtime layer\n(not on the ARM surface).",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "Organizations"
+    },
+    {
+      "name": "Workspaces"
+    }
+  ],
+  "paths": {
+    "/providers/Kore.AgentPlatform/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Operations_List": {
+            "$ref": "./examples/Operations_List.json"
+          },
+          "Operations_List_MaximumSet_Gen": {
+            "$ref": "./examples/Operations_List_MaximumSet_Gen.json"
+          },
+          "Operations_List_MinimumSet_Gen": {
+            "$ref": "./examples/Operations_List_MinimumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Kore.AgentPlatform/activateSaaS": {
+      "post": {
+        "operationId": "SaaSOperationGroup_ActivateResource",
+        "description": "Resolve the token to get the SaaS resource ID and activate the SaaS resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ActivateSaaSParameterRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/SaaSResourceDetailsResponse"
+            }
+          },
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SaaSOperationGroup_ActivateResource": {
+            "$ref": "./examples/SaaSOperationGroup_ActivateResource.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Kore.AgentPlatform/organizations": {
+      "get": {
+        "operationId": "Organizations_ListBySubscription",
+        "tags": [
+          "Organizations"
+        ],
+        "description": "List Organizations in a Subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/OrganizationResourceListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Organizations_ListBySubscription": {
+            "$ref": "./examples/Organizations_ListBySubscription.json"
+          },
+          "Organizations_ListBySubscription_MaximumSet_Gen": {
+            "$ref": "./examples/Organizations_ListBySubscription_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations": {
+      "get": {
+        "operationId": "Organizations_ListByResourceGroup",
+        "tags": [
+          "Organizations"
+        ],
+        "description": "List Organizations in a Resource Group.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/OrganizationResourceListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Organizations_ListByResourceGroup": {
+            "$ref": "./examples/Organizations_ListByResourceGroup.json"
+          },
+          "Organizations_ListByResourceGroup_MaximumSet_Gen": {
+            "$ref": "./examples/Organizations_ListByResourceGroup_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}": {
+      "get": {
+        "operationId": "Organizations_Get",
+        "tags": [
+          "Organizations"
+        ],
+        "description": "Get an Organization.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "organizationName",
+            "in": "path",
+            "description": "Name of the Organization.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/OrganizationResource"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Organizations_Get": {
+            "$ref": "./examples/Organizations_Get.json"
+          },
+          "Organizations_Get_MaximumSet_Gen": {
+            "$ref": "./examples/Organizations_Get_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "Organizations_Create",
+        "tags": [
+          "Organizations"
+        ],
+        "description": "Create or update an Organization (long-running).",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "organizationName",
+            "in": "path",
+            "description": "Name of the Organization.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrganizationResource"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'OrganizationResource' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/OrganizationResource"
+            }
+          },
+          "201": {
+            "description": "Resource 'OrganizationResource' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/OrganizationResource"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Organizations_Create": {
+            "$ref": "./examples/Organizations_Create.json"
+          },
+          "Organizations_Create_MaximumSet_Gen": {
+            "$ref": "./examples/Organizations_Create_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "Organizations_Update",
+        "tags": [
+          "Organizations"
+        ],
+        "description": "Update mutable properties of an Organization (long-running).",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "organizationName",
+            "in": "path",
+            "description": "Name of the Organization.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrganizationResourceUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/OrganizationResource"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Organizations_Update": {
+            "$ref": "./examples/Organizations_Update.json"
+          },
+          "Organizations_Update_MaximumSet_Gen": {
+            "$ref": "./examples/Organizations_Update_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "Organizations_Delete",
+        "tags": [
+          "Organizations"
+        ],
+        "description": "Delete an Organization (long-running).\n\nPermanently removes the Organization and cascades the deletion to all\nchild Workspaces at the partner. This operation is irreversible.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "organizationName",
+            "in": "path",
+            "description": "Name of the Organization.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Organizations_Delete": {
+            "$ref": "./examples/Organizations_Delete.json"
+          },
+          "Organizations_Delete_MaximumSet_Gen": {
+            "$ref": "./examples/Organizations_Delete_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/createWorkspace": {
+      "post": {
+        "operationId": "Organizations_CreateWorkspace",
+        "tags": [
+          "Organizations"
+        ],
+        "description": "Create an additional Workspace under this Organization. Long-running.\n\nOn success the created Workspace becomes addressable as a child resource at\n`.../organizations/{organizationName}/workspaces/{workspaceName}` and can\nbe retrieved through GET/LIST on the Workspaces resource type.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "organizationName",
+            "in": "path",
+            "description": "Name of the Organization.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateWorkspaceRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/WorkspaceResource"
+            }
+          },
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Organizations_CreateWorkspace": {
+            "$ref": "./examples/Organizations_CreateWorkspace.json"
+          },
+          "Organizations_CreateWorkspace_MaximumSet_Gen": {
+            "$ref": "./examples/Organizations_CreateWorkspace_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/deleteWorkspace": {
+      "post": {
+        "operationId": "Organizations_DeleteWorkspace",
+        "tags": [
+          "Organizations"
+        ],
+        "description": "Soft-delete a Workspace under this Organization. Long-running.\nThe Workspace remains restorable for 30 days via `restoreWorkspace`.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "organizationName",
+            "in": "path",
+            "description": "Name of the Organization.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteWorkspaceRequest"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Azure operation completed successfully."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Organizations_DeleteWorkspace": {
+            "$ref": "./examples/Organizations_DeleteWorkspace.json"
+          },
+          "Organizations_DeleteWorkspace_MaximumSet_Gen": {
+            "$ref": "./examples/Organizations_DeleteWorkspace_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/linkSaaS": {
+      "post": {
+        "operationId": "Organizations_LinkSaaS",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Links SaaS resources to the organization.",
+        "description": "Links SaaS resources to the organization. Accepts the full list of SaaS assets to be linked.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "organizationName",
+            "in": "path",
+            "description": "Name of the Organization.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SaaSData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/OrganizationResource"
+            }
+          },
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Organizations_LinkSaaS": {
+            "$ref": "./examples/Organizations_LinkSaaS.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/listLinkedSaaS": {
+      "post": {
+        "operationId": "Organizations_ListLinkedSaaS",
+        "tags": [
+          "Organizations"
+        ],
+        "description": "Returns the list of SaaS resources linked to the organization.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "organizationName",
+            "in": "path",
+            "description": "Name of the Organization.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/LinkedSaaSListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Organizations_ListLinkedSaaS": {
+            "$ref": "./examples/Organizations_ListLinkedSaaS.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/restoreWorkspace": {
+      "post": {
+        "operationId": "Organizations_RestoreWorkspace",
+        "tags": [
+          "Organizations"
+        ],
+        "description": "Restore a soft-deleted Workspace under this Organization within the\n30-day grace period. Long-running. Returns the restored Workspace.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "organizationName",
+            "in": "path",
+            "description": "Name of the Organization.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RestoreWorkspaceRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/WorkspaceResource"
+            }
+          },
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Organizations_RestoreWorkspace": {
+            "$ref": "./examples/Organizations_RestoreWorkspace.json"
+          },
+          "Organizations_RestoreWorkspace_MaximumSet_Gen": {
+            "$ref": "./examples/Organizations_RestoreWorkspace_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/workspaces": {
+      "get": {
+        "operationId": "Workspaces_ListByOrganization",
+        "tags": [
+          "Workspaces"
+        ],
+        "description": "List Workspaces under an Organization.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "organizationName",
+            "in": "path",
+            "description": "Name of the Organization.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/WorkspaceResourceListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Workspaces_ListByOrganization": {
+            "$ref": "./examples/Workspaces_ListByOrganization.json"
+          },
+          "Workspaces_ListByOrganization_MaximumSet_Gen": {
+            "$ref": "./examples/Workspaces_ListByOrganization_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/workspaces/{workspaceName}": {
+      "get": {
+        "operationId": "Workspaces_Get",
+        "tags": [
+          "Workspaces"
+        ],
+        "description": "Get a Workspace under an Organization.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "organizationName",
+            "in": "path",
+            "description": "Name of the Organization.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "workspaceName",
+            "in": "path",
+            "description": "Name of the Workspace.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,98}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/WorkspaceResource"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Workspaces_Get": {
+            "$ref": "./examples/Workspaces_Get.json"
+          },
+          "Workspaces_Get_MaximumSet_Gen": {
+            "$ref": "./examples/Workspaces_Get_MaximumSet_Gen.json"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ActivateSaaSParameterRequest": {
+      "type": "object",
+      "description": "SaaS guid & PublisherId for Activate and Validate SaaS Resource.",
+      "properties": {
+        "saasGuid": {
+          "type": "string",
+          "description": "SaaS guid for Activate and Validate SaaS Resource."
+        },
+        "publisherId": {
+          "type": "string",
+          "description": "Publisher Id for the marketplace offer."
+        }
+      },
+      "required": [
+        "saasGuid",
+        "publisherId"
+      ]
+    },
+    "Azure.ResourceManager.ResourceProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a resource type.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "CompanyDetails": {
+      "type": "object",
+      "description": "Organization-tier company metadata.",
+      "properties": {
+        "companyName": {
+          "type": "string",
+          "description": "Company name."
+        },
+        "officeAddress": {
+          "type": "string",
+          "description": "Office address of the company."
+        },
+        "country": {
+          "type": "string",
+          "description": "Country or region of the company."
+        },
+        "domain": {
+          "type": "string",
+          "description": "Primary domain of the company."
+        },
+        "businessType": {
+          "type": "string",
+          "description": "Industry or line of business."
+        },
+        "numberOfEmployees": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Approximate number of employees."
+        }
+      }
+    },
+    "CreateWorkspaceRequest": {
+      "type": "object",
+      "description": "Request body for the `createWorkspace` action on an Organization.",
+      "properties": {
+        "workspaceName": {
+          "type": "string",
+          "description": "Name of the Workspace to create. Becomes the ARM resource name segment,\naddressable thereafter at `.../organizations/{org}/workspaces/{workspaceName}`.",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "organizationPartnerResourceId": {
+          "type": "string",
+          "description": "Partner-issued identifier of the parent Organization (e.g., \"org_01...\").\nPassed in the body so the partner can correlate the workspace action with\nthe Kore-side Organization without a separate lookup."
+        },
+        "properties": {
+          "$ref": "#/definitions/WorkspacePartnerProperties",
+          "description": "Properties of the Workspace to create."
+        }
+      },
+      "required": [
+        "workspaceName",
+        "organizationPartnerResourceId",
+        "properties"
+      ]
+    },
+    "DefaultWorkspaceProperties": {
+      "type": "object",
+      "description": "Properties of the default Workspace created with the Organization.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the default Workspace.",
+          "minLength": 2,
+          "maxLength": 100
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "DeleteWorkspaceRequest": {
+      "type": "object",
+      "description": "Request body for the `deleteWorkspace` action on an Organization.",
+      "properties": {
+        "workspaceName": {
+          "type": "string",
+          "description": "Name of the Workspace to delete.",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "organizationPartnerResourceId": {
+          "type": "string",
+          "description": "Partner-issued identifier of the parent Organization (e.g., \"org_01...\").\nPassed in the body so the partner can correlate the workspace action with\nthe Kore-side Organization without a separate lookup."
+        }
+      },
+      "required": [
+        "workspaceName",
+        "organizationPartnerResourceId"
+      ]
+    },
+    "LiftrBase.MarketplaceDetails": {
+      "type": "object",
+      "description": "Marketplace details for an organization",
+      "properties": {
+        "subscriptionId": {
+          "type": "string",
+          "description": "Azure subscription id for the the marketplace offer is purchased from"
+        },
+        "subscriptionStatus": {
+          "$ref": "#/definitions/LiftrBase.MarketplaceSubscriptionStatus",
+          "description": "Marketplace subscription status",
+          "readOnly": true
+        },
+        "offerDetails": {
+          "$ref": "#/definitions/LiftrBase.OfferDetails",
+          "description": "Offer details for the marketplace that is selected by the user"
+        }
+      },
+      "required": [
+        "subscriptionId",
+        "offerDetails"
+      ]
+    },
+    "LiftrBase.MarketplaceSubscriptionStatus": {
+      "type": "string",
+      "description": "Marketplace subscription status of a resource.",
+      "enum": [
+        "PendingFulfillmentStart",
+        "Subscribed",
+        "Suspended",
+        "Unsubscribed"
+      ],
+      "x-ms-enum": {
+        "name": "MarketplaceSubscriptionStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "PendingFulfillmentStart",
+            "value": "PendingFulfillmentStart",
+            "description": "Purchased but not yet activated"
+          },
+          {
+            "name": "Subscribed",
+            "value": "Subscribed",
+            "description": "Marketplace subscription is activated"
+          },
+          {
+            "name": "Suspended",
+            "value": "Suspended",
+            "description": "This state indicates that a customer's payment for the Marketplace service was not received"
+          },
+          {
+            "name": "Unsubscribed",
+            "value": "Unsubscribed",
+            "description": "Customer has cancelled the subscription"
+          }
+        ]
+      }
+    },
+    "LiftrBase.OfferDetails": {
+      "type": "object",
+      "description": "Offer details for the marketplace that is selected by the user",
+      "properties": {
+        "publisherId": {
+          "type": "string",
+          "description": "Publisher Id for the marketplace offer"
+        },
+        "offerId": {
+          "type": "string",
+          "description": "Offer Id for the marketplace offer"
+        },
+        "planId": {
+          "type": "string",
+          "description": "Plan Id for the marketplace offer"
+        },
+        "planName": {
+          "type": "string",
+          "description": "Plan Name for the marketplace offer"
+        },
+        "termUnit": {
+          "type": "string",
+          "description": "Plan Display Name for the marketplace offer"
+        },
+        "termId": {
+          "type": "string",
+          "description": "Plan Display Name for the marketplace offer"
+        }
+      },
+      "required": [
+        "publisherId",
+        "offerId",
+        "planId"
+      ]
+    },
+    "LiftrBase.email": {
+      "type": "string",
+      "description": "Reusable representation of an email address.",
+      "pattern": "^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$"
+    },
+    "LinkedSaaSItem": {
+      "type": "object",
+      "description": "Individual SaaS resource linked to the Organization.",
+      "properties": {
+        "saaSResourceId": {
+          "type": "string",
+          "description": "SaaS resource id."
+        },
+        "isHiddenSaaS": {
+          "type": "boolean",
+          "description": "Flag indicating if the SaaS resource is hidden."
+        }
+      },
+      "required": [
+        "saaSResourceId"
+      ]
+    },
+    "LinkedSaaSListResponse": {
+      "type": "object",
+      "description": "Response containing the list of SaaS resources linked to the Organization.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "List of SaaS resources linked to this Organization.",
+          "items": {
+            "$ref": "#/definitions/LinkedSaaSItem"
+          },
+          "x-ms-identifiers": [
+            "saaSResourceId"
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "OrganizationPartnerProperties": {
+      "type": "object",
+      "description": "Partner-specific (Kore) properties for an Organization.",
+      "properties": {
+        "organizationName": {
+          "type": "string",
+          "description": "Display name of the Organization on the partner side.",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "billingEmail": {
+          "$ref": "#/definitions/LiftrBase.email",
+          "description": "Billing contact email address for the Organization."
+        },
+        "ownerEmail": {
+          "$ref": "#/definitions/LiftrBase.email",
+          "description": "Initial owner email for the Organization. JIT-provisioned by the partner if the user does not already exist."
+        },
+        "defaultWorkspace": {
+          "$ref": "#/definitions/DefaultWorkspaceProperties",
+          "description": "Default Workspace created atomically with the Organization.\nRequired at create time and immutable thereafter.\nAfter create, manage workspaces via the workspaces resource type and parent actions.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "partnerResourceId": {
+          "type": "string",
+          "description": "Partner-issued Organization identifier (e.g., \"org_01...\").",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "organizationName",
+        "billingEmail",
+        "ownerEmail",
+        "defaultWorkspace"
+      ]
+    },
+    "OrganizationPartnerPropertiesUpdate": {
+      "type": "object",
+      "description": "Mutable partner properties for PATCH.",
+      "properties": {
+        "organizationName": {
+          "type": "string",
+          "description": "Display name of the Organization on the partner side.",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "billingEmail": {
+          "$ref": "#/definitions/LiftrBase.email",
+          "description": "Billing contact email address for the Organization."
+        },
+        "ownerEmail": {
+          "$ref": "#/definitions/LiftrBase.email",
+          "description": "Initial owner email for the Organization."
+        }
+      }
+    },
+    "OrganizationProperties": {
+      "type": "object",
+      "description": "Properties of a Kore.AgentPlatform Organization.",
+      "properties": {
+        "marketplaceDetails": {
+          "type": "array",
+          "description": "Azure Marketplace SaaS subscriptions linked to this Organization.\nAt least one entry is required. Mutable to support Marketplace-driven\nplan changes.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/LiftrBase.MarketplaceDetails"
+          },
+          "x-ms-identifiers": [
+            "subscriptionId"
+          ]
+        },
+        "partnerProperties": {
+          "$ref": "#/definitions/OrganizationPartnerProperties",
+          "description": "Partner-specific (Kore) Organization properties."
+        },
+        "userDetails": {
+          "$ref": "#/definitions/UserDetails",
+          "description": "Azure customer profile metadata."
+        },
+        "companyDetails": {
+          "$ref": "#/definitions/CompanyDetails",
+          "description": "Organization-tier company metadata."
+        },
+        "singleSignOn": {
+          "$ref": "#/definitions/SingleSignOnProperties",
+          "description": "Single sign-on metadata returned by the partner after Organization creation.",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "Provisioning state of the resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "marketplaceDetails",
+        "partnerProperties"
+      ]
+    },
+    "OrganizationPropertiesUpdate": {
+      "type": "object",
+      "description": "Mutable Organization properties (subset of OrganizationProperties).",
+      "properties": {
+        "marketplaceDetails": {
+          "type": "array",
+          "description": "Azure Marketplace SaaS subscriptions linked to this Organization.\nMutable to support Marketplace-driven plan changes.",
+          "items": {
+            "$ref": "#/definitions/LiftrBase.MarketplaceDetails"
+          },
+          "x-ms-identifiers": [
+            "subscriptionId"
+          ]
+        },
+        "partnerProperties": {
+          "$ref": "#/definitions/OrganizationPartnerPropertiesUpdate",
+          "description": "Partner-specific (Kore) Organization properties."
+        },
+        "userDetails": {
+          "$ref": "#/definitions/UserDetails",
+          "description": "Azure customer profile metadata."
+        },
+        "companyDetails": {
+          "$ref": "#/definitions/CompanyDetails",
+          "description": "Organization-tier company metadata."
+        }
+      }
+    },
+    "OrganizationResource": {
+      "type": "object",
+      "description": "An Organization resource in the Kore.AgentPlatform provider.\n\nTop-level tracked ARM resource. Each Organization is provisioned with a default\nWorkspace atomically; additional Workspaces are managed via the\n`createWorkspace`, `deleteWorkspace`, and `restoreWorkspace` actions defined\nbelow.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/OrganizationProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "OrganizationResourceListResult": {
+      "type": "object",
+      "description": "The response of a OrganizationResource list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The OrganizationResource items on this page",
+          "items": {
+            "$ref": "#/definitions/OrganizationResource"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "OrganizationResourceUpdate": {
+      "type": "object",
+      "description": "PATCH body for the Organization resource.\n\nIntentionally omits ARM `tags`. Liftr does not propagate Azure resource tags\nto the partner (Kore.AgentPlatform); customers can still tag the resource via\nthe generic `Microsoft.Resources/tags/default` ARM endpoint, but those tags\nare not part of this resource provider's contract.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/OrganizationPropertiesUpdate",
+          "description": "The resource-specific properties to update."
+        }
+      }
+    },
+    "RestoreWorkspaceRequest": {
+      "type": "object",
+      "description": "Request body for the `restoreWorkspace` action on an Organization.",
+      "properties": {
+        "workspaceName": {
+          "type": "string",
+          "description": "Name of the soft-deleted Workspace to restore (within the grace period).",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "organizationPartnerResourceId": {
+          "type": "string",
+          "description": "Partner-issued identifier of the parent Organization (e.g., \"org_01...\").\nPassed in the body so the partner can correlate the workspace action with\nthe Kore-side Organization without a separate lookup."
+        }
+      },
+      "required": [
+        "workspaceName",
+        "organizationPartnerResourceId"
+      ]
+    },
+    "SaaSData": {
+      "type": "object",
+      "description": "SaaS-related data properties. Contains the full list of SaaS resource IDs to link.",
+      "properties": {
+        "saaSResourceIds": {
+          "type": "array",
+          "description": "List of SaaS resource IDs to link to this Organization.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "saaSResourceIds"
+      ]
+    },
+    "SaaSResourceDetailsResponse": {
+      "type": "object",
+      "description": "Marketplace SaaS resource details.",
+      "properties": {
+        "saasId": {
+          "type": "string",
+          "description": "Id of the Marketplace SaaS Resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "SingleSignOnProperties": {
+      "type": "object",
+      "description": "Single Sign-On metadata returned by the partner after Organization creation.",
+      "properties": {
+        "singleSignOnUrl": {
+          "type": "string",
+          "description": "URL the customer is redirected to in order to sign in to the partner application."
+        }
+      }
+    },
+    "UserDetails": {
+      "type": "object",
+      "description": "Azure customer profile metadata used by the partner for JIT provisioning.",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "description": "First name of the user."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last name of the user."
+        },
+        "emailAddress": {
+          "$ref": "#/definitions/LiftrBase.email",
+          "description": "Primary email address of the user."
+        },
+        "alternateEmail": {
+          "$ref": "#/definitions/LiftrBase.email",
+          "description": "Alternate email address of the user."
+        },
+        "upn": {
+          "type": "string",
+          "description": "Microsoft Entra User Principal Name (UPN)."
+        },
+        "address": {
+          "type": "string",
+          "description": "Mailing or office address."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Contact phone number."
+        }
+      }
+    },
+    "WorkspacePartnerProperties": {
+      "type": "object",
+      "description": "Partner-specific (Kore) properties for a Workspace.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the Workspace on the partner side.",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "ownerEmail": {
+          "$ref": "#/definitions/LiftrBase.email",
+          "description": "Email address of the Workspace owner."
+        },
+        "partnerResourceId": {
+          "type": "string",
+          "description": "Partner-issued Workspace identifier (e.g., \"ws_01...\").",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "WorkspaceProperties": {
+      "type": "object",
+      "description": "Properties of a Kore.AgentPlatform Workspace.",
+      "properties": {
+        "partnerProperties": {
+          "$ref": "#/definitions/WorkspacePartnerProperties",
+          "description": "Partner-specific (Kore) Workspace properties."
+        },
+        "isDefault": {
+          "type": "boolean",
+          "description": "Indicates whether this is the default Workspace created with the Organization.",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "Provisioning state of the resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "partnerProperties"
+      ]
+    },
+    "WorkspaceResource": {
+      "type": "object",
+      "description": "A Workspace resource in the Kore.AgentPlatform provider.\n\nChild proxy resource type under an Organization. Workspaces are not tracked\n(no `location`/`tags`). Workspaces do not expose PUT/PATCH/DELETE on the\nchild URL; create/delete/restore are performed by invoking the corresponding\naction on the parent Organization:\n\n- createWorkspace  : POST .../organizations/{org}/createWorkspace\n- deleteWorkspace  : POST .../organizations/{org}/deleteWorkspace\n- restoreWorkspace : POST .../organizations/{org}/restoreWorkspace\n\nGET and LIST are exposed on the child URL and routed through ARM/RPaaS to the\nLiftr resource provider.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/WorkspaceProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "WorkspaceResourceListResult": {
+      "type": "object",
+      "description": "The response of a WorkspaceResource list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The WorkspaceResource items on this page",
+          "items": {
+            "$ref": "#/definitions/WorkspaceResource"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    }
+  },
+  "parameters": {}
+}

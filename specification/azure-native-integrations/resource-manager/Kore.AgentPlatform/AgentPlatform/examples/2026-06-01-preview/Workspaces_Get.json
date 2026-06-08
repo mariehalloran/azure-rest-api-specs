@@ -1,0 +1,29 @@
+{
+  "title": "Workspaces_Get",
+  "operationId": "Workspaces_Get",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "contoso-rg",
+    "organizationName": "contoso-org",
+    "workspaceName": "contoso-prod"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-rg/providers/Kore.AgentPlatform/organizations/contoso-org/workspaces/contoso-prod",
+        "name": "contoso-prod",
+        "type": "Kore.AgentPlatform/organizations/workspaces",
+        "properties": {
+          "partnerProperties": {
+            "name": "Contoso Production",
+            "ownerEmail": "owner@contoso.com",
+            "partnerResourceId": "ws_01JK2MXYZ9ABCDEF000002"
+          },
+          "isDefault": false,
+          "provisioningState": "Succeeded"
+        }
+      }
+    }
+  }
+}

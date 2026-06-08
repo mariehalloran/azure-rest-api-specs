@@ -1,0 +1,42 @@
+{
+  "title": "Organizations_CreateWorkspace",
+  "operationId": "Organizations_CreateWorkspace",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "contoso-rg",
+    "organizationName": "contoso-org",
+    "body": {
+      "workspaceName": "contoso-prod",
+      "organizationPartnerResourceId": "org_01JK2MXYZ9ABCDEF123456",
+      "properties": {
+        "name": "Contoso Production",
+        "ownerEmail": "owner@contoso.com"
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-rg/providers/Kore.AgentPlatform/organizations/contoso-org/workspaces/contoso-prod",
+        "name": "contoso-prod",
+        "type": "Kore.AgentPlatform/organizations/workspaces",
+        "properties": {
+          "partnerProperties": {
+            "name": "Contoso Production",
+            "ownerEmail": "owner@contoso.com",
+            "partnerResourceId": "ws_01JK2MXYZ9ABCDEF000002"
+          },
+          "isDefault": false,
+          "provisioningState": "Succeeded"
+        }
+      }
+    },
+    "202": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Kore.AgentPlatform/locations/eastus2euap/operationStatuses/00000000-0000-0000-0000-000000000000?api-version=2026-06-01-preview",
+        "location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Kore.AgentPlatform/locations/eastus2euap/operationStatuses/00000000-0000-0000-0000-000000000000?api-version=2026-06-01-preview"
+      }
+    }
+  }
+}
