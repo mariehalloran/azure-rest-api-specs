@@ -30,6 +30,30 @@ openapi-subtype: rpaas
 tag: package-2025-11-01
 ```
 
+### Tag: package-2026-07-01-preview
+
+These settings apply only when `--tag=package-2026-07-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-07-01-preview'
+input-file:
+  - Microsoft.PortalServices/copilotSettings/preview/2026-07-01-preview/copilotSettings.json
+suppressions:
+  - code: PathForTrackedResourceTypes
+    reason: >
+      The resource type copilotSettings in the Microsoft.PortalServices resource provider is a proxy resource that
+      contains location property, it is not a tracked resource. This is a false positive.
+    from:
+      - copilotSettings.json
+    where: $.paths["/providers/Microsoft.PortalServices/copilotSettings/default"]
+  - code: RequestSchemaForTrackedResourcesMustHaveTags
+    reason: >
+      The resource type copilotSettings in the Microsoft.PortalServices resource provider is a proxy resource that
+      contains location property, it is not a tracked resource. This is a false positive.
+    from:
+      - copilotSettings.json
+    where: $.paths["/providers/Microsoft.PortalServices/copilotSettings/default"].put
+```
+
 ### Tag: package-2025-11-01
 
 These settings apply only when `--tag=package-2025-11-01` is specified on the command line.
