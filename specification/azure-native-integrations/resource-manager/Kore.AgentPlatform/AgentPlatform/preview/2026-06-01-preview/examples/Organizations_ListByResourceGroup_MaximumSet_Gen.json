@@ -58,7 +58,13 @@
                 "numberOfEmployees": 28
               },
               "singleSignOn": {
-                "singleSignOnUrl": "https://sso.kore.ai/contoso"
+                "type": "Saml",
+                "state": "Enable",
+                "enterpriseAppId": "00000000-0000-0000-0000-000000000000",
+                "url": "https://sso.kore.ai/contoso",
+                "aadDomains": [
+                  "contoso.com"
+                ]
               }
             },
             "tags": {

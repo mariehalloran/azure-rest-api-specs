@@ -59,10 +59,14 @@ model CompanyDetails {
 // Single sign-on (read-only; populated from Kore create/patch response)
 // =============================================================================
 
-/** Single Sign-On metadata returned by the partner after Organization creation. */
+/**
+ * Single Sign-On metadata returned by the partner after Organization creation.
+ *
+ * Spreads the standard `LiftrBase.SingleSignOnPropertiesV2` shape
+ * (`type`, `state`, `enterpriseAppId`, `url`, `aadDomains`).
+ */
 model SingleSignOnProperties {
-  /** URL the customer is redirected to in order to sign in to the partner application. */
-  singleSignOnUrl?: string;
+  ...LiftrBase.SingleSignOnPropertiesV2;
 }
 
 // =============================================================================

@@ -1225,6 +1225,64 @@
         "offerId"
       ]
     },
+    "LiftrBase.SingleSignOnStates": {
+      "type": "string",
+      "description": "Various states of the SSO resource",
+      "enum": [
+        "Initial",
+        "Enable",
+        "Disable"
+      ],
+      "x-ms-enum": {
+        "name": "SingleSignOnStates",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Initial",
+            "value": "Initial",
+            "description": "Initial state of the SSO resource"
+          },
+          {
+            "name": "Enable",
+            "value": "Enable",
+            "description": "State of the SSO resource when it is enabled"
+          },
+          {
+            "name": "Disable",
+            "value": "Disable",
+            "description": "State of the SSO resource when it is disabled"
+          }
+        ]
+      }
+    },
+    "LiftrBase.SingleSignOnType": {
+      "type": "string",
+      "description": "Defines the type of Single Sign-On (SSO) mechanism being used",
+      "enum": [
+        "Saml",
+        "OpenId"
+      ],
+      "x-ms-enum": {
+        "name": "SingleSignOnType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Saml",
+            "value": "Saml",
+            "description": "Security Assertion Markup Language (SAML) based Single Sign-On"
+          },
+          {
+            "name": "OpenId",
+            "value": "OpenId",
+            "description": "OpenID Connect based Single Sign-On."
+          }
+        ]
+      }
+    },
+    "LiftrBase.Uri": {
+      "type": "string",
+      "description": "A string that represents a URI."
+    },
     "LiftrBase.email": {
       "type": "string",
       "description": "Reusable representation of an email address.",
@@ -1496,13 +1554,35 @@
     },
     "SingleSignOnProperties": {
       "type": "object",
-      "description": "Single Sign-On metadata returned by the partner after Organization creation.",
+      "description": "Single Sign-On metadata returned by the partner after Organization creation.\n\nSpreads the standard `LiftrBase.SingleSignOnPropertiesV2` shape\n(`type`, `state`, `enterpriseAppId`, `url`, `aadDomains`).",
       "properties": {
-        "singleSignOnUrl": {
+        "type": {
+          "$ref": "#/definitions/LiftrBase.SingleSignOnType",
+          "description": "Type of Single Sign-On mechanism being used"
+        },
+        "state": {
+          "$ref": "#/definitions/LiftrBase.SingleSignOnStates",
+          "description": "State of the Single Sign On for the resource"
+        },
+        "enterpriseAppId": {
           "type": "string",
-          "description": "URL the customer is redirected to in order to sign in to the partner application."
+          "description": "AAD enterprise application Id used to setup SSO"
+        },
+        "url": {
+          "$ref": "#/definitions/LiftrBase.Uri",
+          "description": "URL for SSO to be used by the partner to redirect the user to their system"
+        },
+        "aadDomains": {
+          "type": "array",
+          "description": "List of AAD domains fetched from Microsoft Graph for user.",
+          "items": {
+            "type": "string"
+          }
         }
-      }
+      },
+      "required": [
+        "type"
+      ]
     },
     "UserDetails": {
       "type": "object",
