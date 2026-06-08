@@ -95,7 +95,7 @@ model HostStorageConfig {
 /** Network configuration for a resilience host. */
 model HostNetworkConfig {
   /** Network mode. 'default' uses NAT and ignores the other network fields; 'custom' uses the supplied network settings. */
-  mode: NetworkMode;
+  mode?: NetworkMode;
 
   /** Name of the internet switch the nested virtual machine is connected to. Required when mode is 'custom'. */
   internetSwitchName?: string;
