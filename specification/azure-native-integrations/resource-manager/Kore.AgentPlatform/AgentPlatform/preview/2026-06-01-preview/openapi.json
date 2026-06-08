@@ -1344,9 +1344,9 @@
           "$ref": "#/definitions/OrganizationPartnerProperties",
           "description": "Partner-specific (Kore) Organization properties."
         },
-        "userDetails": {
+        "user": {
           "$ref": "#/definitions/UserDetails",
-          "description": "Azure customer profile metadata."
+          "description": "Azure customer profile metadata used by the partner for JIT provisioning."
         },
         "companyDetails": {
           "$ref": "#/definitions/CompanyDetails",
@@ -1365,7 +1365,8 @@
       },
       "required": [
         "marketplaceDetails",
-        "partnerProperties"
+        "partnerProperties",
+        "user"
       ]
     },
     "OrganizationPropertiesUpdate": {
@@ -1386,7 +1387,7 @@
           "$ref": "#/definitions/OrganizationPartnerPropertiesUpdate",
           "description": "Partner-specific (Kore) Organization properties."
         },
-        "userDetails": {
+        "user": {
           "$ref": "#/definitions/UserDetails",
           "description": "Azure customer profile metadata."
         },

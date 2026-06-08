@@ -121,8 +121,8 @@ model OrganizationProperties {
   /** Partner-specific (Kore) Organization properties. */
   partnerProperties: OrganizationPartnerProperties;
 
-  /** Azure customer profile metadata. */
-  userDetails?: UserDetails;
+  /** Azure customer profile metadata used by the partner for JIT provisioning. */
+  user: UserDetails;
 
   /** Organization-tier company metadata. */
   companyDetails?: CompanyDetails;
@@ -200,7 +200,7 @@ model OrganizationPropertiesUpdate {
   partnerProperties?: OrganizationPartnerPropertiesUpdate;
 
   /** Azure customer profile metadata. */
-  userDetails?: UserDetails;
+  user?: UserDetails;
 
   /** Organization-tier company metadata. */
   companyDetails?: CompanyDetails;
