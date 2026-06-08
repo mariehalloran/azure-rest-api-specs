@@ -45,6 +45,11 @@ using Kore.AgentPlatform;
   "csharp"
 );
 @@clientName(
+  Kore.AgentPlatform.WorkspaceLifecycleStatus,
+  "KoreAgentPlatformWorkspaceLifecycleStatus",
+  "csharp"
+);
+@@clientName(
   Kore.AgentPlatform.UserDetails,
   "KoreAgentPlatformUserDetails",
   "csharp"
@@ -67,11 +72,6 @@ using Kore.AgentPlatform;
 @@clientName(
   Kore.AgentPlatform.DeleteWorkspaceRequest,
   "KoreAgentPlatformDeleteWorkspaceRequest",
-  "csharp"
-);
-@@clientName(
-  Kore.AgentPlatform.RestoreWorkspaceRequest,
-  "KoreAgentPlatformRestoreWorkspaceRequest",
   "csharp"
 );
 

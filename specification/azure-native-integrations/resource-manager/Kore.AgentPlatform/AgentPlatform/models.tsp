@@ -144,6 +144,20 @@ model OrganizationProperties {
 // Workspace resource properties
 // =============================================================================
 
+/** Lifecycle status of a Workspace as reported by the Kore partner. */
+union WorkspaceLifecycleStatus {
+  string,
+
+  /** Workspace is active and operational. */
+  "active",
+
+  /** Workspace is suspended; operations are blocked but resource is retained. */
+  "suspended",
+
+  /** Workspace is archived (delete pending). */
+  "archived",
+}
+
 /** Partner-specific (Kore) properties for a Workspace. */
 model WorkspacePartnerProperties {
   /** Display name of the Workspace on the partner side. */
@@ -167,6 +181,10 @@ model WorkspaceProperties {
   /** Indicates whether this is the default Workspace created with the Organization. */
   @visibility(Lifecycle.Read)
   isDefault?: boolean;
+
+  /** Lifecycle status of the Workspace as reported by the Kore partner. */
+  @visibility(Lifecycle.Read)
+  status?: WorkspaceLifecycleStatus;
 
   /** Provisioning state of the resource. */
   @visibility(Lifecycle.Read)
@@ -248,21 +266,6 @@ model CreateWorkspaceRequest {
 /** Request body for the `deleteWorkspace` action on an Organization. */
 model DeleteWorkspaceRequest {
   /** Name of the Workspace to delete. */
-  @minLength(2)
-  @maxLength(100)
-  workspaceName: string;
-
-  /**
-   * Partner-issued identifier of the parent Organization (e.g., "org_01...").
-   * Passed in the body so the partner can correlate the workspace action with
-   * the Kore-side Organization without a separate lookup.
-   */
-  organizationPartnerResourceId: string;
-}
-
-/** Request body for the `restoreWorkspace` action on an Organization. */
-model RestoreWorkspaceRequest {
-  /** Name of the soft-deleted Workspace to restore (within the grace period). */
   @minLength(2)
   @maxLength(100)
   workspaceName: string;

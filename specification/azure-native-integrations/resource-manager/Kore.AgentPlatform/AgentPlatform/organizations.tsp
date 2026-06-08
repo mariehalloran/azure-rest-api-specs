@@ -17,8 +17,7 @@ namespace Kore.AgentPlatform;
  *
  * Top-level tracked ARM resource. Each Organization is provisioned with a default
  * Workspace atomically; additional Workspaces are managed via the
- * `createWorkspace`, `deleteWorkspace`, and `restoreWorkspace` actions defined
- * below.
+ * `createWorkspace` and `deleteWorkspace` actions defined below.
  */
 model OrganizationResource
   is Azure.ResourceManager.TrackedResource<OrganizationProperties> {
@@ -81,24 +80,14 @@ interface Organizations {
   >;
 
   /**
-   * Soft-delete a Workspace under this Organization. Long-running.
-   * The Workspace remains restorable for 30 days via `restoreWorkspace`.
+   * Delete a Workspace under this Organization. Long-running.
+   * The deletion is permanent from the Liftr ARM surface.
    */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "void-returning LRO action; 202 + default is sufficient."
   deleteWorkspace is ArmResourceActionAsync<
     OrganizationResource,
     DeleteWorkspaceRequest,
     void
-  >;
-
-  /**
-   * Restore a soft-deleted Workspace under this Organization within the
-   * 30-day grace period. Long-running. Returns the restored Workspace.
-   */
-  restoreWorkspace is ArmResourceActionAsync<
-    OrganizationResource,
-    RestoreWorkspaceRequest,
-    WorkspaceResource
   >;
 
   /** Links SaaS resources to the organization. Accepts the full list of SaaS assets to be linked. */

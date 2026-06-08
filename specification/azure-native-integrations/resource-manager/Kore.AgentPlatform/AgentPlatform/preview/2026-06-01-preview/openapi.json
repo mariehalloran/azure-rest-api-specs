@@ -3,7 +3,7 @@
   "info": {
     "title": "Kore.AgentPlatform",
     "version": "2026-06-01-preview",
-    "description": "Kore.AgentPlatform Resource Provider for managing Kore AI Agent Platform\nOrganizations and their Workspaces.\n\nOrganizations are top-level tracked ARM resources. Each Organization is\nprovisioned together with a default Workspace. Additional Workspaces are\nmanaged through POST actions on the parent Organization\n(`createWorkspace`, `deleteWorkspace`, `restoreWorkspace`).\nGET and LIST on workspaces are exposed as a child proxy resource type.\n\nService-to-service authentication between Liftr and Kore uses federated\nMicrosoft Entra credentials and is enforced at the runtime layer\n(not on the ARM surface).",
+    "description": "Kore.AgentPlatform Resource Provider for managing Kore AI Agent Platform\nOrganizations and their Workspaces.\n\nOrganizations are top-level tracked ARM resources. Each Organization is\nprovisioned together with a default Workspace. Additional Workspaces are\nmanaged through POST actions on the parent Organization\n(`createWorkspace`, `deleteWorkspace`).\nGET and LIST on workspaces are exposed as a child proxy resource type.\n\nService-to-service authentication between Liftr and Kore uses federated\nMicrosoft Entra credentials and is enforced at the runtime layer\n(not on the ARM surface).",
     "x-typespec-generated": [
       {
         "emitter": "@azure-tools/typespec-autorest"
@@ -598,7 +598,7 @@
         "tags": [
           "Organizations"
         ],
-        "description": "Soft-delete a Workspace under this Organization. Long-running.\nThe Workspace remains restorable for 30 days via `restoreWorkspace`.",
+        "description": "Delete a Workspace under this Organization. Long-running.\nThe deletion is permanent from the Liftr ARM surface.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
@@ -789,85 +789,6 @@
             "$ref": "./examples/Organizations_ListLinkedSaaS.json"
           }
         }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/restoreWorkspace": {
-      "post": {
-        "operationId": "Organizations_RestoreWorkspace",
-        "tags": [
-          "Organizations"
-        ],
-        "description": "Restore a soft-deleted Workspace under this Organization within the\n30-day grace period. Long-running. Returns the restored Workspace.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "organizationName",
-            "in": "path",
-            "description": "Name of the Organization.",
-            "required": true,
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 50,
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "The content of the action request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/RestoreWorkspaceRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/WorkspaceResource"
-            }
-          },
-          "202": {
-            "description": "Resource operation accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Organizations_RestoreWorkspace": {
-            "$ref": "./examples/Organizations_RestoreWorkspace.json"
-          },
-          "Organizations_RestoreWorkspace_MaximumSet_Gen": {
-            "$ref": "./examples/Organizations_RestoreWorkspace_MaximumSet_Gen.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/workspaces": {
@@ -1457,7 +1378,7 @@
     },
     "OrganizationResource": {
       "type": "object",
-      "description": "An Organization resource in the Kore.AgentPlatform provider.\n\nTop-level tracked ARM resource. Each Organization is provisioned with a default\nWorkspace atomically; additional Workspaces are managed via the\n`createWorkspace`, `deleteWorkspace`, and `restoreWorkspace` actions defined\nbelow.",
+      "description": "An Organization resource in the Kore.AgentPlatform provider.\n\nTop-level tracked ARM resource. Each Organization is provisioned with a default\nWorkspace atomically; additional Workspaces are managed via the\n`createWorkspace` and `deleteWorkspace` actions defined below.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/OrganizationProperties",
@@ -1500,26 +1421,6 @@
           "description": "The resource-specific properties to update."
         }
       }
-    },
-    "RestoreWorkspaceRequest": {
-      "type": "object",
-      "description": "Request body for the `restoreWorkspace` action on an Organization.",
-      "properties": {
-        "workspaceName": {
-          "type": "string",
-          "description": "Name of the soft-deleted Workspace to restore (within the grace period).",
-          "minLength": 2,
-          "maxLength": 100
-        },
-        "organizationPartnerResourceId": {
-          "type": "string",
-          "description": "Partner-issued identifier of the parent Organization (e.g., \"org_01...\").\nPassed in the body so the partner can correlate the workspace action with\nthe Kore-side Organization without a separate lookup."
-        }
-      },
-      "required": [
-        "workspaceName",
-        "organizationPartnerResourceId"
-      ]
     },
     "SaaSData": {
       "type": "object",
@@ -1618,6 +1519,36 @@
         }
       }
     },
+    "WorkspaceLifecycleStatus": {
+      "type": "string",
+      "description": "Lifecycle status of a Workspace as reported by the Kore partner.",
+      "enum": [
+        "active",
+        "suspended",
+        "archived"
+      ],
+      "x-ms-enum": {
+        "name": "WorkspaceLifecycleStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "active",
+            "value": "active",
+            "description": "Workspace is active and operational."
+          },
+          {
+            "name": "suspended",
+            "value": "suspended",
+            "description": "Workspace is suspended; operations are blocked but resource is retained."
+          },
+          {
+            "name": "archived",
+            "value": "archived",
+            "description": "Workspace is archived (delete pending)."
+          }
+        ]
+      }
+    },
     "WorkspacePartnerProperties": {
       "type": "object",
       "description": "Partner-specific (Kore) properties for a Workspace.",
@@ -1655,6 +1586,11 @@
           "description": "Indicates whether this is the default Workspace created with the Organization.",
           "readOnly": true
         },
+        "status": {
+          "$ref": "#/definitions/WorkspaceLifecycleStatus",
+          "description": "Lifecycle status of the Workspace as reported by the Kore partner.",
+          "readOnly": true
+        },
         "provisioningState": {
           "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "Provisioning state of the resource.",
@@ -1667,7 +1603,7 @@
     },
     "WorkspaceResource": {
       "type": "object",
-      "description": "A Workspace resource in the Kore.AgentPlatform provider.\n\nChild proxy resource type under an Organization. Workspaces are not tracked\n(no `location`/`tags`). Workspaces do not expose PUT/PATCH/DELETE on the\nchild URL; create/delete/restore are performed by invoking the corresponding\naction on the parent Organization:\n\n- createWorkspace  : POST .../organizations/{org}/createWorkspace\n- deleteWorkspace  : POST .../organizations/{org}/deleteWorkspace\n- restoreWorkspace : POST .../organizations/{org}/restoreWorkspace\n\nGET and LIST are exposed on the child URL and routed through ARM/RPaaS to the\nLiftr resource provider.",
+      "description": "A Workspace resource in the Kore.AgentPlatform provider.\n\nChild proxy resource type under an Organization. Workspaces are not tracked\n(no `location`/`tags`). Workspaces do not expose PUT/PATCH/DELETE on the\nchild URL; create/delete are performed by invoking the corresponding\naction on the parent Organization:\n\n- createWorkspace  : POST .../organizations/{org}/createWorkspace\n- deleteWorkspace  : POST .../organizations/{org}/deleteWorkspace\n\nGET and LIST are exposed on the child URL and routed through ARM/RPaaS to the\nLiftr resource provider.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/WorkspaceProperties",

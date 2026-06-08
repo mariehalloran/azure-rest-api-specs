@@ -17,12 +17,11 @@ namespace Kore.AgentPlatform;
  *
  * Child proxy resource type under an Organization. Workspaces are not tracked
  * (no `location`/`tags`). Workspaces do not expose PUT/PATCH/DELETE on the
- * child URL; create/delete/restore are performed by invoking the corresponding
+ * child URL; create/delete are performed by invoking the corresponding
  * action on the parent Organization:
  *
  *   - createWorkspace  : POST .../organizations/{org}/createWorkspace
  *   - deleteWorkspace  : POST .../organizations/{org}/deleteWorkspace
- *   - restoreWorkspace : POST .../organizations/{org}/restoreWorkspace
  *
  * GET and LIST are exposed on the child URL and routed through ARM/RPaaS to the
  * Liftr resource provider.
