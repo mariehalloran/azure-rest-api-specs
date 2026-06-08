@@ -340,7 +340,7 @@ model ManagedConsoleConnectionCreateProperties {
 
   /** Routes associated with the connection. */
   @Azure.ResourceManager.identifiers(#["id"])
-  routes?: ManagedConsoleConnectionRoute[];
+  routes?: Route[];
 }
 
 /**
@@ -362,7 +362,7 @@ model ManagedConsoleConnectionProperties
  * Route entry for a Managed Console Connection.
  */
 @added(Versions.v2026_04_01_preview)
-model ManagedConsoleConnectionRoute {
+model Route {
   /** Name of the route. */
   name: string;
 
@@ -370,7 +370,7 @@ model ManagedConsoleConnectionRoute {
   id: Azure.Core.armResourceIdentifier<[]>;
 
   /** Route properties. */
-  properties?: ManagedConsoleConnectionRouteProperties;
+  properties?: RouteProperties;
 }
 
 /**
@@ -400,7 +400,7 @@ union NextHopType {
  * Properties of a route entry.
  */
 @added(Versions.v2026_04_01_preview)
-model ManagedConsoleConnectionRouteProperties {
+model RouteProperties {
   /** The destination address prefix. */
   @pattern("^(?:\\d{1,3}\\.){3}\\d{1,3}/(?:[0-9]|[12]\\d|3[0-2])$")
   addressPrefix: string;

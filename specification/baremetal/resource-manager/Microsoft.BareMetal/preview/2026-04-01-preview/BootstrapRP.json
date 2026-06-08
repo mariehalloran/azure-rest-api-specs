@@ -1814,7 +1814,7 @@
           "type": "array",
           "description": "Routes associated with the connection.",
           "items": {
-            "$ref": "#/definitions/ManagedConsoleConnectionRoute"
+            "$ref": "#/definitions/Route"
           },
           "x-ms-identifiers": [
             "id"
@@ -1840,62 +1840,6 @@
         "subnetResourceId",
         "vlan",
         "deviceId"
-      ]
-    },
-    "ManagedConsoleConnectionRoute": {
-      "type": "object",
-      "description": "Route entry for a Managed Console Connection.",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Name of the route."
-        },
-        "id": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "Azure resource ID of the route.",
-          "x-ms-arm-id-details": {
-            "allowedResources": []
-          }
-        },
-        "properties": {
-          "$ref": "#/definitions/ManagedConsoleConnectionRouteProperties",
-          "description": "Route properties."
-        }
-      },
-      "required": [
-        "name",
-        "id"
-      ]
-    },
-    "ManagedConsoleConnectionRouteProperties": {
-      "type": "object",
-      "description": "Properties of a route entry.",
-      "properties": {
-        "addressPrefix": {
-          "type": "string",
-          "description": "The destination address prefix.",
-          "pattern": "^(?:\\d{1,3}\\.){3}\\d{1,3}/(?:[0-9]|[12]\\d|3[0-2])$"
-        },
-        "nextHopType": {
-          "$ref": "#/definitions/NextHopType",
-          "description": "The type of Azure hop the packet should be sent to."
-        },
-        "nextHopIpAddress": {
-          "type": "string",
-          "description": "The IP address packets should be forwarded to.",
-          "pattern": "^(?:\\d{1,3}\\.){3}\\d{1,3}$"
-        },
-        "hasBgpOverride": {
-          "type": "boolean",
-          "description": "Whether BGP override is enabled."
-        }
-      },
-      "required": [
-        "addressPrefix",
-        "nextHopType",
-        "nextHopIpAddress",
-        "hasBgpOverride"
       ]
     },
     "ManagedConsoleConnectionUpdate": {
@@ -2330,6 +2274,62 @@
       },
       "required": [
         "remoteVirtualNetworkId"
+      ]
+    },
+    "Route": {
+      "type": "object",
+      "description": "Route entry for a Managed Console Connection.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the route."
+        },
+        "id": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Azure resource ID of the route.",
+          "x-ms-arm-id-details": {
+            "allowedResources": []
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/RouteProperties",
+          "description": "Route properties."
+        }
+      },
+      "required": [
+        "name",
+        "id"
+      ]
+    },
+    "RouteProperties": {
+      "type": "object",
+      "description": "Properties of a route entry.",
+      "properties": {
+        "addressPrefix": {
+          "type": "string",
+          "description": "The destination address prefix.",
+          "pattern": "^(?:\\d{1,3}\\.){3}\\d{1,3}/(?:[0-9]|[12]\\d|3[0-2])$"
+        },
+        "nextHopType": {
+          "$ref": "#/definitions/NextHopType",
+          "description": "The type of Azure hop the packet should be sent to."
+        },
+        "nextHopIpAddress": {
+          "type": "string",
+          "description": "The IP address packets should be forwarded to.",
+          "pattern": "^(?:\\d{1,3}\\.){3}\\d{1,3}$"
+        },
+        "hasBgpOverride": {
+          "type": "boolean",
+          "description": "Whether BGP override is enabled."
+        }
+      },
+      "required": [
+        "addressPrefix",
+        "nextHopType",
+        "nextHopIpAddress",
+        "hasBgpOverride"
       ]
     },
     "RouteToVirtualNetworkOperationStatus": {
