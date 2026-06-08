@@ -46,7 +46,7 @@ interface Organizations {
   create is ArmResourceCreateOrReplaceAsync<OrganizationResource>;
 
   /** Update mutable properties of an Organization (long-running). */
-  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality"
+  #suppress "@typespec/http/deprecated-implicit-optionality" "PATCH reuses create-side models containing fields that are required at create time (notably the spread of LiftrBase.UserDetails and items of LiftrBase.MarketplaceDetails[]). implicitOptionality flattens those nested required fields to optional in the PATCH schema to preserve partial-update semantics without duplicating every model as a *ForUpdate variant."
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     OrganizationResource,
