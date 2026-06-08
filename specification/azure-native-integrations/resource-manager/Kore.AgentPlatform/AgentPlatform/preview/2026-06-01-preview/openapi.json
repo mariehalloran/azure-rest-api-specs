@@ -1505,35 +1505,35 @@
     },
     "UserDetails": {
       "type": "object",
-      "description": "Azure customer profile metadata used by the partner for JIT provisioning.",
+      "description": "Azure customer profile metadata used by the partner for JIT provisioning.\n\nComposes the standard `LiftrBase.UserDetails` (firstName, lastName,\nemailAddress, upn, phoneNumber) with Kore-specific extensions.",
       "properties": {
         "firstName": {
           "type": "string",
-          "description": "First name of the user."
+          "description": "First name of the user"
         },
         "lastName": {
           "type": "string",
-          "description": "Last name of the user."
+          "description": "Last name of the user"
         },
         "emailAddress": {
           "$ref": "#/definitions/LiftrBase.email",
-          "description": "Primary email address of the user."
+          "description": "Email address of the user"
+        },
+        "upn": {
+          "type": "string",
+          "description": "User's principal name"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "User's phone number"
         },
         "alternateEmail": {
           "$ref": "#/definitions/LiftrBase.email",
           "description": "Alternate email address of the user."
         },
-        "upn": {
-          "type": "string",
-          "description": "Microsoft Entra User Principal Name (UPN)."
-        },
         "address": {
           "type": "string",
           "description": "Mailing or office address."
-        },
-        "phoneNumber": {
-          "type": "string",
-          "description": "Contact phone number."
         }
       }
     },

@@ -18,28 +18,20 @@ namespace Kore.AgentPlatform;
 // User / Company profile metadata
 // =============================================================================
 
-/** Azure customer profile metadata used by the partner for JIT provisioning. */
+/**
+ * Azure customer profile metadata used by the partner for JIT provisioning.
+ *
+ * Composes the standard `LiftrBase.UserDetails` (firstName, lastName,
+ * emailAddress, upn, phoneNumber) with Kore-specific extensions.
+ */
 model UserDetails {
-  /** First name of the user. */
-  firstName?: string;
-
-  /** Last name of the user. */
-  lastName?: string;
-
-  /** Primary email address of the user. */
-  emailAddress?: email;
+  ...LiftrBase.UserDetails;
 
   /** Alternate email address of the user. */
   alternateEmail?: email;
 
-  /** Microsoft Entra User Principal Name (UPN). */
-  upn?: string;
-
   /** Mailing or office address. */
   address?: string;
-
-  /** Contact phone number. */
-  phoneNumber?: string;
 }
 
 /** Organization-tier company metadata. */
