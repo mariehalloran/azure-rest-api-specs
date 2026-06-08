@@ -307,12 +307,9 @@
           "type": "string",
           "description": "The unique identifier of the check defined in check definition."
         },
-        "applicableTo": {
-          "type": "array",
-          "description": "Represents the check applicability on the list of roles, component level resources.",
-          "items": {
-            "type": "string"
-          }
+        "checkFilters": {
+          "$ref": "#/definitions/CheckFilters",
+          "description": "The filter criteria to scope down the resources for the check execution."
         },
         "originType": {
           "$ref": "#/definitions/CheckOriginType",
@@ -360,7 +357,10 @@
         "startsWith",
         "endsWith",
         "in",
-        "notIn"
+        "notIn",
+        "range",
+        "empty",
+        "notEmpty"
       ],
       "x-ms-enum": {
         "name": "CheckEvaluationCondition",
@@ -425,6 +425,21 @@
             "name": "NotIn",
             "value": "notIn",
             "description": "Check output value must not be in defined value."
+          },
+          {
+            "name": "Range",
+            "value": "range",
+            "description": "Check output value must be in the defined range of values."
+          },
+          {
+            "name": "Empty",
+            "value": "empty",
+            "description": "Check output value must be empty."
+          },
+          {
+            "name": "NotEmpty",
+            "value": "notEmpty",
+            "description": "Check output value must not be empty."
           }
         ]
       }
@@ -451,6 +466,36 @@
             "description": "The execution of the check is disabled."
           }
         ]
+      }
+    },
+    "CheckFilters": {
+      "type": "object",
+      "description": "Schema for check filter to scope down the resources for the check execution.",
+      "properties": {
+        "applicableToRoleNames": {
+          "type": "array",
+          "description": "List of role names to which the check is applicable.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "applicableToComponentTypes": {
+          "type": "array",
+          "description": "List of component types to which the check is applicable.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "applicableComponentMetadata": {
+          "type": "array",
+          "description": "Metadata information of the component.",
+          "items": {
+            "$ref": "#/definitions/MetadataFilterEntry"
+          },
+          "x-ms-identifiers": [
+            "key"
+          ]
+        }
       }
     },
     "CheckOriginType": {
@@ -509,6 +554,10 @@
           "type": "string",
           "description": "The type of workload for which the checks are executed. Referenced from VI resource.",
           "readOnly": true
+        },
+        "workloadSystemIdentifier": {
+          "type": "string",
+          "description": "Workload system identifier (SID)."
         },
         "environmentType": {
           "$ref": "#/definitions/EnvironmentType",
@@ -726,7 +775,9 @@
       "description": "The type of environment for which the checks are executed.",
       "enum": [
         "Production",
-        "NonProduction"
+        "NonProduction",
+        "DisasterRecovery",
+        "IsolatedRecovery"
       ],
       "x-ms-enum": {
         "name": "EnvironmentType",
@@ -741,9 +792,58 @@
             "name": "NonProduction",
             "value": "NonProduction",
             "description": "Environment is non production."
+          },
+          {
+            "name": "DisasterRecovery",
+            "value": "DisasterRecovery",
+            "description": "Environment is for disaster recovery."
+          },
+          {
+            "name": "IsolatedRecovery",
+            "value": "IsolatedRecovery",
+            "description": "Environment is for isolated recovery."
           }
         ]
       }
+    },
+    "MetadataEntry": {
+      "type": "object",
+      "description": "Defines the metadata entry with key and value pair.",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The key of the metadata entry."
+        },
+        "value": {
+          "type": "string",
+          "description": "The value of the metadata entry."
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "MetadataFilterEntry": {
+      "type": "object",
+      "description": "Defines the metadata filter entry with key and list of values pair to be used in scoping down the resources for check execution.",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The key of the metadata filter entry."
+        },
+        "values": {
+          "type": "array",
+          "description": "The list of values for the metadata filter entry.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "key",
+        "values"
+      ]
     },
     "OutputParameters": {
       "type": "object",
@@ -752,6 +852,14 @@
         "condition": {
           "$ref": "#/definitions/CheckEvaluationCondition",
           "description": "Condition to be used to evaluate the output and customize the check."
+        },
+        "skipIfOutputMatches": {
+          "type": "boolean",
+          "description": "A value indicating whether to skip the check if the output matches the expected value."
+        },
+        "propertyPath": {
+          "type": "string",
+          "description": "The dot-separated JSON property path used to extract a value from an Azure REST API response"
         },
         "name": {
           "type": "string",
@@ -847,6 +955,16 @@
         "type": {
           "type": "string",
           "description": "Type of the component."
+        },
+        "metadata": {
+          "type": "array",
+          "description": "Metadata information of the component.",
+          "items": {
+            "$ref": "#/definitions/MetadataEntry"
+          },
+          "x-ms-identifiers": [
+            "key"
+          ]
         },
         "checks": {
           "type": "array",
