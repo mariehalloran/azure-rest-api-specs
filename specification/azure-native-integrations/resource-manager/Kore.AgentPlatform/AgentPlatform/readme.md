@@ -24,19 +24,15 @@ For other options on installation see [Installing AutoRest](https://aka.ms/autor
 
 These are the global settings for the AgentPlatform service.
 
-
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
 tag: package-2026-06-01-preview
-
 ```
-
 
 ```yaml
 modelerfour:
   flatten-models: false
-
 ```
 
 ### Tag: package-2026-06-01-preview
@@ -47,4 +43,3 @@ These settings apply only when `--tag=package-2026-06-01-preview` is specified o
 input-file:
   - preview/2026-06-01-preview/openapi.json
 ```
-
