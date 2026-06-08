@@ -366,7 +366,7 @@ model ManagedConsoleConnectionRoute {
   /** Name of the route. */
   name: string;
 
-  /** ARM resource ID of the route. */
+  /** Azure resource ID of the route. */
   id: Azure.Core.armResourceIdentifier<[]>;
 
   /** Route properties. */
