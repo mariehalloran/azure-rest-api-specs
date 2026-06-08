@@ -1791,7 +1791,11 @@
           "format": "arm-id",
           "description": "The baremetal-delegated subnet resource ID.",
           "x-ms-arm-id-details": {
-            "allowedResources": []
+            "allowedResources": [
+              {
+                "type": "Microsoft.Network/virtualNetworks/subnets"
+              }
+            ]
           }
         },
         "vlan": {

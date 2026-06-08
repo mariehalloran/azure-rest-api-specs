@@ -327,7 +327,7 @@ model ManagedConsoleConnectionCreateProperties {
   ipAddress: string;
 
   /** The baremetal-delegated subnet resource ID. */
-  subnetResourceId: Azure.Core.armResourceIdentifier<[]>;
+  subnetResourceId: Azure.Core.armResourceIdentifier<[{type: "Microsoft.Network/virtualNetworks/subnets"}]>;
 
   /** VLAN ID assigned to the subnet of the associated connection. */
   @minValue(1)
