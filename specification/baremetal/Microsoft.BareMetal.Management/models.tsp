@@ -349,9 +349,9 @@ model ManagedConsoleConnectionCreateProperties {
 @added(Versions.v2026_04_01_preview)
 model ManagedConsoleConnectionProperties
   is ManagedConsoleConnectionCreateProperties {
-  /** The network interface resource URI. */
+  /** The network interface resource ID. */
   @visibility(Lifecycle.Read)
-  networkInterfaceUri?: Azure.Core.armResourceIdentifier<[]>;
+  networkInterfaceId?: Azure.Core.armResourceIdentifier<[]>;
 
   /** The current provisioning state. */
   @visibility(Lifecycle.Read)
