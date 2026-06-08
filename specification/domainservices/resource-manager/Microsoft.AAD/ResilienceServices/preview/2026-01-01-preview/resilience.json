@@ -454,6 +454,11 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
+        },
+        "x-ms-examples": {
+          "ResilienceHosts_ListByParent_MaximumSet_Gen": {
+            "$ref": "./examples/ResilienceHosts_ListByParent_MaximumSet_Gen.json"
+          }
         }
       }
     },
@@ -503,6 +508,11 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "ResilienceHosts_Get_MaximumSet_Gen": {
+            "$ref": "./examples/ResilienceHosts_Get_MaximumSet_Gen.json"
           }
         }
       },
@@ -582,7 +592,12 @@
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
-        "x-ms-long-running-operation": true
+        "x-ms-long-running-operation": true,
+        "x-ms-examples": {
+          "ResilienceHosts_CreateOrUpdate_MaximumSet_Gen": {
+            "$ref": "./examples/ResilienceHosts_CreateOrUpdate_MaximumSet_Gen.json"
+          }
+        }
       },
       "patch": {
         "operationId": "ResilienceHosts_Update",
@@ -638,6 +653,11 @@
             "schema": {
               "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "ResilienceHosts_Update_MaximumSet_Gen": {
+            "$ref": "./examples/ResilienceHosts_Update_MaximumSet_Gen.json"
           }
         }
       },
@@ -702,7 +722,12 @@
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
-        "x-ms-long-running-operation": true
+        "x-ms-long-running-operation": true,
+        "x-ms-examples": {
+          "ResilienceHosts_Delete_MaximumSet_Gen": {
+            "$ref": "./examples/ResilienceHosts_Delete_MaximumSet_Gen.json"
+          }
+        }
       }
     }
   },
