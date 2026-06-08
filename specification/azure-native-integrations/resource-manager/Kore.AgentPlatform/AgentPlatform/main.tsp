@@ -41,6 +41,6 @@ namespace Kore.AgentPlatform;
 enum Versions {
   /** 2026-06-01 preview version */
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-  @useDependency(LiftrBase.Versions.v1_preview)
+  @useDependency(LiftrBase.Versions.v3_preview)
   v2026_06_01_preview: "2026-06-01-preview",
 }

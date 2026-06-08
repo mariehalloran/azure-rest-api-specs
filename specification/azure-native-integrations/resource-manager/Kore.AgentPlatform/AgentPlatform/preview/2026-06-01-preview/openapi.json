@@ -1150,13 +1150,16 @@
           "description": "Marketplace subscription status",
           "readOnly": true
         },
+        "saasResourceId": {
+          "type": "string",
+          "description": "Marketplace SaaS Resource Id"
+        },
         "offerDetails": {
           "$ref": "#/definitions/LiftrBase.OfferDetails",
           "description": "Offer details for the marketplace that is selected by the user"
         }
       },
       "required": [
-        "subscriptionId",
         "offerDetails"
       ]
     },
@@ -1227,8 +1230,7 @@
       },
       "required": [
         "publisherId",
-        "offerId",
-        "planId"
+        "offerId"
       ]
     },
     "LiftrBase.email": {
