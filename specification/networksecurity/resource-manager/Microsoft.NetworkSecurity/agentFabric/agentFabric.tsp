@@ -78,7 +78,7 @@ model FoundryWorkload extends WorkloadBase {
   /** The workload type. */
   type: "Foundry";
 
-  /** The ARM resource ID of the Foundry resource. */
+  /** The Azure resource ID of the Foundry resource. */
   resourceId?: Azure.Core.armResourceIdentifier;
 }
 
