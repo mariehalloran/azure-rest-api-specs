@@ -498,16 +498,18 @@ model PlatformConsoleActivationCode {
 }
 
 @added(Versions.v2026_05_01_preview)
-@doc("SSH host key provided by the server for host verification")
-model SshHostKey {
-  @doc("SSH key algorithm type")
-  type: string;
+@doc("Role assigned to a user on the platform console")
+union PlatformConsoleRole {
+  @doc("Full administrative access to the array")
+  arrayAdmin: "array_admin",
 
-  @doc("Fingerprint algorithm used (e.g. SHA256)")
-  fingerprintAlgorithm: string;
+  @doc("Administrative access to storage resources")
+  storageAdmin: "storage_admin",
 
-  @doc("Fingerprint of the host key")
-  fingerprint: string;
+  @doc("Read-only access to the platform console")
+  readOnly: "read_only",
+
+  string,
 }
 
 @added(Versions.v2026_05_01_preview)
@@ -539,7 +541,7 @@ model SshPlatformConsoleAuthConfig extends PlatformConsoleAuthConfig {
   publicKey: string;
 
   @doc("Role to assign to the user on the platform console")
-  role: string;
+  role: PlatformConsoleRole;
 }
 
 @added(Versions.v2026_05_01_preview)
@@ -559,11 +561,7 @@ model SshPlatformConsoleAuthResult extends PlatformConsoleAuthResult {
   username: string;
 
   @doc("Role assigned to the user on the platform console")
-  role: string;
-
-  @doc("SSH host keys provided by the server for client-side host verification")
-  @identifiers(#["fingerprint"])
-  serverHostKeys: SshHostKey[];
+  role: PlatformConsoleRole;
 }
 
 @doc("Limits constraining certain resource properties")

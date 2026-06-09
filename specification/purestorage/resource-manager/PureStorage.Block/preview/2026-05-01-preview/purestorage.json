@@ -5570,6 +5570,36 @@
         ]
       }
     },
+    "PlatformConsoleRole": {
+      "type": "string",
+      "description": "Role assigned to a user on the platform console",
+      "enum": [
+        "array_admin",
+        "storage_admin",
+        "read_only"
+      ],
+      "x-ms-enum": {
+        "name": "PlatformConsoleRole",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "arrayAdmin",
+            "value": "array_admin",
+            "description": "Full administrative access to the array"
+          },
+          {
+            "name": "storageAdmin",
+            "value": "storage_admin",
+            "description": "Administrative access to storage resources"
+          },
+          {
+            "name": "readOnly",
+            "value": "read_only",
+            "description": "Read-only access to the platform console"
+          }
+        ]
+      }
+    },
     "PlatformConsoleSettings": {
       "type": "object",
       "description": "Settings for platform console access to the storage pool",
@@ -6109,29 +6139,6 @@
         "shared"
       ]
     },
-    "SshHostKey": {
-      "type": "object",
-      "description": "SSH host key provided by the server for host verification",
-      "properties": {
-        "type": {
-          "type": "string",
-          "description": "SSH key algorithm type"
-        },
-        "fingerprintAlgorithm": {
-          "type": "string",
-          "description": "Fingerprint algorithm used (e.g. SHA256)"
-        },
-        "fingerprint": {
-          "type": "string",
-          "description": "Fingerprint of the host key"
-        }
-      },
-      "required": [
-        "type",
-        "fingerprintAlgorithm",
-        "fingerprint"
-      ]
-    },
     "SshPlatformConsoleAuthConfig": {
       "type": "object",
       "description": "SSH-based platform console authentication configuration",
@@ -6145,7 +6152,7 @@
           "description": "SSH public key in OpenSSH authorized_keys format"
         },
         "role": {
-          "type": "string",
+          "$ref": "#/definitions/PlatformConsoleRole",
           "description": "Role to assign to the user on the platform console"
         }
       },
@@ -6170,24 +6177,13 @@
           "description": "Username that was configured for the console session"
         },
         "role": {
-          "type": "string",
+          "$ref": "#/definitions/PlatformConsoleRole",
           "description": "Role assigned to the user on the platform console"
-        },
-        "serverHostKeys": {
-          "type": "array",
-          "description": "SSH host keys provided by the server for client-side host verification",
-          "items": {
-            "$ref": "#/definitions/SshHostKey"
-          },
-          "x-ms-identifiers": [
-            "fingerprint"
-          ]
         }
       },
       "required": [
         "username",
-        "role",
-        "serverHostKeys"
+        "role"
       ],
       "allOf": [
         {
