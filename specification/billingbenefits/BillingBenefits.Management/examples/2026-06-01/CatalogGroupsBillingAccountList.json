@@ -12,8 +12,7 @@
             "name": "maccs",
             "type": "Microsoft.BillingBenefits/catalogGroups",
             "properties": {
-              "resourceType": "Maccs",
-              "namespace": "Maccs",
+              "benefitResourceType": "Maccs",
               "displayName": "Microsoft Azure Consumption Commitment",
               "shortDescription": "Commit to a minimum Azure spend and unlock discounts across eligible services.",
               "longDescription": "Microsoft Azure Consumption Commitments (MACCs) let organizations pre-commit to a minimum Azure spend over 1 or 3 years in exchange for discounted rates. Discounts apply automatically as usage accrues against the commitment balance.",
@@ -31,23 +30,22 @@
             "name": "savingsPlans",
             "type": "Microsoft.BillingBenefits/catalogGroups",
             "properties": {
-              "resourceType": "SavingsPlans",
-              "namespace": "SavingsPlans",
+              "benefitResourceType": "SavingsPlans",
               "displayName": "Savings Plans – Compute",
               "shortDescription": "Save on consistent compute spend across Azure services with a flexible hourly commitment.",
               "longDescription": "Azure Savings Plans for compute provide discounts on dynamic workloads by committing to an hourly spend for 1 or 3 years. Discounts apply automatically across Virtual Machines, Dedicated Host, Container Instances, App Service, and Azure Functions.",
               "learnMoreLink": "https://go.microsoft.com/fwlink/?linkid=2301006",
               "capabilities": [
                 {
-                  "key": "SelfServiceExchange",
+                  "name": "SelfServiceExchange",
                   "value": "NotSupported"
                 },
                 {
-                  "key": "SelfServiceRefund",
+                  "name": "SelfServiceRefund",
                   "value": "NotSupported"
                 },
                 {
-                  "key": "Renewability",
+                  "name": "Renewability",
                   "value": "Supported"
                 }
               ],
@@ -68,27 +66,26 @@
             "name": "reservations.VirtualMachines",
             "type": "Microsoft.BillingBenefits/catalogGroups",
             "properties": {
-              "resourceType": "Reservations",
-              "namespace": "VirtualMachines",
+              "benefitResourceType": "Reservations",
               "displayName": "Reservations – Virtual Machines",
               "shortDescription": "Lock in discounted VM pricing for 1 or 3 years with instance size flexibility.",
               "longDescription": "Reserved VM Instances provide significant savings over pay-as-you-go pricing for stable Virtual Machine workloads. Instance size flexibility automatically covers different VM sizes within the same series and region.",
               "learnMoreLink": "https://go.microsoft.com/fwlink/?linkid=2301008",
               "capabilities": [
                 {
-                  "key": "SelfServiceExchange",
+                  "name": "SelfServiceExchange",
                   "value": "Supported"
                 },
                 {
-                  "key": "SelfServiceRefund",
+                  "name": "SelfServiceRefund",
                   "value": "Supported"
                 },
                 {
-                  "key": "Renewability",
+                  "name": "Renewability",
                   "value": "Supported"
                 },
                 {
-                  "key": "InstanceSizeFlexibility",
+                  "name": "InstanceSizeFlexibility",
                   "value": "Supported"
                 }
               ],

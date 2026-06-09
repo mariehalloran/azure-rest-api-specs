@@ -5299,9 +5299,9 @@
       "type": "object",
       "description": "A key-value pair representing a capability of the catalog group (for example, exchange or renewal support).",
       "properties": {
-        "key": {
+        "name": {
           "type": "string",
-          "description": "The capability key (e.g., SelfServiceExchange, Renewability)."
+          "description": "The capability name (e.g., SelfServiceExchange, Renewability)."
         },
         "value": {
           "type": "string",
@@ -5309,7 +5309,7 @@
         }
       },
       "required": [
-        "key",
+        "name",
         "value"
       ]
     },
@@ -5338,14 +5338,9 @@
       "type": "object",
       "description": "Properties of a catalog group.",
       "properties": {
-        "resourceType": {
+        "benefitResourceType": {
           "$ref": "#/definitions/ResourceType",
           "description": "The top-level benefit resource type (e.g., maccs, credits, conditionalCredits, discounts, savingsPlans, reservations)."
-        },
-        "namespace": {
-          "type": "string",
-          "description": "Dot-separated path encoding the category hierarchy within a benefit type (e.g., VirtualMachines, SQL.ManagedInstance). The default group namespace equals the resourceType.",
-          "x-ms-client-name": "catalogNamespace"
         },
         "displayName": {
           "type": "string",
@@ -5393,8 +5388,7 @@
         }
       },
       "required": [
-        "resourceType",
-        "namespace"
+        "benefitResourceType"
       ]
     },
     "ChangeSponsorRequest": {
