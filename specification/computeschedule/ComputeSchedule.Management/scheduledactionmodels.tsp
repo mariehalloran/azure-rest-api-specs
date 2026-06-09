@@ -22,7 +22,7 @@ model ScheduledActionsSchedule {
   @doc("The timezone the scheduled time is specified on")
   timeZone: string;
 
-  @doc("The week days the scheduled action is supposed to run on. If empty, it means it will run on every weekday.")
+  @doc("The week days the scheduled action is supposed to run on. If empty, it means it will run on every day of the week.")
   requestedWeekDays: WeekDay[];
 
   @doc("The months the scheduled action is supposed to run on. If empty, it means it will run on every month.")
