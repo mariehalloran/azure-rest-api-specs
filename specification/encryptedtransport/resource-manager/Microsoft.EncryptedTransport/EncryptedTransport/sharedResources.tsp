@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-import "./modules/common/base.tsp";
-import "./modules/resources/encryptedTransportAccount.tsp";
-import "./modules/resources/device.tsp";
-import "./modules/resources/deviceProfile.tsp";
+import "./base.tsp";
+import "./resources/encryptedTransportAccount.tsp";
+import "./resources/device.tsp";
+import "./resources/deviceProfile.tsp";
