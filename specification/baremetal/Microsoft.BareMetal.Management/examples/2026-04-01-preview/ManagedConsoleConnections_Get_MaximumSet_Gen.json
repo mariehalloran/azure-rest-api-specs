@@ -1,0 +1,61 @@
+{
+  "title": "ManagedConsoleConnections_Get_MaximumSet",
+  "operationId": "ManagedConsoleConnections_Get",
+  "parameters": {
+    "api-version": "2026-04-01-preview",
+    "subscriptionId": "491ee1d8-5c9f-45d5-80d0-72509c91cbee",
+    "resourceGroupName": "rgBootstrapRP",
+    "managedConsoleConnectionName": "bgpEndpoint1"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "ipAddress": "10.0.0.4",
+          "subnetResourceId": "/subscriptions/1ab6b2c5-4ac7-486e-b66c-f8763d205301/resourceGroups/customer-rg/providers/Microsoft.Network/virtualNetworks/cx-eus-vnet/subnets/delegated-subnet",
+          "vlan": 2917,
+          "deviceId": "e7661538-69f1-455c-89ec-11c416db874d",
+          "routes": [
+            {
+              "name": "subnet3",
+              "id": "/subscriptions/36636e6d-08d3-4308-b6a1-428773ee184f/resourceGroups/test-rg/providers/Microsoft.Network/routeTables/Cust_UDR_Gen2/routes/subnet3",
+              "properties": {
+                "addressPrefix": "10.20.30.0/24",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "10.31.2.196",
+                "hasBgpOverride": false
+              }
+            },
+            {
+              "name": "subnet2",
+              "id": "/subscriptions/36636e6d-08d3-4308-b6a1-428773ee184f/resourceGroups/test-rg/providers/Microsoft.Network/routeTables/Cust_UDR_Gen2/routes/subnet2",
+              "properties": {
+                "addressPrefix": "172.16.10.0/24",
+                "nextHopType": "VirtualAppliance",
+                "nextHopIpAddress": "10.31.2.196",
+                "hasBgpOverride": false
+              }
+            }
+          ],
+          "networkInterfaceId": "/subscriptions/491ee1d8-5c9f-45d5-80d0-72509c91cbee/resourceGroups/rgBootstrapRP/providers/Microsoft.Network/networkInterfaces/bgpEndpoint1_vnic",
+          "provisioningState": "Succeeded"
+        },
+        "tags": {
+          "key1": "value1"
+        },
+        "location": "eastus",
+        "id": "/subscriptions/491ee1d8-5c9f-45d5-80d0-72509c91cbee/resourceGroups/rgBootstrapRP/providers/Microsoft.BareMetal/managedConsoleConnections/bgpEndpoint1",
+        "name": "bgpEndpoint1",
+        "type": "Microsoft.BareMetal/managedConsoleConnections",
+        "systemData": {
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2026-03-01T10:00:00.000Z",
+          "lastModifiedBy": "user@example.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-03-01T10:00:00.000Z"
+        }
+      }
+    }
+  }
+}
