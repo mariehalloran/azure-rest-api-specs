@@ -40,14 +40,12 @@ enum Versions {
   @useDependency(LiftrBase.Storage.Versions.v1_preview)
   v2026_01_01_preview: "2026-01-01-preview",
 
-  @doc("Version 5 preview with ActivateSaas support.")
+  @doc("Version 4 preview with ActivateSaas support.")
   @useDependency(LiftrBase.Versions.v2026_03_01_preview)
   @useDependency(LiftrBase.Storage.Versions.v1_preview)
   v2026_03_01_preview: "2026-03-01-preview",
 
-  @doc("Version 6 preview with Volume Group Snapshot support.")
-  @useDependency(LiftrBase.Versions.v2026_03_01_preview)
-  @useDependency(LiftrBase.Storage.Versions.v1_preview)
+  @doc("Version 5 preview with Volume Group Snapshot support.")
   v2026_05_01_preview: "2026-05-01-preview",
 }
 

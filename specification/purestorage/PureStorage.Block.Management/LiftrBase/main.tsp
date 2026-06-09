@@ -28,9 +28,6 @@ enum Versions {
   v2026_01_01_preview: "2026-01-01-preview",
 
   @doc("Dependent on Azure.ResourceManager.CommonTypes.Versions.v5")
-  v2026_02_01_preview: "2026-02-01-preview",
-
-  @doc("Dependent on Azure.ResourceManager.CommonTypes.Versions.v5")
   v2026_03_01_preview: "2026-03-01-preview",
 }
 
