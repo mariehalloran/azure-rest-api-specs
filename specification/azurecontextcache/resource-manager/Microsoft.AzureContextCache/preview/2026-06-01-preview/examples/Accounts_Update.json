@@ -4,12 +4,15 @@
   "parameters": {
     "subscriptionId": "00000000-0000-0000-0000-000000000000",
     "resourceGroupName": "testrg",
-    "api-version": "2026-01-01-preview",
+    "api-version": "2026-06-01-preview",
     "accountName": "testaccount",
     "properties": {
       "tags": {
         "environment": "production",
         "team": "azurecontextcache"
+      },
+      "identity": {
+        "type": "SystemAssigned"
       },
       "properties": {
         "description": "Updated Prompt Service account description"
@@ -27,24 +30,37 @@
           "environment": "production",
           "team": "azurecontextcache"
         },
+        "identity": {
+          "type": "SystemAssigned",
+          "principalId": "00000000-0000-0000-0000-000000000000",
+          "tenantId": "00000000-0000-0000-0000-000000000000"
+        },
         "properties": {
           "accountKind": "Regional",
           "description": "Updated Prompt Service account description",
+          "encryption": {
+            "customerManagedKeyEncryption": {
+              "keyEncryptionKeyIdentity": {
+                "identityType": "systemAssignedIdentity"
+              },
+              "keyEncryptionKeyUrl": "https://mykeyvault.vault.azure.net/keys/myEncryptionKey"
+            }
+          },
           "provisioningState": "Succeeded"
         },
         "systemData": {
           "createdBy": "user@example.com",
           "createdByType": "User",
-          "createdAt": "2026-01-01T00:00:00Z",
+          "createdAt": "2026-06-01T00:00:00Z",
           "lastModifiedBy": "user@example.com",
           "lastModifiedByType": "User",
-          "lastModifiedAt": "2026-01-01T00:00:00Z"
+          "lastModifiedAt": "2026-06-01T00:00:00Z"
         }
       }
     },
     "202": {
       "headers": {
-        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.AzureContextCache/accounts/testaccount?api-version=2026-01-01-preview",
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.AzureContextCache/accounts/testaccount?api-version=2026-06-01-preview",
         "Retry-After": "10"
       }
     },
