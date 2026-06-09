@@ -68,6 +68,14 @@ model PlatformLandingZoneProperties {
   @doc("Version control system the generator will use when materializing the landing-zone IaC and CI pipelines. When omitted, the generator service applies its default (currently GitHub).")
   versionControlSystem?: VersionControlSystem;
 
+  @doc("Name of the organization or environment that owns this landing zone. Surfaced to the generator (maps to ENVIRONMENT_NAME). Optional.")
+  @maxLength(200)
+  organizationName?: string;
+
+  @doc("Name of the service associated with this landing zone. Surfaced to the generator (maps to SERVICE_NAME). Optional.")
+  @maxLength(200)
+  serviceName?: string;
+
   @visibility(Lifecycle.Read)
   @doc("Server-owned state of the design evolution lifecycle. Monotonically progresses NotStarted -> InProgress -> Complete in response to the evolveDesign action. Read-only; ignored on input.")
   evolvedDesign?: DesignEvolutionState;
