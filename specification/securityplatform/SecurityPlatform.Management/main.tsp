@@ -67,6 +67,7 @@ interface Operations extends Azure.ResourceManager.Operations {}
 interface AccountLinks {
   get is ArmResourceRead<AccountLink>;
   createOrUpdate is ArmResourceCreateOrReplaceSync<AccountLink>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchSync<
     AccountLink,

@@ -22,9 +22,9 @@ interface UsagePlans {
 
   createOrUpdate is ArmResourceCreateOrReplaceAsync<UsagePlan>;
 
-  update is ArmTagsPatchSync<UsagePlan>;
+  update is ArmTagsPatchAsync<UsagePlan>;
 
-  delete is ArmResourceDeleteSync<UsagePlan>;
+  delete is ArmResourceDeleteWithoutOkAsync<UsagePlan>;
 
   listByResourceGroup is ArmResourceListByParent<UsagePlan>;
 
@@ -41,7 +41,7 @@ interface Enrollments {
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Enrollment>;
 
   @doc("Delete an Enrollment.")
-  delete is ArmResourceDeleteSync<Enrollment>;
+  delete is ArmResourceDeleteWithoutOkAsync<Enrollment>;
 
   @doc("List Enrollments by Usage Plan.")
   list is ArmResourceListByParent<Enrollment>;

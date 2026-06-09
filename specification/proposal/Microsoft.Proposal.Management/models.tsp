@@ -67,6 +67,29 @@ model LineItem {
   @doc("The product code of the line item as a UUID that uniquely identifies this line item within the proposal.")
   productCode: string;
 
+  @added(Versions.v2026_05_01_preview)
+  @doc("The name of the line item.")
+  name: string;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Quantity of the line item within the proposal bundle.")
+  quantity: int64;
+
+  @added(Versions.v2026_05_01_preview)
+  @secret
+  @doc("Availability token for the line item.")
+  availabilityToken?: string;
+
+  @added(Versions.v2026_05_01_preview)
+  @secret
+  @doc("Billing token for the line item.")
+  billingToken?: string;
+
+  @added(Versions.v2026_05_01_preview)
+  @secret
+  @doc("Risk payment token associated with the line item.")
+  riskPaymentToken?: string;
+
   @visibility(Lifecycle.Read)
   @doc("The resource URI of the line item.")
   resourceUri?: string;
@@ -88,18 +111,9 @@ model LineItem {
 union LineItemStatus {
   string,
 
-  @doc("NotDeployed - Initial status when a line item is created.")
-  NotDeployed: "NotDeployed",
+  @doc("Pending - The line item is pending processing.")
+  Pending: "Pending",
 
-  @doc("Success - status when a line item is successfully deployed.")
-  Success: "Success",
-
-  @doc("InProgress - status when a line item deployment is in progress.")
-  InProgress: "InProgress",
-
-  @doc("Canceled - status when a line item deployment is canceled.")
-  Canceled: "Canceled",
-
-  @doc("Failed - status when a line item deployment has failed.")
-  Failed: "Failed",
+  @doc("Completed - The line item has been successfully completed.")
+  Completed: "Completed",
 }

@@ -24,10 +24,8 @@ model NetworkBootstrapInterface
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** The NetworkBootstrapInterface properties */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
+  @doc("The NetworkBootstrapInterface properties")
   properties: NetworkBootstrapInterfaceProperties;
 }
 
@@ -63,12 +61,15 @@ interface NetworkBootstrapInterfaces {
   >;
 }
 
-@@doc(NetworkBootstrapInterfaces.create::parameters.resource,
+@@doc(
+  NetworkBootstrapInterfaces.create::parameters.resource,
   "Request payload."
 );
-@@doc(NetworkBootstrapInterfaces.update::parameters.properties,
+@@doc(
+  NetworkBootstrapInterfaces.update::parameters.properties,
   "NetworkBootstrapInterface properties to update. Only tags are supported."
 );
-@@doc(NetworkBootstrapInterfaces.updateAdministrativeState::parameters.body,
+@@doc(
+  NetworkBootstrapInterfaces.updateAdministrativeState::parameters.body,
   "Request payload."
 );

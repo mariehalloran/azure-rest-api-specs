@@ -6,6 +6,7 @@ import "@azure-tools/typespec-azure-resource-manager";
 
 using Azure.ResourceManager;
 using Azure.ResourceManager.Foundations;
+using TypeSpec.Versioning;
 
 namespace Microsoft.ApplicationMigration;
 
@@ -541,6 +542,12 @@ model MongoInstanceProperties is AzureResourceProperties {
   authenticationMechanism?: string;
 
   /**
+   * Software-specific attributes and metadata for the discovered MongoDB instance.
+   */
+  @added(Versions.v2026_05_01_preview)
+  softwareAttributes?: SoftwareAttributes;
+
+  /**
    * List of enabled MongoDB features.
    */
   enabledFeatures?: string[];
@@ -712,6 +719,12 @@ model MongoInstanceResourcePatch is AzureResourceProperties {
    * Specifies the authentication mechanism used by MongoDB.
    */
   authenticationMechanism?: string;
+
+  /**
+   * Software-specific attributes and metadata for the discovered MongoDB instance.
+   */
+  @added(Versions.v2026_05_01_preview)
+  softwareAttributes?: SoftwareAttributes;
 
   /**
    * List of enabled MongoDB features.
@@ -1141,6 +1154,54 @@ model MongoCollectionResourcePatchProperties {
    */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
   tags?: Record<string>;
+}
+
+/**
+ * Software-specific attributes and metadata
+ */
+@added(Versions.v2026_05_01_preview)
+model SoftwareAttributes {
+  /**
+   * Name of the software (e.g., MongoDB)
+   */
+  softwareName?: string;
+
+  /**
+   * Name of the software provider or vendor
+   */
+  providerName?: string;
+
+  /**
+   * Version of the software
+   */
+  softwareVersion?: string;
+
+  /**
+   * Unique identifier for the software instance
+   */
+  softwareId?: string;
+
+  /**
+   * List of additional custom properties with string value types
+   */
+  @identifiers(#["key"])
+  customProperties?: CustomProperties[];
+}
+
+/**
+ * Custom property with mixed value types
+ */
+@added(Versions.v2026_05_01_preview)
+model CustomProperties {
+  /**
+   * Property key
+   */
+  key: string;
+
+  /**
+   * Property value - string
+   */
+  value: string;
 }
 
 /**

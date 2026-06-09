@@ -27,7 +27,7 @@ These are the global settings for the Qumulo.Storage.
 ``` yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2026-02-17-preview
+tag: package-2026-04-16
 directive:
   - rename-model: 
       from: 'LiftrBase.Storage.FileSystemResourceUpdate'
@@ -126,6 +126,15 @@ These settings apply only when `--tag=package-2025-10-01-preview` is specified o
 ``` yaml $(tag) == 'package-2025-10-01-preview'
 input-file:
   - Qumulo.Storage/preview/2025-10-01-preview/Qumulo.Storage.json
+```
+
+### Tag: package-2026-04-16
+
+These settings apply only when `--tag=package-2026-04-16` is specified on the command line.
+
+``` yaml $(tag) == 'package-2026-04-16'
+input-file:
+  - Qumulo.Storage/stable/2026-04-16/Qumulo.Storage.json
 ```
 
 ### Tag: package-2026-02-17-preview

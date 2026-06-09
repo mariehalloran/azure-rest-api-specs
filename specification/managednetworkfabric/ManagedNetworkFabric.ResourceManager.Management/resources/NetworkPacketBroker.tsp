@@ -20,15 +20,7 @@ model NetworkPacketBroker
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** The NetworkPacketBroker properties */
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: NetworkPacketBrokerProperties;
-
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
   @doc("The NetworkPacketBroker properties")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties: NetworkPacketBrokerProperties;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
@@ -66,6 +58,7 @@ interface NetworkPacketBrokers {
 }
 
 @@doc(NetworkPacketBrokers.create::parameters.resource, "Request payload.");
-@@doc(NetworkPacketBrokers.update::parameters.properties,
+@@doc(
+  NetworkPacketBrokers.update::parameters.properties,
   "Network Packet Broker properties to update."
 );

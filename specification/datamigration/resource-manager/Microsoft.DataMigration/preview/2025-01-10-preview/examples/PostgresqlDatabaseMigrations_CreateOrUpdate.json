@@ -12,8 +12,10 @@
         "migrationName": "prod-oracle-to-azure-pg",
         "description": "Production Oracle migration to Azure PostgreSQL Flexible Server",
         "migrationMode": "offline",
+        "sourceType": "Oracle",
+        "targetType": "AzurePostgreSQLFlexibleServer",
         "source": {
-          "engine": "oracle",
+          "sourceEngine": "Oracle",
           "serverResourceId": null,
           "connectionEndPoints": [
             {
@@ -49,7 +51,7 @@
           ]
         },
         "target": {
-          "engine": "azure_postgres_flexible",
+          "targetEngine": "Azure Database for PostgreSQL",
           "serverResourceId": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.DBforPostgreSQL/flexibleServers/myServer",
           "connectionEndPoints": [
             {
@@ -104,27 +106,29 @@
             "targetConnectionName": "targetConnection2"
           }
         ],
-        "computeProfile": {
-          "computeSubnetResourceId": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet"
-        },
-        "migrationJobsettings": {
-          "validateOnly": false
-        }
+        "migrationJobSettings": [
+          {
+            "settingName": "validateOnly",
+            "settingValue": "false"
+          }
+        ]
       }
     }
   },
   "responses": {
     "200": {
       "body": {
-        "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.DataMigration/postgresqlMigrationServices/myMigrationService/postgresqlDatabaseMigrations/mig-123e4567-e89b-12d3-a456-426614174000",
+        "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.DataMigration/databaseMigrationServices/myMigrationService/migrations/mig-123e4567-e89b-12d3-a456-426614174000",
         "name": "mig-123e4567-e89b-12d3-a456-426614174000",
-        "type": "Microsoft.DataMigration/postgresqlMigrationServices/postgresqlDatabaseMigrations",
+        "type": "Microsoft.DataMigration/databaseMigrationServices/migrations",
         "properties": {
           "migrationName": "prod-oracle-to-azure-pg",
           "description": "Production Oracle migration to Azure PostgreSQL Flexible Server",
           "migrationMode": "offline",
+          "sourceType": "Oracle",
+          "targetType": "AzurePostgreSQLFlexibleServer",
           "source": {
-            "engine": "oracle",
+            "sourceEngine": "Oracle",
             "serverResourceId": null,
             "connectionEndPoints": [
               {
@@ -158,7 +162,7 @@
             ]
           },
           "target": {
-            "engine": "azure_postgres_flexible",
+            "targetEngine": "Azure Database for PostgreSQL",
             "serverResourceId": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.DBforPostgreSQL/flexibleServers/myServer",
             "connectionEndPoints": [
               {
@@ -211,12 +215,12 @@
               "targetConnectionName": "targetConnection2"
             }
           ],
-          "computeProfile": {
-            "computeSubnetResourceId": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet"
-          },
-          "migrationJobsettings": {
-            "validateOnly": false
-          },
+          "migrationJobSettings": [
+            {
+              "settingName": "validateOnly",
+              "settingValue": "false"
+            }
+          ],
           "provisioningState": "Provisioning",
           "migrationStatus": {
             "state": "InProgress",
@@ -242,52 +246,6 @@
               }
             ]
           },
-          "databases": [
-            {
-              "databaseName": "HR",
-              "migrationStatus": "Failed",
-              "migrationProgress": {
-                "migrationPhase": "DataMigration",
-                "migrationStatistics": {
-                  "tablesTotal": 100,
-                  "tablesCompleted": 75,
-                  "tablesFailed": 3,
-                  "tablesInProgress": 5,
-                  "tablesPending": 17,
-                  "percentComplete": 75
-                }
-              },
-              "errors": [
-                {
-                  "errorCode": "ConnectionError",
-                  "category": "Connection",
-                  "severity": "Critical",
-                  "message": "Failed to connect to source database HRDB.",
-                  "details": "Timeout while attempting to connect to oracle-prod.company.com:1521."
-                }
-              ],
-              "createdAt": "2025-09-20T08:15:30Z",
-              "lastUpdatedAt": "2025-09-23T10:30:00Z"
-            },
-            {
-              "databaseName": "DB1",
-              "migrationStatus": "InProgress",
-              "migrationProgress": {
-                "migrationPhase": "DataMigration",
-                "migrationStatistics": {
-                  "tablesTotal": 100,
-                  "tablesCompleted": 75,
-                  "tablesFailed": 3,
-                  "tablesInProgress": 5,
-                  "tablesPending": 17,
-                  "percentComplete": 75
-                }
-              },
-              "errors": [],
-              "createdAt": "2025-09-21T09:20:45Z",
-              "lastUpdatedAt": "2025-09-23T10:30:00Z"
-            }
-          ],
           "startedAt": "2025-01-10T10:47:41.820717Z",
           "endedAt": null
         }
@@ -295,15 +253,17 @@
     },
     "201": {
       "body": {
-        "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.DataMigration/postgresqlMigrationServices/myMigrationService/postgresqlDatabaseMigrations/mig-123e4567-e89b-12d3-a456-426614174000",
+        "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.DataMigration/databaseMigrationServices/myMigrationService/migrations/mig-123e4567-e89b-12d3-a456-426614174000",
         "name": "mig-123e4567-e89b-12d3-a456-426614174000",
-        "type": "Microsoft.DataMigration/postgresqlMigrationServices/postgresqlDatabaseMigrations",
+        "type": "Microsoft.DataMigration/databaseMigrationServices/migrations",
         "properties": {
           "migrationName": "prod-oracle-to-azure-pg",
           "description": "Production Oracle migration to Azure PostgreSQL Flexible Server",
           "migrationMode": "offline",
+          "sourceType": "Oracle",
+          "targetType": "AzurePostgreSQLFlexibleServer",
           "source": {
-            "engine": "oracle",
+            "sourceEngine": "Oracle",
             "serverResourceId": null,
             "connectionEndPoints": [
               {
@@ -337,7 +297,7 @@
             ]
           },
           "target": {
-            "engine": "azure_postgres_flexible",
+            "targetEngine": "Azure Database for PostgreSQL",
             "serverResourceId": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.DBforPostgreSQL/flexibleServers/myServer",
             "connectionEndPoints": [
               {
@@ -390,12 +350,12 @@
               "targetConnectionName": "targetConnection2"
             }
           ],
-          "computeProfile": {
-            "computeSubnetResourceId": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet"
-          },
-          "migrationJobsettings": {
-            "validateOnly": false
-          },
+          "migrationJobSettings": [
+            {
+              "settingName": "validateOnly",
+              "settingValue": "false"
+            }
+          ],
           "provisioningState": "Provisioning",
           "migrationStatus": {
             "state": "InProgress",
@@ -406,52 +366,6 @@
             "state": "InProgress",
             "preMigrationValidationSummaries": []
           },
-          "databases": [
-            {
-              "databaseName": "HR",
-              "migrationStatus": "Failed",
-              "migrationProgress": {
-                "migrationPhase": "DataMigration",
-                "migrationStatistics": {
-                  "tablesTotal": 100,
-                  "tablesCompleted": 75,
-                  "tablesFailed": 3,
-                  "tablesInProgress": 5,
-                  "tablesPending": 17,
-                  "percentComplete": 75
-                }
-              },
-              "errors": [
-                {
-                  "errorCode": "ConnectionError",
-                  "category": "Connection",
-                  "severity": "Critical",
-                  "message": "Failed to connect to source database HRDB.",
-                  "details": "Timeout while attempting to connect to oracle-prod.company.com:1521."
-                }
-              ],
-              "createdAt": "2025-09-20T08:15:30Z",
-              "lastUpdatedAt": "2025-09-23T10:30:00Z"
-            },
-            {
-              "databaseName": "DB1",
-              "migrationStatus": "InProgress",
-              "migrationProgress": {
-                "migrationPhase": "DataMigration",
-                "migrationStatistics": {
-                  "tablesTotal": 100,
-                  "tablesCompleted": 75,
-                  "tablesFailed": 3,
-                  "tablesInProgress": 5,
-                  "tablesPending": 17,
-                  "percentComplete": 75
-                }
-              },
-              "errors": [],
-              "createdAt": "2025-09-21T09:20:45Z",
-              "lastUpdatedAt": "2025-09-23T10:30:00Z"
-            }
-          ],
           "startedAt": "2025-01-10T10:47:41.820717Z",
           "endedAt": null
         }

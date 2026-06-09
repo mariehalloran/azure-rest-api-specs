@@ -4,6 +4,7 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
 using Azure.ResourceManager;
+using TypeSpec.Versioning;
 
 namespace Microsoft.NetworkCloud;
 
@@ -318,6 +319,25 @@ model AdministrativeCredentials {
 }
 
 /**
+ * AdministrativeCredentialsPatch represents the admin credentials for the device requiring password-based authentication.
+ */
+@added(Versions.v2026_07_01)
+model AdministrativeCredentialsPatch {
+  /**
+   * The password of the administrator of the device used during initialization.
+   */
+  @minLength(1)
+  @secret
+  password?: string;
+
+  /**
+   * The username of the administrator of the device used during initialization.
+   */
+  @minLength(1)
+  username?: string;
+}
+
+/**
  * CertificateInfo represents the non-private information of an X.509 Certificate.
  */
 model CertificateInfo {
@@ -400,6 +420,13 @@ model SecretArchiveReference {
    */
   @visibility(Lifecycle.Read)
   secretVersion?: string;
+
+  /**
+   * The public key used by the platform to encrypt the archived credential before it was written to the secret archive.
+   */
+  @added(Versions.v2026_08_01_preview)
+  @visibility(Lifecycle.Read)
+  encryptionPublicKey?: string;
 }
 
 /**
@@ -429,6 +456,18 @@ model SshPublicKey {
    */
   @minLength(1)
   keyData: string;
+}
+
+/**
+ * SshPublicKeyPatch represents the public key used to authenticate with a resource through SSH.
+ */
+@added(Versions.v2026_07_01)
+model SshPublicKeyPatch {
+  /**
+   * The SSH public key data.
+   */
+  @minLength(1)
+  keyData?: string;
 }
 
 /**

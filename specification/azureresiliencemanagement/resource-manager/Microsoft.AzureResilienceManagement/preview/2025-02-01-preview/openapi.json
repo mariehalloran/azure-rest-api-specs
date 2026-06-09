@@ -2026,7 +2026,7 @@
         "tags": [
           "Drills"
         ],
-        "description": "This triggers detection of any drifts from the desired state of Target and capabilities and RBAC.",
+        "description": "This triggers detection of any drifts from the desired state of Resources and RBAC.",
         "parameters": [
           {
             "$ref": "#/parameters/ServiceGroupBaseParameters"
@@ -5423,13 +5423,7 @@
           "minimum": 0,
           "readOnly": true
         }
-      },
-      "required": [
-        "subscription",
-        "region",
-        "identity",
-        "chaosExperimentIdentityForFaults"
-      ]
+      }
     },
     "ChaosExperimentPropertiesOfDrillUpdate": {
       "type": "object",
@@ -5730,7 +5724,7 @@
           "x-ms-arm-id-details": {
             "allowedResources": [
               {
-                "type": "Microsoft.Automation/automationAccounts"
+                "type": "Microsoft.Automation/automationAccounts/runbooks"
               }
             ]
           }
@@ -6010,7 +6004,6 @@
       },
       "discriminator": "drillType",
       "required": [
-        "chaosExperimentProperties",
         "drillType"
       ]
     },

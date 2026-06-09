@@ -30,6 +30,30 @@ openapi-subtype: rpaas
 tag: package-2025-11-01
 ```
 
+### Tag: package-2026-07-01-preview
+
+These settings apply only when `--tag=package-2026-07-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-07-01-preview'
+input-file:
+  - Microsoft.PortalServices/copilotSettings/preview/2026-07-01-preview/copilotSettings.json
+suppressions:
+  - code: PathForTrackedResourceTypes
+    reason: >
+      The resource type copilotSettings in the Microsoft.PortalServices resource provider is a proxy resource that
+      contains location property, it is not a tracked resource. This is a false positive.
+    from:
+      - copilotSettings.json
+    where: $.paths["/providers/Microsoft.PortalServices/copilotSettings/default"]
+  - code: RequestSchemaForTrackedResourcesMustHaveTags
+    reason: >
+      The resource type copilotSettings in the Microsoft.PortalServices resource provider is a proxy resource that
+      contains location property, it is not a tracked resource. This is a false positive.
+    from:
+      - copilotSettings.json
+    where: $.paths["/providers/Microsoft.PortalServices/copilotSettings/default"].put
+```
+
 ### Tag: package-2025-11-01
 
 These settings apply only when `--tag=package-2025-11-01` is specified on the command line.
@@ -37,6 +61,7 @@ These settings apply only when `--tag=package-2025-11-01` is specified on the co
 ```yaml $(tag) == 'package-2025-11-01'
 input-file:
   - Microsoft.PortalServices/settings/stable/2025-11-01/settings.json
+  - Microsoft.PortalServices/extensions/stable/2025-11-01/extensions.json
 suppressions:
   - code: EvenSegmentedPathForPutOperation
     reason: >
@@ -65,6 +90,20 @@ suppressions:
     from:
       - settings.json
     where: $.paths["/providers/Microsoft.PortalServices/settings/default"]
+  - code: AvoidAdditionalProperties
+    reason: >
+      The CompileFile and extension resource models use Record<unknown> types for flexible content payloads
+      (file contents, string sources, compile results). These are existing API contracts from preview that
+      cannot be changed without breaking compatibility.
+    from:
+      - extensions.json
+  - code: PostResponseCodes
+    reason: >
+      The CompileFile operation is a synchronous POST action that returns 200 with a result body.
+      This is an existing API contract from preview that follows a synchronous request-response pattern,
+      not a long-running operation.
+    from:
+      - extensions.json
 ```
 
 ### Tag: package-2026-02-01-preview

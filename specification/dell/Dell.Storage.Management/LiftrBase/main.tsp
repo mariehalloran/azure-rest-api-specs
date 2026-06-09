@@ -1,7 +1,9 @@
 import "@typespec/versioning";
 import "@typespec/openapi";
+import "@azure-tools/typespec-azure-core";
 
 using TypeSpec.Versioning;
+using Azure.Core;
 
 @versioned(LiftrBase.Versions)
 namespace LiftrBase;
@@ -18,7 +20,13 @@ enum Versions {
   /**
    * The 2025-03-21 API version.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/version-progression" "LEGACY"
   v2025_03_21: "2025-03-21",
+
+  /**
+   * The 2026-03-01-preview API version.
+   */
+  v2026_03_01_preview: "2026-03-01-preview",
 }
 
 /**
@@ -149,6 +157,12 @@ model MarketplaceDetails {
    * Term Unit
    */
   termUnit?: string;
+
+  /**
+   * SaaS Resource Id for the marketplace subscription
+   */
+  @added(Dell.Storage.Versions.v2026_03_01_preview)
+  saasResourceId?: string;
 }
 
 /**

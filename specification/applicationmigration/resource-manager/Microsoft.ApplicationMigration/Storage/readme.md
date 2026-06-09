@@ -27,7 +27,30 @@ These are the global settings for the applicationmigration.
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2025-02-01-preview
+tag: package-2026-05-01-preview
+```
+
+### Tag: package-2026-05-01-preview
+
+These settings apply only when `--tag=package-2026-05-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-05-01-preview'
+input-file:
+  - preview/2026-05-01-preview/StorageWorkloadsDiscovery.json
+suppressions:
+  - code: PathResourceTypeNameCamelCase
+    where:
+      - $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.ApplicationMigration/StorageSites"]
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApplicationMigration/StorageSites"]
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApplicationMigration/StorageSites/{siteName}"]
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApplicationMigration/StorageSites/{siteName}/FileShares"]
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApplicationMigration/StorageSites/{siteName}/FileShares/{shareName}"]
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApplicationMigration/StorageSites/{siteName}/nas"]
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApplicationMigration/StorageSites/{siteName}/nas/{nasName}"]
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApplicationMigration/StorageSites/{siteName}/agents"]
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApplicationMigration/StorageSites/{siteName}/agents/{agentName}"]
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApplicationMigration/StorageSites/{siteName}/agents/{agentName}/refresh"]
+    reason: StorageSites is a technical term and cannot follow camel case rule.
 ```
 
 ### Tag: package-2025-02-01-preview

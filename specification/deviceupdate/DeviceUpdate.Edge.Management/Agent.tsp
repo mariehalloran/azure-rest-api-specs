@@ -75,7 +75,8 @@ interface Agents {
 @@clientName(Agents.create::parameters.resource, "agent");
 
 #suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
-@@encodedName(Agents.update::parameters.properties,
+@@encodedName(
+  Agents.update::parameters.properties,
   "application/json",
   "tagUpdatePayload"
 );

@@ -14,12 +14,18 @@ model SolacePubsubSourceConnectorProperties extends DataSourceProperties {
   @doc("Solace Pubsub+ connection URI, e.g. tcp://127.0.0.1:55555.")
   connectionUri: url;
 
-  @doc("Solace Pubsub+ connection username. Note: Currently we support only username/password. expose TLS related, properties is we want to support client certificate authentication")
-  userName: string;
+  @doc("Solace Pubsub+ connection username. Optional when using client certificate authentication.")
+  userName?: string;
 
-  @doc("Solace Pubsub+ connection password.")
+  @doc("Solace Pubsub+ connection password. Optional when using client certificate authentication.")
   @secret
-  password: string;
+  password?: string;
+
+  @doc("Client certificate authentication for Solace mTLS.")
+  clientCertAuthentication?: Models.Auth.CertificateAuthentication;
+
+  @doc("Configuration for ssl.")
+  sslConfiguration?: Models.Auth.SslConfiguration;
 
   @doc("Solace Pubsub+ message VPN name.")
   messageVpn: string;
@@ -42,4 +48,7 @@ model SolacePubsubSourceConnectorProperties extends DataSourceProperties {
   #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "not a secret"
   @doc("When using SolaceSampleKeyedMessageProcessor, defines which part of a PubSub+ message shall be converted to a Kafka record key")
   kafkaMessageKey?: string;
+
+  @doc("Enable system metadata.")
+  enableSystemMetadata?: boolean;
 }

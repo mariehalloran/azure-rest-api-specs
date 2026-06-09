@@ -21,17 +21,8 @@ model NetworkDevice extends Azure.ResourceManager.Foundations.TrackedResource {
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** The NetworkDevice properties */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: NetworkDeviceProperties;
-
-  /** The NetworkDevice properties */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
+  @doc("The NetworkDevice properties")
   properties: NetworkDeviceProperties;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
@@ -213,24 +204,29 @@ interface NetworkDevices {
 }
 
 @@doc(NetworkDevices.create::parameters.resource, "Request payload.");
-@@doc(NetworkDevices.update::parameters.properties,
+@@doc(
+  NetworkDevices.update::parameters.properties,
   "Network Device properties to update."
 );
 @@doc(NetworkDevices.rebootDeprecated::parameters.body, "Request payload.");
 @@doc(NetworkDevices.reboot::parameters.body, "Request payload.");
-@@doc(NetworkDevices.updateAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  NetworkDevices.updateAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(NetworkDevices.updateAdministrativeState::parameters.body,
+@@doc(
+  NetworkDevices.updateAdministrativeState::parameters.body,
   "Request payload."
 );
 @@doc(NetworkDevices.upgradeDeprecated::parameters.body, "Request payload.");
 @@doc(NetworkDevices.upgrade::parameters.body, "Request payload.");
 @@doc(NetworkDevices.runRoCommand::parameters.body, "Request the command.");
-@@doc(NetworkDevices.runRoCommandDeprecated::parameters.body,
+@@doc(
+  NetworkDevices.runRoCommandDeprecated::parameters.body,
   "Request the command."
 );
-@@doc(NetworkDevices.runRwCommandDeprecated::parameters.body,
+@@doc(
+  NetworkDevices.runRwCommandDeprecated::parameters.body,
   "Request the command."
 );
 @@doc(NetworkDevices.runRwCommand::parameters.body, "Request the command.");

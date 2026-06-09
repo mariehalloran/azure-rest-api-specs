@@ -25,4 +25,8 @@ model SourceConnectorProperties extends Models.Connector.ConnectorProperties {
 
   @doc("Special properties for source.")
   dataSourceProperties: Models.DataSource.DataSourceProperties;
+
+  @doc("Extra configuration properties as key-value pairs.")
+  @Azure.ResourceManager.identifiers(#[])
+  extraProperties?: Models.Common.ConfigKeyValuePair[];
 }

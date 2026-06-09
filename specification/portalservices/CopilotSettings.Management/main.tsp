@@ -20,6 +20,7 @@ using TypeSpec.Http;
 @doc("Azure Portal Services API Reference")
 namespace Microsoft.PortalServices;
 
+#suppress "@azure-tools/typespec-azure-resource-manager/version-progression" "Versions '2024-04-01-preview' and '2024-04-01' were published prior to this lint rule existing. Both are public ARM API versions in use by customers and cannot be renamed without breaking compatibility."
 @doc("Azure Portal Services Copilot Settings Management API versions.")
 enum Versions {
   @doc("Azure Portal Services Copilot Settings Management API version 2024-04-01-preview.")
@@ -39,4 +40,7 @@ enum Versions {
 
   @doc("Azure Portal Services Copilot Settings Management API version 2025-09-10-preview.")
   v2025_09_10_preview: "2025-09-10-preview",
+
+  @doc("Azure Portal Services Copilot Settings Management API version 2026-07-01-preview.")
+  v2026_07_01_preview: "2026-07-01-preview",
 }

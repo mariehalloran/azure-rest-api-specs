@@ -24,10 +24,13 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2024-12-01 api version */
-  `2024-12-01`,
+  v2024_12_01: "2024-12-01",
 
   /** 2025-12-01-preview api version */
-  `2025-12-01-preview`,
+  v2025_12_01_preview: "2025-12-01-preview",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}

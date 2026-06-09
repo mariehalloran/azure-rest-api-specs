@@ -23,17 +23,8 @@ model L3IsolationDomain
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** The L3 Isolation Domain Properties */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: L3IsolationDomainProperties;
-
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
   @doc("The L3 Isolation Domain Properties")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties: L3IsolationDomainProperties;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
@@ -120,18 +111,23 @@ interface L3IsolationDomains {
 }
 
 @@doc(L3IsolationDomains.create::parameters.resource, "Request payload.");
-@@doc(L3IsolationDomains.update::parameters.properties,
+@@doc(
+  L3IsolationDomains.update::parameters.properties,
   "API to update certain properties of the L3 Isolation Domain resource."
 );
-@@doc(L3IsolationDomains.updateAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  L3IsolationDomains.updateAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(L3IsolationDomains.updateAdministrativeState::parameters.body,
+@@doc(
+  L3IsolationDomains.updateAdministrativeState::parameters.body,
   "Request payload."
 );
-@@doc(L3IsolationDomains.validateConfigurationDeprecated::parameters.body,
+@@doc(
+  L3IsolationDomains.validateConfigurationDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(L3IsolationDomains.validateConfiguration::parameters.body,
+@@doc(
+  L3IsolationDomains.validateConfiguration::parameters.body,
   "Request payload."
 );

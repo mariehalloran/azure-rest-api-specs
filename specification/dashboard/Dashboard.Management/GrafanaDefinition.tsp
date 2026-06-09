@@ -49,21 +49,24 @@ interface GrafanaDefinitions {
     @doc("The grafana definition resource to create or update.")
     @bodyRoot
     requestBodyParameters: GrafanaDefinition,
-  ): {
-    @statusCode _: 200;
+  ):
+    | {
+        @statusCode _: 200;
 
-    @doc("Resource 'GrafanaDefinition' update operation succeeded")
-    @body
-    @added(Versions.v2025_11_01_preview)
-    requestBodyParameters: GrafanaDefinition;
-  } | {
-    @statusCode _: 201;
+        @doc("Resource 'GrafanaDefinition' update operation succeeded")
+        @body
+        @added(Versions.v2025_11_01_preview)
+        requestBodyParameters: GrafanaDefinition;
+      }
+    | {
+        @statusCode _: 201;
 
-    @doc("Resource 'GrafanaDefinition' create operation succeeded")
-    @body
-    @added(Versions.v2025_11_01_preview)
-    requestBodyParameters: GrafanaDefinition;
-  } | ErrorResponse;
+        @doc("Resource 'GrafanaDefinition' create operation succeeded")
+        @body
+        @added(Versions.v2025_11_01_preview)
+        requestBodyParameters: GrafanaDefinition;
+      }
+    | ErrorResponse;
 
   /**
    * Delete a grafana definition.
@@ -82,6 +85,7 @@ interface GrafanaDefinitions {
 }
 
 @@doc(GrafanaDefinition.name, "The name of the grafana definition.");
-@@doc(GrafanaDefinition.properties,
+@@doc(
+  GrafanaDefinition.properties,
   "Properties specific to the grafana definition resource."
 );

@@ -2032,7 +2032,7 @@
         "tags": [
           "Drills"
         ],
-        "description": "This triggers detection of any drifts from the desired state of Target and capabilities and RBAC.",
+        "description": "This triggers detection of any drifts from the desired state of Resources and RBAC.",
         "parameters": [
           {
             "$ref": "#/parameters/ServiceGroupBaseParameters"
@@ -2095,7 +2095,7 @@
         "tags": [
           "Drills"
         ],
-        "description": "This triggers detection of any drifts from the desired state of Target and capabilities and RBAC.",
+        "description": "This triggers detection of any drifts from the desired state of Resources and RBAC.",
         "parameters": [
           {
             "$ref": "#/parameters/ServiceGroupBaseParameters"
@@ -2722,6 +2722,81 @@
             "$ref": "./examples/GoalResources_Get_MinimumSet_Gen.json"
           }
         }
+      }
+    },
+    "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/goalAssignments/{goalAssignmentName}/recommendCapacity": {
+      "post": {
+        "operationId": "GoalAssignments_RecommendCapacity",
+        "tags": [
+          "GoalAssignments"
+        ],
+        "description": "Recommends capacity improvements for resources under the goal assignments scope. Returns AI-powered capacity assessments and recommendations.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/ServiceGroupBaseParameters"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "goalAssignmentName",
+            "in": "path",
+            "description": "The name of the GoalAssignment",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RecommendCapacityRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/RecommendCapacityResult"
+            }
+          },
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "GoalAssignments_RecommendCapacity_MaximumSet": {
+            "$ref": "./examples/GoalAssignments_RecommendCapacity_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/providers/Microsoft.Management/serviceGroups/{serviceGroupName}/providers/Microsoft.AzureResilienceManagement/goalAssignments/{goalAssignmentName}/refreshGoalResources": {
@@ -4414,6 +4489,15 @@
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9-]{5,24}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ReprotectRequest"
+            }
           }
         ],
         "responses": {
@@ -4914,6 +4998,15 @@
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9-]{5,24}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ReprotectRequest"
+            }
           }
         ],
         "responses": {
@@ -5426,6 +5519,20 @@
               "$ref": "#/definitions/UsagePlan"
             }
           },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -5437,7 +5544,11 @@
           "UsagePlans_Update_MaximumSet": {
             "$ref": "./examples/UsagePlans_Update_MaximumSet_Gen.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       },
       "delete": {
         "operationId": "UsagePlans_Delete",
@@ -5465,8 +5576,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -5482,7 +5604,11 @@
           "UsagePlans_Delete_MaximumSet": {
             "$ref": "./examples/UsagePlans_Delete_MaximumSet_Gen.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureResilienceManagement/usagePlans/{usagePlanName}/enrollments": {
@@ -5706,8 +5832,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -5723,7 +5860,11 @@
           "Enrollments_Delete_MaximumSet": {
             "$ref": "./examples/Enrollments_Delete_MaximumSet_Gen.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     }
   },
@@ -5844,12 +5985,37 @@
         "region": {
           "type": "string",
           "description": "Region where Drill's internal resources will be created."
+        },
+        "resourceGroup": {
+          "type": "string",
+          "description": "Resource group where Drill's internal resources will be created. If not specified, defaults to 'AzureResilienceManagementDrills'. This value is immutable after drill creation.",
+          "minLength": 1,
+          "maxLength": 90,
+          "pattern": "^[-\\w\\._\\(\\)]+$",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         }
       },
       "required": [
         "subscription",
         "region"
       ]
+    },
+    "AssetPropertiesOfDrillUpdate": {
+      "type": "object",
+      "description": "Drill asset properties.",
+      "properties": {
+        "subscription": {
+          "type": "string",
+          "description": "Subscription where Drill's internal resources will be created."
+        },
+        "region": {
+          "type": "string",
+          "description": "Region where Drill's internal resources will be created."
+        }
+      }
     },
     "AssociatedIdentity": {
       "type": "object",
@@ -5913,6 +6079,17 @@
             "type": "string"
           }
         },
+        "drillRbacOnChaosResource": {
+          "$ref": "#/definitions/RBACState",
+          "description": "Drill object does not have the necessary RBAC to run the chaos resource."
+        },
+        "rbacNeededForDrillOnChaosResource": {
+          "type": "array",
+          "description": "Permissions needed by the Drill MSI to run the chaos resource.",
+          "items": {
+            "type": "string"
+          }
+        },
         "drillRbacOnRecoveryPlan": {
           "$ref": "#/definitions/RBACState",
           "description": "Drill object does not have the necessary RBAC to run the Recovery Plan."
@@ -5965,6 +6142,10 @@
           "$ref": "#/definitions/RBACState",
           "description": "RBAC required by Experiment MSI not setup on the target resources."
         },
+        "rbacOnTargetResources": {
+          "$ref": "#/definitions/RBACState",
+          "description": "RBAC required by Chaos Resource MSI not setup on the target resources."
+        },
         "runbookFaultRbacOnTargets": {
           "$ref": "#/definitions/RBACState",
           "description": "RBAC required by AutomationAccount for runbook MSI not setup on the target resources."
@@ -5972,6 +6153,17 @@
         "targets": {
           "$ref": "#/definitions/ExtensionObjectState",
           "description": "One or more Target or Capability object is deleted."
+        },
+        "chaosResource": {
+          "$ref": "#/definitions/ExtensionObjectState",
+          "description": "Chaos resource for faulting exists or not."
+        },
+        "chaosResourceCreationFailureReasons": {
+          "type": "array",
+          "description": "Reason for Chaos Resource Creation failure",
+          "items": {
+            "type": "string"
+          }
         },
         "recoveryPlanAndDrillResourcesState": {
           "$ref": "#/definitions/RelativeResourceCompositionState",
@@ -5988,6 +6180,10 @@
         "chaosExperimentUserMsi": {
           "$ref": "#/definitions/ExtensionObjectState",
           "description": "User MSI associated with chaos experiment object is deleted."
+        },
+        "chaosResourceUserMsi": {
+          "$ref": "#/definitions/ExtensionObjectState",
+          "description": "User MSI associated with chaos resource object is deleted."
         },
         "includedResourceInDrill": {
           "$ref": "#/definitions/ExtensionObjectState",
@@ -6030,7 +6226,7 @@
         },
         "missingRequiredResourceProviders": {
           "type": "array",
-          "description": "List of required required Azure resource providers that are not registered in the subscription specified for chaos experiment.",
+          "description": "List of required required Azure resource providers that are not registered in the subscription specified for chaos resource.",
           "items": {
             "type": "string"
           }
@@ -6221,13 +6417,7 @@
           "minimum": 0,
           "readOnly": true
         }
-      },
-      "required": [
-        "subscription",
-        "region",
-        "identity",
-        "chaosExperimentIdentityForFaults"
-      ]
+      }
     },
     "ChaosExperimentPropertiesOfDrillUpdate": {
       "type": "object",
@@ -6428,7 +6618,11 @@
           "description": "Chaos Resource created for this Drill",
           "readOnly": true,
           "x-ms-arm-id-details": {
-            "allowedResources": []
+            "allowedResources": [
+              {
+                "type": "Microsoft.Chaos/workspaces"
+              }
+            ]
           }
         },
         "faultDurationInMin": {
@@ -6583,6 +6777,42 @@
         ]
       }
     },
+    "ConfirmationStatus": {
+      "type": "string",
+      "description": "Enum for the confirmation status of a high availability solution.",
+      "enum": [
+        "ApprovedByUser",
+        "ApprovalPending",
+        "ApprovalNotNeeded",
+        "RejectedByUser"
+      ],
+      "x-ms-enum": {
+        "name": "ConfirmationStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "ApprovedByUser",
+            "value": "ApprovedByUser",
+            "description": "The high availability solution has been approved by the user."
+          },
+          {
+            "name": "ApprovalPending",
+            "value": "ApprovalPending",
+            "description": "The high availability solution is pending approval from the user."
+          },
+          {
+            "name": "ApprovalNotNeeded",
+            "value": "ApprovalNotNeeded",
+            "description": "The high availability solution does not require user approval."
+          },
+          {
+            "name": "RejectedByUser",
+            "value": "RejectedByUser",
+            "description": "The high availability solution has been rejected by the user."
+          }
+        ]
+      }
+    },
     "CustomFaultDetails": {
       "type": "object",
       "description": "Custom fault details",
@@ -6600,7 +6830,7 @@
           "x-ms-arm-id-details": {
             "allowedResources": [
               {
-                "type": "Microsoft.Automation/automationAccounts"
+                "type": "Microsoft.Automation/automationAccounts/runbooks"
               }
             ]
           }
@@ -6778,6 +7008,10 @@
           "$ref": "#/definitions/RecoveryPlanPropertiesOfDrill",
           "description": "Recovery Plan properties."
         },
+        "drillAssetProperties": {
+          "$ref": "#/definitions/AssetPropertiesOfDrill",
+          "description": "Properties for internal resources that are created for the Drill."
+        },
         "chaosExperimentProperties": {
           "$ref": "#/definitions/ChaosExperimentPropertiesOfDrill",
           "description": "Chaos Experiment properties."
@@ -6798,10 +7032,7 @@
           "$ref": "#/definitions/MonitoringPropertiesOfDrill",
           "description": "Monitoring properties of the Drill."
         }
-      },
-      "required": [
-        "chaosResourceProperties"
-      ]
+      }
     },
     "DrillProperties": {
       "type": "object",
@@ -6905,11 +7136,15 @@
         "monitoringProperties": {
           "$ref": "#/definitions/MonitoringPropertiesOfDrill",
           "description": "Monitoring properties of the Drill."
+        },
+        "errorDetails": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details associated with the resource.",
+          "readOnly": true
         }
       },
       "discriminator": "drillType",
       "required": [
-        "chaosExperimentProperties",
         "drillType"
       ]
     },
@@ -6935,6 +7170,10 @@
         "faultRbacOnTarget": {
           "$ref": "#/definitions/RBACState",
           "description": "Experiment MSI does not have the desired RBAC on the resource."
+        },
+        "faultRbacOnTargetResource": {
+          "$ref": "#/definitions/RBACState",
+          "description": "Chaos Resource MSI does not have the desired RBAC on the resource."
         },
         "runbookFaultRbacOnTargets": {
           "$ref": "#/definitions/RBACState",
@@ -7186,6 +7425,11 @@
         "targetAndCapabilityAssignmentError": {
           "$ref": "#/definitions/ErrorDetails",
           "description": "Last Target and Capability assignment error, if any.",
+          "readOnly": true
+        },
+        "targetResourceAssignmentError": {
+          "$ref": "#/definitions/ErrorDetails",
+          "description": "Last Target Resource RBAC assignment error, if any.",
           "readOnly": true
         },
         "rbacAssignmentError": {
@@ -7800,6 +8044,10 @@
           "$ref": "#/definitions/RecoveryPlanPropertiesOfDrillUpdate",
           "description": "Recovery Plan properties."
         },
+        "drillAssetProperties": {
+          "$ref": "#/definitions/AssetPropertiesOfDrillUpdate",
+          "description": "Properties for internal resources that are created for the Drill."
+        },
         "chaosExperimentProperties": {
           "$ref": "#/definitions/ChaosExperimentPropertiesOfDrillUpdate",
           "description": "Chaos Experiment properties."
@@ -8002,6 +8250,13 @@
         "message": {
           "type": "string",
           "description": "Error message."
+        },
+        "recommendations": {
+          "type": "array",
+          "description": "A list of recommendations to resolve the error.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -8181,6 +8436,11 @@
         "targetAndCapabilityAssignmentError": {
           "$ref": "#/definitions/ErrorDetails",
           "description": "Target and Capability assignment error.",
+          "readOnly": true
+        },
+        "targetResourceAssignmentError": {
+          "$ref": "#/definitions/ErrorDetails",
+          "description": "Target resource RBAC assignment error.",
           "readOnly": true
         },
         "rbacAssignmentError": {
@@ -8380,10 +8640,6 @@
         "properties": {
           "$ref": "#/definitions/GoalAssignmentProperties",
           "description": "The resource-specific properties for this resource."
-        },
-        "identity": {
-          "$ref": "../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
-          "description": "The managed service identities assigned to this resource."
         }
       },
       "allOf": [
@@ -8498,10 +8754,6 @@
         "properties": {
           "$ref": "#/definitions/GoalAssignmentPropertiesUpdate",
           "description": "The resource-specific properties for this resource."
-        },
-        "identity": {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.ManagedServiceIdentityUpdate",
-          "description": "The managed service identities assigned to this resource."
         }
       },
       "allOf": [
@@ -8581,6 +8833,16 @@
           "description": "Reason for exclusion from disaster recovery goals.",
           "readOnly": true
         },
+        "userConfirmationForHighAvailability": {
+          "type": "array",
+          "description": "List of user confirmations for high availability solutions.",
+          "items": {
+            "$ref": "#/definitions/UserConfirmationForHighAvailabilityItem"
+          },
+          "x-ms-identifiers": [
+            "solutionDisplayName"
+          ]
+        },
         "serviceGroupMemberships": {
           "type": "array",
           "description": "List of service groups of which this resource is memberof.",
@@ -8644,10 +8906,6 @@
       "type": "object",
       "description": "Definition of goal template property.",
       "properties": {
-        "description": {
-          "type": "string",
-          "description": "Description string provided by customer."
-        },
         "requireHighAvailability": {
           "$ref": "#/definitions/RequirementSelected",
           "description": "Option specified by customer under high availability section of goal template"
@@ -8687,10 +8945,6 @@
       "type": "object",
       "description": "Definition of goal template property.",
       "properties": {
-        "description": {
-          "type": "string",
-          "description": "Description string provided by customer."
-        },
         "requireHighAvailability": {
           "$ref": "#/definitions/RequirementSelected",
           "description": "Option specified by customer under high availability section of goal template"
@@ -9474,6 +9728,15 @@
           },
           "readOnly": true,
           "x-ms-identifiers": []
+        },
+        "retryDetails": {
+          "type": "array",
+          "description": "Retry details of the task.",
+          "items": {
+            "$ref": "#/definitions/JobRetryDetails"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
         }
       }
     },
@@ -10041,6 +10304,146 @@
         ]
       }
     },
+    "ReasonForRequestingConfirmation": {
+      "type": "string",
+      "description": "Enum for the reason for requesting user confirmation for a high availability solution.",
+      "enum": [
+        "ZonePinnedZrsDataDisksConditional",
+        "VmInMultiZoneScaleSetStatelessOnly"
+      ],
+      "x-ms-enum": {
+        "name": "ReasonForRequestingConfirmation",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "ZonePinnedZrsDataDisksConditional",
+            "value": "ZonePinnedZrsDataDisksConditional",
+            "description": "Zone pinned ZRS data disks conditional."
+          },
+          {
+            "name": "VmInMultiZoneScaleSetStatelessOnly",
+            "value": "VmInMultiZoneScaleSetStatelessOnly",
+            "description": "VM in multi-zone scale set stateless only."
+          }
+        ]
+      }
+    },
+    "RecommendCapacityRequest": {
+      "type": "object",
+      "description": "Request body for the recommend capacity action. Provide specific resource IDs to evaluate, or pass an empty array to let the service automatically select non-resilient resources from the goal assignment.",
+      "properties": {
+        "resourceIds": {
+          "type": "array",
+          "description": "Azure resource IDs to evaluate for resiliency. Pass an empty array to automatically discover and evaluate non-resilient resources in the service group. Maximum 50 resources per request.",
+          "maxItems": 50,
+          "items": {
+            "type": "string",
+            "format": "arm-id",
+            "description": "A type definition that refers the id to an Azure Resource Manager resource."
+          }
+        }
+      },
+      "required": [
+        "resourceIds"
+      ]
+    },
+    "RecommendCapacityResourceResult": {
+      "type": "object",
+      "description": "Resiliency assessment for a single Azure resource, including eligibility category, actionable guidance, and alternate configurations.",
+      "properties": {
+        "resourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Fully qualified ARM resource ID of the evaluated resource."
+        },
+        "resourceType": {
+          "type": "string",
+          "description": "ARM resource type (e.g., 'Microsoft.Compute/virtualMachines', 'Microsoft.Storage/storageAccounts')."
+        },
+        "skuName": {
+          "type": "string",
+          "description": "Current SKU or pricing tier of the resource (e.g., 'Standard_D4s_v3', 'Standard_LRS')."
+        },
+        "location": {
+          "type": "string",
+          "description": "Azure region where the resource is deployed (e.g., 'eastus', 'westeurope')."
+        },
+        "capacityAssessment": {
+          "type": "string",
+          "description": "Human-readable assessment of this resource's resiliency posture. Contains actionable recommendations when available, or null when the AI advisor is unavailable."
+        },
+        "error": {
+          "type": "string",
+          "description": "Error message if the resource could not be evaluated (e.g., resource not found or access denied). Other fields may be empty when this is set."
+        },
+        "category": {
+          "$ref": "#/definitions/ResiliencyEligibilityCategory",
+          "description": "Resiliency eligibility classification for this resource. See ResiliencyEligibilityCategory for possible values."
+        },
+        "suggestedRegions": {
+          "type": "array",
+          "description": "Alternative Azure regions that support resiliency for this resource type. Populated when the current region does not support the required redundancy.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "suggestedSkus": {
+          "type": "array",
+          "description": "Alternative SKUs that support redundancy for this resource type in the current region. Populated when the current SKU is not eligible for resiliency.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "description": "Ordered list of actions to enable or improve resiliency for this resource.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "links": {
+          "type": "array",
+          "description": "Links to relevant Azure documentation for configuring resiliency.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "resourceId"
+      ]
+    },
+    "RecommendCapacityResult": {
+      "type": "object",
+      "description": "Result of a completed recommend capacity operation, containing per-resource assessments and cross-cutting recommendations.",
+      "properties": {
+        "resourceCapacities": {
+          "type": "array",
+          "description": "Individual resiliency assessment for each evaluated resource.",
+          "items": {
+            "$ref": "#/definitions/RecommendCapacityResourceResult"
+          },
+          "x-ms-identifiers": [
+            "resourceId"
+          ]
+        },
+        "recommendations": {
+          "type": "array",
+          "description": "High-level recommendations that apply across multiple resources (e.g., regional migration patterns, common SKU upgrades).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "agentError": {
+          "type": "string",
+          "description": "Error message from the AI advisor, if the advisory enrichment failed. The deterministic assessment results are still available even when this field is set."
+        }
+      },
+      "required": [
+        "resourceCapacities",
+        "recommendations"
+      ]
+    },
     "RecommendationsData": {
       "type": "object",
       "description": "Definition of recommendations data in unified resilience item.",
@@ -10087,7 +10490,7 @@
         "description": {
           "type": "string",
           "description": "User-provided input for the action.",
-          "maxLength": 1024
+          "maxLength": 100
         }
       }
     },
@@ -10832,6 +11235,11 @@
           "$ref": "#/definitions/RecoveryPlanOperationStatus",
           "description": "The status of the most recent validation performed.",
           "readOnly": true
+        },
+        "errorDetails": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details associated with the resource.",
+          "readOnly": true
         }
       },
       "required": [
@@ -11186,6 +11594,31 @@
         ]
       }
     },
+    "ReprotectRequest": {
+      "type": "object",
+      "description": "Reprotect post action request.",
+      "properties": {
+        "reprotectRequestProperties": {
+          "$ref": "#/definitions/ReprotectRequestProperties",
+          "description": "Additional properties for Reprotect."
+        }
+      }
+    },
+    "ReprotectRequestProperties": {
+      "type": "object",
+      "description": "Additional properties for Reprotect.",
+      "properties": {
+        "selectedResourceIds": {
+          "type": "array",
+          "description": "Selected recovery resource Ids to be processed. If not provided, all qualified resources will be processed.",
+          "items": {
+            "type": "string",
+            "format": "arm-id",
+            "description": "A type definition that refers the id to an Azure Resource Manager resource."
+          }
+        }
+      }
+    },
     "RequirementSelected": {
       "type": "string",
       "description": "Enum for the requirement status of the resource in the goal.",
@@ -11236,6 +11669,48 @@
             "name": "Healthy",
             "value": "Healthy",
             "description": "Resource is Healthy."
+          }
+        ]
+      }
+    },
+    "ResiliencyEligibilityCategory": {
+      "type": "string",
+      "description": "Classification of a resource's resiliency eligibility. Determines what guidance and alternate configurations are returned.",
+      "enum": [
+        "Unsupported",
+        "ZrEligible",
+        "SkuCapacityConstrained",
+        "SkuIneligible",
+        "RegionUnsupported"
+      ],
+      "x-ms-enum": {
+        "name": "ResiliencyEligibilityCategory",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unsupported",
+            "value": "Unsupported",
+            "description": "This resource type is not yet covered by the resiliency capability catalog."
+          },
+          {
+            "name": "ZrEligible",
+            "value": "ZrEligible",
+            "description": "The resource is eligible for resiliency in its current region and SKU. Review the steps field for enablement guidance."
+          },
+          {
+            "name": "SkuCapacityConstrained",
+            "value": "SkuCapacityConstrained",
+            "description": "The resource's SKU supports resiliency but available capacity is limited. Consider the suggested SKUs or regions for better availability."
+          },
+          {
+            "name": "SkuIneligible",
+            "value": "SkuIneligible",
+            "description": "The current SKU does not support resiliency in this region. Upgrade to one of the suggested SKUs to enable redundancy."
+          },
+          {
+            "name": "RegionUnsupported",
+            "value": "RegionUnsupported",
+            "description": "The resource's current region does not support resiliency for this resource type. Migrate to one of the suggested regions."
           }
         ]
       }
@@ -11514,7 +11989,8 @@
       "enum": [
         "Unknown",
         "Protected",
-        "NotProtected"
+        "NotProtected",
+        "HighlyAvailable"
       ],
       "x-ms-enum": {
         "name": "ResourceProtectionStatus",
@@ -11534,6 +12010,11 @@
             "name": "NotProtected",
             "value": "NotProtected",
             "description": "A state indicating that the resource is not protected by any recovery solution."
+          },
+          {
+            "name": "HighlyAvailable",
+            "value": "HighlyAvailable",
+            "description": "A state indicating that the resource is protected by the highly available recovery solution."
           }
         ]
       }
@@ -11797,6 +12278,30 @@
         "serviceLevelIndicatorResourceId",
         "serviceLevelObjectiveResourceId"
       ]
+    },
+    "SolutionDisplayName": {
+      "type": "string",
+      "description": "Identifies a high-availability solution that can be applied to a resource (for example, zone-pinned VM with ZRS disk).",
+      "enum": [
+        "ZonePinnedVmWithZrsDisk",
+        "VmInMultiZoneVmss"
+      ],
+      "x-ms-enum": {
+        "name": "SolutionDisplayName",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "ZonePinnedVmWithZrsDisk",
+            "value": "ZonePinnedVmWithZrsDisk",
+            "description": "Zone pinned VM with ZRS disk."
+          },
+          {
+            "name": "VmInMultiZoneVmss",
+            "value": "VmInMultiZoneVmss",
+            "description": "VM in multi-zone VMSS."
+          }
+        ]
+      }
     },
     "SupportedVerbsForStage": {
       "type": "object",
@@ -12138,6 +12643,28 @@
           }
         ]
       }
+    },
+    "UserConfirmationForHighAvailabilityItem": {
+      "type": "object",
+      "description": "Represents a user confirmation for a high availability solution.",
+      "properties": {
+        "solutionDisplayName": {
+          "$ref": "#/definitions/SolutionDisplayName",
+          "description": "The solution display name of the high availability solution."
+        },
+        "confirmationStatus": {
+          "$ref": "#/definitions/ConfirmationStatus",
+          "description": "The confirmation status of the high availability solution."
+        },
+        "reasonForRequestingConfirmation": {
+          "$ref": "#/definitions/ReasonForRequestingConfirmation",
+          "description": "The reason for requesting user confirmation for the high availability solution."
+        }
+      },
+      "required": [
+        "solutionDisplayName",
+        "confirmationStatus"
+      ]
     },
     "UserConsent": {
       "type": "string",

@@ -59,20 +59,21 @@ interface AcatOperations {
     BaseParameters = DefaultBaseParameters<Resource>,
     LroHeaders extends TypeSpec.Reflection.Model = Azure.Core.Foundations.RetryAfterHeader,
     Parameters extends {} = {},
-    Response extends {} = ArmResourceUpdatedResponse<Resource> | ArmResourceCreatedResponse<
-      Resource,
-      LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
-        ArmAsyncOperationHeader &
-        ArmLroLocationHeader
-    >,
+    Response extends {} =
+      | ArmResourceUpdatedResponse<Resource>
+      | ArmResourceCreatedResponse<
+          Resource,
+          LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
+            ArmAsyncOperationHeader &
+            ArmLroLocationHeader
+        >,
     Error extends {} = ErrorResponse
   > is AcatOperations.AcatCreateOperation<
     ResourceInstanceParameters<Resource, BaseParameters> & Parameters,
     Resource,
-    ArmResourceUpdatedResponse<Resource> | ArmResourceCreatedResponse<
-      Resource,
-      LroHeaders
-    >,
+
+      | ArmResourceUpdatedResponse<Resource>
+      | ArmResourceCreatedResponse<Resource, LroHeaders>,
     Error
   >;
 
@@ -90,10 +91,9 @@ interface AcatOperations {
     BaseParameters = DefaultBaseParameters<Resource>,
     LroHeaders extends TypeSpec.Reflection.Model = Azure.Core.Foundations.RetryAfterHeader,
     Parameters extends {} = {},
-    Response extends {} = ArmResourceUpdatedResponse<Resource> | ArmResourceCreatedResponse<
-      Resource,
-      LroHeaders
-    >,
+    Response extends {} =
+      | ArmResourceUpdatedResponse<Resource>
+      | ArmResourceCreatedResponse<Resource, LroHeaders>,
     Error extends {} = ErrorResponse
   > is AcatOperations.AcatResourceCreateOrUpdateAsync<
     Resource,
@@ -120,7 +120,9 @@ interface AcatOperations {
     Resource extends Foundations.Resource,
     BaseParameters = DefaultBaseParameters<Resource>,
     Parameters extends {} = {},
-    Response extends {} = ArmResourceUpdatedResponse<Resource> | ArmResourceCreatedSyncResponse<Resource>,
+    Response extends {} =
+      | ArmResourceUpdatedResponse<Resource>
+      | ArmResourceCreatedSyncResponse<Resource>,
     Error extends {} = ErrorResponse
   > is AcatOperations.AcatCreateOperation<
     ResourceInstanceParameters<Resource, BaseParameters> & Parameters,
