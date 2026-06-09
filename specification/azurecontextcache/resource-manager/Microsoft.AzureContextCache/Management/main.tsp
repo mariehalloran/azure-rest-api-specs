@@ -25,6 +25,10 @@ enum Versions {
   /** 2026-01-01-preview version */
   @useDependency(Azure.ResourceManager.CommonTypes.Versions.v6)
   v2026_01_01_preview: "2026-01-01-preview",
+
+  /** 2026-06-01-preview version */
+  @useDependency(Azure.ResourceManager.CommonTypes.Versions.v6)
+  v2026_06_01_preview: "2026-06-01-preview",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}
@@ -37,7 +41,12 @@ model Account is TrackedResource<AccountProperties, false> {
   @segment("accounts")
   @path
   name: string;
+
+  ...ManagedSystemAssignedIdentityProperty;
 }
+
+// Identity is supported only from API version 2026-06-01-preview.
+@@added(Account.identity, Versions.v2026_06_01_preview);
 
 @armResourceOperations(Account)
 interface Accounts {
