@@ -2,6 +2,7 @@ import "@typespec/versioning";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./models.tsp";
 import "./BareMetalConnection.tsp";
+import "./ManagedConsoleConnection.tsp";
 import "./NetworkInterfaceAttachment.tsp";
 import "./PeeringSetting.tsp";
 import "./routes.tsp";
@@ -32,4 +33,9 @@ enum Versions {
    * The 2025-08-01-preview API version.
    */
   v2025_08_01_preview: "2025-08-01-preview",
+
+  /**
+   * The 2026-04-01-preview API version.
+   */
+  v2026_04_01_preview: "2026-04-01-preview",
 }
