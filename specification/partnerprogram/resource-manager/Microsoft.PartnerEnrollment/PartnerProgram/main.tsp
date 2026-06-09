@@ -21,8 +21,6 @@ enum Versions {
 
 interface Operations extends Azure.ResourceManager.Operations {}
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-path-segment-invalid-chars" "Existing Template"
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-key-invalid-chars" "Existing template"
 @doc("A MaicppProgram resource representing a Microsoft AI Cloud Partner Program registration. This is a singleton resource: at most one instance with the fixed name `default` can exist per resource group.")
 @singleton("default")
 model MaicppProgram is ProxyResource<MaicppProgramProperties> {
