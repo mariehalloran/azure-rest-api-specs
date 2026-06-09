@@ -5604,6 +5604,10 @@
       "type": "object",
       "description": "Settings for platform console access to the storage pool",
       "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether platform console access is enabled for the storage pool or not.When enabled is false, all console access is disabled regardless of individual interface settings."
+        },
         "gui": {
           "$ref": "#/definitions/PlatformConsoleAccessSettings",
           "description": "GUI access settings"
@@ -5634,6 +5638,10 @@
       "type": "object",
       "description": "Settings for platform console access to the storage pool",
       "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether platform console access is enabled for the storage pool or not.When enabled is false, all console access is disabled regardless of individual interface settings."
+        },
         "gui": {
           "$ref": "#/definitions/PlatformConsoleAccessSettingsUpdate",
           "description": "GUI access settings"

@@ -271,6 +271,9 @@ model StoragePoolProperties {
 @added(Versions.v2026_05_01_preview)
 @doc("Settings for platform console access to the storage pool")
 model PlatformConsoleSettings {
+  @doc("Whether platform console access is enabled for the storage pool or not.When enabled is false, all console access is disabled regardless of individual interface settings.")
+  enabled?: boolean;
+
   @doc("GUI access settings")
   gui?: PlatformConsoleAccessSettings;
 

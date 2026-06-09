@@ -48,7 +48,7 @@ suppressions:
   - code: PostResponseCodes
     reason: VolumeGroups_Overwrite and Volumes_Overwrite are async LRO POST actions using azure-async-operation polling. The 204 final state is returned by the polling endpoint, not the original POST URL, consistent with the existing enableAvsConnection/disableAvsConnection pattern in this spec.
   - code: XmsPageableForListCalls
-    reason: Backend does not support nextLink-based pagination for list operations. Results are returned in a single response.
+    reason: Backend does not support nextLink-based pagination for list operations yet. Results are returned in a single response.
 ```
 
 ### Tag: package-2026-03-01-preview
