@@ -156,7 +156,8 @@
             "in": "path",
             "description": "The validation test category name.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,90}$"
           }
         ],
         "responses": {
@@ -194,7 +195,8 @@
             "in": "path",
             "description": "The validation test category name.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,90}$"
           },
           {
             "name": "resource",
@@ -285,7 +287,8 @@
             "in": "path",
             "description": "The validation test name.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,90}$"
           }
         ],
         "responses": {
@@ -323,7 +326,8 @@
             "in": "path",
             "description": "The validation test name.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,90}$"
           },
           {
             "name": "resource",
@@ -2269,7 +2273,7 @@
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -2284,7 +2288,7 @@
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -2316,11 +2320,6 @@
         "description": {
           "type": "string",
           "description": "Validation test category description."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
-          "description": "Provisioning state of the validation test category catalog resource.",
-          "readOnly": true
         },
         "parentCategoryId": {
           "type": "string",
@@ -2411,11 +2410,6 @@
         "description": {
           "type": "string",
           "description": "Validation test description."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
-          "description": "Provisioning state of the validation test catalog resource.",
-          "readOnly": true
         },
         "version": {
           "type": "string",

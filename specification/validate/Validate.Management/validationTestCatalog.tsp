@@ -8,7 +8,7 @@ namespace Microsoft.Validate;
 @doc("Validation test catalog entry.")
 @tenantResource
 @added(Versions.v2026_05_01_preview)
-model ValidationTest is TrackedResource<ValidationTestProperties> {
+model ValidationTest is ProxyResource<ValidationTestProperties> {
   ...ResourceNameParameter<
     Resource = ValidationTest,
     KeyName = "validationTestName",
@@ -21,10 +21,6 @@ model ValidationTest is TrackedResource<ValidationTestProperties> {
 model ValidationTestProperties {
   @doc("Validation test description.")
   description?: string;
-
-  @doc("Provisioning state of the validation test catalog resource.")
-  @visibility(Lifecycle.Read)
-  provisioningState?: ResourceProvisioningState;
 
   @doc("Validation test version.")
   version?: string;
@@ -42,7 +38,7 @@ model ValidationTestProperties {
 @doc("Validation test category catalog entry.")
 @tenantResource
 @added(Versions.v2026_05_01_preview)
-model ValidationTestCategory is TrackedResource<ValidationTestCategoryProperties> {
+model ValidationTestCategory is ProxyResource<ValidationTestCategoryProperties> {
   ...ResourceNameParameter<
     Resource = ValidationTestCategory,
     KeyName = "validationTestCategoryName",
@@ -55,10 +51,6 @@ model ValidationTestCategory is TrackedResource<ValidationTestCategoryProperties
 model ValidationTestCategoryProperties {
   @doc("Validation test category description.")
   description?: string;
-
-  @doc("Provisioning state of the validation test category catalog resource.")
-  @visibility(Lifecycle.Read)
-  provisioningState?: ResourceProvisioningState;
 
   @doc("Parent validation test category id.")
   parentCategoryId?: string;
@@ -83,6 +75,7 @@ interface ValidationTestsOps
         @segment("validationTests")
         @key
         @doc("The validation test name.")
+        @pattern("^[a-zA-Z0-9-]{1,90}$")
         validationTestName: string,
       },
       ResourceName = "ValidationTests"
@@ -124,6 +117,7 @@ interface ValidationTestCategoriesOps
         @segment("validationTestCategories")
         @key
         @doc("The validation test category name.")
+        @pattern("^[a-zA-Z0-9-]{1,90}$")
         validationTestCategoryName: string,
       },
       ResourceName = "ValidationTestCategories"
