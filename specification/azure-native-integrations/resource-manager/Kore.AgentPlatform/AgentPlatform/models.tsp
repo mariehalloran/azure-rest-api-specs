@@ -90,9 +90,7 @@ model OrganizationPartnerProperties {
    * Default Workspace created atomically with the Organization.
    * Required at create time and immutable thereafter.
    * After create, manage workspaces (including this default) via the standard
-   * Workspace child resource operations. The default Workspace can be deleted
-   * like any other Workspace; deleting every Workspace is a prerequisite for
-   * deleting the Organization itself.
+   * Workspace child resource operations.
    */
   @visibility(Lifecycle.Read, Lifecycle.Create)
   defaultWorkspace: DefaultWorkspaceProperties;
