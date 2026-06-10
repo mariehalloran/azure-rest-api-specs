@@ -915,7 +915,7 @@
       "description": "SaaS guid & PublisherId for Activate and Validate SaaS Resource.",
       "properties": {
         "saasGuid": {
-          "type": "string",
+          "$ref": "#/definitions/Azure.Core.uuid",
           "description": "SaaS guid for Activate and Validate SaaS Resource."
         },
         "publisherId": {
@@ -927,6 +927,11 @@
         "saasGuid",
         "publisherId"
       ]
+    },
+    "Azure.Core.uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Universally Unique Identifier"
     },
     "Azure.ResourceManager.ResourceProvisioningState": {
       "type": "string",
@@ -1215,7 +1220,15 @@
       "properties": {
         "saaSResourceId": {
           "type": "string",
-          "description": "SaaS resource id."
+          "format": "arm-id",
+          "description": "ARM resource ID of the Microsoft.SaaS marketplace resource linked to this Organization.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.SaaS/resources"
+              }
+            ]
+          }
         },
         "isHiddenSaaS": {
           "type": "boolean",
@@ -1428,9 +1441,18 @@
       "properties": {
         "saaSResourceIds": {
           "type": "array",
-          "description": "List of SaaS resource IDs to link to this Organization.",
+          "description": "ARM resource IDs of the Microsoft.SaaS marketplace resources to link to this Organization.",
           "items": {
-            "type": "string"
+            "type": "string",
+            "format": "arm-id",
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Microsoft.SaaS/resources"
+                }
+              ]
+            }
           }
         }
       },

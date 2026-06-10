@@ -290,16 +290,16 @@ model DeleteWorkspaceRequest {
 /** SaaS-related data properties. Contains the full list of SaaS resource IDs to link. */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model SaaSData {
-  /** List of SaaS resource IDs to link to this Organization. */
+  /** ARM resource IDs of the Microsoft.SaaS marketplace resources to link to this Organization. */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
-  saaSResourceIds: string[];
+  saaSResourceIds: armResourceIdentifier<[{ type: "Microsoft.SaaS/resources" }]>[];
 }
 
 /** SaaS guid & PublisherId for Activate and Validate SaaS Resource. */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model ActivateSaaSParameterRequest {
   /** SaaS guid for Activate and Validate SaaS Resource. */
-  saasGuid: string;
+  saasGuid: uuid;
 
   /** Publisher Id for the marketplace offer. */
   publisherId: string;
@@ -317,9 +317,9 @@ model SaaSResourceDetailsResponse
 /** Individual SaaS resource linked to the Organization. */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model LinkedSaaSItem {
-  /** SaaS resource id. */
+  /** ARM resource ID of the Microsoft.SaaS marketplace resource linked to this Organization. */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
-  saaSResourceId: string;
+  saaSResourceId: armResourceIdentifier<[{ type: "Microsoft.SaaS/resources" }]>;
 
   /** Flag indicating if the SaaS resource is hidden. */
   isHiddenSaaS?: boolean;
