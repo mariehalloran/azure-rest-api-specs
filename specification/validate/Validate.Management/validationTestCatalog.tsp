@@ -6,7 +6,7 @@ namespace Microsoft.Validate;
 
 @doc("Validation test catalog entry.")
 @tenantResource
-model ValidationTest is ProxyResource<ValidationTestProperties> {
+model ValidationTest is TrackedResource<ValidationTestProperties> {
   ...ResourceNameParameter<
     Resource = ValidationTest,
     KeyName = "validationTestName",
@@ -35,7 +35,7 @@ model ValidationTestProperties {
 
 @doc("Validation test category catalog entry.")
 @tenantResource
-model ValidationTestCategory is ProxyResource<ValidationTestCategoryProperties> {
+model ValidationTestCategory is TrackedResource<ValidationTestCategoryProperties> {
   ...ResourceNameParameter<
     Resource = ValidationTestCategory,
     KeyName = "validationTestCategoryName",
