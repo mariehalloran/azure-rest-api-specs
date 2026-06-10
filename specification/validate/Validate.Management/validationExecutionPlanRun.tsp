@@ -33,20 +33,24 @@ model ExecutionPlanRunProperties {
   @doc("The start timestamp of the execution plan run.")
   @visibility(Lifecycle.Read)
   @madeOptional(Versions.v2026_02_01_preview)
+  @removed(Versions.v2026_05_01_preview)
   startTimestampInUtc?: utcDateTime;
 
   @doc("The end timestamp of the execution plan run.")
   @visibility(Lifecycle.Read)
+  @removed(Versions.v2026_05_01_preview)
   endTimestampInUtc?: utcDateTime;
 
   @doc("The reported timestamp of the execution plan run.")
   @visibility(Lifecycle.Read)
   @madeOptional(Versions.v2026_02_01_preview)
+  @removed(Versions.v2026_05_01_preview)
   reportedTimestampInUtc?: utcDateTime;
 
   @doc("The test runs under this execution plan run.")
   @visibility(Lifecycle.Read)
   @madeOptional(Versions.v2026_02_01_preview)
+  @removed(Versions.v2026_05_01_preview)
   @identifiers(#[])
   @maxItems(100)
   @typeChangedFrom(Versions.v2026_02_01_preview, ValidationTestRun[])

@@ -1689,34 +1689,6 @@
           "description": "Error details. Populated when status is Failed, Canceled, TimedOut, or Aborted.",
           "readOnly": true
         },
-        "startTimestampInUtc": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The start timestamp of the execution plan run.",
-          "readOnly": true
-        },
-        "endTimestampInUtc": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The end timestamp of the execution plan run.",
-          "readOnly": true
-        },
-        "reportedTimestampInUtc": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The reported timestamp of the execution plan run.",
-          "readOnly": true
-        },
-        "testRuns": {
-          "type": "array",
-          "description": "The test runs under this execution plan run.",
-          "maxItems": 100,
-          "items": {
-            "$ref": "#/definitions/ValidationTestRunDetails"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": []
-        },
         "startedAt": {
           "type": "string",
           "format": "date-time",
@@ -2333,25 +2305,6 @@
           "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
       ]
-    },
-    "ValidationTestRunDetails": {
-      "type": "object",
-      "description": "Validation Test Run represents execution instance(s) of a Validation Test instance under execution plan.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The unique identifier for the test run.",
-          "readOnly": true
-        },
-        "name": {
-          "type": "string",
-          "description": "The name of the test run."
-        },
-        "properties": {
-          "$ref": "#/definitions/ValidationTestRunProperties",
-          "description": "The properties of the test run."
-        }
-      }
     },
     "ValidationTestRunListResult": {
       "type": "object",
