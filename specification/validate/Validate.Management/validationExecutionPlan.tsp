@@ -42,10 +42,6 @@ model ValidationExecutionPlanProperties {
 
   @doc("The overall state of the resource.")
   overallState?: ValidationExecutionPlanOverallState;
-
-  @doc("Provider-specific opaque configuration serialized as a JSON string.")
-  @added(Versions.v2026_05_01_preview)
-  providerConfiguration?: string;
 }
 
 @doc("The execution plan resource provisioning state.")
