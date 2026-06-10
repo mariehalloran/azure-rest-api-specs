@@ -42,7 +42,8 @@ model ValidationTestProperties {
 @doc("Validation test category catalog entry.")
 @tenantResource
 @added(Versions.v2026_05_01_preview)
-model ValidationTestCategory is ProxyResource<ValidationTestCategoryProperties> {
+model ValidationTestCategory
+  is ProxyResource<ValidationTestCategoryProperties> {
   ...ResourceNameParameter<
     Resource = ValidationTestCategory,
     KeyName = "validationTestCategoryName",
@@ -141,9 +142,7 @@ interface ValidationTestCategories {
 
   @doc("Create or update a validation test category catalog entry")
   @added(Versions.v2026_05_01_preview)
-  createOrUpdate is ValidationTestCategoriesOps.CreateOrUpdateSync<
-    ValidationTestCategory
-  >;
+  createOrUpdate is ValidationTestCategoriesOps.CreateOrUpdateSync<ValidationTestCategory>;
 
   @doc("List validation test category catalog entries")
   @added(Versions.v2026_05_01_preview)
