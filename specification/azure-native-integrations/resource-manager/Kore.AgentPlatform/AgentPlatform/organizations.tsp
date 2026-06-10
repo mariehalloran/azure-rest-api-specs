@@ -16,8 +16,14 @@ namespace Kore.AgentPlatform;
  * An Organization resource in the Kore.AgentPlatform provider.
  *
  * Top-level tracked ARM resource. Each Organization is provisioned with a default
- * Workspace atomically; additional Workspaces are managed via the
- * `createWorkspace` and `deleteWorkspace` actions defined below.
+ * Workspace atomically at create time (see `OrganizationProperties.defaultWorkspace`).
+ * Additional Workspaces are managed via the standard ARM child operations on the
+ * Workspace resource type.
+ *
+ * An Organization can only be deleted when it contains no Workspaces; the
+ * delete operation returns `409 Conflict` (`OrganizationNotEmpty`) otherwise.
+ * Callers must delete every Workspace under the Organization, including the
+ * default Workspace, before deleting the Organization itself.
  */
 model OrganizationResource
   is Azure.ResourceManager.TrackedResource<OrganizationProperties> {
@@ -55,8 +61,10 @@ interface Organizations {
   /**
    * Delete an Organization (long-running).
    *
-   * Permanently removes the Organization and cascades the deletion to all
-   * child Workspaces at the partner. This operation is irreversible.
+   * Fails with `409 Conflict` (`OrganizationNotEmpty`) if any Workspaces still
+   * exist under the Organization. Callers must delete every child Workspace
+   * (including the default Workspace) via the Workspaces resource type before
+   * deleting the Organization. This operation is irreversible.
    */
   delete is ArmResourceDeleteWithoutOkAsync<OrganizationResource>;
 

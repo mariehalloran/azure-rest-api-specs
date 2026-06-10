@@ -452,7 +452,7 @@
         "tags": [
           "Organizations"
         ],
-        "description": "Delete an Organization (long-running).\n\nPermanently removes the Organization and cascades the deletion to all\nchild Workspaces at the partner. This operation is irreversible.",
+        "description": "Delete an Organization (long-running).\n\nFails with `409 Conflict` (`OrganizationNotEmpty`) if any Workspaces still\nexist under the Organization. Callers must delete every child Workspace\n(including the default Workspace) via the Workspaces resource type before\ndeleting the Organization. This operation is irreversible.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
@@ -1232,7 +1232,7 @@
         },
         "defaultWorkspace": {
           "$ref": "#/definitions/DefaultWorkspaceProperties",
-          "description": "Default Workspace created atomically with the Organization.\nRequired at create time and immutable thereafter.\nAfter create, manage workspaces via the workspaces resource type and parent actions.",
+          "description": "Default Workspace created atomically with the Organization.\nRequired at create time and immutable thereafter.\nAfter create, manage workspaces (including this default) via the standard\nWorkspace child resource operations. The default Workspace can be deleted\nlike any other Workspace; deleting every Workspace is a prerequisite for\ndeleting the Organization itself.",
           "x-ms-mutability": [
             "read",
             "create"
@@ -1345,7 +1345,7 @@
     },
     "OrganizationResource": {
       "type": "object",
-      "description": "An Organization resource in the Kore.AgentPlatform provider.\n\nTop-level tracked ARM resource. Each Organization is provisioned with a default\nWorkspace atomically; additional Workspaces are managed via the\n`createWorkspace` and `deleteWorkspace` actions defined below.",
+      "description": "An Organization resource in the Kore.AgentPlatform provider.\n\nTop-level tracked ARM resource. Each Organization is provisioned with a default\nWorkspace atomically at create time (see `OrganizationProperties.defaultWorkspace`).\nAdditional Workspaces are managed via the standard ARM child operations on the\nWorkspace resource type.\n\nAn Organization can only be deleted when it contains no Workspaces; the\ndelete operation returns `409 Conflict` (`OrganizationNotEmpty`) otherwise.\nCallers must delete every Workspace under the Organization, including the\ndefault Workspace, before deleting the Organization itself.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/OrganizationProperties",
