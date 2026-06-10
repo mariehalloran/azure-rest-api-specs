@@ -275,7 +275,12 @@ model ActivateSaaSParameterRequest {
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model SaaSResourceDetailsResponse
   extends Azure.ResourceManager.CommonTypes.ProxyResource {
-  /** Id of the Marketplace SaaS Resource. */
+  /**
+   * SaaS subscription identifier (GUID) issued by the Azure Marketplace
+   * fulfillment API for the activated SaaS resource. Returned as a plain
+   * string (the `GuidUsage` LintDiff rule disallows `format: uuid` on the
+   * public surface).
+   */
   saasId?: string;
 }
 
