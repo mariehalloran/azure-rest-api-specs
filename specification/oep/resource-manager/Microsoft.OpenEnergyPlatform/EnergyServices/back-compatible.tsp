@@ -80,14 +80,21 @@ using Microsoft.OpenEnergyPlatform;
 );
 
 // -----------------------------------------------------------------------------
-// SME c1: restore legacy SDK-shaping metadata dropped by the swagger->TypeSpec
-// conversion in the keyvault/encryption area. The hand-authored 2026-02-02-preview
-// swagger carried x-ms-client-name renames on these properties and
-// x-ms-client-flatten on the Encryption/Eds models. Re-applying them here (in a
-// file imported by main.tsp) ensures typespec-autorest re-emits the same
-// SDK-shaping metadata so the converted swagger matches the base contract.
-// Wire impact: NONE — x-ms-client-name / x-ms-client-flatten are SDK identifiers
-// and never appear in the HTTP request bytes.
+// SME c1: restore legacy x-ms-client-name renames dropped by the
+// swagger->TypeSpec conversion in the keyvault/encryption area. The
+// hand-authored 2026-02-02-preview swagger carried these SDK property-name
+// renames; re-applying them here (in a file imported by main.tsp) ensures
+// typespec-autorest re-emits the same x-ms-client-name metadata so the SDK
+// property names match the base contract. Wire impact: NONE — x-ms-client-name
+// is an SDK identifier and never appears in the HTTP request bytes.
+//
+// NOTE: the base swagger also carried x-ms-client-flatten at the Encryption/Eds
+// MODEL level. typespec-autorest only emits x-ms-client-flatten at the PROPERTY
+// level, and applying Legacy.flattenProperty(Encryption.keyVaultProperties)
+// removes keyVaultProperties from the generated SDK type, breaking the emitted
+// TS/JS samples (TS2353). The model-level flatten is therefore not reproducible
+// without breaking SDK generation; its removal is SDK-ergonomics only (no wire
+// impact) and is documented in contract-preservation-summary.md.
 // -----------------------------------------------------------------------------
 
 @@clientName(Encryption.keyVaultProperties, "KeyVaultProperties");
@@ -101,10 +108,3 @@ using Microsoft.OpenEnergyPlatform;
   EdsKeyVaultPropertiesIdentity.userAssignedIdentityId,
   "UserAssignedIdentity"
 );
-
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Preserve legacy SDK flattening from the hand-authored swagger (back-compat)."
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
-  Encryption.keyVaultProperties
-);
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Preserve legacy SDK flattening from the hand-authored swagger (back-compat)."
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(Eds.keyVaultProperties);
