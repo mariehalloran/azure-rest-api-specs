@@ -17,10 +17,6 @@ model ResilienceService is TrackedResource<ResilienceProperties> {
 
 /** Resilience properties */
 model ResilienceProperties {
-  /** Tenant ID */
-  @visibility(Lifecycle.Read)
-  tenantId: string;
-
   /** The status of the last operation. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;

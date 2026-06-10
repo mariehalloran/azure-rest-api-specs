@@ -981,11 +981,6 @@
       "type": "object",
       "description": "Resilience properties",
       "properties": {
-        "tenantId": {
-          "type": "string",
-          "description": "Tenant ID",
-          "readOnly": true
-        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "The status of the last operation.",
@@ -996,10 +991,7 @@
           "description": "Configuration for the customer attestation service used by hosts in this resilience service. Populated by the service after host attestation; not writable by clients.",
           "readOnly": true
         }
-      },
-      "required": [
-        "tenantId"
-      ]
+      }
     },
     "ResilienceService": {
       "type": "object",
