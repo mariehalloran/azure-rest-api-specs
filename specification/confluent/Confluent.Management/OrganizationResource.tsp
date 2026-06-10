@@ -339,7 +339,7 @@ interface OrganizationResources {
   /**
    * Links a new SaaS to the Confluent organization of the underlying resource.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-openapi" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi" "Using @summary from @typespec/openapi to provide a concise operation summary for the linkSaaS action endpoint"
   @added(Microsoft.Confluent.Versions.v2026_06_02_preview)
   @summary("Links a new SaaS to the Confluent organization of the underlying resource.")
   @Azure.Core.useFinalStateVia("azure-async-operation")
@@ -354,7 +354,7 @@ interface OrganizationResources {
   /**
    * Returns the latest SaaS linked to the Confluent organization of the underlying resource.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-openapi" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi" "OpenAPI module is imported and in scope for this interface; suppression prevents false positive from the no-openapi lint rule"
   @added(Microsoft.Confluent.Versions.v2026_06_02_preview)
   latestLinkedSaaS is ArmResourceActionSync<
     OrganizationResource,
