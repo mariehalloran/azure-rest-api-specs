@@ -1,25 +1,15 @@
 import "@typespec/rest";
 import "@typespec/http";
 import "@azure-tools/typespec-azure-core";
-import "@azure-tools/typespec-azure-portal-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
 using Rest;
 using Http;
 using Azure.Core;
-using Azure.Portal;
 using Azure.ResourceManager;
 
 namespace Microsoft.AAD;
 
-@about({
-  displayNames: {
-    singular: "Entra Resilience Service",
-    plural: "Entra Resilience Services",
-  },
-  keywords: ["entra", "resilience"],
-})
-@doc("Entra Resilience Service. Parent resource that aggregates one or more resilience hosts and provides the shared infrastructure that those hosts rely on.")
 model ResilienceService is TrackedResource<ResilienceProperties> {
   ...ResourceNameParameter<ResilienceService>;
 }
@@ -50,14 +40,6 @@ model AttestationServiceConfig {
   domainName?: string;
 }
 
-@about({
-  displayNames: {
-    singular: "Entra Resilience Host",
-    plural: "Entra Resilience Hosts",
-  },
-  keywords: ["entra", "resilience"],
-})
-@doc("Entra Resilience Host. Child resource representing a physical host running the nested virtual machine, attached to a parent Entra Resilience Service.")
 @parentResource(ResilienceService)
 model ResilienceHost is ProxyResource<ResilienceHostProperties> {
   ...ResourceNameParameter<ResilienceHost, SegmentName = "hosts">;
