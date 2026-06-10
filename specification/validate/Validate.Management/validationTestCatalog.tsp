@@ -22,6 +22,10 @@ model ValidationTestProperties {
   @doc("Validation test description.")
   description?: string;
 
+  @doc("Provisioning state of the validation test catalog resource.")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ResourceProvisioningState;
+
   @doc("Validation test version.")
   version?: string;
 
@@ -52,6 +56,10 @@ model ValidationTestCategoryProperties {
   @doc("Validation test category description.")
   description?: string;
 
+  @doc("Provisioning state of the validation test category catalog resource.")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ResourceProvisioningState;
+
   @doc("Parent validation test category id.")
   parentCategoryId?: string;
 }
@@ -66,6 +74,7 @@ interface ValidationTestsOps
         @path
         @segment("providers")
         @key
+        @doc("The provider namespace.")
         providerNamespace: "Microsoft.Validate",
       },
       {},
@@ -73,6 +82,7 @@ interface ValidationTestsOps
         @path
         @segment("validationTests")
         @key
+        @doc("The validation test name.")
         validationTestName: string,
       },
       ResourceName = "ValidationTests"
@@ -105,6 +115,7 @@ interface ValidationTestCategoriesOps
         @path
         @segment("providers")
         @key
+        @doc("The provider namespace.")
         providerNamespace: "Microsoft.Validate",
       },
       {},
@@ -112,6 +123,7 @@ interface ValidationTestCategoriesOps
         @path
         @segment("validationTestCategories")
         @key
+        @doc("The validation test category name.")
         validationTestCategoryName: string,
       },
       ResourceName = "ValidationTestCategories"

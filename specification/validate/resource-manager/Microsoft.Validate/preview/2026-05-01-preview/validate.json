@@ -91,6 +91,14 @@
             }
           }
         },
+        "x-ms-examples": {
+          "Operations_List_MaximumSet": {
+            "$ref": "./examples/Operations_List_MaximumSet_Gen.json"
+          },
+          "Operations_List_MinimumSet": {
+            "$ref": "./examples/Operations_List_MinimumSet_Gen.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -122,6 +130,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "ValidationTestCategories_List_MaximumSet": {
+            "$ref": "./examples/ValidationTestCategories_List_MaximumSet_Gen.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -141,6 +154,7 @@
           {
             "name": "validationTestCategoryName",
             "in": "path",
+            "description": "The validation test category name.",
             "required": true,
             "type": "string"
           }
@@ -158,6 +172,11 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
+        },
+        "x-ms-examples": {
+          "ValidationTestCategories_Get_MaximumSet": {
+            "$ref": "./examples/ValidationTestCategories_Get_MaximumSet_Gen.json"
+          }
         }
       },
       "put": {
@@ -173,6 +192,7 @@
           {
             "name": "validationTestCategoryName",
             "in": "path",
+            "description": "The validation test category name.",
             "required": true,
             "type": "string"
           },
@@ -205,6 +225,11 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
+        },
+        "x-ms-examples": {
+          "ValidationTestCategories_CreateOrUpdate_MaximumSet": {
+            "$ref": "./examples/ValidationTestCategories_CreateOrUpdate_MaximumSet_Gen.json"
+          }
         }
       }
     },
@@ -234,6 +259,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "ValidationTests_List_MaximumSet": {
+            "$ref": "./examples/ValidationTests_List_MaximumSet_Gen.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -253,6 +283,7 @@
           {
             "name": "validationTestName",
             "in": "path",
+            "description": "The validation test name.",
             "required": true,
             "type": "string"
           }
@@ -270,6 +301,11 @@
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
+        },
+        "x-ms-examples": {
+          "ValidationTests_Get_MaximumSet": {
+            "$ref": "./examples/ValidationTests_Get_MaximumSet_Gen.json"
+          }
         }
       },
       "put": {
@@ -285,6 +321,7 @@
           {
             "name": "validationTestName",
             "in": "path",
+            "description": "The validation test name.",
             "required": true,
             "type": "string"
           },
@@ -316,6 +353,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTests_CreateOrUpdate_MaximumSet": {
+            "$ref": "./examples/ValidationTests_CreateOrUpdate_MaximumSet_Gen.json"
           }
         }
       }
@@ -362,6 +404,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "CloudValidations_ListBySubscription_MaximumSet": {
+            "$ref": "./examples/CloudValidations_ListBySubscription_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -421,6 +468,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "ValidationExecutionPlans_ListBySubscription_MaximumSet": {
+            "$ref": "./examples/ValidationExecutionPlans_ListBySubscription_MaximumSet_Gen.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -459,6 +511,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "OperationStatus_Get_MaximumSet": {
+            "$ref": "./examples/OperationStatus_Get_MaximumSet_Gen.json"
           }
         }
       }
@@ -510,6 +567,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "CloudValidations_ListByResourceGroup_MaximumSet": {
+            "$ref": "./examples/CloudValidations_ListByResourceGroup_MaximumSet_Gen.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -553,6 +615,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "CloudValidations_Get_MaximumSet": {
+            "$ref": "./examples/CloudValidations_Get_MaximumSet_Gen.json"
           }
         }
       },
@@ -619,6 +686,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "CloudValidations_CreateOrUpdate_MaximumSet": {
+            "$ref": "./examples/CloudValidations_CreateOrUpdate_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -688,6 +760,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "CloudValidations_Update_MaximumSet": {
+            "$ref": "./examples/CloudValidations_Update_MaximumSet_Gen.json"
+          }
+        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -741,6 +818,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "CloudValidations_Delete_MaximumSet": {
+            "$ref": "./examples/CloudValidations_Delete_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -804,6 +886,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "ValidationExecutionPlans_ListByResourceGroup_MaximumSet": {
+            "$ref": "./examples/ValidationExecutionPlans_ListByResourceGroup_MaximumSet_Gen.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -855,6 +942,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationExecutionPlans_Get_MaximumSet": {
+            "$ref": "./examples/ValidationExecutionPlans_Get_MaximumSet_Gen.json"
           }
         }
       },
@@ -929,6 +1021,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationExecutionPlans_CreateOrUpdate_MaximumSet": {
+            "$ref": "./examples/ValidationExecutionPlans_CreateOrUpdate_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -1006,6 +1103,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "ValidationExecutionPlans_Update_MaximumSet": {
+            "$ref": "./examples/ValidationExecutionPlans_Update_MaximumSet_Gen.json"
+          }
+        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -1067,6 +1169,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationExecutionPlans_Delete_MaximumSet": {
+            "$ref": "./examples/ValidationExecutionPlans_Delete_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -1138,6 +1245,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "ValidationExecutionPlanRuns_ListByExecutionPlan_MaximumSet": {
+            "$ref": "./examples/ValidationExecutionPlanRuns_ListByExecutionPlan_MaximumSet_Gen.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -1197,6 +1309,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationExecutionPlanRuns_Get_MaximumSet": {
+            "$ref": "./examples/ValidationExecutionPlanRuns_Get_MaximumSet_Gen.json"
           }
         }
       },
@@ -1281,6 +1398,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "ValidationExecutionPlanRuns_CreateOrUpdate_MaximumSet": {
+            "$ref": "./examples/ValidationExecutionPlanRuns_CreateOrUpdate_MaximumSet_Gen.json"
+          }
+        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
         },
@@ -1352,6 +1474,11 @@
             }
           }
         },
+        "x-ms-examples": {
+          "ValidationExecutionPlanRuns_Delete_MaximumSet": {
+            "$ref": "./examples/ValidationExecutionPlanRuns_Delete_MaximumSet_Gen.json"
+          }
+        },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
@@ -1412,6 +1539,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTestRuns_ListByExecutionPlanRun_MaximumSet": {
+            "$ref": "./examples/ValidationTestRuns_ListByExecutionPlanRun_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -1481,6 +1613,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTestRuns_Get_MaximumSet": {
+            "$ref": "./examples/ValidationTestRuns_Get_MaximumSet_Gen.json"
           }
         }
       }
@@ -2180,6 +2317,11 @@
           "type": "string",
           "description": "Validation test category description."
         },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "Provisioning state of the validation test category catalog resource.",
+          "readOnly": true
+        },
         "parentCategoryId": {
           "type": "string",
           "description": "Parent validation test category id."
@@ -2269,6 +2411,11 @@
         "description": {
           "type": "string",
           "description": "Validation test description."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "Provisioning state of the validation test catalog resource.",
+          "readOnly": true
         },
         "version": {
           "type": "string",

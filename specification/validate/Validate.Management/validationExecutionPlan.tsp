@@ -79,19 +79,16 @@ interface ValidationExecutionPlans {
   get is ArmResourceRead<ValidationExecutionPlan>;
 
   @doc("Create or update a validation test execution plan")
-  @Azure.Core.useFinalStateVia("azure-async-operation")
   createOrUpdate is ArmResourceCreateOrReplaceAsync<ValidationExecutionPlan>;
 
   @doc("Update a validation test execution plan")
   @parameterVisibility(Lifecycle.Update)
-  @Azure.Core.useFinalStateVia("azure-async-operation")
   update is ArmResourcePatchAsync<
     ValidationExecutionPlan,
     ValidationExecutionPlanProperties
   >;
 
   @doc("Delete a validation test execution plan")
-  @Azure.Core.useFinalStateVia("azure-async-operation")
   delete is ArmResourceDeleteWithoutOkAsync<ValidationExecutionPlan>;
 
   @doc("List validation test execution plans by resource group")
