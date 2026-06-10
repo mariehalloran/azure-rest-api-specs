@@ -915,8 +915,8 @@
       "description": "SaaS guid & PublisherId for Activate and Validate SaaS Resource.",
       "properties": {
         "saasGuid": {
-          "$ref": "#/definitions/Azure.Core.uuid",
-          "description": "SaaS guid for Activate and Validate SaaS Resource."
+          "type": "string",
+          "description": "SaaS subscription identifier issued by the Azure Marketplace fulfillment API."
         },
         "publisherId": {
           "type": "string",
@@ -927,11 +927,6 @@
         "saasGuid",
         "publisherId"
       ]
-    },
-    "Azure.Core.uuid": {
-      "type": "string",
-      "format": "uuid",
-      "description": "Universally Unique Identifier"
     },
     "Azure.ResourceManager.ResourceProvisioningState": {
       "type": "string",

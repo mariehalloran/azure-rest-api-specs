@@ -298,8 +298,8 @@ model SaaSData {
 /** SaaS guid & PublisherId for Activate and Validate SaaS Resource. */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model ActivateSaaSParameterRequest {
-  /** SaaS guid for Activate and Validate SaaS Resource. */
-  saasGuid: uuid;
+  /** SaaS subscription identifier issued by the Azure Marketplace fulfillment API. */
+  saasGuid: string;
 
   /** Publisher Id for the marketplace offer. */
   publisherId: string;
