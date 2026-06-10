@@ -103,6 +103,8 @@ using Microsoft.OpenEnergyPlatform;
 );
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Preserve legacy SDK flattening from the hand-authored swagger (back-compat)."
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(Encryption.keyVaultProperties);
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  Encryption.keyVaultProperties
+);
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Preserve legacy SDK flattening from the hand-authored swagger (back-compat)."
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(Eds.keyVaultProperties);
