@@ -1,11 +1,13 @@
 using TypeSpec.Rest;
 using TypeSpec.Http;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 
 namespace Microsoft.Validate;
 
 @doc("Validation test catalog entry.")
 @tenantResource
+@added(Versions.v2026_05_01_preview)
 model ValidationTest is TrackedResource<ValidationTestProperties> {
   ...ResourceNameParameter<
     Resource = ValidationTest,
@@ -35,6 +37,7 @@ model ValidationTestProperties {
 
 @doc("Validation test category catalog entry.")
 @tenantResource
+@added(Versions.v2026_05_01_preview)
 model ValidationTestCategory is TrackedResource<ValidationTestCategoryProperties> {
   ...ResourceNameParameter<
     Resource = ValidationTestCategory,
@@ -54,6 +57,7 @@ model ValidationTestCategoryProperties {
 }
 
 @armResourceOperations
+@added(Versions.v2026_05_01_preview)
 interface ValidationTestsOps
   extends Azure.ResourceManager.Legacy.ExtensionOperations<
       {
@@ -76,18 +80,23 @@ interface ValidationTestsOps
 
 @armResourceOperations
 @tag("Validation Test Interfaces")
+@added(Versions.v2026_05_01_preview)
 interface ValidationTests {
   @doc("Get a validation test catalog entry")
+  @added(Versions.v2026_05_01_preview)
   get is ValidationTestsOps.Read<ValidationTest>;
 
   @doc("Create or update a validation test catalog entry")
+  @added(Versions.v2026_05_01_preview)
   createOrUpdate is ValidationTestsOps.CreateOrUpdateSync<ValidationTest>;
 
   @doc("List validation test catalog entries")
+  @added(Versions.v2026_05_01_preview)
   list is ValidationTestsOps.List<ValidationTest>;
 }
 
 @armResourceOperations
+@added(Versions.v2026_05_01_preview)
 interface ValidationTestCategoriesOps
   extends Azure.ResourceManager.Legacy.ExtensionOperations<
       {
@@ -110,15 +119,19 @@ interface ValidationTestCategoriesOps
 
 @armResourceOperations
 @tag("Validation Test Category Interfaces")
+@added(Versions.v2026_05_01_preview)
 interface ValidationTestCategories {
   @doc("Get a validation test category catalog entry")
+  @added(Versions.v2026_05_01_preview)
   get is ValidationTestCategoriesOps.Read<ValidationTestCategory>;
 
   @doc("Create or update a validation test category catalog entry")
+  @added(Versions.v2026_05_01_preview)
   createOrUpdate is ValidationTestCategoriesOps.CreateOrUpdateSync<
     ValidationTestCategory
   >;
 
   @doc("List validation test category catalog entries")
+  @added(Versions.v2026_05_01_preview)
   list is ValidationTestCategoriesOps.List<ValidationTestCategory>;
 }

@@ -148,10 +148,13 @@ model ValidationTestFailureDetails {
 
 @armResourceOperations
 @tag("Validation Test Run Interfaces")
+@added(Versions.v2026_05_01_preview)
 interface ValidationTestRuns {
   @doc("Get a validation test run details")
+  @added(Versions.v2026_05_01_preview)
   get is ArmResourceRead<ValidationTestRun>;
 
   @doc("List validation test runs for an execution plan run")
+  @added(Versions.v2026_05_01_preview)
   listByExecutionPlanRun is ArmResourceListByParent<ValidationTestRun>;
 }
