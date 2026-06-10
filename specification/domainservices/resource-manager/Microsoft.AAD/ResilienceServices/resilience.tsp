@@ -10,6 +10,7 @@ using Azure.ResourceManager;
 
 namespace Microsoft.AAD;
 
+/** Entra Resilience Service. Parent resource that aggregates one or more resilience hosts and provides the shared infrastructure that those hosts rely on. */
 model ResilienceService is TrackedResource<ResilienceProperties> {
   ...ResourceNameParameter<ResilienceService>;
 }
@@ -40,6 +41,7 @@ model AttestationServiceConfig {
   domainName?: string;
 }
 
+/** Entra Resilience Host. Child resource representing a physical host running the nested virtual machine, attached to a parent Entra Resilience Service. */
 @parentResource(ResilienceService)
 model ResilienceHost is ProxyResource<ResilienceHostProperties> {
   ...ResourceNameParameter<ResilienceHost, SegmentName = "hosts">;
