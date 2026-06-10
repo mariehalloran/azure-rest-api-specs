@@ -10,7 +10,7 @@
       "connectionEndpoints": [
         {
           "type": "Source",
-          "engine": "Oracle",
+          "checkConnectivityType": "Oracle",
           "connectionName": "sourceConnection1",
           "hostName": "source-db.company.com",
           "port": 1521,
@@ -28,7 +28,7 @@
         },
         {
           "type": "Target",
-          "engine": "Azure Database for PostgreSQL",
+          "checkConnectivityType": "Azure Database for PostgreSQL",
           "connectionName": "targetConnection1",
           "hostName": "target-server1.postgres.database.azure.com",
           "port": 5432,
