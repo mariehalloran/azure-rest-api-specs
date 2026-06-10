@@ -2000,14 +2000,14 @@
         "icmAccount": {
           "type": "string",
           "description": "The IcM Account for Escalations",
-          "pattern": "^[a-zA-Z0-9\\-/_& ]+$"
+          "pattern": "^[a-zA-Z0-9_\\\\()&:,+\\-/]+$"
         },
         "icmTenant": {
           "type": "string",
           "description": "The IcM tenant for auditing",
           "minLength": 1,
           "maxLength": 128,
-          "pattern": "^[a-zA-Z0-9_/-]+$"
+          "pattern": "^[a-zA-Z0-9_ ():/\\-]+$"
         },
         "emailAlias": {
           "type": "string",
@@ -2088,14 +2088,14 @@
         "icmAccount": {
           "type": "string",
           "description": "The IcM Account for Escalations",
-          "pattern": "^[a-zA-Z0-9\\-/_& ]+$"
+          "pattern": "^[a-zA-Z0-9_\\\\()&:,+\\-/]+$"
         },
         "icmTenant": {
           "type": "string",
           "description": "The IcM tenant for auditing",
           "minLength": 1,
           "maxLength": 128,
-          "pattern": "^[a-zA-Z0-9_/-]+$"
+          "pattern": "^[a-zA-Z0-9_ ():/\\-]+$"
         },
         "emailAlias": {
           "type": "string",
@@ -2160,8 +2160,8 @@
         "name": {
           "type": "string",
           "description": "The partition name.",
-          "minLength": 3,
-          "maxLength": 24,
+          "minLength": 2,
+          "maxLength": 63,
           "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
         },
         "instanceCount": {
@@ -2213,8 +2213,8 @@
         "name": {
           "type": "string",
           "description": "The partition name.",
-          "minLength": 3,
-          "maxLength": 24,
+          "minLength": 2,
+          "maxLength": 63,
           "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
         },
         "partitionDefault": {
@@ -2537,8 +2537,8 @@
         "name": {
           "type": "string",
           "description": "The partition name.",
-          "minLength": 3,
-          "maxLength": 24,
+          "minLength": 2,
+          "maxLength": 63,
           "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
         }
       },
