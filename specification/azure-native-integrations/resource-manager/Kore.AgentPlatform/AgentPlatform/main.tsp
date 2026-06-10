@@ -23,9 +23,8 @@ using LiftrBase;
  *
  * Organizations are top-level tracked ARM resources. Each Organization is
  * provisioned together with a default Workspace. Additional Workspaces are
- * managed through POST actions on the parent Organization
- * (`createWorkspace`, `deleteWorkspace`).
- * GET and LIST on workspaces are exposed as a child proxy resource type.
+ * managed as a child proxy resource type under the Organization using the
+ * standard ARM verbs (PUT / DELETE / GET / LIST) on the workspace URL.
  *
  * Service-to-service authentication between Liftr and Kore uses federated
  * Microsoft Entra credentials and is enforced at the runtime layer

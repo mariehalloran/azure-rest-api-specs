@@ -16,15 +16,17 @@ namespace Kore.AgentPlatform;
  * A Workspace resource in the Kore.AgentPlatform provider.
  *
  * Child proxy resource type under an Organization. Workspaces are not tracked
- * (no `location`/`tags`). Workspaces do not expose PUT/PATCH/DELETE on the
- * child URL; create/delete are performed by invoking the corresponding
- * action on the parent Organization:
+ * (no `location`/`tags`). Lifecycle is managed through the standard ARM verbs
+ * on the child URL:
  *
- *   - createWorkspace  : POST .../organizations/{org}/createWorkspace
- *   - deleteWorkspace  : POST .../organizations/{org}/deleteWorkspace
+ *   - PUT    .../organizations/{org}/workspaces/{workspaceName}  (create or update)
+ *   - DELETE .../organizations/{org}/workspaces/{workspaceName}
+ *   - GET    .../organizations/{org}/workspaces/{workspaceName}
+ *   - GET    .../organizations/{org}/workspaces                  (list by parent)
  *
- * GET and LIST are exposed on the child URL and routed through ARM/RPaaS to the
- * Liftr resource provider.
+ * A default Workspace is also provisioned atomically when the parent
+ * Organization is created (see `OrganizationProperties.defaultWorkspace`);
+ * additional Workspaces are managed via the operations defined here.
  */
 @parentResource(OrganizationResource)
 model WorkspaceResource
@@ -40,11 +42,17 @@ model WorkspaceResource
   name: string;
 }
 
-/** Read operations on the Workspace child resource type. */
+/** Operations on the Workspace child resource type. */
 @armResourceOperations
 interface Workspaces {
   /** Get a Workspace under an Organization. */
   get is ArmResourceRead<WorkspaceResource>;
+
+  /** Create or update a Workspace under an Organization (long-running). */
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<WorkspaceResource>;
+
+  /** Delete a Workspace under an Organization (long-running). */
+  delete is ArmResourceDeleteWithoutOkAsync<WorkspaceResource>;
 
   /** List Workspaces under an Organization. */
   listByOrganization is ArmResourceListByParent<WorkspaceResource>;

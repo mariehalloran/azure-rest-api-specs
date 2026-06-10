@@ -66,30 +66,6 @@ interface Organizations {
   /** List Organizations in a Subscription. */
   listBySubscription is ArmListBySubscription<OrganizationResource>;
 
-  /**
-   * Create an additional Workspace under this Organization. Long-running.
-   *
-   * On success the created Workspace becomes addressable as a child resource at
-   * `.../organizations/{organizationName}/workspaces/{workspaceName}` and can
-   * be retrieved through GET/LIST on the Workspaces resource type.
-   */
-  createWorkspace is ArmResourceActionAsync<
-    OrganizationResource,
-    CreateWorkspaceRequest,
-    WorkspaceResource
-  >;
-
-  /**
-   * Delete a Workspace under this Organization. Long-running.
-   * The deletion is permanent from the Liftr ARM surface.
-   */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "void-returning LRO action; 202 + default is sufficient."
-  deleteWorkspace is ArmResourceActionAsync<
-    OrganizationResource,
-    DeleteWorkspaceRequest,
-    void
-  >;
-
   /** Links SaaS resources to the organization. Accepts the full list of SaaS assets to be linked. */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "void-returning LRO action; 202 + default is sufficient."
   @summary("Links SaaS resources to the organization.")

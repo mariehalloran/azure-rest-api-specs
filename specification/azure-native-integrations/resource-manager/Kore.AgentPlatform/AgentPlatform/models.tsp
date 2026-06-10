@@ -192,7 +192,7 @@ model WorkspaceProperties {
 }
 
 // =============================================================================
-// Action request bodies (workspace lifecycle, via parent Organization)
+// Organization PATCH body
 // =============================================================================
 
 /**
@@ -240,42 +240,6 @@ model OrganizationPartnerPropertiesUpdate {
 
   /** Initial owner email for the Organization. */
   ownerEmail?: email;
-}
-
-/** Request body for the `createWorkspace` action on an Organization. */
-model CreateWorkspaceRequest {
-  /**
-   * Name of the Workspace to create. Becomes the ARM resource name segment,
-   * addressable thereafter at `.../organizations/{org}/workspaces/{workspaceName}`.
-   */
-  @minLength(2)
-  @maxLength(100)
-  workspaceName: string;
-
-  /**
-   * Partner-issued identifier of the parent Organization (e.g., "org_01...").
-   * Passed in the body so the partner can correlate the workspace action with
-   * the Kore-side Organization without a separate lookup.
-   */
-  organizationPartnerResourceId: string;
-
-  /** Properties of the Workspace to create. */
-  properties: WorkspacePartnerProperties;
-}
-
-/** Request body for the `deleteWorkspace` action on an Organization. */
-model DeleteWorkspaceRequest {
-  /** Name of the Workspace to delete. */
-  @minLength(2)
-  @maxLength(100)
-  workspaceName: string;
-
-  /**
-   * Partner-issued identifier of the parent Organization (e.g., "org_01...").
-   * Passed in the body so the partner can correlate the workspace action with
-   * the Kore-side Organization without a separate lookup.
-   */
-  organizationPartnerResourceId: string;
 }
 
 // =============================================================================
