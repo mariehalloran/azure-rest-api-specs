@@ -78,3 +78,31 @@ using Microsoft.OpenEnergyPlatform;
   "Identity",
   "python,csharp,java,javascript,go"
 );
+
+// -----------------------------------------------------------------------------
+// SME c1: restore legacy SDK-shaping metadata dropped by the swagger->TypeSpec
+// conversion in the keyvault/encryption area. The hand-authored 2026-02-02-preview
+// swagger carried x-ms-client-name renames on these properties and
+// x-ms-client-flatten on the Encryption/Eds models. Re-applying them here (in a
+// file imported by main.tsp) ensures typespec-autorest re-emits the same
+// SDK-shaping metadata so the converted swagger matches the base contract.
+// Wire impact: NONE — x-ms-client-name / x-ms-client-flatten are SDK identifiers
+// and never appear in the HTTP request bytes.
+// -----------------------------------------------------------------------------
+
+@@clientName(Encryption.keyVaultProperties, "KeyVaultProperties");
+@@clientName(KeyVaultProperties.keyName, "KeyName");
+@@clientName(KeyVaultProperties.keyVersion, "KeyVersion");
+@@clientName(KeyVaultProperties.keyVaultUri, "KeyVaultUri");
+@@clientName(KeyVaultProperties.userIdentity, "UserIdentity");
+@@clientName(Eds.keyVaultProperties, "EdsKeyVaultProperties");
+@@clientName(EdsKeyVaultProperties.keyVaultUri, "KeyVaultUri");
+@@clientName(
+  EdsKeyVaultPropertiesIdentity.userAssignedIdentityId,
+  "UserAssignedIdentity"
+);
+
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Preserve legacy SDK flattening from the hand-authored swagger (back-compat)."
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(Encryption.keyVaultProperties);
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Preserve legacy SDK flattening from the hand-authored swagger (back-compat)."
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(Eds.keyVaultProperties);
