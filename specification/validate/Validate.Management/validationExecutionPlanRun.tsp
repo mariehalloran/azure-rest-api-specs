@@ -30,13 +30,13 @@ model ExecutionPlanRunProperties {
   @added(Versions.v2026_03_01_preview)
   error?: Azure.ResourceManager.Foundations.ErrorDetail;
 
-  @doc("The start timestamp of the execution plan run.")
+  @doc("The start time of the execution plan run.")
   @visibility(Lifecycle.Read)
   @madeOptional(Versions.v2026_02_01_preview)
   @removed(Versions.v2026_05_01_preview)
   startTimestampInUtc?: utcDateTime;
 
-  @doc("The end timestamp of the execution plan run.")
+  @doc("The end time of the execution plan run.")
   @visibility(Lifecycle.Read)
   @removed(Versions.v2026_05_01_preview)
   endTimestampInUtc?: utcDateTime;
@@ -110,14 +110,14 @@ union ExecutionPlanRunProvisioningState {
 @doc("The status of the execution plan run.")
 @lroStatus
 union ExecutionPlanRunStatus {
-  @doc("The execution plan run succeeded.")
+  @doc("The execution plan run is succeeded.")
   Succeeded: "Succeeded",
 
   @doc("The execution plan run has been queued.")
   @added(Versions.v2026_05_01_preview)
   Queued: "Queued",
 
-  @doc("The execution plan run has been queued.")
+  @doc("The execution plan run is waiting.")
   @removed(Versions.v2026_05_01_preview)
   Waiting: "Waiting",
 
@@ -125,6 +125,7 @@ union ExecutionPlanRunStatus {
   Running: "Running",
 
   @doc("The execution plan run is completed.")
+  @added(Versions.v2026_05_01_preview)
   Completed: "Completed",
 
   @doc("The execution plan run is canceled.")

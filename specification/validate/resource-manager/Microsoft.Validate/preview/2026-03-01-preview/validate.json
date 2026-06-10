@@ -1428,13 +1428,13 @@
         "startTimestampInUtc": {
           "type": "string",
           "format": "date-time",
-          "description": "The start timestamp of the execution plan run.",
+          "description": "The start time of the execution plan run.",
           "readOnly": true
         },
         "endTimestampInUtc": {
           "type": "string",
           "format": "date-time",
-          "description": "The end timestamp of the execution plan run.",
+          "description": "The end time of the execution plan run.",
           "readOnly": true
         },
         "reportedTimestampInUtc": {
@@ -1522,7 +1522,6 @@
         "Succeeded",
         "Waiting",
         "Running",
-        "Completed",
         "Canceled",
         "Failed",
         "Skipped",
@@ -1540,22 +1539,17 @@
           {
             "name": "Succeeded",
             "value": "Succeeded",
-            "description": "The execution plan run succeeded."
+            "description": "The execution plan run is succeeded."
           },
           {
             "name": "Waiting",
             "value": "Waiting",
-            "description": "The execution plan run has been queued."
+            "description": "The execution plan run is waiting."
           },
           {
             "name": "Running",
             "value": "Running",
             "description": "The execution plan run is running."
-          },
-          {
-            "name": "Completed",
-            "value": "Completed",
-            "description": "The execution plan run is completed."
           },
           {
             "name": "Canceled",
