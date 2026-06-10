@@ -9,7 +9,7 @@ namespace Microsoft.CloudLicensing;
 
 /**
  * A license allotment resource representing a container of licenses.
- * Modeled as an ARM extension resource on a parent ARM resource (e.g., a
+ * Modeled as an Azure Resource Manager extension resource on a parent Azure Resource Manager resource (e.g., a
  * Microsoft.SaaSHub/cloudServices resource). The allowed extension parents
  * are constrained by the resource provider manifest.
  */
@@ -31,7 +31,7 @@ interface Allotments {
   get is ArmResourceRead<Allotment>;
 
   /**
-   * Lists all license allotments under the parent ARM resource.
+   * Lists all license allotments under the parent Azure Resource Manager resource.
    */
   listByParent is ArmResourceListByParent<Allotment>;
 }

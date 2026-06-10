@@ -56,7 +56,7 @@
         "tags": [
           "Allotments"
         ],
-        "description": "Lists all license allotments under the parent ARM resource.",
+        "description": "Lists all license allotments under the parent Azure Resource Manager resource.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -80,7 +80,7 @@
           }
         },
         "x-ms-examples": {
-          "List all license allotments under the parent ARM resource": {
+          "List all license allotments under the parent Azure Resource Manager resource": {
             "$ref": "./examples/Allotments_ListByParent.json"
           }
         },
@@ -318,9 +318,6 @@
             "$ref": "./examples/Assignments_CreateOrUpdate.json"
           }
         },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        },
         "x-ms-long-running-operation": true
       },
       "delete": {
@@ -365,6 +362,10 @@
                 "type": "string",
                 "description": "The Location header contains the URL where the status of the long running operation can be checked."
               },
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
               "Retry-After": {
                 "type": "integer",
                 "format": "int32",
@@ -386,9 +387,6 @@
           "Delete a license assignment": {
             "$ref": "./examples/Assignments_Delete.json"
           }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
         },
         "x-ms-long-running-operation": true
       }
@@ -433,7 +431,7 @@
   "definitions": {
     "Allotment": {
       "type": "object",
-      "description": "A license allotment resource representing a container of licenses.\nModeled as an ARM extension resource on a parent ARM resource (e.g., a\nMicrosoft.SaaSHub/cloudServices resource). The allowed extension parents\nare constrained by the resource provider manifest.",
+      "description": "A license allotment resource representing a container of licenses.\nModeled as an Azure Resource Manager extension resource on a parent Azure Resource Manager resource (e.g., a\nMicrosoft.SaaSHub/cloudServices resource). The allowed extension parents\nare constrained by the resource provider manifest.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/AllotmentProperties",
