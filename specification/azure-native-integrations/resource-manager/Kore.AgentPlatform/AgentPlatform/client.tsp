@@ -64,16 +64,6 @@ using Kore.AgentPlatform;
   "KoreAgentPlatformSingleSignOnProperties",
   "csharp"
 );
-@@clientName(
-  Kore.AgentPlatform.CreateWorkspaceRequest,
-  "KoreAgentPlatformCreateWorkspaceRequest",
-  "csharp"
-);
-@@clientName(
-  Kore.AgentPlatform.DeleteWorkspaceRequest,
-  "KoreAgentPlatformDeleteWorkspaceRequest",
-  "csharp"
-);
 
 @@clientName(LiftrBase.OfferDetails, "KoreAgentPlatformOfferDetails", "csharp");
 @@clientName(
