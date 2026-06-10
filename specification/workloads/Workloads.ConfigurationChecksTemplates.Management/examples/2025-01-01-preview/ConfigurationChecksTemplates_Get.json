@@ -15,6 +15,7 @@
           "provisioningState": "Succeeded",
           "configuration": {
             "workloadType": "SAP",
+            "workloadSystemIdentifier": "AB1",
             "environmentType": "Production",
             "components": [
               {
@@ -38,10 +39,11 @@
                         "outputParameters": [
                           {
                             "name": "resiliencyStatus",
-                            "condition": "Equals",
+                            "condition": "eq",
                             "dataType": "String",
                             "unit": "",
-                            "value": "Standard_D4s_v3"
+                            "value": "Standard_D4s_v3",
+                            "skipIfOutputMatches": false
                           }
                         ]
                       },
@@ -60,10 +62,11 @@
                         "outputParameters": [
                           {
                             "name": "idleTimeout",
-                            "condition": "Equals",
+                            "condition": "eq",
                             "dataType": "Integer",
                             "unit": "Minutes",
-                            "value": "30"
+                            "value": "30",
+                            "skipIfOutputMatches": false
                           }
                         ]
                       }
@@ -92,10 +95,11 @@
                         "outputParameters": [
                           {
                             "name": "instanceType",
-                            "condition": "Equals",
+                            "condition": "eq",
                             "dataType": "String",
                             "value": "Compliant",
-                            "unit": ""
+                            "unit": "",
+                            "skipIfOutputMatches": false
                           }
                         ]
                       },
@@ -114,10 +118,11 @@
                         "outputParameters": [
                           {
                             "name": "idleTimeout",
-                            "condition": "Equals",
+                            "condition": "eq",
                             "dataType": "Integer",
                             "unit": "Minutes",
-                            "value": "30"
+                            "value": "30",
+                            "skipIfOutputMatches": false
                           }
                         ]
                       }
@@ -141,10 +146,11 @@
                 "outputParameters": [
                   {
                     "name": "instanceMemoryLimit",
-                    "condition": "GreaterThanOrEqual",
+                    "condition": "ge",
                     "dataType": "Integer",
                     "unit": "GB",
-                    "value": "96"
+                    "value": "96",
+                    "skipIfOutputMatches": false
                   }
                 ]
               }

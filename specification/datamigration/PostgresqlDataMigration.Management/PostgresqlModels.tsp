@@ -18,7 +18,7 @@ union MigrationMode {
 }
 
 @doc("The source database engine type for migration service.")
-union SourceDatabaseEngine {
+union SourceType {
   string,
 
   @doc("Oracle database engine")
@@ -29,7 +29,7 @@ union SourceDatabaseEngine {
 }
 
 @doc("The target database engine type for migration service.")
-union TargetDatabaseEngine {
+union TargetType {
   string,
 
   @doc("Azure Database for PostgreSQL")
@@ -37,7 +37,7 @@ union TargetDatabaseEngine {
 }
 
 @doc("The database engine type for connectivity testing.")
-union DatabaseEngine {
+union CheckConnectivityType {
   string,
 
   @doc("Oracle database engine")
@@ -50,25 +50,25 @@ union DatabaseEngine {
   AzureDatabaseForPostgreSQL: "Azure Database for PostgreSQL",
 }
 
-@doc("The source platform type for database migration.")
-union MigrationSourceType {
+@doc("The source server type for database migration.")
+union SourceServerType {
   string,
 
-  @doc("Amazon Web Services")
-  AWS: "AWS",
+  @doc("On-Premises server")
+  OnPremises: "On-Premises",
 
-  @doc("Google Cloud Platform")
-  GCP: "GCP",
+  @doc("Azure Virtual Machine")
+  AzureVirtualMachine: "Azure Virtual Machine",
 
-  @doc("Oracle Cloud")
-  Oracle: "Oracle",
+  @doc("Amazon EC2")
+  AmazonEC2: "Amazon EC2",
 
-  @doc("On-premises")
-  OnPrem: "OnPrem",
+  @doc("Amazon RDS")
+  AmazonRDS: "Amazon RDS",
 }
 
 @doc("The target platform type for database migration.")
-union MigrationTargetType {
+union TargetServerType {
   string,
 
   @doc("Azure PostgreSQL Flexible Server")
@@ -344,7 +344,7 @@ model CheckConnectivityEndpoint {
   ...ConnectionEndpoint;
 
   @doc("Database engine type for this endpoint")
-  engine: DatabaseEngine;
+  checkConnectivityType: CheckConnectivityType;
 
   @doc("Server resource ID")
   serverResourceId?: string;
@@ -356,7 +356,7 @@ model CheckConnectivityEndpoint {
 @doc("Source database configuration.")
 model SourceConfiguration {
   @doc("Source database engine type")
-  sourceEngine: SourceDatabaseEngine;
+  sourceType: SourceType;
 
   @doc("Server resource ID")
   serverResourceId?: string;
@@ -369,7 +369,7 @@ model SourceConfiguration {
 @doc("Target database configuration.")
 model TargetConfiguration {
   @doc("Target database engine type")
-  targetEngine: TargetDatabaseEngine;
+  targetType: TargetType;
 
   @doc("Server resource ID")
   serverResourceId?: string;
@@ -683,11 +683,11 @@ model DatabaseMigrationProperties {
 
   @doc("Migration source type")
   @visibility(Lifecycle.Create, Lifecycle.Read)
-  sourceType: MigrationSourceType;
+  sourceServerType: SourceServerType;
 
   @doc("Migration target type")
   @visibility(Lifecycle.Create, Lifecycle.Read)
-  targetType: MigrationTargetType;
+  targetServerType: TargetServerType;
 
   @doc("Source database configuration")
   @visibility(Lifecycle.Create, Lifecycle.Read)
