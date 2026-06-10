@@ -140,6 +140,9 @@ model PipelineRecurrence {
   /** Periodicity of the recurrence. */
   periodicity?: string;
 
+  /** Cron expression for the recurrence. */
+  cronExpression?: string;
+
   /** Timeout for the recurrence. */
   timeout?: string;
 }
@@ -149,8 +152,8 @@ union ScheduleType {
   /** Periodic schedule type. */
   Periodic: "Periodic",
 
-  /** Manual trigger schedule type. */
-  ManualTrigger: "ManualTrigger",
+  /** Cron schedule type. */
+  Cron: "Cron",
 
   string,
 }

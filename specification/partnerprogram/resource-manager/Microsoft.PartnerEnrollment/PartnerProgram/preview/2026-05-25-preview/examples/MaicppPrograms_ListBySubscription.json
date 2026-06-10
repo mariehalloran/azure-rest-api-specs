@@ -1,0 +1,36 @@
+{
+  "operationId": "MaicppPrograms_ListBySubscription",
+  "title": "ListMaicppProgramsBySubscription",
+  "parameters": {
+    "api-version": "2026-05-25-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.PartnerEnrollment/maicppPrograms/default",
+            "name": "default",
+            "type": "Microsoft.PartnerEnrollment/maicppPrograms",
+            "properties": {
+              "provisioningState": "Succeeded",
+              "programId": "6F73EEAE-54C3-40B4-AC0E-0BCA24543149",
+              "billingAccountId": "8a93b3c8-21d3-4847-9a87-d7a7b9b1c845",
+              "enrollmentId": "3c75a390-4955-4d22-a1df-1d663ccba601",
+              "status": "NotRegistered"
+            },
+            "systemData": {
+              "createdBy": "someone@example.com",
+              "createdByType": "User",
+              "createdAt": "2024-01-01T00:00:00Z",
+              "lastModifiedBy": "someone@example.com",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2024-01-01T00:00:00Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
