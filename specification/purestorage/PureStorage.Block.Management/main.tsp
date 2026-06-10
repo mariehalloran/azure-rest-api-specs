@@ -300,7 +300,7 @@ model PlatformConsoleAccessSettings {
 @doc("Subnet configuration for platform console access")
 model PlatformConsoleSubnet {
   @doc("Azure resource ID of the subnet")
-  id: string;
+  id: Azure.Core.armResourceIdentifier;
 
   @doc("Management IP address assigned to the subnet (system-populated)")
   @visibility(Lifecycle.Read)
