@@ -257,7 +257,11 @@ model OrganizationPartnerPropertiesUpdate {
 model SaaSData {
   /** ARM resource IDs of the Microsoft.SaaS marketplace resources to link to this Organization. */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
-  saaSResourceIds: armResourceIdentifier<[{ type: "Microsoft.SaaS/resources" }]>[];
+  saaSResourceIds: armResourceIdentifier<[
+    {
+      type: "Microsoft.SaaS/resources";
+    }
+  ]>[];
 }
 
 /** SaaS guid & PublisherId for Activate and Validate SaaS Resource. */
@@ -289,7 +293,11 @@ model SaaSResourceDetailsResponse
 model LinkedSaaSItem {
   /** ARM resource ID of the Microsoft.SaaS marketplace resource linked to this Organization. */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
-  saaSResourceId: armResourceIdentifier<[{ type: "Microsoft.SaaS/resources" }]>;
+  saaSResourceId: armResourceIdentifier<[
+    {
+      type: "Microsoft.SaaS/resources";
+    }
+  ]>;
 
   /** Flag indicating if the SaaS resource is hidden. */
   isHiddenSaaS?: boolean;
