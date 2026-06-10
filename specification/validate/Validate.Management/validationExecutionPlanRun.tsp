@@ -117,10 +117,6 @@ union ExecutionPlanRunStatus {
   @added(Versions.v2026_05_01_preview)
   Queued: "Queued",
 
-  @doc("The execution plan run is waiting.")
-  @removed(Versions.v2026_05_01_preview)
-  Waiting: "Waiting",
-
   @doc("The execution plan run is running.")
   Running: "Running",
 
@@ -133,6 +129,10 @@ union ExecutionPlanRunStatus {
 
   @doc("The execution plan run is failed.")
   Failed: "Failed",
+
+  @doc("The execution plan run is waiting.")
+  @removed(Versions.v2026_05_01_preview)
+  Waiting: "Waiting",
 
   @doc("The execution plan run is skipped.")
   Skipped: "Skipped",

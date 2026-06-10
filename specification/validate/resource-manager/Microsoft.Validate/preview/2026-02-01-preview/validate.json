@@ -1455,10 +1455,10 @@
       "description": "The status of the execution plan run.",
       "enum": [
         "Succeeded",
-        "Waiting",
         "Running",
         "Canceled",
         "Failed",
+        "Waiting",
         "Skipped",
         "Paused",
         "Suspended",
@@ -1477,11 +1477,6 @@
             "description": "The execution plan run is succeeded."
           },
           {
-            "name": "Waiting",
-            "value": "Waiting",
-            "description": "The execution plan run is waiting."
-          },
-          {
             "name": "Running",
             "value": "Running",
             "description": "The execution plan run is running."
@@ -1495,6 +1490,11 @@
             "name": "Failed",
             "value": "Failed",
             "description": "The execution plan run is failed."
+          },
+          {
+            "name": "Waiting",
+            "value": "Waiting",
+            "description": "The execution plan run is waiting."
           },
           {
             "name": "Skipped",
