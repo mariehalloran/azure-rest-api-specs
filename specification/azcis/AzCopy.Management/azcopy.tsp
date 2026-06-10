@@ -25,10 +25,12 @@ model AzCopyResourceProperties {
 
   @doc("The full SAS URI for the source object, marked secret. This can target an account, container, virtual directory, or blob.")
   @secret
+  @visibility(Lifecycle.Create, Lifecycle.Update)
   sourceSasUri?: string;
 
   @doc("The full SAS URI for the destination object, marked secret. This can target an account, container, virtual directory, or blob.")
   @secret
+  @visibility(Lifecycle.Create, Lifecycle.Update)
   destinationSasUri?: string;
 
   @doc("Source and destination combo. Any combination of Blob and/or File side by side (ex. BlobBlob, FileBlob).")
