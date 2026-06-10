@@ -22,6 +22,10 @@ model ValidationTestProperties {
   @doc("Validation test description.")
   description?: string;
 
+  @doc("Provisioning state of the validation test catalog resource.")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ResourceProvisioningState;
+
   @doc("Validation test version.")
   version?: string;
 
@@ -51,6 +55,10 @@ model ValidationTestCategory is ProxyResource<ValidationTestCategoryProperties> 
 model ValidationTestCategoryProperties {
   @doc("Validation test category description.")
   description?: string;
+
+  @doc("Provisioning state of the validation test category catalog resource.")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ResourceProvisioningState;
 
   @doc("Parent validation test category id.")
   parentCategoryId?: string;

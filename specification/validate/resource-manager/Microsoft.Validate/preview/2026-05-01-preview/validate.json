@@ -2321,6 +2321,11 @@
           "type": "string",
           "description": "Validation test category description."
         },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "Provisioning state of the validation test category catalog resource.",
+          "readOnly": true
+        },
         "parentCategoryId": {
           "type": "string",
           "description": "Parent validation test category id."
@@ -2410,6 +2415,11 @@
         "description": {
           "type": "string",
           "description": "Validation test description."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "Provisioning state of the validation test catalog resource.",
+          "readOnly": true
         },
         "version": {
           "type": "string",
