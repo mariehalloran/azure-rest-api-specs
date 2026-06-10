@@ -8,6 +8,7 @@ using TypeSpec.Rest;
 using Azure.ResourceManager;
 using TypeSpec.Http;
 using TypeSpec.OpenAPI;
+using TypeSpec.Versioning;
 
 namespace Microsoft.Elastic;
 /**
@@ -113,10 +114,12 @@ interface ElasticMonitorResources {
   update is ElasticMonitorUpdateResourceOps.CustomPatchAsync<
     ElasticMonitorResource,
     PatchModel = ElasticMonitorResourceUpdateParameters,
-    Response = ArmResponse<ElasticMonitorResource> | (ArmAcceptedLroResponse<LroHeaders = ArmLroLocationHeader<FinalResult = ElasticMonitorResource>> & {
-      @bodyRoot
-      _: ElasticMonitorResource;
-    }),
+    Response =
+      | ArmResponse<ElasticMonitorResource>
+      | (ArmAcceptedLroResponse<LroHeaders = ArmLroLocationHeader<FinalResult = ElasticMonitorResource>> & {
+          @bodyRoot
+          _: ElasticMonitorResource;
+        }),
     OptionalRequestBody = true
   >;
 
@@ -126,7 +129,18 @@ interface ElasticMonitorResources {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   delete is ArmResourceDeleteWithoutOkAsync<
     ElasticMonitorResource,
-    Response = ArmDeletedResponse | ArmDeleteAcceptedLroResponse | ArmDeletedNoContentResponse,
+    Response =
+      | ArmDeletedResponse
+      | ArmDeleteAcceptedLroResponse
+      | ArmDeletedNoContentResponse,
+    Parameters = {
+      /**
+       * Indicates whether to perform a soft delete. When set to true, the Azure resource (Liftr integration) only is deleted and not the Partner Cloud resource. When set to false (default), the resource is permanently deleted from both Azure and the Partner Cloud.
+       */
+      @added(Versions.v2026_03_15_preview)
+      @query("softDelete")
+      softDelete?: boolean = false;
+    },
     Error = ResourceProviderDefaultErrorResponse
   >;
 
@@ -447,21 +461,27 @@ interface ElasticMonitorResources {
 
 @@doc(ElasticMonitorResource.name, "Monitor resource name");
 @@doc(ElasticMonitorResource.properties, "Properties of the monitor resource.");
-@@doc(ElasticMonitorResources.create::parameters.resource,
+@@doc(
+  ElasticMonitorResources.create::parameters.resource,
   "Elastic monitor resource model"
 );
-@@doc(ElasticMonitorResources.update::parameters.properties,
+@@doc(
+  ElasticMonitorResources.update::parameters.properties,
   "Elastic resource model update parameters."
 );
-@@doc(ElasticMonitorResources.createOrUpdate::parameters.body,
+@@doc(
+  ElasticMonitorResources.createOrUpdate::parameters.body,
   "Elastic External User Creation Parameters"
 );
-@@doc(ElasticMonitorResources.vMCollectionUpdate::parameters.body,
+@@doc(
+  ElasticMonitorResources.vMCollectionUpdate::parameters.body,
   "VM resource Id"
 );
-@@doc(ElasticMonitorResources.upgrade::parameters.body,
+@@doc(
+  ElasticMonitorResources.upgrade::parameters.body,
   "Elastic Monitor Upgrade Parameters"
 );
-@@doc(ElasticMonitorResources.resubscribe::parameters.body,
+@@doc(
+  ElasticMonitorResources.resubscribe::parameters.body,
   "Resubscribe Properties"
 );

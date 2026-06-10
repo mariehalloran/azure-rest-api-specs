@@ -21,15 +21,7 @@ model AccessControlList
   @visibility(Lifecycle.Read)
   name: string;
 
-  /** The Access ControlList properties */
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: AccessControlListProperties;
-
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
   @doc("The Access ControlList properties.")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties: AccessControlListProperties;
 }
 
@@ -111,18 +103,23 @@ interface AccessControlLists {
 }
 
 @@doc(AccessControlLists.create::parameters.resource, "Request payload.");
-@@doc(AccessControlLists.update::parameters.properties,
+@@doc(
+  AccessControlLists.update::parameters.properties,
   "Access Control List properties to update."
 );
-@@doc(AccessControlLists.updateAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  AccessControlLists.updateAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(AccessControlLists.updateAdministrativeState::parameters.body,
+@@doc(
+  AccessControlLists.updateAdministrativeState::parameters.body,
   "Request payload."
 );
-@@doc(AccessControlLists.validateConfigurationDeprecated::parameters.body,
+@@doc(
+  AccessControlLists.validateConfigurationDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(AccessControlLists.validateConfiguration::parameters.body,
+@@doc(
+  AccessControlLists.validateConfiguration::parameters.body,
   "Request payload."
 );

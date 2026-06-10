@@ -9,7 +9,7 @@ using Azure.ResourceManager;
 @doc("Microsoft.Cosmic Resource Provider Management API.")
 namespace Microsoft.Cosmic;
 
-// ─── Cosmic Ring Definition ─────────────────────────────────────────────
+// --- Cosmic Ring Definition ---------------------------------------------
 
 @doc("Cosmic Rings.")
 union CosmicRing {
@@ -67,7 +67,7 @@ union CosmicRing {
   string,
 }
 
-// ─── Provisioning state ─────────────────────────────────────────────
+// --- Provisioning state ---------------------------------------------
 
 @doc("The provisioning state of a Cosmic resource.")
 union CosmicProvisioningState {
@@ -88,7 +88,7 @@ union CosmicProvisioningState {
   string,
 }
 
-// ─── Environment enums ───────────────────────────────────────────────
+// --- Environment enums -----------------------------------------------
 
 @doc("The operating system type for the compute nodes.")
 union OsType {
@@ -139,6 +139,9 @@ union MigrationState {
 
 @doc("The realization state of an environment resource.")
 union RealizationState {
+  @doc("Realization has been accepted.")
+  Accepted: "Accepted",
+
   @doc("Realization is in progress.")
   InProgress: "InProgress",
 
@@ -148,8 +151,11 @@ union RealizationState {
   @doc("Realization failed.")
   Failed: "Failed",
 
-  @doc("Realization is pending.")
-  Pending: "Pending",
+  @doc("Realization was canceled.")
+  Canceled: "Canceled",
+
+  @doc("Realization partially succeeded.")
+  PartiallySucceeded: "PartiallySucceeded",
 
   string,
 }
@@ -168,117 +174,246 @@ union HealthState {
   string,
 }
 
-// ─── Environment writable intent models ──────────────────────────────
+@doc("The provisioning status of a namespace instance on a cluster.")
+union InstanceProvisioningStatus {
+  @doc("Status is unspecified.")
+  Unspecified: "Unspecified",
 
-@doc("Topology configuration for the environment.")
-model TopologyConfiguration {
-  @doc("The partition name.")
-  partitionName?: string;
+  @doc("The instance is ready.")
+  Ready: "Ready",
 
-  @doc("The Azure regions where instances should be placed (e.g. ['eastus', 'westus']).")
-  regions?: Azure.Core.azureLocation[];
+  @doc("The instance has been soft-deleted.")
+  SoftDeleted: "SoftDeleted",
+
+  @doc("The instance encountered an error.")
+  Error: "Error",
+
+  @doc("The instance is pending provisioning.")
+  Pending: "Pending",
+
+  @doc("The instance resources have been cleaned up.")
+  ResourcesCleanedUp: "ResourcesCleanedUp",
+
+  @doc("The instance is terminating.")
+  Terminating: "Terminating",
+
+  string,
 }
+
+// --- Topology models ------------------------------------------------
+
+@doc("Optional per-location topology declarations including networking and partition identity.")
+model Topology {
+  @doc("Per-location topology declarations keyed by canonical Azure region name.")
+  @identifiers(#["name"])
+  locations?: TopologyLocation[];
+}
+
+@doc("Per-location topology configuration including networking and optional partition declarations.")
+model TopologyLocation {
+  @doc("Canonical Azure region name.")
+  @minLength(1)
+  name: string;
+
+  @doc("Optional SNAT ports to allocate per node.")
+  @minValue(0)
+  @maxValue(64000)
+  snatPortsPerNode?: int32;
+
+  @doc("BYOIP configuration for ingress traffic.")
+  @identifiers(#["ipTagType", "ipTagValue"])
+  ingressPublicIps?: IngressPublicIp[];
+
+  @doc("BYOIP configuration for egress traffic.")
+  egressPublicIps?: EgressPublicIps;
+
+  @doc("BYOIP configuration for instance-level public IP.")
+  instanceLevelPublicIp?: InstanceLevelPublicIp;
+
+  @doc("Optional declared partition set for this location.")
+  @identifiers(#["name"])
+  partitions?: TopologyPartition[];
+}
+
+@doc("Declared partition identity for a location.")
+model TopologyPartition {
+  @doc("The partition name.")
+  @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
+  @minLength(2)
+  @maxLength(63)
+  name: string;
+}
+
+// --- Capacity models ------------------------------------------------
 
 @doc("Capacity configuration for the environment.")
-model CapacityConfiguration {
-  @doc("Total number of instances across all partitions.")
-  instanceCount?: int32;
-
-  @doc("Per-partition capacity overrides within this region.")
-  @identifiers(#["partitionName"])
-  partitionOverrides?: CapacityPartitionOverride[];
+model CapacityPolicy {
+  @doc("Per-location desired capacity keyed by canonical Azure region name.")
+  @identifiers(#["name"])
+  locations?: LocationCapacity[];
 }
 
-@doc("Capacity override for a specific partition within a region.")
-model CapacityPartitionOverride {
+@doc("Per-location desired capacity.")
+model LocationCapacity {
+  @doc("Canonical Azure region name.")
+  @minLength(1)
+  name: string;
+
+  @doc("Total desired instance count in this location.")
+  @minValue(1)
+  totalInstanceCount?: int32;
+
+  @doc("Optional breakdown of capacity by partition key.")
+  @identifiers(#["name"])
+  partitions?: PartitionCapacity[];
+}
+
+@doc("Explicit capacity configuration for a specific partition.")
+model PartitionCapacity {
   @doc("The partition name.")
-  partitionName?: string;
+  @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
+  @minLength(2)
+  @maxLength(63)
+  name: string;
 
-  @doc("Number of instances in this partition.")
-  instanceCount?: int32;
-
-  @doc("Per-region capacity overrides.")
-  @identifiers(#["region"])
-  regionOverrides?: CapacityRegionOverride[];
-}
-
-@doc("Capacity override for a specific region.")
-model CapacityRegionOverride {
-  @doc("The Azure region name.")
-  region: Azure.Core.azureLocation;
-
-  @doc("Total number of instances in this region.")
+  @doc("The number of instances to realize for this partition.")
+  @minValue(1)
   instanceCount: int32;
 }
 
-@doc("Resource policy configuration for the environment.")
-model ResourcePolicyConfiguration {
-  @doc("Default resource policy for all rings.")
-  resourcePolicy?: ResourcePolicy;
+// --- Resource policy models -----------------------------------------
 
-  @doc("Per-region resource policy overrides.")
-  @identifiers(#["region"])
-  regionOverrides?: RegionalResourcePolicy[];
+@doc("Resource policy configuration with layered environment/region/partition overrides.")
+model ResourcePolicy {
+  @doc("Default resource policy for the environment.")
+  environmentDefault?: EnvironmentDefaultPolicy;
+
+  @doc("Per-region resource policy overrides keyed by canonical location.")
+  @identifiers(#["name"])
+  regionOverrides?: RegionOverride[];
 }
 
-@doc("Default resource policy settings.")
-model ResourcePolicy {
-  @doc("The default Azure VM family (e.g. 'Standard_D', 'Standard_E').")
+@doc("Environment-scoped default resource policy.")
+model EnvironmentDefaultPolicy {
+  @doc("Per-service pod resource specifications.")
+  @identifiers(#[])
+  podResources?: PodSpec[];
+
+  @doc("The operating system type.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  os?: OsType;
+
+  @doc("The IP version (IPv4 or IPv6).")
+  ipVersion?: IpVersion;
+
+  @doc("The Azure VM family for cluster selection (e.g., 'D_FLEX', 'F_FLEX', 'DV4').")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   vmFamily?: string;
+}
 
-  @doc("The operating system type (e.g. Linux, Windows).")
-  osType?: OsType;
+@doc("Region-scoped policy overrides.")
+model RegionOverride {
+  @doc("Canonical Azure region name.")
+  @minLength(1)
+  name: string;
 
-  @doc("The number of GPUs requested.")
-  gpus?: float64;
+  @doc("Region-level default policy.")
+  regionDefault?: RegionDefaultPolicy;
 
-  @doc("The GPU driver type (e.g. CUDA, GRID).")
-  gpuDriverType?: GpuDriverType;
+  @doc("Partition-scoped policy overrides keyed by partition name.")
+  @identifiers(#["name"])
+  partitions?: PartitionOverride[];
+}
+
+@doc("Region-level default resource policy.")
+model RegionDefaultPolicy {
+  @doc("The IP version override for this region.")
+  ipVersion?: IpVersion;
+}
+
+@doc("Partition-scoped policy overrides.")
+model PartitionOverride {
+  @doc("The partition name.")
+  @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
+  @minLength(2)
+  @maxLength(63)
+  name: string;
+
+  @doc("Partition-level default policy.")
+  partitionDefault?: PartitionDefaultPolicy;
+
+  @doc("Migration-only per-instance overrides.")
+  @identifiers(#["instanceId"])
+  instanceOverrides?: InstanceOverride[];
+}
+
+@doc("Partition-level default resource policy.")
+model PartitionDefaultPolicy {
+  @doc("The operating system type override.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  os?: OsType;
 
   @doc("Per-service pod resource specifications.")
-  @identifiers(#["serviceName"])
-  podResources?: PodResourceSpec[];
+  @identifiers(#[])
+  podResources?: PodSpec[];
+
+  @doc("The Azure VM family override for this partition (e.g., 'F_FLEX' for GPU partitions).")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  vmFamily?: string;
 }
 
-@doc("Resource policy override for a specific region.")
-model RegionalResourcePolicy {
-  @doc("The Azure region name.")
-  region?: Azure.Core.azureLocation;
+@doc("Migration-only per-instance resource override.")
+model InstanceOverride {
+  @doc("Opaque RP instance identifier (GUID).")
+  @pattern("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
+  instanceId: string;
 
-  @doc("Default resource policy for all rings.")
-  resourcePolicy?: ResourcePolicy;
+  @doc("Optional per-instance quota override.")
+  instanceQuota?: InstanceQuota;
 }
 
-// ─── Pod resource models ─────────────────────────────────────────────
+@doc("Per-instance quota override shape (migration-only).")
+model InstanceQuota {
+  @doc("The Azure VM family.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  vmFamily?: string;
 
-@doc("Resource specification for a single service pod.")
-model PodResourceSpec {
-  @doc("The name of the service.")
-  serviceName?: string;
+  @doc("Per-service pod resource specifications.")
+  @identifiers(#[])
+  podResources?: PodSpec[];
+}
 
-  @doc("Number of replicas per cluster.")
-  replicas?: int32;
+// --- Pod resource models ---------------------------------------------
 
+@doc("Pod resource envelope.")
+model PodSpec {
   @doc("CPU cores requested per pod (e.g. '0.5', '2').")
+  @pattern("^([0-9]*\\.?[0-9]+)$")
   cores?: string;
 
   @doc("Memory requested per pod (e.g. '512Mi', '2Gi').")
+  @pattern("^[0-9]+(\\.[0-9]+)?(Mi|Gi)$")
   memory?: string;
 
   @doc("CPU cores limit per pod. If unset, defaults to approximately 2x the request.")
+  @pattern("^([0-9]*\\.?[0-9]+)$")
   coresLimit?: string;
 
   @doc("Memory limit per pod. If unset, defaults to approximately 2x the request.")
+  @pattern("^[0-9]+(\\.[0-9]+)?(Mi|Gi)$")
   memoryLimit?: string;
 
-  @doc("Percentage of replicas considered during rolling updates (default: 10).")
-  rollingUpdateReplicaPercentage?: int32;
+  @doc("Number of replicas per cluster.")
+  @minValue(1)
+  replicas?: int32;
 
-  @doc("Number of GPUs per pod.")
-  gpus?: string;
+  @doc("Percentage of replicas considered during rolling updates.")
+  @minValue(0)
+  @maxValue(25)
+  rollingUpdateReplicaPercentage?: int32;
 }
 
-// ─── Environment read-only status models ─────────────────────────────
+// --- Environment read-only status models -----------------------------
 
 @doc("Status of the environment.")
 model EnvironmentStatus {
@@ -286,113 +421,107 @@ model EnvironmentStatus {
   realizationState?: RealizationState;
 
   @doc("Per-region realization details.")
-  @identifiers(#["realizationId"])
-  realizations?: RegionRealization[];
-
-  @doc("Status conditions reporting errors or important state transitions.")
-  @identifiers(#["type"])
-  conditions?: StatusCondition[];
-
-  @doc("The expected completion time for an in-progress operation.")
-  expectedCompletionTime?: utcDateTime;
-
-  @doc("A human-readable description of the current environment status.")
-  statusDescription?: string;
+  @identifiers(#["id"])
+  realizations?: Realization[];
 }
 
 @doc("Realization details for a specific region.")
-model RegionRealization {
-  @doc("The Azure region name.")
+model Realization {
+  @doc("Stable RP-generated identifier for diagnostics.")
+  id: string;
+
+  @doc("Canonical Azure region name.")
   region: Azure.Core.azureLocation;
 
-  @doc("The realization identifier.")
-  realizationId: string;
-
-  @doc("The provisioning state of this realization.")
-  provisioningState?: ResourceProvisioningState;
-
-  @doc("The health state of this realization.")
-  healthState?: HealthState;
+  @doc("Realization-specific state.")
+  state?: RealizationState;
 
   @doc("Partition realization details.")
   @identifiers(#["name"])
-  partitions?: PartitionRealization[];
+  partitions?: Partition[];
 
   @doc("Instance realization details.")
-  @identifiers(#["instanceId"])
-  instances?: InstanceRealization[];
+  @identifiers(#["id"])
+  instances?: Instance[];
+
+  @doc("Effective networking configuration applied by the RP for this region.")
+  networking?: TopologyLocation;
 }
 
-@doc("Realization details for a specific partition.")
-model PartitionRealization {
+@doc("Partition label present in this realization.")
+model Partition {
   @doc("The partition name.")
   name: string;
-
-  @doc("The realization state of this partition.")
-  realizationState?: RealizationState;
 }
 
-@doc("Realization details for a specific instance.")
-model InstanceRealization {
+@doc("Operational instance within a realization.")
+model Instance {
   @doc("The instance identifier.")
-  instanceId: string;
+  id: string;
 
   @doc("The partition this instance belongs to.")
   partition: string;
 
+  @doc("Legacy routing partition metadata preserved for migration parity.")
+  routingPartition?: string;
+
   @doc("The ARM resource ID of the cluster backing this instance.")
   clusterResourceId?: Azure.Core.armResourceIdentifier;
 
-  @doc("The provisioning state of this instance.")
-  provisioningState?: ResourceProvisioningState;
+  @doc("The provisioning status of this instance on the backing cluster.")
+  status?: InstanceProvisioningStatus;
 
-  @doc("The current migration state of this instance.")
-  migrationState?: MigrationState;
+  @doc("Identities applied to this instance. Each entry's identityType distinguishes pod vs workload.")
+  @visibility(Lifecycle.Read)
+  @identifiers(#["clientId"])
+  identities?: InstanceIdentity[];
 }
 
-@doc("A condition reporting detailed status information.")
-model StatusCondition {
-  @doc("The type of condition (e.g. InMigration, PlacementAbandoned).")
-  type: string;
+// --- Identity model --------------------------------------------------
 
-  @doc("The status of the condition: True, False, or Unknown.")
-  conditionStatus?: string;
+@doc("The kind of managed identity exposed on an Instance.")
+union InstanceIdentityType {
+  @doc("Pod identity used by namespace pods (sourced from the placement's ring-level identity).")
+  Pod: "Pod",
 
-  @doc("A one-word CamelCase reason for the condition's last transition.")
-  reason?: string;
+  @doc("Workload (federated) identity (sourced from the placement's cluster-level identity).")
+  Workload: "Workload",
 
-  @doc("A human-readable message with details about the last transition.")
-  message?: string;
-
-  @doc("The last time an update was received for this condition.")
-  lastHeartbeatTime?: utcDateTime;
-
-  @doc("The last time this condition transitioned from one status to another.")
-  lastTransitionTime?: utcDateTime;
+  string,
 }
 
-// ─── Networking models ───────────────────────────────────────────────
+@doc("User-assigned managed identity exposed on an Instance.")
+model InstanceIdentity {
+  @doc("The kind of identity (Pod or Workload).")
+  identityType: InstanceIdentityType;
 
-@doc("Networking configuration for the environment.")
-model NetworkingConfiguration {
-  @doc("BYOIP (Bring Your Own IP) tags for ingress traffic.")
-  @identifiers(#["ipTagType", "ipTagValue"])
-  ingressPublicIps?: IngressPublicIpConfiguration[];
+  @doc("Client ID of the user-assigned managed identity.")
+  clientId: string;
 
-  @doc("BYOIP (Bring Your Own IP) configuration for egress traffic.")
-  egressPublicIps?: EgressPublicIpConfiguration;
+  @doc("ARM resource ID of the user-assigned managed identity.")
+  resourceId?: Azure.Core.armResourceIdentifier;
 
-  @doc("Optional SNAT ports to allocate per node. Empty or unset means not specified.")
-  snatPortsPerNode?: int32;
+  @doc("Principal (object) ID of the user-assigned managed identity. Matches ARM common-types UserAssignedIdentity.principalId.")
+  principalId: string;
+}
 
-  @doc("Instance-level public IP configuration.")
-  instanceLevelPublicIp?: InstanceLevelPublicIpConfiguration;
+// --- Networking models -----------------------------------------------
+
+@doc("Azure public-IP tag types. Extensible - new values may be added without a breaking change.")
+union IpTagType {
+  @doc("Routing preference for the IP (Internet, Microsoft, etc.).")
+  RoutingPreference: "RoutingPreference",
+
+  @doc("First-party Azure service usage tag.")
+  FirstPartyUsage: "FirstPartyUsage",
+
+  string,
 }
 
 @doc("Ingress public IP configuration using BYOIP.")
-model IngressPublicIpConfiguration {
+model IngressPublicIp {
   @doc("The IP tag type for ingress.")
-  ipTagType: string;
+  ipTagType: IpTagType;
 
   @doc("The IP tag value for ingress.")
   ipTagValue: string;
@@ -405,31 +534,41 @@ model IngressPublicIpConfiguration {
 }
 
 @doc("Egress public IP configuration using BYOIP.")
-model EgressPublicIpConfiguration {
+model EgressPublicIps {
   @doc("The IP tag type for egress.")
-  ipTagType?: string;
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  ipTagType?: IpTagType;
 
   @doc("The IP tag value for egress.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   ipTagValue?: string;
 
   @doc("The IP capacity for egress.")
+  @pattern("^(2|4|8|16)$")
   ipCapacity?: string;
 
   @doc("The IP version (IPv4 or IPv6). Defaults to IPv4.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   ipVersion?: IpVersion;
 }
 
-@doc("Instance-level public IP configuration.")
-model InstanceLevelPublicIpConfiguration {
-  @doc("The prefix length for the public IP.")
+@doc("BYOIP configuration for instance-level public IP (ILPIP).")
+model InstanceLevelPublicIp {
+  @doc("Prefix length of the IP block.")
+  @minValue(0)
+  @maxValue(128)
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   prefixLength?: int32;
 
   @doc("The IP tag type.")
-  ipTagType?: string;
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  ipTagType?: IpTagType;
 
   @doc("The IP tag value.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   ipTagValue?: string;
 
   @doc("The IP version (IPv4 or IPv6). Defaults to IPv4.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   ipVersion?: IpVersion;
 }

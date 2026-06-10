@@ -1,11 +1,13 @@
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@typespec/openapi";
+import "@typespec/versioning";
 import "@typespec/rest";
 
 using TypeSpec.Rest;
 using Azure.ResourceManager;
 using TypeSpec.Http;
+using TypeSpec.Versioning;
 using TypeSpec.OpenAPI;
 
 namespace Microsoft.Edge;
@@ -18,12 +20,14 @@ model ResourceInsight
 
 @@path(ResourceUriParameter.resourceUri, "scope");
 #suppress "@azure-tools/typespec-azure-core/no-private-usage" "TODO: Using private decorator is NOT allowed, this should be removed"
-@@Azure.ResourceManager.CommonTypes.Private.armCommonParameter(ResourceUriParameter.resourceUri,
+@@Azure.ResourceManager.CommonTypes.Private.armCommonParameter(
+  ResourceUriParameter.resourceUri,
   "ScopeParameter",
   Azure.ResourceManager.CommonTypes.Versions.v5
 );
 
-@@doc(Azure.ResourceManager.ResourceUriParameter.resourceUri,
+@@doc(
+  Azure.ResourceManager.ResourceUriParameter.resourceUri,
   "The scope of the operation or resource. Valid scopes is resource (format: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'"
 );
 
@@ -49,6 +53,22 @@ union ConnectivityStatusEnum {
 
   @doc("The device needs attention")
   NeedsAttention: "NeedsAttention",
+
+  @added(Versions.v2026_04_01_preview)
+  @doc("The device is in Disconnected state and replaces NotRecentlyConnected")
+  Disconnected: "Disconnected",
+
+  @added(Versions.v2026_04_01_preview)
+  @doc("The device is in transition")
+  InProgress: "InProgress",
+
+  @added(Versions.v2026_04_01_preview)
+  @doc("The device is pending initial setup completion")
+  FinishSetup: "FinishSetup",
+
+  @added(Versions.v2026_04_01_preview)
+  @doc("The device is in NotSupported state")
+  NotSupported: "NotSupported",
 }
 
 @doc("Update status enum")

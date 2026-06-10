@@ -45,6 +45,7 @@ interface DrillRuns {
   >;
 
   @route(ServiceGroupRoute)
+  @removed(Versions.v2026_04_01_preview)
   @armResourceAction(DrillRun)
   @post
   @doc("This initiates a new Test-Failover operation on this Drill Run.")
@@ -59,6 +60,7 @@ interface DrillRuns {
   >;
 
   @route(ServiceGroupRoute)
+  @removed(Versions.v2026_04_01_preview)
   @armResourceAction(DrillRun)
   @post
   @doc("This initiates a new Test-Failover Cleanup operation on this Drill Run.")
@@ -131,6 +133,7 @@ interface DrillRuns {
 
 @armResourceOperations
 @doc("Operations for managing Drill Run child jobs.")
+@removed(Versions.v2026_04_01_preview)
 interface DrillRunChildJobs {
   @route(ServiceGroupRoute)
   get is ArmResourceRead<DrillRunChildJob, ServiceGroupParameters>;
@@ -151,6 +154,7 @@ interface DrillRunResources {
 
 @armResourceOperations
 @doc("Operations for managing Chaos jobs.")
+@removed(Versions.v2026_04_01_preview)
 interface ChaosJobs {
   @route(ServiceGroupRoute)
   get is ArmResourceRead<ChaosJob, ServiceGroupParameters>;
@@ -161,6 +165,7 @@ interface ChaosJobs {
 
 @armResourceOperations
 @doc("Operations for managing Chaos job resources.")
+@removed(Versions.v2026_04_01_preview)
 interface ChaosJobResources {
   @route(ServiceGroupRoute)
   get is ArmResourceRead<ChaosJobResource, ServiceGroupParameters>;
@@ -171,6 +176,7 @@ interface ChaosJobResources {
 
 @armResourceOperations
 @doc("Operations for managing Chaos job child job.")
+@removed(Versions.v2026_04_01_preview)
 interface ChaosJobChildJobs {
   @route(ServiceGroupRoute)
   get is ArmResourceRead<ChaosJobChildJob, ServiceGroupParameters>;

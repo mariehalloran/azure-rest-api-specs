@@ -46,16 +46,20 @@ interface PeeringSettings {
   listSubscription is ArmListBySubscription<PeeringSetting>;
 }
 
-@@Azure.ClientGenerator.Core.clientName(PeeringSettings.createOrUpdate::parameters.resource,
+@@Azure.ClientGenerator.Core.clientName(
+  PeeringSettings.createOrUpdate::parameters.resource,
   "peeringSettingObject"
 );
-@@clientName(PeeringSettings.createOrUpdate::parameters.resource,
+@@clientName(
+  PeeringSettings.createOrUpdate::parameters.resource,
   "peeringSettingObject"
 );
 
-@@Azure.ClientGenerator.Core.clientName(PeeringSettings.update::parameters.properties,
+@@Azure.ClientGenerator.Core.clientName(
+  PeeringSettings.update::parameters.properties,
   "peeringSettingUpdateObject"
 );
-@@clientName(PeeringSettings.update::parameters.properties,
+@@clientName(
+  PeeringSettings.update::parameters.properties,
   "peeringSettingUpdateObject"
 );

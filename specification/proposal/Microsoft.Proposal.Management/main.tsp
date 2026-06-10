@@ -4,6 +4,9 @@ import "@azure-tools/typespec-azure-resource-manager";
 
 import "./proposal.tsp";
 import "./product.tsp";
+import "./subscriptionBundle.tsp";
+import "./tenantBundle.tsp";
+import "./lineitem.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Versioning;
@@ -18,5 +21,9 @@ using Azure.ResourceManager;
 namespace Microsoft.Proposal;
 
 enum Versions {
+  @doc("The 2025-01-01-preview API version.")
   v2025_01_01_preview: "2025-01-01-preview",
+
+  @doc("The 2026-05-01-preview API version.")
+  v2026_05_01_preview: "2026-05-01-preview",
 }

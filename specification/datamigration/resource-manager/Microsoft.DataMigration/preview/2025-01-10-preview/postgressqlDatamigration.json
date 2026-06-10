@@ -46,6 +46,15 @@
     },
     {
       "name": "PostgresqlDatabaseMigrations"
+    },
+    {
+      "name": "DatabaseStatuses"
+    },
+    {
+      "name": "SchemaStatuses"
+    },
+    {
+      "name": "TableStatuses"
     }
   ],
   "paths": {
@@ -85,7 +94,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.DataMigration/postgresqlMigrationServices": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.DataMigration/databaseMigrationServices": {
       "get": {
         "operationId": "PostgresqlMigrationServices_ListBySubscription",
         "tags": [
@@ -124,7 +133,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices": {
       "get": {
         "operationId": "PostgresqlMigrationServices_ListByResourceGroup",
         "tags": [
@@ -166,7 +175,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}": {
       "get": {
         "operationId": "PostgresqlMigrationServices_Get",
         "tags": [
@@ -302,7 +311,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/MigrationServiceUpdate"
+              "$ref": "#/definitions/MigrationServiceTagsUpdate"
             }
           }
         ],
@@ -372,7 +381,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/discoverDatabaseObjects": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/discoverDatabaseObjects": {
       "post": {
         "operationId": "PostgresqlMigrationServices_DiscoverDatabaseObjects",
         "tags": [
@@ -446,7 +455,7 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations": {
       "get": {
         "operationId": "PostgresqlDatabaseMigrations_ListByMigrationService",
         "tags": [
@@ -496,7 +505,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}": {
       "get": {
         "operationId": "PostgresqlDatabaseMigrations_Get",
         "tags": [
@@ -656,7 +665,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DatabaseMigrationUpdate"
+              "$ref": "#/definitions/DatabaseMigrationPatch"
             }
           }
         ],
@@ -749,7 +758,370 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/testConnectivity": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/databaseStatuses": {
+      "get": {
+        "operationId": "DatabaseStatuses_List",
+        "tags": [
+          "DatabaseStatuses"
+        ],
+        "description": "Lists database-level migration statuses.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "serviceName",
+            "in": "path",
+            "description": "The migration service name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "databaseMigrationId",
+            "in": "path",
+            "description": "The database migration identifier.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DatabaseStatusResourceListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List database statuses for a migration": {
+            "$ref": "./examples/DatabaseStatuses_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/databaseStatuses/{sourceDatabaseName}": {
+      "get": {
+        "operationId": "DatabaseStatuses_Get",
+        "tags": [
+          "DatabaseStatuses"
+        ],
+        "description": "Gets a database-level migration status.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "serviceName",
+            "in": "path",
+            "description": "The migration service name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "databaseMigrationId",
+            "in": "path",
+            "description": "The database migration identifier.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]*$"
+          },
+          {
+            "name": "sourceDatabaseName",
+            "in": "path",
+            "description": "The source database name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_.*]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DatabaseStatusResource"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a database status": {
+            "$ref": "./examples/DatabaseStatuses_Get.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/schemaStatuses": {
+      "get": {
+        "operationId": "SchemaStatuses_List",
+        "tags": [
+          "SchemaStatuses"
+        ],
+        "description": "Lists schema-level migration statuses.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "serviceName",
+            "in": "path",
+            "description": "The migration service name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "databaseMigrationId",
+            "in": "path",
+            "description": "The database migration identifier.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SchemaStatusResourceListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List schema statuses for a migration": {
+            "$ref": "./examples/SchemaStatuses_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/schemaStatuses/{sourceSchemaName}": {
+      "get": {
+        "operationId": "SchemaStatuses_Get",
+        "tags": [
+          "SchemaStatuses"
+        ],
+        "description": "Gets a schema-level migration status.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "serviceName",
+            "in": "path",
+            "description": "The migration service name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "databaseMigrationId",
+            "in": "path",
+            "description": "The database migration identifier.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]*$"
+          },
+          {
+            "name": "sourceSchemaName",
+            "in": "path",
+            "description": "The source schema identifier.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_.*]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SchemaStatusResource"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a schema status": {
+            "$ref": "./examples/SchemaStatuses_Get.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/tableStatuses": {
+      "get": {
+        "operationId": "TableStatuses_List",
+        "tags": [
+          "TableStatuses"
+        ],
+        "description": "Lists table-level migration statuses.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "serviceName",
+            "in": "path",
+            "description": "The migration service name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "databaseMigrationId",
+            "in": "path",
+            "description": "The database migration identifier.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/TableStatusResourceListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List table statuses for a migration": {
+            "$ref": "./examples/TableStatuses_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/tableStatuses/{sourceTableName}": {
+      "get": {
+        "operationId": "TableStatuses_Get",
+        "tags": [
+          "TableStatuses"
+        ],
+        "description": "Gets a table-level migration status.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "serviceName",
+            "in": "path",
+            "description": "The migration service name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "databaseMigrationId",
+            "in": "path",
+            "description": "The database migration identifier.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]*$"
+          },
+          {
+            "name": "sourceTableName",
+            "in": "path",
+            "description": "The source table identifier.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_.*]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/TableStatusResource"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a table status": {
+            "$ref": "./examples/TableStatuses_Get.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/testConnectivity": {
       "post": {
         "operationId": "PostgresqlMigrationServices_TestConnectivity",
         "tags": [
@@ -867,23 +1239,60 @@
         ]
       }
     },
-    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
+    "CheckConnectivityEndpoint": {
       "type": "object",
-      "title": "Tracked Resource",
-      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
+      "description": "Connection endpoint for connectivity testing with type indicator.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
+        "connectionName": {
+          "type": "string",
+          "description": "Connection name"
+        },
+        "hostName": {
+          "type": "string",
+          "description": "Host name of the database server"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Port number"
+        },
+        "serviceName": {
+          "type": "string",
+          "description": "Service name (for Oracle)"
+        },
+        "databaseName": {
+          "type": "string",
+          "description": "Database name"
+        },
+        "credentials": {
+          "$ref": "#/definitions/DatabaseCredentials",
+          "description": "Database credentials"
+        },
+        "ssl": {
+          "$ref": "#/definitions/SslConfiguration",
+          "description": "SSL configuration"
+        },
+        "engine": {
+          "$ref": "#/definitions/DatabaseEngine",
+          "description": "Database engine type for this endpoint"
+        },
+        "serverResourceId": {
+          "type": "string",
+          "description": "Server resource ID"
+        },
+        "type": {
+          "$ref": "#/definitions/ConnectionType",
+          "description": "Connection endpoint type"
         }
       },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/Resource"
-        }
+      "required": [
+        "connectionName",
+        "hostName",
+        "port",
+        "credentials",
+        "ssl",
+        "engine",
+        "type"
       ]
     },
     "CheckConnectivityResult": {
@@ -899,19 +1308,6 @@
           "description": "Status properties"
         }
       }
-    },
-    "ComputeProfile": {
-      "type": "object",
-      "description": "Compute profile configuration.",
-      "properties": {
-        "computeSubnetResourceId": {
-          "type": "string",
-          "description": "Compute subnet resource ID"
-        }
-      },
-      "required": [
-        "computeSubnetResourceId"
-      ]
     },
     "ConnectionEndpoint": {
       "type": "object",
@@ -1012,28 +1408,44 @@
         "errors"
       ]
     },
+    "ConnectionType": {
+      "type": "string",
+      "description": "The connection endpoint type.",
+      "enum": [
+        "Source",
+        "Target"
+      ],
+      "x-ms-enum": {
+        "name": "ConnectionType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Source",
+            "value": "Source",
+            "description": "Source connection"
+          },
+          {
+            "name": "Target",
+            "value": "Target",
+            "description": "Target connection"
+          }
+        ]
+      }
+    },
     "ConnectivityTestProperties": {
       "type": "object",
       "description": "Properties of the connectivity test response.",
       "properties": {
-        "source": {
+        "connectionTestResults": {
           "type": "array",
-          "description": "Source connection test results",
-          "items": {
-            "$ref": "#/definitions/ConnectionTestResult"
-          }
-        },
-        "target": {
-          "type": "array",
-          "description": "Target connection test results",
+          "description": "Connection test results",
           "items": {
             "$ref": "#/definitions/ConnectionTestResult"
           }
         }
       },
       "required": [
-        "source",
-        "target"
+        "connectionTestResults"
       ]
     },
     "ConnectivityTestResult": {
@@ -1123,6 +1535,36 @@
         "source",
         "target"
       ]
+    },
+    "DatabaseEngine": {
+      "type": "string",
+      "description": "The database engine type for connectivity testing.",
+      "enum": [
+        "Oracle",
+        "PostgreSQL",
+        "Azure Database for PostgreSQL"
+      ],
+      "x-ms-enum": {
+        "name": "DatabaseEngine",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Oracle",
+            "value": "Oracle",
+            "description": "Oracle database engine"
+          },
+          {
+            "name": "PostgreSQL",
+            "value": "PostgreSQL",
+            "description": "PostgreSQL database engine"
+          },
+          {
+            "name": "AzureDatabaseForPostgreSQL",
+            "value": "Azure Database for PostgreSQL",
+            "description": "Azure Database for PostgreSQL"
+          }
+        ]
+      }
     },
     "DatabaseInfo": {
       "type": "object",
@@ -1223,6 +1665,26 @@
         "value"
       ]
     },
+    "DatabaseMigrationPatch": {
+      "type": "object",
+      "description": "The request body for updating a database migration.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/DatabaseMigrationPatchProperties",
+          "description": "The database migration update properties."
+        }
+      }
+    },
+    "DatabaseMigrationPatchProperties": {
+      "type": "object",
+      "description": "Properties for updating a database migration.",
+      "properties": {
+        "operationType": {
+          "$ref": "#/definitions/MigrationOperationType",
+          "description": "The type of operation to perform on the migration"
+        }
+      }
+    },
     "DatabaseMigrationProperties": {
       "type": "object",
       "description": "Properties of the DatabaseMigration resource.",
@@ -1246,6 +1708,22 @@
         "migrationMode": {
           "$ref": "#/definitions/MigrationMode",
           "description": "Migration mode",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "sourceType": {
+          "$ref": "#/definitions/MigrationSourceType",
+          "description": "Migration source type",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "targetType": {
+          "$ref": "#/definitions/MigrationTargetType",
+          "description": "Migration target type",
           "x-ms-mutability": [
             "read",
             "create"
@@ -1278,17 +1756,12 @@
             "create"
           ]
         },
-        "computeProfile": {
-          "$ref": "#/definitions/ComputeProfile",
-          "description": "Compute profile",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "migrationJobsettings": {
-          "$ref": "#/definitions/MigrationJobSettings",
+        "migrationJobSettings": {
+          "type": "array",
           "description": "Migration job settings",
+          "items": {
+            "$ref": "#/definitions/MigrationJobSettings"
+          },
           "x-ms-mutability": [
             "read",
             "create"
@@ -1296,14 +1769,12 @@
         },
         "operationType": {
           "$ref": "#/definitions/MigrationOperationType",
-          "description": "The type of operation to perform on the migration"
-        },
-        "databaseNames": {
-          "type": "array",
-          "description": "List of database names to apply the operation to. If not specified, applies to all databases.",
-          "items": {
-            "type": "string"
-          }
+          "description": "The type of operation to perform on the migration",
+          "x-ms-mutability": [
+            "read",
+            "update",
+            "create"
+          ]
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
@@ -1320,12 +1791,76 @@
           "description": "Pre-migration validation status",
           "readOnly": true
         },
-        "databases": {
-          "type": "array",
-          "description": "List of database migration statuses",
-          "items": {
-            "$ref": "#/definitions/DatabaseMigrationStatus"
-          },
+        "totalDatabases": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total number of databases in this migration",
+          "readOnly": true
+        },
+        "completedDatabases": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of databases that completed successfully",
+          "readOnly": true
+        },
+        "failedDatabases": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of databases that failed",
+          "readOnly": true
+        },
+        "inProgressDatabases": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of databases currently in progress",
+          "readOnly": true
+        },
+        "totalSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total number of schemas in this migration",
+          "readOnly": true
+        },
+        "completedSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of schemas that completed successfully",
+          "readOnly": true
+        },
+        "failedSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of schemas that failed",
+          "readOnly": true
+        },
+        "inProgressSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of schemas currently in progress",
+          "readOnly": true
+        },
+        "totalTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total number of tables in this migration",
+          "readOnly": true
+        },
+        "completedTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of tables that completed successfully",
+          "readOnly": true
+        },
+        "failedTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of tables that failed",
+          "readOnly": true
+        },
+        "inProgressTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of tables currently in progress",
           "readOnly": true
         },
         "startedAt": {
@@ -1345,81 +1880,114 @@
         "migrationName",
         "description",
         "migrationMode",
+        "sourceType",
+        "targetType",
         "source",
         "target",
         "mappingDefinitions",
-        "computeProfile",
-        "migrationJobsettings"
+        "migrationJobSettings"
       ]
     },
-    "DatabaseMigrationPropertiesUpdate": {
+    "DatabaseStatusProperties": {
       "type": "object",
-      "description": "Properties of the DatabaseMigration resource.",
+      "description": "Properties wrapper for DatabaseStatusResource (child proxy resource).",
       "properties": {
-        "operationType": {
-          "$ref": "#/definitions/MigrationOperationType",
-          "description": "The type of operation to perform on the migration"
-        },
-        "databaseNames": {
-          "type": "array",
-          "description": "List of database names to apply the operation to. If not specified, applies to all databases.",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "DatabaseMigrationStatus": {
-      "type": "object",
-      "description": "Database migration status.",
-      "properties": {
-        "databaseName": {
+        "sourceDatabaseName": {
           "type": "string",
-          "description": "Database name"
+          "description": "Source database name"
         },
-        "migrationStatus": {
+        "targetDatabaseName": {
+          "type": "string",
+          "description": "Target database name"
+        },
+        "status": {
           "$ref": "#/definitions/MigrationState",
-          "description": "Migration status"
+          "description": "Aggregated status"
         },
-        "migrationProgress": {
-          "$ref": "#/definitions/MigrationProgress",
-          "description": "Migration progress"
+        "startedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start time"
+        },
+        "endedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End time"
+        },
+        "totalSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total schemas"
+        },
+        "completedSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Completed schemas"
+        },
+        "failedSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Failed schemas"
+        },
+        "inProgressSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "In-progress schemas"
+        },
+        "totalTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total tables"
+        },
+        "completedTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Completed tables"
+        },
+        "failedTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Failed tables"
+        },
+        "inProgressTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "In-progress tables"
         },
         "errors": {
           "type": "array",
-          "description": "List of errors",
+          "description": "Errors at database scope",
           "items": {
             "$ref": "#/definitions/MigrationError"
           }
         },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Creation timestamp",
-          "readOnly": true
-        },
-        "lastUpdatedAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Last updated timestamp",
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state",
           "readOnly": true
         }
       },
       "required": [
-        "databaseName",
-        "migrationStatus",
-        "migrationProgress",
-        "errors",
-        "createdAt",
-        "lastUpdatedAt"
+        "sourceDatabaseName",
+        "targetDatabaseName",
+        "status",
+        "totalSchemas",
+        "completedSchemas",
+        "failedSchemas",
+        "inProgressSchemas",
+        "totalTables",
+        "completedTables",
+        "failedTables",
+        "inProgressTables",
+        "errors"
       ]
     },
-    "DatabaseMigrationUpdate": {
+    "DatabaseStatusResource": {
       "type": "object",
-      "description": "A database migration resource.",
+      "description": "A database-level migration status child resource.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/DatabaseMigrationPropertiesUpdate",
+          "$ref": "#/definitions/DatabaseStatusProperties",
           "description": "The resource-specific properties for this resource."
         }
       },
@@ -1427,6 +1995,116 @@
         {
           "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
+      ]
+    },
+    "DatabaseStatusResourceListResult": {
+      "type": "object",
+      "description": "The response of a DatabaseStatusResource list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The DatabaseStatusResource items on this page",
+          "items": {
+            "$ref": "#/definitions/DatabaseStatusResource"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "DatabaseSummary": {
+      "type": "object",
+      "description": "Per-database migration status summary.",
+      "properties": {
+        "sourceDatabaseName": {
+          "type": "string",
+          "description": "Source database name"
+        },
+        "targetDatabaseName": {
+          "type": "string",
+          "description": "Target database name"
+        },
+        "status": {
+          "$ref": "#/definitions/MigrationState",
+          "description": "Aggregated status"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start time"
+        },
+        "endedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End time"
+        },
+        "totalSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total schemas"
+        },
+        "completedSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Completed schemas"
+        },
+        "failedSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Failed schemas"
+        },
+        "inProgressSchemas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "In-progress schemas"
+        },
+        "totalTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total tables"
+        },
+        "completedTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Completed tables"
+        },
+        "failedTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Failed tables"
+        },
+        "inProgressTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "In-progress tables"
+        },
+        "errors": {
+          "type": "array",
+          "description": "Errors at database scope",
+          "items": {
+            "$ref": "#/definitions/MigrationError"
+          }
+        }
+      },
+      "required": [
+        "sourceDatabaseName",
+        "targetDatabaseName",
+        "status",
+        "totalSchemas",
+        "completedSchemas",
+        "failedSchemas",
+        "inProgressSchemas",
+        "totalTables",
+        "completedTables",
+        "failedTables",
+        "inProgressTables",
+        "errors"
       ]
     },
     "DiagnosticSeverity": {
@@ -1464,16 +2142,11 @@
         "target": {
           "$ref": "#/definitions/TargetConfiguration",
           "description": "Target database configuration"
-        },
-        "computeProfile": {
-          "$ref": "#/definitions/ComputeProfile",
-          "description": "Compute profile configuration"
         }
       },
       "required": [
         "source",
-        "target",
-        "computeProfile"
+        "target"
       ]
     },
     "DiscoveredDatabaseObjects": {
@@ -1597,15 +2270,20 @@
     },
     "MigrationJobSettings": {
       "type": "object",
-      "description": "Migration job settings.",
+      "description": "Migration job setting key-value pair.",
       "properties": {
-        "validateOnly": {
-          "type": "boolean",
-          "description": "Validate only flag"
+        "settingName": {
+          "type": "string",
+          "description": "The setting name."
+        },
+        "settingValue": {
+          "type": "string",
+          "description": "The setting value."
         }
       },
       "required": [
-        "validateOnly"
+        "settingName",
+        "settingValue"
       ]
     },
     "MigrationMode": {
@@ -1692,24 +2370,6 @@
         ]
       }
     },
-    "MigrationProgress": {
-      "type": "object",
-      "description": "Migration progress information.",
-      "properties": {
-        "migrationPhase": {
-          "$ref": "#/definitions/MigrationPhase",
-          "description": "Current migration phase"
-        },
-        "migrationStatistics": {
-          "$ref": "#/definitions/MigrationStatistics",
-          "description": "Migration statistics"
-        }
-      },
-      "required": [
-        "migrationPhase",
-        "migrationStatistics"
-      ]
-    },
     "MigrationService": {
       "type": "object",
       "description": "A migration service resource.",
@@ -1757,20 +2417,54 @@
         }
       }
     },
-    "MigrationServiceUpdate": {
+    "MigrationServiceTagsUpdate": {
       "type": "object",
-      "description": "A migration service resource.",
+      "description": "The type used for updating tags in MigrationService resources.",
       "properties": {
-        "properties": {
-          "$ref": "#/definitions/MigrationServiceProperties",
-          "description": "The resource-specific properties for this resource."
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
-        }
-      ]
+      }
+    },
+    "MigrationSourceType": {
+      "type": "string",
+      "description": "The source platform type for database migration.",
+      "enum": [
+        "AWS",
+        "GCP",
+        "Oracle",
+        "OnPrem"
+      ],
+      "x-ms-enum": {
+        "name": "MigrationSourceType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "AWS",
+            "value": "AWS",
+            "description": "Amazon Web Services"
+          },
+          {
+            "name": "GCP",
+            "value": "GCP",
+            "description": "Google Cloud Platform"
+          },
+          {
+            "name": "Oracle",
+            "value": "Oracle",
+            "description": "Oracle Cloud"
+          },
+          {
+            "name": "OnPrem",
+            "value": "OnPrem",
+            "description": "On-premises"
+          }
+        ]
+      }
     },
     "MigrationState": {
       "type": "string",
@@ -1827,50 +2521,6 @@
       },
       "readOnly": true
     },
-    "MigrationStatistics": {
-      "type": "object",
-      "description": "Migration statistics.",
-      "properties": {
-        "tablesTotal": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Total number of tables"
-        },
-        "tablesCompleted": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of completed tables"
-        },
-        "tablesFailed": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of failed tables"
-        },
-        "tablesInProgress": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of tables in progress"
-        },
-        "tablesPending": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of pending tables"
-        },
-        "percentComplete": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Percentage complete"
-        }
-      },
-      "required": [
-        "tablesTotal",
-        "tablesCompleted",
-        "tablesFailed",
-        "tablesInProgress",
-        "tablesPending",
-        "percentComplete"
-      ]
-    },
     "MigrationStatus": {
       "type": "object",
       "description": "Overall migration status.",
@@ -1897,6 +2547,30 @@
         "errors",
         "lastUpdatedAt"
       ]
+    },
+    "MigrationTargetType": {
+      "type": "string",
+      "description": "The target platform type for database migration.",
+      "enum": [
+        "AzurePostgreSQLFlexibleServer",
+        "AzurePostgreSQLHorizonDb"
+      ],
+      "x-ms-enum": {
+        "name": "MigrationTargetType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "AzurePostgreSQLFlexibleServer",
+            "value": "AzurePostgreSQLFlexibleServer",
+            "description": "Azure PostgreSQL Flexible Server"
+          },
+          {
+            "name": "AzurePostgreSQLHorizonDb",
+            "value": "AzurePostgreSQLHorizonDb",
+            "description": "Azure PostgreSQL Horizon DB"
+          }
+        ]
+      }
     },
     "OperationStatus": {
       "type": "string",
@@ -1970,6 +2644,18 @@
         "validationResult": {
           "$ref": "#/definitions/ValidationResult",
           "description": "Detailed validation result for this check"
+        },
+        "scope": {
+          "type": "string",
+          "description": "Scope of the validation check"
+        },
+        "objectName": {
+          "type": "string",
+          "description": "Object name related to the validation"
+        },
+        "component": {
+          "type": "string",
+          "description": "Component related to the validation"
         }
       },
       "required": [
@@ -2039,13 +2725,204 @@
         "schemaName"
       ]
     },
+    "SchemaStatusProperties": {
+      "type": "object",
+      "description": "Properties wrapper for SchemaStatusResource (child proxy resource).",
+      "properties": {
+        "sourceDatabaseName": {
+          "type": "string",
+          "description": "Source database name"
+        },
+        "sourceSchemaName": {
+          "type": "string",
+          "description": "Source schema name"
+        },
+        "targetDatabaseName": {
+          "type": "string",
+          "description": "Target database name"
+        },
+        "targetSchemaName": {
+          "type": "string",
+          "description": "Target schema name"
+        },
+        "status": {
+          "$ref": "#/definitions/MigrationState",
+          "description": "Migration status"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start time"
+        },
+        "endedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End time"
+        },
+        "totalTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total tables"
+        },
+        "completedTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Completed tables"
+        },
+        "failedTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Failed tables"
+        },
+        "inProgressTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "In-progress tables"
+        },
+        "errors": {
+          "type": "array",
+          "description": "Errors at schema scope",
+          "items": {
+            "$ref": "#/definitions/MigrationError"
+          }
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "sourceDatabaseName",
+        "sourceSchemaName",
+        "targetDatabaseName",
+        "targetSchemaName",
+        "status",
+        "totalTables",
+        "completedTables",
+        "failedTables",
+        "inProgressTables",
+        "errors"
+      ]
+    },
+    "SchemaStatusResource": {
+      "type": "object",
+      "description": "A schema-level migration status child resource.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/SchemaStatusProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "SchemaStatusResourceListResult": {
+      "type": "object",
+      "description": "The response of a SchemaStatusResource list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The SchemaStatusResource items on this page",
+          "items": {
+            "$ref": "#/definitions/SchemaStatusResource"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "SchemaSummaryModel": {
+      "type": "object",
+      "description": "Per-schema migration status.",
+      "properties": {
+        "sourceDatabaseName": {
+          "type": "string",
+          "description": "Source database name"
+        },
+        "sourceSchemaName": {
+          "type": "string",
+          "description": "Source schema name"
+        },
+        "targetDatabaseName": {
+          "type": "string",
+          "description": "Target database name"
+        },
+        "targetSchemaName": {
+          "type": "string",
+          "description": "Target schema name"
+        },
+        "status": {
+          "$ref": "#/definitions/MigrationState",
+          "description": "Migration status"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start time"
+        },
+        "endedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End time"
+        },
+        "totalTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Total tables"
+        },
+        "completedTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Completed tables"
+        },
+        "failedTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Failed tables"
+        },
+        "inProgressTables": {
+          "type": "integer",
+          "format": "int32",
+          "description": "In-progress tables"
+        },
+        "errors": {
+          "type": "array",
+          "description": "Errors at schema scope",
+          "items": {
+            "$ref": "#/definitions/MigrationError"
+          }
+        }
+      },
+      "required": [
+        "sourceDatabaseName",
+        "sourceSchemaName",
+        "targetDatabaseName",
+        "targetSchemaName",
+        "status",
+        "totalTables",
+        "completedTables",
+        "failedTables",
+        "inProgressTables",
+        "errors"
+      ]
+    },
     "SourceConfiguration": {
       "type": "object",
       "description": "Source database configuration.",
       "properties": {
-        "engine": {
+        "sourceEngine": {
           "$ref": "#/definitions/SourceDatabaseEngine",
-          "description": "Database engine type"
+          "description": "Source database engine type"
         },
         "serverResourceId": {
           "type": "string",
@@ -2060,17 +2937,16 @@
         }
       },
       "required": [
-        "engine",
+        "sourceEngine",
         "connectionEndPoints"
       ]
     },
     "SourceDatabaseEngine": {
       "type": "string",
-      "description": "The source database engine type.",
+      "description": "The source database engine type for migration service.",
       "enum": [
-        "oracle",
-        "postgres",
-        "azure_postgres_flexible"
+        "Oracle",
+        "PostgreSQL"
       ],
       "x-ms-enum": {
         "name": "SourceDatabaseEngine",
@@ -2078,18 +2954,13 @@
         "values": [
           {
             "name": "Oracle",
-            "value": "oracle",
+            "value": "Oracle",
             "description": "Oracle database engine"
           },
           {
-            "name": "Postgres",
-            "value": "postgres",
+            "name": "PostgreSQL",
+            "value": "PostgreSQL",
             "description": "PostgreSQL database engine"
-          },
-          {
-            "name": "AzurePostgresFlexible",
-            "value": "azure_postgres_flexible",
-            "description": "Azure PostgreSQL Flexible Server"
           }
         ]
       }
@@ -2161,13 +3032,212 @@
         ]
       }
     },
+    "TableProgressModel": {
+      "type": "object",
+      "description": "Per-table migration progress.",
+      "properties": {
+        "sourceDatabaseName": {
+          "type": "string",
+          "description": "Source database name"
+        },
+        "sourceSchemaName": {
+          "type": "string",
+          "description": "Source schema name"
+        },
+        "sourceTableName": {
+          "type": "string",
+          "description": "Source table name"
+        },
+        "targetDatabaseName": {
+          "type": "string",
+          "description": "Target database name"
+        },
+        "targetSchemaName": {
+          "type": "string",
+          "description": "Target schema name"
+        },
+        "targetTableName": {
+          "type": "string",
+          "description": "Target table name"
+        },
+        "status": {
+          "$ref": "#/definitions/MigrationState",
+          "description": "Migration status"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start time"
+        },
+        "endedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End time"
+        },
+        "rowsCopied": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Rows copied"
+        },
+        "totalRows": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Estimated total rows"
+        },
+        "bytesCopied": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Bytes copied"
+        },
+        "errors": {
+          "type": "array",
+          "description": "Errors at table scope",
+          "items": {
+            "$ref": "#/definitions/MigrationError"
+          }
+        }
+      },
+      "required": [
+        "sourceDatabaseName",
+        "sourceSchemaName",
+        "sourceTableName",
+        "targetDatabaseName",
+        "targetSchemaName",
+        "targetTableName",
+        "status",
+        "rowsCopied",
+        "totalRows",
+        "bytesCopied",
+        "errors"
+      ]
+    },
+    "TableStatusProperties": {
+      "type": "object",
+      "description": "Properties wrapper for TableStatusResource (child proxy resource).",
+      "properties": {
+        "sourceDatabaseName": {
+          "type": "string",
+          "description": "Source database name"
+        },
+        "sourceSchemaName": {
+          "type": "string",
+          "description": "Source schema name"
+        },
+        "sourceTableName": {
+          "type": "string",
+          "description": "Source table name"
+        },
+        "targetDatabaseName": {
+          "type": "string",
+          "description": "Target database name"
+        },
+        "targetSchemaName": {
+          "type": "string",
+          "description": "Target schema name"
+        },
+        "targetTableName": {
+          "type": "string",
+          "description": "Target table name"
+        },
+        "status": {
+          "$ref": "#/definitions/MigrationState",
+          "description": "Migration status"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start time"
+        },
+        "endedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End time"
+        },
+        "rowsCopied": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Rows copied"
+        },
+        "totalRows": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Estimated total rows"
+        },
+        "bytesCopied": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Bytes copied"
+        },
+        "errors": {
+          "type": "array",
+          "description": "Errors at table scope",
+          "items": {
+            "$ref": "#/definitions/MigrationError"
+          }
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "sourceDatabaseName",
+        "sourceSchemaName",
+        "sourceTableName",
+        "targetDatabaseName",
+        "targetSchemaName",
+        "targetTableName",
+        "status",
+        "rowsCopied",
+        "totalRows",
+        "bytesCopied",
+        "errors"
+      ]
+    },
+    "TableStatusResource": {
+      "type": "object",
+      "description": "A table-level migration status child resource.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/TableStatusProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "TableStatusResourceListResult": {
+      "type": "object",
+      "description": "The response of a TableStatusResource list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The TableStatusResource items on this page",
+          "items": {
+            "$ref": "#/definitions/TableStatusResource"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "TargetConfiguration": {
       "type": "object",
       "description": "Target database configuration.",
       "properties": {
-        "engine": {
+        "targetEngine": {
           "$ref": "#/definitions/TargetDatabaseEngine",
-          "description": "Database engine type"
+          "description": "Target database engine type"
         },
         "serverResourceId": {
           "type": "string",
@@ -2182,30 +3252,24 @@
         }
       },
       "required": [
-        "engine",
+        "targetEngine",
         "connectionEndPoints"
       ]
     },
     "TargetDatabaseEngine": {
       "type": "string",
-      "description": "The source database engine type.",
+      "description": "The target database engine type for migration service.",
       "enum": [
-        "azure_postgres_flexible",
-        "azure_postgres_orion"
+        "Azure Database for PostgreSQL"
       ],
       "x-ms-enum": {
         "name": "TargetDatabaseEngine",
         "modelAsString": true,
         "values": [
           {
-            "name": "AzurePostgresFlexible",
-            "value": "azure_postgres_flexible",
-            "description": "Azure PostgreSQL Flexible Server"
-          },
-          {
-            "name": "AzurePostgresOrion",
-            "value": "azure_postgres_orion",
-            "description": "Azure PostgreSQL Orion"
+            "name": "AzureDatabaseForPostgreSQL",
+            "value": "Azure Database for PostgreSQL",
+            "description": "Azure Database for PostgreSQL"
           }
         ]
       }
@@ -2214,23 +3278,16 @@
       "type": "object",
       "description": "Request body for testing connectivity.",
       "properties": {
-        "source": {
-          "$ref": "#/definitions/SourceConfiguration",
-          "description": "Source database configuration"
-        },
-        "target": {
-          "$ref": "#/definitions/TargetConfiguration",
-          "description": "Target database configuration"
-        },
-        "computeProfile": {
-          "$ref": "#/definitions/ComputeProfile",
-          "description": "Compute profile configuration"
+        "connectionEndpoints": {
+          "type": "array",
+          "description": "Connection endpoints to test",
+          "items": {
+            "$ref": "#/definitions/CheckConnectivityEndpoint"
+          }
         }
       },
       "required": [
-        "source",
-        "target",
-        "computeProfile"
+        "connectionEndpoints"
       ]
     },
     "ValidationDiagnostics": {

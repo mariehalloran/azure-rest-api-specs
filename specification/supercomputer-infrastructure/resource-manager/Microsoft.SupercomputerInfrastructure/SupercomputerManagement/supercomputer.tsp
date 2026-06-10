@@ -26,12 +26,28 @@ model SupercomputerProperties {
   /** The status of the last operation on the supercomputer. */
   @visibility(Lifecycle.Read)
   provisioningState?: SupercomputerProvisioningState;
+
+  /** A set of scopes to associate the Supercomputer with specific underlying infrastructure. This is required when creating a supercomputer with certain tiers, such as Standard_Clusters. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  scopes?: string[];
 }
 
 /** The available tiers of supercomputers. */
 union SupercomputerTier {
   /** A supercomputer in a Fairwater site. */
   Fairwater: "Fairwater",
+
+  /** A Nebius MIV50 Canary supercomputer. */
+  Offnet_Nebius_MIV50_Canary: "Offnet_Nebius_MIV50_Canary",
+
+  /** A Nebius MIV50 GB200 supercomputer. */
+  Offnet_Nebius_MIV50_GB200: "Offnet_Nebius_MIV50_GB200",
+
+  /** A Nebius MIV50 GB300 supercomputer. */
+  Offnet_Nebius_MIV50_GB300: "Offnet_Nebius_MIV50_GB300",
+
+  /** A supercomputer comprising of one or more Azure Fabric clusters. */
+  Standard_Clusters: "Standard_Clusters",
 
   string,
 }

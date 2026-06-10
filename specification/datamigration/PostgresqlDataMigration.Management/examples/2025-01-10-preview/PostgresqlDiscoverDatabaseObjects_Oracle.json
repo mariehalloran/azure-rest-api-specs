@@ -8,7 +8,7 @@
     "api-version": "2025-01-10-preview",
     "body": {
       "source": {
-        "engine": "oracle",
+        "sourceEngine": "Oracle",
         "connectionEndPoints": [
           {
             "connectionName": "oracleSource",
@@ -27,7 +27,7 @@
         ]
       },
       "target": {
-        "engine": "azure_postgres_flexible",
+        "targetEngine": "Azure Database for PostgreSQL",
         "connectionEndPoints": [
           {
             "connectionName": "postgresTarget",
@@ -44,9 +44,6 @@
             }
           }
         ]
-      },
-      "computeProfile": {
-        "computeSubnetResourceId": "/subscriptions/00000000-1111-2222-3333-444444444444/resourceGroups/myResourceGroup/providers/Microsoft.Network/virtualNetworks/myVNet/subnets/mySubnet"
       }
     }
   },

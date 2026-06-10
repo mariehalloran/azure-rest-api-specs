@@ -24,15 +24,6 @@ model L2IsolationDomain
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
   @doc("The L2IsolationDomain properties")
-  @removed(Versions.v2025_07_15)
-  @renamedFrom(Versions.v2025_07_15, "properties")
-  propertiesDeprecated: L2IsolationDomainProperties;
-
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
-  #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
-  @doc("The L2IsolationDomain properties")
-  @added(Versions.v2025_07_15)
-  @Azure.ClientGenerator.Core.Legacy.flattenProperty
   properties: L2IsolationDomainProperties;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Need custom inheritance"
@@ -119,18 +110,23 @@ interface L2IsolationDomains {
 }
 
 @@doc(L2IsolationDomains.create::parameters.resource, "Request payload.");
-@@doc(L2IsolationDomains.update::parameters.properties,
+@@doc(
+  L2IsolationDomains.update::parameters.properties,
   "API to update certain properties of the L2 Isolation Domain resource.."
 );
-@@doc(L2IsolationDomains.updateAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  L2IsolationDomains.updateAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(L2IsolationDomains.updateAdministrativeState::parameters.body,
+@@doc(
+  L2IsolationDomains.updateAdministrativeState::parameters.body,
   "Request payload."
 );
-@@doc(L2IsolationDomains.validateConfigurationDeprecated::parameters.body,
+@@doc(
+  L2IsolationDomains.validateConfigurationDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(L2IsolationDomains.validateConfiguration::parameters.body,
+@@doc(
+  L2IsolationDomains.validateConfiguration::parameters.body,
   "Request payload."
 );

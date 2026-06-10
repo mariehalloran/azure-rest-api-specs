@@ -103,6 +103,19 @@ interface ScheduledActions {
     @body @doc("The request body") requestBody: ExecuteDeleteRequest,
   ): ArmResponse<DeleteResourceOperationResponse> | ErrorResponse;
 
+  /** virtualMachinesExecuteDeallocateWithCapacityCheck: deallocate VMs only if capacity predictions indicate sufficient capacity at the desired restart time. VMs that fail the capacity check are returned with a VmNoCapacity error. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
+  @added(Microsoft.ComputeSchedule.Versions.`2026-04-27-preview`)
+  @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesExecuteDeallocateWithCapacityCheck")
+  @post
+  virtualMachinesExecuteDeallocateWithCapacityCheck(
+    ...Params,
+
+    @body
+    @doc("The request body")
+    requestBody: ExecuteDeallocateWithCapacityCheckRequest,
+  ): ArmResponse<DeallocateResourceOperationResponse> | ErrorResponse;
+
   /** virtualMachinesGetOperationStatus: getOperationStatus for a virtual machine */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
   @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesGetOperationStatus")
@@ -150,9 +163,9 @@ interface ScheduledActions {
   @list
   @get
   @doc("List resources attached to Scheduled Actions")
-  listResources(
-    ...ResourceInstanceParameters<ScheduledActionResource>,
-  ): ArmResponse<ResourceListResponse> | ErrorResponse;
+  listResources(...ResourceInstanceParameters<ScheduledActionResource>):
+    | ArmResponse<ResourceListResponse>
+    | ErrorResponse;
   @added(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
   attachResources is ArmResourceActionSync<
     ScheduledAction,

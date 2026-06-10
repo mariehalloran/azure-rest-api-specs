@@ -1,5 +1,6 @@
 import "@typespec/http";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@azure-tools/typespec-azure-core";
 import "../common/common.tsp";
@@ -10,6 +11,7 @@ import "./drillRun.models.tsp";
 using Azure.Core;
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 using OpenAPI;
 
@@ -20,6 +22,7 @@ namespace Microsoft.AzureResilienceManagement;
  * Resource definition for the Chaos job Resources.
  */
 @doc("Represents a chaos job resource in the Azure Resilience Management provider namespace.")
+@removed(Versions.v2026_04_01_preview)
 @parentResource(ChaosJob)
 model ChaosJobResource is ProxyResource<ChaosJobResourceProperties> {
   @doc("The unique name (GUID) of the chaos job resource.")
@@ -31,6 +34,7 @@ model ChaosJobResource is ProxyResource<ChaosJobResourceProperties> {
 }
 
 @doc("Properties of a Chaos job resource.")
+@removed(Versions.v2026_04_01_preview)
 model ChaosJobResourceProperties extends JobResourceProperties {
   @doc("Discriminator for the Job object hierarchy.")
   jobResourceType: JobResourceType.ChaosExperiment;

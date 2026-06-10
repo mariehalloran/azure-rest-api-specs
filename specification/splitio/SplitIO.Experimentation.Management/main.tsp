@@ -119,6 +119,7 @@ namespace SplitIO.Experimentation {
   interface ExperimentationWorkspaces {
     get is ArmResourceRead<ExperimentationWorkspace>;
     create is ArmResourceCreateOrUpdateAsync<ExperimentationWorkspace>;
+    #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
     @patch(#{ implicitOptionality: true })
     update is ArmCustomPatchAsync<
       ExperimentationWorkspace,

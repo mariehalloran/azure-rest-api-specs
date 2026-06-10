@@ -68,23 +68,27 @@ interface ActiveDeployments {
 @@maxLength(ActiveDeployment.name, 73);
 @@minLength(ActiveDeployment.name, 1);
 @@doc(ActiveDeployment.name, "Active Deployment Name.");
-@@doc(ActiveDeployments.create::parameters.resource,
+@@doc(
+  ActiveDeployments.create::parameters.resource,
   "Active Deployment details."
 );
 @@doc(ActiveDeployments.update::parameters.properties, "Updated tags.");
 
 #suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
-@@encodedName(ActiveDeployments.create::parameters.resource,
+@@encodedName(
+  ActiveDeployments.create::parameters.resource,
   "application/json",
   "activeDeployment"
 );
 @@clientName(ActiveDeployments.create::parameters.resource, "activeDeployment");
 
 #suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
-@@encodedName(ActiveDeployments.update::parameters.properties,
+@@encodedName(
+  ActiveDeployments.update::parameters.properties,
   "application/json",
   "tagUpdatePayload"
 );
-@@clientName(ActiveDeployments.update::parameters.properties,
+@@clientName(
+  ActiveDeployments.update::parameters.properties,
   "tagUpdatePayload"
 );

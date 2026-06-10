@@ -83,12 +83,14 @@ interface ProviderActions {
 }
 
 #suppress "deprecated" "Deprecated: Using encodedName for the body property is meaningless."
-@@encodedName(ArmProviderActionAsync::parameters.body,
+@@encodedName(
+  ArmProviderActionAsync::parameters.body,
   "application/json",
   "parameters"
 );
 #suppress "deprecated" "Deprecated: Using encodedName for the body property is meaningless."
-@@encodedName(ArmProviderActionSync::parameters.body,
+@@encodedName(
+  ArmProviderActionSync::parameters.body,
   "application/json",
   "parameters"
 );

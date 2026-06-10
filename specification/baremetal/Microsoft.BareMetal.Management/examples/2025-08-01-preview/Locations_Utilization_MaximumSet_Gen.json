@@ -1,0 +1,32 @@
+{
+  "title": "Locations_Utilization_MaximumSet",
+  "operationId": "Locations_Utilization",
+  "parameters": {
+    "api-version": "2025-08-01-preview",
+    "subscriptionId": "1E5E8B7B-71F2-4B96-A4AD-D1DC43ABFFD2",
+    "location": "westus"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "clusters": [
+          {
+            "clusterName": "sjc22prdnap01",
+            "vrfCount": 21,
+            "vrfLimit": 23,
+            "routeCount": 21,
+            "routeLimit": 11,
+            "allocatedRoutes": 4,
+            "tier2Alias": "sjc22:776706117",
+            "sdnAppliancePlacement": "T1",
+            "sdnApplianceEnabled": true,
+            "availabilityZone": "uswest-az01",
+            "physicalZoneIndex": 1,
+            "allocatedRoutesLimit": 29,
+            "lastUpdated": "2025-04-03T15:15:31.9847698Z"
+          }
+        ]
+      }
+    }
+  }
+}

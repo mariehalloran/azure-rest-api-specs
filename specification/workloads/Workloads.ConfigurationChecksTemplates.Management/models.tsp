@@ -102,6 +102,15 @@ union CheckEvaluationCondition {
   @doc("Check output value must not be in defined value.")
   NotIn: "notIn",
 
+  @doc("Check output value must be in the defined range of values.")
+  Range: "range",
+
+  @doc("Check output value must be empty.")
+  Empty: "empty",
+
+  @doc("Check output value must not be empty.")
+  NotEmpty: "notEmpty",
+
   string,
 }
 
@@ -118,6 +127,18 @@ union EnvironmentType {
    */
   @doc("Environment is non production.")
   NonProduction: "NonProduction",
+
+  /**
+   * Indicates that environment is for disaster recovery.
+   */
+  @doc("Environment is for disaster recovery.")
+  DisasterRecovery: "DisasterRecovery",
+
+  /**
+   * Indicates that environment is for isolated recovery.
+   */
+  @doc("Environment is for isolated recovery.")
+  IsolatedRecovery: "IsolatedRecovery",
 
   string,
 }
@@ -196,6 +217,18 @@ model OutputParameters {
   condition: CheckEvaluationCondition;
 
   /**
+   * A value indicating whether to skip the check if the output matches the expected value.
+   */
+  @doc("A value indicating whether to skip the check if the output matches the expected value.")
+  skipIfOutputMatches?: boolean;
+
+  /**
+   * The dot-separated JSON property path used to extract a value from an Azure REST API response (e.g., "properties.sku.tier")
+   */
+  @doc("The dot-separated JSON property path used to extract a value from an Azure REST API response")
+  propertyPath?: string;
+
+  /**
    * List of parameters
    */
   ...SharedParameters;
@@ -210,9 +243,10 @@ model CheckConfiguration {
   checkId: string;
 
   /**
-   * Represents the check applicability on the list of roles, component level resources.
+   * The filter criteria to scope down the resources for the check execution.
    */
-  applicableTo?: string[];
+  @doc("The filter criteria to scope down the resources for the check execution.")
+  checkFilters?: CheckFilters;
 
   /**
    * The origin of how the check applied at the role level in the virtual instance.
@@ -240,6 +274,28 @@ model CheckConfiguration {
   @doc("List of output parameters to be used in the check.")
   @Azure.ResourceManager.identifiers(#[])
   outputParameters?: OutputParameters[];
+}
+
+@doc("Schema for check filter to scope down the resources for the check execution.")
+model CheckFilters {
+  /**
+   * List of role names to which the check is applicable.
+   */
+  @doc("List of role names to which the check is applicable.")
+  applicableToRoleNames?: string[];
+
+  /**
+   * List of component types to which the check is applicable.
+   */
+  @doc("List of component types to which the check is applicable.")
+  applicableToComponentTypes?: string[];
+
+  /**
+   * Metadata information of the component.
+   */
+  @doc("Metadata information of the component.")
+  @Azure.ResourceManager.identifiers(#["key"])
+  applicableComponentMetadata?: MetadataFilterEntry[];
 }
 
 @doc("The status of the check execution.")
@@ -290,6 +346,13 @@ model WorkloadComponents {
   type?: string;
 
   /**
+   * Metadata information of the component.
+   */
+  @doc("Metadata information of the component.")
+  @Azure.ResourceManager.identifiers(#["key"])
+  metadata?: MetadataEntry[];
+
+  /**
    * List of checks to be executed for the role.
    */
   @doc("List of checks to be executed for the role.")
@@ -312,6 +375,12 @@ model Configuration {
   @doc("The type of workload for which the checks are executed. Referenced from VI resource.")
   @visibility(Lifecycle.Read)
   workloadType?: string;
+
+  /**
+   * Workload system identifier (SID).
+   */
+  @doc("Workload system identifier (SID).")
+  workloadSystemIdentifier?: string;
 
   /**
    * The type of environment for which the checks are executed. Referenced from VI resource.
@@ -409,4 +478,36 @@ model ChecksConfigurationUpdateRequest {
   @doc("List of common checks to be executed for all the components (or) at parent resource level.")
   @Azure.ResourceManager.identifiers(#["checkId"])
   commonChecks?: CheckConfiguration[];
+}
+
+@doc("Defines the metadata entry with key and value pair.")
+model MetadataEntry {
+  /**
+   * The key of the metadata entry.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "This is a metadata key name, not a secret"
+  @doc("The key of the metadata entry.")
+  key: string;
+
+  /**
+   * The value of the metadata entry.
+   */
+  @doc("The value of the metadata entry.")
+  value: string;
+}
+
+@doc("Defines the metadata filter entry with key and list of values pair to be used in scoping down the resources for check execution.")
+model MetadataFilterEntry {
+  /**
+   * The key of the metadata filter entry.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "This is a metadata key name, not a secret"
+  @doc("The key of the metadata filter entry.")
+  key: string;
+
+  /**
+   * The list of values for the metadata filter entry.
+   */
+  @doc("The list of values for the metadata filter entry.")
+  values: string[];
 }
