@@ -920,7 +920,8 @@
       "properties": {
         "saasGuid": {
           "type": "string",
-          "description": "SaaS subscription identifier issued by the Azure Marketplace fulfillment API."
+          "description": "SaaS subscription identifier (GUID) issued by the Azure Marketplace fulfillment API.",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
         },
         "publisherId": {
           "type": "string",
@@ -1420,7 +1421,8 @@
       "properties": {
         "saasId": {
           "type": "string",
-          "description": "SaaS subscription identifier (GUID) issued by the Azure Marketplace\nfulfillment API for the activated SaaS resource. Returned as a plain\nstring (the `GuidUsage` LintDiff rule disallows `format: uuid` on the\npublic surface)."
+          "description": "SaaS subscription identifier (GUID) issued by the Azure Marketplace fulfillment API for the activated SaaS resource.",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
         }
       },
       "allOf": [

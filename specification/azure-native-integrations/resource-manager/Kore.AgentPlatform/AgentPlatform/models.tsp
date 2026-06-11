@@ -267,7 +267,8 @@ model SaaSData {
 /** SaaS guid & PublisherId for Activate and Validate SaaS Resource. */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model ActivateSaaSParameterRequest {
-  /** SaaS subscription identifier issued by the Azure Marketplace fulfillment API. */
+  /** SaaS subscription identifier (GUID) issued by the Azure Marketplace fulfillment API. */
+  @pattern("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
   saasGuid: string;
 
   /** Publisher Id for the marketplace offer. */
@@ -279,12 +280,8 @@ model ActivateSaaSParameterRequest {
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model SaaSResourceDetailsResponse
   extends Azure.ResourceManager.CommonTypes.ProxyResource {
-  /**
-   * SaaS subscription identifier (GUID) issued by the Azure Marketplace
-   * fulfillment API for the activated SaaS resource. Returned as a plain
-   * string (the `GuidUsage` LintDiff rule disallows `format: uuid` on the
-   * public surface).
-   */
+  /** SaaS subscription identifier (GUID) issued by the Azure Marketplace fulfillment API for the activated SaaS resource. */
+  @pattern("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
   saasId?: string;
 }
 
