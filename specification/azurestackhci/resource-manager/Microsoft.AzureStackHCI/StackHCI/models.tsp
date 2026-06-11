@@ -9215,7 +9215,7 @@ model EdgeMachineGpuProperties {
    * The total memory of the GPU in bytes.
    */
   @visibility(Lifecycle.Read)
-  totalMemoryInBytes?: int64;
+  totalMemoryInBytes?: string;
 }
 
 /**
