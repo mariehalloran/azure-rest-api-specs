@@ -44,12 +44,9 @@ options:
     generate-test: true
     flavor: azure
 
-  "@azure-tools/typespec-csharp":
-    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
+  "@azure-typespec/http-client-csharp-mgmt":
     namespace: "Azure.ResourceManager.Edge"
-    clear-output-folder: true
-    model-namespace: false
-    flavor: azure
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
 
 linter:
   extends:

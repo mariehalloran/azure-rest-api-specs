@@ -1,0 +1,233 @@
+{
+  "operationId": "ContainerClusters_CreateOrUpdate",
+  "title": "Create or update a container cluster with discovery errors",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "siteName": "myContainerSite",
+    "clusterName": "kube-system-uid-def456",
+    "resource": {
+      "properties": {
+        "containerClusterId": "kube-system-uid-def456",
+        "clusterDisplayName": "staging-k8s-02",
+        "softwareAttributes": {
+          "softwareName": "Kubernetes",
+          "providerName": "kubeadm",
+          "softwareVersion": "1.26.8"
+        },
+        "supportStatus": "OutOfSupport",
+        "endOfSupportDate": "2025-06-28",
+        "discoverySource": "GuestScript",
+        "applianceName": "myAppliance-01",
+        "orchestrator": {
+          "type": "kubernetes",
+          "distribution": "kubeadm",
+          "version": "1.26.8",
+          "state": "degraded",
+          "apiServerEndpoint": "https://10.0.0.5:6443",
+          "clusterIdSource": "kube-system-uid"
+        },
+        "clusterResources": {
+          "resourceAllocated": {
+            "cpuCores": 16.0,
+            "memoryMb": 65536.0
+          }
+        },
+        "clusterNetworkProfile": {
+          "clusterCidr": "10.244.0.0/16",
+          "serviceCidr": "10.96.0.0/12",
+          "dnsProvider": {
+            "name": "CoreDNS",
+            "version": "1.10.1"
+          },
+          "networkPlugin": {
+            "name": "Flannel",
+            "version": "0.22"
+          },
+          "networkPolicyEngine": "none",
+          "ingress": {
+            "controllerType": "NGINX",
+            "version": "1.8"
+          }
+        },
+        "storageProfile": {
+          "storageClasses": [
+            {
+              "name": "local-path",
+              "provisioner": "rancher.io/local-path"
+            }
+          ],
+          "persistentVolumes": {
+            "count": 2,
+            "totalCapacityGb": 50
+          },
+          "persistentVolumeClaims": {
+            "count": 2
+          },
+          "csiDrivers": []
+        },
+        "clusterConfiguration": {
+          "rbacMode": "RBAC",
+          "podSecurityStandard": "baseline",
+          "etcdEncryptedAtRest": false,
+          "auditLoggingEnabled": false,
+          "crdCount": 8,
+          "namespaceCount": 5
+        },
+        "deprecatedApiUsage": {
+          "count": 3,
+          "targetKubernetesVersion": "1.29"
+        },
+        "securityAssessment": {
+          "podSecurity": {
+            "pspInUse": true,
+            "podSecurityStandardsEnabled": false,
+            "affectsUpgradeTo": "1.25"
+          },
+          "privilegedContainerCount": 2
+        },
+        "sizingQuality": {
+          "resourceRequestsLimitsCoverage": {
+            "requestsCoveragePercent": 60,
+            "limitsCoveragePercent": 40,
+            "fullCoveragePercent": 35
+          }
+        },
+        "storageAssessment": {
+          "hostPathMountCount": 4
+        },
+        "controlPlaneTainted": false,
+        "nodeSummary": {
+          "totalNodes": 3,
+          "controlPlaneNodes": 1,
+          "workerNodes": 2
+        },
+        "workloadControllerSummary": {
+          "deployments": 8,
+          "statefulSets": 2,
+          "daemonSets": 3
+        },
+        "clusterCapacity": {
+          "totalPodCount": 35,
+          "podCapacityCount": 330
+        },
+        "errors": [
+          {
+            "id": "err-cluster-001",
+            "code": "Container.K8sApi.Timeout",
+            "severity": "Error",
+            "message": "Timed out connecting to Kubernetes API server at https://10.0.0.5:6443 after 30 seconds.",
+            "summaryMessage": "K8s API server connection timeout",
+            "possibleCause": "The API server is unreachable or firewall rules are blocking port 6443.",
+            "recommendedAction": "Verify network connectivity to the API server endpoint and check firewall rules. Ensure the API server process is running on control-plane nodes.",
+            "runAsAccountId": "sa-token-001",
+            "updatedTimeStamp": "2026-01-15T10:30:00Z"
+          },
+          {
+            "id": "err-cluster-002",
+            "code": "Container.K8sApi.Unauthorized",
+            "severity": "Warning",
+            "message": "Service account token does not have permission to list deployments in namespace kube-system.",
+            "summaryMessage": "Insufficient RBAC permissions for kube-system namespace",
+            "possibleCause": "The discovery service account lacks ClusterRole or Role bindings for the kube-system namespace.",
+            "recommendedAction": "Grant the discovery service account 'get' and 'list' permissions on deployments in the kube-system namespace.",
+            "runAsAccountId": "sa-token-001",
+            "updatedTimeStamp": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "criticalErrorCount": 1,
+        "warningsCount": 1,
+        "informationalMessagesCount": 0,
+        "nodes": [
+          {
+            "nodeId": "worker-01",
+            "nodeRole": "worker",
+            "machineArmId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.OffAzure/serverSites/mySite/machines/vm-001"
+          },
+          {
+            "nodeId": "worker-02",
+            "nodeRole": "worker",
+            "machineArmId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.OffAzure/serverSites/mySite/machines/vm-002"
+          },
+          {
+            "nodeId": "master-01",
+            "nodeRole": "control-plane",
+            "machineArmId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.OffAzure/serverSites/mySite/machines/vm-003"
+          }
+        ],
+        "discoveryCompleteness": "deep-complete",
+        "isShallowCompleted": true,
+        "isDeepDiscoveryCompleted": true
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerClusters/kube-system-uid-def456",
+        "name": "kube-system-uid-def456",
+        "type": "Microsoft.ApplicationMigration/containerSites/containerClusters",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "containerClusterId": "kube-system-uid-def456",
+          "clusterDisplayName": "staging-k8s-02",
+          "supportStatus": "OutOfSupport",
+          "endOfSupportDate": "2025-06-28",
+          "orchestrator": {
+            "type": "kubernetes",
+            "distribution": "kubeadm",
+            "version": "1.26.8",
+            "state": "degraded"
+          },
+          "errors": [
+            {
+              "id": "err-cluster-001",
+              "code": "Container.K8sApi.Timeout",
+              "severity": "Error",
+              "message": "Timed out connecting to Kubernetes API server at https://10.0.0.5:6443 after 30 seconds.",
+              "summaryMessage": "K8s API server connection timeout",
+              "possibleCause": "The API server is unreachable or firewall rules are blocking port 6443.",
+              "recommendedAction": "Verify network connectivity to the API server endpoint and check firewall rules.",
+              "runAsAccountId": "sa-token-001",
+              "updatedTimeStamp": "2026-01-15T10:30:00Z"
+            },
+            {
+              "id": "err-cluster-002",
+              "code": "Container.K8sApi.Unauthorized",
+              "severity": "Warning",
+              "message": "Service account token does not have permission to list deployments in namespace kube-system.",
+              "summaryMessage": "Insufficient RBAC permissions for kube-system namespace",
+              "possibleCause": "The discovery service account lacks ClusterRole or Role bindings.",
+              "recommendedAction": "Grant the discovery service account appropriate RBAC permissions.",
+              "runAsAccountId": "sa-token-001",
+              "updatedTimeStamp": "2026-01-15T10:30:00Z"
+            }
+          ],
+          "criticalErrorCount": 1,
+          "warningsCount": 1,
+          "informationalMessagesCount": 0,
+          "nodeSummary": {
+            "totalNodes": 3,
+            "controlPlaneNodes": 1,
+            "workerNodes": 2
+          },
+          "discoveryCompleteness": "deep-complete"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerClusters/kube-system-uid-def456",
+        "name": "kube-system-uid-def456",
+        "type": "Microsoft.ApplicationMigration/containerSites/containerClusters",
+        "properties": {
+          "provisioningState": "Creating",
+          "containerClusterId": "kube-system-uid-def456",
+          "clusterDisplayName": "staging-k8s-02",
+          "discoveryCompleteness": "deep-complete"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "operationId": "ContainerClusters_CreateOrUpdate",
+  "title": "Create or update a container cluster",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "siteName": "myContainerSite",
+    "clusterName": "kube-system-uid-abc123",
+    "resource": {
+      "properties": {
+        "containerClusterId": "kube-system-uid-abc123",
+        "clusterDisplayName": "prod-k8s-01",
+        "orchestrator": {
+          "type": "kubernetes",
+          "distribution": "kubeadm",
+          "version": "1.28.4",
+          "state": "active",
+          "apiServerEndpoint": "https://10.0.0.1:6443",
+          "clusterIdSource": "kube-system-uid"
+        },
+        "clusterNetworkProfile": {
+          "clusterCidr": "10.244.0.0/16",
+          "serviceCidr": "10.96.0.0/12",
+          "dnsProvider": {
+            "name": "CoreDNS",
+            "version": "1.10.1"
+          },
+          "networkPlugin": {
+            "name": "Calico",
+            "version": "3.26"
+          },
+          "networkPolicyEngine": "Calico",
+          "ingress": {
+            "controllerType": "NGINX",
+            "version": "1.9"
+          }
+        },
+        "storageProfile": {
+          "storageClasses": [
+            {
+              "name": "standard",
+              "provisioner": "kubernetes.io/no-provisioner",
+              "isDefault": true
+            }
+          ],
+          "persistentVolumes": {
+            "count": 5,
+            "totalCapacityGb": 100
+          },
+          "persistentVolumeClaims": {
+            "count": 3
+          },
+          "csiDrivers": []
+        },
+        "clusterConfiguration": {
+          "rbacMode": "RBAC",
+          "podSecurityStandard": "restricted",
+          "auditLoggingEnabled": true,
+          "crdCount": 15,
+          "namespaceCount": 8
+        },
+        "nodeSummary": {
+          "totalNodes": 4,
+          "controlPlaneNodes": 1,
+          "workerNodes": 3
+        },
+        "workloadControllerSummary": {
+          "deployments": 12,
+          "statefulSets": 3,
+          "daemonSets": 4
+        },
+        "clusterCapacity": {
+          "totalPodCount": 45
+        },
+        "nodes": [
+          {
+            "nodeId": "worker-01",
+            "nodeRole": "worker",
+            "machineArmId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.OffAzure/serverSites/mySite/machines/vm-001"
+          },
+          {
+            "nodeId": "worker-02",
+            "nodeRole": "worker",
+            "machineArmId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.OffAzure/serverSites/mySite/machines/vm-002"
+          },
+          {
+            "nodeId": "master-01",
+            "nodeRole": "control-plane",
+            "machineArmId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.OffAzure/serverSites/mySite/machines/vm-003"
+          }
+        ],
+        "discoveryCompleteness": "deep-complete",
+        "isShallowCompleted": true,
+        "isDeepDiscoveryCompleted": true
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerClusters/kube-system-uid-abc123",
+        "name": "kube-system-uid-abc123",
+        "type": "Microsoft.ApplicationMigration/containerSites/containerClusters",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "containerClusterId": "kube-system-uid-abc123",
+          "clusterDisplayName": "prod-k8s-01",
+          "discoveryCompleteness": "deep-complete"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerClusters/kube-system-uid-abc123",
+        "name": "kube-system-uid-abc123",
+        "type": "Microsoft.ApplicationMigration/containerSites/containerClusters",
+        "properties": {
+          "provisioningState": "Creating",
+          "containerClusterId": "kube-system-uid-abc123",
+          "clusterDisplayName": "prod-k8s-01",
+          "discoveryCompleteness": "deep-complete"
+        }
+      }
+    }
+  }
+}
