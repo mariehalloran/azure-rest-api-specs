@@ -7,8 +7,7 @@ using Azure.ResourceManager;
 
 @@clientName(Microsoft.ComputeSchedule, "ComputeScheduleMgmtClient", "python");
 @@clientName(Microsoft.ComputeSchedule, "ComputeScheduleMgmtClient", "java");
-@@clientNamespace(
-  Microsoft.ComputeSchedule,
+@@clientNamespace(Microsoft.ComputeSchedule,
   "com.azure.resourcemanager.computeschedule",
   "java"
 );
@@ -21,91 +20,75 @@ using Azure.ResourceManager;
 @@clientName(NotificationProperties, "NotificationSettings", "csharp");
 @@clientName(NotificationProperties.disabled, "IsDisabled", "csharp");
 
-@@clientName(
-  ScheduledActions.virtualMachinesSubmitDeallocate,
+@@clientName(ScheduledActions.virtualMachinesSubmitDeallocate,
   "SubmitVirtualMachineDeallocate",
   "csharp"
 );
-@@clientName(
-  ScheduledActions.virtualMachinesSubmitHibernate,
+@@clientName(ScheduledActions.virtualMachinesSubmitHibernate,
   "SubmitVirtualMachineHibernate",
   "csharp"
 );
 
-@@clientName(
-  ScheduledActions.virtualMachinesSubmitStart,
+@@clientName(ScheduledActions.virtualMachinesSubmitStart,
   "SubmitVirtualMachineStart",
   "csharp"
 );
-@@clientName(
-  ScheduledActions.virtualMachinesExecuteDeallocate,
+@@clientName(ScheduledActions.virtualMachinesExecuteDeallocate,
   "ExecuteVirtualMachineDeallocate",
   "csharp"
 );
-@@clientName(
-  ScheduledActions.virtualMachinesExecuteHibernate,
+@@clientName(ScheduledActions.virtualMachinesExecuteHibernate,
   "ExecuteVirtualMachineHibernate",
   "csharp"
 );
-@@clientName(
-  ScheduledActions.virtualMachinesExecuteStart,
+@@clientName(ScheduledActions.virtualMachinesExecuteStart,
   "ExecuteVirtualMachineStart",
   "csharp"
 );
-@@clientName(
-  ScheduledActions.virtualMachinesGetOperationStatus,
+@@clientName(ScheduledActions.virtualMachinesGetOperationStatus,
   "GetVirtualMachineOperationStatus",
   "csharp"
 );
-@@clientName(
-  ScheduledActions.virtualMachinesCancelOperations,
+@@clientName(ScheduledActions.virtualMachinesCancelOperations,
   "CancelVirtualMachineOperations",
   "csharp"
 );
-@@clientName(
-  ScheduledActions.virtualMachinesGetOperationErrors,
+@@clientName(ScheduledActions.virtualMachinesGetOperationErrors,
   "GetVirtualMachineOperationErrors",
   "csharp"
 );
-@@clientName(
-  ScheduledActions.virtualMachinesExecuteCreate,
+@@clientName(ScheduledActions.virtualMachinesExecuteCreate,
   "ExecuteVirtualMachineCreateOperation",
   "csharp"
 );
-@@clientName(
-  ScheduledActions.virtualMachinesExecuteDelete,
+@@clientName(ScheduledActions.virtualMachinesExecuteDelete,
   "ExecuteVirtualMachineDeleteOperation",
   "csharp"
 );
 
 @@clientName(CancelOperationsResponse, "CancelOperationsResult", "csharp");
 @@clientName(DeadlineType, "ScheduledActionDeadlineType", "csharp");
-@@clientName(
-  DeallocateResourceOperationResponse,
+@@clientName(DeallocateResourceOperationResponse,
   "DeallocateResourceOperationResult",
   "csharp"
 );
-@@clientName(
-  DeallocateResourceOperationResponse.type,
+@@clientName(DeallocateResourceOperationResponse.type,
   "ResourceType",
   "csharp"
 );
-@@clientName(
-  ExecutionParameters,
+@@clientName(ExecutionParameters,
   "ScheduledActionExecutionParameterDetail",
   "csharp"
 );
 @@clientName(GetOperationErrorsResponse, "GetOperationErrorsResult", "csharp");
 @@clientName(GetOperationStatusResponse, "GetOperationStatusResult", "csharp");
-@@clientName(
-  HibernateResourceOperationResponse,
+@@clientName(HibernateResourceOperationResponse,
   "HibernateResourceOperationResult",
   "csharp"
 );
 @@clientName(HibernateResourceOperationResponse.type, "ResourceType", "csharp");
 @@clientName(OperationState, "ScheduledActionOperationState", "csharp");
-@@clientName(
-  OptimizationPreference,
+@@clientName(OptimizationPreference,
   "ScheduledActionOptimizationPreference",
   "csharp"
 );
@@ -113,153 +96,126 @@ using Azure.ResourceManager;
 @@clientName(Resources, "UserRequestResources", "csharp");
 @@clientName(RetryPolicy, "UserRequestRetryPolicy", "csharp");
 @@clientName(Schedule, "UserRequestSchedule", "csharp");
-@@clientName(
-  StartResourceOperationResponse,
+@@clientName(StartResourceOperationResponse,
   "StartResourceOperationResult",
   "csharp"
 );
 @@clientName(StartResourceOperationResponse.type, "ResourceType", "csharp");
-@@clientName(
-  ExecuteDeleteRequest.correlationid,
+@@clientName(ExecuteDeleteRequest.correlationid,
   "correlationId",
   "csharp,javascript"
 );
 @@clientName(ExecuteDeleteRequest.forceDeletion, "IsForceDeletion", "csharp");
-@@clientName(
-  ExecuteCreateRequest.correlationid,
+@@clientName(ExecuteCreateRequest.correlationid,
   "correlationId",
   "csharp,javascript"
 );
-@@clientName(
-  SubmitDeallocateRequest.correlationid,
+@@clientName(SubmitDeallocateRequest.correlationid,
   "correlationId",
   "csharp,javascript"
 );
-@@clientName(
-  SubmitStartRequest.correlationid,
+@@clientName(SubmitStartRequest.correlationid,
   "correlationId",
   "csharp,javascript"
 );
-@@clientName(
-  SubmitHibernateRequest.correlationid,
+@@clientName(SubmitHibernateRequest.correlationid,
   "correlationId",
   "csharp,javascript"
 );
-@@clientName(
-  ExecuteDeallocateRequest.correlationid,
+@@clientName(ExecuteDeallocateRequest.correlationid,
   "correlationId",
   "csharp,javascript"
 );
-@@clientName(
-  ExecuteHibernateRequest.correlationid,
+@@clientName(ExecuteHibernateRequest.correlationid,
   "correlationId",
   "csharp,javascript"
 );
-@@clientName(
-  ExecuteStartRequest.correlationid,
+@@clientName(ExecuteStartRequest.correlationid,
   "correlationId",
   "csharp,javascript"
 );
-@@clientName(
-  GetOperationStatusRequest.correlationid,
+@@clientName(GetOperationStatusRequest.correlationid,
   "correlationId",
   "csharp,javascript"
 );
-@@clientName(
-  CancelOperationsRequest.correlationid,
+@@clientName(CancelOperationsRequest.correlationid,
   "correlationId",
   "csharp,javascript"
 );
 @@clientName(Schedule.deadLine, "userRequestDeadline", "csharp,javascript");
 @@clientName(Schedule.timeZone, "userRequestTimezone", "csharp,javascript");
-@@clientName(
-  ResourceOperationDetails.timeZone,
+@@clientName(ResourceOperationDetails.timeZone,
   "operationTimezone",
   "csharp,javascript"
 );
-@@clientName(
-  OperationErrorDetails.timeStamp,
+@@clientName(OperationErrorDetails.timeStamp,
   "errorDetailsTimestamp",
   "csharp,javascript"
 );
 
-@@clientName(
-  DeleteResourceOperationResponse,
+@@clientName(DeleteResourceOperationResponse,
   "DeleteResourceOperationResult",
   "csharp"
 );
-@@clientName(
-  CreateResourceOperationResponse,
+@@clientName(CreateResourceOperationResponse,
   "CreateResourceOperationResult",
   "csharp"
 );
 @@clientName(ScheduledActionResource, "ScheduledActionResourceData", "csharp");
 @@clientName(OccurrenceResource, "OccurrenceResourceData", "csharp");
-@@clientName(
-  OccurrenceExtensionResource,
+@@clientName(OccurrenceExtensionResource,
   "OccurrenceExtensionResourceData",
   "csharp"
 );
-@@clientName(
-  ResourceOperationResponse,
+@@clientName(ResourceOperationResponse,
   "ScheduledActionResourceOperationResult",
   "csharp"
 );
-@@clientName(
-  ResourceProvisioningState,
+@@clientName(ResourceProvisioningState,
   "OccurrenceResourceProvisioningState",
   "csharp"
 );
-@@clientName(
-  ProvisioningState,
+@@clientName(ProvisioningState,
   "ScheduledActionResourceProvisioningState",
   "csharp"
 );
 @@clientName(Occurrence, "ScheduledActionOccurrence", "csharp");
-@@clientName(
-  OccurrenceProperties,
+@@clientName(OccurrenceProperties,
   "ScheduledActionOccurrenceProperties",
   "csharp"
 );
 @@clientName(OccurrenceState, "ScheduledActionOccurrenceState", "csharp");
-@@clientName(
-  ResourceAttachRequest,
+@@clientName(ResourceAttachRequest,
   "ScheduledActionResourceAttachContent",
   "csharp"
 );
-@@clientName(
-  ResourceDetachRequest,
+@@clientName(ResourceDetachRequest,
   "ScheduledActionResourceDetachContent",
   "csharp"
 );
-@@clientName(
-  ResourcePatchRequest,
+@@clientName(ResourcePatchRequest,
   "ScheduledActionResourcePatchContent",
   "csharp"
 );
 @@clientName(ResourceStatus, "ScheduledActionResourceStatus", "csharp");
-@@clientName(
-  ResourceOperationStatus,
+@@clientName(ResourceOperationStatus,
   "ScheduledActionResourceOperationStatus",
   "csharp"
 );
 @@clientName(ResourceType, "ScheduledActionResourceType", "csharp");
 
-@@clientName(
-  OccurrenceExtension.listOccurrenceByVms,
+@@clientName(OccurrenceExtension.listOccurrenceByVms,
   "GetAssociatedOccurrences",
   "csharp"
 );
 @@clientName(ScheduledActions.listResources, "GetAttachedResources", "csharp");
 @@clientName(Occurrences.listResources, "GetAttachedResources", "csharp");
-@@clientName(
-  ScheduledActionExtension.listByVms,
+@@clientName(ScheduledActionExtension.listByVms,
   "GetAssociatedScheduledActions",
   "csharp"
 );
 
-@@clientName(
-  ResourceOperationResponse,
+@@clientName(ResourceOperationResponse,
   "RecurringActionsResourceOperationResult",
   "javascript,go,python,java"
 );
@@ -277,7 +233,50 @@ using Azure.ResourceManager;
 @@clientName(GetOperationStatusRequest, "GetOperationStatusContent");
 @@clientName(SubmitStartRequest, "SubmitStartContent");
 @@clientName(SubmitHibernateRequest, "SubmitHibernateContent");
-@@clientName(
-  ScheduledActionsExtensionProperties,
+@@clientName(ScheduledActionsExtensionProperties,
   "ScheduledActionsExtensionProperties"
+);
+
+// JavaScript SDK visibility workaround:
+// ScheduledActionResource has 'name' and 'id' fields that are both required and
+// read-only (server-computed). JS SDK users should not be forced to supply those
+// values when calling write operations (attachResources, patchResources).
+// Provide write-specific models that omit those fields and wire them in via @@alternateType.
+// Pattern: https://github.com/Azure/azure-rest-api-specs/pull/43744
+namespace Microsoft.ComputeSchedule {
+  @doc("Scheduled action resource item for write operations, omitting server-side read-only fields (name and id are required+read-only in the canonical model).")
+  model ScheduledActionResourceWrite {
+    @doc("""
+      The ARM Id of the resource.
+      "subscriptions/{subId}/resourceGroups/{rgName}/providers/Microsoft.Compute/virtualMachines/{vmName}"
+      """)
+    resourceId: ValidScheduledActionResourceId;
+
+    @doc("The desired notification settings for the specified resource.")
+    @identifiers(#["destination"])
+    notificationSettings?: Array<NotificationProperties>;
+  }
+
+  @doc("Request model to attach a list of scheduled action resources for write operations.")
+  model ResourceAttachRequestWrite {
+    @doc("List of resources to be attached")
+    @identifiers(#["resourceId"])
+    resources: Array<ScheduledActionResourceWrite>;
+  }
+
+  @doc("Request model to patch a list of scheduled action resources for write operations.")
+  model ResourcePatchRequestWrite {
+    @doc("The list of resources to patch")
+    @identifiers(#["resourceId"])
+    resources: Array<ScheduledActionResourceWrite>;
+  }
+}
+
+@@alternateType(ScheduledActions.attachResources::parameters.body,
+  ResourceAttachRequestWrite,
+  "javascript"
+);
+@@alternateType(ScheduledActions.patchResources::parameters.body,
+  ResourcePatchRequestWrite,
+  "javascript"
 );
