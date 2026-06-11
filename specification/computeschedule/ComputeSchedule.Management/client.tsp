@@ -1,9 +1,11 @@
 import "./main.tsp";
 import "@azure-tools/typespec-client-generator-core";
+import "@typespec/versioning";
 
 using Azure.ClientGenerator.Core;
 using Microsoft.ComputeSchedule;
 using Azure.ResourceManager;
+using TypeSpec.Versioning;
 
 @@clientName(Microsoft.ComputeSchedule, "ComputeScheduleMgmtClient", "python");
 @@clientName(Microsoft.ComputeSchedule, "ComputeScheduleMgmtClient", "java");
@@ -289,6 +291,7 @@ using Azure.ResourceManager;
 // Provide write-specific models that omit those fields and wire them in via @@alternateType.
 // Pattern: https://github.com/Azure/azure-rest-api-specs/pull/43744
 namespace Microsoft.ComputeSchedule {
+  @added(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
   @doc("Scheduled action resource item for write operations, omitting server-side read-only fields (name and id are required+read-only in the canonical model).")
   model ScheduledActionResourceWrite {
     @doc("""
@@ -302,6 +305,7 @@ namespace Microsoft.ComputeSchedule {
     notificationSettings?: Array<NotificationProperties>;
   }
 
+  @added(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
   @doc("Request model to attach a list of scheduled action resources for write operations.")
   model ResourceAttachRequestWrite {
     @doc("List of resources to be attached")
@@ -309,6 +313,7 @@ namespace Microsoft.ComputeSchedule {
     resources: Array<ScheduledActionResourceWrite>;
   }
 
+  @added(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
   @doc("Request model to patch a list of scheduled action resources for write operations.")
   model ResourcePatchRequestWrite {
     @doc("The list of resources to patch")
