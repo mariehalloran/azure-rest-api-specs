@@ -37,11 +37,9 @@ options:
     emitter-output-dir: "{output-dir}/{service-dir}/arm-applicationmigration" #!!!IMPORTANT!!! To ensure the emitter correctly produces SDK, this configuration is added by Azure SDK Team. Some configurations use placeholder values. For modifications, please refer to https://aka.ms/azsdk/specs/typespec-validation#sdktspconfigvalidation
     package-details:
       name: "@azure/arm-applicationmigration"
-  "@azure-tools/typespec-csharp":
-    flavor: azure #!!!IMPORTANT!!! To ensure the emitter correctly produces SDK, this configuration is added by Azure SDK Team. Some configurations use placeholder values. For modifications, please refer to https://aka.ms/azsdk/specs/typespec-validation#sdktspconfigvalidation
-    emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.CodeScanSites"
-    namespace: Azure.ResourceManager.CodeScanSites
-    clear-output-folder: true
+  "@azure-typespec/http-client-csharp-mgmt":
+    namespace: "Azure.ResourceManager.CodeScanSites"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
 linter:
   extends:
     - "@azure-tools/typespec-azure-rulesets/resource-manager"
