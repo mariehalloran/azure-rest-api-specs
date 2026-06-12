@@ -1,0 +1,21 @@
+{
+  "title": "Checks the availability of a Cosmic namespace name.",
+  "operationId": "Namespaces_CheckNameAvailability",
+  "parameters": {
+    "api-version": "2026-03-01-preview",
+    "subscriptionId": "5C4A0939-B396-4DCB-A217-BBC6A736791F",
+    "body": {
+      "name": "substrate-topology-pilot",
+      "type": "Microsoft.Cosmic/namespaces"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "nameAvailable": false,
+        "reason": "AlreadyExists",
+        "message": "The namespace name 'substrate-topology-pilot' is already in use."
+      }
+    }
+  }
+}

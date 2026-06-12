@@ -26,4 +26,32 @@ model AccountProperties {
   /** The status of the last operation. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
+
+  /** Encryption settings for the account. */
+  @added(Versions.v2026_06_01_preview)
+  encryption?: Azure.ResourceManager.CommonTypes.Encryption;
+}
+
+/** Updatable properties of a Prompt Service Account. */
+model AccountPropertiesUpdate {
+  /** Account description. */
+  @maxLength(250)
+  description?: string;
+
+  /** Encryption settings for the account. */
+  @added(Versions.v2026_06_01_preview)
+  encryption?: Azure.ResourceManager.CommonTypes.Encryption;
+}
+
+/** The type used for update operations of the Account. */
+model AccountUpdate {
+  /** Resource tags. */
+  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+
+  /** The managed service identity. */
+  @added(Versions.v2026_06_01_preview)
+  identity?: Azure.ResourceManager.CommonTypes.SystemAssignedServiceIdentity;
+
+  /** The updatable properties of the Account. */
+  properties?: AccountPropertiesUpdate;
 }

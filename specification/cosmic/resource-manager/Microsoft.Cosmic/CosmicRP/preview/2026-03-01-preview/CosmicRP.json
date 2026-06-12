@@ -89,6 +89,51 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Cosmic/checkNameAvailability": {
+      "post": {
+        "operationId": "Namespaces_CheckNameAvailability",
+        "tags": [
+          "Namespaces"
+        ],
+        "description": "Checks that the Cosmic namespace name is valid and is not already in use within the subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The CheckAvailability request",
+            "required": true,
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/CheckNameAvailabilityRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/CheckNameAvailabilityResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Checks the availability of a Cosmic namespace name.": {
+            "$ref": "./examples/Namespaces_CheckNameAvailability.json"
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/providers/Microsoft.Cosmic/namespaces": {
       "get": {
         "operationId": "Namespaces_ListBySubscription",
@@ -194,7 +239,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           }
         ],
@@ -241,7 +286,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -318,7 +363,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -374,7 +419,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           }
         ],
@@ -438,7 +483,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           }
         ],
@@ -490,7 +535,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -547,7 +592,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -634,7 +679,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -700,7 +745,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -774,7 +819,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -791,7 +836,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/MigrateResponse"
+              "$ref": "#/definitions/MigrateResult"
             }
           },
           "202": {
@@ -850,7 +895,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -867,7 +912,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/PreviewResponse"
+              "$ref": "#/definitions/PreviewResult"
             }
           },
           "default": {
@@ -908,7 +953,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -925,7 +970,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/ValidateResponse"
+              "$ref": "#/definitions/ValidateResult"
             }
           },
           "default": {
@@ -1006,6 +1051,8 @@
         "isolationGroup": {
           "type": "string",
           "description": "Isolation group override for cluster bin-packing affinity. When set, all NamespaceInstances in this environment are placed on this isolation group instead of the parent namespace's isolationGroup. Useful when different environments of the same namespace (e.g. dev vs prod) should target different clusters. Cannot be changed after environment creation.",
+          "minLength": 1,
+          "maxLength": 63,
           "x-ms-mutability": [
             "read",
             "create"
@@ -1200,7 +1247,7 @@
       "description": "Egress public IP configuration using BYOIP.",
       "properties": {
         "ipTagType": {
-          "type": "string",
+          "$ref": "#/definitions/IpTagType",
           "description": "The IP tag type for egress.",
           "x-ms-mutability": [
             "read",
@@ -1217,11 +1264,46 @@
         },
         "ipCapacity": {
           "type": "string",
-          "description": "The IP capacity for egress."
+          "description": "The IP capacity for egress.",
+          "pattern": "^(2|4|8|16)$"
         },
         "ipVersion": {
           "$ref": "#/definitions/IpVersion",
           "description": "The IP version (IPv4 or IPv6). Defaults to IPv4.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      }
+    },
+    "EnvironmentDefaultPolicy": {
+      "type": "object",
+      "description": "Environment-scoped default resource policy.",
+      "properties": {
+        "podResources": {
+          "type": "array",
+          "description": "Per-service pod resource specifications.",
+          "items": {
+            "$ref": "#/definitions/PodSpec"
+          },
+          "x-ms-identifiers": []
+        },
+        "os": {
+          "$ref": "#/definitions/OsType",
+          "description": "The operating system type.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipVersion": {
+          "$ref": "#/definitions/IpVersion",
+          "description": "The IP version (IPv4 or IPv6)."
+        },
+        "vmFamily": {
+          "type": "string",
+          "description": "The Azure VM family for cluster selection (e.g., 'D_FLEX', 'F_FLEX', 'DV4').",
           "x-ms-mutability": [
             "read",
             "create"
@@ -1364,7 +1446,7 @@
       "description": "Ingress public IP configuration using BYOIP.",
       "properties": {
         "ipTagType": {
-          "type": "string",
+          "$ref": "#/definitions/IpTagType",
           "description": "The IP tag type for ingress."
         },
         "ipTagValue": {
@@ -1412,6 +1494,17 @@
         "status": {
           "$ref": "#/definitions/InstanceProvisioningStatus",
           "description": "The provisioning status of this instance on the backing cluster."
+        },
+        "identities": {
+          "type": "array",
+          "description": "Identities applied to this instance. Each entry's identityType distinguishes pod vs workload.",
+          "items": {
+            "$ref": "#/definitions/InstanceIdentity"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "clientId"
+          ]
         }
       },
       "required": [
@@ -1419,13 +1512,107 @@
         "partition"
       ]
     },
+    "InstanceIdentity": {
+      "type": "object",
+      "description": "User-assigned managed identity exposed on an Instance.",
+      "properties": {
+        "identityType": {
+          "$ref": "#/definitions/InstanceIdentityType",
+          "description": "The kind of identity (Pod or Workload)."
+        },
+        "clientId": {
+          "type": "string",
+          "description": "Client ID of the user-assigned managed identity."
+        },
+        "resourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the user-assigned managed identity."
+        },
+        "principalId": {
+          "type": "string",
+          "description": "Principal (object) ID of the user-assigned managed identity. Matches ARM common-types UserAssignedIdentity.principalId."
+        }
+      },
+      "required": [
+        "identityType",
+        "clientId",
+        "principalId"
+      ]
+    },
+    "InstanceIdentityType": {
+      "type": "string",
+      "description": "The kind of managed identity exposed on an Instance.",
+      "enum": [
+        "Pod",
+        "Workload"
+      ],
+      "x-ms-enum": {
+        "name": "InstanceIdentityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Pod",
+            "value": "Pod",
+            "description": "Pod identity used by namespace pods (sourced from the placement's ring-level identity)."
+          },
+          {
+            "name": "Workload",
+            "value": "Workload",
+            "description": "Workload (federated) identity (sourced from the placement's cluster-level identity)."
+          }
+        ]
+      }
+    },
+    "InstanceLevelPublicIp": {
+      "type": "object",
+      "description": "BYOIP configuration for instance-level public IP (ILPIP).",
+      "properties": {
+        "prefixLength": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Prefix length of the IP block.",
+          "minimum": 0,
+          "maximum": 128,
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipTagType": {
+          "$ref": "#/definitions/IpTagType",
+          "description": "The IP tag type.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipTagValue": {
+          "type": "string",
+          "description": "The IP tag value.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipVersion": {
+          "$ref": "#/definitions/IpVersion",
+          "description": "The IP version (IPv4 or IPv6). Defaults to IPv4.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      }
+    },
     "InstanceOverride": {
       "type": "object",
       "description": "Migration-only per-instance resource override.",
       "properties": {
         "instanceId": {
           "type": "string",
-          "description": "Opaque RP instance identifier (GUID)."
+          "description": "Opaque RP instance identifier (GUID).",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
         },
         "instanceQuota": {
           "$ref": "#/definitions/InstanceQuota",
@@ -1512,6 +1699,30 @@
         }
       }
     },
+    "IpTagType": {
+      "type": "string",
+      "description": "Azure public-IP tag types. Extensible - new values may be added without a breaking change.",
+      "enum": [
+        "RoutingPreference",
+        "FirstPartyUsage"
+      ],
+      "x-ms-enum": {
+        "name": "IpTagType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "RoutingPreference",
+            "value": "RoutingPreference",
+            "description": "Routing preference for the IP (Internet, Microsoft, etc.)."
+          },
+          {
+            "name": "FirstPartyUsage",
+            "value": "FirstPartyUsage",
+            "description": "First-party Azure service usage tag."
+          }
+        ]
+      }
+    },
     "IpVersion": {
       "type": "string",
       "description": "IP Version",
@@ -1542,12 +1753,14 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "Canonical Azure region name."
+          "description": "Canonical Azure region name.",
+          "minLength": 1
         },
         "totalInstanceCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Total desired instance count in this location."
+          "description": "Total desired instance count in this location.",
+          "minimum": 1
         },
         "partitions": {
           "type": "array",
@@ -1571,13 +1784,18 @@
         "environmentName": {
           "type": "string",
           "description": "The name of the environment to migrate."
+        },
+        "platformRing": {
+          "$ref": "#/definitions/CosmicRing",
+          "description": "Platform ring classification (e.g. test, sdf, msit, prod). Used by APIM to route the request to the target ring's RP instance."
         }
       },
       "required": [
-        "environmentName"
+        "environmentName",
+        "platformRing"
       ]
     },
-    "MigrateResponse": {
+    "MigrateResult": {
       "type": "object",
       "description": "Response body for the migrate action.",
       "properties": {
@@ -1710,7 +1928,7 @@
           {
             "name": "PartiallySucceeded",
             "value": "PartiallySucceeded",
-            "description": "Migration partially succeeded — some instances could not be migrated."
+            "description": "Migration partially succeeded - some instances could not be migrated."
           }
         ]
       },
@@ -1759,6 +1977,9 @@
         "workload": {
           "type": "string",
           "description": "Workload name this resource belongs to.",
+          "minLength": 3,
+          "maxLength": 63,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$",
           "x-ms-mutability": [
             "read",
             "create"
@@ -1766,27 +1987,38 @@
         },
         "serviceTreeId": {
           "type": "string",
-          "description": "The ServiceTree GUID (with all letters in lower case) for billing"
+          "description": "The ServiceTree GUID (with all letters in lower case) for billing",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
         },
         "torusTeam": {
           "type": "string",
-          "description": "Torus Team Name"
+          "description": "Torus Team Name",
+          "minLength": 3,
+          "maxLength": 63,
+          "pattern": "^[a-zA-Z0-9]([-a-zA-Z0-9_]*[a-zA-Z0-9])?$"
         },
         "icmAccount": {
           "type": "string",
-          "description": "The IcM Account for Escalations"
+          "description": "The IcM Account for Escalations",
+          "pattern": "^[a-zA-Z0-9_\\\\()&:,+\\-/]+$"
         },
         "icmTenant": {
           "type": "string",
-          "description": "The IcM tenant for auditing"
+          "description": "The IcM tenant for auditing",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_ ():/\\-]+$"
         },
         "emailAlias": {
           "type": "string",
-          "description": "Email Alias"
+          "description": "Email Alias",
+          "pattern": "^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$"
         },
         "isolationGroup": {
           "type": "string",
           "description": "The isolation group for cluster bin-packing affinity. This field is required and cannot be changed after namespace creation.",
+          "minLength": 1,
+          "maxLength": 63,
           "x-ms-mutability": [
             "read",
             "create"
@@ -1843,23 +2075,32 @@
       "properties": {
         "serviceTreeId": {
           "type": "string",
-          "description": "The ServiceTree GUID (with all letters in lower case) for billing"
+          "description": "The ServiceTree GUID (with all letters in lower case) for billing",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
         },
         "torusTeam": {
           "type": "string",
-          "description": "Torus Team Name"
+          "description": "Torus Team Name",
+          "minLength": 3,
+          "maxLength": 63,
+          "pattern": "^[a-zA-Z0-9]([-a-zA-Z0-9_]*[a-zA-Z0-9])?$"
         },
         "icmAccount": {
           "type": "string",
-          "description": "The IcM Account for Escalations"
+          "description": "The IcM Account for Escalations",
+          "pattern": "^[a-zA-Z0-9_\\\\()&:,+\\-/]+$"
         },
         "icmTenant": {
           "type": "string",
-          "description": "The IcM tenant for auditing"
+          "description": "The IcM tenant for auditing",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_ ():/\\-]+$"
         },
         "emailAlias": {
           "type": "string",
-          "description": "Email Alias"
+          "description": "Email Alias",
+          "pattern": "^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$"
         },
         "nightwatchEnabled": {
           "type": "boolean",
@@ -1905,7 +2146,10 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The partition name."
+          "description": "The partition name.",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
         }
       },
       "required": [
@@ -1918,12 +2162,16 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The partition name."
+          "description": "The partition name.",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
         },
         "instanceCount": {
           "type": "integer",
           "format": "int32",
-          "description": "The number of instances to realize for this partition."
+          "description": "The number of instances to realize for this partition.",
+          "minimum": 1
         }
       },
       "required": [
@@ -1967,7 +2215,10 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The partition name."
+          "description": "The partition name.",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
         },
         "partitionDefault": {
           "$ref": "#/definitions/PartitionDefaultPolicy",
@@ -1994,29 +2245,36 @@
       "properties": {
         "cores": {
           "type": "string",
-          "description": "CPU cores requested per pod (e.g. '0.5', '2')."
+          "description": "CPU cores requested per pod (e.g. '0.5', '2').",
+          "pattern": "^([0-9]*\\.?[0-9]+)$"
         },
         "memory": {
           "type": "string",
-          "description": "Memory requested per pod (e.g. '512Mi', '2Gi')."
+          "description": "Memory requested per pod (e.g. '512Mi', '2Gi').",
+          "pattern": "^[0-9]+(\\.[0-9]+)?(Mi|Gi)$"
         },
         "coresLimit": {
           "type": "string",
-          "description": "CPU cores limit per pod. If unset, defaults to approximately 2x the request."
+          "description": "CPU cores limit per pod. If unset, defaults to approximately 2x the request.",
+          "pattern": "^([0-9]*\\.?[0-9]+)$"
         },
         "memoryLimit": {
           "type": "string",
-          "description": "Memory limit per pod. If unset, defaults to approximately 2x the request."
+          "description": "Memory limit per pod. If unset, defaults to approximately 2x the request.",
+          "pattern": "^[0-9]+(\\.[0-9]+)?(Mi|Gi)$"
         },
         "replicas": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of replicas per cluster."
+          "description": "Number of replicas per cluster.",
+          "minimum": 1
         },
         "rollingUpdateReplicaPercentage": {
           "type": "integer",
           "format": "int32",
-          "description": "Percentage of replicas considered during rolling updates."
+          "description": "Percentage of replicas considered during rolling updates.",
+          "minimum": 0,
+          "maximum": 25
         }
       }
     },
@@ -2038,7 +2296,7 @@
         "properties"
       ]
     },
-    "PreviewResponse": {
+    "PreviewResult": {
       "type": "object",
       "description": "Response body for the preview action. Includes the stored environment properties along with projected inventory status showing how existing brownfield instances map to the ARM model.",
       "properties": {
@@ -2167,7 +2425,8 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "Canonical Azure region name."
+          "description": "Canonical Azure region name.",
+          "minLength": 1
         },
         "regionDefault": {
           "$ref": "#/definitions/RegionDefaultPolicy",
@@ -2190,11 +2449,11 @@
     },
     "ResourcePolicy": {
       "type": "object",
-      "description": "Resource policy configuration with layered ring/region/partition overrides.",
+      "description": "Resource policy configuration with layered environment/region/partition overrides.",
       "properties": {
-        "ringDefault": {
-          "$ref": "#/definitions/RingDefaultPolicy",
-          "description": "Default resource policy for the ring."
+        "environmentDefault": {
+          "$ref": "#/definitions/EnvironmentDefaultPolicy",
+          "description": "Default resource policy for the environment."
         },
         "regionOverrides": {
           "type": "array",
@@ -2204,40 +2463,6 @@
           },
           "x-ms-identifiers": [
             "name"
-          ]
-        }
-      }
-    },
-    "RingDefaultPolicy": {
-      "type": "object",
-      "description": "Ring-scoped default resource policy.",
-      "properties": {
-        "podResources": {
-          "type": "array",
-          "description": "Per-service pod resource specifications.",
-          "items": {
-            "$ref": "#/definitions/PodSpec"
-          },
-          "x-ms-identifiers": []
-        },
-        "os": {
-          "$ref": "#/definitions/OsType",
-          "description": "The operating system type.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "ipVersion": {
-          "$ref": "#/definitions/IpVersion",
-          "description": "The IP version (IPv4 or IPv6)."
-        },
-        "vmFamily": {
-          "type": "string",
-          "description": "The Azure VM family for cluster selection (e.g., 'D_FLEX', 'F_FLEX', 'DV4').",
-          "x-ms-mutability": [
-            "read",
-            "create"
           ]
         }
       }
@@ -2264,12 +2489,15 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "Canonical Azure region name."
+          "description": "Canonical Azure region name.",
+          "minLength": 1
         },
         "snatPortsPerNode": {
           "type": "integer",
           "format": "int32",
-          "description": "Optional SNAT ports to allocate per node."
+          "description": "Optional SNAT ports to allocate per node.",
+          "minimum": 0,
+          "maximum": 64000
         },
         "ingressPublicIps": {
           "type": "array",
@@ -2285,6 +2513,10 @@
         "egressPublicIps": {
           "$ref": "#/definitions/EgressPublicIps",
           "description": "BYOIP configuration for egress traffic."
+        },
+        "instanceLevelPublicIp": {
+          "$ref": "#/definitions/InstanceLevelPublicIp",
+          "description": "BYOIP configuration for instance-level public IP."
         },
         "partitions": {
           "type": "array",
@@ -2307,7 +2539,10 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The partition name."
+          "description": "The partition name.",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
         }
       },
       "required": [
@@ -2321,13 +2556,18 @@
         "environmentName": {
           "type": "string",
           "description": "The name of the environment to validate."
+        },
+        "platformRing": {
+          "$ref": "#/definitions/CosmicRing",
+          "description": "Platform ring classification (e.g. test, sdf, msit, prod). Used by APIM to route the request to the target ring's RP instance."
         }
       },
       "required": [
-        "environmentName"
+        "environmentName",
+        "platformRing"
       ]
     },
-    "ValidateResponse": {
+    "ValidateResult": {
       "type": "object",
       "description": "Response body for the validate action.",
       "properties": {

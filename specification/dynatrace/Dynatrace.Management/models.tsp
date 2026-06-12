@@ -15,7 +15,7 @@ using TypeSpec.OpenAPI;
 namespace Dynatrace.Observability;
 
 /**
- * Ingestion key with secret and read-only attributes for preview API versions.
+ * Ingestion key with secret and read-only attributes for all API versions.
  */
 @secret
 @extension("readOnly", true)
@@ -852,7 +852,6 @@ model EnvironmentInfo {
   /**
    * Ingestion key of the environment
    */
-  @typeChangedFrom(Versions.v2025_11_03_preview, string)
   ingestionKey?: SecretIngestionKey;
 
   /**
@@ -865,6 +864,11 @@ model EnvironmentInfo {
    */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   landingURL?: string;
+
+  /**
+   * API URL for Dynatrace environment API endpoints
+   */
+  apiUrl?: string;
 }
 
 /**

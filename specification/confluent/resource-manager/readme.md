@@ -28,7 +28,34 @@ These are the global settings for the Confluent API.
 title: ConfluentManagementClient
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2024-07-01
+tag: package-2026-05-01-preview
+```
+
+### Tag: package-2026-05-01-preview
+
+These settings apply only when `--tag=package-2026-05-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-05-01-preview'
+input-file:
+  - Microsoft.Confluent/preview/2026-05-01-preview/confluent.json
+```
+
+### Tag: package-2025-08-18-preview
+
+These settings apply only when `--tag=package-2025-08-18-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2025-08-18-preview'
+input-file:
+  - Microsoft.Confluent/preview/2025-08-18-preview/confluent.json
+```
+
+### Tag: package-2025-07-17-preview
+
+These settings apply only when `--tag=package-2025-07-17-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2025-07-17-preview'
+input-file:
+  - Microsoft.Confluent/preview/2025-07-17-preview/confluent.json
 ```
 
 ### Tag: package-2024-07-01
@@ -83,15 +110,6 @@ These settings apply only when `--tag=package-preview-2024-01` is specified on t
 ```yaml $(tag) == 'package-preview-2024-01'
 input-file:
   - Microsoft.Confluent/preview/2024-01-12-preview/confluent.json
-```
-
-### Tag: package-preview-2023-12
-
-These settings apply only when `--tag=package-preview-2023-12` is specified on the command line.
-
-```yaml $(tag) == 'package-preview-2023-12'
-input-file:
-  - Microsoft.Confluent/preview/2023-12-27-preview/confluent.json
 ```
 
 ### Tag: package-preview-2023-10
@@ -283,4 +301,8 @@ suppressions:
     reason: The property fields are in camel case to match the request and response payload of the confluent APIs.
   - code: RequiredPropertiesMissingInResourceModel
     reason: Our service is RPaaS service and this is coming because of new validation rule. Adding the suppression as recommended by the breaking change team, as the values were marked as optional in earlier PRs.
+  - code: XmsResourceInPutResponse
+    from: confluent.json
+    where: $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.Confluent/agreements/default"].put
+    reason: "Pre-existing issue from TypeSpec migration (PR #34671 on main). ConfluentAgreementResource is not a tracked ARM resource and does not extend a base resource type, so x-ms-azure-resource is not emitted."
 ```

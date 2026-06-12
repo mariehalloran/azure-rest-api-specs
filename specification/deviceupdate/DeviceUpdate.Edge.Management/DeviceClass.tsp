@@ -72,14 +72,16 @@ interface DeviceClasses {
 @@doc(DeviceClasses.update::parameters.properties, "Updated tags.");
 
 #suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
-@@encodedName(DeviceClasses.create::parameters.resource,
+@@encodedName(
+  DeviceClasses.create::parameters.resource,
   "application/json",
   "deviceClass"
 );
 @@clientName(DeviceClasses.create::parameters.resource, "deviceClass");
 
 #suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
-@@encodedName(DeviceClasses.update::parameters.properties,
+@@encodedName(
+  DeviceClasses.update::parameters.properties,
   "application/json",
   "tagUpdatePayload"
 );

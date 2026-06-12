@@ -26,6 +26,10 @@ model SupercomputerProperties {
   /** The status of the last operation on the supercomputer. */
   @visibility(Lifecycle.Read)
   provisioningState?: SupercomputerProvisioningState;
+
+  /** A set of scopes to associate the Supercomputer with specific underlying infrastructure. This is required when creating a supercomputer with certain tiers, such as Standard_Clusters. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  scopes?: string[];
 }
 
 /** The available tiers of supercomputers. */

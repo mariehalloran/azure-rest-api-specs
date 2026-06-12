@@ -1,0 +1,33 @@
+{
+  "operationId": "TraceAssociations_ListByScope",
+  "title": "List trace associations by scope",
+  "parameters": {
+    "api-version": "2026-01-01-preview",
+    "resourceUri": "subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Insights/components/myAppInsights"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Insights/components/myAppInsights/providers/Microsoft.Monitor/traceAssociations/default",
+            "name": "default",
+            "type": "Microsoft.Monitor/traceAssociations",
+            "properties": {
+              "azureMonitorWorkspaceResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/obs-rg/providers/Microsoft.Monitor/accounts/app-amw",
+              "provisioningState": "Succeeded"
+            },
+            "systemData": {
+              "createdBy": "user@example.com",
+              "createdByType": "User",
+              "createdAt": "2026-01-15T00:00:00.000Z",
+              "lastModifiedBy": "user@example.com",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-01-15T00:00:00.000Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

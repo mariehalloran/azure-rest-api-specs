@@ -52,12 +52,15 @@ interface CustomSearchConfigurations {
 
 @@maxLength(CustomSearchConfiguration.name, 50);
 @@minLength(CustomSearchConfiguration.name, 2);
-@@doc(CustomSearchConfiguration.name,
+@@doc(
+  CustomSearchConfiguration.name,
   "The name of the Bing custom search configuration."
 );
-@@doc(CustomSearchConfiguration.properties,
+@@doc(
+  CustomSearchConfiguration.properties,
   "Properties of Bing Custom Search configuration."
 );
-@@doc(CustomSearchConfigurations.createOrUpdate::parameters.resource,
+@@doc(
+  CustomSearchConfigurations.createOrUpdate::parameters.resource,
   "The parameters of the configuration to create or update."
 );

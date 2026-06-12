@@ -49,6 +49,12 @@
                   "ipCapacity": "16",
                   "ipVersion": "IPv4"
                 },
+                "instanceLevelPublicIp": {
+                  "prefixLength": 32,
+                  "ipTagType": "RoutingPreference",
+                  "ipTagValue": "Internet",
+                  "ipVersion": "IPv4"
+                },
                 "partitions": [
                   {
                     "name": "primary"
@@ -84,7 +90,7 @@
             ]
           },
           "resourcePolicy": {
-            "ringDefault": {
+            "environmentDefault": {
               "podResources": [
                 {
                   "cores": "0.5",
@@ -145,7 +151,21 @@
                     "partition": "primary",
                     "routingPartition": "primary",
                     "clusterResourceId": "/subscriptions/5C4A0939-B396-4DCB-A217-BBC6A736791F/resourceGroups/rgCosmicRP/providers/Microsoft.ContainerService/managedClusters/cluster-eastus-1",
-                    "status": "Ready"
+                    "status": "Ready",
+                    "identities": [
+                      {
+                        "identityType": "Pod",
+                        "clientId": "00000000-0000-0000-0000-000000000001",
+                        "resourceId": "/subscriptions/5C4A0939-B396-4DCB-A217-BBC6A736791F/resourceGroups/rgCosmicRP/providers/Microsoft.ManagedIdentity/userAssignedIdentities/cosmic-pod-identity",
+                        "principalId": "00000000-0000-0000-0000-000000000002"
+                      },
+                      {
+                        "identityType": "Workload",
+                        "clientId": "00000000-0000-0000-0000-000000000003",
+                        "resourceId": "/subscriptions/5C4A0939-B396-4DCB-A217-BBC6A736791F/resourceGroups/rgCosmicRP/providers/Microsoft.ManagedIdentity/userAssignedIdentities/cosmic-workload-identity",
+                        "principalId": "00000000-0000-0000-0000-000000000004"
+                      }
+                    ]
                   }
                 ],
                 "networking": {

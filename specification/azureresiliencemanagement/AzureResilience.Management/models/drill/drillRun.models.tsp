@@ -14,6 +14,7 @@ import "./drillRunChaosJobChildJob.models.tsp";
 using Azure.Core;
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 
 namespace Microsoft.AzureResilienceManagement;
@@ -47,10 +48,12 @@ model DrillRunProperties extends JobProperties {
   ]>;
 
   @doc("Measured aggregated Metric value through the drill run.")
+  @removed(Versions.v2026_04_01_preview)
   @visibility(Lifecycle.Read)
   metricValue?: string;
 
   @doc("Measured health status through the drill run.")
+  @removed(Versions.v2026_04_01_preview)
   @visibility(Lifecycle.Read)
   healthStatus?: HealthStatus;
 
@@ -100,12 +103,14 @@ model DrillRunFailoverRequest {
 }
 
 @doc("Request body for TestFailover API.")
+@removed(Versions.v2026_04_01_preview)
 model DrillRunTestFailoverRequest {
   @doc("The failover properties.")
   failoverProperties: FailoverRequest;
 }
 
 @doc("Request body for TestFailoverCleanup API.")
+@removed(Versions.v2026_04_01_preview)
 model DrillRunTestFailoverCleanupRequest {
   @doc("Comments for the request.")
   comments?: string;

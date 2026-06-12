@@ -31,6 +31,7 @@ interface SiteNetworkServicesOperationGroup {
   >;
 }
 
-@@doc(SiteNetworkServicesOperationGroup.cancelOperation::parameters.body,
+@@doc(
+  SiteNetworkServicesOperationGroup.cancelOperation::parameters.body,
   "The SiteNetworkService detail and an optional operation which defaults to 'Put'."
 );

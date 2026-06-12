@@ -28,6 +28,7 @@ interface Workload {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     WorkloadResource,
@@ -48,6 +49,7 @@ interface VirtualEnclave {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     EnclaveResource,
@@ -93,6 +95,7 @@ interface Community {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     CommunityResource,
@@ -125,6 +128,7 @@ interface TransitHub {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     TransitHubResource,
@@ -145,6 +149,7 @@ interface EnclaveConnection {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     EnclaveConnectionResource,
@@ -188,6 +193,7 @@ interface EnclaveEndpoints {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     EnclaveEndpointResource,
@@ -233,6 +239,7 @@ interface CommunityEndpoints {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     CommunityEndpointResource,
@@ -266,6 +273,13 @@ interface CommunityEndpoints {
     ApprovalDeletionCallbackRequest,
     ApprovalActionResponse
   >;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "Sync action returns 202 Accepted with no final schema — void response is intentional"
+  @doc("Triggers a manual re-sync of community endpoint connections to all configured sync destinations.")
+  @armResourceAction(CommunityEndpointResource)
+  @post
+  @added(Microsoft.Mission.Versions.v2026_05_01_preview)
+  sync is ArmResourceActionAsync<CommunityEndpointResource, void, void>;
 }
 
 @doc("DedicatedHub Interface")
@@ -279,6 +293,7 @@ interface DedicatedHub {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     DedicatedHubResource,
@@ -300,6 +315,8 @@ interface ServiceCatalog {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+
+  #suppress "@typespec/http/deprecated-implicit-optionality" "LEGACY - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     ServiceCatalogResource,
@@ -321,6 +338,7 @@ interface Approval {
       ArmAsyncOperationHeader
   >;
   listByParent is ArmResourceListByParent<ApprovalResource>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     ApprovalResource,

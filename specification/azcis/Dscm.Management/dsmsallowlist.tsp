@@ -69,7 +69,8 @@ interface DsmsAllowlist {
   get is ArmResourceRead<DsmsAllowlistResource>;
 }
 
-@@visibility(DsmsAllowlistResource.properties,
+@@visibility(
+  DsmsAllowlistResource.properties,
   Lifecycle.Read,
   Lifecycle.Create
 );

@@ -72,7 +72,9 @@ interface ProviderLevelActions {
      */
     @bodyRoot
     body: Microsoft.SaaSHub.ValidateFuturePriceEligibilityRequest,
-  ): ArmResponse<Microsoft.SaaSHub.ValidateFuturePriceEligibilityResponse> | ErrorResponse;
+  ):
+    | ArmResponse<Microsoft.SaaSHub.ValidateFuturePriceEligibilityResponse>
+    | ErrorResponse;
 
   /**
    * Gets coterm end dates for multiple resources at tenant level.
@@ -114,7 +116,9 @@ interface ProviderLevelActions {
      */
     @bodyRoot
     body: Microsoft.SaaSHub.CotermEndDatesRequest,
-  ): ArmResponse<Microsoft.SaaSHub.CotermResponseItemBulkResponse> | ErrorResponse;
+  ):
+    | ArmResponse<Microsoft.SaaSHub.CotermResponseItemBulkResponse>
+    | ErrorResponse;
 
   /**
    * Evaluates whether multiple transaction requests can be processed at tenant level.
@@ -131,7 +135,9 @@ interface ProviderLevelActions {
      */
     @bodyRoot
     body: Microsoft.SaaSHub.TenantLevelCanTransactBulkRequest,
-  ): ArmResponse<Microsoft.SaaSHub.TenantLevelCanTransactBulkResponse> | ErrorResponse;
+  ):
+    | ArmResponse<Microsoft.SaaSHub.TenantLevelCanTransactBulkResponse>
+    | ErrorResponse;
 }
 
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "Resource group level provider actions don't follow standard ARM resource patterns"
@@ -192,5 +198,7 @@ interface ResourceGroupLevelProviderActions {
      */
     @bodyRoot
     body: Microsoft.SaaSHub.ResourceGroupLevelCanTransactBulkRequest,
-  ): ArmResponse<Microsoft.SaaSHub.ResourceGroupLevelCanTransactBulkResponse> | ErrorResponse;
+  ):
+    | ArmResponse<Microsoft.SaaSHub.ResourceGroupLevelCanTransactBulkResponse>
+    | ErrorResponse;
 }

@@ -65,7 +65,8 @@ interface FileShares {
 @@minLength(FileShare.name, 3);
 @@doc(FileShare.name, "The name of FileShare");
 @@doc(FileShare.properties, "Resource properties.");
-@@doc(FileShares.createOrUpdate::parameters.resource,
+@@doc(
+  FileShares.createOrUpdate::parameters.resource,
   "The machines to add to the assessment"
 );
 @@doc(FileShares.update::parameters.properties, "FileShare patch payload.");

@@ -54,6 +54,7 @@ alias NamespaceAssetEndpointProfilePropertiesUpdate = {
 interface NamespaceAssetEndpointProfiles {
   get is ArmResourceRead<NamespaceAssetEndpointProfile>;
   createOrReplace is ArmResourceCreateOrReplaceAsync<NamespaceAssetEndpointProfile>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     NamespaceAssetEndpointProfile,

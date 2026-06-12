@@ -94,7 +94,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.DataMigration/postgresqlMigrationServices": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.DataMigration/databaseMigrationServices": {
       "get": {
         "operationId": "PostgresqlMigrationServices_ListBySubscription",
         "tags": [
@@ -133,7 +133,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices": {
       "get": {
         "operationId": "PostgresqlMigrationServices_ListByResourceGroup",
         "tags": [
@@ -175,7 +175,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}": {
       "get": {
         "operationId": "PostgresqlMigrationServices_Get",
         "tags": [
@@ -311,7 +311,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/MigrationServiceUpdate"
+              "$ref": "#/definitions/MigrationServiceTagsUpdate"
             }
           }
         ],
@@ -381,7 +381,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/discoverDatabaseObjects": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/discoverDatabaseObjects": {
       "post": {
         "operationId": "PostgresqlMigrationServices_DiscoverDatabaseObjects",
         "tags": [
@@ -455,7 +455,7 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations": {
       "get": {
         "operationId": "PostgresqlDatabaseMigrations_ListByMigrationService",
         "tags": [
@@ -505,7 +505,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}": {
       "get": {
         "operationId": "PostgresqlDatabaseMigrations_Get",
         "tags": [
@@ -665,7 +665,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DatabaseMigrationUpdate"
+              "$ref": "#/definitions/DatabaseMigrationPatch"
             }
           }
         ],
@@ -758,7 +758,7 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/databaseStatuses": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/databaseStatuses": {
       "get": {
         "operationId": "DatabaseStatuses_List",
         "tags": [
@@ -816,7 +816,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/databaseStatuses/{sourceDatabaseName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/databaseStatuses/{sourceDatabaseName}": {
       "get": {
         "operationId": "DatabaseStatuses_Get",
         "tags": [
@@ -879,7 +879,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/schemaStatuses": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/schemaStatuses": {
       "get": {
         "operationId": "SchemaStatuses_List",
         "tags": [
@@ -937,7 +937,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/schemaStatuses/{sourceSchemaName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/schemaStatuses/{sourceSchemaName}": {
       "get": {
         "operationId": "SchemaStatuses_Get",
         "tags": [
@@ -1000,7 +1000,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/tableStatuses": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/tableStatuses": {
       "get": {
         "operationId": "TableStatuses_List",
         "tags": [
@@ -1058,7 +1058,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/postgresqlDatabaseMigrations/{databaseMigrationId}/tableStatuses/{sourceTableName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/migrations/{databaseMigrationId}/tableStatuses/{sourceTableName}": {
       "get": {
         "operationId": "TableStatuses_Get",
         "tags": [
@@ -1121,7 +1121,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/postgresqlMigrationServices/{serviceName}/testConnectivity": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/databaseMigrationServices/{serviceName}/testConnectivity": {
       "post": {
         "operationId": "PostgresqlMigrationServices_TestConnectivity",
         "tags": [
@@ -1239,25 +1239,6 @@
         ]
       }
     },
-    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
-      "type": "object",
-      "title": "Tracked Resource",
-      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/Resource"
-        }
-      ]
-    },
     "CheckConnectivityEndpoint": {
       "type": "object",
       "description": "Connection endpoint for connectivity testing with type indicator.",
@@ -1291,6 +1272,10 @@
           "$ref": "#/definitions/SslConfiguration",
           "description": "SSL configuration"
         },
+        "checkConnectivityType": {
+          "$ref": "#/definitions/CheckConnectivityType",
+          "description": "Database engine type for this endpoint"
+        },
         "serverResourceId": {
           "type": "string",
           "description": "Server resource ID"
@@ -1306,6 +1291,7 @@
         "port",
         "credentials",
         "ssl",
+        "checkConnectivityType",
         "type"
       ]
     },
@@ -1321,6 +1307,36 @@
           "$ref": "#/definitions/ConnectivityTestStatusProperties",
           "description": "Status properties"
         }
+      }
+    },
+    "CheckConnectivityType": {
+      "type": "string",
+      "description": "The database engine type for connectivity testing.",
+      "enum": [
+        "Oracle",
+        "PostgreSQL",
+        "Azure Database for PostgreSQL"
+      ],
+      "x-ms-enum": {
+        "name": "CheckConnectivityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Oracle",
+            "value": "Oracle",
+            "description": "Oracle database engine"
+          },
+          {
+            "name": "PostgreSQL",
+            "value": "PostgreSQL",
+            "description": "PostgreSQL database engine"
+          },
+          {
+            "name": "AzureDatabaseForPostgreSQL",
+            "value": "Azure Database for PostgreSQL",
+            "description": "Azure Database for PostgreSQL"
+          }
+        ]
       }
     },
     "ConnectionEndpoint": {
@@ -1649,6 +1665,26 @@
         "value"
       ]
     },
+    "DatabaseMigrationPatch": {
+      "type": "object",
+      "description": "The request body for updating a database migration.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/DatabaseMigrationPatchProperties",
+          "description": "The database migration update properties."
+        }
+      }
+    },
+    "DatabaseMigrationPatchProperties": {
+      "type": "object",
+      "description": "Properties for updating a database migration.",
+      "properties": {
+        "operationType": {
+          "$ref": "#/definitions/MigrationOperationType",
+          "description": "The type of operation to perform on the migration"
+        }
+      }
+    },
     "DatabaseMigrationProperties": {
       "type": "object",
       "description": "Properties of the DatabaseMigration resource.",
@@ -1677,16 +1713,16 @@
             "create"
           ]
         },
-        "sourceType": {
-          "$ref": "#/definitions/MigrationSourceType",
+        "sourceServerType": {
+          "$ref": "#/definitions/SourceServerType",
           "description": "Migration source type",
           "x-ms-mutability": [
             "read",
             "create"
           ]
         },
-        "targetType": {
-          "$ref": "#/definitions/MigrationTargetType",
+        "targetServerType": {
+          "$ref": "#/definitions/TargetServerType",
           "description": "Migration target type",
           "x-ms-mutability": [
             "read",
@@ -1733,7 +1769,12 @@
         },
         "operationType": {
           "$ref": "#/definitions/MigrationOperationType",
-          "description": "The type of operation to perform on the migration"
+          "description": "The type of operation to perform on the migration",
+          "x-ms-mutability": [
+            "read",
+            "update",
+            "create"
+          ]
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
@@ -1839,37 +1880,12 @@
         "migrationName",
         "description",
         "migrationMode",
-        "sourceType",
-        "targetType",
+        "sourceServerType",
+        "targetServerType",
         "source",
         "target",
         "mappingDefinitions",
         "migrationJobSettings"
-      ]
-    },
-    "DatabaseMigrationPropertiesUpdate": {
-      "type": "object",
-      "description": "Properties of the DatabaseMigration resource.",
-      "properties": {
-        "operationType": {
-          "$ref": "#/definitions/MigrationOperationType",
-          "description": "The type of operation to perform on the migration"
-        }
-      }
-    },
-    "DatabaseMigrationUpdate": {
-      "type": "object",
-      "description": "A database migration resource.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/DatabaseMigrationPropertiesUpdate",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
       ]
     },
     "DatabaseStatusProperties": {
@@ -2394,130 +2410,24 @@
       "type": "object",
       "description": "Properties of the MigrationService resource.",
       "properties": {
-        "sourceEngine": {
-          "$ref": "#/definitions/MigrationServiceSourceEngine",
-          "description": "Source database engine type"
-        },
-        "targetEngine": {
-          "$ref": "#/definitions/MigrationServiceTargetEngine",
-          "description": "Target database engine type"
-        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "The provisioning state of the migration service.",
           "readOnly": true
         }
-      },
-      "required": [
-        "sourceEngine",
-        "targetEngine"
-      ]
+      }
     },
-    "MigrationServicePropertiesUpdate": {
+    "MigrationServiceTagsUpdate": {
       "type": "object",
-      "description": "Properties of the MigrationService resource.",
+      "description": "The type used for updating tags in MigrationService resources.",
       "properties": {
-        "sourceEngine": {
-          "$ref": "#/definitions/MigrationServiceSourceEngine",
-          "description": "Source database engine type"
-        },
-        "targetEngine": {
-          "$ref": "#/definitions/MigrationServiceTargetEngine",
-          "description": "Target database engine type"
-        }
-      }
-    },
-    "MigrationServiceSourceEngine": {
-      "type": "string",
-      "description": "The source database engine type for migration service.",
-      "enum": [
-        "Oracle",
-        "PostgreSQL"
-      ],
-      "x-ms-enum": {
-        "name": "MigrationServiceSourceEngine",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Oracle",
-            "value": "Oracle",
-            "description": "Oracle database engine"
-          },
-          {
-            "name": "PostgreSQL",
-            "value": "PostgreSQL",
-            "description": "PostgreSQL database engine"
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
           }
-        ]
-      }
-    },
-    "MigrationServiceTargetEngine": {
-      "type": "string",
-      "description": "The target database engine type for migration service.",
-      "enum": [
-        "Azure Database for PostgreSQL"
-      ],
-      "x-ms-enum": {
-        "name": "MigrationServiceTargetEngine",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "AzureDatabaseForPostgreSQL",
-            "value": "Azure Database for PostgreSQL",
-            "description": "Azure Database for PostgreSQL"
-          }
-        ]
-      }
-    },
-    "MigrationServiceUpdate": {
-      "type": "object",
-      "description": "A migration service resource.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/MigrationServicePropertiesUpdate",
-          "description": "The resource-specific properties for this resource."
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
-        }
-      ]
-    },
-    "MigrationSourceType": {
-      "type": "string",
-      "description": "The source platform type for database migration.",
-      "enum": [
-        "AWS",
-        "GCP",
-        "Oracle",
-        "OnPrem"
-      ],
-      "x-ms-enum": {
-        "name": "MigrationSourceType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "AWS",
-            "value": "AWS",
-            "description": "Amazon Web Services"
-          },
-          {
-            "name": "GCP",
-            "value": "GCP",
-            "description": "Google Cloud Platform"
-          },
-          {
-            "name": "Oracle",
-            "value": "Oracle",
-            "description": "Oracle Cloud"
-          },
-          {
-            "name": "OnPrem",
-            "value": "OnPrem",
-            "description": "On-premises"
-          }
-        ]
       }
     },
     "MigrationState": {
@@ -2601,30 +2511,6 @@
         "errors",
         "lastUpdatedAt"
       ]
-    },
-    "MigrationTargetType": {
-      "type": "string",
-      "description": "The target platform type for database migration.",
-      "enum": [
-        "AzurePostgreSQLFlexibleServer",
-        "AzurePostgreSQLHorizonDb"
-      ],
-      "x-ms-enum": {
-        "name": "MigrationTargetType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "AzurePostgreSQLFlexibleServer",
-            "value": "AzurePostgreSQLFlexibleServer",
-            "description": "Azure PostgreSQL Flexible Server"
-          },
-          {
-            "name": "AzurePostgreSQLHorizonDb",
-            "value": "AzurePostgreSQLHorizonDb",
-            "description": "Azure PostgreSQL Horizon DB"
-          }
-        ]
-      }
     },
     "OperationStatus": {
       "type": "string",
@@ -2974,6 +2860,10 @@
       "type": "object",
       "description": "Source database configuration.",
       "properties": {
+        "sourceType": {
+          "$ref": "#/definitions/SourceType",
+          "description": "Source database engine type"
+        },
         "serverResourceId": {
           "type": "string",
           "description": "Server resource ID"
@@ -2987,35 +2877,66 @@
         }
       },
       "required": [
+        "sourceType",
         "connectionEndPoints"
       ]
     },
-    "SourceDatabaseEngine": {
+    "SourceServerType": {
       "type": "string",
-      "description": "The source database engine type.",
+      "description": "The source server type for database migration.",
       "enum": [
-        "oracle",
-        "postgres",
-        "azure_postgres_flexible"
+        "On-Premises",
+        "Azure Virtual Machine",
+        "Amazon EC2",
+        "Amazon RDS"
       ],
       "x-ms-enum": {
-        "name": "SourceDatabaseEngine",
+        "name": "SourceServerType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "OnPremises",
+            "value": "On-Premises",
+            "description": "On-Premises server"
+          },
+          {
+            "name": "AzureVirtualMachine",
+            "value": "Azure Virtual Machine",
+            "description": "Azure Virtual Machine"
+          },
+          {
+            "name": "AmazonEC2",
+            "value": "Amazon EC2",
+            "description": "Amazon EC2"
+          },
+          {
+            "name": "AmazonRDS",
+            "value": "Amazon RDS",
+            "description": "Amazon RDS"
+          }
+        ]
+      }
+    },
+    "SourceType": {
+      "type": "string",
+      "description": "The source database engine type for migration service.",
+      "enum": [
+        "Oracle",
+        "PostgreSQL"
+      ],
+      "x-ms-enum": {
+        "name": "SourceType",
         "modelAsString": true,
         "values": [
           {
             "name": "Oracle",
-            "value": "oracle",
+            "value": "Oracle",
             "description": "Oracle database engine"
           },
           {
-            "name": "Postgres",
-            "value": "postgres",
+            "name": "PostgreSQL",
+            "value": "PostgreSQL",
             "description": "PostgreSQL database engine"
-          },
-          {
-            "name": "AzurePostgresFlexible",
-            "value": "azure_postgres_flexible",
-            "description": "Azure PostgreSQL Flexible Server"
           }
         ]
       }
@@ -3290,6 +3211,10 @@
       "type": "object",
       "description": "Target database configuration.",
       "properties": {
+        "targetType": {
+          "$ref": "#/definitions/TargetType",
+          "description": "Target database engine type"
+        },
         "serverResourceId": {
           "type": "string",
           "description": "Server resource ID"
@@ -3303,29 +3228,48 @@
         }
       },
       "required": [
+        "targetType",
         "connectionEndPoints"
       ]
     },
-    "TargetDatabaseEngine": {
+    "TargetServerType": {
       "type": "string",
-      "description": "The source database engine type.",
+      "description": "The target platform type for database migration.",
       "enum": [
-        "azure_postgres_flexible",
-        "azure_postgres_orion"
+        "AzurePostgreSQLFlexibleServer",
+        "AzurePostgreSQLHorizonDb"
       ],
       "x-ms-enum": {
-        "name": "TargetDatabaseEngine",
+        "name": "TargetServerType",
         "modelAsString": true,
         "values": [
           {
-            "name": "AzurePostgresFlexible",
-            "value": "azure_postgres_flexible",
+            "name": "AzurePostgreSQLFlexibleServer",
+            "value": "AzurePostgreSQLFlexibleServer",
             "description": "Azure PostgreSQL Flexible Server"
           },
           {
-            "name": "AzurePostgresOrion",
-            "value": "azure_postgres_orion",
-            "description": "Azure PostgreSQL Orion"
+            "name": "AzurePostgreSQLHorizonDb",
+            "value": "AzurePostgreSQLHorizonDb",
+            "description": "Azure PostgreSQL Horizon DB"
+          }
+        ]
+      }
+    },
+    "TargetType": {
+      "type": "string",
+      "description": "The target database engine type for migration service.",
+      "enum": [
+        "Azure Database for PostgreSQL"
+      ],
+      "x-ms-enum": {
+        "name": "TargetType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "AzureDatabaseForPostgreSQL",
+            "value": "Azure Database for PostgreSQL",
+            "description": "Azure Database for PostgreSQL"
           }
         ]
       }
