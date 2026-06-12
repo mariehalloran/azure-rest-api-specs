@@ -1,0 +1,30 @@
+{
+  "operationId": "ContainerAgents_Get",
+  "title": "Get a container agent",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "siteName": "myContainerSite",
+    "agentName": "myAgent"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/agents/myAgent",
+        "name": "myAgent",
+        "type": "Microsoft.ApplicationMigration/containerSites/agents",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "servicePrincipalIdentityDetails": {
+            "tenantId": "00000000-0000-0000-0000-000000000000",
+            "applicationId": "00000000-0000-0000-0000-000000000001",
+            "objectId": "00000000-0000-0000-0000-000000000002"
+          },
+          "migrateApplianceName": "myAppliance",
+          "fabricSiteName": "myFabricSite"
+        }
+      }
+    }
+  }
+}

@@ -8,7 +8,7 @@
     "resilienceServiceName": "testResilienceService",
     "resource": {
       "properties": {
-        "arcResourceId": "/subscriptions/7f8a5fe8-b652-4c20-a6b3-b29c9e99744b/resourceGroups/rgresilience/providers/Microsoft.HybridCompute/machines/testArcServer"
+        "attestationService": {}
       },
       "tags": {},
       "location": "qwwcmoasi"
@@ -18,9 +18,11 @@
     "200": {
       "body": {
         "properties": {
-          "arcResourceId": "/subscriptions/7f8a5fe8-b652-4c20-a6b3-b29c9e99744b/resourceGroups/rgresilience/providers/Microsoft.HybridCompute/machines/testArcServer",
-          "tenantId": "00000000-0000-0000-0000-000000000000",
-          "provisioningState": "Succeeded"
+          "provisioningState": "Succeeded",
+          "attestationService": {
+            "ipAddress": "10.0.0.1",
+            "domainName": "example.com"
+          }
         },
         "tags": {},
         "location": "qwwcmoasi",
@@ -43,9 +45,11 @@
       },
       "body": {
         "properties": {
-          "arcResourceId": "/subscriptions/7f8a5fe8-b652-4c20-a6b3-b29c9e99744b/resourceGroups/rgresilience/providers/Microsoft.HybridCompute/machines/testArcServer",
-          "tenantId": "00000000-0000-0000-0000-000000000000",
-          "provisioningState": "Succeeded"
+          "provisioningState": "Succeeded",
+          "attestationService": {
+            "ipAddress": "10.0.0.1",
+            "domainName": "example.com"
+          }
         },
         "tags": {},
         "location": "qwwcmoasi",

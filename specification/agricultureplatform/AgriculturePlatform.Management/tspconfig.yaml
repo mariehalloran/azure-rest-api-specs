@@ -18,12 +18,9 @@ options:
   "@azure-tools/typespec-providerhub-controller":
     emitter-output-dir: "{output-dir}/generated"
     code-kind: model
-  "@azure-tools/typespec-csharp":
-    flavor: azure
-    emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.AgriculturePlatform"
-    clear-output-folder: true
-    model-namespace: false
+  "@azure-typespec/http-client-csharp-mgmt":
     namespace: "Azure.ResourceManager.AgriculturePlatform"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-go":
     service-dir: sdk/resourcemanager/placeholder #!!!IMPORTANT!!! To ensure the emitter correctly produces SDK, this configuration is added by Azure SDK Team. Some configurations use placeholder values. For modifications, please refer to https://aka.ms/azsdk/specs/typespec-validation#sdktspconfigvalidation
     emitter-output-dir: "{output-dir}/{service-dir}/armplaceholder" #!!!IMPORTANT!!! To ensure the emitter correctly produces SDK, this configuration is added by Azure SDK Team. Some configurations use placeholder values. For modifications, please refer to https://aka.ms/azsdk/specs/typespec-validation#sdktspconfigvalidation
