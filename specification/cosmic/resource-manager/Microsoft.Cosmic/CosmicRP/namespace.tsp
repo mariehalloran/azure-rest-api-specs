@@ -43,13 +43,13 @@ model NamespaceProperties {
   torusTeam: string;
 
   @doc("The IcM Account for Escalations")
-  @pattern("^[a-zA-Z0-9\\-/_& ]+$")
+  @pattern("^[a-zA-Z0-9_\\\\()&:,+\\-/]+$")
   icmAccount: string;
 
   @doc("The IcM tenant for auditing")
   @minLength(1)
   @maxLength(128)
-  @pattern("^[a-zA-Z0-9_/-]+$")
+  @pattern("^[a-zA-Z0-9_ ():/\\-]+$")
   icmTenant: string;
 
   @doc("Email Alias")

@@ -14,13 +14,9 @@ options:
     examples-dir: "{project-root}/examples"
     output-file: "{emitter-output-dir}/{version-status}/{version}/eapvirtualnetworks.json"
     arm-types-dir: "{project-root}/../../../../common-types/resource-management"
-  "@azure-tools/typespec-csharp":
-    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
-    clear-output-folder: true
-    model-namespace: false
-    package-dir: "Azure.ResourceManager.Hypernet"
+  "@azure-typespec/http-client-csharp-mgmt":
     namespace: "Azure.ResourceManager.Hypernet"
-    flavor: azure
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-python":
     emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-hypernet"
     namespace: "azure.mgmt.hypernet"

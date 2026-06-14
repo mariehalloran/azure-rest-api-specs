@@ -43,11 +43,6 @@ options:
   "@azure-typespec/http-client-csharp-mgmt":
     namespace: "Azure.ResourceManager.InferenceService"
     emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
-  "@azure-tools/typespec-csharp":
-    flavor: "azure"
-    namespace: "Azure.ResourceManager.InferenceService"
-    clear-output-folder: true
-    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
 linter:
   extends:
     - "@azure-tools/typespec-azure-rulesets/resource-manager"

@@ -140,6 +140,9 @@ model PipelineRecurrence {
   /** Periodicity of the recurrence. */
   periodicity?: string;
 
+  /** Cron expression for the recurrence. */
+  cronExpression?: string;
+
   /** Timeout for the recurrence. */
   timeout?: string;
 }
@@ -149,10 +152,29 @@ union ScheduleType {
   /** Periodic schedule type. */
   Periodic: "Periodic",
 
-  /** Manual trigger schedule type. */
-  ManualTrigger: "ManualTrigger",
+  /** Cron schedule type. */
+  Cron: "Cron",
 
   string,
+}
+
+/** A run of a pipeline. */
+@parentResource(Pipeline)
+model PipelineRun is ProxyResource<PipelineRunProperties> {
+  /** The identifier of the pipeline run. */
+  @segment("runs")
+  @key("runId")
+  @visibility(Lifecycle.Read)
+  @path
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,63}$")
+  name: string;
+}
+
+/** Pipeline run properties. */
+model PipelineRunProperties {
+  /** Provisioning state of the pipeline run. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ResourceProvisioningState;
 }
 
 @armResourceOperations
@@ -161,4 +183,7 @@ interface Pipelines {
   createOrUpdate is ArmResourceCreateOrReplaceSync<Pipeline>;
   delete is ArmResourceDeleteSync<Pipeline>;
   list is ArmResourceListByParent<Pipeline>;
+
+  /** Trigger a run of the pipeline. */
+  triggerRun is ArmResourceActionSync<Pipeline, void, PipelineRun>;
 }

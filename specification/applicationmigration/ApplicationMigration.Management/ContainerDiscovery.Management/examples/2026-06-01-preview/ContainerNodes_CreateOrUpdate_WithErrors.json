@@ -1,0 +1,214 @@
+{
+  "operationId": "ContainerNodes_CreateOrUpdate",
+  "title": "Create or update a container node with discovery errors",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "siteName": "myContainerSite",
+    "nodeName": "worker-02",
+    "resource": {
+      "properties": {
+        "nodeDisplayName": "worker-02.contoso.com",
+        "nodeRole": "worker",
+        "machineArmId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.OffAzure/serverSites/mySite/machines/vm-012",
+        "availability": "NotReady",
+        "hostOs": {
+          "osType": "linux",
+          "osDistribution": "RHEL",
+          "osVersion": "8.8",
+          "kernelVersion": "4.18.0-477",
+          "cpuArchitecture": "x86_64"
+        },
+        "containerRuntimes": [
+          {
+            "runtimeName": "containerd",
+            "runtimeType": "containerd",
+            "runtimeVersion": "1.6.20",
+            "socketPath": "/run/containerd/containerd.sock",
+            "storageDriver": "overlayfs",
+            "cgroupDriver": "systemd",
+            "isRootless": false,
+            "runningContainerCount": 0,
+            "clientVersion": "1.6.20",
+            "serverVersion": "1.6.20"
+          }
+        ],
+        "orchestratorAgent": {
+          "agentName": "kubelet",
+          "agentVersion": "1.26.8",
+          "nodeStatus": "NotReady"
+        },
+        "nodeCapacity": {
+          "totalCpu": "8",
+          "totalMemory": "32Gi",
+          "totalEphemeralStorage": "200Gi",
+          "allocatableCpu": "8",
+          "allocatableMemory": "32768Mi",
+          "allocatableEphemeralStorage": "100Gi",
+          "requestedCpu": "0",
+          "requestedMemory": "0",
+          "maxPods": 110,
+          "runningPodCount": 0,
+          "podDensity": 0.0
+        },
+        "gpu": {
+          "gpuPresent": false
+        },
+        "hypervisor": {
+          "type": "vmware",
+          "version": "7.0.3"
+        },
+        "nodeLabels": [
+          {
+            "key": "kubernetes.io/os",
+            "value": "linux"
+          },
+          {
+            "key": "kubernetes.io/arch",
+            "value": "amd64"
+          }
+        ],
+        "nodeTaints": [],
+        "nodeConditions": [
+          {
+            "type": "Ready",
+            "status": "False",
+            "reason": "KubeletNotReady",
+            "message": "container runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady message:cni plugin not initialized"
+          },
+          {
+            "type": "MemoryPressure",
+            "status": "False",
+            "reason": "KubeletHasSufficientMemory"
+          },
+          {
+            "type": "DiskPressure",
+            "status": "True",
+            "reason": "KubeletHasDiskPressure",
+            "message": "Kubelet has disk pressure: available 1.2Gi < eviction threshold 2Gi"
+          }
+        ],
+        "nodeAnnotations": [],
+        "errors": [
+          {
+            "id": "err-node-001",
+            "code": "Container.GuestScript.NodeNotReady",
+            "severity": "Error",
+            "message": "Node worker-02 is in NotReady state. CNI plugin is not initialized and network is unavailable.",
+            "summaryMessage": "Node is NotReady — CNI not initialized",
+            "possibleCause": "The CNI plugin (Flannel/Calico) has not been installed or the CNI configuration is missing from /etc/cni/net.d/.",
+            "recommendedAction": "Install the CNI plugin or verify the CNI configuration files exist at /etc/cni/net.d/. Restart the kubelet service after fixing.",
+            "runAsAccountId": "sa-token-001",
+            "updatedTimeStamp": "2026-01-15T10:30:00Z"
+          },
+          {
+            "id": "err-node-002",
+            "code": "Container.GuestScript.DiskPressure",
+            "severity": "Warning",
+            "message": "Node worker-02 has DiskPressure condition. Available disk space (1.2Gi) is below eviction threshold (2Gi).",
+            "summaryMessage": "Node has disk pressure",
+            "possibleCause": "The node's root filesystem or container image storage is running low on available space.",
+            "recommendedAction": "Free disk space by pruning unused container images (crictl rmi --prune) or expanding the disk volume.",
+            "runAsAccountId": "sa-token-001",
+            "updatedTimeStamp": "2026-01-15T10:30:00Z"
+          },
+          {
+            "id": "err-node-003",
+            "code": "Container.GuestScript.VersionOutOfSupport",
+            "severity": "Warning",
+            "message": "Kubernetes version 1.26.8 reached end of support on 2025-06-28.",
+            "summaryMessage": "K8s version out of support",
+            "possibleCause": "The cluster is running a Kubernetes version that is no longer receiving security patches.",
+            "recommendedAction": "Upgrade the Kubernetes cluster to a supported version (1.28+).",
+            "runAsAccountId": "sa-token-001",
+            "updatedTimeStamp": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "criticalErrorCount": 1,
+        "warningsCount": 2,
+        "isStandaloneHost": false,
+        "containerClusterId": "kube-system-uid-abc123",
+        "clusterArmId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerClusters/kube-system-uid-abc123",
+        "hostId": "host-guid-001",
+        "hostFqdn": "worker-01.contoso.local",
+        "hostPrimaryIp": "10.0.1.10",
+        "discoveryCompleteness": "deep-complete",
+        "isShallowCompleted": true,
+        "isDeepDiscoveryCompleted": true
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerNodes/worker-02",
+        "name": "worker-02",
+        "type": "Microsoft.ApplicationMigration/containerSites/containerNodes",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "containerNodeId": "worker-02",
+          "nodeDisplayName": "worker-02.contoso.com",
+          "nodeRole": "worker",
+          "availability": "NotReady",
+          "errors": [
+            {
+              "id": "err-node-001",
+              "code": "Container.GuestScript.NodeNotReady",
+              "severity": "Error",
+              "message": "Node worker-02 is in NotReady state.",
+              "summaryMessage": "Node is NotReady — CNI not initialized",
+              "possibleCause": "The CNI plugin has not been installed.",
+              "recommendedAction": "Install the CNI plugin or verify the CNI configuration.",
+              "runAsAccountId": "sa-token-001",
+              "updatedTimeStamp": "2026-01-15T10:30:00Z"
+            },
+            {
+              "id": "err-node-002",
+              "code": "Container.GuestScript.DiskPressure",
+              "severity": "Warning",
+              "message": "Node worker-02 has DiskPressure condition.",
+              "summaryMessage": "Node has disk pressure",
+              "possibleCause": "Node root filesystem running low on space.",
+              "recommendedAction": "Free disk space by pruning unused container images.",
+              "runAsAccountId": "sa-token-001",
+              "updatedTimeStamp": "2026-01-15T10:30:00Z"
+            },
+            {
+              "id": "err-node-003",
+              "code": "Container.GuestScript.VersionOutOfSupport",
+              "severity": "Warning",
+              "message": "Kubernetes version 1.26.8 reached end of support.",
+              "summaryMessage": "K8s version out of support",
+              "possibleCause": "Cluster running unsupported K8s version.",
+              "recommendedAction": "Upgrade to a supported Kubernetes version (1.28+).",
+              "runAsAccountId": "sa-token-001",
+              "updatedTimeStamp": "2026-01-15T10:30:00Z"
+            }
+          ],
+          "criticalErrorCount": 1,
+          "warningsCount": 2,
+          "isStandaloneHost": false,
+          "containerClusterId": "kube-system-uid-abc123",
+          "discoveryCompleteness": "deep-complete"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerNodes/worker-02",
+        "name": "worker-02",
+        "type": "Microsoft.ApplicationMigration/containerSites/containerNodes",
+        "properties": {
+          "provisioningState": "Creating",
+          "containerNodeId": "worker-02",
+          "nodeRole": "worker",
+          "availability": "NotReady",
+          "isStandaloneHost": false,
+          "containerClusterId": "kube-system-uid-abc123",
+          "discoveryCompleteness": "deep-complete"
+        }
+      }
+    }
+  }
+}

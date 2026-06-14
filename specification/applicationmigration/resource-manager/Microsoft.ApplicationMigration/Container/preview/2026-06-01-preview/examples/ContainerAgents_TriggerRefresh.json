@@ -1,0 +1,19 @@
+{
+  "operationId": "ContainerAgents_TriggerRefresh",
+  "title": "Trigger refresh on a container agent",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "siteName": "myContainerSite",
+    "agentName": "myAgent"
+  },
+  "responses": {
+    "202": {
+      "headers": {
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/agents/myAgent/operationStatuses/refresh-op-001?api-version=2026-06-01-preview",
+        "Retry-After": "10"
+      }
+    }
+  }
+}

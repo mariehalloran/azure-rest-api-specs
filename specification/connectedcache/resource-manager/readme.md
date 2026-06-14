@@ -27,7 +27,16 @@ These are the global settings for the connectedcache
 ``` yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2025-06-15
+tag: package-2026-06-01
+```
+
+### Tag: package-2026-06-01
+
+These settings apply only when `--tag=package-2026-06-01` is specified on the command line.
+
+``` yaml $(tag) == 'package-2026-06-01'
+input-file:
+  - Microsoft.ConnectedCache/stable/2026-06-01/ConnectedCache.json
 ```
 
 ### Tag: package-2025-11-15-preview

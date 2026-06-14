@@ -1,0 +1,45 @@
+{
+  "title": "Operations_List",
+  "operationId": "Operations_List",
+  "parameters": {
+    "api-version": "2026-05-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "Microsoft.Copilot/chatAgents/read",
+            "display": {
+              "provider": "Microsoft.Copilot",
+              "resource": "chatAgents",
+              "operation": "Read chat agent",
+              "description": "Read a chat agent resource."
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.Copilot/chatAgents/write",
+            "display": {
+              "provider": "Microsoft.Copilot",
+              "resource": "chatAgents",
+              "operation": "Create or update chat agent",
+              "description": "Create or update a chat agent resource."
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.Copilot/chatAgents/delete",
+            "display": {
+              "provider": "Microsoft.Copilot",
+              "resource": "chatAgents",
+              "operation": "Delete chat agent",
+              "description": "Delete a chat agent resource."
+            },
+            "isDataAction": false
+          }
+        ]
+      }
+    }
+  }
+}
