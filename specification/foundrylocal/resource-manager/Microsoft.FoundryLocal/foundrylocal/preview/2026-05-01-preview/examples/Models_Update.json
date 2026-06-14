@@ -7,7 +7,9 @@
     "modelName": "my-custom-model",
     "api-version": "2026-05-01-preview",
     "properties": {
-      "tags": { "team": "platform" },
+      "tags": {
+        "team": "platform"
+      },
       "properties": {
         "description": "Updated description for the custom model."
       }
@@ -24,7 +26,9 @@
           "name": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ExtendedLocation/customLocations/my-custom-location",
           "type": "CustomLocation"
         },
-        "tags": { "team": "platform" },
+        "tags": {
+          "team": "platform"
+        },
         "properties": {
           "provisioningState": "Succeeded",
           "source": {
@@ -32,7 +36,12 @@
               "registry": "myacr.azurecr.io",
               "repository": "models/my-custom-model",
               "tag": "v1",
-              "credentials": { "kind": "KubernetesSecretRef", "secretRef": { "name": "acr-creds" } }
+              "credentials": {
+                "kind": "KubernetesSecretRef",
+                "secretRef": {
+                  "name": "acr-creds"
+                }
+              }
             }
           },
           "displayName": "My Custom Model",

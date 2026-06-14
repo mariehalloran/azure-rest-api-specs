@@ -2317,7 +2317,7 @@
     },
     "SecretReference": {
       "type": "object",
-      "description": "Reference to a Kubernetes Secret holding registry credentials. The secret must exist in either the target deployment namespace or the operator's release namespace; the operator replicates from the operator namespace to the target namespace automatically.",
+      "description": "Reference to a Kubernetes Secret holding registry credentials. The secret must exist in either the target deployment namespace or the operator's release namespaces.",
       "properties": {
         "name": {
           "type": "string",

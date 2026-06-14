@@ -42,7 +42,9 @@
         ],
         "requirements": {
           "minMemory": "4Gi",
-          "supportedCompute": ["Cpu"]
+          "supportedCompute": [
+            "Cpu"
+          ]
         },
         "capabilities": {
           "task": "chat-completion",
@@ -72,7 +74,9 @@
               "tag": "v1",
               "credentials": {
                 "kind": "KubernetesSecretRef",
-                "secretRef": { "name": "acr-creds" }
+                "secretRef": {
+                  "name": "acr-creds"
+                }
               }
             }
           },
@@ -90,8 +94,17 @@
               "priority": 10
             }
           ],
-          "requirements": { "minMemory": "4Gi", "supportedCompute": ["Cpu"] },
-          "capabilities": { "task": "chat-completion", "contextLength": 4096, "streaming": true },
+          "requirements": {
+            "minMemory": "4Gi",
+            "supportedCompute": [
+              "Cpu"
+            ]
+          },
+          "capabilities": {
+            "task": "chat-completion",
+            "contextLength": 4096,
+            "streaming": true
+          },
           "status": {
             "phase": "Available",
             "message": "Model artifact pulled and verified.",
@@ -139,7 +152,12 @@
               "registry": "myacr.azurecr.io",
               "repository": "models/my-custom-model",
               "tag": "v1",
-              "credentials": { "kind": "KubernetesSecretRef", "secretRef": { "name": "acr-creds" } }
+              "credentials": {
+                "kind": "KubernetesSecretRef",
+                "secretRef": {
+                  "name": "acr-creds"
+                }
+              }
             }
           },
           "displayName": "My Custom Model"

@@ -25,7 +25,12 @@
                   "registry": "myacr.azurecr.io",
                   "repository": "models/my-custom-model",
                   "tag": "v1",
-                  "credentials": { "kind": "KubernetesSecretRef", "secretRef": { "name": "acr-creds" } }
+                  "credentials": {
+                    "kind": "KubernetesSecretRef",
+                    "secretRef": {
+                      "name": "acr-creds"
+                    }
+                  }
                 }
               },
               "displayName": "My Custom Model",
