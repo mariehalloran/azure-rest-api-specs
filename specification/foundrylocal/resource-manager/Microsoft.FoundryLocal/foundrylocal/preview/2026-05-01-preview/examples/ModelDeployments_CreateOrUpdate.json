@@ -13,20 +13,18 @@
         "type": "CustomLocation"
       },
       "properties": {
-        "configurationSettings": {
-          "model.catalogName": "phi-4",
-          "model.catalogVersion": "latest",
-          "workloadType": "generative",
-          "compute": "gpu",
-          "replicas": "1",
-          "runtime": "onnx-genai",
-          "resources.requests.cpu": "100m",
-          "resources.requests.memory": "256Mi",
-          "resources.limits.cpu": "1000m",
-          "resources.limits.memory": "1Gi"
+        "model": {
+          "kind": "Catalog",
+          "catalogName": "phi-4",
+          "catalogVersion": "latest"
         },
-        "configurationProtectedSettings": {
-          "registry.password": "secret-value"
+        "compute": "Gpu",
+        "workloadType": "Generative",
+        "runtime": "OnnxGenai",
+        "replicas": 1,
+        "resources": {
+          "requests": { "cpu": "100m", "memory": "256Mi" },
+          "limits": { "cpu": "1000m", "memory": "1Gi", "gpu": 1 }
         }
       }
     }
@@ -44,19 +42,40 @@
         },
         "properties": {
           "provisioningState": "Succeeded",
-          "configurationSettings": {
-            "model.catalogName": "phi-4",
-            "model.catalogVersion": "latest",
-            "workloadType": "generative",
-            "compute": "gpu",
-            "replicas": "1",
-            "runtime": "onnx-genai",
-            "resources.requests.cpu": "100m",
-            "resources.requests.memory": "256Mi",
-            "resources.limits.cpu": "1000m",
-            "resources.limits.memory": "1Gi"
+          "model": {
+            "kind": "Catalog",
+            "catalogName": "phi-4",
+            "catalogVersion": "latest"
           },
-          "status": {}
+          "compute": "Gpu",
+          "workloadType": "Generative",
+          "runtime": "OnnxGenai",
+          "replicas": 1,
+          "resources": {
+            "requests": { "cpu": "100m", "memory": "256Mi" },
+            "limits": { "cpu": "1000m", "memory": "1Gi", "gpu": 1 }
+          },
+          "status": {
+            "phase": "Running",
+            "message": "Deployment is healthy and serving traffic.",
+            "endpointUrl": "https://phi-4-deployment.contoso.com/invoke",
+            "readyReplicas": 1,
+            "conditions": [
+              {
+                "type": "Available",
+                "status": "True",
+                "reason": "AllReplicasReady",
+                "message": "1/1 replicas ready",
+                "lastTransitionTime": "2026-05-20T00:01:30Z"
+              }
+            ],
+            "resolvedModel": {
+              "name": "phi-4",
+              "variant": "gpu-fp16",
+              "image": "mcr.microsoft.com/foundrylocal/phi-4:latest"
+            },
+            "lastObservedAt": "2026-05-20T00:01:30Z"
+          }
         },
         "systemData": {
           "createdBy": "user@example.com",
@@ -69,6 +88,11 @@
       }
     },
     "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.FoundryLocal/locations/eastus/operationStatuses/operationId?api-version=2026-05-01-preview",
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.FoundryLocal/locations/eastus/operationStatuses/operationId?api-version=2026-05-01-preview",
+        "Retry-After": 10
+      },
       "body": {
         "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.FoundryLocal/modelDeployments/phi-4-deployment",
         "name": "phi-4-deployment",
@@ -80,19 +104,19 @@
         },
         "properties": {
           "provisioningState": "Accepted",
-          "configurationSettings": {
-            "model.catalogName": "phi-4",
-            "model.catalogVersion": "latest",
-            "workloadType": "generative",
-            "compute": "gpu",
-            "replicas": "1",
-            "runtime": "onnx-genai",
-            "resources.requests.cpu": "100m",
-            "resources.requests.memory": "256Mi",
-            "resources.limits.cpu": "1000m",
-            "resources.limits.memory": "1Gi"
+          "model": {
+            "kind": "Catalog",
+            "catalogName": "phi-4",
+            "catalogVersion": "latest"
           },
-          "status": {}
+          "compute": "Gpu",
+          "workloadType": "Generative",
+          "runtime": "OnnxGenai",
+          "replicas": 1,
+          "resources": {
+            "requests": { "cpu": "100m", "memory": "256Mi" },
+            "limits": { "cpu": "1000m", "memory": "1Gi", "gpu": 1 }
+          }
         },
         "systemData": {
           "createdBy": "user@example.com",

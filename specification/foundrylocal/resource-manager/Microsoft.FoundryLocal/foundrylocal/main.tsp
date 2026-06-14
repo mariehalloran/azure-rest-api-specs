@@ -4,6 +4,7 @@ import "@typespec/versioning";
 import "@azure-tools/typespec-azure-resource-manager";
 
 import "./modelDeployment.tsp";
+import "./model.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;

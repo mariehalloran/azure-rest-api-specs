@@ -7,13 +7,9 @@
     "modelDeploymentName": "phi-4-deployment",
     "api-version": "2026-05-01-preview",
     "properties": {
-      "tags": {
-        "environment": "production"
-      },
+      "tags": { "environment": "production" },
       "properties": {
-        "configurationSettings": {
-          "replicas": "3"
-        }
+        "replicas": 3
       }
     }
   },
@@ -28,17 +24,18 @@
           "name": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ExtendedLocation/customLocations/my-custom-location",
           "type": "CustomLocation"
         },
-        "tags": {
-          "environment": "production"
-        },
+        "tags": { "environment": "production" },
         "properties": {
           "provisioningState": "Succeeded",
-          "configurationSettings": {
-            "model.catalogName": "phi-4",
-            "workloadType": "generative",
-            "compute": "gpu",
-            "replicas": "3"
+          "model": {
+            "kind": "Catalog",
+            "catalogName": "phi-4",
+            "catalogVersion": "latest"
           },
+          "compute": "Gpu",
+          "workloadType": "Generative",
+          "runtime": "OnnxGenai",
+          "replicas": 3,
           "status": {
             "phase": "Updating",
             "message": "Rolling out updated configuration.",
@@ -55,7 +52,7 @@
             ],
             "resolvedModel": {
               "name": "phi-4",
-              "variant": "cpu-fp16",
+              "variant": "gpu-fp16",
               "image": "mcr.microsoft.com/foundrylocal/phi-4:latest"
             },
             "lastObservedAt": "2026-05-20T01:00:00Z"
@@ -67,7 +64,7 @@
           "createdAt": "2026-05-20T00:00:00.000Z",
           "lastModifiedBy": "user@example.com",
           "lastModifiedByType": "User",
-          "lastModifiedAt": "2026-05-20T00:00:00.000Z"
+          "lastModifiedAt": "2026-05-20T01:00:00.000Z"
         }
       }
     },

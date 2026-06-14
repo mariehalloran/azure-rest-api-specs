@@ -20,11 +20,15 @@
             },
             "properties": {
               "provisioningState": "Succeeded",
-              "configurationSettings": {
-                "model.catalogName": "phi-4",
-                "workloadType": "generative",
-                "compute": "gpu"
+              "model": {
+                "kind": "Catalog",
+                "catalogName": "phi-4",
+                "catalogVersion": "latest"
               },
+              "compute": "Gpu",
+              "workloadType": "Generative",
+              "runtime": "OnnxGenai",
+              "replicas": 1,
               "status": {
                 "phase": "Running",
                 "message": "Deployment is healthy and serving traffic.",
@@ -41,7 +45,7 @@
                 ],
                 "resolvedModel": {
                   "name": "phi-4",
-                  "variant": "cpu-fp16",
+                  "variant": "gpu-fp16",
                   "image": "mcr.microsoft.com/foundrylocal/phi-4:latest"
                 },
                 "lastObservedAt": "2026-05-20T00:01:30Z"

@@ -1,0 +1,51 @@
+{
+  "operationId": "Models_ListByResourceGroup",
+  "title": "List Models by resource group",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg1",
+    "api-version": "2026-05-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.FoundryLocal/models/my-custom-model",
+            "name": "my-custom-model",
+            "type": "Microsoft.FoundryLocal/models",
+            "location": "eastus",
+            "extendedLocation": {
+              "name": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ExtendedLocation/customLocations/my-custom-location",
+              "type": "CustomLocation"
+            },
+            "properties": {
+              "provisioningState": "Succeeded",
+              "source": {
+                "custom": {
+                  "registry": "myacr.azurecr.io",
+                  "repository": "models/my-custom-model",
+                  "tag": "v1",
+                  "credentials": { "kind": "KubernetesSecretRef", "secretRef": { "name": "acr-creds" } }
+                }
+              },
+              "displayName": "My Custom Model",
+              "status": {
+                "phase": "Available",
+                "lastObservedAt": "2026-05-20T00:01:00Z"
+              }
+            },
+            "systemData": {
+              "createdBy": "user@example.com",
+              "createdByType": "User",
+              "createdAt": "2026-05-20T00:00:00.000Z",
+              "lastModifiedBy": "user@example.com",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-05-20T00:00:00.000Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
