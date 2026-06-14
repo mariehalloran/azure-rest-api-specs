@@ -462,7 +462,7 @@ model ModelByRef extends ModelReference {
   @doc("ARM resource ID of the Microsoft.FoundryLocal/models resource to reference.")
   modelId: Azure.Core.armResourceIdentifier<[
     {
-      type: "Microsoft.FoundryLocal/models",
+      type: "Microsoft.FoundryLocal/models";
     }
   ]>;
 }
