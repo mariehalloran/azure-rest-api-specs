@@ -39,6 +39,18 @@ model ValidationTestProperties {
   testStoreUri?: string;
 }
 
+@doc("Validation test version catalog entry.")
+@tenantResource
+@added(Versions.v2026_05_01_preview)
+model ValidationTestVersion is ProxyResource<ValidationTestProperties> {
+  ...ResourceNameParameter<
+    Resource = ValidationTestVersion,
+    KeyName = "version",
+    SegmentName = "versions",
+    NamePattern = "^[a-zA-Z0-9._-]{1,64}$"
+  >;
+}
+
 @doc("Validation test category catalog entry.")
 @tenantResource
 @added(Versions.v2026_05_01_preview)
@@ -105,6 +117,55 @@ interface ValidationTests {
   @doc("List validation test catalog entries")
   @added(Versions.v2026_05_01_preview)
   list is ValidationTestsOps.List<ValidationTest>;
+}
+
+@armResourceOperations
+@added(Versions.v2026_05_01_preview)
+interface ValidationTestVersionsOps
+  extends Azure.ResourceManager.Legacy.ExtensionOperations<
+      {
+        ...ApiVersionParameter,
+
+        @path
+        @segment("providers")
+        @key
+        @doc("The provider namespace.")
+        providerNamespace: "Microsoft.Validate",
+      },
+      {
+        @path
+        @segment("validationTests")
+        @key
+        @doc("The validation test name.")
+        @pattern("^[a-zA-Z0-9-]{1,90}$")
+        validationTestName: string,
+      },
+      {
+        @path
+        @segment("versions")
+        @key
+        @doc("The validation test version.")
+        @pattern("^[a-zA-Z0-9._-]{1,64}$")
+        version: string,
+      },
+      ResourceName = "ValidationTestVersions"
+    > {}
+
+@armResourceOperations
+@tag("Validation Test Version Interfaces")
+@added(Versions.v2026_05_01_preview)
+interface ValidationTestVersions {
+  @doc("Get a validation test version catalog entry")
+  @added(Versions.v2026_05_01_preview)
+  get is ValidationTestVersionsOps.Read<ValidationTestVersion>;
+
+  @doc("Create or update a validation test version catalog entry")
+  @added(Versions.v2026_05_01_preview)
+  createOrUpdate is ValidationTestVersionsOps.CreateOrUpdateSync<ValidationTestVersion>;
+
+  @doc("List validation test version catalog entries")
+  @added(Versions.v2026_05_01_preview)
+  list is ValidationTestVersionsOps.List<ValidationTestVersion>;
 }
 
 @armResourceOperations
