@@ -844,78 +844,6 @@
         },
         "x-ms-long-running-operation": true
       },
-      "patch": {
-        "operationId": "CloudValidations_Update",
-        "tags": [
-          "Cloud Validation Interfaces"
-        ],
-        "description": "Update a cloud validation",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "cloudValidationName",
-            "in": "path",
-            "description": "The name of the CloudValidation",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "The resource properties to be updated.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CloudValidationUpdate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/CloudValidation"
-            }
-          },
-          "202": {
-            "description": "Resource update request accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "CloudValidations_Update_MaximumSet": {
-            "$ref": "./examples/CloudValidations_Update_MaximumSet_Gen.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
-      },
       "delete": {
         "operationId": "CloudValidations_Delete",
         "tags": [
@@ -1903,21 +1831,6 @@
         }
       }
     },
-    "CloudValidationUpdate": {
-      "type": "object",
-      "description": "Cloud Validation Resource",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/CloudValidationProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
-        }
-      ]
-    },
     "ExecutionPlanRun": {
       "type": "object",
       "description": "The properties of the execution plan run.",
@@ -1963,13 +1876,13 @@
           "description": "The description of the resource."
         },
         "status": {
-          "$ref": "#/definitions/ExecutionPlanRunStatus",
+          "$ref": "#/definitions/ExecutionPlanRunStatusV2026_05",
           "description": "The status of the execution plan run.",
           "readOnly": true
         },
         "error": {
           "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
-          "description": "Error details. Populated when status is Failed, Canceled, TimedOut, or Aborted.",
+          "description": "Error details. Populated when status is Failed, TimedOut, or Unknown.",
           "readOnly": true
         },
         "startedAt": {
@@ -2062,7 +1975,7 @@
       },
       "readOnly": true
     },
-    "ExecutionPlanRunStatus": {
+    "ExecutionPlanRunStatusV2026_05": {
       "type": "string",
       "description": "The status of the execution plan run.",
       "enum": [
@@ -2070,18 +1983,12 @@
         "Queued",
         "Running",
         "Completed",
-        "Canceled",
         "Failed",
-        "Skipped",
-        "Paused",
-        "Suspended",
         "TimedOut",
-        "Aborted",
-        "Ignored",
         "Unknown"
       ],
       "x-ms-enum": {
-        "name": "ExecutionPlanRunStatus",
+        "name": "ExecutionPlanRunStatusV2026_05",
         "modelAsString": true,
         "values": [
           {
@@ -2105,44 +2012,14 @@
             "description": "The execution plan run is completed."
           },
           {
-            "name": "Canceled",
-            "value": "Canceled",
-            "description": "The execution plan run is canceled."
-          },
-          {
             "name": "Failed",
             "value": "Failed",
             "description": "The execution plan run is failed."
           },
           {
-            "name": "Skipped",
-            "value": "Skipped",
-            "description": "The execution plan run is skipped."
-          },
-          {
-            "name": "Paused",
-            "value": "Paused",
-            "description": "The execution plan run is paused."
-          },
-          {
-            "name": "Suspended",
-            "value": "Suspended",
-            "description": "The execution plan run is suspended."
-          },
-          {
             "name": "TimedOut",
             "value": "TimedOut",
             "description": "The execution plan run is timed out."
-          },
-          {
-            "name": "Aborted",
-            "value": "Aborted",
-            "description": "The execution plan run is aborted."
-          },
-          {
-            "name": "Ignored",
-            "value": "Ignored",
-            "description": "The execution plan run is ignored."
           },
           {
             "name": "Unknown",
@@ -2319,7 +2196,7 @@
           "description": "Entire execution plan configuration/manifest json.\nEither of URI or this property is mandatory while creating.\nIn get, always return the entire json configuration."
         },
         "provisioningState": {
-          "$ref": "#/definitions/ValidationExecutionPlanProvisioningState",
+          "$ref": "#/definitions/ValidationExecutionPlanProvisioningStateV2026_05",
           "description": "The provisioning state of the resource.",
           "readOnly": true
         },
@@ -2334,37 +2211,19 @@
         }
       }
     },
-    "ValidationExecutionPlanProvisioningState": {
+    "ValidationExecutionPlanProvisioningStateV2026_05": {
       "type": "string",
       "description": "The execution plan resource provisioning state.",
       "enum": [
-        "Succeeded",
-        "Failed",
-        "Canceled",
         "Creating",
         "Updating",
-        "Disabling",
-        "Deleting"
+        "Succeeded",
+        "Failed"
       ],
       "x-ms-enum": {
-        "name": "ValidationExecutionPlanProvisioningState",
+        "name": "ValidationExecutionPlanProvisioningStateV2026_05",
         "modelAsString": true,
         "values": [
-          {
-            "name": "Succeeded",
-            "value": "Succeeded",
-            "description": "Resource has been created."
-          },
-          {
-            "name": "Failed",
-            "value": "Failed",
-            "description": "Resource creation failed."
-          },
-          {
-            "name": "Canceled",
-            "value": "Canceled",
-            "description": "Resource creation was canceled."
-          },
           {
             "name": "Creating",
             "value": "Creating",
@@ -2376,14 +2235,14 @@
             "description": "The resource is updating."
           },
           {
-            "name": "Disabling",
-            "value": "Disabling",
-            "description": "The resource is being disabled."
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "The resource has been successfully provisioned."
           },
           {
-            "name": "Deleting",
-            "value": "Deleting",
-            "description": "The resource is being deleted"
+            "name": "Failed",
+            "value": "Failed",
+            "description": "The resource provisioning failed."
           }
         ]
       },
@@ -2629,36 +2488,44 @@
           "description": "The overall status of the test run.",
           "readOnly": true
         },
+        "error": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details. Populated when status is Error.",
+          "readOnly": true
+        },
         "provisioningState": {
           "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "The state of the test run.",
           "readOnly": true
         },
-        "startTimestampInUtc": {
+        "startedAt": {
           "type": "string",
           "format": "date-time",
-          "description": "The start timestamp of the test run.",
+          "description": "The start time of the test run.",
           "readOnly": true
         },
-        "reportedTimestampInUtc": {
+        "completedAt": {
           "type": "string",
           "format": "date-time",
-          "description": "The reported timestamp of the test run.",
+          "description": "The completion time of the test run.",
           "readOnly": true
         },
-        "endTimestampInUtc": {
+        "reportedAt": {
           "type": "string",
           "format": "date-time",
-          "description": "The end timestamp of the test run.",
+          "description": "The time at which the test run result was reported.",
           "readOnly": true
         },
         "testId": {
           "type": "string",
           "description": "The test id in the validation test catalog."
         },
-        "testCategoryId": {
-          "type": "string",
-          "description": "The validation test category id."
+        "testCategoryIds": {
+          "type": "array",
+          "description": "The validation test category ids.",
+          "items": {
+            "type": "string"
+          }
         },
         "inputsJson": {
           "type": "string",

@@ -34,6 +34,11 @@ model ValidationTestRunProperties {
   @madeOptional(Versions.v2026_02_01_preview)
   status?: ValidationTestRunStatus;
 
+  @doc("Error details. Populated when status is Error.")
+  @visibility(Lifecycle.Read)
+  @added(Versions.v2026_05_01_preview)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+
   @doc("The state of the test run.")
   @visibility(Lifecycle.Read)
   provisioningState?: ResourceProvisioningState;
@@ -41,25 +46,43 @@ model ValidationTestRunProperties {
   @doc("The start timestamp of the test run.")
   @visibility(Lifecycle.Read)
   @madeOptional(Versions.v2026_02_01_preview)
+  @removed(Versions.v2026_05_01_preview)
   startTimestampInUtc?: utcDateTime;
 
   @doc("The reported timestamp of the test run.")
   @visibility(Lifecycle.Read)
   @madeOptional(Versions.v2026_02_01_preview)
+  @removed(Versions.v2026_05_01_preview)
   reportedTimestampInUtc?: utcDateTime;
 
   @doc("The end timestamp of the test run.")
   @visibility(Lifecycle.Read)
   @madeOptional(Versions.v2026_02_01_preview)
+  @removed(Versions.v2026_05_01_preview)
   endTimestampInUtc?: utcDateTime;
+
+  @doc("The start time of the test run.")
+  @visibility(Lifecycle.Read)
+  @added(Versions.v2026_05_01_preview)
+  startedAt?: utcDateTime;
+
+  @doc("The completion time of the test run.")
+  @visibility(Lifecycle.Read)
+  @added(Versions.v2026_05_01_preview)
+  completedAt?: utcDateTime;
+
+  @doc("The time at which the test run result was reported.")
+  @visibility(Lifecycle.Read)
+  @added(Versions.v2026_05_01_preview)
+  reportedAt?: utcDateTime;
 
   @doc("The test id in the validation test catalog.")
   @added(Versions.v2026_05_01_preview)
   testId?: string;
 
-  @doc("The validation test category id.")
+  @doc("The validation test category ids.")
   @added(Versions.v2026_05_01_preview)
-  testCategoryId?: string;
+  testCategoryIds?: string[];
 
   @doc("Validation test run inputs json")
   @madeOptional(Versions.v2026_02_01_preview)

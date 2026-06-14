@@ -23,9 +23,10 @@ model ExecutionPlanRunProperties {
   @doc("The status of the execution plan run.")
   @visibility(Lifecycle.Read)
   @madeOptional(Versions.v2026_02_01_preview)
-  status?: ExecutionPlanRunStatus;
+  @typeChangedFrom(Versions.v2026_05_01_preview, ExecutionPlanRunStatus)
+  status?: ExecutionPlanRunStatusV2026_05;
 
-  @doc("Error details. Populated when status is Failed, Canceled, TimedOut, or Aborted.")
+  @doc("Error details. Populated when status is Failed, TimedOut, or Unknown.")
   @visibility(Lifecycle.Read)
   @added(Versions.v2026_03_01_preview)
   error?: Azure.ResourceManager.Foundations.ErrorDetail;
@@ -125,6 +126,7 @@ union ExecutionPlanRunStatus {
   Completed: "Completed",
 
   @doc("The execution plan run is canceled.")
+  @removed(Versions.v2026_05_01_preview)
   Canceled: "Canceled",
 
   @doc("The execution plan run is failed.")
@@ -135,22 +137,55 @@ union ExecutionPlanRunStatus {
   Waiting: "Waiting",
 
   @doc("The execution plan run is skipped.")
+  @removed(Versions.v2026_05_01_preview)
   Skipped: "Skipped",
 
   @doc("The execution plan run is paused.")
+  @removed(Versions.v2026_05_01_preview)
   Paused: "Paused",
 
   @doc("The execution plan run is suspended.")
+  @removed(Versions.v2026_05_01_preview)
   Suspended: "Suspended",
 
   @doc("The execution plan run is timed out.")
   TimedOut: "TimedOut",
 
   @doc("The execution plan run is aborted.")
+  @removed(Versions.v2026_05_01_preview)
   Aborted: "Aborted",
 
   @doc("The execution plan run is ignored.")
+  @removed(Versions.v2026_05_01_preview)
   Ignored: "Ignored",
+
+  @doc("The execution plan run is unknown.")
+  Unknown: "Unknown",
+
+  string,
+}
+
+@doc("The status of the execution plan run.")
+@lroStatus
+@added(Versions.v2026_05_01_preview)
+union ExecutionPlanRunStatusV2026_05 {
+  @doc("The execution plan run is succeeded.")
+  Succeeded: "Succeeded",
+
+  @doc("The execution plan run has been queued.")
+  Queued: "Queued",
+
+  @doc("The execution plan run is running.")
+  Running: "Running",
+
+  @doc("The execution plan run is completed.")
+  Completed: "Completed",
+
+  @doc("The execution plan run is failed.")
+  Failed: "Failed",
+
+  @doc("The execution plan run is timed out.")
+  TimedOut: "TimedOut",
 
   @doc("The execution plan run is unknown.")
   Unknown: "Unknown",

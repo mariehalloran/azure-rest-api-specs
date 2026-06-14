@@ -86,10 +86,6 @@ interface CloudValidations {
   @doc("Create or update a cloud validation")
   createOrUpdate is ArmResourceCreateOrReplaceAsync<CloudValidation>;
 
-  @doc("Update a cloud validation")
-  @parameterVisibility(Lifecycle.Update)
-  update is ArmResourcePatchAsync<CloudValidation, CloudValidationProperties>;
-
   @doc("Delete a cloud validation")
   delete is ArmResourceDeleteWithoutOkAsync<CloudValidation>;
 
@@ -106,4 +102,13 @@ interface CloudValidations {
     CloudValidation,
     StandardListQueryParameters & OrderByQueryParameter & FilterQueryParameter
   >;
+}
+
+@armResourceOperations
+@tag("Cloud Validation Interfaces")
+@removed(Versions.v2026_05_01_preview)
+interface CloudValidationsLegacyUpdate {
+  @doc("Update a cloud validation")
+  @parameterVisibility(Lifecycle.Update)
+  update is ArmResourcePatchAsync<CloudValidation, CloudValidationProperties>;
 }
