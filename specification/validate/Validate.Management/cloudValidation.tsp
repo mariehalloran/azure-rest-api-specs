@@ -88,7 +88,6 @@ interface CloudValidations {
 
   @doc("Update a cloud validation")
   @parameterVisibility(Lifecycle.Update)
-  @removed(Versions.v2026_05_01_preview)
   update is ArmResourcePatchAsync<CloudValidation, CloudValidationProperties>;
 
   @doc("Delete a cloud validation")

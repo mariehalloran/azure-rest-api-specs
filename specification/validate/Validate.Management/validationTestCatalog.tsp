@@ -26,9 +26,6 @@ model ValidationTestProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ResourceProvisioningState;
 
-  @doc("Validation test version.")
-  version?: string;
-
   @doc("Validation test category ids.")
   categoryIds?: string[];
 
@@ -114,6 +111,10 @@ interface ValidationTests {
   @added(Versions.v2026_05_01_preview)
   createOrUpdate is ValidationTestsOps.CreateOrUpdateSync<ValidationTest>;
 
+  @doc("Delete a validation test catalog entry")
+  @added(Versions.v2026_05_01_preview)
+  delete is ValidationTestsOps.DeleteSync<ValidationTest>;
+
   @doc("List validation test catalog entries")
   @added(Versions.v2026_05_01_preview)
   list is ValidationTestsOps.List<ValidationTest>;
@@ -163,6 +164,10 @@ interface ValidationTestVersions {
   @added(Versions.v2026_05_01_preview)
   createOrUpdate is ValidationTestVersionsOps.CreateOrUpdateSync<ValidationTestVersion>;
 
+  @doc("Delete a validation test version catalog entry")
+  @added(Versions.v2026_05_01_preview)
+  delete is ValidationTestVersionsOps.DeleteSync<ValidationTestVersion>;
+
   @doc("List validation test version catalog entries")
   @added(Versions.v2026_05_01_preview)
   list is ValidationTestVersionsOps.List<ValidationTestVersion>;
@@ -204,6 +209,10 @@ interface ValidationTestCategories {
   @doc("Create or update a validation test category catalog entry")
   @added(Versions.v2026_05_01_preview)
   createOrUpdate is ValidationTestCategoriesOps.CreateOrUpdateSync<ValidationTestCategory>;
+
+  @doc("Delete a validation test category catalog entry")
+  @added(Versions.v2026_05_01_preview)
+  delete is ValidationTestCategoriesOps.DeleteSync<ValidationTestCategory>;
 
   @doc("List validation test category catalog entries")
   @added(Versions.v2026_05_01_preview)
