@@ -1,0 +1,43 @@
+emit:
+  - "@azure-tools/typespec-autorest"
+options:
+  "@azure-tools/typespec-autorest":
+    use-read-only-status-schema: true
+    emitter-output-dir: "{project-root}/.."
+    azure-resource-provider-folder: "resource-manager"
+    examples-dir: "{project-root}/examples"
+    output-file: "../{azure-resource-provider-folder}/{service-name}/Container/{version-status}/{version}/ContainerWorkloadsDiscovery.json"
+    arm-types-dir: "{project-root}/../../../common-types/resource-management"
+  "@azure-tools/typespec-go":
+    service-dir: sdk/resourcemanager/applicationmigration
+    emitter-output-dir: "{output-dir}/{service-dir}/armcontainerdiscovery"
+    module: github.com/Azure/azure-sdk-for-go/{service-dir}/armcontainerdiscovery
+    fix-const-stuttering: true
+    generate-samples: true
+    generate-fakes: true
+    head-as-boolean: true
+    inject-spans: true
+    flavor: azure
+  "@azure-tools/typespec-python":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-containerdiscovery"
+    namespace: azure.mgmt.containerdiscovery
+    generate-test: true
+    generate-sample: true
+    flavor: azure
+  "@azure-tools/typespec-java":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-containerdiscovery"
+    flavor: azure
+    namespace: com.azure.resourcemanager.containerdiscovery
+    service-name: Container Discovery
+  "@azure-tools/typespec-ts":
+    flavor: azure
+    experimental-extensible-enums: true
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-containerdiscovery"
+    package-details:
+      name: "@azure/arm-applicationmigration-containerdiscovery"
+linter:
+  extends:
+    - "@azure-tools/typespec-azure-rulesets/resource-manager"
+parameters:
+  service-dir:
+    default: sdk/applicationmigration

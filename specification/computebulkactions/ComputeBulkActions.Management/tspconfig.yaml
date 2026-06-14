@@ -22,11 +22,9 @@ options:
     flavor: azure
     package-details:
       name: "@azure/arm-computebulkactions"
-  "@azure-tools/typespec-csharp":
-    emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.ComputeBulkActions"
-    flavor: azure
-    clear-output-folder: true
+  "@azure-typespec/http-client-csharp-mgmt":
     namespace: "Azure.ResourceManager.ComputeBulkActions"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-java":
     emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-computebulkactions"
     namespace: "com.azure.resourcemanager.computebulkactions"

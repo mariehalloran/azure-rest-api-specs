@@ -1,0 +1,28 @@
+{
+  "operationId": "ContainerWorkloads_Get",
+  "title": "Get a container workload",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "siteName": "myContainerSite",
+    "workloadName": "cluster01_production_deployment_web-frontend"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerWorkloads/cluster01_production_deployment_web-frontend",
+        "name": "cluster01_production_deployment_web-frontend",
+        "type": "Microsoft.ApplicationMigration/containerSites/containerWorkloads",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "workloadScenario": "orchestrated",
+          "controllerType": "deployment",
+          "controllerName": "web-frontend",
+          "namespace": "production",
+          "discoveryCompleteness": "deep-complete"
+        }
+      }
+    }
+  }
+}
