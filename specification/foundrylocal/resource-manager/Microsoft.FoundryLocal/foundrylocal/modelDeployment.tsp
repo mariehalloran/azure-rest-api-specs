@@ -178,9 +178,9 @@ union RuntimeType {
 
 @doc("vLLM-specific runtime configuration. Relevant only when `runtime` is `Vllm`.")
 model VllmConfig {
-  @doc("Size of the model weight cache PVC in GiB. Defaults to 100.")
+  @doc("Size of the model weight cache PVC in GiB. Cluster default is 100 if omitted.")
   @minValue(1)
-  modelCacheStorageGi?: int32 = 100;
+  modelCacheStorageGi?: int32;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "vLLM engine arguments are passed through to the runtime; the set of valid keys depends on the vLLM version installed on the cluster, so the schema is intentionally extensible. Pending review at ARM modeling office hours pre-GA."
   @doc("vLLM engine preferences passed through to the runtime, e.g. `max_model_len`, `gpu_memory_utilization`. Keys and accepted values depend on the vLLM version installed on the cluster.")
@@ -193,20 +193,20 @@ model VllmConfig {
 
 @doc("Minimum resource requests for the inference container.")
 model ResourceRequests {
-  @doc("CPU request, e.g. '100m', '0.5', '2'.")
-  cpu?: string = "2000m";
+  @doc("CPU request, e.g. '100m', '0.5', '2'. Cluster default is '2000m' if omitted.")
+  cpu?: string;
 
-  @doc("Memory request, e.g. '256Mi', '1Gi'.")
-  memory?: string = "256Mi";
+  @doc("Memory request, e.g. '256Mi', '1Gi'. Cluster default is '256Mi' if omitted.")
+  memory?: string;
 }
 
 @doc("Maximum resource limits for the inference container.")
 model ResourceLimits {
-  @doc("CPU limit.")
-  cpu?: string = "4000m";
+  @doc("CPU limit. Cluster default is '4000m' if omitted.")
+  cpu?: string;
 
-  @doc("Memory limit.")
-  memory?: string = "1Gi";
+  @doc("Memory limit. Cluster default is '1Gi' if omitted.")
+  memory?: string;
 
   @doc("Number of GPUs (nvidia.com/gpu) requested.")
   @minValue(0)
@@ -295,8 +295,8 @@ union PathType {
 
 @doc("TLS configuration for the Ingress.")
 model TlsConfig {
-  @doc("Whether TLS is enabled on the Ingress. When true, `endpoint.host` and `secretName` are required.")
-  enabled?: boolean = false;
+  @doc("Whether TLS is enabled on the Ingress. Cluster default is false if omitted. When true, `endpoint.host` and `secretName` are required.")
+  enabled?: boolean;
 
   @doc("Name of the Kubernetes TLS secret to use. Required when TLS is enabled.")
   @minLength(1)
@@ -306,8 +306,8 @@ model TlsConfig {
 
 @doc("External endpoint (Kubernetes Ingress) configuration for the deployment.")
 model EndpointConfig {
-  @doc("Whether to provision an Ingress for the deployment. Defaults to false.")
-  enabled?: boolean = false;
+  @doc("Whether to provision an Ingress for the deployment. Cluster default is false if omitted.")
+  enabled?: boolean;
 
   @doc("Hostname for the Ingress.")
   @maxLength(253)
@@ -319,11 +319,11 @@ model EndpointConfig {
   @doc("Target path to rewrite incoming requests to.")
   rewritePath?: string;
 
-  @doc("Path matching type. Defaults to 'ImplementationSpecific'.")
-  pathType?: PathType = PathType.ImplementationSpecific;
+  @doc("Path matching type. Cluster default is 'ImplementationSpecific' if omitted.")
+  pathType?: PathType;
 
-  @doc("Name of the IngressClass to use. Defaults to 'nginx'.")
-  ingressClassName?: string = "nginx";
+  @doc("Name of the IngressClass to use. Cluster default is 'nginx' if omitted.")
+  ingressClassName?: string;
 
   @doc("TLS configuration for the Ingress.")
   tls?: TlsConfig;

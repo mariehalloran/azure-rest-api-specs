@@ -53,6 +53,14 @@ directive:
     reason: >-
       Kubernetes node selector labels are user-defined free-form key/value
       pairs.
+  - suppress: XMSSecretInResponse
+    from: openapi.json
+    reason: >-
+      usernameKey and passwordKey on SecretReference are NAMES of keys
+      within the referenced Kubernetes Secret (e.g. "username", "password"),
+      not secret credential values. The actual credentials live inside the
+      Secret object on the cluster. The property names contain "Key" which
+      triggers a false positive on this rule.
 ```
 
 ### Tag: package-2026-05-01-preview

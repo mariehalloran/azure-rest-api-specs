@@ -72,12 +72,12 @@ model SecretReference {
   name: string;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "Key NAMES (not secret values) in the referenced Kubernetes Secret."
-  @doc("Key in the secret that holds the username. Defaults to 'username'.")
-  usernameKey?: string = "username";
+  @doc("Key in the secret that holds the username. Defaults to 'username' if omitted.")
+  usernameKey?: string;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "Key NAMES (not secret values) in the referenced Kubernetes Secret."
-  @doc("Key in the secret that holds the password. Defaults to 'password'.")
-  passwordKey?: string = "password";
+  @doc("Key in the secret that holds the password. Defaults to 'password' if omitted.")
+  passwordKey?: string;
 }
 
 @doc("Discriminator for the kind of registry credentials used to pull a custom model image.")
@@ -159,10 +159,10 @@ model ModelVariant {
   @minValue(0)
   fileSizeBytes?: int64;
 
-  @doc("Selection priority for this variant. Lower values are preferred. Defaults to 50.")
+  @doc("Selection priority for this variant. Lower values are preferred. Cluster default is 50 if omitted.")
   @minValue(1)
   @maxValue(100)
-  priority?: int32 = 50;
+  priority?: int32;
 }
 
 @doc("Resource requirements for a Model.")
@@ -187,8 +187,8 @@ model ModelCapabilities {
   @minValue(1)
   contextLength?: int32;
 
-  @doc("Whether the model supports streaming responses. Defaults to false.")
-  streaming?: boolean = false;
+  @doc("Whether the model supports streaming responses. Cluster default is false if omitted.")
+  streaming?: boolean;
 }
 
 @doc("Properties of a Model resource.")

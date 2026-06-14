@@ -884,8 +884,7 @@
       "properties": {
         "enabled": {
           "type": "boolean",
-          "description": "Whether to provision an Ingress for the deployment. Defaults to false.",
-          "default": false
+          "description": "Whether to provision an Ingress for the deployment. Cluster default is false if omitted."
         },
         "host": {
           "type": "string",
@@ -901,40 +900,12 @@
           "description": "Target path to rewrite incoming requests to."
         },
         "pathType": {
-          "type": "string",
-          "description": "Path matching type. Defaults to 'ImplementationSpecific'.",
-          "default": "ImplementationSpecific",
-          "enum": [
-            "Prefix",
-            "Exact",
-            "ImplementationSpecific"
-          ],
-          "x-ms-enum": {
-            "name": "PathType",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "Prefix",
-                "value": "Prefix",
-                "description": "Match by URL path prefix."
-              },
-              {
-                "name": "Exact",
-                "value": "Exact",
-                "description": "Exact path match."
-              },
-              {
-                "name": "ImplementationSpecific",
-                "value": "ImplementationSpecific",
-                "description": "Implementation-specific path match semantics, as defined by the Ingress controller."
-              }
-            ]
-          }
+          "$ref": "#/definitions/PathType",
+          "description": "Path matching type. Cluster default is 'ImplementationSpecific' if omitted."
         },
         "ingressClassName": {
           "type": "string",
-          "description": "Name of the IngressClass to use. Defaults to 'nginx'.",
-          "default": "nginx"
+          "description": "Name of the IngressClass to use. Cluster default is 'nginx' if omitted."
         },
         "tls": {
           "$ref": "#/definitions/TlsConfig",
@@ -1229,8 +1200,7 @@
         },
         "streaming": {
           "type": "boolean",
-          "description": "Whether the model supports streaming responses. Defaults to false.",
-          "default": false
+          "description": "Whether the model supports streaming responses. Cluster default is false if omitted."
         }
       }
     },
@@ -2075,8 +2045,7 @@
         "priority": {
           "type": "integer",
           "format": "int32",
-          "description": "Selection priority for this variant. Lower values are preferred. Defaults to 50.",
-          "default": 50,
+          "description": "Selection priority for this variant. Lower values are preferred. Cluster default is 50 if omitted.",
           "minimum": 1,
           "maximum": 100
         }
@@ -2238,13 +2207,11 @@
       "properties": {
         "cpu": {
           "type": "string",
-          "description": "CPU limit.",
-          "default": "4000m"
+          "description": "CPU limit. Cluster default is '4000m' if omitted."
         },
         "memory": {
           "type": "string",
-          "description": "Memory limit.",
-          "default": "1Gi"
+          "description": "Memory limit. Cluster default is '1Gi' if omitted."
         },
         "gpu": {
           "type": "integer",
@@ -2261,13 +2228,11 @@
       "properties": {
         "cpu": {
           "type": "string",
-          "description": "CPU request, e.g. '100m', '0.5', '2'.",
-          "default": "2000m"
+          "description": "CPU request, e.g. '100m', '0.5', '2'. Cluster default is '2000m' if omitted."
         },
         "memory": {
           "type": "string",
-          "description": "Memory request, e.g. '256Mi', '1Gi'.",
-          "default": "256Mi"
+          "description": "Memory request, e.g. '256Mi', '1Gi'. Cluster default is '256Mi' if omitted."
         }
       }
     },
@@ -2327,13 +2292,11 @@
         },
         "usernameKey": {
           "type": "string",
-          "description": "Key in the secret that holds the username. Defaults to 'username'.",
-          "default": "username"
+          "description": "Key in the secret that holds the username. Defaults to 'username' if omitted."
         },
         "passwordKey": {
           "type": "string",
-          "description": "Key in the secret that holds the password. Defaults to 'password'.",
-          "default": "password"
+          "description": "Key in the secret that holds the password. Defaults to 'password' if omitted."
         }
       },
       "required": [
@@ -2346,8 +2309,7 @@
       "properties": {
         "enabled": {
           "type": "boolean",
-          "description": "Whether TLS is enabled on the Ingress. When true, `endpoint.host` and `secretName` are required.",
-          "default": false
+          "description": "Whether TLS is enabled on the Ingress. Cluster default is false if omitted. When true, `endpoint.host` and `secretName` are required."
         },
         "secretName": {
           "type": "string",
@@ -2452,8 +2414,7 @@
         "modelCacheStorageGi": {
           "type": "integer",
           "format": "int32",
-          "description": "Size of the model weight cache PVC in GiB. Defaults to 100.",
-          "default": 100,
+          "description": "Size of the model weight cache PVC in GiB. Cluster default is 100 if omitted.",
           "minimum": 1
         },
         "preferences": {
