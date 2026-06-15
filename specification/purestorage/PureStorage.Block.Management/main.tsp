@@ -1647,7 +1647,7 @@ model VolumeGroupSnapshot is ProxyResource<VolumeGroupSnapshotProperties> {
   @path
   @minLength(1)
   @maxLength(64)
-  @pattern("^[A-Za-z0-9-]{0,63}[A-Za-z0-9]$")
+  @pattern("^[A-Za-z0-9]{0,63}[A-Za-z0-9]$")
   name: string;
 }
 
@@ -1660,6 +1660,7 @@ model VolumeGroupSnapshotListResult {
   value: VolumeGroupSnapshot[];
 
   @doc("URL to fetch the next page of results")
+  @nextLink
   nextLink?: url;
 
   @doc("Number of snapshots in this response page")
