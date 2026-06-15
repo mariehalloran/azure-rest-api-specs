@@ -1,0 +1,139 @@
+{
+  "operationId": "ContainerNodes_CreateOrUpdate",
+  "title": "Create or update a container node (proxy of site)",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "siteName": "myContainerSite",
+    "nodeName": "worker-01",
+    "resource": {
+      "properties": {
+        "nodeDisplayName": "worker-01",
+        "nodeRole": "worker",
+        "machineArmId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.OffAzure/serverSites/mySite/machines/vm-001",
+        "availability": "Ready",
+        "hostOs": {
+          "osType": "linux",
+          "osDistribution": "Ubuntu",
+          "osVersion": "22.04",
+          "kernelVersion": "5.15.0-76",
+          "cpuArchitecture": "x86_64"
+        },
+        "containerRuntimes": [
+          {
+            "runtimeName": "containerd",
+            "runtimeType": "containerd",
+            "runtimeVersion": "1.7.2",
+            "socketPath": "/run/containerd/containerd.sock",
+            "storageDriver": "overlayfs",
+            "cgroupDriver": "systemd",
+            "isRootless": false,
+            "runningContainerCount": 15
+          }
+        ],
+        "orchestratorAgent": {
+          "agentName": "kubelet",
+          "agentVersion": "1.28.4",
+          "nodeStatus": "Ready"
+        },
+        "nodeCapacity": {
+          "totalCpu": "4",
+          "totalMemory": "16Gi",
+          "totalEphemeralStorage": "100Gi",
+          "allocatableCpu": "4",
+          "allocatableMemory": "8192Mi",
+          "allocatableEphemeralStorage": "50Gi",
+          "requestedCpu": "2500m",
+          "requestedMemory": "4096Mi",
+          "maxPods": 110,
+          "runningPodCount": 15,
+          "podDensity": 0.14
+        },
+        "gpu": {
+          "gpuPresent": false
+        },
+        "hypervisor": {
+          "type": "vmware",
+          "version": "7.0.3"
+        },
+        "nodeLabels": [
+          {
+            "key": "kubernetes.io/os",
+            "value": "linux"
+          },
+          {
+            "key": "topology.kubernetes.io/zone",
+            "value": "us-east-1a"
+          },
+          {
+            "key": "node.kubernetes.io/instance-type",
+            "value": "Standard_D4s_v3"
+          }
+        ],
+        "nodeTaints": [],
+        "nodeConditions": [
+          {
+            "type": "Ready",
+            "status": "True",
+            "reason": "KubeletReady"
+          },
+          {
+            "type": "MemoryPressure",
+            "status": "False",
+            "reason": "KubeletHasSufficientMemory"
+          },
+          {
+            "type": "DiskPressure",
+            "status": "False",
+            "reason": "KubeletHasNoDiskPressure"
+          }
+        ],
+        "nodeAnnotations": [],
+        "isStandaloneHost": false,
+        "containerClusterId": "kube-system-uid-abc123",
+        "clusterArmId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerClusters/kube-system-uid-abc123",
+        "hostId": "host-guid-001",
+        "hostFqdn": "worker-01.contoso.local",
+        "hostPrimaryIp": "10.0.1.10",
+        "discoveryCompleteness": "deep-complete",
+        "isShallowCompleted": true,
+        "isDeepDiscoveryCompleted": true
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerNodes/worker-01",
+        "name": "worker-01",
+        "type": "Microsoft.ApplicationMigration/containerSites/containerNodes",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "containerNodeId": "worker-01",
+          "nodeRole": "worker",
+          "availability": "Ready",
+          "isStandaloneHost": false,
+          "containerClusterId": "kube-system-uid-abc123",
+          "discoveryCompleteness": "deep-complete"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerNodes/worker-01",
+        "name": "worker-01",
+        "type": "Microsoft.ApplicationMigration/containerSites/containerNodes",
+        "properties": {
+          "provisioningState": "Creating",
+          "containerNodeId": "worker-01",
+          "nodeRole": "worker",
+          "availability": "Ready",
+          "isStandaloneHost": false,
+          "containerClusterId": "kube-system-uid-abc123",
+          "discoveryCompleteness": "deep-complete"
+        }
+      }
+    }
+  }
+}

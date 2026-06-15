@@ -15,12 +15,9 @@ options:
     output-file: "{azure-resource-provider-folder}/{service-name}/Accounts/{version-status}/{version}/azuremonitorworkspace.json"
     new-line: lf
     omit-unreachable-types: true
-  "@azure-tools/typespec-csharp":
-    flavor: azure
-    emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.MonitorAccounts"
-    clear-output-folder: true
-    model-namespace: true
+  "@azure-typespec/http-client-csharp-mgmt":
     namespace: "Azure.ResourceManager.MonitorAccounts"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-python":
     emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-monitoraccounts"
     namespace: "azure.mgmt.monitoraccounts"
