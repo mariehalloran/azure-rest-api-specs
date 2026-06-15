@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "StorageMoverClient",
-    "version": "2025-12-01",
+    "version": "2026-05-01",
     "description": "The Azure Storage Mover REST API.",
     "x-typespec-generated": [
       {
@@ -1053,6 +1053,9 @@
           "Endpoints_Get_AzureStorageBlobContainer": {
             "$ref": "./examples/Endpoints_Get_AzureStorageBlobContainer.json"
           },
+          "Endpoints_Get_AzureStorageBlobContainer_CrossTenant": {
+            "$ref": "./examples/Endpoints_Get_AzureStorageBlobContainer_CrossTenant.json"
+          },
           "Endpoints_Get_AzureStorageNfsFileShare": {
             "$ref": "./examples/Endpoints_Get_AzureStorageNfsFileShare.json"
           },
@@ -1132,6 +1135,9 @@
           "Endpoints_CreateOrUpdate_AzureStorageBlobContainer": {
             "$ref": "./examples/Endpoints_CreateOrUpdate_AzureStorageBlobContainer.json"
           },
+          "Endpoints_CreateOrUpdate_AzureStorageBlobContainer_CrossTenant": {
+            "$ref": "./examples/Endpoints_CreateOrUpdate_AzureStorageBlobContainer_CrossTenant.json"
+          },
           "Endpoints_CreateOrUpdate_AzureStorageNfsFileShare": {
             "$ref": "./examples/Endpoints_CreateOrUpdate_AzureStorageNfsFileShare.json"
           },
@@ -1210,6 +1216,9 @@
           },
           "Endpoints_Update_AzureStorageBlobContainer": {
             "$ref": "./examples/Endpoints_Update_AzureStorageBlobContainer.json"
+          },
+          "Endpoints_Update_AzureStorageBlobContainer_CrossTenant": {
+            "$ref": "./examples/Endpoints_Update_AzureStorageBlobContainer_CrossTenant.json"
           },
           "Endpoints_Update_AzureStorageNfsFileShare": {
             "$ref": "./examples/Endpoints_Update_AzureStorageNfsFileShare.json"
@@ -1710,6 +1719,9 @@
           "JobDefinitions_Get": {
             "$ref": "./examples/JobDefinitions_Get.json"
           },
+          "JobDefinitions_Get_CrossTenant": {
+            "$ref": "./examples/JobDefinitions_Get_CrossTenant.json"
+          },
           "JobDefinitions_Get_With_Schedule": {
             "$ref": "./examples/JobDefinitions_Get_With_Schedule.json"
           }
@@ -1783,6 +1795,9 @@
           },
           "JobDefinitions_CreateOrUpdate_CloudToCloud": {
             "$ref": "./examples/JobDefinitions_CreateOrUpdate_CloudToCloud.json"
+          },
+          "JobDefinitions_CreateOrUpdate_CrossTenant": {
+            "$ref": "./examples/JobDefinitions_CreateOrUpdate_CrossTenant.json"
           },
           "JobDefinitions_CreateOrUpdate_With_Schedule": {
             "$ref": "./examples/JobDefinitions_CreateOrUpdate_With_Schedule.json"
@@ -2519,6 +2534,26 @@
             "read",
             "create"
           ]
+        },
+        "enableCrossTenantTransfer": {
+          "type": "boolean",
+          "description": "Opt-in flag enabling this endpoint to be used as one side of a cross-tenant\ndata transfer pair. When set to true, RBAC for the endpoint's managed\nidentity is granted on the customer's storage account so that authorization\ncan be performed entirely in the tenant where this endpoint lives. Defaults\nto false. Can be updated via PATCH."
+        },
+        "allowedStorageAccounts": {
+          "type": "array",
+          "description": "Full ARM resource IDs of partner-tenant storage accounts that are allowed\nto be the other side of a cross-tenant data transfer pair with this\nendpoint. For a source endpoint this lists allowed target storage accounts;\nfor a target endpoint this lists allowed source storage accounts.\nThe full list is replaced on PATCH (omit an entry to remove it; include\nan entry to add it). Mutual presence in both endpoints' allow lists is\nre-validated at every job run start, so removing an entry blocks future\nruns that reference the removed storage account.",
+          "items": {
+            "type": "string",
+            "format": "arm-id",
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Microsoft.Storage/storageAccounts"
+                }
+              ]
+            }
+          }
         }
       },
       "required": [
@@ -2534,6 +2569,28 @@
     },
     "AzureStorageBlobContainerEndpointUpdateProperties": {
       "type": "object",
+      "properties": {
+        "enableCrossTenantTransfer": {
+          "type": "boolean",
+          "description": "Opt-in flag enabling this endpoint to be used as one side of a cross-tenant\ndata transfer pair. Defaults to false."
+        },
+        "allowedStorageAccounts": {
+          "type": "array",
+          "description": "Replaces the list of partner-tenant storage account ARM IDs allowed to be\nthe other side of a cross-tenant data transfer pair with this endpoint.\nOmit an entry to remove it; include an entry to add it. Removing an entry\nblocks future job runs that reference that storage account.",
+          "items": {
+            "type": "string",
+            "format": "arm-id",
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Microsoft.Storage/storageAccounts"
+                }
+              ]
+            }
+          }
+        }
+      },
       "allOf": [
         {
           "$ref": "#/definitions/EndpointBaseUpdateProperties"
@@ -3069,7 +3126,8 @@
         "Daily",
         "Onetime",
         "Custom",
-        "None"
+        "None",
+        "Hourly"
       ],
       "x-ms-enum": {
         "name": "Frequency",
@@ -3098,6 +3156,10 @@
           {
             "name": "None",
             "value": "None"
+          },
+          {
+            "name": "Hourly",
+            "value": "Hourly"
           }
         ]
       }
@@ -3157,7 +3219,8 @@
           "default": "OnPremToCloud",
           "enum": [
             "OnPremToCloud",
-            "CloudToCloud"
+            "CloudToCloud",
+            "OnPremToCloudAgentLess"
           ],
           "x-ms-enum": {
             "name": "JobType",
@@ -3170,6 +3233,10 @@
               {
                 "name": "CloudToCloud",
                 "value": "CloudToCloud"
+              },
+              {
+                "name": "OnPremToCloudAgentLess",
+                "value": "OnPremToCloudAgentLess"
               }
             ]
           }
@@ -3308,6 +3375,38 @@
           "type": "boolean",
           "description": "Boolean to preserve permissions or not.",
           "default": true
+        },
+        "isCrossTenantJob": {
+          "type": "boolean",
+          "description": "Indicates that this Job Definition is a cross-tenant job where the source\nendpoint resides in a different Azure AD tenant from the Job Definition.\nThe Job Definition must be created in the destination (target) tenant.\nWhen true, `crossTenantSourceTenantId` and\n`crossTenantSourceEndpointResourceId` must be provided. Defaults to false.\nCannot be modified after the Job Definition is created.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "crossTenantSourceTenantId": {
+          "type": "string",
+          "description": "The Azure AD tenant ID of the cross-tenant source endpoint. Required when\n`isCrossTenantJob` is true. Cannot be modified after the Job Definition is\ncreated.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "crossTenantSourceEndpointResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Fully qualified resource ID of the cross-tenant source Endpoint. Required\nwhen `isCrossTenantJob` is true. Cannot be modified after the Job\nDefinition is created.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.StorageMover/storageMovers/endpoints"
+              }
+            ]
+          }
         }
       },
       "required": [
@@ -4004,7 +4103,10 @@
         "BACKBLAZE",
         "IBM",
         "CLOUDFLARE",
-        "GCS"
+        "GCS",
+        "ALIBABA",
+        "DELL_EMC",
+        "OTHER"
       ],
       "x-ms-enum": {
         "name": "S3WithHmacSourceType",
@@ -4029,6 +4131,18 @@
           {
             "name": "GCS",
             "value": "GCS"
+          },
+          {
+            "name": "ALIBABA",
+            "value": "ALIBABA"
+          },
+          {
+            "name": "DELL_EMC",
+            "value": "DELL_EMC"
+          },
+          {
+            "name": "OTHER",
+            "value": "OTHER"
           }
         ]
       }
@@ -4077,6 +4191,10 @@
           "type": "string",
           "format": "date-time",
           "description": "End time of the schedule (in UTC)"
+        },
+        "repeatInterval": {
+          "type": "string",
+          "description": "Repeat interval used for sub-daily schedules."
         }
       }
     },
