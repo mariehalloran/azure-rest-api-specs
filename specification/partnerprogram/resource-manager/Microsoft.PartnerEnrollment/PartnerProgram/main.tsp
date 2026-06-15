@@ -1,0 +1,85 @@
+import "@typespec/http";
+import "@typespec/rest";
+import "@typespec/versioning";
+import "@azure-tools/typespec-azure-core";
+import "@azure-tools/typespec-azure-resource-manager";
+
+using TypeSpec.Http;
+using TypeSpec.Rest;
+using TypeSpec.Versioning;
+using Azure.ResourceManager;
+
+@armProviderNamespace("Microsoft.PartnerEnrollment")
+@service(#{ title: "PartnerEnrollmentClient" })
+@versioned(Versions)
+@armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
+namespace Microsoft.PartnerEnrollment;
+
+enum Versions {
+  `2026-05-25-preview`,
+}
+
+interface Operations extends Azure.ResourceManager.Operations {}
+
+@doc("A MaicppProgram resource representing a Microsoft AI Cloud Partner Program registration. This is a singleton resource: at most one instance with the fixed name `default` can exist per resource group.")
+@singleton("default")
+model MaicppProgram is ProxyResource<MaicppProgramProperties> {
+  @doc("The name of the MaicppProgram resource. Always `default` because this is a singleton resource.")
+  @key("maicppProgramName")
+  @segment("maicppPrograms")
+  @pattern("^default$")
+  @path
+  name: string;
+}
+
+@doc("Current status of the partner enrollment as reported by the Enrollment State service.")
+union EnrollmentStatus {
+  string,
+
+  @doc("The enrollment has been submitted but is not yet registered with the Enrollment State service.")
+  NotRegistered: "NotRegistered",
+
+  @doc("The enrollment has been initialized and acknowledged by the Enrollment State service.")
+  Initialized: "Initialized",
+
+  @doc("The enrollment status could not be determined or has not yet been reported by the Enrollment State service.")
+  Unknown: "Unknown",
+}
+
+@doc("""
+  Properties of the MaicppProgram singleton resource. All properties are server-populated and read-only:
+  creating the `default` resource via PUT with an empty `properties` body is the enrollment trigger itself
+  (no client-supplied input is accepted), and the service returns the derived state — `provisioningState`,
+  `programId`, `billingAccountId`, `enrollmentId`, and `status` — in the response. There are no writable
+  properties by design; any future client-supplied configuration will be added here as non-read-only fields.
+  """)
+model MaicppProgramProperties {
+  @visibility(Lifecycle.Read)
+  @doc("Provisioning state of the resource.")
+  provisioningState?: ResourceProvisioningState;
+
+  @visibility(Lifecycle.Read)
+  @doc("Identifier of the partner program. Populated by the service on create.")
+  programId?: string;
+
+  @visibility(Lifecycle.Read)
+  @doc("Billing account identifier associated with this enrollment. Populated by the service on create.")
+  billingAccountId?: string;
+
+  @visibility(Lifecycle.Read)
+  @doc("Identifier returned by the Enrollment State service for this enrollment.")
+  enrollmentId?: string;
+
+  @visibility(Lifecycle.Read)
+  @doc("Current status of the enrollment as reported by the Enrollment State service.")
+  status?: EnrollmentStatus;
+}
+
+@armResourceOperations(MaicppProgram)
+interface MaicppPrograms {
+  get is ArmResourceRead<MaicppProgram>;
+  createOrUpdate is ArmResourceCreateOrReplaceSync<MaicppProgram>;
+  delete is ArmResourceDeleteSync<MaicppProgram>;
+  listByResourceGroup is ArmResourceListByParent<MaicppProgram>;
+  listBySubscription is ArmListBySubscription<MaicppProgram>;
+}

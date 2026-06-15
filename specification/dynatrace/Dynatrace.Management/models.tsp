@@ -864,6 +864,11 @@ model EnvironmentInfo {
    */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   landingURL?: string;
+
+  /**
+   * API URL for Dynatrace environment API endpoints
+   */
+  apiUrl?: string;
 }
 
 /**

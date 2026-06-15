@@ -2785,6 +2785,10 @@
           "type": "string",
           "description": "Periodicity of the recurrence."
         },
+        "cronExpression": {
+          "type": "string",
+          "description": "Cron expression for the recurrence."
+        },
         "timeout": {
           "type": "string",
           "description": "Timeout for the recurrence."
@@ -2991,7 +2995,7 @@
       "description": "Schedule type",
       "enum": [
         "Periodic",
-        "ManualTrigger"
+        "Cron"
       ],
       "x-ms-enum": {
         "name": "ScheduleType",
@@ -3003,9 +3007,9 @@
             "description": "Periodic schedule type."
           },
           {
-            "name": "ManualTrigger",
-            "value": "ManualTrigger",
-            "description": "Manual trigger schedule type."
+            "name": "Cron",
+            "value": "Cron",
+            "description": "Cron schedule type."
           }
         ]
       }

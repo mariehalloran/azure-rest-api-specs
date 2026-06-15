@@ -12,14 +12,9 @@ options:
     output-file: "{azure-resource-provider-folder}/{service-name}/{version-status}/{version}/resourceintelligence.json"
     emit-lro-options: "all"
     examples-dir: "{project-root}/examples"
-  "@azure-tools/typespec-csharp":
-    flavor: azure
-    emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.ResourceIntelligence"
-    clear-output-folder: true
-    model-namespace: true
+  "@azure-typespec/http-client-csharp-mgmt":
     namespace: "Azure.ResourceManager.ResourceIntelligence"
-    examples-dir: "{project-root}/examples"
-    enable-bicep-serialization: true
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-python":
     emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-resourceintelligence"
     namespace: "azure.mgmt.resourceintelligence"

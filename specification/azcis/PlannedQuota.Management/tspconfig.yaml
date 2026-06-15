@@ -11,14 +11,9 @@ options:
     examples-dir: "{project-root}/examples"
     output-file: "{azure-resource-provider-folder}/{service-name}/{version-status}/{version}/plannedQuota.json"
     use-read-only-status-schema: "true"
-  "@azure-tools/typespec-csharp":
-    service-name: "PlannedQuota"
-    package-dir: "Azure.ResourceManager.PlannedQuota"
+  "@azure-typespec/http-client-csharp-mgmt":
     namespace: "Azure.ResourceManager.PlannedQuota"
-    model-namespace: true
-    clear-output-folder: true
-    flavor: "azure"
-    emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.PlannedQuota"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-go":
     service-dir: "sdk/resourcemanager/plannedquota"
     package-dir: "armplannedquota"
