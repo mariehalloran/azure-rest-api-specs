@@ -1458,11 +1458,15 @@
         },
         "compute": {
           "$ref": "#/definitions/ComputeType",
-          "description": "Compute type for the deployment."
+          "description": "Compute type for the deployment. Immutable after create.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         },
         "workloadType": {
           "type": "string",
-          "description": "Type of inference workload. Defaults to `Generative`. `Predictive` requires a Custom model.",
+          "description": "Type of inference workload. Defaults to `Generative`. `Predictive` requires a Custom model. Immutable after create.",
           "default": "Generative",
           "enum": [
             "Generative",
@@ -1483,11 +1487,15 @@
                 "description": "Predictive (classification/regression) workload. Requires a custom model."
               }
             ]
-          }
+          },
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         },
         "runtime": {
           "type": "string",
-          "description": "Inference runtime engine. Defaults to `OnnxGenai`. Must be `Maas` if and only if the model is `Maas`. `Vllm` requires `Gpu` compute.",
+          "description": "Inference runtime engine. Defaults to `OnnxGenai`. Must be `Maas` if and only if the model is `Maas`. `Vllm` requires `Gpu` compute. Immutable after create.",
           "default": "OnnxGenai",
           "enum": [
             "OnnxGenai",
@@ -1514,7 +1522,11 @@
                 "description": "Models-as-a-Service router. Forwards inference requests to an external MaaS endpoint. Required when using the Maas model variant."
               }
             ]
-          }
+          },
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         },
         "displayName": {
           "type": "string",
@@ -1650,16 +1662,8 @@
     },
     "ModelDeploymentUpdateProperties": {
       "type": "object",
-      "description": "The updatable properties of the ModelDeployment. The model reference is immutable post-create; runtime configuration, replicas, scheduling, env, and endpoint can be updated.",
+      "description": "The updatable properties of the ModelDeployment. The model reference, compute, workloadType, and runtime are immutable post-create; replicas, port, scheduling, env, resources, and endpoint can be updated.",
       "properties": {
-        "workloadType": {
-          "$ref": "#/definitions/WorkloadType",
-          "description": "Type of inference workload."
-        },
-        "runtime": {
-          "$ref": "#/definitions/RuntimeType",
-          "description": "Inference runtime engine."
-        },
         "displayName": {
           "type": "string",
           "description": "Human-readable deployment name.",

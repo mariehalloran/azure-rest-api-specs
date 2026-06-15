@@ -481,13 +481,16 @@ model ModelDeploymentProperties {
   @visibility(Lifecycle.Read, Lifecycle.Create)
   `model`: ModelReference;
 
-  @doc("Compute type for the deployment.")
+  @doc("Compute type for the deployment. Immutable after create.")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
   compute: ComputeType;
 
-  @doc("Type of inference workload. Defaults to `Generative`. `Predictive` requires a Custom model.")
+  @doc("Type of inference workload. Defaults to `Generative`. `Predictive` requires a Custom model. Immutable after create.")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
   workloadType?: WorkloadType = WorkloadType.Generative;
 
-  @doc("Inference runtime engine. Defaults to `OnnxGenai`. Must be `Maas` if and only if the model is `Maas`. `Vllm` requires `Gpu` compute.")
+  @doc("Inference runtime engine. Defaults to `OnnxGenai`. Must be `Maas` if and only if the model is `Maas`. `Vllm` requires `Gpu` compute. Immutable after create.")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
   runtime?: RuntimeType = RuntimeType.OnnxGenai;
 
   @doc("Human-readable deployment name shown in tooling.")
@@ -551,14 +554,8 @@ model ModelDeploymentUpdate {
   properties?: ModelDeploymentUpdateProperties;
 }
 
-@doc("The updatable properties of the ModelDeployment. The model reference is immutable post-create; runtime configuration, replicas, scheduling, env, and endpoint can be updated.")
+@doc("The updatable properties of the ModelDeployment. The model reference, compute, workloadType, and runtime are immutable post-create; replicas, port, scheduling, env, resources, and endpoint can be updated.")
 model ModelDeploymentUpdateProperties {
-  @doc("Type of inference workload.")
-  workloadType?: WorkloadType;
-
-  @doc("Inference runtime engine.")
-  runtime?: RuntimeType;
-
   @doc("Human-readable deployment name.")
   @maxLength(256)
   displayName?: string;
