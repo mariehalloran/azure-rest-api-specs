@@ -1,0 +1,22 @@
+{
+  "title": "Restore a soft-deleted environment",
+  "operationId": "DeletedEnvironments_Restore",
+  "parameters": {
+    "api-version": "2026-03-01-preview",
+    "subscriptionId": "5C4A0939-B396-4DCB-A217-BBC6A736791F",
+    "resourceGroupName": "rgCosmicRP",
+    "namespaceName": "substrate-topology-pilot",
+    "deletedEnvironmentName": "prod-ring",
+    "body": {
+      "platformRing": "prod"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "environmentName": "prod-ring",
+        "restored": true
+      }
+    }
+  }
+}
