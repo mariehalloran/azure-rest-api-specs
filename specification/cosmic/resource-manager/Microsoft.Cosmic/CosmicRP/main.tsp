@@ -9,6 +9,8 @@ import "./environment.tsp";
 import "./migration.tsp";
 import "./deletedEnvironments.tsp";
 
+import "./client.tsp";
+
 using Azure.Core;
 using Azure.ResourceManager;
 using Versioning;

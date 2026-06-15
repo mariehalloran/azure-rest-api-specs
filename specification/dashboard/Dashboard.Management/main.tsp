@@ -21,6 +21,7 @@ import "./IntegrationFabric.tsp";
 import "./ManagedDashboard.tsp";
 import "./DashboardDefinition.tsp";
 import "./GrafanaDefinition.tsp";
+import "./client.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;

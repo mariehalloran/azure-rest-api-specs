@@ -23,6 +23,7 @@ import "./PostgresInstance.tsp";
 import "./SqlServerAvailabilityGroupResource.tsp";
 import "./SqlServerDatabaseResource.tsp";
 import "./SqlServerEsuLicense.tsp";
+import "./client.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;

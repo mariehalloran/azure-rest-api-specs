@@ -3,3 +3,4 @@ import "./loadbalancer.tsp";
 import "./bgppeer.tsp";
 import "./service.tsp";
 import "./bfdprofile.tsp";
+import "./client.tsp";

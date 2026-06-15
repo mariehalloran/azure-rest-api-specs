@@ -15,6 +15,7 @@ import "./PublicCloud.tsp";
 import "./back-compatible.tsp";
 
 import "@azure-tools/typespec-client-generator-core";
+import "./client.tsp";
 
 using Azure.ClientGenerator.Core;
 using Azure.ResourceManager;
