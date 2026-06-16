@@ -2564,6 +2564,11 @@
           "format": "int32",
           "description": "The number of instances to realize for this partition.",
           "minimum": 1
+        },
+        "routingPartition": {
+          "type": "string",
+          "description": "Optional routing partition associated with this capacity partition. Format: {ring}_Efz_{region}, e.g. 'test_Efz_DSM'.",
+          "pattern": "^[a-z0-9]+_Efz_[A-Za-z0-9]+$"
         }
       },
       "required": [
