@@ -294,28 +294,28 @@ union CmkIdentityType {
 @doc("The identity used to access the customer-managed key in Key Vault.")
 @added(Versions.v2026_06_01_preview)
 model KeyEncryptionKeyIdentity {
-  @doc("The type of identity used to access the key. Only 'userAssignedIdentity' is supported.")
-  identityType: CmkIdentityType;
+  @doc("The type of identity used to access the key. Only 'userAssignedIdentity' is supported. Required by the service when configuring customer-managed key encryption.")
+  identityType?: CmkIdentityType;
 
-  @doc("The ARM resource id of the user-assigned managed identity used to access the key. It must be one of the identities assigned to the resource.")
-  userAssignedIdentityResourceId: string;
+  @doc("The ARM resource id of the user-assigned managed identity used to access the key. It must be one of the identities assigned to the resource. Required by the service when configuring customer-managed key encryption.")
+  userAssignedIdentityResourceId?: string;
 }
 
 @doc("Customer-managed key encryption properties for the catalog.")
 @added(Versions.v2026_06_01_preview)
 model CustomerManagedKeyEncryption {
-  @doc("The identity used to access the key encryption key in Key Vault.")
-  keyEncryptionKeyIdentity: KeyEncryptionKeyIdentity;
+  @doc("The identity used to access the key encryption key in Key Vault. Required by the service when configuring customer-managed key encryption.")
+  keyEncryptionKeyIdentity?: KeyEncryptionKeyIdentity;
 
-  @doc("The Key Vault key URL used to encrypt the catalog. A versionless URL (.../keys/{name}) or a versioned URL (.../keys/{name}/{version}) is accepted.")
-  keyEncryptionKeyUrl: string;
+  @doc("The Key Vault key URL used to encrypt the catalog. A versionless URL (.../keys/{name}) or a versioned URL (.../keys/{name}/{version}) is accepted. Required by the service when configuring customer-managed key encryption.")
+  keyEncryptionKeyUrl?: string;
 }
 
 @doc("Encryption settings for the catalog.")
 @added(Versions.v2026_06_01_preview)
 model EncryptionSettings {
-  @doc("All customer-managed key encryption properties for the catalog.")
-  customerManagedKeyEncryption: CustomerManagedKeyEncryption;
+  @doc("All customer-managed key encryption properties for the catalog. Required by the service when enabling customer-managed key encryption; optional on the wire to satisfy partial-update (PATCH) semantics.")
+  customerManagedKeyEncryption?: CustomerManagedKeyEncryption;
 
   @doc("The current status of customer-managed key encryption. This property is read-only and is computed by the service.")
   @visibility(Lifecycle.Read)

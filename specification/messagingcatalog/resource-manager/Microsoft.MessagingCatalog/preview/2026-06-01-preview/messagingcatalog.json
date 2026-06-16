@@ -1320,17 +1320,13 @@
       "properties": {
         "keyEncryptionKeyIdentity": {
           "$ref": "#/definitions/KeyEncryptionKeyIdentity",
-          "description": "The identity used to access the key encryption key in Key Vault."
+          "description": "The identity used to access the key encryption key in Key Vault. Required by the service when configuring customer-managed key encryption."
         },
         "keyEncryptionKeyUrl": {
           "type": "string",
-          "description": "The Key Vault key URL used to encrypt the catalog. A versionless URL (.../keys/{name}) or a versioned URL (.../keys/{name}/{version}) is accepted."
+          "description": "The Key Vault key URL used to encrypt the catalog. A versionless URL (.../keys/{name}) or a versioned URL (.../keys/{name}/{version}) is accepted. Required by the service when configuring customer-managed key encryption."
         }
-      },
-      "required": [
-        "keyEncryptionKeyIdentity",
-        "keyEncryptionKeyUrl"
-      ]
+      }
     },
     "EncryptionSettings": {
       "type": "object",
@@ -1338,17 +1334,14 @@
       "properties": {
         "customerManagedKeyEncryption": {
           "$ref": "#/definitions/CustomerManagedKeyEncryption",
-          "description": "All customer-managed key encryption properties for the catalog."
+          "description": "All customer-managed key encryption properties for the catalog. Required by the service when enabling customer-managed key encryption; optional on the wire to satisfy partial-update (PATCH) semantics."
         },
         "encryptionStatus": {
           "$ref": "#/definitions/EncryptionStatus",
           "description": "The current status of customer-managed key encryption. This property is read-only and is computed by the service.",
           "readOnly": true
         }
-      },
-      "required": [
-        "customerManagedKeyEncryption"
-      ]
+      }
     },
     "EncryptionStatus": {
       "type": "string",
@@ -1440,17 +1433,13 @@
       "properties": {
         "identityType": {
           "$ref": "#/definitions/CmkIdentityType",
-          "description": "The type of identity used to access the key. Only 'userAssignedIdentity' is supported."
+          "description": "The type of identity used to access the key. Only 'userAssignedIdentity' is supported. Required by the service when configuring customer-managed key encryption."
         },
         "userAssignedIdentityResourceId": {
           "type": "string",
-          "description": "The ARM resource id of the user-assigned managed identity used to access the key. It must be one of the identities assigned to the resource."
+          "description": "The ARM resource id of the user-assigned managed identity used to access the key. It must be one of the identities assigned to the resource. Required by the service when configuring customer-managed key encryption."
         }
-      },
-      "required": [
-        "identityType",
-        "userAssignedIdentityResourceId"
-      ]
+      }
     },
     "MessagingCatalog": {
       "type": "object",
