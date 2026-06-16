@@ -118,4 +118,12 @@ interface MessagingCatalogs {
     void,
     CmkVerifyResult
   >;
+
+  /**
+   * Disable customer-managed key encryption on the catalog and revert to a
+   * platform-managed key. The stored data encryption key is re-wrapped with the platform
+   * key; catalog data itself is not re-encrypted. Returns the updated catalog.
+   */
+  @added(Versions.v2026_06_01_preview)
+  disableEncryption is ArmResourceActionSync<MessagingCatalog, void, MessagingCatalog>;
 }

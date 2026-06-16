@@ -163,6 +163,10 @@ model MessagingCatalogUpdateProperties {
   @doc("An array of additional metadata about the catalog.")
   @identifiers(#["name"])
   labels?: ResourceLabel[];
+
+  @doc("The customer-managed key encryption settings for the catalog. Supplying this on update enables or updates customer-managed key encryption on an existing catalog.")
+  @added(Versions.v2026_06_01_preview)
+  encryption?: EncryptionSettings;
 }
 
 @doc("Details about the error result.")

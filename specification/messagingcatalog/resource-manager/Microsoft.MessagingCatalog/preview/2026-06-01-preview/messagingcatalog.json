@@ -499,6 +499,58 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MessagingCatalog/catalogs/{catalogName}/disableEncryption": {
+      "post": {
+        "operationId": "MessagingCatalogs_DisableEncryption",
+        "tags": [
+          "MessagingCatalogs"
+        ],
+        "description": "Disable customer-managed key encryption on the catalog and revert to a\nplatform-managed key. The stored data encryption key is re-wrapped with the platform\nkey; catalog data itself is not re-encrypted. Returns the updated catalog.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "catalogName",
+            "in": "path",
+            "description": "The name of the Messaging Catalog",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 60,
+            "pattern": "^[a-zA-Z0-9-]{3,60}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/MessagingCatalog"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "MessagingCatalogs_DisableEncryption_MaximumSet_Gen": {
+            "$ref": "./examples/MessagingCatalogs_DisableEncryption_MaximumSet_Gen.json"
+          },
+          "MessagingCatalogs_DisableEncryption_MinimumSet_Gen": {
+            "$ref": "./examples/MessagingCatalogs_DisableEncryption_MinimumSet_Gen.json"
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MessagingCatalog/catalogs/{catalogName}/listAssociations": {
       "post": {
         "operationId": "MessagingCatalogs_ListAssociations",
@@ -1565,6 +1617,10 @@
           "x-ms-identifiers": [
             "name"
           ]
+        },
+        "encryption": {
+          "$ref": "#/definitions/EncryptionSettings",
+          "description": "The customer-managed key encryption settings for the catalog. Supplying this on update enables or updates customer-managed key encryption on an existing catalog."
         }
       }
     },
