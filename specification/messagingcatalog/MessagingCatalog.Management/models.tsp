@@ -27,6 +27,9 @@ enum Versions {
 
   @doc("The 2025-11-01-preview API version.")
   v2025_11_01_preview: "2025-11-01-preview",
+
+  @doc("The 2026-06-01-preview API version.")
+  v2026_06_01_preview: "2026-06-01-preview",
 }
 
 @doc("Provisioning State")
@@ -118,6 +121,10 @@ model MessagingCatalogProperties {
   /** Gets or sets allow or disallow public network access to resource. */
   @added(Versions.v2025_11_01_preview)
   publicNetworkAccess?: PublicNetworkAccess;
+
+  @doc("The customer-managed key encryption settings for the catalog.")
+  @added(Versions.v2026_06_01_preview)
+  encryption?: EncryptionSettings;
 }
 
 @doc("Additional metadata about the entity.")
@@ -129,6 +136,7 @@ model ResourceLabel {
   value?: string;
 }
 
+#suppress "@azure-tools/typespec-azure-resource-manager/patch-envelope" "Identity is set only at create (PUT) in this preview; PATCH-based identity changes are deferred to GA and the service rejects identity on PATCH."
 @doc("The type used for update operations of the Messaging Catalog.")
 model MessagingCatalogUpdate {
   ...Azure.ResourceManager.Foundations.ArmTagsProperty;
@@ -250,3 +258,82 @@ model FabricPrivateLinksResponse {
   @doc("The private FQDN of the messaging catalog is redirecting to.")
   privateFqdn: string;
 }
+
+@doc("The current status of customer-managed key encryption on the catalog.")
+@added(Versions.v2026_06_01_preview)
+union EncryptionStatus {
+  string,
+
+  @doc("Customer-managed key encryption is disabled.")
+  Disabled: "Disabled",
+
+  @doc("Customer-managed key encryption is enabled.")
+  Enabled: "Enabled",
+}
+
+@doc("The type of identity used to access the key encryption key in Key Vault.")
+@added(Versions.v2026_06_01_preview)
+union CmkIdentityType {
+  string,
+
+  @doc("A user-assigned managed identity is used to access the key. This is the only supported value in this preview.")
+  userAssignedIdentity: "userAssignedIdentity",
+}
+
+@doc("The identity used to access the customer-managed key in Key Vault.")
+@added(Versions.v2026_06_01_preview)
+model KeyEncryptionKeyIdentity {
+  @doc("The type of identity used to access the key. Only 'userAssignedIdentity' is supported.")
+  identityType?: CmkIdentityType;
+
+  @doc("The ARM resource id of the user-assigned managed identity used to access the key. It must be one of the identities assigned to the resource.")
+  userAssignedIdentityResourceId?: string;
+}
+
+@doc("Customer-managed key encryption properties for the catalog.")
+@added(Versions.v2026_06_01_preview)
+model CustomerManagedKeyEncryption {
+  @doc("The identity used to access the key encryption key in Key Vault.")
+  keyEncryptionKeyIdentity?: KeyEncryptionKeyIdentity;
+
+  @doc("The Key Vault key URL used to encrypt the catalog. A versionless URL (.../keys/{name}) or a versioned URL (.../keys/{name}/{version}) is accepted.")
+  keyEncryptionKeyUrl?: string;
+}
+
+@doc("Encryption settings for the catalog.")
+@added(Versions.v2026_06_01_preview)
+model EncryptionSettings {
+  @doc("All customer-managed key encryption properties for the catalog.")
+  customerManagedKeyEncryption?: CustomerManagedKeyEncryption;
+
+  @doc("The current status of customer-managed key encryption. This property is read-only and is computed by the service.")
+  @visibility(Lifecycle.Read)
+  encryptionStatus?: EncryptionStatus;
+}
+
+@doc("The outcome of a customer-managed key encryption verification.")
+@added(Versions.v2026_06_01_preview)
+union CmkVerifyStatus {
+  string,
+
+  @doc("Both the liveness check and the fresh wrap/unwrap round-trip succeeded.")
+  Passed: "Passed",
+
+  @doc("One or more verification checks failed.")
+  Failed: "Failed",
+}
+
+@doc("The result of a customer-managed key encryption verification action.")
+@added(Versions.v2026_06_01_preview)
+model CmkVerifyResult {
+  @doc("'Passed' when both the liveness and round-trip checks succeed; otherwise 'Failed'.")
+  status: CmkVerifyStatus;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "keyVaultKey is the versioned Key Vault key identifier (URL), not secret key material; it is intentionally returned to the operator in the verify result."
+  @doc("The versioned Key Vault key URI that was exercised during verification.")
+  keyVaultKey?: string;
+
+  @doc("The UTC time at which the verification ran.")
+  checkedAt: utcDateTime;
+}
+

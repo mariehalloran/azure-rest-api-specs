@@ -30,6 +30,14 @@ model MessagingCatalog
   @segment("catalogs")
   @visibility(Lifecycle.Read)
   name: string;
+
+  /**
+   * The managed service identities assigned to this resource, used to access the
+   * customer-managed key in Key Vault.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Version-gated identity must be an explicit @added property because TypeSpec spreads cannot be versioned; the emitted swagger still places identity at the resource envelope top level referencing common-types ManagedServiceIdentity."
+  @added(Versions.v2026_06_01_preview)
+  identity?: Azure.ResourceManager.CommonTypes.ManagedServiceIdentity;
 }
 
 @armResourceOperations
@@ -94,5 +102,17 @@ interface MessagingCatalogs {
     MessagingCatalog,
     FabricPrivateLinksRequest,
     FabricPrivateLinksResponse
+  >;
+
+  /**
+   * Verify that the customer-managed key encryption configured on the catalog is healthy.
+   * Performs a liveness unwrap of the stored data encryption key plus a fresh wrap/unwrap
+   * round-trip through the live key encryption key. Read-only and idempotent.
+   */
+  @added(Versions.v2026_06_01_preview)
+  verifyEncryption is ArmResourceActionSync<
+    MessagingCatalog,
+    void,
+    CmkVerifyResult
   >;
 }
