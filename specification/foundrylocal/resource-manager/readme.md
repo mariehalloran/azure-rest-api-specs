@@ -38,21 +38,21 @@ directive:
     from: openapi.json
     where: $.definitions.VllmConfig.properties.preferences
     reason: >-
-      vLLM engine arguments passed through to the runtime. The set of valid
-      keys depends on the vLLM version installed on the cluster, so the
-      schema is intentionally extensible.
+      vLLM engine arguments (keys vary by vLLM version). Pure pass-through;
+      RP performs no validation, map is forwarded verbatim to the vLLM
+      process which owns the schema.
   - suppress: AvoidAdditionalProperties
     from: openapi.json
     where: $.definitions.ModelDeploymentProperties.properties.nodeSelector
     reason: >-
-      Kubernetes node selector labels are user-defined free-form key/value
-      pairs.
+      Kubernetes node selector key-value pairs (defined by cluster
+      admin). Pure pass-through; RP performs no validation.
   - suppress: AvoidAdditionalProperties
     from: openapi.json
     where: $.definitions.ModelDeploymentUpdateProperties.properties.nodeSelector
     reason: >-
-      Kubernetes node selector labels are user-defined free-form key/value
-      pairs.
+      Kubernetes node selector key-value pairs (defined by cluster
+      admin). Pure pass-through; RP performs no validation.
   - suppress: XMSSecretInResponse
     from: openapi.json
     reason: >-
