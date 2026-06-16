@@ -336,4 +336,3 @@ model CmkVerifyResult {
   @doc("The UTC time at which the verification ran.")
   checkedAt: utcDateTime;
 }
-
