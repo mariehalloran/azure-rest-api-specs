@@ -266,22 +266,35 @@ using TypeSpec.Versioning;
   "javascript,go,python,java"
 );
 
-@@clientName(Microsoft.ComputeSchedule.ActionType, "ScheduledActionType");
+@@clientName(
+  Microsoft.ComputeSchedule.ActionType,
+  "ScheduledActionType",
+  "!autorest"
+);
 
-@@clientName(SubmitDeallocateRequest, "SubmitDeallocateContent");
-@@clientName(ExecuteHibernateRequest, "ExecuteHibernateContent");
-@@clientName(CancelOperationsRequest, "CancelOperationsContent");
-@@clientName(ExecuteCreateRequest, "ExecuteCreateContent");
-@@clientName(ExecuteDeallocateRequest, "ExecuteDeallocateContent");
-@@clientName(ExecuteDeleteRequest, "ExecuteDeleteContent");
-@@clientName(ExecuteStartRequest, "ExecuteStartContent");
-@@clientName(GetOperationErrorsRequest, "GetOperationErrorsContent");
-@@clientName(GetOperationStatusRequest, "GetOperationStatusContent");
-@@clientName(SubmitStartRequest, "SubmitStartContent");
-@@clientName(SubmitHibernateRequest, "SubmitHibernateContent");
+@@clientName(SubmitDeallocateRequest, "SubmitDeallocateContent", "!autorest");
+@@clientName(ExecuteHibernateRequest, "ExecuteHibernateContent", "!autorest");
+@@clientName(CancelOperationsRequest, "CancelOperationsContent", "!autorest");
+@@clientName(ExecuteCreateRequest, "ExecuteCreateContent", "!autorest");
+@@clientName(ExecuteDeallocateRequest, "ExecuteDeallocateContent", "!autorest");
+@@clientName(ExecuteDeleteRequest, "ExecuteDeleteContent", "!autorest");
+@@clientName(ExecuteStartRequest, "ExecuteStartContent", "!autorest");
+@@clientName(
+  GetOperationErrorsRequest,
+  "GetOperationErrorsContent",
+  "!autorest"
+);
+@@clientName(
+  GetOperationStatusRequest,
+  "GetOperationStatusContent",
+  "!autorest"
+);
+@@clientName(SubmitStartRequest, "SubmitStartContent", "!autorest");
+@@clientName(SubmitHibernateRequest, "SubmitHibernateContent", "!autorest");
 @@clientName(
   ScheduledActionsExtensionProperties,
-  "ScheduledActionsExtensionProperties"
+  "ScheduledActionsExtensionProperties",
+  "!autorest"
 );
 
 // JavaScript SDK visibility workaround:

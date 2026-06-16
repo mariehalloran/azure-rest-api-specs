@@ -42,6 +42,7 @@ import "./HierarchyConfigurationMetadata.tsp";
 import "./HierarchyConfigurationMetadataVersion.tsp";
 import "./InternalState.tsp";
 import "./SolutionDeployment.tsp";
+import "./client.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;

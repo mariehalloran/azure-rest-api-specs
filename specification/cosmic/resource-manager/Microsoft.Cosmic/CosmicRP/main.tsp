@@ -7,7 +7,9 @@ import "@azure-tools/typespec-azure-resource-manager";
 import "./namespace.tsp";
 import "./environment.tsp";
 import "./migration.tsp";
-import "./deletedEnvironments.tsp";
+import "./deletedEnvironment.tsp";
+
+import "./client.tsp";
 
 using Azure.Core;
 using Azure.ResourceManager;

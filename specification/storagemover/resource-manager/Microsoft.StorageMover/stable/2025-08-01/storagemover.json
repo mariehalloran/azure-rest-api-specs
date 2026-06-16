@@ -3218,7 +3218,16 @@
           "type": "array",
           "description": "List of connections resourceId associated with the job.",
           "items": {
-            "type": "string"
+            "type": "string",
+            "format": "arm-id",
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Microsoft.StorageMover/storageMovers/connections"
+                }
+              ]
+            }
           }
         },
         "dataIntegrityValidation": {

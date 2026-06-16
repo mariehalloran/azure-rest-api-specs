@@ -18,6 +18,7 @@ import "./Consortium.tsp";
 import "./Contract.tsp";
 import "./ConsortiumViewContract.tsp";
 import "./back-compatible.tsp";
+import "./client.tsp";
 
 using Azure.ResourceManager;
 using TypeSpec.Versioning;
