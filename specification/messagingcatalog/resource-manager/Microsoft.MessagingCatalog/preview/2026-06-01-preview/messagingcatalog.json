@@ -62,20 +62,20 @@
         "description": "List the operations for the provider",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/OperationListResult"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/OperationListResult"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -101,10 +101,10 @@
         "description": "List MessagingCatalog resources by subscription ID",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -117,7 +117,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -143,13 +143,13 @@
         "description": "List MessagingCatalog resources by resource group",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           }
         ],
         "responses": {
@@ -162,7 +162,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -188,13 +188,13 @@
         "description": "Get a messaging catalog",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "catalogName",
@@ -217,7 +217,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -238,13 +238,13 @@
         "description": "Create or update a messaging catalog",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "catalogName",
@@ -293,7 +293,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -318,13 +318,13 @@
         "description": "Update a messaging catalogs",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "catalogName",
@@ -356,7 +356,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -377,13 +377,13 @@
         "description": "Delete a messaging catalogs",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "catalogName",
@@ -406,7 +406,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -429,13 +429,13 @@
         "description": "A long-running resource action.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "catalogName",
@@ -481,7 +481,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -508,13 +508,13 @@
         "description": "A long-running resource action.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "catalogName",
@@ -560,7 +560,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -587,13 +587,13 @@
         "description": "List private endpoint connections on the given resource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "catalogName",
@@ -616,7 +616,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -639,13 +639,13 @@
         "description": "Get a specific private endpoint connection",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "catalogName",
@@ -658,7 +658,7 @@
             "pattern": "^[a-zA-Z0-9-]{3,60}$"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/privatelinks.json#/parameters/PrivateEndpointConnectionName"
+            "$ref": "../../../../../common-types/resource-management/v6/privatelinks.json#/parameters/PrivateEndpointConnectionName"
           }
         ],
         "responses": {
@@ -671,7 +671,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -689,13 +689,13 @@
         "description": "Create or update a private endpoint connection",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "catalogName",
@@ -708,7 +708,7 @@
             "pattern": "^[a-zA-Z0-9-]{3,60}$"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/privatelinks.json#/parameters/PrivateEndpointConnectionName"
+            "$ref": "../../../../../common-types/resource-management/v6/privatelinks.json#/parameters/PrivateEndpointConnectionName"
           },
           {
             "name": "resource",
@@ -747,7 +747,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -769,13 +769,13 @@
         "description": "Delete a private endpoint connection",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "catalogName",
@@ -788,7 +788,7 @@
             "pattern": "^[a-zA-Z0-9-]{3,60}$"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/privatelinks.json#/parameters/PrivateEndpointConnectionName"
+            "$ref": "../../../../../common-types/resource-management/v6/privatelinks.json#/parameters/PrivateEndpointConnectionName"
           }
         ],
         "responses": {
@@ -812,7 +812,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -836,13 +836,13 @@
         "description": "List private links on the given resource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "catalogName",
@@ -865,7 +865,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -888,13 +888,13 @@
         "description": "A long-running resource action.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "catalogName",
@@ -940,7 +940,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -967,13 +967,13 @@
         "description": "A long-running resource action.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "catalogName",
@@ -1019,7 +1019,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1046,13 +1046,13 @@
         "description": "Verify that the customer-managed key encryption configured on the catalog is healthy.\nPerforms a liveness unwrap of the stored data encryption key plus a fresh wrap/unwrap\nround-trip through the live key encryption key. Read-only and idempotent.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "catalogName",
@@ -1075,7 +1075,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1398,13 +1398,13 @@
           "description": "The resource-specific properties for this resource."
         },
         "identity": {
-          "$ref": "../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "$ref": "../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
           "description": "The managed service identities assigned to this resource, used to access the\ncustomer-managed key in Key Vault."
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -1498,7 +1498,7 @@
           "type": "array",
           "description": "List of private endpoint connections.",
           "items": {
-            "$ref": "../../../../../common-types/resource-management/v5/privatelinks.json#/definitions/PrivateEndpointConnection"
+            "$ref": "../../../../../common-types/resource-management/v6/privatelinks.json#/definitions/PrivateEndpointConnection"
           },
           "readOnly": true
         },
@@ -1522,6 +1522,10 @@
           "additionalProperties": {
             "type": "string"
           }
+        },
+        "identity": {
+          "$ref": "../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "description": "The managed service identities assigned to this resource, used to access the customer-managed key in Key Vault."
         },
         "properties": {
           "$ref": "#/definitions/MessagingCatalogUpdateProperties",
@@ -1558,13 +1562,13 @@
       "description": "The Private Endpoint Connection resource.",
       "properties": {
         "properties": {
-          "$ref": "../../../../../common-types/resource-management/v5/privatelinks.json#/definitions/PrivateEndpointConnectionProperties",
+          "$ref": "../../../../../common-types/resource-management/v6/privatelinks.json#/definitions/PrivateEndpointConnectionProperties",
           "description": "The resource-specific properties for this resource."
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -1594,13 +1598,13 @@
       "description": "Private Link Resource for MessagingCatalog",
       "properties": {
         "properties": {
-          "$ref": "../../../../../common-types/resource-management/v5/privatelinks.json#/definitions/PrivateLinkResourceProperties",
+          "$ref": "../../../../../common-types/resource-management/v6/privatelinks.json#/definitions/PrivateLinkResourceProperties",
           "description": "The resource-specific properties for this resource."
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
       ]
     },

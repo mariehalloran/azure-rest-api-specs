@@ -19,15 +19,19 @@ interface Operations extends Azure.ResourceManager.Operations {}
  * The available API versions.
  */
 enum Versions {
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   @doc("The 2024-06-01-preview API version.")
   v2024_06_01_preview: "2024-06-01-preview",
 
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   @doc("The 2024-10-01-preview API version.")
   v2024_10_01_preview: "2024-10-01-preview",
 
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   @doc("The 2025-11-01-preview API version.")
   v2025_11_01_preview: "2025-11-01-preview",
 
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   @doc("The 2026-06-01-preview API version.")
   v2026_06_01_preview: "2026-06-01-preview",
 }
@@ -136,10 +140,13 @@ model ResourceLabel {
   value?: string;
 }
 
-#suppress "@azure-tools/typespec-azure-resource-manager/patch-envelope" "Identity is set only at create (PUT) in this preview; PATCH-based identity changes are deferred to GA and the service rejects identity on PATCH."
 @doc("The type used for update operations of the Messaging Catalog.")
 model MessagingCatalogUpdate {
   ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+
+  @doc("The managed service identities assigned to this resource, used to access the customer-managed key in Key Vault.")
+  @added(Versions.v2026_06_01_preview)
+  identity?: Azure.ResourceManager.CommonTypes.ManagedServiceIdentity;
 
   @doc("The updatable properties of the Messaging Catalog.")
   properties?: MessagingCatalogUpdateProperties;
