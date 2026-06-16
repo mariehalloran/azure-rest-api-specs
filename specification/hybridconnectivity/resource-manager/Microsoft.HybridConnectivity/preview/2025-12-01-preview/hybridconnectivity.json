@@ -2215,7 +2215,13 @@
     },
     "GenerateGcpTemplateResponse": {
       "type": "object",
-      "description": "The HybridConnectivity post operation response"
+      "description": "The HybridConnectivity post operation response",
+      "properties": {
+        "template": {
+          "type": "string",
+          "description": "The generated GCP template."
+        }
+      }
     },
     "HostType": {
       "type": "string",
