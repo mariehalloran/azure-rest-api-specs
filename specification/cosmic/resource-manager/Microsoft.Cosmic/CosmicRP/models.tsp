@@ -279,6 +279,10 @@ model PartitionCapacity {
   @doc("The number of instances to realize for this partition.")
   @minValue(1)
   instanceCount: int32;
+
+  @doc("Optional routing partition associated with this capacity partition. Format: {ring}_Efz_{region}, e.g. 'test_Efz_DSM'.")
+  @pattern("^[a-z0-9]+_Efz_[A-Za-z0-9]+$")
+  routingPartition?: string;
 }
 
 // --- Resource policy models -----------------------------------------
