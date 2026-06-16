@@ -524,7 +524,11 @@ union GcpTemplateFormat {
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model"
 @added(Versions.v2025_12_01_preview)
-model GenerateGcpTemplateResponse {}
+model GenerateGcpTemplateResponse {
+  /** The generated GCP template. */
+  @added(Versions.v2026_04_01_preview)
+  template?: string;
+}
 
 @armResourceOperations
 interface PublicCloudConnectors {
