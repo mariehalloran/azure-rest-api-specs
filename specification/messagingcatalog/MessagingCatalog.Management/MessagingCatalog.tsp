@@ -31,11 +31,8 @@ model MessagingCatalog
   @visibility(Lifecycle.Read)
   name: string;
 
-  /**
-   * The managed service identities assigned to this resource, used to access the
-   * customer-managed key in Key Vault.
-   */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Version-gated identity must be an explicit @added property because TypeSpec spreads cannot be versioned; the emitted swagger still places identity at the resource envelope top level referencing common-types ManagedServiceIdentity."
+  @doc("The managed service identities assigned to this resource, used to access the customer-managed key in Key Vault.")
   @added(Versions.v2026_06_01_preview)
   identity?: Azure.ResourceManager.CommonTypes.ManagedServiceIdentity;
 }

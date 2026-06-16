@@ -291,27 +291,27 @@ union CmkIdentityType {
 @added(Versions.v2026_06_01_preview)
 model KeyEncryptionKeyIdentity {
   @doc("The type of identity used to access the key. Only 'userAssignedIdentity' is supported.")
-  identityType?: CmkIdentityType;
+  identityType: CmkIdentityType;
 
   @doc("The ARM resource id of the user-assigned managed identity used to access the key. It must be one of the identities assigned to the resource.")
-  userAssignedIdentityResourceId?: string;
+  userAssignedIdentityResourceId: string;
 }
 
 @doc("Customer-managed key encryption properties for the catalog.")
 @added(Versions.v2026_06_01_preview)
 model CustomerManagedKeyEncryption {
   @doc("The identity used to access the key encryption key in Key Vault.")
-  keyEncryptionKeyIdentity?: KeyEncryptionKeyIdentity;
+  keyEncryptionKeyIdentity: KeyEncryptionKeyIdentity;
 
   @doc("The Key Vault key URL used to encrypt the catalog. A versionless URL (.../keys/{name}) or a versioned URL (.../keys/{name}/{version}) is accepted.")
-  keyEncryptionKeyUrl?: string;
+  keyEncryptionKeyUrl: string;
 }
 
 @doc("Encryption settings for the catalog.")
 @added(Versions.v2026_06_01_preview)
 model EncryptionSettings {
   @doc("All customer-managed key encryption properties for the catalog.")
-  customerManagedKeyEncryption?: CustomerManagedKeyEncryption;
+  customerManagedKeyEncryption: CustomerManagedKeyEncryption;
 
   @doc("The current status of customer-managed key encryption. This property is read-only and is computed by the service.")
   @visibility(Lifecycle.Read)

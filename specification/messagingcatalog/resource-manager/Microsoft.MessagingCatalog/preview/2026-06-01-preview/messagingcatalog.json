@@ -1274,7 +1274,11 @@
           "type": "string",
           "description": "The Key Vault key URL used to encrypt the catalog. A versionless URL (.../keys/{name}) or a versioned URL (.../keys/{name}/{version}) is accepted."
         }
-      }
+      },
+      "required": [
+        "keyEncryptionKeyIdentity",
+        "keyEncryptionKeyUrl"
+      ]
     },
     "EncryptionSettings": {
       "type": "object",
@@ -1289,7 +1293,10 @@
           "description": "The current status of customer-managed key encryption. This property is read-only and is computed by the service.",
           "readOnly": true
         }
-      }
+      },
+      "required": [
+        "customerManagedKeyEncryption"
+      ]
     },
     "EncryptionStatus": {
       "type": "string",
@@ -1387,7 +1394,11 @@
           "type": "string",
           "description": "The ARM resource id of the user-assigned managed identity used to access the key. It must be one of the identities assigned to the resource."
         }
-      }
+      },
+      "required": [
+        "identityType",
+        "userAssignedIdentityResourceId"
+      ]
     },
     "MessagingCatalog": {
       "type": "object",
@@ -1399,7 +1410,7 @@
         },
         "identity": {
           "$ref": "../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
-          "description": "The managed service identities assigned to this resource, used to access the\ncustomer-managed key in Key Vault."
+          "description": "The managed service identities assigned to this resource, used to access the customer-managed key in Key Vault."
         }
       },
       "allOf": [
