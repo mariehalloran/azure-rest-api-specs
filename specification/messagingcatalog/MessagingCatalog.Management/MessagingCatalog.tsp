@@ -125,5 +125,9 @@ interface MessagingCatalogs {
    * key; catalog data itself is not re-encrypted. Returns the updated catalog.
    */
   @added(Versions.v2026_06_01_preview)
-  disableEncryption is ArmResourceActionSync<MessagingCatalog, void, MessagingCatalog>;
+  disableEncryption is ArmResourceActionSync<
+    MessagingCatalog,
+    void,
+    MessagingCatalog
+  >;
 }
