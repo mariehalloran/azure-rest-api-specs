@@ -526,6 +526,7 @@ union GcpTemplateFormat {
 @added(Versions.v2025_12_01_preview)
 model GenerateGcpTemplateResponse {
   /** The generated GCP template. */
+  @added(Versions.v2026_04_01_preview)
   template?: string;
 }
 
