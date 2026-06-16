@@ -31,6 +31,12 @@ model MessagingCatalog
   @visibility(Lifecycle.Read)
   name: string;
 
+  // `identity` is an ARM envelope property that is normally contributed by the resource
+  // base template, which would trigger arm-resource-invalid-envelope-property if declared
+  // inline. We must declare it inline here because it is only introduced in
+  // 2026-06-01-preview (@added) and TypeSpec's template/spread-based envelope cannot be
+  // version-gated. The emitter still places it at the resource envelope top level
+  // referencing common-types ManagedServiceIdentity, so the suppression is safe.
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Version-gated identity must be an explicit @added property because TypeSpec spreads cannot be versioned; the emitted swagger still places identity at the resource envelope top level referencing common-types ManagedServiceIdentity."
   @doc("The managed service identities assigned to this resource, used to access the customer-managed key in Key Vault.")
   @added(Versions.v2026_06_01_preview)
