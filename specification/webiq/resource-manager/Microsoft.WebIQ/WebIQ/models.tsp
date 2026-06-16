@@ -232,9 +232,9 @@ model PinnedDomain {
 }
 
 /**
- * The request body for updating an WebIQ account.
+ * The request body for updating a WebIQ account.
  */
-#suppress "@azure-tools/typespec-azure-core/casing-style" "AI is a valid acronym in WebIQ"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "IQ is part of the official product name WebIQ"
 model WebIQAccountUpdate {
   /**
    * Resource tags.
@@ -254,9 +254,9 @@ model WebIQAccountUpdate {
 }
 
 /**
- * The updatable properties of an WebIQ account.
+ * The updatable properties of a WebIQ account.
  */
-#suppress "@azure-tools/typespec-azure-core/casing-style" "AI is a valid acronym in WebIQ"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "IQ is part of the official product name WebIQ"
 model WebIQAccountUpdateProperties {
   /**
    * (WebIQ Only) A flag indicating whether WebIQ Statistics is enabled.
@@ -267,7 +267,7 @@ model WebIQAccountUpdateProperties {
 /**
  * Properties of WebIQ account.
  */
-#suppress "@azure-tools/typespec-azure-core/casing-style" "AI is a valid acronym in WebIQ"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "IQ is part of the official product name WebIQ"
 model WebIQAccountProperties {
   /**
    * Gets the status of the WebIQ account at the time the operation was called.
@@ -451,13 +451,13 @@ model ResourceSkuRestrictionInfo {
 /**
  * The list of WebIQ accounts operation response.
  */
-#suppress "@azure-tools/typespec-azure-core/casing-style" "AI is a valid acronym in WebIQ"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "IQ is part of the official product name WebIQ"
 model WebIQAccountEnumerateSkusResult is Azure.Core.Page<WebIQResourceAndSku>;
 
 /**
  * WebIQ resource type and SKU.
  */
-#suppress "@azure-tools/typespec-azure-core/casing-style" "AI is a valid acronym in WebIQ"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "IQ is part of the official product name WebIQ"
 model WebIQResourceAndSku {
   /**
    * Resource Namespace and Type
@@ -607,7 +607,7 @@ model CheckSkuAvailabilityResult {
 /**
  * The list of WebIQ accounts.
  */
-#suppress "@azure-tools/typespec-azure-core/casing-style" "AI is a valid acronym in WebIQ"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "IQ is part of the official product name WebIQ"
 model WebIQAccountListResult is Azure.Core.Page<WebIQAccount>;
 @@visibility(WebIQAccountListResult.value, Lifecycle.Read);
 

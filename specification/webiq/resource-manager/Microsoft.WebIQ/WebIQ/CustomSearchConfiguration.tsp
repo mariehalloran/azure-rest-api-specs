@@ -28,18 +28,18 @@ model CustomSearchConfiguration
 @armResourceOperations
 interface CustomSearchConfigurations {
   /**
-   * Returns an WebIQ Custom Search configuration specified by the parameters.
+   * Returns a WebIQ Custom Search configuration specified by the parameters.
    */
   get is ArmResourceRead<CustomSearchConfiguration>;
 
   /**
-   * Creates or Updates an WebIQ Custom Search configuration.
+   * Creates or Updates a WebIQ Custom Search configuration.
    * Uses async (LRO) because it calls an external API which takes significant time.
    */
   createOrUpdate is ArmResourceCreateOrReplaceAsync<CustomSearchConfiguration>;
 
   /**
-   * Deletes an WebIQ Custom Search configuration from the WebIQ account.
+   * Deletes a WebIQ Custom Search configuration from the WebIQ account.
    */
   delete is ArmResourceDeleteSync<CustomSearchConfiguration>;
 

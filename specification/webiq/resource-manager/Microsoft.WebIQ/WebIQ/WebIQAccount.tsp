@@ -13,7 +13,7 @@ namespace Microsoft.WebIQ;
 /**
  * WebIQ Account is an Azure resource representing the provisioned account, its type, location and SKU.
  */
-#suppress "@azure-tools/typespec-azure-core/casing-style" "AI is a valid acronym in WebIQ"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "IQ is part of the official product name WebIQ"
 model WebIQAccount is TrackedResource<WebIQAccountProperties> {
   ...ResourceNameParameter<
     Resource = WebIQAccount,
@@ -26,21 +26,21 @@ model WebIQAccount is TrackedResource<WebIQAccountProperties> {
   ...ResourceSkuProperty;
 }
 
-#suppress "@azure-tools/typespec-azure-core/casing-style" "AI is a valid acronym in WebIQ"
+#suppress "@azure-tools/typespec-azure-core/casing-style" "IQ is part of the official product name WebIQ"
 @armResourceOperations
 interface WebIQAccounts {
   /**
-   * Returns an WebIQ account specified by the parameters.
+   * Returns a WebIQ account specified by the parameters.
    */
   get is ArmResourceRead<WebIQAccount>;
 
   /**
-   * Create an WebIQ account. Accounts is a resource group-wide resource type. It is the resource type for accessing WebIQ APIs and billing.
+   * Create a WebIQ account. Accounts is a resource group-wide resource type. It is the resource type for accessing WebIQ APIs and billing.
    */
   create is ArmResourceCreateOrReplaceAsync<WebIQAccount>;
 
   /**
-   * Updates an WebIQ account
+   * Updates a WebIQ account
    */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "Required for custom PATCH LRO operation"
   #suppress "@azure-tools/typespec-azure-resource-manager/lro-location-header" "Location header is included via ArmLroLocationHeader"
@@ -54,7 +54,7 @@ interface WebIQAccounts {
   >;
 
   /**
-   * Deletes an WebIQ account from the resource group.
+   * Deletes a WebIQ account from the resource group.
    */
   delete is ArmResourceDeleteWithoutOkAsync<WebIQAccount>;
 
