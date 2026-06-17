@@ -374,3 +374,13 @@
     - options.@azure-tools/typespec-python.*
     - options.@azure-tools/typespec-ts.*
   paths: [secretmanagementtestsvc/SecretManagementSampleProvider/tspconfig.yaml]
+
+- tool: TypeSpecValidation
+  reason: Specs still using legacy C# emitter, as of 2026-06-17
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - emit.@azure-typespec/http-client-csharp-mgmt
+  paths:
+    - aigrounding/resource-manager/Microsoft.AIGrounding/AIGrounding/tspconfig.yaml
+    - copilot/resource-manager/Microsoft.Copilot/CopilotManagement/tspconfig.yaml
+    - networksecurity/resource-manager/Microsoft.NetworkSecurity/agentFabric/tspconfig.yaml
