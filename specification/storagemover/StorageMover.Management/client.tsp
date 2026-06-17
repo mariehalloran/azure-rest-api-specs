@@ -74,6 +74,21 @@ using Azure.Core;
   string,
   "csharp"
 );
+@@alternateType(
+  AzureStorageBlobContainerEndpointProperties.allowedStorageAccounts,
+  string[],
+  "csharp"
+);
+@@alternateType(
+  AzureStorageBlobContainerEndpointUpdateProperties.allowedStorageAccounts,
+  string[],
+  "csharp"
+);
+@@alternateType(
+  JobDefinitionProperties.crossTenantSourceEndpointResourceId,
+  string,
+  "csharp"
+);
 @@clientName(
   AzureKeyVaultSmbCredentials.passwordUri,
   "PasswordUriString",

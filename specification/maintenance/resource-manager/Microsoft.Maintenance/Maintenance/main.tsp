@@ -18,6 +18,7 @@ import "./MaintenancePlans.tsp";
 import "./ConfigurationAssignment.tsp";
 import "./routes.tsp";
 import "./back-compatible.tsp";
+import "./client.tsp";
 
 using Azure.ResourceManager;
 using TypeSpec.Versioning;

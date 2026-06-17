@@ -6,6 +6,7 @@ import "@azure-tools/typespec-azure-resource-manager";
 
 import "./routes.tsp";
 import "./autoactionroutes.tsp";
+// import "./client.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
