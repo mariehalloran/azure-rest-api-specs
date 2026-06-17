@@ -1274,6 +1274,7 @@
         },
         "keyVaultKey": {
           "type": "string",
+          "format": "uri",
           "description": "The versioned Key Vault key URI that was exercised during verification."
         },
         "checkedAt": {
@@ -1321,6 +1322,7 @@
         },
         "keyEncryptionKeyUrl": {
           "type": "string",
+          "format": "uri",
           "description": "The Key Vault key URL used to encrypt the catalog. A versionless URL (.../keys/{name}) or a versioned URL (.../keys/{name}/{version}) is accepted. Required by the service when configuring customer-managed key encryption."
         }
       }
@@ -1434,7 +1436,15 @@
         },
         "userAssignedIdentityResourceId": {
           "type": "string",
-          "description": "The ARM resource id of the user-assigned managed identity used to access the key. It must be one of the identities assigned to the resource. Required by the service when configuring customer-managed key encryption."
+          "format": "arm-id",
+          "description": "The ARM resource id of the user-assigned managed identity used to access the key. It must be one of the identities assigned to the resource. Required by the service when configuring customer-managed key encryption.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.ManagedIdentity/userAssignedIdentities"
+              }
+            ]
+          }
         }
       }
     },
