@@ -298,7 +298,11 @@ model KeyEncryptionKeyIdentity {
   identityType?: CmkIdentityType;
 
   @doc("The ARM resource id of the user-assigned managed identity used to access the key. It must be one of the identities assigned to the resource. Required by the service when configuring customer-managed key encryption.")
-  userAssignedIdentityResourceId?: string;
+  userAssignedIdentityResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedIdentity/userAssignedIdentities";
+    }
+  ]>;
 }
 
 @doc("Customer-managed key encryption properties for the catalog.")
@@ -308,7 +312,7 @@ model CustomerManagedKeyEncryption {
   keyEncryptionKeyIdentity?: KeyEncryptionKeyIdentity;
 
   @doc("The Key Vault key URL used to encrypt the catalog. A versionless URL (.../keys/{name}) or a versioned URL (.../keys/{name}/{version}) is accepted. Required by the service when configuring customer-managed key encryption.")
-  keyEncryptionKeyUrl?: string;
+  keyEncryptionKeyUrl?: url;
 }
 
 @doc("Encryption settings for the catalog.")
@@ -342,7 +346,7 @@ model CmkVerifyResult {
 
   #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "keyVaultKey is the versioned Key Vault key identifier (URL), not secret key material; it is intentionally returned to the operator in the verify result."
   @doc("The versioned Key Vault key URI that was exercised during verification.")
-  keyVaultKey?: string;
+  keyVaultKey?: url;
 
   @doc("The UTC time at which the verification ran.")
   checkedAt: utcDateTime;
