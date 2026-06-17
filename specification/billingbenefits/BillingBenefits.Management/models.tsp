@@ -3840,13 +3840,7 @@ model CatalogGroupProperties {
   /**
    * The top-level benefit resource type (e.g., maccs, credits, conditionalCredits, discounts, savingsPlans, reservations).
    */
-  resourceType: ResourceType;
-
-  /**
-   * Dot-separated path encoding the category hierarchy within a benefit type (e.g., VirtualMachines, SQL.ManagedInstance). The default group namespace equals the resourceType.
-   */
-  @encodedName("application/json", "namespace")
-  catalogNamespace: string;
+  benefitResourceType: ResourceType;
 
   /**
    * Display name for the catalog group.
@@ -3896,9 +3890,9 @@ model CatalogGroupProperties {
  */
 model CatalogGroupCapability {
   /**
-   * The capability key (e.g., SelfServiceExchange, Renewability).
+   * The capability name (e.g., SelfServiceExchange, Renewability).
    */
-  key: string;
+  name: string;
 
   /**
    * The capability value (e.g., Supported, Not Supported).
