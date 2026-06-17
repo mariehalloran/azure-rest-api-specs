@@ -1,0 +1,45 @@
+{
+  "operationId": "Operations_List",
+  "title": "List provider operations",
+  "parameters": {
+    "api-version": "2026-05-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "Microsoft.FoundryLocal/modelDeployments/read",
+            "display": {
+              "provider": "Microsoft.FoundryLocal",
+              "resource": "Model Deployments",
+              "operation": "Get Model Deployment",
+              "description": "Gets a ModelDeployment resource."
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.FoundryLocal/modelDeployments/write",
+            "display": {
+              "provider": "Microsoft.FoundryLocal",
+              "resource": "Model Deployments",
+              "operation": "Create or Update Model Deployment",
+              "description": "Creates or updates a ModelDeployment resource."
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.FoundryLocal/modelDeployments/delete",
+            "display": {
+              "provider": "Microsoft.FoundryLocal",
+              "resource": "Model Deployments",
+              "operation": "Delete Model Deployment",
+              "description": "Deletes a ModelDeployment resource."
+            },
+            "isDataAction": false
+          }
+        ]
+      }
+    }
+  }
+}
