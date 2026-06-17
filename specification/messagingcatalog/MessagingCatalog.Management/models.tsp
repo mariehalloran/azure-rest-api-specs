@@ -300,7 +300,7 @@ model KeyEncryptionKeyIdentity {
   @doc("The ARM resource id of the user-assigned managed identity used to access the key. It must be one of the identities assigned to the resource. Required by the service when configuring customer-managed key encryption.")
   userAssignedIdentityResourceId?: Azure.Core.armResourceIdentifier<[
     {
-      type: "Microsoft.ManagedIdentity/userAssignedIdentities",
+      type: "Microsoft.ManagedIdentity/userAssignedIdentities";
     }
   ]>;
 }
