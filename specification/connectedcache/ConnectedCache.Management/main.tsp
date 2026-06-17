@@ -19,7 +19,7 @@ using TypeSpec.Versioning;
 @service(#{ title: "ConnectedCache" })
 @versioned(Versions)
 @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
-@doc("Microsoft Connected Cache Rest Api version 2023-05-01-preview")
+@doc("Microsoft Connected Cache Rest Api version 2026-06-01")
 namespace Microsoft.ConnectedCache;
 
 @doc("The available API versions.")
@@ -33,6 +33,6 @@ enum Versions {
   @doc("Microsoft Connected Cache Rest Api version 2025-06-15")
   v2025_06_15: "2025-06-15",
 
-  @doc("Microsoft Connected Cache Rest Api version 2025-11-15-preview")
-  v2025_11_15_preview: "2025-11-15-preview",
+  @doc("Microsoft Connected Cache Rest Api version 2026-06-01")
+  v2026_06_01: "2026-06-01",
 }

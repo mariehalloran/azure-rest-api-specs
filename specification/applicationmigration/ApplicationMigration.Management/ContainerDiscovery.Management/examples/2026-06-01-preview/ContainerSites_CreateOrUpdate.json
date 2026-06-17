@@ -1,0 +1,45 @@
+{
+  "operationId": "ContainerSites_CreateOrUpdate",
+  "title": "Create or update a container site",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "siteName": "myContainerSite",
+    "resource": {
+      "location": "eastus",
+      "properties": {
+        "masterSiteId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.OffAzure/masterSites/myMasterSite",
+        "migrateProjectId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Migrate/migrateProjects/myProject"
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite",
+        "name": "myContainerSite",
+        "type": "Microsoft.ApplicationMigration/containerSites",
+        "location": "eastus",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "masterSiteId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.OffAzure/masterSites/myMasterSite",
+          "migrateProjectId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Migrate/migrateProjects/myProject"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite",
+        "name": "myContainerSite",
+        "type": "Microsoft.ApplicationMigration/containerSites",
+        "location": "eastus",
+        "properties": {
+          "provisioningState": "Creating",
+          "masterSiteId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.OffAzure/masterSites/myMasterSite",
+          "migrateProjectId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Migrate/migrateProjects/myProject"
+        }
+      }
+    }
+  }
+}

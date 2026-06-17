@@ -1,9 +1,11 @@
 import "./main.tsp";
 import "@azure-tools/typespec-client-generator-core";
+import "@typespec/versioning";
 
 using Azure.ClientGenerator.Core;
 using Microsoft.ComputeSchedule;
 using Azure.ResourceManager;
+using TypeSpec.Versioning;
 
 @@clientName(Microsoft.ComputeSchedule, "ComputeScheduleMgmtClient", "python");
 @@clientName(Microsoft.ComputeSchedule, "ComputeScheduleMgmtClient", "java");
@@ -264,20 +266,128 @@ using Azure.ResourceManager;
   "javascript,go,python,java"
 );
 
-@@clientName(Microsoft.ComputeSchedule.ActionType, "ScheduledActionType");
+@@clientName(
+  Microsoft.ComputeSchedule.ActionType,
+  "ScheduledActionType",
+  "!autorest"
+);
 
-@@clientName(SubmitDeallocateRequest, "SubmitDeallocateContent");
-@@clientName(ExecuteHibernateRequest, "ExecuteHibernateContent");
-@@clientName(CancelOperationsRequest, "CancelOperationsContent");
-@@clientName(ExecuteCreateRequest, "ExecuteCreateContent");
-@@clientName(ExecuteDeallocateRequest, "ExecuteDeallocateContent");
-@@clientName(ExecuteDeleteRequest, "ExecuteDeleteContent");
-@@clientName(ExecuteStartRequest, "ExecuteStartContent");
-@@clientName(GetOperationErrorsRequest, "GetOperationErrorsContent");
-@@clientName(GetOperationStatusRequest, "GetOperationStatusContent");
-@@clientName(SubmitStartRequest, "SubmitStartContent");
-@@clientName(SubmitHibernateRequest, "SubmitHibernateContent");
+@@clientName(SubmitDeallocateRequest, "SubmitDeallocateContent", "!autorest");
+@@clientName(ExecuteHibernateRequest, "ExecuteHibernateContent", "!autorest");
+@@clientName(CancelOperationsRequest, "CancelOperationsContent", "!autorest");
+@@clientName(ExecuteCreateRequest, "ExecuteCreateContent", "!autorest");
+@@clientName(ExecuteDeallocateRequest, "ExecuteDeallocateContent", "!autorest");
+@@clientName(ExecuteDeleteRequest, "ExecuteDeleteContent", "!autorest");
+@@clientName(ExecuteStartRequest, "ExecuteStartContent", "!autorest");
+@@clientName(
+  GetOperationErrorsRequest,
+  "GetOperationErrorsContent",
+  "!autorest"
+);
+@@clientName(
+  GetOperationStatusRequest,
+  "GetOperationStatusContent",
+  "!autorest"
+);
+@@clientName(SubmitStartRequest, "SubmitStartContent", "!autorest");
+@@clientName(SubmitHibernateRequest, "SubmitHibernateContent", "!autorest");
 @@clientName(
   ScheduledActionsExtensionProperties,
-  "ScheduledActionsExtensionProperties"
+  "ScheduledActionsExtensionProperties",
+  "!autorest"
+);
+
+// JavaScript SDK visibility workaround:
+// 1. ScheduledActionResource has 'name' and 'id' fields that are both required and
+//    read-only (server-computed). JS SDK users should not be forced to supply those
+//    values when calling write operations (attachResources, patchResources).
+// 2. ScheduledAction update body includes server-side read-only fields (provisioningState).
+//    Provide write-specific models that omit those fields and wire them in via @@alternateType.
+// Pattern: https://github.com/Azure/azure-rest-api-specs/pull/43744
+//          https://github.com/Azure/azure-rest-api-specs/pull/42196
+namespace Microsoft.ComputeSchedule {
+  @added(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
+  @doc("Scheduled action resource item for write operations, omitting server-side read-only fields (name and id are required+read-only in the canonical model).")
+  model ScheduledActionResourceWrite {
+    @doc("""
+      The ARM Id of the resource.
+      "subscriptions/{subId}/resourceGroups/{rgName}/providers/Microsoft.Compute/virtualMachines/{vmName}"
+      """)
+    resourceId: ValidScheduledActionResourceId;
+
+    @doc("The desired notification settings for the specified resource.")
+    @identifiers(#["destination"])
+    notificationSettings?: Array<NotificationProperties>;
+  }
+
+  @added(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
+  @doc("Request model to attach a list of scheduled action resources for write operations.")
+  model ResourceAttachRequestWrite {
+    @doc("List of resources to be attached")
+    @identifiers(#["resourceId"])
+    resources: Array<ScheduledActionResourceWrite>;
+  }
+
+  @added(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
+  @doc("Request model to patch a list of scheduled action resources for write operations.")
+  model ResourcePatchRequestWrite {
+    @doc("The list of resources to patch")
+    @identifiers(#["resourceId"])
+    resources: Array<ScheduledActionResourceWrite>;
+  }
+
+  @added(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
+  @doc("Writable properties of ScheduledAction for update operations, excluding server-side read-only fields (e.g. provisioningState).")
+  model ScheduledActionPropertiesForUpdate {
+    @doc("The type of resource the scheduled action is targeting")
+    resourceType?: ResourceType;
+
+    @doc("The action the scheduled action should perform in the resources")
+    actionType?: ActionType;
+
+    #suppress "@azure-tools/typespec-azure-core/no-offsetdatetime" "Prefer using `utcDateTime` when representing a datetime unless an offset is necessary."
+    @doc("The time which the scheduled action is supposed to start running")
+    startTime?: offsetDateTime;
+
+    #suppress "@azure-tools/typespec-azure-core/no-offsetdatetime" "Prefer using `utcDateTime` when representing a datetime unless an offset is necessary."
+    @doc("The time when the scheduled action is supposed to stop scheduling")
+    endTime?: offsetDateTime;
+
+    @doc("The schedule the scheduled action is supposed to follow")
+    schedule?: ScheduledActionsSchedule;
+
+    @doc("The notification settings for the scheduled action")
+    @Azure.ResourceManager.identifiers(#["destination"])
+    notificationSettings?: Array<NotificationProperties>;
+
+    @doc("Tell if the scheduled action is disabled or not")
+    disabled?: boolean;
+  }
+
+  @added(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
+  @doc("Update model for ScheduledAction for JavaScript SDK, omitting server-side read-only fields.")
+  model ScheduledActionForUpdate {
+    #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Required for tags field in update model"
+    @doc("Resource tags.")
+    tags?: Record<string>;
+
+    @doc("The resource-specific properties for this resource.")
+    properties?: ScheduledActionPropertiesForUpdate;
+  }
+}
+
+@@alternateType(
+  ScheduledActions.attachResources::parameters.body,
+  ResourceAttachRequestWrite,
+  "javascript"
+);
+@@alternateType(
+  ScheduledActions.patchResources::parameters.body,
+  ResourcePatchRequestWrite,
+  "javascript"
+);
+@@alternateType(
+  ScheduledActions.update::parameters.properties,
+  ScheduledActionForUpdate,
+  "javascript"
 );

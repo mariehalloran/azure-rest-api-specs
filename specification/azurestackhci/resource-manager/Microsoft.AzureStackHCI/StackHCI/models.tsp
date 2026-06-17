@@ -9215,7 +9215,7 @@ model EdgeMachineGpuProperties {
    * The total memory of the GPU in bytes.
    */
   @visibility(Lifecycle.Read)
-  totalMemoryInBytes?: int64;
+  totalMemoryInBytes?: string;
 }
 
 /**
@@ -11548,6 +11548,13 @@ model AppliedCapacityPolicy {
    */
   @minValue(1.0)
   cpuOvercommitRatio?: float32;
+
+  /**
+   * Cluster-wide system reservation ratio that holds back a fraction of effective
+   * capacity for platform and system overhead. Default: 0.05.
+   */
+  @minValue(0.05)
+  systemReservationRatio?: float32;
 
   /**
    * Number of failure domains to reserve for n+1/n+2 style placement planning. Default: 0.

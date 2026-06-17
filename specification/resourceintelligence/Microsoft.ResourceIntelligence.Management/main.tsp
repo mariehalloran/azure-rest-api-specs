@@ -8,6 +8,7 @@ import "./thread.tsp";
 import "./run.tsp";
 import "./message.tsp";
 import "./query.tsp";
+import "./client.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
