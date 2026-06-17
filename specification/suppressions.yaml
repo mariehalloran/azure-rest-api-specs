@@ -311,12 +311,6 @@
     - impact/resource-manager/Microsoft.Impact/preview/2023-12-01-preview/impact.json
     - azurebusinesscontinuitycenter/resource-manager/Microsoft.AzureBusinessContinuity/preview/2024-03-01-preview/openapi.json
 
-- tool: TypeSpecValidation
-  rules: [Compile]
-  reason: TypeSpec compilation failing with autorest emitter errors
-  paths:
-    - appcomplianceautomation/AppComplianceAutomation.Management
-
 - tool: TypeSpecValidationAll
   reason: Specs currently failing validation in RPSaaSMaster
   paths:
