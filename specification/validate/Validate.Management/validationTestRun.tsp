@@ -177,6 +177,14 @@ interface ValidationTestRuns {
   @added(Versions.v2026_05_01_preview)
   get is ArmResourceRead<ValidationTestRun>;
 
+  @doc("Create or update a validation test run")
+  @added(Versions.v2026_05_01_preview)
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<ValidationTestRun>;
+
+  @doc("Delete a validation test run")
+  @added(Versions.v2026_05_01_preview)
+  delete is ArmResourceDeleteWithoutOkAsync<ValidationTestRun>;
+
   @doc("List validation test runs for an execution plan run")
   @added(Versions.v2026_05_01_preview)
   listByExecutionPlanRun is ArmResourceListByParent<ValidationTestRun>;

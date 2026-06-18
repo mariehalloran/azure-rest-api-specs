@@ -358,7 +358,7 @@
         "tags": [
           "Validation Test Interfaces"
         ],
-        "description": "Create or update a validation test catalog entry",
+        "description": "Create or update a validation test catalog entry and publish a new immutable version snapshot",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -536,115 +536,6 @@
         "x-ms-examples": {
           "ValidationTestVersions_Get_MaximumSet": {
             "$ref": "./examples/ValidationTestVersions_Get_MaximumSet_Gen.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "ValidationTestVersions_CreateOrUpdate",
-        "tags": [
-          "Validation Test Version Interfaces"
-        ],
-        "description": "Create or update a validation test version catalog entry",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestName",
-            "in": "path",
-            "description": "The name of the ValidationTest",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          },
-          {
-            "name": "version",
-            "in": "path",
-            "description": "The name of the ValidationTestVersion",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9._-]{1,64}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ValidationTestVersion"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'ValidationTestVersion' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ValidationTestVersion"
-            }
-          },
-          "201": {
-            "description": "Resource 'ValidationTestVersion' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ValidationTestVersion"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestVersions_CreateOrUpdate_MaximumSet": {
-            "$ref": "./examples/ValidationTestVersions_CreateOrUpdate_MaximumSet_Gen.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "ValidationTestVersions_Delete",
-        "tags": [
-          "Validation Test Version Interfaces"
-        ],
-        "description": "Delete a validation test version catalog entry",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestName",
-            "in": "path",
-            "description": "The name of the ValidationTest",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          },
-          {
-            "name": "version",
-            "in": "path",
-            "description": "The name of the ValidationTestVersion",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9._-]{1,64}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestVersions_Delete_MaximumSet": {
-            "$ref": "./examples/ValidationTestVersions_Delete_MaximumSet_Gen.json"
           }
         }
       }
@@ -1907,6 +1798,189 @@
             "$ref": "./examples/ValidationTestRuns_Get_MaximumSet_Gen.json"
           }
         }
+      },
+      "put": {
+        "operationId": "ValidationTestRuns_CreateOrUpdate",
+        "tags": [
+          "Validation Test Run Interfaces"
+        ],
+        "description": "Create or update a validation test run",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "cloudValidationName",
+            "in": "path",
+            "description": "The name of the CloudValidation",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "validationExecutionPlanName",
+            "in": "path",
+            "description": "The name of the ValidationExecutionPlan",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "executionPlanRunName",
+            "in": "path",
+            "description": "The name of the ExecutionPlanRun",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "validationTestRunName",
+            "in": "path",
+            "description": "The name of the ValidationTestRun",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ValidationTestRun"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ValidationTestRun' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestRun"
+            }
+          },
+          "201": {
+            "description": "Resource 'ValidationTestRun' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestRun"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTestRuns_CreateOrUpdate_MaximumSet": {
+            "$ref": "./examples/ValidationTestRuns_CreateOrUpdate_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "ValidationTestRuns_Delete",
+        "tags": [
+          "Validation Test Run Interfaces"
+        ],
+        "description": "Delete a validation test run",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "cloudValidationName",
+            "in": "path",
+            "description": "The name of the CloudValidation",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "validationExecutionPlanName",
+            "in": "path",
+            "description": "The name of the ValidationExecutionPlan",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "executionPlanRunName",
+            "in": "path",
+            "description": "The name of the ExecutionPlanRun",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "validationTestRunName",
+            "in": "path",
+            "description": "The name of the ValidationTestRun",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTestRuns_Delete_MaximumSet": {
+            "$ref": "./examples/ValidationTestRuns_Delete_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     }
   },
@@ -2664,6 +2738,22 @@
         "testStoreUri": {
           "type": "string",
           "description": "URI of the test artifact in TestStore."
+        },
+        "currentVersion": {
+          "type": "string",
+          "description": "The resource ID of the current immutable version snapshot.",
+          "readOnly": true
+        },
+        "latestPublishedVersion": {
+          "type": "string",
+          "description": "The resource ID of the latest published version snapshot.",
+          "readOnly": true
+        },
+        "lastPublishedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the last version publication.",
+          "readOnly": true
         }
       }
     },

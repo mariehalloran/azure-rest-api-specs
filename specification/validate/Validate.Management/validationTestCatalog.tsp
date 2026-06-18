@@ -34,6 +34,18 @@ model ValidationTestProperties {
 
   @doc("URI of the test artifact in TestStore.")
   testStoreUri?: string;
+
+  @doc("The resource ID of the current immutable version snapshot.")
+  @visibility(Lifecycle.Read)
+  currentVersion?: string;
+
+  @doc("The resource ID of the latest published version snapshot.")
+  @visibility(Lifecycle.Read)
+  latestPublishedVersion?: string;
+
+  @doc("Timestamp of the last version publication.")
+  @visibility(Lifecycle.Read)
+  lastPublishedAt?: utcDateTime;
 }
 
 @doc("Validation test version catalog entry.")
@@ -108,7 +120,7 @@ interface ValidationTests {
   @added(Versions.v2026_05_01_preview)
   get is ValidationTestsOps.Read<ValidationTest>;
 
-  @doc("Create or update a validation test catalog entry")
+  @doc("Create or update a validation test catalog entry and publish a new immutable version snapshot")
   @added(Versions.v2026_05_01_preview)
   createOrUpdate is ValidationTestsOps.CreateOrUpdateSync<ValidationTest>;
 
@@ -128,14 +140,6 @@ interface ValidationTestVersions {
   @doc("Get a validation test version catalog entry")
   @added(Versions.v2026_05_01_preview)
   get is ArmResourceRead<ValidationTestVersion>;
-
-  @doc("Create or update a validation test version catalog entry")
-  @added(Versions.v2026_05_01_preview)
-  createOrUpdate is ArmResourceCreateOrReplaceSync<ValidationTestVersion>;
-
-  @doc("Delete a validation test version catalog entry")
-  @added(Versions.v2026_05_01_preview)
-  delete is ArmResourceDeleteSync<ValidationTestVersion>;
 
   @doc("List validation test version catalog entries")
   @added(Versions.v2026_05_01_preview)
