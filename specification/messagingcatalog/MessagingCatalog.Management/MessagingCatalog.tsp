@@ -30,6 +30,17 @@ model MessagingCatalog
   @segment("catalogs")
   @visibility(Lifecycle.Read)
   name: string;
+
+  // `identity` is an ARM envelope property that is normally contributed by the resource
+  // base template, which would trigger arm-resource-invalid-envelope-property if declared
+  // inline. We must declare it inline here because it is only introduced in
+  // 2026-06-01-preview (@added) and TypeSpec's template/spread-based envelope cannot be
+  // version-gated. The emitter still places it at the resource envelope top level
+  // referencing common-types ManagedServiceIdentity, so the suppression is safe.
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Version-gated identity must be an explicit @added property because TypeSpec spreads cannot be versioned; the emitted swagger still places identity at the resource envelope top level referencing common-types ManagedServiceIdentity."
+  @doc("The managed service identities assigned to this resource, used to access the customer-managed key in Key Vault.")
+  @added(Versions.v2026_06_01_preview)
+  identity?: Azure.ResourceManager.CommonTypes.ManagedServiceIdentity;
 }
 
 @armResourceOperations
@@ -95,4 +106,25 @@ interface MessagingCatalogs {
     FabricPrivateLinksRequest,
     FabricPrivateLinksResponse
   >;
+
+  /**
+   * Verify that the customer-managed key encryption configured on the catalog is healthy.
+   * Performs a liveness unwrap of the stored data encryption key plus a fresh wrap/unwrap
+   * round-trip through the live key encryption key. Read-only and idempotent.
+   */
+  @added(Versions.v2026_06_01_preview)
+  verifyEncryption is ArmResourceActionSync<
+    MessagingCatalog,
+    void,
+    CmkVerifyResult
+  >;
+
+  /**
+   * Disable customer-managed key encryption on the catalog and revert to a
+   * platform-managed key. The stored data encryption key is re-wrapped with the platform
+   * key; catalog data itself is not re-encrypted. Returns no content on success; issue a
+   * GET to observe the updated encryption status.
+   */
+  @added(Versions.v2026_06_01_preview)
+  disableEncryption is ArmResourceActionNoContentSync<MessagingCatalog, void>;
 }

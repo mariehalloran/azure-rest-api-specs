@@ -1,0 +1,20 @@
+{
+  "operationId": "Models_Delete",
+  "title": "Delete a Model",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg1",
+    "modelName": "my-custom-model",
+    "api-version": "2026-05-01-preview"
+  },
+  "responses": {
+    "202": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.FoundryLocal/locations/eastus/operationStatuses/operationId?api-version=2026-05-01-preview",
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.FoundryLocal/locations/eastus/operationStatuses/operationId?api-version=2026-05-01-preview",
+        "Retry-After": 10
+      }
+    },
+    "204": {}
+  }
+}

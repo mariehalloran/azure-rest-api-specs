@@ -1,0 +1,25 @@
+{
+  "parameters": {
+    "accountName": "MyAccount1",
+    "api-version": "2026-06-01-preview",
+    "resourceGroupName": "MyResourceGroup",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "resourceType": "Microsoft.WebIQ/accounts",
+            "sku": {
+              "name": "G3",
+              "tier": "Standard"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "Accounts_ListSkus",
+  "title": "List SKUs for Account"
+}

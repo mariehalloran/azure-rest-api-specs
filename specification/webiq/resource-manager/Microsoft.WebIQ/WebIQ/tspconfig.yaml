@@ -1,0 +1,51 @@
+parameters:
+  "service-dir":
+    default: "sdk/webiq"
+emit:
+  - "@azure-tools/typespec-autorest"
+options:
+  "@azure-tools/typespec-autorest":
+    omit-unreachable-types: true
+    azure-resource-provider-folder: "resource-manager"
+    emitter-output-dir: "{project-root}"
+    output-file: "{version-status}/{version}/webiq.json"
+    examples-dir: "{project-root}/examples"
+    arm-types-dir: "{project-root}/../../../../common-types/resource-management"
+    use-read-only-status-schema: true
+  "@azure-tools/typespec-csharp":
+    flavor: azure
+    emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.WebIQ"
+    clear-output-folder: true
+    model-namespace: true
+    namespace: "Azure.ResourceManager.WebIQ"
+  "@azure-tools/typespec-python":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-webiq"
+    namespace: "azure.mgmt.webiq"
+    generate-test: true
+    generate-sample: true
+    flavor: "azure"
+  "@azure-tools/typespec-java":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-webiq"
+    namespace: "com.azure.resourcemanager.webiq"
+    service-name: "WebIQ"
+    flavor: azure
+  "@azure-tools/typespec-ts":
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-webiq"
+    is-modular-library: true
+    flavor: "azure"
+    experimental-extensible-enums: true
+    package-details:
+      name: "@azure/arm-webiq"
+  "@azure-tools/typespec-go":
+    service-dir: "sdk/resourcemanager/webiq"
+    emitter-output-dir: "{output-dir}/{service-dir}/armwebiq"
+    module: "github.com/Azure/azure-sdk-for-go/{service-dir}/armwebiq"
+    fix-const-stuttering: true
+    flavor: "azure"
+    generate-samples: true
+    generate-fakes: true
+    head-as-boolean: true
+    inject-spans: true
+linter:
+  extends:
+    - "@azure-tools/typespec-azure-rulesets/resource-manager"
