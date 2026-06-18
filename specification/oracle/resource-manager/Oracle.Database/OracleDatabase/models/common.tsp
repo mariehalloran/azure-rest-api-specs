@@ -286,6 +286,10 @@ union SystemShapes {
   @doc("Exadata X11M shape")
   ExadataX11M: "Exadata.X11M",
 
+  @added(Versions.v20260501_preview)
+  @doc("Exadata X11M shape")
+  ExadataX11MV: "Exadata.X11MV",
+
   @doc("Exadata DB on Exascale Infrastructure shape")
   ExaDbXs: "ExaDbXS",
 
@@ -297,6 +301,10 @@ union SystemShapes {
 union BaseDbSystemShapes {
   @doc("Vm Standard X86")
   VMStandardX86: "VM.Standard.x86",
+
+  @added(Versions.v20260501_preview)
+  @doc("Vm Standard X86")
+  VMBaseDBX86: "VM.BaseDB.x86",
 
   string,
 }

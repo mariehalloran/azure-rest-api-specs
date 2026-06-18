@@ -305,7 +305,9 @@ using TypeSpec.Versioning;
 //    Provide write-specific models that omit those fields and wire them in via @@alternateType.
 // Pattern: https://github.com/Azure/azure-rest-api-specs/pull/43744
 //          https://github.com/Azure/azure-rest-api-specs/pull/42196
-namespace Microsoft.ComputeSchedule {
+namespace ComputeScheduleCustomizations {
+  using Microsoft.ComputeSchedule;
+
   @added(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
   @doc("Scheduled action resource item for write operations, omitting server-side read-only fields (name and id are required+read-only in the canonical model).")
   model ScheduledActionResourceWrite {
@@ -378,16 +380,16 @@ namespace Microsoft.ComputeSchedule {
 
 @@alternateType(
   ScheduledActions.attachResources::parameters.body,
-  ResourceAttachRequestWrite,
+  ComputeScheduleCustomizations.ResourceAttachRequestWrite,
   "javascript"
 );
 @@alternateType(
   ScheduledActions.patchResources::parameters.body,
-  ResourcePatchRequestWrite,
+  ComputeScheduleCustomizations.ResourcePatchRequestWrite,
   "javascript"
 );
 @@alternateType(
   ScheduledActions.update::parameters.properties,
-  ScheduledActionForUpdate,
+  ComputeScheduleCustomizations.ScheduledActionForUpdate,
   "javascript"
 );

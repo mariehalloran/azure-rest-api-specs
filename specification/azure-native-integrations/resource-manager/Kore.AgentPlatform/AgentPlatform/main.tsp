@@ -9,6 +9,7 @@ import "@azure-tools/typespec-autorest";
 import "./models.tsp";
 import "./organizations.tsp";
 import "./workspaces.tsp";
+import "./client.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;

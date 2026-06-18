@@ -4,11 +4,22 @@ import "@azure-tools/typespec-client-generator-core";
 using Azure.ClientGenerator.Core;
 using Microsoft.OpenEnergyPlatform;
 
-@@clientName(Eds.keyVaultProperties, "edsKeyVaultProperties");
+// SDK-only renames. back-compatible.tsp renames these same targets to
+// "EdsKeyVaultProperties"/"UserAssignedIdentity" for the swagger (autorest)
+// contract; these client-only camelCase names must therefore be scoped away
+// from autorest so importing client.tsp into main.tsp leaves the swagger
+// unchanged. "!autorest" cannot be used here because a negated scope resets
+// the autorest name instead of falling back to the back-compatible.tsp value.
+@@clientName(
+  Eds.keyVaultProperties,
+  "edsKeyVaultProperties",
+  "csharp,python,java,javascript,go"
+);
 
 @@clientName(
   EdsKeyVaultPropertiesIdentity.userAssignedIdentityId,
-  "userAssignedIdentity"
+  "userAssignedIdentity",
+  "csharp,python,java,javascript,go"
 );
 
 @@clientLocation(LocationsOperationGroup.checkNameAvailability, "Locations");
