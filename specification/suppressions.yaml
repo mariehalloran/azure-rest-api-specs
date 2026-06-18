@@ -2,6 +2,17 @@
 # Remove suppressions as specs are fixed
 
 - tool: TypeSpecValidation
+  reason: Specs still using legacy C# emitter, as of 2026-06-17
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - emit.@azure-typespec/http-client-csharp-mgmt
+  paths:
+    - aigrounding/resource-manager/Microsoft.AIGrounding/AIGrounding/tspconfig.yaml
+    - copilot/resource-manager/Microsoft.Copilot/CopilotManagement/tspconfig.yaml
+    - networksecurity/resource-manager/Microsoft.NetworkSecurity/agentFabric/tspconfig.yaml
+    - webiq/resource-manager/Microsoft.WebIQ/WebIQ
+
+- tool: TypeSpecValidation
   rules: [FolderStructure]
   sub-rules: [MustUseV2]
   reason: Specs added as folder structure v1, not yet converted to v2
@@ -310,12 +321,6 @@
     - impact/resource-manager/Microsoft.Impact/preview/2024-05-01-preview/impact.json
     - impact/resource-manager/Microsoft.Impact/preview/2023-12-01-preview/impact.json
     - azurebusinesscontinuitycenter/resource-manager/Microsoft.AzureBusinessContinuity/preview/2024-03-01-preview/openapi.json
-
-- tool: TypeSpecValidation
-  rules: [Compile]
-  reason: TypeSpec compilation failing with autorest emitter errors
-  paths:
-    - appcomplianceautomation/AppComplianceAutomation.Management
 
 - tool: TypeSpecValidationAll
   reason: Specs currently failing validation in RPSaaSMaster

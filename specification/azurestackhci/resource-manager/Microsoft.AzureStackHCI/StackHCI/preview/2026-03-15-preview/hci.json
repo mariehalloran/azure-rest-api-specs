@@ -11719,6 +11719,12 @@
           "description": "vCPU withheld by reserved nodes, failure-domain reservation policy, upgrade, or\nmaintenance policy.",
           "readOnly": true
         },
+        "systemReservedVirtualCpu": {
+          "type": "integer",
+          "format": "int64",
+          "description": "vCPU reserved at the machine level for the host OS and Azure Local platform\nservices before workload allocation and policy reservation.",
+          "readOnly": true
+        },
         "aggregateAvailableVirtualCpu": {
           "type": "integer",
           "format": "int32",
@@ -11746,7 +11752,7 @@
         "assignableGpuCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Count of GPUs where properties.assignable is true.",
+          "description": "Count of GPUs where assignable is true.",
           "readOnly": true
         },
         "consumedGpuCount": {
@@ -11947,6 +11953,12 @@
           "type": "integer",
           "format": "int64",
           "description": "Memory withheld for host OS, Azure Local platform services, reserved nodes,\nfailure-domain reservation policy, upgrade, or maintenance policy.",
+          "readOnly": true
+        },
+        "systemReservedBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Memory reserved at the machine level for the host OS and Azure Local platform\nservices before workload allocation as well as policy reservation, in bytes.",
           "readOnly": true
         },
         "aggregateAvailableBytes": {
@@ -13806,6 +13818,12 @@
           "format": "float",
           "description": "Cluster-wide CPU overcommit ratio used to calculate effective vCPU capacity.",
           "minimum": 1
+        },
+        "systemReservationRatio": {
+          "type": "number",
+          "format": "float",
+          "description": "Cluster-wide system reservation ratio that holds back a fraction of effective\ncapacity for platform and system overhead. Default: 0.05.",
+          "minimum": 0.05
         },
         "failureDomainReservationCount": {
           "type": "integer",

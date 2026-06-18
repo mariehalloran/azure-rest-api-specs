@@ -19,14 +19,21 @@ interface Operations extends Azure.ResourceManager.Operations {}
  * The available API versions.
  */
 enum Versions {
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   @doc("The 2024-06-01-preview API version.")
   v2024_06_01_preview: "2024-06-01-preview",
 
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   @doc("The 2024-10-01-preview API version.")
   v2024_10_01_preview: "2024-10-01-preview",
 
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   @doc("The 2025-11-01-preview API version.")
   v2025_11_01_preview: "2025-11-01-preview",
+
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  @doc("The 2026-06-01-preview API version.")
+  v2026_06_01_preview: "2026-06-01-preview",
 }
 
 @doc("Provisioning State")
@@ -118,6 +125,10 @@ model MessagingCatalogProperties {
   /** Gets or sets allow or disallow public network access to resource. */
   @added(Versions.v2025_11_01_preview)
   publicNetworkAccess?: PublicNetworkAccess;
+
+  @doc("The customer-managed key encryption settings for the catalog.")
+  @added(Versions.v2026_06_01_preview)
+  encryption?: EncryptionSettings;
 }
 
 @doc("Additional metadata about the entity.")
@@ -132,6 +143,10 @@ model ResourceLabel {
 @doc("The type used for update operations of the Messaging Catalog.")
 model MessagingCatalogUpdate {
   ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+
+  @doc("The managed service identities assigned to this resource, used to access the customer-managed key in Key Vault.")
+  @added(Versions.v2026_06_01_preview)
+  identity?: Azure.ResourceManager.CommonTypes.ManagedServiceIdentity;
 
   @doc("The updatable properties of the Messaging Catalog.")
   properties?: MessagingCatalogUpdateProperties;
@@ -148,6 +163,10 @@ model MessagingCatalogUpdateProperties {
   @doc("An array of additional metadata about the catalog.")
   @identifiers(#["name"])
   labels?: ResourceLabel[];
+
+  @doc("The customer-managed key encryption settings for the catalog. Supplying this on update enables or updates customer-managed key encryption on an existing catalog.")
+  @added(Versions.v2026_06_01_preview)
+  encryption?: EncryptionSettings;
 }
 
 @doc("Details about the error result.")
@@ -249,4 +268,86 @@ model FabricPrivateLinksResponse {
 
   @doc("The private FQDN of the messaging catalog is redirecting to.")
   privateFqdn: string;
+}
+
+@doc("The current status of customer-managed key encryption on the catalog.")
+@added(Versions.v2026_06_01_preview)
+union EncryptionStatus {
+  string,
+
+  @doc("Customer-managed key encryption is disabled.")
+  Disabled: "Disabled",
+
+  @doc("Customer-managed key encryption is enabled.")
+  Enabled: "Enabled",
+}
+
+@doc("The type of identity used to access the key encryption key in Key Vault.")
+@added(Versions.v2026_06_01_preview)
+union CmkIdentityType {
+  string,
+
+  @doc("A user-assigned managed identity is used to access the key. This is the only supported value in this preview.")
+  userAssignedIdentity: "userAssignedIdentity",
+}
+
+@doc("The identity used to access the customer-managed key in Key Vault.")
+@added(Versions.v2026_06_01_preview)
+model KeyEncryptionKeyIdentity {
+  @doc("The type of identity used to access the key. Only 'userAssignedIdentity' is supported. Required by the service when configuring customer-managed key encryption.")
+  identityType?: CmkIdentityType;
+
+  @doc("The ARM resource id of the user-assigned managed identity used to access the key. It must be one of the identities assigned to the resource. Required by the service when configuring customer-managed key encryption.")
+  userAssignedIdentityResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedIdentity/userAssignedIdentities";
+    }
+  ]>;
+}
+
+@doc("Customer-managed key encryption properties for the catalog.")
+@added(Versions.v2026_06_01_preview)
+model CustomerManagedKeyEncryption {
+  @doc("The identity used to access the key encryption key in Key Vault. Required by the service when configuring customer-managed key encryption.")
+  keyEncryptionKeyIdentity?: KeyEncryptionKeyIdentity;
+
+  @doc("The Key Vault key URL used to encrypt the catalog. A versionless URL (.../keys/{name}) or a versioned URL (.../keys/{name}/{version}) is accepted. Required by the service when configuring customer-managed key encryption.")
+  keyEncryptionKeyUrl?: url;
+}
+
+@doc("Encryption settings for the catalog.")
+@added(Versions.v2026_06_01_preview)
+model EncryptionSettings {
+  @doc("All customer-managed key encryption properties for the catalog. Required by the service when enabling customer-managed key encryption; optional on the wire to satisfy partial-update (PATCH) semantics.")
+  customerManagedKeyEncryption?: CustomerManagedKeyEncryption;
+
+  @doc("The current status of customer-managed key encryption. This property is read-only and is computed by the service.")
+  @visibility(Lifecycle.Read)
+  encryptionStatus?: EncryptionStatus;
+}
+
+@doc("The outcome of a customer-managed key encryption verification.")
+@added(Versions.v2026_06_01_preview)
+union CmkVerifyStatus {
+  string,
+
+  @doc("Both the liveness check and the fresh wrap/unwrap round-trip succeeded.")
+  Passed: "Passed",
+
+  @doc("One or more verification checks failed.")
+  Failed: "Failed",
+}
+
+@doc("The result of a customer-managed key encryption verification action.")
+@added(Versions.v2026_06_01_preview)
+model CmkVerifyResult {
+  @doc("'Passed' when both the liveness and round-trip checks succeed; otherwise 'Failed'.")
+  status: CmkVerifyStatus;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "keyVaultKey is the versioned Key Vault key identifier (URL), not secret key material; it is intentionally returned to the operator in the verify result."
+  @doc("The versioned Key Vault key URI that was exercised during verification.")
+  keyVaultKey?: url;
+
+  @doc("The UTC time at which the verification ran.")
+  checkedAt: utcDateTime;
 }
