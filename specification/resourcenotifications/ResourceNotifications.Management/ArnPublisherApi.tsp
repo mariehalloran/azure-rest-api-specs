@@ -73,9 +73,11 @@ model PublisherSettings
 @added(Versions.v2026_03_01_preview)
 model PublisherSettingsProperties {
   /** Schema version (e.g., '1.0'). */
+  @removed(Versions.v2026_06_01_preview)
   schemaVersion?: string = "1.0";
 
   /** Resource types this publisher will publish. */
+  @removed(Versions.v2026_06_01_preview)
   @OpenAPI.extension("x-ms-identifiers", #["resourceType"])
   publishingResourceTypes?: PublishingResourceType[];
 
@@ -93,6 +95,7 @@ model PublisherSettingsProperties {
 
 /** Resource type declared for publishing. */
 @added(Versions.v2026_03_01_preview)
+@removed(Versions.v2026_06_01_preview)
 model PublishingResourceType {
   /** Fully qualified type (e.g., 'Microsoft.Compute/virtualMachines'). */
   resourceType: string;
@@ -141,6 +144,7 @@ union SkuTier {
   string,
 
   /** Free tier. */
+  @removed(Versions.v2026_06_01_preview)
   Free: "Free",
 
   /** Standard tier. */
@@ -156,19 +160,29 @@ union IngestionUnitSkuName {
   string,
 
   /** Free push tier: minimal capacity for development and testing. */
+  @removed(Versions.v2026_06_01_preview)
   Free: "Free",
 
   /** Standard push tier: production HTTP push ingestion capacity. */
   Standard: "Standard",
 
+  /** Premium push tier: high-throughput HTTP push ingestion capacity. */
+  @added(Versions.v2026_06_01_preview)
+  Premium: "Premium",
+
   /** Dedicated push tier: high-volume HTTP push ingestion capacity. */
   Dedicated: "Dedicated",
 
   /** Dedicated Plus push tier: maximum HTTP push ingestion capacity. */
+  @removed(Versions.v2026_06_01_preview)
   DedicatedPlus: "DedicatedPlus",
 
   /** Standard flow tier: production discovery pipeline capacity. */
   Standard_Flow: "Standard_Flow",
+
+  /** Premium flow tier: high-throughput discovery pipeline capacity. */
+  @added(Versions.v2026_06_01_preview)
+  Premium_Flow: "Premium_Flow",
 
   /** Dedicated flow tier: high-volume discovery pipeline capacity. */
   Dedicated_Flow: "Dedicated_Flow",
@@ -539,6 +553,12 @@ model FlowProperties {
   /** ARM resource ID of the linked publisher setting. */
   linkedPublisherSettingId: Azure.Core.armResourceIdentifier;
 
+  /** ARM resource ID of the user-assigned managed identity used to authenticate
+      to the partner data source (Kusto for DiscoveryQuery, GDS for DiscoveryStreaming
+      when partner-driven auth is enabled). Optional — platform default applies if omitted. */
+  @added(Versions.v2026_06_01_preview)
+  managedIdentityResourceId?: Azure.Core.armResourceIdentifier;
+
   /** ARM resource ID of the IngestionUnit providing billing capacity for this flow. Must reference a flow-tier SKU IngestionUnit. RP validates at PUT: unit exists, is enabled, has a flow-tier SKU, and its linkedPublisherSettingId and location match this flow. */
   ingestionUnitId: Azure.Core.armResourceIdentifier;
 
@@ -595,6 +615,7 @@ model DiscoveryQueryFlowProperties extends FlowProperties {
   distributionType?: DistributionType;
 
   /** Credential details for Kusto cluster access. */
+  @removed(Versions.v2026_06_01_preview)
   credentialDetails?: CredentialDetails;
 
   /** System-computed partition count (estimatedRowCount / 100K). */
@@ -654,6 +675,7 @@ union TransformationType {
 
 /** Credential details for Kusto cluster access. */
 @added(Versions.v2026_03_01_preview)
+@removed(Versions.v2026_06_01_preview)
 model CredentialDetails {
   /** User-assigned managed identity resource ID. */
   managedIdentity: string;
@@ -698,3 +720,10 @@ interface Flows {
   /** List flows in a subscription. */
   listBySubscription is ArmListBySubscription<Flow>;
 }
+
+// In 2026-06-01-preview the Flow resource no longer carries the ARM-attached
+// managed identity envelope. Partner data-source authentication is configured
+// via FlowProperties.managedIdentityResourceId instead, so the identity property
+// (spread from ManagedServiceIdentityProperty) is removed from that version on.
+@@removed(Flow.identity, Versions.v2026_06_01_preview);
+@@removed(FlowUpdate.identity, Versions.v2026_06_01_preview);
