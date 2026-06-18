@@ -78,7 +78,7 @@ model PublisherSettingsProperties {
 
   /** Resource types this publisher will publish. */
   @removed(Versions.v2026_06_01_preview)
-  @OpenAPI.extension("x-ms-identifiers", #["resourceType"])
+  @identifiers(#["resourceType"])
   publishingResourceTypes?: PublishingResourceType[];
 
   /** Default IcM / alerting configuration. */
