@@ -14,23 +14,24 @@
         "type": "Microsoft.CloudLicensing/allotments",
         "properties": {
           "provisioningState": "Succeeded",
-          "sourceType": "asset",
           "owner": {
             "type": "tenant",
             "id": "00000000-0000-0000-0000-000000000001"
           },
-          "allottable": {
-            "catalogId": "DZH318Z0BQ3Z:0001:DZH318Z0BMGP",
+          "allotted": {
             "aadSkuId": "c7df2760-2c81-4ef7-bb25-d5191b90c7f1",
             "aadSkuPartNumber": "ENTERPRISEPACK"
           },
-          "quantity": 100,
-          "state": "active",
-          "reasonCodes": [],
-          "beneficiaryTenantId": "00000000-0000-0000-0000-000000000001",
-          "startDate": "2026-04-01T00:00:00Z",
-          "nextLifecycleDate": "2027-04-01T00:00:00Z",
-          "subscriptionEndDate": "2027-04-01T00:00:00Z"
+          "totalQuantity": 100,
+          "assignedCount": 25,
+          "sources": [
+            {
+              "id": "8eed4da6-49a5-4e24-da2a-a793488d3792",
+              "type": "asset",
+              "state": "active"
+            }
+          ],
+          "beneficiaryTenantId": "00000000-0000-0000-0000-000000000001"
         },
         "systemData": {
           "createdBy": "user@contoso.com",

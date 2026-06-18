@@ -493,91 +493,72 @@
           "description": "The provisioning state of the allotment resource.",
           "readOnly": true
         },
-        "sourceType": {
-          "$ref": "#/definitions/SourceType",
-          "description": "The type of license source for this allotment."
-        },
         "owner": {
           "$ref": "#/definitions/AllotmentOwner",
-          "description": "The owner of this allotment."
+          "description": "The owner of the allotment."
         },
-        "allottable": {
-          "$ref": "#/definitions/Allottable",
-          "description": "The product or service that is allotted."
+        "allotted": {
+          "$ref": "#/definitions/Allotted",
+          "description": "The product information for the allotment."
         },
-        "quantity": {
+        "totalQuantity": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The total number of licenses in the allotment, summed across all sources."
+        },
+        "assignedCount": {
           "type": "integer",
           "format": "int32",
-          "description": "The number of licenses in this allotment."
+          "description": "The number of unique principals currently holding an assignment from the allotment."
         },
-        "state": {
-          "$ref": "#/definitions/SourceState",
-          "description": "The state of the allotment source."
-        },
-        "reasonCodes": {
+        "sources": {
           "type": "array",
-          "description": "Reason codes describing the current state of the allotment source.",
+          "description": "The underlying sources (subscriptions or assets) backing the allotment.",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/AllotmentSource"
           }
         },
         "beneficiaryTenantId": {
           "$ref": "#/definitions/Azure.Core.uuid",
-          "description": "The tenant identifier of the beneficiary organization for this allotment.",
+          "description": "The tenant identifier of the beneficiary organization for the allotment.",
           "readOnly": true
-        },
-        "startDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The start date when this allotment becomes active."
-        },
-        "nextLifecycleDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The next lifecycle date for this allotment (e.g., renewal or expiration)."
-        },
-        "subscriptionEndDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The subscription end date for this allotment."
-        },
-        "externalReferences": {
-          "$ref": "#/definitions/ExternalReferences",
-          "description": "External reference identifiers associated with this allotment."
-        },
-        "partnerTenantId": {
-          "$ref": "#/definitions/Azure.Core.uuid",
-          "description": "The partner tenant identifier, if applicable."
-        },
-        "commerceBillingContext": {
-          "type": "string",
-          "description": "The commerce billing context for this allotment."
-        },
-        "allowedOverageUnits": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The allowed overage quantity for the allotment source."
         }
       },
       "required": [
-        "sourceType",
         "owner",
-        "allottable",
-        "quantity",
-        "state"
+        "allotted",
+        "totalQuantity"
       ]
     },
-    "Allottable": {
+    "AllotmentSource": {
       "type": "object",
-      "description": "Represents the product or service that is allotted.",
+      "description": "An underlying source (subscription or asset) backing a license allotment.",
       "properties": {
-        "catalogId": {
+        "id": {
           "type": "string",
-          "description": "The catalog identifier for the product. This is the marketplace catalog item ID\nthat identifies the specific product offering."
+          "description": "The unique identifier of the underlying source."
+        },
+        "type": {
+          "type": "string",
+          "description": "The source type (e.g., \"asset\", \"subscription\")."
+        },
+        "state": {
+          "type": "string",
+          "description": "The lifecycle state of the source (e.g., \"active\", \"warning\", \"suspended\")."
+        }
+      }
+    },
+    "Allotted": {
+      "type": "object",
+      "description": "The product information for a license allotment.",
+      "properties": {
+        "productCode": {
+          "type": "string",
+          "description": "The product code (UPN) for the allotted product (e.g., \"EMSPREMIUM\")."
         },
         "serviceId": {
           "type": "string",
-          "description": "The service identifier associated with the allottable product."
+          "description": "The service identifier for the allotted product."
         },
         "aadSkuId": {
           "$ref": "#/definitions/Azure.Core.uuid",
@@ -598,10 +579,7 @@
           "description": "Indicates whether this is a trial offering.",
           "x-nullable": true
         }
-      },
-      "required": [
-        "catalogId"
-      ]
+      }
     },
     "AssignedIdentityType": {
       "type": "string",
@@ -704,20 +682,6 @@
       "format": "uuid",
       "description": "Universally Unique Identifier"
     },
-    "ExternalReferences": {
-      "type": "object",
-      "description": "External reference identifiers associated with an allotment source.",
-      "properties": {
-        "externalSubscriptionId": {
-          "type": "string",
-          "description": "The external subscription identifier."
-        },
-        "externalOrderId": {
-          "type": "string",
-          "description": "The external order identifier."
-        }
-      }
-    },
     "OwnerType": {
       "type": "string",
       "description": "The type of owner for an allotment.",
@@ -796,96 +760,6 @@
         ]
       },
       "readOnly": true
-    },
-    "SourceState": {
-      "type": "string",
-      "description": "The state of an allotment source.",
-      "enum": [
-        "active",
-        "warning",
-        "suspended",
-        "deleted",
-        "lockOut"
-      ],
-      "x-ms-enum": {
-        "name": "SourceState",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Active",
-            "value": "active",
-            "description": "The allotment source is active."
-          },
-          {
-            "name": "Warning",
-            "value": "warning",
-            "description": "The allotment source is in a warning state."
-          },
-          {
-            "name": "Suspended",
-            "value": "suspended",
-            "description": "The allotment source is suspended."
-          },
-          {
-            "name": "Deleted",
-            "value": "deleted",
-            "description": "The allotment source has been deleted."
-          },
-          {
-            "name": "LockOut",
-            "value": "lockOut",
-            "description": "The allotment source is locked out."
-          }
-        ]
-      }
-    },
-    "SourceType": {
-      "type": "string",
-      "description": "The type of license source for an allotment.",
-      "enum": [
-        "asset",
-        "thirdPartyDeal",
-        "omsSubscription",
-        "ocpEntitlement",
-        "lowFrictionTrial",
-        "spoHeartbeatTenant"
-      ],
-      "x-ms-enum": {
-        "name": "SourceType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Asset",
-            "value": "asset",
-            "description": "Asset-based license source."
-          },
-          {
-            "name": "ThirdPartyDeal",
-            "value": "thirdPartyDeal",
-            "description": "Third-party deal license source."
-          },
-          {
-            "name": "OmsSubscription",
-            "value": "omsSubscription",
-            "description": "OMS subscription license source."
-          },
-          {
-            "name": "OcpEntitlement",
-            "value": "ocpEntitlement",
-            "description": "OCP entitlement license source."
-          },
-          {
-            "name": "LowFrictionTrial",
-            "value": "lowFrictionTrial",
-            "description": "Low friction trial license source."
-          },
-          {
-            "name": "SpoHeartbeatTenant",
-            "value": "spoHeartbeatTenant",
-            "description": "SharePoint Online heartbeat tenant license source."
-          }
-        ]
-      }
     }
   },
   "parameters": {

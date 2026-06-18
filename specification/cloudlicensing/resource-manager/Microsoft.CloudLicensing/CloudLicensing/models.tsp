@@ -51,53 +51,6 @@ union AssignedIdentityType {
 }
 
 /**
- * The type of license source for an allotment.
- */
-union SourceType {
-  string,
-
-  /** Asset-based license source. */
-  Asset: "asset",
-
-  /** Third-party deal license source. */
-  ThirdPartyDeal: "thirdPartyDeal",
-
-  /** OMS subscription license source. */
-  OmsSubscription: "omsSubscription",
-
-  /** OCP entitlement license source. */
-  OcpEntitlement: "ocpEntitlement",
-
-  /** Low friction trial license source. */
-  LowFrictionTrial: "lowFrictionTrial",
-
-  /** SharePoint Online heartbeat tenant license source. */
-  SpoHeartbeatTenant: "spoHeartbeatTenant",
-}
-
-/**
- * The state of an allotment source.
- */
-union SourceState {
-  string,
-
-  /** The allotment source is active. */
-  Active: "active",
-
-  /** The allotment source is in a warning state. */
-  Warning: "warning",
-
-  /** The allotment source is suspended. */
-  Suspended: "suspended",
-
-  /** The allotment source has been deleted. */
-  Deleted: "deleted",
-
-  /** The allotment source is locked out. */
-  LockOut: "lockOut",
-}
-
-/**
  * The type of owner for an allotment.
  */
 union OwnerType {
@@ -126,17 +79,16 @@ model AllotmentOwner {
 }
 
 /**
- * Represents the product or service that is allotted.
+ * The product information for a license allotment.
  */
-model Allottable {
+model Allotted {
   /**
-   * The catalog identifier for the product. This is the marketplace catalog item ID
-   * that identifies the specific product offering.
+   * The product code (UPN) for the allotted product (e.g., "EMSPREMIUM").
    */
-  catalogId: string;
+  productCode?: string;
 
   /**
-   * The service identifier associated with the allottable product.
+   * The service identifier for the allotted product.
    */
   serviceId?: string;
 
@@ -165,18 +117,23 @@ model Allottable {
 }
 
 /**
- * External reference identifiers associated with an allotment source.
+ * An underlying source (subscription or asset) backing a license allotment.
  */
-model ExternalReferences {
+model AllotmentSource {
   /**
-   * The external subscription identifier.
+   * The unique identifier of the underlying source.
    */
-  externalSubscriptionId?: string;
+  id?: string;
 
   /**
-   * The external order identifier.
+   * The source type (e.g., "asset", "subscription").
    */
-  externalOrderId?: string;
+  type?: string;
+
+  /**
+   * The lifecycle state of the source (e.g., "active", "warning", "suspended").
+   */
+  state?: string;
 }
 
 /**
@@ -190,75 +147,35 @@ model AllotmentProperties {
   provisioningState?: ProvisioningState;
 
   /**
-   * The type of license source for this allotment.
-   */
-  sourceType: SourceType;
-
-  /**
-   * The owner of this allotment.
+   * The owner of the allotment.
    */
   owner: AllotmentOwner;
 
   /**
-   * The product or service that is allotted.
+   * The product information for the allotment.
    */
-  allottable: Allottable;
+  allotted: Allotted;
 
   /**
-   * The number of licenses in this allotment.
+   * The total number of licenses in the allotment, summed across all sources.
    */
-  quantity: int32;
+  totalQuantity: int64;
 
   /**
-   * The state of the allotment source.
+   * The number of unique principals currently holding an assignment from the allotment.
    */
-  state: SourceState;
+  assignedCount?: int32;
 
   /**
-   * Reason codes describing the current state of the allotment source.
+   * The underlying sources (subscriptions or assets) backing the allotment.
    */
-  reasonCodes?: string[];
+  sources?: AllotmentSource[];
 
   /**
-   * The tenant identifier of the beneficiary organization for this allotment.
+   * The tenant identifier of the beneficiary organization for the allotment.
    */
   @visibility(Lifecycle.Read)
   beneficiaryTenantId?: uuid;
-
-  /**
-   * The start date when this allotment becomes active.
-   */
-  startDate?: utcDateTime;
-
-  /**
-   * The next lifecycle date for this allotment (e.g., renewal or expiration).
-   */
-  nextLifecycleDate?: utcDateTime;
-
-  /**
-   * The subscription end date for this allotment.
-   */
-  subscriptionEndDate?: utcDateTime;
-
-  /**
-   * External reference identifiers associated with this allotment.
-   */
-  externalReferences?: ExternalReferences;
-
-  /**
-   * The partner tenant identifier, if applicable.
-   */
-  partnerTenantId?: uuid;
-
-  /**
-   * The commerce billing context for this allotment.
-   */
-  commerceBillingContext?: string;
-
-  /**
-   * The allowed overage quantity for the allotment source.
-   */
-  allowedOverageUnits?: int32;
 }
 
 /**
