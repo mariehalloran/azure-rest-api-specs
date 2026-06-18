@@ -13807,6 +13807,12 @@
           "description": "Cluster-wide CPU overcommit ratio used to calculate effective vCPU capacity.",
           "minimum": 1
         },
+        "systemReservationRatio": {
+          "type": "number",
+          "format": "float",
+          "description": "Cluster-wide system reservation ratio that holds back a fraction of effective\ncapacity for platform and system overhead. Default: 0.05.",
+          "minimum": 0.05
+        },
         "failureDomainReservationCount": {
           "type": "integer",
           "format": "int32",

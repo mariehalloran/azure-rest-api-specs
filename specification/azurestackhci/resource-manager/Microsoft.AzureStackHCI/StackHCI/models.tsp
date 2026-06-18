@@ -3826,6 +3826,13 @@ model DeploymentCapacityPolicy {
   cpuOvercommitRatio?: float32;
 
   /**
+   * Cluster-wide system reservation ratio that holds back a fraction of effective
+   * capacity for platform and system overhead. Default: 0.05.
+   */
+  @minValue(0.05)
+  systemReservationRatio?: float32;
+
+  /**
    * Number of failure domains to reserve for n+1/n+2 style placement planning.
    */
   @minValue(0)
