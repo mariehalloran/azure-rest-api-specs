@@ -1,10 +1,20 @@
 using TypeSpec.Rest;
 using TypeSpec.Http;
 using TypeSpec.Versioning;
-using Azure.Core;
 using Azure.ResourceManager;
 
 namespace Microsoft.Validate;
+
+@doc("Audience visibility of a published catalog item.")
+union CatalogAudience {
+  @doc("Visible to all customers, including 1P and 3P callers.")
+  Public: "Public",
+
+  @doc("Visible only to authorized internal 1P callers.")
+  Internal: "Internal",
+
+  string,
+}
 
 @doc("Validation test catalog entry.")
 @tenantResource
@@ -23,7 +33,44 @@ model ValidationTestProperties {
   @doc("Validation test description.")
   description?: string;
 
+  @doc("Audience visibility of this validation test.")
+  audience?: CatalogAudience;
+
   @doc("Provisioning state of the validation test catalog resource.")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ResourceProvisioningState;
+
+  @doc("Validation test category ids.")
+  categoryIds?: string[];
+
+  @doc("Overall state of the validation test.")
+  overallState?: string;
+
+  @doc("URI of the test artifact in TestStore.")
+  testStoreUri?: string;
+
+  @doc("The resource ID of the current immutable version snapshot.")
+  @visibility(Lifecycle.Read)
+  currentVersion?: string;
+
+  @doc("The resource ID of the latest published version snapshot.")
+  @visibility(Lifecycle.Read)
+  latestPublishedVersion?: string;
+
+  @doc("Timestamp of the last version publication.")
+  @visibility(Lifecycle.Read)
+  lastPublishedAt?: utcDateTime;
+}
+
+@doc("Validation test version catalog properties.")
+model ValidationTestVersionProperties {
+  @doc("Validation test description.")
+  description?: string;
+
+  @doc("Audience visibility of this validation test version.")
+  audience?: CatalogAudience;
+
+  @doc("Provisioning state of the validation test version catalog resource.")
   @visibility(Lifecycle.Read)
   provisioningState?: ResourceProvisioningState;
 
@@ -41,7 +88,7 @@ model ValidationTestProperties {
 @tenantResource
 @parentResource(ValidationTest)
 @added(Versions.v2026_05_01_preview)
-model ValidationTestVersion is ProxyResource<ValidationTestProperties> {
+model ValidationTestVersion is ProxyResource<ValidationTestVersionProperties> {
   ...ResourceNameParameter<
     Resource = ValidationTestVersion,
     KeyName = "version",
@@ -67,6 +114,9 @@ model ValidationTestCategory
 model ValidationTestCategoryProperties {
   @doc("Validation test category description.")
   description?: string;
+
+  @doc("Audience visibility of this validation test category.")
+  audience?: CatalogAudience;
 
   @doc("Provisioning state of the validation test category catalog resource.")
   @visibility(Lifecycle.Read)
@@ -109,7 +159,7 @@ interface ValidationTests {
   @added(Versions.v2026_05_01_preview)
   get is ValidationTestsOps.Read<ValidationTest>;
 
-  @doc("Create or update a validation test catalog entry")
+  @doc("Create or update a validation test catalog entry and publish a new immutable version snapshot")
   @added(Versions.v2026_05_01_preview)
   createOrUpdate is ValidationTestsOps.CreateOrUpdateSync<ValidationTest>;
 
@@ -119,10 +169,7 @@ interface ValidationTests {
 
   @doc("List validation test catalog entries")
   @added(Versions.v2026_05_01_preview)
-  list is ValidationTestsOps.List<
-    ValidationTest,
-    Parameters = StandardListQueryParameters & Azure.Core.FilterQueryParameter
-  >;
+  list is ValidationTestsOps.List<ValidationTest>;
 }
 
 @armResourceOperations(ValidationTestVersion)
@@ -133,17 +180,13 @@ interface ValidationTestVersions {
   @added(Versions.v2026_05_01_preview)
   get is ArmResourceRead<ValidationTestVersion>;
 
-  @doc("Put a validation test version catalog entry")
-  @added(Versions.v2026_05_01_preview)
-  put is ArmResourceCreateOrReplaceSync<ValidationTestVersion>;
-
   @doc("Delete a validation test version catalog entry")
   @added(Versions.v2026_05_01_preview)
   delete is ArmResourceDeleteSync<ValidationTestVersion>;
 
   @doc("List validation test version catalog entries")
   @added(Versions.v2026_05_01_preview)
-  list is ArmResourceListByParent<ValidationTestVersion>;
+  listByParent is ArmResourceListByParent<ValidationTestVersion>;
 }
 
 @armResourceOperations

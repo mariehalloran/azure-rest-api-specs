@@ -287,18 +287,6 @@
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.TopQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.SkipQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.MaxPageSizeQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.FilterQueryParameter"
           }
         ],
         "responses": {
@@ -370,7 +358,7 @@
         "tags": [
           "Validation Test Interfaces"
         ],
-        "description": "Create or update a validation test catalog entry",
+        "description": "Create or update a validation test catalog entry and publish a new immutable version snapshot",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -461,7 +449,7 @@
     },
     "/providers/Microsoft.Validate/validationTests/{validationTestName}/versions": {
       "get": {
-        "operationId": "ValidationTestVersions_List",
+        "operationId": "ValidationTestVersions_ListByParent",
         "tags": [
           "Validation Test Version Interfaces"
         ],
@@ -491,11 +479,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestVersions_List_MaximumSet": {
-            "$ref": "./examples/ValidationTestVersions_List_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -548,68 +531,6 @@
         "x-ms-examples": {
           "ValidationTestVersions_Get_MaximumSet": {
             "$ref": "./examples/ValidationTestVersions_Get_MaximumSet_Gen.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "ValidationTestVersions_Put",
-        "tags": [
-          "Validation Test Version Interfaces"
-        ],
-        "description": "Put a validation test version catalog entry",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "validationTestName",
-            "in": "path",
-            "description": "The name of the ValidationTest",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          },
-          {
-            "name": "version",
-            "in": "path",
-            "description": "The name of the ValidationTestVersion",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9._-]{1,64}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ValidationTestVersion"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'ValidationTestVersion' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ValidationTestVersion"
-            }
-          },
-          "201": {
-            "description": "Resource 'ValidationTestVersion' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ValidationTestVersion"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestVersions_Put_MaximumSet": {
-            "$ref": "./examples/ValidationTestVersions_Put_MaximumSet_Gen.json"
           }
         }
       },
@@ -2156,6 +2077,30 @@
       },
       "readOnly": true
     },
+    "CatalogAudience": {
+      "type": "string",
+      "description": "Audience visibility of a published catalog item.",
+      "enum": [
+        "Public",
+        "Internal"
+      ],
+      "x-ms-enum": {
+        "name": "CatalogAudience",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Public",
+            "value": "Public",
+            "description": "Visible to all customers, including 1P and 3P callers."
+          },
+          {
+            "name": "Internal",
+            "value": "Internal",
+            "description": "Visible only to authorized internal 1P callers."
+          }
+        ]
+      }
+    },
     "CloudValidation": {
       "type": "object",
       "description": "Cloud Validation Resource",
@@ -2745,6 +2690,10 @@
           "type": "string",
           "description": "Validation test category description."
         },
+        "audience": {
+          "$ref": "#/definitions/CatalogAudience",
+          "description": "Audience visibility of this validation test category."
+        },
         "provisioningState": {
           "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "Provisioning state of the validation test category catalog resource.",
@@ -2840,6 +2789,10 @@
           "type": "string",
           "description": "Validation test description."
         },
+        "audience": {
+          "$ref": "#/definitions/CatalogAudience",
+          "description": "Audience visibility of this validation test."
+        },
         "provisioningState": {
           "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "Provisioning state of the validation test catalog resource.",
@@ -2859,6 +2812,22 @@
         "testStoreUri": {
           "type": "string",
           "description": "URI of the test artifact in TestStore."
+        },
+        "currentVersion": {
+          "type": "string",
+          "description": "The resource ID of the current immutable version snapshot.",
+          "readOnly": true
+        },
+        "latestPublishedVersion": {
+          "type": "string",
+          "description": "The resource ID of the latest published version snapshot.",
+          "readOnly": true
+        },
+        "lastPublishedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the last version publication.",
+          "readOnly": true
         }
       }
     },
@@ -3031,7 +3000,7 @@
       "description": "Validation test version catalog entry.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/ValidationTestProperties",
+          "$ref": "#/definitions/ValidationTestVersionProperties",
           "description": "The resource-specific properties for this resource."
         }
       },
@@ -3061,6 +3030,40 @@
       "required": [
         "value"
       ]
+    },
+    "ValidationTestVersionProperties": {
+      "type": "object",
+      "description": "Validation test version catalog properties.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Validation test description."
+        },
+        "audience": {
+          "$ref": "#/definitions/CatalogAudience",
+          "description": "Audience visibility of this validation test version."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "Provisioning state of the validation test version catalog resource.",
+          "readOnly": true
+        },
+        "categoryIds": {
+          "type": "array",
+          "description": "Validation test category ids.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "overallState": {
+          "type": "string",
+          "description": "Overall state of the validation test."
+        },
+        "testStoreUri": {
+          "type": "string",
+          "description": "URI of the test artifact in TestStore."
+        }
+      }
     }
   },
   "parameters": {
