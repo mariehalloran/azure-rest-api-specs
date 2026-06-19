@@ -358,7 +358,7 @@
         "tags": [
           "Validation Test Interfaces"
         ],
-        "description": "Create or update a validation test catalog entry and publish a new immutable version snapshot",
+        "description": "Create or update a validation test catalog entry",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -449,7 +449,7 @@
     },
     "/providers/Microsoft.Validate/validationTests/{validationTestName}/versions": {
       "get": {
-        "operationId": "ValidationTestVersions_ListByParent",
+        "operationId": "ValidationTestVersions_List",
         "tags": [
           "Validation Test Version Interfaces"
         ],
@@ -461,7 +461,7 @@
           {
             "name": "validationTestName",
             "in": "path",
-            "description": "The name of the ValidationTest",
+            "description": "The validation test name.",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9-]{1,90}$"
@@ -482,7 +482,7 @@
           }
         },
         "x-ms-examples": {
-          "ValidationTestVersions_ListByParent_MaximumSet": {
+          "ValidationTestVersions_List_MaximumSet": {
             "$ref": "./examples/ValidationTestVersions_List_MaximumSet_Gen.json"
           }
         },
@@ -491,7 +491,7 @@
         }
       }
     },
-    "/providers/Microsoft.Validate/validationTests/{validationTestName}/versions/{version}": {
+    "/providers/Microsoft.Validate/versions/{version}": {
       "get": {
         "operationId": "ValidationTestVersions_Get",
         "tags": [
@@ -503,17 +503,9 @@
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "name": "validationTestName",
-            "in": "path",
-            "description": "The name of the ValidationTest",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{1,90}$"
-          },
-          {
             "name": "version",
             "in": "path",
-            "description": "The name of the ValidationTestVersion",
+            "description": "The validation test version.",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9._-]{1,64}$"
@@ -536,6 +528,94 @@
         "x-ms-examples": {
           "ValidationTestVersions_Get_MaximumSet": {
             "$ref": "./examples/ValidationTestVersions_Get_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ValidationTestVersions_Put",
+        "tags": [
+          "Validation Test Version Interfaces"
+        ],
+        "description": "Put a validation test version catalog entry",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "The validation test version.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9._-]{1,64}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ValidationTestVersion"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ValidationTestVersion' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestVersion"
+            }
+          },
+          "201": {
+            "description": "Resource 'ValidationTestVersion' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestVersion"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "ValidationTestVersions_Delete",
+        "tags": [
+          "Validation Test Version Interfaces"
+        ],
+        "description": "Delete a validation test version catalog entry",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "The validation test version.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9._-]{1,64}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTestVersions_Delete_MaximumSet": {
+            "$ref": "./examples/ValidationTestVersions_Delete_MaximumSet_Gen.json"
           }
         }
       }
@@ -1800,11 +1880,11 @@
         }
       },
       "put": {
-        "operationId": "ValidationTestRuns_CreateOrUpdate",
+        "operationId": "ValidationTestRuns_Put",
         "tags": [
           "Validation Test Run Interfaces"
         ],
-        "description": "Create or update a validation test run",
+        "description": "Put a validation test run",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -1886,11 +1966,6 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationTestRuns_CreateOrUpdate_MaximumSet": {
-            "$ref": "./examples/ValidationTestRuns_CreateOrUpdate_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -2738,22 +2813,6 @@
         "testStoreUri": {
           "type": "string",
           "description": "URI of the test artifact in TestStore."
-        },
-        "currentVersion": {
-          "type": "string",
-          "description": "The resource ID of the current immutable version snapshot.",
-          "readOnly": true
-        },
-        "latestPublishedVersion": {
-          "type": "string",
-          "description": "The resource ID of the latest published version snapshot.",
-          "readOnly": true
-        },
-        "lastPublishedAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Timestamp of the last version publication.",
-          "readOnly": true
         }
       }
     },

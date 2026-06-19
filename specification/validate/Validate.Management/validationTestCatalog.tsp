@@ -34,23 +34,10 @@ model ValidationTestProperties {
 
   @doc("URI of the test artifact in TestStore.")
   testStoreUri?: string;
-
-  @doc("The resource ID of the current immutable version snapshot.")
-  @visibility(Lifecycle.Read)
-  currentVersion?: string;
-
-  @doc("The resource ID of the latest published version snapshot.")
-  @visibility(Lifecycle.Read)
-  latestPublishedVersion?: string;
-
-  @doc("Timestamp of the last version publication.")
-  @visibility(Lifecycle.Read)
-  lastPublishedAt?: utcDateTime;
 }
 
 @doc("Validation test version catalog entry.")
 @tenantResource
-@parentResource(ValidationTest)
 @added(Versions.v2026_05_01_preview)
 model ValidationTestVersion is ProxyResource<ValidationTestProperties> {
   ...ResourceNameParameter<
@@ -120,7 +107,7 @@ interface ValidationTests {
   @added(Versions.v2026_05_01_preview)
   get is ValidationTestsOps.Read<ValidationTest>;
 
-  @doc("Create or update a validation test catalog entry and publish a new immutable version snapshot")
+  @doc("Create or update a validation test catalog entry")
   @added(Versions.v2026_05_01_preview)
   createOrUpdate is ValidationTestsOps.CreateOrUpdateSync<ValidationTest>;
 
@@ -133,17 +120,57 @@ interface ValidationTests {
   list is ValidationTestsOps.List<ValidationTest>;
 }
 
-@armResourceOperations(ValidationTestVersion)
+@armResourceOperations
+@added(Versions.v2026_05_01_preview)
+interface ValidationTestVersionsOps
+  extends Azure.ResourceManager.Legacy.ExtensionOperations<
+      {
+        ...ApiVersionParameter,
+
+        @path
+        @segment("providers")
+        @key
+        @doc("The provider namespace.")
+        providerNamespace: "Microsoft.Validate",
+      },
+      {
+        @path
+        @segment("validationTests")
+        @key
+        @doc("The validation test name.")
+        @pattern("^[a-zA-Z0-9-]{1,90}$")
+        validationTestName: string,
+      },
+      {
+        @path
+        @segment("versions")
+        @key
+        @doc("The validation test version.")
+        @pattern("^[a-zA-Z0-9._-]{1,64}$")
+        version: string,
+      },
+      ResourceName = "ValidationTestVersions"
+    > {}
+
+@armResourceOperations
 @tag("Validation Test Version Interfaces")
 @added(Versions.v2026_05_01_preview)
 interface ValidationTestVersions {
   @doc("Get a validation test version catalog entry")
   @added(Versions.v2026_05_01_preview)
-  get is ArmResourceRead<ValidationTestVersion>;
+  get is ValidationTestVersionsOps.Read<ValidationTestVersion>;
+
+  @doc("Put a validation test version catalog entry")
+  @added(Versions.v2026_05_01_preview)
+  put is ValidationTestVersionsOps.CreateOrUpdateSync<ValidationTestVersion>;
+
+  @doc("Delete a validation test version catalog entry")
+  @added(Versions.v2026_05_01_preview)
+  delete is ValidationTestVersionsOps.DeleteSync<ValidationTestVersion>;
 
   @doc("List validation test version catalog entries")
   @added(Versions.v2026_05_01_preview)
-  listByParent is ArmResourceListByParent<ValidationTestVersion>;
+  list is ValidationTestVersionsOps.List<ValidationTestVersion>;
 }
 
 @armResourceOperations

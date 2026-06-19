@@ -177,9 +177,9 @@ interface ValidationTestRuns {
   @added(Versions.v2026_05_01_preview)
   get is ArmResourceRead<ValidationTestRun>;
 
-  @doc("Create or update a validation test run")
+  @doc("Put a validation test run")
   @added(Versions.v2026_05_01_preview)
-  createOrUpdate is ArmResourceCreateOrReplaceAsync<ValidationTestRun>;
+  put is ArmResourceCreateOrReplaceAsync<ValidationTestRun>;
 
   @doc("Delete a validation test run")
   @added(Versions.v2026_05_01_preview)
