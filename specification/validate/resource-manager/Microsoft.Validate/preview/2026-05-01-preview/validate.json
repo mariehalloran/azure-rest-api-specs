@@ -539,6 +539,68 @@
           }
         }
       },
+      "put": {
+        "operationId": "ValidationTestVersions_Put",
+        "tags": [
+          "Validation Test Version Interfaces"
+        ],
+        "description": "Put a validation test version catalog entry",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "validationTestName",
+            "in": "path",
+            "description": "The name of the ValidationTest",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,90}$"
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "The name of the ValidationTestVersion",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9._-]{1,64}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ValidationTestVersion"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ValidationTestVersion' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestVersion"
+            }
+          },
+          "201": {
+            "description": "Resource 'ValidationTestVersion' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestVersion"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTestVersions_Put_MaximumSet": {
+            "$ref": "./examples/ValidationTestVersions_Put_MaximumSet_Gen.json"
+          }
+        }
+      },
       "delete": {
         "operationId": "ValidationTestVersions_Delete",
         "tags": [

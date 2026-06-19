@@ -180,6 +180,10 @@ interface ValidationTestVersions {
   @added(Versions.v2026_05_01_preview)
   get is ArmResourceRead<ValidationTestVersion>;
 
+  @doc("Put a validation test version catalog entry")
+  @added(Versions.v2026_05_01_preview)
+  put is ArmResourceCreateOrReplaceSync<ValidationTestVersion>;
+
   @doc("Delete a validation test version catalog entry")
   @added(Versions.v2026_05_01_preview)
   delete is ArmResourceDeleteSync<ValidationTestVersion>;
