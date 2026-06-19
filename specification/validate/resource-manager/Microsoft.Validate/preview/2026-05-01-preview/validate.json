@@ -461,7 +461,7 @@
           {
             "name": "validationTestName",
             "in": "path",
-            "description": "The validation test name.",
+            "description": "The name of the ValidationTest",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9-]{1,90}$"
@@ -491,7 +491,7 @@
         }
       }
     },
-    "/providers/Microsoft.Validate/versions/{version}": {
+    "/providers/Microsoft.Validate/validationTests/{validationTestName}/versions/{version}": {
       "get": {
         "operationId": "ValidationTestVersions_Get",
         "tags": [
@@ -503,9 +503,17 @@
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
+            "name": "validationTestName",
+            "in": "path",
+            "description": "The name of the ValidationTest",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,90}$"
+          },
+          {
             "name": "version",
             "in": "path",
-            "description": "The validation test version.",
+            "description": "The name of the ValidationTestVersion",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9._-]{1,64}$"
@@ -542,9 +550,17 @@
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
+            "name": "validationTestName",
+            "in": "path",
+            "description": "The name of the ValidationTest",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,90}$"
+          },
+          {
             "name": "version",
             "in": "path",
-            "description": "The validation test version.",
+            "description": "The name of the ValidationTestVersion",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9._-]{1,64}$"
@@ -591,9 +607,17 @@
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
+            "name": "validationTestName",
+            "in": "path",
+            "description": "The name of the ValidationTest",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,90}$"
+          },
+          {
             "name": "version",
             "in": "path",
-            "description": "The validation test version.",
+            "description": "The name of the ValidationTestVersion",
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9._-]{1,64}$"

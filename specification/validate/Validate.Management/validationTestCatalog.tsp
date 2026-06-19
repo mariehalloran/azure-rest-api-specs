@@ -38,6 +38,7 @@ model ValidationTestProperties {
 
 @doc("Validation test version catalog entry.")
 @tenantResource
+@parentResource(ValidationTest)
 @added(Versions.v2026_05_01_preview)
 model ValidationTestVersion is ProxyResource<ValidationTestProperties> {
   ...ResourceNameParameter<
@@ -120,57 +121,25 @@ interface ValidationTests {
   list is ValidationTestsOps.List<ValidationTest>;
 }
 
-@armResourceOperations
-@added(Versions.v2026_05_01_preview)
-interface ValidationTestVersionsOps
-  extends Azure.ResourceManager.Legacy.ExtensionOperations<
-      {
-        ...ApiVersionParameter,
-
-        @path
-        @segment("providers")
-        @key
-        @doc("The provider namespace.")
-        providerNamespace: "Microsoft.Validate",
-      },
-      {
-        @path
-        @segment("validationTests")
-        @key
-        @doc("The validation test name.")
-        @pattern("^[a-zA-Z0-9-]{1,90}$")
-        validationTestName: string,
-      },
-      {
-        @path
-        @segment("versions")
-        @key
-        @doc("The validation test version.")
-        @pattern("^[a-zA-Z0-9._-]{1,64}$")
-        version: string,
-      },
-      ResourceName = "ValidationTestVersions"
-    > {}
-
-@armResourceOperations
+@armResourceOperations(ValidationTestVersion)
 @tag("Validation Test Version Interfaces")
 @added(Versions.v2026_05_01_preview)
 interface ValidationTestVersions {
   @doc("Get a validation test version catalog entry")
   @added(Versions.v2026_05_01_preview)
-  get is ValidationTestVersionsOps.Read<ValidationTestVersion>;
+  get is ArmResourceRead<ValidationTestVersion>;
 
   @doc("Put a validation test version catalog entry")
   @added(Versions.v2026_05_01_preview)
-  put is ValidationTestVersionsOps.CreateOrUpdateSync<ValidationTestVersion>;
+  put is ArmResourceCreateOrReplaceSync<ValidationTestVersion>;
 
   @doc("Delete a validation test version catalog entry")
   @added(Versions.v2026_05_01_preview)
-  delete is ValidationTestVersionsOps.DeleteSync<ValidationTestVersion>;
+  delete is ArmResourceDeleteSync<ValidationTestVersion>;
 
   @doc("List validation test version catalog entries")
   @added(Versions.v2026_05_01_preview)
-  list is ValidationTestVersionsOps.List<ValidationTestVersion>;
+  list is ArmResourceListByParent<ValidationTestVersion>;
 }
 
 @armResourceOperations
