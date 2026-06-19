@@ -287,6 +287,18 @@
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.Core.TopQueryParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.Core.SkipQueryParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.Core.MaxPageSizeQueryParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.Core.FilterQueryParameter"
           }
         ],
         "responses": {
@@ -593,6 +605,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTestVersions_Put_MaximumSet": {
+            "$ref": "./examples/ValidationTestVersions_Put_MaximumSet_Gen.json"
           }
         }
       },
@@ -1990,6 +2007,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTestRuns_Put_MaximumSet": {
+            "$ref": "./examples/ValidationTestRuns_Put_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {

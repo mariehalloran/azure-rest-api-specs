@@ -1,6 +1,7 @@
 using TypeSpec.Rest;
 using TypeSpec.Http;
 using TypeSpec.Versioning;
+using Azure.Core;
 using Azure.ResourceManager;
 
 namespace Microsoft.Validate;
@@ -118,7 +119,10 @@ interface ValidationTests {
 
   @doc("List validation test catalog entries")
   @added(Versions.v2026_05_01_preview)
-  list is ValidationTestsOps.List<ValidationTest>;
+  list is ValidationTestsOps.List<
+    ValidationTest,
+    Parameters = StandardListQueryParameters & Azure.Core.FilterQueryParameter
+  >;
 }
 
 @armResourceOperations(ValidationTestVersion)
