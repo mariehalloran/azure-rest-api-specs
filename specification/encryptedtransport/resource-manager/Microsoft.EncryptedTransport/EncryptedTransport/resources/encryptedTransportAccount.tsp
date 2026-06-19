@@ -32,6 +32,7 @@ model EncryptedTransportAccount
 model EncryptedTransportAccountProperties {
   @doc("List of wifi ssid and pre-shared key pairs as printable ASCII secure strings")
   @added(Microsoft.EncryptedTransport.Versions.v2025_10_01_preview)
+  @removed(Microsoft.EncryptedTransport.Versions.v2026_06_01_preview)
   @visibility(Lifecycle.Create, Lifecycle.Read, Lifecycle.Update)
   @identifiers(#["ssid"])
   wifiProfiles: WifiProfile[];

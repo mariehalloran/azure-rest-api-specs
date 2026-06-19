@@ -22,4 +22,8 @@ enum Versions {
   @doc("Azure Encrypted Transport 2025-10-01-preview version")
   @armCommonTypesVersion(CommonTypes.Versions.v6)
   v2025_10_01_preview: "2025-10-01-preview",
+
+  @doc("Azure Encrypted Transport 2026-06-01-preview version")
+  @armCommonTypesVersion(CommonTypes.Versions.v6)
+  v2026_06_01_preview: "2026-06-01-preview",
 }
