@@ -207,6 +207,42 @@ union OrderByColumnEnum {
   string,
 }
 
+@doc("Sorting is supported for columns in billing account scoped ItemDetailsReport. This object includes the column names that sorting is allowed for. Select one of these supported values. The ResourceGroup column is not supported for billing account scope.")
+@added(Versions.v2026_05_01_preview)
+union BillingAccountOrderByColumnEnum {
+  @doc("The itemName filed in ItemDetailsReport result, see CarbonEmissionItemDetailData for more information.")
+  ItemName: "ItemName",
+
+  @doc("The latestMonthEmissions filed in ItemDetailsReport result, see CarbonEmissionItemDetailData for more information.")
+  LatestMonthEmissions: "LatestMonthEmissions",
+
+  @doc("The previousMonthEmissions filed in ItemDetailsReport result, see CarbonEmissionItemDetailData for more information.")
+  PreviousMonthEmissions: "PreviousMonthEmissions",
+
+  @doc("The monthOverMonthEmissionsChangeRatio filed in ItemDetailsReport result, see CarbonEmissionItemDetailData for more information.")
+  MonthOverMonthEmissionsChangeRatio: "MonthOverMonthEmissionsChangeRatio",
+
+  @doc("The monthlyEmissionsChangeValue filed in ItemDetailsReport result, see CarbonEmissionItemDetailData for more information.")
+  MonthlyEmissionsChangeValue: "MonthlyEmissionsChangeValue",
+
+  string,
+}
+
+@doc("Supported category types for billing account scoped queries. The ResourceGroup and Resource category types are not supported for billing account scope.")
+@added(Versions.v2026_05_01_preview)
+union BillingAccountCategoryTypeEnum {
+  @doc("Emissions aggregated at the subscription level.")
+  Subscription: "Subscription",
+
+  @doc("Emissions aggregated at the location level.")
+  Location: "Location",
+
+  @doc("Emissions aggregated at the resource type level.")
+  ResourceType: "ResourceType",
+
+  string,
+}
+
 @doc("Query Parameters for ItemDetailsReport")
 model ItemDetailsQueryFilter extends QueryFilter {
   @doc("Specifies that the report type is an item details report for granular carbon emissions data. This is a paginated report.")
@@ -241,7 +277,7 @@ model BillingAccountQueryFilter {
   @doc("The start and end dates for carbon emissions data. Required. For ItemDetailsReport and TopItemsSummaryReport, only one month of data is supported at a time, so start and end dates should be equal within DateRange (e.g., start: 2024-06-01 and end: 2024-06-01).")
   dateRange: DateRange;
 
-  @doc("List of subscription IDs for which carbon emissions data is requested. Optional. Each subscription ID should be in lowercase format. The max length of list is 100. If not provided, data for all subscriptions under the billing account will be returned.")
+  @doc("List of subscription IDs for which carbon emissions data is requested. Optional. Each subscription ID should be in lowercase format. If not provided, data for all subscriptions under the billing account will be returned.")
   subscriptionList?: string[];
 
   @doc("List of resource types for carbon emissions data. Optional. Each resource type should be specified in lowercase, following the format 'microsoft.{service}/{resourceType}', e.g., 'microsoft.storage/storageaccounts'.")
@@ -278,7 +314,7 @@ model BillingAccountTopItemsSummaryReportQueryFilter
   reportType: ReportTypeEnum.TopItemsSummaryReport;
 
   @doc("Specifies the category type for which to retrieve top-emitting items.")
-  categoryType: CategoryTypeEnum;
+  categoryType: BillingAccountCategoryTypeEnum;
 
   @doc("The number of top items to return, based on emissions. This value must be between 1 and 10.")
   @maxValue(10)
@@ -294,7 +330,7 @@ model BillingAccountTopItemsMonthlySummaryReportQueryFilter
   reportType: ReportTypeEnum.TopItemsMonthlySummaryReport;
 
   @doc("Specifies the category type to retrieve top-emitting items, aggregated by month.")
-  categoryType: CategoryTypeEnum;
+  categoryType: BillingAccountCategoryTypeEnum;
 
   @doc("The number of top items to return, based on emissions. Must be between 1 and 10.")
   @maxValue(10)
@@ -310,7 +346,7 @@ model BillingAccountItemDetailsReportQueryFilter
   reportType: ReportTypeEnum.ItemDetailsReport;
 
   @doc("Specifies the category type for item details.")
-  categoryType: CategoryTypeEnum;
+  categoryType: BillingAccountCategoryTypeEnum;
 
   @doc("Page size for server paging. Optional. Default value is 1000 items per page.")
   @maxValue(5000)
@@ -321,8 +357,8 @@ model BillingAccountItemDetailsReportQueryFilter
   @doc("Pagination token for fetching the next page of data. Optional.")
   skipToken?: string;
 
-  @doc("Order by column name for sorting.")
-  orderBy?: string;
+  @doc("The column name to order the results by. See supported values in BillingAccountOrderByColumnEnum.")
+  orderBy?: BillingAccountOrderByColumnEnum;
 
   @doc("Sort direction.")
   sortDirection?: SortDirectionEnum;

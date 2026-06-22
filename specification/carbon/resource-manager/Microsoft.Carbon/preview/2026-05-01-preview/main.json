@@ -222,12 +222,42 @@
         ]
       }
     },
+    "BillingAccountCategoryTypeEnum": {
+      "type": "string",
+      "description": "Supported category types for billing account scoped queries. The ResourceGroup and Resource category types are not supported for billing account scope.",
+      "enum": [
+        "Subscription",
+        "Location",
+        "ResourceType"
+      ],
+      "x-ms-enum": {
+        "name": "BillingAccountCategoryTypeEnum",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Subscription",
+            "value": "Subscription",
+            "description": "Emissions aggregated at the subscription level."
+          },
+          {
+            "name": "Location",
+            "value": "Location",
+            "description": "Emissions aggregated at the location level."
+          },
+          {
+            "name": "ResourceType",
+            "value": "ResourceType",
+            "description": "Emissions aggregated at the resource type level."
+          }
+        ]
+      }
+    },
     "BillingAccountItemDetailsReportQueryFilter": {
       "type": "object",
       "description": "Query filter parameter to configure ItemDetailsReport queries scoped to a billing account.",
       "properties": {
         "categoryType": {
-          "$ref": "#/definitions/CategoryTypeEnum",
+          "$ref": "#/definitions/BillingAccountCategoryTypeEnum",
           "description": "Specifies the category type for item details."
         },
         "pageSize": {
@@ -242,8 +272,8 @@
           "description": "Pagination token for fetching the next page of data. Optional."
         },
         "orderBy": {
-          "type": "string",
-          "description": "Order by column name for sorting."
+          "$ref": "#/definitions/BillingAccountOrderByColumnEnum",
+          "description": "The column name to order the results by. See supported values in BillingAccountOrderByColumnEnum."
         },
         "sortDirection": {
           "$ref": "#/definitions/SortDirectionEnum",
@@ -271,6 +301,48 @@
       ],
       "x-ms-discriminator-value": "MonthlySummaryReport"
     },
+    "BillingAccountOrderByColumnEnum": {
+      "type": "string",
+      "description": "Sorting is supported for columns in billing account scoped ItemDetailsReport. This object includes the column names that sorting is allowed for. Select one of these supported values. The ResourceGroup column is not supported for billing account scope.",
+      "enum": [
+        "ItemName",
+        "LatestMonthEmissions",
+        "PreviousMonthEmissions",
+        "MonthOverMonthEmissionsChangeRatio",
+        "MonthlyEmissionsChangeValue"
+      ],
+      "x-ms-enum": {
+        "name": "BillingAccountOrderByColumnEnum",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "ItemName",
+            "value": "ItemName",
+            "description": "The itemName filed in ItemDetailsReport result, see CarbonEmissionItemDetailData for more information."
+          },
+          {
+            "name": "LatestMonthEmissions",
+            "value": "LatestMonthEmissions",
+            "description": "The latestMonthEmissions filed in ItemDetailsReport result, see CarbonEmissionItemDetailData for more information."
+          },
+          {
+            "name": "PreviousMonthEmissions",
+            "value": "PreviousMonthEmissions",
+            "description": "The previousMonthEmissions filed in ItemDetailsReport result, see CarbonEmissionItemDetailData for more information."
+          },
+          {
+            "name": "MonthOverMonthEmissionsChangeRatio",
+            "value": "MonthOverMonthEmissionsChangeRatio",
+            "description": "The monthOverMonthEmissionsChangeRatio filed in ItemDetailsReport result, see CarbonEmissionItemDetailData for more information."
+          },
+          {
+            "name": "MonthlyEmissionsChangeValue",
+            "value": "MonthlyEmissionsChangeValue",
+            "description": "The monthlyEmissionsChangeValue filed in ItemDetailsReport result, see CarbonEmissionItemDetailData for more information."
+          }
+        ]
+      }
+    },
     "BillingAccountOverallSummaryReportQueryFilter": {
       "type": "object",
       "description": "Query filter parameter to configure OverallSummaryReport queries scoped to a billing account.",
@@ -295,7 +367,7 @@
         },
         "subscriptionList": {
           "type": "array",
-          "description": "List of subscription IDs for which carbon emissions data is requested. Optional. Each subscription ID should be in lowercase format. The max length of list is 100. If not provided, data for all subscriptions under the billing account will be returned.",
+          "description": "List of subscription IDs for which carbon emissions data is requested. Optional. Each subscription ID should be in lowercase format. If not provided, data for all subscriptions under the billing account will be returned.",
           "items": {
             "type": "string"
           }
@@ -334,7 +406,7 @@
       "description": "Query filter parameter to configure TopItemsMonthlySummaryReport queries scoped to a billing account.",
       "properties": {
         "categoryType": {
-          "$ref": "#/definitions/CategoryTypeEnum",
+          "$ref": "#/definitions/BillingAccountCategoryTypeEnum",
           "description": "Specifies the category type to retrieve top-emitting items, aggregated by month."
         },
         "topItems": {
@@ -361,7 +433,7 @@
       "description": "Query filter parameter to configure TopItemsSummaryReport queries scoped to a billing account.",
       "properties": {
         "categoryType": {
-          "$ref": "#/definitions/CategoryTypeEnum",
+          "$ref": "#/definitions/BillingAccountCategoryTypeEnum",
           "description": "Specifies the category type for which to retrieve top-emitting items."
         },
         "topItems": {
