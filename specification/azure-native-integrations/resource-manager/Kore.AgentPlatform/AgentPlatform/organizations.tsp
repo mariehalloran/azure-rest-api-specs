@@ -66,17 +66,6 @@ interface Organizations {
   /** List Organizations in a Subscription. */
   listBySubscription is ArmListBySubscription<OrganizationResource>;
 
-  /** Links SaaS resources to the organization. Accepts the full list of SaaS assets to be linked. */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "void-returning LRO action; 202 + default is sufficient."
-  @summary("Links SaaS resources to the organization.")
-  linkSaaS is ArmResourceActionAsync<OrganizationResource, SaaSData, void>;
-
-  /** Returns the list of SaaS resources linked to the organization. */
-  listLinkedSaaS is ArmResourceActionSync<
-    OrganizationResource,
-    void,
-    ArmResponse<LinkedSaaSListResponse>
-  >;
 }
 
 // =============================================================================

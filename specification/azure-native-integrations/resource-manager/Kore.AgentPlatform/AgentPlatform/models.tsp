@@ -257,7 +257,7 @@ model OrganizationPartnerPropertiesUpdate {
 /** SaaS-related data properties. Contains the full list of SaaS resource IDs to link. */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model SaaSData {
-  /** ARM resource IDs of the Microsoft.SaaS marketplace resources to link to this Organization. */
+  /** ARM resource IDs of the Microsoft.SaaS marketplace resources to link to this Workspace. */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
   saaSResourceIds: armResourceIdentifier<[
     {
@@ -287,10 +287,10 @@ model SaaSResourceDetailsResponse
   saasId?: string;
 }
 
-/** Individual SaaS resource linked to the Organization. */
+/** Individual SaaS resource linked to the Workspace. */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model LinkedSaaSItem {
-  /** ARM resource ID of the Microsoft.SaaS marketplace resource linked to this Organization. */
+  /** ARM resource ID of the Microsoft.SaaS marketplace resource linked to this Workspace. */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
   saaSResourceId: armResourceIdentifier<[
     {
@@ -302,10 +302,10 @@ model LinkedSaaSItem {
   isHiddenSaaS?: boolean;
 }
 
-/** Response containing the list of SaaS resources linked to the Organization. */
+/** Response containing the list of SaaS resources linked to the Workspace. */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model LinkedSaaSListResponse {
-  /** List of SaaS resources linked to this Organization. */
+  /** List of SaaS resources linked to this Workspace. */
   @identifiers(#["saaSResourceId"])
   value: LinkedSaaSItem[];
 }
