@@ -102,9 +102,8 @@ model LinkedAccountUpdate {
  * State transitions:
  *   NotLinked → InProgress:        ADR calls linkInitiate.
  *   InProgress → Succeeded:        ADR sends linkNotify(commit).
- *   InProgress → Failed:           Resource-driven (internal work fails) or ADR-driven (linkNotify(fail)).
+ *   InProgress → NotLinked:        ADR surfaces intermediate linking errors and the resource does not persist a failed state.
  *   Succeeded → Orphaned:          ADR sends linkNotify(namespaceDeleted). Terminal.
- *   Failed → InProgress:           ADR calls linkInitiate (re-link). Subject to policy.
  */
 union AccountLinkingState {
   string,
@@ -122,6 +121,7 @@ union AccountLinkingState {
   /**
    * Link was attempted but failed.
    */
+  @removed(Versions.v2026_06_01_preview)
   Failed: "Failed",
 
   /**
@@ -164,7 +164,8 @@ union LinkNotifyAction {
   commit: "commit",
 
   /**
-   * Fail the linking operation (InProgress → Failed).
+    * Report linking operation failure. ADR surfaces failure details on its LRO;
+    * the linked account resource does not persist a Failed linking state.
    */
   fail: "fail",
 
@@ -295,7 +296,7 @@ model LinkInitiateRequest {
 
 /**
  * Request body for /link/notify. Idempotent: a duplicate notification matching the
- * resource's current linkingState returns 200 with no further state change, making
+ * resource's current linking state returns 200 with no further state change, making
  * it safe for ADR to retry after transient failures.
  */
 model LinkNotifyRequest {
@@ -306,13 +307,13 @@ model LinkNotifyRequest {
 
   /**
    * Error code describing the failure. Required when action is "fail"; ignored otherwise.
-   * Tracked on ADR's LRO for diagnostics.
+   * Surfaced on ADR's LRO for diagnostics and not persisted as linked account state.
    */
   errorCode?: string;
 
   /**
    * Human-readable reason for the failure. Required when action is "fail"; ignored otherwise.
-   * Tracked on ADR's LRO for diagnostics.
+   * Surfaced on ADR's LRO for diagnostics and not persisted as linked account state.
    */
   reason?: string;
 }

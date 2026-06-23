@@ -124,13 +124,13 @@ interface LinkedAccounts {
    */
   @access(Access.internal)
   @action("linkUpdate")
-  linkUpdate is ArmResourceActionSync<
+  linkUpdate is ArmResourceActionAsync<
     LinkedAccount,
     LinkUpdateRequest,
-    {
-      @body
-      body: LinkUpdateResponse;
-    }
+    LinkUpdateResponse,
+    LroHeaders = ArmAsyncOperationHeader &
+      ArmLroLocationHeader &
+      Azure.Core.Foundations.RetryAfterHeader
   >;
 }
 
