@@ -274,12 +274,11 @@ interface CommunityEndpoints {
     ApprovalActionResponse
   >;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "Sync action returns 202 Accepted with no final schema — void response is intentional"
   @doc("Triggers a manual re-sync of community endpoint connections to all configured sync destinations.")
   @armResourceAction(CommunityEndpointResource)
   @post
   @added(Microsoft.Mission.Versions.v2026_05_01_preview)
-  sync is ArmResourceActionAsync<CommunityEndpointResource, void, void>;
+  sync is ArmResourceActionAsync<CommunityEndpointResource, void, CommunityEndpointResource>;
 }
 
 @doc("DedicatedHub Interface")
