@@ -278,7 +278,11 @@ interface CommunityEndpoints {
   @armResourceAction(CommunityEndpointResource)
   @post
   @added(Microsoft.Mission.Versions.v2026_05_01_preview)
-  sync is ArmResourceActionAsync<CommunityEndpointResource, void, CommunityEndpointResource>;
+  sync is ArmResourceActionAsync<
+    CommunityEndpointResource,
+    void,
+    CommunityEndpointResource
+  >;
 }
 
 @doc("DedicatedHub Interface")

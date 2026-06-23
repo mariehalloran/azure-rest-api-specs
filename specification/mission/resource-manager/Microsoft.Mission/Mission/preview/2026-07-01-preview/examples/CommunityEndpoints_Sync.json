@@ -17,6 +17,17 @@
         "type": "Microsoft.Mission/communities/communityEndpoints",
         "location": "westus",
         "properties": {
+          "ruleCollection": [
+            {
+              "endpointRuleName": "rule1",
+              "destinationType": "FQDN",
+              "destination": "foo.example.com",
+              "ports": "443",
+              "protocols": [
+                "TCP"
+              ]
+            }
+          ],
           "provisioningState": "Succeeded"
         }
       }
