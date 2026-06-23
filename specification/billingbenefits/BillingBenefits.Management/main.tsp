@@ -30,6 +30,7 @@ import "./CreditTransaction.tsp";
 import "./MaccTransaction.tsp";
 import "./ConditionalCreditTransaction.tsp";
 import "./CatalogGroup.tsp";
+import "./NotificationRule.tsp";
 import "./client.tsp";
 
 using TypeSpec.Rest;
@@ -55,6 +56,12 @@ enum Versions {
    * The 2026-06-01 API version.
    */
   v2026_06_01: "2026-06-01",
+
+  /**
+   * The 2026-07-01-preview API version.
+   */
+  @Azure.Core.previewVersion
+  v2026_07_01_preview: "2026-07-01-preview",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}

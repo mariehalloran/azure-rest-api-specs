@@ -3916,3 +3916,293 @@ model CatalogGroupList {
   @nextLink
   nextLink?: url;
 }
+
+// --- Notification Rule Models -------------------------------------------------
+
+/**
+ * The kind of notification rule.
+ */
+@added(Versions.v2026_07_01_preview)
+union NotificationRuleKind {
+  string,
+
+  /**
+   * Built-in notification rule automatically provisioned with the parent resource.
+   */
+  BuiltIn: "BuiltIn",
+
+  /**
+   * Custom notification rule created by the user.
+   */
+  Custom: "Custom",
+}
+
+/**
+ * Status of the notification rule.
+ */
+@added(Versions.v2026_07_01_preview)
+union NotificationRuleStatus {
+  string,
+
+  /**
+   * Notification rule is pending activation.
+   */
+  Pending: "Pending",
+
+  /**
+   * Notification rule is active and will evaluate conditions.
+   */
+  Active: "Active",
+
+  /**
+   * Notification rule is disabled and will not fire.
+   */
+  Disabled: "Disabled",
+}
+
+/**
+ * The firing mode for notifications.
+ */
+@added(Versions.v2026_07_01_preview)
+union FiringMode {
+  string,
+
+  /**
+   * Notification fires once and is automatically disabled after successful delivery.
+   */
+  OneTime: "OneTime",
+
+  /**
+   * Notification fires every time the condition is met, subject to rate limits.
+   */
+  Recurring: "Recurring",
+}
+
+/**
+ * The type of condition trigger for notification evaluation.
+ */
+@added(Versions.v2026_07_01_preview)
+union TriggerType {
+  string,
+
+  /**
+   * Evaluate condition whenever the resource changes via Azure Resource Notifications events.
+   */
+  OnResourceChange: "OnResourceChange",
+
+  /**
+   * Evaluate condition at a scheduled time relative to a resource property.
+   */
+  Scheduled: "Scheduled",
+}
+
+/**
+ * Notification behavior configuration controlling how notifications are fired.
+ */
+@added(Versions.v2026_07_01_preview)
+model NotificationBehavior {
+  /**
+   * The firing mode for this notification rule.
+   */
+  firingMode?: FiringMode;
+
+  /**
+   * Maximum number of notifications that can be sent per day for this rule.
+   */
+  maxNotificationsPerDay?: int32;
+
+  /**
+   * Minimum time between successive notifications in ISO 8601 duration format (e.g., PT1H for 1 hour).
+   */
+  cooldownPeriod?: string;
+}
+
+/**
+ * Schedule configuration for scheduled notification triggers.
+ */
+@added(Versions.v2026_07_01_preview)
+model TriggerSchedule {
+  /**
+   * JSON path to a date/datetime property in the resource used as the reference point (e.g., properties.expiryDate).
+   */
+  relativeToProperty?: string;
+
+  /**
+   * ISO 8601 duration offset relative to the property value. Negative values indicate before the date (e.g., -P30D for 30 days before).
+   */
+  offset?: string;
+}
+
+/**
+ * Trigger configuration for when the notification condition should be evaluated.
+ */
+@added(Versions.v2026_07_01_preview)
+model NotificationTrigger {
+  /**
+   * The type of trigger that initiates condition evaluation.
+   */
+  type?: TriggerType;
+
+  /**
+   * Schedule configuration. Required when trigger type is Scheduled.
+   */
+  schedule?: TriggerSchedule;
+}
+
+/**
+ * Condition definition for notification rule evaluation.
+ */
+@added(Versions.v2026_07_01_preview)
+model NotificationCondition {
+  /**
+   * Condition expression evaluated against the current resource state (e.g., "properties.expiryDate <= utcNow() + duration('P30D')").
+   */
+  expression?: string;
+
+  /**
+   * Trigger configuration determining when the condition is evaluated.
+   */
+  trigger?: NotificationTrigger;
+}
+
+/**
+ * Recipient configuration for notification delivery.
+ */
+@added(Versions.v2026_07_01_preview)
+model NotificationRecipients {
+  /**
+   * The scope at which to resolve recipients. Accepts parent resource scope, billing profile scope, or billing account scope.
+   */
+  scope?: string;
+
+  /**
+   * Azure RBAC role definition ID used to identify recipients. Users with this role assignment at the specified scope will receive notifications.
+   */
+  roleDefinitionId?: string;
+}
+
+/**
+ * Read-only delivery state tracking for a notification rule.
+ */
+@added(Versions.v2026_07_01_preview)
+model DeliveryState {
+  /**
+   * Timestamp of the last time the notification condition was triggered.
+   */
+  @visibility(Lifecycle.Read)
+  lastTriggeredAt?: utcDateTime;
+
+  /**
+   * Timestamp of the last successful notification delivery.
+   */
+  @visibility(Lifecycle.Read)
+  lastDeliveredAt?: utcDateTime;
+
+  /**
+   * Number of notifications sent today for this rule (resets at midnight UTC).
+   */
+  @visibility(Lifecycle.Read)
+  notificationsSentToday?: int32;
+
+  /**
+   * Total number of notifications sent since the rule was created.
+   */
+  @visibility(Lifecycle.Read)
+  totalNotificationsSent?: int32;
+}
+
+/** Common writable properties shared between notification rule resource and patch models. */
+alias NotificationRuleWritableProperties = {
+  /**
+   * Display name for the notification rule.
+   */
+  displayName?: string;
+
+  /**
+   * Description of what this notification rule does.
+   */
+  description?: string;
+
+  /**
+   * Current status of the notification rule.
+   */
+  status?: NotificationRuleStatus;
+
+  /**
+   * Start date of the notification evaluation window. Defaults to creation time. Reset to current UTC time when a disabled rule is re-enabled.
+   */
+  startAt?: utcDateTime;
+
+  /**
+   * End date of the notification evaluation window. Automatically updated by the system when the parent resource's expiryDate changes.
+   */
+  endAt?: utcDateTime;
+
+  /**
+   * Configuration controlling how notifications are fired including mode, rate limits, and cooldown.
+   */
+  notificationBehavior?: NotificationBehavior;
+
+  /**
+   * Condition that determines when the notification should fire.
+   */
+  condition?: NotificationCondition;
+
+  /**
+   * Recipient configuration specifying who receives the notifications.
+   */
+  @identifiers(#[])
+  recipients?: NotificationRecipients[];
+};
+
+/**
+ * Properties of a notification rule.
+ */
+@added(Versions.v2026_07_01_preview)
+model NotificationRuleProperties {
+  /**
+   * The parent resource ID this notification rule is scoped to.
+   */
+  @visibility(Lifecycle.Read)
+  scope?: string;
+
+  ...NotificationRuleWritableProperties;
+
+  /**
+   * Read-only delivery state and statistics for this notification rule.
+   */
+  @visibility(Lifecycle.Read)
+  deliveryState?: DeliveryState;
+
+  /**
+   * Provisioning state of the notification rule as assigned by RPaaS. This indicates the last operation's status.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Provisioning state is managed by RPaaS"
+  @visibility(Lifecycle.Read)
+  provisioningState?: string;
+}
+
+/**
+ * Notification rule patch request.
+ */
+@added(Versions.v2026_07_01_preview)
+model NotificationRulePatchRequest {
+  /**
+   * Notification rule patch request properties.
+   */
+  properties?: NotificationRulePatchRequestProperties;
+}
+
+/**
+ * Properties that can be updated on a notification rule.
+ */
+@added(Versions.v2026_07_01_preview)
+model NotificationRulePatchRequestProperties {
+  ...NotificationRuleWritableProperties;
+}
+
+/**
+ * List of notification rules.
+ */
+@added(Versions.v2026_07_01_preview)
+model NotificationRuleList is Azure.Core.Page<NotificationRule>;
