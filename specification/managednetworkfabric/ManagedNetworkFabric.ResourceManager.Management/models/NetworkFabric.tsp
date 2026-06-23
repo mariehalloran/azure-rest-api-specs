@@ -470,6 +470,14 @@ model ManagementNetworkPatchConfiguration {
 model UpgradeNetworkFabricProperties extends UpdateVersion {
   @doc("Action to be performed while upgrading the fabric.")
   action?: NetworkFabricUpgradeAction;
+
+  @doc("Reference to a prior validateReadiness result. When provided, the action skips re-validation and uses the referenced validation outcome.")
+  @added(Versions.v2026_07_15_preview)
+  validationId?: Azure.Core.uuid;
+
+  @doc("List of check names to override (skip) even if they failed during validation. Allows proceeding with the action despite specific failed checks.")
+  @added(Versions.v2026_07_15_preview)
+  overrideChecks?: string[];
 }
 
 @doc("Validation configuration properties.")
@@ -1065,4 +1073,65 @@ model RefreshConfigurationRequestProperties {
   @doc("The types of devices for which the configuration needs to be refreshed. If not provided, configuration will be refreshed for all device types.")
   @added(Versions.v2026_01_15_preview)
   deviceTypes?: NetworkFabricRefreshDeviceTypes[];
+}
+
+@doc("Type of Debug actions that can be performed.")
+@added(Versions.v2026_07_15_preview)
+union DebugType {
+  @doc("Generic debug type")
+  Generic: "Generic",
+
+  @doc("Base debug type")
+  Base: "Base",
+
+  @doc("L2Isd debug type")
+  L2Isd: "L2Isd",
+
+  @doc("L3Isd debug type")
+  L3Isd: "L3Isd",
+
+  @doc("AccessControlList(Acl) debug type")
+  Acl: "AccessControlList",
+
+  @doc("NetworkTap debug type")
+  NetworkTap: "NetworkTap",
+
+  @doc("DebugLog debug type")
+  DebugLog: "DebugLog",
+
+  @doc("NfUpgrade debug type")
+  NfUpgrade: "NfUpgrade",
+
+  @doc("CertificateRotation debug type")
+  CertificateRotation: "CertificateRotation",
+
+  @doc("Nni debug type")
+  Nni: "Nni",
+
+  @doc("BmpMonitoring debug type")
+  BmpMonitoring: "BmpMonitoring",
+
+  string,
+}
+
+@doc("NetworkFabric Resource Troubleshoot Request.")
+@added(Versions.v2026_07_15_preview)
+model NfResourceTroubleshootRequest {
+  @doc("Type of debug operation to be performed.")
+  debugType: DebugType;
+
+  @doc("List of ARM resource IDs to be included in the troubleshoot operation. Depends on debug type.")
+  resourceIds?: Azure.Core.armResourceIdentifier[];
+
+  @doc("List of device roles to be included in the troubleshoot operation")
+  deviceRoles?: DeviceRole[];
+
+  @doc("Storage URL ID to upload the troubleshoot result. (optional)")
+  storageUrlId?: string;
+}
+
+@doc("NetworkFabric Resource Troubleshoot Response.")
+@added(Versions.v2026_07_15_preview)
+model NfResourceTroubleshootResponse {
+  ...OperationStatusResult;
 }

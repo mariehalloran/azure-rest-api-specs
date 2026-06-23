@@ -1,0 +1,51 @@
+{
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-arn-examples",
+    "unitName": "eastus-primary",
+    "api-version": "2026-06-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "name": "eastus-primary",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/ingestionUnits/eastus-primary",
+        "type": "Microsoft.ResourceNotifications/ingestionUnits",
+        "location": "eastus",
+        "sku": {
+          "name": "Standard"
+        },
+        "tags": {
+          "environment": "production"
+        },
+        "properties": {
+          "provisioningState": "Succeeded",
+          "linkedPublisherSettingId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default",
+          "authorization": {
+            "kind": "AAD",
+            "applications": [
+              {
+                "applicationId": "00000000-1111-2222-3333-444444444444",
+                "allowedTenantIds": [
+                  "00000000-0000-0000-0000-000000000001"
+                ]
+              }
+            ]
+          },
+          "capacityOverrides": {
+            "maxRequestsPerMinute": 50000,
+            "maxRequestsPerMinutePerRegion": 25000,
+            "burstAllowance": 2.0
+          },
+          "endpoint": "ms-compute-eastus.receiver.arn.core.windows.net",
+          "eventGridTopicIds": [
+            "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.EventGrid/topics/compute-events-eastus"
+          ],
+          "enabled": true
+        }
+      }
+    }
+  },
+  "operationId": "IngestionUnits_Get",
+  "title": "IngestionUnits - Get"
+}
