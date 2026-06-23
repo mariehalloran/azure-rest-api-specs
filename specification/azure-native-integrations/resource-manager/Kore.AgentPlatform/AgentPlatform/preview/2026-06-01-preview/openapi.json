@@ -1004,10 +1004,22 @@
           "description": "Display name of the default Workspace.",
           "minLength": 2,
           "maxLength": 100
+        },
+        "marketplaceDetails": {
+          "type": "array",
+          "description": "Azure Marketplace SaaS subscriptions linked to this Workspace.\nAt least one entry is required. Mutable to support Marketplace-driven\nplan changes.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/LiftrBase.MarketplaceDetails"
+          },
+          "x-ms-identifiers": [
+            "subscriptionId"
+          ]
         }
       },
       "required": [
-        "name"
+        "name",
+        "marketplaceDetails"
       ]
     },
     "LiftrBase.MarketplaceDetails": {
@@ -1276,17 +1288,6 @@
       "type": "object",
       "description": "Properties of a Kore.AgentPlatform Organization.",
       "properties": {
-        "marketplaceDetails": {
-          "type": "array",
-          "description": "Azure Marketplace SaaS subscriptions linked to this Organization.\nAt least one entry is required. Mutable to support Marketplace-driven\nplan changes.",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/definitions/LiftrBase.MarketplaceDetails"
-          },
-          "x-ms-identifiers": [
-            "subscriptionId"
-          ]
-        },
         "partnerProperties": {
           "$ref": "#/definitions/OrganizationPartnerProperties",
           "description": "Partner-specific (Kore) Organization properties."
@@ -1311,7 +1312,6 @@
         }
       },
       "required": [
-        "marketplaceDetails",
         "partnerProperties",
         "user"
       ]
@@ -1320,16 +1320,6 @@
       "type": "object",
       "description": "Mutable Organization properties (subset of OrganizationProperties).",
       "properties": {
-        "marketplaceDetails": {
-          "type": "array",
-          "description": "Azure Marketplace SaaS subscriptions linked to this Organization.\nMutable to support Marketplace-driven plan changes.",
-          "items": {
-            "$ref": "#/definitions/LiftrBase.MarketplaceDetails"
-          },
-          "x-ms-identifiers": [
-            "subscriptionId"
-          ]
-        },
         "partnerProperties": {
           "$ref": "#/definitions/OrganizationPartnerPropertiesUpdate",
           "description": "Partner-specific (Kore) Organization properties."
@@ -1555,6 +1545,17 @@
       "type": "object",
       "description": "Properties of a Kore.AgentPlatform Workspace.",
       "properties": {
+        "marketplaceDetails": {
+          "type": "array",
+          "description": "Azure Marketplace SaaS subscriptions linked to this Workspace.\nAt least one entry is required. Mutable to support Marketplace-driven\nplan changes.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/LiftrBase.MarketplaceDetails"
+          },
+          "x-ms-identifiers": [
+            "subscriptionId"
+          ]
+        },
         "partnerProperties": {
           "$ref": "#/definitions/WorkspacePartnerProperties",
           "description": "Partner-specific (Kore) Workspace properties."
@@ -1576,6 +1577,7 @@
         }
       },
       "required": [
+        "marketplaceDetails",
         "partnerProperties"
       ]
     },

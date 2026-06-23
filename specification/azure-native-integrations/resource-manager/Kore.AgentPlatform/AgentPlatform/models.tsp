@@ -106,6 +106,15 @@ model DefaultWorkspaceProperties {
   @minLength(2)
   @maxLength(100)
   name: string;
+
+  /**
+   * Azure Marketplace SaaS subscriptions linked to this Workspace.
+   * At least one entry is required. Mutable to support Marketplace-driven
+   * plan changes.
+   */
+  @minItems(1)
+  @identifiers(#["subscriptionId"])
+  marketplaceDetails: LiftrBase.MarketplaceDetails[];
 }
 
 // =============================================================================
@@ -114,15 +123,6 @@ model DefaultWorkspaceProperties {
 
 /** Properties of a Kore.AgentPlatform Organization. */
 model OrganizationProperties {
-  /**
-   * Azure Marketplace SaaS subscriptions linked to this Organization.
-   * At least one entry is required. Mutable to support Marketplace-driven
-   * plan changes.
-   */
-  @minItems(1)
-  @identifiers(#["subscriptionId"])
-  marketplaceDetails: LiftrBase.MarketplaceDetails[];
-
   /** Partner-specific (Kore) Organization properties. */
   partnerProperties: OrganizationPartnerProperties;
 
@@ -176,6 +176,15 @@ model WorkspacePartnerProperties {
 
 /** Properties of a Kore.AgentPlatform Workspace. */
 model WorkspaceProperties {
+  /**
+   * Azure Marketplace SaaS subscriptions linked to this Workspace.
+   * At least one entry is required. Mutable to support Marketplace-driven
+   * plan changes.
+   */
+  @minItems(1)
+  @identifiers(#["subscriptionId"])
+  marketplaceDetails: LiftrBase.MarketplaceDetails[];
+
   /** Partner-specific (Kore) Workspace properties. */
   partnerProperties: WorkspacePartnerProperties;
 
@@ -212,13 +221,6 @@ model OrganizationResourceUpdate {
 
 /** Mutable Organization properties (subset of OrganizationProperties). */
 model OrganizationPropertiesUpdate {
-  /**
-   * Azure Marketplace SaaS subscriptions linked to this Organization.
-   * Mutable to support Marketplace-driven plan changes.
-   */
-  @identifiers(#["subscriptionId"])
-  marketplaceDetails?: LiftrBase.MarketplaceDetails[];
-
   /** Partner-specific (Kore) Organization properties. */
   partnerProperties?: OrganizationPartnerPropertiesUpdate;
 
