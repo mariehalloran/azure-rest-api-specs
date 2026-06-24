@@ -102,6 +102,10 @@ model LinkedAccountUpdate {
  * State transitions:
  *   NotLinked → InProgress:        ADR calls linkInitiate.
  *   InProgress → Succeeded:        ADR sends linkNotify(commit).
+ *   InProgress → Failed:           Resource-driven (internal work fails) or ADR-driven (linkNotify(fail)).
+ *   Failed → InProgress:           ADR calls linkInitiate (re-link). Subject to policy.
+ *
+ * API version 2026-06-01-preview change:
  *   InProgress → NotLinked:        ADR surfaces intermediate linking errors and the resource does not persist a failed state.
  *   Succeeded → Orphaned:          ADR sends linkNotify(namespaceDeleted). Terminal.
  */
@@ -164,8 +168,10 @@ union LinkNotifyAction {
   commit: "commit",
 
   /**
-    * Report linking operation failure. ADR surfaces failure details on its LRO;
-    * the linked account resource does not persist a Failed linking state.
+   * Fail the linking operation (InProgress → Failed).
+   *
+   * API version 2026-06-01-preview change: ADR surfaces failure details on its LRO;
+   * the linked account resource does not persist a Failed linking state.
    */
   fail: "fail",
 
@@ -296,7 +302,7 @@ model LinkInitiateRequest {
 
 /**
  * Request body for /link/notify. Idempotent: a duplicate notification matching the
- * resource's current linking state returns 200 with no further state change, making
+ * resource's current linkingState returns 200 with no further state change, making
  * it safe for ADR to retry after transient failures.
  */
 model LinkNotifyRequest {
@@ -307,13 +313,13 @@ model LinkNotifyRequest {
 
   /**
    * Error code describing the failure. Required when action is "fail"; ignored otherwise.
-   * Surfaced on ADR's LRO for diagnostics and not persisted as linked account state.
+   * Tracked on ADR's LRO for diagnostics.
    */
   errorCode?: string;
 
   /**
    * Human-readable reason for the failure. Required when action is "fail"; ignored otherwise.
-   * Surfaced on ADR's LRO for diagnostics and not persisted as linked account state.
+   * Tracked on ADR's LRO for diagnostics.
    */
   reason?: string;
 }
