@@ -2,12 +2,14 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@azure-tools/typespec-client-generator-core";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "./models.tsp";
 
 using Azure.ResourceManager;
 using Azure.ClientGenerator.Core;
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 
 namespace Microsoft.DeviceUpdate;
 
@@ -123,6 +125,25 @@ interface LinkedAccounts {
    * Update linking properties (e.g., identity rotation).
    */
   @access(Access.internal)
+  @removed(Versions.v2026_06_01_preview)
+  @renamedFrom(Versions.v2026_06_01_preview, "linkUpdate")
+  @sharedRoute
+  @action("linkUpdate")
+  linkUpdateSync is ArmResourceActionSync<
+    LinkedAccount,
+    LinkUpdateRequest,
+    {
+      @body
+      body: LinkUpdateResponse;
+    }
+  >;
+
+  /**
+   * Update linking properties (e.g., identity rotation).
+   */
+  @access(Access.internal)
+  @added(Versions.v2026_06_01_preview)
+  @sharedRoute
   @action("linkUpdate")
   linkUpdate is ArmResourceActionAsync<
     LinkedAccount,
