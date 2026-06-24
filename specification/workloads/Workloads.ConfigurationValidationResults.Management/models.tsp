@@ -451,3 +451,92 @@ model ConfigurationValidationResultsProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ValidationConfigurationResultsProvisioningState;
 }
+
+@doc("Configuration validation run properties. A run captures the complete, immutable results of a single configuration validation execution.")
+@added(Versions.v2026_07_01_preview)
+model ConfigurationValidationRunProperties {
+  /**
+   * The ARM ID of the workload instance that was validated.
+   */
+  @doc("The workload instance ARM ID.")
+  @visibility(Lifecycle.Read)
+  workloadInstanceArmId: string;
+
+  /**
+   * Represents the system identifier for the workload.
+   */
+  @doc("The workload system identifier.")
+  @visibility(Lifecycle.Read)
+  workloadSystemIdentifier?: string;
+
+  /**
+   * The environment of the resource that was validated.
+   */
+  @doc("The environment of the resource being validated.")
+  @visibility(Lifecycle.Read)
+  environment: string;
+
+  /**
+   * The name of the component within the workload instance that was validated.
+   */
+  @doc("The name of the component being validated.")
+  @visibility(Lifecycle.Read)
+  componentName?: string;
+
+  /**
+   * The type of the component within the workload instance that was validated.
+   */
+  @doc("The type of the component being validated.")
+  @visibility(Lifecycle.Read)
+  componentType?: string;
+
+  /**
+   * The name of the role within the workload instance that was validated.
+   */
+  @doc("The name of the role being validated.")
+  @visibility(Lifecycle.Read)
+  roleName?: string;
+
+  /**
+   * The type of workload that was validated, such as 'SAP', 'Kubernetes', 'Oracle' etc.
+   */
+  @doc("The type of workload being validated, such as 'SAP', 'Kubernetes', 'Oracle' etc.")
+  @visibility(Lifecycle.Read)
+  workloadType?: string;
+
+  /**
+   * The ARM IDs of resources associated with this validation run.
+   */
+  @doc("The ARM IDs of resources associated with this validation run.")
+  @visibility(Lifecycle.Read)
+  resourceArmIds: string[];
+
+  /**
+   * The type of evaluation performed on the configuration checks.
+   */
+  @doc("The type of evaluation performed on the configuration checks.")
+  @visibility(Lifecycle.Read)
+  evaluationType: ConfigurationChecksEvaluationType;
+
+  /**
+   * The timestamp when the evaluation run was performed.
+   */
+  @doc("The timestamp when the evaluation was performed.")
+  @visibility(Lifecycle.Read)
+  evaluationTimestamp: utcDateTime;
+
+  /**
+   * The complete results of the configuration validation produced by this run.
+   */
+  @doc("The results of the configuration validation.")
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#[])
+  evaluationResults: EvaluationResults[];
+
+  /**
+   * The provisioning state of the validation run resource.
+   */
+  @doc("The provisioning state of the validation run resource.")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ValidationConfigurationResultsProvisioningState;
+}
