@@ -16,13 +16,12 @@ namespace Microsoft.Workloads;
 @doc("Configuration validation run. A run represents the complete, immutable results of a single configuration validation execution for a configuration validation result.")
 @added(Versions.v2026_07_01_preview)
 @parentResource(ConfigurationValidationResults)
-model ConfigurationValidationRun
-  is ProxyResource<ConfigurationValidationRunProperties> {
+model Run is ProxyResource<RunProperties> {
   /**
    * Defines the parameters for naming the configuration validation run resource.
    */
   ...ResourceNameParameter<
-    Resource = ConfigurationValidationRun,
+    Resource = Run,
     KeyName = "runName",
     SegmentName = "runs",
     NamePattern = "^[a-zA-Z][a-zA-Z0-9_-]{2,80}"
@@ -32,14 +31,14 @@ model ConfigurationValidationRun
 @added(Versions.v2026_07_01_preview)
 @armResourceOperations
 @doc("Operations related to retrieving configuration validation runs.")
-interface ConfigurationValidationRunsOperations {
+interface Runs {
   /**
    * Gets a configuration validation run for a configuration validation result.
    */
-  get is ArmResourceRead<ConfigurationValidationRun>;
+  get is ArmResourceRead<Run>;
 
   /**
    * Gets all configuration validation runs for a configuration validation result.
    */
-  listByConfigurationValidationResults is ArmResourceListByParent<ConfigurationValidationRun>;
+  listByConfigurationValidationResults is ArmResourceListByParent<Run>;
 }

@@ -4,7 +4,7 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./models.tsp";
 import "./ConfigurationValidationResults.tsp";
-import "./ConfigurationValidationRun.tsp";
+import "./Run.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;

@@ -454,7 +454,7 @@ model ConfigurationValidationResultsProperties {
 
 @doc("Configuration validation run properties. A run captures the complete, immutable results of a single configuration validation execution.")
 @added(Versions.v2026_07_01_preview)
-model ConfigurationValidationRunProperties {
+model RunProperties {
   /**
    * The ARM ID of the workload instance that was validated.
    */
