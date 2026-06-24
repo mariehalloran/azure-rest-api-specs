@@ -1,0 +1,29 @@
+{
+  "parameters": {
+    "accountName": "MyAccount1",
+    "api-version": "2026-06-01-preview",
+    "resourceGroupName": "MyResourceGroup",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "name": "MyAccount1",
+        "type": "Microsoft.WebIQ/accounts",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/MyResourceGroup/providers/Microsoft.WebIQ/accounts/MyAccount1",
+        "kind": "WebIQ.Grounding",
+        "location": "global",
+        "properties": {
+          "endpoint": "https://api.microsoft.ai",
+          "internalId": "00000000000000000000000000000000",
+          "provisioningState": "Succeeded"
+        },
+        "sku": {
+          "name": "G3"
+        }
+      }
+    }
+  },
+  "operationId": "Accounts_Get",
+  "title": "Get Account"
+}
