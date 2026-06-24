@@ -103,6 +103,7 @@ model LinkedAccountUpdate {
  *   NotLinked → InProgress:        ADR calls linkInitiate.
  *   InProgress → Succeeded:        ADR sends linkNotify(commit).
  *   InProgress → Failed:           Resource-driven (internal work fails) or ADR-driven (linkNotify(fail)).
+ *   Succeeded → Orphaned:          ADR sends linkNotify(namespaceDeleted). Terminal.
  *   Failed → InProgress:           ADR calls linkInitiate (re-link). Subject to policy.
  *
  * API version 2026-06-01-preview change:
