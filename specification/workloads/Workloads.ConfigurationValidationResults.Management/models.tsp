@@ -519,11 +519,27 @@ model ConfigurationValidationRunProperties {
   evaluationType: ConfigurationChecksEvaluationType;
 
   /**
+   * The template ID of the configuration checks that were applied to the workload instance.
+   */
+  @doc("The template ID of the configuration checks being applied.")
+  @visibility(Lifecycle.Read)
+  configurationChecksTemplateId?: string;
+
+  /**
    * The timestamp when the evaluation run was performed.
    */
   @doc("The timestamp when the evaluation was performed.")
   @visibility(Lifecycle.Read)
   evaluationTimestamp: utcDateTime;
+
+  /**
+   * Contains detailed information about errors encountered during the execution of the
+   * configuration checks.
+   */
+  @doc("Error details related to the configuration check execution.")
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#[])
+  errorDetails?: ErrorDetails[];
 
   /**
    * The complete results of the configuration validation produced by this run.

@@ -720,11 +720,25 @@
           "description": "The type of evaluation performed on the configuration checks.",
           "readOnly": true
         },
+        "configurationChecksTemplateId": {
+          "type": "string",
+          "description": "The template ID of the configuration checks being applied.",
+          "readOnly": true
+        },
         "evaluationTimestamp": {
           "type": "string",
           "format": "date-time",
           "description": "The timestamp when the evaluation was performed.",
           "readOnly": true
+        },
+        "errorDetails": {
+          "type": "array",
+          "description": "Error details related to the configuration check execution.",
+          "items": {
+            "$ref": "#/definitions/ErrorDetails"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
         },
         "evaluationResults": {
           "type": "array",
