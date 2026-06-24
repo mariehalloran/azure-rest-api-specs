@@ -44,6 +44,9 @@
     },
     {
       "name": "ConfigurationValidationResultsOperations"
+    },
+    {
+      "name": "Runs"
     }
   ],
   "paths": {
@@ -207,6 +210,111 @@
         "x-ms-examples": {
           "ConfigurationValidationResults_Get": {
             "$ref": "./examples/ConfigurationValidationResults_Get.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Workloads/configurationValidationResults/{configurationValidationResultName}/runs": {
+      "get": {
+        "operationId": "Runs_ListByConfigurationValidationResults",
+        "tags": [
+          "Runs"
+        ],
+        "description": "Gets all configuration validation runs for a configuration validation result.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "configurationValidationResultName",
+            "in": "path",
+            "description": "The name of the ConfigurationValidationResults",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{2,80}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/RunListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Runs_ListByConfigurationValidationResults": {
+            "$ref": "./examples/Runs_ListByConfigurationValidationResults.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Workloads/configurationValidationResults/{configurationValidationResultName}/runs/{runName}": {
+      "get": {
+        "operationId": "Runs_Get",
+        "tags": [
+          "Runs"
+        ],
+        "description": "Gets a configuration validation run for a configuration validation result.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "configurationValidationResultName",
+            "in": "path",
+            "description": "The name of the ConfigurationValidationResults",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{2,80}"
+          },
+          {
+            "name": "runName",
+            "in": "path",
+            "description": "The name of the Run",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{2,80}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Run"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Runs_Get": {
+            "$ref": "./examples/Runs_Get.json"
           }
         }
       }
@@ -617,6 +725,138 @@
         "checkCategory",
         "checkVersion",
         "impactLevel"
+      ]
+    },
+    "Run": {
+      "type": "object",
+      "description": "Configuration validation run. A run represents the complete, immutable results of a single configuration validation execution for a configuration validation result.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/RunProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "RunListResult": {
+      "type": "object",
+      "description": "The response of a Run list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Run items on this page",
+          "items": {
+            "$ref": "#/definitions/Run"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "RunProperties": {
+      "type": "object",
+      "description": "Configuration validation run properties. A run captures the complete, immutable results of a single configuration validation execution.",
+      "properties": {
+        "workloadInstanceArmId": {
+          "type": "string",
+          "description": "The workload instance ARM ID.",
+          "readOnly": true
+        },
+        "workloadSystemIdentifier": {
+          "type": "string",
+          "description": "The workload system identifier.",
+          "readOnly": true
+        },
+        "environment": {
+          "type": "string",
+          "description": "The environment of the resource being validated.",
+          "readOnly": true
+        },
+        "componentName": {
+          "type": "string",
+          "description": "The name of the component being validated.",
+          "readOnly": true
+        },
+        "componentType": {
+          "type": "string",
+          "description": "The type of the component being validated.",
+          "readOnly": true
+        },
+        "roleName": {
+          "type": "string",
+          "description": "The name of the role being validated.",
+          "readOnly": true
+        },
+        "workloadType": {
+          "type": "string",
+          "description": "The type of workload being validated, such as 'SAP', 'Kubernetes', 'Oracle' etc.",
+          "readOnly": true
+        },
+        "resourceArmIds": {
+          "type": "array",
+          "description": "The ARM IDs of resources associated with this validation run.",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "evaluationType": {
+          "$ref": "#/definitions/ConfigurationChecksEvaluationType",
+          "description": "The type of evaluation performed on the configuration checks.",
+          "readOnly": true
+        },
+        "configurationChecksTemplateId": {
+          "type": "string",
+          "description": "The template ID of the configuration checks being applied.",
+          "readOnly": true
+        },
+        "evaluationTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the evaluation was performed.",
+          "readOnly": true
+        },
+        "errorDetails": {
+          "type": "array",
+          "description": "Error details related to the configuration check execution.",
+          "items": {
+            "$ref": "#/definitions/ErrorDetails"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        },
+        "evaluationResults": {
+          "type": "array",
+          "description": "The results of the configuration validation.",
+          "items": {
+            "$ref": "#/definitions/EvaluationResults"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ValidationConfigurationResultsProvisioningState",
+          "description": "The provisioning state of the validation run resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "workloadInstanceArmId",
+        "environment",
+        "resourceArmIds",
+        "evaluationType",
+        "evaluationTimestamp",
+        "evaluationResults"
       ]
     },
     "ValidationConfigurationResultsProvisioningState": {
