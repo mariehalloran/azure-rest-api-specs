@@ -498,6 +498,36 @@
         }
       }
     },
+    "CheckLevel": {
+      "type": "string",
+      "description": "The scope at which the check was evaluated.",
+      "enum": [
+        "Common",
+        "Component",
+        "Role"
+      ],
+      "x-ms-enum": {
+        "name": "CheckLevel",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Common",
+            "value": "Common",
+            "description": "The check was evaluated at the common (workload) level."
+          },
+          {
+            "name": "Component",
+            "value": "Component",
+            "description": "The check was evaluated at the component level."
+          },
+          {
+            "name": "Role",
+            "value": "Role",
+            "description": "The check was evaluated at the role level."
+          }
+        ]
+      }
+    },
     "CheckOriginType": {
       "type": "string",
       "description": "Defines the origin of how the check is applied at the role level in the virtual instance.",
@@ -577,6 +607,16 @@
           "description": "List of common checks to be executed for all the components (or) at parent resource level.",
           "items": {
             "$ref": "#/definitions/CheckConfiguration"
+          },
+          "x-ms-identifiers": [
+            "checkId"
+          ]
+        },
+        "notApplicableChecks": {
+          "type": "array",
+          "description": "List of checks that are not applicable to the current workload configuration. Stored as a separate section from commonChecks and does not carry an execution status (enabled/disabled).",
+          "items": {
+            "$ref": "#/definitions/NotApplicableCheckEntry"
           },
           "x-ms-identifiers": [
             "checkId"
@@ -844,6 +884,82 @@
         "key",
         "values"
       ]
+    },
+    "NotApplicableCheckEntry": {
+      "type": "object",
+      "description": "Represents a configuration check that is not applicable to the current workload, with a structured reason. Does not carry an execution state since the check does not run.",
+      "properties": {
+        "checkId": {
+          "type": "string",
+          "description": "The unique identifier of the check."
+        },
+        "reason": {
+          "$ref": "#/definitions/NotApplicableReason",
+          "description": "A short code indicating why the check is not applicable."
+        },
+        "checkLevel": {
+          "$ref": "#/definitions/CheckLevel",
+          "description": "The scope at which the check was evaluated."
+        },
+        "componentName": {
+          "type": "string",
+          "description": "The component name the check was evaluated against. Null for common-level checks."
+        },
+        "roleName": {
+          "type": "string",
+          "description": "The role name the check was evaluated against. Null for common-level and component-level checks."
+        },
+        "checkFilters": {
+          "$ref": "#/definitions/CheckFilters",
+          "description": "The filter criteria associated with the check."
+        }
+      },
+      "required": [
+        "checkId",
+        "reason"
+      ]
+    },
+    "NotApplicableReason": {
+      "type": "string",
+      "description": "Indicates why a configuration check is not applicable to the current workload.",
+      "enum": [
+        "ComponentTypeMismatch",
+        "MetadataValueMismatch",
+        "MetadataKeyNotFound",
+        "ResourceTypeNotFound",
+        "UnsupportedOSType"
+      ],
+      "x-ms-enum": {
+        "name": "NotApplicableReason",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "ComponentTypeMismatch",
+            "value": "ComponentTypeMismatch",
+            "description": "The component type does not match the criteria required by the check."
+          },
+          {
+            "name": "MetadataValueMismatch",
+            "value": "MetadataValueMismatch",
+            "description": "A required metadata value does not match the expected value."
+          },
+          {
+            "name": "MetadataKeyNotFound",
+            "value": "MetadataKeyNotFound",
+            "description": "A required metadata key was not found on the resource."
+          },
+          {
+            "name": "ResourceTypeNotFound",
+            "value": "ResourceTypeNotFound",
+            "description": "The required resource type was not found in the workload."
+          },
+          {
+            "name": "UnsupportedOSType",
+            "value": "UnsupportedOSType",
+            "description": "The operating system type is not supported by the check."
+          }
+        ]
+      }
     },
     "OutputParameters": {
       "type": "object",

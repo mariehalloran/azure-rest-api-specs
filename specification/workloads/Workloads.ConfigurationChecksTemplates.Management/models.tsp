@@ -312,7 +312,110 @@ union CheckExecutionStatus {
   @doc("The execution of the check is disabled.")
   Disabled: "Disabled",
 
+  /**
+   * The check is not applicable to the current workload configuration.
+   */
+  @doc("The check is not applicable to the current workload configuration.")
+  NotApplicable: "NotApplicable",
+
   string,
+}
+
+@doc("The scope at which the check was evaluated.")
+union CheckLevel {
+  /**
+   * The check was evaluated at the common (workload) level.
+   */
+  @doc("The check was evaluated at the common (workload) level.")
+  Common: "Common",
+
+  /**
+   * The check was evaluated at the component level.
+   */
+  @doc("The check was evaluated at the component level.")
+  Component: "Component",
+
+  /**
+   * The check was evaluated at the role level.
+   */
+  @doc("The check was evaluated at the role level.")
+  Role: "Role",
+
+  string,
+}
+
+@doc("Indicates why a configuration check is not applicable to the current workload.")
+union NotApplicableReason {
+  /**
+   * The component type does not match the criteria required by the check.
+   */
+  @doc("The component type does not match the criteria required by the check.")
+  ComponentTypeMismatch: "ComponentTypeMismatch",
+
+  /**
+   * A required metadata value does not match the expected value.
+   */
+  @doc("A required metadata value does not match the expected value.")
+  MetadataValueMismatch: "MetadataValueMismatch",
+
+  /**
+   * A required metadata key was not found on the resource.
+   */
+  @doc("A required metadata key was not found on the resource.")
+  MetadataKeyNotFound: "MetadataKeyNotFound",
+
+  /**
+   * The required resource type was not found in the workload.
+   */
+  @doc("The required resource type was not found in the workload.")
+  ResourceTypeNotFound: "ResourceTypeNotFound",
+
+  /**
+   * The operating system type is not supported by the check.
+   */
+  @doc("The operating system type is not supported by the check.")
+  UnsupportedOSType: "UnsupportedOSType",
+
+  string,
+}
+
+@doc("Represents a configuration check that is not applicable to the current workload, with a structured reason. Does not carry an execution state since the check does not run.")
+model NotApplicableCheckEntry {
+  /**
+   * The unique identifier of the check.
+   */
+  @doc("The unique identifier of the check.")
+  checkId: string;
+
+  /**
+   * A short code indicating why the check is not applicable.
+   */
+  @doc("A short code indicating why the check is not applicable.")
+  reason: NotApplicableReason;
+
+  /**
+   * The scope at which the check was evaluated.
+   */
+  @doc("The scope at which the check was evaluated.")
+  checkLevel?: CheckLevel;
+
+  /**
+   * The component name the check was evaluated against. Null for common-level checks.
+   */
+  @doc("The component name the check was evaluated against. Null for common-level checks.")
+  componentName?: string;
+
+  /**
+   * The role name the check was evaluated against. Null for common-level and component-level checks.
+   */
+  @doc("The role name the check was evaluated against. Null for common-level and component-level checks.")
+  roleName?: string;
+
+  /**
+   * The filter criteria associated with the check.
+   */
+  @doc("The filter criteria associated with the check.")
+  checkFilters?: CheckFilters;
 }
 
 @doc("Schema for role configuration including checks and resources.")
@@ -402,6 +505,13 @@ model Configuration {
   @doc("List of common checks to be executed for all the components (or) at parent resource level.")
   @Azure.ResourceManager.identifiers(#["checkId"])
   commonChecks?: CheckConfiguration[];
+
+  /**
+   * List of checks that are not applicable to the current workload configuration. Stored as a separate section from commonChecks and does not carry an execution status (enabled/disabled).
+   */
+  @doc("List of checks that are not applicable to the current workload configuration. Stored as a separate section from commonChecks and does not carry an execution status (enabled/disabled).")
+  @Azure.ResourceManager.identifiers(#["checkId"])
+  notApplicableChecks?: NotApplicableCheckEntry[];
 }
 
 @doc("Defines the properties of the configuration checks template.")
