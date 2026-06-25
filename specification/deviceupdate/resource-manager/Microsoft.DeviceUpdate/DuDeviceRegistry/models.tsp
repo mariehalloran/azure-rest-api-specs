@@ -170,9 +170,6 @@ union LinkNotifyAction {
 
   /**
    * Fail the linking operation (InProgress → Failed).
-   *
-   * API version 2026-06-01-preview change: ADR surfaces failure details on its LRO;
-   * the linked account resource does not persist a Failed linking state.
    */
   fail: "fail",
 
