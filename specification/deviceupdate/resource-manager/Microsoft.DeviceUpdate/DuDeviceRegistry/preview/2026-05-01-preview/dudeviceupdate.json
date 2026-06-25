@@ -759,7 +759,7 @@
     },
     "AccountLinkingState": {
       "type": "string",
-      "description": "Account linking state.\n\nTracks the relationship between a linkable resource and an ADR namespace.\nThe property is absent before any link attempt; its presence indicates a link\nhas been initiated. NotLinked is a logical initial state, not a persisted value.\n\nState transitions:\nNotLinked → InProgress:        ADR calls linkInitiate.\nInProgress → Succeeded:        ADR sends linkNotify(commit).\nInProgress → Failed:           Resource-driven (internal work fails) or ADR-driven (linkNotify(fail)).\nSucceeded → Orphaned:          ADR sends linkNotify(namespaceDeleted). Terminal.\nFailed → InProgress:           ADR calls linkInitiate (re-link). Subject to policy.\n\nAPI version 2026-06-01-preview change:\nInProgress → NotLinked:        ADR surfaces intermediate linking errors and the resource does not persist a failed state.\nSucceeded → Orphaned:          ADR sends linkNotify(namespaceDeleted). Terminal.",
+      "description": "Account linking state.\n\nTracks the relationship between a linkable resource and an ADR namespace.\nThe property is absent before any link attempt; its presence indicates a link\nhas been initiated. NotLinked is a logical initial state, not a persisted value.",
       "enum": [
         "InProgress",
         "Succeeded",
@@ -867,7 +867,7 @@
           {
             "name": "fail",
             "value": "fail",
-            "description": "Fail the linking operation (InProgress → Failed)."
+            "description": "Report that the linking operation failed."
           },
           {
             "name": "namespaceDeleted",

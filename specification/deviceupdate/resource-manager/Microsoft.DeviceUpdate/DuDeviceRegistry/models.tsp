@@ -98,17 +98,6 @@ model LinkedAccountUpdate {
  * Tracks the relationship between a linkable resource and an ADR namespace.
  * The property is absent before any link attempt; its presence indicates a link
  * has been initiated. NotLinked is a logical initial state, not a persisted value.
- *
- * State transitions:
- *   NotLinked → InProgress:        ADR calls linkInitiate.
- *   InProgress → Succeeded:        ADR sends linkNotify(commit).
- *   InProgress → Failed:           Resource-driven (internal work fails) or ADR-driven (linkNotify(fail)).
- *   Succeeded → Orphaned:          ADR sends linkNotify(namespaceDeleted). Terminal.
- *   Failed → InProgress:           ADR calls linkInitiate (re-link). Subject to policy.
- *
- * API version 2026-06-01-preview change:
- *   InProgress → NotLinked:        ADR surfaces intermediate linking errors and the resource does not persist a failed state.
- *   Succeeded → Orphaned:          ADR sends linkNotify(namespaceDeleted). Terminal.
  */
 union AccountLinkingState {
   string,
@@ -169,7 +158,7 @@ union LinkNotifyAction {
   commit: "commit",
 
   /**
-   * Fail the linking operation (InProgress → Failed).
+   * Report that the linking operation failed.
    */
   fail: "fail",
 
