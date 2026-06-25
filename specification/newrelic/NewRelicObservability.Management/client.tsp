@@ -3,7 +3,8 @@ import "@azure-tools/typespec-client-generator-core";
 
 using Azure.ClientGenerator.Core;
 
-@@override(NewRelic.Observability.NewRelicMonitorResources.delete,
+@@override(
+  NewRelic.Observability.NewRelicMonitorResources.delete,
   reorderParameters(
     NewRelic.Observability.NewRelicMonitorResources.delete,
     #[
@@ -18,17 +19,20 @@ using Azure.ClientGenerator.Core;
   "go"
 );
 
-@@clientName(NewRelic.Observability,
+@@clientName(
+  NewRelic.Observability,
   "NewRelicObservabilityMgmtClient",
   "python"
 );
 
-@@clientName(NewRelic.Observability.NewRelicAccountProperties,
+@@clientName(
+  NewRelic.Observability.NewRelicAccountProperties,
   "AccountPropertiesForNewRelic",
   "go"
 );
 
-@@clientName(NewRelic.Observability.MonitoredSubscriptions.createOrUpdate,
+@@clientName(
+  NewRelic.Observability.MonitoredSubscriptions.createOrUpdate,
   "createorUpdate",
   "go"
 );
