@@ -27,7 +27,7 @@ These are the global settings for the workloads.
 ``` yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-preview-2026-07
+tag: package-preview-2024-11
 ```
 
 
@@ -48,15 +48,6 @@ These settings apply only when `--tag=package-preview-2024-11` is specified on t
 ```yaml $(tag) == 'package-preview-2024-11'
 input-file:
   - preview/2024-11-01-preview/ConfigurationValidationResults.json
-```
-
-### Tag: package-preview-2026-07
-
-These settings apply only when `--tag=package-preview-2026-07` is specified on the command line.
-
-```yaml $(tag) == 'package-preview-2026-07'
-input-file:
-  - preview/2026-07-01-preview/ConfigurationValidationResults.json
 ```
 
 ---

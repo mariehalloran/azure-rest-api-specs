@@ -14,7 +14,7 @@ using Azure.ResourceManager;
 namespace Microsoft.Workloads;
 
 @doc("Configuration validation run. A run represents the complete, immutable results of a single configuration validation execution for a configuration validation result.")
-@added(Versions.v2026_07_01_preview)
+@added(Versions.v2024_11_01_preview)
 @parentResource(ConfigurationValidationResults)
 model Run is ProxyResource<RunProperties> {
   /**
@@ -28,7 +28,7 @@ model Run is ProxyResource<RunProperties> {
   >;
 }
 
-@added(Versions.v2026_07_01_preview)
+@added(Versions.v2024_11_01_preview)
 @armResourceOperations
 @doc("Operations related to retrieving configuration validation runs.")
 interface Runs {

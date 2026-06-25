@@ -1,26 +1,31 @@
 {
   "parameters": {
-    "api-version": "2026-07-01-preview",
+    "api-version": "2024-11-01-preview",
     "configurationValidationResultName": "t01dbvm0",
+    "runName": "run-2026-05-22-030519",
     "resourceGroupName": "test-rg",
     "subscriptionId": "8e17e36c-42e9-4cd5-a078-7b44883414e0"
   },
   "responses": {
     "200": {
       "body": {
-        "name": "t01dbvm0",
-        "type": "Microsoft.Workloads/ConfigurationValidationResults",
-        "id": "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Workloads/ConfigurationValidationResults/t01dbvm0",
+        "name": "run-2026-05-22-030519",
+        "type": "Microsoft.Workloads/ConfigurationValidationResults/runs",
+        "id": "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Workloads/ConfigurationValidationResults/t01dbvm0/runs/run-2026-05-22-030519",
         "properties": {
-          "workloadInstanceArmId": "",
+          "workloadInstanceArmId": "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Workloads/sapVirtualInstances/T01",
+          "workloadSystemIdentifier": "T01",
           "environment": "Production",
-          "componentName": "",
-          "roleName": "",
+          "componentName": "t01dbvm0",
+          "componentType": "Database",
+          "roleName": "Database",
           "workloadType": "sap",
           "resourceArmIds": [
-            "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Workloads/ConfigurationValidationResults/t01dbvm0"
+            "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Compute/virtualMachines/t01dbvm0"
           ],
-          "configurationChecksTemplateId": "",
+          "evaluationType": "Scheduled",
+          "configurationChecksTemplateId": "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Workloads/configurationChecksTemplates/sap-default",
+          "evaluationTimestamp": "2026-05-22T03:05:19.0353107Z",
           "errorDetails": [
             {
               "code": "",
@@ -28,8 +33,6 @@
               "details": ""
             }
           ],
-          "evaluationType": "OnDemand",
-          "evaluationTimestamp": "2024-10-06T11:50:35.4030186Z",
           "evaluationResults": [
             {
               "name": "EnableFloatingIPinAzureLoadBalancer",
@@ -69,16 +72,16 @@
           "provisioningState": "Succeeded"
         },
         "systemData": {
-          "createdAt": "2024-10-05T15:04:13.95346Z",
-          "createdBy": "nihkumar@microsoft.com",
-          "createdByType": "User",
-          "lastModifiedAt": "2024-10-06T11:50:35.4030186Z",
+          "createdAt": "2026-05-22T03:05:19.0353107Z",
+          "createdBy": "ea21b132-560f-4b0b-9876-903b6bca7b9d",
+          "createdByType": "Application",
+          "lastModifiedAt": "2026-05-22T03:05:19.0353107Z",
           "lastModifiedBy": "ea21b132-560f-4b0b-9876-903b6bca7b9d",
           "lastModifiedByType": "Application"
         }
       }
     }
   },
-  "operationId": "ConfigurationValidationResultsOperations_Get",
-  "title": "ConfigurationValidationResults_Get"
+  "operationId": "Runs_Get",
+  "title": "Runs_Get"
 }
