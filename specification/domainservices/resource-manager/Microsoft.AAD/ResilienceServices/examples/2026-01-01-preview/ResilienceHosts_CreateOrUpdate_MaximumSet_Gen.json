@@ -1,0 +1,101 @@
+{
+  "title": "ResilienceHosts_CreateOrUpdate_MaximumSet",
+  "operationId": "ResilienceHosts_CreateOrUpdate",
+  "parameters": {
+    "api-version": "2026-01-01-preview",
+    "subscriptionId": "7f8a5fe8-b652-4c20-a6b3-b29c9e99744b",
+    "resourceGroupName": "rgresilience",
+    "resilienceServiceName": "testResilienceService",
+    "resilienceHostName": "testResilienceHost",
+    "resource": {
+      "properties": {
+        "arcMachineResourceId": "/subscriptions/7f8a5fe8-b652-4c20-a6b3-b29c9e99744b/resourceGroups/rgresilience/providers/Microsoft.HybridCompute/machines/testArcServer",
+        "storage": {
+          "rootFolder": "z"
+        },
+        "network": {
+          "mode": "default",
+          "internetSwitchName": "switch1",
+          "ipV4Address": "syvlvftvmezgmovuowwt",
+          "netMask": "pxrywpuviyrdmlyshpnw",
+          "gatewayIpV4Address": "hfpxgkdgw",
+          "primaryDnsIpV4Address": "raduwfygkwgkqusfimicss",
+          "alternateDnsIpV4Address": "vhbriymnjnqlunyksml"
+        }
+      },
+      "tags": {},
+      "location": "qwwcmoasi"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "arcMachineResourceId": "/subscriptions/7f8a5fe8-b652-4c20-a6b3-b29c9e99744b/resourceGroups/rgresilience/providers/Microsoft.HybridCompute/machines/testArcServer",
+          "provisioningState": "Succeeded",
+          "storage": {
+            "rootFolder": "z"
+          },
+          "network": {
+            "mode": "default",
+            "internetSwitchName": "switch1",
+            "ipV4Address": "syvlvftvmezgmovuowwt",
+            "netMask": "pxrywpuviyrdmlyshpnw",
+            "gatewayIpV4Address": "hfpxgkdgw",
+            "primaryDnsIpV4Address": "raduwfygkwgkqusfimicss",
+            "alternateDnsIpV4Address": "vhbriymnjnqlunyksml"
+          }
+        },
+        "tags": {},
+        "location": "qwwcmoasi",
+        "id": "/subscriptions/7f8a5fe8-b652-4c20-a6b3-b29c9e99744b/resourceGroups/rgresilience/providers/Microsoft.AAD/resilienceServices/testResilienceService/hosts/testResilienceHost",
+        "name": "jstdtqmrgkalkrkx",
+        "type": "fzpc",
+        "systemData": {
+          "createdBy": "wpouob",
+          "createdByType": "User",
+          "createdAt": "2026-01-05T17:51:32.193Z",
+          "lastModifiedBy": "frcshrkezy",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-01-05T17:51:32.193Z"
+        }
+      }
+    },
+    "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://contoso.com/operationstatus"
+      },
+      "body": {
+        "properties": {
+          "arcMachineResourceId": "/subscriptions/7f8a5fe8-b652-4c20-a6b3-b29c9e99744b/resourceGroups/rgresilience/providers/Microsoft.HybridCompute/machines/testArcServer",
+          "provisioningState": "Succeeded",
+          "storage": {
+            "rootFolder": "z"
+          },
+          "network": {
+            "mode": "default",
+            "internetSwitchName": "switch1",
+            "ipV4Address": "syvlvftvmezgmovuowwt",
+            "netMask": "pxrywpuviyrdmlyshpnw",
+            "gatewayIpV4Address": "hfpxgkdgw",
+            "primaryDnsIpV4Address": "raduwfygkwgkqusfimicss",
+            "alternateDnsIpV4Address": "vhbriymnjnqlunyksml"
+          }
+        },
+        "tags": {},
+        "location": "qwwcmoasi",
+        "id": "/subscriptions/7f8a5fe8-b652-4c20-a6b3-b29c9e99744b/resourceGroups/rgresilience/providers/Microsoft.AAD/resilienceServices/testResilienceService/hosts/testResilienceHost",
+        "name": "jstdtqmrgkalkrkx",
+        "type": "fzpc",
+        "systemData": {
+          "createdBy": "wpouob",
+          "createdByType": "User",
+          "createdAt": "2026-01-05T17:51:32.193Z",
+          "lastModifiedBy": "frcshrkezy",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-01-05T17:51:32.193Z"
+        }
+      }
+    }
+  }
+}

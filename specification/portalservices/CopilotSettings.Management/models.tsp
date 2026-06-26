@@ -11,17 +11,17 @@ namespace Microsoft.PortalServices;
 
 interface Operations extends Azure.ResourceManager.Operations {}
 
-/** Available values for the Multi-factor authentication enforcement behavior. */
+@doc("Available values for the Multi-factor authentication enforcement behavior.")
 union MfaEnforcement {
   string,
 
-  /** Use the default Multi-factor authentication enforcement behavior. */
+  @doc("Use the default Multi-factor authentication enforcement behavior.")
   "Default",
 
-  /** This tenant is opted out of Multi-factor authentication enforcement. */
+  @doc("This tenant is opted out of Multi-factor authentication enforcement.")
   "OptOut",
 
-  /** Multi-factor authentication is required. */
+  @doc("Multi-factor authentication is required.")
   "Enforce",
 }
 
@@ -47,6 +47,63 @@ union AgentModeState {
   "Enabled",
 }
 
+/** The state of a Copilot agent. */
+union CopilotAgentState {
+  string,
+
+  /** The agent is enabled. */
+  "Enabled",
+
+  /** The agent is disabled. */
+  "Disabled",
+}
+
+/** Known Copilot agent identifiers. Extensible -- new agents may be added by the service without an API version bump. */
+union CopilotAgentName {
+  string,
+
+  /** The troubleshooting agent. */
+  TroubleshootingAgent: "TroubleshootingAgent",
+
+  /** The deployment competency agent. */
+  DeploymentCompetency: "DeploymentCompetency",
+
+  /** The migration competency agent. */
+  MigrationAgentCompetency: "MigrationAgentCompetency",
+
+  /** The resiliency competency agent. */
+  ResiliencyAgentCompetency: "ResiliencyAgentCompetency",
+
+  /** The optimization competency agent. */
+  OptimizationAgentCompetency: "OptimizationAgentCompetency",
+
+  /** The observability agent. */
+  ObservabilityAgent: "ObservabilityAgent",
+}
+
+/** Per-agent configuration override for a tenant. */
+model CopilotAgentOverride {
+  /** The agent identifier. */
+  @key
+  @visibility(Lifecycle.Create, Lifecycle.Read, Lifecycle.Update)
+  name: CopilotAgentName;
+
+  /** The state of the agent for this tenant. */
+  state: CopilotAgentState;
+}
+
+/** Agent settings configuration. */
+model CopilotAgentSettings {
+  /** Whether tenant is opted into future GA agents for this tenant. */
+  enableGa?: boolean;
+
+  /** Whether tenant is opted into future preview agents for this tenant. */
+  enablePreview?: boolean;
+
+  /** Per-agent overrides for this tenant, identified by agent name. */
+  agents?: CopilotAgentOverride[];
+}
+
 /** The agent mode configuration properties. */
 model AgentModeProperties {
   /** The state of the Agent Mode registration for the tenant. */
@@ -58,34 +115,39 @@ model AgentModeProperties {
   state?: AgentModeState;
 }
 
-/** The Copilot Settings properties. */
+@doc("The Copilot Settings properties.")
 model CopilotSettingsProperties {
-  /** Boolean indicating if role-based access control is enabled for copilot in this tenant. */
+  @doc("Boolean indicating if role-based access control is enabled for copilot in this tenant.")
   accessControlEnabled: boolean;
 
   /** The agent mode configuration properties. */
   @added(Versions.v2025_09_10_preview)
   agentMode?: AgentModeProperties;
 
-  /** The setting for Bring Your Own Storage (BYOS) for copilot in this tenant. If set, copilot will use specified cosmos DB account for storing copilot chat data. */
   @added(Versions.v2025_08_01_preview)
+  @doc("The setting for Bring Your Own Storage (BYOS) for copilot in this tenant. If set, copilot will use specified cosmos DB account for storing copilot chat data.")
   cosmosResourceId?: Azure.Core.armResourceIdentifier<[
     {
       type: "Microsoft.DocumentDB/databaseAccounts";
     }
   ]>;
 
-  /** The setting for Multi-Factor Authentication enforcement when signing into this tenant in the Azure Portal. */
+  /** Agent settings, including default feature gates and per-agent overrides. */
+  @added(Versions.v2026_07_01_preview)
+  @doc("Agent settings for this tenant, including GA/preview enablement and per-agent overrides.")
+  agentSettings?: CopilotAgentSettings;
+
   @added(Versions.v2024_08_01_preview)
   @removed(Versions.v2024_09_01_preview)
+  @doc("The setting for Multi-Factor Authentication enforcement when signing into this tenant in the Azure Portal.")
   portalMfaEnforcement?: MfaEnforcement;
 
-  /** Justification for the value set for portalMfaEnforcement. Required when portalMfaEnforcement is set to a value other than 'Default'. Maximum length is 500 characters. */
   @added(Versions.v2024_08_01_preview)
   @removed(Versions.v2024_09_01_preview)
+  @doc("Justification for the value set for portalMfaEnforcement. Required when portalMfaEnforcement is set to a value other than 'Default'. Maximum length is 500 characters.")
   portalMfaEnforcementJustification?: string;
 
-  /** The status of the last provisioning operation performed on the resource. */
+  @doc("The status of the last provisioning operation performed on the resource.")
   @visibility(Lifecycle.Read)
   provisioningState?: ResourceProvisioningState;
 }

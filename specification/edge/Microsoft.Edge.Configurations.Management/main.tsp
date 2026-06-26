@@ -9,6 +9,7 @@ import "./NetworkConfiguration.tsp";
 import "./SecurityConfiguration.tsp";
 import "./TimeServerConfiguration.tsp";
 import "./ProvisioningConfigurations.tsp";
+import "./client.tsp";
 
 using TypeSpec.Versioning;
 using Azure.ResourceManager;

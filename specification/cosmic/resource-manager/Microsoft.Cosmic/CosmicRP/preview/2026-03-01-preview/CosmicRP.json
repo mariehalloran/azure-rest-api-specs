@@ -47,6 +47,9 @@
     },
     {
       "name": "Environments"
+    },
+    {
+      "name": "DeletedEnvironments"
     }
   ],
   "paths": {
@@ -239,7 +242,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           }
         ],
@@ -286,7 +289,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -363,7 +366,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -419,7 +422,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           }
         ],
@@ -459,6 +462,253 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/deletedEnvironments": {
+      "get": {
+        "operationId": "DeletedEnvironments_ListByNamespace",
+        "tags": [
+          "DeletedEnvironments"
+        ],
+        "description": "List all soft-deleted environments within the parent namespace.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DeletedEnvironmentListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List soft-deleted environments within a namespace": {
+            "$ref": "./examples/DeletedEnvironments_ListByNamespace.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/deletedEnvironments/{deletedEnvironmentName}": {
+      "get": {
+        "operationId": "DeletedEnvironments_Get",
+        "tags": [
+          "DeletedEnvironments"
+        ],
+        "description": "Get a soft-deleted environment by name within the parent namespace.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "deletedEnvironmentName",
+            "in": "path",
+            "description": "The name of the soft-deleted environment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DeletedEnvironment"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a soft-deleted environment by name": {
+            "$ref": "./examples/DeletedEnvironments_Get.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/deletedEnvironments/{deletedEnvironmentName}/purge": {
+      "post": {
+        "operationId": "DeletedEnvironments_Purge",
+        "tags": [
+          "DeletedEnvironments"
+        ],
+        "description": "Permanently purge a soft-deleted environment, tearing down the underlying NPS namespace instances. Takes the platform ring in the request body for APIM routing. Blocked with 403 when purge protection is enabled; returns 404 when no soft-deleted environment with the given name exists.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "deletedEnvironmentName",
+            "in": "path",
+            "description": "The name of the soft-deleted environment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeletedEnvironmentActionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DeletedEnvironmentPurgeResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Purge a soft-deleted environment": {
+            "$ref": "./examples/DeletedEnvironments_Purge.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/deletedEnvironments/{deletedEnvironmentName}/restore": {
+      "post": {
+        "operationId": "DeletedEnvironments_Restore",
+        "tags": [
+          "DeletedEnvironments"
+        ],
+        "description": "Restore a soft-deleted environment back to active state during the retention window. Takes the platform ring in the request body for APIM routing.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "namespaceName",
+            "in": "path",
+            "description": "the name of the namespace.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 35,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "deletedEnvironmentName",
+            "in": "path",
+            "description": "The name of the soft-deleted environment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeletedEnvironmentActionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DeletedEnvironmentRestoreResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Restore a soft-deleted environment": {
+            "$ref": "./examples/DeletedEnvironments_Restore.json"
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cosmic/namespaces/{namespaceName}/environments": {
       "get": {
         "operationId": "Environments_ListByNamespace",
@@ -483,7 +733,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           }
         ],
@@ -535,7 +785,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -592,7 +842,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -679,7 +929,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -745,7 +995,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -819,7 +1069,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -836,7 +1086,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/MigrateResponse"
+              "$ref": "#/definitions/MigrateResult"
             }
           },
           "202": {
@@ -895,7 +1145,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -912,7 +1162,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/PreviewResponse"
+              "$ref": "#/definitions/PreviewResult"
             }
           },
           "default": {
@@ -953,7 +1203,7 @@
             "required": true,
             "type": "string",
             "minLength": 3,
-            "maxLength": 63,
+            "maxLength": 35,
             "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
           },
           {
@@ -970,7 +1220,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/ValidateResponse"
+              "$ref": "#/definitions/ValidateResult"
             }
           },
           "default": {
@@ -1051,6 +1301,8 @@
         "isolationGroup": {
           "type": "string",
           "description": "Isolation group override for cluster bin-packing affinity. When set, all NamespaceInstances in this environment are placed on this isolation group instead of the parent namespace's isolationGroup. Useful when different environments of the same namespace (e.g. dev vs prod) should target different clusters. Cannot be changed after environment creation.",
+          "minLength": 1,
+          "maxLength": 63,
           "x-ms-mutability": [
             "read",
             "create"
@@ -1240,12 +1492,154 @@
         ]
       }
     },
+    "DeletedEnvironment": {
+      "type": "object",
+      "description": "A soft-deleted Environment, surfaced as a read-only tombstone under its parent namespace. Lists, restores, and purges are performed against this proxy resource while the namespace remains live.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/DeletedEnvironmentProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "DeletedEnvironmentActionRequest": {
+      "type": "object",
+      "description": "Request body for the soft-deleted environment actions (purge, restore), carrying the platform ring so APIM can route the request to the target ring's RP instance. The soft-deleted environment is a proxy resource (not cached by ARM/MetaRP), so the ring is supplied explicitly rather than read from a replayed body.",
+      "properties": {
+        "platformRing": {
+          "$ref": "#/definitions/CosmicRing",
+          "description": "Platform ring classification (e.g. test, sdf, msit, prod). Used by APIM to route the request to the target ring's RP instance."
+        }
+      },
+      "required": [
+        "platformRing"
+      ]
+    },
+    "DeletedEnvironmentDeleteMetadata": {
+      "type": "object",
+      "description": "Soft-delete metadata for a deleted environment. All properties are read-only and owned by the resource provider.",
+      "properties": {
+        "deletedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC instant at which the environment was soft-deleted.",
+          "readOnly": true
+        },
+        "purgeAfter": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC instant at which the soft-deleted environment is eligible for automatic purge (deletedAt + retentionPeriod).",
+          "readOnly": true
+        },
+        "retentionPeriod": {
+          "type": "string",
+          "description": "Retention bucket applied to this soft-deleted environment (ISO 8601 duration, e.g. P30DT0H0M).",
+          "readOnly": true
+        },
+        "purgeProtection": {
+          "type": "boolean",
+          "description": "When true, the environment cannot be manually purged during the retention window.",
+          "readOnly": true
+        },
+        "deletedBy": {
+          "type": "string",
+          "description": "Identity that initiated the delete (non-sensitive context only).",
+          "readOnly": true
+        }
+      }
+    },
+    "DeletedEnvironmentListResult": {
+      "type": "object",
+      "description": "The response of a DeletedEnvironment list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The DeletedEnvironment items on this page",
+          "items": {
+            "$ref": "#/definitions/DeletedEnvironment"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "DeletedEnvironmentProperties": {
+      "type": "object",
+      "description": "Properties of a soft-deleted environment. All properties are read-only; the soft-delete state is owned by the resource provider.",
+      "properties": {
+        "deleteMetadata": {
+          "$ref": "#/definitions/DeletedEnvironmentDeleteMetadata",
+          "description": "Soft-delete bookkeeping (when it was deleted, retention, purge eligibility, who deleted it).",
+          "readOnly": true
+        },
+        "environment": {
+          "$ref": "#/definitions/CosmicEnvironmentProperties",
+          "description": "The captured environment configuration at soft-delete time. Mirrors the original resource's properties so a GET on the deleted environment surfaces the full typed body (Key Vault DeletedKeyBundle style).",
+          "readOnly": true
+        }
+      }
+    },
+    "DeletedEnvironmentPurgeResult": {
+      "type": "object",
+      "description": "Response body for the purge action.",
+      "properties": {
+        "environmentName": {
+          "type": "string",
+          "description": "The name of the environment that was purged."
+        },
+        "purged": {
+          "type": "boolean",
+          "description": "Whether the purge succeeded for all instances of the environment."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Failure detail when the purge did not fully succeed (no secrets). Null on success."
+        }
+      },
+      "required": [
+        "environmentName",
+        "purged"
+      ]
+    },
+    "DeletedEnvironmentRestoreResult": {
+      "type": "object",
+      "description": "Response body for the restore action.",
+      "properties": {
+        "environmentName": {
+          "type": "string",
+          "description": "The name of the environment that was restored."
+        },
+        "restored": {
+          "type": "boolean",
+          "description": "Whether the restore succeeded for all instances of the environment."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Failure detail when the restore did not fully succeed (no secrets). Null on success."
+        }
+      },
+      "required": [
+        "environmentName",
+        "restored"
+      ]
+    },
     "EgressPublicIps": {
       "type": "object",
       "description": "Egress public IP configuration using BYOIP.",
       "properties": {
         "ipTagType": {
-          "type": "string",
+          "$ref": "#/definitions/IpTagType",
           "description": "The IP tag type for egress.",
           "x-ms-mutability": [
             "read",
@@ -1262,7 +1656,8 @@
         },
         "ipCapacity": {
           "type": "string",
-          "description": "The IP capacity for egress."
+          "description": "The IP capacity for egress.",
+          "pattern": "^(2|4|8|16)$"
         },
         "ipVersion": {
           "$ref": "#/definitions/IpVersion",
@@ -1443,7 +1838,7 @@
       "description": "Ingress public IP configuration using BYOIP.",
       "properties": {
         "ipTagType": {
-          "type": "string",
+          "$ref": "#/definitions/IpTagType",
           "description": "The IP tag type for ingress."
         },
         "ipTagValue": {
@@ -1491,6 +1886,17 @@
         "status": {
           "$ref": "#/definitions/InstanceProvisioningStatus",
           "description": "The provisioning status of this instance on the backing cluster."
+        },
+        "identities": {
+          "type": "array",
+          "description": "Identities applied to this instance. Each entry's identityType distinguishes pod vs workload.",
+          "items": {
+            "$ref": "#/definitions/InstanceIdentity"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "clientId"
+          ]
         }
       },
       "required": [
@@ -1498,13 +1904,107 @@
         "partition"
       ]
     },
+    "InstanceIdentity": {
+      "type": "object",
+      "description": "User-assigned managed identity exposed on an Instance.",
+      "properties": {
+        "identityType": {
+          "$ref": "#/definitions/InstanceIdentityType",
+          "description": "The kind of identity (Pod or Workload)."
+        },
+        "clientId": {
+          "type": "string",
+          "description": "Client ID of the user-assigned managed identity."
+        },
+        "resourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the user-assigned managed identity."
+        },
+        "principalId": {
+          "type": "string",
+          "description": "Principal (object) ID of the user-assigned managed identity. Matches ARM common-types UserAssignedIdentity.principalId."
+        }
+      },
+      "required": [
+        "identityType",
+        "clientId",
+        "principalId"
+      ]
+    },
+    "InstanceIdentityType": {
+      "type": "string",
+      "description": "The kind of managed identity exposed on an Instance.",
+      "enum": [
+        "Pod",
+        "Workload"
+      ],
+      "x-ms-enum": {
+        "name": "InstanceIdentityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Pod",
+            "value": "Pod",
+            "description": "Pod identity used by namespace pods (sourced from the placement's ring-level identity)."
+          },
+          {
+            "name": "Workload",
+            "value": "Workload",
+            "description": "Workload (federated) identity (sourced from the placement's cluster-level identity)."
+          }
+        ]
+      }
+    },
+    "InstanceLevelPublicIp": {
+      "type": "object",
+      "description": "BYOIP configuration for instance-level public IP (ILPIP).",
+      "properties": {
+        "prefixLength": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Prefix length of the IP block.",
+          "minimum": 0,
+          "maximum": 128,
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipTagType": {
+          "$ref": "#/definitions/IpTagType",
+          "description": "The IP tag type.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipTagValue": {
+          "type": "string",
+          "description": "The IP tag value.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "ipVersion": {
+          "$ref": "#/definitions/IpVersion",
+          "description": "The IP version (IPv4 or IPv6). Defaults to IPv4.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      }
+    },
     "InstanceOverride": {
       "type": "object",
       "description": "Migration-only per-instance resource override.",
       "properties": {
         "instanceId": {
           "type": "string",
-          "description": "Opaque RP instance identifier (GUID)."
+          "description": "Opaque RP instance identifier (GUID).",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
         },
         "instanceQuota": {
           "$ref": "#/definitions/InstanceQuota",
@@ -1591,6 +2091,30 @@
         }
       }
     },
+    "IpTagType": {
+      "type": "string",
+      "description": "Azure public-IP tag types. Extensible - new values may be added without a breaking change.",
+      "enum": [
+        "RoutingPreference",
+        "FirstPartyUsage"
+      ],
+      "x-ms-enum": {
+        "name": "IpTagType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "RoutingPreference",
+            "value": "RoutingPreference",
+            "description": "Routing preference for the IP (Internet, Microsoft, etc.)."
+          },
+          {
+            "name": "FirstPartyUsage",
+            "value": "FirstPartyUsage",
+            "description": "First-party Azure service usage tag."
+          }
+        ]
+      }
+    },
     "IpVersion": {
       "type": "string",
       "description": "IP Version",
@@ -1621,12 +2145,14 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "Canonical Azure region name."
+          "description": "Canonical Azure region name.",
+          "minLength": 1
         },
         "totalInstanceCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Total desired instance count in this location."
+          "description": "Total desired instance count in this location.",
+          "minimum": 1
         },
         "partitions": {
           "type": "array",
@@ -1650,13 +2176,18 @@
         "environmentName": {
           "type": "string",
           "description": "The name of the environment to migrate."
+        },
+        "platformRing": {
+          "$ref": "#/definitions/CosmicRing",
+          "description": "Platform ring classification (e.g. test, sdf, msit, prod). Used by APIM to route the request to the target ring's RP instance."
         }
       },
       "required": [
-        "environmentName"
+        "environmentName",
+        "platformRing"
       ]
     },
-    "MigrateResponse": {
+    "MigrateResult": {
       "type": "object",
       "description": "Response body for the migrate action.",
       "properties": {
@@ -1789,7 +2320,7 @@
           {
             "name": "PartiallySucceeded",
             "value": "PartiallySucceeded",
-            "description": "Migration partially succeeded — some instances could not be migrated."
+            "description": "Migration partially succeeded - some instances could not be migrated."
           }
         ]
       },
@@ -1838,6 +2369,9 @@
         "workload": {
           "type": "string",
           "description": "Workload name this resource belongs to.",
+          "minLength": 3,
+          "maxLength": 63,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$",
           "x-ms-mutability": [
             "read",
             "create"
@@ -1845,27 +2379,38 @@
         },
         "serviceTreeId": {
           "type": "string",
-          "description": "The ServiceTree GUID (with all letters in lower case) for billing"
+          "description": "The ServiceTree GUID (with all letters in lower case) for billing",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
         },
         "torusTeam": {
           "type": "string",
-          "description": "Torus Team Name"
+          "description": "Torus Team Name",
+          "minLength": 3,
+          "maxLength": 63,
+          "pattern": "^[a-zA-Z0-9]([-a-zA-Z0-9_]*[a-zA-Z0-9])?$"
         },
         "icmAccount": {
           "type": "string",
-          "description": "The IcM Account for Escalations"
+          "description": "The IcM Account for Escalations",
+          "pattern": "^[a-zA-Z0-9_\\\\()&:,+\\-/]+$"
         },
         "icmTenant": {
           "type": "string",
-          "description": "The IcM tenant for auditing"
+          "description": "The IcM tenant for auditing",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_ ():/\\-]+$"
         },
         "emailAlias": {
           "type": "string",
-          "description": "Email Alias"
+          "description": "Email Alias",
+          "pattern": "^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$"
         },
         "isolationGroup": {
           "type": "string",
           "description": "The isolation group for cluster bin-packing affinity. This field is required and cannot be changed after namespace creation.",
+          "minLength": 1,
+          "maxLength": 63,
           "x-ms-mutability": [
             "read",
             "create"
@@ -1922,23 +2467,32 @@
       "properties": {
         "serviceTreeId": {
           "type": "string",
-          "description": "The ServiceTree GUID (with all letters in lower case) for billing"
+          "description": "The ServiceTree GUID (with all letters in lower case) for billing",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
         },
         "torusTeam": {
           "type": "string",
-          "description": "Torus Team Name"
+          "description": "Torus Team Name",
+          "minLength": 3,
+          "maxLength": 63,
+          "pattern": "^[a-zA-Z0-9]([-a-zA-Z0-9_]*[a-zA-Z0-9])?$"
         },
         "icmAccount": {
           "type": "string",
-          "description": "The IcM Account for Escalations"
+          "description": "The IcM Account for Escalations",
+          "pattern": "^[a-zA-Z0-9_\\\\()&:,+\\-/]+$"
         },
         "icmTenant": {
           "type": "string",
-          "description": "The IcM tenant for auditing"
+          "description": "The IcM tenant for auditing",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_ ():/\\-]+$"
         },
         "emailAlias": {
           "type": "string",
-          "description": "Email Alias"
+          "description": "Email Alias",
+          "pattern": "^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$"
         },
         "nightwatchEnabled": {
           "type": "boolean",
@@ -1984,7 +2538,10 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The partition name."
+          "description": "The partition name.",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
         }
       },
       "required": [
@@ -1997,12 +2554,21 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The partition name."
+          "description": "The partition name.",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
         },
         "instanceCount": {
           "type": "integer",
           "format": "int32",
-          "description": "The number of instances to realize for this partition."
+          "description": "The number of instances to realize for this partition.",
+          "minimum": 1
+        },
+        "routingPartition": {
+          "type": "string",
+          "description": "Optional routing partition associated with this capacity partition. Format: {ring}_Efz_{region}, e.g. 'test_Efz_DSM'.",
+          "pattern": "^[a-z0-9]+_Efz_[A-Za-z0-9]+$"
         }
       },
       "required": [
@@ -2046,7 +2612,10 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The partition name."
+          "description": "The partition name.",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
         },
         "partitionDefault": {
           "$ref": "#/definitions/PartitionDefaultPolicy",
@@ -2073,29 +2642,36 @@
       "properties": {
         "cores": {
           "type": "string",
-          "description": "CPU cores requested per pod (e.g. '0.5', '2')."
+          "description": "CPU cores requested per pod (e.g. '0.5', '2').",
+          "pattern": "^([0-9]*\\.?[0-9]+)$"
         },
         "memory": {
           "type": "string",
-          "description": "Memory requested per pod (e.g. '512Mi', '2Gi')."
+          "description": "Memory requested per pod (e.g. '512Mi', '2Gi').",
+          "pattern": "^[0-9]+(\\.[0-9]+)?(Mi|Gi)$"
         },
         "coresLimit": {
           "type": "string",
-          "description": "CPU cores limit per pod. If unset, defaults to approximately 2x the request."
+          "description": "CPU cores limit per pod. If unset, defaults to approximately 2x the request.",
+          "pattern": "^([0-9]*\\.?[0-9]+)$"
         },
         "memoryLimit": {
           "type": "string",
-          "description": "Memory limit per pod. If unset, defaults to approximately 2x the request."
+          "description": "Memory limit per pod. If unset, defaults to approximately 2x the request.",
+          "pattern": "^[0-9]+(\\.[0-9]+)?(Mi|Gi)$"
         },
         "replicas": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of replicas per cluster."
+          "description": "Number of replicas per cluster.",
+          "minimum": 1
         },
         "rollingUpdateReplicaPercentage": {
           "type": "integer",
           "format": "int32",
-          "description": "Percentage of replicas considered during rolling updates."
+          "description": "Percentage of replicas considered during rolling updates.",
+          "minimum": 0,
+          "maximum": 25
         }
       }
     },
@@ -2117,7 +2693,7 @@
         "properties"
       ]
     },
-    "PreviewResponse": {
+    "PreviewResult": {
       "type": "object",
       "description": "Response body for the preview action. Includes the stored environment properties along with projected inventory status showing how existing brownfield instances map to the ARM model.",
       "properties": {
@@ -2246,7 +2822,8 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "Canonical Azure region name."
+          "description": "Canonical Azure region name.",
+          "minLength": 1
         },
         "regionDefault": {
           "$ref": "#/definitions/RegionDefaultPolicy",
@@ -2309,12 +2886,15 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "Canonical Azure region name."
+          "description": "Canonical Azure region name.",
+          "minLength": 1
         },
         "snatPortsPerNode": {
           "type": "integer",
           "format": "int32",
-          "description": "Optional SNAT ports to allocate per node."
+          "description": "Optional SNAT ports to allocate per node.",
+          "minimum": 0,
+          "maximum": 64000
         },
         "ingressPublicIps": {
           "type": "array",
@@ -2330,6 +2910,10 @@
         "egressPublicIps": {
           "$ref": "#/definitions/EgressPublicIps",
           "description": "BYOIP configuration for egress traffic."
+        },
+        "instanceLevelPublicIp": {
+          "$ref": "#/definitions/InstanceLevelPublicIp",
+          "description": "BYOIP configuration for instance-level public IP."
         },
         "partitions": {
           "type": "array",
@@ -2352,7 +2936,10 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The partition name."
+          "description": "The partition name.",
+          "minLength": 1,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
         }
       },
       "required": [
@@ -2366,13 +2953,18 @@
         "environmentName": {
           "type": "string",
           "description": "The name of the environment to validate."
+        },
+        "platformRing": {
+          "$ref": "#/definitions/CosmicRing",
+          "description": "Platform ring classification (e.g. test, sdf, msit, prod). Used by APIM to route the request to the target ring's RP instance."
         }
       },
       "required": [
-        "environmentName"
+        "environmentName",
+        "platformRing"
       ]
     },
-    "ValidateResponse": {
+    "ValidateResult": {
       "type": "object",
       "description": "Response body for the validate action.",
       "properties": {

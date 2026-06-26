@@ -194,9 +194,12 @@ union MaintenanceRequestState {
 interface MaintenanceRequests {
   get is ArmResourceRead<MaintenanceRequest>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<MaintenanceRequest>;
-  update is ArmResourcePatchAsync<
+  update is ArmCustomPatchAsync<
     MaintenanceRequest,
-    MaintenanceRequestProperties
+    PatchModel = Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      MaintenanceRequest,
+      MaintenanceRequestProperties
+    >
   >;
   listBySupercomputer is ArmResourceListByParent<MaintenanceRequest>;
   delete is ArmResourceDeleteWithoutOkAsync<MaintenanceRequest>;

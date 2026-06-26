@@ -27,7 +27,7 @@ These are the global settings for the billingbenefits.
 ```yaml
 openapi-type: arm
 openapi-subtype: providerHub
-tag: package-2026-02-01
+tag: package-2026-06-01
 ```
 
 ### Suppression
@@ -107,13 +107,22 @@ directive:
     where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/conditionalCredits/{conditionalCreditName}"].patch.parameters[4]["schema"]
 ```
 
-### Tag: package-2026-02-01
+### Tag: package-2026-06-01
 
-These settings apply only when `--tag=package-2026-02-01` is specified on the command line.
+These settings apply only when `--tag=package-2026-06-01` is specified on the command line.
 
-```yaml $(tag) == 'package-2026-02-01'
+```yaml $(tag) == 'package-2026-06-01'
 input-file:
-  - Microsoft.BillingBenefits/stable/2026-02-01/billingbenefits.json
+  - Microsoft.BillingBenefits/stable/2026-06-01/billingbenefits.json
+```
+
+### Tag: package-preview-2026-02-01-preview
+
+These settings apply only when `--tag=package-preview-2026-02-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-preview-2026-02-01-preview'
+input-file:
+  - Microsoft.BillingBenefits/preview/2026-02-01-preview/billingbenefits.json
 ```
 
 ### Tag: package-preview-2025-12-01-preview

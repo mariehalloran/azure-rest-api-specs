@@ -133,7 +133,7 @@ union OperationalState {
   string,
 }
 
-@doc("Input method to configure Access Control List.")
+@doc("Input method indicating whether configuration is provided inline or via a file URL.")
 union ConfigurationType {
   @doc("File Configuration Type")
   File: "File",
@@ -298,6 +298,36 @@ model LastOperationProperties {
   @doc("Details status of the last operation performed on the resource.")
   @visibility(Lifecycle.Read)
   details?: string;
+
+  @doc("Type of the operation being performed on the resource.")
+  @visibility(Lifecycle.Read)
+  @added(Versions.v2026_07_15_preview)
+  operationType?: OperationType;
+
+  @doc("Status of the current operation.")
+  @visibility(Lifecycle.Read)
+  @added(Versions.v2026_07_15_preview)
+  status?: OperationStatus;
+
+  @doc("Timestamp when the operation started.")
+  @visibility(Lifecycle.Read)
+  @added(Versions.v2026_07_15_preview)
+  startedAt?: utcDateTime;
+
+  @doc("Timestamp when the operation completed. Not present if still in progress.")
+  @visibility(Lifecycle.Read)
+  @added(Versions.v2026_07_15_preview)
+  completedAt?: utcDateTime;
+
+  @doc("URL to the detailed result blob in the customer's storage account.")
+  @visibility(Lifecycle.Read)
+  @added(Versions.v2026_07_15_preview)
+  resultBlobUrl?: url;
+
+  @doc("Correlation ID for tracking the operation.")
+  @visibility(Lifecycle.Read)
+  @added(Versions.v2026_07_15_preview)
+  correlationId?: Azure.Core.uuid;
 }
 
 @doc("Port condition that needs to be matched.")
@@ -1430,6 +1460,326 @@ union GenerateBaseConfiguration {
   Enabled: "Enabled",
 
   string,
+}
+
+@doc("Type of validation to perform.")
+@added(Versions.v2026_07_15_preview)
+union ValidationType {
+  /** Upgrade precheck validation */
+  UpgradePrecheck: "UpgradePrecheck",
+
+  /** Upgrade stage-gate validation between device upgrade batches */
+  UpgradeStageGate: "UpgradeStageGate",
+
+  /** Upgrade postcheck validation */
+  UpgradePostcheck: "UpgradePostcheck",
+
+  string,
+}
+
+@doc("Result of a validation check.")
+@added(Versions.v2026_07_15_preview)
+union ValidationResult {
+  /** Validation check passed */
+  Passed: "Passed",
+
+  /** Validation check failed */
+  Failed: "Failed",
+
+  /** Validation check passed with warnings */
+  Warning: "Warning",
+
+  string,
+}
+
+@doc("Type of operation being performed on the resource. Superset of ValidationType with additional operation-specific values.")
+@added(Versions.v2026_07_15_preview)
+union OperationType {
+  /** Upgrade operation */
+  Upgrade: "Upgrade",
+
+  /** Provision operation */
+  Provision: "Provision",
+
+  /** Commit configuration operation */
+  CommitConfiguration: "CommitConfiguration",
+
+  /** Validate configuration operation */
+  ValidateConfiguration: "ValidateConfiguration",
+
+  /** Validate readiness operation */
+  ValidateReadiness: "ValidateReadiness",
+
+  /** Refresh configuration operation */
+  RefreshConfiguration: "RefreshConfiguration",
+
+  /** Deprovision operation */
+  Deprovision: "Deprovision",
+
+  /** Reboot operation */
+  Reboot: "Reboot",
+
+  /** Update administrative state operation */
+  UpdateAdministrativeState: "UpdateAdministrativeState",
+
+  /** Update BFD configuration operation */
+  UpdateBfdConfiguration: "UpdateBfdConfiguration",
+
+  /** Commit batch status operation */
+  CommitBatchStatus: "CommitBatchStatus",
+
+  /** Discard commit batch operation */
+  DiscardCommitBatch: "DiscardCommitBatch",
+
+  /** Lock fabric operation */
+  LockFabric: "LockFabric",
+
+  /** Rotate passwords operation */
+  RotatePasswords: "RotatePasswords",
+
+  string,
+}
+
+@doc("Status of the current operation.")
+@added(Versions.v2026_07_15_preview)
+union OperationStatus {
+  /** Operation is currently running */
+  Running: "Running",
+
+  /** Operation has succeeded */
+  Succeeded: "Succeeded",
+
+  /** Operation has failed */
+  Failed: "Failed",
+
+  string,
+}
+
+@doc("Category of a validation check.")
+@added(Versions.v2026_07_15_preview)
+union ValidationCheckCategory {
+  /** Implicit baseline checks performed automatically by the service */
+  ImplicitBaseline: "ImplicitBaseline",
+
+  /** Checks derived from custom device commands provided by the user */
+  CustomCommandSet: "CustomCommandSet",
+
+  /** Checks derived from custom metric validation rules provided by the user */
+  CustomMetric: "CustomMetric",
+
+  string,
+}
+
+@doc("Properties for overriding validation checks when performing an action. Allows referencing a prior validateReadiness result and optionally skipping specific failed checks.")
+@added(Versions.v2026_07_15_preview)
+model ValidationOverrideProperties {
+  @doc("Reference to a prior validateReadiness result. When provided, the action skips re-validation and uses the referenced validation outcome.")
+  validationId?: Azure.Core.uuid;
+
+  @doc("List of check names to override (skip) even if they failed during validation. Allows proceeding with the action despite specific failed checks.")
+  overrideChecks?: string[];
+}
+
+@doc("Request properties for the validateReadiness action.")
+@added(Versions.v2026_07_15_preview)
+model RunValidationRequest {
+  @doc("Type of validation to perform.")
+  validationType: ValidationType;
+
+  @doc("Target version for upgrade validation in semantic versioning format (e.g., '4.1.0'). Required for upgrade-related validation types.")
+  targetVersion?: string;
+
+  @doc("Device command configuration specifying how validation commands are provided.")
+  deviceCommandConfiguration?: DeviceCommandConfiguration;
+
+  @doc("Custom metric validation rules to evaluate device metrics as part of readiness validation.")
+  @identifiers(#["checkName"])
+  metricsConfiguration?: MetricValidationRule[];
+
+  @doc("List of device resource IDs to filter validation to specific devices. Only applicable at fabric-level.")
+  deviceFilter?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedNetworkFabric/networkDevices";
+    }
+  ]>[];
+}
+
+@doc("Base model for device command configuration, discriminated by configurationType.")
+@discriminator("configurationType")
+@added(Versions.v2026_07_15_preview)
+model DeviceCommandConfiguration {
+  @doc("Configuration type indicating how commands are provided.")
+  configurationType: ConfigurationType;
+}
+
+@doc("Inline device command configuration specifying commands directly.")
+@added(Versions.v2026_07_15_preview)
+model InlineDeviceCommandConfiguration extends DeviceCommandConfiguration {
+  @doc("Configuration type discriminator.")
+  configurationType: ConfigurationType.Inline;
+
+  @doc("List of device commands to execute as part of validation, each with optional validation rules.")
+  @identifiers(#["checkName"])
+  commands: DeviceCommand[];
+}
+
+@doc("A device command with optional validation rules for verifying the command output.")
+@added(Versions.v2026_07_15_preview)
+model DeviceCommand {
+  @doc("Unique check name that identifies this command in the validation results. Maps to checkName in checkResults response.")
+  checkName: string;
+
+  @doc("Description of what this command validates.")
+  description?: string;
+
+  @doc("The Arista CLI command to execute on the device.")
+  command: string;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "validationRules is intentionally a free-form JSON object so callers can define their own arbitrary validation rule structure."
+  @doc("Optional free-form JSON object defining user-specified validation rules to apply to the command output. When omitted (only `command` is provided), the service returns the complete raw command output without applying rule-based pass/fail validation.")
+  validationRules?: Record<unknown>;
+}
+
+@doc("Comparison operators for validation rules.")
+@added(Versions.v2026_07_15_preview)
+union ValidationOperator {
+  string,
+
+  @doc("The extracted value must equal the expected value.")
+  Equals: "Equals",
+
+  @doc("The extracted value must not equal the expected value.")
+  NotEquals: "NotEquals",
+
+  @doc("The extracted value must contain the expected value.")
+  Contains: "Contains",
+
+  @doc("The extracted value must be greater than the expected value.")
+  GreaterThan: "GreaterThan",
+
+  @doc("The extracted value must be less than the expected value.")
+  LessThan: "LessThan",
+}
+
+@doc("A custom metric validation rule that defines a metric-based check to evaluate during readiness validation.")
+@added(Versions.v2026_07_15_preview)
+model MetricValidationRule {
+  @doc("Unique check name that identifies this metric check in the validation results. Maps to checkName in checkResults response.")
+  checkName: string;
+
+  @doc("Description of what this metric check validates.")
+  description?: string;
+
+  @doc("The name of the metric to query (e.g., 'CpuUtilizationMax', 'MemoryUtilization').")
+  metricName: string;
+
+  @doc("Time window in minutes to look back for metric data.")
+  timeWindowMinutes: int32;
+
+  @doc("The comparison operator to use for evaluating the metric value.")
+  operator: ValidationOperator;
+
+  @doc("The expected value to compare against the metric value.")
+  expectedValue: string;
+
+  @doc("Maximum number of metric samples allowed to fail before the check is considered failed. Default is 0 (any failure fails the check).")
+  maxAllowedFailures?: int32;
+}
+
+@doc("File-based device command configuration using a URL to a custom commands file.")
+@added(Versions.v2026_07_15_preview)
+model FileDeviceCommandConfiguration extends DeviceCommandConfiguration {
+  @doc("Configuration type discriminator.")
+  configurationType: ConfigurationType.File;
+
+  @doc("URL to a file containing device commands.")
+  commandsUrl: url;
+}
+
+@doc("The response of the action run validation.")
+@added(Versions.v2026_07_15_preview)
+model RunValidationResponse {
+  ...OperationStatusResult;
+
+  @doc("Run validation response properties.")
+  properties?: RunValidationResponseProperties;
+}
+
+@doc("Response properties for the runValidation action.")
+@added(Versions.v2026_07_15_preview)
+model RunValidationResponseProperties {
+  @doc("Unique identifier (GUID) for this validation run, generated by the service.")
+  @visibility(Lifecycle.Read)
+  validationId: Azure.Core.uuid;
+
+  @doc("Timestamp when the validation results expire (24-hour TTL).")
+  @visibility(Lifecycle.Read)
+  expiresAt?: utcDateTime;
+
+  @doc("Overall result of the validation.")
+  @visibility(Lifecycle.Read)
+  validationResult?: ValidationResult;
+
+  @doc("Blob URL to the detailed validation report in the customer's storage account. Accessed using the resource's user-assigned managed identity.")
+  @visibility(Lifecycle.Read)
+  resultUrl?: url;
+
+  @doc("Current firmware/software version of the resource in semantic versioning format (e.g., '4.0.2').")
+  @visibility(Lifecycle.Read)
+  currentVersion?: string;
+
+  @doc("Target version for upgrade validation in semantic versioning format (e.g., '4.1.0').")
+  @visibility(Lifecycle.Read)
+  targetVersion?: string;
+
+  @doc("List of device resource IDs that passed validation.")
+  @visibility(Lifecycle.Read)
+  successfulDevices?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedNetworkFabric/networkDevices";
+    }
+  ]>[];
+
+  @doc("List of device resource IDs that failed validation.")
+  @visibility(Lifecycle.Read)
+  failedDevices?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedNetworkFabric/networkDevices";
+    }
+  ]>[];
+
+  @doc("Individual validation check results.")
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#[])
+  checkResults?: ValidationCheckResult[];
+}
+
+@doc("Result of an individual validation check.")
+@added(Versions.v2026_07_15_preview)
+model ValidationCheckResult {
+  @doc("Name of the validation check.")
+  @visibility(Lifecycle.Read)
+  checkName: string;
+
+  @doc("Category of the validation check.")
+  @visibility(Lifecycle.Read)
+  category?: ValidationCheckCategory;
+
+  @doc("Result of the validation check. Omitted for command-only checks (no validationRules provided), where the complete raw command output is returned instead via commandOutput.")
+  @visibility(Lifecycle.Read)
+  result?: ValidationResult;
+
+  @doc("Descriptive message about the check result.")
+  @visibility(Lifecycle.Read)
+  message?: string;
+
+  @doc("Complete raw command output for this check, limited to 4000 characters. Populated for command-only checks where no validationRules were provided.")
+  @visibility(Lifecycle.Read)
+  commandOutput?: string;
+
+  @doc("List of resource IDs impacted by this check result.")
+  @visibility(Lifecycle.Read)
+  impactedResources?: Azure.Core.armResourceIdentifier[];
 }
 
 /**

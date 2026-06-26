@@ -3826,6 +3826,13 @@ model DeploymentCapacityPolicy {
   cpuOvercommitRatio?: float32;
 
   /**
+   * Cluster-wide system reservation ratio that holds back a fraction of effective
+   * capacity for platform and system overhead. Default: 0.05.
+   */
+  @minValue(0.05)
+  systemReservationRatio?: float32;
+
+  /**
    * Number of failure domains to reserve for n+1/n+2 style placement planning.
    */
   @minValue(0)
@@ -9198,6 +9205,24 @@ model EdgeMachineGpuProperties {
    */
   @visibility(Lifecycle.Read)
   partitionDetails?: GpuPartitionDetails;
+
+  /**
+   * The type of the accelerator.
+   */
+  @visibility(Lifecycle.Read)
+  acceleratorType?: string;
+
+  /**
+   * The memory model of the GPU. Possible values are 'Dedicated VRAM', 'Unified (Shared System Memory)', and 'Unified (SoC LPDDR)'.
+   */
+  @visibility(Lifecycle.Read)
+  memoryModel?: string;
+
+  /**
+   * The total memory of the GPU in bytes.
+   */
+  @visibility(Lifecycle.Read)
+  totalMemoryInBytes?: string;
 }
 
 /**
@@ -9611,6 +9636,15 @@ union DiskFileSystemType {
 
   /** ReFS file system (Windows). */
   ReFS: "ReFS",
+
+  /** vfat file system (Linux/cross-platform). */
+  vfat: "vfat",
+
+  /** FAT32 file system. */
+  fat32: "fat32",
+
+  /** FAT file system. */
+  fat: "fat",
 }
 
 /**
@@ -11387,6 +11421,9 @@ model EdgeMachineUpdateInfo {
 /** Properties for EdgeMachineUpdate resource. */
 @added(Versions.v2026_03_15_preview)
 model EdgeMachineUpdateProperties {
+  /** The solution type for the available updates. */
+  solutionType?: ProvisioningOsType;
+
   /** The list of available updates. */
   @identifiers(#[])
   values: EdgeMachineUpdateInfo[];
@@ -11518,6 +11555,13 @@ model AppliedCapacityPolicy {
    */
   @minValue(1.0)
   cpuOvercommitRatio?: float32;
+
+  /**
+   * Cluster-wide system reservation ratio that holds back a fraction of effective
+   * capacity for platform and system overhead. Default: 0.05.
+   */
+  @minValue(0.05)
+  systemReservationRatio?: float32;
 
   /**
    * Number of failure domains to reserve for n+1/n+2 style placement planning. Default: 0.
@@ -11682,6 +11726,13 @@ model CapacityCpuSnapshot {
   policyReservedVirtualCpu?: int32;
 
   /**
+   * vCPU reserved at the machine level for the host OS and Azure Local platform
+   * services before workload allocation and policy reservation.
+   */
+  @visibility(Lifecycle.Read)
+  systemReservedVirtualCpu?: int64;
+
+  /**
    * Total remaining vCPU across nodes, derived from node-level availability after
    * machine-level system reserve, workload allocation, and policy reservation. This
    * is a summed value and must not be treated as the largest VM that can fit.
@@ -11722,6 +11773,13 @@ model CapacityMemorySnapshot {
   policyReservedBytes?: int64;
 
   /**
+   * Memory reserved at the machine level for the host OS and Azure Local platform
+   * services before workload allocation as well as policy reservation, in bytes.
+   */
+  @visibility(Lifecycle.Read)
+  systemReservedBytes?: int64;
+
+  /**
    * Total remaining memory across nodes after workload allocation and
    * policy/platform reservation. Summed value; not a per-node fit guarantee.
    */
@@ -11748,7 +11806,7 @@ model CapacityGpuSnapshot {
   totalGpuCount?: int32;
 
   /**
-   * Count of GPUs where properties.assignable is true.
+   * Count of GPUs where assignable is true.
    */
   @visibility(Lifecycle.Read)
   assignableGpuCount?: int32;

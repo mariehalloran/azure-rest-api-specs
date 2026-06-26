@@ -485,6 +485,26 @@ model QuotaAllocations {
 }
 
 /**
+ * Quota allocations for a specific Target.
+ */
+@added(Versions.v2026_06_15_preview)
+model TargetQuotaAllocations {
+  /** The ID of the Target these quota allocations apply to. */
+  @minLength(1)
+  @maxLength(200)
+  @pattern("^[a-zA-Z0-9][-._a-zA-Z0-9]*$")
+  targetId: string;
+
+  /** Lifetime limit for standard priority jobs execution in minutes. */
+  @minValue(0)
+  standardMinutesLifetime: int32;
+
+  /** Lifetime limit for high priority jobs execution in minutes. */
+  @minValue(0)
+  highMinutesLifetime?: int32;
+}
+
+/**
  * ARM Resource Id of a storage account.
  */
 @added(Versions.v2025_01_01_preview)
@@ -534,6 +554,13 @@ model Provider {
    */
   @added(Versions.v2025_12_15_preview)
   quotas?: QuotaAllocations;
+
+  /**
+   * Target-specific quota allocations associated with this provider. Available only for special providers.
+   */
+  @added(Versions.v2026_06_15_preview)
+  @identifiers(#["targetId"])
+  targetQuotas?: TargetQuotaAllocations[];
 }
 
 /**
@@ -630,4 +657,11 @@ model QuantumSuiteOfferProperties {
    */
   @added(Versions.v2025_08_11_preview)
   quotas?: QuotaAllocations;
+
+  /**
+   * Target-specific quota allocations associated with this offer.
+   */
+  @added(Versions.v2026_06_15_preview)
+  @identifiers(#["targetId"])
+  targetQuotas?: TargetQuotaAllocations[];
 }

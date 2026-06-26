@@ -14,7 +14,7 @@ using TypeSpec.Versioning;
 namespace Microsoft.BillingBenefits;
 
 /**
- * Common versioned properties added to all benefit resources starting from v2026_02_01.
+ * Common versioned properties added to all benefit resources.
  * Spread this model into any benefit resource's properties to include these fields.
  * New cross-cutting properties for future versions should be added here.
  */
@@ -22,7 +22,6 @@ model BenefitCommonVersionedProperties {
   /**
    * Invitation identifier
    */
-  @added(Versions.v2026_02_01)
   @visibility(Lifecycle.Read, Lifecycle.Create)
   invitationId?: string;
 }
@@ -38,7 +37,6 @@ model BenefitVersionedExpansionProperties {
   /**
    * Amount of benefit that has been consumed
    */
-  @added(Versions.v2026_02_01)
   @visibility(Lifecycle.Read)
   consumed?: Price;
 }
@@ -133,6 +131,17 @@ union ProvisioningState {
   Expired: "Expired",
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   Failed: "Failed",
+}
+
+/**
+ * Provisioning state for billing benefit resources. Includes the standard terminal states
+ * (Succeeded, Failed, Canceled) plus benefit-specific transition states.
+ */
+union BenefitProvisioningState {
+  ResourceProvisioningState,
+
+  /** The resource provisioning request has been accepted but processing has not yet started. */
+  Pending: "Pending",
 }
 
 /**
@@ -271,6 +280,19 @@ union InstanceFlexibility {
 }
 
 /**
+ * Represents the renewal action for a reservation to be a new purchase or existing renewal.
+ */
+union RenewAction {
+  string,
+
+  /** Represents a new purchase renewal action. */
+  CreateNew: "CreateNew",
+
+  /** Represents renewal of an existing reservation. */
+  RenewExisting: "RenewExisting",
+}
+
+/**
  * This defines whether the entity being created is primary or affiliate. Supported values: primary, affiliate. Validation: Required, must match one of the 2 values.
  */
 union DiscountEntityType {
@@ -279,23 +301,6 @@ union DiscountEntityType {
   Primary: "Primary",
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   Affiliate: "Affiliate",
-}
-
-/**
- * Provisioning states of Discount.
- */
-union DiscountProvisioningState {
-  string,
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Unknown: "Unknown",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Pending: "Pending",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Succeeded: "Succeeded",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Canceled: "Canceled",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Failed: "Failed",
 }
 
 /**
@@ -318,7 +323,6 @@ union DiscountStatus {
 /**
  * List of applied scope types supported for benefit resources.
  */
-@renamedFrom(Versions.v2026_02_01, "DiscountAppliedScopeType")
 union BenefitAppliedScopeType {
   string,
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
@@ -376,7 +380,6 @@ union DiscountType {
   /**
    * Azure promotion discount type.
    */
-  @added(Versions.v2026_02_01)
   AzurePromotion: "AzurePromotion",
 }
 
@@ -626,23 +629,6 @@ union ConditionalCreditEntityType {
 }
 
 /**
- * The provisioning state of the resource
- */
-union ConditionalCreditsProvisioningState {
-  string,
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Unknown: "Unknown",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Succeeded: "Succeeded",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Failed: "Failed",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Canceled: "Canceled",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Pending: "Pending",
-}
-
-/**
  * The status of the conditional credit
  */
 union ConditionalCreditStatus {
@@ -695,24 +681,22 @@ union MilestoneStatus {
 }
 
 /**
- * Represents benefit model type for validation.
+ * Represents benefit model type for validation. Includes all resource types
+ * plus legacy singular-form values used by the validate API.
  */
 union BenefitType {
-  string,
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  ResourceType,
+
+  /** Savings Plan (singular form, used by validate API) */
   SavingsPlan: "SavingsPlan",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+
+  /** MACC (legacy form, used by validate API) */
   MACC: "MACC",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  ConditionalCredits: "ConditionalCredits",
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-  Credits: "Credits",
 }
 
 /**
  * The top-level ARM resource type for a billing benefit (e.g., maccs, credits, savingsPlans, reservations).
  */
-@added(Versions.v2026_02_01)
 union ResourceType {
   string,
 
@@ -827,7 +811,6 @@ model AppliedScopeProperties {
   /**
    * A filter string passed to downstream services to categorize and apply usage benefits to specific resource models. Expected format: "key/value" (e.g., "contractId/2025 H2CPU"). The value is not validated by BillingBenefits and is forwarded as-is.
    */
-  @added(Versions.v2026_02_01)
   @example("clusterId/2025 H2CPU")
   benefitFilter?: string;
 }
@@ -1324,6 +1307,11 @@ model PurchaseRequestProperties {
   renew?: boolean = false;
 
   /**
+   * Represents the renewal action for a reservation to be a new purchase or existing renewal.
+   */
+  renewAction?: RenewAction;
+
+  /**
    * Properties specific to applied scope type. Not required if not applicable.
    */
   appliedScopeProperties?: AppliedScopeProperties;
@@ -1555,6 +1543,11 @@ model ReservationOrderAliasRequestProperties {
   renew?: boolean = false;
 
   /**
+   * Represents the renewal action for a reservation to be a new purchase or existing renewal.
+   */
+  renewAction?: RenewAction;
+
+  /**
    * The type of the resource that is being reserved.
    */
   reservedResourceType?: ReservedResourceType;
@@ -1568,7 +1561,6 @@ model ReservationOrderAliasRequestProperties {
   /**
    * This is the DateTime when the reservation benefit started.
    */
-  @added(Versions.v2026_02_01)
   benefitStartTime?: utcDateTime;
 
   /**
@@ -1644,6 +1636,17 @@ model ReservationOrderAliasResponseProperties {
   renew?: boolean = false;
 
   /**
+   * Represents the renewal action for a reservation to be a new purchase or existing renewal.
+   */
+  renewAction?: RenewAction;
+
+  /**
+   * This is the date-time when the reservation was renewed.
+   */
+  @visibility(Lifecycle.Read)
+  renewalPurchaseDateTime?: utcDateTime;
+
+  /**
    * The type of the resource that is being reserved.
    */
   reservedResourceType?: ReservedResourceType;
@@ -1657,7 +1660,6 @@ model ReservationOrderAliasResponseProperties {
   /**
    * This is the DateTime when the reservation benefit started.
    */
-  @added(Versions.v2026_02_01)
   benefitStartTime?: utcDateTime;
 
   /**
@@ -1698,6 +1700,11 @@ model DiscountProperties {
   startAt: utcDateTime;
 
   /**
+   * End date of the discount. No duration will be supported. Allowed value is any date greater than or equal to startDate.
+   */
+  endAt?: utcDateTime;
+
+  /**
    * This is the globally unique identifier of the Discount which will not change for the lifetime of the Discount.
    */
   systemId?: string;
@@ -1706,7 +1713,7 @@ model DiscountProperties {
    * The state of the resource. Supported values are Pending, Failed, Succeeded, Canceled.
    */
   @visibility(Lifecycle.Read)
-  provisioningState?: DiscountProvisioningState;
+  provisioningState?: BenefitProvisioningState;
 
   ...BenefitBillingScopeProperties;
 
@@ -1740,7 +1747,6 @@ model DiscountProperties {
   /**
    * Product details including SKU title, product family, and product type.
    */
-  @added(Versions.v2026_02_01)
   @visibility(Lifecycle.Read)
   productDetails?: ProductDetailsBase;
 }
@@ -1862,6 +1868,11 @@ model DiscountPatchRequestProperties {
    * Display name
    */
   displayName?: string;
+
+  /**
+   * End date of the discount. No duration will be supported. Allowed value is any date greater than or equal to startDate.
+   */
+  endAt?: utcDateTime;
 }
 
 /**
@@ -2028,7 +2039,6 @@ model ConditionsItem {
 /**
  * Discount type properties for Azure promotion discounts.
  */
-@added(Versions.v2026_02_01)
 model DiscountTypeAzurePromotion extends DiscountTypeProperties {
   /**
    * Product family for which the discount is given. Validation: Optional
@@ -2350,9 +2360,8 @@ model MaccModelProperties {
   /**
    * Provisioning state of MACC as assigned by RPaaS. This indicates the last operation's status. For all practical purposes, this can be ignored. For current status of MACC resource, refer to MaccStatus.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @visibility(Lifecycle.Read)
-  provisioningState?: string;
+  provisioningState?: BenefitProvisioningState;
 
   /**
    * Represents the current status of the MACC.
@@ -2468,14 +2477,12 @@ model MaccModelProperties {
   /**
    * Product details including SKU title, product family, and product type.
    */
-  @added(Versions.v2026_02_01)
   @visibility(Lifecycle.Read)
   productDetails?: ProductDetailsBase;
 
   /**
    * Type of the applied scope for the MACC.
    */
-  @added(Versions.v2026_02_01)
   appliedScopeType?: BenefitAppliedScopeType;
 
   ...BenefitVersionedExpansionProperties;
@@ -2671,7 +2678,6 @@ model CreditReason {
   /**
    * The reason code for credit.
    */
-  @typeChangedFrom(Versions.v2025_12_01_preview, float32)
   code?: string;
 
   /**
@@ -2698,7 +2704,6 @@ model CreditPolicies {
 /**
  * Indicates where the credit benefit is applied
  */
-@added(Versions.v2026_02_01)
 union AppliedOn {
   string,
 
@@ -2719,13 +2724,12 @@ union AppliedOn {
 }
 
 /** Common product detail properties shared across all benefit resources */
-@added(Versions.v2026_02_01)
 model ProductDetailsBase {
   /** SKU title of the product */
   skuTitle?: string;
 
   /**
-   * The product family.
+   * The product family, for example "Azure" or "M365".
    */
   productFamily?: string;
 
@@ -2738,7 +2742,6 @@ model ProductDetailsBase {
 /**
  * Product details for a credit
  */
-@added(Versions.v2026_02_01)
 model CreditProductDetails {
   ...ProductDetailsBase;
 
@@ -2756,14 +2759,13 @@ model CreditProductDetails {
 /**
  * Product details for a transaction
  */
-@added(Versions.v2026_02_01)
 model TransactionProductDetails {
   ...ProductDetailsBase;
 
   /**
-   * Additional SKU-level properties for the product.
+   * Grouping of Azure services by core function (e.g., Compute, Databases).
    */
-  skuProperties?: string;
+  serviceFamily?: string;
 
   /**
    * The publisher type of the product, for example "Microsoft" for first-party or a third-party publisher name. Additional values may be introduced in the future.
@@ -2784,6 +2786,11 @@ model CreditProperties {
    * Product UPN for the credit type
    */
   productCode?: string;
+
+  /**
+   * Display name
+   */
+  displayName?: string;
 
   /**
    * The reason for the credit. Not required if not applicable.
@@ -2836,7 +2843,6 @@ model CreditProperties {
   /**
    * Customer resource id where the benefit is scoped to.
    */
-  @added(Versions.v2026_02_01)
   @visibility(Lifecycle.Read)
   customerResourceId?: Azure.Core.armResourceIdentifier<[
     {
@@ -2855,7 +2861,7 @@ model CreditProperties {
    * Provisioning state
    */
   @visibility(Lifecycle.Read)
-  provisioningState?: ProvisioningState;
+  provisioningState?: BenefitProvisioningState;
 
   /**
    * System identifier
@@ -2865,23 +2871,14 @@ model CreditProperties {
   /**
    * Identifier of the $0 transaction created during credit acquisition.
    */
-  @added(Versions.v2026_02_01)
   @visibility(Lifecycle.Read)
   orderId?: string;
 
   /**
    * Unique identifier (UUID) of the funding lot assigned by the benefit publisher. Used in credit transfer scenarios to trace the originating credit lot.
    */
-  @added(Versions.v2026_02_01)
   @visibility(Lifecycle.Read, Lifecycle.Create)
   fundingSystemId?: string;
-
-  /**
-   * Fully-qualified identifier of the customer where the savings plan is applied. Present only for Partner-led customers. Format is /providers/Microsoft.Billing/billingAccounts/{acctId:orgId}
-   */
-  @removed(Versions.v2026_02_01)
-  @visibility(Lifecycle.Read)
-  customerId?: string;
 
   /**
    * Fully-qualified resource identifier of the resource. Format: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/{benefitType}/{benefitName}.
@@ -2893,14 +2890,12 @@ model CreditProperties {
   /**
    * Product details including SKU title, product kind, offer type, and application details
    */
-  @added(Versions.v2026_02_01)
   @visibility(Lifecycle.Read)
   productDetails?: CreditProductDetails;
 
   /**
    * Type of the applied scope for the credit.
    */
-  @added(Versions.v2026_02_01)
   appliedScopeType?: BenefitAppliedScopeType;
 }
 
@@ -2994,7 +2989,6 @@ model CreditsList is Azure.Core.Page<Credit>;
 /**
  * Request body for the changeSponsor action on a credit.
  */
-@added(Versions.v2026_02_01)
 model ChangeSponsorRequest {
   /** Financial code identifying the new sponsor. This is an alphanumeric identifier assigned by the billing system, for example P20567384. */
   @example("P30000001")
@@ -3004,7 +2998,6 @@ model ChangeSponsorRequest {
 /**
  * The type of charge for a transaction.
  */
-@added(Versions.v2026_02_01)
 union TransactionChargeType {
   string,
 
@@ -3021,7 +3014,6 @@ union TransactionChargeType {
 /**
  * Billing lifecycle status of a transaction.
  */
-@added(Versions.v2026_02_01)
 union TransactionBillingStatus {
   string,
 
@@ -3035,22 +3027,13 @@ union TransactionBillingStatus {
 /**
  * Properties of a transaction
  */
-@added(Versions.v2026_02_01)
 model TransactionProperties {
   /**
-   * Provisioning state of the transaction.
+   * Provisioning state of the transaction as assigned by RPaaS. This indicates the last operation's status.
    */
   @visibility(Lifecycle.Read)
-  provisioningState?: ProvisioningState;
+  provisioningState?: BenefitProvisioningState;
 
-  ...TransactionPatchProperties;
-}
-
-/**
- * Transaction patch request properties
- */
-@added(Versions.v2026_02_01)
-model TransactionPatchProperties {
   /**
    * This is the DateTime when the transaction occurred.
    */
@@ -3098,28 +3081,18 @@ model TransactionPatchProperties {
 }
 
 /**
- * Transaction patch request, reserved for admin-only operations routed through RPaaS.
- */
-#suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model" "Empty patch body intentional - admin patches properties server-side via RPaaS"
-@added(Versions.v2026_02_01)
-model TransactionPatchRequest {}
-
-/**
  * List of transactions
  */
-@added(Versions.v2026_02_01)
 model TransactionsList is Azure.Core.Page<CreditTransaction>;
 
 /**
  * List of Macc transactions
  */
-@added(Versions.v2026_02_01)
 model MaccTransactionsList is Azure.Core.Page<MaccTransaction>;
 
 /**
  * List of conditional credit transactions
  */
-@added(Versions.v2026_02_01)
 model ConditionalCreditTransactionsList
   is Azure.Core.Page<ConditionalCreditTransaction>;
 
@@ -3163,7 +3136,7 @@ model ConditionalCreditProperties {
    * The provisioning state of the resource
    */
   @visibility(Lifecycle.Read)
-  provisioningState?: ConditionalCreditsProvisioningState;
+  provisioningState?: BenefitProvisioningState;
 
   /**
    * The status of the conditional credit
@@ -3206,14 +3179,12 @@ model ConditionalCreditProperties {
   /**
    * Product details including SKU title, product family, and product type.
    */
-  @added(Versions.v2026_02_01)
   @visibility(Lifecycle.Read)
   productDetails?: ProductDetailsBase;
 
   /**
    * Type of the applied scope for the conditional credit.
    */
-  @added(Versions.v2026_02_01)
   appliedScopeType?: BenefitAppliedScopeType;
 
   ...BenefitVersionedExpansionProperties;
@@ -3638,9 +3609,22 @@ model MaccValidateModel extends BenefitValidateModel {
 }
 
 /**
- * Savings plan validate model
+ * Maccs validate model
  */
-model SavingsPlanValidateModel extends BenefitValidateModel {
+model MaccsValidateModel extends BenefitValidateModel {
+  /**
+   * MACC validate properties
+   */
+  properties?: MaccModelProperties;
+
+  /**
+   * Type of benefit to validate. This is used to determine the model type for validation.
+   */
+  benefitType: "Maccs";
+}
+
+/** Shared properties for savings plan validate models. */
+alias SavingsPlanValidateProperties = {
   /**
    * Savings plan order alias properties
    */
@@ -3679,11 +3663,45 @@ model SavingsPlanValidateModel extends BenefitValidateModel {
    * Resource provider kind
    */
   kind?: string;
+};
+
+/**
+ * Savings Plans validate model
+ */
+model SavingsPlansValidateModel extends BenefitValidateModel {
+  ...SavingsPlanValidateProperties;
+
+  /**
+   * Type of benefit to validate. This is used to determine the model type for validation.
+   */
+  benefitType: "SavingsPlans";
+}
+
+/**
+ * Savings plan validate model
+ */
+model SavingsPlanValidateModel extends BenefitValidateModel {
+  ...SavingsPlanValidateProperties;
 
   /**
    * Type of benefit to validate. This is used to determine the model type for validation.
    */
   benefitType: "SavingsPlan";
+}
+
+/**
+ * Discount validate model
+ */
+model DiscountValidateModel extends BenefitValidateModel {
+  /**
+   * Discount validate properties
+   */
+  properties?: DiscountProperties;
+
+  /**
+   * Type of benefit to validate. This is used to determine the model type for validation.
+   */
+  benefitType: "Discounts";
 }
 
 /**
@@ -3694,6 +3712,11 @@ model FreeServicesProperties {
    * This is the catalog UPN for the product.
    */
   productCode?: string;
+
+  /**
+   * Display name
+   */
+  displayName?: string;
 
   /**
    * Current status of the free services
@@ -3713,9 +3736,8 @@ model FreeServicesProperties {
   /**
    * Provisioning state of Free Services as assigned by RPaaS. This indicates the last operation's status. For all practical purposes, this can be ignored. For current status of Free Services resource, refer to FreeServicesStatus.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @visibility(Lifecycle.Read)
-  provisioningState?: string;
+  provisioningState?: BenefitProvisioningState;
 
   ...BenefitBillingScopeProperties;
 
@@ -3727,7 +3749,6 @@ model FreeServicesProperties {
   /**
    * Product details including SKU title, product family, and product type.
    */
-  @added(Versions.v2026_02_01)
   @visibility(Lifecycle.Read)
   productDetails?: ProductDetailsBase;
 }
@@ -3815,18 +3836,11 @@ model FreeServicesList {
  * Properties of a catalog group.
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Read-only proxy resource with no provisioning lifecycle"
-@added(Versions.v2026_02_01)
 model CatalogGroupProperties {
   /**
    * The top-level benefit resource type (e.g., maccs, credits, conditionalCredits, discounts, savingsPlans, reservations).
    */
-  resourceType: ResourceType;
-
-  /**
-   * Dot-separated path encoding the category hierarchy within a benefit type (e.g., VirtualMachines, SQL.ManagedInstance). The default group namespace equals the resourceType.
-   */
-  @encodedName("application/json", "namespace")
-  catalogNamespace: string;
+  benefitResourceType: ResourceType;
 
   /**
    * Display name for the catalog group.
@@ -3874,12 +3888,11 @@ model CatalogGroupProperties {
 /**
  * A key-value pair representing a capability of the catalog group (for example, exchange or renewal support).
  */
-@added(Versions.v2026_02_01)
 model CatalogGroupCapability {
   /**
-   * The capability key (e.g., SelfServiceExchange, Renewability).
+   * The capability name (e.g., SelfServiceExchange, Renewability).
    */
-  key: string;
+  name: string;
 
   /**
    * The capability value (e.g., Supported, Not Supported).
@@ -3890,7 +3903,6 @@ model CatalogGroupCapability {
 /**
  * The list of catalog groups.
  */
-@added(Versions.v2026_02_01)
 model CatalogGroupList {
   /**
    * The list of catalog groups.

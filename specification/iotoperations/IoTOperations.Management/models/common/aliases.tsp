@@ -8,6 +8,7 @@ alias Avro = "Avro";
 alias Cron = "Cron";
 alias Json = "Json";
 alias Mqtt = "Mqtt";
+alias Count = "Count";
 alias None = "None";
 alias Sasl = "Sasl";
 alias Sink = "Sink";

@@ -27,7 +27,7 @@ These are the global settings for the hybridconnectivity.
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2025-12-01-preview
+tag: package-2026-04-01-preview
 ```
 
 ### Tag: package-2021-07-08-privatepreview
@@ -121,6 +121,15 @@ These settings apply only when `--tag=package-2025-12-01-preview` is specified o
 ```yaml $(tag) == 'package-2025-12-01-preview'
 input-file:
   - Microsoft.HybridConnectivity/preview/2025-12-01-preview/hybridconnectivity.json
+```
+
+### Tag: package-2026-04-01-preview
+
+These settings apply only when `--tag=package-2026-04-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-04-01-preview'
+input-file:
+  - Microsoft.HybridConnectivity/preview/2026-04-01-preview/hybridconnectivity.json
 ```
 
 ## Suppression

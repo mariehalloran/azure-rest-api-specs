@@ -12,6 +12,7 @@ import "./project.tsp";
 import "./service.tsp";
 import "./versions.tsp";
 import "./workspace.tsp";
+import "./client.tsp";
 
 using TypeSpec.Versioning;
 using Azure.ResourceManager;

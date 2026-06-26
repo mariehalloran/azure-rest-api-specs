@@ -1,0 +1,37 @@
+{
+  "title": "NetworkFabrics_Troubleshoot_MaximumSet_Gen",
+  "operationId": "NetworkFabrics_Troubleshoot",
+  "parameters": {
+    "api-version": "2026-07-15-preview",
+    "subscriptionId": "1234ABCD-0A1B-1234-5678-123456ABCDEF",
+    "resourceGroupName": "example-rg",
+    "networkFabricName": "example-fabric",
+    "body": {
+      "debugType": "L3Isd",
+      "resourceIds": [
+        "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.ManagedNetworkFabric/L3IsolationDomains/example-l3isd"
+      ],
+      "deviceRoles": [
+        "CE",
+        "ToR"
+      ],
+      "storageUrlId": "https://contosostorage.blob.core.windows.net/troubleshoot-results"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/providers/Microsoft.ManagedNetworkFabric/locations/eastus/operationStatuses/example-operation-id",
+        "name": "example-operation-id",
+        "status": "Succeeded",
+        "startTime": "2026-01-01T00:00:00Z",
+        "endTime": "2026-01-01T00:05:00Z"
+      }
+    },
+    "202": {
+      "headers": {
+        "location": "https://contoso.com/operationstatus"
+      }
+    }
+  }
+}

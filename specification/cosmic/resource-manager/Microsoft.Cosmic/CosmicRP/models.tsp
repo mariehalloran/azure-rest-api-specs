@@ -9,7 +9,7 @@ using Azure.ResourceManager;
 @doc("Microsoft.Cosmic Resource Provider Management API.")
 namespace Microsoft.Cosmic;
 
-// ─── Cosmic Ring Definition ─────────────────────────────────────────────
+// --- Cosmic Ring Definition ---------------------------------------------
 
 @doc("Cosmic Rings.")
 union CosmicRing {
@@ -67,7 +67,7 @@ union CosmicRing {
   string,
 }
 
-// ─── Provisioning state ─────────────────────────────────────────────
+// --- Provisioning state ---------------------------------------------
 
 @doc("The provisioning state of a Cosmic resource.")
 union CosmicProvisioningState {
@@ -88,7 +88,7 @@ union CosmicProvisioningState {
   string,
 }
 
-// ─── Environment enums ───────────────────────────────────────────────
+// --- Environment enums -----------------------------------------------
 
 @doc("The operating system type for the compute nodes.")
 union OsType {
@@ -200,7 +200,7 @@ union InstanceProvisioningStatus {
   string,
 }
 
-// ─── Topology models ────────────────────────────────────────────────
+// --- Topology models ------------------------------------------------
 
 @doc("Optional per-location topology declarations including networking and partition identity.")
 model Topology {
@@ -212,9 +212,12 @@ model Topology {
 @doc("Per-location topology configuration including networking and optional partition declarations.")
 model TopologyLocation {
   @doc("Canonical Azure region name.")
+  @minLength(1)
   name: string;
 
   @doc("Optional SNAT ports to allocate per node.")
+  @minValue(0)
+  @maxValue(64000)
   snatPortsPerNode?: int32;
 
   @doc("BYOIP configuration for ingress traffic.")
@@ -224,6 +227,9 @@ model TopologyLocation {
   @doc("BYOIP configuration for egress traffic.")
   egressPublicIps?: EgressPublicIps;
 
+  @doc("BYOIP configuration for instance-level public IP.")
+  instanceLevelPublicIp?: InstanceLevelPublicIp;
+
   @doc("Optional declared partition set for this location.")
   @identifiers(#["name"])
   partitions?: TopologyPartition[];
@@ -232,10 +238,13 @@ model TopologyLocation {
 @doc("Declared partition identity for a location.")
 model TopologyPartition {
   @doc("The partition name.")
+  @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
+  @minLength(1)
+  @maxLength(24)
   name: string;
 }
 
-// ─── Capacity models ────────────────────────────────────────────────
+// --- Capacity models ------------------------------------------------
 
 @doc("Capacity configuration for the environment.")
 model CapacityPolicy {
@@ -247,9 +256,11 @@ model CapacityPolicy {
 @doc("Per-location desired capacity.")
 model LocationCapacity {
   @doc("Canonical Azure region name.")
+  @minLength(1)
   name: string;
 
   @doc("Total desired instance count in this location.")
+  @minValue(1)
   totalInstanceCount?: int32;
 
   @doc("Optional breakdown of capacity by partition key.")
@@ -260,13 +271,21 @@ model LocationCapacity {
 @doc("Explicit capacity configuration for a specific partition.")
 model PartitionCapacity {
   @doc("The partition name.")
+  @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
+  @minLength(1)
+  @maxLength(24)
   name: string;
 
   @doc("The number of instances to realize for this partition.")
+  @minValue(1)
   instanceCount: int32;
+
+  @doc("Optional routing partition associated with this capacity partition. Format: {ring}_Efz_{region}, e.g. 'test_Efz_DSM'.")
+  @pattern("^[a-z0-9]+_Efz_[A-Za-z0-9]+$")
+  routingPartition?: string;
 }
 
-// ─── Resource policy models ─────────────────────────────────────────
+// --- Resource policy models -----------------------------------------
 
 @doc("Resource policy configuration with layered environment/region/partition overrides.")
 model ResourcePolicy {
@@ -299,6 +318,7 @@ model EnvironmentDefaultPolicy {
 @doc("Region-scoped policy overrides.")
 model RegionOverride {
   @doc("Canonical Azure region name.")
+  @minLength(1)
   name: string;
 
   @doc("Region-level default policy.")
@@ -318,6 +338,9 @@ model RegionDefaultPolicy {
 @doc("Partition-scoped policy overrides.")
 model PartitionOverride {
   @doc("The partition name.")
+  @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
+  @minLength(1)
+  @maxLength(24)
   name: string;
 
   @doc("Partition-level default policy.")
@@ -346,6 +369,7 @@ model PartitionDefaultPolicy {
 @doc("Migration-only per-instance resource override.")
 model InstanceOverride {
   @doc("Opaque RP instance identifier (GUID).")
+  @pattern("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
   instanceId: string;
 
   @doc("Optional per-instance quota override.")
@@ -363,30 +387,37 @@ model InstanceQuota {
   podResources?: PodSpec[];
 }
 
-// ─── Pod resource models ─────────────────────────────────────────────
+// --- Pod resource models ---------------------------------------------
 
 @doc("Pod resource envelope.")
 model PodSpec {
   @doc("CPU cores requested per pod (e.g. '0.5', '2').")
+  @pattern("^([0-9]*\\.?[0-9]+)$")
   cores?: string;
 
   @doc("Memory requested per pod (e.g. '512Mi', '2Gi').")
+  @pattern("^[0-9]+(\\.[0-9]+)?(Mi|Gi)$")
   memory?: string;
 
   @doc("CPU cores limit per pod. If unset, defaults to approximately 2x the request.")
+  @pattern("^([0-9]*\\.?[0-9]+)$")
   coresLimit?: string;
 
   @doc("Memory limit per pod. If unset, defaults to approximately 2x the request.")
+  @pattern("^[0-9]+(\\.[0-9]+)?(Mi|Gi)$")
   memoryLimit?: string;
 
   @doc("Number of replicas per cluster.")
+  @minValue(1)
   replicas?: int32;
 
   @doc("Percentage of replicas considered during rolling updates.")
+  @minValue(0)
+  @maxValue(25)
   rollingUpdateReplicaPercentage?: int32;
 }
 
-// ─── Environment read-only status models ─────────────────────────────
+// --- Environment read-only status models -----------------------------
 
 @doc("Status of the environment.")
 model EnvironmentStatus {
@@ -424,6 +455,9 @@ model Realization {
 @doc("Partition label present in this realization.")
 model Partition {
   @doc("The partition name.")
+  @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
+  @minLength(1)
+  @maxLength(24)
   name: string;
 }
 
@@ -443,14 +477,58 @@ model Instance {
 
   @doc("The provisioning status of this instance on the backing cluster.")
   status?: InstanceProvisioningStatus;
+
+  @doc("Identities applied to this instance. Each entry's identityType distinguishes pod vs workload.")
+  @visibility(Lifecycle.Read)
+  @identifiers(#["clientId"])
+  identities?: InstanceIdentity[];
 }
 
-// ─── Networking models ───────────────────────────────────────────────
+// --- Identity model --------------------------------------------------
+
+@doc("The kind of managed identity exposed on an Instance.")
+union InstanceIdentityType {
+  @doc("Pod identity used by namespace pods (sourced from the placement's ring-level identity).")
+  Pod: "Pod",
+
+  @doc("Workload (federated) identity (sourced from the placement's cluster-level identity).")
+  Workload: "Workload",
+
+  string,
+}
+
+@doc("User-assigned managed identity exposed on an Instance.")
+model InstanceIdentity {
+  @doc("The kind of identity (Pod or Workload).")
+  identityType: InstanceIdentityType;
+
+  @doc("Client ID of the user-assigned managed identity.")
+  clientId: string;
+
+  @doc("ARM resource ID of the user-assigned managed identity.")
+  resourceId?: Azure.Core.armResourceIdentifier;
+
+  @doc("Principal (object) ID of the user-assigned managed identity. Matches ARM common-types UserAssignedIdentity.principalId.")
+  principalId: string;
+}
+
+// --- Networking models -----------------------------------------------
+
+@doc("Azure public-IP tag types. Extensible - new values may be added without a breaking change.")
+union IpTagType {
+  @doc("Routing preference for the IP (Internet, Microsoft, etc.).")
+  RoutingPreference: "RoutingPreference",
+
+  @doc("First-party Azure service usage tag.")
+  FirstPartyUsage: "FirstPartyUsage",
+
+  string,
+}
 
 @doc("Ingress public IP configuration using BYOIP.")
 model IngressPublicIp {
   @doc("The IP tag type for ingress.")
-  ipTagType: string;
+  ipTagType: IpTagType;
 
   @doc("The IP tag value for ingress.")
   ipTagValue: string;
@@ -466,14 +544,36 @@ model IngressPublicIp {
 model EgressPublicIps {
   @doc("The IP tag type for egress.")
   @visibility(Lifecycle.Create, Lifecycle.Read)
-  ipTagType?: string;
+  ipTagType?: IpTagType;
 
   @doc("The IP tag value for egress.")
   @visibility(Lifecycle.Create, Lifecycle.Read)
   ipTagValue?: string;
 
   @doc("The IP capacity for egress.")
+  @pattern("^(2|4|8|16)$")
   ipCapacity?: string;
+
+  @doc("The IP version (IPv4 or IPv6). Defaults to IPv4.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  ipVersion?: IpVersion;
+}
+
+@doc("BYOIP configuration for instance-level public IP (ILPIP).")
+model InstanceLevelPublicIp {
+  @doc("Prefix length of the IP block.")
+  @minValue(0)
+  @maxValue(128)
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  prefixLength?: int32;
+
+  @doc("The IP tag type.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  ipTagType?: IpTagType;
+
+  @doc("The IP tag value.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  ipTagValue?: string;
 
   @doc("The IP version (IPv4 or IPv6). Defaults to IPv4.")
   @visibility(Lifecycle.Create, Lifecycle.Read)
