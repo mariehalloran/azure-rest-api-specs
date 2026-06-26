@@ -24,7 +24,7 @@ model Run is ProxyResource<RunProperties> {
     Resource = Run,
     KeyName = "runName",
     SegmentName = "runs",
-    NamePattern = "^[a-zA-Z][a-zA-Z0-9_-]{2,80}"
+    NamePattern = "^[0-9]{8}T[0-9]{6}Z$"
   >;
 }
 
