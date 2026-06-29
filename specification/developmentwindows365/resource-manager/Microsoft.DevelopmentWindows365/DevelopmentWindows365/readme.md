@@ -38,7 +38,7 @@ These settings apply only when `--tag=2023-11-01-preview` is specified on the co
 
 ```yaml $(tag) == '2023-11-01-preview'
 input-file:
-  - preview/2023-11-01-preview/developmentwindows365.json
+  - ../preview/2023-11-01-preview/developmentwindows365.json
 ```
 
 ### Suppression

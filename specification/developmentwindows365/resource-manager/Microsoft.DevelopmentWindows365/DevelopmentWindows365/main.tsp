@@ -31,4 +31,17 @@ enum Versions {
   v2023_11_01_preview: "2023-11-01-preview",
 }
 
-interface Operations extends Azure.ResourceManager.Operations {}
+interface Operations {
+  #suppress "@azure-tools/typespec-azure-core/no-private-usage" "For backward compatibility with the existing operations route shape."
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "For backward compatibility with the existing operations route shape."
+  @tag("Operations")
+  @autoRoute
+  @doc("Lists all of the available resource provider operations.")
+  @segment("operations")
+  @get
+  @list
+  list(
+    ...Azure.ResourceManager.CommonTypes.ApiVersionParameter,
+    ...Azure.ResourceManager.Legacy.Provider,
+  ): ArmResponse<OperationListResult> | CloudError;
+}

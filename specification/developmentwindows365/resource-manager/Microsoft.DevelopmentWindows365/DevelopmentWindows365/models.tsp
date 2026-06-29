@@ -12,6 +12,8 @@ namespace Microsoft.DevelopmentWindows365;
 /**
  * Provisioning state of the resource.
  */
+#suppress "@azure-tools/typespec-azure-core/friendly-name" "For backward compatibility with the existing Swagger enum schema name."
+@friendlyName("ProvisioningState")
 union ResourceProvisioningState {
   string,
 
@@ -56,9 +58,14 @@ model ManagedServiceIdentityWithDelegation
   /**
    * The set of delegated resources. The delegated resources dictionary keys will be source resource internal ids - internal use only.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "For backward compatibility"
-  delegatedResources?: Record<DelegatedResource>;
+  delegatedResources?: DelegatedResources;
 }
+
+/**
+ * The set of delegated resources. The delegated resources dictionary keys will be source resource internal ids - internal use only.
+ */
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "For backward compatibility"
+model DelegatedResources is Record<DelegatedResource>;
 
 /**
  * Delegated resource properties - internal use only.
@@ -125,13 +132,8 @@ model CloudErrorBody {
 /**
  * The DevelopmentCloudPcDelegatedMsi resource for partial updates. Properties not provided in the update request will not be changed.
  */
+#suppress "@azure-tools/typespec-azure-resource-manager/patch-envelope" "Tags were not part of the existing PATCH contract for this preview API."
 model DevelopmentCloudPcDelegatedMsiUpdate {
-  /**
-   * Resource tags.
-   */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Standard ARM tags pattern"
-  tags?: Record<string>;
-
   /**
    * Managed identity properties
    */

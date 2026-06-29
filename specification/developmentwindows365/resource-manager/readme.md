@@ -33,7 +33,7 @@ These settings apply only when `--tag= 2023-11-01-preview` is specified on the c
 
 ```yaml $(tag) == '2023-11-01-preview'
 input-file:
-  - Microsoft.DevelopmentWindows365/DevelopmentWindows365/preview/2023-11-01-preview/developmentwindows365.json
+  - Microsoft.DevelopmentWindows365/preview/2023-11-01-preview/developmentwindows365.json
 ```
 
 ### Suppression

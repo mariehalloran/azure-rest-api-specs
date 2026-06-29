@@ -53,23 +53,23 @@
         "tags": [
           "Operations"
         ],
-        "description": "List the operations for the provider",
+        "description": "Lists all of the available resource provider operations.",
         "parameters": [
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/OperationListResult"
+              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/OperationListResult"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/CloudError"
             }
           }
         },
@@ -92,10 +92,10 @@
         "description": "Lists all DevelopmentCloudPcDelegatedMsi in a subscription.",
         "parameters": [
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
             "name": "$top",
@@ -116,7 +116,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/CloudError"
             }
           }
         },
@@ -124,9 +124,6 @@
           "DevelopmentCloudPcDelegatedMsi_ListBySubscription": {
             "$ref": "./examples/DevelopmentCloudPcDelegatedMsi_ListBySubscription.json"
           }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
         }
       }
     },
@@ -139,13 +136,13 @@
         "description": "Lists all DevelopmentCloudPcDelegatedMsi in a resource group.",
         "parameters": [
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.subscriptionId"
           },
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.resourceGroupName"
           },
           {
             "name": "$top",
@@ -166,7 +163,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -174,9 +171,6 @@
           "DevelopmentCloudPcDelegatedMsi_ListByResourceGroup": {
             "$ref": "./examples/DevelopmentCloudPcDelegatedMsi_ListByResourceGroup.json"
           }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
         }
       }
     },
@@ -189,13 +183,13 @@
         "description": "Get a DevelopmentCloudPcDelegatedMsi",
         "parameters": [
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.subscriptionId"
           },
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.resourceGroupName"
           },
           {
             "name": "developmentCloudPcDelegatedMsiName",
@@ -216,7 +210,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/CloudError"
             }
           }
         },
@@ -234,13 +228,13 @@
         "description": "Creates or updates a DevelopmentCloudPcDelegatedMsi resource",
         "parameters": [
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.subscriptionId"
           },
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.resourceGroupName"
           },
           {
             "name": "developmentCloudPcDelegatedMsiName",
@@ -251,13 +245,14 @@
             "pattern": "^[a-zA-Z][A-Za-z0-9]*$"
           },
           {
-            "name": "resource",
+            "name": "body",
             "in": "body",
             "description": "Represents a DevelopmentCloudPcDelegatedMsi.",
             "required": true,
             "schema": {
               "$ref": "#/definitions/DevelopmentCloudPcDelegatedMsi"
-            }
+            },
+            "x-ms-client-name": "resource"
           }
         ],
         "responses": {
@@ -276,7 +271,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/CloudError"
             }
           }
         },
@@ -297,13 +292,13 @@
         "description": "Partially updates a DevelopmentCloudPcDelegatedMsi.",
         "parameters": [
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.subscriptionId"
           },
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.resourceGroupName"
           },
           {
             "name": "developmentCloudPcDelegatedMsiName",
@@ -314,13 +309,14 @@
             "pattern": "^[a-zA-Z][A-Za-z0-9]*$"
           },
           {
-            "name": "properties",
+            "name": "body",
             "in": "body",
             "description": "Updatable DevelopmentCloudPcDelegatedMsi properties.",
             "required": true,
             "schema": {
               "$ref": "#/definitions/DevelopmentCloudPcDelegatedMsiUpdate"
-            }
+            },
+            "x-ms-client-name": "properties"
           }
         ],
         "responses": {
@@ -333,7 +329,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/CloudError"
             }
           }
         },
@@ -351,13 +347,13 @@
         "description": "Deletes a DevelopmentCloudPcDelegatedMsi",
         "parameters": [
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.subscriptionId"
           },
           {
-            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.resourceGroupName"
           },
           {
             "name": "developmentCloudPcDelegatedMsiName",
@@ -378,7 +374,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/CloudError"
             }
           }
         },
@@ -395,6 +391,42 @@
       "type": "string",
       "format": "uuid",
       "description": "Universally Unique Identifier"
+    },
+    "CloudError": {
+      "type": "object",
+      "description": "An error response from the Windows365 RP service.",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/CloudErrorBody",
+          "description": "Error body"
+        }
+      }
+    },
+    "CloudErrorBody": {
+      "type": "object",
+      "description": "An error response from the Windows365 RP service.",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An identifier for the error. Codes are invariant and are intended to be consumed programmatically."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message describing the error, intended to be suitable for display in a user interface."
+        },
+        "target": {
+          "type": "string",
+          "description": "The target of the particular error. For example, the name of the property in error."
+        },
+        "details": {
+          "type": "array",
+          "description": "A list of additional details about the error.",
+          "items": {
+            "$ref": "#/definitions/CloudErrorBody"
+          },
+          "x-ms-identifiers": []
+        }
+      }
     },
     "DelegatedResource": {
       "type": "object",
@@ -418,6 +450,13 @@
         }
       }
     },
+    "DelegatedResources": {
+      "type": "object",
+      "description": "The set of delegated resources. The delegated resources dictionary keys will be source resource internal ids - internal use only.",
+      "additionalProperties": {
+        "$ref": "#/definitions/DelegatedResource"
+      }
+    },
     "DevelopmentCloudPcDelegatedMsi": {
       "type": "object",
       "description": "Represents a developmentCloudPcDelegatedMsi resource.",
@@ -433,37 +472,35 @@
       },
       "allOf": [
         {
-          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
         }
       ]
     },
     "DevelopmentCloudPcDelegatedMsiListResult": {
       "type": "object",
-      "description": "The response of a DevelopmentCloudPcDelegatedMsi list operation.",
+      "description": "Result of the list developmentCloudPcDelegatedMsis operation.",
       "properties": {
         "value": {
           "type": "array",
-          "description": "The DevelopmentCloudPcDelegatedMsi items on this page",
+          "description": "Current page of results.",
           "items": {
             "$ref": "#/definitions/DevelopmentCloudPcDelegatedMsi"
-          }
+          },
+          "readOnly": true
         },
         "nextLink": {
           "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
+          "description": "URL to get the next set of results if there are any.",
+          "readOnly": true
         }
-      },
-      "required": [
-        "value"
-      ]
+      }
     },
     "DevelopmentCloudPcDelegatedMsiProperties": {
       "type": "object",
       "description": "Properties of the developmentCloudPcDelegatedMsi.",
       "properties": {
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
+          "$ref": "#/definitions/ProvisioningState",
           "description": "The provisioning state of the resource.",
           "readOnly": true
         }
@@ -473,15 +510,8 @@
       "type": "object",
       "description": "The DevelopmentCloudPcDelegatedMsi resource for partial updates. Properties not provided in the update request will not be changed.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "identity": {
-          "$ref": "../../../../../../common-types/resource-management/v3/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "$ref": "../../../../../common-types/resource-management/v3/managedidentity.json#/definitions/ManagedServiceIdentity",
           "description": "Managed identity properties"
         }
       }
@@ -491,20 +521,17 @@
       "description": "Managed service identity (system assigned and/or user assigned identities and/or delegated identities) - internal use only.",
       "properties": {
         "delegatedResources": {
-          "type": "object",
-          "description": "The set of delegated resources. The delegated resources dictionary keys will be source resource internal ids - internal use only.",
-          "additionalProperties": {
-            "$ref": "#/definitions/DelegatedResource"
-          }
+          "$ref": "#/definitions/DelegatedResources",
+          "description": "The set of delegated resources. The delegated resources dictionary keys will be source resource internal ids - internal use only."
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../../common-types/resource-management/v3/managedidentity.json#/definitions/ManagedServiceIdentity"
+          "$ref": "../../../../../common-types/resource-management/v3/managedidentity.json#/definitions/ManagedServiceIdentity"
         }
       ]
     },
-    "ResourceProvisioningState": {
+    "ProvisioningState": {
       "type": "string",
       "description": "Provisioning state of the resource.",
       "enum": [
@@ -541,5 +568,22 @@
       }
     }
   },
-  "parameters": {}
+  "parameters": {
+    "DevelopmentWindows365ResourceGroupScopeParameters.resourceGroupName": {
+      "name": "resourceGroupName",
+      "in": "path",
+      "description": "The name of the resource group.",
+      "required": true,
+      "type": "string",
+      "x-ms-parameter-location": "method"
+    },
+    "DevelopmentWindows365ResourceGroupScopeParameters.subscriptionId": {
+      "name": "subscriptionId",
+      "in": "path",
+      "description": "The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).",
+      "required": true,
+      "type": "string",
+      "x-ms-parameter-location": "method"
+    }
+  }
 }

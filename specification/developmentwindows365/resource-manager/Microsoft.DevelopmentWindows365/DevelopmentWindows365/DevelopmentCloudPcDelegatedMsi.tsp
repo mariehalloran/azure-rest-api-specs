@@ -10,6 +10,59 @@ using TypeSpec.Http;
 using TypeSpec.OpenAPI;
 
 namespace Microsoft.DevelopmentWindows365;
+
+/**
+ * Resource group scope parameters for DevelopmentWindows365 operations.
+ */
+model DevelopmentWindows365ResourceGroupScopeParameters {
+  ...Azure.ResourceManager.CommonTypes.ApiVersionParameter;
+
+  /**
+   * The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
+   */
+  @path
+  @segment("subscriptions")
+  subscriptionId: string;
+
+  /**
+   * The name of the resource group.
+   */
+  @path
+  @segment("resourceGroups")
+  resourceGroupName: string;
+}
+
+/**
+ * Subscription scope parameters for DevelopmentWindows365 operations.
+ */
+model DevelopmentWindows365SubscriptionScopeParameters {
+  ...Azure.ResourceManager.CommonTypes.ApiVersionParameter;
+
+  /**
+   * The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
+   */
+  @path
+  @segment("subscriptions")
+  subscriptionId: string;
+}
+
+/**
+ * Result of the list developmentCloudPcDelegatedMsis operation.
+ */
+model DevelopmentCloudPcDelegatedMsiListResult {
+  /**
+   * Current page of results.
+   */
+  @pageItems
+  @visibility(Lifecycle.Read)
+  value?: DevelopmentCloudPcDelegatedMsi[];
+
+  /**
+   * URL to get the next set of results if there are any.
+   */
+  @visibility(Lifecycle.Read)
+  nextLink?: string;
+}
 /**
  * Represents a developmentCloudPcDelegatedMsi resource.
  */
@@ -33,14 +86,22 @@ model DevelopmentCloudPcDelegatedMsi
 interface DevelopmentCloudPcDelegatedMsis {
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "non-standard operations"
   @operationId("DevelopmentCloudPcDelegatedMsi_Get")
-  get is ArmResourceRead<DevelopmentCloudPcDelegatedMsi>;
+  get is ArmResourceRead<
+    DevelopmentCloudPcDelegatedMsi,
+    BaseParameters = DevelopmentWindows365ResourceGroupScopeParameters,
+    Error = CloudError
+  >;
 
   /**
    * Creates or updates a DevelopmentCloudPcDelegatedMsi resource
    */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "non-standard operations"
   @operationId("DevelopmentCloudPcDelegatedMsi_CreateOrUpdate")
-  createOrUpdate is ArmResourceCreateOrReplaceSync<DevelopmentCloudPcDelegatedMsi>;
+  createOrUpdate is ArmResourceCreateOrReplaceSync<
+    DevelopmentCloudPcDelegatedMsi,
+    BaseParameters = DevelopmentWindows365ResourceGroupScopeParameters,
+    Error = CloudError
+  >;
 
   /**
    * Partially updates a DevelopmentCloudPcDelegatedMsi.
@@ -50,7 +111,9 @@ interface DevelopmentCloudPcDelegatedMsis {
   @patch(#{ implicitOptionality: false })
   update is ArmCustomPatchSync<
     DevelopmentCloudPcDelegatedMsi,
-    PatchModel = DevelopmentCloudPcDelegatedMsiUpdate
+    PatchModel = DevelopmentCloudPcDelegatedMsiUpdate,
+    BaseParameters = DevelopmentWindows365ResourceGroupScopeParameters,
+    Error = CloudError
   >;
 
   /**
@@ -58,7 +121,11 @@ interface DevelopmentCloudPcDelegatedMsis {
    */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "non-standard operations"
   @operationId("DevelopmentCloudPcDelegatedMsi_Delete")
-  delete is ArmResourceDeleteSync<DevelopmentCloudPcDelegatedMsi>;
+  delete is ArmResourceDeleteSync<
+    DevelopmentCloudPcDelegatedMsi,
+    BaseParameters = DevelopmentWindows365ResourceGroupScopeParameters,
+    Error = CloudError
+  >;
 
   /**
    * Lists all DevelopmentCloudPcDelegatedMsi in a resource group.
@@ -67,13 +134,15 @@ interface DevelopmentCloudPcDelegatedMsis {
   @operationId("DevelopmentCloudPcDelegatedMsi_ListByResourceGroup")
   listByResourceGroup is ArmResourceListByParent<
     DevelopmentCloudPcDelegatedMsi,
+    BaseParameters = DevelopmentWindows365ResourceGroupScopeParameters,
     Parameters = {
       /**
        * The maximum number of resources to return from the operation. Example: '$top=10'.
        */
       @query("$top")
       $top?: int32;
-    }
+    },
+    Response = ArmResponse<DevelopmentCloudPcDelegatedMsiListResult>
   >;
 
   /**
@@ -89,7 +158,9 @@ interface DevelopmentCloudPcDelegatedMsis {
        */
       @query("$top")
       $top?: int32;
-    }
+    },
+    Response = ArmResponse<DevelopmentCloudPcDelegatedMsiListResult>,
+    Error = CloudError
   >;
 }
 
@@ -108,4 +179,16 @@ interface DevelopmentCloudPcDelegatedMsis {
 @@doc(
   DevelopmentCloudPcDelegatedMsis.update::parameters.properties,
   "Updatable DevelopmentCloudPcDelegatedMsi properties."
+);
+#suppress "deprecated" "For backward compatibility with the existing Swagger body parameter name."
+@@encodedName(
+  DevelopmentCloudPcDelegatedMsis.createOrUpdate::parameters.resource,
+  "application/json",
+  "body"
+);
+#suppress "deprecated" "For backward compatibility with the existing Swagger body parameter name."
+@@encodedName(
+  DevelopmentCloudPcDelegatedMsis.update::parameters.properties,
+  "application/json",
+  "body"
 );
