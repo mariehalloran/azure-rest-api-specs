@@ -1,0 +1,83 @@
+{
+  "operationId": "Operations_List",
+  "title": "List Available Operations",
+  "parameters": {
+    "api-version": "2026-02-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "Microsoft.Storage/contextCaches/read",
+            "display": {
+              "provider": "Microsoft Azure Context Cache",
+              "resource": "Context Caches",
+              "operation": "Read Context Cache",
+              "description": "Gets or lists Context Caches"
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.Storage/contextCaches/write",
+            "display": {
+              "provider": "Microsoft Azure Context Cache",
+              "resource": "Context Caches",
+              "operation": "Create or Update Context Cache",
+              "description": "Creates or updates a Context Cache"
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.Storage/contextCaches/delete",
+            "display": {
+              "provider": "Microsoft Azure Context Cache",
+              "resource": "Context Caches",
+              "operation": "Delete Context Cache",
+              "description": "Deletes a Context Cache"
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.Storage/contextCaches/contextCacheContainers/read",
+            "display": {
+              "provider": "Microsoft Azure Context Cache",
+              "resource": "Context Cache Containers",
+              "operation": "Read Context Cache Container",
+              "description": "Gets or lists containers in a Context Cache"
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.Storage/contextCaches/contextCacheContainers/write",
+            "display": {
+              "provider": "Microsoft Azure Context Cache",
+              "resource": "Context Cache Containers",
+              "operation": "Create or Update Context Cache Container",
+              "description": "Creates or updates a container in a Context Cache"
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.Storage/contextCaches/contextCacheContainers/delete",
+            "display": {
+              "provider": "Microsoft Azure Context Cache",
+              "resource": "Context Cache Containers",
+              "operation": "Delete Context Cache Container",
+              "description": "Deletes a container from a Context Cache"
+            },
+            "isDataAction": false
+          }
+        ]
+      }
+    },
+    "default": {
+      "body": {
+        "error": {
+          "code": "InternalServerError",
+          "message": "An unexpected error occurred"
+        }
+      }
+    }
+  }
+}
