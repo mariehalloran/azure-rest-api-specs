@@ -179,5 +179,8 @@ interface LinkedAccounts {
   "The user-chosen Linked Account name. Must be unique within the subscription and is used in the resource URL and ADU service routing. Allowed characters: alphanumeric and hyphens (not leading/trailing); length 3-36."
 );
 @@doc(LinkedAccounts.create::parameters.resource, "Linked Account details.");
-@@doc(LinkedAccounts.updateSync::parameters.properties, "Updated Linked Account.");
+@@doc(
+  LinkedAccounts.updateSync::parameters.properties,
+  "Updated Linked Account."
+);
 @@doc(LinkedAccounts.update::parameters.properties, "Updated Linked Account.");
