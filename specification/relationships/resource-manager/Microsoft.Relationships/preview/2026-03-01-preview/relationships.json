@@ -921,7 +921,7 @@
       "description": "Defines a ServiceGroupMember relationship resource.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/ServiceGroupMemberRelationshipProperties",
+          "$ref": "#/definitions/ServiceGroupMemberRelationshipPropertiesV2",
           "description": "The resource-specific properties for this resource."
         }
       },
@@ -952,34 +952,24 @@
         "value"
       ]
     },
-    "ServiceGroupMemberRelationshipProperties": {
+    "ServiceGroupMemberRelationshipPropertiesV2": {
       "type": "object",
       "description": "ServiceGroupMember relationship properties.",
       "properties": {
         "sourceId": {
           "type": "string",
           "format": "arm-id",
-          "description": "The relationship source resource id.",
-          "readOnly": true
+          "description": "The relationship source resource id. Must be a service group."
         },
         "targetId": {
           "type": "string",
           "format": "arm-id",
-          "description": "The relationship target resource id.",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.Management/serviceGroups",
-                "scopes": [
-                  "Tenant"
-                ]
-              }
-            ]
-          }
+          "description": "The relationship target resource id. Server-derived from the scoped resource.",
+          "readOnly": true
         },
-        "targetTenant": {
+        "sourceTenant": {
           "type": "string",
-          "description": "The relationship target tenant id."
+          "description": "The relationship source tenant id."
         },
         "originInformation": {
           "$ref": "#/definitions/RelationshipOriginInformation",
@@ -998,7 +988,7 @@
         }
       },
       "required": [
-        "targetId"
+        "sourceId"
       ]
     }
   },
