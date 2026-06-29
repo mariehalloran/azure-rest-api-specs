@@ -43,15 +43,19 @@ input-file:
 directive:
   - suppress: GuidUsage
     from: developmentwindows365.json
+    where: $.definitions["Azure.Core.uuid"].format
     reason: UUID used as the tenant identifier for internal delegated resources.
   - suppress: GuidUsage
     from: managedidentitywithdelegation.json
+    where: $.definitions.DelegatedResource.properties.tenantId.format
     reason: UUID used as the tenant identifier for internal delegated resources.
   - suppress: AvoidAdditionalProperties
     from: developmentwindows365.json
+    where: $.definitions.DelegatedResources
     reason: Delegated resources intentionally use a dictionary keyed by source resource internal ids for backward compatibility.
   - suppress: AvoidAdditionalProperties
     from: managedidentitywithdelegation.json
+    where: $.definitions.DelegatedResources
     reason: Delegated resources intentionally use a dictionary keyed by source resource internal ids for backward compatibility.
   - suppress: ProvisioningStateMustBeReadOnly
     from: developmentwindows365.json
