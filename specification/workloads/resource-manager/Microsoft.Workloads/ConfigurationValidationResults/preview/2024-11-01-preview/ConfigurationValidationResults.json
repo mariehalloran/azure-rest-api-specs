@@ -769,62 +769,51 @@
       "properties": {
         "workloadInstanceArmId": {
           "type": "string",
-          "description": "The workload instance ARM ID.",
-          "readOnly": true
+          "description": "The workload instance ARM ID."
         },
         "workloadSystemIdentifier": {
           "type": "string",
-          "description": "The workload system identifier.",
-          "readOnly": true
+          "description": "The workload system identifier."
         },
         "environment": {
           "type": "string",
-          "description": "The environment of the resource being validated.",
-          "readOnly": true
+          "description": "The environment of the resource being validated."
         },
         "componentName": {
           "type": "string",
-          "description": "The name of the component being validated.",
-          "readOnly": true
+          "description": "The name of the component being validated."
         },
         "componentType": {
           "type": "string",
-          "description": "The type of the component being validated.",
-          "readOnly": true
+          "description": "The type of the component being validated."
         },
         "roleName": {
           "type": "string",
-          "description": "The name of the role being validated.",
-          "readOnly": true
-        },
-        "workloadType": {
-          "type": "string",
-          "description": "The type of workload being validated, such as 'SAP', 'Kubernetes', 'Oracle' etc.",
-          "readOnly": true
+          "description": "The name of the role being validated."
         },
         "resourceArmIds": {
           "type": "array",
-          "description": "The ARM IDs of resources associated with this validation run.",
+          "description": "The ARM IDs of resources associated with this validation.",
           "items": {
             "type": "string"
-          },
-          "readOnly": true
+          }
         },
-        "evaluationType": {
-          "$ref": "#/definitions/ConfigurationChecksEvaluationType",
-          "description": "The type of evaluation performed on the configuration checks.",
-          "readOnly": true
+        "workloadType": {
+          "type": "string",
+          "description": "The type of workload being validated, such as 'SAP', 'Kubernetes', 'Oracle' etc."
         },
         "configurationChecksTemplateId": {
           "type": "string",
-          "description": "The template ID of the configuration checks being applied.",
-          "readOnly": true
+          "description": "The template ID of the configuration checks being applied."
+        },
+        "evaluationType": {
+          "$ref": "#/definitions/ConfigurationChecksEvaluationType",
+          "description": "The type of evaluation performed on the configuration checks."
         },
         "evaluationTimestamp": {
           "type": "string",
           "format": "date-time",
-          "description": "The timestamp when the evaluation was performed.",
-          "readOnly": true
+          "description": "The timestamp when the evaluation was performed."
         },
         "errorDetails": {
           "type": "array",
@@ -841,12 +830,11 @@
           "items": {
             "$ref": "#/definitions/EvaluationResults"
           },
-          "readOnly": true,
           "x-ms-identifiers": []
         },
         "provisioningState": {
           "$ref": "#/definitions/ValidationConfigurationResultsProvisioningState",
-          "description": "The provisioning state of the validation run resource.",
+          "description": "The provisioning state of the validation results resource.",
           "readOnly": true
         }
       },
