@@ -59,8 +59,25 @@ interface LinkedAccounts {
   /**
    * Updates linked account's patchable properties
    */
+  @removed(Versions.v2026_06_01_preview)
+  @renamedFrom(Versions.v2026_06_01_preview, "update")
+  @sharedRoute
   @patch(#{ implicitOptionality: false })
-  update is ArmCustomPatchSync<LinkedAccount, LinkedAccountUpdate>;
+  updateSync is ArmCustomPatchSync<LinkedAccount, LinkedAccountUpdate>;
+
+  /**
+   * Updates linked account's patchable properties
+   */
+  @added(Versions.v2026_06_01_preview)
+  @sharedRoute
+  @patch(#{ implicitOptionality: false })
+  update is ArmCustomPatchAsync<
+    LinkedAccount,
+    LinkedAccountUpdate,
+    LroHeaders = ArmAsyncOperationHeader<FinalResult = LinkedAccount> &
+      ArmLroLocationHeader<FinalResult = LinkedAccount> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
 
   /**
    * Deletes a linked account.
@@ -162,4 +179,5 @@ interface LinkedAccounts {
   "The user-chosen Linked Account name. Must be unique within the subscription and is used in the resource URL and ADU service routing. Allowed characters: alphanumeric and hyphens (not leading/trailing); length 3-36."
 );
 @@doc(LinkedAccounts.create::parameters.resource, "Linked Account details.");
+@@doc(LinkedAccounts.updateSync::parameters.properties, "Updated Linked Account.");
 @@doc(LinkedAccounts.update::parameters.properties, "Updated Linked Account.");
