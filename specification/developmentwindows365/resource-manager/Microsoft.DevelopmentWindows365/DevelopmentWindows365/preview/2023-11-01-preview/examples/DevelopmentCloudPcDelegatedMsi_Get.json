@@ -3,8 +3,7 @@
     "api-version": "2023-11-01-preview",
     "subscriptionId": "{subscriptionId}",
     "resourceGroupName": "rg1",
-    "developmentCloudPcDelegatedMsiName": "Contoso",
-    "body": {}
+    "developmentCloudPcDelegatedMsiName": "Contoso"
   },
   "responses": {
     "200": {
@@ -15,8 +14,18 @@
         "location": "centralus",
         "properties": {
           "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2020-11-11T22:00:08.896Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2020-11-11T22:00:10.896Z"
         }
       }
     }
-  }
+  },
+  "operationId": "DevelopmentCloudPcDelegatedMsi_Get",
+  "title": "DevelopmentCloudPcDelegatedMsi_Get"
 }
