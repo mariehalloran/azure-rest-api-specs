@@ -60,6 +60,7 @@ model DevelopmentCloudPcDelegatedMsiListResult {
   /**
    * URL to get the next set of results if there are any.
    */
+  @nextLink
   @visibility(Lifecycle.Read)
   nextLink?: string;
 }
