@@ -1,0 +1,88 @@
+{
+  "parameters": {
+    "api-version": "2026-07-01-preview",
+    "configurationValidationResultName": "t01;3f9a1c84b2e0476d9f5c11aa77be0312",
+    "runName": "20260522T030519Z",
+    "resourceGroupName": "test-rg",
+    "subscriptionId": "8e17e36c-42e9-4cd5-a078-7b44883414e0"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "name": "20260522T030519Z",
+        "type": "Microsoft.Workloads/ConfigurationValidationResults/runs",
+        "id": "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Workloads/ConfigurationValidationResults/t01;3f9a1c84b2e0476d9f5c11aa77be0312/runs/20260522T030519Z",
+        "properties": {
+          "workloadInstanceArmId": "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Workloads/sapVirtualInstances/T01",
+          "workloadSystemIdentifier": "T01",
+          "environment": "Production",
+          "componentName": "t01dbvm0",
+          "componentType": "Database",
+          "roleName": "Database",
+          "workloadType": "sap",
+          "resourceArmIds": [
+            "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Compute/virtualMachines/t01dbvm0"
+          ],
+          "evaluationType": "Scheduled",
+          "configurationChecksTemplateId": "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Workloads/configurationChecksTemplates/sap-default",
+          "evaluationTimestamp": "2026-05-22T03:05:19.0353107Z",
+          "errorDetails": [
+            {
+              "code": "",
+              "category": "",
+              "details": ""
+            }
+          ],
+          "evaluationResults": [
+            {
+              "name": "EnableFloatingIPinAzureLoadBalancer",
+              "executionLayer": "AzureResourceManager",
+              "recommendedState": "true",
+              "customizedState": "false",
+              "actualStateOnResource": "false",
+              "configurationDeviation": "NoDeviation",
+              "recommendation": {
+                "reason": "<RecommendationCause>",
+                "action": "<MitigationSteps>",
+                "details": "<MitigationStepsUrl>"
+              },
+              "checkType": "Default",
+              "checkCategory": "OperationalExcellence",
+              "checkVersion": "1.0",
+              "impactLevel": "High"
+            },
+            {
+              "name": "IPv4KeepAliveTime",
+              "executionLayer": "OperatingSystem",
+              "recommendedState": "120",
+              "customizedState": ">300",
+              "actualStateOnResource": "7200",
+              "configurationDeviation": "DeviationDetected",
+              "recommendation": {
+                "reason": "<RecommendationCause>",
+                "action": "<MitigationSteps>",
+                "details": "<MitigationStepsUrl>"
+              },
+              "checkType": "Custom",
+              "checkCategory": "Performance",
+              "checkVersion": "1.0",
+              "impactLevel": "High"
+            }
+          ],
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdAt": "2026-05-22T03:05:19.0353107Z",
+          "createdBy": "ea21b132-560f-4b0b-9876-903b6bca7b9d",
+          "createdByType": "Application",
+          "lastModifiedAt": "2026-05-22T03:05:19.0353107Z",
+          "lastModifiedBy": "ea21b132-560f-4b0b-9876-903b6bca7b9d",
+          "lastModifiedByType": "Application"
+        }
+      }
+    }
+  },
+  "operationId": "Runs_Get",
+  "title": "Runs_Get"
+}
+
