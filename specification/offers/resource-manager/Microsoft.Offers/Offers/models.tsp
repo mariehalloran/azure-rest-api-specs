@@ -1,9 +1,11 @@
 import "@typespec/http";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
 using TypeSpec.Http;
+using TypeSpec.Versioning;
 using Azure.Core;
 using Azure.ResourceManager;
 
@@ -172,6 +174,11 @@ model Availability {
 
 // =============================================================================
 // ValueExchange (UPN) properties
+//
+// 2026-04-24-preview: denormalized trio of Product, Sku, and Availability.
+// 2026-06-30-preview: replaced with a flat shape matching the `value_exchanges`
+// stream. The old properties are marked @removed and the new flat properties
+// are marked @added in the new version.
 // =============================================================================
 
 /**
@@ -182,11 +189,93 @@ model Availability {
  */
 model ValueExchangeProperties {
   /** Denormalized product summary. */
+  @removed(Versions.v2026_06_30_preview)
   product: Product;
 
   /** Denormalized SKU summary. */
+  @removed(Versions.v2026_06_30_preview)
   sku: Sku;
 
   /** Availability information for this value exchange. */
+  @removed(Versions.v2026_06_30_preview)
   availability: Availability;
+
+  /** Foreign key linking to the parent product. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  productId: string;
+
+  /** Foreign key linking to the parent SKU. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  skuId: string;
+
+  /** Primary key — the Universal Product Number (UPN) identifying this value exchange / meter. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  valueExchangeId: string;
+
+  /** Product version propagated from the parent product document. */
+  @added(Versions.v2026_06_30_preview)
+  version: int32;
+
+  /** Computed composite identifier: `"{productId}/{skuId}"`. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(130)
+  valueExchangeBigId: string;
+
+  /** Consumer-facing alias of the UPN (same source value as `valueExchangeId`). */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  productCode?: string;
+
+  /** Classification of the meter type (for example, consumption, license seat, reservation). */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  meterType?: string;
+
+  /** Identifier of the associated billing term for this value exchange. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  termId?: string;
+
+  /** SaaS-specific renewal term identifier for automatic renewal routing. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  saasRenewTermId?: string;
+
+  /** Units of the term (for example, monthly, annually), resolved via lookup in Product.Consumption.Terms[]. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  termUnits?: string;
+
+  /** Descriptive identifier for the term, resolved via enrichment lookup. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  termDescriptionId?: string;
+
+  /** Array of term component identifiers that compose this billing term. */
+  @added(Versions.v2026_06_30_preview)
+  termComponentIds?: string[];
+
+  /** Timer value (in days) for generating renewal quotes prior to term end. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  renewalQuoteTimer?: string;
+
+  /** Array of lifecycle states applicable to this product/term combination. */
+  @added(Versions.v2026_06_30_preview)
+  productLifecycleStates?: string[];
+
+  /** Array of availability identifiers matching this value exchange's skuId + termId. */
+  @added(Versions.v2026_06_30_preview)
+  availabilityIds?: string[];
+
+  /** Count of matching availability records for this value exchange. */
+  @added(Versions.v2026_06_30_preview)
+  availabilityCount?: int32;
+
+  /** Dynamic struct carrying internal-routing provenance fields (for example, `runId`). */
+  @added(Versions.v2026_06_30_preview)
+  diagnosticsInformation?: PcdPropertyBag;
 }

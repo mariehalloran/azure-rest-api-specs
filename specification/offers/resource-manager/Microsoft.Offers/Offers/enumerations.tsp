@@ -1,17 +1,20 @@
 import "@typespec/http";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./models.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.Core;
 using Azure.ResourceManager;
 
 namespace Microsoft.Offers;
 
 /** Request body for looking up an enumeration set by its type key. */
+@removed(Versions.v2026_06_30_preview)
 model LookupEnumerationRequest {
   /** The enumeration type key (for example, `categories`, `productFamilies`, `claimTypes`). */
   @maxLength(64)
@@ -20,6 +23,7 @@ model LookupEnumerationRequest {
 }
 
 /** The result of an enumeration lookup. */
+@removed(Versions.v2026_06_30_preview)
 model LookupEnumerationResult {
   /** The enumeration type key the result corresponds to. */
   @maxLength(64)
@@ -30,6 +34,7 @@ model LookupEnumerationResult {
 }
 
 /** Read-only catalog lookup actions for enumeration sets. */
+@removed(Versions.v2026_06_30_preview)
 @armResourceOperations
 interface Enumerations {
   /**

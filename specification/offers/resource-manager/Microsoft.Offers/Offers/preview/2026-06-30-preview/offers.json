@@ -1,0 +1,1288 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Microsoft Offers",
+    "version": "2026-06-30-preview",
+    "description": "Microsoft.Offers Resource Provider management API.",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "ValueExchanges"
+    },
+    {
+      "name": "Products"
+    },
+    {
+      "name": "Skus"
+    },
+    {
+      "name": "Availabilities"
+    },
+    {
+      "name": "Capabilities"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.Offers/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the Microsoft.Offers resource provider.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List all operations supported by Microsoft.Offers.": {
+            "$ref": "./examples/Operations_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/lookupAvailability": {
+      "post": {
+        "operationId": "Availabilities_Lookup",
+        "tags": [
+          "Availabilities"
+        ],
+        "description": "Look up a single availability by its identifier. The catalog is globally\nkeyed: the same `availabilityId` returns the same response for all callers\nunder one API version. Modeled as a POST action because the response is\nidentical for every caller in a subscription and the catalog is not a\nper-subscription resource collection.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LookupAvailabilityRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/LookupAvailabilityResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Look up an availability by its identifier.": {
+            "$ref": "./examples/Availabilities_Lookup.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/lookupCapability": {
+      "post": {
+        "operationId": "Capabilities_Lookup",
+        "tags": [
+          "Capabilities"
+        ],
+        "description": "Look up a single capability row for an entity by its product id and\ncapability name (optionally narrowed by skuId / valueExchangeId). The\ncatalog is globally keyed: the same key returns the same response for all\ncallers under one API version. Modeled as a POST action because the\nresponse is identical for every caller in a subscription and the catalog\nis not a per-subscription resource collection.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LookupCapabilityRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/LookupCapabilityResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Look up a capability row for an entity.": {
+            "$ref": "./examples/Capabilities_Lookup.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/lookupProduct": {
+      "post": {
+        "operationId": "Products_Lookup",
+        "tags": [
+          "Products"
+        ],
+        "description": "Look up a single product by its identifier and version. The catalog is\nglobally keyed: the same `(productId, version)` returns the same response\nfor all callers under one API version. Modeled as a POST action because\nthe response is identical for every caller in a subscription and the\ncatalog is not a per-subscription resource collection.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LookupProductRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/LookupProductResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Look up a product by its identifier and version.": {
+            "$ref": "./examples/Products_Lookup.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/lookupSku": {
+      "post": {
+        "operationId": "Skus_Lookup",
+        "tags": [
+          "Skus"
+        ],
+        "description": "Look up a single SKU by its product, SKU identifier, and version. The\ncatalog is globally keyed: the same `(productId, skuId, version)` returns\nthe same response for all callers under one API version. Modeled as a POST\naction because the response is identical for every caller in a\nsubscription and the catalog is not a per-subscription resource\ncollection.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LookupSkuRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/LookupSkuResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Look up a SKU by its product, SKU identifier, and version.": {
+            "$ref": "./examples/Skus_Lookup.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/lookupValueExchange": {
+      "post": {
+        "operationId": "ValueExchanges_Lookup",
+        "tags": [
+          "ValueExchanges"
+        ],
+        "description": "Look up a single value-exchange (UPN) by its identifier. The catalog is\nglobally keyed: the same `valueExchangeId` returns the same response for\nall callers under one API version. Modeled as a POST action because the\nresponse is identical for every caller in a subscription and the catalog\nis not a per-subscription resource collection.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LookupValueExchangeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/LookupValueExchangeResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Look up a value-exchange (UPN) by its identifier.": {
+            "$ref": "./examples/ValueExchanges_Lookup.json"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Availability": {
+      "type": "object",
+      "description": "Availability information for a value exchange.",
+      "properties": {
+        "availabilityId": {
+          "type": "string",
+          "description": "The stable availability identifier (typically equal to the value-exchange id).",
+          "maxLength": 64
+        },
+        "markets": {
+          "type": "array",
+          "description": "Markets in which this availability is offered (ISO 3166 country codes).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "consumptionUnitType": {
+          "type": "string",
+          "description": "Consumption unit type (for example, \"DAY\").",
+          "maxLength": 64
+        },
+        "displayRank": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Display rank for ordering."
+        },
+        "alternateIds": {
+          "type": "array",
+          "description": "Alternate identifiers.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lastModifiedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last modified date for the availability record."
+        },
+        "conditions": {
+          "$ref": "#/definitions/AvailabilityConditions",
+          "description": "Conditions under which the availability applies."
+        },
+        "terms": {
+          "type": "array",
+          "description": "Purchase terms offered by this availability.",
+          "items": {
+            "$ref": "#/definitions/AvailabilityTerm"
+          },
+          "x-ms-identifiers": [
+            "termId"
+          ]
+        },
+        "supportedLanguages": {
+          "type": "array",
+          "description": "Synthesized intersection of the SKU's market properties and the availability's markets.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meters": {
+          "type": "array",
+          "description": "Synthesized subset of the SKU's meter data filtered by the availability's meter type.",
+          "items": {
+            "$ref": "#/definitions/AvailabilityMeter"
+          },
+          "x-ms-identifiers": []
+        },
+        "properties": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Curated availability property subset projected from the upstream catalog."
+        }
+      },
+      "required": [
+        "availabilityId"
+      ]
+    },
+    "AvailabilityConditions": {
+      "type": "object",
+      "description": "Conditions under which the availability applies.",
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start date of the availability window."
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End date of the availability window. The upstream `9999-...` sentinel is scrubbed to null."
+        },
+        "isPermanent": {
+          "type": "boolean",
+          "description": "Whether the availability is permanent."
+        },
+        "supportedCatalogVersion": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Supported catalog version."
+        },
+        "resourceSetIds": {
+          "type": "array",
+          "description": "Resource set identifiers.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "eligibilityPredicateIds": {
+          "type": "array",
+          "description": "Eligibility predicate identifiers.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "clientConditions": {
+          "$ref": "#/definitions/ClientConditions",
+          "description": "Client-side conditions."
+        }
+      }
+    },
+    "AvailabilityMeter": {
+      "type": "object",
+      "description": "A meter bound to this value exchange (synthesized from the upstream meter data, filtered by meter type).",
+      "additionalProperties": {}
+    },
+    "AvailabilityProperties": {
+      "type": "object",
+      "description": "Flat properties of an availability, matching the `availabilities` stream.",
+      "properties": {
+        "productId": {
+          "type": "string",
+          "description": "Foreign key linking to the parent product.",
+          "maxLength": 64
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Product version propagated from the parent product document."
+        },
+        "skuId": {
+          "type": "string",
+          "description": "Foreign key linking to the parent SKU.",
+          "maxLength": 64
+        },
+        "displayRank": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Numeric rank for determining display ordering of availabilities."
+        },
+        "affirmationId": {
+          "type": "string",
+          "description": "Identifier for the legal/compliance affirmation required at purchase time.",
+          "maxLength": 64
+        },
+        "consumptionUnitType": {
+          "type": "string",
+          "description": "Consumption unit type feeding the canonical granted-by-scope unit (for example, `PTU`).",
+          "maxLength": 64
+        },
+        "actions": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Available purchase/fulfillment actions for this availability."
+        },
+        "properties": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Full availability properties bag containing extended metadata."
+        },
+        "conditions": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Verbatim eligibility-evaluation envelope kept as one decision unit."
+        },
+        "orderManagementData": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Order management data at the availability level."
+        },
+        "termIds": {
+          "type": "array",
+          "description": "Array of term identifiers applicable to this availability.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "markets": {
+          "type": "array",
+          "description": "Markets in which this availability is offered.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "availabilityPolicies": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Policies governing this availability (cancellation, refund, etc.)."
+        },
+        "pricingRuleIds": {
+          "type": "array",
+          "description": "Pricing rule identifiers used to compute the price for this availability.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assetsData": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Digital asset data associated with this availability's fulfillment."
+        },
+        "alternateIds": {
+          "type": "array",
+          "description": "Alternate identifiers for this availability.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "diagnosticsInformation": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Dynamic struct containing provenance and internal routing fields."
+        }
+      }
+    },
+    "AvailabilityTerm": {
+      "type": "object",
+      "description": "A purchase term offered by an availability.",
+      "properties": {
+        "termId": {
+          "type": "string",
+          "description": "The stable term identifier.",
+          "maxLength": 64
+        },
+        "termUnits": {
+          "type": "string",
+          "format": "duration",
+          "description": "ISO-8601 duration for the term (for example, \"P1Y\")."
+        },
+        "termDescription": {
+          "type": "string",
+          "description": "Human-readable term description.",
+          "maxLength": 256
+        }
+      }
+    },
+    "CapabilityProperties": {
+      "type": "object",
+      "description": "Flat properties of a capability row, matching the `capabilities` (long/EAV) stream.",
+      "properties": {
+        "skuId": {
+          "type": "string",
+          "description": "Entity SKU id, when the capability is keyed at that grain.",
+          "maxLength": 64
+        },
+        "valueExchangeId": {
+          "type": "string",
+          "description": "Entity value-exchange (UPN) id, when the capability is keyed at that grain.",
+          "maxLength": 64
+        },
+        "data": {
+          "type": "string",
+          "description": "Per-capability JSON bag serialized as a string; its contract is the\ncapability's `dataSchema`. Keys whose source value is null are dropped."
+        }
+      }
+    },
+    "ClientConditions": {
+      "type": "object",
+      "description": "Client-side conditions for an availability.",
+      "properties": {
+        "allowedPlatforms": {
+          "type": "array",
+          "description": "Allowed client platforms; empty list means no platform restriction.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "LookupAvailabilityRequest": {
+      "type": "object",
+      "description": "Request body for looking up an availability by its identifier.",
+      "properties": {
+        "availabilityId": {
+          "type": "string",
+          "description": "Unique identifier for the availability record.",
+          "maxLength": 64
+        }
+      },
+      "required": [
+        "availabilityId"
+      ]
+    },
+    "LookupAvailabilityResult": {
+      "type": "object",
+      "description": "The result of an availability lookup.",
+      "properties": {
+        "availabilityId": {
+          "type": "string",
+          "description": "The availability identifier the result corresponds to.",
+          "maxLength": 64
+        },
+        "properties": {
+          "$ref": "#/definitions/AvailabilityProperties",
+          "description": "The flat availability projection."
+        }
+      },
+      "required": [
+        "availabilityId",
+        "properties"
+      ]
+    },
+    "LookupCapabilityRequest": {
+      "type": "object",
+      "description": "Request body for looking up a capability row for an entity.",
+      "properties": {
+        "productId": {
+          "type": "string",
+          "description": "Entity product id.",
+          "maxLength": 64
+        },
+        "capability": {
+          "type": "string",
+          "description": "The capability that produced this row (its registry name).",
+          "maxLength": 128
+        },
+        "skuId": {
+          "type": "string",
+          "description": "Entity SKU id, when the capability is keyed at that grain.",
+          "maxLength": 64
+        },
+        "valueExchangeId": {
+          "type": "string",
+          "description": "Entity value-exchange (UPN) id, when the capability is keyed at that grain.",
+          "maxLength": 64
+        }
+      },
+      "required": [
+        "productId",
+        "capability"
+      ]
+    },
+    "LookupCapabilityResult": {
+      "type": "object",
+      "description": "The result of a capability lookup.",
+      "properties": {
+        "productId": {
+          "type": "string",
+          "description": "The entity product id the result corresponds to.",
+          "maxLength": 64
+        },
+        "capability": {
+          "type": "string",
+          "description": "The capability that produced this row.",
+          "maxLength": 128
+        },
+        "properties": {
+          "$ref": "#/definitions/CapabilityProperties",
+          "description": "The flat capability projection."
+        }
+      },
+      "required": [
+        "productId",
+        "capability",
+        "properties"
+      ]
+    },
+    "LookupProductRequest": {
+      "type": "object",
+      "description": "Request body for looking up a product by its identifier and version.",
+      "properties": {
+        "productId": {
+          "type": "string",
+          "description": "Unique identifier for a product in the commerce catalog.",
+          "maxLength": 64
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Integer version of the product document."
+        }
+      },
+      "required": [
+        "productId",
+        "version"
+      ]
+    },
+    "LookupProductResult": {
+      "type": "object",
+      "description": "The result of a product lookup.",
+      "properties": {
+        "productId": {
+          "type": "string",
+          "description": "The product identifier the result corresponds to.",
+          "maxLength": 64
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The product version the result corresponds to."
+        },
+        "properties": {
+          "$ref": "#/definitions/ProductProperties",
+          "description": "The flat product projection."
+        }
+      },
+      "required": [
+        "productId",
+        "version",
+        "properties"
+      ]
+    },
+    "LookupSkuRequest": {
+      "type": "object",
+      "description": "Request body for looking up a SKU by its product, SKU identifier, and version.",
+      "properties": {
+        "productId": {
+          "type": "string",
+          "description": "Foreign key linking this SKU to its parent product.",
+          "maxLength": 64
+        },
+        "skuId": {
+          "type": "string",
+          "description": "Unique identifier for the SKU within the product.",
+          "maxLength": 64
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Product version propagated from the parent product document."
+        }
+      },
+      "required": [
+        "productId",
+        "skuId",
+        "version"
+      ]
+    },
+    "LookupSkuResult": {
+      "type": "object",
+      "description": "The result of a SKU lookup.",
+      "properties": {
+        "productId": {
+          "type": "string",
+          "description": "The product identifier the result corresponds to.",
+          "maxLength": 64
+        },
+        "skuId": {
+          "type": "string",
+          "description": "The SKU identifier the result corresponds to.",
+          "maxLength": 64
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The product version the result corresponds to."
+        },
+        "properties": {
+          "$ref": "#/definitions/SkuProperties",
+          "description": "The flat SKU projection."
+        }
+      },
+      "required": [
+        "productId",
+        "skuId",
+        "version",
+        "properties"
+      ]
+    },
+    "LookupValueExchangeRequest": {
+      "type": "object",
+      "description": "Request body for looking up a value exchange (UPN) by its identifier.",
+      "properties": {
+        "valueExchangeId": {
+          "type": "string",
+          "description": "The value-exchange identifier (BigCat UPN id, e.g. `DZH318Z0995B`).",
+          "pattern": "^[A-Z0-9]{12}$"
+        }
+      },
+      "required": [
+        "valueExchangeId"
+      ]
+    },
+    "LookupValueExchangeResult": {
+      "type": "object",
+      "description": "The result of a value-exchange lookup.",
+      "properties": {
+        "valueExchangeId": {
+          "type": "string",
+          "description": "The value-exchange identifier the result corresponds to.",
+          "pattern": "^[A-Z0-9]{12}$"
+        },
+        "properties": {
+          "$ref": "#/definitions/ValueExchangeProperties",
+          "description": "The denormalized, slim value-exchange projection."
+        }
+      },
+      "required": [
+        "valueExchangeId",
+        "properties"
+      ]
+    },
+    "PcdPropertyBag": {
+      "type": "object",
+      "description": "A curated property bag projected from the upstream catalog. Unbounded key set.",
+      "additionalProperties": {}
+    },
+    "Product": {
+      "type": "object",
+      "description": "Denormalized product summary for a value exchange.",
+      "properties": {
+        "productId": {
+          "type": "string",
+          "description": "The stable product identifier.",
+          "maxLength": 64
+        },
+        "productFamily": {
+          "type": "string",
+          "description": "Product family (for example, \"Azure\").",
+          "maxLength": 64
+        },
+        "productType": {
+          "type": "string",
+          "description": "Product type (for example, \"Azure\").",
+          "maxLength": 64
+        },
+        "productKind": {
+          "type": "string",
+          "description": "Product kind (for example, \"Azure\").",
+          "maxLength": 64
+        },
+        "lastModifiedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last modified date for the product record."
+        },
+        "publisherName": {
+          "type": "string",
+          "description": "Lifted single-language publisher name from the upstream catalog feed.",
+          "maxLength": 256
+        },
+        "properties": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Curated product property subset projected from the upstream catalog."
+        }
+      },
+      "required": [
+        "productId"
+      ]
+    },
+    "ProductProperties": {
+      "type": "object",
+      "description": "Flat properties of a product, matching the `products` stream.",
+      "properties": {
+        "productFamily": {
+          "type": "string",
+          "description": "The family or category grouping to which this product belongs (for example, Azure, Microsoft 365).",
+          "maxLength": 128
+        },
+        "productType": {
+          "type": "string",
+          "description": "Classifies the product type within the commerce platform (for example, Platform, SaaS, DevTool).",
+          "maxLength": 64
+        },
+        "lineOfBusiness": {
+          "type": "string",
+          "description": "The line of business under which this product falls. Defaults to `Azure` when not explicitly set.",
+          "maxLength": 64
+        },
+        "ownershipSellingMotion": {
+          "type": "string",
+          "description": "Primary selling motion / ownership model for the product.",
+          "maxLength": 128
+        },
+        "serviceFamilyName": {
+          "type": "string",
+          "description": "Service family grouping used for reporting and categorization (for example, Compute, Storage, Networking).",
+          "maxLength": 128
+        },
+        "serviceName": {
+          "type": "string",
+          "description": "The specific Azure/commerce service this product belongs to.",
+          "maxLength": 128
+        },
+        "isMicrosoftProduct": {
+          "type": "boolean",
+          "description": "Indicates whether this is a first-party Microsoft product (true) or a third-party/ISV product (false)."
+        },
+        "isTestProduct": {
+          "type": "boolean",
+          "description": "Indicates whether this product is designated as a test product and excluded from production reporting."
+        },
+        "sellerId": {
+          "type": "string",
+          "description": "Identifier of the seller or publisher offering this product in the marketplace.",
+          "maxLength": 64
+        },
+        "offerType": {
+          "type": "string",
+          "description": "Financial Product Model (FCP/P3) program discriminator.",
+          "maxLength": 64
+        },
+        "eligibility": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Eligibility rules and constraints at the product level."
+        },
+        "consumption": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Consumption model information for the product, including meter and term definitions."
+        },
+        "pricing": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Pricing model and configuration data at the product level."
+        },
+        "productPolicies": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Product-level policies governing purchasing, renewal, and lifecycle behavior."
+        },
+        "alternateIds": {
+          "type": "array",
+          "description": "Alternate identifiers for cross-referencing this product across systems.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "marketProperties": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Market-specific properties (pricing, availability per market) at the product level."
+        },
+        "localizedProperties": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Localized display properties (title, description) in multiple languages at the product level."
+        },
+        "properties": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Whole `Product.Properties` envelope captured verbatim as a loss-free fallback."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name of the product, promoted from localized properties.",
+          "maxLength": 256
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of the product.",
+          "maxLength": 2048
+        },
+        "defaultLanguageCode": {
+          "type": "string",
+          "description": "The default language code for this product's localized content.",
+          "maxLength": 16
+        },
+        "publisherName": {
+          "type": "string",
+          "description": "Name of the publisher, promoted from localized properties.",
+          "maxLength": 256
+        },
+        "diagnosticsInformation": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Dynamic struct containing low-traffic provenance and internal routing fields."
+        }
+      }
+    },
+    "Sku": {
+      "type": "object",
+      "description": "Denormalized SKU summary for a value exchange.",
+      "properties": {
+        "skuId": {
+          "type": "string",
+          "description": "The stable SKU identifier.",
+          "maxLength": 64
+        },
+        "skuType": {
+          "type": "string",
+          "description": "SKU type (for example, \"enterpriseonline\").",
+          "maxLength": 64
+        },
+        "productId": {
+          "type": "string",
+          "description": "The product identifier this SKU belongs to.",
+          "maxLength": 64
+        },
+        "lastModifiedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last modified date for the SKU record."
+        },
+        "properties": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Curated SKU property subset projected from the upstream catalog. Includes partner channel and deactivated lifecycle state."
+        }
+      },
+      "required": [
+        "skuId"
+      ]
+    },
+    "SkuProperties": {
+      "type": "object",
+      "description": "Flat properties of a SKU, matching the `skus` stream.",
+      "properties": {
+        "skuType": {
+          "type": "string",
+          "description": "Classification of the SKU type within the commerce platform.",
+          "maxLength": 64
+        },
+        "fulfillmentType": {
+          "type": "string",
+          "description": "Describes how the SKU is fulfilled (for example, license key, SaaS provisioning, physical delivery).",
+          "maxLength": 64
+        },
+        "isTrial": {
+          "type": "boolean",
+          "description": "Indicates whether this SKU represents a trial/evaluation offering."
+        },
+        "isPreOrder": {
+          "type": "boolean",
+          "description": "Indicates whether this SKU is available for pre-order before general availability."
+        },
+        "isBundle": {
+          "type": "boolean",
+          "description": "Indicates whether this SKU is a bundle composed of multiple child SKUs."
+        },
+        "recurrencePolicy": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Billing-recurrence object for the SKU."
+        },
+        "minOrderQuantity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Minimum quantity that can be ordered for this SKU in a single transaction."
+        },
+        "maxOrderQuantity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum quantity that can be ordered for this SKU in a single transaction."
+        },
+        "fulfillmentData": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Fulfillment-specific data including provisioning URIs and delivery instructions."
+        },
+        "orderManagementData": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Order management data at the SKU level."
+        },
+        "benefitGroupId": {
+          "type": "string",
+          "description": "Cross-PCD benefit join key (FCP = SKU UPN, P3 = ProductId).",
+          "maxLength": 64
+        },
+        "offerType": {
+          "type": "string",
+          "description": "SKU-level Financial Product Model discriminator.",
+          "maxLength": 64
+        },
+        "location": {
+          "type": "string",
+          "description": "Location scope for region-scoped benefit grants (ASP / autofit).",
+          "maxLength": 128
+        },
+        "armRegionName": {
+          "type": "string",
+          "description": "ARM region name for region-scoped benefit grants.",
+          "maxLength": 128
+        },
+        "attributes": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "SKU-level attributes / autofit reservation key-value data."
+        },
+        "classification": {
+          "type": "string",
+          "description": "P3 financial-product classification.",
+          "maxLength": 64
+        },
+        "subClassification": {
+          "type": "string",
+          "description": "P3 financial-product sub-classification.",
+          "maxLength": 64
+        },
+        "benefitsRpData": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Legacy reservation marker (RI/P3) carrying `salesMotionType`."
+        },
+        "region": {
+          "type": "string",
+          "description": "Region scoping predicate.",
+          "maxLength": 128
+        },
+        "cloud": {
+          "type": "string",
+          "description": "Cloud scoping predicate.",
+          "maxLength": 64
+        },
+        "armSkuName": {
+          "type": "string",
+          "description": "ARM SKU name join key.",
+          "maxLength": 128
+        },
+        "resourceId": {
+          "type": "string",
+          "description": "Resource identifier join key.",
+          "maxLength": 256
+        },
+        "meterIds": {
+          "type": "array",
+          "description": "Meter identifier array used for meter/resource joins.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "skuName": {
+          "type": "string",
+          "description": "SKU display name predicate.",
+          "maxLength": 256
+        },
+        "benefits": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Benefits associated with this SKU (for example, entitlements, feature access)."
+        },
+        "constraintsData": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Constraint rules governing SKU eligibility and purchasing restrictions."
+        },
+        "marketProperties": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Market-specific properties at the SKU level (availability, pricing overrides per market)."
+        },
+        "localizedProperties": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Localized display properties at the SKU level in multiple languages."
+        },
+        "benefitPolicy": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "FCP/P3 benefit policy bag."
+        },
+        "meterData": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "P3 single committed-unit meter data."
+        },
+        "reservationOfferConfiguration": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Legacy P3 reservation block retained for round-trip under the new model."
+        },
+        "properties": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Whole `Sku.Properties` envelope captured verbatim as a loss-free fallback."
+        },
+        "skuTitle": {
+          "type": "string",
+          "description": "Display title of the SKU, promoted from localized properties.",
+          "maxLength": 256
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of the SKU.",
+          "maxLength": 2048
+        },
+        "language": {
+          "type": "string",
+          "description": "Default language code for the SKU's localized content.",
+          "maxLength": 16
+        },
+        "diagnosticsInformation": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Dynamic struct containing provenance and internal routing fields."
+        }
+      }
+    },
+    "ValueExchangeProperties": {
+      "type": "object",
+      "description": "Properties of a value exchange (UPN). Wraps the denormalized trio of\nProduct, Sku, and Availability. Slim shape: large blobs (raw meter data,\norder management data, passthrough sub-objects, co-sell, attributes) are\ndropped here and live on the rich hydrate response.",
+      "properties": {
+        "productId": {
+          "type": "string",
+          "description": "Foreign key linking to the parent product.",
+          "maxLength": 64
+        },
+        "skuId": {
+          "type": "string",
+          "description": "Foreign key linking to the parent SKU.",
+          "maxLength": 64
+        },
+        "valueExchangeId": {
+          "type": "string",
+          "description": "Primary key — the Universal Product Number (UPN) identifying this value exchange / meter.",
+          "maxLength": 64
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Product version propagated from the parent product document."
+        },
+        "valueExchangeBigId": {
+          "type": "string",
+          "description": "Computed composite identifier: `\"{productId}/{skuId}\"`.",
+          "maxLength": 130
+        },
+        "productCode": {
+          "type": "string",
+          "description": "Consumer-facing alias of the UPN (same source value as `valueExchangeId`).",
+          "maxLength": 64
+        },
+        "meterType": {
+          "type": "string",
+          "description": "Classification of the meter type (for example, consumption, license seat, reservation).",
+          "maxLength": 64
+        },
+        "termId": {
+          "type": "string",
+          "description": "Identifier of the associated billing term for this value exchange.",
+          "maxLength": 64
+        },
+        "saasRenewTermId": {
+          "type": "string",
+          "description": "SaaS-specific renewal term identifier for automatic renewal routing.",
+          "maxLength": 64
+        },
+        "termUnits": {
+          "type": "string",
+          "description": "Units of the term (for example, monthly, annually), resolved via lookup in Product.Consumption.Terms[].",
+          "maxLength": 64
+        },
+        "termDescriptionId": {
+          "type": "string",
+          "description": "Descriptive identifier for the term, resolved via enrichment lookup.",
+          "maxLength": 64
+        },
+        "termComponentIds": {
+          "type": "array",
+          "description": "Array of term component identifiers that compose this billing term.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "renewalQuoteTimer": {
+          "type": "string",
+          "description": "Timer value (in days) for generating renewal quotes prior to term end.",
+          "maxLength": 64
+        },
+        "productLifecycleStates": {
+          "type": "array",
+          "description": "Array of lifecycle states applicable to this product/term combination.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "availabilityIds": {
+          "type": "array",
+          "description": "Array of availability identifiers matching this value exchange's skuId + termId.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "availabilityCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Count of matching availability records for this value exchange."
+        },
+        "diagnosticsInformation": {
+          "$ref": "#/definitions/PcdPropertyBag",
+          "description": "Dynamic struct carrying internal-routing provenance fields (for example, `runId`)."
+        }
+      },
+      "required": [
+        "productId",
+        "skuId",
+        "valueExchangeId",
+        "version",
+        "valueExchangeBigId"
+      ]
+    }
+  },
+  "parameters": {}
+}

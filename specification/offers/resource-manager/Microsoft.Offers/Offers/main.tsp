@@ -6,6 +6,10 @@ import "@azure-tools/typespec-azure-resource-manager";
 import "./models.tsp";
 import "./valueExchanges.tsp";
 import "./enumerations.tsp";
+import "./products.tsp";
+import "./skus.tsp";
+import "./availabilities.tsp";
+import "./capabilities.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
@@ -23,8 +27,12 @@ namespace Microsoft.Offers;
 enum Versions {
   /** The 2026-04-24-preview API version. */
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
-  @previewVersion
   v2026_04_24_preview: "2026-04-24-preview",
+
+  /** The 2026-06-30-preview API version. */
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  @previewVersion
+  v2026_06_30_preview: "2026-06-30-preview",
 }
 
 /** The operations supported by the Microsoft.Offers resource provider. */

@@ -1,0 +1,97 @@
+{
+  "title": "Look up a SKU by its product, SKU identifier, and version.",
+  "operationId": "Skus_Lookup",
+  "parameters": {
+    "api-version": "2026-06-30-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "body": {
+      "productId": "DZH318Z09JCL",
+      "skuId": "0001",
+      "version": 1
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "productId": "DZH318Z09JCL",
+        "skuId": "0001",
+        "version": 1,
+        "properties": {
+          "skuType": "enterpriseonline",
+          "fulfillmentType": "SaaS",
+          "isTrial": false,
+          "isPreOrder": false,
+          "isBundle": false,
+          "recurrencePolicy": {
+            "frequency": "Monthly"
+          },
+          "minOrderQuantity": 1,
+          "maxOrderQuantity": 999999,
+          "fulfillmentData": {
+            "provisioningUri": "https://example.com/provision"
+          },
+          "orderManagementData": {
+            "channel": "direct"
+          },
+          "benefitGroupId": "DZH318Z0995B",
+          "offerType": "FlexibleConsumptionPlan",
+          "location": "global",
+          "armRegionName": "westus2",
+          "attributes": {
+            "reservationsAutofitGroup": "group-1"
+          },
+          "classification": "Compute",
+          "subClassification": "VirtualMachines",
+          "benefitsRpData": {
+            "salesMotionType": "ReservedInstance"
+          },
+          "region": "us",
+          "cloud": "Public",
+          "armSkuName": "Standard_D2s_v3",
+          "resourceId": "vm-d2s-v3",
+          "meterIds": [
+            "meter-001"
+          ],
+          "skuName": "D2s v3",
+          "benefits": {
+            "entitlements": [
+              "feature-a"
+            ]
+          },
+          "constraintsData": {
+            "maxSeats": 100
+          },
+          "marketProperties": {
+            "SE": {
+              "available": true
+            }
+          },
+          "localizedProperties": {
+            "en-US": {
+              "title": "D2s v3"
+            }
+          },
+          "benefitPolicy": {
+            "type": "Reservation"
+          },
+          "meterData": {
+            "committedUnits": 1
+          },
+          "reservationOfferConfiguration": {
+            "term": "P1Y"
+          },
+          "properties": {
+            "vmSize": "Standard_D2s_v3"
+          },
+          "skuTitle": "D2s v3",
+          "description": "2 vCPU, 8 GiB memory.",
+          "language": "en-US",
+          "diagnosticsInformation": {
+            "skuLastModifiedDate": "2026-04-15",
+            "runId": "2026061406"
+          }
+        }
+      }
+    }
+  }
+}

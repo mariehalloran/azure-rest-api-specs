@@ -1,0 +1,60 @@
+{
+  "title": "Look up an availability by its identifier.",
+  "operationId": "Availabilities_Lookup",
+  "parameters": {
+    "api-version": "2026-06-30-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "body": {
+      "availabilityId": "avail-001"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "availabilityId": "avail-001",
+        "properties": {
+          "productId": "DZH318Z09JCL",
+          "version": 1,
+          "skuId": "0001",
+          "displayRank": 100,
+          "affirmationId": "affirm-001",
+          "consumptionUnitType": "PTU",
+          "actions": {
+            "purchase": true
+          },
+          "properties": {
+            "extended": "metadata"
+          },
+          "conditions": {
+            "startDate": "2026-01-01T00:00:00Z",
+            "isPermanent": true,
+            "supportedCatalogVersion": 7
+          },
+          "orderManagementData": {
+            "channel": "direct"
+          },
+          "termIds": [
+            "term-1y"
+          ],
+          "markets": [
+            "SE"
+          ],
+          "availabilityPolicies": {
+            "refund": "30d"
+          },
+          "pricingRuleIds": [
+            "rule-001"
+          ],
+          "assetsData": {
+            "iconUri": "https://example.com/icon.png"
+          },
+          "alternateIds": [],
+          "diagnosticsInformation": {
+            "lineageId": "lineage-001",
+            "lastModifiedDate": "2026-06-01T00:00:00Z"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "title": "Look up a value-exchange (UPN) by its identifier.",
+  "operationId": "ValueExchanges_Lookup",
+  "parameters": {
+    "api-version": "2026-06-30-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "body": {
+      "valueExchangeId": "DZH318Z0995B"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "valueExchangeId": "DZH318Z0995B",
+        "properties": {
+          "productId": "DZH318Z09JCL",
+          "skuId": "0001",
+          "valueExchangeId": "DZH318Z0995B",
+          "version": 1,
+          "valueExchangeBigId": "DZH318Z09JCL/0001",
+          "productCode": "DZH318Z0995B",
+          "meterType": "AzureMeter",
+          "termId": "term-1y",
+          "saasRenewTermId": "term-1y-renew",
+          "termUnits": "P1Y",
+          "termDescriptionId": "desc-1y",
+          "termComponentIds": [
+            "comp-001",
+            "comp-002"
+          ],
+          "renewalQuoteTimer": "30",
+          "productLifecycleStates": [
+            "GA"
+          ],
+          "availabilityIds": [
+            "avail-001",
+            "avail-002"
+          ],
+          "availabilityCount": 2,
+          "diagnosticsInformation": {
+            "runId": "2026061406"
+          }
+        }
+      }
+    }
+  }
+}
