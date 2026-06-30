@@ -207,13 +207,15 @@ model ServiceGroupMemberRelationship
 );
 
 /*
- * memberOf relationship type definition
+ * contains relationship type definition
  */
 
-@doc("memberOf relationship properties.")
+@doc("contains relationship properties.")
 @added(Versions.`2026-03-01-preview`)
-model MemberOfRelationshipProperties
-  is BaseRelationshipProperties<[
+model ContainsRelationshipProperties {
+  @doc("The relationship source resource id. Must be a subscription or resource group.")
+  @visibility(Lifecycle.Read)
+  sourceId?: armResourceIdentifier<[
     {
       type: "Microsoft.Resources/subscriptions";
       scopes: ["Subscription"];
@@ -224,16 +226,35 @@ model MemberOfRelationshipProperties
     }
   ]>;
 
-@doc("Defines a memberOf relationship resource.")
+  @doc("The relationship target resource id.")
+  targetId: armResourceIdentifier;
+
+  @doc("The relationship target tenant id.")
+  targetTenant?: string;
+
+  @doc("Information about the origin of the relationship.")
+  @visibility(Lifecycle.Read)
+  originInformation?: RelationshipOriginInformation;
+
+  @doc("Metadata about the relationship.")
+  @visibility(Lifecycle.Read)
+  metadata?: RelationshipMetadata;
+
+  @doc("The provisioning state of the relationship.")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+@doc("Defines a contains relationship resource.")
 @added(Versions.`2026-03-01-preview`)
-model MemberOfRelationship
-  is ExtensionResource<MemberOfRelationshipProperties> {
-  @doc("Name of memberOf relationship.")
+model ContainsRelationship
+  is ExtensionResource<ContainsRelationshipProperties> {
+  @doc("Name of contains relationship.")
   @pattern("^[a-zA-Z0-9]{3,64}$")
   @visibility(Lifecycle.Read)
   @key
   @path
-  @segment("memberOf")
+  @segment("contains")
   name: string;
 }
 
@@ -261,14 +282,14 @@ interface ServiceGroupMemberRelationships {
   listByParent is ArmResourceListByParent<ServiceGroupMemberRelationship>;
 }
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "MemberOfRelationships only has list operations — @armResourceOperations would apply @autoRoute which corrupts the manually specified route for the resource group scoped endpoint"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "ContainsRelationships only has list operations — @armResourceOperations would apply @autoRoute which corrupts the manually specified route for the resource group scoped endpoint"
 @added(Versions.`2026-03-01-preview`)
-interface MemberOfRelationships {
-  @doc("List MemberOfRelationship resources by subscription ID")
+interface ContainsRelationships {
+  @doc("List ContainsRelationship resources by subscription ID")
   listBySubscription is ArmListBySubscription<
-    MemberOfRelationship,
+    ContainsRelationship,
     {
-      @doc("Filters the results by source resource type. Example: properties.metadata.sourceType eq 'Microsoft.Compute/virtualMachines'")
+      @doc("Filters the results by target resource type. Example: properties.metadata.targetType eq 'Microsoft.Compute/virtualMachines'")
       @query("$filter")
       filter?: string;
 
@@ -278,8 +299,8 @@ interface MemberOfRelationships {
     }
   >;
 
-  @doc("List MemberOfRelationship resources by resource group")
-  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relationships/memberOf")
+  @doc("List ContainsRelationship resources by resource group")
+  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relationships/contains")
   @get
   @list
   listByResourceGroup(
@@ -287,12 +308,12 @@ interface MemberOfRelationships {
     ...SubscriptionIdParameter,
     ...ResourceGroupParameter,
 
-    @doc("Filters the results by source resource type. Example: properties.metadata.sourceType eq 'Microsoft.Compute/virtualMachines'")
+    @doc("Filters the results by target resource type. Example: properties.metadata.targetType eq 'Microsoft.Compute/virtualMachines'")
     @query("$filter")
     filter?: string,
 
     @doc("The maximum number of results to return.")
     @query("$top")
     top?: int32,
-  ): ArmResponse<ResourceListResult<MemberOfRelationship>> | ErrorResponse;
+  ): ArmResponse<ResourceListResult<ContainsRelationship>> | ErrorResponse;
 }
