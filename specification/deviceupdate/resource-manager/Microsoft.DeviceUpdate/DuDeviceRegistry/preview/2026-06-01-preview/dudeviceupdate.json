@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Device Registry-linked device updating service under Microsoft.DeviceUpdate",
-    "version": "2026-05-01-preview",
+    "version": "2026-06-01-preview",
     "description": "Microsoft Device Update resource provider.",
     "x-typespec-generated": [
       {
@@ -377,6 +377,24 @@
               "$ref": "#/definitions/LinkedAccount"
             }
           },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -388,7 +406,11 @@
           "Updates Linked Account": {
             "$ref": "./examples/LinkedAccounts_Update.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
       },
       "delete": {
         "operationId": "LinkedAccounts_Delete",
@@ -715,6 +737,24 @@
               "$ref": "#/definitions/LinkUpdateResponse"
             }
           },
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -726,7 +766,11 @@
           "Update linking properties": {
             "$ref": "./examples/LinkedAccounts_LinkUpdate.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     }
   },
@@ -763,7 +807,6 @@
       "enum": [
         "InProgress",
         "Succeeded",
-        "Failed",
         "Orphaned"
       ],
       "x-ms-enum": {
@@ -781,18 +824,12 @@
             "description": "Successfully linked to a namespace."
           },
           {
-            "name": "Failed",
-            "value": "Failed",
-            "description": "Link was attempted but failed."
-          },
-          {
             "name": "Orphaned",
             "value": "Orphaned",
             "description": "Was linked; namespace was deleted. ADR sent namespaceDeleted. Terminal state — no\nre-link is allowed. The resource is not auto-deleted; the customer must explicitly delete it."
           }
         ]
-      },
-      "readOnly": true
+      }
     },
     "InboundCallerIdentity": {
       "type": "object",
