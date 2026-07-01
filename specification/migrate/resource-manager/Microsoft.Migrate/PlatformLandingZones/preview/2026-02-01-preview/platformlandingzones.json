@@ -44,9 +44,6 @@
     },
     {
       "name": "PlatformLandingZones"
-    },
-    {
-      "name": "BillOfMaterialsOperations"
     }
   ],
   "paths": {
@@ -358,131 +355,6 @@
           },
           "Delete a Platform Landing Zone (minimum set)": {
             "$ref": "./examples/PlatformLandingZones_Delete_MinimumSet_Gen.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/migrateProjects/{projectName}/platformLandingZones/{platformLandingZoneName}/billOfMaterials/default": {
-      "get": {
-        "operationId": "BillOfMaterialsOperations_Get",
-        "tags": [
-          "BillOfMaterialsOperations"
-        ],
-        "description": "Get the Bill of Materials for a Platform Landing Zone.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "projectName",
-            "in": "path",
-            "description": "Migrate Project Name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[^<>&:\\?/#]{1,260}$"
-          },
-          {
-            "name": "platformLandingZoneName",
-            "in": "path",
-            "description": "Platform Landing Zone name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/BillOfMaterials"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Get the Bill of Materials for a Platform Landing Zone": {
-            "$ref": "./examples/BillOfMaterialsOperations_Get.json"
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/migrateProjects/{projectName}/platformLandingZones/{platformLandingZoneName}/evolveDesign": {
-      "post": {
-        "operationId": "PlatformLandingZones_EvolveDesign",
-        "tags": [
-          "PlatformLandingZones"
-        ],
-        "description": "Evolve the Platform Landing Zone design. Long-running POST action with no request body. Status is polled via GET on the resource itself; observe properties.evolvedDesign transitioning NotStarted -> InProgress -> Complete. Legal only when evolvedDesign is NotStarted; otherwise returns 409 Conflict.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "projectName",
-            "in": "path",
-            "description": "Migrate Project Name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[^<>&:\\?/#]{1,260}$"
-          },
-          {
-            "name": "platformLandingZoneName",
-            "in": "path",
-            "description": "Platform Landing Zone name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully."
-          },
-          "202": {
-            "description": "Resource operation accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Evolve the Platform Landing Zone design": {
-            "$ref": "./examples/PlatformLandingZones_EvolveDesign.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -826,101 +698,6 @@
           }
         ]
       }
-    },
-    "BillOfMaterials": {
-      "type": "object",
-      "description": "Bill of Materials for a Platform Landing Zone. A read-only, cost-bearing inventory of the Azure resources implied by the parent landing zone design, aggregated by (resourceType, sku, location).",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/BillOfMaterialsProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "BillOfMaterialsItem": {
-      "type": "object",
-      "description": "A single aggregated line item in the Bill of Materials. Identical resources across subscriptions/spokes are collapsed into a single row whose quantity reflects the multiplicity.",
-      "properties": {
-        "resourceType": {
-          "type": "string",
-          "description": "ARM resource type, for example 'Microsoft.KeyVault/vaults'."
-        },
-        "sku": {
-          "type": "string",
-          "description": "SKU of the resource, for example 'standard' or 'Standard_D2s_v5'."
-        },
-        "location": {
-          "type": "string",
-          "description": "Azure region for this aggregated row."
-        },
-        "quantity": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of resources of this (resourceType, sku, location) implied by the landing zone design.",
-          "minimum": 1
-        },
-        "estimatedMonthlyCost": {
-          "type": "number",
-          "format": "decimal",
-          "description": "Estimated total monthly cost for this row in the declared currency (line total = unit price x quantity).",
-          "minimum": 0
-        }
-      },
-      "required": [
-        "resourceType",
-        "sku",
-        "location",
-        "quantity",
-        "estimatedMonthlyCost"
-      ]
-    },
-    "BillOfMaterialsProperties": {
-      "type": "object",
-      "description": "Properties of the Bill of Materials. Generated as part of the parent Platform Landing Zone's async PUT; to refresh prices, re-PUT the parent. While the parent is Creating with no prior success, GET returns 404; while Updating/Failed/Canceled after at least one successful generation, GET returns the previous Bill of Materials.",
-      "properties": {
-        "currency": {
-          "type": "string",
-          "description": "ISO-4217 currency for all amounts in this Bill of Materials. Echoed from the parent Platform Landing Zone's costManagement.currency.",
-          "pattern": "^[A-Z]{3}$",
-          "readOnly": true
-        },
-        "totalEstimatedMonthlyCost": {
-          "type": "number",
-          "format": "decimal",
-          "description": "Total estimated monthly cost across all items, in the declared currency.",
-          "minimum": 0,
-          "readOnly": true
-        },
-        "items": {
-          "type": "array",
-          "description": "Aggregated Bill of Materials line items.",
-          "items": {
-            "$ref": "#/definitions/BillOfMaterialsItem"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": [
-            "resourceType",
-            "sku",
-            "location"
-          ]
-        },
-        "pricingSnapshotAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Timestamp at which the prices in this Bill of Materials were snapshotted from the Azure Retail Prices API.",
-          "readOnly": true
-        }
-      },
-      "required": [
-        "currency",
-        "totalEstimatedMonthlyCost",
-        "items"
-      ]
     },
     "BillingAccountType": {
       "type": "string",
@@ -1314,36 +1091,6 @@
             "name": "P2",
             "value": "P2",
             "description": "Plan tier P2."
-          }
-        ]
-      }
-    },
-    "DesignEvolutionState": {
-      "type": "string",
-      "description": "Server-owned lifecycle state of the platform landing zone design evolution. Monotonically progresses NotStarted -> InProgress -> Complete in response to the evolveDesign action.",
-      "enum": [
-        "NotStarted",
-        "InProgress",
-        "Complete"
-      ],
-      "x-ms-enum": {
-        "name": "DesignEvolutionState",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "NotStarted",
-            "value": "NotStarted",
-            "description": "The design has not been evolved. Re-PUTs recompute only the bill of materials."
-          },
-          {
-            "name": "InProgress",
-            "value": "InProgress",
-            "description": "The evolveDesign action has been accepted and the worker is generating the design document and IaC artifacts."
-          },
-          {
-            "name": "Complete",
-            "value": "Complete",
-            "description": "The design has been evolved. Subsequent PUTs regenerate the full pipeline artifacts."
           }
         ]
       }
@@ -2134,11 +1881,6 @@
           "type": "string",
           "description": "Name of the service associated with this landing zone. Surfaced to the generator (maps to SERVICE_NAME). Optional.",
           "maxLength": 200
-        },
-        "evolvedDesign": {
-          "$ref": "#/definitions/DesignEvolutionState",
-          "description": "Server-owned state of the design evolution lifecycle. Monotonically progresses NotStarted -> InProgress -> Complete in response to the evolveDesign action. Read-only; ignored on input.",
-          "readOnly": true
         },
         "provisioningState": {
           "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",

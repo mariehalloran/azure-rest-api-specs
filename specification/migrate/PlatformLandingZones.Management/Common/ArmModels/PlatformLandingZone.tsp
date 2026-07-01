@@ -77,10 +77,6 @@ model PlatformLandingZoneProperties {
   serviceName?: string;
 
   @visibility(Lifecycle.Read)
-  @doc("Server-owned state of the design evolution lifecycle. Monotonically progresses NotStarted -> InProgress -> Complete in response to the evolveDesign action. Read-only; ignored on input.")
-  evolvedDesign?: DesignEvolutionState;
-
-  @visibility(Lifecycle.Read)
   @doc("Provisioning state of the Platform Landing Zone resource.")
   provisioningState?: ResourceProvisioningState;
 }

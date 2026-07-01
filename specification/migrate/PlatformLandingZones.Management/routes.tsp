@@ -4,7 +4,6 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
 import "./Common/ArmModels/PlatformLandingZone.tsp";
-import "./Common/ArmModels/BillOfMaterials.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
@@ -25,21 +24,4 @@ interface PlatformLandingZones {
 
   @doc("Delete a Platform Landing Zone resource.")
   delete is ArmResourceDeleteWithoutOkAsync<PlatformLandingZone>;
-
-  @doc("Evolve the Platform Landing Zone design. Long-running POST action with no request body. Status is polled via GET on the resource itself; observe properties.evolvedDesign transitioning NotStarted -> InProgress -> Complete. Legal only when evolvedDesign is NotStarted; otherwise returns 409 Conflict.")
-  evolveDesign is ArmResourceActionAsync<
-    PlatformLandingZone,
-    void,
-    {
-      @body body: void;
-    },
-    LroHeaders = ArmLroLocationHeader<FinalResult = void> &
-      Azure.Core.Foundations.RetryAfterHeader
-  >;
-}
-
-@armResourceOperations
-interface BillOfMaterialsOperations {
-  @doc("Get the Bill of Materials for a Platform Landing Zone.")
-  get is ArmResourceRead<BillOfMaterials>;
 }

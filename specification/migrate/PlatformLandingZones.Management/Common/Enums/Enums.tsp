@@ -15,20 +15,6 @@ union RegionRole {
   Secondary: "Secondary",
 }
 
-@doc("Server-owned lifecycle state of the platform landing zone design evolution. Monotonically progresses NotStarted -> InProgress -> Complete in response to the evolveDesign action.")
-union DesignEvolutionState {
-  string,
-
-  @doc("The design has not been evolved. Re-PUTs recompute only the bill of materials.")
-  NotStarted: "NotStarted",
-
-  @doc("The evolveDesign action has been accepted and the worker is generating the design document and IaC artifacts.")
-  InProgress: "InProgress",
-
-  @doc("The design has been evolved. Subsequent PUTs regenerate the full pipeline artifacts.")
-  Complete: "Complete",
-}
-
 @doc("Top-level connectivity topology that the landing zone deploys against.")
 union ConnectivityTopology {
   string,
