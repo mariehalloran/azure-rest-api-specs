@@ -96,13 +96,17 @@ interface Workspaces {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "void-returning LRO action; 202 + default is sufficient."
   @added(Versions.v2026_07_01_preview)
   @summary("Links SaaS resources to the workspace.")
-  linkSaaS is ArmResourceActionAsync<WorkspaceResource, SaaSData, void>;
+  linkSaaS is ArmResourceActionAsync<
+    WorkspaceResource,
+    WorkspaceSaaSData,
+    void
+  >;
 
   /** Returns the list of SaaS resources linked to the workspace. */
   @added(Versions.v2026_07_01_preview)
   listLinkedSaaS is ArmResourceActionSync<
     WorkspaceResource,
     void,
-    ArmResponse<LinkedSaaSListResponse>
+    ArmResponse<WorkspaceLinkedSaaSListResponse>
   >;
 }

@@ -336,6 +336,18 @@ model OrganizationPartnerPropertiesUpdate {
 /** SaaS-related data properties. Contains the full list of SaaS resource IDs to link. */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model SaaSData {
+  /** ARM resource IDs of the Microsoft.SaaS marketplace resources to link to this Organization. */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
+  saaSResourceIds: armResourceIdentifier<[
+    {
+      type: "Microsoft.SaaS/resources";
+    }
+  ]>[];
+}
+
+/** SaaS-related data properties. Contains the full list of SaaS resource IDs to link. */
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
+model WorkspaceSaaSData {
   /** ARM resource IDs of the Microsoft.SaaS marketplace resources to link to this Workspace. */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
   saaSResourceIds: armResourceIdentifier<[
@@ -366,9 +378,32 @@ model SaaSResourceDetailsResponse
   saasId?: string;
 }
 
-/** Individual SaaS resource linked to the Workspace. */
+/** Individual SaaS resource linked to the Organization. */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model LinkedSaaSItem {
+  /** ARM resource ID of the Microsoft.SaaS marketplace resource linked to this Organization. */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
+  saaSResourceId: armResourceIdentifier<[
+    {
+      type: "Microsoft.SaaS/resources";
+    }
+  ]>;
+
+  /** Flag indicating if the SaaS resource is hidden. */
+  isHiddenSaaS?: boolean;
+}
+
+/** Response containing the list of SaaS resources linked to the Organization. */
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
+model LinkedSaaSListResponse {
+  /** List of SaaS resources linked to this Organization. */
+  @identifiers(#["saaSResourceId"])
+  value: LinkedSaaSItem[];
+}
+
+/** Individual SaaS resource linked to the Workspace. */
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
+model WorkspaceLinkedSaaSItem {
   /** ARM resource ID of the Microsoft.SaaS marketplace resource linked to this Workspace. */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
   saaSResourceId: armResourceIdentifier<[
@@ -383,8 +418,8 @@ model LinkedSaaSItem {
 
 /** Response containing the list of SaaS resources linked to the Workspace. */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
-model LinkedSaaSListResponse {
+model WorkspaceLinkedSaaSListResponse {
   /** List of SaaS resources linked to this Workspace. */
   @identifiers(#["saaSResourceId"])
-  value: LinkedSaaSItem[];
+  value: WorkspaceLinkedSaaSItem[];
 }

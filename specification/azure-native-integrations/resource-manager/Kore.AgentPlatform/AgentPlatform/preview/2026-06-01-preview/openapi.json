@@ -1171,12 +1171,12 @@
     },
     "LinkedSaaSItem": {
       "type": "object",
-      "description": "Individual SaaS resource linked to the Workspace.",
+      "description": "Individual SaaS resource linked to the Organization.",
       "properties": {
         "saaSResourceId": {
           "type": "string",
           "format": "arm-id",
-          "description": "ARM resource ID of the Microsoft.SaaS marketplace resource linked to this Workspace.",
+          "description": "ARM resource ID of the Microsoft.SaaS marketplace resource linked to this Organization.",
           "x-ms-arm-id-details": {
             "allowedResources": [
               {
@@ -1196,11 +1196,11 @@
     },
     "LinkedSaaSListResponse": {
       "type": "object",
-      "description": "Response containing the list of SaaS resources linked to the Workspace.",
+      "description": "Response containing the list of SaaS resources linked to the Organization.",
       "properties": {
         "value": {
           "type": "array",
-          "description": "List of SaaS resources linked to this Workspace.",
+          "description": "List of SaaS resources linked to this Organization.",
           "items": {
             "$ref": "#/definitions/LinkedSaaSItem"
           },
@@ -1396,7 +1396,7 @@
       "properties": {
         "saaSResourceIds": {
           "type": "array",
-          "description": "ARM resource IDs of the Microsoft.SaaS marketplace resources to link to this Workspace.",
+          "description": "ARM resource IDs of the Microsoft.SaaS marketplace resources to link to this Organization.",
           "items": {
             "type": "string",
             "format": "arm-id",

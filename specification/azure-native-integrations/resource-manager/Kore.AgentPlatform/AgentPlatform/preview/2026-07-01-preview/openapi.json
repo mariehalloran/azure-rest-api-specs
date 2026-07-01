@@ -873,7 +873,7 @@
             "description": "The content of the action request",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SaaSData"
+              "$ref": "#/definitions/WorkspaceSaaSData"
             }
           }
         ],
@@ -955,7 +955,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/LinkedSaaSListResponse"
+              "$ref": "#/definitions/WorkspaceLinkedSaaSListResponse"
             }
           },
           "default": {
@@ -1242,50 +1242,6 @@
       "description": "Reusable representation of an email address.",
       "pattern": "^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$"
     },
-    "LinkedSaaSItem": {
-      "type": "object",
-      "description": "Individual SaaS resource linked to the Workspace.",
-      "properties": {
-        "saaSResourceId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "ARM resource ID of the Microsoft.SaaS marketplace resource linked to this Workspace.",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.SaaS/resources"
-              }
-            ]
-          }
-        },
-        "isHiddenSaaS": {
-          "type": "boolean",
-          "description": "Flag indicating if the SaaS resource is hidden."
-        }
-      },
-      "required": [
-        "saaSResourceId"
-      ]
-    },
-    "LinkedSaaSListResponse": {
-      "type": "object",
-      "description": "Response containing the list of SaaS resources linked to the Workspace.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "List of SaaS resources linked to this Workspace.",
-          "items": {
-            "$ref": "#/definitions/LinkedSaaSItem"
-          },
-          "x-ms-identifiers": [
-            "saaSResourceId"
-          ]
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "OrganizationPartnerProperties": {
       "type": "object",
       "description": "Partner-specific (Kore) properties for an Organization.",
@@ -1452,31 +1408,6 @@
         }
       }
     },
-    "SaaSData": {
-      "type": "object",
-      "description": "SaaS-related data properties. Contains the full list of SaaS resource IDs to link.",
-      "properties": {
-        "saaSResourceIds": {
-          "type": "array",
-          "description": "ARM resource IDs of the Microsoft.SaaS marketplace resources to link to this Workspace.",
-          "items": {
-            "type": "string",
-            "format": "arm-id",
-            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
-            "x-ms-arm-id-details": {
-              "allowedResources": [
-                {
-                  "type": "Microsoft.SaaS/resources"
-                }
-              ]
-            }
-          }
-        }
-      },
-      "required": [
-        "saaSResourceIds"
-      ]
-    },
     "SaaSResourceDetailsResponse": {
       "type": "object",
       "description": "Marketplace SaaS resource details.",
@@ -1588,6 +1519,50 @@
           }
         ]
       }
+    },
+    "WorkspaceLinkedSaaSItem": {
+      "type": "object",
+      "description": "Individual SaaS resource linked to the Workspace.",
+      "properties": {
+        "saaSResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the Microsoft.SaaS marketplace resource linked to this Workspace.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.SaaS/resources"
+              }
+            ]
+          }
+        },
+        "isHiddenSaaS": {
+          "type": "boolean",
+          "description": "Flag indicating if the SaaS resource is hidden."
+        }
+      },
+      "required": [
+        "saaSResourceId"
+      ]
+    },
+    "WorkspaceLinkedSaaSListResponse": {
+      "type": "object",
+      "description": "Response containing the list of SaaS resources linked to the Workspace.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "List of SaaS resources linked to this Workspace.",
+          "items": {
+            "$ref": "#/definitions/WorkspaceLinkedSaaSItem"
+          },
+          "x-ms-identifiers": [
+            "saaSResourceId"
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ]
     },
     "WorkspaceListByOrganizationResponse": {
       "type": "object",
@@ -1704,6 +1679,31 @@
         {
           "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
         }
+      ]
+    },
+    "WorkspaceSaaSData": {
+      "type": "object",
+      "description": "SaaS-related data properties. Contains the full list of SaaS resource IDs to link.",
+      "properties": {
+        "saaSResourceIds": {
+          "type": "array",
+          "description": "ARM resource IDs of the Microsoft.SaaS marketplace resources to link to this Workspace.",
+          "items": {
+            "type": "string",
+            "format": "arm-id",
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Microsoft.SaaS/resources"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "required": [
+        "saaSResourceIds"
       ]
     },
     "WorkspaceSummary": {
