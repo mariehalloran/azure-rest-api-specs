@@ -5,7 +5,7 @@ namespace Microsoft.Migrate;
 @doc("Reference to an existing Azure subscription used by the landing zone.")
 model ExistingSubscriptionRef {
   @doc("Azure subscription id (GUID).")
-  subscriptionId: string;
+  subscriptionId?: string;
 }
 
 @doc("Platform subscription topology. The concrete shape is selected by the discriminator \"subscriptionModel\".")
@@ -39,5 +39,5 @@ model SharedPlatformSubscriptions extends PlatformSubscriptions {
   subscriptionModel: PlatformSubscriptionModel.Shared;
 
   @doc("Subscription that hosts all platform functions.")
-  platform: ExistingSubscriptionRef;
+  platform?: ExistingSubscriptionRef;
 }
