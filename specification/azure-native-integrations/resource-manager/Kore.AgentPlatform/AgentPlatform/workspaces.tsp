@@ -55,42 +55,7 @@ interface Workspaces {
   delete is ArmResourceDeleteWithoutOkAsync<WorkspaceResource>;
 
   /** List Workspaces under an Organization. */
-  @removed(Versions.v2026_07_01_preview)
   listByOrganization is ArmResourceListByParent<WorkspaceResource>;
-
-  /**
-   * List Workspaces under an Organization with optional filtering and paging.
-   *
-   * Returns a stable paged shape with `total`, `offset`, `limit`, and
-   * `workspaces` to align with partner list semantics.
-   */
-  @get
-  @added(Versions.v2026_07_01_preview)
-  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/workspaces")
-  listByOrganizationV2(
-    ...ApiVersionParameter,
-
-    /** Azure subscription identifier. */
-    @path subscriptionId: string,
-
-    /** Azure resource group name containing the Organization. */
-    @path resourceGroupName: string,
-
-    /** Name of the Organization. */
-    @path organizationName: string,
-
-    /** Number of workspace rows to skip. */
-    @query @minValue(0) offset?: int32,
-
-    /** Maximum number of workspace rows to return. */
-    @query
-    @minValue(1)
-    @maxValue(100)
-    limit?: int32,
-
-    /** Optional workspace lifecycle status filter. */
-    @query status?: WorkspaceLifecycleStatus,
-  ): ArmResponse<WorkspaceListByOrganizationResponse>;
 
   /** Links SaaS resources to the workspace. Accepts the full list of SaaS assets to be linked. */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "void-returning LRO action; 202 + default is sufficient."

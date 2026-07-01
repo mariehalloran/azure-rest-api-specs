@@ -513,6 +513,61 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/workspaces": {
+      "get": {
+        "operationId": "Workspaces_ListByOrganization",
+        "tags": [
+          "Workspaces"
+        ],
+        "description": "List Workspaces under an Organization.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "organizationName",
+            "in": "path",
+            "description": "Name of the Organization.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/WorkspaceResourceListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Workspaces_ListByOrganization": {
+            "$ref": "./examples/Workspaces_ListByOrganization.json"
+          },
+          "Workspaces_ListByOrganization_MaximumSet_Gen": {
+            "$ref": "./examples/Workspaces_ListByOrganization_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/workspaces/{workspaceName}": {
       "get": {
         "operationId": "Workspaces_Get",
@@ -732,109 +787,6 @@
           "final-state-via": "location"
         },
         "x-ms-long-running-operation": true
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/workspaces/{subscriptionId}/{resourceGroupName}/{organizationName}": {
-      "get": {
-        "operationId": "Workspaces_ListByOrganization",
-        "tags": [
-          "Workspaces"
-        ],
-        "description": "List Workspaces under an Organization with optional filtering and paging.\n\nReturns a stable paged shape with `total`, `offset`, `limit`, and\n`workspaces` to align with partner list semantics.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "description": "Azure subscription identifier.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "resourceGroupName",
-            "in": "path",
-            "description": "Azure resource group name containing the Organization.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "organizationName",
-            "in": "path",
-            "description": "Name of the Organization.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Number of workspace rows to skip.",
-            "required": false,
-            "type": "integer",
-            "format": "int32",
-            "minimum": 0
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Maximum number of workspace rows to return.",
-            "required": false,
-            "type": "integer",
-            "format": "int32",
-            "minimum": 1,
-            "maximum": 100
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "description": "Optional workspace lifecycle status filter.",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "active",
-              "suspended",
-              "archived"
-            ],
-            "x-ms-enum": {
-              "name": "WorkspaceLifecycleStatus",
-              "modelAsString": true,
-              "values": [
-                {
-                  "name": "active",
-                  "value": "active",
-                  "description": "Workspace is active and operational."
-                },
-                {
-                  "name": "suspended",
-                  "value": "suspended",
-                  "description": "Workspace is suspended; operations are blocked but resource is retained."
-                },
-                {
-                  "name": "archived",
-                  "value": "archived",
-                  "description": "Workspace is archived (delete pending)."
-                }
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/WorkspaceListByOrganizationResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Workspaces_ListByOrganization": {
-            "$ref": "./examples/Workspaces_ListByOrganization.json"
-          },
-          "Workspaces_ListByOrganization_MaximumSet_Gen": {
-            "$ref": "./examples/Workspaces_ListByOrganization_MaximumSet_Gen.json"
-          }
-        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/workspaces/{workspaceName}/linkSaaS": {
@@ -1572,43 +1524,6 @@
         "value"
       ]
     },
-    "WorkspaceListByOrganizationResponse": {
-      "type": "object",
-      "description": "Paginated list response for Organization Workspace listing.",
-      "properties": {
-        "total": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Total number of workspaces matching the filter."
-        },
-        "offset": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of items skipped."
-        },
-        "limit": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Maximum number of items requested."
-        },
-        "workspaces": {
-          "type": "array",
-          "description": "Workspace rows in the current page.",
-          "items": {
-            "$ref": "#/definitions/WorkspaceSummary"
-          },
-          "x-ms-identifiers": [
-            "id"
-          ]
-        }
-      },
-      "required": [
-        "total",
-        "offset",
-        "limit",
-        "workspaces"
-      ]
-    },
     "WorkspacePartnerProperties": {
       "type": "object",
       "description": "Partner-specific (Kore) properties for a Workspace.",
@@ -1689,6 +1604,27 @@
         }
       ]
     },
+    "WorkspaceResourceListResult": {
+      "type": "object",
+      "description": "The response of a WorkspaceResource list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The WorkspaceResource items on this page",
+          "items": {
+            "$ref": "#/definitions/WorkspaceResource"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "WorkspaceSaaSData": {
       "type": "object",
       "description": "SaaS-related data properties. Contains the full list of SaaS resource IDs to link.",
@@ -1712,62 +1648,6 @@
       },
       "required": [
         "saaSResourceIds"
-      ]
-    },
-    "WorkspaceSummary": {
-      "type": "object",
-      "description": "A Workspace row returned from list operations.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Partner-issued Workspace identifier (e.g., \"ws_01...\")."
-        },
-        "name": {
-          "type": "string",
-          "description": "Display name of the Workspace."
-        },
-        "ownerEmail": {
-          "$ref": "#/definitions/LiftrBase.email",
-          "description": "Email address of the Workspace owner."
-        },
-        "default": {
-          "type": "boolean",
-          "description": "Indicates whether this is the default Workspace for the Organization."
-        },
-        "status": {
-          "$ref": "#/definitions/WorkspaceLifecycleStatus",
-          "description": "Lifecycle status of the Workspace."
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time at which the Workspace was created."
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time at which the Workspace was last updated."
-        },
-        "marketplaceDetails": {
-          "type": "array",
-          "description": "Marketplace subscriptions linked to this Workspace.",
-          "maxItems": 20,
-          "items": {
-            "$ref": "#/definitions/LiftrBase.MarketplaceDetails"
-          },
-          "x-ms-identifiers": [
-            "subscriptionId"
-          ]
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "default",
-        "status",
-        "createdAt",
-        "updatedAt",
-        "marketplaceDetails"
       ]
     }
   },

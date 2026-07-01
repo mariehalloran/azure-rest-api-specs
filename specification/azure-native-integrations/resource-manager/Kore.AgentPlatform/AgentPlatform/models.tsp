@@ -225,53 +225,6 @@ model WorkspaceProperties {
   provisioningState?: ResourceProvisioningState;
 }
 
-/** A Workspace row returned from list operations. */
-@added(Versions.v2026_07_01_preview)
-model WorkspaceSummary {
-  /** Partner-issued Workspace identifier (e.g., "ws_01..."). */
-  id: string;
-
-  /** Display name of the Workspace. */
-  name: string;
-
-  /** Email address of the Workspace owner. */
-  ownerEmail?: email;
-
-  /** Indicates whether this is the default Workspace for the Organization. */
-  default: boolean;
-
-  /** Lifecycle status of the Workspace. */
-  status: WorkspaceLifecycleStatus;
-
-  /** Time at which the Workspace was created. */
-  createdAt: utcDateTime;
-
-  /** Time at which the Workspace was last updated. */
-  updatedAt: utcDateTime;
-
-  /** Marketplace subscriptions linked to this Workspace. */
-  @maxItems(20)
-  @identifiers(#["subscriptionId"])
-  marketplaceDetails: LiftrBase.MarketplaceDetails[];
-}
-
-/** Paginated list response for Organization Workspace listing. */
-@added(Versions.v2026_07_01_preview)
-model WorkspaceListByOrganizationResponse {
-  /** Total number of workspaces matching the filter. */
-  total: int32;
-
-  /** Number of items skipped. */
-  offset: int32;
-
-  /** Maximum number of items requested. */
-  limit: int32;
-
-  /** Workspace rows in the current page. */
-  @identifiers(#["id"])
-  workspaces: WorkspaceSummary[];
-}
-
 // =============================================================================
 // Organization PATCH body
 // =============================================================================
