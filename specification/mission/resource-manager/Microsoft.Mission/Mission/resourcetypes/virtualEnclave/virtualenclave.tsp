@@ -81,6 +81,10 @@ model SubnetConfiguration {
   @doc("Network security group ID.")
   @visibility(Lifecycle.Read)
   networkSecurityGroupResourceId?: NsgResourceId;
+
+  @added(Microsoft.Mission.Versions.v2026_08_01_preview)
+  @doc("The purpose of the subnet, used to determine automatic configuration behavior.")
+  subnetPurpose?: string;
 }
 
 @removed(Microsoft.Mission.Versions.v2026_07_01_preview)
