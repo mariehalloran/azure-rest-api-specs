@@ -1,0 +1,80 @@
+{
+  "operationId": "InternalContextCacheContainers_CreateOrUpdate",
+  "title": "Create an internal Context Cache Container",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "testrg",
+    "location": "eastus",
+    "api-version": "2026-02-01-preview",
+    "internalContextCacheName": "testaccount",
+    "internalContextCacheContainerName": "gpt4-prompts",
+    "resource": {
+      "properties": {
+        "description": "Internal container for GPT-4 prompt caching",
+        "modelName": "gpt-4",
+        "provider": "OpenAI",
+        "timeToLive": 7,
+        "resourceProperties": {
+          "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/contextCaches/testaccount/contextCacheContainers/gpt4-prompts",
+          "resourceType": "Microsoft.Storage/contextCaches/contextCacheContainers",
+          "baseLocation": "eastus",
+          "parentResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/locations/eastus/internalContextCaches/testaccount"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/locations/eastus/internalContextCaches/testaccount/internalContextCacheContainers/gpt4-prompts",
+        "name": "gpt4-prompts",
+        "type": "Microsoft.Storage/internalContextCaches/internalContextCacheContainers",
+        "properties": {
+          "description": "Internal container for GPT-4 prompt caching",
+          "modelName": "gpt-4",
+          "provider": "OpenAI",
+          "timeToLive": 7,
+          "provisioningState": "Succeeded",
+          "resourceProperties": {
+            "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/contextCaches/testaccount/contextCacheContainers/gpt4-prompts",
+            "resourceType": "Microsoft.Storage/contextCaches/contextCacheContainers",
+            "baseLocation": "eastus",
+            "parentResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/locations/eastus/internalContextCaches/testaccount"
+          }
+        }
+      }
+    },
+    "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Storage/locations/eastus/operationStatuses/00000000-0000-0000-0000-000000000000?api-version=2026-02-01-preview",
+        "Retry-After": "10"
+      },
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/locations/eastus/internalContextCaches/testaccount/internalContextCacheContainers/gpt4-prompts",
+        "name": "gpt4-prompts",
+        "type": "Microsoft.Storage/internalContextCaches/internalContextCacheContainers",
+        "properties": {
+          "description": "Internal container for GPT-4 prompt caching",
+          "modelName": "gpt-4",
+          "provider": "OpenAI",
+          "timeToLive": 7,
+          "provisioningState": "Creating",
+          "resourceProperties": {
+            "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/contextCaches/testaccount/contextCacheContainers/gpt4-prompts",
+            "resourceType": "Microsoft.Storage/contextCaches/contextCacheContainers",
+            "baseLocation": "eastus",
+            "parentResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/locations/eastus/internalContextCaches/testaccount"
+          }
+        }
+      }
+    },
+    "default": {
+      "body": {
+        "error": {
+          "code": "InvalidContainerName",
+          "message": "Container name must be 3-63 characters, lowercase alphanumeric and hyphens"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "operationId": "InternalContextCacheContainers_Delete",
+  "title": "Delete an internal Context Cache Container",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "testrg",
+    "location": "eastus",
+    "api-version": "2026-02-01-preview",
+    "internalContextCacheName": "testaccount",
+    "internalContextCacheContainerName": "gpt4-prompts"
+  },
+  "responses": {
+    "202": {
+      "headers": {
+        "location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Storage/locations/eastus/operationStatuses/00000000-0000-0000-0000-000000000000?api-version=2026-02-01-preview",
+        "Retry-After": "10"
+      }
+    },
+    "204": {}
+  }
+}
