@@ -4,7 +4,6 @@ using Azure.ClientGenerator.Core;
 using Microsoft.Maintenance;
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backwards compatibility"
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(
   MaintenanceConfigurationProperties.maintenanceWindow
 );
@@ -12,7 +11,6 @@ using Microsoft.Maintenance;
 //@@Azure.ClientGenerator.Core.Legacy.flattenProperty(Update.properties);
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backwards compatibility"
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(
   Microsoft.Maintenance.Operation.properties
 );
@@ -27,7 +25,6 @@ using Microsoft.Maintenance;
   "configuration"
 );
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backwards compatibility"
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(
   MaintenanceConfiguration.properties
 );
@@ -37,7 +34,6 @@ using Microsoft.Maintenance;
   "applyUpdate"
 );
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backwards compatibility"
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(ApplyUpdate.properties);
 
 @@clientName(
@@ -65,12 +61,10 @@ using Microsoft.Maintenance;
   "configurationAssignment"
 );
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backwards compatibility"
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(
   ConfigurationAssignment.properties
 );
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Backwards compatibility"
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(
   Microsoft.Maintenance.Update.properties
 );
