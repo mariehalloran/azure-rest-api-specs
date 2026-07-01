@@ -5,6 +5,7 @@ import "@azure-tools/typespec-azure-resource-manager";
 import "./models.tsp";
 import "./MessagingCatalog.tsp";
 import "./PrivateEndpointConnection.tsp";
+import "./client.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
@@ -17,5 +18,4 @@ using TypeSpec.Versioning;
 @service(#{ title: "Microsoft.MessagingCatalog" })
 @doc("Messaging Catalog management API.")
 @versioned(Versions)
-@armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
 namespace Microsoft.MessagingCatalog;

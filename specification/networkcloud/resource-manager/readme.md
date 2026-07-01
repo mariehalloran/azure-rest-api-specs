@@ -83,20 +83,6 @@ suppressions:
     where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/clusters/{clusterName}"].patch.parameters[4].schema.properties.properties
 ```
 
-### Tag: package-2025-07-01-preview
-
-These settings apply only when `--tag=package-2025-07-01-preview` is specified on the command line.
-
-```yaml $(tag) == 'package-2025-07-01-preview'
-input-file:
-  - Microsoft.NetworkCloud/preview/2025-07-01-preview/networkcloud.json
-suppressions:
-  - code: PatchBodyParametersSchema
-    from: networkcloud.json
-    reason: Nested objects that share a structure with PUT have required fields. The required field is present in the patch structure as well, because it reuses types. The nested structure needs to be updated in full by the user.
-    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkCloud/clusters/{clusterName}"].patch.parameters[4].schema.properties.properties
-```
-
 ### Tag: package-2025-09-01
 
 These settings apply only when `--tag=package-2025-09-01` is specified on the command line.
@@ -730,22 +716,6 @@ This is not used by Autorest itself.
 
 ```yaml $(swagger-to-sdk)
 swagger-to-sdk:
-  - repo: azure-sdk-for-net
-  - repo: azure-sdk-for-python-track2
-  - repo: azure-sdk-for-java
-  - repo: azure-sdk-for-js
   - repo: azure-resource-manager-schemas
   - repo: azure-cli-extensions
 ```
-
-## Python
-
-See configuration in [readme.python.md](./readme.python.md)
-
-## TypeScript
-
-See configuration in [readme.typescript.md](./readme.typescript.md)
-
-## CSharp
-
-See configuration in [readme.csharp.md](./readme.csharp.md)

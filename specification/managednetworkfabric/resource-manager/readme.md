@@ -27,7 +27,29 @@ These are the global settings for the Managed Network Fabric.
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2026-01-15-preview
+tag: package-2026-07-15-preview
+```
+
+### Tag: package-2026-07-15-preview
+
+These settings apply only when `--tag=package-2026-07-15-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-07-15-preview'
+input-file:
+  - Microsoft.ManagedNetworkFabric/preview/2026-07-15-preview/managednetworkfabric.json
+suppressions:
+  - code: AvoidAnonymousTypes
+    where: $.definitions
+    reason: This error is caused by typespec inbuilt managed identity model.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    where: $.paths
+    reason: Older API versions (e.g., 2024-02-15-preview, 2023-06-15) contain deprecated APIs that have been removed and are not listed in the default tag.
+  - code: GuidUsage
+    where: $.definitions.Azure.Core.uuid
+    reason: GUIDs are required for validationId and correlationId fields as per ARM API review guidance.
+  - code: AvoidAdditionalProperties
+    where: $.definitions.DeviceCommand.properties.validationRules
+    reason: validationRules is intentionally a free-form JSON object so callers can define their own arbitrary validation rules to evaluate device command output.
 ```
 
 ### Tag: package-2026-01-15-preview
@@ -39,9 +61,11 @@ input-file:
   - Microsoft.ManagedNetworkFabric/preview/2026-01-15-preview/managednetworkfabric.json
 suppressions:
   - code: AvoidAnonymousTypes
+    where: $.definitions
     reason: This error is caused by typespec inbuilt managed identity model.
   - code: MISSING_APIS_IN_DEFAULT_TAG
-    reason: Removed deprecated APIs in the new API version
+    where: $.paths
+    reason: Previous API versions not included in default tag as they are documented in their own tags
 ```
 
 ### Tag: package-2025-07-15
@@ -53,9 +77,11 @@ input-file:
   - Microsoft.ManagedNetworkFabric/stable/2025-07-15/managednetworkfabric.json
 suppressions:
   - code: AvoidAnonymousTypes
+    where: $.definitions
     reason: This error is caused by typespec inbuilt managed identity model.
   - code: MISSING_APIS_IN_DEFAULT_TAG
-    reason: Removed deprecated APIs in the new API version
+    where: $.paths
+    reason: Previous API versions not included in default tag as they are documented in their own tags
 ```
 
 ### Tag: package-2024-06-15-preview
@@ -67,9 +93,11 @@ input-file:
   - Microsoft.ManagedNetworkFabric/preview/2024-06-15-preview/managednetworkfabric.json
 suppressions:
   - code: AvoidAnonymousTypes
+    where: $.definitions
     reason: This error is caused by typespec inbuilt managed identity model.
   - code: MISSING_APIS_IN_DEFAULT_TAG
-    reason: Removed deprecated APIs in the new API version
+    where: $.paths
+    reason: Previous API versions not included in default tag as they are documented in their own tags
 ```
 
 ### Tag: package-2024-02-15-preview

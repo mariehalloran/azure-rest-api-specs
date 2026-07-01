@@ -1239,6 +1239,22 @@
         ]
       }
     },
+    "ChangeDataCapture": {
+      "type": "object",
+      "description": "Change data capture replication status during online migration.",
+      "properties": {
+        "replicationLagInSeconds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Time-based replication lag in seconds between source and target."
+        },
+        "replicationLagInBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "WAL-based replication lag in bytes between source and target."
+        }
+      }
+    },
     "CheckConnectivityEndpoint": {
       "type": "object",
       "description": "Connection endpoint for connectivity testing with type indicator.",
@@ -1961,6 +1977,11 @@
             "$ref": "#/definitions/MigrationError"
           }
         },
+        "changeDataCapture": {
+          "$ref": "#/definitions/ChangeDataCapture",
+          "description": "Change data capture (CDC) status for online replication.",
+          "readOnly": true
+        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "Provisioning state",
@@ -2090,6 +2111,11 @@
           "items": {
             "$ref": "#/definitions/MigrationError"
           }
+        },
+        "changeDataCapture": {
+          "$ref": "#/definitions/ChangeDataCapture",
+          "description": "Change data capture (CDC) status for online replication.",
+          "readOnly": true
         }
       },
       "required": [
@@ -2440,7 +2466,8 @@
         "Pending",
         "Cancelled",
         "Cancelling",
-        "CutoverInProgress"
+        "WaitingForCutover",
+        "PostCutoverReplicationCatchUp"
       ],
       "x-ms-enum": {
         "name": "MigrationState",
@@ -2477,9 +2504,14 @@
             "description": "Migration is being cancelled"
           },
           {
-            "name": "CutoverInProgress",
-            "value": "CutoverInProgress",
-            "description": "Cutover is in progress"
+            "name": "WaitingForCutover",
+            "value": "WaitingForCutover",
+            "description": "Waiting for cutover trigger"
+          },
+          {
+            "name": "PostCutoverReplicationCatchUp",
+            "value": "PostCutoverReplicationCatchUp",
+            "description": "Post-cutover replication catch-up is in progress"
           }
         ]
       },

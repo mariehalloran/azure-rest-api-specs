@@ -1,0 +1,1782 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Azure WebIQ Resources",
+    "version": "2026-06-01-preview",
+    "description": "Microsoft.WebIQ Resource Provider",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "CustomSearchConfigurations"
+    },
+    {
+      "name": "WebIQAccounts"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.WebIQ/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Operations": {
+            "$ref": "./examples/ListOperations.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.WebIQ/accounts": {
+      "get": {
+        "operationId": "Accounts_List",
+        "tags": [
+          "WebIQAccounts"
+        ],
+        "description": "Returns all the resources of a particular type belonging to a subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/WebIQAccountListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Accounts by Subscription": {
+            "$ref": "./examples/ListAccountsBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.WebIQ/locations/{location}/checkSkuAvailability": {
+      "post": {
+        "operationId": "Skus_CheckAvailability",
+        "description": "Check whether specific SKUs are available for the location.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/LocationParameter"
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "description": "The request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CheckSkuAvailabilityParameter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/CheckSkuAvailabilityResultList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Check SKU Availability": {
+            "$ref": "./examples/CheckSkuAvailability.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.WebIQ/skus": {
+      "get": {
+        "operationId": "Skus_List",
+        "description": "Gets the list of Microsoft.WebIQ SKUs available for the subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/ResourceSkusResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List SKUs for Subscription": {
+            "$ref": "./examples/ListSkusForSubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.WebIQ/accounts": {
+      "get": {
+        "operationId": "Accounts_ListByResourceGroup",
+        "tags": [
+          "WebIQAccounts"
+        ],
+        "description": "Returns all the resources of a particular type belonging to a resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/WebIQAccountListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Accounts by Resource Group": {
+            "$ref": "./examples/ListAccountsByResourceGroup.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.WebIQ/accounts/{accountName}": {
+      "get": {
+        "operationId": "Accounts_Get",
+        "tags": [
+          "WebIQAccounts"
+        ],
+        "description": "Returns a WebIQ account specified by the parameters.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "accountName",
+            "in": "path",
+            "description": "The name of the WebIQ account.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9_.-]*[a-zA-Z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/WebIQAccount"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get Account": {
+            "$ref": "./examples/GetAccount.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "Accounts_Create",
+        "tags": [
+          "WebIQAccounts"
+        ],
+        "description": "Create a WebIQ account. Accounts is a resource group-wide resource type. It is the resource type for accessing WebIQ APIs and billing.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "accountName",
+            "in": "path",
+            "description": "The name of the WebIQ account.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9_.-]*[a-zA-Z0-9])?$"
+          },
+          {
+            "name": "account",
+            "in": "body",
+            "description": "The parameters of the account to create.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WebIQAccount"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'WebIQAccount' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/WebIQAccount"
+            }
+          },
+          "201": {
+            "description": "Resource 'WebIQAccount' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/WebIQAccount"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create Account": {
+            "$ref": "./examples/CreateAccount.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "Accounts_Update",
+        "tags": [
+          "WebIQAccounts"
+        ],
+        "description": "Updates a WebIQ account",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "accountName",
+            "in": "path",
+            "description": "The name of the WebIQ account.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9_.-]*[a-zA-Z0-9])?$"
+          },
+          {
+            "name": "account",
+            "in": "body",
+            "description": "The parameters to update in the account.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WebIQAccountUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/WebIQAccount"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update Account": {
+            "$ref": "./examples/UpdateAccount.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "Accounts_Delete",
+        "tags": [
+          "WebIQAccounts"
+        ],
+        "description": "Deletes a WebIQ account from the resource group.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "accountName",
+            "in": "path",
+            "description": "The name of the WebIQ account.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9_.-]*[a-zA-Z0-9])?$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete Account": {
+            "$ref": "./examples/DeleteAccount.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.WebIQ/accounts/{accountName}/customSearchConfigurations": {
+      "get": {
+        "operationId": "CustomSearchConfigurations_ListByAccount",
+        "tags": [
+          "CustomSearchConfigurations"
+        ],
+        "description": "Returns all the WebIQ Custom Search configurations for the specified WebIQ account.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "accountName",
+            "in": "path",
+            "description": "The name of the WebIQ account.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9_.-]*[a-zA-Z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CustomSearchConfigurationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Custom Search Configurations by Account": {
+            "$ref": "./examples/ListCustomSearchConfigurationsByAccount.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.WebIQ/accounts/{accountName}/customSearchConfigurations/{customSearchConfigurationName}": {
+      "get": {
+        "operationId": "CustomSearchConfigurations_Get",
+        "tags": [
+          "CustomSearchConfigurations"
+        ],
+        "description": "Returns a WebIQ Custom Search configuration specified by the parameters.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "accountName",
+            "in": "path",
+            "description": "The name of the WebIQ account.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9_.-]*[a-zA-Z0-9])?$"
+          },
+          {
+            "name": "customSearchConfigurationName",
+            "in": "path",
+            "description": "The name of the WebIQ custom search configuration.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9_.-]*[a-zA-Z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CustomSearchConfiguration"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get Custom Search Configuration": {
+            "$ref": "./examples/GetCustomSearchConfiguration.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "CustomSearchConfigurations_CreateOrUpdate",
+        "tags": [
+          "CustomSearchConfigurations"
+        ],
+        "description": "Creates or Updates a WebIQ Custom Search configuration.\nUses async (LRO) because it calls an external API which takes significant time.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "accountName",
+            "in": "path",
+            "description": "The name of the WebIQ account.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9_.-]*[a-zA-Z0-9])?$"
+          },
+          {
+            "name": "customSearchConfigurationName",
+            "in": "path",
+            "description": "The name of the WebIQ custom search configuration.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9_.-]*[a-zA-Z0-9])?$"
+          },
+          {
+            "name": "customSearchConfiguration",
+            "in": "body",
+            "description": "The parameters of the configuration to create or update.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomSearchConfiguration"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'CustomSearchConfiguration' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/CustomSearchConfiguration"
+            }
+          },
+          "201": {
+            "description": "Resource 'CustomSearchConfiguration' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/CustomSearchConfiguration"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create or Update Custom Search Configuration": {
+            "$ref": "./examples/CreateOrUpdateCustomSearchConfiguration.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "CustomSearchConfigurations_Delete",
+        "tags": [
+          "CustomSearchConfigurations"
+        ],
+        "description": "Deletes a WebIQ Custom Search configuration from the WebIQ account.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "accountName",
+            "in": "path",
+            "description": "The name of the WebIQ account.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9_.-]*[a-zA-Z0-9])?$"
+          },
+          {
+            "name": "customSearchConfigurationName",
+            "in": "path",
+            "description": "The name of the WebIQ custom search configuration.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9_.-]*[a-zA-Z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete Custom Search Configuration": {
+            "$ref": "./examples/DeleteCustomSearchConfiguration.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.WebIQ/accounts/{accountName}/skus": {
+      "get": {
+        "operationId": "Accounts_ListSkus",
+        "tags": [
+          "WebIQAccounts"
+        ],
+        "description": "List available SKUs for the requested WebIQ account",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "accountName",
+            "in": "path",
+            "description": "The name of the WebIQ account.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9_.-]*[a-zA-Z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/WebIQAccountEnumerateSkusResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List SKUs for Account": {
+            "$ref": "./examples/ListSkusForAccount.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.WebIQ/accounts/{accountName}/usages": {
+      "get": {
+        "operationId": "Accounts_ListUsages",
+        "tags": [
+          "WebIQAccounts"
+        ],
+        "description": "List usages for the requested WebIQ account",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "accountName",
+            "in": "path",
+            "description": "The name of the WebIQ account.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9_.-]*[a-zA-Z0-9])?$"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "An OData filter expression that describes a subset of usages to return. The supported parameter is name.value (name of the metric, can have an or of multiple names).",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/UsagesResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Usages": {
+            "$ref": "./examples/ListUsages.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AllowedDomain": {
+      "type": "object",
+      "description": "An allowed domain for WebIQ Custom Search configuration.",
+      "properties": {
+        "domain": {
+          "type": "string",
+          "description": "A domain string that can be used to specify allowed, blocked, or pinned domains in WebIQ Custom Search configuration.",
+          "pattern": "^\\s*(((https?:\\/\\/)|(?!(.*:\\/\\/)))((-\\.)?([^\\s\\/?\\.#]+\\.)([^\\s\\/?\\.#]+\\.?)+([^\\s\\/?\\.#]+)(\\/[^\\s]*)?))\\s*$"
+        },
+        "includeSubPages": {
+          "type": "boolean",
+          "description": "A flag to indicate whether subpages of the allowed domain should be included in the search result. If set to true (default), all subpages and nested paths under the specified domain will be included in the search result. If set to false, only the main domain will be included in the search result, excluding any subpages.",
+          "default": true
+        },
+        "boostLevel": {
+          "type": "string",
+          "description": "The boost level for the allowed domain.",
+          "default": "Default",
+          "enum": [
+            "Demoted",
+            "Default",
+            "Boosted",
+            "SuperBoost"
+          ],
+          "x-ms-enum": {
+            "name": "BoostLevel",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "Demoted",
+                "value": "Demoted",
+                "description": "Domain ranking is demoted."
+              },
+              {
+                "name": "Default",
+                "value": "Default",
+                "description": "Default boost level."
+              },
+              {
+                "name": "Boosted",
+                "value": "Boosted",
+                "description": "Domain ranking is boosted."
+              },
+              {
+                "name": "SuperBoost",
+                "value": "SuperBoost",
+                "description": "Domain ranking is super boosted."
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "domain"
+      ]
+    },
+    "BlockedDomain": {
+      "type": "object",
+      "description": "A blocked domain for WebIQ Custom Search configuration.",
+      "properties": {
+        "domain": {
+          "type": "string",
+          "description": "A domain string that can be used to specify allowed, blocked, or pinned domains in WebIQ Custom Search configuration.",
+          "pattern": "^\\s*(((https?:\\/\\/)|(?!(.*:\\/\\/)))((-\\.)?([^\\s\\/?\\.#]+\\.)([^\\s\\/?\\.#]+\\.?)+([^\\s\\/?\\.#]+)(\\/[^\\s]*)?))\\s*$"
+        },
+        "includeSubPages": {
+          "type": "boolean",
+          "description": "A flag to indicate whether subpages of the blocked domain should be excluded from search results. If set to true (default), all subpages and nested paths under the specified domain will be excluded from search results. If set to false, only the main domain will be excluded from search results.",
+          "default": true
+        }
+      },
+      "required": [
+        "domain"
+      ]
+    },
+    "CheckSkuAvailabilityParameter": {
+      "type": "object",
+      "description": "The SKUs to check for availability in the specified subscription and location",
+      "properties": {
+        "skus": {
+          "type": "array",
+          "description": "The SKU of the resource.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "kind": {
+          "type": "string",
+          "description": "Indicates the type of WebIQ account."
+        },
+        "resourceType": {
+          "type": "string",
+          "description": "The Type of the resource."
+        }
+      },
+      "required": [
+        "skus",
+        "kind",
+        "resourceType"
+      ]
+    },
+    "CheckSkuAvailabilityResult": {
+      "type": "object",
+      "description": "Check SKU availability result.",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "Indicates the type of WebIQ account."
+        },
+        "resourceType": {
+          "type": "string",
+          "description": "The Type of the resource."
+        },
+        "skuName": {
+          "type": "string",
+          "description": "The name of SKU."
+        },
+        "skuAvailable": {
+          "type": "boolean",
+          "description": "Indicates the given SKU is available or not."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason why the SKU is not available."
+        },
+        "message": {
+          "type": "string",
+          "description": "Additional error message."
+        }
+      }
+    },
+    "CheckSkuAvailabilityResultList": {
+      "type": "object",
+      "description": "Check SKU availability result list.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "Check SKU availability result list.",
+          "items": {
+            "$ref": "#/definitions/CheckSkuAvailabilityResult"
+          },
+          "x-ms-identifiers": [
+            "kind",
+            "skuName"
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "CustomConfigurationProperties": {
+      "type": "object",
+      "description": "Properties of WebIQ Custom Search Configuration.",
+      "properties": {
+        "allowedDomains": {
+          "type": "array",
+          "description": "List of allowed domains for WebIQ Custom Search configuration. Total number of domains in Allowed List, Blocked List, and Pinned List combined cannot exceed 250.",
+          "maxItems": 250,
+          "items": {
+            "$ref": "#/definitions/AllowedDomain"
+          },
+          "x-ms-identifiers": [
+            "domain"
+          ]
+        },
+        "blockedDomains": {
+          "type": "array",
+          "description": "List of blocked domains for WebIQ Custom Search configuration. Total number of domains in Allowed List, Blocked List, and Pinned List combined cannot exceed 250.",
+          "maxItems": 250,
+          "items": {
+            "$ref": "#/definitions/BlockedDomain"
+          },
+          "x-ms-identifiers": [
+            "domain"
+          ]
+        },
+        "pinnedDomains": {
+          "type": "array",
+          "description": "List of pinned domains for WebIQ Custom Search configuration. Total number of domains in Allowed List, Blocked List, and Pinned List combined cannot exceed 250.",
+          "maxItems": 250,
+          "items": {
+            "$ref": "#/definitions/PinnedDomain"
+          },
+          "x-ms-identifiers": [
+            "domain"
+          ]
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Gets the status of the WebIQ Custom Search configuration at the time the operation was called.",
+          "readOnly": true
+        }
+      }
+    },
+    "CustomSearchConfiguration": {
+      "type": "object",
+      "description": "WebIQ Custom Search Configuration is an Azure resource representing WebIQ Custom Search configuration type, allowed domains, blocked domains and pinned domains.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/CustomConfigurationProperties",
+          "description": "Properties of WebIQ Custom Search configuration."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "CustomSearchConfigurationListResult": {
+      "type": "object",
+      "description": "The response of a CustomSearchConfiguration list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The CustomSearchConfiguration items on this page",
+          "items": {
+            "$ref": "#/definitions/CustomSearchConfiguration"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "MetricName": {
+      "type": "object",
+      "description": "A metric name.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "The name of the metric.",
+          "readOnly": true
+        },
+        "localizedValue": {
+          "type": "string",
+          "description": "The friendly name of the metric.",
+          "readOnly": true
+        }
+      }
+    },
+    "PinnedDomain": {
+      "type": "object",
+      "description": "A pinned domain for WebIQ Custom Search configuration.",
+      "properties": {
+        "domain": {
+          "type": "string",
+          "description": "A domain string that can be used to specify allowed, blocked, or pinned domains in WebIQ Custom Search configuration.",
+          "pattern": "^\\s*(((https?:\\/\\/)|(?!(.*:\\/\\/)))((-\\.)?([^\\s\\/?\\.#]+\\.)([^\\s\\/?\\.#]+\\.?)+([^\\s\\/?\\.#]+)(\\/[^\\s]*)?))\\s*$"
+        },
+        "query": {
+          "type": "string",
+          "description": "The search terms or keywords that trigger the pinned domain to appear at the top of the search results if the user's search query meets the condition specified."
+        },
+        "condition": {
+          "type": "string",
+          "description": "Defines how the query terms should match the search terms entered by the user. If set to Exact (default), the pinned domain appears only if the user's search query exactly matches the specified query. If set to StartsWith, the pinned domain appears if the user's search query starts with the specified query. If set to Contains, the pinned domain appears if the user's search query contains the specified query. If set to EndsWith, the pinned domain appears if the user's search query ends with the specified query.",
+          "default": "Exact",
+          "enum": [
+            "Exact",
+            "StartsWith",
+            "Contains",
+            "EndsWith"
+          ],
+          "x-ms-enum": {
+            "name": "PinnedDomainCondition",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "Exact",
+                "value": "Exact",
+                "description": "Exact match of the query."
+              },
+              {
+                "name": "StartsWith",
+                "value": "StartsWith",
+                "description": "Query starts with the specified term."
+              },
+              {
+                "name": "Contains",
+                "value": "Contains",
+                "description": "Query contains the specified term."
+              },
+              {
+                "name": "EndsWith",
+                "value": "EndsWith",
+                "description": "Query ends with the specified term."
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "domain",
+        "query"
+      ]
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "description": "Gets the status of the WebIQ resource at the time the operation was called.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Creating",
+        "Updating",
+        "Moving",
+        "Deleting"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          },
+          {
+            "name": "Creating",
+            "value": "Creating",
+            "description": "The resource is being created."
+          },
+          {
+            "name": "Updating",
+            "value": "Updating",
+            "description": "The resource is being updated."
+          },
+          {
+            "name": "Moving",
+            "value": "Moving",
+            "description": "The resource is being moved."
+          },
+          {
+            "name": "Deleting",
+            "value": "Deleting",
+            "description": "The resource is being deleted."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "QuotaUsageStatus": {
+      "type": "string",
+      "description": "WebIQ account quota usage status.",
+      "enum": [
+        "Included",
+        "Blocked",
+        "InOverage",
+        "Unknown"
+      ],
+      "x-ms-enum": {
+        "name": "QuotaUsageStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Included",
+            "value": "Included",
+            "description": "Usage is included in the quota."
+          },
+          {
+            "name": "Blocked",
+            "value": "Blocked",
+            "description": "Usage is blocked."
+          },
+          {
+            "name": "InOverage",
+            "value": "InOverage",
+            "description": "Usage is in overage."
+          },
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Usage status is unknown."
+          }
+        ]
+      }
+    },
+    "ResourceSku": {
+      "type": "object",
+      "description": "Describes an available WebIQ SKU.",
+      "properties": {
+        "resourceType": {
+          "type": "string",
+          "description": "The type of resource the SKU applies to.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of SKU.",
+          "readOnly": true
+        },
+        "tier": {
+          "type": "string",
+          "description": "Specifies the tier of WebIQ account.",
+          "readOnly": true
+        },
+        "kind": {
+          "type": "string",
+          "description": "The Kind of resources that are supported in this SKU.",
+          "readOnly": true
+        },
+        "locations": {
+          "type": "array",
+          "description": "The set of locations that the SKU is available.",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "locationInfo": {
+          "type": "array",
+          "description": "A list of locations and availability zones in those locations where the SKU is available.",
+          "items": {
+            "$ref": "#/definitions/ResourceSkuLocationInfo"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "location"
+          ]
+        },
+        "restrictions": {
+          "type": "array",
+          "description": "The restrictions because of which SKU cannot be used. This is empty if there are no restrictions.",
+          "items": {
+            "$ref": "#/definitions/ResourceSkuRestrictions"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        }
+      }
+    },
+    "ResourceSkuLocationInfo": {
+      "type": "object",
+      "description": "Describes an available WebIQ SKU location info.",
+      "properties": {
+        "location": {
+          "type": "string",
+          "description": "Location of the SKU",
+          "readOnly": true
+        },
+        "zones": {
+          "type": "array",
+          "description": "List of availability zones where the SKU is supported.",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "zoneDetails": {
+          "type": "array",
+          "description": "Details of capabilities available to a SKU in specific zones.",
+          "items": {
+            "$ref": "#/definitions/ResourceSkuZoneDetails"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "ResourceSkuRestrictionInfo": {
+      "type": "object",
+      "description": "Information about the restriction where the SKU cannot be used.",
+      "properties": {
+        "locations": {
+          "type": "array",
+          "description": "Locations where the SKU is restricted",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "zones": {
+          "type": "array",
+          "description": "List of availability zones where the SKU is restricted.",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "ResourceSkuRestrictions": {
+      "type": "object",
+      "description": "Describes restrictions of a SKU.",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ResourceSkuRestrictionsType",
+          "description": "The type of restrictions.",
+          "readOnly": true
+        },
+        "values": {
+          "type": "array",
+          "description": "The value of restrictions. If the restriction type is set to location. This would be different locations where the SKU is restricted.",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "restrictionInfo": {
+          "$ref": "#/definitions/ResourceSkuRestrictionInfo",
+          "description": "Information about the restriction where the SKU cannot be used.",
+          "readOnly": true
+        },
+        "reasonCode": {
+          "$ref": "#/definitions/ResourceSkuRestrictionsReasonCode",
+          "description": "The reason for restriction.",
+          "readOnly": true
+        }
+      }
+    },
+    "ResourceSkuRestrictionsReasonCode": {
+      "type": "string",
+      "description": "The reason for restriction.",
+      "enum": [
+        "QuotaId",
+        "NotAvailableForSubscription"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceSkuRestrictionsReasonCode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "QuotaId",
+            "value": "QuotaId",
+            "description": "Restricted due to quota ID."
+          },
+          {
+            "name": "NotAvailableForSubscription",
+            "value": "NotAvailableForSubscription",
+            "description": "Not available for the subscription."
+          }
+        ]
+      }
+    },
+    "ResourceSkuRestrictionsType": {
+      "type": "string",
+      "description": "The type of restrictions.",
+      "enum": [
+        "Location",
+        "Zone"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceSkuRestrictionsType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Location",
+            "value": "Location",
+            "description": "Location restriction."
+          },
+          {
+            "name": "Zone",
+            "value": "Zone",
+            "description": "Zone restriction."
+          }
+        ]
+      }
+    },
+    "ResourceSkuZoneDetails": {
+      "type": "object",
+      "description": "Describes The zonal capabilities of a SKU.",
+      "properties": {
+        "name": {
+          "type": "array",
+          "description": "The set of zones that the SKU is available in with the specified capabilities.",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "capabilities": {
+          "type": "array",
+          "description": "A list of capabilities that are available for the SKU in the specified list of zones.",
+          "items": {
+            "$ref": "#/definitions/SkuCapability"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "ResourceSkusResult": {
+      "type": "object",
+      "description": "The list SKUs operation response.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ResourceSku items on this page",
+          "items": {
+            "$ref": "#/definitions/ResourceSku"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "SkuCapability": {
+      "type": "object",
+      "description": "SkuCapability indicates the capability of a certain feature.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the SkuCapability."
+        },
+        "value": {
+          "type": "string",
+          "description": "The value of the SkuCapability."
+        }
+      }
+    },
+    "UnitType": {
+      "type": "string",
+      "description": "The unit of the metric.",
+      "enum": [
+        "Count",
+        "Bytes",
+        "Seconds",
+        "Percent",
+        "CountPerSecond",
+        "BytesPerSecond",
+        "Milliseconds"
+      ],
+      "x-ms-enum": {
+        "name": "UnitType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Count",
+            "value": "Count",
+            "description": "Count unit."
+          },
+          {
+            "name": "Bytes",
+            "value": "Bytes",
+            "description": "Bytes unit."
+          },
+          {
+            "name": "Seconds",
+            "value": "Seconds",
+            "description": "Seconds unit."
+          },
+          {
+            "name": "Percent",
+            "value": "Percent",
+            "description": "Percent unit."
+          },
+          {
+            "name": "CountPerSecond",
+            "value": "CountPerSecond",
+            "description": "Count per second unit."
+          },
+          {
+            "name": "BytesPerSecond",
+            "value": "BytesPerSecond",
+            "description": "Bytes per second unit."
+          },
+          {
+            "name": "Milliseconds",
+            "value": "Milliseconds",
+            "description": "Milliseconds unit."
+          }
+        ]
+      }
+    },
+    "Usage": {
+      "type": "object",
+      "description": "The usage data for a usage request.",
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/UnitType",
+          "description": "The unit of the metric.",
+          "readOnly": true
+        },
+        "name": {
+          "$ref": "#/definitions/MetricName",
+          "description": "The name information for the metric.",
+          "readOnly": true
+        },
+        "quotaPeriod": {
+          "type": "string",
+          "description": "The quota period used to summarize the usage values.",
+          "readOnly": true
+        },
+        "limit": {
+          "type": "number",
+          "format": "double",
+          "description": "Maximum value for this metric.",
+          "readOnly": true
+        },
+        "currentValue": {
+          "type": "number",
+          "format": "double",
+          "description": "Current value for this metric.",
+          "readOnly": true
+        },
+        "nextResetTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Next reset time for current quota.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/QuotaUsageStatus",
+          "description": "WebIQ account quota usage status."
+        }
+      }
+    },
+    "UsagesResult": {
+      "type": "object",
+      "description": "The response to a list usage request.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Usage items on this page",
+          "items": {
+            "$ref": "#/definitions/Usage"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "WebIQAccount": {
+      "type": "object",
+      "description": "WebIQ Account is an Azure resource representing the provisioned account, its type, location and SKU.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/WebIQAccountProperties",
+          "description": "Properties of WebIQ account."
+        },
+        "eTag": {
+          "type": "string",
+          "description": "If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields.",
+          "readOnly": true
+        },
+        "kind": {
+          "type": "string",
+          "description": "Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value.",
+          "pattern": "^[-\\w\\._,\\(\\\\\\)]+$",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "sku": {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/Sku",
+          "description": "The SKU (Stock Keeping Unit) assigned to this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "WebIQAccountEnumerateSkusResult": {
+      "type": "object",
+      "description": "The list of WebIQ accounts operation response.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The WebIQResourceAndSku items on this page",
+          "items": {
+            "$ref": "#/definitions/WebIQResourceAndSku"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "WebIQAccountListResult": {
+      "type": "object",
+      "description": "The response of a WebIQAccount list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The WebIQAccount items on this page",
+          "items": {
+            "$ref": "#/definitions/WebIQAccount"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "WebIQAccountProperties": {
+      "type": "object",
+      "description": "Properties of WebIQ account.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Gets the status of the WebIQ account at the time the operation was called.",
+          "readOnly": true
+        },
+        "endpoint": {
+          "type": "string",
+          "format": "uri",
+          "description": "Endpoint of the created account.",
+          "readOnly": true
+        },
+        "internalId": {
+          "type": "string",
+          "description": "An internal identifier.",
+          "readOnly": true
+        },
+        "statisticsEnabled": {
+          "type": "boolean",
+          "description": "(WebIQ Only) A flag indicating whether WebIQ Statistics is enabled."
+        }
+      }
+    },
+    "WebIQAccountUpdate": {
+      "type": "object",
+      "description": "The request body for updating a WebIQ account.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "sku": {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/Sku",
+          "description": "The SKU of WebIQ account."
+        },
+        "properties": {
+          "$ref": "#/definitions/WebIQAccountUpdateProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      }
+    },
+    "WebIQAccountUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of a WebIQ account.",
+      "properties": {
+        "statisticsEnabled": {
+          "type": "boolean",
+          "description": "(WebIQ Only) A flag indicating whether WebIQ Statistics is enabled."
+        }
+      }
+    },
+    "WebIQResourceAndSku": {
+      "type": "object",
+      "description": "WebIQ resource type and SKU.",
+      "properties": {
+        "resourceType": {
+          "type": "string",
+          "description": "Resource Namespace and Type"
+        },
+        "sku": {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/Sku",
+          "description": "The SKU of WebIQ account."
+        }
+      }
+    }
+  },
+  "parameters": {}
+}

@@ -17,6 +17,7 @@
         "properties": {
           "appliedPolicy": {
             "cpuOvercommitRatio": 1.5,
+            "systemReservationRatio": 0.1,
             "failureDomainReservationCount": 1,
             "reservedNodes": [
               "machine-2"
@@ -39,6 +40,7 @@
               "totalEffectiveVirtualCpuCapacity": 288,
               "workloadAllocatedVirtualCpu": 64,
               "policyReservedVirtualCpu": 48,
+              "systemReservedVirtualCpu": 24,
               "aggregateAvailableVirtualCpu": 152,
               "lastUpdated": "2026-05-10T00:00:00Z"
             },
@@ -46,7 +48,8 @@
               "totalBytes": 824633720832,
               "workloadAllocatedBytes": 137438953472,
               "policyReservedBytes": 274877906944,
-              "aggregateAvailableBytes": 412316860416,
+              "systemReservedBytes": 51539607552,
+              "aggregateAvailableBytes": 360777252864,
               "lastUpdated": "2026-05-10T00:00:00Z"
             },
             "gpu": {

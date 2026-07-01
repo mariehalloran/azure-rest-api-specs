@@ -1,0 +1,34 @@
+{
+  "operationId": "ContainerNodes_Update",
+  "title": "Update a container node",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "siteName": "myContainerSite",
+    "nodeName": "worker-01",
+    "properties": {
+      "properties": {
+        "nodeDisplayName": "worker-01-updated"
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerNodes/worker-01",
+        "name": "worker-01",
+        "type": "Microsoft.ApplicationMigration/containerSites/containerNodes",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "containerNodeId": "worker-01",
+          "nodeRole": "worker",
+          "availability": "Ready",
+          "isStandaloneHost": false,
+          "containerClusterId": "kube-system-uid-abc123",
+          "discoveryCompleteness": "deep-complete"
+        }
+      }
+    }
+  }
+}

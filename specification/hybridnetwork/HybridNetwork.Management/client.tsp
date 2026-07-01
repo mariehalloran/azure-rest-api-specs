@@ -3,7 +3,9 @@ import "@azure-tools/typespec-client-generator-core";
 
 using Azure.ClientGenerator.Core;
 
-namespace Microsoft.HybridNetwork;
+namespace Customizations;
+
+using Microsoft.HybridNetwork;
 using Azure.ResourceManager;
 using TypeSpec.Rest;
 using TypeSpec.Http;
@@ -112,6 +114,6 @@ op proxyArtifactUpdateState(
 
 @@override(
   ProxyArtifact.updateState,
-  proxyArtifactUpdateState,
+  Customizations.proxyArtifactUpdateState,
   "go,javascript"
 );

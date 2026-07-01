@@ -10,6 +10,7 @@ namespace Microsoft.Edge;
 
 @removed(Versions.v2025_06_01)
 @added(Versions.v2025_12_01_preview)
+@removed(Versions.v2026_06_01)
 @armResourceOperations
 interface NetworkConfigurations {
   get is ArmResourceRead<NetworkConfiguration>;
@@ -24,6 +25,7 @@ interface NetworkConfigurations {
 
 @removed(Versions.v2025_06_01)
 @added(Versions.v2025_12_01_preview)
+@removed(Versions.v2026_06_01)
 @doc("NetworkConfiguration Resource")
 @parentResource(Configuration)
 model NetworkConfiguration is ProxyResource<LanNetworkConfigurationProperties> {
@@ -39,6 +41,7 @@ model NetworkConfiguration is ProxyResource<LanNetworkConfigurationProperties> {
 
 @removed(Versions.v2025_06_01)
 @added(Versions.v2025_12_01_preview)
+@removed(Versions.v2026_06_01)
 @doc("NetworkConfiguration Properties")
 model NetworkConfigurationProperties {
   @doc("The status of the last operation.")
@@ -51,6 +54,7 @@ model NetworkConfigurationProperties {
 
 @removed(Versions.v2025_06_01)
 @added(Versions.v2025_12_01_preview)
+@removed(Versions.v2026_06_01)
 @doc("NetworkConfigurationProperties for LAN")
 model LanNetworkConfigurationProperties {
   ...NetworkConfigurationProperties;
@@ -61,6 +65,7 @@ model LanNetworkConfigurationProperties {
 
 @removed(Versions.v2025_06_01)
 @added(Versions.v2025_12_01_preview)
+@removed(Versions.v2026_06_01)
 @doc("IP Assignment")
 model IpAssignment {
   @doc("IpAssignment Type")
@@ -72,6 +77,7 @@ model IpAssignment {
 
 @removed(Versions.v2025_06_01)
 @added(Versions.v2025_12_01_preview)
+@removed(Versions.v2026_06_01)
 @doc("Ip V4")
 model Ipv4 {
   @doc("AddressRange for IPv4")
@@ -92,6 +98,7 @@ model Ipv4 {
 
 @removed(Versions.v2025_06_01)
 @added(Versions.v2025_12_01_preview)
+@removed(Versions.v2026_06_01)
 @doc("AddressRange for IP V4")
 model Ipv4AddressRange {
   @doc("startIp of Address range")
@@ -103,6 +110,7 @@ model Ipv4AddressRange {
 
 @removed(Versions.v2025_06_01)
 @added(Versions.v2025_12_01_preview)
+@removed(Versions.v2026_06_01)
 @doc("IpAssignment Types")
 union IpAssignmentType {
   @doc("Automatic IpAssignment") Automatic: "Automatic",
@@ -112,6 +120,7 @@ union IpAssignmentType {
 
 @removed(Versions.v2025_06_01)
 @added(Versions.v2025_12_01_preview)
+@removed(Versions.v2026_06_01)
 @doc("kind for type of supported NetworkConfigurations")
 union NetworkConfigurationKind {
   @doc("LAN type of NetworkConfigurations") LAN: "LAN",
