@@ -736,7 +736,7 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/workspaces/{subscriptionId}/{resourceGroupName}/{organizationName}": {
       "get": {
-        "operationId": "Workspaces_ListByOrganizationV2",
+        "operationId": "Workspaces_ListByOrganization",
         "tags": [
           "Workspaces"
         ],
@@ -825,14 +825,6 @@
             "schema": {
               "$ref": "#/definitions/WorkspaceListByOrganizationResponse"
             }
-          }
-        },
-        "x-ms-examples": {
-          "Workspaces_ListByOrganizationV2": {
-            "$ref": "./examples/Workspaces_ListByOrganizationV2.json"
-          },
-          "Workspaces_ListByOrganizationV2_MaximumSet_Gen": {
-            "$ref": "./examples/Workspaces_ListByOrganizationV2_MaximumSet_Gen.json"
           }
         }
       }
