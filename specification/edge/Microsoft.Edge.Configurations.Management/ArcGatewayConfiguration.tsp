@@ -9,6 +9,7 @@ namespace Microsoft.Edge;
 
 @removed(Versions.v2025_06_01)
 @added(Versions.v2025_12_01_preview)
+@removed(Versions.v2026_06_01)
 @doc("ArcGatewayConfigurationProperties Properties")
 model ArcGatewayConfigurationProperties {
   @doc("Provisioning state of resource")
@@ -28,6 +29,7 @@ model ArcGatewayConfigurationProperties {
 
 @removed(Versions.v2025_06_01)
 @added(Versions.v2025_12_01_preview)
+@removed(Versions.v2026_06_01)
 @doc("ArcGatewayConfiguration Resource")
 @parentResource(Configuration)
 model ArcGatewayConfiguration
@@ -40,6 +42,7 @@ model ArcGatewayConfiguration
 
 @removed(Versions.v2025_06_01)
 @added(Versions.v2025_12_01_preview)
+@removed(Versions.v2026_06_01)
 @armResourceOperations
 interface ArcGatewayConfigurations {
   get is ArmResourceRead<ArcGatewayConfiguration>;
