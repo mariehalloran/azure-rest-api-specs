@@ -33,7 +33,21 @@
             "billingEmail": "new-billing@contoso.com",
             "ownerEmail": "admin@contoso.com",
             "defaultWorkspace": {
-              "name": "my first workspace"
+              "name": "my first workspace",
+              "marketplaceDetails": [
+                {
+                  "offerDetails": {
+                    "offerId": "kore-ai-platform",
+                    "planId": "business-monthly",
+                    "publisherId": "kore-ai",
+                    "planName": "Business Monthly",
+                    "termId": "1m",
+                    "termUnit": "P1M"
+                  },
+                  "subscriptionId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-rg/providers/Microsoft.SaaS/resources/kore-ai-saas",
+                  "subscriptionStatus": "Subscribed"
+                }
+              ]
             }
           },
           "user": {
@@ -53,4 +67,3 @@
     }
   }
 }
-
