@@ -112,7 +112,9 @@ model DefaultWorkspaceProperties {
    * At least one entry is required. Mutable to support Marketplace-driven
    * plan changes.
    */
+  @added(Versions.v2026_07_01_preview)
   @minItems(1)
+  @maxItems(20)
   @identifiers(#["subscriptionId"])
   marketplaceDetails: LiftrBase.MarketplaceDetails[];
 }
@@ -123,6 +125,16 @@ model DefaultWorkspaceProperties {
 
 /** Properties of a Kore.AgentPlatform Organization. */
 model OrganizationProperties {
+  /**
+   * Azure Marketplace SaaS subscriptions linked to this Organization.
+   * At least one entry is required. Mutable to support Marketplace-driven
+   * plan changes.
+   */
+  @removed(Versions.v2026_07_01_preview)
+  @minItems(1)
+  @identifiers(#["subscriptionId"])
+  marketplaceDetails: LiftrBase.MarketplaceDetails[];
+
   /** Partner-specific (Kore) Organization properties. */
   partnerProperties: OrganizationPartnerProperties;
 
@@ -135,6 +147,16 @@ model OrganizationProperties {
   /** Single sign-on metadata returned by the partner after Organization creation. */
   @visibility(Lifecycle.Read)
   singleSignOn?: SingleSignOnProperties;
+
+  /** Partner-issued identifier of the default Workspace for this Organization. */
+  @added(Versions.v2026_07_01_preview)
+  @visibility(Lifecycle.Read)
+  defaultWorkspaceId?: string;
+
+  /** Total count of Workspaces under this Organization. */
+  @added(Versions.v2026_07_01_preview)
+  @visibility(Lifecycle.Read)
+  workspaceCount?: int32;
 
   /** Provisioning state of the resource. */
   @visibility(Lifecycle.Read)
@@ -181,7 +203,9 @@ model WorkspaceProperties {
    * At least one entry is required. Mutable to support Marketplace-driven
    * plan changes.
    */
+  @added(Versions.v2026_07_01_preview)
   @minItems(1)
+  @maxItems(20)
   @identifiers(#["subscriptionId"])
   marketplaceDetails: LiftrBase.MarketplaceDetails[];
 
@@ -199,6 +223,53 @@ model WorkspaceProperties {
   /** Provisioning state of the resource. */
   @visibility(Lifecycle.Read)
   provisioningState?: ResourceProvisioningState;
+}
+
+/** A Workspace row returned from list operations. */
+@added(Versions.v2026_07_01_preview)
+model WorkspaceSummary {
+  /** Partner-issued Workspace identifier (e.g., "ws_01..."). */
+  id: string;
+
+  /** Display name of the Workspace. */
+  name: string;
+
+  /** Email address of the Workspace owner. */
+  ownerEmail?: email;
+
+  /** Indicates whether this is the default Workspace for the Organization. */
+  default: boolean;
+
+  /** Lifecycle status of the Workspace. */
+  status: WorkspaceLifecycleStatus;
+
+  /** Time at which the Workspace was created. */
+  createdAt: utcDateTime;
+
+  /** Time at which the Workspace was last updated. */
+  updatedAt: utcDateTime;
+
+  /** Marketplace subscriptions linked to this Workspace. */
+  @maxItems(20)
+  @identifiers(#["subscriptionId"])
+  marketplaceDetails: LiftrBase.MarketplaceDetails[];
+}
+
+/** Paginated list response for Organization Workspace listing. */
+@added(Versions.v2026_07_01_preview)
+model WorkspaceListByOrganizationResponse {
+  /** Total number of workspaces matching the filter. */
+  total: int32;
+
+  /** Number of items skipped. */
+  offset: int32;
+
+  /** Maximum number of items requested. */
+  limit: int32;
+
+  /** Workspace rows in the current page. */
+  @identifiers(#["id"])
+  workspaces: WorkspaceSummary[];
 }
 
 // =============================================================================
@@ -221,6 +292,14 @@ model OrganizationResourceUpdate {
 
 /** Mutable Organization properties (subset of OrganizationProperties). */
 model OrganizationPropertiesUpdate {
+  /**
+   * Azure Marketplace SaaS subscriptions linked to this Organization.
+   * Mutable to support Marketplace-driven plan changes.
+   */
+  @removed(Versions.v2026_07_01_preview)
+  @identifiers(#["subscriptionId"])
+  marketplaceDetails?: LiftrBase.MarketplaceDetails[];
+
   /** Partner-specific (Kore) Organization properties. */
   partnerProperties?: OrganizationPartnerPropertiesUpdate;
 

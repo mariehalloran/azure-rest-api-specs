@@ -513,6 +513,129 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/linkSaaS": {
+      "post": {
+        "operationId": "Organizations_LinkSaaS",
+        "tags": [
+          "Organizations"
+        ],
+        "summary": "Links SaaS resources to the organization.",
+        "description": "Links SaaS resources to the organization. Accepts the full list of SaaS assets to be linked.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "organizationName",
+            "in": "path",
+            "description": "Name of the Organization.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SaaSData"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Azure operation completed successfully."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Organizations_LinkSaaS": {
+            "$ref": "./examples/Organizations_LinkSaaS.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/listLinkedSaaS": {
+      "post": {
+        "operationId": "Organizations_ListLinkedSaaS",
+        "tags": [
+          "Organizations"
+        ],
+        "description": "Returns the list of SaaS resources linked to the organization.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "organizationName",
+            "in": "path",
+            "description": "Name of the Organization.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/LinkedSaaSListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Organizations_ListLinkedSaaS": {
+            "$ref": "./examples/Organizations_ListLinkedSaaS.json"
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/workspaces": {
       "get": {
         "operationId": "Workspaces_ListByOrganization",
@@ -788,149 +911,6 @@
         },
         "x-ms-long-running-operation": true
       }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/workspaces/{workspaceName}/linkSaaS": {
-      "post": {
-        "operationId": "Workspaces_LinkSaaS",
-        "tags": [
-          "Workspaces"
-        ],
-        "summary": "Links SaaS resources to the workspace.",
-        "description": "Links SaaS resources to the workspace. Accepts the full list of SaaS assets to be linked.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "organizationName",
-            "in": "path",
-            "description": "Name of the Organization.",
-            "required": true,
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 50,
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
-          },
-          {
-            "name": "workspaceName",
-            "in": "path",
-            "description": "Name of the Workspace.",
-            "required": true,
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100,
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,98}[a-zA-Z0-9]$"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "The content of the action request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/SaaSData"
-            }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Resource operation accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "204": {
-            "description": "Azure operation completed successfully."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Workspaces_LinkSaaS": {
-            "$ref": "./examples/Workspaces_LinkSaaS.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/workspaces/{workspaceName}/listLinkedSaaS": {
-      "post": {
-        "operationId": "Workspaces_ListLinkedSaaS",
-        "tags": [
-          "Workspaces"
-        ],
-        "description": "Returns the list of SaaS resources linked to the workspace.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "organizationName",
-            "in": "path",
-            "description": "Name of the Organization.",
-            "required": true,
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 50,
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
-          },
-          {
-            "name": "workspaceName",
-            "in": "path",
-            "description": "Name of the Workspace.",
-            "required": true,
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100,
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,98}[a-zA-Z0-9]$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/LinkedSaaSListResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Workspaces_ListLinkedSaaS": {
-            "$ref": "./examples/Workspaces_ListLinkedSaaS.json"
-          }
-        }
-      }
     }
   },
   "definitions": {
@@ -1024,22 +1004,10 @@
           "description": "Display name of the default Workspace.",
           "minLength": 2,
           "maxLength": 100
-        },
-        "marketplaceDetails": {
-          "type": "array",
-          "description": "Azure Marketplace SaaS subscriptions linked to this Workspace.\nAt least one entry is required. Mutable to support Marketplace-driven\nplan changes.",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/definitions/LiftrBase.MarketplaceDetails"
-          },
-          "x-ms-identifiers": [
-            "subscriptionId"
-          ]
         }
       },
       "required": [
-        "name",
-        "marketplaceDetails"
+        "name"
       ]
     },
     "LiftrBase.MarketplaceDetails": {
@@ -1308,6 +1276,17 @@
       "type": "object",
       "description": "Properties of a Kore.AgentPlatform Organization.",
       "properties": {
+        "marketplaceDetails": {
+          "type": "array",
+          "description": "Azure Marketplace SaaS subscriptions linked to this Organization.\nAt least one entry is required. Mutable to support Marketplace-driven\nplan changes.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/LiftrBase.MarketplaceDetails"
+          },
+          "x-ms-identifiers": [
+            "subscriptionId"
+          ]
+        },
         "partnerProperties": {
           "$ref": "#/definitions/OrganizationPartnerProperties",
           "description": "Partner-specific (Kore) Organization properties."
@@ -1332,6 +1311,7 @@
         }
       },
       "required": [
+        "marketplaceDetails",
         "partnerProperties",
         "user"
       ]
@@ -1340,6 +1320,16 @@
       "type": "object",
       "description": "Mutable Organization properties (subset of OrganizationProperties).",
       "properties": {
+        "marketplaceDetails": {
+          "type": "array",
+          "description": "Azure Marketplace SaaS subscriptions linked to this Organization.\nMutable to support Marketplace-driven plan changes.",
+          "items": {
+            "$ref": "#/definitions/LiftrBase.MarketplaceDetails"
+          },
+          "x-ms-identifiers": [
+            "subscriptionId"
+          ]
+        },
         "partnerProperties": {
           "$ref": "#/definitions/OrganizationPartnerPropertiesUpdate",
           "description": "Partner-specific (Kore) Organization properties."
@@ -1565,17 +1555,6 @@
       "type": "object",
       "description": "Properties of a Kore.AgentPlatform Workspace.",
       "properties": {
-        "marketplaceDetails": {
-          "type": "array",
-          "description": "Azure Marketplace SaaS subscriptions linked to this Workspace.\nAt least one entry is required. Mutable to support Marketplace-driven\nplan changes.",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/definitions/LiftrBase.MarketplaceDetails"
-          },
-          "x-ms-identifiers": [
-            "subscriptionId"
-          ]
-        },
         "partnerProperties": {
           "$ref": "#/definitions/WorkspacePartnerProperties",
           "description": "Partner-specific (Kore) Workspace properties."
@@ -1597,7 +1576,6 @@
         }
       },
       "required": [
-        "marketplaceDetails",
         "partnerProperties"
       ]
     },

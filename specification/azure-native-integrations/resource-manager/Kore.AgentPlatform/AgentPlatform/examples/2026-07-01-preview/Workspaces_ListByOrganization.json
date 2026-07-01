@@ -1,0 +1,70 @@
+{
+  "title": "Workspaces_ListByOrganization",
+  "operationId": "Workspaces_ListByOrganization",
+  "parameters": {
+    "api-version": "2026-07-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "contoso-rg",
+    "organizationName": "contoso-org",
+    "offset": 0,
+    "limit": 25,
+    "status": "active"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "total": 2,
+        "offset": 0,
+        "limit": 25,
+        "workspaces": [
+          {
+            "id": "ws_01JK2MXYZ9ABCDEF000001",
+            "name": "my first workspace",
+            "ownerEmail": "admin@contoso.com",
+            "default": true,
+            "status": "active",
+            "createdAt": "2026-05-18T08:00:00.000Z",
+            "updatedAt": "2026-05-18T08:00:00.000Z",
+            "marketplaceDetails": [
+              {
+                "subscriptionId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-rg/providers/Microsoft.SaaS/resources/kore-ai-saas",
+                "subscriptionStatus": "Subscribed",
+                "offerDetails": {
+                  "publisherId": "kore-ai",
+                  "offerId": "kore-ai-platform",
+                  "planId": "business-monthly",
+                  "planName": "Business Monthly",
+                  "termUnit": "P1M",
+                  "termId": "1m"
+                }
+              }
+            ]
+          },
+          {
+            "id": "ws_01JK2MXYZ9ABCDEF000002",
+            "name": "Contoso Production",
+            "ownerEmail": "owner@contoso.com",
+            "default": false,
+            "status": "active",
+            "createdAt": "2026-05-18T08:00:00.000Z",
+            "updatedAt": "2026-05-18T08:00:00.000Z",
+            "marketplaceDetails": [
+              {
+                "subscriptionId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/contoso-rg/providers/Microsoft.SaaS/resources/kore-ai-saas",
+                "subscriptionStatus": "Subscribed",
+                "offerDetails": {
+                  "publisherId": "kore-ai",
+                  "offerId": "kore-ai-platform",
+                  "planId": "business-monthly",
+                  "planName": "Business Monthly",
+                  "termUnit": "P1M",
+                  "termId": "1m"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
