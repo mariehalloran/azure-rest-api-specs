@@ -732,7 +732,7 @@
       "description": "Configuration validation run. A run represents the complete, immutable results of a single configuration validation execution for a configuration validation result.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/RunProperties",
+          "$ref": "#/definitions/ConfigurationValidationResultsProperties",
           "description": "The resource-specific properties for this resource."
         }
       },
@@ -761,90 +761,6 @@
       },
       "required": [
         "value"
-      ]
-    },
-    "RunProperties": {
-      "type": "object",
-      "description": "Configuration validation run properties. A run captures the complete, immutable results of a single configuration validation execution.",
-      "properties": {
-        "workloadInstanceArmId": {
-          "type": "string",
-          "description": "The workload instance ARM ID."
-        },
-        "workloadSystemIdentifier": {
-          "type": "string",
-          "description": "The workload system identifier."
-        },
-        "environment": {
-          "type": "string",
-          "description": "The environment of the resource being validated."
-        },
-        "componentName": {
-          "type": "string",
-          "description": "The name of the component being validated."
-        },
-        "componentType": {
-          "type": "string",
-          "description": "The type of the component being validated."
-        },
-        "roleName": {
-          "type": "string",
-          "description": "The name of the role being validated."
-        },
-        "resourceArmIds": {
-          "type": "array",
-          "description": "The ARM IDs of resources associated with this validation.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "workloadType": {
-          "type": "string",
-          "description": "The type of workload being validated, such as 'SAP', 'Kubernetes', 'Oracle' etc."
-        },
-        "configurationChecksTemplateId": {
-          "type": "string",
-          "description": "The template ID of the configuration checks being applied."
-        },
-        "evaluationType": {
-          "$ref": "#/definitions/ConfigurationChecksEvaluationType",
-          "description": "The type of evaluation performed on the configuration checks."
-        },
-        "evaluationTimestamp": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The timestamp when the evaluation was performed."
-        },
-        "errorDetails": {
-          "type": "array",
-          "description": "Error details related to the configuration check execution.",
-          "items": {
-            "$ref": "#/definitions/ErrorDetails"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": []
-        },
-        "evaluationResults": {
-          "type": "array",
-          "description": "The results of the configuration validation.",
-          "items": {
-            "$ref": "#/definitions/EvaluationResults"
-          },
-          "x-ms-identifiers": []
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ValidationConfigurationResultsProvisioningState",
-          "description": "The provisioning state of the validation results resource.",
-          "readOnly": true
-        }
-      },
-      "required": [
-        "workloadInstanceArmId",
-        "environment",
-        "resourceArmIds",
-        "evaluationType",
-        "evaluationTimestamp",
-        "evaluationResults"
       ]
     },
     "ValidationConfigurationResultsProvisioningState": {

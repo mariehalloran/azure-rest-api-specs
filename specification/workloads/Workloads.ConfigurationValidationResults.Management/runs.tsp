@@ -16,7 +16,7 @@ namespace Microsoft.Workloads;
 @doc("Configuration validation run. A run represents the complete, immutable results of a single configuration validation execution for a configuration validation result.")
 @added(Versions.v2026_07_01_preview)
 @parentResource(ConfigurationValidationResults)
-model Run is ProxyResource<RunProperties> {
+model Run is ProxyResource<ConfigurationValidationResultsProperties> {
   /**
    * Defines the parameters for naming the configuration validation run resource.
    */
