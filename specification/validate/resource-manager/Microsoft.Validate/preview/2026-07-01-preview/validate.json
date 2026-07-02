@@ -117,6 +117,24 @@
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.top"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.skip"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.maxpagesize"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.orderby"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.filter"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.audience"
           }
         ],
         "responses": {
@@ -237,6 +255,54 @@
           }
         }
       },
+      "patch": {
+        "operationId": "ValidationTestCategories_Update",
+        "tags": [
+          "Validation Test Category Interfaces"
+        ],
+        "description": "Update a validation test category catalog entry",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "validationTestCategoryName",
+            "in": "path",
+            "description": "The validation test category name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,90}$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ValidationTestCategory"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestCategory"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTestCategories_Update_MaximumSet": {
+            "$ref": "./examples/ValidationTestCategories_Update_MaximumSet_Gen.json"
+          }
+        }
+      },
       "delete": {
         "operationId": "ValidationTestCategories_Delete",
         "tags": [
@@ -287,6 +353,24 @@
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.top"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.skip"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.maxpagesize"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.orderby"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.filter"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.audience"
           }
         ],
         "responses": {
@@ -407,6 +491,54 @@
           }
         }
       },
+      "patch": {
+        "operationId": "ValidationTests_Update",
+        "tags": [
+          "Validation Test Interfaces"
+        ],
+        "description": "Update a validation test catalog entry",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "validationTestName",
+            "in": "path",
+            "description": "The validation test name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,90}$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ValidationTest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidationTest"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTests_Update_MaximumSet": {
+            "$ref": "./examples/ValidationTests_Update_MaximumSet_Gen.json"
+          }
+        }
+      },
       "delete": {
         "operationId": "ValidationTests_Delete",
         "tags": [
@@ -465,6 +597,24 @@
             "required": true,
             "type": "string",
             "pattern": "^[a-zA-Z0-9-]{1,90}$"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.top"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.skip"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.maxpagesize"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.orderby"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.filter"
+          },
+          {
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters.audience"
           }
         ],
         "responses": {
@@ -598,6 +748,62 @@
         "x-ms-examples": {
           "ValidationTestVersions_Put_MaximumSet": {
             "$ref": "./examples/ValidationTestVersions_Put_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "ValidationTestVersions_Update",
+        "tags": [
+          "Validation Test Version Interfaces"
+        ],
+        "description": "Update a validation test version catalog entry",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "validationTestName",
+            "in": "path",
+            "description": "The name of the ValidationTest",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{1,90}$"
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "The name of the ValidationTestVersion",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9._-]{1,64}$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ValidationTestVersionUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidationTestVersion"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ValidationTestVersions_Update_MaximumSet": {
+            "$ref": "./examples/ValidationTestVersions_Update_MaximumSet_Gen.json"
           }
         }
       },
@@ -2806,6 +3012,101 @@
         }
       }
     },
+    "ValidationTestInput": {
+      "type": "object",
+      "description": "A named declared input parameter for a validation test contract.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The input parameter name."
+        },
+        "definition": {
+          "$ref": "#/definitions/ValidationTestInputDefinition",
+          "description": "The declared contract for this input parameter."
+        }
+      },
+      "required": [
+        "name",
+        "definition"
+      ]
+    },
+    "ValidationTestInputDataType": {
+      "type": "string",
+      "description": "Supported data types for a declared test input.",
+      "enum": [
+        "String",
+        "Integer",
+        "Number",
+        "Boolean",
+        "Object",
+        "Array"
+      ],
+      "x-ms-enum": {
+        "name": "ValidationTestInputDataType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "String",
+            "value": "String",
+            "description": "String input value."
+          },
+          {
+            "name": "Integer",
+            "value": "Integer",
+            "description": "Integer input value."
+          },
+          {
+            "name": "Number",
+            "value": "Number",
+            "description": "Numeric input value."
+          },
+          {
+            "name": "Boolean",
+            "value": "Boolean",
+            "description": "Boolean input value."
+          },
+          {
+            "name": "Object",
+            "value": "Object",
+            "description": "Object input value."
+          },
+          {
+            "name": "Array",
+            "value": "Array",
+            "description": "Array input value."
+          }
+        ]
+      }
+    },
+    "ValidationTestInputDefinition": {
+      "type": "object",
+      "description": "Declared contract for a validation test input parameter.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Description of the declared input parameter."
+        },
+        "type": {
+          "$ref": "#/definitions/ValidationTestInputDataType",
+          "description": "The data type expected for this input parameter."
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Whether this input parameter is required."
+        },
+        "defaultValue": {
+          "type": "string",
+          "description": "Optional default value to use when input is not provided."
+        },
+        "allowedValues": {
+          "type": "array",
+          "description": "Allowed values for this input parameter.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "ValidationTestListResult": {
       "type": "object",
       "description": "The response of a ValidationTest list operation.",
@@ -2826,6 +3127,42 @@
       "required": [
         "value"
       ]
+    },
+    "ValidationTestOverallState": {
+      "type": "string",
+      "description": "The overall state of a validation test or test version.",
+      "enum": [
+        "Draft",
+        "Active",
+        "Published",
+        "Disabled"
+      ],
+      "x-ms-enum": {
+        "name": "ValidationTestOverallState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Draft",
+            "value": "Draft",
+            "description": "The validation test definition is in draft state."
+          },
+          {
+            "name": "Active",
+            "value": "Active",
+            "description": "The validation test definition is active."
+          },
+          {
+            "name": "Published",
+            "value": "Published",
+            "description": "The validation test definition is published."
+          },
+          {
+            "name": "Disabled",
+            "value": "Disabled",
+            "description": "The validation test definition is disabled."
+          }
+        ]
+      }
     },
     "ValidationTestPassDetails": {
       "type": "object",
@@ -2873,8 +3210,22 @@
           }
         },
         "overallState": {
-          "type": "string",
+          "$ref": "#/definitions/ValidationTestOverallState",
           "description": "Overall state of the validation test."
+        },
+        "owners": {
+          "type": "array",
+          "description": "Owners of the validation test definition.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "inputs": {
+          "type": "array",
+          "description": "Declared input contract for this validation test.",
+          "items": {
+            "$ref": "#/definitions/ValidationTestInput"
+          }
         },
         "testStoreUri": {
           "type": "string",
@@ -3123,14 +3474,48 @@
           }
         },
         "overallState": {
-          "type": "string",
+          "$ref": "#/definitions/ValidationTestOverallState",
           "description": "Overall state of the validation test."
+        },
+        "owners": {
+          "type": "array",
+          "description": "Owners of the validation test version definition.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "inputs": {
+          "type": "array",
+          "description": "Declared input contract for this validation test version.",
+          "items": {
+            "$ref": "#/definitions/ValidationTestInput"
+          }
+        },
+        "contentHash": {
+          "type": "string",
+          "description": "SHA-256 hash of the version content used for integrity and deduplication.",
+          "pattern": "^[A-Fa-f0-9]{64}$"
         },
         "testStoreUri": {
           "type": "string",
           "description": "URI of the test artifact in TestStore."
         }
       }
+    },
+    "ValidationTestVersionUpdate": {
+      "type": "object",
+      "description": "Validation test version catalog entry.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ValidationTestVersionProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
     }
   },
   "parameters": {
@@ -3181,6 +3566,84 @@
       "type": "integer",
       "format": "int32",
       "x-ms-parameter-location": "method"
+    },
+    "ValidationCatalogListQueryParameters.audience": {
+      "name": "audience",
+      "in": "query",
+      "description": "Filter by audience visibility.",
+      "required": false,
+      "type": "string",
+      "enum": [
+        "Public",
+        "Internal"
+      ],
+      "x-ms-enum": {
+        "name": "CatalogAudience",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Public",
+            "value": "Public",
+            "description": "Visible to all customers, including 1P and 3P callers."
+          },
+          {
+            "name": "Internal",
+            "value": "Internal",
+            "description": "Visible only to authorized internal 1P callers."
+          }
+        ]
+      },
+      "x-ms-parameter-location": "method"
+    },
+    "ValidationCatalogListQueryParameters.filter": {
+      "name": "$filter",
+      "in": "query",
+      "description": "Filter expression used to constrain the returned items.",
+      "required": false,
+      "type": "string",
+      "x-ms-parameter-location": "method",
+      "x-ms-client-name": "filter"
+    },
+    "ValidationCatalogListQueryParameters.maxpagesize": {
+      "name": "maxpagesize",
+      "in": "query",
+      "description": "The maximum number of items to return in each page.",
+      "required": false,
+      "type": "integer",
+      "format": "int32",
+      "minimum": 1,
+      "x-ms-parameter-location": "method"
+    },
+    "ValidationCatalogListQueryParameters.orderby": {
+      "name": "$orderby",
+      "in": "query",
+      "description": "Order-by expression to sort the returned items.",
+      "required": false,
+      "type": "string",
+      "x-ms-parameter-location": "method",
+      "x-ms-client-name": "orderby"
+    },
+    "ValidationCatalogListQueryParameters.skip": {
+      "name": "$skip",
+      "in": "query",
+      "description": "The number of items to skip before starting to collect the result set.",
+      "required": false,
+      "type": "integer",
+      "format": "int32",
+      "minimum": 0,
+      "x-ms-parameter-location": "method",
+      "x-ms-client-name": "skip"
+    },
+    "ValidationCatalogListQueryParameters.top": {
+      "name": "$top",
+      "in": "query",
+      "description": "The number of items to return in the current page.",
+      "required": false,
+      "type": "integer",
+      "format": "int32",
+      "minimum": 1,
+      "x-ms-parameter-location": "method",
+      "x-ms-client-name": "top"
     }
   }
 }
