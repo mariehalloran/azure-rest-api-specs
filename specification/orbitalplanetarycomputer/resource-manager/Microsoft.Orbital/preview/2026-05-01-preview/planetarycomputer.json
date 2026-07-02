@@ -420,16 +420,6 @@
         ]
       }
     },
-    "BasicProperties": {
-      "type": "object",
-      "description": "Resource Configuration Properties for Basic tier",
-      "allOf": [
-        {
-          "$ref": "#/definitions/ResourceConfigurationProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "Basic"
-    },
     "CatalogTier": {
       "type": "string",
       "description": "The Microsoft Planetary Computer Pro GeoCatalog tier",
@@ -499,7 +489,7 @@
           {
             "name": "Basic",
             "value": "Basic",
-            "description": "The database tier that for the geocatalog"
+            "description": "The database tier for the geocatalog"
           },
           {
             "name": "Standard",
@@ -719,8 +709,8 @@
           ]
         },
         "resourceConfigurationProperties": {
-          "$ref": "#/definitions/ResourceConfigurationProperties",
-          "description": "Resource Specific Configuration properties. Must match the tier property.",
+          "$ref": "#/definitions/PremiumConfiguration",
+          "description": "Premium tier configuration. Only valid when `tier` is `Premium`; must be omitted for Basic catalogs. The server will return a validation error if provided with a Basic tier catalog.",
           "x-ms-mutability": [
             "read",
             "create"
@@ -763,9 +753,9 @@
         }
       }
     },
-    "PremiumProperties": {
+    "PremiumConfiguration": {
       "type": "object",
-      "description": "Resource Configuration Properties for Premium tier",
+      "description": "Premium tier configuration properties for a GeoCatalog. Only valid when `tier` is `Premium`; must be omitted for Basic catalogs. The server will return a validation error if provided with a Basic tier catalog.",
       "properties": {
         "computeProperties": {
           "$ref": "#/definitions/GeoCatalogComputeProperties",
@@ -780,6 +770,7 @@
           "format": "int32",
           "description": "The capacity of managed storage in Petabytes (minimum 5)",
           "default": 5,
+          "minimum": 5,
           "x-ms-mutability": [
             "read",
             "create"
@@ -801,7 +792,7 @@
               {
                 "name": "Basic",
                 "value": "Basic",
-                "description": "The database tier that for the geocatalog"
+                "description": "The database tier for the geocatalog"
               },
               {
                 "name": "Standard",
@@ -820,13 +811,7 @@
             "create"
           ]
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/ResourceConfigurationProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "Premium"
+      }
     },
     "ProvisioningState": {
       "type": "string",
@@ -883,24 +868,5 @@
       },
       "readOnly": true
     },
-    "ResourceConfigurationProperties": {
-      "type": "object",
-      "description": "Resource Configuration Properties based on catalog tier",
-      "properties": {
-        "tier": {
-          "$ref": "#/definitions/CatalogTier",
-          "description": "Tier of the catalog.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        }
-      },
-      "discriminator": "tier",
-      "required": [
-        "tier"
-      ]
-    }
-  },
-  "parameters": {}
+    "parameters": {}
 }

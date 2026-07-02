@@ -128,7 +128,6 @@ union ComputeTier {
   @doc("The standard compute tier for the geocatalog")
   Standard: "Standard",
 
-  @added(Versions.`2026-05-01-preview`)
   @doc("The premium compute tier for the geocatalog")
   Premium: "Premium",
 
@@ -138,7 +137,7 @@ union ComputeTier {
 @added(Versions.`2026-05-01-preview`)
 @doc("The Microsoft Planetary Computer Pro Database tier")
 union DatabaseTier {
-  @doc("The database tier that for the geocatalog")
+  @doc("The database tier for the geocatalog")
   Basic: "Basic",
 
   @doc("The standard database tier for the geocatalog")
@@ -163,33 +162,15 @@ model GeoCatalogComputeProperties {
 }
 
 @added(Versions.`2026-05-01-preview`)
-@doc("Resource Configuration Properties based on catalog tier")
-@discriminator("tier")
-model ResourceConfigurationProperties {
-  @visibility(Lifecycle.Create, Lifecycle.Read)
-  @doc("Tier of the catalog.")
-  tier: CatalogTier;
-}
-
-@added(Versions.`2026-05-01-preview`)
-@doc("Resource Configuration Properties for Basic tier")
-model BasicProperties extends ResourceConfigurationProperties {
-  @doc("The Basic tier")
-  tier: CatalogTier.Basic;
-}
-
-@added(Versions.`2026-05-01-preview`)
-@doc("Resource Configuration Properties for Premium tier")
-model PremiumProperties extends ResourceConfigurationProperties {
-  @doc("The Premium tier")
-  tier: CatalogTier.Premium;
-
+@doc("Premium tier configuration properties for a GeoCatalog. Only valid when `tier` is `Premium`; must be omitted for Basic catalogs. The server will return a validation error if provided with a Basic tier catalog.")
+model PremiumConfiguration {
   @visibility(Lifecycle.Create, Lifecycle.Read)
   @doc("The compute properties of the geocatalog")
   computeProperties?: GeoCatalogComputeProperties;
 
   @visibility(Lifecycle.Create, Lifecycle.Read)
   @doc("The capacity of managed storage in Petabytes (minimum 5)")
+  @minValue(5)
   managedStorageCapacity?: int32 = 5;
 
   @visibility(Lifecycle.Create, Lifecycle.Read)
@@ -239,8 +220,8 @@ model GeoCatalogProperties {
 
   @added(Versions.`2026-05-01-preview`)
   @visibility(Lifecycle.Create, Lifecycle.Read)
-  @doc("Resource Specific Configuration properties. Must match the tier property.")
-  resourceConfigurationProperties?: ResourceConfigurationProperties;
+  @doc("Premium tier configuration. Only valid when `tier` is `Premium`; must be omitted for Basic catalogs. The server will return a validation error if provided with a Basic tier catalog.")
+  resourceConfigurationProperties?: PremiumConfiguration;
 }
 
 @added(Versions.`2025-07-01-preview`)
