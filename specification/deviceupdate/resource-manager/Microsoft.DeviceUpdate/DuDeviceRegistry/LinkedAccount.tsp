@@ -324,4 +324,7 @@ interface UpdateInstances {
   "The user-chosen Update Instance name. Must be unique within the subscription and is used in the resource URL and ADU service routing. Allowed characters: alphanumeric and hyphens (not leading/trailing); length 3-36."
 );
 @@doc(UpdateInstances.create::parameters.resource, "Update Instance details.");
-@@doc(UpdateInstances.update::parameters.properties, "Updated Update Instance.");
+@@doc(
+  UpdateInstances.update::parameters.properties,
+  "Updated Update Instance."
+);
