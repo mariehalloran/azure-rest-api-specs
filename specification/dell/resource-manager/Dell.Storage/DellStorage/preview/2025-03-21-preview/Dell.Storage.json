@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Dell.Storage",
-    "version": "2024-08-28-preview",
+    "version": "2025-03-21-preview",
     "description": "Dell Storage service",
     "x-typespec-generated": [
       {
@@ -56,20 +56,20 @@
         "description": "List the operations for the provider",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/OperationListResult"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/OperationListResult"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -95,10 +95,10 @@
         "description": "List FileSystemResource resources by subscription ID",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -111,7 +111,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -137,13 +137,13 @@
         "description": "List FileSystemResource resources by resource group",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           }
         ],
         "responses": {
@@ -156,7 +156,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -182,13 +182,13 @@
         "description": "Get a FileSystemResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "filesystemName",
@@ -209,7 +209,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -230,13 +230,13 @@
         "description": "Create a FileSystemResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "filesystemName",
@@ -283,7 +283,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -308,13 +308,13 @@
         "description": "Update a FileSystemResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "filesystemName",
@@ -344,7 +344,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -365,13 +365,13 @@
         "description": "Delete a FileSystemResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "filesystemName",
@@ -403,7 +403,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -444,6 +444,97 @@
         "value"
       ]
     },
+    "LiftrBase.EncryptionIdentityProperties": {
+      "type": "object",
+      "description": "EncryptionIdentityProperties of Dell FileSystem resource",
+      "properties": {
+        "identityType": {
+          "$ref": "#/definitions/LiftrBase.EncryptionIdentityType",
+          "description": "Identity type - SystemAssigned/UserAssigned - Only UserAssigned is supported now"
+        },
+        "identityResourceId": {
+          "type": "string",
+          "description": "User-assigned identity resource id - Only when user opts for UserAssigned identity and hence optional"
+        }
+      }
+    },
+    "LiftrBase.EncryptionIdentityType": {
+      "type": "string",
+      "description": "Identity type of ManagedIdentity Associated with Dell FileSystem resource",
+      "enum": [
+        "SystemAssigned",
+        "UserAssigned"
+      ],
+      "x-ms-enum": {
+        "name": "EncryptionIdentityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "SystemAssigned",
+            "value": "SystemAssigned",
+            "description": "System Assigned Managed identity"
+          },
+          {
+            "name": "UserAssigned",
+            "value": "UserAssigned",
+            "description": "User Assigned managed identity"
+          }
+        ]
+      }
+    },
+    "LiftrBase.EncryptionIdentityUpdateProperties": {
+      "type": "object",
+      "description": "EncryptionIdentityUpdateProperties of Dell FileSystem resource",
+      "properties": {
+        "identityType": {
+          "$ref": "#/definitions/LiftrBase.EncryptionIdentityType",
+          "description": "Identity type - SystemAssigned/UserAssigned - Only UserAssigned is supported now"
+        },
+        "identityResourceId": {
+          "type": "string",
+          "description": "User-assigned identity resource id - Only when user opts for UserAssigned identity and hence optional"
+        }
+      }
+    },
+    "LiftrBase.EncryptionProperties": {
+      "type": "object",
+      "description": "EncryptionProperties of Dell FileSystem resource",
+      "properties": {
+        "encryptionType": {
+          "$ref": "#/definitions/LiftrBase.ResourceEncryptionType",
+          "description": "Encryption Type - MMK/CMK"
+        },
+        "keyUrl": {
+          "type": "string",
+          "description": "Versioned Encryption Key Url - Only when user opts for CMK and hence optional"
+        },
+        "encryptionIdentityProperties": {
+          "$ref": "#/definitions/LiftrBase.EncryptionIdentityProperties",
+          "description": "Identity configuration for Customer-managed key settings defining which identity should be used to auth to Key Vault - Only when user opts for CMK and hence optional"
+        }
+      },
+      "required": [
+        "encryptionType"
+      ]
+    },
+    "LiftrBase.EncryptionUpdateProperties": {
+      "type": "object",
+      "description": "EncryptionUpdateProperties of Dell FileSystem resource",
+      "properties": {
+        "encryptionType": {
+          "$ref": "#/definitions/LiftrBase.ResourceEncryptionType",
+          "description": "Encryption Type - MMK/CMK"
+        },
+        "keyUrl": {
+          "type": "string",
+          "description": "Versioned Encryption Key Url - Only when user opts for CMK and hence optional"
+        },
+        "encryptionIdentityProperties": {
+          "$ref": "#/definitions/LiftrBase.EncryptionIdentityUpdateProperties",
+          "description": "Identity configuration for Customer-managed key settings defining which identity should be used to auth to Key Vault - Only when user opts for CMK and hence optional"
+        }
+      }
+    },
     "LiftrBase.MarketplaceDetails": {
       "type": "object",
       "description": "MarketplaceDetails of Dell FileSystem resource",
@@ -464,15 +555,32 @@
           "type": "string",
           "description": "Publisher Id"
         },
+        "privateOfferId": {
+          "type": "string",
+          "description": "Private Offer Id"
+        },
+        "planName": {
+          "type": "string",
+          "description": "Plan Name"
+        },
         "marketplaceSubscriptionStatus": {
           "$ref": "#/definitions/LiftrBase.MarketplaceSubscriptionStatus",
           "description": "Marketplace subscription status",
           "readOnly": true
+        },
+        "endDate": {
+          "type": "string",
+          "description": "End Date of the subscription"
+        },
+        "termUnit": {
+          "type": "string",
+          "description": "Term Unit"
         }
       },
       "required": [
         "planId",
-        "offerId"
+        "offerId",
+        "planName"
       ]
     },
     "LiftrBase.MarketplaceSubscriptionStatus": {
@@ -578,6 +686,52 @@
       },
       "readOnly": true
     },
+    "LiftrBase.ResourceEncryptionType": {
+      "type": "string",
+      "description": "Identity type of ManagedIdentity Associated with Dell FileSystem resource",
+      "enum": [
+        "Microsoft-managed keys (MMK)",
+        "Customer-managed keys (CMK)"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceEncryptionType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Microsoft-managed keys (MMK)",
+            "value": "Microsoft-managed keys (MMK)",
+            "description": "Microsoft managed keys (Default)"
+          },
+          {
+            "name": "Customer-managed keys (CMK)",
+            "value": "Customer-managed keys (CMK)",
+            "description": "Customer managed keys\n(CMK) - Only UserAssigned identity is supported"
+          }
+        ]
+      }
+    },
+    "LiftrBase.Storage.Capacity": {
+      "type": "object",
+      "description": "Capacity for a Resource",
+      "properties": {
+        "min": {
+          "type": "string",
+          "description": "Minimum Capacity"
+        },
+        "max": {
+          "type": "string",
+          "description": "Maximum Capacity"
+        },
+        "incremental": {
+          "type": "string",
+          "description": "Units to be increased"
+        },
+        "current": {
+          "type": "string",
+          "description": "Current Capacity of the resource"
+        }
+      }
+    },
     "LiftrBase.Storage.FileSystemResource": {
       "type": "object",
       "description": "Concrete tracked resource types can be created by aliasing this type using a specific property type.",
@@ -587,13 +741,13 @@
           "description": "The resource-specific properties for this resource."
         },
         "identity": {
-          "$ref": "../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "$ref": "../../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
           "description": "The managed service identities assigned to this resource."
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -601,12 +755,11 @@
       "type": "object",
       "description": "Properties specific to the Dell File System resource",
       "properties": {
-        "initialCapacity": {
-          "type": "integer",
-          "format": "int64",
-          "description": "Initial capacity for Dell Filesystem in bytes"
+        "capacity": {
+          "$ref": "#/definitions/LiftrBase.Storage.Capacity",
+          "description": "Capacity for Dell Filesystem, Will be received as part of Job Status"
         },
-        "marketplaceDetails": {
+        "marketplace": {
           "$ref": "#/definitions/LiftrBase.MarketplaceDetails",
           "description": "Marketplace details"
         },
@@ -624,28 +777,38 @@
           "description": "Domain range for the delegated subnet",
           "pattern": "^([0-9]{1,3}\\.){3}[0-9]{1,3}/(16|24)$"
         },
-        "userDetails": {
+        "user": {
           "$ref": "#/definitions/LiftrBase.UserDetails",
           "description": "User Details"
         },
-        "clusterLoginUrl": {
+        "fileSystemId": {
           "type": "string",
           "description": "File system Id of the resource"
         },
-        "privateIPs": {
-          "type": "array",
-          "description": "Private IPs of the resource",
-          "items": {
-            "type": "string"
-          }
+        "smartConnectFqdn": {
+          "type": "string",
+          "description": "Smart Connect FQDN of the resource"
+        },
+        "oneFsUrl": {
+          "type": "string",
+          "description": "OneFS url"
+        },
+        "dellReferenceNumber": {
+          "type": "string",
+          "description": "DellReferenceNumber of the resource"
+        },
+        "encryption": {
+          "$ref": "#/definitions/LiftrBase.EncryptionProperties",
+          "description": "EncryptionProperties of the resource"
         }
       },
       "required": [
-        "initialCapacity",
-        "marketplaceDetails",
+        "marketplace",
         "delegatedSubnetId",
         "delegatedSubnetCidr",
-        "userDetails"
+        "user",
+        "dellReferenceNumber",
+        "encryption"
       ]
     },
     "LiftrBase.Storage.FileSystemResourceUpdate": {
@@ -677,10 +840,13 @@
           "type": "string",
           "description": "Delegated subnet id for Vnet injection"
         },
-        "initialCapacity": {
-          "type": "integer",
-          "format": "int64",
-          "description": "Initial capacity for Dell Filesystem in bytes"
+        "capacity": {
+          "$ref": "#/definitions/LiftrBase.Storage.Capacity",
+          "description": "Capacity for Dell Filesystem"
+        },
+        "encryption": {
+          "$ref": "#/definitions/LiftrBase.EncryptionUpdateProperties",
+          "description": "Encryption Details of the resource"
         }
       }
     },
@@ -689,19 +855,14 @@
       "description": "Managed service identity (system assigned and/or user assigned identities)",
       "properties": {
         "type": {
-          "$ref": "../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentityType",
+          "$ref": "../../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentityType",
           "description": "The type of managed identity assigned to this resource."
         },
         "userAssignedIdentities": {
           "type": "object",
           "description": "The identities assigned to this resource by the user.",
           "additionalProperties": {
-            "allOf": [
-              {
-                "$ref": "../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/UserAssignedIdentity"
-              }
-            ],
-            "type": "object",
+            "$ref": "../../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/UserAssignedIdentity",
             "x-nullable": true
           }
         }
