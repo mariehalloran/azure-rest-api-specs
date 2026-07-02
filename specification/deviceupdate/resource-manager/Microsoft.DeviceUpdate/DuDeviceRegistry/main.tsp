@@ -4,6 +4,7 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./models.tsp";
 import "./LinkedAccount.tsp";
+import "./UpdateInstances.tsp";
 import "./client.tsp";
 
 using TypeSpec.Rest;

@@ -14,14 +14,14 @@ using TypeSpec.Versioning;
 namespace Microsoft.DeviceUpdate;
 
 /**
- * Device Update linked account details.
+ * Device Update instance details.
  */
-model LinkedAccount
-  is Azure.ResourceManager.TrackedResource<LinkedAccountProperties> {
+model UpdateInstance
+  is Azure.ResourceManager.TrackedResource<UpdateInstanceProperties> {
   ...ResourceNameParameter<
-    Resource = LinkedAccount,
-    KeyName = "linkedAccountName",
-    SegmentName = "linkedAccounts",
+    Resource = UpdateInstance,
+    KeyName = "updateInstanceName",
+    SegmentName = "updateInstances",
     NamePattern = "^[A-Za-z0-9]+(-[A-Za-z0-9]+)*$"
   >;
   ...Azure.ResourceManager.ManagedServiceIdentityProperty;
@@ -44,59 +44,48 @@ model LinkedAccount
  * These actions are publicly documented per ARM modeling guidance: external requests
  * are blocked via RP business logic rather than hiding behind an RPaaS-internal endpoint.
  */
-@removed(Versions.v2026_07_02_preview)
+@added(Versions.v2026_07_02_preview)
 @armResourceOperations
-interface LinkedAccounts {
+interface UpdateInstances {
   /**
-   * Returns linked account details for the given linked account name.
+   * Returns update instance details for the given update instance name.
    */
-  get is ArmResourceRead<LinkedAccount>;
+  get is ArmResourceRead<UpdateInstance>;
 
   /**
-   * Creates or updates a Linked Account.
+   * Creates or updates an Update Instance.
    */
-  create is ArmResourceCreateOrReplaceAsync<LinkedAccount>;
+  create is ArmResourceCreateOrReplaceAsync<UpdateInstance>;
 
   /**
-   * Updates linked account's patchable properties
+   * Updates update instance's patchable properties.
    */
-  @removed(Versions.v2026_06_01_preview)
-  @renamedFrom(Versions.v2026_06_01_preview, "update")
-  @sharedRoute
-  @patch(#{ implicitOptionality: false })
-  updateSync is ArmCustomPatchSync<LinkedAccount, LinkedAccountUpdate>;
-
-  /**
-   * Updates linked account's patchable properties
-   */
-  @added(Versions.v2026_06_01_preview)
-  @sharedRoute
   @patch(#{ implicitOptionality: false })
   update is ArmCustomPatchAsync<
-    LinkedAccount,
-    LinkedAccountUpdate,
-    LroHeaders = ArmAsyncOperationHeader<FinalResult = LinkedAccount> &
-      ArmLroLocationHeader<FinalResult = LinkedAccount> &
+    UpdateInstance,
+    UpdateInstanceUpdate,
+    LroHeaders = ArmAsyncOperationHeader<FinalResult = UpdateInstance> &
+      ArmLroLocationHeader<FinalResult = UpdateInstance> &
       Azure.Core.Foundations.RetryAfterHeader
   >;
 
   /**
-   * Deletes a linked account.
+   * Deletes an update instance.
    */
-  delete is ArmResourceDeleteWithoutOkAsync<LinkedAccount>;
+  delete is ArmResourceDeleteWithoutOkAsync<UpdateInstance>;
 
   /**
-   * Returns list of Linked Accounts.
+   * Returns list of Update Instances.
    */
-  listByResourceGroup is ArmResourceListByParent<LinkedAccount>;
+  listByResourceGroup is ArmResourceListByParent<UpdateInstance>;
 
   /**
-   * Returns list of Linked Accounts.
+   * Returns list of Update Instances.
    */
-  listBySubscription is ArmListBySubscription<LinkedAccount>;
+  listBySubscription is ArmListBySubscription<UpdateInstance>;
 
   /**
-   * Check if the Linked Account name is available
+   * Check if the Update Instance name is available.
    */
   @sharedRoute
   checkNameAvailability is checkGlobalNameAvailability;
@@ -107,7 +96,7 @@ interface LinkedAccounts {
   @access(Access.internal)
   @action("linkPreflight")
   linkPreflight is ArmResourceActionSync<
-    LinkedAccount,
+    UpdateInstance,
     LinkPreflightRequest,
     LinkPreflightResponse
   >;
@@ -118,7 +107,7 @@ interface LinkedAccounts {
   @access(Access.internal)
   @action("linkInitiate")
   linkInitiate is ArmResourceActionAsync<
-    LinkedAccount,
+    UpdateInstance,
     LinkInitiateRequest,
     AccountLinking,
     LroHeaders = ArmAsyncOperationHeader &
@@ -132,7 +121,7 @@ interface LinkedAccounts {
   @access(Access.internal)
   @action("linkNotify")
   linkNotify is ArmResourceActionAsync<
-    LinkedAccount,
+    UpdateInstance,
     LinkNotifyRequest,
     AccountLinking,
     LroHeaders = ArmAsyncOperationHeader &
@@ -144,28 +133,9 @@ interface LinkedAccounts {
    * Update linking properties (e.g., identity rotation).
    */
   @access(Access.internal)
-  @removed(Versions.v2026_06_01_preview)
-  @renamedFrom(Versions.v2026_06_01_preview, "linkUpdate")
-  @sharedRoute
-  @action("linkUpdate")
-  linkUpdateSync is ArmResourceActionSync<
-    LinkedAccount,
-    LinkUpdateRequest,
-    {
-      @body
-      body: LinkUpdateResponse;
-    }
-  >;
-
-  /**
-   * Update linking properties (e.g., identity rotation).
-   */
-  @access(Access.internal)
-  @added(Versions.v2026_06_01_preview)
-  @sharedRoute
   @action("linkUpdate")
   linkUpdate is ArmResourceActionAsync<
-    LinkedAccount,
+    UpdateInstance,
     LinkUpdateRequest,
     LinkUpdateResponse,
     LroHeaders = ArmAsyncOperationHeader &
@@ -174,15 +144,14 @@ interface LinkedAccounts {
   >;
 }
 
-@@maxLength(LinkedAccount.name, 36);
-@@minLength(LinkedAccount.name, 3);
+@@maxLength(UpdateInstance.name, 36);
+@@minLength(UpdateInstance.name, 3);
 @@doc(
-  LinkedAccount.name,
-  "The user-chosen Linked Account name. Must be unique within the subscription and is used in the resource URL and ADU service routing. Allowed characters: alphanumeric and hyphens (not leading/trailing); length 3-36."
+  UpdateInstance.name,
+  "The user-chosen Update Instance name. Must be unique within the subscription and is used in the resource URL and ADU service routing. Allowed characters: alphanumeric and hyphens (not leading/trailing); length 3-36."
 );
-@@doc(LinkedAccounts.create::parameters.resource, "Linked Account details.");
+@@doc(UpdateInstances.create::parameters.resource, "Update Instance details.");
 @@doc(
-  LinkedAccounts.updateSync::parameters.properties,
-  "Updated Linked Account."
+  UpdateInstances.update::parameters.properties,
+  "Updated Update Instance."
 );
-@@doc(LinkedAccounts.update::parameters.properties, "Updated Linked Account.");

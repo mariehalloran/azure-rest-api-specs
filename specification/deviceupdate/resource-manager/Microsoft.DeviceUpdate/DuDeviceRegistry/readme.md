@@ -20,7 +20,7 @@ tag: package-preview
 
 ### Tag: package-preview
 
-These settings apply only when `--tag=package-preview` is specified on the command line.
+These settings apply only when `--tag=package-preview` is specified on the command line. This composite tag includes every currently available API path so that the default tag contains all APIs (the older `linkedAccounts` resource and the newer `updateInstances` resource).
 
 ```yaml $(tag) == 'package-preview'
 input-file:
