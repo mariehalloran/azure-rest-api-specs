@@ -459,6 +459,12 @@ model GrafanaConfigurations {
    * Grafana Unified Alerting Screenshots settings
    */
   unifiedAlertingScreenshots?: UnifiedAlertingScreenshots;
+
+  /**
+   * Comma-delimited list of Grafana preview feature toggles to enable. Each toggle is validated against a version-aware allowlist. Example: 'canvasPanelPanZoom,timeComparison'.
+   */
+  @added(Versions.v2026_07_01_preview)
+  previewFeatureToggles?: string;
 }
 
 /**
