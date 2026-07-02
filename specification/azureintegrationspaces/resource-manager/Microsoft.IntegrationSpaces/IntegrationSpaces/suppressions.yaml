@@ -1,5 +1,5 @@
 - tool: TypeSpecRequirement
-  path: resource-manager/Microsoft.IntegrationSpaces/preview/2023-11-14-preview/**/*.json
+  path:  ./preview/2023-11-14-preview/*.json
   reason: There's a good chance we might deprovision this RP. If not, for this Preview version, TypeSpec will be added later on.
 
 - tool: TypeSpecValidation
@@ -10,4 +10,4 @@
   rules: [SdkTspConfigValidation]
   sub-rules:
     - options.@azure-tools/typespec-ts.*
-  paths: [IntegrationSpaces.Management/tspconfig.yaml]
+  paths: [tspconfig.yaml]
