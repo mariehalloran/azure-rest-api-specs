@@ -112,6 +112,7 @@ interface LinkedAccounts {
   /**
    * Check if the Linked Account name is available
    */
+  @sharedRoute
   checkNameAvailability is checkGlobalNameAvailability;
 
   /**
@@ -247,6 +248,7 @@ interface UpdateInstances {
   /**
    * Check if the Update Instance name is available.
    */
+  @sharedRoute
   checkNameAvailability is checkGlobalNameAvailability;
 
   /**
