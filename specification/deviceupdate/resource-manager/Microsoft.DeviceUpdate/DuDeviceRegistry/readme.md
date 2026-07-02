@@ -12,10 +12,28 @@ These are the global settings for the DuDeviceRegistry.
 
 ```yaml
 openapi-type: arm
-tag: package-2026-06-01-preview
+tag: package-2026-07-02-preview
 # NOTE: No explicit `default` tag is set intentionally. The `tag` value above
 # serves as the implicit default. A `default` tag will be introduced once a
 # stable API version is published.
+```
+
+### Tag: package-2026-07-02-preview
+
+These settings apply only when `--tag=package-2026-07-02-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-07-02-preview'
+input-file:
+  - preview/2026-07-02-preview/dudeviceupdate.json
+suppressions:
+  - code: INVALID_TYPE
+    from: dudeviceupdate.json
+    reason: LinkUpdateResponse is intentionally an empty object ({}) to make this response model extensible in the future without breaking changes. OAV incorrectly flags the example body as type mismatch.
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DeviceUpdate/updateInstances/{updateInstanceName}/linkUpdate"].post.responses["200"]
+  - code: AvoidAdditionalProperties
+    from: dudeviceupdate.json
+    reason: LinkUpdateResponse uses additionalProperties to represent an empty response object for forward extensibility. Will be removed when concrete properties are added.
+    where: $.definitions.LinkUpdateResponse
 ```
 
 ### Tag: package-2026-06-01-preview

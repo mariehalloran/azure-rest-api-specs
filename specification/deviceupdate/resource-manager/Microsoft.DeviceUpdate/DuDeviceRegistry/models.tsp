@@ -77,9 +77,51 @@ model LinkedAccountProperties {
 }
 
 /**
+ * Update Instance properties.
+ *
+ * All properties are read-only because resource state is managed exclusively
+ * through the internal link* action endpoints.
+ */
+model UpdateInstanceProperties {
+  /**
+   * Provisioning state.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Service-facing address for ADR→ADU communication.
+   */
+  @visibility(Lifecycle.Read)
+  serviceAddress?: string;
+
+  /**
+   * Account linking state. Absent until first /link/initiate.
+   */
+  @visibility(Lifecycle.Read)
+  linking?: AccountLinking;
+}
+
+/**
  * Request payload used to update an existing Linked Account.
  */
 model LinkedAccountUpdate {
+  /**
+   * List of key value pairs that describe the resource. This will overwrite the existing tags.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Updating dictionary of tags"
+  tags?: Record<string>;
+
+  /**
+   * The type of identity used for the resource.
+   */
+  identity?: Azure.ResourceManager.Foundations.ManagedServiceIdentity;
+}
+
+/**
+ * Request payload used to update an existing Update Instance.
+ */
+model UpdateInstanceUpdate {
   /**
    * List of key value pairs that describe the resource. This will overwrite the existing tags.
    */
