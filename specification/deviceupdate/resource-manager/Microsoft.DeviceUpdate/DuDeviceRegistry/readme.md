@@ -28,8 +28,32 @@ input-file:
 suppressions:
   - code: MISSING_APIS_IN_DEFAULT_TAG
     from: dudeviceupdate.json
-    where: $.paths
-    reason: The older 2026-06-01-preview and 2026-05-01-preview API versions expose the linkedAccounts resource, which was renamed to updateInstances and removed in 2026-07-02-preview. Those deprecated paths are intentionally absent from the default tag and remain documented in their own tags.
+    where: $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.DeviceUpdate/linkedAccounts"]
+    reason: The linkedAccounts resource was renamed to updateInstances and removed in 2026-07-02-preview. This deprecated path is intentionally absent from the default tag and remains documented in the older API version tags.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: dudeviceupdate.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DeviceUpdate/linkedAccounts"]
+    reason: The linkedAccounts resource was renamed to updateInstances and removed in 2026-07-02-preview. This deprecated path is intentionally absent from the default tag and remains documented in the older API version tags.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: dudeviceupdate.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DeviceUpdate/linkedAccounts/{linkedAccountName}"]
+    reason: The linkedAccounts resource was renamed to updateInstances and removed in 2026-07-02-preview. This deprecated path is intentionally absent from the default tag and remains documented in the older API version tags.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: dudeviceupdate.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DeviceUpdate/linkedAccounts/{linkedAccountName}/linkInitiate"]
+    reason: The linkedAccounts resource was renamed to updateInstances and removed in 2026-07-02-preview. This deprecated path is intentionally absent from the default tag and remains documented in the older API version tags.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: dudeviceupdate.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DeviceUpdate/linkedAccounts/{linkedAccountName}/linkNotify"]
+    reason: The linkedAccounts resource was renamed to updateInstances and removed in 2026-07-02-preview. This deprecated path is intentionally absent from the default tag and remains documented in the older API version tags.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: dudeviceupdate.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DeviceUpdate/linkedAccounts/{linkedAccountName}/linkPreflight"]
+    reason: The linkedAccounts resource was renamed to updateInstances and removed in 2026-07-02-preview. This deprecated path is intentionally absent from the default tag and remains documented in the older API version tags.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: dudeviceupdate.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DeviceUpdate/linkedAccounts/{linkedAccountName}/linkUpdate"]
+    reason: The linkedAccounts resource was renamed to updateInstances and removed in 2026-07-02-preview. This deprecated path is intentionally absent from the default tag and remains documented in the older API version tags.
   - code: INVALID_TYPE
     from: dudeviceupdate.json
     reason: LinkUpdateResponse is intentionally an empty object ({}) to make this response model extensible in the future without breaking changes. OAV incorrectly flags the example body as type mismatch.
