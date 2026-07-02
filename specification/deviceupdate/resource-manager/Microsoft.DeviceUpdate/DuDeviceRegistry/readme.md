@@ -18,15 +18,6 @@ tag: package-2026-07-02-preview
 # stable API version is published.
 ```
 
-## Suppression
-
-```yaml
-directive:
-  - suppress: MISSING_APIS_IN_DEFAULT_TAG
-    from: dudeviceupdate.json
-    reason: The linkedAccounts resource was renamed to updateInstances and removed in 2026-07-02-preview. The older 2026-06-01-preview and 2026-05-01-preview API versions still document the deprecated linkedAccounts paths in their own tags, so they are intentionally absent from the default (latest) tag.
-```
-
 ### Tag: package-2026-07-02-preview
 
 These settings apply only when `--tag=package-2026-07-02-preview` is specified on the command line.
@@ -35,6 +26,9 @@ These settings apply only when `--tag=package-2026-07-02-preview` is specified o
 input-file:
   - preview/2026-07-02-preview/dudeviceupdate.json
 suppressions:
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    where: $.paths
+    reason: The linkedAccounts resource was renamed to updateInstances and removed in 2026-07-02-preview. The older 2026-06-01-preview and 2026-05-01-preview API versions still document the deprecated linkedAccounts paths in their own tags, so they are intentionally absent from the default tag.
   - code: INVALID_TYPE
     from: dudeviceupdate.json
     reason: LinkUpdateResponse is intentionally an empty object ({}) to make this response model extensible in the future without breaking changes. OAV incorrectly flags the example body as type mismatch.
