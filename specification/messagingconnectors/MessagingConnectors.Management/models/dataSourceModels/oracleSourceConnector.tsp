@@ -72,6 +72,9 @@ model OracleSourceConnectorProperties extends DataSourceProperties {
   @doc("Snapshot Mode.")
   oracleSnapshotMode?: OracleSnapshotMode;
 
+  @doc("Specifies the maximum number of rows that should be read in one go from each table while taking a snapshot.")
+  snapshotFetchSize?: int32;
+
   @doc("Tables used as source, comma-separated table name list or regular expressions")
   tableIncludeList?: string;
 
