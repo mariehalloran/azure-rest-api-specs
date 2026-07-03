@@ -20,6 +20,8 @@ model Workspace is TrackedResource<WorkspaceProperties> {
   @path
   @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,63}$")
   name: string;
+
+  ...ResourceSkuProperty;
 }
 
 /** Workspace properties */
