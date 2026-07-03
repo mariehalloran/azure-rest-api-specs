@@ -1,0 +1,43 @@
+{
+  "operationId": "ErrorClusters_List",
+  "title": "List all error clusters",
+  "parameters": {
+    "api-version": "2026-05-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/providers/Microsoft.ErrorInsights/errorClusters/cluster_A1B2C3D4E5F6",
+            "name": "cluster_A1B2C3D4E5F6",
+            "type": "Microsoft.ErrorInsights/errorClusters",
+            "properties": {
+              "clusterId": "cluster_A1B2C3D4E5F6",
+              "errorCode": "GatewayTimeout",
+              "errorMessage": "Gateway server is down",
+              "targetResourceType": "Microsoft.Sql/servers/databases",
+              "memberCount": 15432,
+              "firstSeen": "2026-01-15T10:00:00.000Z",
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/providers/Microsoft.ErrorInsights/errorClusters/cluster_X9Y8Z7W6V5U4",
+            "name": "cluster_X9Y8Z7W6V5U4",
+            "type": "Microsoft.ErrorInsights/errorClusters",
+            "properties": {
+              "clusterId": "cluster_X9Y8Z7W6V5U4",
+              "errorCode": "AllocationFailed",
+              "errorMessage": "Allocation failed. We do not have sufficient capacity for the requested VM size in this region.",
+              "targetResourceType": "Microsoft.Compute/virtualMachines",
+              "memberCount": 8921,
+              "firstSeen": "2026-02-20T08:30:00.000Z",
+              "provisioningState": "Succeeded"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

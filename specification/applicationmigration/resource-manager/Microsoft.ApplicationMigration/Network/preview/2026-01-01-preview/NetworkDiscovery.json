@@ -753,6 +753,77 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApplicationMigration/networkSites/{siteName}/agents/{agentName}/refresh": {
+      "post": {
+        "operationId": "NetworkAgents_TriggerRefresh",
+        "tags": [
+          "NetworkAgents"
+        ],
+        "description": "Triggers a refresh of the network agent discovery.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "siteName",
+            "in": "path",
+            "description": "The name of the network site.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-zA-Z0-9-]*$"
+          },
+          {
+            "name": "agentName",
+            "in": "path",
+            "description": "The name of the network agent.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-zA-Z0-9-]*$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "NetworkAgents_TriggerRefresh_MaximumSet": {
+            "$ref": "./examples/NetworkAgents_TriggerRefresh_MaximumSet.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApplicationMigration/networkSites/{siteName}/nsxDistributedFirewallPolicies": {
       "get": {
         "operationId": "NsxDistributedFirewallPolicies_ListByNetworkSite",
@@ -4368,6 +4439,13 @@
           "type": "integer",
           "format": "int64",
           "description": "The number of errors."
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
@@ -5445,6 +5523,13 @@
           "items": {
             "type": "string"
           }
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
@@ -5500,6 +5585,13 @@
           "type": "integer",
           "format": "int64",
           "description": "The number of errors."
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "nsxManagerArmId": {
           "type": "string",
@@ -5693,6 +5785,13 @@
             "$ref": "#/definitions/FirewallService"
           },
           "x-ms-identifiers": []
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
@@ -5748,6 +5847,13 @@
           "type": "integer",
           "format": "int64",
           "description": "The number of errors."
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "nsxManagerArmId": {
           "type": "string",
@@ -5948,6 +6054,13 @@
             "format": "arm-id",
             "description": "A type definition that refers the id to an Azure Resource Manager resource."
           }
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
@@ -6003,6 +6116,13 @@
           "type": "integer",
           "format": "int64",
           "description": "The number of errors."
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "nsxManagerArmId": {
           "type": "string",
@@ -6204,6 +6324,13 @@
             "format": "arm-id",
             "description": "A type definition that refers the id to an Azure Resource Manager resource."
           }
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
@@ -6259,6 +6386,13 @@
           "type": "integer",
           "format": "int64",
           "description": "The number of errors."
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "nsxManagerArmId": {
           "type": "string",
@@ -6442,6 +6576,13 @@
         "backendConfig": {
           "$ref": "#/definitions/BackendConfig",
           "description": "The backend configuration (pool, health probe, SNAT)."
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
@@ -6497,6 +6638,13 @@
           "type": "integer",
           "format": "int64",
           "description": "The number of errors."
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "nsxManagerArmId": {
           "type": "string",
@@ -6637,6 +6785,13 @@
             "$ref": "#/definitions/ApplianceData"
           },
           "x-ms-identifiers": []
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
@@ -6680,6 +6835,13 @@
           "type": "integer",
           "format": "int64",
           "description": "The number of errors."
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "fqdn": {
           "type": "string",
@@ -6823,6 +6985,13 @@
         "translate": {
           "$ref": "#/definitions/NatTranslate",
           "description": "The translation target."
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
@@ -6878,6 +7047,13 @@
           "type": "integer",
           "format": "int64",
           "description": "The number of errors."
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "nsxManagerArmId": {
           "type": "string",
@@ -7001,6 +7177,13 @@
           "items": {
             "type": "string"
           }
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
@@ -7056,6 +7239,13 @@
           "type": "integer",
           "format": "int64",
           "description": "The number of errors."
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "nsxManagerArmId": {
           "type": "string",
@@ -7206,6 +7396,13 @@
               ]
             }
           }
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
@@ -7261,6 +7458,13 @@
           "type": "integer",
           "format": "int64",
           "description": "The number of errors."
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "nsxManagerArmId": {
           "type": "string",
@@ -7445,6 +7649,13 @@
             "format": "arm-id",
             "description": "A type definition that refers the id to an Azure Resource Manager resource."
           }
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
@@ -7500,6 +7711,13 @@
           "type": "integer",
           "format": "int64",
           "description": "The number of errors."
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "nsxManagerArmId": {
           "type": "string",
@@ -7675,6 +7893,13 @@
             "format": "arm-id",
             "description": "A type definition that refers the id to an Azure Resource Manager resource."
           }
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
@@ -7730,6 +7955,13 @@
           "type": "integer",
           "format": "int64",
           "description": "The number of errors."
+        },
+        "tags": {
+          "type": "object",
+          "description": "The tags applied to this resource.",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "nsxManagerArmId": {
           "type": "string",

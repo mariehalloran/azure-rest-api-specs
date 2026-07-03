@@ -10,6 +10,7 @@ namespace Microsoft.Edge;
 
 @removed(Versions.v2025_06_01)
 @added(Versions.v2025_12_01_preview)
+@removed(Versions.v2026_06_01)
 @doc("Scenario enum")
 union Scenario {
   string,

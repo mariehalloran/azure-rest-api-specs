@@ -1341,6 +1341,61 @@
           }
         }
       }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceBuilder/workspaces/{workspaceName}/pipelines/{pipelineName}/triggerRun": {
+      "post": {
+        "operationId": "Pipelines_TriggerRun",
+        "tags": [
+          "Pipelines"
+        ],
+        "description": "Trigger a run of the pipeline.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "workspaceName",
+            "in": "path",
+            "description": "The name of the workspace.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,63}$"
+          },
+          {
+            "name": "pipelineName",
+            "in": "path",
+            "description": "The name of the pipeline.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/PipelineRun"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Pipelines_TriggerRun": {
+            "$ref": "./examples/Pipelines_TriggerRun.json"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1437,6 +1492,33 @@
           "type": "integer",
           "format": "int32",
           "description": "Maximum allowed margin in percent."
+        }
+      }
+    },
+    "Azure.ResourceManager.CommonTypes.SkuUpdate": {
+      "type": "object",
+      "description": "The resource model definition representing SKU",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the SKU. Ex - P3. It is typically a letter+number code"
+        },
+        "tier": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/SkuTier",
+          "description": "This field is required to be implemented by the Resource Provider if the service has more than one tier, but is not required on a PUT."
+        },
+        "size": {
+          "type": "string",
+          "description": "The SKU size. When the name field is the combination of tier and some other value, this would be the standalone code."
+        },
+        "family": {
+          "type": "string",
+          "description": "If the service has different generations of hardware, for the same SKU, then that can be captured here."
+        },
+        "capacity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the resource this may be omitted."
         }
       }
     },
@@ -2730,6 +2812,10 @@
           "type": "string",
           "description": "Periodicity of the recurrence."
         },
+        "cronExpression": {
+          "type": "string",
+          "description": "Cron expression for the recurrence."
+        },
         "timeout": {
           "type": "string",
           "description": "Timeout for the recurrence."
@@ -2738,6 +2824,32 @@
       "required": [
         "type"
       ]
+    },
+    "PipelineRun": {
+      "type": "object",
+      "description": "A run of a pipeline.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/PipelineRunProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "PipelineRunProperties": {
+      "type": "object",
+      "description": "Pipeline run properties.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "Provisioning state of the pipeline run.",
+          "readOnly": true
+        }
+      }
     },
     "PipelineState": {
       "type": "string",
@@ -2910,7 +3022,7 @@
       "description": "Schedule type",
       "enum": [
         "Periodic",
-        "ManualTrigger"
+        "Cron"
       ],
       "x-ms-enum": {
         "name": "ScheduleType",
@@ -2922,9 +3034,9 @@
             "description": "Periodic schedule type."
           },
           {
-            "name": "ManualTrigger",
-            "value": "ManualTrigger",
-            "description": "Manual trigger schedule type."
+            "name": "Cron",
+            "value": "Cron",
+            "description": "Cron schedule type."
           }
         ]
       }
@@ -2984,6 +3096,10 @@
         "properties": {
           "$ref": "#/definitions/WorkspaceProperties",
           "description": "The resource-specific properties for this resource."
+        },
+        "sku": {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/Sku",
+          "description": "The SKU (Stock Keeping Unit) assigned to this resource."
         }
       },
       "allOf": [
@@ -3031,6 +3147,10 @@
         "properties": {
           "$ref": "#/definitions/WorkspaceProperties",
           "description": "The resource-specific properties for this resource."
+        },
+        "sku": {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.SkuUpdate",
+          "description": "The SKU (Stock Keeping Unit) assigned to this resource."
         }
       },
       "allOf": [

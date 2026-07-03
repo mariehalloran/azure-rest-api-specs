@@ -808,6 +808,39 @@
         }
       ]
     },
+    "LineItem": {
+      "type": "object",
+      "description": "The line items to purchase in the proposal.",
+      "properties": {
+        "productCode": {
+          "type": "string",
+          "description": "The product code of the line item as a UUID that uniquely identifies this line item within the proposal."
+        },
+        "resourceUri": {
+          "type": "string",
+          "description": "The resource URI of the line item.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/LineItemStatus",
+          "description": "The status of the line item.",
+          "readOnly": true
+        },
+        "errorCode": {
+          "type": "string",
+          "description": "The error code if any error occurs during processing the line item.",
+          "readOnly": true
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": "The error message if any error occurs during processing the line item.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "productCode"
+      ]
+    },
     "LineItemResource": {
       "type": "object",
       "description": "A LineItem resource nested under a Proposal.",
@@ -908,7 +941,7 @@
     },
     "LineItemStatus": {
       "type": "string",
-      "description": "The status of the line item.",
+      "description": "The status of the line item in the proposal.",
       "enum": [
         "Pending",
         "Completed"

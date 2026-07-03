@@ -1,0 +1,48 @@
+{
+  "parameters": {
+    "api-version": "2026-04-24-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "Microsoft.Offers/operations/read",
+            "display": {
+              "provider": "Microsoft.Offers",
+              "resource": "operations",
+              "operation": "List provider operations",
+              "description": "Lists all of the available Microsoft.Offers REST API operations."
+            },
+            "isDataAction": false,
+            "origin": "system"
+          },
+          {
+            "name": "Microsoft.Offers/lookupValueExchange/action",
+            "display": {
+              "provider": "Microsoft.Offers",
+              "resource": "lookupValueExchange",
+              "operation": "Look up value exchange",
+              "description": "Looks up a single value-exchange (UPN) catalog projection by its identifier."
+            },
+            "isDataAction": false,
+            "origin": "user"
+          },
+          {
+            "name": "Microsoft.Offers/lookupEnumeration/action",
+            "display": {
+              "provider": "Microsoft.Offers",
+              "resource": "lookupEnumeration",
+              "operation": "Look up enumeration",
+              "description": "Looks up a single enumeration set by its type key."
+            },
+            "isDataAction": false,
+            "origin": "user"
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "Operations_List",
+  "title": "List all operations supported by Microsoft.Offers."
+}

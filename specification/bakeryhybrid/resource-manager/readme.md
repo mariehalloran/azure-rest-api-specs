@@ -36,7 +36,7 @@ These settings apply only when `--tag=package-2023-05-01-preview` is specified o
 
 ```yaml $(tag) == 'package-2023-05-01-preview'
 input-file:
-  - hybridbakery/Microsoft.BakeryHybrid/preview/2023-05-01-preview/hybrid.json
+  - newbakeryhybrid/Microsoft.BakeryHybrid/preview/2023-05-01-preview/hybrid.json
 ```
 
 ---

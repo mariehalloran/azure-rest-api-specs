@@ -45,7 +45,10 @@ import "./EdgeMachineSecuritySettings.tsp";
 import "./ValidateOwnershipVouchers.tsp";
 import "./ClusterJobs.tsp";
 import "./ClusterVolume.tsp";
+import "./CapacitySetting.tsp";
 import "./DevicePool.tsp";
+import "./ProxyConfiguration.tsp";
+import "./client.tsp";
 
 // PRIVATE PREVIEW - Storage Arrays subtree (read-only)
 import "./StorageArray.tsp";

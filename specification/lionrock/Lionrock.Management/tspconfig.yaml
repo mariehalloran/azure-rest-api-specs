@@ -11,14 +11,9 @@ options:
     examples-dir: "{project-root}/examples"
     output-file: "{azure-resource-provider-folder}/{service-name}/{version-status}/{version}/lionrock.json"
     use-read-only-status-schema: "true"
-  "@azure-tools/typespec-csharp":
-    service-name: "Lionrock"
-    package-dir: "Azure.ResourceManager.Lionrock"
+  "@azure-typespec/http-client-csharp-mgmt":
     namespace: "Azure.ResourceManager.Lionrock"
-    model-namespace: true
-    clear-output-folder: true
-    flavor: "azure"
-    emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.Lionrock"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-go":
     service-dir: "sdk/resourcemanager/lionrock"
     package-dir: "armlionrock"

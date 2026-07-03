@@ -81,6 +81,86 @@
       }
     }
   },
-  "definitions": {},
+  "definitions": {
+    "Azure.ResourceManager.ResourceProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a resource type.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "UnassignedErrorAttributes": {
+      "type": "object",
+      "description": "Details of the unassigned error event.",
+      "properties": {
+        "eventTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of when the error occurred."
+        },
+        "errorCode": {
+          "type": "string",
+          "description": "Error code from the Azure service (e.g., GatewayTimeout, AllocationFailed). Values are unbounded as they originate from arbitrary Azure resource providers."
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": "Detailed error message."
+        }
+      },
+      "required": [
+        "eventTimestamp",
+        "errorCode"
+      ]
+    },
+    "UnassignedErrorProperties": {
+      "type": "object",
+      "description": "Properties of an unassigned error event.",
+      "properties": {
+        "targetResourceType": {
+          "type": "string",
+          "description": "ARM resource type of the target resource (e.g., Microsoft.Sql/servers/databases).",
+          "readOnly": true
+        },
+        "errorAttributes": {
+          "$ref": "#/definitions/UnassignedErrorAttributes",
+          "description": "Error details.",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "The provisioning state of the resource.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "targetResourceType",
+        "errorAttributes"
+      ]
+    }
+  },
   "parameters": {}
 }

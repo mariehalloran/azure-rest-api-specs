@@ -18,7 +18,7 @@ union MigrationMode {
 }
 
 @doc("The source database engine type for migration service.")
-union MigrationServiceSourceEngine {
+union SourceType {
   string,
 
   @doc("Oracle database engine")
@@ -29,32 +29,46 @@ union MigrationServiceSourceEngine {
 }
 
 @doc("The target database engine type for migration service.")
-union MigrationServiceTargetEngine {
+union TargetType {
   string,
 
   @doc("Azure Database for PostgreSQL")
   AzureDatabaseForPostgreSQL: "Azure Database for PostgreSQL",
 }
 
-@doc("The source platform type for database migration.")
-union MigrationSourceType {
+@doc("The database engine type for connectivity testing.")
+union CheckConnectivityType {
   string,
 
-  @doc("Amazon Web Services")
-  AWS: "AWS",
-
-  @doc("Google Cloud Platform")
-  GCP: "GCP",
-
-  @doc("Oracle Cloud")
+  @doc("Oracle database engine")
   Oracle: "Oracle",
 
-  @doc("On-premises")
-  OnPrem: "OnPrem",
+  @doc("PostgreSQL database engine")
+  PostgreSQL: "PostgreSQL",
+
+  @doc("Azure Database for PostgreSQL")
+  AzureDatabaseForPostgreSQL: "Azure Database for PostgreSQL",
+}
+
+@doc("The source server type for database migration.")
+union SourceServerType {
+  string,
+
+  @doc("On-Premises server")
+  OnPremises: "On-Premises",
+
+  @doc("Azure Virtual Machine")
+  AzureVirtualMachine: "Azure Virtual Machine",
+
+  @doc("Amazon EC2")
+  AmazonEC2: "Amazon EC2",
+
+  @doc("Amazon RDS")
+  AmazonRDS: "Amazon RDS",
 }
 
 @doc("The target platform type for database migration.")
-union MigrationTargetType {
+union TargetServerType {
   string,
 
   @doc("Azure PostgreSQL Flexible Server")
@@ -62,31 +76,6 @@ union MigrationTargetType {
 
   @doc("Azure PostgreSQL Horizon DB")
   AzurePostgreSQLHorizonDb: "AzurePostgreSQLHorizonDb",
-}
-
-@doc("The source database engine type.")
-union SourceDatabaseEngine {
-  string,
-
-  @doc("Oracle database engine")
-  Oracle: "oracle",
-
-  @doc("PostgreSQL database engine")
-  Postgres: "postgres",
-
-  @doc("Azure PostgreSQL Flexible Server")
-  AzurePostgresFlexible: "azure_postgres_flexible",
-}
-
-@doc("The source database engine type.")
-union TargetDatabaseEngine {
-  string,
-
-  @doc("Azure PostgreSQL Flexible Server")
-  AzurePostgresFlexible: "azure_postgres_flexible",
-
-  @doc("Azure PostgreSQL Orion")
-  AzurePostgresOrion: "azure_postgres_orion",
 }
 
 @doc("The authentication method for database connection.")
@@ -191,8 +180,11 @@ union MigrationState {
   @doc("Migration is being cancelled")
   Cancelling: "Cancelling",
 
-  @doc("Cutover is in progress")
-  CutoverInProgress: "CutoverInProgress",
+  @doc("Waiting for cutover trigger")
+  WaitingForCutover: "WaitingForCutover",
+
+  @doc("Post-cutover replication catch-up is in progress")
+  PostCutoverReplicationCatchUp: "PostCutoverReplicationCatchUp",
 }
 
 @doc("The type of migration operation.")
@@ -351,6 +343,9 @@ model ConnectionEndpoint {
 model CheckConnectivityEndpoint {
   ...ConnectionEndpoint;
 
+  @doc("Database engine type for this endpoint")
+  checkConnectivityType: CheckConnectivityType;
+
   @doc("Server resource ID")
   serverResourceId?: string;
 
@@ -360,6 +355,9 @@ model CheckConnectivityEndpoint {
 
 @doc("Source database configuration.")
 model SourceConfiguration {
+  @doc("Source database engine type")
+  sourceType: SourceType;
+
   @doc("Server resource ID")
   serverResourceId?: string;
 
@@ -370,6 +368,9 @@ model SourceConfiguration {
 
 @doc("Target database configuration.")
 model TargetConfiguration {
+  @doc("Target database engine type")
+  targetType: TargetType;
+
   @doc("Server resource ID")
   serverResourceId?: string;
 
@@ -455,6 +456,19 @@ model DatabaseSummary {
   #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "No identifier properties for this array"
   @doc("Errors at database scope")
   errors: MigrationError[];
+
+  @doc("Change data capture (CDC) status for online replication.")
+  @visibility(Lifecycle.Read)
+  changeDataCapture?: ChangeDataCapture;
+}
+
+@doc("Change data capture replication status during online migration.")
+model ChangeDataCapture {
+  @doc("Time-based replication lag in seconds between source and target.")
+  replicationLagInSeconds?: int32;
+
+  @doc("WAL-based replication lag in bytes between source and target.")
+  replicationLagInBytes?: int64;
 }
 
 @doc("Per-schema migration status.")
@@ -669,11 +683,11 @@ model DatabaseMigrationProperties {
 
   @doc("Migration source type")
   @visibility(Lifecycle.Create, Lifecycle.Read)
-  sourceType: MigrationSourceType;
+  sourceServerType: SourceServerType;
 
   @doc("Migration target type")
   @visibility(Lifecycle.Create, Lifecycle.Read)
-  targetType: MigrationTargetType;
+  targetServerType: TargetServerType;
 
   @doc("Source database configuration")
   @visibility(Lifecycle.Create, Lifecycle.Read)
@@ -694,6 +708,7 @@ model DatabaseMigrationProperties {
   migrationJobSettings: MigrationJobSettings[];
 
   @doc("The type of operation to perform on the migration")
+  @visibility(Lifecycle.Create, Lifecycle.Update, Lifecycle.Read)
   operationType?: MigrationOperationType;
 
   @doc("Provisioning state")
@@ -763,6 +778,18 @@ model DatabaseMigrationProperties {
   @doc("Migration end time")
   @visibility(Lifecycle.Read)
   endedAt?: utcDateTime;
+}
+
+@doc("The request body for updating a database migration.")
+model DatabaseMigrationPatch {
+  @doc("The database migration update properties.")
+  properties?: DatabaseMigrationPatchProperties;
+}
+
+@doc("Properties for updating a database migration.")
+model DatabaseMigrationPatchProperties {
+  @doc("The type of operation to perform on the migration")
+  operationType?: MigrationOperationType;
 }
 
 @doc("Request body for testing connectivity.")

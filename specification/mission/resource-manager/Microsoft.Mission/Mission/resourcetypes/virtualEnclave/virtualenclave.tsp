@@ -83,6 +83,7 @@ model SubnetConfiguration {
   networkSecurityGroupResourceId?: NsgResourceId;
 }
 
+@removed(Microsoft.Mission.Versions.v2026_07_01_preview)
 @doc("Enclave Virtual Network Properties")
 model EnclaveVirtualNetworkModel {
   @renamedFrom(Microsoft.Mission.Versions.v2025_05_01_preview, "name")
@@ -142,6 +143,34 @@ model EnclaveAddressSpacesModel {
   managedAddressSpace?: string;
 }
 
+@added(Microsoft.Mission.Versions.v2026_07_01_preview)
+@doc("Indicates who manages the address space lifecycle.")
+union AddressSpaceOwnership {
+  string,
+
+  @doc("Customer-provided address space. Customer specifies prefixLength, RP allocates CIDR.")
+  CustomerManaged: "CustomerManaged",
+
+  @doc("Product-managed address space. RP-injected for internal platform use (e.g., hub connectivity).")
+  ProductManaged: "ProductManaged",
+}
+
+@added(Microsoft.Mission.Versions.v2026_07_01_preview)
+@doc("An address space entry for the enclave. Customer entries have ownership 'CustomerManaged'; the RP-injected managed address space has ownership 'ProductManaged' and is always the last element.")
+model AddressSpaceEntry {
+  @doc("CIDR prefix length (e.g., 22, 23, 24). Determines the size of the address space.")
+  @minValue(8)
+  @maxValue(26)
+  prefixLength?: int32;
+
+  @doc("CIDR notation address space (e.g., '10.0.0.0/23'). Optional — if omitted, RP allocates based on prefixLength. If provided, used as-is (custom address space).")
+  addressSpace?: string;
+
+  @doc("Indicates whether this address space is customer-managed or product-managed. Product-managed entries are RP-injected and always the last element(s) in the array.")
+  @visibility(Lifecycle.Read)
+  ownership?: AddressSpaceOwnership;
+}
+
 @added(Microsoft.Mission.Versions.v2025_11_01_preview)
 @doc("Virtual Enclave ApprovalSettings Properties for 2025-11-01-preview and later versions")
 model VirtualEnclaveApprovalSettings {
@@ -170,10 +199,12 @@ model VirtualEnclaveBaseModel {
   provisioningState?: ProvisioningState;
 
   @doc("Virtual Network.")
+  @removed(Microsoft.Mission.Versions.v2026_07_01_preview)
   enclaveVirtualNetwork: EnclaveVirtualNetworkModel;
 
   @doc("Enclave Address Spaces")
   @visibility(Lifecycle.Read)
+  @removed(Microsoft.Mission.Versions.v2026_07_01_preview)
   enclaveAddressSpaces?: EnclaveAddressSpacesModel;
 
   @doc("Community Resource Id.")
@@ -226,6 +257,26 @@ model VirtualEnclaveBaseModel {
   @doc("Enclave specific policies")
   @identifiers(#[])
   governedServiceList?: GovernedServiceItem[];
+
+  @added(Microsoft.Mission.Versions.v2026_07_01_preview)
+  @doc("Address spaces for the enclave. Supports multiple entries. Customer specifies prefixLength, RP allocates and injects the addressSpace CIDR. Product-managed address spaces (ownership=productManaged) are RP-injected and always appear at the end of the array.")
+  @identifiers(#[])
+  addressSpaces?: AddressSpaceEntry[];
+
+  @added(Microsoft.Mission.Versions.v2026_07_01_preview)
+  @doc("The name of the enclave's virtual network.")
+  @visibility(Lifecycle.Read)
+  networkName?: string;
+
+  @added(Microsoft.Mission.Versions.v2026_07_01_preview)
+  @doc("Subnet configurations for the enclave network.")
+  @identifiers(#["subnetName"])
+  subnetConfigurations?: SubnetConfiguration[];
+
+  @added(Microsoft.Mission.Versions.v2026_07_01_preview)
+  @doc("Whether subnets within the enclave can communicate with each other.")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  allowSubnetCommunication?: boolean = false;
 }
 
 @doc("Virtual Enclave Resource properties")
@@ -269,6 +320,10 @@ model VirtualEnclavePatchProperties
   @added(Microsoft.Mission.Versions.v2026_01_01_preview)
   @doc("Virtual Enclave Monitoring Settings for diagnostic and virtual network flow logs")
   monitoringSettings?: MonitoringSettingsPatchModel;
+
+  @added(Microsoft.Mission.Versions.v2026_07_01_preview)
+  @doc("Whether subnets within the enclave can communicate with each other.")
+  allowSubnetCommunication?: boolean;
 }
 
 @doc("Virtual Enclave Patch Model")

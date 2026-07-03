@@ -9752,11 +9752,11 @@
     },
     "DataflowProfileStatus": {
       "type": "object",
-      "description": "DataflowProfile status.",
+      "description": "Read-only runtime status reported by the service for a DataflowProfile.",
       "properties": {
         "healthState": {
           "$ref": "#/definitions/ResourceHealthStatus",
-          "description": "The health state of the DataflowProfile.",
+          "description": "Aggregated health state of the DataflowProfile and the resources it manages.",
           "readOnly": true
         }
       }

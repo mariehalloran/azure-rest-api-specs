@@ -2,6 +2,17 @@
 # Remove suppressions as specs are fixed
 
 - tool: TypeSpecValidation
+  reason: Specs still using legacy C# emitter, as of 2026-06-17
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - emit.@azure-typespec/http-client-csharp-mgmt
+  paths:
+    - aigrounding/resource-manager/Microsoft.AIGrounding/AIGrounding/tspconfig.yaml
+    - copilot/resource-manager/Microsoft.Copilot/CopilotManagement/tspconfig.yaml
+    - networksecurity/resource-manager/Microsoft.NetworkSecurity/agentFabric/tspconfig.yaml
+    - webiq/resource-manager/Microsoft.WebIQ/WebIQ
+
+- tool: TypeSpecValidation
   rules: [FolderStructure]
   sub-rules: [MustUseV2]
   reason: Specs added as folder structure v1, not yet converted to v2
@@ -10,9 +21,11 @@
     - advisorresilience/AdvisorResilience.Management
     - agricultureplatform/AgriculturePlatform.Management
     - aiops/AIOps.Management
+    - appcomplianceautomation/AppComplianceAutomation.Management
     - applicationmigration/ApplicationMigration.Management/ApplicationDiscovery.Management
     - applicationmigration/ApplicationMigration.Management/CodeScanSites.Management
     - applicationmigration/ApplicationMigration.Management/ConnectionHubs.Management
+    - applicationmigration/ApplicationMigration.Management/ContainerDiscovery.Management
     - applicationmigration/ApplicationMigration.Management/Mongodb.Management
     - applicationmigration/ApplicationMigration.Management/Network.Management
     - applicationmigration/ApplicationMigration.Management/Oracle.Management
@@ -45,7 +58,6 @@
     - azuredependencymap/DependencyMap.Management
     - azurefleetcapacity/AzureFleetCapacity.Management
     - azureimagetestingforlinux/Aitl.Management
-    - azureintegrationspaces/IntegrationSpaces.Management
     - azureresiliencemanagement/AzureResilience.Management
     - azurezonalnetworkmanager/AzureZonalNetworkManager.Management
     - baremetal/Microsoft.BareMetal.Management
@@ -67,6 +79,7 @@
     - cognitivesearch/CognitiveSearch.Management
     - communication/Communication.Management
     - communitytraining/Community.Management
+    - confluent/Confluent.Management
     - computebulkactions/ComputeBulkActions.Management
     - computeschedule/ComputeSchedule.Management
     - connectedcache/ConnectedCache.Management
@@ -86,7 +99,6 @@
     - datalabs/Datalabs.Management
     - datamigration/PostgresqlDataMigration.Management
     - defenderaiagents/DefenderAgentSecurity.Management
-    - dell/Dell.Storage.Management
     - deviceonboarding/DeviceOnboarding.Management
     - deviceupdate/DeviceUpdate.Edge.Management
     - devopsinfrastructure/DevOpsInfrastructure.Management
@@ -191,7 +203,6 @@
     - nsmplus/NsmPlus.Management
     - onedrivesharepoint/OneDriveSharePoint.Management
     - onlineexperimentation/OnlineExperimentation.Management
-    - oracle/Oracle.Database.Management
     - orbitalplanetarycomputer/Orbital.Management
     - physicalnetwork/PhysicalNetwork.Management
     - playwrighttesting/PlaywrightTesting.Management
@@ -231,9 +242,9 @@
     - sovereign/Sovereign.Management
     - splitio/SplitIO.Experimentation.Management
     - standbypool/StandbyPool.Management
+    - storage/Microsoft.StorageContextCache.Management
     - storage/Microsoft.StorageDataManagement.Management
     - storageactions/StorageAction.Management
-    - storagediscovery/Microsoft.StorageDiscovery.Management
     - storageinventory/StorageInventory.Management
     - storagemover/StorageMover.Management
     - subscriptionprovisioningorchestrator/SubscriptionProvisioningOrchestrator.Management
@@ -258,7 +269,6 @@
     - workloads/Workloads.SAPDiscoverySite.Management
     - workloads/Workloads.SAPVirtualInstance.Management
     - workloads/Workloads.VirtualInstance.Management
-    - zerotrustsegmentation/Microsoft.Network.Management
     - zerotrustsegmentation/Microsoft.ZeroTrustSegmentation.Management
 
 - tool: TypeSpecValidation
@@ -269,17 +279,17 @@
     - awsconnector/resource-manager/Microsoft.AwsConnector/preview/2023-12-01-preview/*.json
     - awsconnector/resource-manager/Microsoft.AwsConnector/preview/2024-08-01-preview/*.json
     - awsconnector/resource-manager/Microsoft.AwsConnector/stable/2024-12-01/*.json
-    - azureintegrationspaces/resource-manager/Microsoft.IntegrationSpaces/preview/2023-11-14-preview/openapi.json
+    - azureintegrationspaces/resource-manager/Microsoft.IntegrationSpaces/IntegrationSpaces/preview/2023-11-14-preview/openapi.json
     - azurestackhci/resource-manager/Microsoft.AzureStackHCI/StackHCI/preview/2024-07-01-preview/hci.json
     - azurestackhci/resource-manager/Microsoft.AzureStackHCI/StackHCI/preview/2024-11-01-preview/hci.json
     - baremetal/resource-manager/Microsoft.BareMetal/preview/2024-06-01-preview/BootstrapRP.json
     - baremetal/resource-manager/Microsoft.BareMetal/preview/2024-12-01-preview/BootstrapRP.json
-    - carbon/resource-manager/Microsoft.Carbon/preview/2023-04-01-preview/main.json
-    - carbon/resource-manager/Microsoft.Carbon/preview/2024-02-01-preview/main.json
+    - billingbenefits/resource-manager/Microsoft.BillingBenefits/preview/2025-12-01-preview/billingbenefits.json
+    - billingbenefits/resource-manager/Microsoft.BillingBenefits/preview/2026-02-01-preview/billingbenefits.json
     - computeschedule/resource-manager/Microsoft.ComputeSchedule/preview/2023-10-01-preview/computeschedule.json
     - computeschedule/resource-manager/Microsoft.ComputeSchedule/preview/2023-12-01-preview/computeschedule.json
-    - dell/resource-manager/Dell.Storage/preview/2024-08-28-preview/Dell.Storage.json
-    - dell/resource-manager/Dell.Storage/preview/2025-02-11-preview/Dell.Storage.json
+    - dell/resource-manager/Dell.Storage/DellStorage/preview/2024-08-28-preview/Dell.Storage.json
+    - dell/resource-manager/Dell.Storage/DellStorage/preview/2025-02-11-preview/Dell.Storage.json
     - edge/resource-manager/Microsoft.Edge/configurationmanager/preview/2024-06-01-preview/configurationmanager.json
     - edge/resource-manager/Microsoft.Edge/configurationmanager/preview/2024-08-01-preview/configurationmanager.json
     - edge/resource-manager/Microsoft.Edge/configurations/preview/2024-06-01-preview/configurations.json
@@ -308,12 +318,6 @@
     - impact/resource-manager/Microsoft.Impact/preview/2024-05-01-preview/impact.json
     - impact/resource-manager/Microsoft.Impact/preview/2023-12-01-preview/impact.json
     - azurebusinesscontinuitycenter/resource-manager/Microsoft.AzureBusinessContinuity/preview/2024-03-01-preview/openapi.json
-
-- tool: TypeSpecValidation
-  rules: [Compile]
-  reason: TypeSpec compilation failing with autorest emitter errors
-  paths:
-    - appcomplianceautomation/AppComplianceAutomation.Management
 
 - tool: TypeSpecValidationAll
   reason: Specs currently failing validation in RPSaaSMaster
@@ -345,7 +349,6 @@
     - riskreputation/Microsoft.RiskReputation
     - secretmanagementtestsvc/SecretManagementSampleProvider
     - storageinsights/Microsoft.StorageInsights.Management
-    - voiceservices/VoiceServices.Management
 
 - tool: TypeSpecValidation
   reason: Remove specs contain incorrect or missing emitter options or parameters

@@ -201,6 +201,15 @@ interface NetworkDevices {
     void,
     NetworkFabricResyncCertificatesResponse
   >;
+
+  @doc("Runs validation on the Network Device for the specified operation.")
+  @action("runValidation")
+  @added(Versions.v2026_07_15_preview)
+  runValidation is ArmResourceActionAsync<
+    NetworkDevice,
+    RunValidationRequest,
+    RunValidationResponse
+  >;
 }
 
 @@doc(NetworkDevices.create::parameters.resource, "Request payload.");
@@ -230,3 +239,7 @@ interface NetworkDevices {
   "Request the command."
 );
 @@doc(NetworkDevices.runRwCommand::parameters.body, "Request the command.");
+@@doc(
+  NetworkDevices.runValidation::parameters.body,
+  "Validate readiness properties."
+);
