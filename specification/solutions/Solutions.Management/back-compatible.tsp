@@ -13,10 +13,12 @@ using Microsoft.Solutions;
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 @@Legacy.flattenProperty(Application.properties);
 
-@@clientName(ApplicationDefinitions.createOrUpdate::parameters.resource,
+@@clientName(
+  ApplicationDefinitions.createOrUpdate::parameters.resource,
   "parameters"
 );
-@@clientName(ApplicationDefinitions.update::parameters.properties,
+@@clientName(
+  ApplicationDefinitions.update::parameters.properties,
   "parameters"
 );
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
@@ -24,7 +26,8 @@ using Microsoft.Solutions;
 
 @@clientLocation(JitRequestDefinitions.get, "jitRequests");
 @@clientLocation(JitRequestDefinitions.createOrUpdate, "jitRequests");
-@@clientName(JitRequestDefinitions.createOrUpdate::parameters.resource,
+@@clientName(
+  JitRequestDefinitions.createOrUpdate::parameters.resource,
   "parameters"
 );
 @@clientLocation(JitRequestDefinitions.update, "jitRequests");
@@ -40,19 +43,23 @@ using Microsoft.Solutions;
 @@clientLocation(ApplicationsOperationGroup.createOrUpdateById, Applications);
 @@clientLocation(ApplicationsOperationGroup.updateById, Applications);
 
-@@clientLocation(ApplicationDefinitionOpsById.getById,
+@@clientLocation(
+  ApplicationDefinitionOpsById.getById,
   "ApplicationDefinitions"
 );
 
-@@clientLocation(ApplicationDefinitionOpsById.createOrUpdateById,
+@@clientLocation(
+  ApplicationDefinitionOpsById.createOrUpdateById,
   "ApplicationDefinitions"
 );
 
-@@clientLocation(ApplicationDefinitionOpsById.updateById,
+@@clientLocation(
+  ApplicationDefinitionOpsById.updateById,
   "ApplicationDefinitions"
 );
 
-@@clientLocation(ApplicationDefinitionOpsById.deleteById,
+@@clientLocation(
+  ApplicationDefinitionOpsById.deleteById,
   "ApplicationDefinitions"
 );
 
@@ -61,15 +68,19 @@ using Microsoft.Solutions;
 @@clientLocation(Operations.list, Microsoft.Solutions);
 @@clientName(Operations.list, "ListOperations");
 
-@@clientLocation(ApplicationDefinitionListOperationGroup.listByResourceGroup,
+@@clientLocation(
+  ApplicationDefinitionListOperationGroup.listByResourceGroup,
   "ApplicationDefinitions"
 );
-@@clientLocation(ApplicationDefinitionListOperationGroup.listBySubscription,
+@@clientLocation(
+  ApplicationDefinitionListOperationGroup.listBySubscription,
   "ApplicationDefinitions"
 );
-@@clientName(ApplicationDefinitionOpsById.createOrUpdateById::parameters.resource,
+@@clientName(
+  ApplicationDefinitionOpsById.createOrUpdateById::parameters.resource,
   "parameters"
 );
-@@clientName(ApplicationDefinitionOpsById.updateById::parameters.properties,
+@@clientName(
+  ApplicationDefinitionOpsById.updateById::parameters.properties,
   "parameters"
 );

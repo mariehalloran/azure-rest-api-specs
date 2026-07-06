@@ -76,11 +76,13 @@ interface Applications {
   update is Azure.ResourceManager.Legacy.CustomPatchAsync<
     Application,
     PatchModel = ApplicationPatchable,
-    Response = ArmResponse<Application> | (ArmAcceptedLroResponse<LroHeaders = ArmAsyncOperationHeader<FinalResult = Application> &
-      Azure.Core.Foundations.RetryAfterHeader> & {
-      @bodyRoot
-      _: Application;
-    }),
+    Response =
+      | ArmResponse<Application>
+      | (ArmAcceptedLroResponse<LroHeaders = ArmAsyncOperationHeader<FinalResult = Application> &
+          Azure.Core.Foundations.RetryAfterHeader> & {
+          @bodyRoot
+          _: Application;
+        }),
     OptionalRequestBody = true
   >;
 
@@ -91,8 +93,11 @@ interface Applications {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   delete is ArmResourceDeleteWithoutOkAsync<
     Application,
-    Response = ArmDeletedResponse | ArmDeleteAcceptedLroResponse<ArmAsyncOperationHeader &
-      Azure.Core.Foundations.RetryAfterHeader> | ArmDeletedNoContentResponse
+    Response =
+      | ArmDeletedResponse
+      | ArmDeleteAcceptedLroResponse<ArmAsyncOperationHeader &
+          Azure.Core.Foundations.RetryAfterHeader>
+      | ArmDeletedNoContentResponse
   >;
 
   /**
@@ -131,12 +136,14 @@ interface Applications {
   updateAccess is ArmResourceActionAsyncBase<
     Application,
     UpdateAccessDefinition,
-    OkResponse | (ArmAcceptedLroResponse<
-      "Resource operation accepted.",
-      ArmLroLocationHeader<FinalResult = UpdateAccessDefinition> &
-        Azure.Core.Foundations.RetryAfterHeader
-    > &
-      Body<UpdateAccessDefinition>),
+
+      | OkResponse
+      | (ArmAcceptedLroResponse<
+          "Resource operation accepted.",
+          ArmLroLocationHeader<FinalResult = UpdateAccessDefinition> &
+            Azure.Core.Foundations.RetryAfterHeader
+        > &
+          Body<UpdateAccessDefinition>),
     BaseParameters = Azure.ResourceManager.Foundations.BaseParameters<Application>
   >;
 
@@ -154,15 +161,19 @@ interface Applications {
 @@minLength(Application.name, 3);
 @@doc(Application.name, "The name of the managed application.");
 @@doc(Application.properties, "The managed application properties.");
-@@doc(Applications.createOrUpdate::parameters.resource,
+@@doc(
+  Applications.createOrUpdate::parameters.resource,
   "Parameters supplied to the create or update a managed application."
 );
-@@doc(Applications.update::parameters.properties,
+@@doc(
+  Applications.update::parameters.properties,
   "Parameters supplied to update an existing managed application."
 );
-@@doc(Applications.updateAccess::parameters.body,
+@@doc(
+  Applications.updateAccess::parameters.body,
   "Request body parameters to update access."
 );
-@@doc(Applications.listTokens::parameters.body,
+@@doc(
+  Applications.listTokens::parameters.body,
   "Request body parameters to list tokens."
 );

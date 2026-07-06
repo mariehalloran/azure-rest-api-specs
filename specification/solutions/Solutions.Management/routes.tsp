@@ -63,11 +63,14 @@ interface ApplicationsOperationGroup {
      */
     @bodyRoot
     parameters: Application,
-  ): ArmResponse<Application> | ArmCreatedResponse<
-    Application,
-    ExtraHeaders = ArmAsyncOperationHeader<FinalResult = Application> &
-      Azure.Core.Foundations.RetryAfterHeader
-  > | ErrorResponse;
+  ):
+    | ArmResponse<Application>
+    | ArmCreatedResponse<
+        Application,
+        ExtraHeaders = ArmAsyncOperationHeader<FinalResult = Application> &
+          Azure.Core.Foundations.RetryAfterHeader
+      >
+    | ErrorResponse;
 
   /**
    * Updates an existing managed application.
@@ -92,11 +95,14 @@ interface ApplicationsOperationGroup {
      */
     @bodyRoot
     parameters?: ApplicationPatchable,
-  ): ArmResponse<Application> | (ArmAcceptedLroResponse<LroHeaders = ArmAsyncOperationHeader<FinalResult = Application> &
-    Azure.Core.Foundations.RetryAfterHeader> & {
-    @bodyRoot
-    _: Application;
-  }) | ErrorResponse;
+  ):
+    | ArmResponse<Application>
+    | (ArmAcceptedLroResponse<LroHeaders = ArmAsyncOperationHeader<FinalResult = Application> &
+        Azure.Core.Foundations.RetryAfterHeader> & {
+        @bodyRoot
+        _: Application;
+      })
+    | ErrorResponse;
 
   /**
    * Deletes the managed application.

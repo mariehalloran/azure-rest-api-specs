@@ -137,15 +137,19 @@ interface ApplicationDefinitionListOperationGroup {
 
 @@maxLength(ApplicationDefinition.name, 64);
 @@minLength(ApplicationDefinition.name, 3);
-@@doc(ApplicationDefinition.name,
+@@doc(
+  ApplicationDefinition.name,
   "The name of the managed application definition."
 );
-@@doc(ApplicationDefinition.properties,
+@@doc(
+  ApplicationDefinition.properties,
   "The managed application definition properties."
 );
-@@doc(ApplicationDefinitions.createOrUpdate::parameters.resource,
+@@doc(
+  ApplicationDefinitions.createOrUpdate::parameters.resource,
   "Parameters supplied to the create or update an managed application definition."
 );
-@@doc(ApplicationDefinitions.update::parameters.properties,
+@@doc(
+  ApplicationDefinitions.update::parameters.properties,
   "Parameters supplied to the update a managed application definition."
 );

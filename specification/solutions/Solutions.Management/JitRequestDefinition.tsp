@@ -93,9 +93,11 @@ interface JitRequestDefinitions {
 
 @@doc(JitRequestDefinition.name, "The name of the JIT request.");
 @@doc(JitRequestDefinition.properties, "The JIT request properties.");
-@@doc(JitRequestDefinitions.createOrUpdate::parameters.resource,
+@@doc(
+  JitRequestDefinitions.createOrUpdate::parameters.resource,
   "Parameters supplied to the update JIT request."
 );
-@@doc(JitRequestDefinitions.update::parameters.properties,
+@@doc(
+  JitRequestDefinitions.update::parameters.properties,
   "Parameters supplied to the update JIT request."
 );

@@ -4,11 +4,13 @@ import "./main.tsp";
 using Azure.ClientGenerator.Core;
 using Microsoft.Solutions;
 
-@@clientName(Microsoft.Solutions.Operations.list,
+@@clientName(
+  Microsoft.Solutions.Operations.list,
   "listOperations",
   "javascript"
 );
-@@clientName(Microsoft.Solutions,
+@@clientName(
+  Microsoft.Solutions,
   "ApplicationClient",
   "javascript,python,go,java"
 );
@@ -19,16 +21,19 @@ using Microsoft.Solutions;
 @@clientLocation(JitRequestDefinitions.createOrUpdate, "JitRequests", "python");
 @@clientLocation(JitRequestDefinitions.update, "JitRequests", "python");
 @@clientLocation(JitRequestDefinitions.delete, "JitRequests", "python");
-@@clientLocation(JitRequestDefinitions.listByResourceGroup,
+@@clientLocation(
+  JitRequestDefinitions.listByResourceGroup,
   "JitRequests",
   "python"
 );
-@@clientLocation(JitRequestDefinitions.listBySubscription,
+@@clientLocation(
+  JitRequestDefinitions.listBySubscription,
   "JitRequests",
   "python"
 );
 
-@@clientName(ApplicationDefinitionOpsById.getById,
+@@clientName(
+  ApplicationDefinitionOpsById.getById,
   "getByResourceGroup",
   "java"
 );

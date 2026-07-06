@@ -17,6 +17,7 @@ import "./Application.tsp";
 import "./ApplicationDefinition.tsp";
 import "./JitRequestDefinition.tsp";
 import "./routes.tsp";
+import "./client.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
