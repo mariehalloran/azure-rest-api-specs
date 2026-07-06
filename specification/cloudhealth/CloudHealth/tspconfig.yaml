@@ -1,0 +1,14 @@
+parameters:
+  "service-dir":
+    default: "sdk/cloudhealth"
+emit:
+  - "@azure-tools/typespec-autorest"
+linter:
+  extends:
+    - "@azure-tools/typespec-azure-rulesets/data-plane"
+options:
+  "@azure-tools/typespec-autorest":
+    azure-resource-provider-folder: "data-plane"
+    emitter-output-dir: "{project-root}/.."
+    output-file: "{azure-resource-provider-folder}/CloudHealth/{version-status}/{version}/cloudhealth.json"
+    omit-unreachable-types: false
