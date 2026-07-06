@@ -27,7 +27,7 @@ These are the global settings for MPC Pro.
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2025-07-01-preview
+tag: package-2026-05-01-preview
 suppressions:
     - code: AvoidAnonymousTypes
       where:
