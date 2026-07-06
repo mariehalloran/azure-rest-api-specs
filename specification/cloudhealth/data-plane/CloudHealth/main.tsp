@@ -77,6 +77,8 @@ model EntityHealthStateHistoryResponse {
 
 @route("/api")
 interface Model {
+  #suppress "@azure-tools/typespec-azure-core/use-standard-operations" "Data-plane status echo is a simple non-resource GET; it does not map to an Azure.Core resource operation template. To be revisited at API Stewardship review."
+  #suppress "@azure-tools/typespec-azure-core/use-standard-names" "Operation name mirrors the implemented data-plane contract ('status'); renaming would diverge from the deployed service."
   @doc("Return whether the health model exists and its current health state.")
   @get
   status(...ApiVersionParameter): QueryEchoResponse;
@@ -84,6 +86,7 @@ interface Model {
 
 @route("/api/entities/{entityName}/healthStateHistory")
 interface EntityHealthStateHistory {
+  #suppress "@azure-tools/typespec-azure-core/use-standard-operations" "Data-plane history query is a simple non-resource GET; it does not map to an Azure.Core resource operation template. To be revisited at API Stewardship review."
   @doc("Return the health-state periods active during the requested window for an entity.")
   @get
   getHealthStateHistory(
