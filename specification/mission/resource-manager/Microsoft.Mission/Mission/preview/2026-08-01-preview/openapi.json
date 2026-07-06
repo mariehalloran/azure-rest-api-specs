@@ -7543,7 +7543,7 @@
           "readOnly": true
         },
         "subnetPurpose": {
-          "type": "string",
+          "$ref": "#/definitions/SubnetPurpose",
           "description": "The purpose of the subnet, used to determine automatic configuration behavior."
         }
       },
@@ -7551,6 +7551,30 @@
         "subnetName",
         "networkPrefixSize"
       ]
+    },
+    "SubnetPurpose": {
+      "type": "string",
+      "description": "The purpose of the subnet, used to determine automatic configuration behavior.",
+      "enum": [
+        "General",
+        "AKS"
+      ],
+      "x-ms-enum": {
+        "name": "SubnetPurpose",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "General",
+            "value": "General",
+            "description": "General purpose subnet with no specialized configuration (default)."
+          },
+          {
+            "name": "AKS",
+            "value": "AKS",
+            "description": "Subnet configured for Azure Kubernetes Service (AKS) workloads."
+          }
+        ]
+      }
     },
     "SubnetResourceId": {
       "type": "string",
