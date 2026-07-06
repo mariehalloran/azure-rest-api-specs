@@ -103,6 +103,10 @@ model FeedbackControlPolicySettings {
 
   @doc("A value indicating whether the content samples checkbox is selected by default when the user launches feedback experiences. This setting is not applicable when policyAllowContent is set to Disabled.")
   policyContentSamplesDefault?: FeedbackControlPolicyState;
+
+  @added(Versions.v2025_11_01)
+  @doc("A value indicating whether Microsoft may invite tenant users to participate in research.")
+  policyResearchInvite?: boolean;
 }
 
 @doc("Operations 360 settings for Azure Portal users.")
@@ -112,6 +116,27 @@ model Ops360Settings {
   @doc("The current status of Operations 360 feature. Can be null when the status has been cleared.")
   status?: Ops360Status;
 }
+
+@doc("The type of value allowed for tenant flags.")
+@added(Versions.v2026_07_01_preview)
+#suppress "@azure-tools/typespec-autorest/union-unsupported" "TenantFlagValue intentionally uses mixed types for generic flag values."
+union TenantFlagValue {
+  string,
+
+  @doc("Boolean flag value.")
+  boolean,
+
+  @doc("Integer flag value.")
+  int64,
+
+  @doc("Floating-point flag value.")
+  float64,
+}
+
+@doc("Generic tenant flags. A flat key-value dictionary where each key is a well-formed identifier and each value is a bool, number, or string.")
+@added(Versions.v2026_07_01_preview)
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "TenantFlags is intentionally a generic key-value dictionary."
+model TenantFlags is Record<TenantFlagValue>;
 
 @doc("Settings for privacy-related configurations.")
 @added(Versions.v2026_02_01_preview)
@@ -138,6 +163,10 @@ model SettingsProperties {
   @added(Versions.v2026_02_01_preview)
   @doc("Privacy-related settings for Azure Portal users in the tenant.")
   privacySettings?: PrivacySettings;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("Generic tenant flags (key-value dictionary).")
+  tenantFlags?: TenantFlags;
 
   @doc("The status of the last provisioning operation performed on the resource.")
   @visibility(Lifecycle.Read)

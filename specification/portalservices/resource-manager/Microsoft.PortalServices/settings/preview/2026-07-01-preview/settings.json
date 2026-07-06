@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Microsoft.PortalServices",
-    "version": "2026-02-01-preview",
+    "version": "2026-07-01-preview",
     "description": "Azure Portal Services API Reference",
     "x-typespec-generated": [
       {
@@ -426,6 +426,10 @@
           "$ref": "#/definitions/PrivacySettings",
           "description": "Privacy-related settings for Azure Portal users in the tenant."
         },
+        "tenantFlags": {
+          "$ref": "#/definitions/TenantFlags",
+          "description": "Generic tenant flags (key-value dictionary)."
+        },
         "provisioningState": {
           "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "The status of the last provisioning operation performed on the resource.",
@@ -462,6 +466,14 @@
           "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
         }
       ]
+    },
+    "TenantFlagValue": {},
+    "TenantFlags": {
+      "type": "object",
+      "description": "Generic tenant flags. A flat key-value dictionary where each key is a well-formed identifier and each value is a bool, number, or string.",
+      "additionalProperties": {
+        "$ref": "#/definitions/TenantFlagValue"
+      }
     }
   },
   "parameters": {}
