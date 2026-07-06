@@ -1,0 +1,48 @@
+{
+  "title": "StorageArrays_ListBySubscription",
+  "operationId": "StorageArrays_ListBySubscription",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "6D37FF61-4C93-4377-B06B-FC6D6D561A7D"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1",
+            "name": "pure-1",
+            "type": "Microsoft.AzureStackHCI/storageArrays",
+            "location": "westus2",
+            "tags": {
+              "environment": "production"
+            },
+            "properties": {
+              "displayName": "Pure Storage FlashArray - West DC",
+              "arrayType": "SAN",
+              "vendor": "PureStorage",
+              "model": "FlashArray//X50",
+              "serialNumber": "BDCCE1225FF24405",
+              "firmwareVersion": "6.5.2",
+              "supportedTransports": [
+                "FC",
+                "iSCSI"
+              ],
+              "connectionStatus": "Connected",
+              "lastSyncedAt": "2026-03-24T18:00:00Z",
+              "provisioningState": "Succeeded"
+            },
+            "systemData": {
+              "createdBy": "user1",
+              "createdByType": "User",
+              "createdAt": "2026-03-15T10:00:00.000Z",
+              "lastModifiedBy": "user2",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-03-24T18:00:00.000Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
