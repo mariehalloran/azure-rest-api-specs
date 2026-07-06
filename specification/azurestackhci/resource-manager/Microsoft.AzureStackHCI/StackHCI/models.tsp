@@ -14425,10 +14425,9 @@ model StorageVolumeProperties {
   @visibility(Lifecycle.Read)
   s2dProperties?: S2dVolumeProperties;
 
-  /** Opaque vendor-specific pass-through options. */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Opaque vendor-specific pass-through bag; the schema is vendor-defined and intentionally not modeled in ARM."
+  /** Opaque vendor-specific pass-through options, provided as a JSON-encoded string (escaped JSON) because the shape is vendor-defined and may be nested (e.g. `{"pure":{"protectionGroup":"contoso-pg"}}`). Concrete per-vendor models are deferred to public preview. */
   @visibility(Lifecycle.Read)
-  vendorOptions?: Record<unknown>;
+  vendorOptions?: string;
 
   /** Timestamp when the volume was created on the array. */
   @visibility(Lifecycle.Read)
@@ -14516,10 +14515,9 @@ model ConsistencyGroupProperties {
   @visibility(Lifecycle.Read)
   lastSnapshotAt?: utcDateTime;
 
-  /** Opaque vendor-specific options (e.g. backing-construct selection). */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Opaque vendor-specific pass-through bag; the schema is vendor-defined and intentionally not modeled in ARM."
+  /** Opaque vendor-specific options (e.g. backing-construct selection), provided as a JSON-encoded string (escaped JSON) because the shape is vendor-defined and may be nested (e.g. `{"pure":{"protectionGroup":"contoso-pg"}}`). Concrete per-vendor models are deferred to public preview. */
   @visibility(Lifecycle.Read)
-  vendorOptions?: Record<unknown>;
+  vendorOptions?: string;
 
   /** The provisioning state of the consistency group resource. */
   @visibility(Lifecycle.Read)
@@ -14611,10 +14609,9 @@ model ReplicationSessionProperties {
   @visibility(Lifecycle.Read)
   policyRef?: Azure.Core.armResourceIdentifier;
 
-  /** Opaque vendor-specific pass-through options. */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Opaque vendor-specific pass-through bag; the schema is vendor-defined and intentionally not modeled in ARM."
+  /** Opaque vendor-specific pass-through options, provided as a JSON-encoded string (escaped JSON) because the shape is vendor-defined and may be nested (e.g. `{"pure":{"protectionGroup":"contoso-pg"}}`). Concrete per-vendor models are deferred to public preview. */
   @visibility(Lifecycle.Read)
-  vendorOptions?: Record<unknown>;
+  vendorOptions?: string;
 
   /** Vendor-assigned globally unique session ID (same on both arrays). */
   @visibility(Lifecycle.Read)
@@ -14714,10 +14711,9 @@ model ReplicationPeeringProperties {
   @visibility(Lifecycle.Read)
   vendorPeeringId?: string;
 
-  /** Opaque vendor-specific pass-through options. */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Opaque vendor-specific pass-through bag; the schema is vendor-defined and intentionally not modeled in ARM."
+  /** Opaque vendor-specific pass-through options, provided as a JSON-encoded string (escaped JSON) because the shape is vendor-defined and may be nested (e.g. `{"pure":{"protectionGroup":"contoso-pg"}}`). Concrete per-vendor models are deferred to public preview. */
   @visibility(Lifecycle.Read)
-  vendorOptions?: Record<unknown>;
+  vendorOptions?: string;
 
   /** The provisioning state of the replication peering resource. */
   @visibility(Lifecycle.Read)
@@ -14764,10 +14760,9 @@ model ReplicationPolicyProperties {
   @visibility(Lifecycle.Read)
   networkCompressionEnabled?: boolean;
 
-  /** Opaque vendor-specific pass-through options. */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Opaque vendor-specific pass-through bag; the schema is vendor-defined and intentionally not modeled in ARM."
+  /** Opaque vendor-specific pass-through options, provided as a JSON-encoded string (escaped JSON) because the shape is vendor-defined and may be nested (e.g. `{"pure":{"protectionGroup":"contoso-pg"}}`). Concrete per-vendor models are deferred to public preview. */
   @visibility(Lifecycle.Read)
-  vendorOptions?: Record<unknown>;
+  vendorOptions?: string;
 
   /** The provisioning state of the replication policy resource. */
   @visibility(Lifecycle.Read)
