@@ -13294,16 +13294,16 @@ union RpoCompliance {
 union ReplicationHealth {
   string,
 
-  /** Healthy. */
+  /** The replication session is healthy and operating normally. */
   Healthy: "Healthy",
 
-  /** Degraded. */
+  /** The replication session is degraded and operating with reduced capability. */
   Degraded: "Degraded",
 
-  /** Unhealthy. */
+  /** The replication session is unhealthy and not operating correctly. */
   Unhealthy: "Unhealthy",
 
-  /** Unknown. */
+  /** The replication session health could not be determined. */
   Unknown: "Unknown",
 }
 
@@ -13371,16 +13371,16 @@ union PeeringState {
 union PeeringHealth {
   string,
 
-  /** Healthy. */
+  /** The replication peering is healthy and operating normally. */
   Healthy: "Healthy",
 
-  /** Degraded. */
+  /** The replication peering is degraded and operating with reduced capability. */
   Degraded: "Degraded",
 
-  /** Unhealthy. */
+  /** The replication peering is unhealthy and not operating correctly. */
   Unhealthy: "Unhealthy",
 
-  /** Unknown. */
+  /** The replication peering health could not be determined. */
   Unknown: "Unknown",
 }
 

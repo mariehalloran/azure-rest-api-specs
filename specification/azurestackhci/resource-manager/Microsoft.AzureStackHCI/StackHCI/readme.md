@@ -230,6 +230,16 @@ suppressions:
     reason: already used in GA api version, fixing it will cause breaking change
     where:
       - $.definitions.UpdateProperties.properties
+
+  - code: AvoidAdditionalProperties
+    from: hci.json
+    reason: vendorOptions is an intentionally opaque, vendor-defined pass-through bag per the storage design; its contents vary by array vendor and cannot be enumerated in the schema
+    where:
+      - $.definitions.StorageVolumeProperties.properties.vendorOptions
+      - $.definitions.ConsistencyGroupProperties.properties.vendorOptions
+      - $.definitions.ReplicationSessionProperties.properties.vendorOptions
+      - $.definitions.ReplicationPeeringProperties.properties.vendorOptions
+      - $.definitions.ReplicationPolicyProperties.properties.vendorOptions
     
   - code: ConsistentPatchProperties
     reason: already used in GA api version, fixing it will cause breaking change
