@@ -26,6 +26,13 @@ union ProvisioningState {
   InProgress: "InProgress",
 }
 
+@doc("OData $filter query parameter for ARM list operations.")
+model OdataFilterParameter {
+  @query("$filter")
+  @doc("OData filter expression. Supports a limited subset of OData filter syntax for filtering the result list.")
+  filter?: string;
+}
+
 @doc("The type of automation request.")
 union RequestType {
   string,
@@ -309,6 +316,9 @@ model FieldLedContext {
   @doc("The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity.")
   tenantId?: string;
 
+  @doc("The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration.")
+  countryCode?: string;
+
   @doc("The account fulfillment details. Populated after account creation is completed.")
   @visibility(Lifecycle.Read)
   fulfillmentDetail?: FieldLedRequestFulfillmentDetail;
@@ -543,10 +553,6 @@ model AutomationRequestProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
 
-  @doc("The onboarding request ID (GUID) that authorized this automation request. Populated for requests created through the automation flow.")
-  @visibility(Lifecycle.Read)
-  onboardingRequestId?: string;
-
   @doc("The type of request to create.")
   requestType: RequestType;
 
@@ -556,7 +562,7 @@ model AutomationRequestProperties {
   @doc("The estimated monthly spend in USD for this test account. Must be greater than zero.")
   estimatedMonthlySpend: float64;
 
-  @doc("Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time).")
+  @doc("Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time). Free-form text MUST NOT contain customer data, PII, or secrets.")
   businessJustification?: string;
 
   @doc("The test account context containing all configuration for the request.")
@@ -581,13 +587,17 @@ model AutomationRequestProperties {
   @doc("The fulfillment result details. Populated when the request reaches Completed status.")
   @visibility(Lifecycle.Read)
   result?: RequestFulfillmentDetails;
+
+  @doc("The ID (GUID) of the onboarding request; equal to the resource 'name'.")
+  @visibility(Lifecycle.Read)
+  onboardingRequestId?: string;
 }
 
 @doc("Properties of the application entitlement.")
 model ApplicationEntitlementProperties {
   @doc("The provisioning state of the resource.")
   @visibility(Lifecycle.Read)
-  provisioningState?: ResourceProvisioningState;
+  provisioningState?: ProvisioningState;
 
   @doc("The Service Tree ID (GUID).")
   @visibility(Lifecycle.Read)
@@ -600,6 +610,15 @@ model ApplicationEntitlementProperties {
   @doc("The application display name.")
   @visibility(Lifecycle.Read)
   applicationDisplayName?: string;
+
+  @doc("The Profit Center (PC) code used for cross-charging usage of this application entitlement, captured at onboarding time.")
+  @visibility(Lifecycle.Read)
+  pcCode?: string;
+
+  @doc("Business justification captured at onboarding time. Reused as the default Comments value for every automation request created under this entitlement. Free-form text MUST NOT contain customer data, PII, or secrets.")
+  @maxLength(500)
+  @visibility(Lifecycle.Read)
+  businessJustification?: string;
 
   @doc("The ID (GUID) of the onboarding request that created this application entitlement.")
   @visibility(Lifecycle.Read)
@@ -633,9 +652,21 @@ model ApplicationEntitlementProperties {
   @visibility(Lifecycle.Read)
   quotaResetDate?: utcDateTime;
 
-  @doc("The date when the quota was last used.")
+  @doc("The date when the quota was last used. Omitted from the response when the entitlement has not been used yet.")
   @visibility(Lifecycle.Read)
   lastQuotaUsageDate?: utcDateTime;
+
+  @doc("The date when the application entitlement expires. Past this date the entitlement is no longer usable for automation.")
+  @visibility(Lifecycle.Read)
+  endDate?: utcDateTime;
+
+  @doc("The Microsoft Entra tenant ID (GUID) of the user who submitted the onboarding request, captured at onboarding time.")
+  @visibility(Lifecycle.Read)
+  requesterTenantId?: string;
+
+  @doc("The Microsoft Entra object ID (GUID) of the user who submitted the onboarding request, captured at onboarding time.")
+  @visibility(Lifecycle.Read)
+  requesterObjectId?: string;
 }
 
 // ─── Resource Definitions ────────────────────────────────────────────────────
@@ -713,8 +744,14 @@ interface ApplicationEntitlements {
   delete is ArmResourceDeleteSync<ApplicationEntitlementResource>;
 
   @doc("List application entitlements.")
-  listByResourceGroup is ArmResourceListByParent<ApplicationEntitlementResource>;
+  listByResourceGroup is ArmResourceListByParent<
+    ApplicationEntitlementResource,
+    Parameters = OdataFilterParameter
+  >;
 
   @doc("List application entitlements by subscription.")
-  listBySubscription is ArmListBySubscription<ApplicationEntitlementResource>;
+  listBySubscription is ArmListBySubscription<
+    ApplicationEntitlementResource,
+    Parameters = OdataFilterParameter
+  >;
 }

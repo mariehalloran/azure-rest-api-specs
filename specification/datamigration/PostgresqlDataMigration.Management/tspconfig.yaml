@@ -33,11 +33,9 @@ options:
     namespace: "azure.mgmt.postgresqldatamigration"
     generate-sample: true
     generate-test: true
-  "@azure-tools/typespec-csharp":
-    flavor: azure
+  "@azure-typespec/http-client-csharp-mgmt":
     namespace: "Azure.ResourceManager.PostgreSqlDataMigration"
-    clear-output-folder: true
-    emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.PostgreSqlDataMigration"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
 linter:
   extends:
     - "@azure-tools/typespec-azure-rulesets/resource-manager"

@@ -3,16 +3,13 @@ import "@typespec/rest";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
-import "./scheduledactionmodels.tsp";
 import "./occurrencemodels.tsp";
 import "./occurrenceroutes.tsp";
 
 using Azure.Core;
 using Azure.ResourceManager;
-using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
-using OpenAPI;
 
 namespace Microsoft.ComputeSchedule;
 
@@ -25,10 +22,10 @@ model ScheduledActionsSchedule {
   @doc("The timezone the scheduled time is specified on")
   timeZone: string;
 
-  @doc("The week days the scheduled action is supposed to run on")
+  @doc("The week days the scheduled action is supposed to run on. If empty, it means it will run on every day of the week.")
   requestedWeekDays: WeekDay[];
 
-  @doc("The months the scheduled action is supposed to run on")
+  @doc("The months the scheduled action is supposed to run on. If empty, it means it will run on every month.")
   requestedMonths: Month[];
 
   @doc("The days of the month the scheduled action is supposed to run on. If empty, it means it will run on every day of the month.")

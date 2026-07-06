@@ -474,7 +474,9 @@ interface GenerateAwsTemplate {
     @doc("ConnectorId and SolutionTypes and their properties to Generate AWS CFT Template.")
     @body
     generateAwsTemplateRequest: GenerateAwsTemplateRequest,
-  ): Azure.ResourceManager.ArmResponse<GenerateAwsTemplateResponse> | ErrorResponse;
+  ):
+    | Azure.ResourceManager.ArmResponse<GenerateAwsTemplateResponse>
+    | ErrorResponse;
 }
 
 /**
@@ -501,7 +503,9 @@ interface GenerateGcpTemplate {
     @doc("ConnectorId and SolutionTypes and their properties to Generate GCP Access Control Template.")
     @body
     generateGcpTemplateRequest: GenerateGcpTemplateRequest,
-  ): Azure.ResourceManager.ArmResponse<GenerateGcpTemplateResponse> | ErrorResponse;
+  ):
+    | Azure.ResourceManager.ArmResponse<GenerateGcpTemplateResponse>
+    | ErrorResponse;
 }
 
 @doc("GCP template format.")
@@ -520,7 +524,11 @@ union GcpTemplateFormat {
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model"
 @added(Versions.v2025_12_01_preview)
-model GenerateGcpTemplateResponse {}
+model GenerateGcpTemplateResponse {
+  /** The generated GCP template. */
+  @added(Versions.v2026_04_01_preview)
+  template?: string;
+}
 
 @armResourceOperations
 interface PublicCloudConnectors {

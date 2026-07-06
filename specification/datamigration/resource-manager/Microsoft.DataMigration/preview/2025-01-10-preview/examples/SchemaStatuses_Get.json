@@ -1,0 +1,36 @@
+{
+  "title": "Get a schema status",
+  "operationId": "SchemaStatuses_Get",
+  "parameters": {
+    "subscriptionId": "12345678-1234-1234-1234-123456789012",
+    "resourceGroupName": "my-rg",
+    "serviceName": "myMigrationService",
+    "databaseMigrationId": "mig-123e4567-e89b-12d3-a456-426614174000",
+    "sourceSchemaName": "HR",
+    "api-version": "2025-01-10-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.DataMigration/databaseMigrationServices/myMigrationService/migrations/mig-123e4567-e89b-12d3-a456-426614174000/schemaStatuses/HR",
+        "name": "HR",
+        "type": "Microsoft.DataMigration/databaseMigrationServices/migrations/schemaStatuses",
+        "properties": {
+          "sourceDatabaseName": "ORCL",
+          "sourceSchemaName": "HR",
+          "targetDatabaseName": "db1",
+          "targetSchemaName": "hr",
+          "status": "InProgress",
+          "startedAt": "2025-09-20T08:15:30Z",
+          "endedAt": null,
+          "totalTables": 10,
+          "completedTables": 7,
+          "failedTables": 1,
+          "inProgressTables": 2,
+          "errors": [],
+          "provisioningState": "Succeeded"
+        }
+      }
+    }
+  }
+}

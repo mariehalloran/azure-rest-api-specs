@@ -42,6 +42,14 @@ enum Versions {
   @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v3_preview")
   @useDependency(LiftrBase.Versions.v3_preview)
   v6_preview: "2026-06-02-preview",
+
+  @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v1_preview")
+  @useDependency(LiftrBase.Versions.v1_preview)
+  v7_preview: "2026-07-01-preview",
+
+  @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v1_preview")
+  @useDependency(LiftrBase.Versions.v1_preview)
+  v8_preview: "2026-07-03-preview",
 }
 interface Operations extends Azure.ResourceManager.Operations {}
 
@@ -53,7 +61,6 @@ model CloudAccount is TrackedResource<CloudAccountProperties> {
   @minLength(1)
   @maxLength(50)
   @doc("Name of the Cloud Account resource")
-  @example("cloudAccountName")
   @path
   name: string;
 
@@ -135,6 +142,16 @@ model CloudAccountProperties is BaseResourceProperties {
   @doc("SSO URL for the Commvault Cloud Account")
   @visibility(Lifecycle.Read)
   ssoUrl?: string;
+
+  @doc("The backup administrator principal provided during CCA create. Required on create (enforced by backend), ignored on update.")
+  @added(Versions.v8_preview)
+  @visibility(Lifecycle.Create)
+  backupAdminOnCcaCreate?: EntityInfo;
+
+  @doc("The multi-person authorization (MPA) administrator principal provided during CCA create. Required on create (enforced by backend), ignored on update.")
+  @added(Versions.v8_preview)
+  @visibility(Lifecycle.Create)
+  multiPersonAuthorizationOnCcaCreate?: EntityInfo;
 }
 
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "SaaS operation group"
@@ -869,9 +886,9 @@ interface ProtectionGroups {
   @action("resumeBackup")
   @post
   @added(Versions.v3_preview)
-  resumeBackup(
-    ...ResourceInstanceParameters<ProtectionGroup>,
-  ): ArmNoContentResponse<"Resource operation accepted."> | ErrorResponse;
+  resumeBackup(...ResourceInstanceParameters<ProtectionGroup>):
+    | ArmNoContentResponse<"Resource operation accepted.">
+    | ErrorResponse;
 
   @doc("Ad-hoc backup of protected items resource in given protection group.")
   @armResourceAction(ProtectionGroup)
@@ -1029,6 +1046,26 @@ model RestoreProtectionItemRequest {
   vmDestinationInfo: VmDestinationInfo;
 }
 
+@doc("Response for count protected items operation.")
+@added(Versions.v7_preview)
+model CountProtectedItemsResponse {
+  @doc("The count of protected items.")
+  count: string;
+}
+
+@doc("Request to count protected items for the provided CCA resource IDs across subscriptions.")
+@added(Versions.v7_preview)
+model CountProtectedItemsRequest {
+  @doc("The list of CCA resource IDs.")
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  @minItems(1)
+  resourceIds: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Commvault.ContentStore/cloudAccounts";
+    }
+  ]>[];
+}
+
 @armResourceOperations
 interface ProtectedItems {
   get is ArmResourceRead<ProtectedItem>;
@@ -1038,9 +1075,9 @@ interface ProtectedItems {
   @armResourceAction(ProtectedItem)
   @action("getRestorePoints")
   @post
-  getRestorePoints(
-    ...ResourceInstanceParameters<ProtectedItem>,
-  ): ArmResponse<RestorePoints> | ErrorResponse;
+  getRestorePoints(...ResourceInstanceParameters<ProtectedItem>):
+    | ArmResponse<RestorePoints>
+    | ErrorResponse;
 
   @doc("Restore resource for a protected item.")
   @armResourceAction(ProtectedItem)
@@ -1053,6 +1090,20 @@ interface ProtectedItems {
     @doc("The body type of the operation request.")
     request: RestoreProtectionItemRequest,
   ): ArmResponse<RestoreProtectionItemResponse> | ErrorResponse;
+}
+
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "Cross-subscription protected item count operation group"
+@added(Versions.v7_preview)
+interface ProtectedItemsOperationGroup {
+  @doc("Gets the count of protected items for provided CCA resource IDs across subscriptions.")
+  @autoRoute
+  @action("protectedItemCount")
+  countByProtectionGroups is ArmProviderActionSync<
+    Request = CountProtectedItemsRequest,
+    Response = CountProtectedItemsResponse,
+    Scope = TenantActionScope,
+    Parameters = {}
+  >;
 }
 
 @doc("Restore points of a Protected Item")
@@ -1071,4 +1122,107 @@ model RestoreProtectionItemResponse {
   @doc("The jobIds returned from Commvault.")
   @visibility(Lifecycle.Read)
   jobIds: string[];
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Entity Type – represents either a user or a group in Entra ID
+// ──────────────────────────────────────────────────────────────────────────────
+
+@doc("The type of the entity")
+@added(Versions.v8_preview)
+union EntityType {
+  @doc("The entity is an Entra user")
+  User: "User",
+
+  @doc("The entity is an Entra security group")
+  Group: "Group",
+
+  string,
+}
+
+@doc("Information about an Entra entity (user or group) assigned to a role")
+@added(Versions.v8_preview)
+model EntityInfo {
+  @doc("The unique identifier (UUID) of the Entra entity")
+  id?: string;
+
+  @doc("The display name of the Entra entity")
+  displayName?: string;
+
+  @doc("The type of entity - user or group")
+  entityType?: EntityType;
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Role Mapping – singleton child resource of CloudAccount (one per CCA)
+// Stores the mapping of Entra security groups to Commvault roles.
+// Created alongside CCA via ARM template deployment (dependsOn CCA).
+// Liftr translates this JSON contract to the Commvault XML `:roleMapping` API.
+// Pattern reference: Dynatrace MonitoredSubscriptionProperties (@singleton)
+// ──────────────────────────────────────────────────────────────────────────────
+
+@doc("A Commvault Role Mapping Resource. Singleton per Cloud Account - maps Entra security groups to Commvault roles for RBAC enforcement.")
+@parentResource(CloudAccount)
+@singleton("default")
+@added(Versions.v8_preview)
+model RoleMapping is ProxyResource<RoleMappingProperties> {
+  ...ResourceNameParameter<
+    Resource = RoleMapping,
+    KeyName = "roleMappingName",
+    SegmentName = "roleMappings",
+    NamePattern = ""
+  >;
+}
+
+@doc("The properties of Commvault Role Mapping")
+@added(Versions.v8_preview)
+model RoleMappingProperties {
+  @doc("The list of role assignments mapping roles to Entra entities (users and groups)")
+  @Azure.ResourceManager.identifiers(#[])
+  roles?: RoleAssignment[];
+
+  @doc("Provisioning state of the resource.")
+  @visibility(Lifecycle.Read)
+  provisioningState?: ResourceProvisioningState;
+}
+
+@doc("A role assignment mapping a Commvault role to one or more Entra entities (users or groups)")
+@added(Versions.v8_preview)
+model RoleAssignment {
+  @doc("The name of the Commvault role")
+  roleName?: RoleName;
+
+  @doc("The Entra entities (users or groups) assigned to this role")
+  @Azure.ResourceManager.identifiers(#[])
+  entities?: EntityInfo[];
+}
+
+@doc("Supported Commvault role names")
+@added(Versions.v8_preview)
+union RoleName {
+  @doc("Backup Administrator - full access to all resources")
+  BackupAdmin: "BackupAdmin",
+
+  @doc("Backup Operator - can manage resources but cannot delete storage or plans")
+  BackupOperator: "BackupOperator",
+
+  @doc("Backup User - can manage protection groups, read-only on plans and storage")
+  BackupUser: "BackupUser",
+
+  @doc("Security Administrator - can manage CCA enrollment and user management")
+  SecurityAdmin: "SecurityAdmin",
+
+  @doc("MPA Administrator - can authorize critical operations protected by MPA")
+  MultiPersonAuthorization: "MultiPersonAuthorization",
+
+  string,
+}
+
+@armResourceOperations
+@added(Versions.v8_preview)
+interface RoleMappings {
+  get is ArmResourceRead<RoleMapping>;
+  createOrUpdate is ArmResourceCreateOrReplaceSync<RoleMapping>;
+  delete is ArmResourceDeleteSync<RoleMapping>;
+  list is ArmResourceListByParent<RoleMapping>;
 }

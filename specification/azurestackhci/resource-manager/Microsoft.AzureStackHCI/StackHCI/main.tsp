@@ -41,10 +41,14 @@ import "./EdgeMachineUpdate.tsp";
 import "./EdgeMachineGpu.tsp";
 import "./EdgeMachineStorage.tsp";
 import "./EdgeMachineNetworkAdapters.tsp";
+import "./EdgeMachineSecuritySettings.tsp";
 import "./ValidateOwnershipVouchers.tsp";
 import "./ClusterJobs.tsp";
 import "./ClusterVolume.tsp";
+import "./CapacitySetting.tsp";
 import "./DevicePool.tsp";
+import "./ProxyConfiguration.tsp";
+import "./client.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;

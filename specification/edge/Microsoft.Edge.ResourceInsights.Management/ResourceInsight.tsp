@@ -20,12 +20,14 @@ model ResourceInsight
 
 @@path(ResourceUriParameter.resourceUri, "scope");
 #suppress "@azure-tools/typespec-azure-core/no-private-usage" "TODO: Using private decorator is NOT allowed, this should be removed"
-@@Azure.ResourceManager.CommonTypes.Private.armCommonParameter(ResourceUriParameter.resourceUri,
+@@Azure.ResourceManager.CommonTypes.Private.armCommonParameter(
+  ResourceUriParameter.resourceUri,
   "ScopeParameter",
   Azure.ResourceManager.CommonTypes.Versions.v5
 );
 
-@@doc(Azure.ResourceManager.ResourceUriParameter.resourceUri,
+@@doc(
+  Azure.ResourceManager.ResourceUriParameter.resourceUri,
   "The scope of the operation or resource. Valid scopes is resource (format: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'"
 );
 

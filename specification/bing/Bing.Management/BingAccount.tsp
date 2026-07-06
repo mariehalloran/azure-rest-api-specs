@@ -14,7 +14,6 @@ namespace Microsoft.Bing;
  * Bing Account is an Azure resource representing the provisioned account, its type, location and SKU.
  */
 #suppress "@azure-tools/typespec-azure-core/no-private-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-#suppress "@azure-tools/typespec-azure-core/no-private-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 @Azure.ResourceManager.Private.armResourceInternal(BingAccountProperties)
 @TypeSpec.Http.Private.includeInapplicableMetadataInPayload(false)
@@ -164,12 +163,15 @@ interface BingAccounts {
 @@minLength(BingAccount.name, 2);
 @@doc(BingAccount.name, "The name of the Bing account.");
 @@doc(BingAccount.properties, "Properties of Bing account.");
-@@doc(BingAccounts.create::parameters.resource,
+@@doc(
+  BingAccounts.create::parameters.resource,
   "The parameters of the account to create."
 );
-@@doc(BingAccounts.update::parameters.properties,
+@@doc(
+  BingAccounts.update::parameters.properties,
   "The parameters to update in the account."
 );
-@@doc(BingAccounts.regenerateKey::parameters.body,
+@@doc(
+  BingAccounts.regenerateKey::parameters.body,
   "Regenerate key parameters."
 );

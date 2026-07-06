@@ -14,7 +14,6 @@ namespace Microsoft.StorageActions;
  * Represents Storage Task.
  */
 #suppress "@azure-tools/typespec-azure-core/no-private-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-#suppress "@azure-tools/typespec-azure-core/no-private-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 @Azure.ResourceManager.Private.armResourceInternal(StorageTaskProperties)
 @Http.Private.includeInapplicableMetadataInPayload(false)
@@ -52,11 +51,14 @@ interface StorageTasks {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-put-operation-response-codes" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   create is ArmResourceCreateOrReplaceAsync<
     StorageTask,
-    Response = ArmResourceUpdatedResponse<StorageTask> | ArmResourceCreatedResponse<
-      StorageTask,
-      ArmLroLocationHeader<FinalResult = StorageTask> &
-        Azure.Core.Foundations.RetryAfterHeader
-    > | ArmAcceptedLroResponse
+    Response =
+      | ArmResourceUpdatedResponse<StorageTask>
+      | ArmResourceCreatedResponse<
+          StorageTask,
+          ArmLroLocationHeader<FinalResult = StorageTask> &
+            Azure.Core.Foundations.RetryAfterHeader
+        >
+      | ArmAcceptedLroResponse
   >;
 
   /**
@@ -140,13 +142,16 @@ interface StorageTasks {
 
 @@maxLength(StorageTask.name, 18);
 @@minLength(StorageTask.name, 3);
-@@doc(StorageTask.name,
+@@doc(
+  StorageTask.name,
   "The name of the storage task within the specified resource group. Storage task names must be between 3 and 18 characters in length and use numbers and lower-case letters only."
 );
 @@doc(StorageTask.properties, "Properties of the storage task.");
-@@doc(StorageTasks.create::parameters.resource,
+@@doc(
+  StorageTasks.create::parameters.resource,
   "The parameters to create a Storage Task."
 );
-@@doc(StorageTasks.update::parameters.properties,
+@@doc(
+  StorageTasks.update::parameters.properties,
   "The parameters to provide to update the storage task resource."
 );

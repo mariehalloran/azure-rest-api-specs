@@ -142,7 +142,9 @@ interface CustomizedArmResourceOperation {
     LroHeaders extends TypeSpec.Reflection.Model = ArmCombinedLroHeaders &
       Azure.Core.Foundations.RetryAfterHeader,
     Parameters extends {} = {},
-    Response extends {} = ArmDeleteAcceptedLroResponse<LroHeaders> | ArmDeletedNoContentResponse,
+    Response extends {} =
+      | ArmDeleteAcceptedLroResponse<LroHeaders>
+      | ArmDeletedNoContentResponse,
     Error extends {} = ErrorResponse
   > is ArmResourceDeleteAsyncBase<
     Resource,

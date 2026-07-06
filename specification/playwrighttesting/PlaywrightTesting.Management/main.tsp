@@ -94,6 +94,7 @@ interface Accounts
   checkNameAvailability is checkGlobalNameAvailability;
 
   delete is ArmResourceDeleteWithoutOkAsync<Account>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchSync<
     Account,

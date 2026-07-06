@@ -21,6 +21,7 @@ import "./models/akri/connector.tsp";
 import "./models/akri/discoveryHandler.tsp";
 import "./models/akri/service.tsp";
 import "./models/diagnostics/diagnostic.tsp";
+import "./client.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Versioning;
@@ -55,6 +56,10 @@ enum Versions {
   /** 2025-12-01-preview */
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   `2025-12-01-preview`,
+
+  /** 2026-06-01-preview */
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
+  `2026-06-01-preview`,
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}

@@ -302,6 +302,9 @@
         "x-ms-examples": {
           "Supercomputers_CreateOrUpdate": {
             "$ref": "./examples/Supercomputers_CreateOrUpdate.json"
+          },
+          "Supercomputers_CreateOrUpdate_WithScopes": {
+            "$ref": "./examples/Supercomputers_CreateOrUpdate_WithScopes.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -1711,25 +1714,6 @@
     }
   },
   "definitions": {
-    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
-      "type": "object",
-      "title": "Tracked Resource",
-      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/Resource"
-        }
-      ]
-    },
     "Azure.ResourceManager.ResourceProvisioningState": {
       "type": "string",
       "description": "The provisioning state of a resource type.",
@@ -2213,20 +2197,6 @@
         "impactCategory"
       ]
     },
-    "MaintenanceRequestPropertiesUpdate": {
-      "type": "object",
-      "description": "The properties of a maintenance request.",
-      "properties": {
-        "description": {
-          "type": "string",
-          "description": "A customizable description of the maintenance request."
-        },
-        "state": {
-          "$ref": "#/definitions/MaintenanceRequestState",
-          "description": "The current state of the maintenance request in the encompassing workflow.\nCustomers can only create a maintenance request with \"Investigating\" or\n\"Approved\" state, and can only update this from \"WaitingForApproval\" to \"Approved\"."
-        }
-      }
-    },
     "MaintenanceRequestRepairCategory": {
       "type": "string",
       "description": "The types of repair covered by maintenance requests.",
@@ -2379,18 +2349,27 @@
     },
     "MaintenanceRequestUpdate": {
       "type": "object",
-      "description": "A maintenance request on resource(s) that can be requested and approved.",
+      "description": "The type used for update operations of the MaintenanceRequest.",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/MaintenanceRequestPropertiesUpdate",
+          "$ref": "#/definitions/MaintenanceRequestUpdateProperties",
           "description": "The resource-specific properties for this resource."
         }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+      }
+    },
+    "MaintenanceRequestUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of the MaintenanceRequest.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "A customizable description of the maintenance request."
+        },
+        "state": {
+          "$ref": "#/definitions/MaintenanceRequestState",
+          "description": "The current state of the maintenance request in the encompassing workflow.\nCustomers can only create a maintenance request with \"Investigating\" or\n\"Approved\" state, and can only update this from \"WaitingForApproval\" to \"Approved\"."
         }
-      ]
+      }
     },
     "Nic": {
       "type": "object",
@@ -2639,6 +2618,10 @@
         "properties": {
           "$ref": "#/definitions/SupercomputerProperties",
           "description": "The resource-specific properties for this resource."
+        },
+        "identity": {
+          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "description": "The managed service identities assigned to this resource."
         }
       },
       "allOf": [
@@ -2689,15 +2672,22 @@
           "$ref": "#/definitions/SupercomputerProvisioningState",
           "description": "The status of the last operation on the supercomputer.",
           "readOnly": true
+        },
+        "scopes": {
+          "type": "array",
+          "description": "A set of scopes to associate the Supercomputer with specific underlying infrastructure. This is required when creating a supercomputer with certain tiers, such as Standard_Clusters.",
+          "items": {
+            "type": "string"
+          },
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         }
       },
       "required": [
         "tier"
       ]
-    },
-    "SupercomputerPropertiesUpdate": {
-      "type": "object",
-      "description": "The properties of a supercomputer."
     },
     "SupercomputerProvisioningState": {
       "type": "string",
@@ -2767,7 +2757,8 @@
         "Fairwater",
         "Offnet_Nebius_MIV50_Canary",
         "Offnet_Nebius_MIV50_GB200",
-        "Offnet_Nebius_MIV50_GB300"
+        "Offnet_Nebius_MIV50_GB300",
+        "Standard_Clusters"
       ],
       "x-ms-enum": {
         "name": "SupercomputerTier",
@@ -2792,24 +2783,31 @@
             "name": "Offnet_Nebius_MIV50_GB300",
             "value": "Offnet_Nebius_MIV50_GB300",
             "description": "A Nebius MIV50 GB300 supercomputer."
+          },
+          {
+            "name": "Standard_Clusters",
+            "value": "Standard_Clusters",
+            "description": "A supercomputer comprising of one or more Azure Fabric clusters."
           }
         ]
       }
     },
     "SupercomputerUpdate": {
       "type": "object",
-      "description": "A supercomputer composed of topological entities.",
+      "description": "The type used for update operations of the Supercomputer.",
       "properties": {
-        "properties": {
-          "$ref": "#/definitions/SupercomputerPropertiesUpdate",
-          "description": "The resource-specific properties for this resource."
+        "identity": {
+          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "description": "The managed service identities assigned to this resource."
+        },
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
-        }
-      ]
+      }
     },
     "Switch": {
       "type": "object",

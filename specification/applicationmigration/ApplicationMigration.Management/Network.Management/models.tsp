@@ -411,6 +411,10 @@ model AzureResourceProperties {
 
   /** The number of errors. */
   errorCount?: int64;
+
+  /** The tags applied to this resource. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
+  tags?: Record<string>;
 }
 
 // ──────────────────────────────────────────────
@@ -785,6 +789,10 @@ model NsxManagerPatchFields {
   /** The collection of appliance data associated with this NSX Manager. */
   @identifiers(#[])
   applianceDataCollection?: ApplianceData[];
+
+  /** The tags applied to this resource. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
+  tags?: Record<string>;
 }
 
 /** NsxTier0Gateway patch envelope. */
@@ -826,6 +834,10 @@ model NsxTier0GatewayPatchFields {
 
   /** ARM resource IDs of associated gateway firewall policies. */
   associatedGfwPolicyArmIds?: Azure.Core.armResourceIdentifier[];
+
+  /** The tags applied to this resource. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
+  tags?: Record<string>;
 }
 
 /** NsxTier1Gateway patch envelope. */
@@ -870,6 +882,10 @@ model NsxTier1GatewayPatchFields {
 
   /** ARM resource IDs of associated load balancers. */
   associatedLoadBalancerArmIds?: Azure.Core.armResourceIdentifier[];
+
+  /** The tags applied to this resource. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
+  tags?: Record<string>;
 }
 
 /** NsxSegment patch envelope. */
@@ -919,6 +935,10 @@ model NsxSegmentPatchFields {
       type: "Microsoft.OffAzure/vmwareSites/machines";
     }
   ]>[];
+
+  /** The tags applied to this resource. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
+  tags?: Record<string>;
 }
 
 /** NsxNsGroup patch envelope. */
@@ -952,6 +972,10 @@ model NsxNsGroupPatchFields {
 
   /** Effective IPv4/IPv6 address members resolved by the group. */
   effectiveIpMembers?: string[];
+
+  /** The tags applied to this resource. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
+  tags?: Record<string>;
 }
 
 /** NsxGatewayFirewallPolicy patch envelope. */
@@ -996,6 +1020,10 @@ model NsxGatewayFirewallPolicyPatchFields {
 
   /** ARM resource IDs of effective scopes. */
   effectiveScopeArmIds?: Azure.Core.armResourceIdentifier[];
+
+  /** The tags applied to this resource. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
+  tags?: Record<string>;
 }
 
 /** NsxGatewayFirewallRule patch envelope. */
@@ -1059,6 +1087,10 @@ model NsxGatewayFirewallRulePatchFields {
 
   /** ARM resource IDs of effective scopes. */
   effectiveScopeArmIds?: Azure.Core.armResourceIdentifier[];
+
+  /** The tags applied to this resource. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
+  tags?: Record<string>;
 }
 
 /** NsxDistributedFirewallPolicy patch envelope. */
@@ -1100,6 +1132,10 @@ model NsxDistributedFirewallPolicyPatchFields {
 
   /** ARM resource IDs of scope groups this policy applies to. */
   scopeGroupArmIds?: string[];
+
+  /** The tags applied to this resource. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
+  tags?: Record<string>;
 }
 
 /** NsxDistributedFirewallRule patch envelope. */
@@ -1169,6 +1205,10 @@ model NsxDistributedFirewallRulePatchFields {
   /** The services this rule applies to. */
   @identifiers(#[])
   services?: FirewallService[];
+
+  /** The tags applied to this resource. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
+  tags?: Record<string>;
 }
 
 /** NsxLoadBalancer patch envelope. */
@@ -1207,6 +1247,10 @@ model NsxLoadBalancerPatchFields {
 
   /** The backend configuration (pool, health probe, SNAT). */
   backendConfig?: BackendConfig;
+
+  /** The tags applied to this resource. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
+  tags?: Record<string>;
 }
 
 /** NsxNatRule patch envelope. */
@@ -1245,6 +1289,10 @@ model NsxNatRulePatchFields {
 
   /** The translation target. */
   translate?: NatTranslate;
+
+  /** The tags applied to this resource. */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
+  tags?: Record<string>;
 }
 
 // ──────────────────────────────────────────────

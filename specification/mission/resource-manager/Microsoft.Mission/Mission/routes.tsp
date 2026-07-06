@@ -28,6 +28,7 @@ interface Workload {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     WorkloadResource,
@@ -48,6 +49,7 @@ interface VirtualEnclave {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     EnclaveResource,
@@ -93,6 +95,7 @@ interface Community {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     CommunityResource,
@@ -125,6 +128,7 @@ interface TransitHub {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     TransitHubResource,
@@ -145,6 +149,7 @@ interface EnclaveConnection {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     EnclaveConnectionResource,
@@ -188,6 +193,7 @@ interface EnclaveEndpoints {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     EnclaveEndpointResource,
@@ -233,6 +239,7 @@ interface CommunityEndpoints {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     CommunityEndpointResource,
@@ -266,6 +273,16 @@ interface CommunityEndpoints {
     ApprovalDeletionCallbackRequest,
     ApprovalActionResponse
   >;
+
+  @doc("Triggers a manual re-sync of community endpoint connections to all configured sync destinations.")
+  @armResourceAction(CommunityEndpointResource)
+  @post
+  @added(Microsoft.Mission.Versions.v2026_05_01_preview)
+  sync is ArmResourceActionAsync<
+    CommunityEndpointResource,
+    void,
+    CommunityEndpointResource
+  >;
 }
 
 @doc("DedicatedHub Interface")
@@ -279,6 +296,7 @@ interface DedicatedHub {
     LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
       ArmAsyncOperationHeader
   >;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     DedicatedHubResource,
@@ -287,6 +305,29 @@ interface DedicatedHub {
   delete is ArmResourceDeleteWithoutOkAsync<DedicatedHubResource>;
   listByCommunityResource is ArmResourceListByParent<DedicatedHubResource>;
   listBySubscription is ArmListBySubscription<DedicatedHubResource>;
+}
+
+@doc("ServiceCatalog Interface")
+@added(Microsoft.Mission.Versions.v2026_05_04_preview)
+@armResourceOperations
+interface ServiceCatalog {
+  get is ArmResourceRead<ServiceCatalogResource>;
+  @useFinalStateVia("azure-async-operation")
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<
+    ServiceCatalogResource,
+    LroHeaders = Azure.Core.Foundations.RetryAfterHeader &
+      ArmAsyncOperationHeader
+  >;
+
+  #suppress "@typespec/http/deprecated-implicit-optionality" "LEGACY - DO NOT COPY"
+  @patch(#{ implicitOptionality: true })
+  update is ArmCustomPatchAsync<
+    ServiceCatalogResource,
+    PatchModel = ServiceCatalogPatchModel
+  >;
+  delete is ArmResourceDeleteWithoutOkAsync<ServiceCatalogResource>;
+  listByResourceGroup is ArmResourceListByParent<ServiceCatalogResource>;
+  listBySubscription is ArmListBySubscription<ServiceCatalogResource>;
 }
 
 @doc("Approval Interface")
@@ -300,6 +341,7 @@ interface Approval {
       ArmAsyncOperationHeader
   >;
   listByParent is ArmResourceListByParent<ApprovalResource>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     ApprovalResource,

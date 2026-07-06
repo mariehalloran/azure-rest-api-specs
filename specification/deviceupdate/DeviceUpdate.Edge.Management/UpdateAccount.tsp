@@ -105,28 +105,33 @@ interface UpdateAccounts {
 @@doc(UpdateAccount.name, "Account name.");
 @@doc(UpdateAccounts.create::parameters.resource, "Update Account details.");
 @@doc(UpdateAccounts.update::parameters.properties, "Updated Update Account.");
-@@doc(UpdateAccounts.importUpdate::parameters.body,
+@@doc(
+  UpdateAccounts.importUpdate::parameters.body,
   "The update to be imported (see schema https://json.schemastore.org/azure-deviceupdate-import-manifest-5.0.json for details)."
 );
 
 #suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
-@@encodedName(UpdateAccounts.create::parameters.resource,
+@@encodedName(
+  UpdateAccounts.create::parameters.resource,
   "application/json",
   "UpdateAccount"
 );
 @@clientName(UpdateAccounts.create::parameters.resource, "UpdateAccount");
 
 #suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
-@@encodedName(UpdateAccounts.update::parameters.properties,
+@@encodedName(
+  UpdateAccounts.update::parameters.properties,
   "application/json",
   "updateAccountUpdatePayload"
 );
-@@clientName(UpdateAccounts.update::parameters.properties,
+@@clientName(
+  UpdateAccounts.update::parameters.properties,
   "updateAccountUpdatePayload"
 );
 
 #suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
-@@encodedName(UpdateAccounts.importUpdate::parameters.body,
+@@encodedName(
+  UpdateAccounts.importUpdate::parameters.body,
   "application/json",
   "updateToImport"
 );
@@ -135,6 +140,7 @@ interface UpdateAccounts {
 /**
  * .NET SDK does not like the model name ends with Response
  */
-@@clientName(CommonTypes.CheckNameAvailabilityResponse,
+@@clientName(
+  CommonTypes.CheckNameAvailabilityResponse,
   "CheckNameAvailabilityResult"
 );

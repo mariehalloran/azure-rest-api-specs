@@ -36,6 +36,7 @@ import "./clusters/ClusterMetricsConfiguration.tsp";
 import "./kubernetesclusters/AgentPool.tsp";
 import "./kubernetesclusters/KubernetesClusterFeature.tsp";
 import "./virtualmachines/Console.tsp";
+import "./client.tsp";
 
 using Azure.ResourceManager;
 using TypeSpec.Versioning;
@@ -77,6 +78,12 @@ enum Versions {
    */
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   v2026_07_01: "2026-07-01",
+
+  /**
+   * The 2026-08-01-preview API version.
+   */
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  v2026_08_01_preview: "2026-08-01-preview",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}

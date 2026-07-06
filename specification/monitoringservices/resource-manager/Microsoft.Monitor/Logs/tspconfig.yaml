@@ -11,12 +11,9 @@ options:
     examples-dir: "{project-root}/examples"
     output-file: "{version-status}/{version}/genevaLogs.json"
     use-read-only-status-schema: "true"
-  "@azure-tools/typespec-csharp":
-    flavor: azure
-    package-dir: Azure.ResourceManager.GenevaLogs
+  "@azure-typespec/http-client-csharp-mgmt":
     namespace: "Azure.ResourceManager.GenevaLogs"
     emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
-    clear-output-folder: true
   "@azure-tools/typespec-go":
     service-dir: sdk/resourcemanager/genevalogs
     package-dir: armgenevalogs

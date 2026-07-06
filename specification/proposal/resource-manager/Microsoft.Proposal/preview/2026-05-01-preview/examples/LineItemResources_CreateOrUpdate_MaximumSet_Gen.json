@@ -1,0 +1,63 @@
+{
+  "title": "LineItemResources_CreateOrUpdate",
+  "operationId": "LineItemResources_CreateOrUpdate",
+  "parameters": {
+    "api-version": "2026-05-01-preview",
+    "subscriptionId": "7939834F-7453-446A-A69F-85C1571F2BE7",
+    "resourceGroupName": "rgopenapi",
+    "name": "proposal-name",
+    "lineItemName": "lineitem-001",
+    "resource": {
+      "properties": {
+        "productCode": "00000000-0000-0000-0000-000000000001",
+        "status": "Pending"
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "provisioningState": "Succeeded",
+          "productCode": "00000000-0000-0000-0000-000000000001",
+          "status": "Pending",
+          "resourceUri": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/virtualMachines/vm1"
+        },
+        "id": "/subscriptions/7939834F-7453-446A-A69F-85C1571F2BE7/resourceGroups/rgopenapi/providers/Microsoft.Proposal/proposals/proposal-name/lineItems/lineitem-001",
+        "name": "lineitem-001",
+        "type": "Microsoft.Proposal/proposals/lineItems",
+        "systemData": {
+          "createdBy": "user@contoso.com",
+          "createdByType": "User",
+          "createdAt": "2026-01-09T05:53:52.203Z",
+          "lastModifiedBy": "user@contoso.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-01-09T05:53:52.203Z"
+        }
+      }
+    },
+    "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/7939834F-7453-446A-A69F-85C1571F2BE7/providers/Microsoft.Proposal/operationstatus/12345"
+      },
+      "body": {
+        "properties": {
+          "provisioningState": "Accepted",
+          "productCode": "00000000-0000-0000-0000-000000000001",
+          "status": "Pending"
+        },
+        "id": "/subscriptions/7939834F-7453-446A-A69F-85C1571F2BE7/resourceGroups/rgopenapi/providers/Microsoft.Proposal/proposals/proposal-name/lineItems/lineitem-001",
+        "name": "lineitem-001",
+        "type": "Microsoft.Proposal/proposals/lineItems",
+        "systemData": {
+          "createdBy": "user@contoso.com",
+          "createdByType": "User",
+          "createdAt": "2026-01-09T05:53:52.203Z",
+          "lastModifiedBy": "user@contoso.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-01-09T05:53:52.203Z"
+        }
+      }
+    }
+  }
+}

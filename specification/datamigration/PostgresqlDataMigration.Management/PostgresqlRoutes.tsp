@@ -20,7 +20,7 @@ interface PostgresqlMigrationServices {
   create is ArmResourceCreateOrReplaceSync<MigrationService>;
 
   @doc("Updates a migration service.")
-  update is ArmResourcePatchSync<MigrationService, MigrationServiceProperties>;
+  update is ArmTagsPatchSync<MigrationService>;
 
   @doc("Deletes a migration service.")
   delete is ArmResourceDeleteSync<MigrationService>;
@@ -55,9 +55,10 @@ interface PostgresqlDatabaseMigrations {
   createOrUpdate is ArmResourceCreateOrReplaceSync<DatabaseMigration>;
 
   @doc("Updates a database migration. Supports cancel and cutover operations.")
-  update is ArmResourcePatchSync<
+  @patch(#{ implicitOptionality: false })
+  update is ArmCustomPatchSync<
     DatabaseMigration,
-    DatabaseMigrationProperties
+    PatchModel = DatabaseMigrationPatch
   >;
 
   @doc("Deletes a database migration.")
@@ -65,4 +66,31 @@ interface PostgresqlDatabaseMigrations {
 
   @doc("Lists database migrations by migration service.")
   listByMigrationService is ArmResourceListByParent<DatabaseMigration>;
+}
+
+@armResourceOperations
+interface DatabaseStatuses {
+  @doc("Gets a database-level migration status.")
+  get is ArmResourceRead<DatabaseStatusResource>;
+
+  @doc("Lists database-level migration statuses.")
+  list is ArmResourceListByParent<DatabaseStatusResource>;
+}
+
+@armResourceOperations
+interface SchemaStatuses {
+  @doc("Gets a schema-level migration status.")
+  get is ArmResourceRead<SchemaStatusResource>;
+
+  @doc("Lists schema-level migration statuses.")
+  list is ArmResourceListByParent<SchemaStatusResource>;
+}
+
+@armResourceOperations
+interface TableStatuses {
+  @doc("Gets a table-level migration status.")
+  get is ArmResourceRead<TableStatusResource>;
+
+  @doc("Lists table-level migration statuses.")
+  list is ArmResourceListByParent<TableStatusResource>;
 }

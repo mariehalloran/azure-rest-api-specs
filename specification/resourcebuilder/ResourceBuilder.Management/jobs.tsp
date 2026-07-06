@@ -74,9 +74,6 @@ model JobProperties {
   // AzureStorageAccountIngestion job specific properties (kind: "AzureStorageAccountIngestion")
   // Uses outputs (exactly 1 dataset) defined above.
   // ============================================
-  /** Path to the blob partition used for data ingestion. Required for AzureStorageAccountIngestion jobs. */
-  blobPartitionPath?: string;
-
   /** Time offset between DateTime.UtcNow and the timestamp of the blob available in source, used for the blob partition path. Used by AzureStorageAccountIngestion jobs. Defaults to 00:00:00. */
   timeOffset?: string;
 

@@ -11,6 +11,7 @@ namespace Microsoft.SupercomputerInfrastructure;
 /** A supercomputer composed of topological entities. */
 model Supercomputer is TrackedResource<SupercomputerProperties> {
   ...ResourceNameParameter<Supercomputer>;
+  ...ManagedServiceIdentityProperty;
 }
 
 /** The properties of a supercomputer. */
@@ -26,6 +27,10 @@ model SupercomputerProperties {
   /** The status of the last operation on the supercomputer. */
   @visibility(Lifecycle.Read)
   provisioningState?: SupercomputerProvisioningState;
+
+  /** A set of scopes to associate the Supercomputer with specific underlying infrastructure. This is required when creating a supercomputer with certain tiers, such as Standard_Clusters. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  scopes?: string[];
 }
 
 /** The available tiers of supercomputers. */
@@ -41,6 +46,9 @@ union SupercomputerTier {
 
   /** A Nebius MIV50 GB300 supercomputer. */
   Offnet_Nebius_MIV50_GB300: "Offnet_Nebius_MIV50_GB300",
+
+  /** A supercomputer comprising of one or more Azure Fabric clusters. */
+  Standard_Clusters: "Standard_Clusters",
 
   string,
 }
@@ -72,7 +80,13 @@ union SupercomputerProvisioningState {
 interface Supercomputers {
   get is ArmResourceRead<Supercomputer>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Supercomputer>;
-  update is ArmResourcePatchAsync<Supercomputer, SupercomputerProperties>;
+  update is ArmCustomPatchAsync<
+    Supercomputer,
+    PatchModel = Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      Supercomputer,
+      SupercomputerProperties
+    >
+  >;
   delete is ArmResourceDeleteWithoutOkAsync<Supercomputer>;
   listByResourceGroup is ArmResourceListByParent<Supercomputer>;
   listBySubscription is ArmListBySubscription<Supercomputer>;

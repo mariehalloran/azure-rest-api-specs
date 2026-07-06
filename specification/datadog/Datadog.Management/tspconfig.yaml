@@ -23,11 +23,9 @@ options:
     namespace: "com.azure.resourcemanager.datadog"
     service-name: "Microsoft Datadog"
     flavor: azure
-  "@azure-tools/typespec-csharp":
-    emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.Datadog"
+  "@azure-typespec/http-client-csharp-mgmt":
     namespace: "Azure.ResourceManager.Datadog"
-    clear-output-folder: true
-    flavor: "azure"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-ts":
     service-dir: sdk/datadog
     emitter-output-dir: "{output-dir}/{service-dir}/arm-datadog"

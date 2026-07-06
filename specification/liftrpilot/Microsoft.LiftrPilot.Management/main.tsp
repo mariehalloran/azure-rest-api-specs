@@ -8,6 +8,7 @@ import "@azure-tools/typespec-liftr-base";
 using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
+using Azure.Core;
 using Azure.ResourceManager;
 using LiftrBase;
 
@@ -60,6 +61,11 @@ enum Versions {
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   @useDependency(LiftrBase.Versions.v1_preview)
   v2026_04_01_preview: "2026-04-01-preview",
+
+  /** 2026-06-01-preview version (new) */
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  @useDependency(LiftrBase.Versions.v3_preview)
+  v2026_06_01_preview: "2026-06-01-preview",
 }
 
 /** These properties will be sent to your endpoints registered with Liftr during CRUD on resource.
@@ -104,6 +110,7 @@ model OrganizationResourceUpdate {
 interface Organizations {
   get is ArmResourceRead<OrganizationResource>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<OrganizationResource>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchSync<
     OrganizationResource,
@@ -163,6 +170,7 @@ model AgentResourceUpdate {
 interface Agents {
   get is ArmResourceRead<AgentResource>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<AgentResource>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchSync<AgentResource, AgentResourceUpdate>;
   delete is ArmResourceDeleteWithoutOkAsync<AgentResource>;
@@ -316,6 +324,7 @@ interface TestTrackedResources {
   get is ArmResourceRead<TestTrackedResource>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<TestTrackedResource>;
   delete is ArmResourceDeleteWithoutOkAsync<TestTrackedResource>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<TestTrackedResource, TestTrackedResourceUpdate>;
   listByResourceGroup is ArmResourceListByParent<TestTrackedResource>;
@@ -562,6 +571,7 @@ interface TestTrackedSyncResources {
   get is ArmResourceRead<TestTrackedSyncResource>;
   createOrUpdate is ArmResourceCreateOrReplaceSync<TestTrackedSyncResource>;
   delete is ArmResourceDeleteSync<TestTrackedSyncResource>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchSync<
     TestTrackedSyncResource,
@@ -592,6 +602,10 @@ model SaaS is Azure.ResourceManager.TrackedResource<SaasProperties> {
 model ActivateSaasParameterRequest {
   @doc("SaaS guid for Activate and Validate SaaS Resource")
   saasGuid: string;
+
+  @added(Versions.v2026_06_01_preview)
+  @doc("Publisher Id for the Pilot resource")
+  publisherId?: string;
 }
 
 @added(Versions.v2025_05_23_preview)
@@ -600,6 +614,28 @@ model ActivateSaasResponse {
   @doc("The partner response for saasId")
   @visibility(Lifecycle.Read)
   saasId: string;
+}
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS matches the existing Marketplace SaaS contract naming."
+@added(Versions.v2026_06_01_preview)
+@doc("SaaS-related data properties.")
+model SaaSData {
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS matches the existing Marketplace SaaS contract naming."
+  @doc("SaaS resource ID.")
+  saaSResourceId?: string;
+}
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS matches the existing Marketplace SaaS contract naming."
+@added(Versions.v2026_06_01_preview)
+@doc("Response of the latest linked SaaS resource operation.")
+model LatestLinkedSaaSResponse {
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS matches the existing Marketplace SaaS contract naming."
+  @doc("SaaS resource ID.")
+  saaSResourceId?: string;
+
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS matches the existing Marketplace SaaS contract naming."
+  @doc("Indicates whether the SaaS resource is hidden.")
+  isHiddenSaaS?: boolean;
 }
 
 @added(Versions.v2025_10_24_preview)
@@ -635,7 +671,10 @@ interface ProviderLevelTestActions {
     @bodyRoot
     @doc("The details for ProviderLevelTestAction request.")
     request: ProviderLevelTestActionRequest,
-  ): ArmResponse<ProviderLevelTestActionResponse> | ArmAcceptedLroResponse | ErrorResponse;
+  ):
+    | ArmResponse<ProviderLevelTestActionResponse>
+    | ArmAcceptedLroResponse
+    | ErrorResponse;
 }
 
 @added(Versions.v2025_05_23_preview)
@@ -703,6 +742,7 @@ interface TestWorkspaces {
   get is ArmResourceRead<TestWorkspace>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<TestWorkspace>;
   delete is ArmResourceDeleteWithoutOkAsync<TestWorkspace>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<TestWorkspace, TestWorkspaceUpdate>;
   listByTestChildPureProxyResource is ArmResourceListByParent<TestWorkspace>;
@@ -769,6 +809,7 @@ interface TestEnvironments {
   get is ArmResourceRead<TestEnvironment>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<TestEnvironment>;
   delete is ArmResourceDeleteWithoutOkAsync<TestEnvironment>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<TestEnvironment, TestEnvironmentUpdate>;
   listByTestWorkspace is ArmResourceListByParent<TestEnvironment>;
@@ -785,5 +826,80 @@ interface TestEnvironments {
     @bodyRoot
     @doc("The body type of the operation request.")
     request: RestoreTestEnvironmentRequest,
-  ): ArmResponse<RestoreTestEnvironmentResponse> | ArmAcceptedLroResponse | ErrorResponse;
+  ):
+    | ArmResponse<RestoreTestEnvironmentResponse>
+    | ArmAcceptedLroResponse
+    | ErrorResponse;
+}
+
+@added(Versions.v2026_06_01_preview)
+@doc("Properties specific to OrganizationSaasDecoupled")
+model OrganizationSaasDecoupledProperties is BaseResourceProperties {
+  @visibility(Lifecycle.Read)
+  @doc("Managed-On-Behalf-Of configuration for the resource.")
+  managedOnBehalfOfConfiguration?: Azure.ResourceManager.CommonTypes.ManagedOnBehalfOfConfiguration;
+
+  @doc("Indicates whether this resource is created as part of a MOBO flow")
+  isMoboFlowEnabled?: boolean;
+}
+
+/** Organization SaaS decoupled resource. */
+@added(Versions.v2026_06_01_preview)
+model OrganizationSaasDecoupled
+  is Azure.ResourceManager.TrackedResource<OrganizationSaasDecoupledProperties> {
+  @key("organizationSaasDecoupledName")
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9_\\-.: ]*$")
+  @segment("organizationSaasDecoupled")
+  @minLength(1)
+  @maxLength(50)
+  @doc("Name of the OrganizationSaasDecoupled resource")
+  @path
+  name: string;
+
+  ...Azure.ResourceManager.ManagedServiceIdentityProperty;
+}
+
+/**
+ * The type used for update operations of the OrganizationSaasDecoupled.
+ */
+@added(Versions.v2026_06_01_preview)
+model OrganizationSaasDecoupledUpdate {
+  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+
+  /** Updatable managed service identity */
+  ...Azure.ResourceManager.ManagedServiceIdentityProperty;
+}
+
+@added(Versions.v2026_06_01_preview)
+@armResourceOperations
+interface OrganizationSaasDecoupledResources {
+  get is ArmResourceRead<OrganizationSaasDecoupled>;
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<OrganizationSaasDecoupled>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
+  @patch(#{ implicitOptionality: true })
+  update is ArmCustomPatchSync<
+    OrganizationSaasDecoupled,
+    OrganizationSaasDecoupledUpdate
+  >;
+  delete is ArmResourceDeleteWithoutOkAsync<OrganizationSaasDecoupled>;
+  listByResourceGroup is ArmResourceListByParent<OrganizationSaasDecoupled>;
+  listBySubscription is ArmListBySubscription<OrganizationSaasDecoupled>;
+
+  /** Links a new SaaS resource to the organization SaaS decoupled resource. */
+  @summary("Links a new SaaS resource to the organization SaaS decoupled resource.")
+  @Azure.Core.useFinalStateVia("azure-async-operation")
+  linkSaaS is ArmResourceActionAsync<
+    OrganizationSaasDecoupled,
+    SaaSData,
+    ArmResponse<OrganizationSaasDecoupled>,
+    LroHeaders = ArmCombinedLroHeaders<FinalResult = OrganizationSaasDecoupled> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
+
+  /** Returns the latest SaaS resource linked to the organization SaaS decoupled resource. */
+  latestLinkedSaaS is ArmResourceActionSync<
+    OrganizationSaasDecoupled,
+    void,
+    ArmResponse<LatestLinkedSaaSResponse>
+  >;
 }

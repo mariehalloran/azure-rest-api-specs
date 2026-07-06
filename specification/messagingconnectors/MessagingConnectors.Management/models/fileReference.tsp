@@ -1,4 +1,5 @@
 import "./authModels/authModel.tsp";
+import "./commonModels/configKeyValuePair.tsp";
 import "./authModels/connectionString.tsp";
 import "./authModels/usernamePassword.tsp";
 import "./authModels/accessKey.tsp";
@@ -22,7 +23,6 @@ import "./connector/sourceConnector/cloudEventsConfigModels/cloudEventsConfig.ts
 import "./connector/sourceConnector/sourceDataFormatModels/sourceDataFormat.tsp";
 import "./connector/sourceConnector/sourceConnector.tsp";
 import "./dataSourceModels/dataSourceProperties.tsp";
-import "./dataSourceModels/azureDataExplorerSourceConnector.tsp";
 import "./dataSourceModels/azureDataExplorerSourceConnector.tsp";
 import "./dataSourceModels/azureServiceBusSourceConnector.tsp";
 import "./dataSourceModels/confluentSourceConnector.tsp";

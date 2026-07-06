@@ -3,14 +3,23 @@ import "@typespec/http";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@typespec/versioning";
+import "@typespec/openapi";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Foundations;
 using TypeSpec.Versioning;
+using TypeSpec.OpenAPI;
 
 namespace Dynatrace.Observability;
+
+/**
+ * Ingestion key with secret and read-only attributes for all API versions.
+ */
+@secret
+@extension("readOnly", true)
+scalar SecretIngestionKey extends string;
 
 /**
  * Indicates whether metrics are being sent.
@@ -591,8 +600,8 @@ model VMExtensionPayload {
   /**
    * Ingestion key of the environment
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "TODO: Check if this is a secret and add @secret or update reason"
-  ingestionKey?: string;
+  @typeChangedFrom(Versions.v2025_11_03_preview, string)
+  ingestionKey?: SecretIngestionKey;
 
   /**
    * Id of the environment created
@@ -843,8 +852,7 @@ model EnvironmentInfo {
   /**
    * Ingestion key of the environment
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "TODO: Check if this is a secret and add @secret or update reason"
-  ingestionKey?: string;
+  ingestionKey?: SecretIngestionKey;
 
   /**
    * Ingestion endpoint used for sending logs
@@ -856,6 +864,11 @@ model EnvironmentInfo {
    */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   landingURL?: string;
+
+  /**
+   * API URL for Dynatrace environment API endpoints
+   */
+  apiUrl?: string;
 }
 
 /**

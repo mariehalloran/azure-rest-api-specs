@@ -62,7 +62,52 @@ union ProposalStatus {
   Ended: "Ended",
 }
 
-@doc("The status of the line item.")
+@doc("The line items to purchase in the proposal.")
+model LineItem {
+  @doc("The product code of the line item as a UUID that uniquely identifies this line item within the proposal.")
+  productCode: string;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("The name of the line item.")
+  name: string;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("Quantity of the line item within the proposal bundle.")
+  quantity: int64;
+
+  @added(Versions.v2026_05_01_preview)
+  @secret
+  @doc("Availability token for the line item.")
+  availabilityToken?: string;
+
+  @added(Versions.v2026_05_01_preview)
+  @secret
+  @doc("Billing token for the line item.")
+  billingToken?: string;
+
+  @added(Versions.v2026_05_01_preview)
+  @secret
+  @doc("Risk payment token associated with the line item.")
+  riskPaymentToken?: string;
+
+  @visibility(Lifecycle.Read)
+  @doc("The resource URI of the line item.")
+  resourceUri?: string;
+
+  @visibility(Lifecycle.Read)
+  @doc("The status of the line item.")
+  status?: LineItemStatus;
+
+  @visibility(Lifecycle.Read)
+  @doc("The error code if any error occurs during processing the line item.")
+  errorCode?: string;
+
+  @visibility(Lifecycle.Read)
+  @doc("The error message if any error occurs during processing the line item.")
+  errorMessage?: string;
+}
+
+@doc("The status of the line item in the proposal.")
 union LineItemStatus {
   string,
 

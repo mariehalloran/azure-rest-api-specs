@@ -1,0 +1,30 @@
+{
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "location": "global",
+    "parameters": {
+      "resourceType": "Microsoft.WebIQ/accounts",
+      "kind": "WebIQ.Grounding",
+      "skus": [
+        "G3"
+      ]
+    },
+    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "resourceType": "Microsoft.WebIQ/accounts",
+            "kind": "WebIQ.Grounding",
+            "skuAvailable": true,
+            "skuName": "G3"
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "Skus_CheckAvailability",
+  "title": "Check SKU Availability"
+}

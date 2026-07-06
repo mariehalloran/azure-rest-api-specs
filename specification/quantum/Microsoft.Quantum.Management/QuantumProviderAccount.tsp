@@ -108,6 +108,11 @@ model ProviderAccountSubscription {
   /** Quota allocations for this subscription. */
   @added(Versions.v2025_02_15_preview)
   quotas?: SubscriptionQuotaAllocations;
+
+  /** Target-specific quota allocations for this subscription. */
+  @added(Versions.v2026_06_15_preview)
+  @identifiers(#["targetId"])
+  targetQuotas?: TargetQuotaAllocations[];
 }
 
 /** A Target of a ProviderAccount, in which Workspace Jobs can be targeted at for execution. */
@@ -193,9 +198,25 @@ interface ProviderAccounts {
    * Updates an existing ProviderAccount's properties.
    */
   @added(Versions.v2025_02_15_preview)
-  update is ArmResourcePatchSync<
+  @removed(Versions.v2026_06_15_preview)
+  @renamedFrom(Versions.v2026_06_15_preview, "update")
+  @sharedRoute
+  updateV1 is ArmResourcePatchSync<
     QuantumProviderAccount,
     ProviderAccountProperties
+  >;
+
+  /**
+   * Updates an existing ProviderAccount's properties.
+   */
+  @added(Versions.v2026_06_15_preview)
+  @sharedRoute
+  update is ArmCustomPatchSync<
+    QuantumProviderAccount,
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      QuantumProviderAccount,
+      ProviderAccountProperties
+    >
   >;
 
   /**
@@ -217,15 +238,23 @@ interface ProviderAccounts {
   listBySubscription is ArmListBySubscription<QuantumProviderAccount>;
 }
 
-@@doc(QuantumProviderAccount.name,
+@@doc(
+  QuantumProviderAccount.name,
   "The name of the Quantum ProviderAccount resource."
 );
-@@doc(QuantumProviderAccount.properties,
+@@doc(
+  QuantumProviderAccount.properties,
   "Gets or sets the properties. Define Quantum provider account's specific properties."
 );
-@@doc(ProviderAccounts.createOrUpdate::parameters.resource,
+@@doc(
+  ProviderAccounts.createOrUpdate::parameters.resource,
   "ProviderAccount details."
 );
-@@doc(ProviderAccounts.update::parameters.properties,
+@@doc(
+  ProviderAccounts.update::parameters.properties,
+  "ProviderAccount details."
+);
+@@doc(
+  ProviderAccounts.updateV1::parameters.properties,
   "ProviderAccount details."
 );

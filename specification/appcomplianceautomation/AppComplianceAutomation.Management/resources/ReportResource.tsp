@@ -161,20 +161,25 @@ interface ReportResources {
   >;
 }
 
-@@doc(ReportResources.createOrUpdate::parameters.parameters,
+@@doc(
+  ReportResources.createOrUpdate::parameters.parameters,
   "Parameters for the create or update operation"
 );
-@@doc(ReportResources.update::parameters.properties,
+@@doc(
+  ReportResources.update::parameters.properties,
   "Parameters for the create or update operation"
 );
-@@doc(ReportResources.syncCertRecord::parameters.body,
+@@doc(
+  ReportResources.syncCertRecord::parameters.body,
   "Parameters for synchronize certification record operation"
 );
-@@doc(ReportResources.checkNameAvailability::parameters.body,
+@@doc(
+  ReportResources.checkNameAvailability::parameters.body,
   "NameAvailabilityRequest object."
 );
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Deprecated: Using encodedName for the body property is meaningless."
-@@encodedName(ReportResources.update::parameters.properties,
+@@encodedName(
+  ReportResources.update::parameters.properties,
   "application/json",
   "parameters"
 );

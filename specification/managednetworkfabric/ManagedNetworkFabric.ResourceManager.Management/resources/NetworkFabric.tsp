@@ -425,51 +425,87 @@ interface NetworkFabrics {
     void,
     NetworkFabricResyncCertificatesResponse
   >;
+
+  @doc("Runs validation on the Network Fabric for the specified operation.")
+  @action("runValidation")
+  @added(Versions.v2026_07_15_preview)
+  runValidation is ArmResourceActionAsync<
+    NetworkFabric,
+    RunValidationRequest,
+    RunValidationResponse
+  >;
+
+  @summary("NF Resource Troubleshooting.")
+  @doc("Perform troubleshooting on Network Fabric resources.")
+  @action("nfRsTroubleshoot")
+  @added(Versions.v2026_07_15_preview)
+  troubleshoot is ArmResourceActionAsync<
+    NetworkFabric,
+    NfResourceTroubleshootRequest,
+    NfResourceTroubleshootResponse
+  >;
 }
 
 @@doc(NetworkFabrics.create::parameters.resource, "Request payload.");
-@@doc(NetworkFabrics.update::parameters.properties,
+@@doc(
+  NetworkFabrics.update::parameters.properties,
   "Network Fabric properties to update."
 );
-@@doc(NetworkFabrics.upgradeDeprecated::parameters.body,
+@@doc(
+  NetworkFabrics.upgradeDeprecated::parameters.body,
   "Network Fabric properties to update."
 );
-@@doc(NetworkFabrics.upgrade::parameters.body,
+@@doc(
+  NetworkFabrics.upgrade::parameters.body,
   "Network Fabric properties to update."
 );
-@@doc(NetworkFabrics.updateWorkloadManagementBfdConfiguration::parameters.body,
+@@doc(
+  NetworkFabrics.updateWorkloadManagementBfdConfiguration::parameters.body,
   "Request payload."
 );
-@@doc(NetworkFabrics.updateWorkloadManagementBfdConfigurationDeprecated::parameters.body,
+@@doc(
+  NetworkFabrics.updateWorkloadManagementBfdConfigurationDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(NetworkFabrics.updateInfraManagementBfdConfiguration::parameters.body,
+@@doc(
+  NetworkFabrics.updateInfraManagementBfdConfiguration::parameters.body,
   "Request payload."
 );
-@@doc(NetworkFabrics.updateInfraManagementBfdConfigurationDeprecated::parameters.body,
+@@doc(
+  NetworkFabrics.updateInfraManagementBfdConfigurationDeprecated::parameters.body,
   "Request payload."
 );
 
-@@doc(NetworkFabrics.validateConfigurationDeprecated::parameters.body,
+@@doc(
+  NetworkFabrics.validateConfigurationDeprecated::parameters.body,
   "Validate configuration properties."
 );
-@@doc(NetworkFabrics.validateConfiguration::parameters.body,
+@@doc(
+  NetworkFabrics.validateConfiguration::parameters.body,
   "Validate configuration properties."
 );
-@@doc(NetworkFabrics.commitBatchStatusDeprecated::parameters.body,
+@@doc(
+  NetworkFabrics.commitBatchStatusDeprecated::parameters.body,
   "Request payload."
 );
 @@doc(NetworkFabrics.commitBatchStatus::parameters.body, "Request payload.");
 @@doc(NetworkFabrics.lockFabricDeprecated::parameters.body, "Request payload.");
 @@doc(NetworkFabrics.lockFabric::parameters.body, "Request payload.");
-@@doc(NetworkFabrics.discardCommitBatchDeprecated::parameters.body,
+@@doc(
+  NetworkFabrics.discardCommitBatchDeprecated::parameters.body,
   "Request payload."
 );
 @@doc(NetworkFabrics.discardCommitBatch::parameters.body, "Request payload.");
 @@doc(NetworkFabrics.refreshConfiguration::parameters.body, "Request payload.");
-@@doc(NetworkFabrics.refreshConfigurationDeprecated::parameters.body,
+@@doc(
+  NetworkFabrics.refreshConfigurationDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(NetworkFabrics.refreshConfigurationDeprecatedV2::parameters.body,
+@@doc(
+  NetworkFabrics.refreshConfigurationDeprecatedV2::parameters.body,
   "Request payload."
+);
+@@doc(
+  NetworkFabrics.runValidation::parameters.body,
+  "Validate readiness properties."
 );

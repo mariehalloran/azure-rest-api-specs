@@ -77,7 +77,9 @@ interface MaintenancePlans {
     MaintenancePlan,
     ErrorType = MaintenanceError,
     OptionalRequestBody = false,
-    Response = ArmResponse<MaintenancePlansResponse> | ArmCreatedResponse<MaintenancePlansResponse>
+    Response =
+      | ArmResponse<MaintenancePlansResponse>
+      | ArmCreatedResponse<MaintenancePlansResponse>
   >;
 
   /**

@@ -1,10 +1,12 @@
 import "@typespec/rest";
 import "@typespec/http";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Foundations;
 using Azure.Core;
@@ -31,6 +33,14 @@ union ServiceName {
   SSH: "SSH",
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "For backward compatibility"
   WAC: "WAC",
+
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "For backward compatibility"
+  @added(Versions.v2026_04_01_preview)
+  GVMO: "GVMO",
+
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "For backward compatibility"
+  @added(Versions.v2026_04_01_preview)
+  GVMOBOOTSTRAP: "GVMOBOOTSTRAP",
 }
 
 /**
@@ -322,10 +332,12 @@ model ListIngressGatewayCredentialsRequest {
 }
 
 @@doc(EndpointsList.value, "The list of endpoint.");
-@@doc(EndpointsList.nextLink,
+@@doc(
+  EndpointsList.nextLink,
   "The link used to get the next page of endpoints list."
 );
 @@doc(ServiceConfigurationList.value, "The list of service configuration");
-@@doc(ServiceConfigurationList.nextLink,
+@@doc(
+  ServiceConfigurationList.nextLink,
   "The link to fetch the next page of connected cluster"
 );

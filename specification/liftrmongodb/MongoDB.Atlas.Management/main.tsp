@@ -5,6 +5,7 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@azure-tools/typespec-liftr-base";
 import "@azure-tools/typespec-autorest";
+import "./client.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
@@ -117,6 +118,7 @@ interface Operations extends Azure.ResourceManager.Operations {}
 interface Organizations {
   get is ArmResourceRead<OrganizationResource>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<OrganizationResource>;
+  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     OrganizationResource,
@@ -170,7 +172,7 @@ model ProjectProperties {
   @doc("Number of clusters in the project.")
   @visibility(Lifecycle.Read)
   @minValue(0)
-  clusterCount?: int32;
+  clusterCount?: int64;
 
   @doc("Provisioning state of the resource.")
   @visibility(Lifecycle.Read)
@@ -182,7 +184,7 @@ model ProjectProperties {
 @parentResource(OrganizationResource)
 model Project is ProxyResource<ProjectProperties> {
   @key("projectName")
-  @pattern("^[ a-zA-Z0-9\\-_.(),:&@+']*$")
+  @pattern("^.+$")
   @segment("projects")
   @minLength(1)
   @maxLength(64)
@@ -204,18 +206,18 @@ interface Projects {
   @autoRoute
   @armResourceAction(Project)
   @post
-  tierLimitReached(
-    ...ResourceInstanceParameters<Project>,
-  ): ArmResponse<TierLimitReachedResponse> | ErrorResponse;
+  tierLimitReached(...ResourceInstanceParameters<Project>):
+    | ArmResponse<TierLimitReachedResponse>
+    | ErrorResponse;
 
   @doc("List available regions by cluster tier for the project.")
   @autoRoute
   @armResourceAction(Project)
   @post
   @action("clusterTierRegions")
-  listClusterTierRegions(
-    ...ResourceInstanceParameters<Project>,
-  ): ArmResponse<RegionsByTierResponse> | ErrorResponse;
+  listClusterTierRegions(...ResourceInstanceParameters<Project>):
+    | ArmResponse<RegionsByTierResponse>
+    | ErrorResponse;
 }
 
 @doc("Response for tier limit check.")
@@ -293,13 +295,15 @@ model ClusterProperties {
   @visibility(Lifecycle.Read)
   mongoDbVersion?: string;
 
-  @doc("Whether backups are enabled for the cluster.")
+  #suppress "@azure-tools/typespec-azure-core/no-nullable" "Partner API returns explicit null for backups when undetermined, not absent."
+  @doc("Whether backups are active for the cluster; null if undetermined.")
   @visibility(Lifecycle.Read)
-  backupEnabled?: boolean;
+  backups?: boolean | null;
 
+  #suppress "@azure-tools/typespec-azure-core/no-nullable" "Partner API returns explicit null for state when not available, not absent."
   @doc("Current state of the cluster.")
   @visibility(Lifecycle.Read)
-  state?: string;
+  state?: string | null;
 
   @doc("Provisioning state of the resource.")
   @visibility(Lifecycle.Read)

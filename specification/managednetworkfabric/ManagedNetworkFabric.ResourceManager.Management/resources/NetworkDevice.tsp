@@ -201,27 +201,45 @@ interface NetworkDevices {
     void,
     NetworkFabricResyncCertificatesResponse
   >;
+
+  @doc("Runs validation on the Network Device for the specified operation.")
+  @action("runValidation")
+  @added(Versions.v2026_07_15_preview)
+  runValidation is ArmResourceActionAsync<
+    NetworkDevice,
+    RunValidationRequest,
+    RunValidationResponse
+  >;
 }
 
 @@doc(NetworkDevices.create::parameters.resource, "Request payload.");
-@@doc(NetworkDevices.update::parameters.properties,
+@@doc(
+  NetworkDevices.update::parameters.properties,
   "Network Device properties to update."
 );
 @@doc(NetworkDevices.rebootDeprecated::parameters.body, "Request payload.");
 @@doc(NetworkDevices.reboot::parameters.body, "Request payload.");
-@@doc(NetworkDevices.updateAdministrativeStateDeprecated::parameters.body,
+@@doc(
+  NetworkDevices.updateAdministrativeStateDeprecated::parameters.body,
   "Request payload."
 );
-@@doc(NetworkDevices.updateAdministrativeState::parameters.body,
+@@doc(
+  NetworkDevices.updateAdministrativeState::parameters.body,
   "Request payload."
 );
 @@doc(NetworkDevices.upgradeDeprecated::parameters.body, "Request payload.");
 @@doc(NetworkDevices.upgrade::parameters.body, "Request payload.");
 @@doc(NetworkDevices.runRoCommand::parameters.body, "Request the command.");
-@@doc(NetworkDevices.runRoCommandDeprecated::parameters.body,
+@@doc(
+  NetworkDevices.runRoCommandDeprecated::parameters.body,
   "Request the command."
 );
-@@doc(NetworkDevices.runRwCommandDeprecated::parameters.body,
+@@doc(
+  NetworkDevices.runRwCommandDeprecated::parameters.body,
   "Request the command."
 );
 @@doc(NetworkDevices.runRwCommand::parameters.body, "Request the command.");
+@@doc(
+  NetworkDevices.runValidation::parameters.body,
+  "Validate readiness properties."
+);

@@ -593,6 +593,13 @@ model ClusterStatus {
   detailedStatusMessage?: string;
 
   /**
+   * The CA certificate of the edge management service.
+   */
+  @added(Versions.v2026_08_01_preview)
+  @visibility(Lifecycle.Read)
+  edgeManagementServiceCaCertificate?: CertificateInfo;
+
+  /**
    * Field Deprecated. This field will not be populated in an upcoming version. The extended location (custom location) that represents the Hybrid AKS control plane location. This extended location is used when creating provisioned clusters (Hybrid AKS clusters).
    */
   @visibility(Lifecycle.Read)
@@ -1027,9 +1034,219 @@ model SecretArchiveSettings {
   associatedIdentity?: IdentitySelector;
 
   /**
+   * The public key used to encrypt secrets that are archived into the key vault. Expected encoding is a PEM-encoded RSA public key with a minimum key size of 3072 bits. Additional key formats or sizes may be supported in future versions.
+   */
+  @added(Versions.v2026_08_01_preview)
+  encryptionPublicKey?: string;
+
+  /**
+   * The configuration indicating the use of self-supplied secret archive software. Specification of a provider configuration indicates that the provided configuration will be used. Exclusion of any providerConfiguration indicates the use of Azure Key Vault. If providerConfiguration is included in a PATCH, the body must be a complete, valid configuration for the chosen provider, including all fields required for that provider; omit providerConfiguration from PATCH bodies that do not change it.
+   */
+  @added(Versions.v2026_08_01_preview)
+  providerConfiguration?: SecretArchiveProviderConfiguration;
+
+  /**
    * The URI for the key vault used as the secret archive.
    */
   vaultUri?: url;
+}
+
+/**
+ * The provider of the secret archive. Absence of `providerConfiguration` on `SecretArchiveSettings` implies Azure Key Vault as the default provider; this enum enumerates only the self-supplied (non-Azure Key Vault) providers.
+ */
+@added(Versions.v2026_08_01_preview)
+union SecretArchiveProviderType {
+  string,
+
+  /**
+   * CyberArk secret archive provider.
+   */
+  CyberArk: "CyberArk",
+
+  /**
+   * HashiCorp Vault secret archive provider.
+   */
+  HashiCorpVault: "HashiCorpVault",
+
+  /**
+   * OpenBao secret archive provider.
+   */
+  OpenBao: "OpenBao",
+}
+
+/**
+ * The version of the key value secrets engine. Supports values V1 and V2,
+ * which map to engine versions 1 and 2 respectively.
+ */
+@added(Versions.v2026_08_01_preview)
+union KeyValueVersion {
+  string,
+
+  /**
+   * Key/value engine version 1.
+   */
+  V1: "V1",
+
+  /**
+   * Key/value engine version 2.
+   */
+  V2: "V2",
+}
+
+/**
+ * The authentication method used to authenticate to a HashiCorp Vault or OpenBao secret archive.
+ */
+@added(Versions.v2026_08_01_preview)
+union VaultAuthenticationMethod {
+  string,
+
+  /**
+   * AppRole authentication method.
+   */
+  AppRole: "AppRole",
+
+  /**
+   * Client certificate authentication method.
+   */
+  ClientCertificate: "ClientCertificate",
+}
+
+/**
+ * SecretArchiveProviderConfiguration represents the base configuration for a self-supplied secret archive provider.
+ */
+@added(Versions.v2026_08_01_preview)
+@discriminator("provider")
+model SecretArchiveProviderConfiguration {
+  /**
+   * The provider of the secret archive.
+   */
+  provider: SecretArchiveProviderType;
+}
+
+/**
+ * The configuration for a CyberArk secret archive provider.
+ */
+@added(Versions.v2026_08_01_preview)
+model CyberArkSecretArchiveProviderConfiguration
+  extends SecretArchiveProviderConfiguration {
+  /**
+   * The provider of the secret archive. Literal value CyberArk.
+   */
+  provider: SecretArchiveProviderType.CyberArk;
+
+  /**
+   * The CyberArk application ID.
+   */
+  applicationId: string;
+
+  /**
+   * The safe name for credential storage.
+   */
+  safeName: string;
+
+  /**
+   * The folder name within the safe. Defaults to Root if not specified.
+   */
+  folderName?: string;
+
+  /**
+   * The object naming pattern within the safe. The tokens `{namespace}` and `{name}` may appear in the template and are substituted at archive time.
+   */
+  objectNameTemplate?: string;
+}
+
+/**
+ * The configuration for a HashiCorp Vault secret archive provider. Authentication credentials required by the selected authenticationMethod (for example, the AppRole secret, or client certificate and private key) are supplied out of band.
+ */
+@added(Versions.v2026_08_01_preview)
+model HashiCorpVaultSecretArchiveProviderConfiguration
+  extends SecretArchiveProviderConfiguration {
+  /**
+   * The provider of the secret archive. Literal value HashiCorpVault.
+   */
+  provider: SecretArchiveProviderType.HashiCorpVault;
+
+  /**
+   * The key value secrets engine mount path. Defaults to secret if not specified.
+   */
+  mountPath?: string;
+
+  /**
+   * The key value engine version. Supports values `V1` and `V2`, defaults to `V2`.
+   */
+  keyValueVersion?: KeyValueVersion;
+
+  /**
+   * The vault namespace.
+   */
+  `namespace`?: string;
+
+  /**
+   * The secret path pattern. Defaults to `edge-credentials/{namespace}/{name}`.
+   */
+  pathTemplate?: string;
+
+  /**
+   * The authentication method used for the archive. When set to `AppRole`, `applicationRoleId` is required; when set to `ClientCertificate`, `applicationRoleId` is ignored.
+   */
+  authenticationMethod: VaultAuthenticationMethod;
+
+  /**
+   * The Role ID, required when `authenticationMethod` is `AppRole`; ignored for other authentication methods.
+   */
+  applicationRoleId?: string;
+
+  /**
+   * The authentication method mount path in the archive.
+   */
+  authenticationMountPath?: string;
+}
+
+/**
+ * The configuration for an OpenBao secret archive provider. Authentication credentials required by the selected authenticationMethod (for example, the AppRole secret, or client certificate and private key) are supplied out of band.
+ */
+@added(Versions.v2026_08_01_preview)
+model OpenBaoSecretArchiveProviderConfiguration
+  extends SecretArchiveProviderConfiguration {
+  /**
+   * The provider of the secret archive. Literal value OpenBao.
+   */
+  provider: SecretArchiveProviderType.OpenBao;
+
+  /**
+   * The key value secrets engine mount path. Defaults to secret if not specified.
+   */
+  mountPath?: string;
+
+  /**
+   * The key value engine version. Supports values `V1` and `V2`, defaults to `V2`.
+   */
+  keyValueVersion?: KeyValueVersion;
+
+  /**
+   * The vault namespace.
+   */
+  `namespace`?: string;
+
+  /**
+   * The secret path pattern. Defaults to `edge-credentials/{namespace}/{name}`.
+   */
+  pathTemplate?: string;
+
+  /**
+   * The authentication method used for the archive. When set to `AppRole`, `applicationRoleId` is required; when set to `ClientCertificate`, `applicationRoleId` is ignored.
+   */
+  authenticationMethod: VaultAuthenticationMethod;
+
+  /**
+   * The Role ID, required when `authenticationMethod` is `AppRole`; ignored for other authentication methods.
+   */
+  applicationRoleId?: string;
+
+  /**
+   * The authentication method mount path in the archive.
+   */
+  authenticationMountPath?: string;
 }
 
 /**
@@ -1067,6 +1284,260 @@ model ClusterUpdateStrategy {
 }
 
 /**
+ * RackDefinitionPatch represents details regarding the rack for patch operations.
+ */
+@added(Versions.v2026_07_01)
+model RackDefinitionPatch {
+  /**
+   * The zone name used for this rack when created. Availability zones are used for workload placement.
+   */
+  @pattern("^[a-zA-Z0-9]{1,10}$")
+  availabilityZone?: string;
+
+  /**
+   * The unordered list of bare metal machine configuration.
+   */
+  @identifiers(#[])
+  bareMetalMachineConfigurationData?: BareMetalMachineConfigurationDataPatch[];
+
+  /**
+   * The resource ID of the network rack that matches this rack definition.
+   */
+  networkRackId?: Azure.Core.armResourceIdentifier;
+
+  /**
+   * The free-form description of the rack's location.
+   */
+  @maxLength(256)
+  rackLocation?: string;
+
+  /**
+   * The unique identifier for the rack within Network Cloud cluster. An alternate unique alphanumeric value other than a serial number may be provided if desired.
+   */
+  @maxLength(64)
+  @minLength(1)
+  rackSerialNumber?: string;
+
+  /**
+   * The resource ID of the sku for the rack being added.
+   */
+  rackSkuId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.NetworkCloud/rackSkus";
+    }
+  ]>;
+
+  /**
+   * The list of storage appliance configuration data for this rack.
+   */
+  @identifiers(#[])
+  storageApplianceConfigurationData?: StorageApplianceConfigurationDataPatch[];
+}
+
+/**
+ * BareMetalMachineConfigurationDataPatch represents configuration for the bare metal machine for patch operations.
+ */
+@added(Versions.v2026_07_01)
+model BareMetalMachineConfigurationDataPatch {
+  /**
+   * The connection string for the baseboard management controller including IP address and protocol.
+   */
+  @visibility(Lifecycle.Read)
+  bmcConnectionString?: string;
+
+  /**
+   * The credentials of the baseboard management controller on this bare metal machine. The password field is expected to be an Azure Key Vault key URL. Until the cluster is converted to utilize managed identity by setting the secret archive settings, the actual password value should be provided instead.
+   */
+  bmcCredentials?: AdministrativeCredentialsPatch;
+
+  /**
+   * The MAC address of the BMC for this machine.
+   */
+  @pattern("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$")
+  bmcMacAddress?: string;
+
+  /**
+   * The MAC address associated with the PXE NIC card.
+   */
+  @pattern("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$")
+  bootMacAddress?: string;
+
+  /**
+   * The free-form additional information about the machine, e.g. an asset tag.
+   */
+  @maxLength(256)
+  machineDetails?: string;
+
+  /**
+   * The user-provided name for the bare metal machine created from this specification. If not provided, the machine name will be generated programmatically.
+   */
+  @pattern("^([a-zA-Z0-9][a-zA-Z0-9]{0,62}[a-zA-Z0-9])$")
+  machineName?: string;
+
+  /**
+   * The slot the physical machine is in the rack based on the BOM configuration.
+   */
+  @maxValue(256)
+  @minValue(1)
+  rackSlot?: int64;
+
+  /**
+   * The serial number of the machine. Hardware suppliers may use an alternate value. For example, service tag.
+   */
+  @maxLength(64)
+  serialNumber?: string;
+}
+
+/**
+ * StorageApplianceConfigurationDataPatch represents configuration for the storage application for patch operations.
+ */
+@added(Versions.v2026_07_01)
+model StorageApplianceConfigurationDataPatch {
+  /**
+   * The credentials of the administrative interface on this storage appliance. The password field is expected to be an Azure Key Vault key URL. Until the cluster is converted to utilize managed identity by setting the secret archive settings, the actual password value should be provided instead.
+   */
+  adminCredentials?: AdministrativeCredentialsPatch;
+
+  /**
+   * The slot that storage appliance is in the rack based on the BOM configuration.
+   */
+  @maxValue(256)
+  @minValue(1)
+  rackSlot?: int64;
+
+  /**
+   * The serial number of the appliance.
+   */
+  serialNumber?: string;
+
+  /**
+   * The user-provided name for the storage appliance that will be created from this specification.
+   */
+  @pattern("^([a-zA-Z0-9][a-zA-Z0-9-_]{0,28}[a-zA-Z0-9])$")
+  storageApplianceName?: string;
+}
+
+/**
+ * ServicePrincipalInformationPatch represents the details of the service principal to be used by the cluster during Arc Appliance installation for patch operations.
+ */
+@added(Versions.v2026_07_01)
+model ServicePrincipalInformationPatch {
+  /**
+   * The application ID, also known as client ID, of the service principal.
+   */
+  applicationId?: string;
+
+  /**
+   * The password of the service principal.
+   */
+  @secret
+  password?: string;
+
+  /**
+   * The principal ID, also known as the object ID, of the service principal.
+   */
+  principalId?: string;
+
+  /**
+   * The tenant ID, also known as the directory ID, of the tenant in which the service principal is created.
+   */
+  tenantId?: string;
+}
+
+/**
+ * ValidationThresholdPatch indicates allowed machine and node hardware and deployment failures for patch operations.
+ */
+@added(Versions.v2026_07_01)
+model ValidationThresholdPatch {
+  /**
+   * Selection of how the type evaluation is applied to the cluster calculation.
+   */
+  grouping?: ValidationThresholdGrouping;
+
+  /**
+   * Selection of how the threshold should be evaluated.
+   */
+  type?: ValidationThresholdType;
+
+  /**
+   * The numeric threshold value.
+   */
+  @minValue(0)
+  value?: int64;
+}
+
+/**
+ * RuntimeProtectionConfigurationPatch represents the runtime protection configuration for the cluster for patch operations.
+ */
+@added(Versions.v2026_07_01)
+model RuntimeProtectionConfigurationPatch {
+  /**
+   * The definition update mode for runtime protection.
+   */
+  definitionUpdateMode?: RuntimeProtectionDefinitionUpdateMode;
+
+  /**
+   * The mode of operation for runtime protection.
+   */
+  enforcementLevel?: RuntimeProtectionEnforcementLevel;
+}
+
+/**
+ * ClusterSecretArchivePatch configures the key vault to archive the secrets of the cluster for later retrieval for patch operations.
+ */
+@added(Versions.v2026_07_01)
+model ClusterSecretArchivePatch {
+  /**
+   * The resource ID of the key vault to archive the secrets of the cluster.
+   */
+  keyVaultId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.KeyVault/vaults";
+    }
+  ]>;
+
+  /**
+   * The indicator if the specified key vault should be used to archive the secrets of the cluster.
+   */
+  useKeyVault?: ClusterSecretArchiveEnabled;
+}
+
+/**
+ * ClusterUpdateStrategyPatch represents the strategy for updating the cluster for patch operations.
+ */
+@added(Versions.v2026_07_01)
+model ClusterUpdateStrategyPatch {
+  /**
+   * The maximum number of worker nodes that can be offline within the increment of update, e.g., rack-by-rack. Limited by the maximum number of machines in the increment. Defaults to the whole increment size.
+   */
+  @minValue(1)
+  maxUnavailable?: int64;
+
+  /**
+   * The mode of operation for runtime protection.
+   */
+  strategyType?: ClusterUpdateStrategyType;
+
+  /**
+   * Selection of how the threshold should be evaluated.
+   */
+  thresholdType?: ValidationThresholdType;
+
+  /**
+   * The numeric threshold value.
+   */
+  @minValue(0)
+  thresholdValue?: int64;
+
+  /**
+   * The time to wait between the increments of update defined by the strategy.
+   */
+  @minValue(0)
+  @maxValue(60)
+  waitTimeMinutes?: int64;
+}
+
+/**
  * VulnerabilityScanningSettings represents the settings for how security vulnerability scanning is applied to the cluster.
  */
 model VulnerabilityScanningSettings {
@@ -1093,7 +1564,7 @@ model ClusterPatchParameters {
   /**
    * The Azure resource tags that will replace the existing ones.
    */
-  ...Foundations.ArmTagsProperty;
+  ...TagsParameter;
 }
 
 /**
@@ -1103,7 +1574,8 @@ model ClusterPatchProperties {
   /**
    * The rack definition that is intended to reflect only a single rack in a single rack cluster, or an aggregator rack in a multi-rack cluster.
    */
-  aggregatorOrSingleRackDefinition?: RackDefinition;
+  @typeChangedFrom(Versions.v2026_07_01, RackDefinition)
+  aggregatorOrSingleRackDefinition?: RackDefinitionPatch;
 
   /**
    * The settings for the log analytics workspace used for output of logs from this cluster.
@@ -1118,7 +1590,8 @@ model ClusterPatchProperties {
   /**
    * Field Deprecated: Use managed identity to provide cluster privileges. The service principal to be used by the cluster during Arc Appliance installation.
    */
-  clusterServicePrincipal?: ServicePrincipalInformation;
+  @typeChangedFrom(Versions.v2026_07_01, ServicePrincipalInformation)
+  clusterServicePrincipal?: ServicePrincipalInformationPatch;
 
   /**
    * The settings for commands run in this cluster, such as bare metal machine run read only commands and data extracts.
@@ -1128,23 +1601,27 @@ model ClusterPatchProperties {
   /**
    * The validation threshold indicating the allowable failures of compute machines during environment validation and deployment.
    */
-  computeDeploymentThreshold?: ValidationThreshold;
+  @typeChangedFrom(Versions.v2026_07_01, ValidationThreshold)
+  computeDeploymentThreshold?: ValidationThresholdPatch;
 
   /**
    * The list of rack definitions for the compute racks in a multi-rack cluster, or an empty list in a single-rack cluster.
    */
   @identifiers(#["networkRackId"])
-  computeRackDefinitions?: RackDefinition[];
+  @typeChangedFrom(Versions.v2026_07_01, RackDefinition[])
+  computeRackDefinitions?: RackDefinitionPatch[];
 
   /**
    * The settings for cluster runtime protection.
    */
-  runtimeProtectionConfiguration?: RuntimeProtectionConfiguration;
+  @typeChangedFrom(Versions.v2026_07_01, RuntimeProtectionConfiguration)
+  runtimeProtectionConfiguration?: RuntimeProtectionConfigurationPatch;
 
   /**
    * The configuration for use of a key vault to store secrets for later retrieval by the operator.
    */
-  secretArchive?: ClusterSecretArchive;
+  @typeChangedFrom(Versions.v2026_07_01, ClusterSecretArchive)
+  secretArchive?: ClusterSecretArchivePatch;
 
   /**
    * The settings for the secret archive used to hold credentials for the cluster.
@@ -1154,7 +1631,8 @@ model ClusterPatchProperties {
   /**
    * The strategy for updating the cluster.
    */
-  updateStrategy?: ClusterUpdateStrategy;
+  @typeChangedFrom(Versions.v2026_07_01, ClusterUpdateStrategy)
+  updateStrategy?: ClusterUpdateStrategyPatch;
 
   /**
    * The settings for how security vulnerability scanning is applied to the cluster.
