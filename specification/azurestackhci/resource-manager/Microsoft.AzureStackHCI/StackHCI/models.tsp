@@ -15343,4 +15343,34 @@ model StorageArrayAssociationProperties {
   provisioningState?: ProvisioningState;
 }
 
+// ─────────────────────────── Placeholder tags-only patch models (tracked roots) ───────────────────────────
+// The tracked root resources (storageArrays, initiatorGroups, storageFabrics) are
+// read-only for this private preview, but ARM requires a TrackedResource to expose
+// the full lifecycle (PUT/PATCH/DELETE). These tags-only patch models back the
+// placeholder update operations; no domain properties are settable.
+
+/**
+ * The type used for updating tags in StorageArray resources.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageArrayPatch {
+  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+}
+
+/**
+ * The type used for updating tags in InitiatorGroup resources.
+ */
+@added(Versions.v2026_03_15_preview)
+model InitiatorGroupPatch {
+  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+}
+
+/**
+ * The type used for updating tags in StorageFabric resources.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageFabricPatch {
+  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+}
+
 // ---- END CLUSTER STORAGE & SHARED RESOURCE MODELS ----
