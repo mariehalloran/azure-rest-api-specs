@@ -50,6 +50,10 @@ enum Versions {
   @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v1_preview")
   @useDependency(LiftrBase.Versions.v1_preview)
   v8_preview: "2026-07-03-preview",
+
+  @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v1_preview")
+  @useDependency(LiftrBase.Versions.v1_preview)
+  v9_preview: "2026-08-01-preview",
 }
 interface Operations extends Azure.ResourceManager.Operations {}
 
@@ -82,6 +86,49 @@ model SaaSData {
 model ActivateSaaSParameterRequest {
   @doc("SaaS guid for Activate and Validate SaaS Resource")
   saaSGuid: string;
+
+  @doc("Optional activation request parameters containing user and company details")
+  @added(Versions.v9_preview)
+  activateSaaSRequestParam?: ActivateSaaSRequestParam;
+}
+
+@doc("Optional company profile information")
+@added(Versions.v9_preview)
+model CompanyProfile {
+  @doc("Job title")
+  jobTitle?: string;
+
+  @doc("Company name")
+  companyName?: string;
+
+  @doc("Company website")
+  website?: string;
+
+  @doc("Street address")
+  street?: string;
+
+  @doc("City")
+  city?: string;
+
+  @doc("Country")
+  country?: string;
+
+  @doc("Postal code")
+  postalCode?: string;
+
+  @doc("State")
+  state?: string;
+}
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is a well-known acronym"
+@doc("Optional activate SaaS request parameters")
+@added(Versions.v9_preview)
+model ActivateSaaSRequestParam {
+  @doc("Optional user details")
+  user?: UserDetails;
+
+  @doc("Optional company details")
+  company?: CompanyProfile;
 }
 
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "SaaS response model"
@@ -142,6 +189,10 @@ model CloudAccountProperties is BaseResourceProperties {
   @doc("SSO URL for the Commvault Cloud Account")
   @visibility(Lifecycle.Read)
   ssoUrl?: string;
+
+  @doc("Optional company details for the cloud account")
+  @added(Versions.v9_preview)
+  company?: CompanyProfile;
 
   @doc("The backup administrator principal provided during CCA create. Required on create (enforced by backend), ignored on update.")
   @added(Versions.v8_preview)
@@ -886,9 +937,9 @@ interface ProtectionGroups {
   @action("resumeBackup")
   @post
   @added(Versions.v3_preview)
-  resumeBackup(...ResourceInstanceParameters<ProtectionGroup>):
-    | ArmNoContentResponse<"Resource operation accepted.">
-    | ErrorResponse;
+  resumeBackup(
+    ...ResourceInstanceParameters<ProtectionGroup>,
+  ): ArmNoContentResponse<"Resource operation accepted."> | ErrorResponse;
 
   @doc("Ad-hoc backup of protected items resource in given protection group.")
   @armResourceAction(ProtectionGroup)
@@ -1075,9 +1126,9 @@ interface ProtectedItems {
   @armResourceAction(ProtectedItem)
   @action("getRestorePoints")
   @post
-  getRestorePoints(...ResourceInstanceParameters<ProtectedItem>):
-    | ArmResponse<RestorePoints>
-    | ErrorResponse;
+  getRestorePoints(
+    ...ResourceInstanceParameters<ProtectedItem>,
+  ): ArmResponse<RestorePoints> | ErrorResponse;
 
   @doc("Restore resource for a protected item.")
   @armResourceAction(ProtectedItem)
