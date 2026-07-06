@@ -1,0 +1,53 @@
+{
+  "title": "VolumeGroups_Get",
+  "operationId": "VolumeGroups_Get",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "6D37FF61-4C93-4377-B06B-FC6D6D561A7D",
+    "resourceGroupName": "rghci",
+    "storageArrayName": "pure-1",
+    "volumeGroupName": "contoso-vg"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/volumeGroups/contoso-vg",
+        "name": "contoso-vg",
+        "type": "Microsoft.AzureStackHCI/storageArrays/volumeGroups",
+        "properties": {
+          "clusterName": "contoso-cluster",
+          "clusterResourceId": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/clusters/contoso-cluster",
+          "fabricPrefix": "contoso-vg",
+          "capacityQuotaBytes": 10995116277760,
+          "usedCapacityBytes": 5497558138880,
+          "volumeCount": 12,
+          "storagePoolRef": "default",
+          "defaultQoS": {
+            "maxIops": 50000,
+            "minIops": 1000,
+            "maxBandwidthMbps": 2048,
+            "burstIops": 75000,
+            "burstDurationSeconds": 30,
+            "latencyTargetMs": 10
+          },
+          "defaultDataProtection": {
+            "snapshotEnabled": true,
+            "snapshotFrequency": "PT4H",
+            "snapshotRetention": 24,
+            "replicationEnabled": false
+          },
+          "createdAt": "2026-01-20T10:00:00Z",
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2026-01-20T10:00:00.000Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "Application",
+          "lastModifiedAt": "2026-03-24T18:00:00.000Z"
+        }
+      }
+    }
+  }
+}
