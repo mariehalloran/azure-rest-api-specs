@@ -165,18 +165,6 @@ model FileShareProperties is AzureResourceProperties {
   fileShareEstimatedSizeInGb?: float64;
 
   /**
-   * FileShare Size in GB.
-   */
-  @added(Versions.v2026_05_01_preview)
-  fileShareSizeInGb?: float64;
-
-  /**
-   * The Platform Type for the file share.
-   */
-  @added(Versions.v2026_05_01_preview)
-  platformType?: PlatformType;
-
-  /**
    * The list of errors.
    */
   errors?: Error[];
@@ -297,18 +285,6 @@ model FileShareResourcePatch {
    * FileShare Estimated Size in GB.
    */
   fileShareEstimatedSizeInGb?: float64;
-
-  /**
-   * FileShare Size in GB.
-   */
-  @added(Versions.v2026_05_01_preview)
-  fileShareSizeInGb?: float64;
-
-  /**
-   * The Platform Type for the file share.
-   */
-  @added(Versions.v2026_05_01_preview)
-  platformType?: PlatformType;
 
   /**
    * The list of errors.
@@ -538,23 +514,6 @@ union ProtocolType {
   @added(Versions.v2026_05_01_preview)
   @doc("Multi protocol access.")
   MultiProtocol: "MultiProtocol",
-}
-
-/**
- * The platform type for fileshare.
- */
-@added(Versions.v2026_05_01_preview)
-union PlatformType {
-  string,
-
-  @doc("Unknown platform type.")
-  Unknown: "Unknown",
-
-  @doc("Network Attached Storage platform.")
-  NAS: "NAS",
-
-  @doc("Windows or Linux servers.")
-  Server: "Server",
 }
 
 /**

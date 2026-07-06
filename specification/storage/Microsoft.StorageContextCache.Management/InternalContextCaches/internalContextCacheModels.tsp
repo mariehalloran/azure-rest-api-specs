@@ -25,6 +25,9 @@ model InternalContextCacheResourceIdentity {
   /** The tenant ID of the system-assigned identity. */
   tenantId?: string;
 
+  /** The client ID of the system-assigned identity. */
+  clientId?: string;
+
   /** The internal MetaRP-assigned identity ID. */
   internalId?: string;
 }

@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2021-10-20-preview",
+    "version": "2022-06-15-preview",
     "title": "Syntex",
     "description": "Syntex provider"
   },
@@ -368,12 +368,12 @@
       "description": "Document processor details",
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/TrackedResource"
         }
       ],
       "properties": {
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "readOnly": true
         },
         "properties": {
@@ -393,6 +393,17 @@
           "additionalProperties": {
             "type": "string"
           }
+        },
+        "properties": {
+          "type": "object",
+          "x-ms-client-flatten": true,
+          "description": "Syntex properties for PATCH.",
+          "properties": {
+            "spoTenantAdminUrl": {
+              "type": "string",
+              "description": "The URL of admin tenant associated with this document processor resource"
+            }
+          }
         }
       }
     },
@@ -404,8 +415,15 @@
           "readOnly": true,
           "$ref": "#/definitions/ProvisioningState",
           "description": "The managed resource provisioning state."
+        },
+        "spoTenantAdminUrl": {
+          "type": "string",
+          "description": "The URL of admin tenant associated with this document processor resource"
         }
-      }
+      },
+      "required": [
+        "spoTenantAdminUrl"
+      ]
     },
     "ProvisioningState": {
       "description": "Provisioning status of the managed resource.",
@@ -530,7 +548,7 @@
           "uniqueItems": false,
           "type": "array",
           "items": {
-            "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/Operation"
+            "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/Operation"
           },
           "x-ms-identifiers": [
             "name"
