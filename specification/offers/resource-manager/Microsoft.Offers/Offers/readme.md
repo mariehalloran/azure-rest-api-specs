@@ -44,6 +44,13 @@ suppressions:
       is server-curated and varies per product family / meter category.
       Validation is owned by the upstream catalog source. Repo precedent:
       computeschedule, computebulkactions, awsconnector.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: offers.json
+    where: $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.Offers/lookupEnumeration"]
+    reason: >
+      The lookupEnumeration action is only supported by the 2026-04-24-preview
+      api-version and is intentionally not part of the default 2026-06-30-preview
+      tag, so it should not be required in the default tag.
 ```
 
 ### Tag: package-2026-04-24-preview
