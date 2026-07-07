@@ -1,0 +1,72 @@
+{
+  "title": "StorageVolumes_Get",
+  "operationId": "StorageVolumes_Get",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "6D37FF61-4C93-4377-B06B-FC6D6D561A7D",
+    "resourceGroupName": "rghci",
+    "storageArrayName": "pure-1",
+    "volumeGroupName": "contoso-vg",
+    "volumeName": "infra-vol-01"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/volumeGroups/contoso-vg/volumes/infra-vol-01",
+        "name": "infra-vol-01",
+        "type": "Microsoft.AzureStackHCI/storageArrays/volumeGroups/volumes",
+        "properties": {
+          "sizeBytes": 1099511627776,
+          "serialNumber": "3368F0B5077E48E80005DF58",
+          "scsiUniqueId": "naa.624a93703368f0b5077e48e80005df58",
+          "vendorVolumeId": "contoso-vg/infra-vol-01",
+          "identifiers": [
+            {
+              "durableName": "naa.624a93703368f0b5077e48e80005df58",
+              "durableNameFormat": "NAA"
+            },
+            {
+              "durableName": "contoso-vg/infra-vol-01",
+              "durableNameFormat": "VendorAPI"
+            }
+          ],
+          "purpose": "Infrastructure",
+          "storagePoolRef": "default",
+          "thinProvisioned": true,
+          "isEncrypted": true,
+          "usedBytes": 125000000000,
+          "dataReductionRatio": 3.2,
+          "snapshotUsedBytes": 62500000000,
+          "state": "Online",
+          "transport": "FC",
+          "presentationMode": "clusterSharedVolume",
+          "provisioningSource": "ARM",
+          "isMultiProtocolShared": false,
+          "mappingState": "Mapped",
+          "accessPoints": [
+            {
+              "protocol": "FC",
+              "initiatorGroupRef": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/initiatorGroups/contoso-fc-active",
+              "lunId": 254
+            }
+          ],
+          "qos": {
+            "maxIops": 75000,
+            "minIops": 1000,
+            "maxBandwidthMbps": 4096
+          },
+          "createdAt": "2026-03-15T10:00:00Z",
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2026-03-15T10:00:00.000Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "Application",
+          "lastModifiedAt": "2026-03-24T18:00:00.000Z"
+        }
+      }
+    }
+  }
+}
