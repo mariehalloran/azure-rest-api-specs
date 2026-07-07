@@ -19,7 +19,7 @@ model Job is ProxyResource<JobProperties> {
   @key("jobName")
   @visibility(Lifecycle.Read)
   @path
-  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,63}$")
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,127}$")
   name: string;
 
   /** Job kind discriminator. Determines which properties are valid for this job. */
