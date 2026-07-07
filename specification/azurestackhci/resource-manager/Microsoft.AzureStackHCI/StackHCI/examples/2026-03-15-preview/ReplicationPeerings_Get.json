@@ -1,0 +1,39 @@
+{
+  "title": "ReplicationPeerings_Get",
+  "operationId": "ReplicationPeerings_Get",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "6D37FF61-4C93-4377-B06B-FC6D6D561A7D",
+    "resourceGroupName": "rghci",
+    "storageArrayName": "pure-1",
+    "replicationPeeringName": "peer-to-pure-dr-1"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/replicationPeerings/peer-to-pure-dr-1",
+        "name": "peer-to-pure-dr-1",
+        "type": "Microsoft.AzureStackHCI/storageArrays/replicationPeerings",
+        "properties": {
+          "globalPeeringId": "pure-global-peer-abc123",
+          "peerArrayRef": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-dr-1",
+          "role": "Source",
+          "replicationTransport": "IP",
+          "peeringState": "Active",
+          "peeringHealth": "Healthy",
+          "lastVerifiedAt": "2026-04-02T23:55:00Z",
+          "vendorPeeringId": "pure1-dr-connection",
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2026-03-15T10:00:00.000Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "Application",
+          "lastModifiedAt": "2026-04-02T23:55:00.000Z"
+        }
+      }
+    }
+  }
+}
