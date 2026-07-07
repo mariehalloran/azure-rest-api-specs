@@ -116,16 +116,16 @@ model CompanyProfile {
   @doc("Street address")
   street?: string;
 
-  @doc("City")
+  @doc("City of the company address.")
   city?: string;
 
-  @doc("Country")
+  @doc("Country of the company address.")
   country?: string;
 
   @doc("Postal code")
   postalCode?: string;
 
-  @doc("State")
+  @doc("State or province of the company address.")
   state?: string;
 }
 
