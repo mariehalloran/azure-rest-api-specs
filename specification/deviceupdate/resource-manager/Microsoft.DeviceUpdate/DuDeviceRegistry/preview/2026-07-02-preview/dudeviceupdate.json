@@ -841,7 +841,15 @@
         },
         "userAssignedIdentity": {
           "type": "string",
-          "description": "ARM resource ID of the user-assigned managed identity. Required when type is \"UserAssigned\"."
+          "format": "arm-id",
+          "description": "ARM resource ID of the user-assigned managed identity. Required when type is \"UserAssigned\".",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.ManagedIdentity/userAssignedIdentities"
+              }
+            ]
+          }
         }
       },
       "required": [
@@ -874,7 +882,7 @@
         },
         "inboundCallerIdentity": {
           "$ref": "#/definitions/InboundCallerIdentity",
-          "description": "Managed Identity the resource should use for ADR communcation."
+          "description": "Managed Identity the resource should use for ADR communication."
         }
       },
       "required": [

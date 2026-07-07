@@ -223,7 +223,12 @@ model InboundCallerIdentity {
   /**
    * ARM resource ID of the user-assigned managed identity. Required when type is "UserAssigned".
    */
-  userAssignedIdentity?: string;
+  @typeChangedFrom(Versions.v2026_07_02_preview, string)
+  userAssignedIdentity?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedIdentity/userAssignedIdentities";
+    }
+  ]>;
 }
 
 /**
@@ -326,6 +331,14 @@ model LinkInitiateRequest {
   /**
    * Managed Identity the resource should use for ADR communcation.
    */
+  @renamedFrom(Versions.v2026_07_02_preview, "inboundCallerIdentity")
+  @removed(Versions.v2026_07_02_preview)
+  inboundCallerIdentityOld: InboundCallerIdentity;
+
+  /**
+   * Managed Identity the resource should use for ADR communication.
+   */
+  @added(Versions.v2026_07_02_preview)
   inboundCallerIdentity: InboundCallerIdentity;
 }
 
