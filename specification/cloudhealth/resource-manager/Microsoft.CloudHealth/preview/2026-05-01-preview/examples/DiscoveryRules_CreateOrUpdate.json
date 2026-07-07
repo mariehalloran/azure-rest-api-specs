@@ -2,7 +2,7 @@
   "title": "DiscoveryRules_CreateOrUpdate",
   "operationId": "DiscoveryRules_CreateOrUpdate",
   "parameters": {
-    "api-version": "2026-01-01-preview",
+    "api-version": "2026-05-01-preview",
     "subscriptionId": "abcdef12-3456-7890-abcd-ef1234567890",
     "resourceGroupName": "online-store-rg",
     "healthModelName": "online-store",
@@ -16,7 +16,8 @@
         "specification": {
           "kind": "ResourceGraphQuery",
           "resourceGraphQuery": "resources | where type =~ 'microsoft.web/sites' and resourceGroup =~ 'online-store-rg' | project id, name, location"
-        }
+        },
+        "addResourceHealthSignal": "Enabled"
       }
     }
   },
@@ -33,6 +34,7 @@
             "kind": "ResourceGraphQuery",
             "resourceGraphQuery": "resources | where type =~ 'microsoft.web/sites' and resourceGroup =~ 'online-store-rg' | project id, name, location"
           },
+          "addResourceHealthSignal": "Enabled",
           "entityName": "online-store-web-apps"
         },
         "id": "/subscriptions/abcdef12-3456-7890-abcd-ef1234567890/resourceGroups/online-store-rg/providers/Microsoft.CloudHealth/healthmodels/online-store/discoveryRules/discover-web-apps",
@@ -60,6 +62,7 @@
             "kind": "ResourceGraphQuery",
             "resourceGraphQuery": "resources | where type =~ 'microsoft.web/sites' and resourceGroup =~ 'online-store-rg' | project id, name, location"
           },
+          "addResourceHealthSignal": "Enabled",
           "entityName": "online-store-web-apps"
         },
         "id": "/subscriptions/abcdef12-3456-7890-abcd-ef1234567890/resourceGroups/online-store-rg/providers/Microsoft.CloudHealth/healthmodels/online-store/discoveryRules/discover-web-apps",
