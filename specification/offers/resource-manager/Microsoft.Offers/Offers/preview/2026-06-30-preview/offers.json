@@ -46,6 +46,9 @@
       "name": "ValueExchanges"
     },
     {
+      "name": "Enumerations"
+    },
+    {
       "name": "Products"
     },
     {
@@ -181,6 +184,51 @@
         "x-ms-examples": {
           "Look up a capability row for an entity.": {
             "$ref": "./examples/Capabilities_Lookup.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/lookupEnumeration": {
+      "post": {
+        "operationId": "Enumerations_Lookup",
+        "tags": [
+          "Enumerations"
+        ],
+        "description": "Look up a single enumeration set by its type key (for example,\n`categories`). The catalog is globally keyed: the same `enumerationType`\nreturns the same response for all callers under one API version. Modeled\nas a POST action because the response is identical for every caller in a\nsubscription and the catalog is not a per-subscription resource\ncollection.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LookupEnumerationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/LookupEnumerationResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Look up an enumeration set by its type key.": {
+            "$ref": "./examples/Enumerations_Lookup.json"
           }
         }
       }
@@ -678,6 +726,42 @@
         "productId",
         "capability",
         "properties"
+      ]
+    },
+    "LookupEnumerationRequest": {
+      "type": "object",
+      "description": "Request body for looking up an enumeration set by its type key.",
+      "properties": {
+        "enumerationType": {
+          "type": "string",
+          "description": "The enumeration type key (for example, `categories`, `productFamilies`, `claimTypes`).",
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z][a-zA-Z0-9]*$"
+        }
+      },
+      "required": [
+        "enumerationType"
+      ]
+    },
+    "LookupEnumerationResult": {
+      "type": "object",
+      "description": "The result of an enumeration lookup.",
+      "properties": {
+        "enumerationType": {
+          "type": "string",
+          "description": "The enumeration type key the result corresponds to.",
+          "maxLength": 64
+        },
+        "values": {
+          "type": "array",
+          "description": "The enumeration values. Values are passed through verbatim from the upstream catalog feed.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "enumerationType"
       ]
     },
     "LookupProductRequest": {
