@@ -85,7 +85,16 @@ model SaaSData {
 @added(Versions.v6_preview)
 model ActivateSaaSParameterRequest {
   @doc("SaaS guid for Activate and Validate SaaS Resource")
+  @removed(Versions.v9_preview)
   saaSGuid: string;
+
+  @doc("SaaS guid for Activate and Validate SaaS Resource")
+  @added(Versions.v9_preview)
+  saasGuid: string;
+
+  @doc("Optional publisher identifier")
+  @added(Versions.v9_preview)
+  publisherId?: string;
 
   @doc("Optional activation request parameters containing user and company details")
   @added(Versions.v9_preview)

@@ -2267,9 +2267,13 @@
       "type": "object",
       "description": "SaaS guid for Activate and Validate SaaS Resource",
       "properties": {
-        "saaSGuid": {
+        "saasGuid": {
           "type": "string",
           "description": "SaaS guid for Activate and Validate SaaS Resource"
+        },
+        "publisherId": {
+          "type": "string",
+          "description": "Optional publisher identifier"
         },
         "activateSaaSRequestParam": {
           "$ref": "#/definitions/ActivateSaaSRequestParam",
@@ -2277,7 +2281,7 @@
         }
       },
       "required": [
-        "saaSGuid"
+        "saasGuid"
       ]
     },
     "ActivateSaaSRequestParam": {
