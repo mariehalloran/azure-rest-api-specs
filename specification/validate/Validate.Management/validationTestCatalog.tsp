@@ -16,6 +16,109 @@ union CatalogAudience {
   string,
 }
 
+@doc("The overall state of a validation test or test version.")
+union ValidationTestOverallState {
+  @doc("The validation test definition is in draft state.")
+  Draft: "Draft",
+
+  @doc("The validation test definition is active.")
+  Active: "Active",
+
+  @doc("The validation test definition is published.")
+  Published: "Published",
+
+  @doc("The validation test definition is disabled.")
+  Disabled: "Disabled",
+
+  string,
+}
+
+@doc("Supported data types for a declared test input.")
+union ValidationTestInputDataType {
+  @doc("String input value.")
+  String: "String",
+
+  @doc("Integer input value.")
+  Integer: "Integer",
+
+  @doc("Numeric input value.")
+  Number: "Number",
+
+  @doc("Boolean input value.")
+  Boolean: "Boolean",
+
+  @doc("Object input value.")
+  Object: "Object",
+
+  @doc("Array input value.")
+  Array: "Array",
+
+  string,
+}
+
+@doc("Declared contract for a validation test input parameter.")
+model ValidationTestInputDefinition {
+  @doc("Description of the declared input parameter.")
+  description?: string;
+
+  @doc("The data type expected for this input parameter.")
+  type?: ValidationTestInputDataType;
+
+  @doc("Whether this input parameter is required.")
+  required?: boolean;
+
+  @doc("Optional default value to use when input is not provided.")
+  defaultValue?: string;
+
+  @doc("Allowed values for this input parameter.")
+  allowedValues?: string[];
+}
+
+@doc("A named declared input parameter for a validation test contract.")
+model ValidationTestInput {
+  @doc("The input parameter name.")
+  name: string;
+
+  @doc("The declared contract for this input parameter.")
+  definition: ValidationTestInputDefinition;
+}
+
+@doc("Common list query parameters for validation catalog operations.")
+model ValidationCatalogListQueryParameters {
+  @doc("The number of items to return in the current page.")
+  @query("$top")
+  @added(Versions.v2026_07_01_preview)
+  @minValue(1)
+  top?: int32;
+
+  @doc("The number of items to skip before starting to collect the result set.")
+  @query("$skip")
+  @added(Versions.v2026_07_01_preview)
+  @minValue(0)
+  skip?: int32;
+
+  @doc("The maximum number of items to return in each page.")
+  @query("maxpagesize")
+  @added(Versions.v2026_07_01_preview)
+  @minValue(1)
+  maxpagesize?: int32;
+
+  @doc("Order-by expression to sort the returned items.")
+  @query("$orderby")
+  @added(Versions.v2026_07_01_preview)
+  orderby?: string;
+
+  @doc("Filter expression used to constrain the returned items.")
+  @query("$filter")
+  @added(Versions.v2026_07_01_preview)
+  filter?: string;
+
+  @doc("Filter by audience visibility.")
+  @query("audience")
+  @added(Versions.v2026_07_01_preview)
+  audience?: CatalogAudience;
+}
+
 @doc("Validation test catalog entry.")
 @tenantResource
 @added(Versions.v2026_05_01_preview)
@@ -44,7 +147,16 @@ model ValidationTestProperties {
   categoryIds?: string[];
 
   @doc("Overall state of the validation test.")
-  overallState?: string;
+  @typeChangedFrom(Versions.v2026_07_01_preview, string)
+  overallState?: ValidationTestOverallState;
+
+  @doc("Owners of the validation test definition.")
+  @added(Versions.v2026_07_01_preview)
+  owners?: string[];
+
+  @doc("Declared input contract for this validation test.")
+  @added(Versions.v2026_07_01_preview)
+  inputs?: ValidationTestInput[];
 
   @doc("URI of the test artifact in TestStore.")
   testStoreUri?: string;
@@ -78,7 +190,21 @@ model ValidationTestVersionProperties {
   categoryIds?: string[];
 
   @doc("Overall state of the validation test.")
-  overallState?: string;
+  @typeChangedFrom(Versions.v2026_07_01_preview, string)
+  overallState?: ValidationTestOverallState;
+
+  @doc("Owners of the validation test version definition.")
+  @added(Versions.v2026_07_01_preview)
+  owners?: string[];
+
+  @doc("Declared input contract for this validation test version.")
+  @added(Versions.v2026_07_01_preview)
+  inputs?: ValidationTestInput[];
+
+  @doc("SHA-256 hash of the version content used for integrity and deduplication.")
+  @added(Versions.v2026_07_01_preview)
+  @pattern("^[A-Fa-f0-9]{64}$")
+  contentHash?: string;
 
   @doc("URI of the test artifact in TestStore.")
   testStoreUri?: string;
@@ -163,13 +289,24 @@ interface ValidationTests {
   @added(Versions.v2026_05_01_preview)
   createOrUpdate is ValidationTestsOps.CreateOrUpdateSync<ValidationTest>;
 
+  @doc("Update a validation test catalog entry")
+  @added(Versions.v2026_07_01_preview)
+  @patch(#{ implicitOptionality: false })
+  update is ValidationTestsOps.CustomPatchSync<
+    ValidationTest,
+    PatchModel = ValidationTest
+  >;
+
   @doc("Delete a validation test catalog entry")
   @added(Versions.v2026_05_01_preview)
   delete is ValidationTestsOps.DeleteSync<ValidationTest>;
 
   @doc("List validation test catalog entries")
   @added(Versions.v2026_05_01_preview)
-  list is ValidationTestsOps.List<ValidationTest>;
+  list is ValidationTestsOps.List<
+    ValidationTest,
+    Parameters = ValidationCatalogListQueryParameters
+  >;
 }
 
 @armResourceOperations(ValidationTestVersion)
@@ -184,13 +321,24 @@ interface ValidationTestVersions {
   @added(Versions.v2026_05_01_preview)
   put is ArmResourceCreateOrReplaceSync<ValidationTestVersion>;
 
+  @doc("Update a validation test version catalog entry")
+  @added(Versions.v2026_07_01_preview)
+  @parameterVisibility(Lifecycle.Update)
+  update is ArmResourcePatchSync<
+    ValidationTestVersion,
+    ValidationTestVersionProperties
+  >;
+
   @doc("Delete a validation test version catalog entry")
   @added(Versions.v2026_05_01_preview)
   delete is ArmResourceDeleteSync<ValidationTestVersion>;
 
   @doc("List validation test version catalog entries")
   @added(Versions.v2026_05_01_preview)
-  listByParent is ArmResourceListByParent<ValidationTestVersion>;
+  listByParent is ArmResourceListByParent<
+    ValidationTestVersion,
+    Parameters = ValidationCatalogListQueryParameters
+  >;
 }
 
 @armResourceOperations
@@ -230,11 +378,22 @@ interface ValidationTestCategories {
   @added(Versions.v2026_05_01_preview)
   createOrUpdate is ValidationTestCategoriesOps.CreateOrUpdateSync<ValidationTestCategory>;
 
+  @doc("Update a validation test category catalog entry")
+  @added(Versions.v2026_07_01_preview)
+  @patch(#{ implicitOptionality: false })
+  update is ValidationTestCategoriesOps.CustomPatchSync<
+    ValidationTestCategory,
+    PatchModel = ValidationTestCategory
+  >;
+
   @doc("Delete a validation test category catalog entry")
   @added(Versions.v2026_05_01_preview)
   delete is ValidationTestCategoriesOps.DeleteSync<ValidationTestCategory>;
 
   @doc("List validation test category catalog entries")
   @added(Versions.v2026_05_01_preview)
-  list is ValidationTestCategoriesOps.List<ValidationTestCategory>;
+  list is ValidationTestCategoriesOps.List<
+    ValidationTestCategory,
+    Parameters = ValidationCatalogListQueryParameters
+  >;
 }

@@ -1,0 +1,37 @@
+{
+  "title": "ConsistencyGroups_Get",
+  "operationId": "ConsistencyGroups_Get",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "6D37FF61-4C93-4377-B06B-FC6D6D561A7D",
+    "resourceGroupName": "rghci",
+    "storageArrayName": "pure-1",
+    "consistencyGroupName": "contoso-sql-prod"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/consistencyGroups/contoso-sql-prod",
+        "name": "contoso-sql-prod",
+        "type": "Microsoft.AzureStackHCI/storageArrays/consistencyGroups",
+        "properties": {
+          "memberVolumes": [
+            "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/volumeGroups/contoso-vg/volumes/sql-data-01",
+            "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/volumeGroups/contoso-vg/volumes/sql-log-01"
+          ],
+          "vendorGroupId": "contoso-sql-prod-pod",
+          "lastSnapshotAt": "2026-04-02T20:00:00Z",
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2026-03-15T10:00:00.000Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "Application",
+          "lastModifiedAt": "2026-04-02T20:00:00.000Z"
+        }
+      }
+    }
+  }
+}
