@@ -597,11 +597,7 @@
             "create"
           ]
         }
-      },
-      "required": [
-        "catalogTier",
-        "ingestionTier"
-      ]
+      }
     },
     "GeoCatalogListResult": {
       "type": "object",
@@ -708,7 +704,7 @@
             "create"
           ]
         },
-        "resourceConfigurationProperties": {
+        "premiumConfiguration": {
           "$ref": "#/definitions/PremiumConfiguration",
           "description": "Premium tier configuration. Only valid when `tier` is `Premium`; must be omitted for Basic catalogs. The server will return a validation error if provided with a Basic tier catalog.",
           "x-ms-mutability": [

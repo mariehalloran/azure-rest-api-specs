@@ -154,11 +154,11 @@ union DatabaseTier {
 model GeoCatalogComputeProperties {
   @visibility(Lifecycle.Create, Lifecycle.Read)
   @doc("The compute properties of the catalog service")
-  catalogTier: ComputeTier = ComputeTier.Basic;
+  catalogTier?: ComputeTier = ComputeTier.Basic;
 
   @visibility(Lifecycle.Create, Lifecycle.Read)
   @doc("The compute properties of the ingestion service")
-  ingestionTier: ComputeTier = ComputeTier.Standard;
+  ingestionTier?: ComputeTier = ComputeTier.Standard;
 }
 
 @added(Versions.`2026-05-01-preview`)
@@ -221,7 +221,7 @@ model GeoCatalogProperties {
   @added(Versions.`2026-05-01-preview`)
   @visibility(Lifecycle.Create, Lifecycle.Read)
   @doc("Premium tier configuration. Only valid when `tier` is `Premium`; must be omitted for Basic catalogs. The server will return a validation error if provided with a Basic tier catalog.")
-  resourceConfigurationProperties?: PremiumConfiguration;
+  premiumConfiguration?: PremiumConfiguration;
 }
 
 @added(Versions.`2025-07-01-preview`)
