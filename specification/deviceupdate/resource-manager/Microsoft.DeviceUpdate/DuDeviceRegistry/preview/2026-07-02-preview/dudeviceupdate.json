@@ -731,12 +731,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/LinkUpdateResponse"
-            }
-          },
           "202": {
             "description": "Resource operation accepted.",
             "headers": {
@@ -1060,11 +1054,6 @@
           "description": "User or Managed Identity for inbound calls from Azure Device Registry."
         }
       }
-    },
-    "LinkUpdateResponse": {
-      "type": "object",
-      "description": "Response body for /link/update. Empty on success.",
-      "additionalProperties": {}
     },
     "LinkedResourceMetadata": {
       "type": "object",
