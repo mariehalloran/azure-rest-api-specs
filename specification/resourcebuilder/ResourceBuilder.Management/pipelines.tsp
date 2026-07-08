@@ -19,7 +19,7 @@ model Pipeline is ProxyResource<PipelineProperties> {
   @key("pipelineName")
   @visibility(Lifecycle.Read)
   @path
-  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,63}$")
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,127}$")
   name: string;
 
   /**
@@ -166,7 +166,7 @@ model PipelineRun is ProxyResource<PipelineRunProperties> {
   @key("runId")
   @visibility(Lifecycle.Read)
   @path
-  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,63}$")
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,127}$")
   name: string;
 }
 
