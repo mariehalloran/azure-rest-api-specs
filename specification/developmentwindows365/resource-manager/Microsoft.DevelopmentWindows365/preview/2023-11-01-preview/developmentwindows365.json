@@ -469,7 +469,8 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/DevelopmentCloudPcDelegatedMsiProperties",
-          "description": "DevelopmentCloudPcDelegatedMsi properties"
+          "description": "DevelopmentCloudPcDelegatedMsi properties",
+          "x-ms-client-flatten": true
         },
         "identity": {
           "$ref": "#/definitions/ManagedServiceIdentityWithDelegation",
@@ -571,7 +572,8 @@
             "description": "The resource provisioning operation failed."
           }
         ]
-      }
+      },
+      "readOnly": true
     }
   },
   "parameters": {

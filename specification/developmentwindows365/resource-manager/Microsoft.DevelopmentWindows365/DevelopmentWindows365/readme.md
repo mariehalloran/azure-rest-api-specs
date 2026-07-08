@@ -39,7 +39,6 @@ These settings apply only when `--tag=2023-11-01-preview` is specified on the co
 ```yaml $(tag) == '2023-11-01-preview'
 input-file:
   - ../preview/2023-11-01-preview/developmentwindows365.json
-  - ../preview/2023-11-01-preview/managedidentitywithdelegation.json
 ```
 
 ### Suppression
@@ -50,21 +49,10 @@ directive:
     from: developmentwindows365.json
     where: $.definitions["Azure.Core.uuid"].format
     reason: UUID used as the tenant identifier for internal delegated resources.
-  - suppress: GuidUsage
-    from: managedidentitywithdelegation.json
-    where: $.definitions.DelegatedResource.properties.tenantId.format
-    reason: UUID used as the tenant identifier for internal delegated resources.
   - suppress: AvoidAdditionalProperties
     from: developmentwindows365.json
     where: $.definitions.DelegatedResources
     reason: Delegated resources intentionally use a dictionary keyed by source resource internal ids for backward compatibility.
-  - suppress: AvoidAdditionalProperties
-    from: managedidentitywithdelegation.json
-    where: $.definitions.DelegatedResources
-    reason: Delegated resources intentionally use a dictionary keyed by source resource internal ids for backward compatibility.
-  - suppress: ProvisioningStateMustBeReadOnly
-    from: developmentwindows365.json
-    reason: provisioningState is declared readOnly in DevelopmentCloudPcDelegatedMsiProperties; the rule does not follow the $ref from the resource response schema.
 ```
 
 ---
