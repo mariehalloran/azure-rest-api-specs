@@ -1,0 +1,483 @@
+{
+  "parameters": {
+    "api-version": "2026-07-01-preview",
+    "resource": {
+      "location": "eastus2euap",
+      "tags": {
+        "TestSystem": "true"
+      },
+      "properties": {
+        "componentType": "central",
+        "componentRole": "default",
+        "resources": [
+          {
+            "resourceId": "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.Compute/virtualMachines/m15ascsvm"
+          },
+          {
+            "resourceId": "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.Compute/virtualMachines/m15ersvm"
+          }
+        ],
+        "componentProfile": {
+          "profileType": "SAP-CentralServices-Default",
+          "instanceNumber": "00",
+          "kernelVersion": "789",
+          "kernelPatch": "201",
+          "hostname": "m15ascsvm",
+          "ipAddress": "10.0.0.149",
+          "highAvailability": {
+            "isHaActive": true,
+            "haNodes": [
+              "m15ascsvm",
+              "m15ersvm"
+            ]
+          },
+          "messageServer": {
+            "msPort": 3600,
+            "internalPort": 3900,
+            "httpPort": 8100
+          },
+          "enqueueServer": {
+            "esPort": 3200
+          },
+          "gateway": {
+            "gwPort": 3300
+          }
+        },
+        "storageProfile": {
+          "mountPoints": [
+            {
+              "mountPoint": "/",
+              "resources": [
+                {
+                  "virtualMachineNames": [
+                    "m15ascsvm"
+                  ],
+                  "resourceList": [
+                    "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.Compute/disks/m15ascsosdisk"
+                  ]
+                },
+                {
+                  "virtualMachineNames": [
+                    "m15ersvm"
+                  ],
+                  "resourceList": [
+                    "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.Compute/disks/m15ersosdisk"
+                  ]
+                }
+              ],
+              "parameters": [
+                {
+                  "name": "DIR_PERF",
+                  "value": "/usr/sap/tmp"
+                }
+              ]
+            },
+            {
+              "mountPoint": "/usr/sap/M15/ASCS00",
+              "resources": [
+                {
+                  "virtualMachineNames": [
+                    "m15ascsvm"
+                  ],
+                  "resourceList": [
+                    "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.NetApp/netAppAccounts/m15anf/capacityPools/pool1/volumes/m15-ascs"
+                  ]
+                }
+              ],
+              "parameters": [
+                {
+                  "name": "DIR_INSTANCE",
+                  "value": "/usr/sap/M15/ASCS00"
+                },
+                {
+                  "name": "DIR_EXECUTABLE",
+                  "value": "/usr/sap/M15/ASCS00/exe"
+                }
+              ]
+            },
+            {
+              "mountPoint": "/sapmnt/M15",
+              "resources": [
+                {
+                  "virtualMachineNames": [
+                    "m15ascsvm",
+                    "m15ersvm"
+                  ],
+                  "resourceList": [
+                    "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.NetApp/netAppAccounts/m15anf/capacityPools/pool1/volumes/m15-sapmnt"
+                  ]
+                }
+              ],
+              "parameters": [
+                {
+                  "name": "DIR_PROFILE",
+                  "value": "/usr/sap/M15/SYS/profile"
+                },
+                {
+                  "name": "DIR_GLOBAL",
+                  "value": "/usr/sap/M15/SYS/global"
+                },
+                {
+                  "name": "DIR_CT_RUN",
+                  "value": "/usr/sap/M15/SYS/exe/uc/linuxx86_64"
+                }
+              ]
+            },
+            {
+              "mountPoint": "/usr/sap/trans",
+              "resources": [
+                {
+                  "virtualMachineNames": [
+                    "m15ascsvm",
+                    "m15ersvm"
+                  ],
+                  "resourceList": [
+                    "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.NetApp/netAppAccounts/m15anf/capacityPools/pool1/volumes/m15-trans"
+                  ]
+                }
+              ],
+              "parameters": [
+                {
+                  "name": "DIR_TRANS",
+                  "value": "/usr/sap/trans"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "componentName": "cs01",
+    "virtualInstanceName": "testvi",
+    "resourceGroupName": "test-rg",
+    "subscriptionId": "49d64d54-e966-4c46-a868-1999802b762c"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "name": "cs01",
+        "type": "Microsoft.Workloads/virtualInstances/components",
+        "id": "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/test-rg/providers/Microsoft.Workloads/virtualInstances/testvi/components/cs01",
+        "location": "eastus2euap",
+        "tags": {
+          "TestSystem": "true"
+        },
+        "properties": {
+          "componentType": "central",
+          "componentRole": "default",
+          "resources": [
+            {
+              "resourceId": "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.Compute/virtualMachines/m15ascsvm"
+            },
+            {
+              "resourceId": "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.Compute/virtualMachines/m15ersvm"
+            }
+          ],
+          "componentProfile": {
+            "profileType": "SAP-CentralServices-Default",
+            "instanceNumber": "00",
+            "kernelVersion": "789",
+            "kernelPatch": "201",
+            "hostname": "m15ascsvm",
+            "ipAddress": "10.0.0.149",
+            "highAvailability": {
+              "isHaActive": true,
+              "haNodes": [
+                "m15ascsvm",
+                "m15ersvm"
+              ]
+            },
+            "messageServer": {
+              "msPort": 3600,
+              "internalPort": 3900,
+              "httpPort": 8100
+            },
+            "enqueueServer": {
+              "esPort": 3200
+            },
+            "gateway": {
+              "gwPort": 3300
+            }
+          },
+          "storageProfile": {
+            "mountPoints": [
+              {
+                "mountPoint": "/",
+                "resources": [
+                  {
+                    "virtualMachineNames": [
+                      "m15ascsvm"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.Compute/disks/m15ascsosdisk"
+                    ]
+                  },
+                  {
+                    "virtualMachineNames": [
+                      "m15ersvm"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.Compute/disks/m15ersosdisk"
+                    ]
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "DIR_PERF",
+                    "value": "/usr/sap/tmp"
+                  }
+                ]
+              },
+              {
+                "mountPoint": "/usr/sap/M15/ASCS00",
+                "resources": [
+                  {
+                    "virtualMachineNames": [
+                      "m15ascsvm"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.NetApp/netAppAccounts/m15anf/capacityPools/pool1/volumes/m15-ascs"
+                    ]
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "DIR_INSTANCE",
+                    "value": "/usr/sap/M15/ASCS00"
+                  },
+                  {
+                    "name": "DIR_EXECUTABLE",
+                    "value": "/usr/sap/M15/ASCS00/exe"
+                  }
+                ]
+              },
+              {
+                "mountPoint": "/sapmnt/M15",
+                "resources": [
+                  {
+                    "virtualMachineNames": [
+                      "m15ascsvm",
+                      "m15ersvm"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.NetApp/netAppAccounts/m15anf/capacityPools/pool1/volumes/m15-sapmnt"
+                    ]
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "DIR_PROFILE",
+                    "value": "/usr/sap/M15/SYS/profile"
+                  },
+                  {
+                    "name": "DIR_GLOBAL",
+                    "value": "/usr/sap/M15/SYS/global"
+                  },
+                  {
+                    "name": "DIR_CT_RUN",
+                    "value": "/usr/sap/M15/SYS/exe/uc/linuxx86_64"
+                  }
+                ]
+              },
+              {
+                "mountPoint": "/usr/sap/trans",
+                "resources": [
+                  {
+                    "virtualMachineNames": [
+                      "m15ascsvm",
+                      "m15ersvm"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.NetApp/netAppAccounts/m15anf/capacityPools/pool1/volumes/m15-trans"
+                    ]
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "DIR_TRANS",
+                    "value": "/usr/sap/trans"
+                  }
+                ]
+              }
+            ]
+          },
+          "complianceState": "Compliant",
+          "enrollmentState": "Completed",
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdAt": "2024-12-01T00:00:00.001Z",
+          "createdBy": "user@xyz.com",
+          "createdByType": "User",
+          "lastModifiedAt": "2024-12-01T15:10:46.196Z",
+          "lastModifiedBy": "user@xyz.com",
+          "lastModifiedByType": "User"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "name": "cs01",
+        "type": "Microsoft.Workloads/virtualInstances/components",
+        "id": "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/test-rg/providers/Microsoft.Workloads/virtualInstances/testvi/components/cs01",
+        "location": "eastus2euap",
+        "tags": {
+          "TestSystem": "true"
+        },
+        "properties": {
+          "componentType": "central",
+          "componentRole": "default",
+          "resources": [
+            {
+              "resourceId": "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.Compute/virtualMachines/m15ascsvm"
+            },
+            {
+              "resourceId": "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.Compute/virtualMachines/m15ersvm"
+            }
+          ],
+          "componentProfile": {
+            "profileType": "SAP-CentralServices-Default",
+            "instanceNumber": "00",
+            "kernelVersion": "789",
+            "kernelPatch": "201",
+            "hostname": "m15ascsvm",
+            "ipAddress": "10.0.0.149",
+            "highAvailability": {
+              "isHaActive": true,
+              "haNodes": [
+                "m15ascsvm",
+                "m15ersvm"
+              ]
+            },
+            "messageServer": {
+              "msPort": 3600,
+              "internalPort": 3900,
+              "httpPort": 8100
+            },
+            "enqueueServer": {
+              "esPort": 3200
+            },
+            "gateway": {
+              "gwPort": 3300
+            }
+          },
+          "storageProfile": {
+            "mountPoints": [
+              {
+                "mountPoint": "/",
+                "resources": [
+                  {
+                    "virtualMachineNames": [
+                      "m15ascsvm"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.Compute/disks/m15ascsosdisk"
+                    ]
+                  },
+                  {
+                    "virtualMachineNames": [
+                      "m15ersvm"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.Compute/disks/m15ersosdisk"
+                    ]
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "DIR_PERF",
+                    "value": "/usr/sap/tmp"
+                  }
+                ]
+              },
+              {
+                "mountPoint": "/usr/sap/M15/ASCS00",
+                "resources": [
+                  {
+                    "virtualMachineNames": [
+                      "m15ascsvm"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.NetApp/netAppAccounts/m15anf/capacityPools/pool1/volumes/m15-ascs"
+                    ]
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "DIR_INSTANCE",
+                    "value": "/usr/sap/M15/ASCS00"
+                  },
+                  {
+                    "name": "DIR_EXECUTABLE",
+                    "value": "/usr/sap/M15/ASCS00/exe"
+                  }
+                ]
+              },
+              {
+                "mountPoint": "/sapmnt/M15",
+                "resources": [
+                  {
+                    "virtualMachineNames": [
+                      "m15ascsvm",
+                      "m15ersvm"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.NetApp/netAppAccounts/m15anf/capacityPools/pool1/volumes/m15-sapmnt"
+                    ]
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "DIR_PROFILE",
+                    "value": "/usr/sap/M15/SYS/profile"
+                  },
+                  {
+                    "name": "DIR_GLOBAL",
+                    "value": "/usr/sap/M15/SYS/global"
+                  },
+                  {
+                    "name": "DIR_CT_RUN",
+                    "value": "/usr/sap/M15/SYS/exe/uc/linuxx86_64"
+                  }
+                ]
+              },
+              {
+                "mountPoint": "/usr/sap/trans",
+                "resources": [
+                  {
+                    "virtualMachineNames": [
+                      "m15ascsvm",
+                      "m15ersvm"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.NetApp/netAppAccounts/m15anf/capacityPools/pool1/volumes/m15-trans"
+                    ]
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "DIR_TRANS",
+                    "value": "/usr/sap/trans"
+                  }
+                ]
+              }
+            ]
+          },
+          "complianceState": "Compliant",
+          "enrollmentState": "NeedsAttention",
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdAt": "2024-12-01T00:00:00.001Z",
+          "createdBy": "user@xyz.com",
+          "createdByType": "User",
+          "lastModifiedAt": "2024-12-01T15:10:46.196Z",
+          "lastModifiedBy": "user@xyz.com",
+          "lastModifiedByType": "User"
+        }
+      }
+    }
+  },
+  "operationId": "WorkloadComponents_Create",
+  "title": "Create a workload component - SAP Central Server"
+}
