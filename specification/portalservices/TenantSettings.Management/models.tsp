@@ -104,7 +104,7 @@ model FeedbackControlPolicySettings {
   @doc("A value indicating whether the content samples checkbox is selected by default when the user launches feedback experiences. This setting is not applicable when policyAllowContent is set to Disabled.")
   policyContentSamplesDefault?: FeedbackControlPolicyState;
 
-  @added(Versions.v2025_11_01)
+  @added(Versions.v2026_07_01_preview)
   @doc("A value indicating whether Microsoft may invite tenant users to participate in research.")
   policyResearchInvite?: boolean;
 }
