@@ -731,6 +731,12 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/UpdateInstanceLinkUpdateResponse"
+            }
+          },
           "202": {
             "description": "Resource operation accepted.",
             "headers": {
@@ -1132,6 +1138,20 @@
         {
           "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
         }
+      ]
+    },
+    "UpdateInstanceLinkUpdateResponse": {
+      "type": "object",
+      "description": "Response body for /link/update.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "Placeholder state for the 200 response. This value is only a placeholder to satisfy the response contract and does not represent backend operation state.",
+          "default": "Succeeded"
+        }
+      },
+      "required": [
+        "state"
       ]
     },
     "UpdateInstanceListResult": {

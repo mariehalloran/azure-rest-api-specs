@@ -400,3 +400,13 @@ model LinkUpdateRequest {
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Empty response object to satisfy R4008 AvoidEmptyResponseSchema, preserves forward extensibility"
 model LinkUpdateResponse is Record<unknown>;
+
+/**
+ * Response body for /link/update.
+ */
+model UpdateInstanceLinkUpdateResponse {
+  /**
+   * Placeholder state for the 200 response. This value is only a placeholder to satisfy the response contract and does not represent backend operation state.
+   */
+  state: string = "Succeeded";
+}

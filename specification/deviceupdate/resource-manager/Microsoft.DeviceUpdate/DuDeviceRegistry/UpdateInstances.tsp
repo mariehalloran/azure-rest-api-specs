@@ -137,7 +137,7 @@ interface UpdateInstances {
   linkUpdate is ArmResourceActionAsync<
     UpdateInstance,
     LinkUpdateRequest,
-    LinkUpdateResponse,
+    UpdateInstanceLinkUpdateResponse,
     LroHeaders = ArmAsyncOperationHeader &
       ArmLroLocationHeader &
       Azure.Core.Foundations.RetryAfterHeader
