@@ -119,26 +119,10 @@ model Ops360Settings {
   status?: Ops360Status;
 }
 
-#suppress "@azure-tools/typespec-autorest/union-unsupported" "TenantFlagValue intentionally uses mixed types for generic flag values."
-@doc("The type of value allowed for tenant flags.")
-@added(Versions.v2026_07_01_preview)
-union TenantFlagValue {
-  string,
-
-  @doc("Boolean flag value.")
-  boolean,
-
-  @doc("Integer flag value.")
-  int64,
-
-  @doc("Floating-point flag value.")
-  float64,
-}
-
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "TenantFlags is intentionally a generic key-value dictionary."
 @doc("Generic tenant flags. A flat key-value dictionary where each key is a well-formed identifier and each value is a bool, number, or string.")
 @added(Versions.v2026_07_01_preview)
-model TenantFlags is Record<TenantFlagValue>;
+model TenantFlags is Record<unknown>;
 
 @doc("Settings for privacy-related configurations.")
 @added(Versions.v2026_02_01_preview)
