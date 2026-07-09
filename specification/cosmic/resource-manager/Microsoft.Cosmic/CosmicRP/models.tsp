@@ -478,6 +478,10 @@ model Instance {
   @doc("The provisioning status of this instance on the backing cluster.")
   status?: InstanceProvisioningStatus;
 
+  @doc("Human-readable status message for this instance (e.g. placement error details).")
+  @visibility(Lifecycle.Read)
+  statusMessage?: string;
+
   @doc("Identities applied to this instance. Each entry's identityType distinguishes pod vs workload.")
   @visibility(Lifecycle.Read)
   @identifiers(#["clientId"])

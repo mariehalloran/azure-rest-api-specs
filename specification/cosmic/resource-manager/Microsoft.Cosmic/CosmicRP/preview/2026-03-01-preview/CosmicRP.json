@@ -1887,6 +1887,11 @@
           "$ref": "#/definitions/InstanceProvisioningStatus",
           "description": "The provisioning status of this instance on the backing cluster."
         },
+        "statusMessage": {
+          "type": "string",
+          "description": "Human-readable status message for this instance (e.g. placement error details).",
+          "readOnly": true
+        },
         "identities": {
           "type": "array",
           "description": "Identities applied to this instance. Each entry's identityType distinguishes pod vs workload.",
