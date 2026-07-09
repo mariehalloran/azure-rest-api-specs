@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Azure Quantum Management API",
-    "version": "2025-11-01-preview",
+    "version": "2026-06-15-preview",
     "description": "Microsoft.Quantum Resource Provider Management API",
     "x-typespec-generated": [
       {
@@ -65,20 +65,20 @@
         "description": "List the operations for the provider",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/OperationListResult"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/OperationListResult"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -101,13 +101,13 @@
         "description": "Check the availability of the resource name for the given location.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/LocationParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/LocationParameter"
           },
           {
             "name": "body",
@@ -115,7 +115,7 @@
             "description": "The CheckAvailability request",
             "required": true,
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/CheckNameAvailabilityRequest"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/CheckNameAvailabilityRequest"
             }
           }
         ],
@@ -123,13 +123,13 @@
           "200": {
             "description": "The request has succeeded.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/CheckNameAvailabilityResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/CheckNameAvailabilityResponse"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -149,10 +149,10 @@
         "description": "Returns the list of all provider offerings available for the given location.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
             "name": "locationName",
@@ -182,7 +182,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -205,10 +205,10 @@
         "description": "Gets the list of ProviderAccount within a Subscription.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -221,7 +221,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -244,10 +244,10 @@
         "description": "Returns the SuiteOffer resource associated with the given name.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -260,7 +260,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -283,10 +283,10 @@
         "description": "Gets the list of Workspaces within a Subscription.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -299,7 +299,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -322,13 +322,13 @@
         "description": "Gets the list of ProviderAccounts within a resource group.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           }
         ],
         "responses": {
@@ -341,7 +341,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -364,13 +364,13 @@
         "description": "Returns the ProviderAccount resource associated with the given name.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "providerAccountName",
@@ -391,7 +391,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -409,13 +409,13 @@
         "description": "Creates or updates a ProviderAccount resource.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "providerAccountName",
@@ -462,7 +462,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -484,13 +484,13 @@
         "description": "Updates an existing ProviderAccount's properties.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "providerAccountName",
@@ -506,7 +506,7 @@
             "description": "ProviderAccount details.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ProviderAccount.QuantumProviderAccountUpdate"
+              "$ref": "#/definitions/QuantumProviderAccountUpdate"
             }
           }
         ],
@@ -520,7 +520,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -538,13 +538,13 @@
         "description": "Deletes a ProviderAccount resource.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "providerAccountName",
@@ -576,7 +576,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -600,13 +600,13 @@
         "description": "Gets the list of Workspaces within a resource group.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           }
         ],
         "responses": {
@@ -619,7 +619,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -642,13 +642,13 @@
         "description": "Returns the Workspace resource associated with the given name.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "workspaceName",
@@ -669,7 +669,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -687,13 +687,13 @@
         "description": "Creates or updates a Workspace resource.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "workspaceName",
@@ -740,7 +740,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -762,13 +762,13 @@
         "description": "Updates an existing Workspace's tags.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "workspaceName",
@@ -798,7 +798,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -816,13 +816,13 @@
         "description": "Deletes a Workspace resource.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "workspaceName",
@@ -854,7 +854,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -878,13 +878,13 @@
         "description": "Get the keys to use with the Quantum APIs. A key is used to authenticate and authorize access to the Quantum REST APIs. Only one key is needed at a time; two are given to provide seamless key regeneration.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "workspaceName",
@@ -905,7 +905,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -925,13 +925,13 @@
         "description": "Regenerate either the primary or secondary key for use with the Quantum APIs. The old key will stop working immediately.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "workspaceName",
@@ -958,7 +958,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -999,43 +999,6 @@
           }
         }
       }
-    },
-    "Azure.ResourceManager.CommonTypes.ManagedServiceIdentityUpdate": {
-      "type": "object",
-      "description": "Managed service identity (system assigned and/or user assigned identities)",
-      "properties": {
-        "type": {
-          "$ref": "../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentityType",
-          "description": "The type of managed identity assigned to this resource."
-        },
-        "userAssignedIdentities": {
-          "type": "object",
-          "description": "The identities assigned to this resource by the user.",
-          "additionalProperties": {
-            "$ref": "../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/UserAssignedIdentity",
-            "x-nullable": true
-          }
-        }
-      }
-    },
-    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
-      "type": "object",
-      "title": "Tracked Resource",
-      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/Resource"
-        }
-      ]
     },
     "KeyType": {
       "type": "string",
@@ -1165,6 +1128,20 @@
         "resourceUsageId": {
           "type": "string",
           "description": "Id to track resource usage for the provider."
+        },
+        "quotas": {
+          "$ref": "#/definitions/QuotaAllocations",
+          "description": "Quota allocations associated with this provider. Available only for special providers."
+        },
+        "targetQuotas": {
+          "type": "array",
+          "description": "Target-specific quota allocations associated with this provider. Available only for special providers.",
+          "items": {
+            "$ref": "#/definitions/TargetQuotaAllocations"
+          },
+          "x-ms-identifiers": [
+            "targetId"
+          ]
         }
       }
     },
@@ -1272,7 +1249,7 @@
           "readOnly": true
         },
         "managedOnBehalfOfConfiguration": {
-          "$ref": "../../../../../common-types/resource-management/v5/mobo.json#/definitions/ManagedOnBehalfOfConfiguration",
+          "$ref": "../../../../../../common-types/resource-management/v5/mobo.json#/definitions/ManagedOnBehalfOfConfiguration",
           "description": "Managed On Behalf Of configuration.",
           "readOnly": true
         }
@@ -1282,44 +1259,6 @@
         "displayName",
         "companyName"
       ]
-    },
-    "ProviderAccount.ProviderAccountPropertiesUpdate": {
-      "type": "object",
-      "description": "Properties of a ProviderAccount",
-      "properties": {
-        "providerId": {
-          "type": "string",
-          "description": "The ProviderId which will be referenced by and that can be added to Azure Quantum Workspaces.",
-          "minLength": 2,
-          "maxLength": 14,
-          "pattern": "^([a-z0-9]+(-[a-z0-9]+)*)$"
-        },
-        "displayName": {
-          "type": "string",
-          "description": "Display name of this ProviderAccount.",
-          "minLength": 2,
-          "maxLength": 50
-        },
-        "description": {
-          "type": "string",
-          "description": "Description of this ProviderAccount.",
-          "default": "",
-          "maxLength": 240
-        },
-        "companyName": {
-          "type": "string",
-          "description": "The name of the company that is providing this ProviderAccount.",
-          "minLength": 2,
-          "maxLength": 50
-        },
-        "subscriptions": {
-          "type": "array",
-          "description": "List of Azure Subscriptions that are allowed to view/access resources from this ProviderAccount.",
-          "items": {
-            "$ref": "#/definitions/ProviderAccount.ProviderAccountSubscription"
-          }
-        }
-      }
     },
     "ProviderAccount.ProviderAccountQueue": {
       "type": "object",
@@ -1374,6 +1313,16 @@
         "quotas": {
           "$ref": "#/definitions/ProviderAccount.SubscriptionQuotaAllocations",
           "description": "Quota allocations for this subscription."
+        },
+        "targetQuotas": {
+          "type": "array",
+          "description": "Target-specific quota allocations for this subscription.",
+          "items": {
+            "$ref": "#/definitions/TargetQuotaAllocations"
+          },
+          "x-ms-identifiers": [
+            "targetId"
+          ]
         }
       },
       "required": [
@@ -1418,32 +1367,13 @@
           "description": "Gets or sets the properties. Define Quantum provider account's specific properties."
         },
         "identity": {
-          "$ref": "../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "$ref": "../../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
           "description": "The managed service identities assigned to this resource."
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
-        }
-      ]
-    },
-    "ProviderAccount.QuantumProviderAccountUpdate": {
-      "type": "object",
-      "description": "The resource proxy definition object for Quantum ProviderAccount.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/ProviderAccount.ProviderAccountPropertiesUpdate",
-          "description": "Gets or sets the properties. Define Quantum provider account's specific properties."
-        },
-        "identity": {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.ManagedServiceIdentityUpdate",
-          "description": "The managed service identities assigned to this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -1657,6 +1587,65 @@
         "value"
       ]
     },
+    "QuantumProviderAccountUpdate": {
+      "type": "object",
+      "description": "The type used for update operations of the QuantumProviderAccount.",
+      "properties": {
+        "identity": {
+          "$ref": "../../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "description": "The managed service identities assigned to this resource."
+        },
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/QuantumProviderAccountUpdateProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      }
+    },
+    "QuantumProviderAccountUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of the QuantumProviderAccount.",
+      "properties": {
+        "providerId": {
+          "type": "string",
+          "description": "The ProviderId which will be referenced by and that can be added to Azure Quantum Workspaces.",
+          "minLength": 2,
+          "maxLength": 14,
+          "pattern": "^([a-z0-9]+(-[a-z0-9]+)*)$"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name of this ProviderAccount.",
+          "minLength": 2,
+          "maxLength": 50
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of this ProviderAccount.",
+          "default": "",
+          "maxLength": 240
+        },
+        "companyName": {
+          "type": "string",
+          "description": "The name of the company that is providing this ProviderAccount.",
+          "minLength": 2,
+          "maxLength": 50
+        },
+        "subscriptions": {
+          "type": "array",
+          "description": "List of Azure Subscriptions that are allowed to view/access resources from this ProviderAccount.",
+          "items": {
+            "$ref": "#/definitions/ProviderAccount.ProviderAccountSubscription"
+          }
+        }
+      }
+    },
     "QuantumSuiteOffer": {
       "type": "object",
       "description": "A Quantum Suite Offer that is available to a subscription.",
@@ -1668,7 +1657,7 @@
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -1720,6 +1709,16 @@
         "quotas": {
           "$ref": "#/definitions/QuotaAllocations",
           "description": "Quota allocations associated with this offer."
+        },
+        "targetQuotas": {
+          "type": "array",
+          "description": "Target-specific quota allocations associated with this offer.",
+          "items": {
+            "$ref": "#/definitions/TargetQuotaAllocations"
+          },
+          "x-ms-identifiers": [
+            "targetId"
+          ]
         }
       },
       "required": [
@@ -1739,13 +1738,13 @@
           "description": "Gets or sets the properties. Define quantum workspace's specific properties."
         },
         "identity": {
-          "$ref": "../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "$ref": "../../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
           "description": "The managed service identities assigned to this resource."
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -1957,6 +1956,35 @@
         }
       }
     },
+    "TargetQuotaAllocations": {
+      "type": "object",
+      "description": "Quota allocations for a specific Target.",
+      "properties": {
+        "targetId": {
+          "type": "string",
+          "description": "The ID of the Target these quota allocations apply to.",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[a-zA-Z0-9][-._a-zA-Z0-9]*$"
+        },
+        "standardMinutesLifetime": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Lifetime limit for standard priority jobs execution in minutes.",
+          "minimum": 0
+        },
+        "highMinutesLifetime": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Lifetime limit for high priority jobs execution in minutes.",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "targetId",
+        "standardMinutesLifetime"
+      ]
+    },
     "UsableStatus": {
       "type": "string",
       "description": "Whether the current workspace is ready to accept Jobs.",
@@ -2107,7 +2135,7 @@
           "description": "Indicator of enablement of the Quantum workspace Api keys."
         },
         "managedOnBehalfOfConfiguration": {
-          "$ref": "../../../../../common-types/resource-management/v5/mobo.json#/definitions/ManagedOnBehalfOfConfiguration",
+          "$ref": "../../../../../../common-types/resource-management/v5/mobo.json#/definitions/ManagedOnBehalfOfConfiguration",
           "description": "Managed On Behalf Of configuration.",
           "readOnly": true
         },
@@ -2115,10 +2143,6 @@
           "$ref": "#/definitions/StorageAccountResourceId",
           "description": "ARM Resource Id of the managed storage account associated with this workspace.",
           "readOnly": true
-        },
-        "quotas": {
-          "$ref": "#/definitions/QuotaAllocations",
-          "description": "DEPRECATED: This field is deprecated and will be removed in future versions. Please use the quotas under providers instead."
         }
       }
     }
