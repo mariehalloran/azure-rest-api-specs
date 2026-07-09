@@ -42,6 +42,7 @@ union FeedbackControlPolicyState {
 @doc("Available values for Operations 360 status.")
 @added(Versions.v2025_09_01_preview)
 @removed(Versions.v2026_02_01_preview)
+@added(Versions.v2026_07_01_preview)
 union Ops360Status {
   string,
 
@@ -112,6 +113,7 @@ model FeedbackControlPolicySettings {
 @doc("Operations 360 settings for Azure Portal users.")
 @added(Versions.v2025_09_01_preview)
 @removed(Versions.v2026_02_01_preview)
+@added(Versions.v2026_07_01_preview)
 model Ops360Settings {
   @doc("The current status of Operations 360 feature. Can be null when the status has been cleared.")
   status?: Ops360Status;
@@ -157,6 +159,7 @@ model SettingsProperties {
 
   @added(Versions.v2025_09_01_preview)
   @removed(Versions.v2026_02_01_preview)
+  @added(Versions.v2026_07_01_preview)
   @doc("Operations 360 settings for Azure Portal users in the tenant. Can be null to remove the configuration entirely.")
   ops360Settings?: Ops360Settings;
 
