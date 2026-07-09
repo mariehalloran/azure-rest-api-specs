@@ -26,14 +26,14 @@ model LookupAvailabilityRequest {
 model AvailabilityProperties {
   /** Foreign key linking to the parent product. */
   @maxLength(64)
-  productId?: string;
+  productId: string;
 
   /** Product version propagated from the parent product document. */
-  version?: int32;
+  version: int32;
 
   /** Foreign key linking to the parent SKU. */
   @maxLength(64)
-  skuId?: string;
+  skuId: string;
 
   /** Numeric rank for determining display ordering of availabilities. */
   displayRank?: int32;

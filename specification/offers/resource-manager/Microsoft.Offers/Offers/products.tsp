@@ -75,7 +75,7 @@ model ProductProperties {
   pricing?: PcdPropertyBag;
 
   /** Product-level policies governing purchasing, renewal, and lifecycle behavior. */
-  productPolicies?: PcdPropertyBag;
+  policies?: PcdPropertyBag;
 
   /** Alternate identifiers for cross-referencing this product across systems. */
   alternateIds?: string[];
@@ -96,10 +96,6 @@ model ProductProperties {
   /** Human-readable description of the product. */
   @maxLength(2048)
   description?: string;
-
-  /** The default language code for this product's localized content. */
-  @maxLength(16)
-  defaultLanguageCode?: string;
 
   /** Name of the publisher, promoted from localized properties. */
   @maxLength(256)

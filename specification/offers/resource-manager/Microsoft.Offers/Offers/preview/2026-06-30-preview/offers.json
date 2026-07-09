@@ -584,7 +584,12 @@
           "$ref": "#/definitions/PcdPropertyBag",
           "description": "Dynamic struct containing provenance and internal routing fields."
         }
-      }
+      },
+      "required": [
+        "productId",
+        "version",
+        "skuId"
+      ]
     },
     "AvailabilityTerm": {
       "type": "object",
@@ -1011,7 +1016,7 @@
           "$ref": "#/definitions/PcdPropertyBag",
           "description": "Pricing model and configuration data at the product level."
         },
-        "productPolicies": {
+        "policies": {
           "$ref": "#/definitions/PcdPropertyBag",
           "description": "Product-level policies governing purchasing, renewal, and lifecycle behavior."
         },
@@ -1043,11 +1048,6 @@
           "type": "string",
           "description": "Human-readable description of the product.",
           "maxLength": 2048
-        },
-        "defaultLanguageCode": {
-          "type": "string",
-          "description": "The default language code for this product's localized content.",
-          "maxLength": 16
         },
         "publisherName": {
           "type": "string",
