@@ -1,6 +1,6 @@
 {
   "parameters": {
-    "api-version": "2024-10-01-preview",
+    "api-version": "2026-07-01-preview",
     "resourceGroupName": "test-rg",
     "subscriptionId": "8e17e36c-42e9-4cd5-a078-7b44883414e0"
   },
@@ -20,7 +20,7 @@
               "resourceArmIds": [
                 "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Workloads/ConfigurationValidationResults/t01;3f9a1c84b2e0476d9f5c11aa77be0312"
               ],
-              "qualityChecksTemplateId": "",
+              "configurationChecksTemplateId": "",
               "errorDetails": [
                 {
                   "code": "",
@@ -28,16 +28,21 @@
                   "details": ""
                 }
               ],
-              "configurationResults": [
+              "evaluationType": "OnDemand",
+              "evaluationTimestamp": "2024-10-06T11:50:35.4030186Z",
+              "evaluationResults": [
                 {
                   "name": "EnableFloatingIPinAzureLoadBalancer",
                   "executionLayer": "AzureResourceManager",
                   "recommendedState": "true",
                   "customizedState": "false",
                   "actualStateOnResource": "false",
-                  "configurationDeviation": "No",
-                  "recommendedAction": "<MitigationSteps>",
-                  "recommendationDetails": "<MitigationStepsUrl>",
+                  "configurationDeviation": "NoDeviation",
+                  "recommendation": {
+                    "reason": "<RecommendationCause>",
+                    "action": "<MitigationSteps>",
+                    "details": "<MitigationStepsUrl>"
+                  },
                   "checkType": "Default",
                   "checkCategory": "OperationalExcellence",
                   "checkVersion": "1.0",
@@ -49,9 +54,12 @@
                   "recommendedState": "120",
                   "customizedState": ">300",
                   "actualStateOnResource": "7200",
-                  "configurationDeviation": "Yes",
-                  "recommendedAction": "<MitigationSteps>",
-                  "recommendationDetails": "<MitigationStepsUrl>",
+                  "configurationDeviation": "DeviationDetected",
+                  "recommendation": {
+                    "reason": "<RecommendationCause>",
+                    "action": "<MitigationSteps>",
+                    "details": "<MitigationStepsUrl>"
+                  },
                   "checkType": "Custom",
                   "checkCategory": "Performance",
                   "checkVersion": "1.0",

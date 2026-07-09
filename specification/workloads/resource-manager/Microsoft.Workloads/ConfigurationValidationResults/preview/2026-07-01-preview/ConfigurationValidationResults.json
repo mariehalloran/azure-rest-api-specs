@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Workloads Client",
-    "version": "2024-11-01-preview",
+    "version": "2026-07-01-preview",
     "description": "Workloads client provides access to various workload operations.",
     "x-typespec-generated": [
       {
@@ -44,6 +44,9 @@
     },
     {
       "name": "ConfigurationValidationResultsOperations"
+    },
+    {
+      "name": "Runs"
     }
   ],
   "paths": {
@@ -207,6 +210,111 @@
         "x-ms-examples": {
           "ConfigurationValidationResults_Get": {
             "$ref": "./examples/ConfigurationValidationResults_Get.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Workloads/configurationValidationResults/{configurationValidationResultName}/runs": {
+      "get": {
+        "operationId": "Runs_ListByConfigurationValidationResults",
+        "tags": [
+          "Runs"
+        ],
+        "description": "Gets all configuration validation runs for a configuration validation result.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "configurationValidationResultName",
+            "in": "path",
+            "description": "The name of the ConfigurationValidationResults",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{3,64};[a-fA-F0-9]{32}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/RunListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Runs_ListByConfigurationValidationResults": {
+            "$ref": "./examples/Runs_ListByConfigurationValidationResults.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Workloads/configurationValidationResults/{configurationValidationResultName}/runs/{runName}": {
+      "get": {
+        "operationId": "Runs_Get",
+        "tags": [
+          "Runs"
+        ],
+        "description": "Gets a configuration validation run for a configuration validation result.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "configurationValidationResultName",
+            "in": "path",
+            "description": "The name of the ConfigurationValidationResults",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{3,64};[a-fA-F0-9]{32}$"
+          },
+          {
+            "name": "runName",
+            "in": "path",
+            "description": "The name of the Run",
+            "required": true,
+            "type": "string",
+            "pattern": "^[0-9]{8}T[0-9]{6}Z$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Run"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Runs_Get": {
+            "$ref": "./examples/Runs_Get.json"
           }
         }
       }
@@ -617,6 +725,42 @@
         "checkCategory",
         "checkVersion",
         "impactLevel"
+      ]
+    },
+    "Run": {
+      "type": "object",
+      "description": "Configuration validation run. A run represents the complete, immutable results of a single configuration validation execution for a configuration validation result.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ConfigurationValidationResultsProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "RunListResult": {
+      "type": "object",
+      "description": "The response of a Run list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Run items on this page",
+          "items": {
+            "$ref": "#/definitions/Run"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
       ]
     },
     "ValidationConfigurationResultsProvisioningState": {

@@ -1,26 +1,31 @@
 {
   "parameters": {
-    "api-version": "2024-11-01-preview",
+    "api-version": "2026-07-01-preview",
     "configurationValidationResultName": "t01;3f9a1c84b2e0476d9f5c11aa77be0312",
+    "runName": "20260522T030519Z",
     "resourceGroupName": "test-rg",
     "subscriptionId": "8e17e36c-42e9-4cd5-a078-7b44883414e0"
   },
   "responses": {
     "200": {
       "body": {
-        "name": "t01;3f9a1c84b2e0476d9f5c11aa77be0312",
-        "type": "Microsoft.Workloads/ConfigurationValidationResults",
-        "id": "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Workloads/ConfigurationValidationResults/t01;3f9a1c84b2e0476d9f5c11aa77be0312",
+        "name": "20260522T030519Z",
+        "type": "Microsoft.Workloads/ConfigurationValidationResults/runs",
+        "id": "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Workloads/ConfigurationValidationResults/t01;3f9a1c84b2e0476d9f5c11aa77be0312/runs/20260522T030519Z",
         "properties": {
-          "workloadInstanceArmId": "",
+          "workloadInstanceArmId": "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Workloads/VirtualInstances/T01",
+          "workloadSystemIdentifier": "T01",
           "environment": "Production",
-          "componentName": "",
-          "roleName": "",
+          "componentName": "t01dbvm0",
+          "componentType": "Database",
+          "roleName": "default",
           "workloadType": "sap",
           "resourceArmIds": [
-            "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Workloads/ConfigurationValidationResults/t01;3f9a1c84b2e0476d9f5c11aa77be0312"
+            "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Compute/virtualMachines/t01dbvm0"
           ],
-          "configurationChecksTemplateId": "",
+          "evaluationType": "Scheduled",
+          "configurationChecksTemplateId": "/subscriptions/8e17e36c-42e9-4cd5-a078-7b44883414e0/resourceGroups/test-rg/providers/Microsoft.Workloads/configurationChecksTemplates/default",
+          "evaluationTimestamp": "2026-05-22T03:05:19.0353107Z",
           "errorDetails": [
             {
               "code": "",
@@ -28,8 +33,6 @@
               "details": ""
             }
           ],
-          "evaluationType": "OnDemand",
-          "evaluationTimestamp": "2024-10-06T11:50:35.4030186Z",
           "evaluationResults": [
             {
               "name": "EnableFloatingIPinAzureLoadBalancer",
@@ -69,16 +72,16 @@
           "provisioningState": "Succeeded"
         },
         "systemData": {
-          "createdAt": "2024-10-05T15:04:13.95346Z",
-          "createdBy": "nihkumar@microsoft.com",
-          "createdByType": "User",
-          "lastModifiedAt": "2024-10-06T11:50:35.4030186Z",
+          "createdAt": "2026-05-22T03:05:19.0353107Z",
+          "createdBy": "ea21b132-560f-4b0b-9876-903b6bca7b9d",
+          "createdByType": "Application",
+          "lastModifiedAt": "2026-05-22T03:05:19.0353107Z",
           "lastModifiedBy": "ea21b132-560f-4b0b-9876-903b6bca7b9d",
           "lastModifiedByType": "Application"
         }
       }
     }
   },
-  "operationId": "ConfigurationValidationResultsOperations_Get",
-  "title": "ConfigurationValidationResults_Get"
+  "operationId": "Runs_Get",
+  "title": "Runs_Get"
 }
