@@ -35,10 +35,11 @@ model BenefitVersionedExpansionProperties {
   ...BenefitCommonVersionedProperties;
 
   /**
-   * Amount of benefit that has been consumed
+   * Amount and percentage of the benefit that has been consumed.
    */
   @visibility(Lifecycle.Read)
-  consumed?: Price;
+  @typeChangedFrom(Versions.v2026_07_01_preview, Price)
+  consumed?: Consumed;
 }
 
 /**
@@ -835,6 +836,29 @@ model Price {
 
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   amount?: float64;
+}
+
+/**
+ * The amount and percentage of a benefit that has been consumed.
+ */
+@added(Versions.v2026_07_01_preview)
+model Consumed {
+  /**
+   * The ISO 4217 3-letter currency code for the consumed amount.
+   */
+  currencyCode?: string;
+
+  /**
+   * The consumed amount in the currency specified by currencyCode.
+   */
+  amount?: float64;
+
+  /**
+   * Percentage of the benefit that has been consumed, from 0 to 100. For indirect customers only this percentage is populated; for all other customers amount, currencyCode, and percentage are populated.
+   */
+  @minValue(0)
+  @maxValue(100)
+  percentage?: float64;
 }
 
 /**
