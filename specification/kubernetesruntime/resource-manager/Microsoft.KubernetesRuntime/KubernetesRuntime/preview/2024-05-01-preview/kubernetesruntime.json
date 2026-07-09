@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Microsoft.KubernetesRuntime",
-    "version": "2024-08-01",
+    "version": "2024-05-01-preview",
     "x-typespec-generated": [
       {
         "emitter": "@azure-tools/typespec-autorest"
@@ -52,209 +52,9 @@
     },
     {
       "name": "Services"
-    },
-    {
-      "name": "BfdProfiles"
     }
   ],
   "paths": {
-    "/{resourceUri}/providers/Microsoft.KubernetesRuntime/bfdProfiles": {
-      "get": {
-        "operationId": "BfdProfiles_ListByParent",
-        "tags": [
-          "BfdProfiles"
-        ],
-        "description": "List BfdProfile resources by parent",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/BfdProfileListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "BfdProfiles_ListByParent": {
-            "$ref": "./examples/BfdProfiles_List.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/{resourceUri}/providers/Microsoft.KubernetesRuntime/bfdProfiles/{bfdProfileName}": {
-      "get": {
-        "operationId": "BfdProfiles_Get",
-        "tags": [
-          "BfdProfiles"
-        ],
-        "description": "Get a BfdProfile",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
-          },
-          {
-            "name": "bfdProfileName",
-            "in": "path",
-            "description": "The name of the BfdProfile",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/BfdProfile"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "BfdProfiles_Get": {
-            "$ref": "./examples/BfdProfiles_Get.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "BfdProfiles_CreateOrUpdate",
-        "tags": [
-          "BfdProfiles"
-        ],
-        "description": "Create a BfdProfile",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
-          },
-          {
-            "name": "bfdProfileName",
-            "in": "path",
-            "description": "The name of the BfdProfile",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/BfdProfile"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'BfdProfile' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/BfdProfile"
-            }
-          },
-          "201": {
-            "description": "Resource 'BfdProfile' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/BfdProfile"
-            },
-            "headers": {
-              "Azure-AsyncOperation": {
-                "type": "string",
-                "description": "A link to the status monitor"
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "BfdProfiles_CreateOrUpdate": {
-            "$ref": "./examples/BfdProfiles_CreateOrUpdate.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        },
-        "x-ms-long-running-operation": true
-      },
-      "delete": {
-        "operationId": "BfdProfiles_Delete",
-        "tags": [
-          "BfdProfiles"
-        ],
-        "description": "Delete a BfdProfile",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
-          },
-          {
-            "name": "bfdProfileName",
-            "in": "path",
-            "description": "The name of the BfdProfile",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "BfdProfiles_Delete": {
-            "$ref": "./examples/BfdProfiles_Delete.json"
-          }
-        }
-      }
-    },
     "/{resourceUri}/providers/Microsoft.KubernetesRuntime/bgpPeers": {
       "get": {
         "operationId": "BgpPeers_ListByParent",
@@ -264,7 +64,7 @@
         "description": "List BgpPeer resources by parent",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -280,7 +80,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -303,7 +103,7 @@
         "description": "Get a BgpPeer",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -327,7 +127,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -345,7 +145,7 @@
         "description": "Create a BgpPeer",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -395,7 +195,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -417,7 +217,7 @@
         "description": "Delete a BgpPeer",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -441,7 +241,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -461,7 +261,7 @@
         "description": "List LoadBalancer resources by parent",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -477,7 +277,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -500,7 +300,7 @@
         "description": "Get a LoadBalancer",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -524,7 +324,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -542,7 +342,7 @@
         "description": "Create a LoadBalancer",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -592,7 +392,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -614,7 +414,7 @@
         "description": "Delete a LoadBalancer",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -638,7 +438,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -658,7 +458,7 @@
         "description": "List ServiceResource resources by parent",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -674,7 +474,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -697,7 +497,7 @@
         "description": "Get a ServiceResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -721,7 +521,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -739,7 +539,7 @@
         "description": "Create a ServiceResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -778,7 +578,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -796,7 +596,7 @@
         "description": "Delete a ServiceResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -820,7 +620,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -840,7 +640,7 @@
         "description": "List StorageClassResource resources by parent",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -856,7 +656,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -879,7 +679,7 @@
         "description": "Get a StorageClassResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -903,7 +703,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -921,7 +721,7 @@
         "description": "Create a StorageClassResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -971,7 +771,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -993,7 +793,7 @@
         "description": "Update a StorageClassResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -1040,7 +840,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1062,7 +862,7 @@
         "description": "Delete a StorageClassResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
@@ -1097,7 +897,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1121,20 +921,20 @@
         "description": "List the operations for the provider",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/OperationListResult"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/OperationListResult"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1227,110 +1027,6 @@
       ],
       "x-ms-discriminator-value": "AksArcDisk"
     },
-    "BfdProfile": {
-      "type": "object",
-      "description": "A BfdProfile resource for an Arc connected cluster (Microsoft.Kubernetes/connectedClusters)",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/BfdProfileProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "BfdProfileListResult": {
-      "type": "object",
-      "description": "The response of a BfdProfile list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The BfdProfile items on this page",
-          "items": {
-            "$ref": "#/definitions/BfdProfile"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "BfdProfileProperties": {
-      "type": "object",
-      "description": "Details of the BfdProfile.",
-      "properties": {
-        "receiveInterval": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Receive interval in milliseconds"
-        },
-        "transmitInterval": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Transmit interval in milliseconds"
-        },
-        "detectMultiplier": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Detect multiplier"
-        },
-        "echoInterval": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Echo interval in milliseconds"
-        },
-        "echoMode": {
-          "$ref": "#/definitions/EchoModeState",
-          "description": "Echo mode"
-        },
-        "passiveMode": {
-          "$ref": "#/definitions/PassiveModeState",
-          "description": "Passive mode"
-        },
-        "minimumTtl": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Minimum TTL"
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Resource provision state",
-          "readOnly": true
-        }
-      }
-    },
-    "BgpMultiHopState": {
-      "type": "string",
-      "description": "State for BGP Multi Hop",
-      "enum": [
-        "Enabled",
-        "Disabled"
-      ],
-      "x-ms-enum": {
-        "name": "BgpMultiHopState",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Enabled",
-            "value": "Enabled",
-            "description": "BGP multi hop is enabled"
-          },
-          {
-            "name": "Disabled",
-            "value": "Disabled",
-            "description": "BGP multi hop is disabled"
-          }
-        ]
-      }
-    },
     "BgpPeer": {
       "type": "object",
       "description": "A BgpPeer resource for an Arc connected cluster (Microsoft.Kubernetes/connectedClusters)",
@@ -1342,7 +1038,7 @@
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -1384,37 +1080,6 @@
         "peerAddress": {
           "type": "string",
           "description": "Peer Address"
-        },
-        "bfdProfile": {
-          "type": "string",
-          "description": "BFD Profile"
-        },
-        "peerPort": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Peer BGP port"
-        },
-        "bgpMultiHop": {
-          "$ref": "#/definitions/BgpMultiHopState",
-          "description": "eBGP multiple hop"
-        },
-        "holdTime": {
-          "type": "string",
-          "description": "Hold time, per RFC4271"
-        },
-        "keepAliveTime": {
-          "type": "string",
-          "description": "Keepalive time, per RFC4271"
-        },
-        "nodeSelector": {
-          "type": "array",
-          "description": "A dynamic label mapping to select related nodes to peer with. For instance, if you want to create a BGP peer only for nodes with label \"a=b\", then please specify {\"a\": \"b\"} in the field.",
-          "items": {
-            "$ref": "#/definitions/Label"
-          },
-          "x-ms-identifiers": [
-            "name"
-          ]
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
@@ -1478,30 +1143,6 @@
         ]
       }
     },
-    "EchoModeState": {
-      "type": "string",
-      "description": "State for BFD Echo Mode",
-      "enum": [
-        "Enabled",
-        "Disabled"
-      ],
-      "x-ms-enum": {
-        "name": "EchoModeState",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Enabled",
-            "value": "Enabled",
-            "description": "Echo mode is enabled"
-          },
-          {
-            "name": "Disabled",
-            "value": "Disabled",
-            "description": "Echo mode is disabled"
-          }
-        ]
-      }
-    },
     "FailoverTier": {
       "type": "string",
       "description": "Failover tier of a storage class",
@@ -1538,24 +1179,6 @@
         ]
       }
     },
-    "Label": {
-      "type": "object",
-      "description": "Kubernetes Label Definition",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Label name"
-        },
-        "value": {
-          "type": "string",
-          "description": "Label value"
-        }
-      },
-      "required": [
-        "name",
-        "value"
-      ]
-    },
     "LoadBalancer": {
       "type": "object",
       "description": "A LoadBalancer resource for an Arc connected cluster (Microsoft.Kubernetes/connectedClusters)",
@@ -1567,7 +1190,7 @@
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -1617,13 +1240,6 @@
         "bgpPeers": {
           "type": "array",
           "description": "The list of BGP peers it should advertise to. Null or empty means to advertise to all peers.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "communities": {
-          "type": "array",
-          "description": "BGP Communities",
           "items": {
             "type": "string"
           }
@@ -1708,30 +1324,6 @@
         }
       ],
       "x-ms-discriminator-value": "NFS"
-    },
-    "PassiveModeState": {
-      "type": "string",
-      "description": "State for BFD Passive Mode",
-      "enum": [
-        "Enabled",
-        "Disabled"
-      ],
-      "x-ms-enum": {
-        "name": "PassiveModeState",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Enabled",
-            "value": "Enabled",
-            "description": "Passive mode is enabled"
-          },
-          {
-            "name": "Disabled",
-            "value": "Disabled",
-            "description": "Passive mode is disabled"
-          }
-        ]
-      }
     },
     "PerformanceTier": {
       "type": "string",
@@ -1924,7 +1516,7 @@
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -2129,7 +1721,7 @@
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource"
         }
       ]
     },
