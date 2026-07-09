@@ -80,6 +80,13 @@ suppressions:
     from:
       - settings.json
     where: $.paths["/providers/Microsoft.PortalServices/settings/default"]
+  - code: AvoidAdditionalProperties
+    reason: >
+      TenantFlags is intentionally a generic key-value dictionary (Record<TenantFlagValue>).
+      The additionalProperties usage is by design to support dynamic tenant flag entries.
+    from:
+      - settings.json
+    where: $.definitions.TenantFlags
 ```
 
 ### Tag: package-2025-11-01
