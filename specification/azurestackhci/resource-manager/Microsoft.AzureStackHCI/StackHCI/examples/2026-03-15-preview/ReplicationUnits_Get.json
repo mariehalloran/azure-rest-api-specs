@@ -1,0 +1,36 @@
+{
+  "title": "ReplicationUnits_Get",
+  "operationId": "ReplicationUnits_Get",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "6D37FF61-4C93-4377-B06B-FC6D6D561A7D",
+    "resourceGroupName": "rghci",
+    "storageArrayName": "pure-1",
+    "replicationUnitName": "ru-sql-prod"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/replicationUnits/ru-sql-prod",
+        "name": "ru-sql-prod",
+        "type": "Microsoft.AzureStackHCI/storageArrays/replicationUnits",
+        "properties": {
+          "consistencyGroupRef": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/consistencyGroups/contoso-sql-prod",
+          "state": "Synchronized",
+          "lastReplicatedAt": "2026-04-20T23:45:00Z",
+          "targetRef": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-dr-1/replicationUnits/ru-sql-prod-dr",
+          "vendorUnitId": "contoso-sql-prod-ru",
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2026-03-15T10:00:00.000Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "Application",
+          "lastModifiedAt": "2026-04-20T23:45:00.000Z"
+        }
+      }
+    }
+  }
+}

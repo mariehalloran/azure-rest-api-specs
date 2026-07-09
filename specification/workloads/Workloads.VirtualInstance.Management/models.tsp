@@ -599,6 +599,12 @@ model WorkloadComponentProperties {
   resources?: ResourceConfiguration[];
 
   /**
+   * Discovery rule used to resolve component resources when resource IDs are not provided directly.
+   */
+  @added(Versions.v2026_07_01_preview)
+  resourceDiscoveryRule?: ResourceDiscoveryRule;
+
+  /**
    * Metadata pertaining to the component.
    */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Keys of this field are dynamic and vary based on the component, which itself would vary based on the type of the workload. We cannot use tags here as this field is supposed to be understood by the service and is not for customer usage. Values will always be strings."
@@ -610,6 +616,13 @@ model WorkloadComponentProperties {
    */
   @added(Versions.v2026_02_01_preview)
   componentProfile?: ComponentProfile;
+
+  /**
+   * The storage profile describing the mount points, storage resources, and parameters
+   * associated with this workload component.
+   */
+  @added(Versions.v2026_07_01_preview)
+  storageProfile?: StorageProfile;
 
   /**
    * Defines the compliance state of the workload component, as per the corresponding workload definition and architecture.
@@ -652,6 +665,51 @@ model ResourceConfiguration {
    * ARM ID of the resource.
    */
   resourceId: armResourceIdentifier;
+}
+
+/**
+ * Defines the type of resource discovery rule used to resolve component resources.
+ */
+@added(Versions.v2026_07_01_preview)
+union ResourceDiscoveryType {
+  string,
+
+  /** Azure Resource Graph query-based discovery rule type. */
+  ARGQuery: "ARGQuery",
+}
+
+/**
+ * Defines the base resource discovery rule used to resolve component resources.
+ * The discovery type determines the specific configuration properties available
+ * for each discovery workflow.
+ */
+@discriminator("discoveryType")
+@added(Versions.v2026_07_01_preview)
+model ResourceDiscoveryRule {
+  /**
+   * The type of resource discovery rule.
+   */
+  discoveryType: ResourceDiscoveryType;
+}
+
+/**
+ * Defines an Azure Resource Graph query-based discovery rule used to resolve
+ *a resources.
+ */
+@added(Versions.v2026_07_01_preview)
+model ArgQueryDiscoveryRule extends ResourceDiscoveryRule {
+  /**
+   * The type of resource discovery rule.
+   */
+  discoveryType: ResourceDiscoveryType.ARGQuery;
+
+  /**
+   * Azure Resource Graph query used to discover component resources when resource IDs are not provided directly.
+   * The query must return a single column containing resource IDs (for example, `project id`).
+   */
+  @minLength(1)
+  @maxLength(10000)
+  argQuery: string;
 }
 
 /**
@@ -712,6 +770,12 @@ model UpdateWorkloadComponentProperties {
   resources?: ResourceConfiguration[];
 
   /**
+   * Discovery rule used to resolve component resources when resource IDs are not provided directly.
+   */
+  @added(Versions.v2026_07_01_preview)
+  resourceDiscoveryRule?: ResourceDiscoveryRule;
+
+  /**
    * Metadata pertaining to the component.
    */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Keys of this field are dynamic and vary based on the component, which itself would vary based on the type of the workload. We cannot use tags here as this field is supposed to be understood by the service and is not for customer usage. Values will always be strings."
@@ -723,4 +787,112 @@ model UpdateWorkloadComponentProperties {
    */
   @added(Versions.v2026_02_01_preview)
   componentProfile?: ComponentProfile;
+
+  /**
+   * The storage profile describing the mount points, storage resources, and parameters
+   * associated with this workload component.
+   */
+  @added(Versions.v2026_07_01_preview)
+  storageProfile?: StorageProfile;
+}
+
+/**
+ * Defines the storage profile containing all mount point configurations
+ * for a workload component.
+ */
+@added(Versions.v2026_07_01_preview)
+model StorageProfile {
+  /**
+   * The list of storage mount point configurations.
+   */
+  @Azure.ResourceManager.identifiers(#["mountPoint"])
+  mountPoints?: StorageProfileMountPoint[];
+}
+
+/**
+ * Defines a storage parameter as a name-value pair.
+ */
+@added(Versions.v2026_07_01_preview)
+model StorageProfileParameter {
+  /**
+   * The name of the storage parameter.
+   */
+  name: string;
+
+  /**
+   * The value of the storage parameter.
+   */
+  value: string;
+}
+
+/**
+ * Defines a virtual machine name associated with storage resources.
+ */
+@added(Versions.v2026_07_01_preview)
+@minLength(1)
+@maxLength(64)
+scalar VirtualMachineName extends string;
+
+/**
+ * Defines the storage resources associated with a set of hostnames for a given mount point.
+ */
+@added(Versions.v2026_07_01_preview)
+model StorageProfileResource {
+  /**
+   * The virtual machine names associated with these storage resources.
+   */
+  virtualMachineNames: VirtualMachineName[];
+
+  /**
+   * The list of ARM resource IDs of the storage resources associated with workload components.
+   */
+  resourceList: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Compute/virtualMachines";
+    },
+    {
+      type: "Microsoft.Compute/disks";
+    },
+    {
+      type: "Microsoft.Storage/storageAccounts";
+    },
+    {
+      type: "Microsoft.Storage/storageAccounts/fileServices/shares";
+    },
+    {
+      type: "Microsoft.FileShares/fileShares";
+    },
+    {
+      type: "Microsoft.NetApp/netAppAccounts/capacityPools/volumes";
+    },
+    {
+      type: "Microsoft.ElasticSan/elasticSans/volumeGroups/volumes";
+    }
+  ]>[];
+}
+
+/**
+ * Defines the storage configuration for a specific mount point, including the
+ * associated resources grouped by hostname and any configuration parameters.
+ */
+@added(Versions.v2026_07_01_preview)
+model StorageProfileMountPoint {
+  /**
+   * The filesystem mount point path. Supports Linux absolute paths.
+   */
+  @minLength(1)
+  @maxLength(4096)
+  mountPoint: string;
+
+  /**
+   * The storage resources associated with this mount point, grouped by hostname.
+   */
+  @Azure.ResourceManager.identifiers(#[])
+  resources?: StorageProfileResource[];
+
+  /**
+   * The configuration parameters associated with this mount point.
+   */
+  @Azure.ResourceManager.identifiers(#["name"])
+  parameters?: StorageProfileParameter[];
 }
