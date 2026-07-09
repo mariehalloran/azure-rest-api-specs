@@ -1,12 +1,15 @@
 import "@typespec/http";
 import "@typespec/rest";
+import "@typespec/openapi";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
 using TypeSpec.Http;
+using TypeSpec.OpenAPI;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
+using Azure.Core;
 using Azure.ResourceManager;
 
 namespace Microsoft.HybridConnectivity;
@@ -145,6 +148,11 @@ model PublicCloudConnectorPropertiesUpdate {
   @added(Versions.v2025_12_01_preview)
   @doc("Cloud profile for GCP.")
   gcpCloudProfile?: GcpCloudProfileUpdate;
+
+  @added(Versions.v2026_09_01_preview)
+  @doc("The list of subscription IDs associated with the connector. Defaults to null when not provided.")
+  @uniqueItems
+  subscriptionPool?: uuid[];
 }
 
 @doc("cloud profile for AWS.")
@@ -191,6 +199,11 @@ model PublicCloudConnectorProperties {
   @doc("Connector primary identifier.")
   @visibility(Lifecycle.Read)
   connectorPrimaryIdentifier?: string;
+
+  @added(Versions.v2026_09_01_preview)
+  @doc("The list of subscription IDs associated with the connector. Defaults to null when not provided.")
+  @uniqueItems
+  subscriptionPool?: uuid[];
 }
 
 @doc("Enum of host cloud the public cloud connector is referencing.")
