@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "StorageDiscoveryClient",
-    "version": "2026-07-01-preview",
+    "version": "2026-10-01-preview",
     "description": "The Azure Storage Discovery Management API.",
     "x-typespec-generated": [
       {
@@ -732,6 +732,51 @@
       },
       "readOnly": true
     },
+    "AzureBlobStorageCapability": {
+      "type": "object",
+      "description": "The Azure Blob Storage capability configuration.",
+      "properties": {
+        "objectLevelInsights": {
+          "$ref": "#/definitions/ObjectLevelInsights",
+          "description": "The object level insights configuration for Azure Blob Storage."
+        },
+        "prefixDefinitions": {
+          "type": "array",
+          "description": "The prefix definitions that scope the object level insights to specific storage accounts, containers, and prefixes.",
+          "items": {
+            "$ref": "#/definitions/PrefixDefinition"
+          },
+          "x-ms-identifiers": []
+        }
+      },
+      "required": [
+        "objectLevelInsights"
+      ]
+    },
+    "CapabilityStatus": {
+      "type": "string",
+      "description": "The enablement status of a storage discovery capability.",
+      "enum": [
+        "Enabled",
+        "Disabled"
+      ],
+      "x-ms-enum": {
+        "name": "CapabilityStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Enabled",
+            "value": "Enabled",
+            "description": "The capability is enabled."
+          },
+          {
+            "name": "Disabled",
+            "value": "Disabled",
+            "description": "The capability is disabled."
+          }
+        ]
+      }
+    },
     "GetReportContent": {
       "type": "object",
       "description": "Request to get StorageDiscoveryWorkspace data from ADX",
@@ -765,54 +810,50 @@
         "results"
       ]
     },
-    "ObjectMetadataRepository": {
+    "ObjectLevelInsights": {
       "type": "object",
-      "description": "Configuration for an object metadata repository hosted in a customer-owned storage account container.",
+      "description": "The object level insights configuration.",
       "properties": {
-        "storageAccountResourceId": {
+        "status": {
+          "$ref": "#/definitions/CapabilityStatus",
+          "description": "The enablement status of the object level insights capability."
+        }
+      },
+      "required": [
+        "status"
+      ]
+    },
+    "PrefixDefinition": {
+      "type": "object",
+      "description": "A prefix definition that scopes object level insights to a specific storage account, container, and prefix.",
+      "properties": {
+        "storageAccountName": {
           "type": "string",
-          "format": "arm-id",
-          "description": "The ARM resource ID of the storage account that hosts the object metadata repository.",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.Storage/storageAccounts"
-              }
-            ]
-          }
+          "description": "The name of the storage account.",
+          "minLength": 3,
+          "maxLength": 24,
+          "pattern": "^[a-z0-9]{3,24}$"
         },
         "containerName": {
           "type": "string",
-          "description": "The name of the blob container in the storage account where object metadata is written.",
+          "description": "The name of the blob container within the storage account.",
           "minLength": 3,
           "maxLength": 63,
           "pattern": "^[a-z0-9]([a-z0-9]|(-(?!-))){1,61}[a-z0-9]$"
+        },
+        "prefix": {
+          "type": "string",
+          "description": "The blob prefix within the container to scope object level insights to. Must not start or end with a '/'.",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^[^/](.*[^/])?$"
         }
-      }
-    },
-    "ObjectMetadataRepositoryState": {
-      "type": "string",
-      "description": "The enablement state of the object metadata repository on a storage discovery scope.",
-      "enum": [
-        "Enabled",
-        "Disabled"
-      ],
-      "x-ms-enum": {
-        "name": "ObjectMetadataRepositoryState",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Enabled",
-            "value": "Enabled",
-            "description": "Object metadata repository is enabled for this scope."
-          },
-          {
-            "name": "Disabled",
-            "value": "Disabled",
-            "description": "Object metadata repository is disabled for this scope."
-          }
-        ]
-      }
+      },
+      "required": [
+        "storageAccountName",
+        "containerName",
+        "prefix"
+      ]
     },
     "ReportProperties": {
       "type": "object",
@@ -912,11 +953,14 @@
       "type": "object",
       "description": "The capabilities configured for a storage discovery workspace.",
       "properties": {
-        "objectMetadataRepository": {
-          "$ref": "#/definitions/ObjectMetadataRepository",
-          "description": "Configuration for the object metadata repository capability, which stores discovered object metadata in a customer-owned storage account container."
+        "azureBlobStorage": {
+          "$ref": "#/definitions/AzureBlobStorageCapability",
+          "description": "The Azure Blob Storage capability configuration for the storage discovery workspace."
         }
-      }
+      },
+      "required": [
+        "azureBlobStorage"
+      ]
     },
     "StorageDiscoveryResourceType": {
       "type": "string",
@@ -953,10 +997,6 @@
           "items": {
             "$ref": "#/definitions/StorageDiscoveryResourceType"
           }
-        },
-        "objectMetadataRepositoryState": {
-          "$ref": "#/definitions/ObjectMetadataRepositoryState",
-          "description": "Indicates whether the object metadata repository is enabled for this scope."
         },
         "tagKeysOnly": {
           "type": "array",
@@ -1009,10 +1049,6 @@
         "properties": {
           "$ref": "#/definitions/StorageDiscoveryWorkspaceProperties",
           "description": "The resource-specific properties for this resource."
-        },
-        "identity": {
-          "$ref": "../../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
-          "description": "The identity of the Storage Discovery Workspace."
         }
       },
       "allOf": [
@@ -1174,10 +1210,6 @@
       "type": "object",
       "description": "The template for adding updateable properties.",
       "properties": {
-        "identity": {
-          "$ref": "../../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
-          "description": "The identity of the Storage Discovery Workspace."
-        },
         "tags": {
           "type": "object",
           "description": "Resource tags.",
