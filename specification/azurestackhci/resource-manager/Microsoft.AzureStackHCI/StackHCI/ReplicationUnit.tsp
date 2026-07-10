@@ -13,8 +13,9 @@ namespace Microsoft.AzureStackHCI;
 // ==================== Replication Unit Resource (PRIVATE PREVIEW) ====================
 //
 // `replicationUnits` is a proxy child of `storageArrays` — wraps a single volume
-// or a consistency group as the unit of replication. PRIVATE PREVIEW: read-only —
-// GET and LIST only (DR actions are out of scope for this preview).
+// or a consistency group as the unit of replication. PRIVATE PREVIEW: GET and
+// LIST are read-only; PUT (createOrUpdate) is also exposed (DR actions are out of
+// scope for this preview).
 
 /**
  * A replication unit — the unit of replication (a volume or a consistency group).
@@ -32,8 +33,10 @@ model ReplicationUnit
 }
 
 /**
- * Read-only operations for replication units.
+ * Operations for replication units. GET and LIST are read-only; PUT
+ * (createOrUpdate) edits the settings.
  */
+#suppress "@azure-tools/typespec-azure-resource-manager/no-resource-delete-operation" "Replication units are discovered from the storage array and cannot be created or deleted through ARM; PUT only edits the settings of an existing replication unit."
 @added(Versions.v2026_03_15_preview)
 @armResourceOperations
 interface ReplicationUnits {
@@ -42,4 +45,7 @@ interface ReplicationUnits {
 
   /** List replication units on a storage array. */
   list is ArmResourceListByParent<ReplicationUnit>;
+
+  /** Create or update a replication unit. */
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<ReplicationUnit>;
 }

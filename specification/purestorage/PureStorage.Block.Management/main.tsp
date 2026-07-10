@@ -1660,7 +1660,6 @@ model VolumeGroupSnapshotListResult {
   value: VolumeGroupSnapshot[];
 
   @doc("URL to fetch the next page of results")
-  @nextLink
   nextLink?: url;
 
   @doc("Number of snapshots in this response page")

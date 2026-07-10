@@ -14,7 +14,8 @@ namespace Microsoft.AzureStackHCI;
 //
 // `consistencyGroups` is a proxy child of `storageArrays` — an array-scoped
 // grouping of volumes for write-order-consistent snapshots and as a
-// replication/failover boundary. PRIVATE PREVIEW: read-only — GET and LIST only.
+// replication/failover boundary. PRIVATE PREVIEW: GET and LIST are read-only;
+// PUT (createOrUpdate) also edits the settings.
 
 /**
  * A consistency group — an array-scoped grouping of volumes for consistent
@@ -33,8 +34,10 @@ model ConsistencyGroup
 }
 
 /**
- * Read-only operations for consistency groups.
+ * Operations for consistency groups. GET and LIST are read-only; PUT
+ * (createOrUpdate) edits the settings.
  */
+#suppress "@azure-tools/typespec-azure-resource-manager/no-resource-delete-operation" "Consistency groups are discovered from the storage array and cannot be created or deleted through ARM; PUT only edits the settings of an existing consistency group."
 @added(Versions.v2026_03_15_preview)
 @armResourceOperations
 interface ConsistencyGroups {
@@ -43,4 +46,7 @@ interface ConsistencyGroups {
 
   /** List consistency groups on a storage array. */
   list is ArmResourceListByParent<ConsistencyGroup>;
+
+  /** Create or update a consistency group. */
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<ConsistencyGroup>;
 }
