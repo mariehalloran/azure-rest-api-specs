@@ -736,13 +736,13 @@
       "type": "object",
       "description": "The Azure Blob Storage capability configuration.",
       "properties": {
-        "objectLevelInsights": {
-          "$ref": "#/definitions/ObjectLevelInsights",
-          "description": "The object level insights configuration for Azure Blob Storage."
+        "capacityDetails": {
+          "$ref": "#/definitions/CapacityDetails",
+          "description": "The capacity details configuration for Azure Blob Storage."
         },
         "prefixDefinitions": {
           "type": "array",
-          "description": "The prefix definitions that scope the object level insights to specific storage accounts, containers, and prefixes.",
+          "description": "The prefix definitions that scope the capacity details to specific storage accounts, containers, and prefixes.",
           "items": {
             "$ref": "#/definitions/PrefixDefinition"
           },
@@ -750,7 +750,7 @@
         }
       },
       "required": [
-        "objectLevelInsights"
+        "capacityDetails"
       ]
     },
     "CapabilityStatus": {
@@ -776,6 +776,19 @@
           }
         ]
       }
+    },
+    "CapacityDetails": {
+      "type": "object",
+      "description": "The capacity details configuration.",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/CapabilityStatus",
+          "description": "The enablement status of the capacity details capability."
+        }
+      },
+      "required": [
+        "status"
+      ]
     },
     "GetReportContent": {
       "type": "object",
@@ -810,22 +823,9 @@
         "results"
       ]
     },
-    "ObjectLevelInsights": {
-      "type": "object",
-      "description": "The object level insights configuration.",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/CapabilityStatus",
-          "description": "The enablement status of the object level insights capability."
-        }
-      },
-      "required": [
-        "status"
-      ]
-    },
     "PrefixDefinition": {
       "type": "object",
-      "description": "A prefix definition that scopes object level insights to a specific storage account, container, and prefix.",
+      "description": "A prefix definition that scopes capacity details to a specific storage account, container, and prefix.",
       "properties": {
         "storageAccountName": {
           "type": "string",
@@ -843,10 +843,9 @@
         },
         "prefix": {
           "type": "string",
-          "description": "The blob prefix within the container to scope object level insights to. Must not start or end with a '/'.",
-          "minLength": 1,
+          "description": "The blob prefix within the container to scope capacity details to. An empty value scopes to the entire container. Must not start or end with a '/'.",
           "maxLength": 1024,
-          "pattern": "^[^/](.*[^/])?$"
+          "pattern": "^$|^[^/](.*[^/])?$"
         }
       },
       "required": [

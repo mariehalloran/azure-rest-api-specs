@@ -103,20 +103,20 @@ model StorageDiscoveryCapabilities {
  */
 @added(ApiVersion.v2026_10_01_preview)
 model AzureBlobStorageCapability {
-  @doc("The object level insights configuration for Azure Blob Storage.")
-  objectLevelInsights: ObjectLevelInsights;
+  @doc("The capacity details configuration for Azure Blob Storage.")
+  capacityDetails: CapacityDetails;
 
-  @doc("The prefix definitions that scope the object level insights to specific storage accounts, containers, and prefixes.")
+  @doc("The prefix definitions that scope the capacity details to specific storage accounts, containers, and prefixes.")
   @identifiers(#[])
   prefixDefinitions?: PrefixDefinition[];
 }
 
 /**
- * The object level insights configuration.
+ * The capacity details configuration.
  */
 @added(ApiVersion.v2026_10_01_preview)
-model ObjectLevelInsights {
-  @doc("The enablement status of the object level insights capability.")
+model CapacityDetails {
+  @doc("The enablement status of the capacity details capability.")
   status: CapabilityStatus;
 }
 
@@ -135,7 +135,7 @@ union CapabilityStatus {
 }
 
 /**
- * A prefix definition that scopes object level insights to a specific storage account, container, and prefix.
+ * A prefix definition that scopes capacity details to a specific storage account, container, and prefix.
  */
 @added(ApiVersion.v2026_10_01_preview)
 model PrefixDefinition {
@@ -151,10 +151,9 @@ model PrefixDefinition {
   @pattern("^[a-z0-9]([a-z0-9]|(-(?!-))){1,61}[a-z0-9]$")
   containerName: string;
 
-  @doc("The blob prefix within the container to scope object level insights to. Must not start or end with a '/'.")
-  @minLength(1)
+  @doc("The blob prefix within the container to scope capacity details to. An empty value scopes to the entire container. Must not start or end with a '/'.")
   @maxLength(1024)
-  @pattern("^[^/](.*[^/])?$")
+  @pattern("^$|^[^/](.*[^/])?$")
   prefix: string;
 }
 
