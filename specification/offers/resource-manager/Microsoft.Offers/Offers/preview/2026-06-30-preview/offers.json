@@ -56,9 +56,6 @@
     },
     {
       "name": "Availabilities"
-    },
-    {
-      "name": "Capabilities"
     }
   ],
   "paths": {
@@ -98,13 +95,13 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/lookupAvailability": {
-      "post": {
-        "operationId": "Availabilities_Lookup",
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/availabilities/{availabilityId}": {
+      "get": {
+        "operationId": "Availabilities_Get",
         "tags": [
           "Availabilities"
         ],
-        "description": "Look up a single availability by its identifier. The catalog is globally\nkeyed: the same `availabilityId` returns the same response for all callers\nunder one API version. Modeled as a POST action because the response is\nidentical for every caller in a subscription and the catalog is not a\nper-subscription resource collection.",
+        "description": "Get a single availability by its identifier. The catalog is globally keyed:\nthe same `availabilityId` returns the same response for all callers under\none API version.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -113,20 +110,19 @@
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "name": "body",
-            "in": "body",
-            "description": "The request body",
+            "name": "availabilityId",
+            "in": "path",
+            "description": "The name of the CatalogAvailability",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/LookupAvailabilityRequest"
-            }
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9._-]{1,64}$"
           }
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded.",
+            "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/LookupAvailabilityResult"
+              "$ref": "#/definitions/CatalogAvailability"
             }
           },
           "default": {
@@ -137,53 +133,8 @@
           }
         },
         "x-ms-examples": {
-          "Look up an availability by its identifier.": {
-            "$ref": "./examples/Availabilities_Lookup.json"
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/lookupCapability": {
-      "post": {
-        "operationId": "Capabilities_Lookup",
-        "tags": [
-          "Capabilities"
-        ],
-        "description": "Look up a single capability row for an entity by its product id and\ncapability name (optionally narrowed by skuId / valueExchangeId). The\ncatalog is globally keyed: the same key returns the same response for all\ncallers under one API version. Modeled as a POST action because the\nresponse is identical for every caller in a subscription and the catalog\nis not a per-subscription resource collection.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "The request body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/LookupCapabilityRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The request has succeeded.",
-            "schema": {
-              "$ref": "#/definitions/LookupCapabilityResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Look up a capability row for an entity.": {
-            "$ref": "./examples/Capabilities_Lookup.json"
+          "Get an availability by its identifier.": {
+            "$ref": "./examples/Availabilities_Get.json"
           }
         }
       }
@@ -233,13 +184,13 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/lookupProduct": {
-      "post": {
-        "operationId": "Products_Lookup",
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/products/{productId}": {
+      "get": {
+        "operationId": "Products_Get",
         "tags": [
           "Products"
         ],
-        "description": "Look up a single product by its identifier and version. The catalog is\nglobally keyed: the same `(productId, version)` returns the same response\nfor all callers under one API version. Modeled as a POST action because\nthe response is identical for every caller in a subscription and the\ncatalog is not a per-subscription resource collection.",
+        "description": "Get a single product by its identifier. The catalog is globally keyed: the\nsame `productId` returns the same response for all callers under one API\nversion.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -248,20 +199,19 @@
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "name": "body",
-            "in": "body",
-            "description": "The request body",
+            "name": "productId",
+            "in": "path",
+            "description": "The name of the CatalogProduct",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/LookupProductRequest"
-            }
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9._-]{1,64}$"
           }
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded.",
+            "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/LookupProductResult"
+              "$ref": "#/definitions/CatalogProduct"
             }
           },
           "default": {
@@ -272,19 +222,19 @@
           }
         },
         "x-ms-examples": {
-          "Look up a product by its identifier and version.": {
-            "$ref": "./examples/Products_Lookup.json"
+          "Get a product by its identifier.": {
+            "$ref": "./examples/Products_Get.json"
           }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/lookupSku": {
-      "post": {
-        "operationId": "Skus_Lookup",
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/skus/{skuId}": {
+      "get": {
+        "operationId": "Skus_Get",
         "tags": [
           "Skus"
         ],
-        "description": "Look up a single SKU by its product, SKU identifier, and version. The\ncatalog is globally keyed: the same `(productId, skuId, version)` returns\nthe same response for all callers under one API version. Modeled as a POST\naction because the response is identical for every caller in a\nsubscription and the catalog is not a per-subscription resource\ncollection.",
+        "description": "Get a single SKU by its identifier. The catalog is globally keyed: the same\n`skuId` returns the same response for all callers under one API version.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -293,20 +243,19 @@
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "name": "body",
-            "in": "body",
-            "description": "The request body",
+            "name": "skuId",
+            "in": "path",
+            "description": "The name of the CatalogSku",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/LookupSkuRequest"
-            }
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9._-]{1,64}$"
           }
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded.",
+            "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/LookupSkuResult"
+              "$ref": "#/definitions/CatalogSku"
             }
           },
           "default": {
@@ -317,19 +266,19 @@
           }
         },
         "x-ms-examples": {
-          "Look up a SKU by its product, SKU identifier, and version.": {
-            "$ref": "./examples/Skus_Lookup.json"
+          "Get a SKU by its identifier.": {
+            "$ref": "./examples/Skus_Get.json"
           }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/lookupValueExchange": {
-      "post": {
-        "operationId": "ValueExchanges_Lookup",
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/valueExchanges/{valueExchangeId}": {
+      "get": {
+        "operationId": "ValueExchanges_Get",
         "tags": [
           "ValueExchanges"
         ],
-        "description": "Look up a single value-exchange (UPN) by its identifier. The catalog is\nglobally keyed: the same `valueExchangeId` returns the same response for\nall callers under one API version. Modeled as a POST action because the\nresponse is identical for every caller in a subscription and the catalog\nis not a per-subscription resource collection.",
+        "description": "Get a single value-exchange (UPN) by its identifier. The catalog is\nglobally keyed: the same `valueExchangeId` returns the same response for\nall callers under one API version.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -338,20 +287,19 @@
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "name": "body",
-            "in": "body",
-            "description": "The request body",
+            "name": "valueExchangeId",
+            "in": "path",
+            "description": "The name of the ValueExchange",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/LookupValueExchangeRequest"
-            }
+            "type": "string",
+            "pattern": "^[A-Z0-9]{12}$"
           }
         ],
         "responses": {
           "200": {
-            "description": "The request has succeeded.",
+            "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/LookupValueExchangeResult"
+              "$ref": "#/definitions/ValueExchange"
             }
           },
           "default": {
@@ -362,8 +310,8 @@
           }
         },
         "x-ms-examples": {
-          "Look up a value-exchange (UPN) by its identifier.": {
-            "$ref": "./examples/ValueExchanges_Lookup.json"
+          "Get a value exchange by its identifier.": {
+            "$ref": "./examples/ValueExchanges_Get.json"
           }
         }
       }
@@ -494,6 +442,20 @@
       "description": "A meter bound to this value exchange (synthesized from the upstream meter data, filtered by meter type).",
       "additionalProperties": {}
     },
+    "AvailabilityNameParameter": {
+      "type": "object",
+      "description": "The name of the availability (its catalog identifier).",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the CatalogAvailability",
+          "pattern": "^[a-zA-Z0-9._-]{1,64}$"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
     "AvailabilityProperties": {
       "type": "object",
       "description": "Flat properties of an availability, matching the `availabilities` stream.",
@@ -532,7 +494,7 @@
           "$ref": "#/definitions/PcdPropertyBag",
           "description": "Available purchase/fulfillment actions for this availability."
         },
-        "properties": {
+        "propertiesEnvelope": {
           "$ref": "#/definitions/PcdPropertyBag",
           "description": "Full availability properties bag containing extended metadata."
         },
@@ -583,6 +545,11 @@
         "diagnosticsInformation": {
           "$ref": "#/definitions/PcdPropertyBag",
           "description": "Dynamic struct containing provenance and internal routing fields."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "The provisioning state of the catalog resource.",
+          "readOnly": true
         }
       },
       "required": [
@@ -612,25 +579,90 @@
         }
       }
     },
-    "CapabilityProperties": {
+    "Azure.ResourceManager.ResourceProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a resource type.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "CatalogAvailability": {
       "type": "object",
-      "description": "Flat properties of a capability row, matching the `capabilities` (long/EAV) stream.",
+      "description": "An availability in the commerce catalog.",
       "properties": {
-        "skuId": {
-          "type": "string",
-          "description": "Entity SKU id, when the capability is keyed at that grain.",
-          "maxLength": 64
-        },
-        "valueExchangeId": {
-          "type": "string",
-          "description": "Entity value-exchange (UPN) id, when the capability is keyed at that grain.",
-          "maxLength": 64
-        },
-        "data": {
-          "type": "string",
-          "description": "Per-capability JSON bag serialized as a string; its contract is the\ncapability's `dataSchema`. Keys whose source value is null are dropped."
+        "properties": {
+          "$ref": "#/definitions/AvailabilityProperties",
+          "description": "The resource-specific properties for this resource."
         }
-      }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "CatalogProduct": {
+      "type": "object",
+      "description": "A product in the commerce catalog.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ProductProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "CatalogSku": {
+      "type": "object",
+      "description": "A SKU in the commerce catalog.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/SkuProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
     },
     "ClientConditions": {
       "type": "object",
@@ -644,94 +676,6 @@
           }
         }
       }
-    },
-    "LookupAvailabilityRequest": {
-      "type": "object",
-      "description": "Request body for looking up an availability by its identifier.",
-      "properties": {
-        "availabilityId": {
-          "type": "string",
-          "description": "Unique identifier for the availability record.",
-          "maxLength": 64
-        }
-      },
-      "required": [
-        "availabilityId"
-      ]
-    },
-    "LookupAvailabilityResult": {
-      "type": "object",
-      "description": "The result of an availability lookup.",
-      "properties": {
-        "availabilityId": {
-          "type": "string",
-          "description": "The availability identifier the result corresponds to.",
-          "maxLength": 64
-        },
-        "properties": {
-          "$ref": "#/definitions/AvailabilityProperties",
-          "description": "The flat availability projection."
-        }
-      },
-      "required": [
-        "availabilityId",
-        "properties"
-      ]
-    },
-    "LookupCapabilityRequest": {
-      "type": "object",
-      "description": "Request body for looking up a capability row for an entity.",
-      "properties": {
-        "productId": {
-          "type": "string",
-          "description": "Entity product id.",
-          "maxLength": 64
-        },
-        "capability": {
-          "type": "string",
-          "description": "The capability that produced this row (its registry name).",
-          "maxLength": 128
-        },
-        "skuId": {
-          "type": "string",
-          "description": "Entity SKU id, when the capability is keyed at that grain.",
-          "maxLength": 64
-        },
-        "valueExchangeId": {
-          "type": "string",
-          "description": "Entity value-exchange (UPN) id, when the capability is keyed at that grain.",
-          "maxLength": 64
-        }
-      },
-      "required": [
-        "productId",
-        "capability"
-      ]
-    },
-    "LookupCapabilityResult": {
-      "type": "object",
-      "description": "The result of a capability lookup.",
-      "properties": {
-        "productId": {
-          "type": "string",
-          "description": "The entity product id the result corresponds to.",
-          "maxLength": 64
-        },
-        "capability": {
-          "type": "string",
-          "description": "The capability that produced this row.",
-          "maxLength": 128
-        },
-        "properties": {
-          "$ref": "#/definitions/CapabilityProperties",
-          "description": "The flat capability projection."
-        }
-      },
-      "required": [
-        "productId",
-        "capability",
-        "properties"
-      ]
     },
     "LookupEnumerationRequest": {
       "type": "object",
@@ -767,141 +711,6 @@
       },
       "required": [
         "enumerationType"
-      ]
-    },
-    "LookupProductRequest": {
-      "type": "object",
-      "description": "Request body for looking up a product by its identifier and version.",
-      "properties": {
-        "productId": {
-          "type": "string",
-          "description": "Unique identifier for a product in the commerce catalog.",
-          "maxLength": 64
-        },
-        "version": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Integer version of the product document."
-        }
-      },
-      "required": [
-        "productId",
-        "version"
-      ]
-    },
-    "LookupProductResult": {
-      "type": "object",
-      "description": "The result of a product lookup.",
-      "properties": {
-        "productId": {
-          "type": "string",
-          "description": "The product identifier the result corresponds to.",
-          "maxLength": 64
-        },
-        "version": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The product version the result corresponds to."
-        },
-        "properties": {
-          "$ref": "#/definitions/ProductProperties",
-          "description": "The flat product projection."
-        }
-      },
-      "required": [
-        "productId",
-        "version",
-        "properties"
-      ]
-    },
-    "LookupSkuRequest": {
-      "type": "object",
-      "description": "Request body for looking up a SKU by its product, SKU identifier, and version.",
-      "properties": {
-        "productId": {
-          "type": "string",
-          "description": "Foreign key linking this SKU to its parent product.",
-          "maxLength": 64
-        },
-        "skuId": {
-          "type": "string",
-          "description": "Unique identifier for the SKU within the product.",
-          "maxLength": 64
-        },
-        "version": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Product version propagated from the parent product document."
-        }
-      },
-      "required": [
-        "productId",
-        "skuId",
-        "version"
-      ]
-    },
-    "LookupSkuResult": {
-      "type": "object",
-      "description": "The result of a SKU lookup.",
-      "properties": {
-        "productId": {
-          "type": "string",
-          "description": "The product identifier the result corresponds to.",
-          "maxLength": 64
-        },
-        "skuId": {
-          "type": "string",
-          "description": "The SKU identifier the result corresponds to.",
-          "maxLength": 64
-        },
-        "version": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The product version the result corresponds to."
-        },
-        "properties": {
-          "$ref": "#/definitions/SkuProperties",
-          "description": "The flat SKU projection."
-        }
-      },
-      "required": [
-        "productId",
-        "skuId",
-        "version",
-        "properties"
-      ]
-    },
-    "LookupValueExchangeRequest": {
-      "type": "object",
-      "description": "Request body for looking up a value exchange (UPN) by its identifier.",
-      "properties": {
-        "valueExchangeId": {
-          "type": "string",
-          "description": "The value-exchange identifier (BigCat UPN id, e.g. `DZH318Z0995B`).",
-          "pattern": "^[A-Z0-9]{12}$"
-        }
-      },
-      "required": [
-        "valueExchangeId"
-      ]
-    },
-    "LookupValueExchangeResult": {
-      "type": "object",
-      "description": "The result of a value-exchange lookup.",
-      "properties": {
-        "valueExchangeId": {
-          "type": "string",
-          "description": "The value-exchange identifier the result corresponds to.",
-          "pattern": "^[A-Z0-9]{12}$"
-        },
-        "properties": {
-          "$ref": "#/definitions/ValueExchangeProperties",
-          "description": "The denormalized, slim value-exchange projection."
-        }
-      },
-      "required": [
-        "valueExchangeId",
-        "properties"
       ]
     },
     "PcdPropertyBag": {
@@ -952,10 +761,29 @@
         "productId"
       ]
     },
+    "ProductNameParameter": {
+      "type": "object",
+      "description": "The name of the product (its catalog identifier).",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the CatalogProduct",
+          "pattern": "^[a-zA-Z0-9._-]{1,64}$"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
     "ProductProperties": {
       "type": "object",
       "description": "Flat properties of a product, matching the `products` stream.",
       "properties": {
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Integer version of the product document."
+        },
         "productFamily": {
           "type": "string",
           "description": "The family or category grouping to which this product belongs (for example, Azure, Microsoft 365).",
@@ -1035,7 +863,7 @@
           "$ref": "#/definitions/PcdPropertyBag",
           "description": "Localized display properties (title, description) in multiple languages at the product level."
         },
-        "properties": {
+        "propertiesEnvelope": {
           "$ref": "#/definitions/PcdPropertyBag",
           "description": "Whole `Product.Properties` envelope captured verbatim as a loss-free fallback."
         },
@@ -1057,8 +885,16 @@
         "diagnosticsInformation": {
           "$ref": "#/definitions/PcdPropertyBag",
           "description": "Dynamic struct containing low-traffic provenance and internal routing fields."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "The provisioning state of the catalog resource.",
+          "readOnly": true
         }
-      }
+      },
+      "required": [
+        "version"
+      ]
     },
     "Sku": {
       "type": "object",
@@ -1093,10 +929,34 @@
         "skuId"
       ]
     },
+    "SkuNameParameter": {
+      "type": "object",
+      "description": "The name of the SKU (its catalog identifier within the product).",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the CatalogSku",
+          "pattern": "^[a-zA-Z0-9._-]{1,64}$"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
     "SkuProperties": {
       "type": "object",
       "description": "Flat properties of a SKU, matching the `skus` stream.",
       "properties": {
+        "productId": {
+          "type": "string",
+          "description": "Foreign key linking this SKU to its parent product.",
+          "maxLength": 64
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Product version propagated from the parent product document."
+        },
         "skuType": {
           "type": "string",
           "description": "Classification of the SKU type within the commerce platform.",
@@ -1239,7 +1099,7 @@
           "$ref": "#/definitions/PcdPropertyBag",
           "description": "Legacy P3 reservation block retained for round-trip under the new model."
         },
-        "properties": {
+        "propertiesEnvelope": {
           "$ref": "#/definitions/PcdPropertyBag",
           "description": "Whole `Sku.Properties` envelope captured verbatim as a loss-free fallback."
         },
@@ -1261,8 +1121,49 @@
         "diagnosticsInformation": {
           "$ref": "#/definitions/PcdPropertyBag",
           "description": "Dynamic struct containing provenance and internal routing fields."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "The provisioning state of the catalog resource.",
+          "readOnly": true
         }
-      }
+      },
+      "required": [
+        "productId",
+        "version"
+      ]
+    },
+    "ValueExchange": {
+      "type": "object",
+      "description": "A value exchange (UPN) in the commerce catalog.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ValueExchangeProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "ValueExchangeNameParameter": {
+      "type": "object",
+      "description": "The name of the value exchange (its UPN identifier).",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the ValueExchange",
+          "pattern": "^[A-Z0-9]{12}$"
+        }
+      },
+      "required": [
+        "name"
+      ]
     },
     "ValueExchangeProperties": {
       "type": "object",
@@ -1357,6 +1258,11 @@
         "diagnosticsInformation": {
           "$ref": "#/definitions/PcdPropertyBag",
           "description": "Dynamic struct carrying internal-routing provenance fields (for example, `runId`)."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "The provisioning state of the catalog resource.",
+          "readOnly": true
         }
       },
       "required": [

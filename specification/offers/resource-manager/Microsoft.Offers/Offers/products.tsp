@@ -13,20 +13,12 @@ using Azure.ResourceManager;
 
 namespace Microsoft.Offers;
 
-/** Request body for looking up a product by its identifier and version. */
-@added(Versions.v2026_06_30_preview)
-model LookupProductRequest {
-  /** Unique identifier for a product in the commerce catalog. */
-  @maxLength(64)
-  productId: string;
-
-  /** Integer version of the product document. */
-  version: int32;
-}
-
 /** Flat properties of a product, matching the `products` stream. */
 @added(Versions.v2026_06_30_preview)
 model ProductProperties {
+  /** Integer version of the product document. */
+  version: int32;
+
   /** The family or category grouping to which this product belongs (for example, Azure, Microsoft 365). */
   @maxLength(128)
   productFamily?: string;
@@ -87,7 +79,7 @@ model ProductProperties {
   localizedProperties?: PcdPropertyBag;
 
   /** Whole `Product.Properties` envelope captured verbatim as a loss-free fallback. */
-  properties?: PcdPropertyBag;
+  propertiesEnvelope?: PcdPropertyBag;
 
   /** Display name of the product, promoted from localized properties. */
   @maxLength(256)
@@ -103,39 +95,41 @@ model ProductProperties {
 
   /** Dynamic struct containing low-traffic provenance and internal routing fields. */
   diagnosticsInformation?: PcdPropertyBag;
+
+  /** The provisioning state of the catalog resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ResourceProvisioningState;
 }
 
-/** The result of a product lookup. */
+/** The name of the product (its catalog identifier). */
 @added(Versions.v2026_06_30_preview)
-model LookupProductResult {
-  /** The product identifier the result corresponds to. */
-  @maxLength(64)
-  productId: string;
+@subscriptionResource
+model ProductNameParameter
+  is ResourceNameParameter<
+    Resource = CatalogProduct,
+    KeyName = "productId",
+    SegmentName = "products",
+    NamePattern = "^[a-zA-Z0-9._-]{1,64}$"
+  >;
 
-  /** The product version the result corresponds to. */
-  version: int32;
-
-  /** The flat product projection. */
-  properties: ProductProperties;
+/** A product in the commerce catalog. */
+@added(Versions.v2026_06_30_preview)
+model CatalogProduct
+  is Azure.ResourceManager.ProxyResource<ProductProperties, false> {
+  ...ProductNameParameter;
 }
 
-/** Read-only catalog lookup actions for products. */
+/** Read-only catalog access for products. */
 @added(Versions.v2026_06_30_preview)
 @armResourceOperations
 interface Products {
   /**
-   * Look up a single product by its identifier and version. The catalog is
-   * globally keyed: the same `(productId, version)` returns the same response
-   * for all callers under one API version. Modeled as a POST action because
-   * the response is identical for every caller in a subscription and the
-   * catalog is not a per-subscription resource collection.
+   * Get a single product by its identifier. The catalog is globally keyed: the
+   * same `productId` returns the same response for all callers under one API
+   * version.
    */
-  @autoRoute
-  @action("lookupProduct")
-  lookup is ArmProviderActionSync<
-    Request = LookupProductRequest,
-    Response = LookupProductResult,
-    Scope = SubscriptionActionScope,
-    Parameters = {}
+  get is ArmResourceRead<
+    CatalogProduct,
+    BaseParameters = Azure.ResourceManager.Foundations.SubscriptionBaseParameters
   >;
 }

@@ -13,24 +13,16 @@ using Azure.ResourceManager;
 
 namespace Microsoft.Offers;
 
-/** Request body for looking up a SKU by its product, SKU identifier, and version. */
+/** Flat properties of a SKU, matching the `skus` stream. */
 @added(Versions.v2026_06_30_preview)
-model LookupSkuRequest {
+model SkuProperties {
   /** Foreign key linking this SKU to its parent product. */
   @maxLength(64)
   productId: string;
 
-  /** Unique identifier for the SKU within the product. */
-  @maxLength(64)
-  skuId: string;
-
   /** Product version propagated from the parent product document. */
   version: int32;
-}
 
-/** Flat properties of a SKU, matching the `skus` stream. */
-@added(Versions.v2026_06_30_preview)
-model SkuProperties {
   /** Classification of the SKU type within the commerce platform. */
   @maxLength(64)
   skuType?: string;
@@ -138,7 +130,7 @@ model SkuProperties {
   reservationOfferConfiguration?: PcdPropertyBag;
 
   /** Whole `Sku.Properties` envelope captured verbatim as a loss-free fallback. */
-  properties?: PcdPropertyBag;
+  propertiesEnvelope?: PcdPropertyBag;
 
   /** Display title of the SKU, promoted from localized properties. */
   @maxLength(256)
@@ -154,44 +146,39 @@ model SkuProperties {
 
   /** Dynamic struct containing provenance and internal routing fields. */
   diagnosticsInformation?: PcdPropertyBag;
+
+  /** The provisioning state of the catalog resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ResourceProvisioningState;
 }
 
-/** The result of a SKU lookup. */
+/** The name of the SKU (its catalog identifier within the product). */
 @added(Versions.v2026_06_30_preview)
-model LookupSkuResult {
-  /** The product identifier the result corresponds to. */
-  @maxLength(64)
-  productId: string;
+@subscriptionResource
+model SkuNameParameter
+  is ResourceNameParameter<
+    Resource = CatalogSku,
+    KeyName = "skuId",
+    SegmentName = "skus",
+    NamePattern = "^[a-zA-Z0-9._-]{1,64}$"
+  >;
 
-  /** The SKU identifier the result corresponds to. */
-  @maxLength(64)
-  skuId: string;
-
-  /** The product version the result corresponds to. */
-  version: int32;
-
-  /** The flat SKU projection. */
-  properties: SkuProperties;
+/** A SKU in the commerce catalog. */
+@added(Versions.v2026_06_30_preview)
+model CatalogSku is Azure.ResourceManager.ProxyResource<SkuProperties, false> {
+  ...SkuNameParameter;
 }
 
-/** Read-only catalog lookup actions for SKUs. */
+/** Read-only catalog access for SKUs. */
 @added(Versions.v2026_06_30_preview)
 @armResourceOperations
 interface Skus {
   /**
-   * Look up a single SKU by its product, SKU identifier, and version. The
-   * catalog is globally keyed: the same `(productId, skuId, version)` returns
-   * the same response for all callers under one API version. Modeled as a POST
-   * action because the response is identical for every caller in a
-   * subscription and the catalog is not a per-subscription resource
-   * collection.
+   * Get a single SKU by its identifier. The catalog is globally keyed: the same
+   * `skuId` returns the same response for all callers under one API version.
    */
-  @autoRoute
-  @action("lookupSku")
-  lookup is ArmProviderActionSync<
-    Request = LookupSkuRequest,
-    Response = LookupSkuResult,
-    Scope = SubscriptionActionScope,
-    Parameters = {}
+  get is ArmResourceRead<
+    CatalogSku,
+    BaseParameters = Azure.ResourceManager.Foundations.SubscriptionBaseParameters
   >;
 }

@@ -278,4 +278,9 @@ model ValueExchangeProperties {
   /** Dynamic struct carrying internal-routing provenance fields (for example, `runId`). */
   @added(Versions.v2026_06_30_preview)
   diagnosticsInformation?: PcdPropertyBag;
+
+  /** The provisioning state of the catalog resource. */
+  @added(Versions.v2026_06_30_preview)
+  @visibility(Lifecycle.Read)
+  provisioningState?: ResourceProvisioningState;
 }

@@ -9,7 +9,6 @@ import "./enumerations.tsp";
 import "./products.tsp";
 import "./skus.tsp";
 import "./availabilities.tsp";
-import "./capabilities.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;

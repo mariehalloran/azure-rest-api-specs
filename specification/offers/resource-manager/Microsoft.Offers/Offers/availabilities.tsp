@@ -13,14 +13,6 @@ using Azure.ResourceManager;
 
 namespace Microsoft.Offers;
 
-/** Request body for looking up an availability by its identifier. */
-@added(Versions.v2026_06_30_preview)
-model LookupAvailabilityRequest {
-  /** Unique identifier for the availability record. */
-  @maxLength(64)
-  availabilityId: string;
-}
-
 /** Flat properties of an availability, matching the `availabilities` stream. */
 @added(Versions.v2026_06_30_preview)
 model AvailabilityProperties {
@@ -50,7 +42,7 @@ model AvailabilityProperties {
   actions?: PcdPropertyBag;
 
   /** Full availability properties bag containing extended metadata. */
-  properties?: PcdPropertyBag;
+  propertiesEnvelope?: PcdPropertyBag;
 
   /** Verbatim eligibility-evaluation envelope kept as one decision unit. */
   conditions?: PcdPropertyBag;
@@ -78,36 +70,41 @@ model AvailabilityProperties {
 
   /** Dynamic struct containing provenance and internal routing fields. */
   diagnosticsInformation?: PcdPropertyBag;
+
+  /** The provisioning state of the catalog resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ResourceProvisioningState;
 }
 
-/** The result of an availability lookup. */
+/** The name of the availability (its catalog identifier). */
 @added(Versions.v2026_06_30_preview)
-model LookupAvailabilityResult {
-  /** The availability identifier the result corresponds to. */
-  @maxLength(64)
-  availabilityId: string;
+@subscriptionResource
+model AvailabilityNameParameter
+  is ResourceNameParameter<
+    Resource = CatalogAvailability,
+    KeyName = "availabilityId",
+    SegmentName = "availabilities",
+    NamePattern = "^[a-zA-Z0-9._-]{1,64}$"
+  >;
 
-  /** The flat availability projection. */
-  properties: AvailabilityProperties;
+/** An availability in the commerce catalog. */
+@added(Versions.v2026_06_30_preview)
+model CatalogAvailability
+  is Azure.ResourceManager.ProxyResource<AvailabilityProperties, false> {
+  ...AvailabilityNameParameter;
 }
 
-/** Read-only catalog lookup actions for availabilities. */
+/** Read-only catalog access for availabilities. */
 @added(Versions.v2026_06_30_preview)
 @armResourceOperations
 interface Availabilities {
   /**
-   * Look up a single availability by its identifier. The catalog is globally
-   * keyed: the same `availabilityId` returns the same response for all callers
-   * under one API version. Modeled as a POST action because the response is
-   * identical for every caller in a subscription and the catalog is not a
-   * per-subscription resource collection.
+   * Get a single availability by its identifier. The catalog is globally keyed:
+   * the same `availabilityId` returns the same response for all callers under
+   * one API version.
    */
-  @autoRoute
-  @action("lookupAvailability")
-  lookup is ArmProviderActionSync<
-    Request = LookupAvailabilityRequest,
-    Response = LookupAvailabilityResult,
-    Scope = SubscriptionActionScope,
-    Parameters = {}
+  get is ArmResourceRead<
+    CatalogAvailability,
+    BaseParameters = Azure.ResourceManager.Foundations.SubscriptionBaseParameters
   >;
 }
