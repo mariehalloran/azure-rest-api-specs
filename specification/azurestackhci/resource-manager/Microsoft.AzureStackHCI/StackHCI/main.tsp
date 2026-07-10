@@ -45,6 +45,7 @@ import "./EdgeMachineSecuritySettings.tsp";
 import "./ValidateOwnershipVouchers.tsp";
 import "./ClusterJobs.tsp";
 import "./ClusterVolume.tsp";
+import "./ClusterVolumeJob.tsp";
 import "./CapacitySetting.tsp";
 import "./DevicePool.tsp";
 import "./ProxyConfiguration.tsp";

@@ -13,8 +13,8 @@ namespace Microsoft.AzureStackHCI;
 // ==================== Storage Volume Resource (PRIVATE PREVIEW) ====================
 //
 // `volumes` is a proxy child of `volumeGroups` representing an array-side block
-// volume (LUN / LDEV / VV / S2D virtual disk). PRIVATE PREVIEW: read-only — only
-// GET and LIST are exposed.
+// volume (LUN / LDEV / VV / S2D virtual disk). PRIVATE PREVIEW: GET and LIST are
+// read-only; PUT (createOrUpdate) is also exposed.
 
 /**
  * An array-side block volume, child of a volume group.
@@ -32,8 +32,10 @@ model StorageVolume
 }
 
 /**
- * Read-only operations for storage volumes.
+ * Operations for storage volumes. GET and LIST are read-only; PUT (createOrUpdate)
+ * edits the settings.
  */
+#suppress "@azure-tools/typespec-azure-resource-manager/no-resource-delete-operation" "Storage volumes are discovered from the volume group and cannot be created or deleted through ARM; PUT only edits the settings of an existing storage volume."
 @added(Versions.v2026_03_15_preview)
 @armResourceOperations
 interface StorageVolumes {
@@ -42,4 +44,7 @@ interface StorageVolumes {
 
   /** List storage volumes in a volume group. */
   list is ArmResourceListByParent<StorageVolume>;
+
+  /** Create or update a storage volume. */
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<StorageVolume>;
 }
