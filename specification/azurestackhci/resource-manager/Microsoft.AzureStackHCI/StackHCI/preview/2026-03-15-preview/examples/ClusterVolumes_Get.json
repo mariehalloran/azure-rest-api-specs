@@ -15,6 +15,9 @@
         "name": "Volume1",
         "type": "Microsoft.AzureStackHCI/clusters/volumes",
         "properties": {
+          "configuration": {
+            "placementMode": "auto"
+          },
           "reportedProperties": {
             "id": "550e8400-e29b-41d4-a716-446655440000",
             "name": "Volume1",
@@ -32,6 +35,7 @@
             "media": "SSD",
             "faultDomainAwareness": "Server",
             "provisioningType": "Thin",
+            "placementMode": "auto",
             "storagePoolName": "S2DPool",
             "server": "cluster-node-01",
             "isDedupEnabled": true,
