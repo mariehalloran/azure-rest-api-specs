@@ -151,9 +151,9 @@ model PrefixDefinition {
   @pattern("^[a-z0-9]([a-z0-9]|(-(?!-))){1,61}[a-z0-9]$")
   containerName: string;
 
-  @doc("The blob prefix within the container to scope capacity details to. An empty value scopes to the entire container. Must not start or end with a '/'.")
+  @doc("The blob prefix within the container to scope capacity details to. An empty value scopes to the entire container. Must not start with a '/'.")
   @maxLength(1024)
-  @pattern("^$|^[^/](.*[^/])?$")
+  @pattern("^([^/].*)?$")
   prefix: string;
 }
 
