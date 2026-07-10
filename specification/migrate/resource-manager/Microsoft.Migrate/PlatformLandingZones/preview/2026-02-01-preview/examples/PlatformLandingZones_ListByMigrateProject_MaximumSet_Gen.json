@@ -59,17 +59,19 @@
                   "dailyQuotaGb": -1.0,
                   "sku": "PerGB2018"
                 },
-              "updateManagement": {
+                "updateManagement": {
                   "enabled": true,
                   "maintenanceConfigurationName": "alz-monthly-patch"
-              }
+                }
               },
               "connectivity": {
                 "expressRoute": {
                   "topology": "HubAndSpoke",
                   "fastPathEnabled": false,
                   "sku": "ErGw2AZ",
-                  "deployInRegions": ["eastus"]
+                  "deployInRegions": [
+                    "eastus"
+                  ]
                 },
                 "topology": "HubAndSpoke",
                 "ddosProtection": {
@@ -80,7 +82,7 @@
                   "customZones": [
                     "contoso.internal"
                   ],
-                "centralizedResolutionEnabled": true
+                  "centralizedResolutionEnabled": true
                 },
                 "firewall": {
                   "kind": "AzureFirewall",
@@ -89,7 +91,9 @@
                   "dnsProxyEnabled": true,
                   "threatIntelMode": "Alert",
                   "idpsMode": "Alert",
-                  "deployInRegions": ["eastus"]
+                  "deployInRegions": [
+                    "eastus"
+                  ]
                 },
                 "internetEgress": "ViaHub",
                 "vpnGateway": {
@@ -98,12 +102,16 @@
                   "activeActive": true,
                   "topology": "HubAndSpoke",
                   "sku": "VpnGw2AZ",
-                  "deployInRegions": ["eastus"]
+                  "deployInRegions": [
+                    "eastus"
+                  ]
                 },
                 "bastion": {
                   "sku": "Standard",
                   "scaleUnits": 2,
-                  "deployInRegions": ["eastus"]
+                  "deployInRegions": [
+                    "eastus"
+                  ]
                 }
               },
               "identity": {
@@ -183,8 +191,13 @@
                     "scope": "Connectivity"
                   }
                 ],
-              "allowedLocations": ["eastus", "westus"],
-              "deniedResourceTypes": ["Microsoft.ClassicCompute/virtualMachines"]
+                "allowedLocations": [
+                  "eastus",
+                  "westus"
+                ],
+                "deniedResourceTypes": [
+                  "Microsoft.ClassicCompute/virtualMachines"
+                ]
               },
               "security": {
                 "securityContactEmail": "secops@contoso.com",
@@ -233,12 +246,12 @@
                     "notificationEmails": [
                       "finops@contoso.com"
                     ],
-                  "scope": "LandingZones"
+                    "scope": "LandingZones"
                   }
                 ],
                 "billingAccountType": "EnterpriseAgreement",
                 "costAnomalyAlertsEnabled": true,
-          "tagInheritanceEnabled": true
+                "tagInheritanceEnabled": true
               },
               "platformSubscriptions": {
                 "subscriptionModel": "Dedicated",
@@ -304,10 +317,10 @@
                   "dailyQuotaGb": -1.0,
                   "sku": "PerGB2018"
                 },
-              "updateManagement": {
+                "updateManagement": {
                   "enabled": true,
                   "maintenanceConfigurationName": "alz-monthly-patch"
-              }
+                }
               },
               "connectivity": {
                 "ddosProtection": {
@@ -316,7 +329,9 @@
                 "expressRoute": {
                   "topology": "VirtualWan",
                   "scaleUnits": 2,
-                  "deployInRegions": ["eastus"]
+                  "deployInRegions": [
+                    "eastus"
+                  ]
                 },
                 "topology": "VirtualWan",
                 "privateDns": {
@@ -324,12 +339,14 @@
                   "customZones": [
                     "contoso.internal"
                   ],
-                "centralizedResolutionEnabled": true
+                  "centralizedResolutionEnabled": true
                 },
                 "vpnGateway": {
                   "topology": "VirtualWan",
                   "scaleUnits": 2,
-                  "deployInRegions": ["eastus"]
+                  "deployInRegions": [
+                    "eastus"
+                  ]
                 },
                 "firewall": {
                   "kind": "AzureFirewall",
@@ -338,12 +355,16 @@
                   "dnsProxyEnabled": true,
                   "threatIntelMode": "Alert",
                   "idpsMode": "Alert",
-                  "deployInRegions": ["eastus"]
+                  "deployInRegions": [
+                    "eastus"
+                  ]
                 },
                 "bastion": {
                   "sku": "Standard",
                   "scaleUnits": 2,
-                  "deployInRegions": ["eastus"]
+                  "deployInRegions": [
+                    "eastus"
+                  ]
                 },
                 "internetEgress": "ViaHub"
               },
@@ -451,12 +472,12 @@
                     "notificationEmails": [
                       "finops@contoso.com"
                     ],
-                  "scope": "LandingZones"
+                    "scope": "LandingZones"
                   }
                 ],
                 "billingAccountType": "EnterpriseAgreement",
                 "costAnomalyAlertsEnabled": true,
-          "tagInheritanceEnabled": true
+                "tagInheritanceEnabled": true
               },
               "governance": {
                 "policyAssignmentOverrides": [
@@ -490,8 +511,13 @@
                     "scope": "Connectivity"
                   }
                 ],
-              "allowedLocations": ["eastus", "westus"],
-              "deniedResourceTypes": ["Microsoft.ClassicCompute/virtualMachines"]
+                "allowedLocations": [
+                  "eastus",
+                  "westus"
+                ],
+                "deniedResourceTypes": [
+                  "Microsoft.ClassicCompute/virtualMachines"
+                ]
               }
             },
             "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones/contoso-plz-vwan",
@@ -545,10 +571,10 @@
                   "dailyQuotaGb": -1.0,
                   "sku": "PerGB2018"
                 },
-              "updateManagement": {
+                "updateManagement": {
                   "enabled": true,
                   "maintenanceConfigurationName": "alz-monthly-patch"
-              }
+                }
               },
               "connectivity": {
                 "topology": "ManagementOnly",
@@ -658,12 +684,12 @@
                     "notificationEmails": [
                       "finops@contoso.com"
                     ],
-                  "scope": "LandingZones"
+                    "scope": "LandingZones"
                   }
                 ],
                 "billingAccountType": "EnterpriseAgreement",
                 "costAnomalyAlertsEnabled": true,
-          "tagInheritanceEnabled": true
+                "tagInheritanceEnabled": true
               },
               "governance": {
                 "policyAssignmentOverrides": [
@@ -697,8 +723,13 @@
                     "scope": "Connectivity"
                   }
                 ],
-              "allowedLocations": ["eastus", "westus"],
-              "deniedResourceTypes": ["Microsoft.ClassicCompute/virtualMachines"]
+                "allowedLocations": [
+                  "eastus",
+                  "westus"
+                ],
+                "deniedResourceTypes": [
+                  "Microsoft.ClassicCompute/virtualMachines"
+                ]
               }
             },
             "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones/contoso-plz-mo",
