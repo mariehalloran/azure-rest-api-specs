@@ -11186,7 +11186,8 @@ union NetworkProfileNetworkType {
  */
 @added(Versions.v2026_03_15_preview)
 model ClusterVolumeProperties {
-  // TODO: Add clusterVolumeConfiguration when cluster volume-level configuration is ready to be exposed.
+  /** The authoritative desired configuration for the cluster volume. Contains only the properties that can be set by the caller. */
+  configuration?: ClusterVolumeConfiguration;
 
   /** The actual state of the cluster volume as reported by the cluster. */
   @visibility(Lifecycle.Read)
@@ -11195,6 +11196,15 @@ model ClusterVolumeProperties {
   /** Provisioning state of the cluster volume resource. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
+}
+
+/**
+ * The writable configuration for a cluster volume. Only properties that a caller can set are declared here; additional writable properties can be added over time.
+ */
+@added(Versions.v2026_03_15_preview)
+model ClusterVolumeConfiguration {
+  /** Placement mode for the volume. */
+  placementMode?: ClusterVolumePlacementMode;
 }
 
 /**
@@ -11257,6 +11267,10 @@ model ClusterVolumeReportedProperties {
   /** Provisioning mode for the volume. */
   @visibility(Lifecycle.Read)
   provisioningType?: ClusterVolumeProvisioningType;
+
+  /** Placement mode for the volume. */
+  @visibility(Lifecycle.Read)
+  placementMode?: ClusterVolumePlacementMode;
 
   /** Name of the containing storage pool. */
   @visibility(Lifecycle.Read)
@@ -11392,6 +11406,116 @@ union ClusterVolumeProvisioningType {
 
   /** Fixed provisioning. */
   Fixed: "Fixed",
+}
+
+/**
+ * Placement mode for a cluster volume.
+ */
+@added(Versions.v2026_03_15_preview)
+union ClusterVolumePlacementMode {
+  string,
+
+  /** Infrastructure-managed placement. */
+  Infrastructure: "infrastructure",
+
+  /** Automatic placement. */
+  Auto: "auto",
+
+  /** Manual placement. */
+  Manual: "manual",
+
+  /** Reserved placement. */
+  Reserved: "reserved",
+}
+
+/**
+ * Properties of the Cluster Volume Job.
+ */
+@added(Versions.v2026_03_15_preview)
+@discriminator("jobType")
+model ClusterVolumeJobProperties {
+  /** Type of operation. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  jobType: ClusterVolumeJobType;
+
+  /** Deployment mode to trigger job. */
+  deploymentMode?: DeploymentMode;
+
+  /** Provisioning state of the job. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /** Unique, immutable job id. */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /** The UTC date and time at which the job started. */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /** The UTC date and time at which the job completed. */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /** Status of the cluster volume job. */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+
+  /** Error details if job failed. */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+
+  /** Reported properties for the cluster volume job. */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: ClusterVolumeJobReportedProperties;
+}
+
+/**
+ * Type of cluster volume job operation.
+ */
+@added(Versions.v2026_03_15_preview)
+union ClusterVolumeJobType {
+  string,
+
+  /** Job to resolve configuration drift between the desired and reported state of the cluster volume. */
+  VolumeSync: "VolumeSync",
+
+  /** Job to apply the desired configuration to the cluster volume. */
+  ApplyVolumeConfiguration: "ApplyVolumeConfiguration",
+}
+
+/**
+ * Properties for resolving cluster volume configuration drift.
+ */
+@added(Versions.v2026_03_15_preview)
+model VolumeSyncClusterVolumeJobProperties extends ClusterVolumeJobProperties {
+  /** Job type. */
+  jobType: ClusterVolumeJobType.VolumeSync;
+}
+
+/**
+ * Properties for applying the desired configuration to the cluster volume.
+ */
+@added(Versions.v2026_03_15_preview)
+model ApplyVolumeConfigurationClusterVolumeJobProperties
+  extends ClusterVolumeJobProperties {
+  /** Job type. */
+  jobType: ClusterVolumeJobType.ApplyVolumeConfiguration;
+
+  /** The desired cluster volume configuration to apply. */
+  targetConfiguration: ClusterVolumeConfiguration;
+}
+
+/**
+ * Reported properties for the Cluster Volume Job.
+ */
+@added(Versions.v2026_03_15_preview)
+model ClusterVolumeJobReportedProperties {
+  /**
+   * The percentage of the job that is complete.
+   */
+  @visibility(Lifecycle.Read)
+  percentComplete?: int32;
 }
 
 /** Represents an available update for an edge machine. */
@@ -13930,9 +14054,9 @@ model AssociatedCluster {
 // ─────────────────────────── StoragePool models ───────────────────────────
 
 /**
- * Properties of a storage pool — a capacity source on a storage array. SAN pools
- * are read-only (discovered); S2D pools additionally expose writable settings in
- * the design spec. In this private preview all properties are read-only.
+ * Properties of a storage pool — a capacity source on a storage array. SAN and S2D
+ * pool settings are discovered and reported by the service (read-only). Capacity,
+ * counts, state, health, and provisioning state are also service-owned.
  */
 @added(Versions.v2026_03_15_preview)
 model StoragePoolProperties {
