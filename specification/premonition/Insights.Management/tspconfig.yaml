@@ -17,12 +17,9 @@ options:
     flavor: azure
     generate-test: true
     generate-sample: true
-  "@azure-tools/typespec-csharp":
-    emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.Premonition"
+  "@azure-typespec/http-client-csharp-mgmt":
     namespace: "Azure.ResourceManager.Premonition"
-    clear-output-folder: true
-    model-namespace: false
-    flavor: azure
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-ts":
     emitter-output-dir: "{output-dir}/{service-dir}/arm-premonition"
     generate-metadata: true

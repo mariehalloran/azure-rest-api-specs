@@ -425,6 +425,25 @@ interface NetworkFabrics {
     void,
     NetworkFabricResyncCertificatesResponse
   >;
+
+  @doc("Runs validation on the Network Fabric for the specified operation.")
+  @action("runValidation")
+  @added(Versions.v2026_07_15_preview)
+  runValidation is ArmResourceActionAsync<
+    NetworkFabric,
+    RunValidationRequest,
+    RunValidationResponse
+  >;
+
+  @summary("NF Resource Troubleshooting.")
+  @doc("Perform troubleshooting on Network Fabric resources.")
+  @action("nfRsTroubleshoot")
+  @added(Versions.v2026_07_15_preview)
+  troubleshoot is ArmResourceActionAsync<
+    NetworkFabric,
+    NfResourceTroubleshootRequest,
+    NfResourceTroubleshootResponse
+  >;
 }
 
 @@doc(NetworkFabrics.create::parameters.resource, "Request payload.");
@@ -485,4 +504,8 @@ interface NetworkFabrics {
 @@doc(
   NetworkFabrics.refreshConfigurationDeprecatedV2::parameters.body,
   "Request payload."
+);
+@@doc(
+  NetworkFabrics.runValidation::parameters.body,
+  "Validate readiness properties."
 );

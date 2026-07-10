@@ -11,6 +11,7 @@ namespace Microsoft.SupercomputerInfrastructure;
 /** A supercomputer composed of topological entities. */
 model Supercomputer is TrackedResource<SupercomputerProperties> {
   ...ResourceNameParameter<Supercomputer>;
+  ...ManagedServiceIdentityProperty;
 }
 
 /** The properties of a supercomputer. */
@@ -79,7 +80,13 @@ union SupercomputerProvisioningState {
 interface Supercomputers {
   get is ArmResourceRead<Supercomputer>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Supercomputer>;
-  update is ArmResourcePatchAsync<Supercomputer, SupercomputerProperties>;
+  update is ArmCustomPatchAsync<
+    Supercomputer,
+    PatchModel = Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      Supercomputer,
+      SupercomputerProperties
+    >
+  >;
   delete is ArmResourceDeleteWithoutOkAsync<Supercomputer>;
   listByResourceGroup is ArmResourceListByParent<Supercomputer>;
   listBySubscription is ArmListBySubscription<Supercomputer>;

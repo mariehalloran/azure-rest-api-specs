@@ -9,6 +9,7 @@ import "./NetworkConfiguration.tsp";
 import "./SecurityConfiguration.tsp";
 import "./TimeServerConfiguration.tsp";
 import "./ProvisioningConfigurations.tsp";
+import "./client.tsp";
 
 using TypeSpec.Versioning;
 using Azure.ResourceManager;
@@ -39,4 +40,8 @@ enum Versions {
   /** 2026-05-01-preview version */
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   v2026_05_01_preview: "2026-05-01-preview",
+
+  /** 2026-06-01 version */
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
+  v2026_06_01: "2026-06-01",
 }

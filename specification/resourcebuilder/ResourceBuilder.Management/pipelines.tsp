@@ -19,7 +19,7 @@ model Pipeline is ProxyResource<PipelineProperties> {
   @key("pipelineName")
   @visibility(Lifecycle.Read)
   @path
-  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,63}$")
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,127}$")
   name: string;
 
   /**
@@ -140,6 +140,9 @@ model PipelineRecurrence {
   /** Periodicity of the recurrence. */
   periodicity?: string;
 
+  /** Cron expression for the recurrence. */
+  cronExpression?: string;
+
   /** Timeout for the recurrence. */
   timeout?: string;
 }
@@ -149,8 +152,8 @@ union ScheduleType {
   /** Periodic schedule type. */
   Periodic: "Periodic",
 
-  /** Manual trigger schedule type. */
-  ManualTrigger: "ManualTrigger",
+  /** Cron schedule type. */
+  Cron: "Cron",
 
   string,
 }
@@ -163,7 +166,7 @@ model PipelineRun is ProxyResource<PipelineRunProperties> {
   @key("runId")
   @visibility(Lifecycle.Read)
   @path
-  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,63}$")
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,127}$")
   name: string;
 }
 

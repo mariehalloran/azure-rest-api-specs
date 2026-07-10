@@ -1060,21 +1060,25 @@ model AutonomousDatabaseBaseProperties {
   zone?: string;
 
   @added(Versions.v20260401_preview)
+  @removed(Versions.v20260501_preview)
   @doc("The external location where the Autonomous Database is provisioned.")
   @visibility(Lifecycle.Read)
   externalLocation?: string;
 
   @added(Versions.v20260401_preview)
+  @removed(Versions.v20260501_preview)
   @doc("The external location zone context for the Autonomous Database.")
   @visibility(Lifecycle.Read)
   externalLocationZoneContext?: string;
 
   @added(Versions.v20260401_preview)
+  @removed(Versions.v20260501_preview)
   @doc("The availability domain associated with the Autonomous Database.")
   @visibility(Lifecycle.Read)
   availabilityDomain?: string;
 
   @added(Versions.v20260401_preview)
+  @removed(Versions.v20260501_preview)
   @doc("The OCID of the cluster placement group associated with the Autonomous Database.")
   @visibility(Lifecycle.Read)
   clusterPlacementGroupId?: Ocid;

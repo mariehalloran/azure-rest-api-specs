@@ -42,6 +42,7 @@ import "./HierarchyConfigurationMetadata.tsp";
 import "./HierarchyConfigurationMetadataVersion.tsp";
 import "./InternalState.tsp";
 import "./SolutionDeployment.tsp";
+import "./client.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
@@ -75,4 +76,7 @@ enum Versions {
 
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
   v2026_05_01_preview: "2026-05-01-preview",
+
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
+  v2026_06_01: "2026-06-01",
 }

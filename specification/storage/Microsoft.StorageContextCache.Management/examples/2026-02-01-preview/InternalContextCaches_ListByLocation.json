@@ -1,0 +1,43 @@
+{
+  "operationId": "InternalContextCaches_ListByLocation",
+  "title": "List internal Context Caches by location",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "testrg",
+    "location": "eastus",
+    "api-version": "2026-02-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/locations/eastus/internalContextCaches/testaccount",
+            "name": "testaccount",
+            "type": "Microsoft.Storage/internalContextCaches",
+            "properties": {
+              "accountKind": "Regional",
+              "description": "Internal Azure Context Cache account",
+              "provisioningState": "Succeeded",
+              "resourceProperties": {
+                "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/contextCaches/testaccount",
+                "resourceType": "Microsoft.Storage/contextCaches",
+                "baseLocation": "eastus",
+                "baseAccountKind": "Regional",
+                "storageAccountName": "testaccount0001"
+              }
+            },
+            "systemData": {
+              "createdBy": "user@example.com",
+              "createdByType": "User",
+              "createdAt": "2026-01-01T00:00:00Z",
+              "lastModifiedBy": "user@example.com",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-01-01T00:00:00Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -33,7 +33,11 @@ model ValidationExecutionPlanProperties {
 
   @doc("The provisioning state of the resource.")
   @visibility(Lifecycle.Read)
-  provisioningState?: ValidationExecutionPlanProvisioningState;
+  @typeChangedFrom(
+    Versions.v2026_05_01_preview,
+    ValidationExecutionPlanProvisioningState
+  )
+  provisioningState?: ValidationExecutionPlanProvisioningStateV2026_05;
 
   @doc("Error details. Populated when provisioningState is Failed or Canceled.")
   @visibility(Lifecycle.Read)
@@ -56,10 +60,32 @@ union ValidationExecutionPlanProvisioningState {
   Updating: "Updating",
 
   @doc("The resource is being disabled.")
+  @removed(Versions.v2026_05_01_preview)
   Disabling: "Disabling",
 
   @doc("The resource is being deleted")
+  @removed(Versions.v2026_05_01_preview)
   Deleting: "Deleting",
+
+  string,
+}
+
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Q-VEP-1 public-preview design constrains this status to Creating/Updating/Succeeded/Failed."
+@doc("The execution plan resource provisioning state.")
+@lroStatus
+@added(Versions.v2026_05_01_preview)
+union ValidationExecutionPlanProvisioningStateV2026_05 {
+  @doc("The resource is being provisioned.")
+  Creating: "Creating",
+
+  @doc("The resource is updating.")
+  Updating: "Updating",
+
+  @doc("The resource has been successfully provisioned.")
+  Succeeded: "Succeeded",
+
+  @doc("The resource provisioning failed.")
+  Failed: "Failed",
 
   string,
 }

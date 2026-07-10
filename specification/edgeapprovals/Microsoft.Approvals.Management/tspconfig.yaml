@@ -10,12 +10,9 @@ options:
     output-file: "{azure-resource-provider-folder}/{service-name}/{version-status}/{version}/openapi.json"
     examples-dir: "{project-root}/examples"
     use-read-only-status-schema: true
-  "@azure-tools/typespec-csharp":
-    flavor: azure
-    emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.Approvals"
+  "@azure-typespec/http-client-csharp-mgmt":
     namespace: "Azure.ResourceManager.Approvals"
-    clear-output-folder: true
-    model-namespace: true
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-java":
     emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-approvals"
     flavor: azure

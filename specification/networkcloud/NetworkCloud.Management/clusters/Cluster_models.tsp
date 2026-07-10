@@ -1046,7 +1046,7 @@ model SecretArchiveSettings {
   providerConfiguration?: SecretArchiveProviderConfiguration;
 
   /**
-   * The URI for the key vault used as the secret archive. The URI must use the `https://` scheme.
+   * The URI for the key vault used as the secret archive.
    */
   vaultUri?: url;
 }

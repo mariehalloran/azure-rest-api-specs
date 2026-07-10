@@ -1,0 +1,84 @@
+{
+  "title": "DeviceProfileOperations_CreateOrUpdate_MaximumSet",
+  "operationId": "DeviceProfileOperations_CreateOrUpdate",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "01234567-1234-abcd-ef01-1234567890ab",
+    "resourceGroupName": "rgopenapi",
+    "encryptedTransportAccountName": "test-account-123",
+    "deviceProfileName": "test-profile-123",
+    "resource": {
+      "properties": {
+        "imageId": "example-image.azure",
+        "profileName": "Test Profile 123",
+        "wifiProfiles": [
+          {
+            "ssid": "MyNetwork01",
+            "psk": "Password123!"
+          }
+        ]
+      },
+      "tags": {},
+      "location": "eastus"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "imageId": "example-image.azure",
+          "profileName": "Test Profile 123",
+          "provisioningState": "Succeeded",
+          "wifiProfiles": [
+            {
+              "ssid": "MyNetwork01"
+            }
+          ]
+        },
+        "tags": {},
+        "location": "eastus",
+        "id": "/subscriptions/01234567-1234-abcd-ef01-1234567890ab/resourceGroups/rgopenapi/providers/Microsoft.EncryptedTransport/encryptedTransportAccounts/test-account-123/deviceProfiles/test-profile-123",
+        "name": "test-profile-123",
+        "type": "Microsoft.EncryptedTransport/encryptedTransportAccounts/deviceProfiles",
+        "systemData": {
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2025-02-26T15:26:39.908Z",
+          "lastModifiedBy": "user@example.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2025-02-26T15:26:39.908Z"
+        }
+      }
+    },
+    "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://contoso.com/operationstatus"
+      },
+      "body": {
+        "properties": {
+          "imageId": "example-image.azure",
+          "profileName": "Test Profile 123",
+          "provisioningState": "Succeeded",
+          "wifiProfiles": [
+            {
+              "ssid": "MyNetwork01"
+            }
+          ]
+        },
+        "tags": {},
+        "location": "eastus",
+        "id": "/subscriptions/01234567-1234-abcd-ef01-1234567890ab/resourceGroups/rgopenapi/providers/Microsoft.EncryptedTransport/encryptedTransportAccounts/test-account-123/deviceProfiles/test-profile-123",
+        "name": "test-profile-123",
+        "type": "Microsoft.EncryptedTransport/encryptedTransportAccounts/deviceProfiles",
+        "systemData": {
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2025-02-26T15:26:39.908Z",
+          "lastModifiedBy": "user@example.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2025-02-26T15:26:39.908Z"
+        }
+      }
+    }
+  }
+}

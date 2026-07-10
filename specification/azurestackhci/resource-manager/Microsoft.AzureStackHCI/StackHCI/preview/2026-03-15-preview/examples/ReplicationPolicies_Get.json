@@ -1,0 +1,39 @@
+{
+  "title": "ReplicationPolicies_Get",
+  "operationId": "ReplicationPolicies_Get",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "6D37FF61-4C93-4377-B06B-FC6D6D561A7D",
+    "resourceGroupName": "rghci",
+    "storageArrayName": "pure-1",
+    "replicationPolicyName": "async-hourly"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/replicationPolicies/async-hourly",
+        "name": "async-hourly",
+        "type": "Microsoft.AzureStackHCI/storageArrays/replicationPolicies",
+        "properties": {
+          "vendorPolicyId": "async-hourly-policy",
+          "policyType": "Asynchronous",
+          "rpoTargetSeconds": 3600,
+          "schedule": "PT1H",
+          "retentionCount": 24,
+          "retentionPeriod": "P7D",
+          "compressionEnabled": true,
+          "networkCompressionEnabled": false,
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2026-03-15T10:00:00.000Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "Application",
+          "lastModifiedAt": "2026-03-24T18:00:00.000Z"
+        }
+      }
+    }
+  }
+}
