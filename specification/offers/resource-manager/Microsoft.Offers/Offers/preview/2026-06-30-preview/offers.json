@@ -95,6 +95,45 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/availabilities": {
+      "get": {
+        "operationId": "Availabilities_ListBySubscription",
+        "tags": [
+          "Availabilities"
+        ],
+        "description": "List all availabilities in the catalog available to the subscription. The\ncatalog is globally keyed, so the same set is returned for all callers under\none API version.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogAvailabilityListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List availabilities in the catalog by subscription.": {
+            "$ref": "./examples/Availabilities_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/availabilities/{availabilityId}": {
       "get": {
         "operationId": "Availabilities_Get",
@@ -184,6 +223,90 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/lookupValueExchange": {
+      "post": {
+        "operationId": "ValueExchanges_Lookup",
+        "tags": [
+          "ValueExchanges"
+        ],
+        "description": "Look up a single value-exchange (UPN) by its identifier. The catalog is\nglobally keyed: the same `valueExchangeId` returns the same response for\nall callers under one API version. Modeled as a POST action because the\nresponse is identical for every caller in a subscription and the catalog\nis not a per-subscription resource collection.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LookupValueExchangeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/LookupValueExchangeResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Look up a value-exchange (UPN) by its identifier.": {
+            "$ref": "./examples/ValueExchanges_Lookup.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/products": {
+      "get": {
+        "operationId": "Products_ListBySubscription",
+        "tags": [
+          "Products"
+        ],
+        "description": "List all products in the catalog available to the subscription. The catalog\nis globally keyed, so the same set is returned for all callers under one API\nversion.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogProductListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List products in the catalog by subscription.": {
+            "$ref": "./examples/Products_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/products/{productId}": {
       "get": {
         "operationId": "Products_Get",
@@ -228,6 +351,45 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/skus": {
+      "get": {
+        "operationId": "Skus_ListBySubscription",
+        "tags": [
+          "Skus"
+        ],
+        "description": "List all SKUs in the catalog available to the subscription. The catalog is\nglobally keyed, so the same set is returned for all callers under one API\nversion.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogSkuListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List SKUs in the catalog by subscription.": {
+            "$ref": "./examples/Skus_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/skus/{skuId}": {
       "get": {
         "operationId": "Skus_Get",
@@ -269,6 +431,45 @@
           "Get a SKU by its identifier.": {
             "$ref": "./examples/Skus_Get.json"
           }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/valueExchanges": {
+      "get": {
+        "operationId": "ValueExchanges_ListBySubscription",
+        "tags": [
+          "ValueExchanges"
+        ],
+        "description": "List all value-exchange (UPN) entries in the catalog available to the\nsubscription. The catalog is globally keyed, so the same set is returned for\nall callers under one API version.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValueExchangeListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List value exchanges in the catalog by subscription.": {
+            "$ref": "./examples/ValueExchanges_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
         }
       }
     },
@@ -628,6 +829,27 @@
         }
       ]
     },
+    "CatalogAvailabilityListResult": {
+      "type": "object",
+      "description": "The response of a CatalogAvailability list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The CatalogAvailability items on this page",
+          "items": {
+            "$ref": "#/definitions/CatalogAvailability"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "CatalogProduct": {
       "type": "object",
       "description": "A product in the commerce catalog.",
@@ -646,6 +868,27 @@
         }
       ]
     },
+    "CatalogProductListResult": {
+      "type": "object",
+      "description": "The response of a CatalogProduct list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The CatalogProduct items on this page",
+          "items": {
+            "$ref": "#/definitions/CatalogProduct"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "CatalogSku": {
       "type": "object",
       "description": "A SKU in the commerce catalog.",
@@ -662,6 +905,27 @@
         {
           "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
+      ]
+    },
+    "CatalogSkuListResult": {
+      "type": "object",
+      "description": "The response of a CatalogSku list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The CatalogSku items on this page",
+          "items": {
+            "$ref": "#/definitions/CatalogSku"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
       ]
     },
     "ClientConditions": {
@@ -711,6 +975,39 @@
       },
       "required": [
         "enumerationType"
+      ]
+    },
+    "LookupValueExchangeRequest": {
+      "type": "object",
+      "description": "Request body for looking up a value exchange (UPN) by its identifier.",
+      "properties": {
+        "valueExchangeId": {
+          "type": "string",
+          "description": "The value-exchange identifier (BigCat UPN id, e.g. `DZH318Z0995B`).",
+          "pattern": "^[A-Z0-9]{12}$"
+        }
+      },
+      "required": [
+        "valueExchangeId"
+      ]
+    },
+    "LookupValueExchangeResult": {
+      "type": "object",
+      "description": "The result of a value-exchange lookup.",
+      "properties": {
+        "valueExchangeId": {
+          "type": "string",
+          "description": "The value-exchange identifier the result corresponds to.",
+          "pattern": "^[A-Z0-9]{12}$"
+        },
+        "properties": {
+          "$ref": "#/definitions/ValueExchangeProperties",
+          "description": "The denormalized, slim value-exchange projection."
+        }
+      },
+      "required": [
+        "valueExchangeId",
+        "properties"
       ]
     },
     "PcdPropertyBag": {
@@ -1149,6 +1446,27 @@
         {
           "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
+      ]
+    },
+    "ValueExchangeListResult": {
+      "type": "object",
+      "description": "The response of a ValueExchange list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ValueExchange items on this page",
+          "items": {
+            "$ref": "#/definitions/ValueExchange"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
       ]
     },
     "ValueExchangeNameParameter": {

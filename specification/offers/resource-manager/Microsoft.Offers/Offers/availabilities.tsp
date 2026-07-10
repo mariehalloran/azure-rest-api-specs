@@ -107,4 +107,14 @@ interface Availabilities {
     CatalogAvailability,
     BaseParameters = Azure.ResourceManager.Foundations.SubscriptionBaseParameters
   >;
+
+  /**
+   * List all availabilities in the catalog available to the subscription. The
+   * catalog is globally keyed, so the same set is returned for all callers under
+   * one API version.
+   */
+  listBySubscription is ArmResourceListByParent<
+    CatalogAvailability,
+    BaseParameters = Azure.ResourceManager.Foundations.SubscriptionBaseParameters
+  >;
 }

@@ -14,7 +14,6 @@ using Azure.ResourceManager;
 namespace Microsoft.Offers;
 
 /** Request body for looking up a value exchange (UPN) by its identifier. */
-@removed(Versions.v2026_06_30_preview)
 model LookupValueExchangeRequest {
   /** The value-exchange identifier (BigCat UPN id, e.g. `DZH318Z0995B`). */
   @pattern("^[A-Z0-9]{12}$")
@@ -22,7 +21,6 @@ model LookupValueExchangeRequest {
 }
 
 /** The result of a value-exchange lookup. */
-@removed(Versions.v2026_06_30_preview)
 model LookupValueExchangeResult {
   /** The value-exchange identifier the result corresponds to. */
   @pattern("^[A-Z0-9]{12}$")
@@ -60,7 +58,6 @@ interface ValueExchanges {
    * response is identical for every caller in a subscription and the catalog
    * is not a per-subscription resource collection.
    */
-  @removed(Versions.v2026_06_30_preview)
   @autoRoute
   @action("lookupValueExchange")
   lookup is ArmProviderActionSync<
@@ -77,6 +74,17 @@ interface ValueExchanges {
    */
   @added(Versions.v2026_06_30_preview)
   get is ArmResourceRead<
+    ValueExchange,
+    BaseParameters = Azure.ResourceManager.Foundations.SubscriptionBaseParameters
+  >;
+
+  /**
+   * List all value-exchange (UPN) entries in the catalog available to the
+   * subscription. The catalog is globally keyed, so the same set is returned for
+   * all callers under one API version.
+   */
+  @added(Versions.v2026_06_30_preview)
+  listBySubscription is ArmResourceListByParent<
     ValueExchange,
     BaseParameters = Azure.ResourceManager.Foundations.SubscriptionBaseParameters
   >;

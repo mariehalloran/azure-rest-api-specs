@@ -181,4 +181,14 @@ interface Skus {
     CatalogSku,
     BaseParameters = Azure.ResourceManager.Foundations.SubscriptionBaseParameters
   >;
+
+  /**
+   * List all SKUs in the catalog available to the subscription. The catalog is
+   * globally keyed, so the same set is returned for all callers under one API
+   * version.
+   */
+  listBySubscription is ArmResourceListByParent<
+    CatalogSku,
+    BaseParameters = Azure.ResourceManager.Foundations.SubscriptionBaseParameters
+  >;
 }
