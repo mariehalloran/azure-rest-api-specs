@@ -44,6 +44,7 @@ model LinkedAccount
  * These actions are publicly documented per ARM modeling guidance: external requests
  * are blocked via RP business logic rather than hiding behind an RPaaS-internal endpoint.
  */
+@removed(Versions.v2026_07_02_preview)
 @armResourceOperations
 interface LinkedAccounts {
   /**
@@ -97,6 +98,7 @@ interface LinkedAccounts {
   /**
    * Check if the Linked Account name is available
    */
+  @sharedRoute
   checkNameAvailability is checkGlobalNameAvailability;
 
   /**

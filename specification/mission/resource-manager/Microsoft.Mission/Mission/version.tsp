@@ -45,4 +45,8 @@ enum Versions {
   @doc("The 2026-07-01-preview version.")
   @armCommonTypesVersion("v5")
   v2026_07_01_preview: "2026-07-01-preview",
+
+  @doc("The 2026-08-01-preview version.")
+  @armCommonTypesVersion("v5")
+  v2026_08_01_preview: "2026-08-01-preview",
 }

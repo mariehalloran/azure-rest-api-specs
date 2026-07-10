@@ -7,3 +7,28 @@
   sub-rules:
     - options.@azure-tools/typespec-ts.*
   paths: [Commvault.ContentStore.Management/tspconfig.yaml]
+- tool: LintDiff
+  reason: >
+    The boolean properties (backupCopyImmediately, runSnapShotBackup, notifyUserOnJobCompletion,
+    isHiddenSaaS, inPlaceRestore, powerOnVmAfterRestore, attachAndSwapOsDisk) are intentional
+    toggle flags that are well-named and self-descriptive. Changing these to enums would be
+    a breaking change to the established API surface.
+  rules: [EnumInsteadOfBoolean]
+  paths:
+    - resource-manager/Commvault.ContentStore/preview/2026-08-01-preview/commvault.json
+- tool: LintDiff
+  reason: >
+    The 'location' property in ProtectedItemProperties is a read-only computed field that
+    reflects the Azure region of the protected VM, auto-discovered from the source resource.
+    It is not a user-settable ARM tracked resource location.
+  rules: [LocationMustHaveXmsMutability]
+  paths:
+    - resource-manager/Commvault.ContentStore/preview/2026-08-01-preview/commvault.json
+- tool: LintDiff
+  reason: >
+    The 'matchRules' property uses intentional nested design to group related matching
+    criteria (rules array and matchType) as a cohesive unit. Flattening would reduce
+    semantic clarity.
+  rules: [AvoidNestedProperties]
+  paths:
+    - resource-manager/Commvault.ContentStore/preview/2026-08-01-preview/commvault.json
