@@ -320,7 +320,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/InferenceAccountTagsUpdate"
+              "$ref": "#/definitions/InferenceAccountUpdate"
             }
           }
         ],
@@ -409,9 +409,151 @@
         },
         "x-ms-long-running-operation": true
       }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.InferenceService/inferenceAccounts/{inferenceAccountName}/listApiKeys": {
+      "post": {
+        "operationId": "InferenceAccounts_ListApiKeys",
+        "tags": [
+          "InferenceAccounts"
+        ],
+        "description": "List the API keys for an inference account.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "inferenceAccountName",
+            "in": "path",
+            "description": "The name of the InferenceAccount",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9-]{1,22}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AccountKeysResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "InferenceAccounts_ListApiKeys": {
+            "$ref": "./examples/InferenceAccounts_ListApiKeys.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.InferenceService/inferenceAccounts/{inferenceAccountName}/regenerateApiKey": {
+      "post": {
+        "operationId": "InferenceAccounts_RegenerateApiKey",
+        "tags": [
+          "InferenceAccounts"
+        ],
+        "description": "Regenerate an API key for an inference account.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "inferenceAccountName",
+            "in": "path",
+            "description": "The name of the InferenceAccount",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9-]{1,22}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegenerateApiKeyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/InferenceAccount"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "InferenceAccounts_RegenerateApiKey": {
+            "$ref": "./examples/InferenceAccounts_RegenerateApiKey.json"
+          }
+        }
+      }
     }
   },
   "definitions": {
+    "AccountKeysResult": {
+      "type": "object",
+      "description": "The API keys of an inference account.",
+      "properties": {
+        "primaryKey": {
+          "type": "string",
+          "format": "password",
+          "description": "The primary API key for the inference account.",
+          "readOnly": true,
+          "x-ms-secret": true
+        },
+        "secondaryKey": {
+          "type": "string",
+          "format": "password",
+          "description": "The secondary API key for the inference account.",
+          "readOnly": true,
+          "x-ms-secret": true
+        }
+      }
+    },
+    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
+      "type": "object",
+      "title": "Tracked Resource",
+      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/Resource"
+        }
+      ]
+    },
     "InferenceAccount": {
       "type": "object",
       "description": "An inference service account resource for managing inference workloads.",
@@ -450,7 +592,7 @@
     },
     "InferenceAccountProperties": {
       "type": "object",
-      "description": "Read-only properties of an inference service account.",
+      "description": "Properties of an inference service account.",
       "properties": {
         "endpoint": {
           "type": "string",
@@ -462,19 +604,76 @@
           "$ref": "#/definitions/ProvisioningState",
           "description": "Provisioning state of the inference account",
           "readOnly": true
+        },
+        "enableKeyBasedAuthentication": {
+          "type": "boolean",
+          "description": "Whether key-based authentication is enabled for the inference account.",
+          "x-ms-mutability": [
+            "read",
+            "update"
+          ]
+        },
+        "keysMetadata": {
+          "$ref": "#/definitions/KeysMetadata",
+          "description": "Metadata about the inference account's API keys, such as last-usage timestamps.",
+          "readOnly": true
         }
       }
     },
-    "InferenceAccountTagsUpdate": {
+    "InferenceAccountUpdate": {
       "type": "object",
-      "description": "The type used for updating tags in InferenceAccount resources.",
+      "description": "An inference service account resource for managing inference workloads.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
+        "properties": {
+          "$ref": "#/definitions/InferenceAccountProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
+        }
+      ]
+    },
+    "KeyType": {
+      "type": "string",
+      "description": "The type of API key to regenerate.",
+      "enum": [
+        "Primary",
+        "Secondary"
+      ],
+      "x-ms-enum": {
+        "name": "KeyType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Primary",
+            "value": "Primary",
+            "description": "The primary API key."
+          },
+          {
+            "name": "Secondary",
+            "value": "Secondary",
+            "description": "The secondary API key."
           }
+        ]
+      }
+    },
+    "KeysMetadata": {
+      "type": "object",
+      "description": "Metadata about the API keys of an inference account.",
+      "properties": {
+        "primaryKeyLastUsage": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The UTC timestamp of the last time the primary key was used.",
+          "readOnly": true
+        },
+        "secondaryKeyLastUsage": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The UTC timestamp of the last time the secondary key was used.",
+          "readOnly": true
         }
       }
     },
@@ -526,6 +725,19 @@
         ]
       },
       "readOnly": true
+    },
+    "RegenerateApiKeyRequest": {
+      "type": "object",
+      "description": "The request body for regenerating an inference account API key.",
+      "properties": {
+        "keyType": {
+          "$ref": "#/definitions/KeyType",
+          "description": "The type of API key to regenerate."
+        }
+      },
+      "required": [
+        "keyType"
+      ]
     }
   },
   "parameters": {}

@@ -15,11 +15,7 @@ model InferenceAccount is TrackedResource<InferenceAccountProperties> {
   >;
 }
 
-// Design note: this properties bag intentionally has no writable fields.
-// The inference account exposes a stateless endpoint only; no per-account
-// configuration is needed at preview. Tags are updated via the standard
-// tags-only PATCH; future writable config would be added here.
-/** Read-only properties of an inference service account. */
+/** Properties of an inference service account. */
 model InferenceAccountProperties {
   /** The REST endpoint for the inference account */
   @visibility(Lifecycle.Read)
@@ -28,6 +24,14 @@ model InferenceAccountProperties {
   /** Provisioning state of the inference account */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
+
+  /** Whether key-based authentication is enabled for the inference account. */
+  @visibility(Lifecycle.Read, Lifecycle.Update)
+  enableKeyBasedAuthentication?: boolean;
+
+  /** Metadata about the inference account's API keys, such as last-usage timestamps. */
+  @visibility(Lifecycle.Read)
+  keysMetadata?: KeysMetadata;
 }
 
 /** The resource provisioning state. */
@@ -46,6 +50,47 @@ union ProvisioningState {
   string,
 }
 
+/** The type of API key to regenerate. */
+union KeyType {
+  /** The primary API key. */
+  Primary: "Primary",
+
+  /** The secondary API key. */
+  Secondary: "Secondary",
+
+  string,
+}
+
+/** Metadata about the API keys of an inference account. */
+model KeysMetadata {
+  /** The UTC timestamp of the last time the primary key was used. */
+  @visibility(Lifecycle.Read)
+  primaryKeyLastUsage?: utcDateTime;
+
+  /** The UTC timestamp of the last time the secondary key was used. */
+  @visibility(Lifecycle.Read)
+  secondaryKeyLastUsage?: utcDateTime;
+}
+
+/** The API keys of an inference account. */
+model AccountKeysResult {
+  /** The primary API key for the inference account. */
+  @secret
+  @visibility(Lifecycle.Read)
+  primaryKey?: string;
+
+  /** The secondary API key for the inference account. */
+  @secret
+  @visibility(Lifecycle.Read)
+  secondaryKey?: string;
+}
+
+/** The request body for regenerating an inference account API key. */
+model RegenerateApiKeyRequest {
+  /** The type of API key to regenerate. */
+  keyType: KeyType;
+}
+
 @armResourceOperations
 interface InferenceAccounts {
   get is ArmResourceRead<InferenceAccount>;
@@ -54,7 +99,7 @@ interface InferenceAccounts {
     InferenceAccount,
     LroHeaders = ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
   >;
-  update is ArmTagsPatchSync<InferenceAccount>;
+  update is ArmResourcePatchSync<InferenceAccount, InferenceAccountProperties>;
   @Azure.Core.useFinalStateVia("azure-async-operation")
   delete is ArmResourceDeleteWithoutOkAsync<
     InferenceAccount,
@@ -62,4 +107,18 @@ interface InferenceAccounts {
   >;
   listByResourceGroup is ArmResourceListByParent<InferenceAccount>;
   listBySubscription is ArmListBySubscription<InferenceAccount>;
+
+  /** List the API keys for an inference account. */
+  listApiKeys is ArmResourceActionSync<
+    InferenceAccount,
+    void,
+    AccountKeysResult
+  >;
+
+  /** Regenerate an API key for an inference account. */
+  regenerateApiKey is ArmResourceActionSync<
+    InferenceAccount,
+    RegenerateApiKeyRequest,
+    InferenceAccount
+  >;
 }
