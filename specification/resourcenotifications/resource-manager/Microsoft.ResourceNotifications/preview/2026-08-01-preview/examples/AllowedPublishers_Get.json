@@ -1,0 +1,24 @@
+{
+  "parameters": {
+    "publisherNamespace": "Microsoft.Advisor",
+    "api-version": "2026-08-01-preview",
+    "namespaceName": "Microsoft.Compute",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "typeName": "Microsoft.Compute%2FvirtualMachines"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "name": "Microsoft.Advisor",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/providerSettings/default/types/Microsoft.Compute%2FvirtualMachines/allowedPublishers/Microsoft.Advisor",
+        "type": "Microsoft.ResourceNotifications/namespaces/providerSettings/types/allowedPublishers",
+        "properties": {
+          "validationPolicy": "DisallowParentPublishing",
+          "provisioningState": "Succeeded"
+        }
+      }
+    }
+  },
+  "operationId": "AllowedPublishers_Get",
+  "title": "AllowedPublishers - Get"
+}

@@ -117,155 +117,122 @@ interface PublisherSettingsOperations {
   listByParent is ArmResourceListByParent<PublisherSettings>;
 }
 
-/** Capacity overrides — fine-grained overrides for push-tier IngestionUnits. Each field must be ≤ the SKU tier ceiling. If omitted entirely, all values default from the SKU tier. */
-@added(Versions.v2026_03_01_preview)
+/** Request-rate limits overriding the defaults supplied by an ingestion unit SKU. */
+@added(Versions.v2026_08_01_preview)
 model CapacityOverrides {
-  /** Max requests/minute globally. Must be ≤ SKU tier ceiling. Default: tier value. */
-  @minValue(20000)
-  @maxValue(5000000)
+  /** Maximum requests in a rolling 60-second window. */
+  @minValue(1)
   maxRequestsPerMinute?: int32;
 
-  /** Max requests/minute/region. Must be ≤ maxRequestsPerMinute. */
-  @minValue(20000)
-  @maxValue(5000000)
-  maxRequestsPerMinutePerRegion?: int32;
-
-  /** Burst multiplier allowing short spikes above the RPM limit. Default: 1.5. */
-  @minValue(1.0)
-  @maxValue(5.0)
-  burstAllowance?: float64 = 1.5;
+  /** Maximum requests in a rolling one-second window. */
+  @minValue(1)
+  maxRequestsPerSecond?: int32;
 }
 
 // ─── SKU ─── //
 
-/** ARM standard SKU tier. */
-@added(Versions.v2026_03_01_preview)
-union SkuTier {
-  string,
-
-  /** Free tier. */
-  @removed(Versions.v2026_06_01_preview)
-  Free: "Free",
-
-  /** Standard tier. */
-  Standard: "Standard",
-
-  /** Premium tier (maps to Dedicated and DedicatedPlus SKU names). */
-  Premium: "Premium",
-}
-
 /** SKU name for an ingestion unit. Determines capacity tier and workload type (push or flow). */
-@added(Versions.v2026_03_01_preview)
+@added(Versions.v2026_08_01_preview)
 union IngestionUnitSkuName {
   string,
-
-  /** Free push tier: minimal capacity for development and testing. */
-  @removed(Versions.v2026_06_01_preview)
-  Free: "Free",
 
   /** Standard push tier: production HTTP push ingestion capacity. */
   Standard: "Standard",
 
   /** Premium push tier: high-throughput HTTP push ingestion capacity. */
-  @added(Versions.v2026_06_01_preview)
   Premium: "Premium",
 
   /** Dedicated push tier: high-volume HTTP push ingestion capacity. */
   Dedicated: "Dedicated",
 
-  /** Dedicated Plus push tier: maximum HTTP push ingestion capacity. */
-  @removed(Versions.v2026_06_01_preview)
-  DedicatedPlus: "DedicatedPlus",
-
   /** Standard flow tier: production discovery pipeline capacity. */
   Standard_Flow: "Standard_Flow",
 
   /** Premium flow tier: high-throughput discovery pipeline capacity. */
-  @added(Versions.v2026_06_01_preview)
   Premium_Flow: "Premium_Flow",
 
   /** Dedicated flow tier: high-volume discovery pipeline capacity. */
   Dedicated_Flow: "Dedicated_Flow",
 }
 
-/** SKU for an ingestion unit. Selects capacity tier and workload type. */
-@added(Versions.v2026_03_01_preview)
+/** ARN-owned capacity profile assigned to a regional ingestion unit. */
+@added(Versions.v2026_08_01_preview)
 model IngestionUnitSku {
-  /** SKU name selecting capacity tier and workload type. Required on PUT. */
+  /** Capacity profile selecting the workload type and default request-rate limits. */
   name: IngestionUnitSkuName;
 
-  /** ARM standard tier label. RP populates on GET; not required on PUT. Free→Free, Standard/Standard_Flow→Standard, Dedicated/Dedicated_Flow/DedicatedPlus→Premium. */
-  tier?: SkuTier;
-
-  /** Optional capacity unit multiplier. Must be ≤ tier ceiling. If omitted, tier default applies. */
-  capacity?: int32;
+  /** Number of capacity units assigned to this ingestion unit. */
+  @minValue(1)
+  capacity?: int32 = 1;
 }
 
 // Polymorphic Authorization
 
-/** Authorization kind. */
-@added(Versions.v2026_03_01_preview)
-union AuthorizationKind {
+/** Authentication mechanism accepted by an ingestion unit. */
+@added(Versions.v2026_08_01_preview)
+union AuthenticationType {
   string,
 
-  /** Azure Active Directory authorization. */
+  /** Microsoft Entra application authentication. */
   Aad: "AAD",
 
-  /** DSTS claim-based authorization. */
+  /** DSTS claim authentication. */
   Dsts: "DSTS",
 }
 
-/** Base model for polymorphic authorization. Discriminated on 'kind'. */
-@added(Versions.v2026_03_01_preview)
-@discriminator("kind")
-model Authorization {
-  /** Discriminator: 'AAD' or 'DSTS'. */
-  kind: AuthorizationKind;
+/** Base model for an ingestion unit authentication configuration. */
+@added(Versions.v2026_08_01_preview)
+@discriminator("authenticationType")
+model IngestionUnitAuthorization {
+  /** Authentication mechanism represented by this entry. */
+  authenticationType: AuthenticationType;
 }
 
-/** AAD authorization with per-application scoping. */
-@added(Versions.v2026_03_01_preview)
-model AadAuthorization extends Authorization {
-  kind: "AAD";
+/** Microsoft Entra application authentication configuration. */
+@added(Versions.v2026_08_01_preview)
+model AadIngestionUnitAuthorization extends IngestionUnitAuthorization {
+  authenticationType: "AAD";
 
-  /** Authorized AAD applications. */
-  @OpenAPI.extension("x-ms-identifiers", #["applicationId"])
+  /** Applications permitted to publish through this ingestion unit. */
+  @identifiers(#["applicationId"])
   @minItems(1)
   applications: AuthorizedApplication[];
 }
 
-/** An authorized AAD application. */
-@added(Versions.v2026_03_01_preview)
+/** A Microsoft Entra application permitted to publish through an ingestion unit. */
+@added(Versions.v2026_08_01_preview)
 model AuthorizedApplication {
-  /** AAD application (client) ID. */
+  /** Microsoft Entra application ID. */
   applicationId: string;
 
-  /** Environment scopes. Empty = all. */
-  scopes?: string[];
+  /** Notification scopes permitted for this application. */
+  @minItems(1)
+  scopes: string[];
 
-  /** Allowed tenant IDs. Empty = all. */
+  /** Allowed resource-home tenant IDs. Empty or omitted permits all tenants. */
   allowedTenantIds?: string[];
 
-  /** Allowed subscription IDs. Empty = all. */
+  /** Allowed subscription IDs. Empty or omitted permits all subscriptions. */
   allowedSubscriptionIds?: string[];
 }
 
-/** DSTS claim-based authorization. */
-@added(Versions.v2026_03_01_preview)
-model DstsAuthorization extends Authorization {
-  kind: "DSTS";
+/** DSTS claim authentication configuration. */
+@added(Versions.v2026_08_01_preview)
+model DstsIngestionUnitAuthorization extends IngestionUnitAuthorization {
+  authenticationType: "DSTS";
 
-  /** Required DSTS claims. */
-  @OpenAPI.extension("x-ms-identifiers", #["claim"])
+  /** DSTS claims permitted to publish through this ingestion unit. */
+  @identifiers(#["claim"])
   @minItems(1)
-  claims: DstsClaim[];
+  claims: DstsClaimAuthorization[];
 }
 
-/** A required DSTS claim. */
-@added(Versions.v2026_03_01_preview)
-model DstsClaim {
-  /** DSTS claim URI. */
-  claim: url;
+/** A publisher-defined DSTS claim permitted to publish through an ingestion unit. */
+@added(Versions.v2026_08_01_preview)
+model DstsClaimAuthorization {
+  /** Case-sensitive DSTS claim moniker. */
+  @minLength(1)
+  claim: string;
 }
 
 /** Alerting configuration for discovery pipelines. */
@@ -432,40 +399,39 @@ model FlowScheduling {
 
 // ─── INGESTION UNITS ─── //
 
-/** Per-region ingestion capacity linked to a publisher setting. SKU determines workload type (push or flow) and capacity tier. */
-@added(Versions.v2026_03_01_preview)
+/** Regional ingestion capacity for a publisher registered with Microsoft.ProviderHub. */
+@added(Versions.v2026_08_01_preview)
+@parentResource(ArmLocationResource<"Extension">)
 model IngestionUnit
-  is Azure.ResourceManager.TrackedResource<IngestionUnitProperties> {
-  /** Ingestion unit name (e.g., 'eastus-primary'). */
-  @key("unitName")
+  is Azure.ResourceManager.ProxyResource<IngestionUnitProperties, false> {
+  /** Ingestion unit name. */
+  @key("ingestionUnitName")
   @segment("ingestionUnits")
   @pattern("^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$")
   @path
   name: string;
-
-  /** SKU selecting capacity tier and workload type. */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "sku is ARM standard envelope property"
-  sku: IngestionUnitSku;
 }
 
 /** Properties for an ingestion unit resource. */
-@added(Versions.v2026_03_01_preview)
+@added(Versions.v2026_08_01_preview)
 model IngestionUnitProperties {
-  /** ARM resource ID of the linked publisher setting. */
-  linkedPublisherSettingId: Azure.Core.armResourceIdentifier;
+  /** Capacity profile assigned to this ingestion unit. */
+  sku: IngestionUnitSku;
 
-  /** Authorization override for this region. */
-  authorization?: Authorization;
-
-  /** Capacity overrides. Optional — if omitted, all values default from the SKU tier ceiling. Each field, if present, must be ≤ the SKU tier ceiling. Applicable to push-tier SKUs only. */
+  /** Request-rate limits overriding the defaults supplied by the SKU. */
   capacityOverrides?: CapacityOverrides;
 
-  /** System-provisioned receiver hostname. Derived from location. */
+  /** Authentication mechanisms permitted to publish through this ingestion unit. */
+  @identifiers(#["authenticationType"])
+  @minItems(1)
+  authorizations: IngestionUnitAuthorization[];
+
+  /** System-provisioned receiver hostname. */
   @visibility(Lifecycle.Read)
   endpoint?: string;
 
   /** ARM resource IDs of Event Grid topics/domains routed through this unit. */
-  eventGridTopicIds?: string[];
+  eventGridTopicIds?: Azure.Core.armResourceIdentifier[];
 
   /** Whether this ingestion unit is enabled. Set to false to disable during outages. Default: true. */
   #suppress "EnumInsteadOfBoolean" "enabled is a simple on/off operational toggle"
@@ -476,8 +442,59 @@ model IngestionUnitProperties {
   provisioningState?: ProvisioningState;
 }
 
+/** Capacity profile fields supported by an ingestion unit PATCH request. */
+@added(Versions.v2026_08_01_preview)
+model IngestionUnitSkuUpdate {
+  /** Updated capacity profile. */
+  name?: IngestionUnitSkuName;
+
+  /** Updated number of capacity units. */
+  @minValue(1)
+  capacity?: int32;
+}
+
+/** Capacity override fields supported by an ingestion unit PATCH request. */
+@added(Versions.v2026_08_01_preview)
+model CapacityOverridesPatch {
+  /** Updated minute limit. */
+  @minValue(1)
+  maxRequestsPerMinute?: int32;
+
+  /** Updated one-second limit. */
+  @minValue(1)
+  maxRequestsPerSecond?: int32;
+}
+
+/** Ingestion unit properties supported by a PATCH request. */
+@added(Versions.v2026_08_01_preview)
+model IngestionUnitPatchProperties {
+  /** Updated capacity profile. */
+  sku?: IngestionUnitSkuUpdate;
+
+  /** Updated request-rate overrides. */
+  capacityOverrides?: CapacityOverridesPatch;
+
+  /** Complete replacement authentication collection. */
+  @identifiers(#["authenticationType"])
+  @minItems(1)
+  authorizations?: IngestionUnitAuthorization[];
+
+  /** Updated Event Grid topics routed through this ingestion unit. */
+  eventGridTopicIds?: Azure.Core.armResourceIdentifier[];
+
+  /** Updated enabled state. */
+  enabled?: boolean;
+}
+
+/** Ingestion unit PATCH request. */
+@added(Versions.v2026_08_01_preview)
+model IngestionUnitPatch {
+  /** Properties to update. */
+  properties?: IngestionUnitPatchProperties;
+}
+
 /** Ingestion unit operations. */
-@added(Versions.v2026_03_01_preview)
+@added(Versions.v2026_08_01_preview)
 @armResourceOperations
 interface IngestionUnits {
   /** Get an ingestion unit. */
@@ -486,18 +503,23 @@ interface IngestionUnits {
   /** Create or update an ingestion unit. Asynchronous operation. */
   createOrUpdate is ArmResourceCreateOrReplaceAsync<IngestionUnit>;
 
-  /** Update tags on an ingestion unit. */
-  @patch(#{ implicitOptionality: true })
-  update is ArmTagsPatchSync<IngestionUnit>;
+  /** Update an ingestion unit. Asynchronous operation. */
+  update is ArmCustomPatchAsync<
+    IngestionUnit,
+    IngestionUnitPatch,
+    LroHeaders = ArmCombinedLroHeaders<ArmOperationStatus, IngestionUnit> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
 
   /** Delete an ingestion unit. Asynchronous operation. */
-  delete is ArmResourceDeleteWithoutOkAsync<IngestionUnit>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    IngestionUnit,
+    LroHeaders = ArmCombinedLroHeaders<ArmOperationStatus, IngestionUnit> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
 
-  /** List ingestion units in a resource group. */
-  listByResourceGroup is ArmResourceListByParent<IngestionUnit>;
-
-  /** List ingestion units in a subscription. */
-  listBySubscription is ArmListBySubscription<IngestionUnit>;
+  /** List ingestion units in a location. */
+  listByLocation is ArmResourceListByParent<IngestionUnit>;
 }
 
 // ─── QUERY DEFINITION (INLINE) ─── //

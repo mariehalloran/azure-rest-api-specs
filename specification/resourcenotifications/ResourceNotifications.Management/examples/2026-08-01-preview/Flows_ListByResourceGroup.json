@@ -1,0 +1,70 @@
+{
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-arn-examples",
+    "api-version": "2026-08-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "compute-vm-query-flow",
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/flows/compute-vm-query-flow",
+            "type": "Microsoft.ResourceNotifications/flows",
+            "location": "eastus",
+            "tags": {
+              "environment": "production"
+            },
+            "properties": {
+              "provisioningState": "Succeeded",
+              "flowKind": "DiscoveryQuery",
+              "estimatedRowCount": 500000,
+              "linkedPublisherSettingId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default",
+              "ingestionUnitId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.contoso/providers/Microsoft.ResourceNotifications/locations/eastus/ingestionUnits/eastus-flow",
+              "fullyQualifiedResourceType": "Microsoft.Compute/virtualMachines",
+              "enabled": true,
+              "managedIdentityResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ManagedIdentity/userAssignedIdentities/arn-kusto-mi",
+              "queryDefinition": {
+                "query": "Resources | where type == 'microsoft.compute/virtualmachines' | project id, name, location, properties",
+                "description": "Discovers all Compute virtual machines and their key properties."
+              },
+              "sourceClusterEndpoint": "https://compute-kusto.eastus.kusto.windows.net",
+              "sourceDatabase": "ComputeInventory",
+              "partitionCount": 5
+            }
+          },
+          {
+            "name": "compute-streaming-flow",
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/flows/compute-streaming-flow",
+            "type": "Microsoft.ResourceNotifications/flows",
+            "location": "eastus",
+            "tags": {
+              "environment": "production"
+            },
+            "properties": {
+              "provisioningState": "Succeeded",
+              "flowKind": "DiscoveryStreaming",
+              "linkedPublisherSettingId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/default",
+              "ingestionUnitId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.contoso/providers/Microsoft.ResourceNotifications/locations/eastus/ingestionUnits/eastus-flow",
+              "fullyQualifiedResourceType": "Microsoft.Compute/virtualMachines",
+              "enabled": true,
+              "managedIdentityResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ManagedIdentity/userAssignedIdentities/arn-gds-mi",
+              "gdsAccount": "ComputeGenevaAccount",
+              "gdsEventNamespaces": [
+                "Microsoft.Compute.VirtualMachines"
+              ],
+              "gdsEventNames": [
+                "ResourceChanged",
+                "ResourceDeleted"
+              ],
+              "transformationType": "ArmResource"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "Flows_ListByResourceGroup",
+  "title": "Flows - ListByResourceGroup"
+}

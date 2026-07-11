@@ -1,0 +1,27 @@
+{
+  "parameters": {
+    "api-version": "2026-08-01-preview",
+    "namespaceName": "Microsoft.Compute",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "settingName": "computeVmSetting"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "name": "computeVmSetting",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/computeVmSetting",
+        "type": "Microsoft.ResourceNotifications/namespaces/publisherSettings",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "alertingInfo": {
+            "severity": "3",
+            "notificationEmail": "compute-alerts@microsoft.com"
+          },
+          "enabled": true
+        }
+      }
+    }
+  },
+  "operationId": "PublisherSettingsOperations_Get",
+  "title": "PublisherSettingsOperations - Get"
+}
