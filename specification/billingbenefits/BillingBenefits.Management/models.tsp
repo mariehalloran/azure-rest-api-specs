@@ -4338,6 +4338,37 @@ model SpendPlanScheduledChanges {
 }
 
 /**
+ * A set of spend plan changes that can be patched for a future schedule.
+ */
+@added(Versions.v2026_07_01_preview)
+model SpendPlanPatchScheduledChanges {
+  /**
+   * Indicates when the scheduled change takes effect.
+   */
+  scheduledOn?: SpendPlanScheduledOn;
+
+  /**
+   * Represent benefit term in ISO 8601 format.
+   */
+  term?: Term;
+
+  /**
+   * Commitment towards the benefit.
+   */
+  commitment?: Commitment;
+
+  /**
+   * Represents the billing plan in ISO 8601 format. Required only for monthly billing plans.
+   */
+  billingPlan?: BillingPlan;
+
+  /**
+   * Product UPN for the spend plan type.
+   */
+  productCode?: string;
+}
+
+/**
  * Properties of a spend plan.
  */
 @added(Versions.v2026_07_01_preview)
@@ -4518,7 +4549,7 @@ model SpendPlanPatchProperties {
   /**
    * The changes that are scheduled to be applied to the spend plan in the future.
    */
-  scheduledChanges?: SpendPlanScheduledChanges;
+  scheduledChanges?: SpendPlanPatchScheduledChanges;
 
   /**
    * End DateTime in UTC.

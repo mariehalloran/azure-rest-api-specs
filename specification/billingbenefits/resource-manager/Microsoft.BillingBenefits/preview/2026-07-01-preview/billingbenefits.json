@@ -11208,7 +11208,7 @@
           "description": "Setting this to true will automatically purchase a new benefit on the expiration date time."
         },
         "scheduledChanges": {
-          "$ref": "#/definitions/SpendPlanScheduledChanges",
+          "$ref": "#/definitions/SpendPlanPatchScheduledChanges",
           "description": "The changes that are scheduled to be applied to the spend plan in the future."
         },
         "endAt": {
@@ -11232,6 +11232,32 @@
         "properties": {
           "$ref": "#/definitions/SpendPlanPatchProperties",
           "description": "Spend plan patch properties"
+        }
+      }
+    },
+    "SpendPlanPatchScheduledChanges": {
+      "type": "object",
+      "description": "A set of spend plan changes that can be patched for a future schedule.",
+      "properties": {
+        "scheduledOn": {
+          "$ref": "#/definitions/SpendPlanScheduledOn",
+          "description": "Indicates when the scheduled change takes effect."
+        },
+        "term": {
+          "$ref": "#/definitions/Term",
+          "description": "Represent benefit term in ISO 8601 format."
+        },
+        "commitment": {
+          "$ref": "#/definitions/Commitment",
+          "description": "Commitment towards the benefit."
+        },
+        "billingPlan": {
+          "$ref": "#/definitions/BillingPlan",
+          "description": "Represents the billing plan in ISO 8601 format. Required only for monthly billing plans."
+        },
+        "productCode": {
+          "type": "string",
+          "description": "Product UPN for the spend plan type."
         }
       }
     },
