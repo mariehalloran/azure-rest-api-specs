@@ -162,6 +162,9 @@ union ProvisioningState {
 union MigrationState {
   string,
 
+  @doc("Provisioning resources for Migration")
+  Provisioning: "Provisioning",
+
   @doc("Migration is in progress")
   InProgress: "InProgress",
 
