@@ -1,0 +1,43 @@
+{
+  "title": "SecurityVulnerabilities_List",
+  "operationId": "SecurityVulnerabilities_List",
+  "parameters": {
+    "api-version": "2026-06-30-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/providers/Microsoft.SecurityContext/securityVulnerabilities/defender-for-cloud--vulnerability-record-0001",
+            "name": "defender-for-cloud--vulnerability-record-0001",
+            "type": "Microsoft.SecurityContext/securityVulnerabilities",
+            "systemData": {
+              "createdBy": "securitycontext-publisher",
+              "createdByType": "Application",
+              "createdAt": "2026-06-30T09:30:00Z",
+              "lastModifiedBy": "securitycontext-publisher",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-06-30T09:30:00Z"
+            },
+            "properties": {
+              "sourceSystem": "defender-for-cloud",
+              "sourceRecordId": "vulnerability-record-0001",
+              "displayName": "Synthetic package vulnerability",
+              "severity": "High",
+              "status": "Active",
+              "lastUpdatedAt": "2026-06-30T09:30:00Z",
+              "vulnerabilityId": "CVE-2099-0001",
+              "vulnerabilityScope": "Host",
+              "componentName": "example-package",
+              "componentVersion": "1.2.3",
+              "componentEcosystem": "NuGet",
+              "knownExploited": false,
+              "exploitStatus": "NoKnownExploit"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

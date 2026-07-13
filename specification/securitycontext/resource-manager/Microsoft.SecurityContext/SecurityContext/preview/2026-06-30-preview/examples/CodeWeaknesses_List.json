@@ -1,0 +1,45 @@
+{
+  "title": "CodeWeaknesses_List",
+  "operationId": "CodeWeaknesses_List",
+  "parameters": {
+    "api-version": "2026-06-30-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/providers/Microsoft.SecurityContext/codeWeaknesses/security-code-analysis--weakness-record-0001",
+            "name": "security-code-analysis--weakness-record-0001",
+            "type": "Microsoft.SecurityContext/codeWeaknesses",
+            "systemData": {
+              "createdBy": "securitycontext-publisher",
+              "createdByType": "Application",
+              "createdAt": "2026-06-30T14:00:00Z",
+              "lastModifiedBy": "securitycontext-publisher",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-06-30T14:00:00Z"
+            },
+            "properties": {
+              "sourceSystem": "security-code-analysis",
+              "sourceRecordId": "weakness-record-0001",
+              "displayName": "Synthetic input validation weakness",
+              "severity": "High",
+              "status": "Active",
+              "lastUpdatedAt": "2026-06-30T14:00:00Z",
+              "ruleId": "EXAMPLE0001",
+              "weaknessIds": [
+                "CWE-79"
+              ],
+              "language": "CSharp",
+              "repositoryRevision": "0123456789abcdef0123456789abcdef01234567",
+              "relativePathHash": "36fe36101edee7e4427892c9882a07552fe07ced21d8b893241b9c6c7bfa32f0",
+              "startLine": 42,
+              "endLine": 45
+            }
+          }
+        ]
+      }
+    }
+  }
+}

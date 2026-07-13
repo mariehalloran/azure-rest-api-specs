@@ -9,13 +9,35 @@
       "body": {
         "value": [
           {
-            "name": "Microsoft.SecurityContext/containerVulnerabilities/read",
+            "name": "Microsoft.SecurityContext/securityVulnerabilities/read",
             "isDataAction": false,
             "display": {
               "provider": "Microsoft.SecurityContext",
-              "resource": "containerVulnerabilities",
-              "operation": "Read container vulnerabilities",
-              "description": "Reads container vulnerability resources."
+              "resource": "Security vulnerabilities",
+              "operation": "Read security vulnerabilities",
+              "description": "Reads security vulnerability resources."
+            },
+            "origin": "user"
+          },
+          {
+            "name": "Microsoft.SecurityContext/internetExposures/read",
+            "isDataAction": false,
+            "display": {
+              "provider": "Microsoft.SecurityContext",
+              "resource": "Internet exposures",
+              "operation": "Read internet exposures",
+              "description": "Reads internet exposure resources."
+            },
+            "origin": "user"
+          },
+          {
+            "name": "Microsoft.SecurityContext/codeWeaknesses/read",
+            "isDataAction": false,
+            "display": {
+              "provider": "Microsoft.SecurityContext",
+              "resource": "Code weaknesses",
+              "operation": "Read code weaknesses",
+              "description": "Reads code weakness resources."
             },
             "origin": "user"
           }
