@@ -36,7 +36,7 @@ model LookupValueExchangeResult {
 model OfferValueNameParameter
   is ResourceNameParameter<
     Resource = OfferValue,
-    KeyName = "valueExchangeId",
+    KeyName = "productCode",
     SegmentName = "offerValues",
     NamePattern = "^[A-Z0-9]{12}$"
   >;

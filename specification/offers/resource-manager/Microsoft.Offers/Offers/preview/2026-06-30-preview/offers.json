@@ -310,7 +310,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/offerValues/{valueExchangeId}": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Offers/offerValues/{productCode}": {
       "get": {
         "operationId": "OfferValues_Get",
         "tags": [
@@ -325,7 +325,7 @@
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "name": "valueExchangeId",
+            "name": "productCode",
             "in": "path",
             "description": "The name of the OfferValue",
             "required": true,
