@@ -74,10 +74,8 @@ interface SpendPlans {
     SpendPlan,
     Request = void,
     BaseParameters = Azure.ResourceManager.Foundations.DefaultBaseParameters<SpendPlan>,
-    Response =
-      | ArmResponse<SpendPlan>
-      | ArmAcceptedLroResponse<LroHeaders = ArmCombinedLroHeaders<FinalResult = SpendPlan> &
-          Azure.Core.Foundations.RetryAfterHeader>
+    Response = ArmResponse<SpendPlan> | ArmAcceptedLroResponse<LroHeaders = ArmCombinedLroHeaders<FinalResult = SpendPlan> &
+      Azure.Core.Foundations.RetryAfterHeader>
   >;
 }
 
