@@ -67,15 +67,11 @@ interface FailoverInstances {
   @doc("List Failover Instances")
   listByScheduler is ArmResourceListByParent<FailoverInstance>;
   @doc("Trigger a graceful failover for the parent scheduler")
-  failover is ArmResourceActionAsync<
-    FailoverInstance,
-    void,
-    Azure.ResourceManager.Foundations.OperationStatusResult
-  >;
+  failover is ArmResourceActionAsync<FailoverInstance, void, FailoverInstance>;
   @doc("Trigger a forced failover with potential data loss for the parent scheduler")
   forceFailoverAllowDataLoss is ArmResourceActionAsync<
     FailoverInstance,
     void,
-    Azure.ResourceManager.Foundations.OperationStatusResult
+    FailoverInstance
   >;
 }

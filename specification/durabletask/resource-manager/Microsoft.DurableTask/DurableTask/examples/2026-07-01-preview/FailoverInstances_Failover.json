@@ -16,11 +16,23 @@
     },
     "200": {
       "body": {
-        "id": "/subscriptions/194D3C1E-462F-4738-9025-092A628C06EB/providers/Microsoft.DurableTask/locations/westus/operationStatuses/3f53bdb3-6b66-4b12-a079-4a8e9b3f0f7f",
-        "name": "3f53bdb3-6b66-4b12-a079-4a8e9b3f0f7f",
-        "status": "Succeeded",
-        "startTime": "2026-07-13T18:30:00Z",
-        "endTime": "2026-07-13T18:30:43Z"
+        "properties": {
+          "provisioningState": "Succeeded",
+          "replicationRole": "Primary",
+          "partnerScheduler": "/subscriptions/194D3C1E-462F-4738-9025-092A628C06EB/resourceGroups/rgdurabletask-secondary/providers/Microsoft.DurableTask/schedulers/testscheduler-secondary",
+          "partnerLocation": "westus2"
+        },
+        "id": "/subscriptions/194D3C1E-462F-4738-9025-092A628C06EB/resourceGroups/rgdurabletask/providers/Microsoft.DurableTask/schedulers/testscheduler/failoverInstances/default",
+        "name": "default",
+        "type": "Microsoft.DurableTask/schedulers/failoverInstances",
+        "systemData": {
+          "createdBy": "zshkmc",
+          "createdByType": "User",
+          "createdAt": "2025-03-31T23:34:09.612Z",
+          "lastModifiedBy": "ivqrae",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-07-13T18:30:43Z"
+        }
       }
     }
   }
