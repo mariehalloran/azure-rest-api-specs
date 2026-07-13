@@ -25,6 +25,10 @@ namespace Microsoft.SecurityContext;
 enum Versions {
   /** 2026-06-30-preview version. */
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
-  @Azure.Core.previewVersion
   v2026_06_30_preview: "2026-06-30-preview",
+
+  /** 2026-07-13-preview version. */
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  @Azure.Core.previewVersion
+  v2026_07_13_preview: "2026-07-13-preview",
 }

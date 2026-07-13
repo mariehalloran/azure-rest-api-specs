@@ -1,15 +1,18 @@
 import "@typespec/http";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./common.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 
 namespace Microsoft.SecurityContext;
 
 /** A network endpoint or service observed as reachable from the internet. */
+@added(Versions.v2026_07_13_preview)
 @tenantResource
 model InternetExposure is ProxyResource<InternetExposureProperties, false> {
   /** The stable human-readable resource name: `{source-system-slug}--{source-record-slug}`. */
@@ -25,6 +28,7 @@ model InternetExposure is ProxyResource<InternetExposureProperties, false> {
 
 /** Properties of an internet exposure observation. */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "This read-only observation is computed by the service and is not provisioned through ARM."
+@added(Versions.v2026_07_13_preview)
 model InternetExposureProperties {
   ...ObservationProperties;
 
@@ -70,6 +74,7 @@ model InternetExposureProperties {
 }
 
 /** Read-only operations for internet exposure observations. */
+@added(Versions.v2026_07_13_preview)
 @armResourceOperations
 interface InternetExposures {
   /** Gets an internet exposure observation. */

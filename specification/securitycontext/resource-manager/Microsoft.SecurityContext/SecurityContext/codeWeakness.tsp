@@ -1,15 +1,18 @@
 import "@typespec/http";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./common.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 
 namespace Microsoft.SecurityContext;
 
 /** A weakness observed in source code. */
+@added(Versions.v2026_07_13_preview)
 @tenantResource
 model CodeWeakness is ProxyResource<CodeWeaknessProperties, false> {
   /** The stable human-readable resource name: `{source-system-slug}--{source-record-slug}`. */
@@ -25,6 +28,7 @@ model CodeWeakness is ProxyResource<CodeWeaknessProperties, false> {
 
 /** Properties of a code weakness observation. */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "This read-only observation is computed by the service and is not provisioned through ARM."
+@added(Versions.v2026_07_13_preview)
 model CodeWeaknessProperties {
   ...ObservationProperties;
 
@@ -68,6 +72,7 @@ model CodeWeaknessProperties {
 }
 
 /** Read-only operations for code weakness observations. */
+@added(Versions.v2026_07_13_preview)
 @armResourceOperations
 interface CodeWeaknesses {
   /** Gets a code weakness observation. */

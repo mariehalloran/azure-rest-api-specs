@@ -1,6 +1,11 @@
+import "@typespec/versioning";
+
+using TypeSpec.Versioning;
+
 namespace Microsoft.SecurityContext;
 
 /** Severity assigned to a security observation. */
+@added(Versions.v2026_07_13_preview)
 union FindingSeverity {
   /** Critical severity. */
   Critical: "Critical",
@@ -24,6 +29,7 @@ union FindingSeverity {
 }
 
 /** Lifecycle status of a security observation. */
+@added(Versions.v2026_07_13_preview)
 union FindingStatus {
   /** The observation is active. */
   Active: "Active",
@@ -41,6 +47,7 @@ union FindingStatus {
 }
 
 /** Scope on which a software vulnerability was observed. */
+@added(Versions.v2026_07_13_preview)
 union VulnerabilityScope {
   /** A vulnerability observed on a host. */
   Host: "Host",
@@ -52,6 +59,7 @@ union VulnerabilityScope {
 }
 
 /** Exploitability status reported for a vulnerability. */
+@added(Versions.v2026_07_13_preview)
 union ExploitStatus {
   /** Exploitation is known to occur in the wild. */
   KnownExploited: "KnownExploited",
@@ -69,6 +77,7 @@ union ExploitStatus {
 }
 
 /** Transport protocol associated with an internet exposure. */
+@added(Versions.v2026_07_13_preview)
 union TransportProtocol {
   /** Transmission Control Protocol. */
   Tcp: "TCP",
@@ -80,6 +89,7 @@ union TransportProtocol {
 }
 
 /** Properties common to SecurityContext observation resources. */
+@added(Versions.v2026_07_13_preview)
 model ObservationProperties {
   /** The registered lowercase slug of the system that produced the observation. */
   @visibility(Lifecycle.Read)
