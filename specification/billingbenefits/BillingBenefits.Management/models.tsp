@@ -35,10 +35,11 @@ model BenefitVersionedExpansionProperties {
   ...BenefitCommonVersionedProperties;
 
   /**
-   * Amount of benefit that has been consumed
+   * Amount and percentage of the benefit that has been consumed.
    */
   @visibility(Lifecycle.Read)
-  consumed?: Price;
+  @typeChangedFrom(Versions.v2026_07_01_preview, Price)
+  consumed?: Consumed;
 }
 
 /**
@@ -835,6 +836,29 @@ model Price {
 
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   amount?: float64;
+}
+
+/**
+ * The amount and percentage of a benefit that has been consumed.
+ */
+@added(Versions.v2026_07_01_preview)
+model Consumed {
+  /**
+   * The ISO 4217 3-letter currency code for the consumed amount.
+   */
+  currencyCode?: string;
+
+  /**
+   * The consumed amount in the currency specified by currencyCode.
+   */
+  amount?: float64;
+
+  /**
+   * Percentage of the benefit that has been consumed, from 0 to 100. For indirect customers only this percentage is populated; for all other customers amount, currencyCode, and percentage are populated.
+   */
+  @minValue(0)
+  @maxValue(100)
+  percentage?: float64;
 }
 
 /**
@@ -4206,3 +4230,376 @@ model NotificationRulePatchRequestProperties {
  */
 @added(Versions.v2026_07_01_preview)
 model NotificationRuleList is Azure.Core.Page<NotificationRule>;
+
+/**
+ * The kind of spend plan.
+ */
+@added(Versions.v2026_07_01_preview)
+union SpendPlanKind {
+  string,
+
+  /**
+   * A flexible spend plan.
+   */
+  FlexSpendPlan: "FlexSpendPlan",
+}
+
+/**
+ * Status of the spend plan.
+ */
+@added(Versions.v2026_07_01_preview)
+union SpendPlanStatus {
+  string,
+
+  /**
+   * The spend plan is active and available for use.
+   */
+  Active: "Active",
+
+  /**
+   * The spend plan is pending activation.
+   */
+  Pending: "Pending",
+
+  /**
+   * The spend plan has been canceled.
+   */
+  Canceled: "Canceled",
+
+  /**
+   * The spend plan has expired.
+   */
+  Expired: "Expired",
+
+  /**
+   * The spend plan operation failed.
+   */
+  Failed: "Failed",
+}
+
+/**
+ * Indicates when a scheduled change to the spend plan takes effect.
+ */
+@added(Versions.v2026_07_01_preview)
+union SpendPlanScheduledOn {
+  string,
+
+  /**
+   * The scheduled change is applied when the spend plan renews.
+   */
+  Renew: "Renew",
+}
+
+/**
+ * Product details for a spend plan.
+ */
+@added(Versions.v2026_07_01_preview)
+model SpendPlanProductDetails {
+  ...ProductDetailsBase;
+}
+
+/**
+ * Properties of a spend plan that can be scheduled to change in the future.
+ */
+@added(Versions.v2026_07_01_preview)
+model SpendPlanScheduledProperties {
+  /**
+   * Represent benefit term in ISO 8601 format.
+   */
+  term?: Term;
+
+  /**
+   * Commitment towards the benefit.
+   */
+  commitment?: Commitment;
+
+  /**
+   * Represents the billing plan in ISO 8601 format. Required only for monthly billing plans.
+   */
+  billingPlan?: BillingPlan;
+
+  /**
+   * Product UPN for the spend plan type.
+   */
+  productCode: string;
+}
+
+/**
+ * A set of changes that are scheduled to be applied to the spend plan in the future.
+ */
+@added(Versions.v2026_07_01_preview)
+model SpendPlanScheduledChanges {
+  /**
+   * Indicates when the scheduled change takes effect.
+   */
+  scheduledOn: SpendPlanScheduledOn;
+
+  ...SpendPlanScheduledProperties;
+}
+
+/**
+ * A set of spend plan changes that can be patched for a future schedule.
+ */
+@added(Versions.v2026_07_01_preview)
+model SpendPlanPatchScheduledChanges {
+  /**
+   * Indicates when the scheduled change takes effect.
+   */
+  scheduledOn?: SpendPlanScheduledOn;
+
+  /**
+   * Represent benefit term in ISO 8601 format.
+   */
+  term?: Term;
+
+  /**
+   * Commitment towards the benefit.
+   */
+  commitment?: Commitment;
+
+  /**
+   * Represents the billing plan in ISO 8601 format. Required only for monthly billing plans.
+   */
+  billingPlan?: BillingPlan;
+
+  /**
+   * Product UPN for the spend plan type.
+   */
+  productCode?: string;
+}
+
+/**
+ * Properties of a spend plan.
+ */
+@added(Versions.v2026_07_01_preview)
+model SpendPlanProperties {
+  /**
+   * Provisioning state
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: BenefitProvisioningState;
+
+  /**
+   * System identifier
+   */
+  systemId?: string;
+
+  /**
+   * Identifier of the order created during spend plan acquisition.
+   */
+  @visibility(Lifecycle.Read)
+  orderId?: string;
+
+  /**
+   * Status of the spend plan
+   */
+  @visibility(Lifecycle.Read)
+  status?: SpendPlanStatus;
+
+  /**
+   * Display name
+   */
+  displayName: string;
+
+  /**
+   * Product UPN for the spend plan type
+   */
+  productCode: string;
+
+  /**
+   * Product details including SKU title, product family, and product type.
+   */
+  @visibility(Lifecycle.Read)
+  productDetails?: SpendPlanProductDetails;
+
+  /**
+   * Fully-qualified identifier of the billing subscription that is charged for the spend plan.
+   */
+  billingSubscriptionId: Azure.Core.armResourceIdentifier<[
+    {
+      scopes: ["Tenant"];
+      type: "Microsoft.Resources/subscriptions";
+    }
+  ]>;
+
+  /**
+   * Fully-qualified identifier of the billing account where the benefit is applied.
+   */
+  @visibility(Lifecycle.Read)
+  billingAccountResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      scopes: ["Tenant"];
+      type: "Microsoft.Billing/billingAccounts";
+    }
+  ]>;
+
+  /**
+   * Fully-qualified identifier of the billing profile where the benefit is applied.
+   */
+  @visibility(Lifecycle.Read)
+  billingProfileResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      scopes: ["Tenant"];
+      type: "Microsoft.Billing/billingAccounts/billingProfiles";
+    }
+  ]>;
+
+  /**
+   * Customer resource id where the benefit is scoped to.
+   */
+  @visibility(Lifecycle.Read)
+  customerResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      scopes: ["Tenant"];
+      type: "Microsoft.Billing/billingAccounts/customers";
+    }
+  ]>;
+
+  /**
+   * Represent benefit term in ISO 8601 format.
+   */
+  term: Term;
+
+  /**
+   * Commitment towards the benefit.
+   */
+  commitment: Commitment;
+
+  /**
+   * Represents the billing plan in ISO 8601 format. Required only for monthly billing plans.
+   */
+  billingPlan: BillingPlan;
+
+  /**
+   * Type of the Applied Scope.
+   */
+  appliedScopeType: AppliedScopeType;
+
+  /**
+   * Properties specific to applied scope type. Not required if not applicable.
+   */
+  appliedScopeProperties?: AppliedScopeProperties;
+
+  /**
+   * Setting this to true will automatically purchase a new benefit on the expiration date time.
+   */
+  renew: boolean = false;
+
+  /**
+   * The changes that are scheduled to be applied to the spend plan in the future.
+   */
+  scheduledChanges?: SpendPlanScheduledChanges;
+
+  /**
+   * Start DateTime.
+   */
+  startAt?: utcDateTime;
+
+  /**
+   * End DateTime in UTC.
+   */
+  endAt?: utcDateTime;
+
+  ...BenefitVersionedExpansionProperties;
+}
+
+/**
+ * Spend plan patch request
+ */
+#suppress "@azure-tools/typespec-azure-resource-manager/patch-envelope" "Spend plan patch supports tags and a subset of properties"
+@added(Versions.v2026_07_01_preview)
+model SpendPlanPatchRequest {
+  /**
+   * Resource tags
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "tags is a standard ARM patch envelope property"
+  tags?: Record<string>;
+
+  /**
+   * Spend plan patch properties
+   */
+  properties?: SpendPlanPatchProperties;
+}
+
+/**
+ * Spend plan patch properties
+ */
+@added(Versions.v2026_07_01_preview)
+model SpendPlanPatchProperties {
+  /**
+   * Display name
+   */
+  displayName?: string;
+
+  /**
+   * Commitment towards the benefit. Only amount can be modified.
+   */
+  commitment?: Commitment;
+
+  /**
+   * Represents the billing plan in ISO 8601 format. Required only for monthly billing plans.
+   */
+  billingPlan?: BillingPlan;
+
+  /**
+   * Setting this to true will automatically purchase a new benefit on the expiration date time.
+   */
+  renew?: boolean;
+
+  /**
+   * The changes that are scheduled to be applied to the spend plan in the future.
+   */
+  scheduledChanges?: SpendPlanPatchScheduledChanges;
+
+  /**
+   * End DateTime in UTC.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  endAt?: utcDateTime;
+}
+
+/**
+ * List of spend plans
+ */
+@added(Versions.v2026_07_01_preview)
+model SpendPlanList is Azure.Core.Page<SpendPlan>;
+
+/**
+ * Properties of a spend plan term. A term captures a past configuration of the spend plan that was superseded by a scheduled change.
+ */
+@added(Versions.v2026_07_01_preview)
+model SpendPlanTermProperties {
+  /**
+   * Globally unique system identifier of the spend plan configuration captured by this term.
+   */
+  @visibility(Lifecycle.Read)
+  systemId?: string;
+
+  /**
+   * Provisioning state.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: BenefitProvisioningState;
+
+  ...SpendPlanScheduledProperties;
+
+  /**
+   * The DateTime from which this configuration became active.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  @visibility(Lifecycle.Read)
+  startAt?: utcDateTime;
+
+  /**
+   * The DateTime until which this configuration was active.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  @visibility(Lifecycle.Read)
+  endAt?: utcDateTime;
+}
+
+/**
+ * List of spend plan terms
+ */
+@added(Versions.v2026_07_01_preview)
+model SpendPlanTermList is Azure.Core.Page<SpendPlanTerm>;

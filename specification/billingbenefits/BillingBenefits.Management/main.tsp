@@ -31,6 +31,8 @@ import "./MaccTransaction.tsp";
 import "./ConditionalCreditTransaction.tsp";
 import "./CatalogGroup.tsp";
 import "./NotificationRule.tsp";
+import "./SpendPlan.tsp";
+import "./SpendPlanTerm.tsp";
 import "./client.tsp";
 
 using TypeSpec.Rest;
