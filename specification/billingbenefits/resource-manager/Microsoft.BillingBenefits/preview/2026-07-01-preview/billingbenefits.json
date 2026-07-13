@@ -98,6 +98,12 @@
     },
     {
       "name": "NotificationRules"
+    },
+    {
+      "name": "SpendPlans"
+    },
+    {
+      "name": "SpendPlanTerms"
     }
   ],
   "paths": {
@@ -1999,6 +2005,45 @@
           },
           "Maccs_ListBySubscription": {
             "$ref": "./examples/MaccsListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.BillingBenefits/spendPlans": {
+      "get": {
+        "operationId": "SpendPlans_ListBySubscription",
+        "tags": [
+          "SpendPlans"
+        ],
+        "description": "List spend plans under a subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SpendPlanList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SpendPlansListBySubscription": {
+            "$ref": "./examples/SpendPlansListBySubscription.json"
           }
         },
         "x-ms-pageable": {
@@ -5047,6 +5092,480 @@
         },
         "x-ms-long-running-operation": true
       }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/spendPlans": {
+      "get": {
+        "operationId": "SpendPlans_ListByResourceGroup",
+        "tags": [
+          "SpendPlans"
+        ],
+        "description": "List spend plans under a resource group.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SpendPlanList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SpendPlansListByResourceGroup": {
+            "$ref": "./examples/SpendPlansListByResourceGroup.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/spendPlans/{spendPlanName}": {
+      "get": {
+        "operationId": "SpendPlans_Get",
+        "tags": [
+          "SpendPlans"
+        ],
+        "description": "Get a spend plan.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "spendPlanName",
+            "in": "path",
+            "description": "Name of the spend plan",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SpendPlan"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SpendPlanGet": {
+            "$ref": "./examples/SpendPlanGet.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "SpendPlans_Create",
+        "tags": [
+          "SpendPlans"
+        ],
+        "description": "Create a spend plan.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "spendPlanName",
+            "in": "path",
+            "description": "Name of the spend plan",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Spend plan create request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SpendPlan"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'SpendPlan' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/SpendPlan"
+            }
+          },
+          "201": {
+            "description": "Resource 'SpendPlan' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/SpendPlan"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "URL for checking the ongoing status of the operation."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SpendPlanCreate": {
+            "$ref": "./examples/SpendPlanCreate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation",
+          "final-state-schema": "#/definitions/SpendPlan"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "SpendPlans_Update",
+        "tags": [
+          "SpendPlans"
+        ],
+        "description": "Update a spend plan.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "spendPlanName",
+            "in": "path",
+            "description": "Name of the spend plan",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "Spend plan patch request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SpendPlanPatchRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SpendPlan"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SpendPlanUpdate": {
+            "$ref": "./examples/SpendPlanUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location",
+          "final-state-schema": "#/definitions/SpendPlan"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "SpendPlans_Delete",
+        "tags": [
+          "SpendPlans"
+        ],
+        "description": "Delete a spend plan.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "spendPlanName",
+            "in": "path",
+            "description": "Name of the spend plan",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SpendPlanDelete": {
+            "$ref": "./examples/SpendPlanDelete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/spendPlans/{spendPlanName}/cancel": {
+      "post": {
+        "operationId": "SpendPlans_Cancel",
+        "tags": [
+          "SpendPlans"
+        ],
+        "description": "Cancel a spend plan. This stops applying the benefit to the account but does not delete the spend plan resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "spendPlanName",
+            "in": "path",
+            "description": "Name of the spend plan",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SpendPlan"
+            }
+          },
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "URL for checking the ongoing status of the operation."
+              },
+              "Location": {
+                "type": "string",
+                "description": "Location URI to poll for result."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SpendPlanCancel": {
+            "$ref": "./examples/SpendPlanCancel.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation",
+          "final-state-schema": "#/definitions/SpendPlan"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/spendPlans/{spendPlanName}/terms": {
+      "get": {
+        "operationId": "SpendPlanTerms_ListByParent",
+        "tags": [
+          "SpendPlanTerms"
+        ],
+        "description": "List all terms of a spend plan.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "spendPlanName",
+            "in": "path",
+            "description": "Name of the spend plan",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SpendPlanTermList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SpendPlanTermsList": {
+            "$ref": "./examples/SpendPlanTermsList.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BillingBenefits/spendPlans/{spendPlanName}/terms/{termName}": {
+      "get": {
+        "operationId": "SpendPlanTerms_Get",
+        "tags": [
+          "SpendPlanTerms"
+        ],
+        "description": "Get a specific term of a spend plan.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "spendPlanName",
+            "in": "path",
+            "description": "Name of the spend plan",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "termName",
+            "in": "path",
+            "description": "Name of the spend plan term",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SpendPlanTerm"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SpendPlanTermGet": {
+            "$ref": "./examples/SpendPlanTermGet.json"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -6007,8 +6526,8 @@
           ]
         },
         "consumed": {
-          "$ref": "#/definitions/Price",
-          "description": "Amount of benefit that has been consumed",
+          "$ref": "#/definitions/Consumed",
+          "description": "Amount and percentage of the benefit that has been consumed.",
           "readOnly": true
         }
       },
@@ -6142,6 +6661,28 @@
         },
         "type": {
           "type": "string"
+        }
+      }
+    },
+    "Consumed": {
+      "type": "object",
+      "description": "The amount and percentage of a benefit that has been consumed.",
+      "properties": {
+        "currencyCode": {
+          "type": "string",
+          "description": "The ISO 4217 3-letter currency code for the consumed amount."
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "The consumed amount in the currency specified by currencyCode."
+        },
+        "percentage": {
+          "type": "number",
+          "format": "double",
+          "description": "Percentage of the benefit that has been consumed, from 0 to 100. For indirect customers only this percentage is populated; for all other customers amount, currencyCode, and percentage are populated.",
+          "minimum": 0,
+          "maximum": 100
         }
       }
     },
@@ -6585,8 +7126,8 @@
           ]
         },
         "consumed": {
-          "$ref": "#/definitions/Price",
-          "description": "Amount of benefit that has been consumed",
+          "$ref": "#/definitions/Consumed",
+          "description": "Amount and percentage of the benefit that has been consumed.",
           "readOnly": true
         },
         "productDetails": {
@@ -8257,8 +8798,8 @@
           ]
         },
         "consumed": {
-          "$ref": "#/definitions/Price",
-          "description": "Amount of benefit that has been consumed",
+          "$ref": "#/definitions/Consumed",
+          "description": "Amount and percentage of the benefit that has been consumed.",
           "readOnly": true
         }
       },
@@ -10581,6 +11122,471 @@
       },
       "required": [
         "name"
+      ]
+    },
+    "SpendPlan": {
+      "type": "object",
+      "description": "Spend plan resource definition.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/SpendPlanProperties",
+          "description": "Spend plan properties"
+        },
+        "kind": {
+          "$ref": "#/definitions/SpendPlanKind",
+          "description": "Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value.",
+          "pattern": "^[-\\w\\._,\\(\\\\\\)]+$",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "SpendPlanKind": {
+      "type": "string",
+      "description": "The kind of spend plan.",
+      "enum": [
+        "FlexSpendPlan"
+      ],
+      "x-ms-enum": {
+        "name": "SpendPlanKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "FlexSpendPlan",
+            "value": "FlexSpendPlan",
+            "description": "A flexible spend plan."
+          }
+        ]
+      }
+    },
+    "SpendPlanList": {
+      "type": "object",
+      "description": "List of spend plans",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The SpendPlan items on this page",
+          "items": {
+            "$ref": "#/definitions/SpendPlan"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "SpendPlanPatchProperties": {
+      "type": "object",
+      "description": "Spend plan patch properties",
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "Display name"
+        },
+        "commitment": {
+          "$ref": "#/definitions/Commitment",
+          "description": "Commitment towards the benefit. Only amount can be modified."
+        },
+        "billingPlan": {
+          "$ref": "#/definitions/BillingPlan",
+          "description": "Represents the billing plan in ISO 8601 format. Required only for monthly billing plans."
+        },
+        "renew": {
+          "type": "boolean",
+          "description": "Setting this to true will automatically purchase a new benefit on the expiration date time."
+        },
+        "scheduledChanges": {
+          "$ref": "#/definitions/SpendPlanScheduledChanges",
+          "description": "The changes that are scheduled to be applied to the spend plan in the future."
+        },
+        "endAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End DateTime in UTC."
+        }
+      }
+    },
+    "SpendPlanPatchRequest": {
+      "type": "object",
+      "description": "Spend plan patch request",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/SpendPlanPatchProperties",
+          "description": "Spend plan patch properties"
+        }
+      }
+    },
+    "SpendPlanProductDetails": {
+      "type": "object",
+      "description": "Product details for a spend plan.",
+      "properties": {
+        "skuTitle": {
+          "type": "string",
+          "description": "SKU title of the product"
+        },
+        "productFamily": {
+          "type": "string",
+          "description": "The product family, for example \"Azure\" or \"M365\"."
+        },
+        "productType": {
+          "type": "string",
+          "description": "The type of the product."
+        }
+      }
+    },
+    "SpendPlanProperties": {
+      "type": "object",
+      "description": "Properties of a spend plan.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/BenefitProvisioningState",
+          "description": "Provisioning state",
+          "readOnly": true
+        },
+        "systemId": {
+          "type": "string",
+          "description": "System identifier"
+        },
+        "orderId": {
+          "type": "string",
+          "description": "Identifier of the order created during spend plan acquisition.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/SpendPlanStatus",
+          "description": "Status of the spend plan",
+          "readOnly": true
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name"
+        },
+        "productCode": {
+          "type": "string",
+          "description": "Product UPN for the spend plan type"
+        },
+        "productDetails": {
+          "$ref": "#/definitions/SpendPlanProductDetails",
+          "description": "Product details including SKU title, product family, and product type.",
+          "readOnly": true
+        },
+        "billingSubscriptionId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Fully-qualified identifier of the billing subscription that is charged for the spend plan.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "scopes": [
+                  "Tenant"
+                ],
+                "type": "Microsoft.Resources/subscriptions"
+              }
+            ]
+          }
+        },
+        "billingAccountResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Fully-qualified identifier of the billing account where the benefit is applied.",
+          "readOnly": true,
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "scopes": [
+                  "Tenant"
+                ],
+                "type": "Microsoft.Billing/billingAccounts"
+              }
+            ]
+          }
+        },
+        "billingProfileResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Fully-qualified identifier of the billing profile where the benefit is applied.",
+          "readOnly": true,
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "scopes": [
+                  "Tenant"
+                ],
+                "type": "Microsoft.Billing/billingAccounts/billingProfiles"
+              }
+            ]
+          }
+        },
+        "customerResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Customer resource id where the benefit is scoped to.",
+          "readOnly": true,
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "scopes": [
+                  "Tenant"
+                ],
+                "type": "Microsoft.Billing/billingAccounts/customers"
+              }
+            ]
+          }
+        },
+        "term": {
+          "$ref": "#/definitions/Term",
+          "description": "Represent benefit term in ISO 8601 format."
+        },
+        "commitment": {
+          "$ref": "#/definitions/Commitment",
+          "description": "Commitment towards the benefit."
+        },
+        "billingPlan": {
+          "$ref": "#/definitions/BillingPlan",
+          "description": "Represents the billing plan in ISO 8601 format. Required only for monthly billing plans."
+        },
+        "appliedScopeType": {
+          "$ref": "#/definitions/AppliedScopeType",
+          "description": "Type of the Applied Scope."
+        },
+        "appliedScopeProperties": {
+          "$ref": "#/definitions/AppliedScopeProperties",
+          "description": "Properties specific to applied scope type. Not required if not applicable."
+        },
+        "renew": {
+          "type": "boolean",
+          "description": "Setting this to true will automatically purchase a new benefit on the expiration date time.",
+          "default": false
+        },
+        "scheduledChanges": {
+          "$ref": "#/definitions/SpendPlanScheduledChanges",
+          "description": "The changes that are scheduled to be applied to the spend plan in the future."
+        },
+        "startAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start DateTime."
+        },
+        "endAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End DateTime in UTC."
+        },
+        "invitationId": {
+          "type": "string",
+          "description": "Invitation identifier",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "consumed": {
+          "$ref": "#/definitions/Consumed",
+          "description": "Amount and percentage of the benefit that has been consumed.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "displayName",
+        "productCode",
+        "billingSubscriptionId",
+        "term",
+        "commitment",
+        "billingPlan",
+        "appliedScopeType",
+        "renew"
+      ]
+    },
+    "SpendPlanScheduledChanges": {
+      "type": "object",
+      "description": "A set of changes that are scheduled to be applied to the spend plan in the future.",
+      "properties": {
+        "scheduledOn": {
+          "$ref": "#/definitions/SpendPlanScheduledOn",
+          "description": "Indicates when the scheduled change takes effect."
+        },
+        "term": {
+          "$ref": "#/definitions/Term",
+          "description": "Represent benefit term in ISO 8601 format."
+        },
+        "commitment": {
+          "$ref": "#/definitions/Commitment",
+          "description": "Commitment towards the benefit."
+        },
+        "billingPlan": {
+          "$ref": "#/definitions/BillingPlan",
+          "description": "Represents the billing plan in ISO 8601 format. Required only for monthly billing plans."
+        },
+        "productCode": {
+          "type": "string",
+          "description": "Product UPN for the spend plan type."
+        }
+      },
+      "required": [
+        "scheduledOn",
+        "productCode"
+      ]
+    },
+    "SpendPlanScheduledOn": {
+      "type": "string",
+      "description": "Indicates when a scheduled change to the spend plan takes effect.",
+      "enum": [
+        "Renew"
+      ],
+      "x-ms-enum": {
+        "name": "SpendPlanScheduledOn",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Renew",
+            "value": "Renew",
+            "description": "The scheduled change is applied when the spend plan renews."
+          }
+        ]
+      }
+    },
+    "SpendPlanStatus": {
+      "type": "string",
+      "description": "Status of the spend plan.",
+      "enum": [
+        "Active",
+        "Pending",
+        "Canceled",
+        "Expired",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "SpendPlanStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Active",
+            "value": "Active",
+            "description": "The spend plan is active and available for use."
+          },
+          {
+            "name": "Pending",
+            "value": "Pending",
+            "description": "The spend plan is pending activation."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "The spend plan has been canceled."
+          },
+          {
+            "name": "Expired",
+            "value": "Expired",
+            "description": "The spend plan has expired."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "The spend plan operation failed."
+          }
+        ]
+      }
+    },
+    "SpendPlanTerm": {
+      "type": "object",
+      "description": "Spend plan term resource definition. A term represents a past configuration of a spend plan that was superseded by a scheduled change.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/SpendPlanTermProperties",
+          "description": "Spend plan term properties"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "SpendPlanTermList": {
+      "type": "object",
+      "description": "List of spend plan terms",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The SpendPlanTerm items on this page",
+          "items": {
+            "$ref": "#/definitions/SpendPlanTerm"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "SpendPlanTermProperties": {
+      "type": "object",
+      "description": "Properties of a spend plan term. A term captures a past configuration of the spend plan that was superseded by a scheduled change.",
+      "properties": {
+        "systemId": {
+          "type": "string",
+          "description": "Globally unique system identifier of the spend plan configuration captured by this term.",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/BenefitProvisioningState",
+          "description": "Provisioning state.",
+          "readOnly": true
+        },
+        "term": {
+          "$ref": "#/definitions/Term",
+          "description": "Represent benefit term in ISO 8601 format."
+        },
+        "commitment": {
+          "$ref": "#/definitions/Commitment",
+          "description": "Commitment towards the benefit."
+        },
+        "billingPlan": {
+          "$ref": "#/definitions/BillingPlan",
+          "description": "Represents the billing plan in ISO 8601 format. Required only for monthly billing plans."
+        },
+        "productCode": {
+          "type": "string",
+          "description": "Product UPN for the spend plan type."
+        },
+        "startAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The DateTime from which this configuration became active.",
+          "readOnly": true
+        },
+        "endAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The DateTime until which this configuration was active.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "productCode"
       ]
     },
     "Term": {

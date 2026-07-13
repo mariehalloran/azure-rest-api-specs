@@ -70,11 +70,14 @@ interface SpendPlans {
    * Cancel a spend plan. This stops applying the benefit to the account but does not delete the spend plan resource.
    */
   @Azure.Core.useFinalStateVia("azure-async-operation")
-  cancel is ArmResourceActionAsync<
+  cancel is ArmResourceActionAsyncBase<
     SpendPlan,
-    void,
-    ArmResponse<SpendPlan> | ArmAcceptedLroResponse<LroHeaders = ArmCombinedLroHeaders<FinalResult = SpendPlan> &
-      Azure.Core.Foundations.RetryAfterHeader>
+    Request = void,
+    BaseParameters = Azure.ResourceManager.Foundations.DefaultBaseParameters<SpendPlan>,
+    Response =
+      | ArmResponse<SpendPlan>
+      | ArmAcceptedLroResponse<LroHeaders = ArmCombinedLroHeaders<FinalResult = SpendPlan> &
+          Azure.Core.Foundations.RetryAfterHeader>
   >;
 }
 
