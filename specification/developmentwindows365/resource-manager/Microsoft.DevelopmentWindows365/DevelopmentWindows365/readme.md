@@ -1,17 +1,22 @@
 # DevelopmentWindows365
 
 > see https://aka.ms/autorest
-> This is the AutoRest configuration file for DevelopmentWindows365.
+
+This is the AutoRest configuration file for developmentwindows365.
+
+---
 
 ## Getting Started
 
 To build the SDKs for My API, simply install AutoRest via `npm` (`npm install -g autorest`) and then run:
 
 > `autorest readme.md`
-> To see additional help and options, run:
+
+To see additional help and options, run:
 
 > `autorest --help`
-> For other options on installation see [Installing AutoRest](https://aka.ms/autorest/install) on the AutoRest github page.
+
+For other options on installation see [Installing AutoRest](https://aka.ms/autorest/install) on the AutoRest github page.
 
 ---
 
@@ -19,7 +24,7 @@ To build the SDKs for My API, simply install AutoRest via `npm` (`npm install -g
 
 ### Basic Information
 
-These are the global settings for the DevelopmentWindows365.
+These are the global settings for the developmentwindows365.
 
 ```yaml
 openapi-type: arm
@@ -29,11 +34,11 @@ tag: 2023-11-01-preview
 
 ### Tag: 2023-11-01-preview
 
-These settings apply only when `--tag= 2023-11-01-preview` is specified on the command line.
+These settings apply only when `--tag=2023-11-01-preview` is specified on the command line.
 
 ```yaml $(tag) == '2023-11-01-preview'
 input-file:
-  - Microsoft.DevelopmentWindows365/preview/2023-11-01-preview/developmentwindows365.json
+  - ../preview/2023-11-01-preview/developmentwindows365.json
 ```
 
 ### Suppression
