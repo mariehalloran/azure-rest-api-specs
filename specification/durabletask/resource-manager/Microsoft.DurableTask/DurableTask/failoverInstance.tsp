@@ -38,7 +38,7 @@ model FailoverInstanceProperties {
 
   @visibility(Lifecycle.Read)
   @doc("The location of the partner scheduler in the failover configuration")
-  partnerLocation?: string;
+  partnerSchedulerLocation?: string;
 }
 
 @doc("The replication role of the scheduler")
