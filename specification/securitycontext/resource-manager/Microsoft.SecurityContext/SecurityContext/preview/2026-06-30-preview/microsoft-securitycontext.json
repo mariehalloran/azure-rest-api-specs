@@ -328,10 +328,6 @@
     }
   },
   "definitions": {
-    "Azure.Core.armResourceType": {
-      "type": "string",
-      "description": "Represents an Azure Resource Type."
-    },
     "CodeWeakness": {
       "type": "object",
       "description": "A weakness observed in source code.",
@@ -339,29 +335,10 @@
         "properties": {
           "$ref": "#/definitions/CodeWeaknessProperties",
           "description": "The resource-specific properties for this resource."
-        },
-        "id": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "The fully qualified ARM resource ID.",
-          "readOnly": true
-        },
-        "type": {
-          "$ref": "#/definitions/Azure.Core.armResourceType",
-          "description": "The ARM resource type.",
-          "readOnly": true
-        },
-        "systemData": {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/systemData",
-          "description": "ARM metadata for resource creation and modification.",
-          "readOnly": true
         }
       },
       "required": [
-        "properties",
-        "id",
-        "type",
-        "systemData"
+        "properties"
       ],
       "allOf": [
         {
@@ -626,29 +603,10 @@
         "properties": {
           "$ref": "#/definitions/InternetExposureProperties",
           "description": "The resource-specific properties for this resource."
-        },
-        "id": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "The fully qualified ARM resource ID.",
-          "readOnly": true
-        },
-        "type": {
-          "$ref": "#/definitions/Azure.Core.armResourceType",
-          "description": "The ARM resource type.",
-          "readOnly": true
-        },
-        "systemData": {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/systemData",
-          "description": "ARM metadata for resource creation and modification.",
-          "readOnly": true
         }
       },
       "required": [
-        "properties",
-        "id",
-        "type",
-        "systemData"
+        "properties"
       ],
       "allOf": [
         {
@@ -849,29 +807,10 @@
         "properties": {
           "$ref": "#/definitions/SecurityVulnerabilityProperties",
           "description": "The resource-specific properties for this resource."
-        },
-        "id": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "The fully qualified ARM resource ID.",
-          "readOnly": true
-        },
-        "type": {
-          "$ref": "#/definitions/Azure.Core.armResourceType",
-          "description": "The ARM resource type.",
-          "readOnly": true
-        },
-        "systemData": {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/systemData",
-          "description": "ARM metadata for resource creation and modification.",
-          "readOnly": true
         }
       },
       "required": [
-        "properties",
-        "id",
-        "type",
-        "systemData"
+        "properties"
       ],
       "allOf": [
         {
