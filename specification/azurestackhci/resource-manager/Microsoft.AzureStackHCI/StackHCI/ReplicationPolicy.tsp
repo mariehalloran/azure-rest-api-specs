@@ -12,9 +12,9 @@ namespace Microsoft.AzureStackHCI;
 
 // ==================== Replication Policy Resource (PRIVATE PREVIEW) ====================
 //
-// `replicationPolicies` is a proxy child of `storageArrays` — a discovered,
-// read-only vendor replication policy. PRIVATE PREVIEW: read-only — GET and LIST
-// only.
+// `replicationPolicies` is a proxy child of `storageArrays` — a discovered
+// vendor replication policy. PRIVATE PREVIEW: GET and LIST are read-only; PUT
+// (createOrUpdate) is also exposed.
 
 /**
  * A replication policy — a discovered vendor policy defining RPO, schedule, and
@@ -33,8 +33,10 @@ model ReplicationPolicy
 }
 
 /**
- * Read-only operations for replication policies.
+ * Operations for replication policies. GET and LIST are read-only; PUT
+ * (createOrUpdate) edits the settings.
  */
+#suppress "@azure-tools/typespec-azure-resource-manager/no-resource-delete-operation" "Replication policies are discovered from the storage array and cannot be created or deleted through ARM; PUT only edits the settings of an existing replication policy."
 @added(Versions.v2026_03_15_preview)
 @armResourceOperations
 interface ReplicationPolicies {
@@ -43,4 +45,7 @@ interface ReplicationPolicies {
 
   /** List replication policies on a storage array. */
   list is ArmResourceListByParent<ReplicationPolicy>;
+
+  /** Create or update a replication policy. */
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<ReplicationPolicy>;
 }

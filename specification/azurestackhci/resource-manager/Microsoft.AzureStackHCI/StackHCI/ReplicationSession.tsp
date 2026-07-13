@@ -13,8 +13,8 @@ namespace Microsoft.AzureStackHCI;
 // ==================== Replication Session Resource (PRIVATE PREVIEW) ====================
 //
 // `replicationSessions` is a proxy child of `replicationUnits` — an active,
-// dual-homed replication relationship. PRIVATE PREVIEW: read-only — GET and LIST
-// only.
+// dual-homed replication relationship. PRIVATE PREVIEW: GET and LIST are
+// read-only; PUT (createOrUpdate) is also exposed.
 
 /**
  * A replication session — an active replication relationship for a replication
@@ -33,8 +33,10 @@ model ReplicationSession
 }
 
 /**
- * Read-only operations for replication sessions.
+ * Operations for replication sessions. GET and LIST are read-only; PUT
+ * (createOrUpdate) edits the settings.
  */
+#suppress "@azure-tools/typespec-azure-resource-manager/no-resource-delete-operation" "Replication sessions are discovered from the replication unit and cannot be created or deleted through ARM; PUT only edits the settings of an existing replication session."
 @added(Versions.v2026_03_15_preview)
 @armResourceOperations
 interface ReplicationSessions {
@@ -43,4 +45,7 @@ interface ReplicationSessions {
 
   /** List replication sessions on a replication unit. */
   list is ArmResourceListByParent<ReplicationSession>;
+
+  /** Create or update a replication session. */
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<ReplicationSession>;
 }

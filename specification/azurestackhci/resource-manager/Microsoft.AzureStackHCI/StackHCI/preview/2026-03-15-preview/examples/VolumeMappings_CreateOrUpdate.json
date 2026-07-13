@@ -1,0 +1,67 @@
+{
+  "title": "VolumeMappings_CreateOrUpdate",
+  "operationId": "VolumeMappings_CreateOrUpdate",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "6D37FF61-4C93-4377-B06B-FC6D6D561A7D",
+    "resourceGroupName": "rghci",
+    "storageArrayName": "pure-1",
+    "volumeGroupName": "contoso-vg",
+    "volumeMappingName": "map-to-contoso-fc-active",
+    "resource": {
+      "properties": {}
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/volumeGroups/contoso-vg/volumeMappings/map-to-contoso-fc-active",
+        "name": "map-to-contoso-fc-active",
+        "type": "Microsoft.AzureStackHCI/storageArrays/volumeGroups/volumeMappings",
+        "properties": {
+          "volumeRef": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/volumeGroups/contoso-vg/volumes/infra-vol-01",
+          "initiatorGroupId": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/initiatorGroups/contoso-fc-active",
+          "transport": "FC",
+          "lunId": 254,
+          "accessMode": "ReadWrite",
+          "arrayPortId": "CT0-FC0",
+          "mappedAt": "2026-03-15T10:05:00Z",
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2026-03-15T10:05:00.000Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "Application",
+          "lastModifiedAt": "2026-03-24T18:00:00.000Z"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/volumeGroups/contoso-vg/volumeMappings/map-to-contoso-fc-active",
+        "name": "map-to-contoso-fc-active",
+        "type": "Microsoft.AzureStackHCI/storageArrays/volumeGroups/volumeMappings",
+        "properties": {
+          "volumeRef": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/volumeGroups/contoso-vg/volumes/infra-vol-01",
+          "initiatorGroupId": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/initiatorGroups/contoso-fc-active",
+          "transport": "FC",
+          "lunId": 254,
+          "accessMode": "ReadWrite",
+          "arrayPortId": "CT0-FC0",
+          "mappedAt": "2026-03-15T10:05:00Z",
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2026-03-15T10:05:00.000Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "Application",
+          "lastModifiedAt": "2026-03-24T18:00:00.000Z"
+        }
+      }
+    }
+  }
+}

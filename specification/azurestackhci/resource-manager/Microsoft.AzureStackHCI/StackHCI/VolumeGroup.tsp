@@ -14,7 +14,8 @@ namespace Microsoft.AzureStackHCI;
 //
 // `volumeGroups` is a proxy child of `storageArrays` — the administrative scope
 // for naming, RBAC, quota, and multi-tenancy. Volumes and volume mappings are its
-// children. PRIVATE PREVIEW: read-only — only GET and LIST are exposed.
+// children. PRIVATE PREVIEW: GET and LIST are read-only; PUT (createOrUpdate) is
+// also exposed.
 
 /**
  * A volume group — the administrative scope for volumes on a storage array.
@@ -32,8 +33,10 @@ model VolumeGroup
 }
 
 /**
- * Read-only operations for volume groups.
+ * Operations for volume groups. GET and LIST are read-only; PUT (createOrUpdate)
+ * edits the settings.
  */
+#suppress "@azure-tools/typespec-azure-resource-manager/no-resource-delete-operation" "Volume groups are discovered from the storage array and cannot be created or deleted through ARM; PUT only edits the settings of an existing volume group."
 @added(Versions.v2026_03_15_preview)
 @armResourceOperations
 interface VolumeGroups {
@@ -42,4 +45,7 @@ interface VolumeGroups {
 
   /** List volume groups on a storage array. */
   list is ArmResourceListByParent<VolumeGroup>;
+
+  /** Create or update a volume group. */
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<VolumeGroup>;
 }

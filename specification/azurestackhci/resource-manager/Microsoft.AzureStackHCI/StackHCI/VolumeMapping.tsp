@@ -13,8 +13,8 @@ namespace Microsoft.AzureStackHCI;
 // ==================== Volume Mapping Resource (PRIVATE PREVIEW) ====================
 //
 // `volumeMappings` is a proxy child of `volumeGroups` representing the access
-// mapping between a volume and an initiator group. PRIVATE PREVIEW: read-only —
-// only GET and LIST are exposed.
+// mapping between a volume and an initiator group. PRIVATE PREVIEW: GET and LIST
+// are read-only; PUT (createOrUpdate) is also exposed.
 
 /**
  * The access mapping between a volume and an initiator group.
@@ -32,8 +32,10 @@ model VolumeMapping
 }
 
 /**
- * Read-only operations for volume mappings.
+ * Operations for volume mappings. GET and LIST are read-only; PUT (createOrUpdate)
+ * edits the settings.
  */
+#suppress "@azure-tools/typespec-azure-resource-manager/no-resource-delete-operation" "Volume mappings are discovered from the volume group and cannot be created or deleted through ARM; PUT only edits the settings of an existing volume mapping."
 @added(Versions.v2026_03_15_preview)
 @armResourceOperations
 interface VolumeMappings {
@@ -42,4 +44,7 @@ interface VolumeMappings {
 
   /** List volume mappings in a volume group. */
   list is ArmResourceListByParent<VolumeMapping>;
+
+  /** Create or update a volume mapping. */
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<VolumeMapping>;
 }
