@@ -66,7 +66,39 @@
               }
             ]
           },
-          "provisioningState": "Succeeded"
+          "provisioningState": "Succeeded",
+          "reportedProperties": {
+            "validationStatus": {
+              "status": "Success",
+              "steps": [
+                {
+                  "name": "Validate iSCSI network configuration",
+                  "description": "Validates the iSCSI network configuration for the edge machine.",
+                  "fullStepIndex": "0",
+                  "startTimeUtc": "2026-03-15T10:00:00.000Z",
+                  "endTimeUtc": "2026-03-15T10:02:00.000Z",
+                  "status": "Success",
+                  "steps": [],
+                  "exception": []
+                }
+              ]
+            },
+            "deploymentStatus": {
+              "status": "Success",
+              "steps": [
+                {
+                  "name": "Configure iSCSI node preparation",
+                  "description": "Applies the iSCSI node-level configuration to the edge machine.",
+                  "fullStepIndex": "1",
+                  "startTimeUtc": "2026-03-15T10:05:00.000Z",
+                  "endTimeUtc": "2026-03-15T10:15:00.000Z",
+                  "status": "Success",
+                  "steps": [],
+                  "exception": []
+                }
+              ]
+            }
+          }
         },
         "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/test-rg/providers/Microsoft.AzureStackHCI/edgeMachines/EdgeMachine01/deploymentSettings/default",
         "name": "default",

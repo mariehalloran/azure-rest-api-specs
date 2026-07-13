@@ -51,6 +51,25 @@ import "./DevicePool.tsp";
 import "./ProxyConfiguration.tsp";
 import "./client.tsp";
 
+// PRIVATE PREVIEW - Storage Arrays subtree (read-only)
+import "./StorageArray.tsp";
+import "./StoragePool.tsp";
+import "./VolumeGroup.tsp";
+import "./StorageVolume.tsp";
+import "./VolumeMapping.tsp";
+import "./ConsistencyGroup.tsp";
+import "./ReplicationUnit.tsp";
+import "./ReplicationSession.tsp";
+import "./ReplicationPeering.tsp";
+import "./ReplicationPolicy.tsp";
+
+// PRIVATE PREVIEW - Cluster storage & shared resources (read-only)
+import "./InitiatorGroup.tsp";
+import "./StorageFabric.tsp";
+import "./FabricAlias.tsp";
+import "./FabricZone.tsp";
+import "./StorageArrayAssociation.tsp";
+
 using TypeSpec.Rest;
 using TypeSpec.Http;
 using Azure.ResourceManager.Foundations;

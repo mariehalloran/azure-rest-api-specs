@@ -1,0 +1,41 @@
+{
+  "title": "FabricZones_List",
+  "operationId": "FabricZones_List",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "6D37FF61-4C93-4377-B06B-FC6D6D561A7D",
+    "resourceGroupName": "rghci",
+    "storageFabricName": "fabric-westus2-a"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageFabrics/fabric-westus2-a/fabricZones/contoso-pure-1-zone",
+            "name": "contoso-pure-1-zone",
+            "type": "Microsoft.AzureStackHCI/storageFabrics/fabricZones",
+            "properties": {
+              "zoneName": "contoso-pure-1-zone",
+              "members": [
+                "contoso-node-01-hba",
+                "pure-1-ct0-fc0"
+              ],
+              "isActive": true,
+              "zoneSetName": "westus2-a-active",
+              "provisioningState": "Succeeded"
+            },
+            "systemData": {
+              "createdBy": "user1",
+              "createdByType": "User",
+              "createdAt": "2026-03-15T10:00:00.000Z",
+              "lastModifiedBy": "user2",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-03-24T18:00:00.000Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
