@@ -3,6 +3,4 @@ import "./main.tsp";
 
 using Azure.ClientGenerator.Core;
 
-namespace Microsoft.Edge;
-
-@@clientName(Update, "EdgeUpdate", "java");
+@@clientName(Microsoft.Edge.Update, "EdgeUpdate", "java");
