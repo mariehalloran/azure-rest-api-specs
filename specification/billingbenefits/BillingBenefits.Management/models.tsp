@@ -4302,7 +4302,7 @@ model SpendPlanProductDetails {
  * Properties of a spend plan that can be scheduled to change in the future.
  */
 @added(Versions.v2026_07_01_preview)
-model SpendPlanSchedulableProperties {
+model SpendPlanScheduledProperties {
   /**
    * Represent benefit term in ISO 8601 format.
    */
@@ -4334,7 +4334,7 @@ model SpendPlanScheduledChanges {
    */
   scheduledOn: SpendPlanScheduledOn;
 
-  ...SpendPlanSchedulableProperties;
+  ...SpendPlanScheduledProperties;
 }
 
 /**
@@ -4544,7 +4544,13 @@ model SpendPlanTermProperties {
   @visibility(Lifecycle.Read)
   systemId?: string;
 
-  ...SpendPlanSchedulableProperties;
+  /**
+   * Provisioning state.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: BenefitProvisioningState;
+
+  ...SpendPlanScheduledProperties;
 
   /**
    * The DateTime from which this configuration became active.
