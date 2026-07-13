@@ -54,7 +54,7 @@
       "name": "TransparentDataEncryptions"
     },
     {
-      "name": "DisasterRecoveryConfigs"
+      "name": "FailoverInstances"
     }
   ],
   "paths": {
@@ -429,13 +429,13 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DurableTask/schedulers/{schedulerName}/disasterRecoveryConfigs": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DurableTask/schedulers/{schedulerName}/failoverInstances": {
       "get": {
-        "operationId": "DisasterRecoveryConfigs_ListByScheduler",
+        "operationId": "FailoverInstances_ListByScheduler",
         "tags": [
-          "DisasterRecoveryConfigs"
+          "FailoverInstances"
         ],
-        "description": "List Disaster Recovery Configurations",
+        "description": "List Failover Instances",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -459,7 +459,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/DisasterRecoveryConfigListResult"
+              "$ref": "#/definitions/FailoverInstanceListResult"
             }
           },
           "default": {
@@ -470,8 +470,8 @@
           }
         },
         "x-ms-examples": {
-          "DisasterRecoveryConfigs_ListByScheduler_MaximumSet": {
-            "$ref": "./examples/DisasterRecoveryConfigs_ListByScheduler_MaximumSet_Gen.json"
+          "FailoverInstances_ListByScheduler_MaximumSet": {
+            "$ref": "./examples/FailoverInstances_ListByScheduler_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -479,13 +479,13 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DurableTask/schedulers/{schedulerName}/disasterRecoveryConfigs/default": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DurableTask/schedulers/{schedulerName}/failoverInstances/default": {
       "get": {
-        "operationId": "DisasterRecoveryConfigs_Get",
+        "operationId": "FailoverInstances_Get",
         "tags": [
-          "DisasterRecoveryConfigs"
+          "FailoverInstances"
         ],
-        "description": "Get a Disaster Recovery Configuration",
+        "description": "Get a Failover Instance",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -509,7 +509,7 @@
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "#/definitions/DisasterRecoveryConfig"
+              "$ref": "#/definitions/FailoverInstance"
             }
           },
           "default": {
@@ -520,17 +520,17 @@
           }
         },
         "x-ms-examples": {
-          "DisasterRecoveryConfigs_Get_MaximumSet": {
-            "$ref": "./examples/DisasterRecoveryConfigs_Get_MaximumSet_Gen.json"
+          "FailoverInstances_Get_MaximumSet": {
+            "$ref": "./examples/FailoverInstances_Get_MaximumSet_Gen.json"
           }
         }
       },
       "put": {
-        "operationId": "DisasterRecoveryConfigs_CreateOrReplace",
+        "operationId": "FailoverInstances_CreateOrReplace",
         "tags": [
-          "DisasterRecoveryConfigs"
+          "FailoverInstances"
         ],
-        "description": "Create or Update a Disaster Recovery Configuration",
+        "description": "Create or Update a Failover Instance",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -555,21 +555,21 @@
             "description": "Resource create parameters.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DisasterRecoveryConfig"
+              "$ref": "#/definitions/FailoverInstance"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Resource 'DisasterRecoveryConfig' update operation succeeded",
+            "description": "Resource 'FailoverInstance' update operation succeeded",
             "schema": {
-              "$ref": "#/definitions/DisasterRecoveryConfig"
+              "$ref": "#/definitions/FailoverInstance"
             }
           },
           "201": {
-            "description": "Resource 'DisasterRecoveryConfig' create operation succeeded",
+            "description": "Resource 'FailoverInstance' create operation succeeded",
             "schema": {
-              "$ref": "#/definitions/DisasterRecoveryConfig"
+              "$ref": "#/definitions/FailoverInstance"
             },
             "headers": {
               "Azure-AsyncOperation": {
@@ -591,8 +591,8 @@
           }
         },
         "x-ms-examples": {
-          "DisasterRecoveryConfigs_CreateOrReplace_MaximumSet": {
-            "$ref": "./examples/DisasterRecoveryConfigs_CreateOrReplace_MaximumSet_Gen.json"
+          "FailoverInstances_CreateOrReplace_MaximumSet": {
+            "$ref": "./examples/FailoverInstances_CreateOrReplace_MaximumSet_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -601,11 +601,11 @@
         "x-ms-long-running-operation": true
       },
       "delete": {
-        "operationId": "DisasterRecoveryConfigs_Delete",
+        "operationId": "FailoverInstances_Delete",
         "tags": [
-          "DisasterRecoveryConfigs"
+          "FailoverInstances"
         ],
-        "description": "Delete a Disaster Recovery Configuration",
+        "description": "Delete a Failover Instance",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -651,8 +651,138 @@
           }
         },
         "x-ms-examples": {
-          "DisasterRecoveryConfigs_Delete_MaximumSet": {
-            "$ref": "./examples/DisasterRecoveryConfigs_Delete_MaximumSet_Gen.json"
+          "FailoverInstances_Delete_MaximumSet": {
+            "$ref": "./examples/FailoverInstances_Delete_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DurableTask/schedulers/{schedulerName}/failoverInstances/default/failover": {
+      "post": {
+        "operationId": "FailoverInstances_Failover",
+        "tags": [
+          "FailoverInstances"
+        ],
+        "description": "Trigger a graceful failover for the parent scheduler",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "schedulerName",
+            "in": "path",
+            "description": "The name of the Scheduler",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,64}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/OperationStatusResult"
+            }
+          },
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "FailoverInstances_Failover": {
+            "$ref": "./examples/FailoverInstances_Failover.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DurableTask/schedulers/{schedulerName}/failoverInstances/default/forceFailoverAllowDataLoss": {
+      "post": {
+        "operationId": "FailoverInstances_ForceFailoverAllowDataLoss",
+        "tags": [
+          "FailoverInstances"
+        ],
+        "description": "Trigger a forced failover with potential data loss for the parent scheduler",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "schedulerName",
+            "in": "path",
+            "description": "The name of the Scheduler",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,64}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/OperationStatusResult"
+            }
+          },
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "FailoverInstances_ForceFailoverAllowDataLoss": {
+            "$ref": "./examples/FailoverInstances_ForceFailoverAllowDataLoss.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -1939,12 +2069,12 @@
         }
       }
     },
-    "DisasterRecoveryConfig": {
+    "FailoverInstance": {
       "type": "object",
-      "description": "A disaster recovery configuration belonging to the scheduler",
+      "description": "A failover instance belonging to the scheduler",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/DisasterRecoveryConfigProperties",
+          "$ref": "#/definitions/FailoverInstanceProperties",
           "description": "The resource-specific properties for this resource."
         }
       },
@@ -1954,15 +2084,15 @@
         }
       ]
     },
-    "DisasterRecoveryConfigListResult": {
+    "FailoverInstanceListResult": {
       "type": "object",
-      "description": "The response of a DisasterRecoveryConfig list operation.",
+      "description": "The response of a FailoverInstance list operation.",
       "properties": {
         "value": {
           "type": "array",
-          "description": "The DisasterRecoveryConfig items on this page",
+          "description": "The FailoverInstance items on this page",
           "items": {
-            "$ref": "#/definitions/DisasterRecoveryConfig"
+            "$ref": "#/definitions/FailoverInstance"
           }
         },
         "nextLink": {
@@ -1975,9 +2105,9 @@
         "value"
       ]
     },
-    "DisasterRecoveryConfigProperties": {
+    "FailoverInstanceProperties": {
       "type": "object",
-      "description": "The disaster recovery configuration settings for the resource",
+      "description": "The failover instance settings for the resource",
       "properties": {
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
@@ -1986,16 +2116,16 @@
         },
         "replicationRole": {
           "$ref": "#/definitions/ReplicationRole",
-          "description": "The replication role of the scheduler",
+          "description": "The replication role of the parent scheduler",
           "readOnly": true
         },
         "partnerScheduler": {
           "type": "string",
-          "description": "The resource ID of the partner scheduler in the disaster recovery configuration"
+          "description": "The resource ID of the partner scheduler in the failover configuration"
         },
         "partnerLocation": {
           "type": "string",
-          "description": "The location of the partner scheduler in the disaster recovery configuration",
+          "description": "The location of the partner scheduler in the failover configuration",
           "readOnly": true
         }
       },
@@ -2200,12 +2330,12 @@
           {
             "name": "Primary",
             "value": "Primary",
-            "description": "The scheduler is the primary in the disaster recovery configuration"
+            "description": "The parent scheduler is the primary in the failover configuration"
           },
           {
             "name": "Secondary",
             "value": "Secondary",
-            "description": "The scheduler is the secondary in the disaster recovery configuration"
+            "description": "The parent scheduler is the secondary in the failover configuration"
           }
         ]
       }

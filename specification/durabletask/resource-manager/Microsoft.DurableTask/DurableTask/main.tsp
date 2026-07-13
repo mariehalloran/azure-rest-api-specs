@@ -6,7 +6,7 @@ import "./scheduler.tsp";
 import "./taskhub.tsp";
 import "./retentionpolicy.tsp";
 import "./transparentDataEncryption.tsp";
-import "./disasterRecoveryConfig.tsp";
+import "./failoverInstance.tsp";
 import "./client.tsp";
 
 using TypeSpec.Rest;

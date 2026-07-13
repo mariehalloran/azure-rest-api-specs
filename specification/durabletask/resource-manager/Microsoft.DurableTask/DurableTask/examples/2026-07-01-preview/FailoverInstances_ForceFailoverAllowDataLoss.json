@@ -1,0 +1,27 @@
+{
+  "title": "FailoverInstances_ForceFailoverAllowDataLoss",
+  "operationId": "FailoverInstances_ForceFailoverAllowDataLoss",
+  "parameters": {
+    "api-version": "2026-07-01-preview",
+    "subscriptionId": "194D3C1E-462F-4738-9025-092A628C06EB",
+    "resourceGroupName": "rgdurabletask",
+    "schedulerName": "testscheduler"
+  },
+  "responses": {
+    "202": {
+      "headers": {
+        "Location": "https://management.azure.com/subscriptions/194D3C1E-462F-4738-9025-092A628C06EB/providers/Microsoft.DurableTask/locations/westus/operationStatuses/5ab23810-c28e-4993-bc7e-d90ecf68ab3b?api-version=2026-07-01-preview",
+        "Retry-After": 30
+      }
+    },
+    "200": {
+      "body": {
+        "id": "/subscriptions/194D3C1E-462F-4738-9025-092A628C06EB/providers/Microsoft.DurableTask/locations/westus/operationStatuses/5ab23810-c28e-4993-bc7e-d90ecf68ab3b",
+        "name": "5ab23810-c28e-4993-bc7e-d90ecf68ab3b",
+        "status": "Succeeded",
+        "startTime": "2026-07-13T18:35:00Z",
+        "endTime": "2026-07-13T18:35:52Z"
+      }
+    }
+  }
+}
