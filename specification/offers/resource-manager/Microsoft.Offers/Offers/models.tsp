@@ -213,7 +213,7 @@ model ValueExchangeProperties {
   /** Primary key — the Universal Product Number (UPN) identifying this value exchange / meter. */
   @added(Versions.v2026_06_30_preview)
   @maxLength(64)
-  valueExchangeId: string;
+  productCode: string;
 
   /** Product version propagated from the parent product document. */
   @added(Versions.v2026_06_30_preview)
@@ -224,10 +224,10 @@ model ValueExchangeProperties {
   @maxLength(130)
   valueExchangeBigId: string;
 
-  /** Consumer-facing alias of the UPN (same source value as `valueExchangeId`). */
+  /** Consumer-facing alias of the UPN (same source value as `productCode`). */
   @added(Versions.v2026_06_30_preview)
   @maxLength(64)
-  productCode?: string;
+  productCodeAlias?: string;
 
   /** Classification of the meter type (for example, consumption, license seat, reservation). */
   @added(Versions.v2026_06_30_preview)

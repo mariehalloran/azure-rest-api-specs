@@ -1500,7 +1500,7 @@
           "description": "Foreign key linking to the parent SKU.",
           "maxLength": 64
         },
-        "valueExchangeId": {
+        "productCode": {
           "type": "string",
           "description": "Primary key — the Universal Product Number (UPN) identifying this value exchange / meter.",
           "maxLength": 64
@@ -1515,9 +1515,9 @@
           "description": "Computed composite identifier: `\"{productId}/{skuId}\"`.",
           "maxLength": 130
         },
-        "productCode": {
+        "productCodeAlias": {
           "type": "string",
-          "description": "Consumer-facing alias of the UPN (same source value as `valueExchangeId`).",
+          "description": "Consumer-facing alias of the UPN (same source value as `productCode`).",
           "maxLength": 64
         },
         "meterType": {
@@ -1589,7 +1589,7 @@
       "required": [
         "productId",
         "skuId",
-        "valueExchangeId",
+        "productCode",
         "version",
         "valueExchangeBigId"
       ]
