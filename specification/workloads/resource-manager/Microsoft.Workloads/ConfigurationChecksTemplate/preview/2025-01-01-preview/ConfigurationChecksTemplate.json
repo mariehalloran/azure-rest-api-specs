@@ -616,7 +616,7 @@
           "type": "array",
           "description": "List of checks that are not applicable to the current workload configuration. Stored as a separate section from commonChecks and does not carry an execution status (enabled/disabled).",
           "items": {
-            "$ref": "#/definitions/NotApplicableCheckEntry"
+            "$ref": "#/definitions/NotApplicableCheck"
           },
           "x-ms-identifiers": [
             "checkId"
@@ -885,7 +885,7 @@
         "values"
       ]
     },
-    "NotApplicableCheckEntry": {
+    "NotApplicableCheck": {
       "type": "object",
       "description": "Represents a configuration check that is not applicable to the current workload, with a structured reason. Does not carry an execution state since the check does not run.",
       "properties": {
@@ -908,15 +908,12 @@
         "roleName": {
           "type": "string",
           "description": "The role name the check was evaluated against. Null for common-level and component-level checks."
-        },
-        "checkFilters": {
-          "$ref": "#/definitions/CheckFilters",
-          "description": "The filter criteria associated with the check."
         }
       },
       "required": [
         "checkId",
-        "reason"
+        "reason",
+        "checkLevel"
       ]
     },
     "NotApplicableReason": {

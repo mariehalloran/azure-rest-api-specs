@@ -380,7 +380,7 @@ union NotApplicableReason {
 }
 
 @doc("Represents a configuration check that is not applicable to the current workload, with a structured reason. Does not carry an execution state since the check does not run.")
-model NotApplicableCheckEntry {
+model NotApplicableCheck {
   /**
    * The unique identifier of the check.
    */
@@ -397,7 +397,7 @@ model NotApplicableCheckEntry {
    * The scope at which the check was evaluated.
    */
   @doc("The scope at which the check was evaluated.")
-  checkLevel?: CheckLevel;
+  checkLevel: CheckLevel;
 
   /**
    * The component name the check was evaluated against. Null for common-level checks.
@@ -410,12 +410,6 @@ model NotApplicableCheckEntry {
    */
   @doc("The role name the check was evaluated against. Null for common-level and component-level checks.")
   roleName?: string;
-
-  /**
-   * The filter criteria associated with the check.
-   */
-  @doc("The filter criteria associated with the check.")
-  checkFilters?: CheckFilters;
 }
 
 @doc("Schema for role configuration including checks and resources.")
@@ -511,7 +505,7 @@ model Configuration {
    */
   @doc("List of checks that are not applicable to the current workload configuration. Stored as a separate section from commonChecks and does not carry an execution status (enabled/disabled).")
   @Azure.ResourceManager.identifiers(#["checkId"])
-  notApplicableChecks?: NotApplicableCheckEntry[];
+  notApplicableChecks?: NotApplicableCheck[];
 }
 
 @doc("Defines the properties of the configuration checks template.")
