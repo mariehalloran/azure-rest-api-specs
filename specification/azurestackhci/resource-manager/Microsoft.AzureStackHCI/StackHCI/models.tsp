@@ -7635,6 +7635,78 @@ model EdgeMachineReportedProperties {
    */
   @visibility(Lifecycle.Read)
   workloadInventoryLastUpdated?: string;
+
+  /**
+   * Storage fabric initiator ports (iSCSI or Fibre Channel) discovered on the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#[])
+  storageInitiators?: StorageInitiator[];
+}
+
+/**
+ * A storage fabric initiator port (iSCSI or Fibre Channel) discovered on the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageInitiator {
+  /**
+   * Transport type of the initiator port.
+   */
+  @visibility(Lifecycle.Read)
+  initiatorType: StorageInitiatorType;
+
+  /**
+   * Node identifier of the initiator. IQN for iSCSI or node WWN (WWNN) for Fibre Channel. Corresponds to the NodeAddress reported by Get-InitiatorPort.
+   */
+  @visibility(Lifecycle.Read)
+  initiatorIdentifier: string;
+
+  /**
+   * Fibre Channel port World Wide Name (WWPN). Populated for FibreChannel initiators only; corresponds to the PortAddress reported by Get-InitiatorPort.
+   */
+  @visibility(Lifecycle.Read)
+  portWorldWideName?: string;
+
+  /**
+   * Name of the Ethernet adapter the iSCSI initiator is bound to. Populated for iSCSI initiators only; matches EdgeMachineNicDetail.adapterName.
+   */
+  @visibility(Lifecycle.Read)
+  ethernetAdapterName?: string;
+
+  /**
+   * MAC address of the Ethernet adapter the iSCSI initiator is bound to. Populated for iSCSI initiators only; matches EdgeMachineNicDetail.macAddress.
+   */
+  @visibility(Lifecycle.Read)
+  ethernetAdapterMacAddress?: string;
+
+  /**
+   * Operational status of the initiator port as reported by the host (for example, Operational). Corresponds to OperationalStatus from Get-InitiatorPort.
+   */
+  @visibility(Lifecycle.Read)
+  operationalStatus?: string;
+}
+
+/**
+ * Transport type of a storage fabric initiator port on the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+union StorageInitiatorType {
+  string,
+
+  /**
+   * iSCSI initiator. The initiator identifier is an IQN (iSCSI Qualified Name).
+   */
+  iSCSI: "iSCSI",
+
+  /**
+   * Fibre Channel initiator. The initiator identifier is the node WWN (WWNN); the port is identified by its WWPN.
+   */
+  FibreChannel: "FibreChannel",
+
+  /**
+   * The initiator transport type could not be determined.
+   */
+  Unknown: "Unknown",
 }
 
 /**
@@ -12758,9 +12830,10 @@ model IscsiTargetPortalAddress {
 }
 
 /**
- * CHAP authentication settings for an iSCSI connection. The CHAP secrets
- * themselves are referenced via the deployment data secrets (Key Vault), not
- * carried inline.
+ * CHAP authentication settings for an iSCSI connection. The CHAP credentials
+ * (username and secret) are referenced via the deployment data secrets
+ * (Key Vault) using the chapCredential and mutualChapCredential secret names,
+ * not carried inline.
  */
 @added(Versions.v2026_03_15_preview)
 model IscsiChapSettings {
@@ -12768,17 +12841,6 @@ model IscsiChapSettings {
    * The CHAP authentication mode to use for the iSCSI connection.
    */
   chapType?: IscsiChapType;
-
-  /**
-   * CHAP username used by the initiator to authenticate to the target.
-   */
-  chapUsername?: string;
-
-  /**
-   * Mutual CHAP username used by the target to authenticate to the initiator.
-   * Applicable only when chapType is Bidirectional.
-   */
-  mutualChapUsername?: string;
 }
 
 /**
