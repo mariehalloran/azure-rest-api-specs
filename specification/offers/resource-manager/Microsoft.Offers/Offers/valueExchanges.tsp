@@ -30,25 +30,25 @@ model LookupValueExchangeResult {
   properties: ValueExchangeProperties;
 }
 
-/** The name of the value exchange (its UPN identifier). */
+/** The name of the offer value (its UPN identifier). */
 @added(Versions.v2026_06_30_preview)
 @subscriptionResource
-model ValueExchangeNameParameter
+model OfferValueNameParameter
   is ResourceNameParameter<
-    Resource = ValueExchange,
+    Resource = OfferValue,
     KeyName = "valueExchangeId",
-    SegmentName = "valueExchanges",
+    SegmentName = "offerValues",
     NamePattern = "^[A-Z0-9]{12}$"
   >;
 
-/** A value exchange (UPN) in the commerce catalog. */
+/** An offer value (UPN) in the commerce catalog. */
 @added(Versions.v2026_06_30_preview)
-model ValueExchange
+model OfferValue
   is Azure.ResourceManager.ProxyResource<ValueExchangeProperties, false> {
-  ...ValueExchangeNameParameter;
+  ...OfferValueNameParameter;
 }
 
-/** Read-only catalog access for value-exchange (UPN) entries. */
+/** Legacy lookup access for value-exchange (UPN) entries. */
 @armResourceOperations
 interface ValueExchanges {
   /**
@@ -66,26 +66,29 @@ interface ValueExchanges {
     Scope = SubscriptionActionScope,
     Parameters = {}
   >;
+}
 
+/** Read-only catalog access for offer-value (UPN) entries. */
+@added(Versions.v2026_06_30_preview)
+@armResourceOperations
+interface OfferValues {
   /**
-   * Get a single value-exchange (UPN) by its identifier. The catalog is
+   * Get a single offer value (UPN) by its identifier. The catalog is
    * globally keyed: the same `valueExchangeId` returns the same response for
    * all callers under one API version.
    */
-  @added(Versions.v2026_06_30_preview)
   get is ArmResourceRead<
-    ValueExchange,
+    OfferValue,
     BaseParameters = Azure.ResourceManager.Foundations.SubscriptionBaseParameters
   >;
 
   /**
-   * List all value-exchange (UPN) entries in the catalog available to the
+   * List all offer-value (UPN) entries in the catalog available to the
    * subscription. The catalog is globally keyed, so the same set is returned for
    * all callers under one API version.
    */
-  @added(Versions.v2026_06_30_preview)
   listBySubscription is ArmResourceListByParent<
-    ValueExchange,
+    OfferValue,
     BaseParameters = Azure.ResourceManager.Foundations.SubscriptionBaseParameters
   >;
 }
