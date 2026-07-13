@@ -13,7 +13,8 @@ namespace Microsoft.AzureStackHCI;
 // ==================== Fabric Zone Resource (PRIVATE PREVIEW) ====================
 //
 // `fabricZones` is a proxy child of `storageFabrics` — a zone on the fabric switch.
-// PRIVATE PREVIEW: read-only — only GET and LIST are exposed.
+// PRIVATE PREVIEW: GET and LIST are read-only; PUT (createOrUpdate) is also
+// exposed.
 
 /**
  * A fabric zone — a zone defined on the fabric switch.
@@ -30,8 +31,10 @@ model FabricZone is Azure.ResourceManager.ProxyResource<FabricZoneProperties> {
 }
 
 /**
- * Read-only operations for fabric zones.
+ * Operations for fabric zones. GET and LIST are read-only; PUT (createOrUpdate)
+ * edits the settings.
  */
+#suppress "@azure-tools/typespec-azure-resource-manager/no-resource-delete-operation" "Fabric zones are discovered from the storage fabric and cannot be created or deleted through ARM; PUT only edits the settings of an existing fabric zone."
 @added(Versions.v2026_03_15_preview)
 @armResourceOperations
 interface FabricZones {
@@ -40,4 +43,7 @@ interface FabricZones {
 
   /** List fabric zones on a storage fabric. */
   list is ArmResourceListByParent<FabricZone>;
+
+  /** Create or update a fabric zone. */
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<FabricZone>;
 }

@@ -13,8 +13,9 @@ namespace Microsoft.AzureStackHCI;
 // ==================== Storage Pool Resource (PRIVATE PREVIEW) ====================
 //
 // `storagePools` is a proxy child of `storageArrays` representing a capacity
-// source. SAN pools are discovered read-only; S2D pools carry additional settings
-// in the design spec. PRIVATE PREVIEW: read-only — only GET and LIST are exposed.
+// source. Pool settings are discovered and reported read-only by the service.
+// PRIVATE PREVIEW: GET and LIST return the full inventory; PUT (createOrUpdate)
+// is exposed for ARM lifecycle compliance but carries no client-settable fields.
 
 /**
  * A storage pool — a capacity source on a storage array.
@@ -32,8 +33,10 @@ model StoragePool
 }
 
 /**
- * Read-only operations for storage pools.
+ * Operations for storage pools. GET and LIST are read-only; PUT (createOrUpdate)
+ * is exposed for ARM lifecycle compliance.
  */
+#suppress "@azure-tools/typespec-azure-resource-manager/no-resource-delete-operation" "Storage pools are discovered from the storage array and cannot be created or deleted through ARM."
 @added(Versions.v2026_03_15_preview)
 @armResourceOperations
 interface StoragePools {
@@ -42,4 +45,7 @@ interface StoragePools {
 
   /** List storage pools on a storage array. */
   list is ArmResourceListByParent<StoragePool>;
+
+  /** Create or update a storage pool. */
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<StoragePool>;
 }
