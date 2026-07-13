@@ -1884,9 +1884,9 @@
           "description": "Provisioning state of the Platform Landing Zone resource.",
           "readOnly": true
         },
-        "artifactStoreContainerName": {
+        "artifactId": {
           "type": "string",
-          "description": "Artifact-store artifact name (plz-{name}) under which the generated design document and IaC are committed. Read-only and deterministic (derived from the resource name), so it is available immediately, even while provisioning.",
+          "description": "ARM resource id of the artifact ({migrateProjectId}/artifacts/plz-{name}) under which the generated design document and IaC are committed. Read-only and deterministic (derived from the resource identity), so it is available immediately, even while provisioning.",
           "readOnly": true
         }
       }

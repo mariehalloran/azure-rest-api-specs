@@ -81,6 +81,6 @@ model PlatformLandingZoneProperties {
   provisioningState?: ResourceProvisioningState;
 
   @visibility(Lifecycle.Read)
-  @doc("Artifact-store artifact name (plz-{name}) under which the generated design document and IaC are committed. Read-only and deterministic (derived from the resource name), so it is available immediately, even while provisioning.")
-  artifactStoreContainerName?: string;
+  @doc("ARM resource id of the artifact ({migrateProjectId}/artifacts/plz-{name}) under which the generated design document and IaC are committed. Read-only and deterministic (derived from the resource identity), so it is available immediately, even while provisioning.")
+  artifactId?: string;
 }
