@@ -12,6 +12,37 @@ options:
     output-file: "{version-status}/{version}/securitybaseplatform.json"
     examples-dir: "{project-root}/examples"
     arm-types-dir: "{project-root}/../../../../common-types/resource-management"
+  "@azure-tools/typespec-ts":
+    experimental-extensible-enums: true
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-securitybaseplatform"
+    flavor: azure
+    package-details:
+      name: "@azure/arm-securitybaseplatform"
+  "@azure-tools/typespec-python":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-securitybaseplatform"
+    namespace: "azure.mgmt.securitybaseplatform"
+    flavor: "azure"
+    generate-test: true
+    generate-sample: true
+  "@azure-typespec/http-client-csharp-mgmt":
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
+    namespace: "Azure.ResourceManager.SecurityBasePlatform"
+  "@azure-tools/typespec-java":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-securitybaseplatform"
+    namespace: "com.azure.resourcemanager.securitybaseplatform"
+    flavor: azure
+    service-name: "Security Base Platform"
+  "@azure-tools/typespec-go":
+    service-dir: "sdk/resourcemanager/securitybaseplatform"
+    emitter-output-dir: "{output-dir}/{service-dir}/armsecuritybaseplatform"
+    module: "github.com/Azure/azure-sdk-for-go/{service-dir}/armsecuritybaseplatform"
+    fix-const-stuttering: true
+    flavor: "azure"
+    generate-examples: true
+    generate-samples: true
+    generate-fakes: true
+    head-as-boolean: true
+    inject-spans: true
 linter:
   extends:
     - "@azure-tools/typespec-azure-rulesets/resource-manager"
