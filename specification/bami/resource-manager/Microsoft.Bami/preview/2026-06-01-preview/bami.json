@@ -572,6 +572,12 @@
           }
         },
         "x-ms-examples": {
+          "Create or Update AppConsent Request": {
+            "$ref": "./examples/Requests_CreateOrUpdate_AppConsent.json"
+          },
+          "Create or Update PCCodeUpdate Request": {
+            "$ref": "./examples/Requests_CreateOrUpdate_PCCodeUpdate.json"
+          },
           "Create or Update Request": {
             "$ref": "./examples/Requests_CreateOrUpdate.json"
           }
@@ -980,6 +986,97 @@
         }
       }
     },
+    "AppConsentContext": {
+      "type": "object",
+      "description": "Configuration for an application consent request. Grants first-party application consent for a billing scope. AppConsent is a non-billable production automation request.",
+      "properties": {
+        "isHobo": {
+          "type": "boolean",
+          "description": "Whether this is a HOBO (hosted-on-behalf-of) consent. Defaults to false."
+        },
+        "billingServiceTreeId": {
+          "type": "string",
+          "description": "The Service Tree ID (GUID) of the billing service that owns the consent."
+        },
+        "billingServiceName": {
+          "type": "string",
+          "description": "The display name of the billing service that owns the consent."
+        },
+        "appsToConsent": {
+          "type": "object",
+          "description": "The applications to consent, keyed by Azure environment name, then by tenant ID, to the list of first-party application IDs to grant consent for.",
+          "additionalProperties": {
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "required": [
+        "billingServiceTreeId",
+        "billingServiceName"
+      ]
+    },
+    "AppConsentContextUpdate": {
+      "type": "object",
+      "description": "Configuration for an application consent request. Grants first-party application consent for a billing scope. AppConsent is a non-billable production automation request.",
+      "properties": {
+        "isHobo": {
+          "type": "boolean",
+          "description": "Whether this is a HOBO (hosted-on-behalf-of) consent. Defaults to false."
+        },
+        "billingServiceTreeId": {
+          "type": "string",
+          "description": "The Service Tree ID (GUID) of the billing service that owns the consent."
+        },
+        "billingServiceName": {
+          "type": "string",
+          "description": "The display name of the billing service that owns the consent."
+        },
+        "appsToConsent": {
+          "type": "object",
+          "description": "The applications to consent, keyed by Azure environment name, then by tenant ID, to the list of first-party application IDs to grant consent for.",
+          "additionalProperties": {
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      }
+    },
+    "AppConsentFulfillmentDetail": {
+      "type": "object",
+      "description": "Fulfillment details for a completed application consent request.",
+      "properties": {
+        "billingProfileId": {
+          "type": "string",
+          "description": "The billing profile ID associated with the consent."
+        },
+        "invoiceSectionId": {
+          "type": "string",
+          "description": "The invoice section ID associated with the consent."
+        },
+        "tags": {
+          "type": "object",
+          "description": "Tags applied as part of the consent fulfillment.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "errorDetail": {
+          "$ref": "#/definitions/FulfillmentErrorDetail",
+          "description": "Error details if the application consent failed."
+        }
+      }
+    },
     "ApplicationEntitlementProperties": {
       "type": "object",
       "description": "Properties of the application entitlement.",
@@ -1204,7 +1301,7 @@
         "estimatedMonthlySpend": {
           "type": "number",
           "format": "double",
-          "description": "The estimated monthly spend in USD for this test account. Must be greater than zero."
+          "description": "The estimated monthly spend in USD for this test account. Required and must be greater than zero for billable request types (Account, Subscription, Tenant). Optional for non-billable production request types (AppConsent, PCCodeUpdate)."
         },
         "businessJustification": {
           "type": "string",
@@ -1249,7 +1346,6 @@
       },
       "required": [
         "requestType",
-        "estimatedMonthlySpend",
         "context"
       ]
     },
@@ -1268,7 +1364,7 @@
         "estimatedMonthlySpend": {
           "type": "number",
           "format": "double",
-          "description": "The estimated monthly spend in USD for this test account. Must be greater than zero."
+          "description": "The estimated monthly spend in USD for this test account. Required and must be greater than zero for billable request types (Account, Subscription, Tenant). Optional for non-billable production request types (AppConsent, PCCodeUpdate)."
         },
         "businessJustification": {
           "type": "string",
@@ -1843,6 +1939,112 @@
         }
       }
     },
+    "PCCodeUpdateContext": {
+      "type": "object",
+      "description": "Configuration for a PC (Profit Center) code update request. Updates the PC code / service group mapping for a billing scope. PCCodeUpdate is a non-billable production automation request.",
+      "properties": {
+        "currentPCCode": {
+          "type": "string",
+          "description": "The current PC code prior to the update."
+        },
+        "billingServiceTreeId": {
+          "type": "string",
+          "description": "The Service Tree ID (GUID) of the billing service that owns the subscriptions."
+        },
+        "billingServiceName": {
+          "type": "string",
+          "description": "The display name of the billing service that owns the subscriptions."
+        },
+        "subscriptionIds": {
+          "type": "array",
+          "description": "The subscription IDs to update. Used for subscription-scoped PC code updates.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "serviceGroupId": {
+          "type": "string",
+          "description": "The source service group ID. Used for service-group-scoped PC code updates."
+        },
+        "targetServiceGroupId": {
+          "type": "string",
+          "description": "The target service group ID to move the subscriptions to."
+        },
+        "targetServiceGroupName": {
+          "type": "string",
+          "description": "The target service group display name."
+        },
+        "serviceSelections": {
+          "type": "array",
+          "description": "The per-service subscription selections for a service-group-scoped PC code update.",
+          "items": {
+            "$ref": "#/definitions/PCCodeUpdateServiceSelection"
+          },
+          "x-ms-identifiers": [
+            "serviceTreeId"
+          ]
+        }
+      }
+    },
+    "PCCodeUpdateFulfillmentDetail": {
+      "type": "object",
+      "description": "Fulfillment details for a completed PC code update request.",
+      "properties": {
+        "transferId": {
+          "type": "string",
+          "description": "The transfer ID generated for a subscription-scoped PC code update."
+        },
+        "serviceTransferIds": {
+          "type": "array",
+          "description": "The per-service transfer IDs generated for a service-group-scoped PC code update.",
+          "items": {
+            "$ref": "#/definitions/PCCodeUpdateServiceTransfer"
+          },
+          "x-ms-identifiers": [
+            "serviceTreeId"
+          ]
+        },
+        "errorDetail": {
+          "$ref": "#/definitions/FulfillmentErrorDetail",
+          "description": "Error details if the PC code update failed."
+        }
+      }
+    },
+    "PCCodeUpdateServiceSelection": {
+      "type": "object",
+      "description": "A service and its selected subscriptions within a service-group-scoped PC code update.",
+      "properties": {
+        "serviceTreeId": {
+          "type": "string",
+          "description": "The service identifier (Service Tree ID, GUID) within the service group."
+        },
+        "serviceName": {
+          "type": "string",
+          "description": "The service display name."
+        },
+        "subscriptionIds": {
+          "type": "array",
+          "description": "The subscription IDs selected under this service.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PCCodeUpdateServiceTransfer": {
+      "type": "object",
+      "description": "The transfer ID produced for a single service within a service-group-scoped PC code update.",
+      "properties": {
+        "serviceTreeId": {
+          "type": "string",
+          "description": "The service identifier (Service Tree ID, GUID) the transfer belongs to."
+        },
+        "transferId": {
+          "type": "string",
+          "description": "The transfer ID generated for the service."
+        }
+      }
+    },
     "ProvisioningState": {
       "type": "string",
       "description": "The provisioning state of the resource.",
@@ -1897,6 +2099,14 @@
         "tenantContext": {
           "$ref": "#/definitions/TenantContext",
           "description": "The tenant context. Required when requestType is 'Tenant'."
+        },
+        "appConsentContext": {
+          "$ref": "#/definitions/AppConsentContext",
+          "description": "The application consent context. Required when requestType is 'AppConsent'."
+        },
+        "pcCodeUpdateContext": {
+          "$ref": "#/definitions/PCCodeUpdateContext",
+          "description": "The PC code update context. Required when requestType is 'PCCodeUpdate'."
         }
       }
     },
@@ -1911,6 +2121,14 @@
         "tenantContext": {
           "$ref": "#/definitions/TenantContextUpdate",
           "description": "The tenant context. Required when requestType is 'Tenant'."
+        },
+        "appConsentContext": {
+          "$ref": "#/definitions/AppConsentContextUpdate",
+          "description": "The application consent context. Required when requestType is 'AppConsent'."
+        },
+        "pcCodeUpdateContext": {
+          "$ref": "#/definitions/PCCodeUpdateContext",
+          "description": "The PC code update context. Required when requestType is 'PCCodeUpdate'."
         }
       }
     },
@@ -1941,6 +2159,16 @@
         "signupEntity": {
           "$ref": "#/definitions/SignupEntity",
           "description": "The signup entity used for tenant creation. Contains organization info and user info."
+        },
+        "appConsentFulfillmentDetail": {
+          "$ref": "#/definitions/AppConsentFulfillmentDetail",
+          "description": "The application consent fulfillment details. Populated for AppConsent requests.",
+          "readOnly": true
+        },
+        "pcCodeUpdateFulfillmentDetail": {
+          "$ref": "#/definitions/PCCodeUpdateFulfillmentDetail",
+          "description": "The PC code update fulfillment details. Populated for PCCodeUpdate requests.",
+          "readOnly": true
         }
       }
     },
@@ -2070,7 +2298,9 @@
       "enum": [
         "Account",
         "Tenant",
-        "Subscription"
+        "Subscription",
+        "AppConsent",
+        "PCCodeUpdate"
       ],
       "x-ms-enum": {
         "name": "RequestType",
@@ -2090,6 +2320,16 @@
             "name": "Subscription",
             "value": "Subscription",
             "description": "Subscription provisioning request."
+          },
+          {
+            "name": "AppConsent",
+            "value": "AppConsent",
+            "description": "Application consent request. A non-billable production automation request that grants first-party application consent for the specified billing scope."
+          },
+          {
+            "name": "PCCodeUpdate",
+            "value": "PCCodeUpdate",
+            "description": "PC (Profit Center) code update request. A non-billable production automation request that updates the PC code / service group mapping for the specified billing scope."
           }
         ]
       }

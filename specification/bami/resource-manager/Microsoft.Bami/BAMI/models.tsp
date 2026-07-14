@@ -45,6 +45,12 @@ union RequestType {
 
   @doc("Subscription provisioning request.")
   Subscription: "Subscription",
+
+  @doc("Application consent request. A non-billable production automation request that grants first-party application consent for the specified billing scope.")
+  AppConsent: "AppConsent",
+
+  @doc("PC (Profit Center) code update request. A non-billable production automation request that updates the PC code / service group mapping for the specified billing scope.")
+  PCCodeUpdate: "PCCodeUpdate",
 }
 
 @doc("The account type to create.")
@@ -421,6 +427,71 @@ model RequestContext {
 
   @doc("The tenant context. Required when requestType is 'Tenant'.")
   tenantContext?: TenantContext;
+
+  @doc("The application consent context. Required when requestType is 'AppConsent'.")
+  appConsentContext?: AppConsentContext;
+
+  @doc("The PC code update context. Required when requestType is 'PCCodeUpdate'.")
+  pcCodeUpdateContext?: PCCodeUpdateContext;
+}
+
+@doc("Configuration for an application consent request. Grants first-party application consent for a billing scope. AppConsent is a non-billable production automation request.")
+model AppConsentContext {
+  @doc("Whether this is a HOBO (hosted-on-behalf-of) consent. Defaults to false.")
+  isHobo?: boolean;
+
+  @doc("The Service Tree ID (GUID) of the billing service that owns the consent.")
+  billingServiceTreeId: string;
+
+  @doc("The display name of the billing service that owns the consent.")
+  billingServiceName: string;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "The AppConsent payload is an inherently dynamic map keyed by Azure environment name and then tenant ID; modeling it as an explicit type would diverge from the wire contract the BAMI service serializes."
+  @doc("The applications to consent, keyed by Azure environment name, then by tenant ID, to the list of first-party application IDs to grant consent for.")
+  appsToConsent?: Record<Record<string[]>>;
+}
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "Model name preserves the 'PCCode' (Profit Center code) domain acronym to match the RequestType value and the BAMI service contract."
+@doc("Configuration for a PC (Profit Center) code update request. Updates the PC code / service group mapping for a billing scope. PCCodeUpdate is a non-billable production automation request.")
+model PCCodeUpdateContext {
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "Property name matches the wire contract field 'currentPCCode' serialized by the BAMI service."
+  @doc("The current PC code prior to the update.")
+  currentPCCode?: string;
+
+  @doc("The Service Tree ID (GUID) of the billing service that owns the subscriptions.")
+  billingServiceTreeId?: string;
+
+  @doc("The display name of the billing service that owns the subscriptions.")
+  billingServiceName?: string;
+
+  @doc("The subscription IDs to update. Used for subscription-scoped PC code updates.")
+  subscriptionIds?: string[];
+
+  @doc("The source service group ID. Used for service-group-scoped PC code updates.")
+  serviceGroupId?: string;
+
+  @doc("The target service group ID to move the subscriptions to.")
+  targetServiceGroupId?: string;
+
+  @doc("The target service group display name.")
+  targetServiceGroupName?: string;
+
+  @doc("The per-service subscription selections for a service-group-scoped PC code update.")
+  @identifiers(#["serviceTreeId"])
+  serviceSelections?: PCCodeUpdateServiceSelection[];
+}
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "Model name preserves the 'PCCode' (Profit Center code) domain acronym to match the RequestType value and the BAMI service contract."
+@doc("A service and its selected subscriptions within a service-group-scoped PC code update.")
+model PCCodeUpdateServiceSelection {
+  @doc("The service identifier (Service Tree ID, GUID) within the service group.")
+  serviceTreeId?: string;
+
+  @doc("The service display name.")
+  serviceName?: string;
+
+  @doc("The subscription IDs selected under this service.")
+  subscriptionIds?: string[];
 }
 
 // ─── Fulfillment Models ─────────────────────────────────────────────────────
@@ -516,6 +587,46 @@ model FieldLedRequestFulfillmentDetail {
   errorDetail?: FulfillmentErrorDetail;
 }
 
+@doc("Fulfillment details for a completed application consent request.")
+model AppConsentFulfillmentDetail {
+  @doc("The billing profile ID associated with the consent.")
+  billingProfileId?: string;
+
+  @doc("The invoice section ID associated with the consent.")
+  invoiceSectionId?: string;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Consent fulfillment tags are a dynamic string-to-string map; an explicit type is not applicable."
+  @doc("Tags applied as part of the consent fulfillment.")
+  tags?: Record<string>;
+
+  @doc("Error details if the application consent failed.")
+  errorDetail?: FulfillmentErrorDetail;
+}
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "Model name preserves the 'PCCode' (Profit Center code) domain acronym to match the RequestType value and the BAMI service contract."
+@doc("Fulfillment details for a completed PC code update request.")
+model PCCodeUpdateFulfillmentDetail {
+  @doc("The transfer ID generated for a subscription-scoped PC code update.")
+  transferId?: string;
+
+  @doc("The per-service transfer IDs generated for a service-group-scoped PC code update.")
+  @identifiers(#["serviceTreeId"])
+  serviceTransferIds?: PCCodeUpdateServiceTransfer[];
+
+  @doc("Error details if the PC code update failed.")
+  errorDetail?: FulfillmentErrorDetail;
+}
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "Model name preserves the 'PCCode' (Profit Center code) domain acronym to match the RequestType value and the BAMI service contract."
+@doc("The transfer ID produced for a single service within a service-group-scoped PC code update.")
+model PCCodeUpdateServiceTransfer {
+  @doc("The service identifier (Service Tree ID, GUID) the transfer belongs to.")
+  serviceTreeId?: string;
+
+  @doc("The transfer ID generated for the service.")
+  transferId?: string;
+}
+
 @doc("Result details for a completed automation request. The populated fields depend on the requestType.")
 model RequestFulfillmentDetails {
   @doc("The organization info with full domain name (subdomain + suffix). Populated for Account and Tenant requests.")
@@ -535,6 +646,14 @@ model RequestFulfillmentDetails {
 
   @doc("The signup entity used for tenant creation. Contains organization info and user info.")
   signupEntity?: SignupEntity;
+
+  @doc("The application consent fulfillment details. Populated for AppConsent requests.")
+  @visibility(Lifecycle.Read)
+  appConsentFulfillmentDetail?: AppConsentFulfillmentDetail;
+
+  @doc("The PC code update fulfillment details. Populated for PCCodeUpdate requests.")
+  @visibility(Lifecycle.Read)
+  pcCodeUpdateFulfillmentDetail?: PCCodeUpdateFulfillmentDetail;
 }
 
 // ─── Cancel Request Body ─────────────────────────────────────────────────────
@@ -559,8 +678,8 @@ model AutomationRequestProperties {
   @doc("The account type to create. Required for Account requests.")
   accountType?: AccountType;
 
-  @doc("The estimated monthly spend in USD for this test account. Must be greater than zero.")
-  estimatedMonthlySpend: float64;
+  @doc("The estimated monthly spend in USD for this test account. Required and must be greater than zero for billable request types (Account, Subscription, Tenant). Optional for non-billable production request types (AppConsent, PCCodeUpdate).")
+  estimatedMonthlySpend?: float64;
 
   @doc("Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time). Free-form text MUST NOT contain customer data, PII, or secrets.")
   businessJustification?: string;
