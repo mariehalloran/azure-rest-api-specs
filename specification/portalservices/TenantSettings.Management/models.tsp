@@ -62,6 +62,7 @@ model MultiFactorAuthenticationSettings {
   portalEnforcement?: MfaEnforcement;
 
   @doc("Justification for the value set for portalEnforcement. Required when portalEnforcement is set to a value other than 'Default'. Maximum length is 500 characters.")
+  @maxLength(500)
   portalJustification?: string;
 
   @doc("The date and time when the enforcement setting in portalEnforcement should be applied.")
@@ -73,6 +74,7 @@ model MultiFactorAuthenticationSettings {
 
   @added(Versions.v2025_04_01_preview)
   @doc("Optional justification for the date and time set in armEnforcementDate. Maximum length is 500 characters.")
+  @maxLength(500)
   armJustification?: string;
 }
 
