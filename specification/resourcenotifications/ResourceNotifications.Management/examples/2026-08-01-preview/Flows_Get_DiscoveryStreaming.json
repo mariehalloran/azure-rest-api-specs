@@ -1,0 +1,40 @@
+{
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-arn-examples",
+    "flowName": "compute-streaming-flow",
+    "api-version": "2026-08-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "name": "compute-streaming-flow",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ResourceNotifications/flows/compute-streaming-flow",
+        "type": "Microsoft.ResourceNotifications/flows",
+        "location": "eastus",
+        "tags": {
+          "environment": "production"
+        },
+        "properties": {
+          "provisioningState": "Succeeded",
+          "flowKind": "DiscoveryStreaming",
+          "ingestionUnitId": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.contoso/providers/Microsoft.ResourceNotifications/locations/eastus/ingestionUnits/eastus-flow",
+          "fullyQualifiedResourceType": "Microsoft.Compute/virtualMachines",
+          "enabled": true,
+          "managedIdentityResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-arn-examples/providers/Microsoft.ManagedIdentity/userAssignedIdentities/arn-gds-mi",
+          "gdsAccount": "ComputeGenevaAccount",
+          "gdsEventNamespaces": [
+            "Microsoft.Compute.VirtualMachines"
+          ],
+          "gdsEventNames": [
+            "ResourceChanged",
+            "ResourceDeleted"
+          ],
+          "transformationType": "ArmResource"
+        }
+      }
+    }
+  },
+  "operationId": "Flows_Get",
+  "title": "Flows - Get DiscoveryStreaming"
+}
