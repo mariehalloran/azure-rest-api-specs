@@ -5049,8 +5049,7 @@
       "properties": {
         "key": {
           "type": "string",
-          "description": "Node label key.",
-          "x-ms-client-name": "label"
+          "description": "Node label key."
         },
         "operator": {
           "$ref": "#/definitions/NodeAffinityOperator",
@@ -5080,7 +5079,7 @@
             "$ref": "#/definitions/NodeSelectorRequirement"
           },
           "x-ms-identifiers": [
-            "label"
+            "key"
           ]
         }
       },
@@ -6017,7 +6016,10 @@
           "description": "Ports the Service listens on.",
           "items": {
             "$ref": "#/definitions/ContainerPortConfig"
-          }
+          },
+          "x-ms-identifiers": [
+            "containerPort"
+          ]
         },
         "ingress": {
           "$ref": "#/definitions/ServiceIngressConfig",
@@ -6096,7 +6098,10 @@
           "description": "Ports the Service listens on.",
           "items": {
             "$ref": "#/definitions/ContainerPortConfig"
-          }
+          },
+          "x-ms-identifiers": [
+            "containerPort"
+          ]
         },
         "ingress": {
           "$ref": "#/definitions/ServiceIngressConfig",

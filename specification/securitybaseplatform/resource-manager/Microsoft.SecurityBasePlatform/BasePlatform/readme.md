@@ -23,6 +23,16 @@ input-file:
   - preview/2025-03-01-preview/securitybaseplatform.json
 ```
 
+## Suppressions
+
+```yaml
+directive:
+  - suppress: LocationMustHaveXmsMutability
+    from: securitybaseplatform.json
+    where: $.definitions.ManagedResourceGroupConfiguration.properties.location
+    reason: The managed resource group configuration is service-generated and read-only.
+```
+
 ### Tag: avocado-examples
 
 These settings are used for CI reference validation of example files.

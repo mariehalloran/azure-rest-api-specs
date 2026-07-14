@@ -36,6 +36,7 @@ model ServiceProperties {
   scalingProfile?: ScalingProfile;
 
   @doc("Ports the Service listens on.")
+  @identifiers(#["containerPort"])
   ports?: ContainerPortConfig[];
 
   @doc("Ingress configuration for the Service. When omitted or disabled, the Service is not exposed through ingress.")

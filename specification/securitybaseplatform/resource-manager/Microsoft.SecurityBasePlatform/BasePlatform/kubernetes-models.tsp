@@ -161,15 +161,15 @@ model RequiredNodeSelectorTerms {
 @doc("Node selector term.")
 model NodeSelectorTerm {
   @doc("Node selector match expressions.")
-  @identifiers(#["label"])
+  @identifiers(#["key"])
   matchExpressions: NodeSelectorRequirement[];
 }
 
 @doc("Node selector requirement.")
 model NodeSelectorRequirement {
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "The property contains a Kubernetes label key, not a secret."
   @doc("Node label key.")
-  @encodedName("application/json", "key")
-  label: string;
+  key: string;
 
   @doc("Match operator.")
   operator: NodeAffinityOperator;
