@@ -30,6 +30,7 @@ model CloudProperties {
   acrResourceId?: string;
 
   /** The SSO URL for the cloud */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @visibility(Lifecycle.Read)
   ssoUrl?: string;
 

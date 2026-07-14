@@ -2292,6 +2292,7 @@ model ServiceInitiatedSoftwareConfiguration extends SoftwareConfiguration {
   /**
    * The URL to the SAP Build of Materials(BOM) file.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   bomUrl: string;
 
   /**
@@ -2351,6 +2352,7 @@ model SAPInstallWithoutOSConfigSoftwareConfiguration
   /**
    * The URL to the SAP Build of Materials(BOM) file.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   bomUrl: string;
 
   /**

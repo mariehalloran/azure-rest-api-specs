@@ -233,6 +233,7 @@ model SystemOverrides {
    * URL pointing to the product information in the Catalog endpoint.
    * Read-only property.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @visibility(Lifecycle.Read)
   productUrl?: string;
 
@@ -240,6 +241,7 @@ model SystemOverrides {
    * URL pointing to the cloud licensing information for the resource.
    * Read-only property.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @added(SaaSHubVersions.v2026_03_31_preview)
   @visibility(Lifecycle.Read)
   cloudLicensingUrl?: string;

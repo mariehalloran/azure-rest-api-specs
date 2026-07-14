@@ -44,6 +44,7 @@ model ChainingSettings {
 
 @doc("Reference to a Logic App resource.")
 model LogicAppRef {
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("The workflow URL of the Logic App.")
   workflowUrl: string;
 }

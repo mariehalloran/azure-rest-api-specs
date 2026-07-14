@@ -319,6 +319,7 @@ model LastOperationProperties {
   @added(Versions.v2026_07_15_preview)
   completedAt?: utcDateTime;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("URL to the detailed result blob in the customer's storage account.")
   @visibility(Lifecycle.Read)
   @added(Versions.v2026_07_15_preview)
@@ -706,6 +707,7 @@ model CommonPostActionResponseForDeviceROCommandsDeprecated
   @visibility(Lifecycle.Read)
   configurationState?: ConfigurationState;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("Predefined link containing Device RO Command output.")
   outputUrl?: string;
 }
@@ -717,6 +719,7 @@ model CommonPostActionResponseForDeviceROCommands {
   @visibility(Lifecycle.Read)
   configurationState?: ConfigurationState;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("Predefined link containing Device RO Command output.")
   outputUrl?: string;
 
@@ -730,6 +733,7 @@ model DeviceRwCommand {
   @doc("Specify the command.")
   command?: string;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("Specify the commands file URL.")
   @added(Versions.v2025_07_15)
   commandUrl?: url;
@@ -743,6 +747,7 @@ model CommonPostActionResponseForDeviceRWCommands extends CommonErrorResponse {
   @visibility(Lifecycle.Read)
   configurationState?: ConfigurationState;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("Predefined link containing Device Rw Command output.")
   outputUrl?: string;
 }
@@ -1692,6 +1697,7 @@ model FileDeviceCommandConfiguration extends DeviceCommandConfiguration {
   @doc("Configuration type discriminator.")
   configurationType: ConfigurationType.File;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("URL to a file containing device commands.")
   commandsUrl: url;
 }
@@ -1720,6 +1726,7 @@ model RunValidationResponseProperties {
   @visibility(Lifecycle.Read)
   validationResult?: ValidationResult;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("Blob URL to the detailed validation report in the customer's storage account. Accessed using the resource's user-assigned managed identity.")
   @visibility(Lifecycle.Read)
   resultUrl?: url;

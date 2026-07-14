@@ -8986,6 +8986,7 @@ model OsImageProperties {
   /**
    * Represents composed image iso download url of a os image.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   composedImageIsoUrl?: string;
 
   /**
@@ -9041,6 +9042,7 @@ model PlatformPayload {
   /**
    * Represents url of a platform update payload.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   payloadUrl?: string;
 
   /**
