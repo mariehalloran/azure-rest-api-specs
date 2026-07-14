@@ -1,0 +1,20 @@
+{
+  "operationId": "Namespaces_Delete",
+  "title": "Delete a namespace",
+  "parameters": {
+    "api-version": "2025-03-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-secbaseplatform",
+    "clusterName": "prod-cluster",
+    "namespaceName": "threat-intel"
+  },
+  "responses": {
+    "204": {},
+    "202": {
+      "headers": {
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.SecurityBasePlatform/locations/eastus2/operationStatuses/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee?api-version=2025-03-01-preview",
+        "Retry-After": 30
+      }
+    }
+  }
+}

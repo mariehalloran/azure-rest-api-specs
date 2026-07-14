@@ -1,0 +1,150 @@
+{
+  "operationId": "Namespaces_CreateOrUpdate",
+  "title": "Create a namespace with telemetry scoping",
+  "parameters": {
+    "api-version": "2025-03-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-secbaseplatform",
+    "clusterName": "prod-cluster",
+    "namespaceName": "threat-intel",
+    "resource": {
+      "location": "eastus2",
+      "properties": {
+        "observability": {
+          "metricsNamespace": "ThreatIntelMetrics",
+          "logsNamespace": "ThreatIntelLogs",
+          "metrics": {
+            "enabled": true,
+            "scrapeIntervalSeconds": 60,
+            "path": "/metrics"
+          },
+          "logs": {
+            "enabled": true,
+            "collectStdout": true,
+            "collectStderr": true,
+            "destinations": [
+              "genevaMdsd"
+            ]
+          },
+          "routing": {
+            "logRoutes": [
+              {
+                "name": "geneva",
+                "destination": "genevaMdsd"
+              }
+            ],
+            "metricRoutes": [
+              {
+                "name": "mdm",
+                "destination": "genevaMdm"
+              }
+            ]
+          },
+          "operatorManaged": {
+            "enabled": true,
+            "manageCertificates": true
+          },
+          "mdm": {
+            "enabled": true,
+            "account": "ThreatIntelMetrics"
+          }
+        },
+        "storageDefinitions": [
+          {
+            "name": "scratch",
+            "kind": "Ephemeral",
+            "sizeLimit": "2Gi"
+          },
+          {
+            "name": "shared-data",
+            "kind": "Persistent",
+            "storageClassName": "azurefile-csi-premium",
+            "size": "100Gi",
+            "accessModes": [
+              "ReadWriteMany"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/clusters/prod-cluster/namespaces/threat-intel",
+        "name": "threat-intel",
+        "type": "Microsoft.SecurityBasePlatform/clusters/namespaces",
+        "location": "eastus2",
+        "properties": {
+          "observability": {
+            "metricsNamespace": "ThreatIntelMetrics",
+            "logsNamespace": "ThreatIntelLogs",
+            "metrics": {
+              "enabled": true,
+              "scrapeIntervalSeconds": 60,
+              "path": "/metrics"
+            },
+            "logs": {
+              "enabled": true,
+              "collectStdout": true,
+              "collectStderr": true,
+              "destinations": [
+                "genevaMdsd"
+              ]
+            },
+            "routing": {
+              "logRoutes": [
+                {
+                  "name": "geneva",
+                  "destination": "genevaMdsd"
+                }
+              ],
+              "metricRoutes": [
+                {
+                  "name": "mdm",
+                  "destination": "genevaMdm"
+                }
+              ]
+            },
+            "operatorManaged": {
+              "enabled": true,
+              "manageCertificates": true
+            },
+            "mdm": {
+              "enabled": true,
+              "account": "ThreatIntelMetrics"
+            }
+          },
+          "provisioningState": "Succeeded",
+          "storageDefinitions": [
+            {
+              "name": "scratch",
+              "kind": "Ephemeral",
+              "sizeLimit": "2Gi"
+            },
+            {
+              "name": "shared-data",
+              "kind": "Persistent",
+              "storageClassName": "azurefile-csi-premium",
+              "size": "100Gi",
+              "accessModes": [
+                "ReadWriteMany"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/clusters/prod-cluster/namespaces/threat-intel",
+        "name": "threat-intel",
+        "type": "Microsoft.SecurityBasePlatform/clusters/namespaces",
+        "location": "eastus2",
+        "properties": {
+          "provisioningState": "Accepted"
+        }
+      }
+    }
+  }
+}

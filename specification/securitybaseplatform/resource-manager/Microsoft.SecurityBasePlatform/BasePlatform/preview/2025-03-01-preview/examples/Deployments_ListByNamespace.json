@@ -1,0 +1,73 @@
+{
+  "operationId": "Deployments_ListByNamespace",
+  "title": "List all aggregate deployment projections across workload kinds in a namespace",
+  "parameters": {
+    "api-version": "2025-03-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-secbaseplatform",
+    "clusterName": "prod-cluster",
+    "namespaceName": "threat-intel"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/clusters/prod-cluster/namespaces/threat-intel/deployments/ingest-api",
+            "name": "ingest-api",
+            "type": "Microsoft.SecurityBasePlatform/clusters/namespaces/deployments",
+            "properties": {
+              "workloadKind": "Service",
+              "workloadName": "ingest-api",
+              "deploymentName": "ingest-api",
+              "currentImage": "secbaseplatform.azurecr.io/threat-intel/ingest-api:1.4.2",
+              "revision": 7,
+              "observedGeneration": 7,
+              "replicas": {
+                "desired": 3,
+                "ready": 3,
+                "available": 3,
+                "updated": 3,
+                "unavailable": 0
+              },
+              "health": "Healthy",
+              "conditions": [],
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/clusters/prod-cluster/namespaces/threat-intel/deployments/backfill-27482910",
+            "name": "backfill-27482910",
+            "type": "Microsoft.SecurityBasePlatform/clusters/namespaces/deployments",
+            "properties": {
+              "workloadKind": "Job",
+              "workloadName": "backfill",
+              "executionName": "backfill-27482910",
+              "startTime": "2026-07-05T02:00:00Z",
+              "completionTime": "2026-07-05T02:14:00Z",
+              "active": 0,
+              "succeeded": 4,
+              "failed": 0,
+              "conditions": [],
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/clusters/prod-cluster/namespaces/threat-intel/deployments/nightly-rollup",
+            "name": "nightly-rollup",
+            "type": "Microsoft.SecurityBasePlatform/clusters/namespaces/deployments",
+            "properties": {
+              "workloadKind": "CronJob",
+              "workloadName": "nightly-rollup",
+              "cronJobName": "nightly-rollup",
+              "lastScheduleTime": "2026-07-05T02:00:00Z",
+              "lastSuccessfulTime": "2026-07-05T02:12:00Z",
+              "executions": [],
+              "provisioningState": "Succeeded"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

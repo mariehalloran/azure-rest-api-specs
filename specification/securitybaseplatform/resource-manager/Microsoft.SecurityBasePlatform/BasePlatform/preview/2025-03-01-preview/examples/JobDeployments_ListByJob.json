@@ -1,0 +1,43 @@
+{
+  "operationId": "JobDeployments_ListByJob",
+  "title": "List the actual execution projections for a job",
+  "parameters": {
+    "api-version": "2025-03-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-secbaseplatform",
+    "clusterName": "prod-cluster",
+    "namespaceName": "threat-intel",
+    "jobName": "backfill"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/clusters/prod-cluster/namespaces/threat-intel/jobs/backfill/deployments/backfill-27482910",
+            "name": "backfill-27482910",
+            "type": "Microsoft.SecurityBasePlatform/clusters/namespaces/jobs/deployments",
+            "properties": {
+              "executionName": "backfill-27482910",
+              "startTime": "2026-07-05T02:00:00Z",
+              "completionTime": "2026-07-05T02:14:00Z",
+              "active": 0,
+              "succeeded": 4,
+              "failed": 0,
+              "conditions": [
+                {
+                  "type": "Complete",
+                  "status": "True",
+                  "reason": "JobComplete",
+                  "message": "Job completed successfully.",
+                  "lastTransitionTime": "2026-07-05T02:14:00Z"
+                }
+              ],
+              "provisioningState": "Succeeded"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

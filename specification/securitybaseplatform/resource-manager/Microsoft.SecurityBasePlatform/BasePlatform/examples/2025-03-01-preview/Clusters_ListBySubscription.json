@@ -1,0 +1,28 @@
+{
+  "operationId": "Clusters_ListBySubscription",
+  "title": "List clusters in a subscription",
+  "parameters": {
+    "api-version": "2025-03-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/clusters/prod-cluster",
+            "name": "prod-cluster",
+            "type": "Microsoft.SecurityBasePlatform/clusters",
+            "location": "eastus2",
+            "properties": {
+              "workspaceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/workspaces/prod-ws",
+              "clusterKind": "Dk8s",
+              "provisioningState": "Succeeded"
+            }
+          }
+        ],
+        "nextLink": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.SecurityBasePlatform/clusters?api-version=2025-03-01-preview&%24skiptoken=token"
+      }
+    }
+  }
+}

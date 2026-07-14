@@ -1,0 +1,46 @@
+{
+  "operationId": "ServiceDeployments_Get",
+  "title": "Get the actual deployment projection for a service",
+  "parameters": {
+    "api-version": "2025-03-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-secbaseplatform",
+    "clusterName": "prod-cluster",
+    "namespaceName": "threat-intel",
+    "serviceName": "ingest-api",
+    "deploymentName": "ingest-api"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/clusters/prod-cluster/namespaces/threat-intel/services/ingest-api/deployments/ingest-api",
+        "name": "ingest-api",
+        "type": "Microsoft.SecurityBasePlatform/clusters/namespaces/services/deployments",
+        "properties": {
+          "deploymentName": "ingest-api",
+          "currentImage": "secbaseplatform.azurecr.io/threat-intel/ingest-api:1.4.2",
+          "revision": 7,
+          "observedGeneration": 7,
+          "replicas": {
+            "desired": 3,
+            "ready": 3,
+            "available": 3,
+            "updated": 3,
+            "unavailable": 0
+          },
+          "health": "Healthy",
+          "conditions": [
+            {
+              "type": "Available",
+              "status": "True",
+              "reason": "MinimumReplicasAvailable",
+              "message": "Deployment has minimum availability.",
+              "lastTransitionTime": "2026-07-05T12:00:00Z"
+            }
+          ],
+          "provisioningState": "Succeeded"
+        }
+      }
+    }
+  }
+}
