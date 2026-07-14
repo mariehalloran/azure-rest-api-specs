@@ -20,6 +20,10 @@ model ApprovalSettingProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
 
+  @doc("The tenant ID of the approval setting to be cross checked for security purposes.")
+  @visibility(Lifecycle.Read)
+  tenantId?: string;
+
   @doc("The list of verification authorities.")
   @identifiers(#["name"])
   verificationAuthorities: VerificationAuthority[];
@@ -28,8 +32,8 @@ model ApprovalSettingProperties {
   requestedCredentialsSetting: ApprovalRequestCredentialsSetting;
 
   @doc("The settings of backend storage for approval service to use as a ledger.")
-  @visibility(Lifecycle.Read, Lifecycle.Create)
-  secureLedgerSetting: SecureLedgerSetting;
+  @visibility(Lifecycle.Read)
+  secureLedgerSetting?: SecureLedgerSetting;
 
   @doc("The settings for the root workflow approval.")
   approvalAdminSetting: ApprovalAdminSetting;
@@ -104,22 +108,21 @@ model RequestCredentialSetting {
   acceptedIssuers: string[];
 
   @doc("The type of verifiable credential.")
-  @visibility(Lifecycle.Read, Lifecycle.Create)
   vcType: string;
 }
 
 @doc("Settings of backend storage for approval service to use as a ledger.")
 model SecureLedgerSetting {
   @doc("The storage type.")
-  @visibility(Lifecycle.Read, Lifecycle.Create)
+  @visibility(Lifecycle.Read)
   type: secureLedgerStorageType;
 
   @doc("The regions the storage should be created at and replicated to.")
-  @visibility(Lifecycle.Read, Lifecycle.Create)
+  @visibility(Lifecycle.Read)
   regions: string[];
 
   @doc("The endpoint to access the storage.")
-  @invisible(Lifecycle)
+  @visibility(Lifecycle.Read)
   endpoint: string;
 }
 

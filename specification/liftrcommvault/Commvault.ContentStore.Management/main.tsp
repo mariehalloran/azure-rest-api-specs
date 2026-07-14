@@ -50,6 +50,10 @@ enum Versions {
   @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v1_preview")
   @useDependency(LiftrBase.Versions.v1_preview)
   v8_preview: "2026-07-03-preview",
+
+  @doc("Dependent on Azure.ResourceManager.Versions.v1_0_Preview_1, LiftrBase.Versions.v3_preview")
+  @useDependency(LiftrBase.Versions.v3_preview)
+  v9_preview: "2026-08-01-preview",
 }
 interface Operations extends Azure.ResourceManager.Operations {}
 
@@ -81,7 +85,59 @@ model SaaSData {
 @added(Versions.v6_preview)
 model ActivateSaaSParameterRequest {
   @doc("SaaS guid for Activate and Validate SaaS Resource")
+  @removed(Versions.v9_preview)
   saaSGuid: string;
+
+  @doc("SaaS guid for Activate and Validate SaaS Resource")
+  @added(Versions.v9_preview)
+  saasGuid: string;
+
+  @doc("Optional publisher identifier")
+  @added(Versions.v9_preview)
+  publisherId?: string;
+
+  @doc("Optional activation request parameters containing user and company details")
+  @added(Versions.v9_preview)
+  activateSaaSRequestParam?: ActivateSaaSRequestParam;
+}
+
+@doc("Optional company profile information")
+@added(Versions.v9_preview)
+model CompanyProfile {
+  @doc("Job title")
+  jobTitle?: string;
+
+  @doc("Company name")
+  companyName?: string;
+
+  @doc("Company website")
+  website?: string;
+
+  @doc("Street address")
+  street?: string;
+
+  @doc("City of the company address.")
+  city?: string;
+
+  @doc("Country of the company address.")
+  country?: string;
+
+  @doc("Postal code")
+  postalCode?: string;
+
+  @doc("State or province of the company address.")
+  state?: string;
+}
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is a well-known acronym"
+@doc("Optional activate SaaS request parameters")
+@added(Versions.v9_preview)
+model ActivateSaaSRequestParam {
+  @doc("Optional user details")
+  user?: UserDetails;
+
+  @doc("Optional company details")
+  company?: CompanyProfile;
 }
 
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "SaaS response model"
@@ -139,9 +195,14 @@ interface CloudAccounts {
 
 @doc("Properties specific to Commvault Cloud Account resource")
 model CloudAccountProperties is BaseResourceProperties {
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("SSO URL for the Commvault Cloud Account")
   @visibility(Lifecycle.Read)
   ssoUrl?: string;
+
+  @doc("Optional company details for the cloud account")
+  @added(Versions.v9_preview)
+  company?: CompanyProfile;
 
   @doc("The backup administrator principal provided during CCA create. Required on create (enforced by backend), ignored on update.")
   @added(Versions.v8_preview)

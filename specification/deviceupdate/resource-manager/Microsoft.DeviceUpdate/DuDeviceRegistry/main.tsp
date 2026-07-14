@@ -4,6 +4,7 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./models.tsp";
 import "./LinkedAccount.tsp";
+import "./UpdateInstances.tsp";
 import "./client.tsp";
 
 using TypeSpec.Rest;
@@ -36,6 +37,11 @@ enum Versions {
   /**
    * The 2026-06-01-preview API version.
    */
-  @previewVersion
   v2026_06_01_preview: "2026-06-01-preview",
+
+  /**
+   * The 2026-07-02-preview API version.
+   */
+  @previewVersion
+  v2026_07_02_preview: "2026-07-02-preview",
 }

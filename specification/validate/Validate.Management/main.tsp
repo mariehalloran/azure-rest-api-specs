@@ -9,6 +9,7 @@ import "./validationExecutionPlan.tsp";
 import "./validationExecutionPlanRun.tsp";
 import "./validationTestRun.tsp";
 import "./validationTestCatalog.tsp";
+import "./client.tsp";
 
 using TypeSpec.Versioning;
 using Azure.ResourceManager;
@@ -32,4 +33,8 @@ enum Versions {
   /** 2026-05-01-preview version */
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   v2026_05_01_preview: "2026-05-01-preview",
+
+  /** 2026-07-01-preview version */
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  v2026_07_01_preview: "2026-07-01-preview",
 }

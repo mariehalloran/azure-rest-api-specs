@@ -1,0 +1,123 @@
+{
+  "title": "StorageArrays_Get",
+  "operationId": "StorageArrays_Get",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "6D37FF61-4C93-4377-B06B-FC6D6D561A7D",
+    "resourceGroupName": "rghci",
+    "storageArrayName": "pure-1"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1",
+        "name": "pure-1",
+        "type": "Microsoft.AzureStackHCI/storageArrays",
+        "location": "westus2",
+        "tags": {
+          "environment": "production"
+        },
+        "properties": {
+          "displayName": "Pure Storage FlashArray - West DC",
+          "arrayType": "SAN",
+          "vendor": "PureStorage",
+          "model": "FlashArray//X50",
+          "serialNumber": "BDCCE1225FF24405",
+          "firmwareVersion": "6.5.2",
+          "managementEndpoint": "https://100.71.95.15",
+          "credentialSecretUri": "https://san-enablement.vault.azure.net/secrets/pure-1",
+          "supportedTransports": [
+            "FC",
+            "iSCSI"
+          ],
+          "capacity": {
+            "totalPhysicalBytes": 28000000000000,
+            "usedPhysicalBytes": 8750000000000,
+            "freePhysicalBytes": 19250000000000,
+            "totalProvisionedBytes": 45000000000000,
+            "snapshotUsedBytes": 1200000000000,
+            "dataReductionRatio": 3.2,
+            "provisioningRatio": 1.61,
+            "thinProvisioningEnabled": true
+          },
+          "controllerCount": 2,
+          "encryptionAtRest": "Enabled",
+          "capabilities": {
+            "maxIops": 500000,
+            "maxBandwidthMbps": 16384,
+            "thinProvisioningSupported": true,
+            "dedupSupported": true,
+            "compressionSupported": true,
+            "encryptionAtRestEnabled": true,
+            "replicationSupported": true,
+            "snapshotSupported": true,
+            "supportedTransports": [
+              "FC",
+              "iSCSI"
+            ],
+            "minVolumeBytes": 1073741824,
+            "maxVolumeBytes": 70368744177664,
+            "maxVolumeCount": 10000
+          },
+          "connectionStatus": "Connected",
+          "lastSyncedAt": "2026-03-24T18:00:00Z",
+          "status": {
+            "controllers": [
+              {
+                "controllerId": "CT0",
+                "model": "FA-X50R3",
+                "firmwareVersion": "6.5.2",
+                "status": "Online",
+                "role": "Primary",
+                "targetPorts": [
+                  "CT0-FC0",
+                  "CT0-FC1"
+                ]
+              }
+            ],
+            "fcPorts": [
+              {
+                "portId": "CT0-FC0",
+                "wwn": "52:4a:93:70:3c:11:d0:00",
+                "speed": "32Gbps",
+                "portState": "Online",
+                "controller": "CT0",
+                "fabricId": "fabric-westus2-a"
+              }
+            ],
+            "iscsiTargets": [
+              {
+                "targetId": "iscsi-ct0-eth4",
+                "portalAddress": "10.0.50.10",
+                "port": 3260,
+                "targetIqn": "iqn.2010-06.com.purestorage:flasharray.bdcce1225ff24405",
+                "controller": "CT0",
+                "portalState": "Online",
+                "chapRequired": false,
+                "mtu": 9000
+              }
+            ],
+            "nvmeSubsystems": [],
+            "physicalDrives": [],
+            "storageJobs": [],
+            "associatedClusters": [
+              {
+                "clusterResourceId": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/clusters/contoso-cluster",
+                "associationResourceId": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/clusters/contoso-cluster/storageArrayAssociations/pure-1-assoc"
+              }
+            ]
+          },
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2026-03-15T10:00:00.000Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "Application",
+          "lastModifiedAt": "2026-03-24T18:00:00.000Z"
+        }
+      }
+    }
+  }
+}

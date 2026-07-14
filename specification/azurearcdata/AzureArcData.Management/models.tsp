@@ -5,6 +5,7 @@ import "@azure-tools/typespec-azure-core";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 using Azure.Core;
 using Azure.ResourceManager.Foundations;
@@ -2644,8 +2645,16 @@ model SqlServerInstanceProperties {
   /**
    * The unique ID of the hybrid machine that this resource belongs to.
    */
+  @removed(Versions.v2026_07_01_preview)
   @visibility(Lifecycle.Read)
   vmId?: string;
+
+  /**
+   * The unique ID of the hybrid machine that this resource belongs to.
+   */
+  @added(Versions.v2026_07_01_preview)
+  @encodedName("application/json", "vmId")
+  vmIdWritable?: string;
 
   /**
    * The time when the resource was created.
@@ -3808,8 +3817,16 @@ model SqlServerInstanceUpdateProperties {
   /**
    * The unique ID of the hybrid machine that this resource belongs to.
    */
+  @removed(Versions.v2026_07_01_preview)
   @visibility(Lifecycle.Read)
   vmId?: string;
+
+  /**
+   * The unique ID of the hybrid machine that this resource belongs to.
+   */
+  @added(Versions.v2026_07_01_preview)
+  @encodedName("application/json", "vmId")
+  vmIdWritable?: string;
 
   /**
    * The time when the resource was created.
@@ -5320,8 +5337,16 @@ model SqlServerAvailabilityGroupResourceProperties {
   /**
    * The unique ID of the hybrid machine that this resource belongs to.
    */
+  @removed(Versions.v2026_07_01_preview)
   @visibility(Lifecycle.Read)
   vmId?: string;
+
+  /**
+   * The unique ID of the hybrid machine that this resource belongs to.
+   */
+  @added(Versions.v2026_07_01_preview)
+  @encodedName("application/json", "vmId")
+  vmIdWritable?: string;
 
   /**
    * Timestamp for when the data was collected from the client machine.
@@ -5552,6 +5577,7 @@ model AvailabilityGroupConfigure {
   /**
    * Mirroring endpoint URL of availability group replica
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   endpointUrl?: string;
 
   /**
@@ -5640,11 +5666,13 @@ model AvailabilityGroupConfigure {
   /**
    * Connectivity endpoint (URL) of the read only availability replica.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   readOnlyRoutingUrl?: string;
 
   /**
    * Connectivity endpoint (URL) of the read write availability replica.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   readWriteRoutingUrl?: string;
 
   /**
@@ -5894,6 +5922,7 @@ model AvailabilityGroupCreateUpdateReplicaConfiguration {
   /**
    * Database mirroring endpoint URL of availability group replica
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   endpointUrl?: string;
 
   /**
@@ -5939,6 +5968,7 @@ model AvailabilityGroupCreateUpdateReplicaConfiguration {
   /**
    * Connectivity endpoint (URL) of the read only availability replica.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   secondaryRoleReadOnlyRoutingUrl?: string;
 
   /**
@@ -5989,6 +6019,7 @@ model DistributedAvailabilityGroupCreateUpdateAvailabilityGroupConfiguration {
   /**
    * The listener URL of the availability group.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   listenerUrl?: url;
 
   /**
@@ -6174,8 +6205,16 @@ model SqlServerDatabaseResourceProperties {
   /**
    * The unique ID of the hybrid machine that this resource belongs to.
    */
+  @removed(Versions.v2026_07_01_preview)
   @visibility(Lifecycle.Read)
   vmId?: string;
+
+  /**
+   * The unique ID of the hybrid machine that this resource belongs to.
+   */
+  @added(Versions.v2026_07_01_preview)
+  @encodedName("application/json", "vmId")
+  vmIdWritable?: string;
 
   /**
    * Conditional. If createMode is PointInTimeRestore, this value is required. Specifies the point in time (ISO8601 format) of the source database that will be restored to create the new database.
