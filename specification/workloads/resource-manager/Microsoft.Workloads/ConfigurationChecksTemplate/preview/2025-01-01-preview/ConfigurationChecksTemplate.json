@@ -449,7 +449,8 @@
       "description": "The status of the check execution.",
       "enum": [
         "Enabled",
-        "Disabled"
+        "Disabled",
+        "NotApplicable"
       ],
       "x-ms-enum": {
         "name": "CheckExecutionStatus",
@@ -464,6 +465,11 @@
             "name": "Disabled",
             "value": "Disabled",
             "description": "The execution of the check is disabled."
+          },
+          {
+            "name": "NotApplicable",
+            "value": "NotApplicable",
+            "description": "The check is not applicable to the current workload configuration."
           }
         ]
       }
