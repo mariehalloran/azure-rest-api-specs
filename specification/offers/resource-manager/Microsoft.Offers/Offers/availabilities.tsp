@@ -68,6 +68,14 @@ model AvailabilityProperties {
   /** Alternate identifiers for this availability. */
   alternateIds?: string[];
 
+  /**
+   * Full-fidelity embedded BigCat ResourceSet objects for this availability's
+   * availability-level `Conditions.ResourceSetIds`. Additive & nullable — null
+   * when the embed feature flag is off or no id matches.
+   */
+  @identifiers(#["resourceSetId"])
+  resourceSets?: ResourceSet[];
+
   /** Dynamic struct containing provenance and internal routing fields. */
   diagnosticsInformation?: PcdPropertyBag;
 

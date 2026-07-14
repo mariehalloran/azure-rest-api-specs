@@ -22,6 +22,32 @@ namespace Microsoft.Offers;
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Curated property bag with an unbounded key set sourced from the upstream BigCat catalog feed; cannot be modeled as an explicit type."
 model PcdPropertyBag is Record<unknown>;
 
+/**
+ * Full-fidelity embedded BigCat ResourceSet object. Additive & nullable: only
+ * present when the embed feature flag is on and an id matches.
+ */
+@added(Versions.v2026_06_30_preview)
+model ResourceSet {
+  /** Display catalog identifier for this resource set. */
+  displayCatalogId?: int32;
+
+  /** The resource set identifier. */
+  @maxLength(256)
+  resourceSetId?: string;
+
+  /** Status of the resource set. */
+  @maxLength(64)
+  resourceSetStatus?: string;
+
+  /** Revision identifier of the resource set. */
+  @maxLength(64)
+  revisionId?: string;
+
+  /** Groups contained in this resource set. */
+  @identifiers(#[])
+  groups?: PcdPropertyBag[];
+}
+
 // =============================================================================
 // Product
 // =============================================================================
@@ -222,7 +248,7 @@ model ValueExchangeProperties {
   /** Computed composite identifier: `"{productId}/{skuId}"`. */
   @added(Versions.v2026_06_30_preview)
   @maxLength(130)
-  valueExchangeBigId: string;
+  bigId?: string;
 
   /** Consumer-facing alias of the UPN (same source value as `productCode`). */
   @added(Versions.v2026_06_30_preview)
@@ -263,9 +289,10 @@ model ValueExchangeProperties {
   @maxLength(64)
   renewalQuoteTimer?: string;
 
-  /** Array of lifecycle states applicable to this product/term combination. */
+  /** The different lifecycle states which this term will go through. */
   @added(Versions.v2026_06_30_preview)
-  productLifecycleStates?: string[];
+  @identifiers(#[])
+  productLifecycleStates?: PcdPropertyBag[];
 
   /** Array of availability identifiers matching this value exchange's skuId + termId. */
   @added(Versions.v2026_06_30_preview)
@@ -274,6 +301,15 @@ model ValueExchangeProperties {
   /** Count of matching availability records for this value exchange. */
   @added(Versions.v2026_06_30_preview)
   availabilityCount?: int32;
+
+  /**
+   * Full-fidelity embedded BigCat ResourceSet objects for this value exchange's
+   * term-level ResourceSetIds. Additive & nullable — null when the embed feature
+   * flag is off or no id matches.
+   */
+  @added(Versions.v2026_06_30_preview)
+  @identifiers(#["resourceSetId"])
+  resourceSets?: ResourceSet[];
 
   /** Dynamic struct carrying internal-routing provenance fields (for example, `runId`). */
   @added(Versions.v2026_06_30_preview)

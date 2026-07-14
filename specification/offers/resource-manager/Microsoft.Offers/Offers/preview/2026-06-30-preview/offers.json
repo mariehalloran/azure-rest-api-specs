@@ -746,6 +746,16 @@
             "type": "string"
           }
         },
+        "resourceSets": {
+          "type": "array",
+          "description": "Full-fidelity embedded BigCat ResourceSet objects for this availability's\navailability-level `Conditions.ResourceSetIds`. Additive & nullable — null\nwhen the embed feature flag is off or no id matches.",
+          "items": {
+            "$ref": "#/definitions/ResourceSet"
+          },
+          "x-ms-identifiers": [
+            "resourceSetId"
+          ]
+        },
         "diagnosticsInformation": {
           "$ref": "#/definitions/PcdPropertyBag",
           "description": "Dynamic struct containing provenance and internal routing fields."
@@ -1249,6 +1259,40 @@
         "version"
       ]
     },
+    "ResourceSet": {
+      "type": "object",
+      "description": "Full-fidelity embedded BigCat ResourceSet object. Additive & nullable: only\npresent when the embed feature flag is on and an id matches.",
+      "properties": {
+        "displayCatalogId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Display catalog identifier for this resource set."
+        },
+        "resourceSetId": {
+          "type": "string",
+          "description": "The resource set identifier.",
+          "maxLength": 256
+        },
+        "resourceSetStatus": {
+          "type": "string",
+          "description": "Status of the resource set.",
+          "maxLength": 64
+        },
+        "revisionId": {
+          "type": "string",
+          "description": "Revision identifier of the resource set.",
+          "maxLength": 64
+        },
+        "groups": {
+          "type": "array",
+          "description": "Groups contained in this resource set.",
+          "items": {
+            "$ref": "#/definitions/PcdPropertyBag"
+          },
+          "x-ms-identifiers": []
+        }
+      }
+    },
     "Sku": {
       "type": "object",
       "description": "Denormalized SKU summary for a value exchange.",
@@ -1510,7 +1554,7 @@
           "format": "int32",
           "description": "Product version propagated from the parent product document."
         },
-        "valueExchangeBigId": {
+        "bigId": {
           "type": "string",
           "description": "Computed composite identifier: `\"{productId}/{skuId}\"`.",
           "maxLength": 130
@@ -1559,10 +1603,11 @@
         },
         "productLifecycleStates": {
           "type": "array",
-          "description": "Array of lifecycle states applicable to this product/term combination.",
+          "description": "The different lifecycle states which this term will go through.",
           "items": {
-            "type": "string"
-          }
+            "$ref": "#/definitions/PcdPropertyBag"
+          },
+          "x-ms-identifiers": []
         },
         "availabilityIds": {
           "type": "array",
@@ -1575,6 +1620,16 @@
           "type": "integer",
           "format": "int32",
           "description": "Count of matching availability records for this value exchange."
+        },
+        "resourceSets": {
+          "type": "array",
+          "description": "Full-fidelity embedded BigCat ResourceSet objects for this value exchange's\nterm-level ResourceSetIds. Additive & nullable — null when the embed feature\nflag is off or no id matches.",
+          "items": {
+            "$ref": "#/definitions/ResourceSet"
+          },
+          "x-ms-identifiers": [
+            "resourceSetId"
+          ]
         },
         "diagnosticsInformation": {
           "$ref": "#/definitions/PcdPropertyBag",
@@ -1590,8 +1645,7 @@
         "productId",
         "skuId",
         "productCode",
-        "version",
-        "valueExchangeBigId"
+        "version"
       ]
     }
   },
