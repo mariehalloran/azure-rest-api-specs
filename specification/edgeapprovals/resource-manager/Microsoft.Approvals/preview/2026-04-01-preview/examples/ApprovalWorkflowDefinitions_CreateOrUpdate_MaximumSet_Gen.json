@@ -24,12 +24,19 @@
               "approvers": [
                 "gpecgztjvbtvq"
               ],
-              "minimumApprovalsRequired": 9
+              "minimumApprovalsRequired": 9,
+              "minimumRejectionsRequired": 1,
+              "waitForAllApproversToRespond": false
             }
           ],
           "timeoutInMinutes": 117243
         },
-        "scope": "bjztpqywbcf"
+        "scope": "bjztpqywbcf",
+        "chainingSettings": {
+          "workflowDefinitionIds": [
+            "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Compute/virtualMachines/myVM/providers/Microsoft.Approvals/approvalWorkflowDefinitions/upstream-workflow-01"
+          ]
+        }
       }
     }
   },
@@ -55,12 +62,19 @@
                 "approvers": [
                   "gpecgztjvbtvq"
                 ],
-                "minimumApprovalsRequired": 9
+                "minimumApprovalsRequired": 9,
+                "minimumRejectionsRequired": 1,
+                "waitForAllApproversToRespond": false
               }
             ],
             "timeoutInMinutes": 117243
           },
-          "scope": "bjztpqywbcf"
+          "scope": "bjztpqywbcf",
+          "chainingSettings": {
+            "workflowDefinitionIds": [
+              "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Compute/virtualMachines/myVM/providers/Microsoft.Approvals/approvalWorkflowDefinitions/upstream-workflow-01"
+            ]
+          }
         },
         "eTag": "wehshxculcouojjhfqjntjnhkn",
         "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Compute/virtualMachines/myVM/providers/Microsoft.Approvals/approvalWorkflowDefinitions/my-workflow-def-01",
@@ -100,12 +114,19 @@
                 "approvers": [
                   "gpecgztjvbtvq"
                 ],
-                "minimumApprovalsRequired": 9
+                "minimumApprovalsRequired": 9,
+                "minimumRejectionsRequired": 1,
+                "waitForAllApproversToRespond": false
               }
             ],
             "timeoutInMinutes": 117243
           },
-          "scope": "bjztpqywbcf"
+          "scope": "bjztpqywbcf",
+          "chainingSettings": {
+            "workflowDefinitionIds": [
+              "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Compute/virtualMachines/myVM/providers/Microsoft.Approvals/approvalWorkflowDefinitions/upstream-workflow-01"
+            ]
+          }
         },
         "eTag": "wehshxculcouojjhfqjntjnhkn",
         "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Compute/virtualMachines/myVM/providers/Microsoft.Approvals/approvalWorkflowDefinitions/my-workflow-def-01",
