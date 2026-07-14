@@ -1,0 +1,37 @@
+{
+  "title": "FabricAliases_Get",
+  "operationId": "FabricAliases_Get",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "6D37FF61-4C93-4377-B06B-FC6D6D561A7D",
+    "resourceGroupName": "rghci",
+    "storageFabricName": "fabric-westus2-a",
+    "fabricAliasName": "contoso-node-01-hba"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageFabrics/fabric-westus2-a/fabricAliases/contoso-node-01-hba",
+        "name": "contoso-node-01-hba",
+        "type": "Microsoft.AzureStackHCI/storageFabrics/fabricAliases",
+        "properties": {
+          "aliasName": "contoso-node-01-hba",
+          "wwns": [
+            "20:00:00:25:b5:01:00:01",
+            "20:00:00:25:b5:01:00:02"
+          ],
+          "description": "Contoso cluster node-01 FC HBA ports",
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2026-03-15T10:00:00.000Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "Application",
+          "lastModifiedAt": "2026-03-24T18:00:00.000Z"
+        }
+      }
+    }
+  }
+}

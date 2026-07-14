@@ -77,9 +77,51 @@ model LinkedAccountProperties {
 }
 
 /**
+ * Update Instance properties.
+ *
+ * All properties are read-only because resource state is managed exclusively
+ * through the internal link* action endpoints.
+ */
+model UpdateInstanceProperties {
+  /**
+   * Provisioning state.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Service-facing address for ADR→ADU communication.
+   */
+  @visibility(Lifecycle.Read)
+  serviceAddress?: string;
+
+  /**
+   * Account linking state. Absent until first /link/initiate.
+   */
+  @visibility(Lifecycle.Read)
+  linking?: AccountLinking;
+}
+
+/**
  * Request payload used to update an existing Linked Account.
  */
 model LinkedAccountUpdate {
+  /**
+   * List of key value pairs that describe the resource. This will overwrite the existing tags.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Updating dictionary of tags"
+  tags?: Record<string>;
+
+  /**
+   * The type of identity used for the resource.
+   */
+  identity?: Azure.ResourceManager.Foundations.ManagedServiceIdentity;
+}
+
+/**
+ * Request payload used to update an existing Update Instance.
+ */
+model UpdateInstanceUpdate {
   /**
    * List of key value pairs that describe the resource. This will overwrite the existing tags.
    */
@@ -98,13 +140,6 @@ model LinkedAccountUpdate {
  * Tracks the relationship between a linkable resource and an ADR namespace.
  * The property is absent before any link attempt; its presence indicates a link
  * has been initiated. NotLinked is a logical initial state, not a persisted value.
- *
- * State transitions:
- *   NotLinked → InProgress:        ADR calls linkInitiate.
- *   InProgress → Succeeded:        ADR sends linkNotify(commit).
- *   InProgress → Failed:           Resource-driven (internal work fails) or ADR-driven (linkNotify(fail)).
- *   Succeeded → Orphaned:          ADR sends linkNotify(namespaceDeleted). Terminal.
- *   Failed → InProgress:           ADR calls linkInitiate (re-link). Subject to policy.
  */
 union AccountLinkingState {
   string,
@@ -122,6 +157,7 @@ union AccountLinkingState {
   /**
    * Link was attempted but failed.
    */
+  @removed(Versions.v2026_06_01_preview)
   Failed: "Failed",
 
   /**
@@ -164,7 +200,7 @@ union LinkNotifyAction {
   commit: "commit",
 
   /**
-   * Fail the linking operation (InProgress → Failed).
+   * Report that the linking operation failed.
    */
   fail: "fail",
 
@@ -187,7 +223,12 @@ model InboundCallerIdentity {
   /**
    * ARM resource ID of the user-assigned managed identity. Required when type is "UserAssigned".
    */
-  userAssignedIdentity?: string;
+  @typeChangedFrom(Versions.v2026_07_02_preview, string)
+  userAssignedIdentity?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedIdentity/userAssignedIdentities";
+    }
+  ]>;
 }
 
 /**
@@ -290,6 +331,14 @@ model LinkInitiateRequest {
   /**
    * Managed Identity the resource should use for ADR communcation.
    */
+  @renamedFrom(Versions.v2026_07_02_preview, "inboundCallerIdentity")
+  @removed(Versions.v2026_07_02_preview)
+  inboundCallerIdentityOld: InboundCallerIdentity;
+
+  /**
+   * Managed Identity the resource should use for ADR communication.
+   */
+  @added(Versions.v2026_07_02_preview)
   inboundCallerIdentity: InboundCallerIdentity;
 }
 
@@ -351,3 +400,13 @@ model LinkUpdateRequest {
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Empty response object to satisfy R4008 AvoidEmptyResponseSchema, preserves forward extensibility"
 model LinkUpdateResponse is Record<unknown>;
+
+/**
+ * Response body for /link/update.
+ */
+model UpdateInstanceLinkUpdateResponse {
+  /**
+   * Placeholder state for the 200 response. This value is only a placeholder to satisfy the response contract and does not represent backend operation state.
+   */
+  state: string = "Succeeded";
+}

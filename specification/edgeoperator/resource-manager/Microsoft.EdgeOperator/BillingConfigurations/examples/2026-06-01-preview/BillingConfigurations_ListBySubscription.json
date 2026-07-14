@@ -1,0 +1,58 @@
+{
+  "title": "BillingConfigurations_ListBySubscription",
+  "operationId": "BillingConfigurations_ListBySubscription",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "12345678-1234-1234-1234-123456789012"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/12345678-1234-1234-1234-123456789012/providers/Microsoft.EdgeOperator/billingConfigurations/default",
+            "name": "default",
+            "type": "Microsoft.EdgeOperator/billingConfigurations",
+            "properties": {
+              "resourceId": "/subscriptions/12345678-1234-1234-1234-123456789012/providers/Microsoft.Edge/disconnectedOperations/demo-resource",
+              "resourceName": "demo-resource",
+              "stampId": "12345678-FFFF-1234-1234-123456789012",
+              "location": "eastus",
+              "billingModel": "Capacity",
+              "connectionIntent": "Connected",
+              "cloud": "Public",
+              "billingConfiguration": {
+                "autoRenew": "Enabled",
+                "billingStatus": "Enabled",
+                "current": {
+                  "cores": 12,
+                  "pricingModel": "Trial",
+                  "startDate": "2025-11-01",
+                  "endDate": "2025-12-31"
+                },
+                "upcoming": {
+                  "cores": 12,
+                  "pricingModel": "Annual",
+                  "startDate": "2026-01-01"
+                }
+              },
+              "provisioningState": "Succeeded",
+              "benefitPlans": {
+                "azureHybridWindowsServerBenefit": "Enabled",
+                "windowsServerVmCount": 5
+              }
+            },
+            "systemData": {
+              "createdBy": "operator@example.com",
+              "createdByType": "User",
+              "createdAt": "2025-11-01T00:00:00Z",
+              "lastModifiedBy": "operator@example.com",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2025-11-01T00:00:00Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
