@@ -251,7 +251,7 @@ union VersionControlSystem {
   string,
   @doc("Azure DevOps.")
   AzureDevOps: "AzureDevOps",
-  @doc("GitHub.")
+  @doc("GitHub source control.")
   GitHub: "GitHub",
   @doc("Local output without a remote repository.")
   Local: "Local",

@@ -35,3 +35,15 @@ These settings apply only when `--tag=package-preview-2026-02` is specified on t
 input-file:
   - preview/2026-02-01-preview/platformlandingzones.json
 ```
+
+## Suppression
+
+```yaml
+directive:
+  - suppress: EnumInsteadOfBoolean
+    from: platformlandingzones.json
+    reason: The remaining boolean properties are independent binary feature toggles. Related switches that represent one choice are modeled as extensible enums.
+  - suppress: MissingSegmentsInNestedResourceListOperation
+    from: platformlandingzones.json
+    reason: The generated list-by-parent route contains the complete migrateProjects parent path and the platformLandingZones child segment.
+```
