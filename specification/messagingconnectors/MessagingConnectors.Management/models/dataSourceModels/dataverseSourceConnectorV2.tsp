@@ -63,6 +63,7 @@ model DataverseSourceConnectorV2Properties extends DataSourceProperties {
   @doc("OffsetStartTime in utcDateTime zone.")
   offsetStartTime?: utcDateTime;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("URL of the Dataverse environment")
   dataverseEnvironmentUrl: string;
 

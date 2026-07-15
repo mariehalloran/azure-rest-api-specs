@@ -1,4 +1,4 @@
-﻿import "@typespec/http";
+import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
@@ -286,6 +286,7 @@ model MetricsToTrack {
     }
   ]>;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("Destination AMW account where the time-series data of the metric lives.")
   destinationAmwAccountUrl: armResourceIdentifier<[
     {

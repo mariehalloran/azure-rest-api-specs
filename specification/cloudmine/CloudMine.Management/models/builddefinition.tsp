@@ -22,6 +22,7 @@ model BuildDefinitionProperties {
   @doc("Type of the reference repository.")
   repositoryType: RepositoryType;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("Url of the reference repository.")
   repositoryUrl: url;
 

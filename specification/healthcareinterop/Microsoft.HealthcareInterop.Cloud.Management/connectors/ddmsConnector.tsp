@@ -33,6 +33,7 @@ model DdmsConnectorProperties {
   @doc("The resource ID of an existing hub resource to link/associate this ddmsConnector resource to.")
   hubResourceId: HubResourceId;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("The diagnostic service endpoint URL.")
   baseUrl: url;
 
