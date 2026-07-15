@@ -14,7 +14,8 @@ namespace Microsoft.AzureStackHCI;
 //
 // `storageArrayAssociations` is a proxy child of `clusters` — links a cluster to
 // a storage array (the admin entry point for storage management). Supports N:N.
-// PRIVATE PREVIEW: read-only — only GET and LIST are exposed.
+// PRIVATE PREVIEW: GET and LIST are read-only; PUT (createOrUpdate) is also
+// exposed.
 
 /**
  * A storage-array association — links a cluster to a storage array.
@@ -32,8 +33,10 @@ model StorageArrayAssociation
 }
 
 /**
- * Read-only operations for storage-array associations.
+ * Operations for storage-array associations. GET and LIST are read-only; PUT
+ * (createOrUpdate) edits the settings.
  */
+#suppress "@azure-tools/typespec-azure-resource-manager/no-resource-delete-operation" "Storage-array associations are discovered from the cluster and cannot be created or deleted through ARM; PUT only edits the settings of an existing storage-array association."
 @added(Versions.v2026_03_15_preview)
 @armResourceOperations
 interface StorageArrayAssociations {
@@ -42,4 +45,7 @@ interface StorageArrayAssociations {
 
   /** List storage-array associations on a cluster. */
   list is ArmResourceListByParent<StorageArrayAssociation>;
+
+  /** Create or update a storage-array association. */
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<StorageArrayAssociation>;
 }

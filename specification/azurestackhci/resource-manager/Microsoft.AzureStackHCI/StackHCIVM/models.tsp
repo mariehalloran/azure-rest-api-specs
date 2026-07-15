@@ -2125,6 +2125,7 @@ model VirtualHardDiskProperties {
   @doc("Physical sector in bytes")
   physicalSectorBytes?: int32;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @added(Versions.v2024_05_01_preview)
   @doc("URL for downloading or accessing the virtual hard disk. This URL points to a secure link from where the VHD can be downloaded or accessed directly.")
   @secret
@@ -2265,6 +2266,7 @@ model VirtualHardDisksUpdateProperties {
 @added(Versions.v2024_05_01_preview)
 @doc("Request for uploading virtual hard disk.")
 model VirtualHardDiskUploadRequest {
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("The Azure managed disk SAS URL to upload the virtual hard disk to.")
   @secret
   azureManagedDiskUploadUrl: string;
@@ -2399,6 +2401,10 @@ model VirtualMachineInstancePropertiesHardwareProfileDynamicMemoryConfig {
 
   @doc("Defines the amount of extra memory that should be reserved for a virtual machine instance at runtime, as a percentage of the total memory that the virtual machine instance is thought to need. This only applies to virtual systems with dynamic memory enabled. This property can be in the range of 5 to 2000.")
   targetMemoryBuffer?: int32;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("Specifies whether dynamic memory is enabled for the virtual machine instance. When omitted, dynamic memory remains enabled; setting this to false converts the virtual machine instance to static memory.")
+  enabled?: boolean;
 }
 
 #suppress "@azure-tools/typespec-azure-core/casing-style" "GPU is a short form. It is the correct case."
@@ -2718,6 +2724,10 @@ model HardwareProfileUpdate {
   @doc("virtualMachineGPUs - updated list of GPUs on the virtual machine instance")
   @Azure.ResourceManager.identifiers(#[])
   virtualMachineGPUs?: VirtualMachineInstancePropertiesHardwareProfileVirtualMachineGPU[];
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("Dynamic memory config for day-2 updates and static-to-dynamic conversion of the virtual machine instance.")
+  dynamicMemoryConfig?: VirtualMachineInstancePropertiesHardwareProfileDynamicMemoryConfig;
 }
 
 @doc("Storage profile update")

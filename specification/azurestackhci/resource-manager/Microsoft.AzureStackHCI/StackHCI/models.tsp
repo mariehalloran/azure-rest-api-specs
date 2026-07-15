@@ -807,6 +807,18 @@ union EceSecrets {
    * WitnessStorageKey used for setting up a cloud witness for AzureStackHCI cluster.
    */
   WitnessStorageKey: "WitnessStorageKey",
+
+  /**
+   * chapCredential used for iSCSI CHAP authentication during edge machine node preparation.
+   */
+  @added(Versions.v2026_03_15_preview)
+  chapCredential: "chapCredential",
+
+  /**
+   * mutualChapCredential used for iSCSI mutual (bidirectional) CHAP authentication during edge machine node preparation.
+   */
+  @added(Versions.v2026_03_15_preview)
+  mutualChapCredential: "mutualChapCredential",
 }
 
 /**
@@ -2202,6 +2214,14 @@ model ClusterProperties {
   @added(Versions.v2026_03_15_preview)
   @visibility(Lifecycle.Read)
   storageType?: StorageType;
+
+  // PRIVATE PREVIEW
+  /**
+   * Indicates this cluster uses a managed identity (MSI / passwordless) cloud witness rather than a storage account access key.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  useManagedIdentityForWitness?: boolean;
 }
 
 /**
@@ -3271,6 +3291,12 @@ model DeploymentCluster {
    * Cluster Pattern supported.
    */
   clusterPattern?: ClusterPattern;
+
+  /**
+   * Indicates the cluster's cloud witness authenticates using each node's managed identity (MSI) instead of a storage account access key. Set by the resource provider from the Validated Solution Recipe; read by the device to configure the witness in identity (passwordless) mode.
+   */
+  @added(Versions.v2026_03_15_preview)
+  useManagedIdentityForWitness?: boolean;
 }
 
 // PRIVATE PREVIEW - Storage type and SAN/S2D configuration
@@ -7623,6 +7649,78 @@ model EdgeMachineReportedProperties {
    */
   @visibility(Lifecycle.Read)
   workloadInventoryLastUpdated?: string;
+
+  /**
+   * Storage fabric initiator ports (iSCSI or Fibre Channel) discovered on the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#[])
+  storageInitiators?: StorageInitiator[];
+}
+
+/**
+ * A storage fabric initiator port (iSCSI or Fibre Channel) discovered on the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageInitiator {
+  /**
+   * Transport type of the initiator port.
+   */
+  @visibility(Lifecycle.Read)
+  initiatorType: StorageInitiatorType;
+
+  /**
+   * Node identifier of the initiator. IQN for iSCSI or node WWN (WWNN) for Fibre Channel. Corresponds to the NodeAddress reported by Get-InitiatorPort.
+   */
+  @visibility(Lifecycle.Read)
+  initiatorIdentifier: string;
+
+  /**
+   * Fibre Channel port World Wide Name (WWPN). Populated for FibreChannel initiators only; corresponds to the PortAddress reported by Get-InitiatorPort.
+   */
+  @visibility(Lifecycle.Read)
+  portWorldWideName?: string;
+
+  /**
+   * Name of the Ethernet adapter the iSCSI initiator is bound to. Populated for iSCSI initiators only; matches EdgeMachineNicDetail.adapterName.
+   */
+  @visibility(Lifecycle.Read)
+  ethernetAdapterName?: string;
+
+  /**
+   * MAC address of the Ethernet adapter the iSCSI initiator is bound to. Populated for iSCSI initiators only; matches EdgeMachineNicDetail.macAddress.
+   */
+  @visibility(Lifecycle.Read)
+  ethernetAdapterMacAddress?: string;
+
+  /**
+   * Operational status of the initiator port as reported by the host (for example, Operational). Corresponds to OperationalStatus from Get-InitiatorPort.
+   */
+  @visibility(Lifecycle.Read)
+  operationalStatus?: string;
+}
+
+/**
+ * Transport type of a storage fabric initiator port on the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+union StorageInitiatorType {
+  string,
+
+  /**
+   * iSCSI initiator. The initiator identifier is an IQN (iSCSI Qualified Name).
+   */
+  iSCSI: "iSCSI",
+
+  /**
+   * Fibre Channel initiator. The initiator identifier is the node WWN (WWNN); the port is identified by its WWPN.
+   */
+  FibreChannel: "FibreChannel",
+
+  /**
+   * The initiator transport type could not be determined.
+   */
+  Unknown: "Unknown",
 }
 
 /**
@@ -8888,6 +8986,7 @@ model OsImageProperties {
   /**
    * Represents composed image iso download url of a os image.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   composedImageIsoUrl?: string;
 
   /**
@@ -8943,6 +9042,7 @@ model PlatformPayload {
   /**
    * Represents url of a platform update payload.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   payloadUrl?: string;
 
   /**
@@ -11186,7 +11286,8 @@ union NetworkProfileNetworkType {
  */
 @added(Versions.v2026_03_15_preview)
 model ClusterVolumeProperties {
-  // TODO: Add clusterVolumeConfiguration when cluster volume-level configuration is ready to be exposed.
+  /** The authoritative desired configuration for the cluster volume. Contains only the properties that can be set by the caller. */
+  configuration?: ClusterVolumeConfiguration;
 
   /** The actual state of the cluster volume as reported by the cluster. */
   @visibility(Lifecycle.Read)
@@ -11195,6 +11296,15 @@ model ClusterVolumeProperties {
   /** Provisioning state of the cluster volume resource. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
+}
+
+/**
+ * The writable configuration for a cluster volume. Only properties that a caller can set are declared here; additional writable properties can be added over time.
+ */
+@added(Versions.v2026_03_15_preview)
+model ClusterVolumeConfiguration {
+  /** Placement mode for the volume. */
+  placementMode?: ClusterVolumePlacementMode;
 }
 
 /**
@@ -11257,6 +11367,10 @@ model ClusterVolumeReportedProperties {
   /** Provisioning mode for the volume. */
   @visibility(Lifecycle.Read)
   provisioningType?: ClusterVolumeProvisioningType;
+
+  /** Placement mode for the volume. */
+  @visibility(Lifecycle.Read)
+  placementMode?: ClusterVolumePlacementMode;
 
   /** Name of the containing storage pool. */
   @visibility(Lifecycle.Read)
@@ -11392,6 +11506,116 @@ union ClusterVolumeProvisioningType {
 
   /** Fixed provisioning. */
   Fixed: "Fixed",
+}
+
+/**
+ * Placement mode for a cluster volume.
+ */
+@added(Versions.v2026_03_15_preview)
+union ClusterVolumePlacementMode {
+  string,
+
+  /** Infrastructure-managed placement. */
+  Infrastructure: "infrastructure",
+
+  /** Automatic placement. */
+  Auto: "auto",
+
+  /** Manual placement. */
+  Manual: "manual",
+
+  /** Reserved placement. */
+  Reserved: "reserved",
+}
+
+/**
+ * Properties of the Cluster Volume Job.
+ */
+@added(Versions.v2026_03_15_preview)
+@discriminator("jobType")
+model ClusterVolumeJobProperties {
+  /** Type of operation. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  jobType: ClusterVolumeJobType;
+
+  /** Deployment mode to trigger job. */
+  deploymentMode?: DeploymentMode;
+
+  /** Provisioning state of the job. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /** Unique, immutable job id. */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /** The UTC date and time at which the job started. */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /** The UTC date and time at which the job completed. */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /** Status of the cluster volume job. */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+
+  /** Error details if job failed. */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+
+  /** Reported properties for the cluster volume job. */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: ClusterVolumeJobReportedProperties;
+}
+
+/**
+ * Type of cluster volume job operation.
+ */
+@added(Versions.v2026_03_15_preview)
+union ClusterVolumeJobType {
+  string,
+
+  /** Job to resolve configuration drift between the desired and reported state of the cluster volume. */
+  VolumeSync: "VolumeSync",
+
+  /** Job to apply the desired configuration to the cluster volume. */
+  ApplyVolumeConfiguration: "ApplyVolumeConfiguration",
+}
+
+/**
+ * Properties for resolving cluster volume configuration drift.
+ */
+@added(Versions.v2026_03_15_preview)
+model VolumeSyncClusterVolumeJobProperties extends ClusterVolumeJobProperties {
+  /** Job type. */
+  jobType: ClusterVolumeJobType.VolumeSync;
+}
+
+/**
+ * Properties for applying the desired configuration to the cluster volume.
+ */
+@added(Versions.v2026_03_15_preview)
+model ApplyVolumeConfigurationClusterVolumeJobProperties
+  extends ClusterVolumeJobProperties {
+  /** Job type. */
+  jobType: ClusterVolumeJobType.ApplyVolumeConfiguration;
+
+  /** The desired cluster volume configuration to apply. */
+  targetConfiguration: ClusterVolumeConfiguration;
+}
+
+/**
+ * Reported properties for the Cluster Volume Job.
+ */
+@added(Versions.v2026_03_15_preview)
+model ClusterVolumeJobReportedProperties {
+  /**
+   * The percentage of the job that is complete.
+   */
+  @visibility(Lifecycle.Read)
+  percentComplete?: int32;
 }
 
 /** Represents an available update for an edge machine. */
@@ -12443,6 +12667,213 @@ union ProxySyncDirection {
 
   /** Copy reportedConfiguration into desiredConfiguration. Use to acknowledge and canonicalize a locally-made change on the device, clearing the Drifted state. */
   AcceptReported: "AcceptReported",
+}
+
+////////////////////////////////////////////////////////////////
+////////// PRIVATE PREVIEW - Edge Machine Deployment Setting ///
+////////////////////////////////////////////////////////////////
+
+/**
+ * The properties of an Edge Machine Deployment Setting.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineDeploymentSettingProperties {
+  /**
+   * The provisioning state of the deployment setting resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Scale units will contain the list of deployment data for the edge machine.
+   */
+  deploymentConfiguration: EdgeMachineDeploymentConfiguration;
+
+  /**
+   * Deployment status reported from the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: EceReportedProperties;
+}
+
+/**
+ * Edge Machine Deployment Configuration
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineDeploymentConfiguration {
+  /**
+   * Deployment template version.
+   */
+  version?: string;
+
+  /**
+   * Scale units will contain the list of deployment data.
+   */
+  @identifiers(#[])
+  scaleUnits: EdgeMachineScaleUnits[];
+}
+
+/**
+ * Scale units will contain the list of deployment data.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineScaleUnits {
+  /**
+   * Deployment data to configure the edge machine.
+   */
+  deploymentData: EdgeMachineDeploymentData;
+}
+
+/**
+ * The deployment data of an edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineDeploymentData {
+  /**
+   * iSCSI configuration for the edge machine.
+   */
+  iScsiConfig?: IscsiConfig;
+
+  /**
+   * Protected parameters (secret references) stored in Key Vault and applied
+   * during edge machine node preparation, for example iSCSI CHAP credentials.
+   */
+  @identifiers(#[])
+  secrets?: EceDeploymentSecrets[];
+}
+
+/**
+ * iSCSI configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model IscsiConfig {
+  /**
+   * iSCSI network configuration including adapter properties and per-adapter IP configuration.
+   */
+  iScsiNetworkConfig?: IscsiNetworkConfig;
+
+  /**
+   * CHAP authentication settings used when connecting to the iSCSI target portals.
+   */
+  chapSettings?: IscsiChapSettings;
+
+  /**
+   * iSCSI Qualified Name (IQN) of the initiator.
+   */
+  initiatorIqn?: string;
+}
+
+/**
+ * iSCSI network configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model IscsiNetworkConfig {
+  /**
+   * Common adapter properties applied to all iSCSI network adapters.
+   */
+  adapterProperties?: IscsiAdapterProperties;
+
+  /**
+   * Target portal addresses reachable through the iSCSI network adapters.
+   */
+  @identifiers(#["ipAddress"])
+  targetPortalAddresses?: IscsiTargetPortalAddress[];
+
+  /**
+   * Per-adapter IP configuration for the iSCSI network adapters.
+   */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "Property name matches the iSCSI network configuration wire format."
+  @identifiers(#["networkAdapterName"])
+  adapterIPConfig?: IscsiAdapterIPConfig[];
+}
+
+/**
+ * Common properties applied to iSCSI network adapters.
+ */
+@added(Versions.v2026_03_15_preview)
+model IscsiAdapterProperties {
+  /**
+   * 802.1p priority value for iSCSI traffic.
+   */
+  priorityValue8021ActionIscsi?: int32;
+
+  /**
+   * iSCSI bandwidth percentage.
+   */
+  bandwidthPercentageIscsi?: int32;
+
+  /**
+   * Jumbo frame size in bytes.
+   */
+  jumboPacket?: int32;
+}
+
+/**
+ * IP configuration for a single iSCSI network adapter.
+ */
+@added(Versions.v2026_03_15_preview)
+model IscsiAdapterIPConfig {
+  /**
+   * Name of the iSCSI network adapter.
+   */
+  networkAdapterName?: string;
+
+  /**
+   * VLAN ID associated with the iSCSI network adapter.
+   */
+  vlanId?: int32;
+
+  /**
+   * Address prefix (CIDR notation) for the iSCSI network adapter.
+   */
+  addressPrefix?: string;
+}
+
+/**
+ * iSCSI target portal address.
+ */
+@added(Versions.v2026_03_15_preview)
+model IscsiTargetPortalAddress {
+  /**
+   * IP address of the iSCSI target portal.
+   */
+  ipAddress?: string;
+
+  /**
+   * Next hop (gateway) IP address used to reach the target portal.
+   */
+  nextHop?: string;
+}
+
+/**
+ * CHAP authentication settings for an iSCSI connection. The CHAP credentials
+ * (username and secret) are referenced via the deployment data secrets
+ * (Key Vault) using the chapCredential and mutualChapCredential secret names,
+ * not carried inline.
+ */
+@added(Versions.v2026_03_15_preview)
+model IscsiChapSettings {
+  /**
+   * The CHAP authentication mode to use for the iSCSI connection.
+   */
+  chapType?: IscsiChapType;
+}
+
+/**
+ * The CHAP authentication mode for an iSCSI connection.
+ */
+@added(Versions.v2026_03_15_preview)
+union IscsiChapType {
+  string,
+
+  /** No CHAP authentication is used. */
+  NoChap: "NoChap",
+
+  /** One-way CHAP: the target authenticates the initiator. */
+  OneWay: "OneWay",
+
+  /** Bidirectional (mutual) CHAP: initiator and target authenticate each other. */
+  Bidirectional: "Bidirectional",
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -13930,9 +14361,9 @@ model AssociatedCluster {
 // ─────────────────────────── StoragePool models ───────────────────────────
 
 /**
- * Properties of a storage pool — a capacity source on a storage array. SAN pools
- * are read-only (discovered); S2D pools additionally expose writable settings in
- * the design spec. In this private preview all properties are read-only.
+ * Properties of a storage pool — a capacity source on a storage array. SAN and S2D
+ * pool settings are discovered and reported by the service (read-only). Capacity,
+ * counts, state, health, and provisioning state are also service-owned.
  */
 @added(Versions.v2026_03_15_preview)
 model StoragePoolProperties {

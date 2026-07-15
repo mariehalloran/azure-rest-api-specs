@@ -18,7 +18,7 @@ model DataConnection is ProxyResource<DataConnectionProperties> {
   @key("dataConnectionName")
   @visibility(Lifecycle.Read)
   @path
-  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,63}$")
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,127}$")
   name: string;
 
   /** Data connection kind discriminator. Determines which properties are valid for this data connection. */

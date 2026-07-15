@@ -242,6 +242,7 @@ model EncryptionProperties {
   /**
    * Versioned Encryption Key Url - Only when user opts for CMK and hence optional
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   keyUrl?: string;
 
   /**
@@ -262,6 +263,7 @@ model EncryptionUpdateProperties {
   /**
    * Versioned Encryption Key Url - Only when user opts for CMK and hence optional
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   keyUrl?: string;
 
   /**

@@ -13,6 +13,7 @@
           {
             "properties": {
               "provisioningState": "Succeeded",
+              "initiatedAt": "2026-03-04T03:31:44.000Z",
               "requestedBy": "eniwndqirfmymmbrfvgrrcyyusk",
               "requestedFor": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Compute/virtualMachines/myVM",
               "description": "ekxzkzmwjqapsz",
@@ -31,12 +32,15 @@
                     "approvers": [
                       "gpecgztjvbtvq"
                     ],
-                    "minimumApprovalsRequired": 9
+                    "minimumApprovalsRequired": 9,
+                    "minimumRejectionsRequired": 1,
+                    "waitForAllApproversToRespond": false
                   }
                 ],
                 "timeoutInMinutes": 117243
               },
               "executionState": "InProgress",
+              "failureReason": "sample-failure-reason",
               "stageStatuses": [
                 {
                   "name": "rgjmqzqlvmvwqzxqfahemhhyojsho",
