@@ -11,7 +11,7 @@ union RegionRole {
   Secondary: "Secondary",
 }
 
-@doc("Connectivity topology selected by the stock accelerator template.")
+@doc("Connectivity topology for the platform landing zone.")
 union ConnectivityTopology {
   string,
 
@@ -22,7 +22,7 @@ union ConnectivityTopology {
   VirtualWan: "VirtualWan",
 }
 
-@doc("Egress model used by the stock accelerator templates.")
+@doc("Internet egress model for the platform landing zone.")
 union InternetEgressModel {
   string,
 
@@ -30,7 +30,7 @@ union InternetEgressModel {
   ViaHub: "ViaHub",
 }
 
-@doc("Deployment scale selected by the stock accelerator templates.")
+@doc("Deployment scale for the platform landing zone.")
 union ScaleTier {
   string,
 
@@ -52,7 +52,7 @@ union PlatformSubscriptionModel {
   Shared: "Shared",
 }
 
-@doc("Firewall kind selected by the stock accelerator templates.")
+@doc("Firewall implementation used by the platform landing zone.")
 union FirewallKind {
   string,
 
@@ -63,7 +63,7 @@ union FirewallKind {
   ThirdPartyNva: "ThirdPartyNva",
 }
 
-@doc("Azure Firewall stock keeping unit selected by the stock accelerator templates.")
+@doc("Azure Firewall stock keeping unit.")
 union AzureFirewallSku {
   string,
 
@@ -71,7 +71,7 @@ union AzureFirewallSku {
   Premium: "Premium",
 }
 
-@doc("Threat intelligence mode selected by the stock accelerator templates.")
+@doc("Azure Firewall threat intelligence mode.")
 union ThreatIntelMode {
   string,
 
@@ -79,7 +79,7 @@ union ThreatIntelMode {
   Alert: "Alert",
 }
 
-@doc("Intrusion detection and prevention system mode selected by the stock accelerator templates.")
+@doc("Azure Firewall intrusion detection and prevention system mode.")
 union IdpsMode {
   string,
 
@@ -87,7 +87,7 @@ union IdpsMode {
   Off: "Off",
 }
 
-@doc("Private DNS zone deployment mode selected by the stock accelerator templates.")
+@doc("Private domain name system zone deployment mode.")
 union PrivateDnsZoneMode {
   string,
 
@@ -95,7 +95,7 @@ union PrivateDnsZoneMode {
   PrivateLinkAndAutoRegistration: "PrivateLinkAndAutoRegistration",
 }
 
-@doc("Regional connectivity resources deployed by the stock accelerator templates.")
+@doc("Connectivity resources deployed in an Azure region.")
 union RegionalConnectivityDeploymentMode {
   string,
 
@@ -112,15 +112,15 @@ union RegionalConnectivityDeploymentMode {
   HubAndSidecar: "HubAndSidecar",
 }
 
-@doc("Network virtual appliance vendor value used when the stock generic network virtual appliance template is selected.")
+@doc("Network virtual appliance vendor.")
 union NvaVendor {
   string,
 
-  @doc("Vendor is not specialized by the stock template.")
+  @doc("The network virtual appliance vendor is not specified.")
   Other: "Other",
 }
 
-@doc("Bastion stock keeping unit selected by the stock accelerator templates.")
+@doc("Azure Bastion stock keeping unit.")
 union BastionSku {
   string,
 
@@ -128,7 +128,7 @@ union BastionSku {
   Standard: "Standard",
 }
 
-@doc("Distributed denial-of-service protection plan selected by the stock accelerator templates.")
+@doc("Distributed denial-of-service protection plan.")
 union DdosProtectionPlan {
   string,
 
@@ -136,7 +136,7 @@ union DdosProtectionPlan {
   Network: "Network",
 }
 
-@doc("Virtual private network gateway stock keeping unit selected by the stock hub-and-spoke template.")
+@doc("Virtual private network gateway stock keeping unit for hub-and-spoke connectivity.")
 union VpnGatewaySku {
   string,
 
@@ -144,7 +144,7 @@ union VpnGatewaySku {
   VpnGw1AZ: "VpnGw1AZ",
 }
 
-@doc("ExpressRoute gateway stock keeping unit selected for this preview.")
+@doc("ExpressRoute gateway stock keeping unit.")
 union ExpressRouteGatewaySku {
   string,
 
@@ -152,7 +152,7 @@ union ExpressRouteGatewaySku {
   ErGw1AZ: "ErGw1AZ",
 }
 
-@doc("Log Analytics workspace stock keeping unit selected by the stock management template.")
+@doc("Log Analytics workspace stock keeping unit.")
 union LogAnalyticsSku {
   string,
 
@@ -160,7 +160,7 @@ union LogAnalyticsSku {
   PerGB2018: "PerGB2018",
 }
 
-@doc("Policy assignment baseline selected by the stock Azure Landing Zones template.")
+@doc("Policy assignment baseline for the platform landing zone.")
 union PolicyAssignmentMode {
   string,
 
@@ -246,7 +246,7 @@ union PolicyEffect {
   AuditIfNotExists: "AuditIfNotExists",
 }
 
-@doc("Version control system used by the accelerator bootstrap template.")
+@doc("Version control system used to materialize the platform landing zone.")
 union VersionControlSystem {
   string,
   @doc("Azure DevOps.")

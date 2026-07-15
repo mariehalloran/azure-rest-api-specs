@@ -515,7 +515,7 @@
     },
     "AzureFirewallSku": {
       "type": "string",
-      "description": "Azure Firewall stock keeping unit selected by the stock accelerator templates.",
+      "description": "Azure Firewall stock keeping unit.",
       "enum": [
         "Premium"
       ],
@@ -533,7 +533,7 @@
     },
     "AzureMonitorConfig": {
       "type": "object",
-      "description": "Azure Monitor configuration produced by the stock management template.",
+      "description": "Azure Monitor configuration.",
       "properties": {
         "vmInsightsEnabled": {
           "type": "boolean",
@@ -575,7 +575,7 @@
     },
     "BastionSku": {
       "type": "string",
-      "description": "Bastion stock keeping unit selected by the stock accelerator templates.",
+      "description": "Azure Bastion stock keeping unit.",
       "enum": [
         "Standard"
       ],
@@ -638,7 +638,7 @@
     },
     "ConnectivityTopology": {
       "type": "string",
-      "description": "Connectivity topology selected by the stock accelerator template.",
+      "description": "Connectivity topology for the platform landing zone.",
       "enum": [
         "HubAndSpoke",
         "VirtualWan"
@@ -672,7 +672,7 @@
     },
     "DdosProtectionPlan": {
       "type": "string",
-      "description": "Distributed denial-of-service protection plan selected by the stock accelerator templates.",
+      "description": "Distributed denial-of-service protection plan.",
       "enum": [
         "Network"
       ],
@@ -750,7 +750,7 @@
     },
     "ExpressRouteGatewaySku": {
       "type": "string",
-      "description": "ExpressRoute gateway stock keeping unit selected for this preview.",
+      "description": "ExpressRoute gateway stock keeping unit.",
       "enum": [
         "ErGw1AZ"
       ],
@@ -782,7 +782,7 @@
     },
     "FirewallKind": {
       "type": "string",
-      "description": "Firewall kind selected by the stock accelerator templates.",
+      "description": "Firewall implementation used by the platform landing zone.",
       "enum": [
         "AzureFirewall",
         "ThirdPartyNva"
@@ -806,7 +806,7 @@
     },
     "Governance": {
       "type": "object",
-      "description": "Governance configuration produced by the stock Azure Landing Zones template.",
+      "description": "Governance configuration for the platform landing zone.",
       "properties": {
         "policyAssignmentMode": {
           "$ref": "#/definitions/PolicyAssignmentMode",
@@ -871,7 +871,7 @@
     },
     "IdpsMode": {
       "type": "string",
-      "description": "Intrusion detection and prevention system mode selected by the stock accelerator templates.",
+      "description": "Azure Firewall intrusion detection and prevention system mode.",
       "enum": [
         "Off"
       ],
@@ -889,7 +889,7 @@
     },
     "InternetEgressModel": {
       "type": "string",
-      "description": "Egress model used by the stock accelerator templates.",
+      "description": "Internet egress model for the platform landing zone.",
       "enum": [
         "ViaHub"
       ],
@@ -912,7 +912,7 @@
     },
     "LogAnalyticsConfig": {
       "type": "object",
-      "description": "Log Analytics workspace configuration produced by the stock management template.",
+      "description": "Log Analytics workspace configuration.",
       "properties": {
         "workspaceName": {
           "type": "string",
@@ -933,7 +933,7 @@
     },
     "LogAnalyticsSku": {
       "type": "string",
-      "description": "Log Analytics workspace stock keeping unit selected by the stock management template.",
+      "description": "Log Analytics workspace stock keeping unit.",
       "enum": [
         "PerGB2018"
       ],
@@ -951,7 +951,7 @@
     },
     "Management": {
       "type": "object",
-      "description": "Management configuration produced by the stock accelerator template.",
+      "description": "Management configuration for the platform landing zone.",
       "properties": {
         "logAnalytics": {
           "$ref": "#/definitions/LogAnalyticsConfig",
@@ -994,7 +994,7 @@
     },
     "NvaVendor": {
       "type": "string",
-      "description": "Network virtual appliance vendor value used when the stock generic network virtual appliance template is selected.",
+      "description": "Network virtual appliance vendor.",
       "enum": [
         "Other"
       ],
@@ -1005,7 +1005,7 @@
           {
             "name": "Other",
             "value": "Other",
-            "description": "Vendor is not specialized by the stock template."
+            "description": "The network virtual appliance vendor is not specified."
           }
         ]
       }
@@ -1083,7 +1083,7 @@
       "properties": {
         "scaleTier": {
           "$ref": "#/definitions/ScaleTier",
-          "description": "Deployment scale selected by the stock accelerator template. ManagementOnly omits connectivity."
+          "description": "Deployment scale for the platform landing zone. ManagementOnly omits connectivity."
         },
         "parentManagementGroupId": {
           "type": "string",
@@ -1234,7 +1234,7 @@
     },
     "PolicyAssignmentMode": {
       "type": "string",
-      "description": "Policy assignment baseline selected by the stock Azure Landing Zones template.",
+      "description": "Policy assignment baseline for the platform landing zone.",
       "enum": [
         "AlzDefaults"
       ],
@@ -1410,7 +1410,7 @@
     },
     "PrivateDnsZoneMode": {
       "type": "string",
-      "description": "Private DNS zone deployment mode selected by the stock accelerator templates.",
+      "description": "Private domain name system zone deployment mode.",
       "enum": [
         "PrivateLinkAndAutoRegistration"
       ],
@@ -1462,7 +1462,7 @@
     },
     "RegionalConnectivityDeploymentMode": {
       "type": "string",
-      "description": "Regional connectivity resources deployed by the stock accelerator templates.",
+      "description": "Connectivity resources deployed in an Azure region.",
       "enum": [
         "None",
         "Hub",
@@ -1498,7 +1498,7 @@
     },
     "ScaleTier": {
       "type": "string",
-      "description": "Deployment scale selected by the stock accelerator templates.",
+      "description": "Deployment scale for the platform landing zone.",
       "enum": [
         "Full",
         "ManagementOnly"
@@ -1522,11 +1522,11 @@
     },
     "Security": {
       "type": "object",
-      "description": "Security configuration produced by the stock Azure Landing Zones policy baseline.",
+      "description": "Security configuration for the platform landing zone.",
       "properties": {
         "defenderForCloudEnabled": {
           "type": "boolean",
-          "description": "Whether Microsoft Defender for Cloud configuration is enabled through the stock Azure Landing Zones policy assignment."
+          "description": "Whether Microsoft Defender for Cloud configuration is enabled."
         },
         "securityContactEmail": {
           "type": "string",
@@ -1536,7 +1536,7 @@
     },
     "SentinelConfig": {
       "type": "object",
-      "description": "Microsoft Sentinel state produced by the stock management template.",
+      "description": "Microsoft Sentinel configuration.",
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -1582,7 +1582,7 @@
     },
     "ThreatIntelMode": {
       "type": "string",
-      "description": "Threat intelligence mode selected by the stock accelerator templates.",
+      "description": "Azure Firewall threat intelligence mode.",
       "enum": [
         "Alert"
       ],
@@ -1600,7 +1600,7 @@
     },
     "VersionControlSystem": {
       "type": "string",
-      "description": "Version control system used by the accelerator bootstrap template.",
+      "description": "Version control system used to materialize the platform landing zone.",
       "enum": [
         "AzureDevOps",
         "GitHub",
@@ -1689,7 +1689,7 @@
     },
     "VpnGatewaySku": {
       "type": "string",
-      "description": "Virtual private network gateway stock keeping unit selected by the stock hub-and-spoke template.",
+      "description": "Virtual private network gateway stock keeping unit for hub-and-spoke connectivity.",
       "enum": [
         "VpnGw1AZ"
       ],

@@ -32,7 +32,7 @@ model PlatformLandingZone is ProxyResource<PlatformLandingZoneProperties> {
 
 @doc("Properties of a Platform Landing Zone. This envelope is grown incrementally as sub-blocks are introduced.")
 model PlatformLandingZoneProperties {
-  @doc("Deployment scale selected by the stock accelerator template. ManagementOnly omits connectivity.")
+  @doc("Deployment scale for the platform landing zone. ManagementOnly omits connectivity.")
   scaleTier?: ScaleTier;
 
   @visibility(Lifecycle.Read, Lifecycle.Create)

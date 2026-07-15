@@ -36,7 +36,7 @@ model PolicyAssignmentOverride {
   parameters?: PolicyParameterOverride[];
 }
 
-@doc("Governance configuration produced by the stock Azure Landing Zones template.")
+@doc("Governance configuration for the platform landing zone.")
 model Governance {
   @doc("Policy assignment baseline.")
   policyAssignmentMode?: PolicyAssignmentMode;

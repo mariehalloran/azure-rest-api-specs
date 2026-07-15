@@ -2,7 +2,7 @@ import "../Enums/Enums.tsp";
 
 namespace Microsoft.Migrate;
 
-@doc("Log Analytics workspace configuration produced by the stock management template.")
+@doc("Log Analytics workspace configuration.")
 model LogAnalyticsConfig {
   @doc("Log Analytics workspace name.")
   workspaceName?: string;
@@ -16,7 +16,7 @@ model LogAnalyticsConfig {
   retentionInDays?: int32;
 }
 
-@doc("Azure Monitor configuration produced by the stock management template.")
+@doc("Azure Monitor configuration.")
 model AzureMonitorConfig {
   @doc("Whether VM Insights is enabled.")
   vmInsightsEnabled?: boolean;
@@ -25,13 +25,13 @@ model AzureMonitorConfig {
   containerInsightsEnabled?: boolean;
 }
 
-@doc("Microsoft Sentinel state produced by the stock management template.")
+@doc("Microsoft Sentinel configuration.")
 model SentinelConfig {
   @doc("Whether Microsoft Sentinel is enabled.")
   enabled?: boolean;
 }
 
-@doc("Management configuration produced by the stock accelerator template.")
+@doc("Management configuration for the platform landing zone.")
 model Management {
   @doc("Log Analytics workspace configuration.")
   logAnalytics?: LogAnalyticsConfig;
