@@ -7,7 +7,7 @@ model LogAnalyticsConfig {
   @doc("Log Analytics workspace name.")
   workspaceName?: string;
 
-  @doc("Log Analytics workspace SKU.")
+  @doc("Log Analytics workspace stock keeping unit.")
   sku?: LogAnalyticsSku;
 
   @doc("Workspace data retention in days.")

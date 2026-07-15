@@ -6,30 +6,49 @@ namespace Microsoft.Migrate;
 @doc("Hub firewall configuration.")
 @discriminator("kind")
 model FirewallConfig {
+  @doc("Firewall implementation kind.")
   kind: FirewallKind;
 }
 
 @doc("Azure Firewall configuration.")
 model AzureFirewallConfig extends FirewallConfig {
+  @doc("Azure Firewall implementation kind.")
   kind: FirewallKind.AzureFirewall;
+
+  @doc("Azure Firewall stock keeping unit.")
   sku?: AzureFirewallSku;
+
+  @doc("Whether the Azure Firewall domain name system proxy is enabled.")
   dnsProxyEnabled?: boolean;
+
+  @doc("Threat intelligence mode.")
   threatIntelMode?: ThreatIntelMode;
+
+  @doc("Intrusion detection and prevention system mode.")
   idpsMode?: IdpsMode;
+
+  @doc("Azure Firewall subnet address prefix.")
   subnetAddressPrefix?: Ipv4CidrPrefix;
+
+  @doc("Azure regions where Azure Firewall is deployed.")
   deployInRegions?: string[];
 }
 
-@doc("Generic third-party NVA configuration.")
+@doc("Generic third-party network virtual appliance configuration.")
 model ThirdPartyNvaFirewallConfig extends FirewallConfig {
+  @doc("Third-party network virtual appliance implementation kind.")
   kind: FirewallKind.ThirdPartyNva;
+
+  @doc("Network virtual appliance vendor.")
   vendor?: NvaVendor;
+
+  @doc("Network virtual appliance subnet address prefix.")
   subnetAddressPrefix?: Ipv4CidrPrefix;
 }
 
 @doc("Azure Bastion configuration.")
 model BastionConfig {
-  @doc("Bastion SKU.")
+  @doc("Bastion stock keeping unit.")
   sku?: BastionSku;
 
   @doc("Number of Bastion scale units.")
@@ -44,49 +63,58 @@ model BastionConfig {
   deployInRegions?: string[];
 }
 
-@doc("Azure DDoS Protection configuration.")
+@doc("Azure distributed denial-of-service protection configuration.")
 model DdosProtectionConfig {
-  @doc("DDoS protection plan.")
+  @doc("Distributed denial-of-service protection plan.")
   plan?: DdosProtectionPlan;
 }
 
-@doc("Private DNS configuration.")
+@doc("Private domain name system configuration.")
 model PrivateDnsConfig {
-  @doc("Whether Azure Private Link private DNS zones are deployed.")
-  privateLinkZonesEnabled?: boolean;
+  @doc("Private domain name system zone deployment mode.")
+  zoneMode?: PrivateDnsZoneMode;
 
-  @doc("Whether centralized DNS resolution is enabled.")
+  @doc("Whether centralized domain name system resolution is enabled.")
   centralizedResolutionEnabled?: boolean;
 
-  @doc("Whether the auto-registration private DNS zone is enabled.")
-  autoRegistrationZoneEnabled?: boolean;
-
-  @doc("Name of the auto-registration private DNS zone.")
+  @doc("Name of the auto-registration private domain name system zone.")
   autoRegistrationZoneName?: string;
 
-  @doc("DNS resolver subnet address prefix.")
+  @doc("Domain name system resolver subnet address prefix.")
   resolverSubnetAddressPrefix?: Ipv4CidrPrefix;
 }
 
-@doc("VPN Gateway configuration.")
+@doc("Virtual private network gateway configuration.")
 @discriminator("topology")
 model VpnGatewayConfig {
+  @doc("Connectivity topology implemented by the virtual private network gateway.")
   topology: ConnectivityTopology;
+
+  @doc("Azure regions where the virtual private network gateway is deployed.")
   deployInRegions?: string[];
 }
 
-@doc("Hub-and-spoke VPN Gateway configuration.")
+@doc("Hub-and-spoke virtual private network gateway configuration.")
 model HubAndSpokeVpnGatewayConfig extends VpnGatewayConfig {
+  @doc("Hub-and-spoke connectivity topology.")
   topology: ConnectivityTopology.HubAndSpoke;
+
+  @doc("Virtual private network gateway stock keeping unit.")
   sku?: VpnGatewaySku;
+
+  @doc("Whether the virtual private network gateway is active-active.")
   activeActive?: boolean;
+
+  @doc("Whether Border Gateway Protocol is enabled.")
   enableBgp?: boolean;
 }
 
-@doc("Virtual WAN VPN Gateway configuration.")
+@doc("Azure Virtual WAN virtual private network gateway configuration.")
 model VirtualWanVpnGatewayConfig extends VpnGatewayConfig {
+  @doc("Azure Virtual WAN connectivity topology.")
   topology: ConnectivityTopology.VirtualWan;
 
+  @doc("Number of Azure Virtual WAN virtual private network gateway scale units.")
   @minValue(1)
   @maxValue(20)
   scaleUnits?: int32;
@@ -95,21 +123,31 @@ model VirtualWanVpnGatewayConfig extends VpnGatewayConfig {
 @doc("ExpressRoute Gateway configuration.")
 @discriminator("topology")
 model ExpressRouteConfig {
+  @doc("Connectivity topology implemented by the ExpressRoute gateway.")
   topology: ConnectivityTopology;
+
+  @doc("Azure regions where the ExpressRoute gateway is deployed.")
   deployInRegions?: string[];
 }
 
 @doc("Hub-and-spoke ExpressRoute Gateway configuration.")
 model HubAndSpokeExpressRouteConfig extends ExpressRouteConfig {
+  @doc("Hub-and-spoke connectivity topology.")
   topology: ConnectivityTopology.HubAndSpoke;
+
+  @doc("ExpressRoute gateway stock keeping unit.")
   sku?: ExpressRouteGatewaySku;
+
+  @doc("Whether ExpressRoute FastPath is enabled.")
   fastPathEnabled?: boolean;
 }
 
-@doc("Virtual WAN ExpressRoute Gateway configuration.")
+@doc("Azure Virtual WAN ExpressRoute gateway configuration.")
 model VirtualWanExpressRouteConfig extends ExpressRouteConfig {
+  @doc("Azure Virtual WAN connectivity topology.")
   topology: ConnectivityTopology.VirtualWan;
 
+  @doc("Number of Azure Virtual WAN ExpressRoute gateway scale units.")
   @minValue(1)
   @maxValue(20)
   scaleUnits?: int32;
@@ -129,13 +167,13 @@ model Connectivity {
   @doc("Azure Bastion configuration.")
   bastion?: BastionConfig;
 
-  @doc("DDoS protection configuration.")
+  @doc("Distributed denial-of-service protection configuration.")
   ddosProtection?: DdosProtectionConfig;
 
-  @doc("Private DNS configuration.")
+  @doc("Private domain name system configuration.")
   privateDns?: PrivateDnsConfig;
 
-  @doc("VPN Gateway configuration.")
+  @doc("Virtual private network gateway configuration.")
   vpnGateway?: VpnGatewayConfig;
 
   @doc("ExpressRoute Gateway configuration.")

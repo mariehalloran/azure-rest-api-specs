@@ -359,6 +359,90 @@
     }
   },
   "definitions": {
+    "AlzManagementGroupScope": {
+      "type": "string",
+      "description": "Azure Landing Zones management-group scope at which a policy assignment override applies.",
+      "enum": [
+        "IntermediateRoot",
+        "Platform",
+        "Security",
+        "Management",
+        "Connectivity",
+        "Identity",
+        "LandingZones",
+        "Corp",
+        "Online",
+        "Local",
+        "Sandbox",
+        "Decommissioned"
+      ],
+      "x-ms-enum": {
+        "name": "AlzManagementGroupScope",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "IntermediateRoot",
+            "value": "IntermediateRoot",
+            "description": "Intermediate root management group."
+          },
+          {
+            "name": "Platform",
+            "value": "Platform",
+            "description": "Platform management group."
+          },
+          {
+            "name": "Security",
+            "value": "Security",
+            "description": "Security management group."
+          },
+          {
+            "name": "Management",
+            "value": "Management",
+            "description": "Management management group."
+          },
+          {
+            "name": "Connectivity",
+            "value": "Connectivity",
+            "description": "Connectivity management group."
+          },
+          {
+            "name": "Identity",
+            "value": "Identity",
+            "description": "Identity management group."
+          },
+          {
+            "name": "LandingZones",
+            "value": "LandingZones",
+            "description": "Landing zones management group."
+          },
+          {
+            "name": "Corp",
+            "value": "Corp",
+            "description": "Corp management group."
+          },
+          {
+            "name": "Online",
+            "value": "Online",
+            "description": "Online management group."
+          },
+          {
+            "name": "Local",
+            "value": "Local",
+            "description": "Local management group."
+          },
+          {
+            "name": "Sandbox",
+            "value": "Sandbox",
+            "description": "Sandbox management group."
+          },
+          {
+            "name": "Decommissioned",
+            "value": "Decommissioned",
+            "description": "Decommissioned management group."
+          }
+        ]
+      }
+    },
     "Azure.ResourceManager.ResourceProvisioningState": {
       "type": "string",
       "description": "The provisioning state of a resource type.",
@@ -395,22 +479,28 @@
       "description": "Azure Firewall configuration.",
       "properties": {
         "sku": {
-          "$ref": "#/definitions/AzureFirewallSku"
+          "$ref": "#/definitions/AzureFirewallSku",
+          "description": "Azure Firewall stock keeping unit."
         },
         "dnsProxyEnabled": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether the Azure Firewall domain name system proxy is enabled."
         },
         "threatIntelMode": {
-          "$ref": "#/definitions/ThreatIntelMode"
+          "$ref": "#/definitions/ThreatIntelMode",
+          "description": "Threat intelligence mode."
         },
         "idpsMode": {
-          "$ref": "#/definitions/IdpsMode"
+          "$ref": "#/definitions/IdpsMode",
+          "description": "Intrusion detection and prevention system mode."
         },
         "subnetAddressPrefix": {
-          "$ref": "#/definitions/Ipv4CidrPrefix"
+          "$ref": "#/definitions/Ipv4CidrPrefix",
+          "description": "Azure Firewall subnet address prefix."
         },
         "deployInRegions": {
           "type": "array",
+          "description": "Azure regions where Azure Firewall is deployed.",
           "items": {
             "type": "string"
           }
@@ -425,7 +515,7 @@
     },
     "AzureFirewallSku": {
       "type": "string",
-      "description": "Azure Firewall SKU selected by the stock accelerator templates.",
+      "description": "Azure Firewall stock keeping unit selected by the stock accelerator templates.",
       "enum": [
         "Premium"
       ],
@@ -436,7 +526,7 @@
           {
             "name": "Premium",
             "value": "Premium",
-            "description": "Premium SKU."
+            "description": "Premium stock keeping unit."
           }
         ]
       }
@@ -461,7 +551,7 @@
       "properties": {
         "sku": {
           "$ref": "#/definitions/BastionSku",
-          "description": "Bastion SKU."
+          "description": "Bastion stock keeping unit."
         },
         "scaleUnits": {
           "type": "integer",
@@ -485,7 +575,7 @@
     },
     "BastionSku": {
       "type": "string",
-      "description": "Bastion SKU selected by the stock accelerator templates.",
+      "description": "Bastion stock keeping unit selected by the stock accelerator templates.",
       "enum": [
         "Standard"
       ],
@@ -496,7 +586,7 @@
           {
             "name": "Standard",
             "value": "Standard",
-            "description": "Standard SKU."
+            "description": "Standard stock keeping unit."
           }
         ]
       }
@@ -523,15 +613,15 @@
         },
         "ddosProtection": {
           "$ref": "#/definitions/DdosProtectionConfig",
-          "description": "DDoS protection configuration."
+          "description": "Distributed denial-of-service protection configuration."
         },
         "privateDns": {
           "$ref": "#/definitions/PrivateDnsConfig",
-          "description": "Private DNS configuration."
+          "description": "Private domain name system configuration."
         },
         "vpnGateway": {
           "$ref": "#/definitions/VpnGatewayConfig",
-          "description": "VPN Gateway configuration."
+          "description": "Virtual private network gateway configuration."
         },
         "expressRoute": {
           "$ref": "#/definitions/ExpressRouteConfig",
@@ -572,17 +662,17 @@
     },
     "DdosProtectionConfig": {
       "type": "object",
-      "description": "Azure DDoS Protection configuration.",
+      "description": "Azure distributed denial-of-service protection configuration.",
       "properties": {
         "plan": {
           "$ref": "#/definitions/DdosProtectionPlan",
-          "description": "DDoS protection plan."
+          "description": "Distributed denial-of-service protection plan."
         }
       }
     },
     "DdosProtectionPlan": {
       "type": "string",
-      "description": "DDoS protection plan selected by the stock accelerator templates.",
+      "description": "Distributed denial-of-service protection plan selected by the stock accelerator templates.",
       "enum": [
         "Network"
       ],
@@ -642,10 +732,12 @@
       "description": "ExpressRoute Gateway configuration.",
       "properties": {
         "topology": {
-          "$ref": "#/definitions/ConnectivityTopology"
+          "$ref": "#/definitions/ConnectivityTopology",
+          "description": "Connectivity topology implemented by the ExpressRoute gateway."
         },
         "deployInRegions": {
           "type": "array",
+          "description": "Azure regions where the ExpressRoute gateway is deployed.",
           "items": {
             "type": "string"
           }
@@ -658,7 +750,7 @@
     },
     "ExpressRouteGatewaySku": {
       "type": "string",
-      "description": "ExpressRoute Gateway SKU selected for this preview.",
+      "description": "ExpressRoute gateway stock keeping unit selected for this preview.",
       "enum": [
         "ErGw1AZ"
       ],
@@ -679,7 +771,8 @@
       "description": "Hub firewall configuration.",
       "properties": {
         "kind": {
-          "$ref": "#/definitions/FirewallKind"
+          "$ref": "#/definitions/FirewallKind",
+          "description": "Firewall implementation kind."
         }
       },
       "discriminator": "kind",
@@ -713,11 +806,22 @@
     },
     "Governance": {
       "type": "object",
-      "description": "Governance configuration produced by the stock ALZ template.",
+      "description": "Governance configuration produced by the stock Azure Landing Zones template.",
       "properties": {
         "policyAssignmentMode": {
           "$ref": "#/definitions/PolicyAssignmentMode",
           "description": "Policy assignment baseline."
+        },
+        "policyAssignmentOverrides": {
+          "type": "array",
+          "description": "Overrides applied to policy assignments in the Azure Landing Zones baseline.",
+          "items": {
+            "$ref": "#/definitions/PolicyAssignmentOverride"
+          },
+          "x-ms-identifiers": [
+            "scope",
+            "assignmentName"
+          ]
         }
       }
     },
@@ -726,10 +830,12 @@
       "description": "Hub-and-spoke ExpressRoute Gateway configuration.",
       "properties": {
         "sku": {
-          "$ref": "#/definitions/ExpressRouteGatewaySku"
+          "$ref": "#/definitions/ExpressRouteGatewaySku",
+          "description": "ExpressRoute gateway stock keeping unit."
         },
         "fastPathEnabled": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether ExpressRoute FastPath is enabled."
         }
       },
       "allOf": [
@@ -741,16 +847,19 @@
     },
     "HubAndSpokeVpnGatewayConfig": {
       "type": "object",
-      "description": "Hub-and-spoke VPN Gateway configuration.",
+      "description": "Hub-and-spoke virtual private network gateway configuration.",
       "properties": {
         "sku": {
-          "$ref": "#/definitions/VpnGatewaySku"
+          "$ref": "#/definitions/VpnGatewaySku",
+          "description": "Virtual private network gateway stock keeping unit."
         },
         "activeActive": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether the virtual private network gateway is active-active."
         },
         "enableBgp": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether Border Gateway Protocol is enabled."
         }
       },
       "allOf": [
@@ -762,7 +871,7 @@
     },
     "IdpsMode": {
       "type": "string",
-      "description": "IDPS mode selected by the stock accelerator templates.",
+      "description": "Intrusion detection and prevention system mode selected by the stock accelerator templates.",
       "enum": [
         "Off"
       ],
@@ -773,7 +882,7 @@
           {
             "name": "Off",
             "value": "Off",
-            "description": "IDPS is disabled."
+            "description": "Intrusion detection and prevention system (IDPS) is disabled."
           }
         ]
       }
@@ -798,7 +907,7 @@
     },
     "Ipv4CidrPrefix": {
       "type": "string",
-      "description": "An IPv4 network prefix in CIDR notation.",
+      "description": "An Internet Protocol version 4 network prefix in Classless Inter-Domain Routing notation.",
       "pattern": "^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}/([0-9]|[12][0-9]|3[0-2])$"
     },
     "LogAnalyticsConfig": {
@@ -811,7 +920,7 @@
         },
         "sku": {
           "$ref": "#/definitions/LogAnalyticsSku",
-          "description": "Log Analytics workspace SKU."
+          "description": "Log Analytics workspace stock keeping unit."
         },
         "retentionInDays": {
           "type": "integer",
@@ -824,7 +933,7 @@
     },
     "LogAnalyticsSku": {
       "type": "string",
-      "description": "Log Analytics workspace SKU selected by the stock management template.",
+      "description": "Log Analytics workspace stock keeping unit selected by the stock management template.",
       "enum": [
         "PerGB2018"
       ],
@@ -885,7 +994,7 @@
     },
     "NvaVendor": {
       "type": "string",
-      "description": "NVA vendor value used when the stock generic NVA template is selected.",
+      "description": "Network virtual appliance vendor value used when the stock generic network virtual appliance template is selected.",
       "enum": [
         "Other"
       ],
@@ -979,7 +1088,7 @@
         "parentManagementGroupId": {
           "type": "string",
           "format": "arm-id",
-          "description": "ARM resource id of the parent management group under which the ALZ management group hierarchy will be created. Create-only; cannot be changed after the landing zone is created.",
+          "description": "Azure resource identifier of the parent management group under which the Azure Landing Zones management-group hierarchy will be created. Create-only; cannot be changed after the landing zone is created.",
           "x-ms-mutability": [
             "create"
           ],
@@ -1023,7 +1132,7 @@
         },
         "versionControlSystem": {
           "$ref": "#/definitions/VersionControlSystem",
-          "description": "Version control system the generator will use when materializing the landing-zone IaC and CI pipelines. When omitted, the generator service applies its default (currently GitHub)."
+          "description": "Version control system the generator will use when materializing the landing-zone infrastructure-as-code output and continuous integration pipelines. When omitted, the generator service applies its default (currently GitHub)."
         },
         "organizationName": {
           "type": "string",
@@ -1047,7 +1156,7 @@
         },
         "artifactId": {
           "type": "string",
-          "description": "ARM resource id of the artifact ({migrateProjectId}/artifacts/plz-{name}) under which the generated design document and IaC are committed. Read-only and deterministic (derived from the resource identity), so it is available immediately, even while provisioning.",
+          "description": "Azure resource identifier of the artifact ({migrateProjectId}/artifacts/plz-{name}) under which the generated design document and infrastructure-as-code output are committed. Read-only and deterministic (derived from the resource identity), so it is available immediately, even while provisioning.",
           "readOnly": true
         }
       }
@@ -1075,13 +1184,9 @@
             "type": "string"
           }
         },
-        "deployHub": {
-          "type": "boolean",
-          "description": "Whether a connectivity hub (or VirtualWan virtual hub) is deployed in this region. Defaults to true. Set to false for regions that are pure DR targets and rely on hubs in other regions."
-        },
-        "deploySidecar": {
-          "type": "boolean",
-          "description": "Whether the per-region sidecar VNet (used for shared platform services such as DNS resolvers or NVA management) is deployed in this region. Defaults to true."
+        "connectivityDeploymentMode": {
+          "$ref": "#/definitions/RegionalConnectivityDeploymentMode",
+          "description": "Connectivity resources deployed in this region."
         }
       },
       "required": [
@@ -1128,7 +1233,7 @@
     },
     "PolicyAssignmentMode": {
       "type": "string",
-      "description": "Policy assignment baseline selected by the stock ALZ template.",
+      "description": "Policy assignment baseline selected by the stock Azure Landing Zones template.",
       "enum": [
         "AlzDefaults"
       ],
@@ -1144,30 +1249,180 @@
         ]
       }
     },
+    "PolicyAssignmentOverride": {
+      "type": "object",
+      "description": "Override applied to an Azure Landing Zones policy assignment.",
+      "properties": {
+        "scope": {
+          "$ref": "#/definitions/AlzManagementGroupScope",
+          "description": "Azure Landing Zones management-group scope at which the override applies."
+        },
+        "assignmentName": {
+          "type": "string",
+          "description": "Name of the Azure Landing Zones policy assignment."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the policy assignment is deployed."
+        },
+        "enforcementMode": {
+          "$ref": "#/definitions/PolicyEnforcementMode",
+          "description": "Enforcement mode applied to the policy assignment."
+        },
+        "effect": {
+          "$ref": "#/definitions/PolicyEffect",
+          "description": "Effect applied to all definitions in the policy assignment."
+        },
+        "parameters": {
+          "type": "array",
+          "description": "Parameter overrides applied to the policy assignment.",
+          "items": {
+            "$ref": "#/definitions/PolicyParameterOverride"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "scope",
+        "assignmentName"
+      ]
+    },
+    "PolicyEffect": {
+      "type": "string",
+      "description": "Effect applied by an Azure Policy assignment override.",
+      "enum": [
+        "Audit",
+        "Deny",
+        "Disabled",
+        "DeployIfNotExists",
+        "Modify",
+        "Append",
+        "AuditIfNotExists"
+      ],
+      "x-ms-enum": {
+        "name": "PolicyEffect",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Audit",
+            "value": "Audit",
+            "description": "Audit noncompliant resources."
+          },
+          {
+            "name": "Deny",
+            "value": "Deny",
+            "description": "Deny noncompliant resource changes."
+          },
+          {
+            "name": "Disabled",
+            "value": "Disabled",
+            "description": "Disable policy evaluation."
+          },
+          {
+            "name": "DeployIfNotExists",
+            "value": "DeployIfNotExists",
+            "description": "Deploy a resource when it does not exist."
+          },
+          {
+            "name": "Modify",
+            "value": "Modify",
+            "description": "Modify a resource."
+          },
+          {
+            "name": "Append",
+            "value": "Append",
+            "description": "Append properties to a resource."
+          },
+          {
+            "name": "AuditIfNotExists",
+            "value": "AuditIfNotExists",
+            "description": "Audit when a related resource does not exist."
+          }
+        ]
+      }
+    },
+    "PolicyEnforcementMode": {
+      "type": "string",
+      "description": "Enforcement mode applied to an Azure Policy assignment.",
+      "enum": [
+        "Default",
+        "DoNotEnforce"
+      ],
+      "x-ms-enum": {
+        "name": "PolicyEnforcementMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Default",
+            "value": "Default",
+            "description": "Enforce the policy assignment."
+          },
+          {
+            "name": "DoNotEnforce",
+            "value": "DoNotEnforce",
+            "description": "Evaluate compliance without enforcing the policy assignment."
+          }
+        ]
+      }
+    },
+    "PolicyParameterOverride": {
+      "type": "object",
+      "description": "Azure Policy parameter override applied to an assignment.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Parameter name defined by the policy assignment."
+        },
+        "value": {
+          "type": "string",
+          "description": "Parameter value serialized as JSON."
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ]
+    },
     "PrivateDnsConfig": {
       "type": "object",
-      "description": "Private DNS configuration.",
+      "description": "Private domain name system configuration.",
       "properties": {
-        "privateLinkZonesEnabled": {
-          "type": "boolean",
-          "description": "Whether Azure Private Link private DNS zones are deployed."
+        "zoneMode": {
+          "$ref": "#/definitions/PrivateDnsZoneMode",
+          "description": "Private domain name system zone deployment mode."
         },
         "centralizedResolutionEnabled": {
           "type": "boolean",
-          "description": "Whether centralized DNS resolution is enabled."
-        },
-        "autoRegistrationZoneEnabled": {
-          "type": "boolean",
-          "description": "Whether the auto-registration private DNS zone is enabled."
+          "description": "Whether centralized domain name system resolution is enabled."
         },
         "autoRegistrationZoneName": {
           "type": "string",
-          "description": "Name of the auto-registration private DNS zone."
+          "description": "Name of the auto-registration private domain name system zone."
         },
         "resolverSubnetAddressPrefix": {
           "$ref": "#/definitions/Ipv4CidrPrefix",
-          "description": "DNS resolver subnet address prefix."
+          "description": "Domain name system resolver subnet address prefix."
         }
+      }
+    },
+    "PrivateDnsZoneMode": {
+      "type": "string",
+      "description": "Private DNS zone deployment mode selected by the stock accelerator templates.",
+      "enum": [
+        "PrivateLinkAndAutoRegistration"
+      ],
+      "x-ms-enum": {
+        "name": "PrivateDnsZoneMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "PrivateLinkAndAutoRegistration",
+            "value": "PrivateLinkAndAutoRegistration",
+            "description": "Deploy Azure Private Link private DNS zones and an auto-registration private DNS zone."
+          }
+        ]
       }
     },
     "RegionAddressSpace": {
@@ -1176,7 +1431,7 @@
       "properties": {
         "hub": {
           "$ref": "#/definitions/Ipv4CidrPrefix",
-          "description": "Address space allocated for hub virtual networks in this region, in CIDR notation."
+          "description": "Address space allocated for hub virtual networks in this region, in Classless Inter-Domain Routing notation."
         }
       }
     },
@@ -1200,6 +1455,42 @@
             "name": "Secondary",
             "value": "Secondary",
             "description": "Secondary region."
+          }
+        ]
+      }
+    },
+    "RegionalConnectivityDeploymentMode": {
+      "type": "string",
+      "description": "Regional connectivity resources deployed by the stock accelerator templates.",
+      "enum": [
+        "None",
+        "Hub",
+        "Sidecar",
+        "HubAndSidecar"
+      ],
+      "x-ms-enum": {
+        "name": "RegionalConnectivityDeploymentMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None",
+            "description": "Do not deploy regional connectivity resources."
+          },
+          {
+            "name": "Hub",
+            "value": "Hub",
+            "description": "Deploy only the connectivity hub."
+          },
+          {
+            "name": "Sidecar",
+            "value": "Sidecar",
+            "description": "Deploy only the sidecar virtual network."
+          },
+          {
+            "name": "HubAndSidecar",
+            "value": "HubAndSidecar",
+            "description": "Deploy both the connectivity hub and the sidecar virtual network."
           }
         ]
       }
@@ -1230,11 +1521,11 @@
     },
     "Security": {
       "type": "object",
-      "description": "Security configuration produced by the stock ALZ policy baseline.",
+      "description": "Security configuration produced by the stock Azure Landing Zones policy baseline.",
       "properties": {
         "defenderForCloudEnabled": {
           "type": "boolean",
-          "description": "Whether Microsoft Defender for Cloud configuration is enabled through the stock ALZ policy assignment."
+          "description": "Whether Microsoft Defender for Cloud configuration is enabled through the stock Azure Landing Zones policy assignment."
         },
         "securityContactEmail": {
           "type": "string",
@@ -1270,13 +1561,15 @@
     },
     "ThirdPartyNvaFirewallConfig": {
       "type": "object",
-      "description": "Generic third-party NVA configuration.",
+      "description": "Generic third-party network virtual appliance configuration.",
       "properties": {
         "vendor": {
-          "$ref": "#/definitions/NvaVendor"
+          "$ref": "#/definitions/NvaVendor",
+          "description": "Network virtual appliance vendor."
         },
         "subnetAddressPrefix": {
-          "$ref": "#/definitions/Ipv4CidrPrefix"
+          "$ref": "#/definitions/Ipv4CidrPrefix",
+          "description": "Network virtual appliance subnet address prefix."
         }
       },
       "allOf": [
@@ -1336,11 +1629,12 @@
     },
     "VirtualWanExpressRouteConfig": {
       "type": "object",
-      "description": "Virtual WAN ExpressRoute Gateway configuration.",
+      "description": "Azure Virtual WAN ExpressRoute gateway configuration.",
       "properties": {
         "scaleUnits": {
           "type": "integer",
           "format": "int32",
+          "description": "Number of Azure Virtual WAN ExpressRoute gateway scale units.",
           "minimum": 1,
           "maximum": 20
         }
@@ -1354,11 +1648,12 @@
     },
     "VirtualWanVpnGatewayConfig": {
       "type": "object",
-      "description": "Virtual WAN VPN Gateway configuration.",
+      "description": "Azure Virtual WAN virtual private network gateway configuration.",
       "properties": {
         "scaleUnits": {
           "type": "integer",
           "format": "int32",
+          "description": "Number of Azure Virtual WAN virtual private network gateway scale units.",
           "minimum": 1,
           "maximum": 20
         }
@@ -1372,13 +1667,15 @@
     },
     "VpnGatewayConfig": {
       "type": "object",
-      "description": "VPN Gateway configuration.",
+      "description": "Virtual private network gateway configuration.",
       "properties": {
         "topology": {
-          "$ref": "#/definitions/ConnectivityTopology"
+          "$ref": "#/definitions/ConnectivityTopology",
+          "description": "Connectivity topology implemented by the virtual private network gateway."
         },
         "deployInRegions": {
           "type": "array",
+          "description": "Azure regions where the virtual private network gateway is deployed.",
           "items": {
             "type": "string"
           }
@@ -1391,7 +1688,7 @@
     },
     "VpnGatewaySku": {
       "type": "string",
-      "description": "VPN Gateway SKU selected by the stock hub-and-spoke template.",
+      "description": "Virtual private network gateway stock keeping unit selected by the stock hub-and-spoke template.",
       "enum": [
         "VpnGw1AZ"
       ],

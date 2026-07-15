@@ -36,7 +36,7 @@ model PlatformLandingZoneProperties {
   scaleTier?: ScaleTier;
 
   @visibility(Lifecycle.Create)
-  @doc("ARM resource id of the parent management group under which the ALZ management group hierarchy will be created. Create-only; cannot be changed after the landing zone is created.")
+  @doc("Azure resource identifier of the parent management group under which the Azure Landing Zones management-group hierarchy will be created. Create-only; cannot be changed after the landing zone is created.")
   parentManagementGroupId?: armResourceIdentifier<[
     {
       type: "Microsoft.Management/managementGroups";
@@ -62,7 +62,7 @@ model PlatformLandingZoneProperties {
   @doc("Governance configuration.")
   governance?: Governance;
 
-  @doc("Version control system the generator will use when materializing the landing-zone IaC and CI pipelines. When omitted, the generator service applies its default (currently GitHub).")
+  @doc("Version control system the generator will use when materializing the landing-zone infrastructure-as-code output and continuous integration pipelines. When omitted, the generator service applies its default (currently GitHub).")
   versionControlSystem?: VersionControlSystem;
 
   @doc("Name of the organization or environment that owns this landing zone. Surfaced to the generator (maps to ENVIRONMENT_NAME). Optional.")
@@ -82,6 +82,6 @@ model PlatformLandingZoneProperties {
   status?: PlatformLandingZoneGenerationStatus;
 
   @visibility(Lifecycle.Read)
-  @doc("ARM resource id of the artifact ({migrateProjectId}/artifacts/plz-{name}) under which the generated design document and IaC are committed. Read-only and deterministic (derived from the resource identity), so it is available immediately, even while provisioning.")
+  @doc("Azure resource identifier of the artifact ({migrateProjectId}/artifacts/plz-{name}) under which the generated design document and infrastructure-as-code output are committed. Read-only and deterministic (derived from the resource identity), so it is available immediately, even while provisioning.")
   artifactId?: string;
 }

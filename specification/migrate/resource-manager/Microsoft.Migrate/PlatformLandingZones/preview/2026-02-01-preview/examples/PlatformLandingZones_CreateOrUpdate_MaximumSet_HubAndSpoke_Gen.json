@@ -46,6 +46,18 @@
         "security": {
           "securityContactEmail": "secops@contoso.com"
         },
+        "governance": {
+          "policyAssignmentMode": "AlzDefaults",
+          "policyAssignmentOverrides": [
+            {
+              "scope": "Corp",
+              "assignmentName": "Deny-Public-Endpoints",
+              "enabled": true,
+              "enforcementMode": "Default",
+              "effect": "Audit"
+            }
+          ]
+        },
         "versionControlSystem": "GitHub",
         "organizationName": "contoso",
         "serviceName": "platform"
@@ -88,8 +100,7 @@
                 "2",
                 "3"
               ],
-              "deployHub": true,
-              "deploySidecar": false
+              "connectivityDeploymentMode": "Hub"
             }
           ],
           "connectivity": {
@@ -118,9 +129,8 @@
               "plan": "Network"
             },
             "privateDns": {
-              "privateLinkZonesEnabled": true,
+              "zoneMode": "PrivateLinkAndAutoRegistration",
               "centralizedResolutionEnabled": true,
-              "autoRegistrationZoneEnabled": true,
               "resolverSubnetAddressPrefix": "10.0.0.160/28"
             },
             "vpnGateway": {
@@ -160,7 +170,16 @@
             "securityContactEmail": "secops@contoso.com"
           },
           "governance": {
-            "policyAssignmentMode": "AlzDefaults"
+            "policyAssignmentMode": "AlzDefaults",
+            "policyAssignmentOverrides": [
+              {
+                "scope": "Corp",
+                "assignmentName": "Deny-Public-Endpoints",
+                "enabled": true,
+                "enforcementMode": "Default",
+                "effect": "Audit"
+              }
+            ]
           },
           "versionControlSystem": "GitHub",
           "organizationName": "contoso",
