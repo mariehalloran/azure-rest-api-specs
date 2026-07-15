@@ -6,12 +6,10 @@ import "@azure-tools/typespec-azure-resource-manager";
 import "../Enums/Enums.tsp";
 import "../Models/PlatformRegion.tsp";
 import "../Models/PlatformSubscriptions.tsp";
-import "../Models/IdentityConfig.tsp";
 import "../Models/Connectivity.tsp";
 import "../Models/Management.tsp";
 import "../Models/Security.tsp";
 import "../Models/Governance.tsp";
-import "../Models/CostManagement.tsp";
 import "./MigrateProject.tsp";
 
 using TypeSpec.Rest;
@@ -33,7 +31,7 @@ model PlatformLandingZone is ProxyResource<PlatformLandingZoneProperties> {
 
 @doc("Properties of a Platform Landing Zone. This envelope is grown incrementally as sub-blocks are introduced.")
 model PlatformLandingZoneProperties {
-  @doc("Deployment scale tier of the landing zone. When set to ManagementOnly, Connectivity.topology must also be ManagementOnly.")
+  @doc("Deployment scale selected by the stock accelerator template. ManagementOnly omits connectivity.")
   scaleTier?: ScaleTier;
 
   @visibility(Lifecycle.Create)
@@ -42,9 +40,6 @@ model PlatformLandingZoneProperties {
 
   @doc("Platform subscription topology.")
   platformSubscriptions?: PlatformSubscriptions;
-
-  @doc("Identity configuration for the landing zone.")
-  identity?: IdentityConfig;
 
   @doc("Azure regions included in the landing zone design.")
   @identifiers(#["name"])
@@ -62,9 +57,6 @@ model PlatformLandingZoneProperties {
   @doc("Governance configuration.")
   governance?: Governance;
 
-  @doc("Cost management configuration.")
-  costManagement?: CostManagement;
-
   @doc("Version control system the generator will use when materializing the landing-zone IaC and CI pipelines. When omitted, the generator service applies its default (currently GitHub).")
   versionControlSystem?: VersionControlSystem;
 
@@ -79,6 +71,10 @@ model PlatformLandingZoneProperties {
   @visibility(Lifecycle.Read)
   @doc("Provisioning state of the Platform Landing Zone resource.")
   provisioningState?: ResourceProvisioningState;
+
+  @visibility(Lifecycle.Read)
+  @doc("Status of the asynchronous landing-zone generation run.")
+  status?: PlatformLandingZoneGenerationStatus;
 
   @visibility(Lifecycle.Read)
   @doc("ARM resource id of the artifact ({migrateProjectId}/artifacts/plz-{name}) under which the generated design document and IaC are committed. Read-only and deterministic (derived from the resource identity), so it is available immediately, even while provisioning.")

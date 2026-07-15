@@ -1,82 +1,55 @@
 {
-  "title": "List Platform Landing Zones under a migrate project (minimum set)",
+  "title": "List defaulted Platform Landing Zones under a migrate project",
   "operationId": "PlatformLandingZones_ListByParent",
   "parameters": {
-    "api-version": "2026-02-01-preview",
     "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-migrate",
     "projectName": "contosoMigrateProject",
-    "resourceGroupName": "rg-migrate"
+    "api-version": "2026-02-01-preview"
   },
   "responses": {
     "200": {
       "body": {
         "value": [
           {
-            "systemData": {
-              "lastModifiedAt": "2026-02-01T00:00:00Z",
-              "createdBy": "user@contoso.com",
-              "createdAt": "2026-02-01T00:00:00Z",
-              "createdByType": "User",
-              "lastModifiedBy": "user@contoso.com",
-              "lastModifiedByType": "User"
-            },
-            "name": "contoso-plz-min",
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones/contoso-management",
+            "name": "contoso-management",
+            "type": "Microsoft.Migrate/migrateProjects/platformLandingZones",
             "properties": {
-              "management": {
-                "azureMonitor": {
-                  "vmInsightsEnabled": false
-                },
-                "logAnalytics": {
-                  "workspaceName": "min-law",
-                  "retentionInDays": 30,
-                  "sku": "PerGB2018"
-                }
+              "scaleTier": "ManagementOnly",
+              "platformSubscriptions": {
+                "subscriptionModel": "Dedicated"
               },
-              "connectivity": {
-                "topology": "ManagementOnly",
-                "internetEgress": "DirectFromSpoke"
-              },
-              "identity": {
-                "provider": "EntraIdOnly"
-              },
-              "provisioningState": "Succeeded",
               "regions": [
                 {
-                  "role": "Primary",
                   "name": "eastus",
-                  "addressSpace": {
-                    "spoke": "10.0.1.0/24",
-                    "hub": "10.0.0.0/24"
-                  }
+                  "role": "Primary"
                 }
               ],
-              "security": {
-                "securityContactEmail": "secops@contoso.com",
-                "keyVault": {
-                  "kind": "Standard",
-                  "purgeProtectionEnabled": true,
-                  "softDeleteRetentionInDays": 7,
-                  "rbacAuthorizationEnabled": true
+              "management": {
+                "logAnalytics": {
+                  "sku": "PerGB2018",
+                  "retentionInDays": 30
                 },
-                "defenderPlans": [
-                  {
-                    "name": "Servers",
-                    "tier": "Free"
-                  }
-                ]
+                "azureMonitor": {
+                  "vmInsightsEnabled": true,
+                  "containerInsightsEnabled": true
+                },
+                "sentinel": {
+                  "enabled": false
+                }
               },
-              "costManagement": {
-                "currency": "USD",
-                "savingsPlans": "None",
-                "reservations": "None",
-                "billingAccountType": "PayAsYouGo"
+              "security": {
+                "defenderForCloudEnabled": true
               },
               "governance": {
-                "policyAssignmentMode": "None"
-              }
-            },
-            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones/contoso-plz-min",
-            "type": "Microsoft.Migrate/migrateProjects/platformLandingZones"
+                "policyAssignmentMode": "AlzDefaults"
+              },
+              "versionControlSystem": "GitHub",
+              "provisioningState": "Succeeded",
+              "status": "Succeeded",
+              "artifactId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/artifacts/plz-contoso-management"
+            }
           }
         ]
       }

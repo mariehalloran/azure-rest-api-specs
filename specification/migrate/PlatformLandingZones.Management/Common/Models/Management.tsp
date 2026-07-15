@@ -2,132 +2,43 @@ import "../Enums/Enums.tsp";
 
 namespace Microsoft.Migrate;
 
-@doc("Log Analytics workspace configuration.")
+@doc("Log Analytics workspace configuration produced by the stock management template.")
 model LogAnalyticsConfig {
-  @doc("Workspace name.")
-  workspaceName: string;
+  @doc("Log Analytics workspace name.")
+  workspaceName?: string;
 
-  @doc("Workspace SKU.")
-  sku: LogAnalyticsSku;
+  @doc("Log Analytics workspace SKU.")
+  sku?: LogAnalyticsSku;
 
-  @doc("Retention in days.")
+  @doc("Workspace data retention in days.")
   @minValue(30)
   @maxValue(730)
-  retentionInDays: int32;
-
-  @doc("Daily ingestion quota in GB. -1 indicates unlimited; only meaningful with the PerGB2018 SKU.")
-  dailyQuotaGb?: float32;
-
-  @doc("Capacity reservation level in GB per day. Required when sku is CapacityReservation.")
-  capacityReservationGbPerDay?: int32;
+  retentionInDays?: int32;
 }
 
-@doc("Azure Monitor configuration.")
+@doc("Azure Monitor configuration produced by the stock management template.")
 model AzureMonitorConfig {
   @doc("Whether VM Insights is enabled.")
-  vmInsightsEnabled: boolean;
+  vmInsightsEnabled?: boolean;
 
   @doc("Whether Container Insights is enabled.")
   containerInsightsEnabled?: boolean;
-
-  @doc("Whether Application Insights is provisioned in the management subscription.")
-  applicationInsightsEnabled?: boolean;
-
-  @doc("Whether Network Insights is enabled for the landing zone.")
-  networkInsightsEnabled?: boolean;
 }
 
-@doc("Microsoft Sentinel configuration.")
+@doc("Microsoft Sentinel state produced by the stock management template.")
 model SentinelConfig {
-  @doc("Whether Microsoft Sentinel is enabled on the management Log Analytics workspace.")
-  enabled: boolean;
-
-  @doc("Names of Sentinel data connectors to enable.")
-  dataConnectors?: string[];
+  @doc("Whether Microsoft Sentinel is enabled.")
+  enabled?: boolean;
 }
 
-@doc("Azure Automation account configuration.")
-model AutomationConfig {
-  @doc("Automation account name.")
-  accountName: string;
-
-  @doc("Automation account SKU.")
-  sku: AutomationSku;
-}
-
-@doc("Recovery Services vault configuration. Hoisted to the management block so it can be shared by Backup and Site Recovery.")
-model RecoveryServicesVault {
-  @doc("Vault name.")
-  vaultName: string;
-
-  @doc("Storage redundancy of the vault.")
-  redundancy: VaultRedundancy;
-
-  @doc("Whether cross-region restore is enabled. Requires GeoRedundant redundancy.")
-  crossRegionRestoreEnabled?: boolean;
-
-  @doc("Whether vault immutability is enabled. When true, recovery points cannot be deleted before expiry.")
-  immutabilityEnabled?: boolean;
-}
-
-@doc("Backup configuration.")
-model BackupConfig {
-  @doc("Whether centralized backup is enabled for the landing zone.")
-  enabled: boolean;
-
-  @doc("Soft-delete retention in days for the recovery services vault.")
-  @minValue(14)
-  @maxValue(180)
-  softDeleteRetentionInDays?: int32;
-}
-
-@doc("Azure Site Recovery configuration.")
-model SiteRecoveryConfig {
-  @doc("Whether Site Recovery is enabled for the landing zone.")
-  enabled: boolean;
-}
-
-@doc("Azure Update Manager configuration. Centralizes patch orchestration for landing-zone VMs.")
-model UpdateManagementConfig {
-  @doc("Whether Azure Update Manager is enabled for the landing zone.")
-  enabled: boolean;
-
-  @doc("Name of the default maintenance configuration applied to enrolled VMs.")
-  maintenanceConfigurationName?: string;
-}
-
-@doc("Azure Monitor Baseline Alerts (AMBA) configuration. AMBA is the Microsoft-recommended baseline set of alert rules for ALZ platform services.")
-model AmbaConfig {
-  @doc("Whether the AMBA baseline alert rule set is deployed.")
-  enabled: boolean;
-}
-
-@doc("Management plane configuration for the landing zone.")
+@doc("Management configuration produced by the stock accelerator template.")
 model Management {
   @doc("Log Analytics workspace configuration.")
-  logAnalytics: LogAnalyticsConfig;
+  logAnalytics?: LogAnalyticsConfig;
 
   @doc("Azure Monitor configuration.")
-  azureMonitor: AzureMonitorConfig;
+  azureMonitor?: AzureMonitorConfig;
 
   @doc("Microsoft Sentinel configuration.")
   sentinel?: SentinelConfig;
-
-  @doc("Azure Automation configuration.")
-  automation?: AutomationConfig;
-
-  @doc("Shared Recovery Services vault used by backup and site recovery.")
-  recoveryServicesVault?: RecoveryServicesVault;
-
-  @doc("Backup configuration.")
-  backup?: BackupConfig;
-
-  @doc("Azure Site Recovery configuration.")
-  siteRecovery?: SiteRecoveryConfig;
-
-  @doc("Azure Update Manager configuration.")
-  updateManagement?: UpdateManagementConfig;
-
-  @doc("Azure Monitor Baseline Alerts configuration.")
-  amba?: AmbaConfig;
 }

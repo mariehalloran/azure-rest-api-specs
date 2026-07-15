@@ -127,10 +127,7 @@
           }
         },
         "x-ms-examples": {
-          "List Platform Landing Zones under a migrate project (maximum set)": {
-            "$ref": "./examples/PlatformLandingZones_ListByMigrateProject_MaximumSet_Gen.json"
-          },
-          "List Platform Landing Zones under a migrate project (minimum set)": {
+          "List defaulted Platform Landing Zones under a migrate project": {
             "$ref": "./examples/PlatformLandingZones_ListByMigrateProject_MinimumSet_Gen.json"
           }
         },
@@ -188,10 +185,7 @@
           }
         },
         "x-ms-examples": {
-          "Get a Platform Landing Zone (maximum set)": {
-            "$ref": "./examples/PlatformLandingZones_Get_MaximumSet_Gen.json"
-          },
-          "Get a Platform Landing Zone (minimum set)": {
+          "Get a defaulted management-only Platform Landing Zone": {
             "$ref": "./examples/PlatformLandingZones_Get_MinimumSet_Gen.json"
           }
         }
@@ -270,20 +264,20 @@
           }
         },
         "x-ms-examples": {
-          "Create a Platform Landing Zone (HubAndSpoke, maximum set)": {
-            "$ref": "./examples/PlatformLandingZones_CreateOrUpdate_MaximumSet_HubAndSpoke_Gen.json"
-          },
-          "Create a Platform Landing Zone (ManagementOnly, maximum set)": {
-            "$ref": "./examples/PlatformLandingZones_CreateOrUpdate_MaximumSet_ManagementOnly_Gen.json"
-          },
-          "Create a Platform Landing Zone (ManagementOnly, minimum set)": {
+          "Create a Platform Landing Zone from minimal customer input": {
             "$ref": "./examples/PlatformLandingZones_CreateOrUpdate_MinimumSet_Gen.json"
           },
-          "Create a Platform Landing Zone (VirtualWan, maximum set)": {
+          "Create a full Virtual WAN Platform Landing Zone": {
             "$ref": "./examples/PlatformLandingZones_CreateOrUpdate_MaximumSet_VirtualWan_Gen.json"
           },
-          "PlatformLandingZones_CreateOrUpdate_MaximumSet_HubAndSpoke_Nva": {
+          "Create a full hub-and-spoke Platform Landing Zone": {
+            "$ref": "./examples/PlatformLandingZones_CreateOrUpdate_MaximumSet_HubAndSpoke_Gen.json"
+          },
+          "Create a full hub-and-spoke Platform Landing Zone with a generic NVA": {
             "$ref": "./examples/PlatformLandingZones_CreateOrUpdate_MaximumSet_HubAndSpoke_Nva_Gen.json"
+          },
+          "Create a management-only Platform Landing Zone": {
+            "$ref": "./examples/PlatformLandingZones_CreateOrUpdate_MaximumSet_ManagementOnly_Gen.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -365,127 +359,6 @@
     }
   },
   "definitions": {
-    "AlzManagementGroupScope": {
-      "type": "string",
-      "description": "Azure Landing Zone management group scope at which a policy or lock applies.",
-      "enum": [
-        "IntermediateRoot",
-        "Platform",
-        "Identity",
-        "Management",
-        "Connectivity",
-        "LandingZones",
-        "Corp",
-        "Online",
-        "Sandbox",
-        "Decommissioned"
-      ],
-      "x-ms-enum": {
-        "name": "AlzManagementGroupScope",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "IntermediateRoot",
-            "value": "IntermediateRoot",
-            "description": "Intermediate root management group (the ALZ root)."
-          },
-          {
-            "name": "Platform",
-            "value": "Platform",
-            "description": "Platform management group."
-          },
-          {
-            "name": "Identity",
-            "value": "Identity",
-            "description": "Identity platform management group."
-          },
-          {
-            "name": "Management",
-            "value": "Management",
-            "description": "Management platform management group."
-          },
-          {
-            "name": "Connectivity",
-            "value": "Connectivity",
-            "description": "Connectivity platform management group."
-          },
-          {
-            "name": "LandingZones",
-            "value": "LandingZones",
-            "description": "Landing zones management group (parent of Corp and Online)."
-          },
-          {
-            "name": "Corp",
-            "value": "Corp",
-            "description": "Corp landing zones management group."
-          },
-          {
-            "name": "Online",
-            "value": "Online",
-            "description": "Online landing zones management group."
-          },
-          {
-            "name": "Sandbox",
-            "value": "Sandbox",
-            "description": "Sandbox management group."
-          },
-          {
-            "name": "Decommissioned",
-            "value": "Decommissioned",
-            "description": "Decommissioned management group."
-          }
-        ]
-      }
-    },
-    "AmbaConfig": {
-      "type": "object",
-      "description": "Azure Monitor Baseline Alerts (AMBA) configuration. AMBA is the Microsoft-recommended baseline set of alert rules for ALZ platform services.",
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "description": "Whether the AMBA baseline alert rule set is deployed."
-        }
-      },
-      "required": [
-        "enabled"
-      ]
-    },
-    "AutomationConfig": {
-      "type": "object",
-      "description": "Azure Automation account configuration.",
-      "properties": {
-        "accountName": {
-          "type": "string",
-          "description": "Automation account name."
-        },
-        "sku": {
-          "$ref": "#/definitions/AutomationSku",
-          "description": "Automation account SKU."
-        }
-      },
-      "required": [
-        "accountName",
-        "sku"
-      ]
-    },
-    "AutomationSku": {
-      "type": "string",
-      "description": "Automation Account SKU.",
-      "enum": [
-        "Basic"
-      ],
-      "x-ms-enum": {
-        "name": "AutomationSku",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Basic",
-            "value": "Basic",
-            "description": "Basic SKU."
-          }
-        ]
-      }
-    },
     "Azure.ResourceManager.ResourceProvisioningState": {
       "type": "string",
       "description": "The provisioning state of a resource type.",
@@ -522,40 +395,27 @@
       "description": "Azure Firewall configuration.",
       "properties": {
         "sku": {
-          "$ref": "#/definitions/AzureFirewallSku",
-          "description": "Azure Firewall SKU."
+          "$ref": "#/definitions/AzureFirewallSku"
         },
         "dnsProxyEnabled": {
-          "type": "boolean",
-          "description": "Whether DNS Proxy is enabled on the firewall."
-        },
-        "tlsInspectionEnabled": {
-          "type": "boolean",
-          "description": "Whether TLS inspection is enabled. Requires the Premium SKU."
+          "type": "boolean"
         },
         "threatIntelMode": {
-          "$ref": "#/definitions/ThreatIntelMode",
-          "description": "Threat intelligence mode used by the firewall."
+          "$ref": "#/definitions/ThreatIntelMode"
         },
         "idpsMode": {
-          "$ref": "#/definitions/IdpsMode",
-          "description": "Intrusion Detection and Prevention System mode. Requires the Premium SKU."
+          "$ref": "#/definitions/IdpsMode"
         },
         "subnetAddressPrefix": {
-          "type": "string",
-          "description": "Subnet CIDR (AzureFirewallSubnet) allocated to Azure Firewall in the hub."
+          "type": "string"
         },
         "deployInRegions": {
           "type": "array",
-          "description": "Names of regions in which the firewall is deployed. When omitted, the firewall is deployed in every region declared on the landing zone.",
           "items": {
             "type": "string"
           }
         }
       },
-      "required": [
-        "sku"
-      ],
       "allOf": [
         {
           "$ref": "#/definitions/FirewallConfig"
@@ -565,10 +425,8 @@
     },
     "AzureFirewallSku": {
       "type": "string",
-      "description": "Azure Firewall SKU.",
+      "description": "Azure Firewall SKU selected by the stock accelerator templates.",
       "enum": [
-        "Basic",
-        "Standard",
         "Premium"
       ],
       "x-ms-enum": {
@@ -576,26 +434,16 @@
         "modelAsString": true,
         "values": [
           {
-            "name": "Basic",
-            "value": "Basic",
-            "description": "Basic SKU."
-          },
-          {
-            "name": "Standard",
-            "value": "Standard",
-            "description": "Standard SKU."
-          },
-          {
             "name": "Premium",
             "value": "Premium",
-            "description": "Premium SKU. Required for TLS inspection and IDPS."
+            "description": "Premium SKU."
           }
         ]
       }
     },
     "AzureMonitorConfig": {
       "type": "object",
-      "description": "Azure Monitor configuration.",
+      "description": "Azure Monitor configuration produced by the stock management template.",
       "properties": {
         "vmInsightsEnabled": {
           "type": "boolean",
@@ -604,39 +452,8 @@
         "containerInsightsEnabled": {
           "type": "boolean",
           "description": "Whether Container Insights is enabled."
-        },
-        "applicationInsightsEnabled": {
-          "type": "boolean",
-          "description": "Whether Application Insights is provisioned in the management subscription."
-        },
-        "networkInsightsEnabled": {
-          "type": "boolean",
-          "description": "Whether Network Insights is enabled for the landing zone."
         }
-      },
-      "required": [
-        "vmInsightsEnabled"
-      ]
-    },
-    "BackupConfig": {
-      "type": "object",
-      "description": "Backup configuration.",
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "description": "Whether centralized backup is enabled for the landing zone."
-        },
-        "softDeleteRetentionInDays": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Soft-delete retention in days for the recovery services vault.",
-          "minimum": 14,
-          "maximum": 180
-        }
-      },
-      "required": [
-        "enabled"
-      ]
+      }
     },
     "BastionConfig": {
       "type": "object",
@@ -649,109 +466,52 @@
         "scaleUnits": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of scale units. Only valid when sku is Standard or Premium; ignored for Basic.",
+          "description": "Number of Bastion scale units.",
           "minimum": 2,
           "maximum": 50
         },
         "subnetAddressPrefix": {
           "type": "string",
-          "description": "Subnet CIDR (AzureBastionSubnet) allocated to Azure Bastion in the hub."
+          "description": "Bastion subnet address prefix."
         },
         "deployInRegions": {
           "type": "array",
-          "description": "Names of regions in which Bastion is deployed. When omitted, Bastion is deployed in every region declared on the landing zone.",
+          "description": "Regions where Bastion is deployed.",
           "items": {
             "type": "string"
           }
         }
-      },
-      "required": [
-        "sku"
-      ]
+      }
     },
     "BastionSku": {
       "type": "string",
-      "description": "Bastion SKU.",
+      "description": "Bastion SKU selected by the stock accelerator templates.",
       "enum": [
-        "Basic",
-        "Standard",
-        "Premium"
+        "Standard"
       ],
       "x-ms-enum": {
         "name": "BastionSku",
         "modelAsString": true,
         "values": [
           {
-            "name": "Basic",
-            "value": "Basic",
-            "description": "Basic SKU."
-          },
-          {
             "name": "Standard",
             "value": "Standard",
-            "description": "Standard SKU. Required when scale units are specified."
-          },
-          {
-            "name": "Premium",
-            "value": "Premium",
-            "description": "Premium SKU."
-          }
-        ]
-      }
-    },
-    "BillingAccountType": {
-      "type": "string",
-      "description": "Customer billing account type.",
-      "enum": [
-        "EnterpriseAgreement",
-        "MicrosoftCustomerAgreement",
-        "MicrosoftPartnerAgreement",
-        "PayAsYouGo",
-        "CloudSolutionProvider"
-      ],
-      "x-ms-enum": {
-        "name": "BillingAccountType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "EnterpriseAgreement",
-            "value": "EnterpriseAgreement",
-            "description": "Enterprise Agreement."
-          },
-          {
-            "name": "MicrosoftCustomerAgreement",
-            "value": "MicrosoftCustomerAgreement",
-            "description": "Microsoft Customer Agreement."
-          },
-          {
-            "name": "MicrosoftPartnerAgreement",
-            "value": "MicrosoftPartnerAgreement",
-            "description": "Microsoft Partner Agreement."
-          },
-          {
-            "name": "PayAsYouGo",
-            "value": "PayAsYouGo",
-            "description": "Pay-as-you-go."
-          },
-          {
-            "name": "CloudSolutionProvider",
-            "value": "CloudSolutionProvider",
-            "description": "Cloud Solution Provider."
+            "description": "Standard SKU."
           }
         ]
       }
     },
     "Connectivity": {
       "type": "object",
-      "description": "Network connectivity configuration for the landing zone.",
+      "description": "Network connectivity configuration for a full landing zone.",
       "properties": {
         "topology": {
           "$ref": "#/definitions/ConnectivityTopology",
-          "description": "Connectivity topology. When ManagementOnly is selected, per-service sub-blocks (firewall, bastion, ddosProtection, privateDns, vpnGateway, expressRoute) should be omitted."
+          "description": "Connectivity topology."
         },
         "internetEgress": {
           "$ref": "#/definitions/InternetEgressModel",
-          "description": "Internet egress model for spoke traffic."
+          "description": "Internet egress model."
         },
         "firewall": {
           "$ref": "#/definitions/FirewallConfig",
@@ -763,7 +523,7 @@
         },
         "ddosProtection": {
           "$ref": "#/definitions/DdosProtectionConfig",
-          "description": "Azure DDoS Protection configuration."
+          "description": "DDoS protection configuration."
         },
         "privateDns": {
           "$ref": "#/definitions/PrivateDnsConfig",
@@ -771,29 +531,27 @@
         },
         "vpnGateway": {
           "$ref": "#/definitions/VpnGatewayConfig",
-          "description": "VPN Gateway configuration. Discriminator value must equal Connectivity.topology."
+          "description": "VPN Gateway configuration."
         },
         "expressRoute": {
           "$ref": "#/definitions/ExpressRouteConfig",
-          "description": "ExpressRoute configuration. Discriminator value must equal Connectivity.topology."
+          "description": "ExpressRoute Gateway configuration."
         },
         "gatewaySubnetAddressPrefix": {
           "type": "string",
-          "description": "Subnet CIDR (GatewaySubnet) allocated to VPN and ExpressRoute gateways in the hub. Hoisted here because the GatewaySubnet is shared by both gateway types."
+          "description": "Gateway subnet address prefix for hub-and-spoke deployments."
         }
       },
       "required": [
-        "topology",
-        "internetEgress"
+        "topology"
       ]
     },
     "ConnectivityTopology": {
       "type": "string",
-      "description": "Top-level connectivity topology that the landing zone deploys against.",
+      "description": "Connectivity topology selected by the stock accelerator template.",
       "enum": [
         "HubAndSpoke",
-        "VirtualWan",
-        "ManagementOnly"
+        "VirtualWan"
       ],
       "x-ms-enum": {
         "name": "ConnectivityTopology",
@@ -802,89 +560,15 @@
           {
             "name": "HubAndSpoke",
             "value": "HubAndSpoke",
-            "description": "Classic hub-and-spoke topology built on Virtual Network peering."
+            "description": "Hub-and-spoke virtual network topology."
           },
           {
             "name": "VirtualWan",
             "value": "VirtualWan",
-            "description": "Azure Virtual WAN based topology."
-          },
-          {
-            "name": "ManagementOnly",
-            "value": "ManagementOnly",
-            "description": "Management-only landing zone with no platform-managed network connectivity. Per-service connectivity sub-blocks are omitted in this mode."
+            "description": "Azure Virtual WAN topology."
           }
         ]
       }
-    },
-    "CostManagement": {
-      "type": "object",
-      "description": "Cost management configuration for the landing zone.",
-      "properties": {
-        "currency": {
-          "type": "string",
-          "description": "ISO-4217 billing currency used for budgets and Bill of Materials cost estimates (e.g., \"USD\", \"EUR\").",
-          "pattern": "^[A-Z]{3}$"
-        },
-        "billingAccountType": {
-          "$ref": "#/definitions/BillingAccountType",
-          "description": "Billing account type."
-        },
-        "reservations": {
-          "$ref": "#/definitions/ReservationStrategy",
-          "description": "Reservation purchase strategy."
-        },
-        "savingsPlans": {
-          "$ref": "#/definitions/SavingsPlanStrategy",
-          "description": "Savings plan strategy."
-        },
-        "budgets": {
-          "type": "array",
-          "description": "Budgets configured on the landing zone.",
-          "items": {
-            "$ref": "#/definitions/PlatformLandingZoneBudget"
-          },
-          "x-ms-identifiers": [
-            "name"
-          ]
-        },
-        "costAnomalyAlertsEnabled": {
-          "type": "boolean",
-          "description": "Whether Cost Management anomaly alerts are enabled for the landing zone."
-        },
-        "tagInheritanceEnabled": {
-          "type": "boolean",
-          "description": "Whether tag inheritance from subscription to resource is enabled in Cost Management."
-        }
-      },
-      "required": [
-        "currency",
-        "billingAccountType",
-        "reservations",
-        "savingsPlans"
-      ]
-    },
-    "CustomerManagedKeyConfig": {
-      "type": "object",
-      "description": "Customer-managed key configuration for platform service encryption.",
-      "properties": {
-        "keyVaultId": {
-          "type": "string",
-          "description": "Key Vault resource id holding the encryption key."
-        },
-        "keyName": {
-          "type": "string",
-          "description": "Key name."
-        },
-        "keyVersion": {
-          "type": "string",
-          "description": "Key version. Omit for auto-rotation to the latest version."
-        }
-      },
-      "required": [
-        "keyVaultId",
-        "keyName"
-      ]
     },
     "DdosProtectionConfig": {
       "type": "object",
@@ -892,19 +576,15 @@
       "properties": {
         "plan": {
           "$ref": "#/definitions/DdosProtectionPlan",
-          "description": "DDoS protection plan tier."
+          "description": "DDoS protection plan."
         }
-      },
-      "required": [
-        "plan"
-      ]
+      }
     },
     "DdosProtectionPlan": {
       "type": "string",
-      "description": "DDoS Protection plan tier.",
+      "description": "DDoS protection plan selected by the stock accelerator templates.",
       "enum": [
-        "Network",
-        "IpProtection"
+        "Network"
       ],
       "x-ms-enum": {
         "name": "DdosProtectionPlan",
@@ -914,11 +594,6 @@
             "name": "Network",
             "value": "Network",
             "description": "Network protection plan."
-          },
-          {
-            "name": "IpProtection",
-            "value": "IpProtection",
-            "description": "IP Protection plan."
           }
         ]
       }
@@ -951,185 +626,6 @@
       ],
       "x-ms-discriminator-value": "Dedicated"
     },
-    "DefenderPlanName": {
-      "type": "string",
-      "description": "Microsoft Defender for Cloud plan identifier.",
-      "enum": [
-        "Servers",
-        "AppServices",
-        "Storage",
-        "Sql",
-        "OpenSourceRelationalDatabases",
-        "CosmosDbs",
-        "KeyVaults",
-        "Dns",
-        "Arm",
-        "Containers",
-        "Api",
-        "CloudPosture",
-        "AiServices"
-      ],
-      "x-ms-enum": {
-        "name": "DefenderPlanName",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Servers",
-            "value": "Servers",
-            "description": "Servers plan."
-          },
-          {
-            "name": "AppServices",
-            "value": "AppServices",
-            "description": "App Service plan."
-          },
-          {
-            "name": "Storage",
-            "value": "Storage",
-            "description": "Storage plan."
-          },
-          {
-            "name": "Sql",
-            "value": "Sql",
-            "description": "SQL plan."
-          },
-          {
-            "name": "OpenSourceRelationalDatabases",
-            "value": "OpenSourceRelationalDatabases",
-            "description": "Open-source relational database plan."
-          },
-          {
-            "name": "CosmosDbs",
-            "value": "CosmosDbs",
-            "description": "Cosmos DB plan."
-          },
-          {
-            "name": "KeyVaults",
-            "value": "KeyVaults",
-            "description": "Key Vault plan."
-          },
-          {
-            "name": "Dns",
-            "value": "Dns",
-            "description": "DNS plan."
-          },
-          {
-            "name": "Arm",
-            "value": "Arm",
-            "description": "Resource Manager plan."
-          },
-          {
-            "name": "Containers",
-            "value": "Containers",
-            "description": "Containers plan."
-          },
-          {
-            "name": "Api",
-            "value": "Api",
-            "description": "API plan."
-          },
-          {
-            "name": "CloudPosture",
-            "value": "CloudPosture",
-            "description": "Cloud Security Posture Management plan."
-          },
-          {
-            "name": "AiServices",
-            "value": "AiServices",
-            "description": "AI Workload plan."
-          }
-        ]
-      }
-    },
-    "DefenderPlanSetting": {
-      "type": "object",
-      "description": "Microsoft Defender for Cloud plan setting.",
-      "properties": {
-        "name": {
-          "$ref": "#/definitions/DefenderPlanName",
-          "description": "Defender plan to configure."
-        },
-        "tier": {
-          "$ref": "#/definitions/DefenderPlanTier",
-          "description": "Plan tier."
-        }
-      },
-      "required": [
-        "name",
-        "tier"
-      ]
-    },
-    "DefenderPlanTier": {
-      "type": "string",
-      "description": "Microsoft Defender for Cloud plan tier.",
-      "enum": [
-        "Free",
-        "Standard",
-        "P1",
-        "P2"
-      ],
-      "x-ms-enum": {
-        "name": "DefenderPlanTier",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Free",
-            "value": "Free",
-            "description": "Free tier."
-          },
-          {
-            "name": "Standard",
-            "value": "Standard",
-            "description": "Standard tier."
-          },
-          {
-            "name": "P1",
-            "value": "P1",
-            "description": "Plan tier P1."
-          },
-          {
-            "name": "P2",
-            "value": "P2",
-            "description": "Plan tier P2."
-          }
-        ]
-      }
-    },
-    "DomainServicesConfig": {
-      "type": "object",
-      "description": "Domain Services configuration. Required when IdentityConfig.provider is EntraIdWithDomainServices or HybridAdDs.",
-      "properties": {
-        "domainName": {
-          "type": "string",
-          "description": "Fully qualified DNS domain name, for example \"contoso.local\"."
-        },
-        "subnetAddressPrefix": {
-          "type": "string",
-          "description": "CIDR for the subnet hosting domain controllers or Azure AD Domain Services."
-        }
-      },
-      "required": [
-        "domainName",
-        "subnetAddressPrefix"
-      ]
-    },
-    "EncryptionConfig": {
-      "type": "object",
-      "description": "Encryption configuration for platform services.",
-      "properties": {
-        "customerManagedKeyEnabled": {
-          "type": "boolean",
-          "description": "Whether customer-managed keys are used. When false, Microsoft-managed keys are used."
-        },
-        "customerManagedKey": {
-          "$ref": "#/definitions/CustomerManagedKeyConfig",
-          "description": "Customer-managed key configuration. Required when customerManagedKeyEnabled is true."
-        }
-      },
-      "required": [
-        "customerManagedKeyEnabled"
-      ]
-    },
     "ExistingSubscriptionRef": {
       "type": "object",
       "description": "Reference to an existing Azure subscription used by the landing zone.",
@@ -1142,15 +638,13 @@
     },
     "ExpressRouteConfig": {
       "type": "object",
-      "description": "ExpressRoute configuration. Available shapes are selected by the topology discriminator and gated by Connectivity.topology.",
+      "description": "ExpressRoute Gateway configuration.",
       "properties": {
         "topology": {
-          "$ref": "#/definitions/ConnectivityTopology",
-          "description": "Topology this ExpressRoute configuration applies to."
+          "$ref": "#/definitions/ConnectivityTopology"
         },
         "deployInRegions": {
           "type": "array",
-          "description": "Names of regions in which an ExpressRoute Gateway is deployed. When omitted, an ExpressRoute Gateway is deployed in every region declared on the landing zone.",
           "items": {
             "type": "string"
           }
@@ -1163,59 +657,28 @@
     },
     "ExpressRouteGatewaySku": {
       "type": "string",
-      "description": "ExpressRoute gateway SKU (hub-and-spoke topology).",
+      "description": "ExpressRoute Gateway SKU selected for this preview.",
       "enum": [
-        "Standard",
-        "HighPerformance",
-        "UltraPerformance",
-        "ErGw1AZ",
-        "ErGw2AZ",
-        "ErGw3AZ"
+        "ErGw1AZ"
       ],
       "x-ms-enum": {
         "name": "ExpressRouteGatewaySku",
         "modelAsString": true,
         "values": [
           {
-            "name": "Standard",
-            "value": "Standard",
-            "description": "Standard SKU."
-          },
-          {
-            "name": "HighPerformance",
-            "value": "HighPerformance",
-            "description": "HighPerformance SKU."
-          },
-          {
-            "name": "UltraPerformance",
-            "value": "UltraPerformance",
-            "description": "UltraPerformance SKU. Required for FastPath."
-          },
-          {
             "name": "ErGw1AZ",
             "value": "ErGw1AZ",
-            "description": "ErGw1AZ availability-zone-aware SKU."
-          },
-          {
-            "name": "ErGw2AZ",
-            "value": "ErGw2AZ",
-            "description": "ErGw2AZ availability-zone-aware SKU."
-          },
-          {
-            "name": "ErGw3AZ",
-            "value": "ErGw3AZ",
-            "description": "ErGw3AZ availability-zone-aware SKU."
+            "description": "Availability-zone-aware ErGw1."
           }
         ]
       }
     },
     "FirewallConfig": {
       "type": "object",
-      "description": "Hub firewall configuration. The deployed firewall is selected by the discriminator \"kind\".",
+      "description": "Hub firewall configuration.",
       "properties": {
         "kind": {
-          "$ref": "#/definitions/FirewallKind",
-          "description": "Firewall kind."
+          "$ref": "#/definitions/FirewallKind"
         }
       },
       "discriminator": "kind",
@@ -1225,11 +688,10 @@
     },
     "FirewallKind": {
       "type": "string",
-      "description": "Firewall kind deployed at the hub.",
+      "description": "Firewall kind selected by the stock accelerator templates.",
       "enum": [
         "AzureFirewall",
-        "ThirdPartyNva",
-        "None"
+        "ThirdPartyNva"
       ],
       "x-ms-enum": {
         "name": "FirewallKind",
@@ -1243,90 +705,32 @@
           {
             "name": "ThirdPartyNva",
             "value": "ThirdPartyNva",
-            "description": "Third-party Network Virtual Appliance. The PLZ resource captures the design intent; deployment of the NVA itself is the customer's responsibility."
-          },
-          {
-            "name": "None",
-            "value": "None",
-            "description": "No platform-managed firewall."
+            "description": "Third-party network virtual appliance."
           }
         ]
       }
     },
     "Governance": {
       "type": "object",
-      "description": "Governance configuration for the landing zone.",
+      "description": "Governance configuration produced by the stock ALZ template.",
       "properties": {
         "policyAssignmentMode": {
           "$ref": "#/definitions/PolicyAssignmentMode",
-          "description": "Policy assignment baseline mode."
-        },
-        "requiredTags": {
-          "type": "array",
-          "description": "Required tags enforced via policy.",
-          "items": {
-            "$ref": "#/definitions/RequiredTag"
-          },
-          "x-ms-identifiers": [
-            "name"
-          ]
-        },
-        "policyAssignmentOverrides": {
-          "type": "array",
-          "description": "Per-assignment overrides applied on top of the ALZ baseline. Only relevant when policyAssignmentMode is AlzDefaults.",
-          "items": {
-            "$ref": "#/definitions/PolicyAssignmentOverride"
-          },
-          "x-ms-identifiers": [
-            "scope",
-            "assignmentName"
-          ]
-        },
-        "resourceLocks": {
-          "type": "array",
-          "description": "Resource Manager locks applied at ALZ management group scopes.",
-          "items": {
-            "$ref": "#/definitions/ResourceLockPolicy"
-          },
-          "x-ms-identifiers": [
-            "scope"
-          ]
-        },
-        "allowedLocations": {
-          "type": "array",
-          "description": "Allowed Azure regions enforced via policy at the landing-zone scope.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "deniedResourceTypes": {
-          "type": "array",
-          "description": "Resource types denied via policy at the landing-zone scope (e.g. \"Microsoft.ClassicCompute/virtualMachines\").",
-          "items": {
-            "type": "string"
-          }
+          "description": "Policy assignment baseline."
         }
-      },
-      "required": [
-        "policyAssignmentMode"
-      ]
+      }
     },
     "HubAndSpokeExpressRouteConfig": {
       "type": "object",
-      "description": "ExpressRoute Gateway configuration for hub-and-spoke topology.",
+      "description": "Hub-and-spoke ExpressRoute Gateway configuration.",
       "properties": {
         "sku": {
-          "$ref": "#/definitions/ExpressRouteGatewaySku",
-          "description": "ExpressRoute Gateway SKU."
+          "$ref": "#/definitions/ExpressRouteGatewaySku"
         },
         "fastPathEnabled": {
-          "type": "boolean",
-          "description": "Whether FastPath is enabled. Requires the UltraPerformance SKU or higher."
+          "type": "boolean"
         }
       },
-      "required": [
-        "sku"
-      ],
       "allOf": [
         {
           "$ref": "#/definitions/ExpressRouteConfig"
@@ -1336,29 +740,18 @@
     },
     "HubAndSpokeVpnGatewayConfig": {
       "type": "object",
-      "description": "VPN Gateway configuration for hub-and-spoke topology (deploys an Azure VPN Gateway in the hub).",
+      "description": "Hub-and-spoke VPN Gateway configuration.",
       "properties": {
         "sku": {
-          "$ref": "#/definitions/VpnGatewaySku",
-          "description": "VPN Gateway SKU."
-        },
-        "generation": {
-          "$ref": "#/definitions/VpnGatewayGeneration",
-          "description": "VPN Gateway generation."
+          "$ref": "#/definitions/VpnGatewaySku"
         },
         "activeActive": {
-          "type": "boolean",
-          "description": "Whether the VPN Gateway is active-active."
+          "type": "boolean"
         },
         "enableBgp": {
-          "type": "boolean",
-          "description": "Whether BGP is enabled."
+          "type": "boolean"
         }
       },
-      "required": [
-        "sku",
-        "generation"
-      ],
       "allOf": [
         {
           "$ref": "#/definitions/VpnGatewayConfig"
@@ -1366,83 +759,11 @@
       ],
       "x-ms-discriminator-value": "HubAndSpoke"
     },
-    "IdentityConfig": {
-      "type": "object",
-      "description": "Identity configuration for the landing zone.",
-      "properties": {
-        "provider": {
-          "$ref": "#/definitions/IdentityProvider",
-          "description": "Identity provider strategy."
-        },
-        "domainServices": {
-          "$ref": "#/definitions/DomainServicesConfig",
-          "description": "Domain Services configuration. Required when provider is EntraIdWithDomainServices or HybridAdDs; ignored when provider is EntraIdOnly."
-        },
-        "entraConnectEnabled": {
-          "type": "boolean",
-          "description": "Whether Microsoft Entra Connect (or Microsoft Entra Cloud Sync) is used to synchronize on-premises identities. Only meaningful when provider is HybridAdDs."
-        },
-        "privilegedIdentityManagementEnabled": {
-          "type": "boolean",
-          "description": "Whether Microsoft Entra Privileged Identity Management (PIM) is enabled for just-in-time elevation of privileged roles."
-        },
-        "conditionalAccessEnabled": {
-          "type": "boolean",
-          "description": "Whether Conditional Access policies are enforced for landing-zone administrators."
-        },
-        "mfaForAdminsEnabled": {
-          "type": "boolean",
-          "description": "Whether multi-factor authentication is required for all administrative accounts."
-        },
-        "breakGlassAccountCount": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of break-glass (emergency access) accounts to provision. Microsoft recommends at least 2.",
-          "minimum": 0,
-          "maximum": 10
-        }
-      },
-      "required": [
-        "provider"
-      ]
-    },
-    "IdentityProvider": {
-      "type": "string",
-      "description": "Identity provider strategy for the landing zone.",
-      "enum": [
-        "EntraIdOnly",
-        "EntraIdWithDomainServices",
-        "HybridAdDs"
-      ],
-      "x-ms-enum": {
-        "name": "IdentityProvider",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "EntraIdOnly",
-            "value": "EntraIdOnly",
-            "description": "Microsoft Entra ID only."
-          },
-          {
-            "name": "EntraIdWithDomainServices",
-            "value": "EntraIdWithDomainServices",
-            "description": "Microsoft Entra ID with Azure AD Domain Services for legacy workloads."
-          },
-          {
-            "name": "HybridAdDs",
-            "value": "HybridAdDs",
-            "description": "Hybrid identity with on-premises Active Directory Domain Services synchronized via Microsoft Entra Connect."
-          }
-        ]
-      }
-    },
     "IdpsMode": {
       "type": "string",
-      "description": "Intrusion Detection and Prevention System mode for Azure Firewall Premium.",
+      "description": "IDPS mode selected by the stock accelerator templates.",
       "enum": [
-        "Off",
-        "Alert",
-        "Deny"
+        "Off"
       ],
       "x-ms-enum": {
         "name": "IdpsMode",
@@ -1452,26 +773,15 @@
             "name": "Off",
             "value": "Off",
             "description": "IDPS is disabled."
-          },
-          {
-            "name": "Alert",
-            "value": "Alert",
-            "description": "IDPS inspects traffic and logs detections without blocking."
-          },
-          {
-            "name": "Deny",
-            "value": "Deny",
-            "description": "IDPS inspects traffic and both alerts on and blocks detected threats."
           }
         ]
       }
     },
     "InternetEgressModel": {
       "type": "string",
-      "description": "Egress model for spoke traffic destined for the internet.",
+      "description": "Egress model used by the stock accelerator templates.",
       "enum": [
-        "ViaHub",
-        "DirectFromSpoke"
+        "ViaHub"
       ],
       "x-ms-enum": {
         "name": "InternetEgressModel",
@@ -1480,119 +790,37 @@
           {
             "name": "ViaHub",
             "value": "ViaHub",
-            "description": "Egress flows through the hub (Azure Firewall or third-party NVA based on FirewallConfig.kind)."
-          },
-          {
-            "name": "DirectFromSpoke",
-            "value": "DirectFromSpoke",
-            "description": "Spoke egresses directly to the internet without traversing the hub."
-          }
-        ]
-      }
-    },
-    "KeyVaultConfig": {
-      "type": "object",
-      "description": "Key Vault configuration.",
-      "properties": {
-        "kind": {
-          "$ref": "#/definitions/KeyVaultKind",
-          "description": "Key Vault kind."
-        },
-        "rbacAuthorizationEnabled": {
-          "type": "boolean",
-          "description": "Whether RBAC authorization is enabled (required for ALZ baseline)."
-        },
-        "purgeProtectionEnabled": {
-          "type": "boolean",
-          "description": "Whether purge protection is enabled."
-        },
-        "softDeleteRetentionInDays": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Soft-delete retention in days.",
-          "minimum": 7,
-          "maximum": 90
-        }
-      },
-      "required": [
-        "kind",
-        "rbacAuthorizationEnabled",
-        "purgeProtectionEnabled",
-        "softDeleteRetentionInDays"
-      ]
-    },
-    "KeyVaultKind": {
-      "type": "string",
-      "description": "Key Vault kind.",
-      "enum": [
-        "Standard",
-        "Premium",
-        "ManagedHsm"
-      ],
-      "x-ms-enum": {
-        "name": "KeyVaultKind",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Standard",
-            "value": "Standard",
-            "description": "Standard SKU vault."
-          },
-          {
-            "name": "Premium",
-            "value": "Premium",
-            "description": "Premium SKU vault. Required for HSM-backed software keys."
-          },
-          {
-            "name": "ManagedHsm",
-            "value": "ManagedHsm",
-            "description": "Managed HSM. A separate Managed HSM resource is provisioned."
+            "description": "Spoke egress flows through the hub."
           }
         ]
       }
     },
     "LogAnalyticsConfig": {
       "type": "object",
-      "description": "Log Analytics workspace configuration.",
+      "description": "Log Analytics workspace configuration produced by the stock management template.",
       "properties": {
         "workspaceName": {
           "type": "string",
-          "description": "Workspace name."
+          "description": "Log Analytics workspace name."
         },
         "sku": {
           "$ref": "#/definitions/LogAnalyticsSku",
-          "description": "Workspace SKU."
+          "description": "Log Analytics workspace SKU."
         },
         "retentionInDays": {
           "type": "integer",
           "format": "int32",
-          "description": "Retention in days.",
+          "description": "Workspace data retention in days.",
           "minimum": 30,
           "maximum": 730
-        },
-        "dailyQuotaGb": {
-          "type": "number",
-          "format": "float",
-          "description": "Daily ingestion quota in GB. -1 indicates unlimited; only meaningful with the PerGB2018 SKU."
-        },
-        "capacityReservationGbPerDay": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Capacity reservation level in GB per day. Required when sku is CapacityReservation."
         }
-      },
-      "required": [
-        "workspaceName",
-        "sku",
-        "retentionInDays"
-      ]
+      }
     },
     "LogAnalyticsSku": {
       "type": "string",
-      "description": "Log Analytics workspace SKU.",
+      "description": "Log Analytics workspace SKU selected by the stock management template.",
       "enum": [
-        "PerGB2018",
-        "CapacityReservation"
+        "PerGB2018"
       ],
       "x-ms-enum": {
         "name": "LogAnalyticsSku",
@@ -1601,19 +829,14 @@
           {
             "name": "PerGB2018",
             "value": "PerGB2018",
-            "description": "Pay-as-you-go (per-GB) ingestion pricing."
-          },
-          {
-            "name": "CapacityReservation",
-            "value": "CapacityReservation",
-            "description": "Capacity reservation pricing."
+            "description": "Pay-as-you-go ingestion pricing."
           }
         ]
       }
     },
     "Management": {
       "type": "object",
-      "description": "Management plane configuration for the landing zone.",
+      "description": "Management configuration produced by the stock accelerator template.",
       "properties": {
         "logAnalytics": {
           "$ref": "#/definitions/LogAnalyticsConfig",
@@ -1626,36 +849,8 @@
         "sentinel": {
           "$ref": "#/definitions/SentinelConfig",
           "description": "Microsoft Sentinel configuration."
-        },
-        "automation": {
-          "$ref": "#/definitions/AutomationConfig",
-          "description": "Azure Automation configuration."
-        },
-        "recoveryServicesVault": {
-          "$ref": "#/definitions/RecoveryServicesVault",
-          "description": "Shared Recovery Services vault used by backup and site recovery."
-        },
-        "backup": {
-          "$ref": "#/definitions/BackupConfig",
-          "description": "Backup configuration."
-        },
-        "siteRecovery": {
-          "$ref": "#/definitions/SiteRecoveryConfig",
-          "description": "Azure Site Recovery configuration."
-        },
-        "updateManagement": {
-          "$ref": "#/definitions/UpdateManagementConfig",
-          "description": "Azure Update Manager configuration."
-        },
-        "amba": {
-          "$ref": "#/definitions/AmbaConfig",
-          "description": "Azure Monitor Baseline Alerts configuration."
         }
-      },
-      "required": [
-        "logAnalytics",
-        "azureMonitor"
-      ]
+      }
     },
     "MigrateProject": {
       "type": "object",
@@ -1682,24 +877,10 @@
         }
       }
     },
-    "NoFirewallConfig": {
-      "type": "object",
-      "description": "No platform-managed firewall.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/FirewallConfig"
-        }
-      ],
-      "x-ms-discriminator-value": "None"
-    },
     "NvaVendor": {
       "type": "string",
-      "description": "Third-party Network Virtual Appliance vendor recorded in the design.",
+      "description": "NVA vendor value used when the stock generic NVA template is selected.",
       "enum": [
-        "PaloAlto",
-        "Checkpoint",
-        "Fortinet",
-        "Cisco",
         "Other"
       ],
       "x-ms-enum": {
@@ -1707,29 +888,9 @@
         "modelAsString": true,
         "values": [
           {
-            "name": "PaloAlto",
-            "value": "PaloAlto",
-            "description": "Palo Alto Networks."
-          },
-          {
-            "name": "Checkpoint",
-            "value": "Checkpoint",
-            "description": "Check Point."
-          },
-          {
-            "name": "Fortinet",
-            "value": "Fortinet",
-            "description": "Fortinet."
-          },
-          {
-            "name": "Cisco",
-            "value": "Cisco",
-            "description": "Cisco."
-          },
-          {
             "name": "Other",
             "value": "Other",
-            "description": "Other vendor not in the predefined list."
+            "description": "Vendor is not specialized by the stock template."
           }
         ]
       }
@@ -1749,47 +910,36 @@
         }
       ]
     },
-    "PlatformLandingZoneBudget": {
-      "type": "object",
-      "description": "Budget configured on the landing zone.",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Budget name."
-        },
-        "amount": {
-          "type": "number",
-          "format": "double",
-          "description": "Monthly budget amount in billing currency.",
-          "minimum": 0
-        },
-        "notificationEmails": {
-          "type": "array",
-          "description": "Email addresses notified when budget thresholds are crossed.",
-          "items": {
-            "type": "string"
+    "PlatformLandingZoneGenerationStatus": {
+      "type": "string",
+      "description": "Asynchronous landing-zone generation status.",
+      "enum": [
+        "Running",
+        "Succeeded",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "PlatformLandingZoneGenerationStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Running",
+            "value": "Running",
+            "description": "Generation is running."
+          },
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Generation succeeded."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Generation failed."
           }
-        },
-        "thresholds": {
-          "type": "array",
-          "description": "Thresholds in percent (0-1000) of the budget amount at which notifications fire.",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "scope": {
-          "$ref": "#/definitions/AlzManagementGroupScope",
-          "description": "ALZ management-group scope at which the budget applies."
-        }
+        ]
       },
-      "required": [
-        "name",
-        "amount",
-        "notificationEmails",
-        "thresholds",
-        "scope"
-      ]
+      "readOnly": true
     },
     "PlatformLandingZoneListResult": {
       "type": "object",
@@ -1818,7 +968,7 @@
       "properties": {
         "scaleTier": {
           "$ref": "#/definitions/ScaleTier",
-          "description": "Deployment scale tier of the landing zone. When set to ManagementOnly, Connectivity.topology must also be ManagementOnly."
+          "description": "Deployment scale selected by the stock accelerator template. ManagementOnly omits connectivity."
         },
         "parentManagementGroupId": {
           "type": "string",
@@ -1830,10 +980,6 @@
         "platformSubscriptions": {
           "$ref": "#/definitions/PlatformSubscriptions",
           "description": "Platform subscription topology."
-        },
-        "identity": {
-          "$ref": "#/definitions/IdentityConfig",
-          "description": "Identity configuration for the landing zone."
         },
         "regions": {
           "type": "array",
@@ -1861,10 +1007,6 @@
           "$ref": "#/definitions/Governance",
           "description": "Governance configuration."
         },
-        "costManagement": {
-          "$ref": "#/definitions/CostManagement",
-          "description": "Cost management configuration."
-        },
         "versionControlSystem": {
           "$ref": "#/definitions/VersionControlSystem",
           "description": "Version control system the generator will use when materializing the landing-zone IaC and CI pipelines. When omitted, the generator service applies its default (currently GitHub)."
@@ -1882,6 +1024,11 @@
         "provisioningState": {
           "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
           "description": "Provisioning state of the Platform Landing Zone resource.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/PlatformLandingZoneGenerationStatus",
+          "description": "Status of the asynchronous landing-zone generation run.",
           "readOnly": true
         },
         "artifactId": {
@@ -1924,14 +1071,12 @@
         }
       },
       "required": [
-        "name",
-        "role",
-        "addressSpace"
+        "name"
       ]
     },
     "PlatformSubscriptionModel": {
       "type": "string",
-      "description": "Subscription model for platform-tier workloads in the landing zone.",
+      "description": "Subscription model recorded for platform-tier workloads.",
       "enum": [
         "Dedicated",
         "Shared"
@@ -1943,12 +1088,12 @@
           {
             "name": "Dedicated",
             "value": "Dedicated",
-            "description": "Each platform function (identity, connectivity, management) uses its own dedicated subscription."
+            "description": "Each platform function uses a dedicated subscription."
           },
           {
             "name": "Shared",
             "value": "Shared",
-            "description": "All platform functions share a single platform subscription."
+            "description": "Platform functions share one subscription."
           }
         ]
       }
@@ -1969,11 +1114,9 @@
     },
     "PolicyAssignmentMode": {
       "type": "string",
-      "description": "Policy assignment baseline mode.",
+      "description": "Policy assignment baseline selected by the stock ALZ template.",
       "enum": [
-        "AlzDefaults",
-        "Custom",
-        "None"
+        "AlzDefaults"
       ],
       "x-ms-enum": {
         "name": "PolicyAssignmentMode",
@@ -1982,152 +1125,10 @@
           {
             "name": "AlzDefaults",
             "value": "AlzDefaults",
-            "description": "Apply the canonical Azure Landing Zone policy initiative as defined by Azure/alz-terraform-accelerator."
-          },
-          {
-            "name": "Custom",
-            "value": "Custom",
-            "description": "Apply customer-defined policy assignments only."
-          },
-          {
-            "name": "None",
-            "value": "None",
-            "description": "Do not deploy any platform policy assignments."
+            "description": "Apply the canonical Azure Landing Zone policy baseline."
           }
         ]
       }
-    },
-    "PolicyAssignmentOverride": {
-      "type": "object",
-      "description": "Override of a single ALZ policy assignment at a specific management-group scope.",
-      "properties": {
-        "scope": {
-          "$ref": "#/definitions/AlzManagementGroupScope",
-          "description": "ALZ management-group scope at which this override applies. The same assignment may be overridden differently at different scopes."
-        },
-        "assignmentName": {
-          "type": "string",
-          "description": "Display name of the ALZ policy assignment being overridden."
-        },
-        "enforcementMode": {
-          "$ref": "#/definitions/PolicyEnforcementMode",
-          "description": "Enforcement mode to apply for this assignment at the chosen scope. Omit to inherit the baseline."
-        },
-        "effect": {
-          "$ref": "#/definitions/PolicyEffect",
-          "description": "Policy effect to apply for this assignment at the chosen scope. Omit to inherit the baseline."
-        },
-        "parameters": {
-          "type": "array",
-          "description": "Parameter overrides applied to the assignment. Omit to inherit the baseline.",
-          "items": {
-            "$ref": "#/definitions/PolicyParameterOverride"
-          },
-          "x-ms-identifiers": [
-            "name"
-          ]
-        }
-      },
-      "required": [
-        "scope",
-        "assignmentName"
-      ]
-    },
-    "PolicyEffect": {
-      "type": "string",
-      "description": "Azure Policy effect applied when an assignment is evaluated.",
-      "enum": [
-        "Deny",
-        "Audit",
-        "AuditIfNotExists",
-        "DeployIfNotExists",
-        "Modify",
-        "Append",
-        "Disabled"
-      ],
-      "x-ms-enum": {
-        "name": "PolicyEffect",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Deny",
-            "value": "Deny",
-            "description": "Block the non-compliant request."
-          },
-          {
-            "name": "Audit",
-            "value": "Audit",
-            "description": "Log non-compliance without blocking."
-          },
-          {
-            "name": "AuditIfNotExists",
-            "value": "AuditIfNotExists",
-            "description": "Block creation of non-compliant audit log entries."
-          },
-          {
-            "name": "DeployIfNotExists",
-            "value": "DeployIfNotExists",
-            "description": "Deploy a remediation when the related resource does not exist."
-          },
-          {
-            "name": "Modify",
-            "value": "Modify",
-            "description": "Modify the resource to bring it into compliance."
-          },
-          {
-            "name": "Append",
-            "value": "Append",
-            "description": "Append fields to the resource to bring it into compliance."
-          },
-          {
-            "name": "Disabled",
-            "value": "Disabled",
-            "description": "Disable evaluation of the assignment."
-          }
-        ]
-      }
-    },
-    "PolicyEnforcementMode": {
-      "type": "string",
-      "description": "Azure Policy enforcement mode.",
-      "enum": [
-        "Default",
-        "DoNotEnforce"
-      ],
-      "x-ms-enum": {
-        "name": "PolicyEnforcementMode",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Default",
-            "value": "Default",
-            "description": "Policies are evaluated and resources in violation are recorded as non-compliant. Effects such as deny are enforced."
-          },
-          {
-            "name": "DoNotEnforce",
-            "value": "DoNotEnforce",
-            "description": "Policies are evaluated but effects are not enforced. Useful for testing."
-          }
-        ]
-      }
-    },
-    "PolicyParameterOverride": {
-      "type": "object",
-      "description": "Single Azure Policy parameter override applied to an assignment.",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Parameter name as defined on the policy assignment."
-        },
-        "value": {
-          "type": "string",
-          "description": "Parameter value, serialized as a string."
-        }
-      },
-      "required": [
-        "name",
-        "value"
-      ]
     },
     "PrivateDnsConfig": {
       "type": "object",
@@ -2135,65 +1136,25 @@
       "properties": {
         "privateLinkZonesEnabled": {
           "type": "boolean",
-          "description": "Whether Azure Private DNS zones for Private Link are deployed in the connectivity subscription."
-        },
-        "customZones": {
-          "type": "array",
-          "description": "Additional custom Private DNS zones to deploy, e.g. [\"contoso.internal\"].",
-          "items": {
-            "type": "string"
-          }
+          "description": "Whether Azure Private Link private DNS zones are deployed."
         },
         "centralizedResolutionEnabled": {
           "type": "boolean",
-          "description": "Whether centralized Private DNS resolution via the connectivity subscription is enabled. When true, spoke VNets resolve Private Link records through the hub."
+          "description": "Whether centralized DNS resolution is enabled."
         },
         "autoRegistrationZoneEnabled": {
           "type": "boolean",
-          "description": "Whether a Private DNS zone is auto-registered (records for VMs in linked VNets are created automatically)."
+          "description": "Whether the auto-registration private DNS zone is enabled."
         },
         "autoRegistrationZoneName": {
           "type": "string",
-          "description": "Name of the Private DNS zone used for auto-registration, e.g. 'contoso.internal'."
+          "description": "Name of the auto-registration private DNS zone."
         },
-        "resolverInboundSubnetAddressPrefix": {
+        "resolverSubnetAddressPrefix": {
           "type": "string",
-          "description": "Subnet CIDR allocated to the Private DNS Resolver inbound endpoint."
-        },
-        "resolverOutboundSubnetAddressPrefix": {
-          "type": "string",
-          "description": "Subnet CIDR allocated to the Private DNS Resolver outbound endpoint."
+          "description": "DNS resolver subnet address prefix."
         }
-      },
-      "required": [
-        "privateLinkZonesEnabled"
-      ]
-    },
-    "RecoveryServicesVault": {
-      "type": "object",
-      "description": "Recovery Services vault configuration. Hoisted to the management block so it can be shared by Backup and Site Recovery.",
-      "properties": {
-        "vaultName": {
-          "type": "string",
-          "description": "Vault name."
-        },
-        "redundancy": {
-          "$ref": "#/definitions/VaultRedundancy",
-          "description": "Storage redundancy of the vault."
-        },
-        "crossRegionRestoreEnabled": {
-          "type": "boolean",
-          "description": "Whether cross-region restore is enabled. Requires GeoRedundant redundancy."
-        },
-        "immutabilityEnabled": {
-          "type": "boolean",
-          "description": "Whether vault immutability is enabled. When true, recovery points cannot be deleted before expiry."
-        }
-      },
-      "required": [
-        "vaultName",
-        "redundancy"
-      ]
+      }
     },
     "RegionAddressSpace": {
       "type": "object",
@@ -2202,16 +1163,8 @@
         "hub": {
           "type": "string",
           "description": "Address space allocated for hub virtual networks in this region, in CIDR notation."
-        },
-        "spoke": {
-          "type": "string",
-          "description": "Address space allocated for spoke virtual networks in this region, in CIDR notation."
         }
-      },
-      "required": [
-        "hub",
-        "spoke"
-      ]
+      }
     },
     "RegionRole": {
       "type": "string",
@@ -2227,144 +1180,20 @@
           {
             "name": "Primary",
             "value": "Primary",
-            "description": "Primary region. Hosts the authoritative copies of platform services."
+            "description": "Primary region."
           },
           {
             "name": "Secondary",
             "value": "Secondary",
-            "description": "Secondary region. Used for paired services such as disaster recovery."
-          }
-        ]
-      }
-    },
-    "RequiredTag": {
-      "type": "object",
-      "description": "Required tag definition enforced via policy.",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Tag name."
-        },
-        "defaultValue": {
-          "type": "string",
-          "description": "Default value to apply when the tag is missing. Omit to require explicit specification on each resource."
-        }
-      },
-      "required": [
-        "name"
-      ]
-    },
-    "ReservationStrategy": {
-      "type": "string",
-      "description": "Reservation purchase strategy.",
-      "enum": [
-        "None",
-        "StableWorkloadsOnly",
-        "Aggressive"
-      ],
-      "x-ms-enum": {
-        "name": "ReservationStrategy",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "None",
-            "value": "None",
-            "description": "Do not purchase reservations as part of the landing zone."
-          },
-          {
-            "name": "StableWorkloadsOnly",
-            "value": "StableWorkloadsOnly",
-            "description": "Purchase reservations to cover stable, predictable workloads only."
-          },
-          {
-            "name": "Aggressive",
-            "value": "Aggressive",
-            "description": "Aggressive reservation coverage across all workloads."
-          }
-        ]
-      }
-    },
-    "ResourceLockLevel": {
-      "type": "string",
-      "description": "Azure Resource Manager lock level.",
-      "enum": [
-        "CanNotDelete",
-        "ReadOnly"
-      ],
-      "x-ms-enum": {
-        "name": "ResourceLockLevel",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "CanNotDelete",
-            "value": "CanNotDelete",
-            "description": "CanNotDelete: authorized users can read and modify but not delete."
-          },
-          {
-            "name": "ReadOnly",
-            "value": "ReadOnly",
-            "description": "ReadOnly: authorized users can read only."
-          }
-        ]
-      }
-    },
-    "ResourceLockPolicy": {
-      "type": "object",
-      "description": "Resource Manager lock applied at an ALZ management group scope.",
-      "properties": {
-        "scope": {
-          "$ref": "#/definitions/AlzManagementGroupScope",
-          "description": "Management group scope the lock applies to."
-        },
-        "level": {
-          "$ref": "#/definitions/ResourceLockLevel",
-          "description": "Lock level."
-        },
-        "notes": {
-          "type": "string",
-          "description": "Reason for the lock, surfaced to users attempting a denied operation."
-        }
-      },
-      "required": [
-        "scope",
-        "level"
-      ]
-    },
-    "SavingsPlanStrategy": {
-      "type": "string",
-      "description": "Savings plan strategy.",
-      "enum": [
-        "None",
-        "OneYear",
-        "ThreeYear"
-      ],
-      "x-ms-enum": {
-        "name": "SavingsPlanStrategy",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "None",
-            "value": "None",
-            "description": "Do not purchase savings plans as part of the landing zone."
-          },
-          {
-            "name": "OneYear",
-            "value": "OneYear",
-            "description": "Purchase 1-year savings plans."
-          },
-          {
-            "name": "ThreeYear",
-            "value": "ThreeYear",
-            "description": "Purchase 3-year savings plans."
+            "description": "Secondary region."
           }
         ]
       }
     },
     "ScaleTier": {
       "type": "string",
-      "description": "Deployment scale tier of the landing zone. Selects how much of the ALZ topology is materialized.",
+      "description": "Deployment scale selected by the stock accelerator templates.",
       "enum": [
-        "Lite",
         "Full",
         "ManagementOnly"
       ],
@@ -2373,75 +1202,41 @@
         "modelAsString": true,
         "values": [
           {
-            "name": "Lite",
-            "value": "Lite",
-            "description": "Lightweight landing zone with reduced platform footprint."
-          },
-          {
             "name": "Full",
             "value": "Full",
-            "description": "Full ALZ topology including all platform services."
+            "description": "Full platform landing zone."
           },
           {
             "name": "ManagementOnly",
             "value": "ManagementOnly",
-            "description": "Management-only landing zone with no platform-managed network connectivity. When selected, Connectivity.topology must also be ManagementOnly."
+            "description": "Management-only landing zone."
           }
         ]
       }
     },
     "Security": {
       "type": "object",
-      "description": "Security configuration for the landing zone.",
+      "description": "Security configuration produced by the stock ALZ policy baseline.",
       "properties": {
-        "defenderPlans": {
-          "type": "array",
-          "description": "Microsoft Defender for Cloud plan settings.",
-          "items": {
-            "$ref": "#/definitions/DefenderPlanSetting"
-          },
-          "x-ms-identifiers": [
-            "name"
-          ]
-        },
-        "keyVault": {
-          "$ref": "#/definitions/KeyVaultConfig",
-          "description": "Key Vault configuration for the landing zone."
-        },
-        "encryption": {
-          "$ref": "#/definitions/EncryptionConfig",
-          "description": "Encryption configuration for platform services."
+        "defenderForCloudEnabled": {
+          "type": "boolean",
+          "description": "Whether Microsoft Defender for Cloud configuration is enabled through the stock ALZ policy assignment."
         },
         "securityContactEmail": {
           "type": "string",
-          "description": "Email address that receives Microsoft Defender for Cloud security alerts and Azure security contact notifications."
+          "description": "Security contact email. Omitted until the caller supplies a real address."
         }
-      },
-      "required": [
-        "defenderPlans",
-        "keyVault",
-        "securityContactEmail"
-      ]
+      }
     },
     "SentinelConfig": {
       "type": "object",
-      "description": "Microsoft Sentinel configuration.",
+      "description": "Microsoft Sentinel state produced by the stock management template.",
       "properties": {
         "enabled": {
           "type": "boolean",
-          "description": "Whether Microsoft Sentinel is enabled on the management Log Analytics workspace."
-        },
-        "dataConnectors": {
-          "type": "array",
-          "description": "Names of Sentinel data connectors to enable.",
-          "items": {
-            "type": "string"
-          }
+          "description": "Whether Microsoft Sentinel is enabled."
         }
-      },
-      "required": [
-        "enabled"
-      ]
+      }
     },
     "SharedPlatformSubscriptions": {
       "type": "object",
@@ -2459,36 +1254,17 @@
       ],
       "x-ms-discriminator-value": "Shared"
     },
-    "SiteRecoveryConfig": {
-      "type": "object",
-      "description": "Azure Site Recovery configuration.",
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "description": "Whether Site Recovery is enabled for the landing zone."
-        }
-      },
-      "required": [
-        "enabled"
-      ]
-    },
     "ThirdPartyNvaFirewallConfig": {
       "type": "object",
-      "description": "Third-party Network Virtual Appliance configuration. The PLZ resource records the design intent; deployment of the NVA itself is the customer's responsibility.",
+      "description": "Generic third-party NVA configuration.",
       "properties": {
         "vendor": {
-          "$ref": "#/definitions/NvaVendor",
-          "description": "Third-party NVA vendor recorded in the design."
+          "$ref": "#/definitions/NvaVendor"
         },
         "subnetAddressPrefix": {
-          "type": "string",
-          "description": "Subnet CIDR allocated to the NVA in the hub."
+          "type": "string"
         }
       },
-      "required": [
-        "vendor",
-        "subnetAddressPrefix"
-      ],
       "allOf": [
         {
           "$ref": "#/definitions/FirewallConfig"
@@ -2498,84 +1274,25 @@
     },
     "ThreatIntelMode": {
       "type": "string",
-      "description": "Threat intelligence mode for Azure Firewall.",
+      "description": "Threat intelligence mode selected by the stock accelerator templates.",
       "enum": [
-        "Off",
-        "Alert",
-        "Deny"
+        "Alert"
       ],
       "x-ms-enum": {
         "name": "ThreatIntelMode",
         "modelAsString": true,
         "values": [
           {
-            "name": "Off",
-            "value": "Off",
-            "description": "Threat intelligence is disabled."
-          },
-          {
             "name": "Alert",
             "value": "Alert",
-            "description": "Traffic matching threat intelligence is logged as an alert without blocking."
-          },
-          {
-            "name": "Deny",
-            "value": "Deny",
-            "description": "Traffic matching threat intelligence is blocked and logged."
-          }
-        ]
-      }
-    },
-    "UpdateManagementConfig": {
-      "type": "object",
-      "description": "Azure Update Manager configuration. Centralizes patch orchestration for landing-zone VMs.",
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "description": "Whether Azure Update Manager is enabled for the landing zone."
-        },
-        "maintenanceConfigurationName": {
-          "type": "string",
-          "description": "Name of the default maintenance configuration applied to enrolled VMs."
-        }
-      },
-      "required": [
-        "enabled"
-      ]
-    },
-    "VaultRedundancy": {
-      "type": "string",
-      "description": "Recovery Services vault redundancy.",
-      "enum": [
-        "LocallyRedundant",
-        "ZoneRedundant",
-        "GeoRedundant"
-      ],
-      "x-ms-enum": {
-        "name": "VaultRedundancy",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "LocallyRedundant",
-            "value": "LocallyRedundant",
-            "description": "Locally redundant storage."
-          },
-          {
-            "name": "ZoneRedundant",
-            "value": "ZoneRedundant",
-            "description": "Zone redundant storage."
-          },
-          {
-            "name": "GeoRedundant",
-            "value": "GeoRedundant",
-            "description": "Geo redundant storage. Required to enable cross-region restore."
+            "description": "Alert on threat-intelligence matches."
           }
         ]
       }
     },
     "VersionControlSystem": {
       "type": "string",
-      "description": "Version control system used by the generator to materialize the landing-zone IaC and CI pipelines. Maps to the chosen ALZ accelerator bootstrap module (alz/azuredevops, alz/github, or alz/local).",
+      "description": "Version control system used by the accelerator bootstrap template.",
       "enum": [
         "AzureDevOps",
         "GitHub",
@@ -2588,36 +1305,32 @@
           {
             "name": "AzureDevOps",
             "value": "AzureDevOps",
-            "description": "Azure DevOps Repos + Pipelines (alz/azuredevops bootstrap)."
+            "description": "Azure DevOps."
           },
           {
             "name": "GitHub",
             "value": "GitHub",
-            "description": "GitHub repository + GitHub Actions workflows (alz/github bootstrap)."
+            "description": "GitHub."
           },
           {
             "name": "Local",
             "value": "Local",
-            "description": "No CI surface; the operator runs terraform from a workstation (alz/local bootstrap)."
+            "description": "Local output without a remote repository."
           }
         ]
       }
     },
     "VirtualWanExpressRouteConfig": {
       "type": "object",
-      "description": "ExpressRoute configuration for Virtual WAN topology.",
+      "description": "Virtual WAN ExpressRoute Gateway configuration.",
       "properties": {
         "scaleUnits": {
           "type": "integer",
           "format": "int32",
-          "description": "Scale units for the vWAN ExpressRoute Gateway.",
           "minimum": 1,
           "maximum": 20
         }
       },
-      "required": [
-        "scaleUnits"
-      ],
       "allOf": [
         {
           "$ref": "#/definitions/ExpressRouteConfig"
@@ -2627,19 +1340,15 @@
     },
     "VirtualWanVpnGatewayConfig": {
       "type": "object",
-      "description": "VPN Gateway configuration for Virtual WAN topology (deploys a vWAN VPN Gateway in the virtual hub).",
+      "description": "Virtual WAN VPN Gateway configuration.",
       "properties": {
         "scaleUnits": {
           "type": "integer",
           "format": "int32",
-          "description": "Scale units for the vWAN VPN Gateway.",
           "minimum": 1,
           "maximum": 20
         }
       },
-      "required": [
-        "scaleUnits"
-      ],
       "allOf": [
         {
           "$ref": "#/definitions/VpnGatewayConfig"
@@ -2649,15 +1358,13 @@
     },
     "VpnGatewayConfig": {
       "type": "object",
-      "description": "VPN Gateway configuration. Available shapes are selected by the topology discriminator and gated by Connectivity.topology.",
+      "description": "VPN Gateway configuration.",
       "properties": {
         "topology": {
-          "$ref": "#/definitions/ConnectivityTopology",
-          "description": "Topology this VPN configuration applies to."
+          "$ref": "#/definitions/ConnectivityTopology"
         },
         "deployInRegions": {
           "type": "array",
-          "description": "Names of regions in which a VPN Gateway is deployed. When omitted, a VPN Gateway is deployed in every region declared on the landing zone.",
           "items": {
             "type": "string"
           }
@@ -2668,98 +1375,20 @@
         "topology"
       ]
     },
-    "VpnGatewayGeneration": {
-      "type": "string",
-      "description": "VPN Gateway generation (hub-and-spoke topology).",
-      "enum": [
-        "Generation1",
-        "Generation2"
-      ],
-      "x-ms-enum": {
-        "name": "VpnGatewayGeneration",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Generation1",
-            "value": "Generation1",
-            "description": "Generation 1."
-          },
-          {
-            "name": "Generation2",
-            "value": "Generation2",
-            "description": "Generation 2."
-          }
-        ]
-      }
-    },
     "VpnGatewaySku": {
       "type": "string",
-      "description": "VPN Gateway SKU (hub-and-spoke topology).",
+      "description": "VPN Gateway SKU selected by the stock hub-and-spoke template.",
       "enum": [
-        "VpnGw1",
-        "VpnGw2",
-        "VpnGw3",
-        "VpnGw4",
-        "VpnGw5",
-        "VpnGw1AZ",
-        "VpnGw2AZ",
-        "VpnGw3AZ",
-        "VpnGw4AZ",
-        "VpnGw5AZ"
+        "VpnGw1AZ"
       ],
       "x-ms-enum": {
         "name": "VpnGatewaySku",
         "modelAsString": true,
         "values": [
           {
-            "name": "VpnGw1",
-            "value": "VpnGw1",
-            "description": "VpnGw1."
-          },
-          {
-            "name": "VpnGw2",
-            "value": "VpnGw2",
-            "description": "VpnGw2."
-          },
-          {
-            "name": "VpnGw3",
-            "value": "VpnGw3",
-            "description": "VpnGw3."
-          },
-          {
-            "name": "VpnGw4",
-            "value": "VpnGw4",
-            "description": "VpnGw4."
-          },
-          {
-            "name": "VpnGw5",
-            "value": "VpnGw5",
-            "description": "VpnGw5."
-          },
-          {
             "name": "VpnGw1AZ",
             "value": "VpnGw1AZ",
             "description": "Availability-zone-aware VpnGw1."
-          },
-          {
-            "name": "VpnGw2AZ",
-            "value": "VpnGw2AZ",
-            "description": "Availability-zone-aware VpnGw2."
-          },
-          {
-            "name": "VpnGw3AZ",
-            "value": "VpnGw3AZ",
-            "description": "Availability-zone-aware VpnGw3."
-          },
-          {
-            "name": "VpnGw4AZ",
-            "value": "VpnGw4AZ",
-            "description": "Availability-zone-aware VpnGw4."
-          },
-          {
-            "name": "VpnGw5AZ",
-            "value": "VpnGw5AZ",
-            "description": "Availability-zone-aware VpnGw5."
           }
         ]
       }
