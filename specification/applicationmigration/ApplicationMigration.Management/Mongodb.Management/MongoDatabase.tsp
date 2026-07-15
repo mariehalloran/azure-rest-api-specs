@@ -11,8 +11,10 @@ namespace Microsoft.ApplicationMigration;
  * The MongoDatabase resource definition.
  */
 @parentResource(MongoSite)
-model MongoDatabase
-  is Azure.ResourceManager.ProxyResource<MongoDatabaseProperties, false> {
+model MongoDatabase is Azure.ResourceManager.ProxyResource<
+  MongoDatabaseProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = MongoDatabase,
     KeyName = "databaseName",

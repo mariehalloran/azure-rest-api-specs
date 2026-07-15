@@ -16,8 +16,10 @@ namespace Microsoft.ApplicationMigration;
  * An NS group resource (NSX security group).
  */
 @parentResource(NetworkSite)
-model NsxNsGroup
-  is Azure.ResourceManager.ProxyResource<NsxNsGroupProperties, false> {
+model NsxNsGroup is Azure.ResourceManager.ProxyResource<
+  NsxNsGroupProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = NsxNsGroup,
     KeyName = "groupName",

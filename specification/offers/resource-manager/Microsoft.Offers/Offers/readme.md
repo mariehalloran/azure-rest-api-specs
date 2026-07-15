@@ -22,7 +22,28 @@ These are the global settings for the Offers API.
 
 ```yaml
 openapi-type: arm
-tag: package-2026-04-24-preview
+tag: package-2026-06-30-preview
+```
+
+### Tag: package-2026-06-30-preview
+
+These settings apply only when `--tag=package-2026-06-30-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-06-30-preview'
+input-file:
+  - preview/2026-06-30-preview/offers.json
+suppressions:
+  - code: AvoidAdditionalProperties
+    from:
+      - offers.json
+    where:
+      - $.definitions.PcdPropertyBag
+      - $.definitions.AvailabilityMeter
+    reason: >
+      Passthrough projection of curated catalog property bags; the key set
+      is server-curated and varies per product family / meter category.
+      Validation is owned by the upstream catalog source. Repo precedent:
+      computeschedule, computebulkactions, awsconnector.
 ```
 
 ### Tag: package-2026-04-24-preview
