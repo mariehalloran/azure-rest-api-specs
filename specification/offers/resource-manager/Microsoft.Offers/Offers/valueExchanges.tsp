@@ -1,11 +1,13 @@
 import "@typespec/http";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./models.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.Core;
 using Azure.ResourceManager;
 
@@ -28,7 +30,25 @@ model LookupValueExchangeResult {
   properties: ValueExchangeProperties;
 }
 
-/** Read-only catalog lookup actions for value-exchange (UPN) entries. */
+/** The name of the offer value (its UPN identifier). */
+@added(Versions.v2026_06_30_preview)
+@subscriptionResource
+model OfferValueNameParameter
+  is ResourceNameParameter<
+    Resource = OfferValue,
+    KeyName = "productCode",
+    SegmentName = "offerValues",
+    NamePattern = "^[A-Z0-9]{12}$"
+  >;
+
+/** An offer value (UPN) in the commerce catalog. */
+@added(Versions.v2026_06_30_preview)
+model OfferValue
+  is Azure.ResourceManager.ProxyResource<ValueExchangeProperties, false> {
+  ...OfferValueNameParameter;
+}
+
+/** Legacy lookup access for value-exchange (UPN) entries. */
 @armResourceOperations
 interface ValueExchanges {
   /**
@@ -45,5 +65,30 @@ interface ValueExchanges {
     Response = LookupValueExchangeResult,
     Scope = SubscriptionActionScope,
     Parameters = {}
+  >;
+}
+
+/** Read-only catalog access for offer-value (UPN) entries. */
+@added(Versions.v2026_06_30_preview)
+@armResourceOperations
+interface OfferValues {
+  /**
+   * Get a single offer value (UPN) by its identifier. The catalog is
+   * globally keyed: the same `valueExchangeId` returns the same response for
+   * all callers under one API version.
+   */
+  get is ArmResourceRead<
+    OfferValue,
+    BaseParameters = Azure.ResourceManager.Foundations.SubscriptionBaseParameters
+  >;
+
+  /**
+   * List all offer-value (UPN) entries in the catalog available to the
+   * subscription. The catalog is globally keyed, so the same set is returned for
+   * all callers under one API version.
+   */
+  listBySubscription is ArmResourceListByParent<
+    OfferValue,
+    BaseParameters = Azure.ResourceManager.Foundations.SubscriptionBaseParameters
   >;
 }

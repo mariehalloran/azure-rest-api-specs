@@ -1,0 +1,33 @@
+{
+  "title": "Get a product by its identifier.",
+  "operationId": "Products_Get",
+  "parameters": {
+    "api-version": "2026-06-30-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "productId": "DZH318Z09JCL"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Offers/products/DZH318Z09JCL",
+        "name": "DZH318Z09JCL",
+        "type": "Microsoft.Offers/products",
+        "properties": {
+          "version": 1,
+          "productFamily": "Azure",
+          "productType": "Azure",
+          "lineOfBusiness": "Azure",
+          "serviceFamilyName": "Compute",
+          "serviceName": "Virtual Machines",
+          "isMicrosoftProduct": true,
+          "isTestProduct": false,
+          "sellerId": "DZH318Z09JCL",
+          "displayName": "Azure Virtual Machines",
+          "description": "Provision Windows and Linux virtual machines in seconds.",
+          "publisherName": "Microsoft",
+          "provisioningState": "Succeeded"
+        }
+      }
+    }
+  }
+}
