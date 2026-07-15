@@ -35,7 +35,7 @@ model PlatformLandingZoneProperties {
   @doc("Deployment scale selected by the stock accelerator template. ManagementOnly omits connectivity.")
   scaleTier?: ScaleTier;
 
-  @visibility(Lifecycle.Create)
+  @visibility(Lifecycle.Read, Lifecycle.Create)
   @doc("Azure resource identifier of the parent management group under which the Azure Landing Zones management-group hierarchy will be created. Create-only; cannot be changed after the landing zone is created.")
   parentManagementGroupId?: armResourceIdentifier<[
     {

@@ -18,6 +18,101 @@
     }
   },
   "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones/contoso-plz",
+        "name": "contoso-plz",
+        "type": "Microsoft.Migrate/migrateProjects/platformLandingZones",
+        "properties": {
+          "scaleTier": "Full",
+          "platformSubscriptions": {
+            "subscriptionModel": "Dedicated"
+          },
+          "regions": [
+            {
+              "name": "eastus",
+              "role": "Primary",
+              "addressSpace": {
+                "hub": "10.0.0.0/22"
+              },
+              "connectivityDeploymentMode": "Hub"
+            }
+          ],
+          "connectivity": {
+            "topology": "HubAndSpoke",
+            "internetEgress": "ViaHub",
+            "firewall": {
+              "kind": "AzureFirewall",
+              "sku": "Premium",
+              "dnsProxyEnabled": false,
+              "threatIntelMode": "Alert",
+              "idpsMode": "Off",
+              "subnetAddressPrefix": "10.0.0.0/26",
+              "deployInRegions": [
+                "eastus"
+              ]
+            },
+            "bastion": {
+              "sku": "Standard",
+              "scaleUnits": 2,
+              "subnetAddressPrefix": "10.0.0.64/26",
+              "deployInRegions": [
+                "eastus"
+              ]
+            },
+            "ddosProtection": {
+              "plan": "Network"
+            },
+            "privateDns": {
+              "zoneMode": "PrivateLinkAndAutoRegistration",
+              "centralizedResolutionEnabled": true,
+              "resolverSubnetAddressPrefix": "10.0.0.160/28"
+            },
+            "vpnGateway": {
+              "topology": "HubAndSpoke",
+              "sku": "VpnGw1AZ",
+              "activeActive": true,
+              "enableBgp": false,
+              "deployInRegions": [
+                "eastus"
+              ]
+            },
+            "expressRoute": {
+              "topology": "HubAndSpoke",
+              "sku": "ErGw1AZ",
+              "fastPathEnabled": false,
+              "deployInRegions": [
+                "eastus"
+              ]
+            },
+            "gatewaySubnetAddressPrefix": "10.0.0.128/27"
+          },
+          "management": {
+            "logAnalytics": {
+              "sku": "PerGB2018",
+              "retentionInDays": 30
+            },
+            "azureMonitor": {
+              "vmInsightsEnabled": true,
+              "containerInsightsEnabled": true
+            },
+            "sentinel": {
+              "enabled": false
+            }
+          },
+          "security": {
+            "defenderForCloudEnabled": true
+          },
+          "governance": {
+            "policyAssignmentMode": "AlzDefaults"
+          },
+          "versionControlSystem": "GitHub",
+          "provisioningState": "Succeeded",
+          "status": "Running",
+          "artifactId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/artifacts/plz-contoso-plz"
+        }
+      }
+    },
     "201": {
       "body": {
         "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones/contoso-plz",
