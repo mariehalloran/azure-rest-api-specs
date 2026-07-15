@@ -18,8 +18,10 @@ namespace Microsoft.ApplicationMigration;
  * node summary, and a slim nodes[] array. Child of ContainerSite.
  */
 @parentResource(ContainerSite)
-model ContainerCluster
-  is Azure.ResourceManager.ProxyResource<ContainerClusterProperties, false> {
+model ContainerCluster is Azure.ResourceManager.ProxyResource<
+  ContainerClusterProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = ContainerCluster,
     KeyName = "clusterName",

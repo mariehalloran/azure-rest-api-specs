@@ -10,8 +10,10 @@ namespace Microsoft.ApplicationMigration;
  * The MongoInstance resource definition.
  */
 @parentResource(MongoSite)
-model MongoInstance
-  is Azure.ResourceManager.ProxyResource<MongoInstanceProperties, false> {
+model MongoInstance is Azure.ResourceManager.ProxyResource<
+  MongoInstanceProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = MongoInstance,
     KeyName = "instanceName",
