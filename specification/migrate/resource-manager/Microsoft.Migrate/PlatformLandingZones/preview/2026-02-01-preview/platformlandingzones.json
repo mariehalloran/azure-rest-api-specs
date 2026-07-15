@@ -106,7 +106,7 @@
           {
             "name": "projectName",
             "in": "path",
-            "description": "Migrate Project Name.",
+            "description": "Migrate Project Name. The name constraint mirrors the existing GA Microsoft.Migrate/migrateProjects contract.",
             "required": true,
             "type": "string",
             "pattern": "^[^<>&:\\?/#]{1,260}$"
@@ -156,7 +156,7 @@
           {
             "name": "projectName",
             "in": "path",
-            "description": "Migrate Project Name.",
+            "description": "Migrate Project Name. The name constraint mirrors the existing GA Microsoft.Migrate/migrateProjects contract.",
             "required": true,
             "type": "string",
             "pattern": "^[^<>&:\\?/#]{1,260}$"
@@ -209,7 +209,7 @@
           {
             "name": "projectName",
             "in": "path",
-            "description": "Migrate Project Name.",
+            "description": "Migrate Project Name. The name constraint mirrors the existing GA Microsoft.Migrate/migrateProjects contract.",
             "required": true,
             "type": "string",
             "pattern": "^[^<>&:\\?/#]{1,260}$"
@@ -304,7 +304,7 @@
           {
             "name": "projectName",
             "in": "path",
-            "description": "Migrate Project Name.",
+            "description": "Migrate Project Name. The name constraint mirrors the existing GA Microsoft.Migrate/migrateProjects contract.",
             "required": true,
             "type": "string",
             "pattern": "^[^<>&:\\?/#]{1,260}$"
@@ -407,7 +407,7 @@
           "$ref": "#/definitions/IdpsMode"
         },
         "subnetAddressPrefix": {
-          "type": "string"
+          "$ref": "#/definitions/Ipv4CidrPrefix"
         },
         "deployInRegions": {
           "type": "array",
@@ -471,7 +471,7 @@
           "maximum": 50
         },
         "subnetAddressPrefix": {
-          "type": "string",
+          "$ref": "#/definitions/Ipv4CidrPrefix",
           "description": "Bastion subnet address prefix."
         },
         "deployInRegions": {
@@ -538,7 +538,7 @@
           "description": "ExpressRoute Gateway configuration."
         },
         "gatewaySubnetAddressPrefix": {
-          "type": "string",
+          "$ref": "#/definitions/Ipv4CidrPrefix",
           "description": "Gateway subnet address prefix for hub-and-spoke deployments."
         }
       },
@@ -632,7 +632,8 @@
       "properties": {
         "subscriptionId": {
           "type": "string",
-          "description": "Azure subscription id (GUID)."
+          "description": "Azure subscription ID in canonical GUID format.",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
         }
       }
     },
@@ -794,6 +795,11 @@
           }
         ]
       }
+    },
+    "Ipv4CidrPrefix": {
+      "type": "string",
+      "description": "An IPv4 network prefix in CIDR notation.",
+      "pattern": "^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}/([0-9]|[12][0-9]|3[0-2])$"
     },
     "LogAnalyticsConfig": {
       "type": "object",
@@ -972,10 +978,18 @@
         },
         "parentManagementGroupId": {
           "type": "string",
+          "format": "arm-id",
           "description": "ARM resource id of the parent management group under which the ALZ management group hierarchy will be created. Create-only; cannot be changed after the landing zone is created.",
           "x-ms-mutability": [
             "create"
-          ]
+          ],
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Management/managementGroups"
+              }
+            ]
+          }
         },
         "platformSubscriptions": {
           "$ref": "#/definitions/PlatformSubscriptions",
@@ -1151,7 +1165,7 @@
           "description": "Name of the auto-registration private DNS zone."
         },
         "resolverSubnetAddressPrefix": {
-          "type": "string",
+          "$ref": "#/definitions/Ipv4CidrPrefix",
           "description": "DNS resolver subnet address prefix."
         }
       }
@@ -1161,7 +1175,7 @@
       "description": "Address space allocated to platform services in a given region.",
       "properties": {
         "hub": {
-          "type": "string",
+          "$ref": "#/definitions/Ipv4CidrPrefix",
           "description": "Address space allocated for hub virtual networks in this region, in CIDR notation."
         }
       }
@@ -1262,7 +1276,7 @@
           "$ref": "#/definitions/NvaVendor"
         },
         "subnetAddressPrefix": {
-          "type": "string"
+          "$ref": "#/definitions/Ipv4CidrPrefix"
         }
       },
       "allOf": [

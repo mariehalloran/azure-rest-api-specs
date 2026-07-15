@@ -1,11 +1,12 @@
 import "../Enums/Enums.tsp";
+import "./NetworkTypes.tsp";
 
 namespace Microsoft.Migrate;
 
 @doc("Address space allocated to platform services in a given region.")
 model RegionAddressSpace {
   @doc("Address space allocated for hub virtual networks in this region, in CIDR notation.")
-  hub?: string;
+  hub?: Ipv4CidrPrefix;
 }
 
 @doc("An Azure region included in the landing zone design.")

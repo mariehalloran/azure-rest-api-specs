@@ -10,7 +10,7 @@ namespace Microsoft.Migrate;
 
 @doc("A Migrate project Resource. Defined locally as the parent for PlatformLandingZone; the canonical resource is owned by the sibling Microsoft.Migrate TypeSpec projects.")
 model MigrateProject is TrackedResource<MigrateProjectProperties> {
-  @doc("Migrate Project Name.")
+  @doc("Migrate Project Name. The name constraint mirrors the existing GA Microsoft.Migrate/migrateProjects contract.")
   @segment("migrateProjects")
   @key("projectName")
   @path

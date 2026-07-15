@@ -1,4 +1,5 @@
 import "../Enums/Enums.tsp";
+import "./NetworkTypes.tsp";
 
 namespace Microsoft.Migrate;
 
@@ -15,7 +16,7 @@ model AzureFirewallConfig extends FirewallConfig {
   dnsProxyEnabled?: boolean;
   threatIntelMode?: ThreatIntelMode;
   idpsMode?: IdpsMode;
-  subnetAddressPrefix?: string;
+  subnetAddressPrefix?: Ipv4CidrPrefix;
   deployInRegions?: string[];
 }
 
@@ -23,7 +24,7 @@ model AzureFirewallConfig extends FirewallConfig {
 model ThirdPartyNvaFirewallConfig extends FirewallConfig {
   kind: FirewallKind.ThirdPartyNva;
   vendor?: NvaVendor;
-  subnetAddressPrefix?: string;
+  subnetAddressPrefix?: Ipv4CidrPrefix;
 }
 
 @doc("Azure Bastion configuration.")
@@ -37,7 +38,7 @@ model BastionConfig {
   scaleUnits?: int32;
 
   @doc("Bastion subnet address prefix.")
-  subnetAddressPrefix?: string;
+  subnetAddressPrefix?: Ipv4CidrPrefix;
 
   @doc("Regions where Bastion is deployed.")
   deployInRegions?: string[];
@@ -64,7 +65,7 @@ model PrivateDnsConfig {
   autoRegistrationZoneName?: string;
 
   @doc("DNS resolver subnet address prefix.")
-  resolverSubnetAddressPrefix?: string;
+  resolverSubnetAddressPrefix?: Ipv4CidrPrefix;
 }
 
 @doc("VPN Gateway configuration.")
@@ -141,5 +142,5 @@ model Connectivity {
   expressRoute?: ExpressRouteConfig;
 
   @doc("Gateway subnet address prefix for hub-and-spoke deployments.")
-  gatewaySubnetAddressPrefix?: string;
+  gatewaySubnetAddressPrefix?: Ipv4CidrPrefix;
 }

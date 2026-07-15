@@ -4,7 +4,8 @@ namespace Microsoft.Migrate;
 
 @doc("Reference to an existing Azure subscription used by the landing zone.")
 model ExistingSubscriptionRef {
-  @doc("Azure subscription id (GUID).")
+  @doc("Azure subscription ID in canonical GUID format.")
+  @pattern("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
   subscriptionId?: string;
 }
 

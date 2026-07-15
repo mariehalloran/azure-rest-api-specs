@@ -14,6 +14,7 @@ import "./MigrateProject.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
+using Azure.Core;
 using Azure.ResourceManager;
 
 namespace Microsoft.Migrate;
@@ -36,7 +37,11 @@ model PlatformLandingZoneProperties {
 
   @visibility(Lifecycle.Create)
   @doc("ARM resource id of the parent management group under which the ALZ management group hierarchy will be created. Create-only; cannot be changed after the landing zone is created.")
-  parentManagementGroupId?: string;
+  parentManagementGroupId?: armResourceIdentifier<[
+    {
+      type: "Microsoft.Management/managementGroups";
+    }
+  ]>;
 
   @doc("Platform subscription topology.")
   platformSubscriptions?: PlatformSubscriptions;
