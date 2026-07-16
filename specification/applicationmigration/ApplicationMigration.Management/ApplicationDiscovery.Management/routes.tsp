@@ -39,6 +39,7 @@ interface DiscoveryHubs {
   fetchSasUri is ArmResourceActionSync<DiscoveryHub, void, FetchSasUriResult>;
 
   @summary("Imports applications from a CSV file into the DiscoveryHub resource.")
+  @doc("A long-running resource action.")
   startImportApplications is ArmResourceActionAsync<
     DiscoveryHub,
     ImportApplicationsRequest,

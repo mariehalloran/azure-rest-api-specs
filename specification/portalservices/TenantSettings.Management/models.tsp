@@ -42,6 +42,7 @@ union FeedbackControlPolicyState {
 @doc("Available values for Operations 360 status.")
 @added(Versions.v2025_09_01_preview)
 @removed(Versions.v2026_02_01_preview)
+@added(Versions.v2026_07_01_preview)
 union Ops360Status {
   string,
 
@@ -103,15 +104,25 @@ model FeedbackControlPolicySettings {
 
   @doc("A value indicating whether the content samples checkbox is selected by default when the user launches feedback experiences. This setting is not applicable when policyAllowContent is set to Disabled.")
   policyContentSamplesDefault?: FeedbackControlPolicyState;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("A value indicating whether Microsoft may invite tenant users to participate in research.")
+  policyResearchInvite?: boolean;
 }
 
 @doc("Operations 360 settings for Azure Portal users.")
 @added(Versions.v2025_09_01_preview)
 @removed(Versions.v2026_02_01_preview)
+@added(Versions.v2026_07_01_preview)
 model Ops360Settings {
   @doc("The current status of Operations 360 feature. Can be null when the status has been cleared.")
   status?: Ops360Status;
 }
+
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "TenantFlags is intentionally a generic key-value dictionary."
+@doc("Generic tenant flags. A flat key-value dictionary where each key is a well-formed identifier and each value is a bool, number, or string.")
+@added(Versions.v2026_07_01_preview)
+model TenantFlags is Record<unknown>;
 
 @doc("Settings for privacy-related configurations.")
 @added(Versions.v2026_02_01_preview)
@@ -132,12 +143,17 @@ model SettingsProperties {
 
   @added(Versions.v2025_09_01_preview)
   @removed(Versions.v2026_02_01_preview)
+  @added(Versions.v2026_07_01_preview)
   @doc("Operations 360 settings for Azure Portal users in the tenant. Can be null to remove the configuration entirely.")
   ops360Settings?: Ops360Settings;
 
   @added(Versions.v2026_02_01_preview)
   @doc("Privacy-related settings for Azure Portal users in the tenant.")
   privacySettings?: PrivacySettings;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("Generic tenant flags (key-value dictionary).")
+  tenantFlags?: TenantFlags;
 
   @doc("The status of the last provisioning operation performed on the resource.")
   @visibility(Lifecycle.Read)

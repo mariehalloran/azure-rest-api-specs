@@ -6,6 +6,7 @@ import "./scheduler.tsp";
 import "./taskhub.tsp";
 import "./retentionpolicy.tsp";
 import "./transparentDataEncryption.tsp";
+import "./failoverInstance.tsp";
 import "./client.tsp";
 
 using TypeSpec.Rest;
@@ -44,6 +45,10 @@ enum Versions {
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   @doc("2026-05-01-preview")
   v2026_05_01_Preview: "2026-05-01-preview",
+
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  @doc("2026-07-01-preview")
+  v2026_07_01_Preview: "2026-07-01-preview",
 }
 
 @doc("The status of the current operation")

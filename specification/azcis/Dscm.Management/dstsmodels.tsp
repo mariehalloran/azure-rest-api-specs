@@ -95,6 +95,7 @@ model DstsRealm {
   @doc("Realm's name. This is case-insensitive. E.g. \"svc://crpadmin@%(ArmRegionName).acs.%($CS.ComputeDnsSuffix)/\".")
   name: string;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("Realm's redirection URL. This is case-insensitive. E.g. \"https://%(ArmRegionName).acs.%($CS.ComputeDnsSuffix)/\".")
   redirectionUrl?: string;
 }

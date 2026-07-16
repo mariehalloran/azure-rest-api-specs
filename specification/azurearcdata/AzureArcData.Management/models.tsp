@@ -5577,6 +5577,7 @@ model AvailabilityGroupConfigure {
   /**
    * Mirroring endpoint URL of availability group replica
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   endpointUrl?: string;
 
   /**
@@ -5665,11 +5666,13 @@ model AvailabilityGroupConfigure {
   /**
    * Connectivity endpoint (URL) of the read only availability replica.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   readOnlyRoutingUrl?: string;
 
   /**
    * Connectivity endpoint (URL) of the read write availability replica.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   readWriteRoutingUrl?: string;
 
   /**
@@ -5919,6 +5922,7 @@ model AvailabilityGroupCreateUpdateReplicaConfiguration {
   /**
    * Database mirroring endpoint URL of availability group replica
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   endpointUrl?: string;
 
   /**
@@ -5964,6 +5968,7 @@ model AvailabilityGroupCreateUpdateReplicaConfiguration {
   /**
    * Connectivity endpoint (URL) of the read only availability replica.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   secondaryRoleReadOnlyRoutingUrl?: string;
 
   /**
@@ -6014,6 +6019,7 @@ model DistributedAvailabilityGroupCreateUpdateAvailabilityGroupConfiguration {
   /**
    * The listener URL of the availability group.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   listenerUrl?: url;
 
   /**

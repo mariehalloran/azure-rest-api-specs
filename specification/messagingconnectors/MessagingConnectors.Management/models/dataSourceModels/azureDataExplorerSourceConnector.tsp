@@ -11,6 +11,7 @@ model AzureDataExplorerSourceConnectorProperties extends DataSourceProperties {
   @doc("Type of AzureDataExplorerSourceConnector")
   connectorType: Models.Connector.ConnectorType.AzureDataExplorerSource;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("Url of AzureDataExplorer cluster.")
   clusterUrl: string;
 
