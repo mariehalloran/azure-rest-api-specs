@@ -87,18 +87,19 @@ model AvailabilityProperties {
 /** The name of the availability (its catalog identifier). */
 @added(Versions.v2026_06_30_preview)
 @subscriptionResource
-model AvailabilityNameParameter
-  is ResourceNameParameter<
-    Resource = CatalogAvailability,
-    KeyName = "availabilityId",
-    SegmentName = "availabilities",
-    NamePattern = "^[a-zA-Z0-9._-]{1,64}$"
-  >;
+model AvailabilityNameParameter is ResourceNameParameter<
+  Resource = CatalogAvailability,
+  KeyName = "availabilityId",
+  SegmentName = "availabilities",
+  NamePattern = "^[a-zA-Z0-9._-]{1,64}$"
+>;
 
 /** An availability in the commerce catalog. */
 @added(Versions.v2026_06_30_preview)
-model CatalogAvailability
-  is Azure.ResourceManager.ProxyResource<AvailabilityProperties, false> {
+model CatalogAvailability is Azure.ResourceManager.ProxyResource<
+  AvailabilityProperties,
+  false
+> {
   ...AvailabilityNameParameter;
 }
 

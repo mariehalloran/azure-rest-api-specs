@@ -33,18 +33,19 @@ model LookupValueExchangeResult {
 /** The name of the offer value (its UPN identifier). */
 @added(Versions.v2026_06_30_preview)
 @subscriptionResource
-model OfferValueNameParameter
-  is ResourceNameParameter<
-    Resource = OfferValue,
-    KeyName = "productCode",
-    SegmentName = "offerValues",
-    NamePattern = "^[A-Z0-9]{12}$"
-  >;
+model OfferValueNameParameter is ResourceNameParameter<
+  Resource = OfferValue,
+  KeyName = "productCode",
+  SegmentName = "offerValues",
+  NamePattern = "^[A-Z0-9]{12}$"
+>;
 
 /** An offer value (UPN) in the commerce catalog. */
 @added(Versions.v2026_06_30_preview)
-model OfferValue
-  is Azure.ResourceManager.ProxyResource<ValueExchangeProperties, false> {
+model OfferValue is Azure.ResourceManager.ProxyResource<
+  ValueExchangeProperties,
+  false
+> {
   ...OfferValueNameParameter;
 }
 
