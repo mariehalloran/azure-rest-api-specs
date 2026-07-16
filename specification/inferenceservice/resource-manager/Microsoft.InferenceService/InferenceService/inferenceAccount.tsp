@@ -1,9 +1,11 @@
 import "@typespec/rest";
 import "@typespec/http";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
 using Azure.ResourceManager;
+using Versioning;
 
 namespace Microsoft.InferenceService;
 
@@ -15,7 +17,9 @@ model InferenceAccount is TrackedResource<InferenceAccountProperties> {
   >;
 }
 
-/** Properties of an inference service account. */
+// Design note: this properties bag had no writable fields in 2026-01-15-preview.
+// Key-based authentication configuration becomes writable in 2026-08-01-preview.
+/** Read-only properties of an inference service account. */
 model InferenceAccountProperties {
   /** The REST endpoint for the inference account */
   @visibility(Lifecycle.Read)
@@ -26,10 +30,12 @@ model InferenceAccountProperties {
   provisioningState?: ProvisioningState;
 
   /** Whether key-based authentication is enabled for the inference account. */
+  @added(Versions.v2026_08_01_preview)
   @visibility(Lifecycle.Read, Lifecycle.Update)
   enableKeyBasedAuthentication?: boolean;
 
   /** Metadata about the inference account's API keys, such as last-usage timestamps. */
+  @added(Versions.v2026_08_01_preview)
   @visibility(Lifecycle.Read)
   keysMetadata?: KeysMetadata;
 }
@@ -51,6 +57,7 @@ union ProvisioningState {
 }
 
 /** The type of API key to regenerate. */
+@added(Versions.v2026_08_01_preview)
 union KeyType {
   /** The primary API key. */
   Primary: "Primary",
@@ -62,6 +69,7 @@ union KeyType {
 }
 
 /** Metadata about the API keys of an inference account. */
+@added(Versions.v2026_08_01_preview)
 model KeysMetadata {
   /** The UTC timestamp of the last time the primary key was used. */
   @visibility(Lifecycle.Read)
@@ -73,6 +81,7 @@ model KeysMetadata {
 }
 
 /** The API keys of an inference account. */
+@added(Versions.v2026_08_01_preview)
 model AccountKeysResult {
   /** The primary API key for the inference account. */
   @secret
@@ -86,6 +95,7 @@ model AccountKeysResult {
 }
 
 /** The request body for regenerating an inference account API key. */
+@added(Versions.v2026_08_01_preview)
 model RegenerateApiKeyRequest {
   /** The type of API key to regenerate. */
   keyType: KeyType;
@@ -99,7 +109,16 @@ interface InferenceAccounts {
     InferenceAccount,
     LroHeaders = ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
   >;
+
+  @TypeSpec.Http.sharedRoute
+  @removed(Versions.v2026_08_01_preview)
+  @renamedFrom(Versions.v2026_08_01_preview, "update")
+  updateTags is ArmTagsPatchSync<InferenceAccount>;
+
+  @TypeSpec.Http.sharedRoute
+  @added(Versions.v2026_08_01_preview)
   update is ArmResourcePatchSync<InferenceAccount, InferenceAccountProperties>;
+
   @Azure.Core.useFinalStateVia("azure-async-operation")
   delete is ArmResourceDeleteWithoutOkAsync<
     InferenceAccount,
@@ -109,6 +128,7 @@ interface InferenceAccounts {
   listBySubscription is ArmListBySubscription<InferenceAccount>;
 
   /** List the API keys for an inference account. */
+  @added(Versions.v2026_08_01_preview)
   listApiKeys is ArmResourceActionSync<
     InferenceAccount,
     void,
@@ -116,6 +136,7 @@ interface InferenceAccounts {
   >;
 
   /** Regenerate an API key for an inference account. */
+  @added(Versions.v2026_08_01_preview)
   regenerateApiKey is ArmResourceActionSync<
     InferenceAccount,
     RegenerateApiKeyRequest,

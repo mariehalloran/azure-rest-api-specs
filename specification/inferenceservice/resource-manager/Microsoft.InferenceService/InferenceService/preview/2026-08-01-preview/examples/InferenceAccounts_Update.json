@@ -1,26 +1,26 @@
 {
-  "title": "InferenceAccounts_RegenerateApiKey",
-  "operationId": "InferenceAccounts_RegenerateApiKey",
+  "title": "InferenceAccounts_Update",
+  "operationId": "InferenceAccounts_Update",
   "parameters": {
-    "api-version": "2026-01-15-preview",
+    "api-version": "2026-08-01-preview",
     "subscriptionId": "00000000-0000-0000-0000-000000000000",
     "resourceGroupName": "inferencerg",
     "inferenceAccountName": "inference-acc-specs",
-    "body": {
-      "keyType": "Primary"
+    "properties": {
+      "tags": {
+        "Environment": "Production"
+      }
     }
   },
   "responses": {
     "200": {
       "body": {
         "properties": {
-          "endpoint": "https://inference-acc.eastus2.dbinference.azure.com",
           "provisioningState": "Succeeded",
-          "enableKeyBasedAuthentication": true,
-          "keysMetadata": {
-            "primaryKeyLastUsage": "2026-07-08T00:28:48.610Z",
-            "secondaryKeyLastUsage": "2026-07-07T00:28:48.610Z"
-          }
+          "endpoint": "https://inference-acc-specs.eastus2.dbinference.azure.com"
+        },
+        "tags": {
+          "Environment": "Production"
         },
         "location": "eastus2",
         "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/inferencerg/providers/Microsoft.InferenceService/inferenceAccounts/inference-acc-specs",
