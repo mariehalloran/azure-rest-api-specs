@@ -104,18 +104,19 @@ model ProductProperties {
 /** The name of the product (its catalog identifier). */
 @added(Versions.v2026_06_30_preview)
 @subscriptionResource
-model ProductNameParameter
-  is ResourceNameParameter<
-    Resource = CatalogProduct,
-    KeyName = "productId",
-    SegmentName = "products",
-    NamePattern = "^[a-zA-Z0-9._-]{1,64}$"
-  >;
+model ProductNameParameter is ResourceNameParameter<
+  Resource = CatalogProduct,
+  KeyName = "productId",
+  SegmentName = "products",
+  NamePattern = "^[a-zA-Z0-9._-]{1,64}$"
+>;
 
 /** A product in the commerce catalog. */
 @added(Versions.v2026_06_30_preview)
-model CatalogProduct
-  is Azure.ResourceManager.ProxyResource<ProductProperties, false> {
+model CatalogProduct is Azure.ResourceManager.ProxyResource<
+  ProductProperties,
+  false
+> {
   ...ProductNameParameter;
 }
 

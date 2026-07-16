@@ -155,13 +155,12 @@ model SkuProperties {
 /** The name of the SKU (its catalog identifier within the product). */
 @added(Versions.v2026_06_30_preview)
 @subscriptionResource
-model SkuNameParameter
-  is ResourceNameParameter<
-    Resource = CatalogSku,
-    KeyName = "skuId",
-    SegmentName = "skus",
-    NamePattern = "^[a-zA-Z0-9._-]{1,64}$"
-  >;
+model SkuNameParameter is ResourceNameParameter<
+  Resource = CatalogSku,
+  KeyName = "skuId",
+  SegmentName = "skus",
+  NamePattern = "^[a-zA-Z0-9._-]{1,64}$"
+>;
 
 /** A SKU in the commerce catalog. */
 @added(Versions.v2026_06_30_preview)
