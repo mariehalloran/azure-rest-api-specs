@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2025-01-01-preview",
+    "version": "2023-10-01",
     "title": "StorageMoverClient",
     "description": "The Azure Storage Mover REST API."
   },
@@ -43,20 +43,20 @@
         "operationId": "Operations_List",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
           "200": {
             "description": "List of supported operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/OperationListResult"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/OperationListResult"
             }
           },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -84,10 +84,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -100,7 +100,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -123,13 +123,13 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -142,7 +142,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -165,16 +165,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -187,7 +187,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -205,16 +205,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "storageMover",
@@ -235,7 +235,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -253,16 +253,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "storageMover",
@@ -283,7 +283,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -301,16 +301,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -326,7 +326,7 @@
           "default": {
             "description": "Error response describing why delete operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -344,25 +344,22 @@
         "operationId": "Agents_List",
         "description": "Lists all Agents in a Storage Mover.",
         "x-ms-examples": {
-          "Agents_List_MinimumSet": {
-            "$ref": "./examples/Agents_List_MinimumSet.json"
-          },
-          "Agents_List_MaximumSet": {
-            "$ref": "./examples/Agents_List_MaximumSet.json"
+          "Agents_List": {
+            "$ref": "./examples/Agents_List.json"
           }
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -375,7 +372,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -392,19 +389,16 @@
         "operationId": "Agents_Get",
         "description": "Gets an Agent resource.",
         "x-ms-examples": {
-          "Agents_Get_MinimumSet": {
-            "$ref": "./examples/Agents_Get_MinimumSet.json"
-          },
-          "Agents_Get_MaximumSet": {
-            "$ref": "./examples/Agents_Get_MaximumSet.json"
+          "Agents_Get": {
+            "$ref": "./examples/Agents_Get.json"
           }
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -413,7 +407,7 @@
             "$ref": "#/parameters/AgentNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -426,7 +420,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -438,22 +432,16 @@
         "operationId": "Agents_CreateOrUpdate",
         "description": "Creates or updates an Agent resource, which references a hybrid compute machine that can run jobs.",
         "x-ms-examples": {
-          "Agents_CreateOrUpdate_MinimumSet": {
-            "$ref": "./examples/Agents_CreateOrUpdate_MinimumSet.json"
-          },
-          "Agents_CreateOrUpdate_MaximumSet": {
-            "$ref": "./examples/Agents_CreateOrUpdate_MaximumSet.json"
-          },
-          "Agents_CreateOrUpdate_WithOvernightUploadLimitSchedule": {
-            "$ref": "./examples/Agents_CreateOrUpdate_UploadLimitSchedule_Overnight.json"
+          "Agents_CreateOrUpdate": {
+            "$ref": "./examples/Agents_CreateOrUpdate.json"
           }
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -462,7 +450,7 @@
             "$ref": "#/parameters/AgentNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "agent",
@@ -483,7 +471,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -501,10 +489,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -513,7 +501,7 @@
             "$ref": "#/parameters/AgentNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "agent",
@@ -534,7 +522,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -552,10 +540,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -564,7 +552,7 @@
             "$ref": "#/parameters/AgentNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -580,7 +568,7 @@
           "default": {
             "description": "Error response describing why delete operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -604,16 +592,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -626,7 +614,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -643,9 +631,6 @@
         "operationId": "Endpoints_Get",
         "description": "Gets an Endpoint resource.",
         "x-ms-examples": {
-          "Endpoints_Get_AzureMultiCloudConnector": {
-            "$ref": "./examples/Endpoints_Get_AzureMultiCloudConnector.json"
-          },
           "Endpoints_Get_AzureStorageBlobContainer": {
             "$ref": "./examples/Endpoints_Get_AzureStorageBlobContainer.json"
           },
@@ -661,10 +646,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -673,7 +658,7 @@
             "$ref": "#/parameters/EndpointNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -686,7 +671,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -698,9 +683,6 @@
         "operationId": "Endpoints_CreateOrUpdate",
         "description": "Creates or updates an Endpoint resource, which represents a data transfer source or destination.",
         "x-ms-examples": {
-          "Endpoints_CreateOrUpdate_AzureMultiCloudConnector": {
-            "$ref": "./examples/Endpoints_CreateOrUpdate_AzureMultiCloudConnector.json"
-          },
           "Endpoints_CreateOrUpdate_AzureStorageBlobContainer": {
             "$ref": "./examples/Endpoints_CreateOrUpdate_AzureStorageBlobContainer.json"
           },
@@ -716,10 +698,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -728,7 +710,7 @@
             "$ref": "#/parameters/EndpointNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "endpoint",
@@ -749,7 +731,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -761,9 +743,6 @@
         "operationId": "Endpoints_Update",
         "description": "Updates properties for an Endpoint resource. Properties not specified in the request body will be unchanged.",
         "x-ms-examples": {
-          "Endpoints_Update_AzureMultiCloudConnector": {
-            "$ref": "./examples/Endpoints_Update_AzureMultiCloudConnector.json"
-          },
           "Endpoints_Update_AzureStorageBlobContainer": {
             "$ref": "./examples/Endpoints_Update_AzureStorageBlobContainer.json"
           },
@@ -779,10 +758,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -791,7 +770,7 @@
             "$ref": "#/parameters/EndpointNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "endpoint",
@@ -812,7 +791,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -830,10 +809,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -842,7 +821,7 @@
             "$ref": "#/parameters/EndpointNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -858,7 +837,7 @@
           "default": {
             "description": "Error response describing why delete operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -882,16 +861,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -904,7 +883,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -927,10 +906,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -939,7 +918,7 @@
             "$ref": "#/parameters/ProjectNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -952,7 +931,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -970,10 +949,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -982,7 +961,7 @@
             "$ref": "#/parameters/ProjectNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "project",
@@ -1003,7 +982,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -1021,10 +1000,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -1033,7 +1012,7 @@
             "$ref": "#/parameters/ProjectNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "project",
@@ -1054,7 +1033,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -1072,10 +1051,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -1084,7 +1063,7 @@
             "$ref": "#/parameters/ProjectNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -1100,7 +1079,7 @@
           "default": {
             "description": "Error response describing why delete operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1124,10 +1103,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -1136,7 +1115,7 @@
             "$ref": "#/parameters/ProjectNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -1149,7 +1128,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1172,10 +1151,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -1187,7 +1166,7 @@
             "$ref": "#/parameters/JobDefinitionNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -1200,7 +1179,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -1214,17 +1193,14 @@
         "x-ms-examples": {
           "JobDefinitions_CreateOrUpdate": {
             "$ref": "./examples/JobDefinitions_CreateOrUpdate.json"
-          },
-          "JobDefinitions_cloudToCloud_CreateOrUpdate": {
-            "$ref": "./examples/JobDefinitions_cloudToCloud_CreateOrUpdate.json"
           }
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -1236,7 +1212,7 @@
             "$ref": "#/parameters/JobDefinitionNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "jobDefinition",
@@ -1257,7 +1233,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -1275,10 +1251,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -1290,7 +1266,7 @@
             "$ref": "#/parameters/JobDefinitionNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "jobDefinition",
@@ -1311,7 +1287,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -1329,10 +1305,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -1344,7 +1320,7 @@
             "$ref": "#/parameters/JobDefinitionNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -1360,7 +1336,7 @@
           "default": {
             "description": "Error response describing why delete operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1380,7 +1356,7 @@
           "JobDefinitions"
         ],
         "operationId": "JobDefinitions_StartJob",
-        "description": "Creates a new Job Run resource for the specified Job Definition and passes it to the Agent for execution.",
+        "description": "Requests an Agent to start a new instance of this Job Definition, generating a new Job Run resource.",
         "x-ms-examples": {
           "JobDefinitions_StartJob": {
             "$ref": "./examples/JobDefinitions_StartJob.json"
@@ -1388,10 +1364,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -1403,7 +1379,7 @@
             "$ref": "#/parameters/JobDefinitionNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -1416,7 +1392,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -1440,10 +1416,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -1455,7 +1431,7 @@
             "$ref": "#/parameters/JobDefinitionNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -1468,7 +1444,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -1488,10 +1464,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -1503,7 +1479,7 @@
             "$ref": "#/parameters/JobDefinitionNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -1516,7 +1492,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1539,10 +1515,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/StorageMoverNameParameter"
@@ -1557,7 +1533,7 @@
             "$ref": "#/parameters/JobRunNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -1570,7 +1546,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -1652,15 +1628,6 @@
           "description": "Uptime of the Agent in seconds.",
           "readOnly": true
         },
-        "timeZone": {
-          "description": "The agent's local time zone represented in Windows format.",
-          "type": "string",
-          "readOnly": true
-        },
-        "uploadLimitSchedule": {
-          "description": "The WAN-link upload limit schedule that applies to any Job Run the agent executes. Data plane operations (migrating files) are affected. Control plane operations ensure seamless migration functionality and are not limited by this schedule. The schedule is interpreted with the agent's local time.",
-          "$ref": "#/definitions/UploadLimitSchedule"
-        },
         "errorDetails": {
           "type": "object",
           "properties": {
@@ -1677,7 +1644,14 @@
         },
         "provisioningState": {
           "description": "The provisioning state of this resource.",
-          "$ref": "#/definitions/ProvisioningState",
+          "enum": [
+            "Succeeded"
+          ],
+          "type": "string",
+          "x-ms-enum": {
+            "name": "ProvisioningState",
+            "modelAsString": true
+          },
           "readOnly": true
         }
       },
@@ -1695,7 +1669,7 @@
           "$ref": "#/definitions/AgentProperties"
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/systemData",
           "description": "Resource system metadata."
         }
       },
@@ -1704,7 +1678,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -1714,10 +1688,6 @@
         "description": {
           "type": "string",
           "description": "A description for the Agent."
-        },
-        "uploadLimitSchedule": {
-          "description": "The WAN-link upload limit schedule that applies to any Job Run the agent executes. Data plane operations (migrating files) are affected. Control plane operations ensure seamless migration functionality and are not limited by this schedule. The schedule is interpreted with the agent's local time.",
-          "$ref": "#/definitions/UploadLimitSchedule"
         }
       }
     },
@@ -1749,134 +1719,6 @@
         }
       }
     },
-    "UploadLimitSchedule": {
-      "description": "The WAN-link upload limit schedule. Overlapping recurrences are not allowed.",
-      "type": "object",
-      "properties": {
-        "weeklyRecurrences": {
-          "description": "The set of weekly repeating recurrences of the WAN-link upload limit schedule.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/UploadLimitWeeklyRecurrence"
-          },
-          "x-ms-identifiers": []
-        }
-      }
-    },
-    "Recurrence": {
-      "description": "The schedule recurrence.",
-      "type": "object",
-      "properties": {
-        "startTime": {
-          "description": "The start time of the schedule recurrence. Full hour and 30-minute intervals are supported.",
-          "$ref": "#/definitions/Time"
-        },
-        "endTime": {
-          "description": "The end time of the schedule recurrence. Full hour and 30-minute intervals are supported.",
-          "$ref": "#/definitions/Time"
-        }
-      },
-      "required": [
-        "startTime",
-        "endTime"
-      ]
-    },
-    "WeeklyRecurrence": {
-      "type": "object",
-      "description": "The weekly recurrence of the schedule.",
-      "properties": {
-        "days": {
-          "description": "The set of days of week for the schedule recurrence. A day must not be specified more than once in a recurrence.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/DayOfWeek"
-          }
-        }
-      },
-      "required": [
-        "days"
-      ],
-      "allOf": [
-        {
-          "$ref": "#/definitions/Recurrence"
-        }
-      ]
-    },
-    "DayOfWeek": {
-      "description": "The day of week.",
-      "enum": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday"
-      ],
-      "type": "string",
-      "x-ms-enum": {
-        "name": "DayOfWeek",
-        "modelAsString": false
-      }
-    },
-    "UploadLimit": {
-      "description": "The WAN-link upload limit.",
-      "type": "object",
-      "properties": {
-        "limitInMbps": {
-          "description": "The WAN-link upload bandwidth (maximum data transfer rate) in megabits per second. Value of 0 indicates no throughput is allowed and any running migration job is effectively paused for the duration of this recurrence. Only data plane operations are governed by this limit. Control plane operations ensure seamless functionality. The agent may exceed this limit with control messages, if necessary.",
-          "type": "integer",
-          "format": "int32",
-          "minimum": 0,
-          "maximum": 2147483647
-        }
-      },
-      "required": [
-        "limitInMbps"
-      ]
-    },
-    "UploadLimitWeeklyRecurrence": {
-      "description": "The weekly recurrence of the WAN-link upload limit schedule. The start time must be earlier in the day than the end time. The recurrence must not span across multiple days.",
-      "type": "object",
-      "allOf": [
-        {
-          "$ref": "#/definitions/WeeklyRecurrence"
-        },
-        {
-          "$ref": "#/definitions/UploadLimit"
-        }
-      ]
-    },
-    "Time": {
-      "description": "The time of day.",
-      "type": "object",
-      "properties": {
-        "hour": {
-          "description": "The hour element of the time. Allowed values range from 0 (start of the selected day) to 24 (end of the selected day). Hour value 24 cannot be combined with any other minute value but 0.",
-          "type": "integer",
-          "format": "int32",
-          "minimum": 0,
-          "maximum": 24
-        },
-        "minute": {
-          "description": "The minute element of the time. Allowed values are 0 and 30. If not specified, its value defaults to 0.",
-          "type": "integer",
-          "format": "int32",
-          "enum": [
-            0,
-            30
-          ],
-          "default": 0,
-          "x-ms-enum": {
-            "name": "Minute",
-            "modelAsString": true
-          }
-        }
-      },
-      "required": [
-        "hour"
-      ]
-    },
     "StorageMoverProperties": {
       "description": "The resource specific properties for the Storage Mover resource.",
       "type": "object",
@@ -1887,7 +1729,14 @@
         },
         "provisioningState": {
           "description": "The provisioning state of this resource.",
-          "$ref": "#/definitions/ProvisioningState",
+          "enum": [
+            "Succeeded"
+          ],
+          "type": "string",
+          "x-ms-enum": {
+            "name": "ProvisioningState",
+            "modelAsString": true
+          },
           "readOnly": true
         }
       }
@@ -1901,13 +1750,13 @@
           "$ref": "#/definitions/StorageMoverProperties"
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/systemData",
           "description": "Resource system metadata."
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -1975,7 +1824,14 @@
         },
         "provisioningState": {
           "description": "The provisioning state of this resource.",
-          "$ref": "#/definitions/ProvisioningState",
+          "enum": [
+            "Succeeded"
+          ],
+          "type": "string",
+          "x-ms-enum": {
+            "name": "ProvisioningState",
+            "modelAsString": true
+          },
           "readOnly": true
         }
       },
@@ -1991,11 +1847,8 @@
           "$ref": "#/definitions/EndpointBaseProperties"
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/systemData",
           "description": "Resource system metadata."
-        },
-        "identity": {
-          "$ref": "../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity"
         }
       },
       "required": [
@@ -2003,7 +1856,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -2035,9 +1888,6 @@
       "properties": {
         "properties": {
           "$ref": "#/definitions/EndpointBaseUpdateProperties"
-        },
-        "identity": {
-          "$ref": "../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity"
         }
       }
     },
@@ -2059,50 +1909,6 @@
         }
       }
     },
-    "AzureMultiCloudConnectorEndpointProperties": {
-      "type": "object",
-      "description": "The properties of MultiCloudConnector endpoint type.",
-      "x-ms-discriminator-value": "AzureMultiCloudConnector",
-      "properties": {
-        "multiCloudConnectorId": {
-          "description": "The Azure Resource ID of the Multi-Cloud Connector which has the AWS S3 buckets.",
-          "type": "string",
-          "format": "arm-id",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.HybridConnectivity/publicCloudConnectors"
-              }
-            ]
-          },
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "awsS3BucketId": {
-          "description": "The AWS S3 bucket ARM resource Id.",
-          "type": "string",
-          "format": "arm-id",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.AwsConnector/s3Buckets"
-              }
-            ]
-          }
-        }
-      },
-      "required": [
-        "multiCloudConnectorId",
-        "awsS3BucketId"
-      ],
-      "allOf": [
-        {
-          "$ref": "#/definitions/EndpointBaseProperties"
-        }
-      ]
-    },
     "AzureStorageBlobContainerEndpointProperties": {
       "type": "object",
       "description": "The properties of Azure Storage blob container endpoint.",
@@ -2118,11 +1924,7 @@
                 "type": "Microsoft.Storage/storageAccounts"
               }
             ]
-          },
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
+          }
         },
         "blobContainerName": {
           "description": "The name of the Storage blob container that is the target destination.",
@@ -2140,15 +1942,6 @@
       "allOf": [
         {
           "$ref": "#/definitions/EndpointBaseProperties"
-        }
-      ]
-    },
-    "AzureMultiCloudConnectorEndpointUpdateProperties": {
-      "type": "object",
-      "x-ms-discriminator-value": "AzureMultiCloudConnector",
-      "allOf": [
-        {
-          "$ref": "#/definitions/EndpointBaseUpdateProperties"
         }
       ]
     },
@@ -2327,8 +2120,7 @@
         "AzureStorageBlobContainer",
         "NfsMount",
         "AzureStorageSmbFileShare",
-        "SmbMount",
-        "AzureMultiCloudConnector"
+        "SmbMount"
       ],
       "type": "string",
       "x-ms-enum": {
@@ -2391,20 +2183,7 @@
       "properties": {
         "description": {
           "type": "string",
-          "description": "A description for the Job Definition. OnPremToCloud is for migrating data from on-premises to cloud. CloudToCloud is for migrating data between cloud to cloud."
-        },
-        "jobType": {
-          "type": "string",
-          "description": "Job type",
-          "x-ms-enum": {
-            "name": "JobType",
-            "modelAsString": true
-          },
-          "enum": [
-            "OnPremToCloud",
-            "CloudToCloud"
-          ],
-          "default": "OnPremToCloud"
+          "description": "A description for the Job Definition."
         },
         "copyMode": {
           "type": "string",
@@ -2470,19 +2249,6 @@
           "description": "The fully qualified resource ID of the Job Run in a non-terminal state, if exists.",
           "readOnly": true
         },
-        "sourceTargetMap": {
-          "description": "The list of cloud endpoints to migrate.",
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/SourceTargetMap"
-              },
-              "readOnly": true
-            }
-          }
-        },
         "latestJobRunStatus": {
           "enum": [
             "Queued",
@@ -2513,7 +2279,14 @@
         },
         "provisioningState": {
           "description": "The provisioning state of this resource.",
-          "$ref": "#/definitions/ProvisioningState",
+          "enum": [
+            "Succeeded"
+          ],
+          "type": "string",
+          "x-ms-enum": {
+            "name": "ProvisioningState",
+            "modelAsString": true
+          },
           "readOnly": true
         }
       },
@@ -2521,108 +2294,6 @@
         "copyMode",
         "sourceName",
         "targetName"
-      ]
-    },
-    "SourceTargetMap": {
-      "type": "object",
-      "description": "The properties of cloud endpoints to migrate.",
-      "properties": {
-        "sourceEndpoint": {
-          "type": "object",
-          "description": "The properties of the cloud source endpoint to migrate.",
-          "properties": {
-            "name": {
-              "type": "string",
-              "description": "The name of the cloud source endpoint to migrate."
-            },
-            "sourceEndpointResourceId": {
-              "type": "string",
-              "description": "The fully qualified ARM resource ID of the cloud source endpoint to migrate.",
-              "format": "arm-id",
-              "x-ms-arm-id-details": {
-                "allowedResources": [
-                  {
-                    "type": "Microsoft.StorageMover/storageMovers/endpoints"
-                  }
-                ]
-              },
-              "x-ms-mutability": [
-                "read",
-                "create"
-              ]
-            },
-            "awsS3BucketId": {
-              "type": "string",
-              "description": "The fully qualified ARM resource ID of the AWS S3 bucket to migrate.",
-              "format": "arm-id",
-              "x-ms-arm-id-details": {
-                "allowedResources": [
-                  {
-                    "type": "Microsoft.AwsConnector/s3Buckets"
-                  }
-                ]
-              },
-              "x-ms-mutability": [
-                "read",
-                "create"
-              ]
-            }
-          }
-        },
-        "targetEndpoint": {
-          "type": "object",
-          "description": "The properties of the cloud target endpoint to migrate.",
-          "properties": {
-            "name": {
-              "type": "string",
-              "description": "The name of the cloud target endpoint to migrate."
-            },
-            "targetEndpointResourceId": {
-              "type": "string",
-              "description": "The fully qualified ARM resource ID of the cloud target endpoint to migrate.",
-              "format": "arm-id",
-              "x-ms-arm-id-details": {
-                "allowedResources": [
-                  {
-                    "type": "Microsoft.StorageMover/storageMovers/endpoints"
-                  }
-                ]
-              },
-              "x-ms-mutability": [
-                "read",
-                "create"
-              ]
-            },
-            "azureStorageAccountResourceId": {
-              "type": "string",
-              "description": "The fully qualified ARM resource ID of the Azure Storage account.",
-              "format": "arm-id",
-              "x-ms-arm-id-details": {
-                "allowedResources": [
-                  {
-                    "type": "Microsoft.Storage/storageAccounts"
-                  }
-                ]
-              },
-              "x-ms-mutability": [
-                "read",
-                "create"
-              ]
-            },
-            "azureStorageBlobContainerName": {
-              "type": "string",
-              "description": "The name of the Azure Storage blob container.",
-              "x-ms-mutability": [
-                "read",
-                "create"
-              ]
-            }
-          }
-        }
-      },
-      "required": [
-        "sourceEndpoint",
-        "targetEndpoint"
       ]
     },
     "JobDefinition": {
@@ -2634,7 +2305,7 @@
           "$ref": "#/definitions/JobDefinitionProperties"
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/systemData",
           "description": "Resource system metadata."
         }
       },
@@ -2643,7 +2314,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -2733,8 +2404,7 @@
             "Canceling",
             "Canceled",
             "Failed",
-            "Succeeded",
-            "PausedByBandwidthManagement"
+            "Succeeded"
           ],
           "type": "string",
           "x-ms-enum": {
@@ -2899,7 +2569,14 @@
         },
         "provisioningState": {
           "description": "The provisioning state of this resource.",
-          "$ref": "#/definitions/ProvisioningState",
+          "enum": [
+            "Succeeded"
+          ],
+          "type": "string",
+          "x-ms-enum": {
+            "name": "ProvisioningState",
+            "modelAsString": true
+          },
           "readOnly": true
         }
       }
@@ -2913,13 +2590,13 @@
           "$ref": "#/definitions/JobRunProperties"
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/systemData",
           "description": "Resource system metadata."
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -2962,7 +2639,14 @@
         },
         "provisioningState": {
           "description": "The provisioning state of this resource.",
-          "$ref": "#/definitions/ProvisioningState",
+          "enum": [
+            "Succeeded"
+          ],
+          "type": "string",
+          "x-ms-enum": {
+            "name": "ProvisioningState",
+            "modelAsString": true
+          },
           "readOnly": true
         }
       }
@@ -2976,13 +2660,13 @@
           "$ref": "#/definitions/ProjectProperties"
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/systemData",
           "description": "Resource system metadata."
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -3023,21 +2707,6 @@
           "readOnly": true
         }
       }
-    },
-    "ProvisioningState": {
-      "description": "The provisioning state of a resource.",
-      "enum": [
-        "Succeeded",
-        "Canceled",
-        "Failed",
-        "Deleting"
-      ],
-      "type": "string",
-      "x-ms-enum": {
-        "name": "ProvisioningState",
-        "modelAsString": true
-      },
-      "readOnly": true
     }
   },
   "parameters": {
