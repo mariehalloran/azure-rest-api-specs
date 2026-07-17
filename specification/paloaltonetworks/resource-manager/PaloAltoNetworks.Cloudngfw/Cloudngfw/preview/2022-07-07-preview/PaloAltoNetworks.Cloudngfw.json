@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "PaloAltoNetworks.Cloudngfw",
-    "version": "2022-08-04-preview"
+    "version": "2022-07-07-preview"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -74,7 +74,7 @@
     }
   ],
   "paths": {
-    "/providers/PaloAltoNetworks.Cloudngfw/globalRulestacks/{globalRulestackName}/certificates": {
+    "/providers/PaloAltoNetworks.Cloudngfw/certificates": {
       "get": {
         "tags": [
           "CertificateObjectGlobalRulestack"
@@ -83,10 +83,7 @@
         "description": "List CertificateObjectGlobalRulestackResource resources by Tenant",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -99,7 +96,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -116,7 +113,7 @@
         }
       }
     },
-    "/providers/PaloAltoNetworks.Cloudngfw/globalRulestacks/{globalRulestackName}/fqdnlists": {
+    "/providers/PaloAltoNetworks.Cloudngfw/fqdnlists": {
       "get": {
         "tags": [
           "FqdnListGlobalRulestack"
@@ -125,10 +122,7 @@
         "description": "List FqdnListGlobalRulestackResource resources by Tenant",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -141,7 +135,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -167,7 +161,7 @@
         "description": "List GlobalRulestackResource resources by Tenant",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -180,7 +174,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -206,7 +200,7 @@
         "description": "Get a GlobalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -222,7 +216,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -243,7 +237,7 @@
         "description": "Create a GlobalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -274,7 +268,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -299,7 +293,7 @@
         "description": "Update a GlobalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -324,7 +318,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -345,7 +339,7 @@
         "description": "Delete a GlobalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -364,7 +358,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -391,7 +385,7 @@
         "description": "Get a CertificateObjectGlobalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -410,7 +404,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -431,7 +425,7 @@
         "description": "Create a CertificateObjectGlobalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -465,7 +459,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -490,7 +484,7 @@
         "description": "Delete a CertificateObjectGlobalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -512,7 +506,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -539,7 +533,7 @@
         "description": "Commit rulestack configuration",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -552,7 +546,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -579,7 +573,7 @@
         "description": "Get a FqdnListGlobalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -598,7 +592,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -619,7 +613,7 @@
         "description": "Create a FqdnListGlobalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -653,7 +647,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -678,7 +672,7 @@
         "description": "Delete a FqdnListGlobalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -700,7 +694,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -727,7 +721,7 @@
         "description": "Get changelog",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -743,7 +737,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -766,7 +760,7 @@
         "description": "Get the list of advanced security objects",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -809,7 +803,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -832,7 +826,7 @@
         "description": "List of countries for Rulestack",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -861,7 +855,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -884,7 +878,7 @@
         "description": "List of Firewalls associated with Rulestack",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -900,7 +894,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -923,7 +917,7 @@
         "description": "List predefined URL categories for rulestack",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -952,7 +946,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -975,7 +969,7 @@
         "description": "List the security services for rulestack",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1022,7 +1016,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1045,7 +1039,7 @@
         "description": "Get a PostRulesResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1064,7 +1058,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1085,7 +1079,7 @@
         "description": "Create a PostRulesResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1119,7 +1113,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1144,7 +1138,7 @@
         "description": "Delete a PostRulesResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1166,7 +1160,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1193,7 +1187,7 @@
         "description": "Get counters",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1218,7 +1212,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1241,7 +1235,7 @@
         "description": "Refresh counters",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1263,7 +1257,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1286,7 +1280,7 @@
         "description": "Reset counters",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1311,7 +1305,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1334,7 +1328,7 @@
         "description": "Get a PrefixListGlobalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1353,7 +1347,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1374,7 +1368,7 @@
         "description": "Create a PrefixListGlobalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1408,7 +1402,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1433,7 +1427,7 @@
         "description": "Delete a PrefixListGlobalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1455,7 +1449,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1482,7 +1476,7 @@
         "description": "Get a PreRulesResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1501,7 +1495,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1522,7 +1516,7 @@
         "description": "Create a PreRulesResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1556,7 +1550,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1581,7 +1575,7 @@
         "description": "Delete a PreRulesResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1603,7 +1597,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1630,7 +1624,7 @@
         "description": "Get counters",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1655,7 +1649,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1678,7 +1672,7 @@
         "description": "Refresh counters",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1700,7 +1694,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1723,7 +1717,7 @@
         "description": "Reset counters",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1748,7 +1742,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1771,7 +1765,7 @@
         "description": "Revert rulestack configuration",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
@@ -1784,7 +1778,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1807,7 +1801,7 @@
         "description": "List of countries for Rulestack",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -1836,7 +1830,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1859,20 +1853,20 @@
         "description": "List the operations for the provider",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/OperationListResult"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/OperationListResult"
             }
           },
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1889,7 +1883,7 @@
         }
       }
     },
-    "/providers/PaloAltoNetworks.Cloudngfw/globalRulestacks/{globalRulestackName}/postRules": {
+    "/providers/PaloAltoNetworks.Cloudngfw/postRules": {
       "get": {
         "tags": [
           "PostRules"
@@ -1898,10 +1892,7 @@
         "description": "List PostRulesResource resources by Tenant",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -1914,7 +1905,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1931,7 +1922,7 @@
         }
       }
     },
-    "/providers/PaloAltoNetworks.Cloudngfw/globalRulestacks/{globalRulestackName}/prefixlists": {
+    "/providers/PaloAltoNetworks.Cloudngfw/prefixlists": {
       "get": {
         "tags": [
           "PrefixListGlobalRulestack"
@@ -1940,10 +1931,7 @@
         "description": "List PrefixListGlobalRulestackResource resources by Tenant",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -1956,7 +1944,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1973,7 +1961,7 @@
         }
       }
     },
-    "/providers/PaloAltoNetworks.Cloudngfw/globalRulestacks/{globalRulestackName}/preRules": {
+    "/providers/PaloAltoNetworks.Cloudngfw/preRules": {
       "get": {
         "tags": [
           "PreRules"
@@ -1982,10 +1970,7 @@
         "description": "List PreRulesResource resources by Tenant",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/GlobalRulestackResource.globalRulestackName"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -1998,7 +1983,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2024,10 +2009,10 @@
         "description": "List FirewallResource resources by subscription ID",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -2040,7 +2025,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2066,10 +2051,10 @@
         "description": "List LocalRulestackResource resources by subscription ID",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -2082,7 +2067,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2108,13 +2093,13 @@
         "description": "List FirewallResource resources by resource group",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           }
         ],
         "responses": {
@@ -2127,7 +2112,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2153,13 +2138,13 @@
         "description": "Get a FirewallResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/FirewallResource.firewallName"
@@ -2175,7 +2160,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2196,13 +2181,13 @@
         "description": "Create a FirewallResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/FirewallResource.firewallName"
@@ -2233,7 +2218,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2258,13 +2243,13 @@
         "description": "Update a FirewallResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/FirewallResource.firewallName"
@@ -2289,7 +2274,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2310,13 +2295,13 @@
         "description": "Delete a FirewallResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/FirewallResource.firewallName"
@@ -2335,7 +2320,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2362,13 +2347,13 @@
         "description": "Log Profile for Firewall",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/FirewallResource.firewallName"
@@ -2384,7 +2369,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2407,13 +2392,13 @@
         "description": "Log Profile for Firewall",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/FirewallResource.firewallName"
@@ -2434,7 +2419,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2457,13 +2442,13 @@
         "description": "List LocalRulestackResource resources by resource group",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           }
         ],
         "responses": {
@@ -2476,7 +2461,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2502,13 +2487,13 @@
         "description": "Get a LocalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -2524,7 +2509,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2545,13 +2530,13 @@
         "description": "Create a LocalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -2582,7 +2567,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2607,13 +2592,13 @@
         "description": "Update a LocalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -2638,7 +2623,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2659,13 +2644,13 @@
         "description": "Delete a LocalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -2684,7 +2669,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2711,13 +2696,13 @@
         "description": "List CertificateObjectLocalRulestackResource resources by LocalRulestacks",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -2733,7 +2718,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2759,13 +2744,13 @@
         "description": "Get a CertificateObjectLocalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -2784,7 +2769,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2805,13 +2790,13 @@
         "description": "Create a CertificateObjectLocalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -2845,7 +2830,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2870,13 +2855,13 @@
         "description": "Delete a CertificateObjectLocalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -2898,7 +2883,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2925,13 +2910,13 @@
         "description": "Commit rulestack configuration",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -2944,7 +2929,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -2971,13 +2956,13 @@
         "description": "List FqdnListLocalRulestackResource resources by LocalRulestacks",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -2993,7 +2978,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3019,13 +3004,13 @@
         "description": "Get a FqdnListLocalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3044,7 +3029,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3065,13 +3050,13 @@
         "description": "Create a FqdnListLocalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3105,7 +3090,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3130,13 +3115,13 @@
         "description": "Delete a FqdnListLocalRulestackResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3158,7 +3143,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3185,13 +3170,13 @@
         "description": "Get changelog",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3207,7 +3192,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3230,13 +3215,13 @@
         "description": "Get the list of advanced security objects",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3279,7 +3264,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3302,13 +3287,13 @@
         "description": "List of Firewalls associated with Rulestack",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3324,7 +3309,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3347,13 +3332,13 @@
         "description": "List predefined URL categories for rulestack",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3382,7 +3367,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3405,13 +3390,13 @@
         "description": "List the security services for rulestack",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3458,7 +3443,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3481,13 +3466,13 @@
         "description": "List LocalRulesResource resources by LocalRulestacks",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3503,7 +3488,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3529,13 +3514,13 @@
         "description": "Get a LocalRulesResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3554,7 +3539,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3575,13 +3560,13 @@
         "description": "Create a LocalRulesResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3615,7 +3600,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3640,13 +3625,13 @@
         "description": "Delete a LocalRulesResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3668,7 +3653,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3695,13 +3680,13 @@
         "description": "Get counters",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3726,7 +3711,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3749,13 +3734,13 @@
         "description": "Refresh counters",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3777,7 +3762,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3800,13 +3785,13 @@
         "description": "Reset counters",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3831,7 +3816,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3854,13 +3839,13 @@
         "description": "List PrefixListResource resources by LocalRulestacks",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3876,7 +3861,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3902,13 +3887,13 @@
         "description": "Get a PrefixListResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3927,7 +3912,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -3948,13 +3933,13 @@
         "description": "Create a PrefixListResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -3988,7 +3973,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -4013,13 +3998,13 @@
         "description": "Delete a PrefixListResource",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -4041,7 +4026,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -4068,13 +4053,13 @@
         "description": "Revert rulestack configuration",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/LocalRulestackResource.localRulestackName"
@@ -4087,7 +4072,7 @@
           "default": {
             "description": "Common error response for all Azure Resource Manager APIs to return error details for failed operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -4296,7 +4281,8 @@
         },
         "etag": {
           "type": "string",
-          "description": "string representing last create or update"
+          "description": "read only string representing last create or update",
+          "readOnly": true
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
@@ -4329,7 +4315,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -4373,7 +4359,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -4473,10 +4459,6 @@
           "$ref": "#/definitions/DNSProxy",
           "description": "Enable DNS proxy, disabled by default"
         },
-        "enabledDnsType": {
-          "$ref": "#/definitions/EnabledDNSType",
-          "description": "Enabled DNS proxy type, disabled by default"
-        },
         "dnsServers": {
           "type": "array",
           "items": {
@@ -4559,18 +4541,6 @@
         "modelAsString": true
       }
     },
-    "EnabledDNSType": {
-      "type": "string",
-      "description": "Enabled DNS type values",
-      "enum": [
-        "CUSTOM",
-        "AZURE"
-      ],
-      "x-ms-enum": {
-        "name": "EnabledDNSType",
-        "modelAsString": true
-      }
-    },
     "EndpointConfiguration": {
       "type": "object",
       "properties": {
@@ -4578,16 +4548,16 @@
           "type": "string",
           "description": "port ID"
         },
+        "protocol": {
+          "$ref": "#/definitions/ProtocolType",
+          "description": "Protocol Type"
+        },
         "address": {
           "$ref": "#/definitions/IPAddress",
           "description": "Address Space"
         }
       },
-      "description": "Endpoint Configuration for frontend and backend",
-      "required": [
-        "port",
-        "address"
-      ]
+      "description": "Endpoint Configuration for frontend and backend"
     },
     "EventHub": {
       "type": "object",
@@ -4618,10 +4588,6 @@
     "FirewallDeploymentProperties": {
       "type": "object",
       "properties": {
-        "etag": {
-          "type": "string",
-          "description": "etag info"
-        },
         "networkProfile": {
           "$ref": "#/definitions/NetworkProfile",
           "description": "Network settings"
@@ -4659,9 +4625,7 @@
       },
       "description": "Properties specific to the Firewall resource deployment.",
       "required": [
-        "networkProfile",
-        "dnsSettings",
-        "frontEndSettings"
+        "networkProfile"
       ]
     },
     "FirewallResource": {
@@ -4687,7 +4651,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -4735,10 +4699,6 @@
     "FirewallResourceUpdateProperties": {
       "type": "object",
       "properties": {
-        "etag": {
-          "type": "string",
-          "description": "etag info"
-        },
         "networkProfile": {
           "$ref": "#/definitions/NetworkProfile",
           "description": "Network settings"
@@ -4790,7 +4750,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -4834,7 +4794,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -4862,6 +4822,10 @@
     "FqdnObject": {
       "type": "object",
       "properties": {
+        "name": {
+          "type": "string",
+          "description": "fqdn object name"
+        },
         "description": {
           "type": "string",
           "description": "fqdn object description"
@@ -4876,7 +4840,8 @@
         },
         "etag": {
           "type": "string",
-          "description": "etag info"
+          "description": "etag info",
+          "readOnly": true
         },
         "auditComment": {
           "type": "string",
@@ -4890,6 +4855,7 @@
       },
       "description": "fqdn object",
       "required": [
+        "name",
         "fqdnList"
       ]
     },
@@ -4900,10 +4866,6 @@
           "type": "string",
           "description": "Settings name"
         },
-        "protocol": {
-          "$ref": "#/definitions/ProtocolType",
-          "description": "Protocol Type"
-        },
         "frontendConfiguration": {
           "$ref": "#/definitions/EndpointConfiguration",
           "description": "Frontend configurations"
@@ -4913,13 +4875,7 @@
           "description": "Backend configurations"
         }
       },
-      "description": "Frontend setting for Firewall",
-      "required": [
-        "name",
-        "protocol",
-        "frontendConfiguration",
-        "backendConfiguration"
-      ]
+      "description": "Frontend setting for Firewall"
     },
     "GlobalRulestackResource": {
       "type": "object",
@@ -4944,7 +4900,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -4985,21 +4941,21 @@
     "GlobalRulestackResourceUpdateProperties": {
       "type": "object",
       "properties": {
-        "etag": {
+        "rulestackName": {
           "type": "string",
-          "description": "etag info"
+          "description": "PAN Rulestack Name"
         },
-        "scope": {
-          "$ref": "#/definitions/ScopeType",
+        "panLocation": {
+          "type": "string",
+          "description": "PAN Location"
+        },
+        "stackType": {
+          "$ref": "#/definitions/StackType",
           "description": "Rulestack Type"
         },
-        "associatedSubscriptions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-cadl-name": "string[]",
-          "description": "subscription scope of global rulestack"
+        "scope": {
+          "$ref": "#/definitions/Scope",
+          "description": "subscription scope of rulestack"
         },
         "description": {
           "type": "string",
@@ -5084,7 +5040,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -5132,7 +5088,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -5180,21 +5136,21 @@
     "LocalRulestackResourceUpdateProperties": {
       "type": "object",
       "properties": {
-        "etag": {
+        "rulestackName": {
           "type": "string",
-          "description": "etag info"
+          "description": "PAN Rulestack Name"
         },
-        "scope": {
-          "$ref": "#/definitions/ScopeType",
+        "panLocation": {
+          "type": "string",
+          "description": "PAN Location"
+        },
+        "stackType": {
+          "$ref": "#/definitions/StackType",
           "description": "Rulestack Type"
         },
-        "associatedSubscriptions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-cadl-name": "string[]",
-          "description": "subscription scope of global rulestack"
+        "scope": {
+          "$ref": "#/definitions/Scope",
+          "description": "subscription scope of rulestack"
         },
         "description": {
           "type": "string",
@@ -5376,6 +5332,10 @@
           "$ref": "#/definitions/NetworkType",
           "description": "vnet or vwan, cannot be updated"
         },
+        "saasId": {
+          "type": "string",
+          "description": "saas ID for the networks"
+        },
         "publicIps": {
           "type": "array",
           "items": {
@@ -5384,6 +5344,10 @@
           "x-ms-identifiers": [],
           "x-cadl-name": "IPAddress[]",
           "description": "List of IPs associated with the Firewall"
+        },
+        "enableServiceChain": {
+          "$ref": "#/definitions/ServiceChain",
+          "description": "Enable service chaining, disabled by default"
         },
         "enableEgressNat": {
           "$ref": "#/definitions/EgressNat",
@@ -5402,8 +5366,7 @@
       "description": "Network settings for Firewall",
       "required": [
         "networkType",
-        "publicIps",
-        "enableEgressNat"
+        "saasId"
       ]
     },
     "NetworkType": {
@@ -5461,7 +5424,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -5505,7 +5468,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -5587,7 +5550,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -5631,7 +5594,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -5659,6 +5622,10 @@
     "PrefixObject": {
       "type": "object",
       "properties": {
+        "name": {
+          "type": "string",
+          "description": "prefix object name"
+        },
         "description": {
           "type": "string",
           "description": "prefix description"
@@ -5673,7 +5640,8 @@
         },
         "etag": {
           "type": "string",
-          "description": "etag info"
+          "description": "read only string representing last create or update",
+          "readOnly": true
         },
         "auditComment": {
           "type": "string",
@@ -5687,6 +5655,7 @@
       },
       "description": "prefix entry",
       "required": [
+        "name",
         "prefixList"
       ]
     },
@@ -5807,10 +5776,6 @@
     "RuleEntry": {
       "type": "object",
       "properties": {
-        "etag": {
-          "type": "string",
-          "description": "etag info"
-        },
         "ruleName": {
           "type": "string",
           "description": "rule name"
@@ -5925,21 +5890,21 @@
     "RulestackProperties": {
       "type": "object",
       "properties": {
-        "etag": {
+        "rulestackName": {
           "type": "string",
-          "description": "etag info"
+          "description": "PAN Rulestack Name"
         },
-        "scope": {
-          "$ref": "#/definitions/ScopeType",
+        "panLocation": {
+          "type": "string",
+          "description": "PAN Location"
+        },
+        "stackType": {
+          "$ref": "#/definitions/StackType",
           "description": "Rulestack Type"
         },
-        "associatedSubscriptions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-cadl-name": "string[]",
-          "description": "subscription scope of global rulestack"
+        "scope": {
+          "$ref": "#/definitions/Scope",
+          "description": "subscription scope of rulestack"
         },
         "description": {
           "type": "string",
@@ -5959,19 +5924,27 @@
           "description": "Security Profile"
         }
       },
-      "description": "PAN Rulestack Describe Object"
+      "description": "PAN Rulestack Describe Object",
+      "required": [
+        "panLocation"
+      ]
     },
-    "ScopeType": {
-      "type": "string",
-      "description": "Rulestack Type",
-      "enum": [
-        "LOCAL",
-        "GLOBAL"
-      ],
-      "x-ms-enum": {
-        "name": "ScopeType",
-        "modelAsString": true
-      }
+    "Scope": {
+      "type": "object",
+      "properties": {
+        "subscriptionIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-cadl-name": "string[]",
+          "description": "List of subscriptions"
+        }
+      },
+      "description": "subscription scope of rulestack",
+      "required": [
+        "subscriptionIds"
+      ]
     },
     "SecurityServicesTypeEnum": {
       "type": "string",
@@ -5985,6 +5958,18 @@
       ],
       "x-ms-enum": {
         "name": "SecurityServicesTypeEnum",
+        "modelAsString": true
+      }
+    },
+    "ServiceChain": {
+      "type": "string",
+      "description": "Service Chain",
+      "enum": [
+        "DISABLED",
+        "ENABLED"
+      ],
+      "x-ms-enum": {
+        "name": "ServiceChain",
         "modelAsString": true
       }
     },
@@ -6025,6 +6010,18 @@
         }
       },
       "description": "Address properties"
+    },
+    "StackType": {
+      "type": "string",
+      "description": "Rulestack Type",
+      "enum": [
+        "LOCAL",
+        "GLOBAL"
+      ],
+      "x-ms-enum": {
+        "name": "StackType",
+        "modelAsString": true
+      }
     },
     "StateEnum": {
       "type": "string",
@@ -6097,6 +6094,10 @@
           "$ref": "#/definitions/IPAddressSpace",
           "description": "Trust Subnet"
         },
+        "delegateTrustSubnet": {
+          "$ref": "#/definitions/IPAddress",
+          "description": "Delegate IP of Trust Subnet"
+        },
         "unTrustSubnet": {
           "$ref": "#/definitions/IPAddressSpace",
           "description": "Untrust Subnet"
@@ -6106,12 +6107,7 @@
           "description": "IP of trust subnet for UDR"
         }
       },
-      "description": "VnetInfo for Firewall Networking",
-      "required": [
-        "vnet",
-        "trustSubnet",
-        "unTrustSubnet"
-      ]
+      "description": "VnetInfo for Firewall Networking"
     },
     "VwanConfiguration": {
       "type": "object",
@@ -6120,13 +6116,17 @@
           "type": "string",
           "description": "Network Virtual Appliance resource ID "
         },
-        "vHub": {
+        "hubAddressSpace": {
           "$ref": "#/definitions/IPAddressSpace",
           "description": "vHub Address"
         },
         "trustSubnet": {
           "$ref": "#/definitions/IPAddressSpace",
           "description": "Trust Subnet"
+        },
+        "delegateTrustSubnet": {
+          "$ref": "#/definitions/IPAddress",
+          "description": "Delegate IP of Trust Subnet"
         },
         "unTrustSubnet": {
           "$ref": "#/definitions/IPAddressSpace",
@@ -6137,10 +6137,7 @@
           "description": "IP of trust subnet for UDR"
         }
       },
-      "description": "VwanInfo for Firewall Networking",
-      "required": [
-        "vHub"
-      ]
+      "description": "VwanInfo for Firewall Networking"
     },
     "advSecurityObjectListResponse": {
       "type": "object",
@@ -6184,7 +6181,7 @@
     "securityServices": {
       "type": "object",
       "properties": {
-        "vulnerabilityProfile": {
+        "ipsVulnerabilityProfile": {
           "type": "string",
           "description": "IPs Vulnerability Profile Data"
         },
