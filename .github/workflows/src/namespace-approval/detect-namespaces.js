@@ -40,7 +40,11 @@ function extractNamespacesFromOptions(options) {
       continue;
     }
 
-    const ns = /** @type {string | undefined} */ (emitterOpts.namespace);
+    const packageName =
+      lang === "python"
+        ? /** @type {string | undefined} */ (emitterOpts["package-name"])
+        : undefined;
+    const ns = packageName ?? /** @type {string | undefined} */ (emitterOpts.namespace);
     if (ns) {
       namespaces[lang] = ns;
       continue;
@@ -158,8 +162,12 @@ async function extractNamespaces(file, namespacesFound, artifactNames, core) {
       continue;
     }
 
-    // Prefer `namespace`, fall back to `package-details.name`, `module`, `crate-name`
-    const ns = /** @type {string | undefined} */ (emitterOpts.namespace);
+    // Python namespace approval reviews the distribution package name, not the import namespace.
+    const packageName =
+      lang === "python"
+        ? /** @type {string | undefined} */ (emitterOpts["package-name"])
+        : undefined;
+    const ns = packageName ?? /** @type {string | undefined} */ (emitterOpts.namespace);
     if (ns) {
       namespacesFound[lang] = ns;
     }
