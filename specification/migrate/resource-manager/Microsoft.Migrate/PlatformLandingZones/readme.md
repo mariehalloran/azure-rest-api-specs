@@ -40,10 +40,8 @@ input-file:
 
 ```yaml
 directive:
-  - suppress: EnumInsteadOfBoolean
-    from: platformlandingzones.json
-    reason: The remaining boolean properties are independent binary feature toggles. Related switches that represent one choice are modeled as extensible enums.
   - suppress: MissingSegmentsInNestedResourceListOperation
     from: platformlandingzones.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/migrateProjects/{projectName}/platformLandingZones"].get
     reason: The generated list-by-parent route contains the complete migrateProjects parent path and the platformLandingZones child segment.
 ```
