@@ -57,12 +57,9 @@ vi.mock("../../src/namespace-approval/validate-format.js", () => ({
 const { default: detectNamespaces } =
   await import("../../src/namespace-approval/detect-namespaces.js");
 const { getChangedFilesStatuses } = await import("../../../shared/src/changed-files.js");
-const { writeFile } = await import("fs/promises");
 
 /** @type {import("vitest").Mock} */
 const readFileMock = /** @type {any} */ (readFile);
-/** @type {import("vitest").Mock} */
-const writeFileMock = /** @type {any} */ (writeFile);
 /** @type {import("vitest").Mock} */
 const getChangedFilesStatusesMock = /** @type {any} */ (getChangedFilesStatuses);
 /** @type {import("vitest").Mock} */
@@ -194,33 +191,6 @@ describe("detect-namespaces", () => {
     await detectNamespaces(args());
 
     expect(core.setOutput).toHaveBeenCalledWith("results", "true");
-  });
-
-  it("should prefer the Python package name over the import namespace", async () => {
-    core = createMockCore();
-    context = createMockContext();
-    context.payload = { pull_request: { number: 52 }, action: "opened" };
-    const file = "specification/migrate/PlatformLandingZones.Management/tspconfig.yaml";
-    mockFileStatuses([], { additions: [file] });
-    readFileMock.mockResolvedValue(
-      yaml.dump({
-        linter: {
-          extends: ["@azure-tools/typespec-azure-rulesets/resource-manager"],
-        },
-        options: {
-          "@azure-tools/typespec-python": {
-            namespace: "azure.mgmt.migrate",
-            "package-name": "azure-mgmt-migrate",
-          },
-        },
-      }),
-    );
-
-    await detectNamespaces(args());
-
-    const lastWrite = writeFileMock.mock.calls.at(-1);
-    const results = JSON.parse(lastWrite[1]);
-    expect(results.namespacesFound.python).toBe("azure-mgmt-migrate");
   });
 
   it("should detect data plane from linter extends", async () => {
