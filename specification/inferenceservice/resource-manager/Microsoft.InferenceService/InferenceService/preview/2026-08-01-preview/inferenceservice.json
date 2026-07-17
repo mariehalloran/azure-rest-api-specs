@@ -535,25 +535,6 @@
         }
       }
     },
-    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
-      "type": "object",
-      "title": "Tracked Resource",
-      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/Resource"
-        }
-      ]
-    },
     "InferenceAccount": {
       "type": "object",
       "description": "An inference service account resource for managing inference workloads.",
@@ -622,18 +603,34 @@
     },
     "InferenceAccountUpdate": {
       "type": "object",
-      "description": "An inference service account resource for managing inference workloads.",
+      "description": "The properties that can be updated on an inference service account.",
       "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
         "properties": {
-          "$ref": "#/definitions/InferenceAccountProperties",
+          "$ref": "#/definitions/InferenceAccountUpdateProperties",
           "description": "The resource-specific properties for this resource."
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
+      }
+    },
+    "InferenceAccountUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of the InferenceAccount.",
+      "properties": {
+        "enableKeyBasedAuthentication": {
+          "type": "boolean",
+          "description": "Whether key-based authentication is enabled for the inference account.",
+          "x-ms-mutability": [
+            "read",
+            "update"
+          ]
         }
-      ]
+      }
     },
     "KeyType": {
       "type": "string",

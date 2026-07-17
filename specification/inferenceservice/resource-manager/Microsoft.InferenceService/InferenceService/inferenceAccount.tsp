@@ -19,7 +19,7 @@ model InferenceAccount is TrackedResource<InferenceAccountProperties> {
 
 // Design note: this properties bag had no writable fields in 2026-01-15-preview.
 // Key-based authentication configuration becomes writable in 2026-08-01-preview.
-/** Properties of an inference service account. */
+/** Read-only properties of an inference service account. */
 model InferenceAccountProperties {
   /** The REST endpoint for the inference account */
   @visibility(Lifecycle.Read)
