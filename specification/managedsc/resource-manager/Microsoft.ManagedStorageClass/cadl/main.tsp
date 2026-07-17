@@ -247,14 +247,13 @@ alias StorageClassPropertiesUpdate = StorageClassProperties &
   OmitProperties<BlobStorageClassProperties, "type">;
 
 @doc("The model for updating managedStorageClass properties")
-model ManagedStorageClassPropertiesUpdate
-  extends OmitProperties<
-    Azure.ResourceManager.Foundations.ResourceUpdateModelProperties<
-      ManagedStorageClassResource,
-      ManagedStorageClassProperties
-    >,
-    "storageClassProperties"
-  > {
+model ManagedStorageClassPropertiesUpdate extends OmitProperties<
+  Azure.ResourceManager.Foundations.ResourceUpdateModelProperties<
+    ManagedStorageClassResource,
+    ManagedStorageClassProperties
+  >,
+  "storageClassProperties"
+> {
   @doc("New storage class properties of ManagedStorageClass")
   storageClassProperties?: StorageClassPropertiesUpdate;
 }
