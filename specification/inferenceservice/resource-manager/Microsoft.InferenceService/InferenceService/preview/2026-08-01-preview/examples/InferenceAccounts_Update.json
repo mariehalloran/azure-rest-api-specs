@@ -9,6 +9,9 @@
     "properties": {
       "tags": {
         "Environment": "Production"
+      },
+      "properties": {
+        "enableKeyBasedAuthentication": true
       }
     }
   },
@@ -17,7 +20,8 @@
       "body": {
         "properties": {
           "provisioningState": "Succeeded",
-          "endpoint": "https://inference-acc-specs.eastus2.dbinference.azure.com"
+          "endpoint": "https://inference-acc-specs.eastus2.dbinference.azure.com",
+          "enableKeyBasedAuthentication": true
         },
         "tags": {
           "Environment": "Production"

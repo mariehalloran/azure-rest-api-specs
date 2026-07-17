@@ -40,6 +40,13 @@ model InferenceAccountProperties {
   keysMetadata?: KeysMetadata;
 }
 
+/** The properties that can be updated on an inference service account. */
+@added(Versions.v2026_08_01_preview)
+model InferenceAccountUpdate is ResourceUpdateModel<
+  InferenceAccount,
+  InferenceAccountProperties
+>;
+
 /** The resource provisioning state. */
 union ProvisioningState {
   ResourceProvisioningState,
@@ -117,7 +124,7 @@ interface InferenceAccounts {
 
   @TypeSpec.Http.sharedRoute
   @added(Versions.v2026_08_01_preview)
-  update is ArmResourcePatchSync<InferenceAccount, InferenceAccountProperties>;
+  update is ArmCustomPatchSync<InferenceAccount, InferenceAccountUpdate>;
 
   @Azure.Core.useFinalStateVia("azure-async-operation")
   delete is ArmResourceDeleteWithoutOkAsync<
