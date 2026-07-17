@@ -1,5 +1,8 @@
+import "@typespec/versioning";
 import "../Enums/Enums.tsp";
 import "./NetworkTypes.tsp";
+
+using TypeSpec.Versioning;
 
 namespace Microsoft.Migrate;
 
@@ -8,6 +11,13 @@ namespace Microsoft.Migrate;
 model FirewallConfig {
   @doc("Firewall implementation kind.")
   kind: FirewallKind;
+}
+
+@added(ApiVersions.v2026_02_01_preview)
+@doc("Configuration indicating that no firewall is deployed.")
+model NoFirewallConfig extends FirewallConfig {
+  @doc("No firewall implementation.")
+  kind: FirewallKind.None;
 }
 
 @doc("Azure Firewall configuration.")
@@ -48,6 +58,10 @@ model ThirdPartyNvaFirewallConfig extends FirewallConfig {
 
 @doc("Azure Bastion configuration.")
 model BastionConfig {
+  @added(ApiVersions.v2026_02_01_preview)
+  @doc("Whether Azure Bastion is deployed.")
+  deploymentMode?: ConnectivityComponentDeploymentMode;
+
   @doc("Bastion stock keeping unit.")
   sku?: BastionSku;
 
@@ -65,6 +79,10 @@ model BastionConfig {
 
 @doc("Azure distributed denial-of-service protection configuration.")
 model DdosProtectionConfig {
+  @added(ApiVersions.v2026_02_01_preview)
+  @doc("Whether distributed denial-of-service protection is deployed.")
+  deploymentMode?: ConnectivityComponentDeploymentMode;
+
   @doc("Distributed denial-of-service protection plan.")
   plan?: DdosProtectionPlan;
 }
@@ -88,16 +106,23 @@ model PrivateDnsConfig {
 @discriminator("topology")
 model VpnGatewayConfig {
   @doc("Connectivity topology implemented by the virtual private network gateway.")
-  topology: ConnectivityTopology;
+  topology: GatewayTopology;
 
   @doc("Azure regions where the virtual private network gateway is deployed.")
   deployInRegions?: string[];
 }
 
+@added(ApiVersions.v2026_02_01_preview)
+@doc("Configuration indicating that no virtual private network gateway is deployed.")
+model NoVpnGatewayConfig extends VpnGatewayConfig {
+  @doc("No virtual private network gateway topology.")
+  topology: GatewayTopology.None;
+}
+
 @doc("Hub-and-spoke virtual private network gateway configuration.")
 model HubAndSpokeVpnGatewayConfig extends VpnGatewayConfig {
   @doc("Hub-and-spoke connectivity topology.")
-  topology: ConnectivityTopology.HubAndSpoke;
+  topology: GatewayTopology.HubAndSpoke;
 
   @doc("Virtual private network gateway stock keeping unit.")
   sku?: VpnGatewaySku;
@@ -112,7 +137,7 @@ model HubAndSpokeVpnGatewayConfig extends VpnGatewayConfig {
 @doc("Azure Virtual WAN virtual private network gateway configuration.")
 model VirtualWanVpnGatewayConfig extends VpnGatewayConfig {
   @doc("Azure Virtual WAN connectivity topology.")
-  topology: ConnectivityTopology.VirtualWan;
+  topology: GatewayTopology.VirtualWan;
 
   @doc("Number of Azure Virtual WAN virtual private network gateway scale units.")
   @minValue(1)
@@ -124,16 +149,23 @@ model VirtualWanVpnGatewayConfig extends VpnGatewayConfig {
 @discriminator("topology")
 model ExpressRouteConfig {
   @doc("Connectivity topology implemented by the ExpressRoute gateway.")
-  topology: ConnectivityTopology;
+  topology: GatewayTopology;
 
   @doc("Azure regions where the ExpressRoute gateway is deployed.")
   deployInRegions?: string[];
 }
 
+@added(ApiVersions.v2026_02_01_preview)
+@doc("Configuration indicating that no ExpressRoute gateway is deployed.")
+model NoExpressRouteConfig extends ExpressRouteConfig {
+  @doc("No ExpressRoute gateway topology.")
+  topology: GatewayTopology.None;
+}
+
 @doc("Hub-and-spoke ExpressRoute Gateway configuration.")
 model HubAndSpokeExpressRouteConfig extends ExpressRouteConfig {
   @doc("Hub-and-spoke connectivity topology.")
-  topology: ConnectivityTopology.HubAndSpoke;
+  topology: GatewayTopology.HubAndSpoke;
 
   @doc("ExpressRoute gateway stock keeping unit.")
   sku?: ExpressRouteGatewaySku;
@@ -145,7 +177,7 @@ model HubAndSpokeExpressRouteConfig extends ExpressRouteConfig {
 @doc("Azure Virtual WAN ExpressRoute gateway configuration.")
 model VirtualWanExpressRouteConfig extends ExpressRouteConfig {
   @doc("Azure Virtual WAN connectivity topology.")
-  topology: ConnectivityTopology.VirtualWan;
+  topology: GatewayTopology.VirtualWan;
 
   @doc("Number of Azure Virtual WAN ExpressRoute gateway scale units.")
   @minValue(1)

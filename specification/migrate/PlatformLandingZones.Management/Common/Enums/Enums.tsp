@@ -1,3 +1,7 @@
+import "@typespec/versioning";
+
+using TypeSpec.Versioning;
+
 namespace Microsoft.Migrate;
 
 @doc("Role of an Azure region within the landing zone.")
@@ -56,6 +60,10 @@ union PlatformSubscriptionModel {
 union FirewallKind {
   string,
 
+  @added(ApiVersions.v2026_02_01_preview)
+  @doc("No firewall is deployed.")
+  None: "None",
+
   @doc("Azure Firewall.")
   AzureFirewall: "AzureFirewall",
 
@@ -91,8 +99,42 @@ union IdpsMode {
 union PrivateDnsZoneMode {
   string,
 
+  @added(ApiVersions.v2026_02_01_preview)
+  @doc("Do not deploy private domain name system zones or centralized resolution resources.")
+  None: "None",
+
   @doc("Deploy Azure Private Link private DNS zones and an auto-registration private DNS zone.")
   PrivateLinkAndAutoRegistration: "PrivateLinkAndAutoRegistration",
+}
+
+@doc("Whether a platform connectivity component is deployed.")
+@added(ApiVersions.v2026_02_01_preview)
+union ConnectivityComponentDeploymentMode {
+  string,
+
+  @added(ApiVersions.v2026_02_01_preview)
+  @doc("Deploy the component.")
+  Enabled: "Enabled",
+
+  @added(ApiVersions.v2026_02_01_preview)
+  @doc("Do not deploy the component.")
+  Disabled: "Disabled",
+}
+
+@doc("Topology implemented by an optional connectivity gateway.")
+@added(ApiVersions.v2026_02_01_preview)
+union GatewayTopology {
+  string,
+
+  @added(ApiVersions.v2026_02_01_preview)
+  @doc("No gateway is deployed.")
+  None: "None",
+
+  @doc("Hub-and-spoke virtual network topology.")
+  HubAndSpoke: "HubAndSpoke",
+
+  @doc("Azure Virtual WAN topology.")
+  VirtualWan: "VirtualWan",
 }
 
 @doc("Connectivity resources deployed in an Azure region.")
@@ -249,10 +291,13 @@ union PolicyEffect {
 @doc("Version control system used to materialize the platform landing zone.")
 union VersionControlSystem {
   string,
+
   @doc("Azure DevOps.")
   AzureDevOps: "AzureDevOps",
+
   @doc("GitHub source control.")
   GitHub: "GitHub",
+
   @doc("Local output without a remote repository.")
   Local: "Local",
 }
@@ -260,10 +305,13 @@ union VersionControlSystem {
 @doc("Asynchronous landing-zone generation status.")
 union PlatformLandingZoneGenerationStatus {
   string,
+
   @doc("Generation is running.")
   Running: "Running",
+
   @doc("Generation succeeded.")
   Succeeded: "Succeeded",
+
   @doc("Generation failed.")
   Failed: "Failed",
 }

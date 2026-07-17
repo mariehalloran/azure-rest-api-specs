@@ -549,6 +549,10 @@
       "type": "object",
       "description": "Azure Bastion configuration.",
       "properties": {
+        "deploymentMode": {
+          "$ref": "#/definitions/ConnectivityComponentDeploymentMode",
+          "description": "Whether Azure Bastion is deployed."
+        },
         "sku": {
           "$ref": "#/definitions/BastionSku",
           "description": "Bastion stock keeping unit."
@@ -636,6 +640,30 @@
         "topology"
       ]
     },
+    "ConnectivityComponentDeploymentMode": {
+      "type": "string",
+      "description": "Whether a platform connectivity component is deployed.",
+      "enum": [
+        "Enabled",
+        "Disabled"
+      ],
+      "x-ms-enum": {
+        "name": "ConnectivityComponentDeploymentMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Enabled",
+            "value": "Enabled",
+            "description": "Deploy the component."
+          },
+          {
+            "name": "Disabled",
+            "value": "Disabled",
+            "description": "Do not deploy the component."
+          }
+        ]
+      }
+    },
     "ConnectivityTopology": {
       "type": "string",
       "description": "Connectivity topology for the platform landing zone.",
@@ -664,6 +692,10 @@
       "type": "object",
       "description": "Azure distributed denial-of-service protection configuration.",
       "properties": {
+        "deploymentMode": {
+          "$ref": "#/definitions/ConnectivityComponentDeploymentMode",
+          "description": "Whether distributed denial-of-service protection is deployed."
+        },
         "plan": {
           "$ref": "#/definitions/DdosProtectionPlan",
           "description": "Distributed denial-of-service protection plan."
@@ -732,7 +764,7 @@
       "description": "ExpressRoute Gateway configuration.",
       "properties": {
         "topology": {
-          "$ref": "#/definitions/ConnectivityTopology",
+          "$ref": "#/definitions/GatewayTopology",
           "description": "Connectivity topology implemented by the ExpressRoute gateway."
         },
         "deployInRegions": {
@@ -784,6 +816,7 @@
       "type": "string",
       "description": "Firewall implementation used by the platform landing zone.",
       "enum": [
+        "None",
         "AzureFirewall",
         "ThirdPartyNva"
       ],
@@ -791,6 +824,11 @@
         "name": "FirewallKind",
         "modelAsString": true,
         "values": [
+          {
+            "name": "None",
+            "value": "None",
+            "description": "No firewall is deployed."
+          },
           {
             "name": "AzureFirewall",
             "value": "AzureFirewall",
@@ -800,6 +838,36 @@
             "name": "ThirdPartyNva",
             "value": "ThirdPartyNva",
             "description": "Third-party network virtual appliance."
+          }
+        ]
+      }
+    },
+    "GatewayTopology": {
+      "type": "string",
+      "description": "Topology implemented by an optional connectivity gateway.",
+      "enum": [
+        "None",
+        "HubAndSpoke",
+        "VirtualWan"
+      ],
+      "x-ms-enum": {
+        "name": "GatewayTopology",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None",
+            "description": "No gateway is deployed."
+          },
+          {
+            "name": "HubAndSpoke",
+            "value": "HubAndSpoke",
+            "description": "Hub-and-spoke virtual network topology."
+          },
+          {
+            "name": "VirtualWan",
+            "value": "VirtualWan",
+            "description": "Azure Virtual WAN topology."
           }
         ]
       }
@@ -991,6 +1059,36 @@
           "description": "Service endpoint."
         }
       }
+    },
+    "NoExpressRouteConfig": {
+      "type": "object",
+      "description": "Configuration indicating that no ExpressRoute gateway is deployed.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ExpressRouteConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "None"
+    },
+    "NoFirewallConfig": {
+      "type": "object",
+      "description": "Configuration indicating that no firewall is deployed.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/FirewallConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "None"
+    },
+    "NoVpnGatewayConfig": {
+      "type": "object",
+      "description": "Configuration indicating that no virtual private network gateway is deployed.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/VpnGatewayConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "None"
     },
     "NvaVendor": {
       "type": "string",
@@ -1412,12 +1510,18 @@
       "type": "string",
       "description": "Private domain name system zone deployment mode.",
       "enum": [
+        "None",
         "PrivateLinkAndAutoRegistration"
       ],
       "x-ms-enum": {
         "name": "PrivateDnsZoneMode",
         "modelAsString": true,
         "values": [
+          {
+            "name": "None",
+            "value": "None",
+            "description": "Do not deploy private domain name system zones or centralized resolution resources."
+          },
           {
             "name": "PrivateLinkAndAutoRegistration",
             "value": "PrivateLinkAndAutoRegistration",
@@ -1671,7 +1775,7 @@
       "description": "Virtual private network gateway configuration.",
       "properties": {
         "topology": {
-          "$ref": "#/definitions/ConnectivityTopology",
+          "$ref": "#/definitions/GatewayTopology",
           "description": "Connectivity topology implemented by the virtual private network gateway."
         },
         "deployInRegions": {
