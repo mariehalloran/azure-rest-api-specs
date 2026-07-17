@@ -3,7 +3,7 @@
   "info": {
     "title": "Azure Arc VMware Management Service API",
     "description": "Self service experience for VMware.",
-    "version": "2023-03-01-preview"
+    "version": "2020-10-01-preview"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -61,136 +61,13 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
         "deprecated": false,
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines/{virtualMachineName}/assessPatches": {
-      "post": {
-        "tags": [
-          "VirtualMachines"
-        ],
-        "operationId": "VirtualMachines_AssessPatches",
-        "x-ms-examples": {
-          "Assess patch state of a machine.": {
-            "$ref": "./examples/VirtualMachineAssessPatches.json"
-          }
-        },
-        "description": "The operation to assess patches on a vSphere VMware machine identity in Azure.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/subscriptionId"
-          },
-          {
-            "name": "resourceGroupName",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "The name of the resource group."
-          },
-          {
-            "name": "virtualMachineName",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "The name of the vSphere VMware machine."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/VirtualMachineAssessPatchesResult"
-            }
-          },
-          "202": {
-            "description": "HTTP 202 (Accepted) if the operation was successfully started and will complete asynchronously."
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-long-running-operation": true,
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines/{virtualMachineName}/installPatches": {
-      "post": {
-        "tags": [
-          "VirtualMachines"
-        ],
-        "operationId": "VirtualMachines_InstallPatches",
-        "description": "The operation to install patches on a vSphere VMware machine identity in Azure.",
-        "x-ms-examples": {
-          "Install patch state of a machine.": {
-            "$ref": "./examples/VirtualMachineInstallPatches.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "#/parameters/subscriptionId"
-          },
-          {
-            "name": "resourceGroupName",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "The name of the resource group."
-          },
-          {
-            "name": "virtualMachineName",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "The name of the vSphere VMware machine."
-          },
-          {
-            "name": "installPatchesInput",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/VirtualMachineInstallPatchesParameters"
-            },
-            "description": "Input for InstallPatches as directly received by the API"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/VirtualMachineInstallPatchesResult"
-            }
-          },
-          "202": {
-            "description": "HTTP 202 (Accepted) if the operation was successfully started and will complete asynchronously."
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-long-running-operation": true,
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
         }
       }
     },
@@ -255,7 +132,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -307,7 +184,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -366,7 +243,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -424,7 +301,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -465,7 +342,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -511,7 +388,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -581,7 +458,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -633,7 +510,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -692,7 +569,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -750,7 +627,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -791,7 +668,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -837,7 +714,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -907,7 +784,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -959,7 +836,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -1018,7 +895,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -1076,7 +953,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1117,7 +994,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1163,7 +1040,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1233,7 +1110,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1285,7 +1162,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -1344,7 +1221,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -1402,7 +1279,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1443,7 +1320,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1489,7 +1366,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1559,7 +1436,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1611,7 +1488,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -1670,7 +1547,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -1728,7 +1605,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1769,7 +1646,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1815,7 +1692,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1829,7 +1706,7 @@
         "tags": [
           "VirtualMachines"
         ],
-        "operationId": "VirtualMachines_CreateOrUpdate",
+        "operationId": "VirtualMachines_Create",
         "description": "Create Or Update virtual machine.",
         "summary": "Implements virtual machine PUT method.",
         "x-ms-examples": {
@@ -1885,7 +1762,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1937,7 +1814,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -1999,13 +1876,10 @@
               "$ref": "#/definitions/VirtualMachine"
             }
           },
-          "202": {
-            "description": "Accepted"
-          },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -2045,13 +1919,6 @@
           },
           {
             "in": "query",
-            "name": "deleteFromHost",
-            "description": "Whether to delete the VM from the vCenter.",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "in": "query",
             "name": "force",
             "description": "Whether force delete was specified.",
             "required": false,
@@ -2071,7 +1938,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -2130,14 +1997,11 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
-        "x-ms-long-running-operation": true,
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        }
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines/{virtualMachineName}/start": {
@@ -2181,14 +2045,11 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
-        "x-ms-long-running-operation": true,
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        }
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines/{virtualMachineName}/restart": {
@@ -2232,14 +2093,11 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
-        "x-ms-long-running-operation": true,
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        }
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines": {
@@ -2247,7 +2105,7 @@
         "tags": [
           "VirtualMachines"
         ],
-        "operationId": "VirtualMachines_ListAll",
+        "operationId": "VirtualMachines_List",
         "summary": "Implements GET virtualMachines in a subscription.",
         "description": "List of virtualMachines in a subscription.",
         "x-ms-examples": {
@@ -2276,7 +2134,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -2290,7 +2148,7 @@
         "tags": [
           "VirtualMachines"
         ],
-        "operationId": "VirtualMachines_List",
+        "operationId": "VirtualMachines_ListByResourceGroup",
         "summary": "Implements GET virtualMachines in a resource group.",
         "description": "List of virtualMachines in a resource group.",
         "x-ms-examples": {
@@ -2322,7 +2180,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -2392,7 +2250,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -2444,7 +2302,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -2503,7 +2361,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -2561,7 +2419,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -2602,7 +2460,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -2648,7 +2506,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -2718,7 +2576,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -2770,7 +2628,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -2829,7 +2687,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -2887,7 +2745,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -2928,7 +2786,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -2974,7 +2832,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -3045,7 +2903,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -3100,7 +2958,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -3155,7 +3013,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -3205,7 +3063,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -3276,7 +3134,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -3331,7 +3189,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -3386,7 +3244,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -3397,7 +3255,7 @@
         "tags": [
           "HybridIdentityMetadata"
         ],
-        "operationId": "HybridIdentityMetadata_List",
+        "operationId": "HybridIdentityMetadata_ListByVm",
         "summary": "Implements GET HybridIdentityMetadata in a vm.",
         "description": "Returns the list of HybridIdentityMetadata of the given vm.",
         "x-ms-examples": {
@@ -3436,7 +3294,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -3445,7 +3303,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines/{virtualMachineName}/extensions/{extensionName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines/{name}/extensions/{extensionName}": {
       "put": {
         "tags": [
           "MachineExtensions"
@@ -3463,7 +3321,7 @@
             "$ref": "#/parameters/api-version"
           },
           {
-            "name": "virtualMachineName",
+            "name": "name",
             "in": "path",
             "required": true,
             "type": "string",
@@ -3502,7 +3360,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -3533,7 +3391,7 @@
             "$ref": "#/parameters/api-version"
           },
           {
-            "name": "virtualMachineName",
+            "name": "name",
             "in": "path",
             "required": true,
             "type": "string",
@@ -3572,7 +3430,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -3600,7 +3458,7 @@
             "$ref": "#/parameters/api-version"
           },
           {
-            "name": "virtualMachineName",
+            "name": "name",
             "in": "path",
             "required": true,
             "type": "string",
@@ -3627,7 +3485,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -3655,7 +3513,7 @@
             "$ref": "#/parameters/api-version"
           },
           {
-            "name": "virtualMachineName",
+            "name": "name",
             "in": "path",
             "required": true,
             "type": "string",
@@ -3679,7 +3537,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -3690,7 +3548,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines/{virtualMachineName}/extensions": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines/{name}/extensions": {
       "get": {
         "tags": [
           "MachineExtensions"
@@ -3708,7 +3566,7 @@
             "$ref": "#/parameters/api-version"
           },
           {
-            "name": "virtualMachineName",
+            "name": "name",
             "in": "path",
             "required": true,
             "type": "string",
@@ -3732,7 +3590,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -3746,71 +3604,12 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines/{virtualMachineName}/upgradeExtensions": {
-      "post": {
-        "tags": [
-          "MachineExtensions Upgrade"
-        ],
-        "operationId": "UpgradeExtensions",
-        "description": "The operation to Upgrade Machine Extensions.",
-        "parameters": [
-          {
-            "$ref": "#/parameters/subscriptionId"
-          },
-          {
-            "$ref": "#/parameters/resourceGroupName"
-          },
-          {
-            "$ref": "#/parameters/api-version"
-          },
-          {
-            "name": "virtualMachineName",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "The name of the machine containing the extension."
-          },
-          {
-            "name": "extensionUpgradeParameters",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/MachineExtensionUpgrade"
-            },
-            "description": "Parameters supplied to the Upgrade Extensions operation."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "202": {
-            "description": "HTTP 202 (Accepted) if the operation was successfully started and will complete asynchronously."
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Upgrade Machine Extensions": {
-            "$ref": "./examples/Extensions_Upgrade.json"
-          }
-        },
-        "x-ms-long-running-operation": true,
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        }
-      }
-    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines/{virtualMachineName}/guestAgents/{name}": {
       "put": {
         "tags": [
           "GuestAgents"
         ],
-        "operationId": "GuestAgents_Create",
+        "operationId": "GuestAgent_Create",
         "description": "Create Or Update GuestAgent.",
         "summary": "Implements GuestAgent PUT method.",
         "x-ms-examples": {
@@ -3873,7 +3672,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -3886,7 +3685,7 @@
         "tags": [
           "GuestAgents"
         ],
-        "operationId": "GuestAgents_Get",
+        "operationId": "GuestAgent_Get",
         "summary": "Gets GuestAgent.",
         "description": "Implements GuestAgent GET method.",
         "x-ms-examples": {
@@ -3932,7 +3731,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -3941,7 +3740,7 @@
         "tags": [
           "GuestAgents"
         ],
-        "operationId": "GuestAgents_Delete",
+        "operationId": "GuestAgent_Delete",
         "summary": "Deletes an GuestAgent.",
         "description": "Implements GuestAgent DELETE method.",
         "x-ms-examples": {
@@ -3990,7 +3789,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -4002,7 +3801,7 @@
         "tags": [
           "GuestAgents"
         ],
-        "operationId": "GuestAgents_List",
+        "operationId": "GuestAgent_ListByVm",
         "summary": "Implements GET GuestAgent in a vm.",
         "description": "Returns the list of GuestAgent of the given vm.",
         "x-ms-examples": {
@@ -4041,662 +3840,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/{resourceUri}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachineInstances/default": {
-      "put": {
-        "tags": [
-          "VirtualMachineInstances"
-        ],
-        "operationId": "VirtualMachineInstances_CreateOrUpdate",
-        "description": "The operation to create or update a virtual machine instance. Please note some properties can be set only during virtual machine instance creation.",
-        "summary": "Implements virtual machine PUT method.",
-        "x-ms-examples": {
-          "CreateVirtualMachine": {
-            "$ref": "./examples/CreateVirtualMachineInstance.json"
-          }
-        },
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/resourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/api-version"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Request payload.",
-            "schema": {
-              "$ref": "#/definitions/VirtualMachineInstance"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/VirtualMachineInstance"
-            }
-          },
-          "201": {
-            "description": "Created",
-            "schema": {
-              "$ref": "#/definitions/VirtualMachineInstance"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-long-running-operation": true,
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        }
-      },
-      "get": {
-        "tags": [
-          "VirtualMachineInstances"
-        ],
-        "operationId": "VirtualMachineInstances_Get",
-        "summary": "Gets a virtual machine.",
-        "description": "Retrieves information about a virtual machine instance.",
-        "x-ms-examples": {
-          "GetVirtualMachine": {
-            "$ref": "./examples/GetVirtualMachineInstance.json"
-          }
-        },
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/resourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/api-version"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/VirtualMachineInstance"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "VirtualMachineInstances"
-        ],
-        "operationId": "VirtualMachineInstances_Update",
-        "summary": "Updates a virtual machine.",
-        "description": "The operation to update a virtual machine instance.",
-        "x-ms-examples": {
-          "UpdateVirtualMachine": {
-            "$ref": "./examples/UpdateVirtualMachineInstance.json"
-          }
-        },
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/resourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/api-version"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Resource properties to update.",
-            "schema": {
-              "$ref": "#/definitions/VirtualMachineInstanceUpdate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/VirtualMachineInstance"
-            }
-          },
-          "202": {
-            "description": "Accepted"
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-long-running-operation": true,
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        }
-      },
-      "delete": {
-        "tags": [
-          "VirtualMachineInstances"
-        ],
-        "operationId": "VirtualMachineInstances_Delete",
-        "summary": "Deletes an virtual machine.",
-        "description": "The operation to delete a virtual machine instance.",
-        "x-ms-examples": {
-          "DeleteVirtualMachine": {
-            "$ref": "./examples/DeleteVirtualMachineInstance.json"
-          }
-        },
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/resourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/api-version"
-          },
-          {
-            "in": "query",
-            "name": "deleteFromHost",
-            "description": "Whether to delete the VM from the vCenter.",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "in": "query",
-            "name": "force",
-            "description": "Whether force delete was specified.",
-            "required": false,
-            "type": "boolean"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "202": {
-            "description": "Accepted"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-long-running-operation": true,
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        }
-      }
-    },
-    "/{resourceUri}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachineInstances": {
-      "get": {
-        "tags": [
-          "VirtualMachineInstances"
-        ],
-        "operationId": "VirtualMachineInstances_List",
-        "summary": "Implements List virtual machine instances.",
-        "description": "Lists all of the virtual machine instances within the specified parent resource.",
-        "x-ms-examples": {
-          "GetVirtualMachine": {
-            "$ref": "./examples/ListVirtualMachineInstances.json"
-          }
-        },
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/resourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/api-version"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/VirtualMachineInstancesList"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/{resourceUri}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachineInstances/default/stop": {
-      "post": {
-        "tags": [
-          "VirtualMachineInstances"
-        ],
-        "operationId": "VirtualMachineInstances_Stop",
-        "description": "The operation to power off (stop) a virtual machine instance.",
-        "summary": "Implements the operation to stop a virtual machine.",
-        "x-ms-examples": {
-          "StopVirtualMachine": {
-            "$ref": "./examples/StopVirtualMachineInstance.json"
-          }
-        },
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/resourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/api-version"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Virtualmachine stop action payload.",
-            "schema": {
-              "$ref": "#/definitions/StopVirtualMachineOptions"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "202": {
-            "description": "Accepted"
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-long-running-operation": true,
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        }
-      }
-    },
-    "/{resourceUri}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachineInstances/default/start": {
-      "post": {
-        "tags": [
-          "VirtualMachineInstances"
-        ],
-        "operationId": "VirtualMachineInstances_Start",
-        "description": "The operation to start a virtual machine instance.",
-        "summary": "Implements the operation to start a virtual machine.",
-        "x-ms-examples": {
-          "StartVirtualMachine": {
-            "$ref": "./examples/StartVirtualMachineInstance.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "#/parameters/resourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/api-version"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "202": {
-            "description": "Accepted"
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-long-running-operation": true,
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        }
-      }
-    },
-    "/{resourceUri}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachineInstances/default/restart": {
-      "post": {
-        "tags": [
-          "VirtualMachineInstances"
-        ],
-        "operationId": "VirtualMachineInstances_Restart",
-        "description": "The operation to restart a virtual machine instance.",
-        "summary": "Implements the operation to restart a virtual machine.",
-        "x-ms-examples": {
-          "RestartVirtualMachine": {
-            "$ref": "./examples/RestartVirtualMachineInstance.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "#/parameters/resourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/api-version"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "202": {
-            "description": "Accepted"
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-long-running-operation": true,
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        }
-      }
-    },
-    "/{resourceUri}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachineInstances/default/hybridIdentityMetadata/default": {
-      "get": {
-        "tags": [
-          "VmInstanceHybridIdentityMetadata"
-        ],
-        "operationId": "VmInstanceHybridIdentityMetadata_Get",
-        "summary": "Gets HybridIdentityMetadata.",
-        "description": "Implements HybridIdentityMetadata GET method.",
-        "x-ms-examples": {
-          "GetHybridIdentityMetadata": {
-            "$ref": "./examples/GetVmInstanceHybridIdentityMetadata.json"
-          }
-        },
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/resourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/api-version"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/VmInstanceHybridIdentityMetadata"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/{resourceUri}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachineInstances/default/hybridIdentityMetadata": {
-      "get": {
-        "tags": [
-          "VmInstanceHybridIdentityMetadata"
-        ],
-        "operationId": "VmInstanceHybridIdentityMetadata_List",
-        "summary": "Implements GET HybridIdentityMetadata in a vm.",
-        "description": "Returns the list of HybridIdentityMetadata of the given vm.",
-        "x-ms-examples": {
-          "HybridIdentityMetadataListByVm": {
-            "$ref": "./examples/HybridIdentityMetadata_ListByVmInstance.json"
-          }
-        },
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/resourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/api-version"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/VmInstanceHybridIdentityMetadataList"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/{resourceUri}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachineInstances/default/guestAgents/default": {
-      "put": {
-        "tags": [
-          "VMInstanceGuestAgents"
-        ],
-        "operationId": "VMInstanceGuestAgents_Create",
-        "description": "Create Or Update GuestAgent.",
-        "summary": "Implements GuestAgent PUT method.",
-        "x-ms-examples": {
-          "CreateGuestAgent": {
-            "$ref": "./examples/CreateVMInstanceGuestAgent.json"
-          }
-        },
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/resourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/api-version"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Request payload.",
-            "schema": {
-              "$ref": "#/definitions/GuestAgent"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/GuestAgent"
-            }
-          },
-          "201": {
-            "description": "Created",
-            "schema": {
-              "$ref": "#/definitions/GuestAgent"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-long-running-operation": true,
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        }
-      },
-      "get": {
-        "tags": [
-          "VMInstanceGuestAgents"
-        ],
-        "operationId": "VMInstanceGuestAgents_Get",
-        "summary": "Gets GuestAgent.",
-        "description": "Implements GuestAgent GET method.",
-        "x-ms-examples": {
-          "GetGuestAgent": {
-            "$ref": "./examples/GetVMInstanceGuestAgent.json"
-          }
-        },
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/resourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/api-version"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/GuestAgent"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "VMInstanceGuestAgents"
-        ],
-        "operationId": "VMInstanceGuestAgents_Delete",
-        "summary": "Deletes an GuestAgent.",
-        "description": "Implements GuestAgent DELETE method.",
-        "x-ms-examples": {
-          "DeleteGuestAgent": {
-            "$ref": "./examples/DeleteVMInstanceGuestAgent.json"
-          }
-        },
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/resourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/api-version"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "202": {
-            "description": "Accepted"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-long-running-operation": true
-      }
-    },
-    "/{resourceUri}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachineInstances/default/guestAgents": {
-      "get": {
-        "tags": [
-          "VMInstanceGuestAgents"
-        ],
-        "operationId": "VMInstanceGuestAgents_List",
-        "summary": "Implements GET GuestAgent in a vm.",
-        "description": "Returns the list of GuestAgent of the given vm.",
-        "x-ms-examples": {
-          "GuestAgentListByVm": {
-            "$ref": "./examples/VMInstanceGuestAgent_ListByVm.json"
-          }
-        },
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/resourceUriParameter"
-          },
-          {
-            "$ref": "#/parameters/api-version"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/GuestAgentList"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -4721,7 +3865,7 @@
       "description": "Object containing updates for patch operations."
     },
     "ResourcePoolProperties": {
-      "description": "Describes the properties of a Resource Pool.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "uuid": {
@@ -4780,49 +3924,9 @@
           "type": "integer",
           "readOnly": true
         },
-        "memOverallUsageGB": {
-          "format": "int64",
-          "description": "Gets the used physical memory on the pool in GB.",
-          "type": "integer",
-          "readOnly": true
-        },
-        "memCapacityGB": {
-          "format": "int64",
-          "description": "Gets the total amount of physical memory on the pool in GB.",
-          "type": "integer",
-          "readOnly": true
-        },
-        "CPUOverallUsageMHz": {
-          "format": "int64",
-          "description": "Gets the used CPU usage across all cores on the pool in MHz.",
-          "type": "integer",
-          "readOnly": true
-        },
-        "CPUCapacityMHz": {
-          "format": "int64",
-          "description": "Gets the max CPU usage across all cores on the pool in MHz.",
-          "type": "integer",
-          "readOnly": true
-        },
         "customResourceName": {
           "description": "Gets the name of the corresponding resource in Kubernetes.",
           "type": "string",
-          "readOnly": true
-        },
-        "datastoreIds": {
-          "description": "Gets the datastore ARM ids.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "readOnly": true
-        },
-        "networkIds": {
-          "description": "Gets the network ARM ids.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
           "readOnly": true
         },
         "statuses": {
@@ -4834,8 +3938,8 @@
           }
         },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
-          "description": "Gets the provisioning state.",
+          "description": "Gets or sets the provisioning state.",
+          "type": "string",
           "readOnly": true
         }
       }
@@ -4867,7 +3971,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -4900,7 +4004,6 @@
     },
     "ResourcePoolsList": {
       "description": "List of ResourcePools.",
-      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of ResourcePools.",
@@ -4939,7 +4042,6 @@
     },
     "ResourceStatus": {
       "description": "The resource status information.",
-      "type": "object",
       "properties": {
         "type": {
           "description": "The type of the condition.",
@@ -4975,7 +4077,7 @@
       }
     },
     "VCenterProperties": {
-      "description": "Describes the properties of a VCenter.",
+      "description": "Defines the resource properties.",
       "required": [
         "fqdn"
       ],
@@ -5030,8 +4132,8 @@
           }
         },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
-          "description": "Gets the provisioning state.",
+          "description": "Gets or sets the provisioning state.",
+          "type": "string",
           "readOnly": true
         }
       }
@@ -5080,7 +4182,6 @@
     },
     "VirtualDisk": {
       "description": "Virtual disk model",
-      "type": "object",
       "properties": {
         "name": {
           "description": "Gets or sets the name of the virtual disk.",
@@ -5132,7 +4233,6 @@
     },
     "Condition": {
       "description": "Condition defines an extension to status.",
-      "type": "object",
       "properties": {
         "status": {
           "description": "Status of the condition.",
@@ -5183,7 +4283,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -5216,7 +4316,6 @@
     },
     "VCentersList": {
       "description": "List of VCenters.",
-      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of VCenters.",
@@ -5247,22 +4346,8 @@
         "name": "OsType"
       }
     },
-    "PatchSettings": {
-      "type": "object",
-      "properties": {
-        "assessmentMode": {
-          "type": "string",
-          "description": "Specifies the assessment mode."
-        },
-        "patchMode": {
-          "type": "string",
-          "description": "Specifies the patch mode."
-        }
-      },
-      "description": "Specifies the patch settings."
-    },
     "OsProfile": {
-      "description": "Specifies the operating system settings for the virtual machine.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "computerName": {
@@ -5281,15 +4366,6 @@
             "update"
           ],
           "x-ms-secret": true
-        },
-        "guestId": {
-          "description": "Gets or sets the guestId.",
-          "type": "string"
-        },
-        "allowExtensionOperations": {
-          "description": "Gets or sets a value indicating whether the VM is ready for extension operations.",
-          "type": "boolean",
-          "readOnly": true
         },
         "osType": {
           "description": "Gets or sets the type of the os.",
@@ -5314,108 +4390,11 @@
           "description": "Gets or sets the current version of VMware Tools.",
           "type": "string",
           "readOnly": true
-        },
-        "windowsConfiguration": {
-          "type": "object",
-          "properties": {
-            "patchSettings": {
-              "x-ms-client-flatten": true,
-              "$ref": "#/definitions/PatchSettings"
-            }
-          },
-          "description": "Specifies the windows configuration for update management."
-        },
-        "linuxConfiguration": {
-          "type": "object",
-          "properties": {
-            "patchSettings": {
-              "x-ms-client-flatten": true,
-              "$ref": "#/definitions/PatchSettings"
-            }
-          },
-          "description": "Specifies the linux configuration for update management."
-        }
-      }
-    },
-    "OsProfileForVMInstance": {
-      "description": "Specifies the operating system settings for the virtual machine.",
-      "type": "object",
-      "properties": {
-        "computerName": {
-          "description": "Gets or sets computer name.",
-          "type": "string"
-        },
-        "adminUsername": {
-          "description": "Gets or sets administrator username.",
-          "type": "string"
-        },
-        "adminPassword": {
-          "description": "Sets administrator password.",
-          "type": "string",
-          "x-ms-mutability": [
-            "create",
-            "update"
-          ],
-          "x-ms-secret": true
-        },
-        "guestId": {
-          "description": "Gets or sets the guestId.",
-          "type": "string"
-        },
-        "osType": {
-          "description": "Gets or sets the type of the os.",
-          "$ref": "#/definitions/OsType"
-        },
-        "osSku": {
-          "description": "Gets or sets os sku.",
-          "type": "string",
-          "readOnly": true
-        },
-        "toolsRunningStatus": {
-          "description": "Gets or sets the current running status of VMware Tools running in the guest operating system.",
-          "type": "string",
-          "readOnly": true
-        },
-        "toolsVersionStatus": {
-          "description": "Gets or sets the current version status of VMware Tools installed in the guest operating system.",
-          "type": "string",
-          "readOnly": true
-        },
-        "toolsVersion": {
-          "description": "Gets or sets the current version of VMware Tools.",
-          "type": "string",
-          "readOnly": true
-        }
-      }
-    },
-    "OsProfileUpdate": {
-      "description": "Specifies the operating system settings for the virtual machine.",
-      "type": "object",
-      "properties": {
-        "windowsConfiguration": {
-          "type": "object",
-          "properties": {
-            "patchSettings": {
-              "x-ms-client-flatten": true,
-              "$ref": "#/definitions/PatchSettings"
-            }
-          },
-          "description": "Specifies the windows configuration for update management."
-        },
-        "linuxConfiguration": {
-          "type": "object",
-          "properties": {
-            "patchSettings": {
-              "x-ms-client-flatten": true,
-              "$ref": "#/definitions/PatchSettings"
-            }
-          },
-          "description": "Specifies the linux configuration for update management."
         }
       }
     },
     "HardwareProfile": {
-      "description": "Specifies the hardware settings for the virtual machine.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "memorySizeMB": {
@@ -5451,7 +4430,7 @@
       }
     },
     "NetworkProfileUpdate": {
-      "description": "Specifies the network interfaces of the virtual machine.",
+      "description": "Defines the update resource properties.",
       "type": "object",
       "properties": {
         "networkInterfaces": {
@@ -5464,7 +4443,7 @@
       }
     },
     "NetworkProfile": {
-      "description": "Specifies the network interfaces of the virtual machine.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "networkInterfaces": {
@@ -5533,7 +4512,7 @@
       }
     },
     "StorageProfile": {
-      "description": "Specifies the storage settings for the virtual machine disks.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "disks": {
@@ -5554,7 +4533,7 @@
       }
     },
     "StorageProfileUpdate": {
-      "description": "Specifies the storage settings for the virtual machine disks.",
+      "description": "Defines the resource update properties.",
       "type": "object",
       "properties": {
         "disks": {
@@ -5567,7 +4546,7 @@
       }
     },
     "GuestAgentProfile": {
-      "description": "Specifies the guest agent settings for the virtual machine.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "vmUuid": {
@@ -5595,15 +4574,6 @@
           "format": "date-time",
           "description": "The time of the last status change."
         },
-        "clientPublicKey": {
-          "description": "Gets or sets the Public Key provided by the client for enabling guest management.",
-          "type": "string"
-        },
-        "mssqlDiscovered": {
-          "readOnly": true,
-          "type": "string",
-          "description": "Specifies whether any MS SQL instance is discovered on the machine."
-        },
         "agentVersion": {
           "readOnly": true,
           "type": "string",
@@ -5613,24 +4583,14 @@
           "readOnly": true,
           "type": "array",
           "items": {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorDetail"
+            "$ref": "#/definitions/ErrorDetail"
           },
           "description": "Details about the error state."
         }
       }
     },
-    "GuestAgentProfileUpdate": {
-      "description": "Specifies the guest agent settings for the virtual machine.",
-      "type": "object",
-      "properties": {
-        "clientPublicKey": {
-          "description": "Gets or sets the Public Key provided by the client for enabling guest management.",
-          "type": "string"
-        }
-      }
-    },
     "PlacementProfile": {
-      "description": "Specifies the compute and storage placement settings for the virtual machine.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "resourcePoolId": {
@@ -5651,77 +4611,6 @@
         }
       }
     },
-    "UefiSettings": {
-      "type": "object",
-      "properties": {
-        "secureBootEnabled": {
-          "type": "boolean",
-          "description": "Specifies whether secure boot should be enabled on the virtual machine."
-        }
-      },
-      "description": "Specifies the security settings like secure boot used while creating the virtual machine."
-    },
-    "SecurityProfile": {
-      "type": "object",
-      "properties": {
-        "uefiSettings": {
-          "$ref": "#/definitions/UefiSettings",
-          "description": "Specifies the security settings like secure boot used while creating the virtual machine."
-        }
-      },
-      "description": "Specifies the Security profile settings for the virtual machine."
-    },
-    "InfrastructureProfile": {
-      "type": "object",
-      "properties": {
-        "templateId": {
-          "description": "Gets or sets the ARM Id of the template resource to deploy the virtual machine.",
-          "type": "string"
-        },
-        "vCenterId": {
-          "description": "Gets or sets the ARM Id of the vCenter resource in which this resource pool resides.",
-          "type": "string"
-        },
-        "moRefId": {
-          "description": "Gets or sets the vCenter MoRef (Managed Object Reference) ID for the virtual machine.",
-          "type": "string",
-          "readOnly": true
-        },
-        "inventoryItemId": {
-          "description": "Gets or sets the inventory Item ID for the virtual machine.",
-          "type": "string"
-        },
-        "moName": {
-          "description": "Gets or sets the vCenter Managed Object name for the virtual machine.",
-          "type": "string",
-          "readOnly": true
-        },
-        "folderPath": {
-          "description": "Gets or sets the folder path of the vm.",
-          "type": "string",
-          "readOnly": true
-        },
-        "instanceUuid": {
-          "description": "Gets or sets the instance uuid of the vm.",
-          "type": "string",
-          "readOnly": true
-        },
-        "smbiosUuid": {
-          "type": "string",
-          "description": "Gets or sets the SMBIOS UUID of the vm."
-        },
-        "firmwareType": {
-          "description": "Firmware type",
-          "$ref": "#/definitions/FirmwareType"
-        },
-        "customResourceName": {
-          "description": "Gets the name of the corresponding resource in Kubernetes.",
-          "type": "string",
-          "readOnly": true
-        }
-      },
-      "description": "Specifies the vCenter infrastructure specific settings for the virtual machine."
-    },
     "ExtendedLocation": {
       "type": "object",
       "description": "The extended location.",
@@ -5737,7 +4626,7 @@
       }
     },
     "VirtualMachineProperties": {
-      "description": "Describes the properties of a Virtual Machine.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "resourcePoolId": {
@@ -5775,10 +4664,6 @@
         "guestAgentProfile": {
           "description": "Guest agent status properties.",
           "$ref": "#/definitions/GuestAgentProfile"
-        },
-        "securityProfile": {
-          "$ref": "#/definitions/SecurityProfile",
-          "description": "Gets the security profile."
         },
         "moRefId": {
           "description": "Gets or sets the vCenter MoRef (Managed Object Reference) ID for the virtual machine.",
@@ -5835,68 +4720,11 @@
           }
         },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
-          "description": "Gets the provisioning state.",
+          "description": "Gets or sets the provisioning state.",
+          "type": "string",
           "readOnly": true
         },
         "vmId": {
-          "description": "Gets or sets a unique identifier for the vm resource.",
-          "type": "string",
-          "readOnly": true
-        }
-      }
-    },
-    "VirtualMachineInstanceProperties": {
-      "description": "Describes the properties of a Virtual Machine Instance.",
-      "type": "object",
-      "properties": {
-        "placementProfile": {
-          "description": "Placement properties.",
-          "$ref": "#/definitions/PlacementProfile"
-        },
-        "osProfile": {
-          "description": "OS properties.",
-          "$ref": "#/definitions/OsProfileForVMInstance"
-        },
-        "hardwareProfile": {
-          "description": "Hardware properties.",
-          "$ref": "#/definitions/HardwareProfile"
-        },
-        "networkProfile": {
-          "description": "Network properties.",
-          "$ref": "#/definitions/NetworkProfile"
-        },
-        "storageProfile": {
-          "description": "Storage properties.",
-          "$ref": "#/definitions/StorageProfile"
-        },
-        "securityProfile": {
-          "$ref": "#/definitions/SecurityProfile",
-          "description": "Gets the security profile."
-        },
-        "infrastructureProfile": {
-          "$ref": "#/definitions/InfrastructureProfile",
-          "description": "Gets the infrastructure profile."
-        },
-        "powerState": {
-          "description": "Gets the power state of the virtual machine.",
-          "type": "string",
-          "readOnly": true
-        },
-        "statuses": {
-          "description": "The resource status information.",
-          "readOnly": true,
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResourceStatus"
-          }
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
-          "description": "Gets the provisioning state.",
-          "readOnly": true
-        },
-        "resourceUid": {
           "description": "Gets or sets a unique identifier for the vm resource.",
           "type": "string",
           "readOnly": true
@@ -5930,7 +4758,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -5965,55 +4793,8 @@
         }
       }
     },
-    "VirtualMachineInstance": {
-      "description": "Define the virtualMachineInstance.",
-      "required": [
-        "properties"
-      ],
-      "type": "object",
-      "x-ms-azure-resource": true,
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource",
-          "description": "The resource model definition for an Azure Resource Manager proxy resource. It will have everything other than location and tags."
-        }
-      ],
-      "properties": {
-        "properties": {
-          "x-ms-client-flatten": true,
-          "description": "Resource properties.",
-          "$ref": "#/definitions/VirtualMachineInstanceProperties"
-        },
-        "extendedLocation": {
-          "$ref": "#/definitions/ExtendedLocation",
-          "description": "Gets or sets the extended location."
-        }
-      }
-    },
     "VirtualMachineUpdateProperties": {
-      "description": "Describes the properties of a Virtual Machine.",
-      "type": "object",
-      "properties": {
-        "hardwareProfile": {
-          "$ref": "#/definitions/HardwareProfile"
-        },
-        "osProfile": {
-          "description": "OS properties.",
-          "$ref": "#/definitions/OsProfileUpdate"
-        },
-        "storageProfile": {
-          "$ref": "#/definitions/StorageProfileUpdate"
-        },
-        "networkProfile": {
-          "$ref": "#/definitions/NetworkProfileUpdate"
-        },
-        "guestAgentProfile": {
-          "$ref": "#/definitions/GuestAgentProfileUpdate"
-        }
-      }
-    },
-    "VirtualMachineInstanceUpdateProperties": {
-      "description": "Describes the properties of a Virtual Machine.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "hardwareProfile": {
@@ -6049,20 +4830,8 @@
         }
       }
     },
-    "VirtualMachineInstanceUpdate": {
-      "description": "Defines the virtualMachineInstanceUpdate.",
-      "type": "object",
-      "properties": {
-        "properties": {
-          "x-ms-client-flatten": true,
-          "description": "Resource properties.",
-          "$ref": "#/definitions/VirtualMachineInstanceUpdateProperties"
-        }
-      }
-    },
     "VirtualMachinesList": {
       "description": "List of VirtualMachines.",
-      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of VirtualMachines.",
@@ -6073,22 +4842,6 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/VirtualMachine"
-          }
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "VirtualMachineInstancesList": {
-      "description": "List of VirtualMachineInstances.",
-      "type": "object",
-      "properties": {
-        "value": {
-          "description": "Array of VirtualMachines",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/VirtualMachineInstance"
           }
         }
       },
@@ -6108,7 +4861,7 @@
       }
     },
     "VirtualMachineTemplateProperties": {
-      "description": "Describes the properties of a Virtual Machine Template.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "uuid": {
@@ -6211,14 +4964,14 @@
           }
         },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
-          "description": "Gets the provisioning state.",
+          "description": "Gets or sets the provisioning state.",
+          "type": "string",
           "readOnly": true
         }
       }
     },
     "ClusterProperties": {
-      "description": "Describes the properties of a Cluster.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "uuid": {
@@ -6256,32 +5009,8 @@
           "type": "string",
           "readOnly": true
         },
-        "usedMemoryGB": {
-          "format": "int64",
-          "description": "Gets the used physical memory on the cluster in GB.",
-          "type": "integer",
-          "readOnly": true
-        },
-        "totalMemoryGB": {
-          "format": "int64",
-          "description": "Gets the total amount of physical memory on the cluster in GB.",
-          "type": "integer",
-          "readOnly": true
-        },
-        "usedCPUMHz": {
-          "format": "int64",
-          "description": "Gets the used CPU usage across all cores on the cluster in MHz.",
-          "type": "integer",
-          "readOnly": true
-        },
-        "totalCPUMHz": {
-          "format": "int64",
-          "description": "Gets the max CPU usage across all cores on the cluster in MHz.",
-          "type": "integer",
-          "readOnly": true
-        },
         "datastoreIds": {
-          "description": "Gets the datastore ARM ids.",
+          "description": "Gets or sets the datastore ARM ids.",
           "type": "array",
           "items": {
             "type": "string"
@@ -6289,7 +5018,7 @@
           "readOnly": true
         },
         "networkIds": {
-          "description": "Gets the network ARM ids.",
+          "description": "Gets or sets the network ARM ids.",
           "type": "array",
           "items": {
             "type": "string"
@@ -6297,8 +5026,8 @@
           "readOnly": true
         },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
-          "description": "Gets the provisioning state.",
+          "description": "Gets or sets the provisioning state.",
+          "type": "string",
           "readOnly": true
         }
       }
@@ -6330,7 +5059,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -6382,7 +5111,7 @@
       ]
     },
     "HostProperties": {
-      "description": "Describes the properties of a Host.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "uuid": {
@@ -6420,49 +5149,9 @@
           "type": "string",
           "readOnly": true
         },
-        "overallMemoryUsageGB": {
-          "format": "int64",
-          "description": "Gets the used physical memory on the host in GB.",
-          "type": "integer",
-          "readOnly": true
-        },
-        "memorySizeGB": {
-          "format": "int64",
-          "description": "Gets the total amount of physical memory on the host in GB.",
-          "type": "integer",
-          "readOnly": true
-        },
-        "overallCPUUsageMHz": {
-          "format": "int64",
-          "description": "Gets the used CPU usage across all cores in MHz.",
-          "type": "integer",
-          "readOnly": true
-        },
-        "CPUMhz": {
-          "format": "int64",
-          "description": "Gets the max CPU usage across all cores in MHz.",
-          "type": "integer",
-          "readOnly": true
-        },
-        "datastoreIds": {
-          "description": "Gets the datastore ARM ids.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "readOnly": true
-        },
-        "networkIds": {
-          "description": "Gets the network ARM ids.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "readOnly": true
-        },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
-          "description": "Gets the provisioning state.",
+          "description": "Gets or sets the provisioning state.",
+          "type": "string",
           "readOnly": true
         }
       }
@@ -6494,7 +5183,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -6546,7 +5235,7 @@
       ]
     },
     "DatastoreProperties": {
-      "description": "Describes the properties of a Datastore.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "uuid": {
@@ -6582,18 +5271,6 @@
         "customResourceName": {
           "description": "Gets the name of the corresponding resource in Kubernetes.",
           "type": "string",
-          "readOnly": true
-        },
-        "capacityGB": {
-          "description": "Gets or sets Maximum capacity of this datastore in GBs.",
-          "format": "int64",
-          "type": "integer",
-          "readOnly": true
-        },
-        "freeSpaceGB": {
-          "description": "Gets or sets Available space of this datastore in GBs.",
-          "format": "int64",
-          "type": "integer",
           "readOnly": true
         },
         "provisioningState": {
@@ -6648,7 +5325,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -6726,7 +5403,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -6759,7 +5436,6 @@
     },
     "VirtualMachineTemplatesList": {
       "description": "List of VirtualMachineTemplates.",
-      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of VirtualMachineTemplates.",
@@ -6778,7 +5454,7 @@
       ]
     },
     "VirtualNetworkProperties": {
-      "description": "Describes the properties of a Virtual Network.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "uuid": {
@@ -6817,8 +5493,8 @@
           }
         },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
-          "description": "Gets the provisioning state.",
+          "description": "Gets or sets the provisioning state.",
+          "type": "string",
           "readOnly": true
         }
       }
@@ -6850,7 +5526,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -6883,7 +5559,6 @@
     },
     "VirtualNetworksList": {
       "description": "List of VirtualNetworks.",
-      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of VirtualNetworks.",
@@ -6930,7 +5605,6 @@
     },
     "NetworkInterface": {
       "description": "Network Interface model",
-      "type": "object",
       "properties": {
         "name": {
           "description": "Gets or sets the name of the network interface.",
@@ -7144,9 +5818,37 @@
         }
       }
     },
+    "ErrorDetail": {
+      "title": "Error details.",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "The error's code.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A human readable error message.",
+          "type": "string"
+        },
+        "target": {
+          "description": "Indicates which property in the request is responsible for the error.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional error details.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ErrorDetail"
+          }
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ]
+    },
     "operation": {
       "description": "Operation provided by provider",
-      "type": "object",
       "properties": {
         "name": {
           "type": "string",
@@ -7182,7 +5884,6 @@
     },
     "operationsList": {
       "description": "Lists the operations available.",
-      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of operations.",
@@ -7201,9 +5902,40 @@
         "value"
       ]
     },
+    "ErrorResponse": {
+      "description": "Error response.",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/ErrorDefinition",
+          "description": "The error details."
+        }
+      }
+    },
+    "ErrorDefinition": {
+      "description": "Error definition.",
+      "properties": {
+        "code": {
+          "description": "Service specific error code which serves as the substatus for the HTTP error code.",
+          "type": "string",
+          "readOnly": true
+        },
+        "message": {
+          "description": "Description of the error.",
+          "type": "string",
+          "readOnly": true
+        },
+        "details": {
+          "description": "Internal error details.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ErrorDefinition"
+          },
+          "readOnly": true
+        }
+      }
+    },
     "InventoryItemsList": {
       "description": "List of InventoryItems.",
-      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of InventoryItems.",
@@ -7229,7 +5961,7 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource",
           "description": "The resource model definition for an Azure Resource Manager proxy resource. It will have everything other than required location and tags."
         }
       ],
@@ -7239,6 +5971,10 @@
           "description": "Resource properties.",
           "$ref": "#/definitions/InventoryItemProperties"
         },
+        "systemData": {
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "description": "The system data."
+        },
         "kind": {
           "type": "string",
           "description": "Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value."
@@ -7247,7 +5983,7 @@
       "x-ms-azure-resource": true
     },
     "InventoryItemProperties": {
-      "description": "Describes the properties of an Inventory Item.",
+      "description": "Defines the resource properties.",
       "required": [
         "inventoryType"
       ],
@@ -7271,8 +6007,8 @@
           "type": "string"
         },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
-          "description": "Gets the provisioning state.",
+          "description": "Gets or sets the provisioning state.",
+          "type": "string",
           "readOnly": true
         }
       }
@@ -7327,10 +6063,6 @@
         },
         "resourcePool": {
           "description": "ResourcePool inventory resource details.",
-          "$ref": "#/definitions/InventoryItemDetails"
-        },
-        "cluster": {
-          "description": "Cluster inventory resource details.",
           "$ref": "#/definitions/InventoryItemDetails"
         },
         "instanceUuid": {
@@ -7395,16 +6127,6 @@
         "osName": {
           "description": "Gets or sets os name.",
           "type": "string"
-        },
-        "toolsVersionStatus": {
-          "description": "Gets or sets the current version status of VMware Tools installed in the guest operating system.",
-          "type": "string",
-          "readOnly": true
-        },
-        "toolsVersion": {
-          "description": "Gets or sets the current version of VMware Tools.",
-          "type": "string",
-          "readOnly": true
         },
         "folderPath": {
           "description": "Gets or sets the folder path of the template.",
@@ -7489,7 +6211,7 @@
       }
     },
     "InventoryItemDetails": {
-      "description": "Describes the properties of an Inventory Item reference.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "inventoryItemId": {
@@ -7499,16 +6221,11 @@
         "moName": {
           "description": "Gets or sets the vCenter Managed Object name for the resource.",
           "type": "string"
-        },
-        "inventoryType": {
-          "description": "The inventory type.",
-          "$ref": "#/definitions/InventoryType"
         }
       }
     },
     "HybridIdentityMetadataList": {
       "description": "List of HybridIdentityMetadata.",
-      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of HybridIdentityMetadata.",
@@ -7534,7 +6251,7 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource",
           "description": "The resource model definition for an Azure Resource Manager proxy resource. It will have everything other than required location and tags."
         }
       ],
@@ -7543,12 +6260,16 @@
           "x-ms-client-flatten": true,
           "description": "Resource properties.",
           "$ref": "#/definitions/HybridIdentityMetadataProperties"
+        },
+        "systemData": {
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "description": "The system data."
         }
       },
       "x-ms-azure-resource": true
     },
     "HybridIdentityMetadataProperties": {
-      "description": "Describes the properties of Hybrid Identity Metadata for a Virtual Machine.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "vmId": {
@@ -7565,68 +6286,8 @@
           "readOnly": true
         },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
-          "description": "Gets the provisioning state.",
-          "readOnly": true
-        }
-      }
-    },
-    "VmInstanceHybridIdentityMetadataList": {
-      "description": "List of HybridIdentityMetadata.",
-      "type": "object",
-      "properties": {
-        "nextLink": {
-          "description": "Url to follow for getting next page of HybridIdentityMetadata.",
-          "type": "string"
-        },
-        "value": {
-          "description": "Array of HybridIdentityMetadata",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/VmInstanceHybridIdentityMetadata"
-          }
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "VmInstanceHybridIdentityMetadata": {
-      "description": "Defines the HybridIdentityMetadata.",
-      "required": [
-        "properties"
-      ],
-      "type": "object",
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource",
-          "description": "The resource model definition for an Azure Resource Manager proxy resource. It will have everything other than required location and tags."
-        }
-      ],
-      "properties": {
-        "properties": {
-          "x-ms-client-flatten": true,
-          "description": "Resource properties.",
-          "$ref": "#/definitions/VmInstanceHybridIdentityMetadataProperties"
-        }
-      },
-      "x-ms-azure-resource": true
-    },
-    "VmInstanceHybridIdentityMetadataProperties": {
-      "description": "Describes the properties of Hybrid Identity Metadata for a Virtual Machine.",
-      "type": "object",
-      "properties": {
-        "resourceUid": {
-          "description": "The unique identifier for the resource.",
-          "type": "string"
-        },
-        "publicKey": {
-          "description": "Gets or sets the Public Key.",
-          "type": "string"
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
-          "description": "Gets the provisioning state.",
+          "description": "Gets or sets the provisioning state.",
+          "type": "string",
           "readOnly": true
         }
       }
@@ -7664,7 +6325,6 @@
     },
     "MachineExtension": {
       "x-ms-azure-resource": true,
-      "type": "object",
       "properties": {
         "properties": {
           "x-ms-client-flatten": true,
@@ -7680,7 +6340,7 @@
           ]
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -7709,7 +6369,6 @@
       "description": "Describes a Machine Extension."
     },
     "MachineExtensionUpdate": {
-      "type": "object",
       "properties": {
         "properties": {
           "x-ms-client-flatten": true,
@@ -7725,7 +6384,6 @@
       "description": "Describes a Machine Extension Update."
     },
     "MachineExtensionProperties": {
-      "type": "object",
       "properties": {
         "forceUpdateTag": {
           "type": "string",
@@ -7742,10 +6400,6 @@
         "typeHandlerVersion": {
           "type": "string",
           "description": "Specifies the version of the script handler."
-        },
-        "enableAutomaticUpgrade": {
-          "type": "boolean",
-          "description": "Indicates whether the extension should be automatically upgraded by the platform if there is a newer version available."
         },
         "autoUpgradeMinorVersion": {
           "type": "boolean",
@@ -7777,7 +6431,6 @@
       "description": "Describes the properties of a Machine Extension."
     },
     "MachineExtensionUpdateProperties": {
-      "type": "object",
       "properties": {
         "forceUpdateTag": {
           "type": "string",
@@ -7794,10 +6447,6 @@
         "typeHandlerVersion": {
           "type": "string",
           "description": "Specifies the version of the script handler."
-        },
-        "enableAutomaticUpgrade": {
-          "type": "boolean",
-          "description": "Indicates whether the extension should be automatically upgraded by the platform if there is a newer version available."
         },
         "autoUpgradeMinorVersion": {
           "type": "boolean",
@@ -7816,7 +6465,6 @@
       "description": "Describes the properties of a Machine Extension."
     },
     "MachineExtensionInstanceView": {
-      "type": "object",
       "properties": {
         "name": {
           "type": "string",
@@ -7834,7 +6482,6 @@
           "description": "Specifies the version of the script handler."
         },
         "status": {
-          "type": "object",
           "properties": {
             "code": {
               "type": "string",
@@ -7878,7 +6525,6 @@
       "description": "Describes the Machine Extension Instance View."
     },
     "MachineExtensionsListResult": {
-      "type": "object",
       "properties": {
         "value": {
           "type": "array",
@@ -7893,39 +6539,6 @@
         }
       },
       "description": "Describes the Machine Extensions List Result."
-    },
-    "TargetVersion": {
-      "type": "string",
-      "description": "Extension Upgrade Target Version."
-    },
-    "ExtensionTargetProperties": {
-      "type": "object",
-      "properties": {
-        "targetVersion": {
-          "type": "object",
-          "$ref": "#/definitions/TargetVersion",
-          "description": "Properties for the specified Extension to Upgrade."
-        }
-      },
-      "description": "Describes the Machine Extension Target Version Properties"
-    },
-    "ExtensionTarget": {
-      "type": "object",
-      "additionalProperties": {
-        "type": "object",
-        "$ref": "#/definitions/ExtensionTargetProperties"
-      },
-      "description": "Describes the Machine Extension Target Properties"
-    },
-    "MachineExtensionUpgrade": {
-      "type": "object",
-      "properties": {
-        "extensionTargets": {
-          "$ref": "#/definitions/ExtensionTarget",
-          "description": "Describes the Extension Target Properties."
-        }
-      },
-      "description": "Describes the Machine Extension Upgrade Properties"
     },
     "ProvisioningAction": {
       "description": "Defines the different types of operations for guest agent.",
@@ -7971,7 +6584,6 @@
     },
     "GuestAgentList": {
       "description": "List of GuestAgent.",
-      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of GuestAgent.",
@@ -7997,7 +6609,7 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ProxyResource",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource",
           "description": "The resource model definition for an Azure Resource Manager proxy resource. It will have everything other than required location and tags."
         }
       ],
@@ -8006,12 +6618,16 @@
           "x-ms-client-flatten": true,
           "description": "Resource properties.",
           "$ref": "#/definitions/GuestAgentProperties"
+        },
+        "systemData": {
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "description": "The system data."
         }
       },
       "x-ms-azure-resource": true
     },
     "GuestAgentProperties": {
-      "description": "Describes the properties of a Virtual Machine Guest Agent.",
+      "description": "Defines the resource properties.",
       "type": "object",
       "properties": {
         "uuid": {
@@ -8022,11 +6638,6 @@
         "credentials": {
           "description": "Username / Password Credentials to provision guest agent.",
           "$ref": "#/definitions/GuestCredential"
-        },
-        "privateLinkScopeResourceId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "The resource id of the private link scope this machine is assigned to, if any."
         },
         "httpProxyConfig": {
           "description": "HTTP Proxy configuration for the VM.",
@@ -8056,427 +6667,11 @@
           }
         },
         "provisioningState": {
-          "$ref": "#/definitions/ResourceProvisioningState",
-          "description": "Gets the provisioning state.",
+          "description": "Gets or sets the provisioning state.",
+          "type": "string",
           "readOnly": true
         }
       }
-    },
-    "VirtualMachineAssessPatchesResult": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "readOnly": true,
-          "description": "The overall success or failure status of the operation. It remains \"InProgress\" until the operation completes. At that point it will become \"Unknown\", \"Failed\", \"Succeeded\", or \"CompletedWithWarnings.\"",
-          "enum": [
-            "Unknown",
-            "InProgress",
-            "Failed",
-            "Succeeded",
-            "CompletedWithWarnings"
-          ],
-          "x-ms-enum": {
-            "name": "PatchOperationStatus",
-            "modelAsString": true
-          }
-        },
-        "assessmentActivityId": {
-          "type": "string",
-          "readOnly": true,
-          "description": "The activity ID of the operation that produced this result."
-        },
-        "rebootPending": {
-          "type": "boolean",
-          "readOnly": true,
-          "description": "The overall reboot status of the VM. It will be true when partially installed patches require a reboot to complete installation but the reboot has not yet occurred."
-        },
-        "availablePatchCountByClassification": {
-          "$ref": "#/definitions/AvailablePatchCountByClassification",
-          "description": "Summarization of patches available for installation on the machine by classification."
-        },
-        "startDateTime": {
-          "type": "string",
-          "readOnly": true,
-          "format": "date-time",
-          "description": "The UTC timestamp when the operation began."
-        },
-        "lastModifiedDateTime": {
-          "type": "string",
-          "readOnly": true,
-          "format": "date-time",
-          "description": "The UTC timestamp when the operation finished."
-        },
-        "startedBy": {
-          "type": "string",
-          "readOnly": true,
-          "enum": [
-            "User",
-            "Platform"
-          ],
-          "x-ms-enum": {
-            "name": "PatchOperationStartedBy",
-            "modelAsString": true
-          },
-          "description": "Indicates if operation was triggered by user or by platform."
-        },
-        "patchServiceUsed": {
-          "type": "string",
-          "readOnly": true,
-          "enum": [
-            "Unknown",
-            "WU",
-            "WU_WSUS",
-            "YUM",
-            "APT",
-            "Zypper"
-          ],
-          "x-ms-enum": {
-            "name": "PatchServiceUsed",
-            "modelAsString": true
-          },
-          "description": "Specifies the patch service used for the operation."
-        },
-        "osType": {
-          "type": "string",
-          "readOnly": true,
-          "enum": [
-            "Windows",
-            "Linux"
-          ],
-          "x-ms-enum": {
-            "name": "OsTypeUM",
-            "modelAsString": true
-          },
-          "description": "The operating system type of the machine."
-        },
-        "errorDetails": {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorDetail",
-          "readOnly": true,
-          "description": "The errors that were encountered during execution of the operation. The details array contains the list of them."
-        }
-      },
-      "description": "Describes the properties of an AssessPatches result."
-    },
-    "AvailablePatchCountByClassification": {
-      "type": "object",
-      "properties": {
-        "security": {
-          "readOnly": true,
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of security patches available for installation."
-        },
-        "critical": {
-          "readOnly": true,
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of critical patches available for installation."
-        },
-        "definition": {
-          "readOnly": true,
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of definition patches available for installation."
-        },
-        "updateRollup": {
-          "readOnly": true,
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of update Rollup patches available for installation."
-        },
-        "featurePack": {
-          "readOnly": true,
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of feature pack patches available for installation."
-        },
-        "servicePack": {
-          "readOnly": true,
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of service pack patches available for installation."
-        },
-        "tools": {
-          "readOnly": true,
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of tools patches available for installation."
-        },
-        "updates": {
-          "readOnly": true,
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of updates category patches available for installation."
-        },
-        "other": {
-          "readOnly": true,
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of other patches available for installation."
-        }
-      },
-      "description": "Summarization of patches available for installation on the machine by classification."
-    },
-    "VirtualMachineInstallPatchesParameters": {
-      "type": "object",
-      "properties": {
-        "maximumDuration": {
-          "type": "string",
-          "description": "Specifies the maximum amount of time that the operation will run. It must be an ISO 8601-compliant duration string such as PT4H (4 hours)"
-        },
-        "rebootSetting": {
-          "type": "string",
-          "description": "Defines when it is acceptable to reboot a VM during a software update operation.",
-          "enum": [
-            "IfRequired",
-            "Never",
-            "Always"
-          ],
-          "x-ms-enum": {
-            "name": "VMGuestPatchRebootSetting",
-            "modelAsString": true
-          }
-        },
-        "windowsParameters": {
-          "$ref": "#/definitions/WindowsParameters",
-          "description": "Input for InstallPatches on a Windows VM, as directly received by the API"
-        },
-        "linuxParameters": {
-          "$ref": "#/definitions/LinuxParameters",
-          "description": "Input for InstallPatches on a Linux VM, as directly received by the API"
-        }
-      },
-      "required": [
-        "maximumDuration",
-        "rebootSetting"
-      ],
-      "description": "Input for InstallPatches as directly received by the API"
-    },
-    "WindowsParameters": {
-      "type": "object",
-      "properties": {
-        "classificationsToInclude": {
-          "type": "array",
-          "description": "The update classifications to select when installing patches for Windows.",
-          "items": {
-            "type": "string",
-            "enum": [
-              "Critical",
-              "Security",
-              "UpdateRollUp",
-              "FeaturePack",
-              "ServicePack",
-              "Definition",
-              "Tools",
-              "Updates"
-            ],
-            "x-ms-enum": {
-              "name": "VMGuestPatchClassification_Windows",
-              "modelAsString": true
-            }
-          }
-        },
-        "kbNumbersToInclude": {
-          "type": "array",
-          "description": "Kbs to include in the patch operation",
-          "items": {
-            "type": "string"
-          }
-        },
-        "kbNumbersToExclude": {
-          "type": "array",
-          "description": "Kbs to exclude in the patch operation",
-          "items": {
-            "type": "string"
-          }
-        },
-        "excludeKbsRequiringReboot": {
-          "type": "boolean",
-          "description": "Filters out Kbs that don't have an InstallationRebootBehavior of 'NeverReboots' when this is set to true."
-        },
-        "maxPatchPublishDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "This is used to install patches that were published on or before this given max published date."
-        }
-      },
-      "description": "Input for InstallPatches on a Windows VM, as directly received by the API"
-    },
-    "LinuxParameters": {
-      "type": "object",
-      "properties": {
-        "classificationsToInclude": {
-          "type": "array",
-          "description": "The update classifications to select when installing patches for Linux.",
-          "items": {
-            "type": "string",
-            "enum": [
-              "Critical",
-              "Security",
-              "Other"
-            ],
-            "x-ms-enum": {
-              "name": "VMGuestPatchClassification_Linux",
-              "modelAsString": true
-            }
-          }
-        },
-        "packageNameMasksToInclude": {
-          "type": "array",
-          "description": "packages to include in the patch operation. Format: packageName_packageVersion",
-          "items": {
-            "type": "string"
-          }
-        },
-        "packageNameMasksToExclude": {
-          "type": "array",
-          "description": "packages to exclude in the patch operation. Format: packageName_packageVersion",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "description": "Input for InstallPatches on a Linux VM, as directly received by the API"
-    },
-    "VirtualMachineInstallPatchesResult": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "readOnly": true,
-          "description": "The overall success or failure status of the operation. It remains \"InProgress\" until the operation completes. At that point it will become \"Failed\", \"Succeeded\", \"Unknown\" or \"CompletedWithWarnings.\"",
-          "enum": [
-            "Unknown",
-            "InProgress",
-            "Failed",
-            "Succeeded",
-            "CompletedWithWarnings"
-          ],
-          "x-ms-enum": {
-            "name": "PatchOperationStatus",
-            "modelAsString": true
-          }
-        },
-        "installationActivityId": {
-          "type": "string",
-          "readOnly": true,
-          "description": "The activity ID of the operation that produced this result."
-        },
-        "rebootStatus": {
-          "type": "string",
-          "readOnly": true,
-          "description": "The reboot state of the VM following completion of the operation.",
-          "enum": [
-            "Unknown",
-            "NotNeeded",
-            "Required",
-            "Started",
-            "Failed",
-            "Completed"
-          ],
-          "x-ms-enum": {
-            "name": "VMGuestPatchRebootStatus",
-            "modelAsString": true
-          }
-        },
-        "maintenanceWindowExceeded": {
-          "type": "boolean",
-          "readOnly": true,
-          "description": "Whether the operation ran out of time before it completed all its intended actions."
-        },
-        "excludedPatchCount": {
-          "type": "integer",
-          "readOnly": true,
-          "format": "int32",
-          "description": "The number of patches that were not installed due to the user blocking their installation."
-        },
-        "notSelectedPatchCount": {
-          "type": "integer",
-          "readOnly": true,
-          "format": "int32",
-          "description": "The number of patches that were detected as available for install, but did not meet the operation's criteria."
-        },
-        "pendingPatchCount": {
-          "type": "integer",
-          "readOnly": true,
-          "format": "int32",
-          "description": "The number of patches that were identified as meeting the installation criteria, but were not able to be installed. Typically this happens when maintenanceWindowExceeded == true."
-        },
-        "installedPatchCount": {
-          "type": "integer",
-          "readOnly": true,
-          "format": "int32",
-          "description": "The number of patches successfully installed."
-        },
-        "failedPatchCount": {
-          "type": "integer",
-          "readOnly": true,
-          "format": "int32",
-          "description": "The number of patches that could not be installed due to some issue. See errors for details."
-        },
-        "startDateTime": {
-          "type": "string",
-          "readOnly": true,
-          "format": "date-time",
-          "description": "The UTC timestamp when the operation began."
-        },
-        "lastModifiedDateTime": {
-          "type": "string",
-          "readOnly": true,
-          "format": "date-time",
-          "description": "The UTC timestamp when the operation finished."
-        },
-        "startedBy": {
-          "type": "string",
-          "readOnly": true,
-          "enum": [
-            "User",
-            "Platform"
-          ],
-          "x-ms-enum": {
-            "name": "PatchOperationStartedBy",
-            "modelAsString": true
-          },
-          "description": "Indicates if operation was triggered by user or by platform."
-        },
-        "patchServiceUsed": {
-          "type": "string",
-          "readOnly": true,
-          "enum": [
-            "Unknown",
-            "WU",
-            "WU_WSUS",
-            "YUM",
-            "APT",
-            "Zypper"
-          ],
-          "x-ms-enum": {
-            "name": "PatchServiceUsed",
-            "modelAsString": true
-          },
-          "description": "Specifies the patch service used for the operation."
-        },
-        "osType": {
-          "type": "string",
-          "readOnly": true,
-          "enum": [
-            "Windows",
-            "Linux"
-          ],
-          "x-ms-enum": {
-            "name": "OsTypeUM",
-            "modelAsString": true
-          },
-          "description": "The operating system type of the machine."
-        },
-        "errorDetails": {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorDetail",
-          "readOnly": true,
-          "description": "The errors that were encountered during execution of the operation. The details array contains the list of them."
-        }
-      },
-      "description": "The result summary of an installation operation."
     }
   },
   "parameters": {
@@ -8500,15 +6695,6 @@
       "description": "The Resource Group Name.",
       "required": true,
       "type": "string",
-      "x-ms-parameter-location": "method"
-    },
-    "resourceUriParameter": {
-      "in": "path",
-      "name": "resourceUri",
-      "description": "The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended.",
-      "required": true,
-      "type": "string",
-      "x-ms-skip-url-encoding": true,
       "x-ms-parameter-location": "method"
     }
   }

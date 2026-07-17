@@ -13,10 +13,12 @@ package-version: 1.0.0b1
 clear-output-folder: true
 ```
 
-``` yaml $(python) && $(python-mode) == 'update' && $(track2)
+```yaml $(python) && $(python-mode) == 'update' && $(track2)
 no-namespace-folders: true
 output-folder: $(python-sdks-folder)/connectedvmware/azure-mgmt-connectedvmware/azure/mgmt/connectedvmware
 ```
-``` yaml $(python) && $(python-mode) == 'create' && $(track2)
+
+```yaml $(python) && $(python-mode) == 'create' && $(track2)
 basic-setup-py: true
 output-folder: $(python-sdks-folder)/connectedvmware/azure-mgmt-connectedvmware
+```

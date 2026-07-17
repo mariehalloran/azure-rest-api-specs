@@ -14,7 +14,7 @@ go:
   clear-output-folder: true
 ```
 
-``` yaml $(go) && $(track2)
+```yaml $(go) && $(track2)
 license-header: MICROSOFT_MIT_NO_VERSION
 module-name: sdk/resourcemanager/connectedvmware/armconnectedvmware
 module: github.com/Azure/azure-sdk-for-go/$(module-name)
@@ -24,7 +24,7 @@ azure-arm: true
 
 ### Go multi-api
 
-``` yaml $(go) && $(multiapi)
+```yaml $(go) && $(multiapi)
 batch:
   - tag: package-2020-10-01-preview
   - tag: package-2022-01-10-preview

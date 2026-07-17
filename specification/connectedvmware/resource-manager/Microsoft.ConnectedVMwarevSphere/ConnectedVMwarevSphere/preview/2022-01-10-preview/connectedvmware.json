@@ -3,7 +3,7 @@
   "info": {
     "title": "Azure Arc VMware Management Service API",
     "description": "Self service experience for VMware.",
-    "version": "2020-10-01-preview"
+    "version": "2022-01-10-preview"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -68,6 +68,129 @@
         "deprecated": false,
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines/{name}/assessPatches": {
+      "post": {
+        "tags": [
+          "VirtualMachines"
+        ],
+        "operationId": "VirtualMachines_AssessPatches",
+        "x-ms-examples": {
+          "Assess patch state of a machine.": {
+            "$ref": "./examples/VirtualMachineAssessPatches.json"
+          }
+        },
+        "description": "The operation to assess patches on a vSphere VMware machine identity in Azure.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/subscriptionId"
+          },
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the vSphere VMware machine."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/VirtualMachineAssessPatchesResult"
+            }
+          },
+          "202": {
+            "description": "HTTP 202 (Accepted) if the operation was successfully started and will complete asynchronously."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines/{name}/installPatches": {
+      "post": {
+        "tags": [
+          "VirtualMachines"
+        ],
+        "operationId": "VirtualMachines_InstallPatches",
+        "description": "The operation to install patches on a vSphere VMware machine identity in Azure.",
+        "x-ms-examples": {
+          "Install patch state of a machine.": {
+            "$ref": "./examples/VirtualMachineInstallPatches.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/subscriptionId"
+          },
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the vSphere VMware machine."
+          },
+          {
+            "name": "installPatchesInput",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VirtualMachineInstallPatchesParameters"
+            },
+            "description": "Input for InstallPatches as directly received by the API"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/VirtualMachineInstallPatchesResult"
+            }
+          },
+          "202": {
+            "description": "HTTP 202 (Accepted) if the operation was successfully started and will complete asynchronously."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
         }
       }
     },
@@ -1876,6 +1999,9 @@
               "$ref": "#/definitions/VirtualMachine"
             }
           },
+          "202": {
+            "description": "Accepted"
+          },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
@@ -1916,6 +2042,13 @@
           },
           {
             "$ref": "#/parameters/api-version"
+          },
+          {
+            "in": "query",
+            "name": "retain",
+            "description": "Whether to just disable the VM from azure and retain the VM in the VMM.",
+            "required": false,
+            "type": "boolean"
           },
           {
             "in": "query",
@@ -3609,7 +3742,7 @@
         "tags": [
           "GuestAgents"
         ],
-        "operationId": "GuestAgent_Create",
+        "operationId": "GuestAgents_Create",
         "description": "Create Or Update GuestAgent.",
         "summary": "Implements GuestAgent PUT method.",
         "x-ms-examples": {
@@ -3685,7 +3818,7 @@
         "tags": [
           "GuestAgents"
         ],
-        "operationId": "GuestAgent_Get",
+        "operationId": "GuestAgents_Get",
         "summary": "Gets GuestAgent.",
         "description": "Implements GuestAgent GET method.",
         "x-ms-examples": {
@@ -3740,7 +3873,7 @@
         "tags": [
           "GuestAgents"
         ],
-        "operationId": "GuestAgent_Delete",
+        "operationId": "GuestAgents_Delete",
         "summary": "Deletes an GuestAgent.",
         "description": "Implements GuestAgent DELETE method.",
         "x-ms-examples": {
@@ -3801,7 +3934,7 @@
         "tags": [
           "GuestAgents"
         ],
-        "operationId": "GuestAgent_ListByVm",
+        "operationId": "GuestAgents_ListByVm",
         "summary": "Implements GET GuestAgent in a vm.",
         "description": "Returns the list of GuestAgent of the given vm.",
         "x-ms-examples": {
@@ -3971,7 +4104,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -4004,6 +4137,7 @@
     },
     "ResourcePoolsList": {
       "description": "List of ResourcePools.",
+      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of ResourcePools.",
@@ -4042,6 +4176,7 @@
     },
     "ResourceStatus": {
       "description": "The resource status information.",
+      "type": "object",
       "properties": {
         "type": {
           "description": "The type of the condition.",
@@ -4182,6 +4317,7 @@
     },
     "VirtualDisk": {
       "description": "Virtual disk model",
+      "type": "object",
       "properties": {
         "name": {
           "description": "Gets or sets the name of the virtual disk.",
@@ -4233,6 +4369,7 @@
     },
     "Condition": {
       "description": "Condition defines an extension to status.",
+      "type": "object",
       "properties": {
         "status": {
           "description": "Status of the condition.",
@@ -4283,7 +4420,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -4316,6 +4453,7 @@
     },
     "VCentersList": {
       "description": "List of VCenters.",
+      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of VCenters.",
@@ -4346,6 +4484,20 @@
         "name": "OsType"
       }
     },
+    "PatchSettings": {
+      "type": "object",
+      "properties": {
+        "assessmentMode": {
+          "type": "string",
+          "description": "Specifies the assessment mode."
+        },
+        "patchMode": {
+          "type": "string",
+          "description": "Specifies the patch mode."
+        }
+      },
+      "description": "Specifies the patch settings."
+    },
     "OsProfile": {
       "description": "Defines the resource properties.",
       "type": "object",
@@ -4366,6 +4518,15 @@
             "update"
           ],
           "x-ms-secret": true
+        },
+        "guestId": {
+          "description": "Gets or sets the guestId.",
+          "type": "string"
+        },
+        "allowExtensionOperations": {
+          "description": "Gets or sets a value indicating whether the VM is ready for extension operations.",
+          "type": "boolean",
+          "readOnly": true
         },
         "osType": {
           "description": "Gets or sets the type of the os.",
@@ -4390,6 +4551,52 @@
           "description": "Gets or sets the current version of VMware Tools.",
           "type": "string",
           "readOnly": true
+        },
+        "windowsConfiguration": {
+          "type": "object",
+          "properties": {
+            "patchSettings": {
+              "x-ms-client-flatten": true,
+              "$ref": "#/definitions/PatchSettings"
+            }
+          },
+          "description": "Specifies the windows configuration for update management."
+        },
+        "linuxConfiguration": {
+          "type": "object",
+          "properties": {
+            "patchSettings": {
+              "x-ms-client-flatten": true,
+              "$ref": "#/definitions/PatchSettings"
+            }
+          },
+          "description": "Specifies the linux configuration for update management."
+        }
+      }
+    },
+    "OsProfileUpdate": {
+      "description": "Defines the os update properties.",
+      "type": "object",
+      "properties": {
+        "windowsConfiguration": {
+          "type": "object",
+          "properties": {
+            "patchSettings": {
+              "x-ms-client-flatten": true,
+              "$ref": "#/definitions/PatchSettings"
+            }
+          },
+          "description": "Specifies the windows configuration for update management."
+        },
+        "linuxConfiguration": {
+          "type": "object",
+          "properties": {
+            "patchSettings": {
+              "x-ms-client-flatten": true,
+              "$ref": "#/definitions/PatchSettings"
+            }
+          },
+          "description": "Specifies the linux configuration for update management."
         }
       }
     },
@@ -4611,6 +4818,26 @@
         }
       }
     },
+    "UefiSettings": {
+      "type": "object",
+      "properties": {
+        "secureBootEnabled": {
+          "type": "boolean",
+          "description": "Specifies whether secure boot should be enabled on the virtual machine."
+        }
+      },
+      "description": "Specifies the security settings like secure boot used while creating the virtual machine."
+    },
+    "SecurityProfile": {
+      "type": "object",
+      "properties": {
+        "uefiSettings": {
+          "$ref": "#/definitions/UefiSettings",
+          "description": "Specifies the security settings like secure boot used while creating the virtual machine."
+        }
+      },
+      "description": "Specifies the Security profile settings for the virtual machine."
+    },
     "ExtendedLocation": {
       "type": "object",
       "description": "The extended location.",
@@ -4664,6 +4891,10 @@
         "guestAgentProfile": {
           "description": "Guest agent status properties.",
           "$ref": "#/definitions/GuestAgentProfile"
+        },
+        "securityProfile": {
+          "$ref": "#/definitions/SecurityProfile",
+          "description": "Gets the security profile."
         },
         "moRefId": {
           "description": "Gets or sets the vCenter MoRef (Managed Object Reference) ID for the virtual machine.",
@@ -4758,7 +4989,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -4800,6 +5031,10 @@
         "hardwareProfile": {
           "$ref": "#/definitions/HardwareProfile"
         },
+        "osProfile": {
+          "description": "OS properties.",
+          "$ref": "#/definitions/OsProfileUpdate"
+        },
         "storageProfile": {
           "$ref": "#/definitions/StorageProfileUpdate"
         },
@@ -4832,6 +5067,7 @@
     },
     "VirtualMachinesList": {
       "description": "List of VirtualMachines.",
+      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of VirtualMachines.",
@@ -5059,7 +5295,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -5183,7 +5419,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -5325,7 +5561,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -5403,7 +5639,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -5436,6 +5672,7 @@
     },
     "VirtualMachineTemplatesList": {
       "description": "List of VirtualMachineTemplates.",
+      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of VirtualMachineTemplates.",
@@ -5526,7 +5763,7 @@
           "description": "Gets or sets the extended location."
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -5559,6 +5796,7 @@
     },
     "VirtualNetworksList": {
       "description": "List of VirtualNetworks.",
+      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of VirtualNetworks.",
@@ -5605,6 +5843,7 @@
     },
     "NetworkInterface": {
       "description": "Network Interface model",
+      "type": "object",
       "properties": {
         "name": {
           "description": "Gets or sets the name of the network interface.",
@@ -5849,6 +6088,7 @@
     },
     "operation": {
       "description": "Operation provided by provider",
+      "type": "object",
       "properties": {
         "name": {
           "type": "string",
@@ -5884,6 +6124,7 @@
     },
     "operationsList": {
       "description": "Lists the operations available.",
+      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of operations.",
@@ -5904,6 +6145,7 @@
     },
     "ErrorResponse": {
       "description": "Error response.",
+      "type": "object",
       "properties": {
         "error": {
           "$ref": "#/definitions/ErrorDefinition",
@@ -5913,6 +6155,7 @@
     },
     "ErrorDefinition": {
       "description": "Error definition.",
+      "type": "object",
       "properties": {
         "code": {
           "description": "Service specific error code which serves as the substatus for the HTTP error code.",
@@ -5936,6 +6179,7 @@
     },
     "InventoryItemsList": {
       "description": "List of InventoryItems.",
+      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of InventoryItems.",
@@ -5961,7 +6205,7 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource",
           "description": "The resource model definition for an Azure Resource Manager proxy resource. It will have everything other than required location and tags."
         }
       ],
@@ -5972,7 +6216,7 @@
           "$ref": "#/definitions/InventoryItemProperties"
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "kind": {
@@ -6226,6 +6470,7 @@
     },
     "HybridIdentityMetadataList": {
       "description": "List of HybridIdentityMetadata.",
+      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of HybridIdentityMetadata.",
@@ -6251,7 +6496,7 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource",
           "description": "The resource model definition for an Azure Resource Manager proxy resource. It will have everything other than required location and tags."
         }
       ],
@@ -6262,7 +6507,7 @@
           "$ref": "#/definitions/HybridIdentityMetadataProperties"
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         }
       },
@@ -6325,6 +6570,7 @@
     },
     "MachineExtension": {
       "x-ms-azure-resource": true,
+      "type": "object",
       "properties": {
         "properties": {
           "x-ms-client-flatten": true,
@@ -6340,7 +6586,7 @@
           ]
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         },
         "tags": {
@@ -6369,6 +6615,7 @@
       "description": "Describes a Machine Extension."
     },
     "MachineExtensionUpdate": {
+      "type": "object",
       "properties": {
         "properties": {
           "x-ms-client-flatten": true,
@@ -6384,6 +6631,7 @@
       "description": "Describes a Machine Extension Update."
     },
     "MachineExtensionProperties": {
+      "type": "object",
       "properties": {
         "forceUpdateTag": {
           "type": "string",
@@ -6400,6 +6648,10 @@
         "typeHandlerVersion": {
           "type": "string",
           "description": "Specifies the version of the script handler."
+        },
+        "enableAutomaticUpgrade": {
+          "type": "boolean",
+          "description": "Indicates whether the extension should be automatically upgraded by the platform if there is a newer version available."
         },
         "autoUpgradeMinorVersion": {
           "type": "boolean",
@@ -6431,6 +6683,7 @@
       "description": "Describes the properties of a Machine Extension."
     },
     "MachineExtensionUpdateProperties": {
+      "type": "object",
       "properties": {
         "forceUpdateTag": {
           "type": "string",
@@ -6447,6 +6700,10 @@
         "typeHandlerVersion": {
           "type": "string",
           "description": "Specifies the version of the script handler."
+        },
+        "enableAutomaticUpgrade": {
+          "type": "boolean",
+          "description": "Indicates whether the extension should be automatically upgraded by the platform if there is a newer version available."
         },
         "autoUpgradeMinorVersion": {
           "type": "boolean",
@@ -6465,6 +6722,7 @@
       "description": "Describes the properties of a Machine Extension."
     },
     "MachineExtensionInstanceView": {
+      "type": "object",
       "properties": {
         "name": {
           "type": "string",
@@ -6482,6 +6740,7 @@
           "description": "Specifies the version of the script handler."
         },
         "status": {
+          "type": "object",
           "properties": {
             "code": {
               "type": "string",
@@ -6525,6 +6784,7 @@
       "description": "Describes the Machine Extension Instance View."
     },
     "MachineExtensionsListResult": {
+      "type": "object",
       "properties": {
         "value": {
           "type": "array",
@@ -6584,6 +6844,7 @@
     },
     "GuestAgentList": {
       "description": "List of GuestAgent.",
+      "type": "object",
       "properties": {
         "nextLink": {
           "description": "Url to follow for getting next page of GuestAgent.",
@@ -6609,7 +6870,7 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ProxyResource",
           "description": "The resource model definition for an Azure Resource Manager proxy resource. It will have everything other than required location and tags."
         }
       ],
@@ -6620,7 +6881,7 @@
           "$ref": "#/definitions/GuestAgentProperties"
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
           "description": "The system data."
         }
       },
@@ -6672,6 +6933,422 @@
           "readOnly": true
         }
       }
+    },
+    "VirtualMachineAssessPatchesResult": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "readOnly": true,
+          "description": "The overall success or failure status of the operation. It remains \"InProgress\" until the operation completes. At that point it will become \"Unknown\", \"Failed\", \"Succeeded\", or \"CompletedWithWarnings.\"",
+          "enum": [
+            "Unknown",
+            "InProgress",
+            "Failed",
+            "Succeeded",
+            "CompletedWithWarnings"
+          ],
+          "x-ms-enum": {
+            "name": "PatchOperationStatus",
+            "modelAsString": true
+          }
+        },
+        "assessmentActivityId": {
+          "type": "string",
+          "readOnly": true,
+          "description": "The activity ID of the operation that produced this result."
+        },
+        "rebootPending": {
+          "type": "boolean",
+          "readOnly": true,
+          "description": "The overall reboot status of the VM. It will be true when partially installed patches require a reboot to complete installation but the reboot has not yet occurred."
+        },
+        "availablePatchCountByClassification": {
+          "$ref": "#/definitions/AvailablePatchCountByClassification",
+          "description": "Summarization of patches available for installation on the machine by classification."
+        },
+        "startDateTime": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "The UTC timestamp when the operation began."
+        },
+        "lastModifiedDateTime": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "The UTC timestamp when the operation finished."
+        },
+        "startedBy": {
+          "type": "string",
+          "readOnly": true,
+          "enum": [
+            "User",
+            "Platform"
+          ],
+          "x-ms-enum": {
+            "name": "PatchOperationStartedBy",
+            "modelAsString": true
+          },
+          "description": "Indicates if operation was triggered by user or by platform."
+        },
+        "patchServiceUsed": {
+          "type": "string",
+          "readOnly": true,
+          "enum": [
+            "Unknown",
+            "WU",
+            "WU_WSUS",
+            "YUM",
+            "APT",
+            "Zypper"
+          ],
+          "x-ms-enum": {
+            "name": "PatchServiceUsed",
+            "modelAsString": true
+          },
+          "description": "Specifies the patch service used for the operation."
+        },
+        "osType": {
+          "type": "string",
+          "readOnly": true,
+          "enum": [
+            "Windows",
+            "Linux"
+          ],
+          "x-ms-enum": {
+            "name": "OsTypeUM",
+            "modelAsString": true
+          },
+          "description": "The operating system type of the machine."
+        },
+        "errorDetails": {
+          "$ref": "#/definitions/ErrorDetail",
+          "readOnly": true,
+          "description": "The errors that were encountered during execution of the operation. The details array contains the list of them."
+        }
+      },
+      "description": "Describes the properties of an AssessPatches result."
+    },
+    "AvailablePatchCountByClassification": {
+      "type": "object",
+      "properties": {
+        "security": {
+          "readOnly": true,
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of security patches available for installation."
+        },
+        "critical": {
+          "readOnly": true,
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of critical patches available for installation."
+        },
+        "definition": {
+          "readOnly": true,
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of definition patches available for installation."
+        },
+        "updateRollup": {
+          "readOnly": true,
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of update Rollup patches available for installation."
+        },
+        "featurePack": {
+          "readOnly": true,
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of feature pack patches available for installation."
+        },
+        "servicePack": {
+          "readOnly": true,
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of service pack patches available for installation."
+        },
+        "tools": {
+          "readOnly": true,
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of tools patches available for installation."
+        },
+        "updates": {
+          "readOnly": true,
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of updates category patches available for installation."
+        },
+        "other": {
+          "readOnly": true,
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of other patches available for installation."
+        }
+      },
+      "description": "Summarization of patches available for installation on the machine by classification."
+    },
+    "VirtualMachineInstallPatchesParameters": {
+      "type": "object",
+      "properties": {
+        "maximumDuration": {
+          "type": "string",
+          "description": "Specifies the maximum amount of time that the operation will run. It must be an ISO 8601-compliant duration string such as PT4H (4 hours)"
+        },
+        "rebootSetting": {
+          "type": "string",
+          "description": "Defines when it is acceptable to reboot a VM during a software update operation.",
+          "enum": [
+            "IfRequired",
+            "Never",
+            "Always"
+          ],
+          "x-ms-enum": {
+            "name": "VMGuestPatchRebootSetting",
+            "modelAsString": true
+          }
+        },
+        "windowsParameters": {
+          "$ref": "#/definitions/WindowsParameters",
+          "description": "Input for InstallPatches on a Windows VM, as directly received by the API"
+        },
+        "linuxParameters": {
+          "$ref": "#/definitions/LinuxParameters",
+          "description": "Input for InstallPatches on a Linux VM, as directly received by the API"
+        }
+      },
+      "required": [
+        "maximumDuration",
+        "rebootSetting"
+      ],
+      "description": "Input for InstallPatches as directly received by the API"
+    },
+    "WindowsParameters": {
+      "type": "object",
+      "properties": {
+        "classificationsToInclude": {
+          "type": "array",
+          "description": "The update classifications to select when installing patches for Windows.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Critical",
+              "Security",
+              "UpdateRollUp",
+              "FeaturePack",
+              "ServicePack",
+              "Definition",
+              "Tools",
+              "Updates"
+            ],
+            "x-ms-enum": {
+              "name": "VMGuestPatchClassification_Windows",
+              "modelAsString": true
+            }
+          }
+        },
+        "kbNumbersToInclude": {
+          "type": "array",
+          "description": "Kbs to include in the patch operation",
+          "items": {
+            "type": "string"
+          }
+        },
+        "kbNumbersToExclude": {
+          "type": "array",
+          "description": "Kbs to exclude in the patch operation",
+          "items": {
+            "type": "string"
+          }
+        },
+        "excludeKbsRequiringReboot": {
+          "type": "boolean",
+          "description": "Filters out Kbs that don't have an InstallationRebootBehavior of 'NeverReboots' when this is set to true."
+        },
+        "maxPatchPublishDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "This is used to install patches that were published on or before this given max published date."
+        }
+      },
+      "description": "Input for InstallPatches on a Windows VM, as directly received by the API"
+    },
+    "LinuxParameters": {
+      "type": "object",
+      "properties": {
+        "classificationsToInclude": {
+          "type": "array",
+          "description": "The update classifications to select when installing patches for Linux.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Critical",
+              "Security",
+              "Other"
+            ],
+            "x-ms-enum": {
+              "name": "VMGuestPatchClassification_Linux",
+              "modelAsString": true
+            }
+          }
+        },
+        "packageNameMasksToInclude": {
+          "type": "array",
+          "description": "packages to include in the patch operation. Format: packageName_packageVersion",
+          "items": {
+            "type": "string"
+          }
+        },
+        "packageNameMasksToExclude": {
+          "type": "array",
+          "description": "packages to exclude in the patch operation. Format: packageName_packageVersion",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Input for InstallPatches on a Linux VM, as directly received by the API"
+    },
+    "VirtualMachineInstallPatchesResult": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "readOnly": true,
+          "description": "The overall success or failure status of the operation. It remains \"InProgress\" until the operation completes. At that point it will become \"Failed\", \"Succeeded\", \"Unknown\" or \"CompletedWithWarnings.\"",
+          "enum": [
+            "Unknown",
+            "InProgress",
+            "Failed",
+            "Succeeded",
+            "CompletedWithWarnings"
+          ],
+          "x-ms-enum": {
+            "name": "PatchOperationStatus",
+            "modelAsString": true
+          }
+        },
+        "installationActivityId": {
+          "type": "string",
+          "readOnly": true,
+          "description": "The activity ID of the operation that produced this result."
+        },
+        "rebootStatus": {
+          "type": "string",
+          "readOnly": true,
+          "description": "The reboot state of the VM following completion of the operation.",
+          "enum": [
+            "Unknown",
+            "NotNeeded",
+            "Required",
+            "Started",
+            "Failed",
+            "Completed"
+          ],
+          "x-ms-enum": {
+            "name": "VMGuestPatchRebootStatus",
+            "modelAsString": true
+          }
+        },
+        "maintenanceWindowExceeded": {
+          "type": "boolean",
+          "readOnly": true,
+          "description": "Whether the operation ran out of time before it completed all its intended actions."
+        },
+        "excludedPatchCount": {
+          "type": "integer",
+          "readOnly": true,
+          "format": "int32",
+          "description": "The number of patches that were not installed due to the user blocking their installation."
+        },
+        "notSelectedPatchCount": {
+          "type": "integer",
+          "readOnly": true,
+          "format": "int32",
+          "description": "The number of patches that were detected as available for install, but did not meet the operation's criteria."
+        },
+        "pendingPatchCount": {
+          "type": "integer",
+          "readOnly": true,
+          "format": "int32",
+          "description": "The number of patches that were identified as meeting the installation criteria, but were not able to be installed. Typically this happens when maintenanceWindowExceeded == true."
+        },
+        "installedPatchCount": {
+          "type": "integer",
+          "readOnly": true,
+          "format": "int32",
+          "description": "The number of patches successfully installed."
+        },
+        "failedPatchCount": {
+          "type": "integer",
+          "readOnly": true,
+          "format": "int32",
+          "description": "The number of patches that could not be installed due to some issue. See errors for details."
+        },
+        "startDateTime": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "The UTC timestamp when the operation began."
+        },
+        "lastModifiedDateTime": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "The UTC timestamp when the operation finished."
+        },
+        "startedBy": {
+          "type": "string",
+          "readOnly": true,
+          "enum": [
+            "User",
+            "Platform"
+          ],
+          "x-ms-enum": {
+            "name": "PatchOperationStartedBy",
+            "modelAsString": true
+          },
+          "description": "Indicates if operation was triggered by user or by platform."
+        },
+        "patchServiceUsed": {
+          "type": "string",
+          "readOnly": true,
+          "enum": [
+            "Unknown",
+            "WU",
+            "WU_WSUS",
+            "YUM",
+            "APT",
+            "Zypper"
+          ],
+          "x-ms-enum": {
+            "name": "PatchServiceUsed",
+            "modelAsString": true
+          },
+          "description": "Specifies the patch service used for the operation."
+        },
+        "osType": {
+          "type": "string",
+          "readOnly": true,
+          "enum": [
+            "Windows",
+            "Linux"
+          ],
+          "x-ms-enum": {
+            "name": "OsTypeUM",
+            "modelAsString": true
+          },
+          "description": "The operating system type of the machine."
+        },
+        "errorDetails": {
+          "$ref": "#/definitions/ErrorDetail",
+          "readOnly": true,
+          "description": "The errors that were encountered during execution of the operation. The details array contains the list of them."
+        }
+      },
+      "description": "The result summary of an installation operation."
     }
   },
   "parameters": {
