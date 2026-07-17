@@ -19,7 +19,7 @@ model InferenceAccount is TrackedResource<InferenceAccountProperties> {
 
 // Design note: this properties bag had no writable fields in 2026-01-15-preview.
 // Key-based authentication configuration becomes writable in 2026-08-01-preview.
-/** Read-only properties of an inference service account. */
+/** Properties of an inference service account. */
 model InferenceAccountProperties {
   /** The REST endpoint for the inference account */
   @visibility(Lifecycle.Read)
@@ -42,7 +42,7 @@ model InferenceAccountProperties {
 
 /** The properties that can be updated on an inference service account. */
 @added(Versions.v2026_08_01_preview)
-model InferenceAccountUpdate is ResourceUpdateModel<
+model InferenceAccountUpdate is Azure.ResourceManager.Foundations.ResourceUpdateModel<
   InferenceAccount,
   InferenceAccountProperties
 >;
