@@ -900,8 +900,8 @@
           "description": "The unique identifier of the check."
         },
         "reason": {
-          "$ref": "#/definitions/NotApplicableReason",
-          "description": "A short code indicating why the check is not applicable."
+          "type": "string",
+          "description": "A short code indicating why the check is not applicable. Common values include \"ComponentTypeMismatch\", \"MetadataValueMismatch\", \"MetadataKeyNotFound\", \"ResourceTypeNotFound\", and \"UnsupportedOSType\", but any string value returned by the backend is accepted."
         },
         "checkLevel": {
           "$ref": "#/definitions/CheckLevel",
@@ -921,48 +921,6 @@
         "reason",
         "checkLevel"
       ]
-    },
-    "NotApplicableReason": {
-      "type": "string",
-      "description": "Indicates why a configuration check is not applicable to the current workload.",
-      "enum": [
-        "ComponentTypeMismatch",
-        "MetadataValueMismatch",
-        "MetadataKeyNotFound",
-        "ResourceTypeNotFound",
-        "UnsupportedOSType"
-      ],
-      "x-ms-enum": {
-        "name": "NotApplicableReason",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "ComponentTypeMismatch",
-            "value": "ComponentTypeMismatch",
-            "description": "The component type does not match the criteria required by the check."
-          },
-          {
-            "name": "MetadataValueMismatch",
-            "value": "MetadataValueMismatch",
-            "description": "A required metadata value does not match the expected value."
-          },
-          {
-            "name": "MetadataKeyNotFound",
-            "value": "MetadataKeyNotFound",
-            "description": "A required metadata key was not found on the resource."
-          },
-          {
-            "name": "ResourceTypeNotFound",
-            "value": "ResourceTypeNotFound",
-            "description": "The required resource type was not found in the workload."
-          },
-          {
-            "name": "UnsupportedOSType",
-            "value": "UnsupportedOSType",
-            "description": "The operating system type is not supported by the check."
-          }
-        ]
-      }
     },
     "OutputParameters": {
       "type": "object",

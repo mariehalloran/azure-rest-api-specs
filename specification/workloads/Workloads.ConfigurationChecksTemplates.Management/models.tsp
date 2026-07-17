@@ -344,41 +344,6 @@ union CheckLevel {
   string,
 }
 
-@doc("Indicates why a configuration check is not applicable to the current workload.")
-union NotApplicableReason {
-  /**
-   * The component type does not match the criteria required by the check.
-   */
-  @doc("The component type does not match the criteria required by the check.")
-  ComponentTypeMismatch: "ComponentTypeMismatch",
-
-  /**
-   * A required metadata value does not match the expected value.
-   */
-  @doc("A required metadata value does not match the expected value.")
-  MetadataValueMismatch: "MetadataValueMismatch",
-
-  /**
-   * A required metadata key was not found on the resource.
-   */
-  @doc("A required metadata key was not found on the resource.")
-  MetadataKeyNotFound: "MetadataKeyNotFound",
-
-  /**
-   * The required resource type was not found in the workload.
-   */
-  @doc("The required resource type was not found in the workload.")
-  ResourceTypeNotFound: "ResourceTypeNotFound",
-
-  /**
-   * The operating system type is not supported by the check.
-   */
-  @doc("The operating system type is not supported by the check.")
-  UnsupportedOSType: "UnsupportedOSType",
-
-  string,
-}
-
 @doc("Represents a configuration check that is not applicable to the current workload, with a structured reason. Does not carry an execution state since the check does not run.")
 model NotApplicableCheck {
   /**
@@ -388,10 +353,10 @@ model NotApplicableCheck {
   checkId: string;
 
   /**
-   * A short code indicating why the check is not applicable.
+   * A short code indicating why the check is not applicable. Common values include "ComponentTypeMismatch", "MetadataValueMismatch", "MetadataKeyNotFound", "ResourceTypeNotFound", and "UnsupportedOSType", but any string value returned by the backend is accepted.
    */
-  @doc("A short code indicating why the check is not applicable.")
-  reason: NotApplicableReason;
+  @doc("A short code indicating why the check is not applicable. Common values include \"ComponentTypeMismatch\", \"MetadataValueMismatch\", \"MetadataKeyNotFound\", \"ResourceTypeNotFound\", and \"UnsupportedOSType\", but any string value returned by the backend is accepted.")
+  reason: string;
 
   /**
    * The scope at which the check was evaluated.
