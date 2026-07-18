@@ -14,6 +14,19 @@ namespace Microsoft.ResourceNotifications;
 
 // cspell:words DSTS Dsts
 
+/** ARM resource ID of an Event Grid source supported by ARN. */
+alias EventGridSourceResourceId = Azure.Core.armResourceIdentifier<[
+  {
+    type: "Microsoft.EventGrid/topics";
+  },
+  {
+    type: "Microsoft.EventGrid/domains";
+  },
+  {
+    type: "Microsoft.EventGrid/domains/topics";
+  }
+]>;
+
 /** Request-rate limits overriding the defaults supplied by an ingestion unit SKU. */
 @added(Versions.v2026_08_01_preview)
 model CapacityOverrides {
@@ -165,8 +178,8 @@ model IngestionUnitProperties {
   @visibility(Lifecycle.Read)
   endpoint?: string;
 
-  /** ARM resource IDs of Event Grid topics/domains routed through this unit. */
-  eventGridTopicIds?: Azure.Core.armResourceIdentifier[];
+  /** ARM resource IDs of Event Grid topics, domains, and domain topics routed through this unit. */
+  eventGridTopicIds?: EventGridSourceResourceId[];
 
   /** Whether this ingestion unit is enabled. Set to false to disable during outages. Default: true. */
   #suppress "EnumInsteadOfBoolean" "enabled is a simple on/off operational toggle"
@@ -214,8 +227,8 @@ model IngestionUnitPatchProperties {
   @minItems(1)
   authorizations?: IngestionUnitAuthorization[];
 
-  /** Updated Event Grid topics routed through this ingestion unit. */
-  eventGridTopicIds?: Azure.Core.armResourceIdentifier[];
+  /** Complete replacement collection of Event Grid topics, domains, and domain topics routed through this ingestion unit. */
+  eventGridTopicIds?: EventGridSourceResourceId[];
 
   /** Updated enabled state. */
   enabled?: boolean;

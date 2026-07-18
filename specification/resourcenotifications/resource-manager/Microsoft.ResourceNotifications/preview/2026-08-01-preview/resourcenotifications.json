@@ -2423,11 +2423,24 @@
         },
         "eventGridTopicIds": {
           "type": "array",
-          "description": "Updated Event Grid topics routed through this ingestion unit.",
+          "description": "Complete replacement collection of Event Grid topics, domains, and domain topics routed through this ingestion unit.",
           "items": {
             "type": "string",
             "format": "arm-id",
-            "description": "A type definition that refers the id to an Azure Resource Manager resource."
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Microsoft.EventGrid/topics"
+                },
+                {
+                  "type": "Microsoft.EventGrid/domains"
+                },
+                {
+                  "type": "Microsoft.EventGrid/domains/topics"
+                }
+              ]
+            }
           }
         },
         "enabled": {
@@ -2466,11 +2479,24 @@
         },
         "eventGridTopicIds": {
           "type": "array",
-          "description": "ARM resource IDs of Event Grid topics/domains routed through this unit.",
+          "description": "ARM resource IDs of Event Grid topics, domains, and domain topics routed through this unit.",
           "items": {
             "type": "string",
             "format": "arm-id",
-            "description": "A type definition that refers the id to an Azure Resource Manager resource."
+            "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+            "x-ms-arm-id-details": {
+              "allowedResources": [
+                {
+                  "type": "Microsoft.EventGrid/topics"
+                },
+                {
+                  "type": "Microsoft.EventGrid/domains"
+                },
+                {
+                  "type": "Microsoft.EventGrid/domains/topics"
+                }
+              ]
+            }
           }
         },
         "enabled": {
