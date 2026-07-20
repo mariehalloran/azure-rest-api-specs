@@ -12730,6 +12730,11 @@ model EdgeMachineScaleUnits {
 @added(Versions.v2026_03_15_preview)
 model EdgeMachineDeploymentData {
   /**
+   * Storage type for the edge machine node.
+   */
+  storageType?: NodeStorageType;
+
+  /**
    * iSCSI configuration for the edge machine.
    */
   iScsiConfig?: IscsiConfig;
@@ -12740,6 +12745,23 @@ model EdgeMachineDeploymentData {
    */
   @identifiers(#[])
   secrets?: EceDeploymentSecrets[];
+}
+
+/**
+ * Node storage type for an edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+union NodeStorageType {
+  string,
+
+  /** Storage Spaces Direct (S2D) storage type. */
+  S2D: "S2D",
+
+  /** SAN iSCSI storage type. */
+  SanIscsi: "SANISCSI",
+
+  /** SAN Fibre Channel storage type. */
+  SanFc: "SANFC",
 }
 
 /**
@@ -12772,12 +12794,6 @@ model IscsiNetworkConfig {
    * Common adapter properties applied to all iSCSI network adapters.
    */
   adapterProperties?: IscsiAdapterProperties;
-
-  /**
-   * Target portal addresses reachable through the iSCSI network adapters.
-   */
-  @identifiers(#["ipAddress"])
-  targetPortalAddresses?: IscsiTargetPortalAddress[];
 
   /**
    * Per-adapter IP configuration for the iSCSI network adapters.
@@ -12827,6 +12843,12 @@ model IscsiAdapterIPConfig {
    * Address prefix (CIDR notation) for the iSCSI network adapter.
    */
   addressPrefix?: string;
+
+  /**
+   * Target portal addresses reachable through this iSCSI network adapter.
+   */
+  @identifiers(#["ipAddress"])
+  targetPortalAddresses?: IscsiTargetPortalAddress[];
 }
 
 /**

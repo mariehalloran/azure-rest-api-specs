@@ -31,6 +31,10 @@ enum Versions {
   /** 2026-02-01-preview version */
   @useDependency(Azure.ResourceManager.CommonTypes.Versions.v6)
   v2026_02_01_preview: "2026-02-01-preview",
+
+  /** 2026-03-01-preview version */
+  @useDependency(Azure.ResourceManager.CommonTypes.Versions.v6)
+  v2026_03_01_preview: "2026-03-01-preview",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}
@@ -44,8 +48,15 @@ model ContextCache is TrackedResource<ContextCacheProperties, false> {
   @path
   name: string;
 
-  ...ManagedSystemAssignedIdentityProperty;
+  ...ManagedServiceIdentityProperty;
 }
+
+// Keep 2026-02-01-preview as SystemAssigned and broaden from 2026-03-01-preview.
+@@typeChangedFrom(
+  ContextCache.identity,
+  Versions.v2026_03_01_preview,
+  Azure.ResourceManager.CommonTypes.SystemAssignedServiceIdentity
+);
 
 @armResourceOperations(ContextCache)
 interface ContextCaches {
