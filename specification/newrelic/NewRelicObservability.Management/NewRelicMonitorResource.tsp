@@ -11,8 +11,10 @@ namespace NewRelic.Observability;
 /**
  * A Monitor Resource by NewRelic
  */
-model NewRelicMonitorResource
-  is Azure.ResourceManager.TrackedResource<MonitorProperties, false> {
+model NewRelicMonitorResource is Azure.ResourceManager.TrackedResource<
+  MonitorProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = NewRelicMonitorResource,
     KeyName = "monitorName",
@@ -195,6 +197,7 @@ interface NewRelicMonitorResources {
   #suppress "@azure-tools/typespec-azure-resource-manager/lro-location-header" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   @Azure.Core.useFinalStateVia("azure-async-operation")
   @summary("Resubscribes the New Relic Organization of the underline Monitor Resource to be billed by Azure Marketplace")
+  @doc("A long-running resource action.")
   resubscribe is ArmResourceActionAsync<
     NewRelicMonitorResource,
     ResubscribeProperties,

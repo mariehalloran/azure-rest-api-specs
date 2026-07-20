@@ -1,0 +1,45 @@
+{
+  "title": "Operations_List",
+  "operationId": "Operations_List",
+  "parameters": {
+    "api-version": "2026-06-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "Microsoft.EdgeOperator/billingConfigurations/read",
+            "isDataAction": false,
+            "display": {
+              "provider": "Microsoft.EdgeOperator",
+              "resource": "billingConfigurations",
+              "operation": "Get billing configuration",
+              "description": "Gets the active billing configuration for the subscription."
+            }
+          },
+          {
+            "name": "Microsoft.EdgeOperator/billingConfigurations/write",
+            "isDataAction": false,
+            "display": {
+              "provider": "Microsoft.EdgeOperator",
+              "resource": "billingConfigurations",
+              "operation": "Create or update billing configuration",
+              "description": "Creates or replaces the active billing configuration for the subscription."
+            }
+          },
+          {
+            "name": "Microsoft.EdgeOperator/billingConfigurations/snapshots/read",
+            "isDataAction": false,
+            "display": {
+              "provider": "Microsoft.EdgeOperator",
+              "resource": "billingConfigurations/snapshots",
+              "operation": "Get or list billing configuration snapshots",
+              "description": "Gets or lists historical snapshots of billing configurations."
+            }
+          }
+        ]
+      }
+    }
+  }
+}

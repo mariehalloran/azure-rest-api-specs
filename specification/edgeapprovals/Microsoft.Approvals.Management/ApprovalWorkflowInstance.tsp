@@ -20,9 +20,13 @@ model ApprovalWorkflowInstanceProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
 
+  @doc("The datetime when the approval workflow instance was initiated.")
+  @visibility(Lifecycle.Read)
+  initiatedAt?: utcDateTime;
+
   @doc("The one who attempted to make the change for approvals.")
   @visibility(Lifecycle.Read)
-  requestedBy: string;
+  requestedBy?: string;
 
   @doc("The ARM resource id of the change that the approval workflow instance was associated with. For example, the change state resource.")
   @visibility(Lifecycle.Read, Lifecycle.Create)
@@ -38,16 +42,20 @@ model ApprovalWorkflowInstanceProperties {
 
   @doc("The snapshot of the approval rule of the parent ApprovalWorkflowDefinition resource at the time the approval workflow instance was created.")
   @visibility(Lifecycle.Read)
-  approvalRuleSnapshot: ApprovalRule;
+  approvalRuleSnapshot?: ApprovalRule;
 
   @doc("The latest execution state of the approval workflow instance.")
   @visibility(Lifecycle.Read)
-  executionState: ApprovalWorkflowExecutionState;
+  executionState?: ApprovalWorkflowExecutionState;
+
+  @doc("The failure reason for the latest terminal workflow failure.")
+  @visibility(Lifecycle.Read)
+  failureReason?: string;
 
   @doc("The latest status of each stage.")
   @visibility(Lifecycle.Read)
   @identifiers(#["name"])
-  stageStatuses: ApprovalStageExecutionStatus[];
+  stageStatuses?: ApprovalStageExecutionStatus[];
 }
 
 @doc("Enum of the overall execution state of an approval workflow instance.")
@@ -104,6 +112,9 @@ union ApprovalStageExecutionState {
 
   @doc("The stage has been faulted.")
   Faulted: "Faulted",
+
+  @doc("The stage was closed because the workflow was finalized while this stage was still in progress.")
+  Closed: "Closed",
 }
 
 @doc("Approver's sign-off status.")
@@ -147,6 +158,7 @@ interface ApprovalWorkflowInstances {
   create is ArmResourceCreateOrReplaceSync<ApprovalWorkflowInstance>;
   delete is ArmResourceDeleteSync<ApprovalWorkflowInstance>;
   listByParent is ArmResourceListByParent<ApprovalWorkflowInstance>;
+  @doc("A long-running resource action.")
   executeStage is ArmResourceActionNoResponseContentAsync<
     ApprovalWorkflowInstance,
     ApprovalStageExecutionInput

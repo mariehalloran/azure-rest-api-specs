@@ -9,8 +9,10 @@ namespace Microsoft.ApplicationMigration;
 /**
  * The MongoSite resource definition.
  */
-model MongoSite
-  is Azure.ResourceManager.TrackedResource<MongoSiteProperties, false> {
+model MongoSite is Azure.ResourceManager.TrackedResource<
+  MongoSiteProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = MongoSite,
     KeyName = "siteName",

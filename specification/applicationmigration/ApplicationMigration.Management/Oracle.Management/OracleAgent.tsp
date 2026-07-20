@@ -15,8 +15,10 @@ namespace Microsoft.ApplicationMigration;
  * The Agent resource definition.
  */
 @parentResource(OracleSite)
-model OracleAgent
-  is Azure.ResourceManager.ProxyResource<AgentProperties, false> {
+model OracleAgent is Azure.ResourceManager.ProxyResource<
+  AgentProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = OracleAgent,
     KeyName = "agentName",

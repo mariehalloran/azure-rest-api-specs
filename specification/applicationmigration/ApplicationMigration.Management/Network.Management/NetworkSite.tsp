@@ -14,8 +14,10 @@ namespace Microsoft.ApplicationMigration;
 /**
  * A network discovery site resource.
  */
-model NetworkSite
-  is Azure.ResourceManager.TrackedResource<NetworkSiteProperties, false> {
+model NetworkSite is Azure.ResourceManager.TrackedResource<
+  NetworkSiteProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = NetworkSite,
     KeyName = "siteName",

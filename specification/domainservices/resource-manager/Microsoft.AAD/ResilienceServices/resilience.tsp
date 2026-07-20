@@ -41,6 +41,9 @@ model AttestationServiceConfig {
 @parentResource(ResilienceService)
 model ResilienceHost is TrackedResource<ResilienceHostProperties> {
   ...ResourceNameParameter<ResilienceHost, SegmentName = "hosts">;
+
+  /** The managed service identities assigned to this resource. */
+  ...Azure.ResourceManager.ManagedServiceIdentityProperty;
 }
 
 /** Resilience host properties. */

@@ -50,6 +50,7 @@ model OracleSourceConnectorProperties extends DataSourceProperties {
   @doc("Type of OracleSourceConnector")
   connectorType: Models.Connector.ConnectorType.OracleSource;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("Specifies the raw database JDBC URL. Valid values include raw TNS names and RAC connection strings.")
   databaseUrl: string;
 
@@ -71,6 +72,9 @@ model OracleSourceConnectorProperties extends DataSourceProperties {
 
   @doc("Snapshot Mode.")
   oracleSnapshotMode?: OracleSnapshotMode;
+
+  @doc("Specifies the maximum number of rows that should be read in one go from each table while taking a snapshot.")
+  snapshotFetchSize?: int32;
 
   @doc("Tables used as source, comma-separated table name list or regular expressions")
   tableIncludeList?: string;

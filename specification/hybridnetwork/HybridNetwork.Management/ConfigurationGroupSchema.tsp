@@ -76,12 +76,11 @@ interface ConfigurationGroupSchemas {
   updateState is ArmResourceActionAsyncBase<
     ConfigurationGroupSchema,
     ConfigurationGroupSchemaVersionUpdateState,
-
-      | ArmResponse<ConfigurationGroupSchemaVersionUpdateState>
-      | ArmAcceptedLroResponse<
-          "The request of updating configuration group schema state is accepted.",
-          ArmLroLocationHeader<FinalResult = ConfigurationGroupSchemaVersionUpdateState>
-        >,
+    | ArmResponse<ConfigurationGroupSchemaVersionUpdateState>
+    | ArmAcceptedLroResponse<
+        "The request of updating configuration group schema state is accepted.",
+        ArmLroLocationHeader<FinalResult = ConfigurationGroupSchemaVersionUpdateState>
+      >,
     BaseParameters = Azure.ResourceManager.Foundations.DefaultBaseParameters<ConfigurationGroupSchema>
   >;
 }

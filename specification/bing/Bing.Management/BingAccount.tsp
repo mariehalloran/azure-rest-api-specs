@@ -14,7 +14,6 @@ namespace Microsoft.Bing;
  * Bing Account is an Azure resource representing the provisioned account, its type, location and SKU.
  */
 #suppress "@azure-tools/typespec-azure-core/no-private-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
-#suppress "@azure-tools/typespec-azure-core/no-private-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 @Azure.ResourceManager.Private.armResourceInternal(BingAccountProperties)
 @TypeSpec.Http.Private.includeInapplicableMetadataInPayload(false)

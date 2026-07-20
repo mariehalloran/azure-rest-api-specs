@@ -1,9 +1,11 @@
 import "@typespec/http";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
 using TypeSpec.Http;
+using TypeSpec.Versioning;
 using Azure.Core;
 using Azure.ResourceManager;
 
@@ -19,6 +21,32 @@ namespace Microsoft.Offers;
 /** A curated property bag projected from the upstream catalog. Unbounded key set. */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Curated property bag with an unbounded key set sourced from the upstream BigCat catalog feed; cannot be modeled as an explicit type."
 model PcdPropertyBag is Record<unknown>;
+
+/**
+ * Full-fidelity embedded BigCat ResourceSet object. Additive & nullable: only
+ * present when the embed feature flag is on and an id matches.
+ */
+@added(Versions.v2026_06_30_preview)
+model ResourceSet {
+  /** Display catalog identifier for this resource set. */
+  displayCatalogId?: int32;
+
+  /** The resource set identifier. */
+  @maxLength(256)
+  resourceSetId?: string;
+
+  /** Status of the resource set. */
+  @maxLength(64)
+  resourceSetStatus?: string;
+
+  /** Revision identifier of the resource set. */
+  @maxLength(64)
+  revisionId?: string;
+
+  /** Groups contained in this resource set. */
+  @identifiers(#[])
+  groups?: PcdPropertyBag[];
+}
 
 // =============================================================================
 // Product
@@ -172,6 +200,11 @@ model Availability {
 
 // =============================================================================
 // ValueExchange (UPN) properties
+//
+// 2026-04-24-preview: denormalized trio of Product, Sku, and Availability.
+// 2026-06-30-preview: replaced with a flat shape matching the `value_exchanges`
+// stream. The old properties are marked @removed and the new flat properties
+// are marked @added in the new version.
 // =============================================================================
 
 /**
@@ -182,11 +215,108 @@ model Availability {
  */
 model ValueExchangeProperties {
   /** Denormalized product summary. */
+  @removed(Versions.v2026_06_30_preview)
   product: Product;
 
   /** Denormalized SKU summary. */
+  @removed(Versions.v2026_06_30_preview)
   sku: Sku;
 
   /** Availability information for this value exchange. */
+  @removed(Versions.v2026_06_30_preview)
   availability: Availability;
+
+  /** Foreign key linking to the parent product. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  productId: string;
+
+  /** Foreign key linking to the parent SKU. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  skuId: string;
+
+  /** Primary key — the Universal Product Number (UPN) identifying this value exchange / meter. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  productCode: string;
+
+  /** Product version propagated from the parent product document. */
+  @added(Versions.v2026_06_30_preview)
+  version: int32;
+
+  /** Computed composite identifier: `"{productId}/{skuId}"`. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(130)
+  bigId?: string;
+
+  /** Consumer-facing alias of the UPN (same source value as `productCode`). */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  productCodeAlias?: string;
+
+  /** Classification of the meter type (for example, consumption, license seat, reservation). */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  meterType?: string;
+
+  /** Identifier of the associated billing term for this value exchange. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  termId?: string;
+
+  /** SaaS-specific renewal term identifier for automatic renewal routing. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  saasRenewTermId?: string;
+
+  /** Units of the term (for example, monthly, annually), resolved via lookup in Product.Consumption.Terms[]. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  termUnits?: string;
+
+  /** Descriptive identifier for the term, resolved via enrichment lookup. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  termDescriptionId?: string;
+
+  /** Array of term component identifiers that compose this billing term. */
+  @added(Versions.v2026_06_30_preview)
+  termComponentIds?: string[];
+
+  /** Timer value (in days) for generating renewal quotes prior to term end. */
+  @added(Versions.v2026_06_30_preview)
+  @maxLength(64)
+  renewalQuoteTimer?: string;
+
+  /** The different lifecycle states which this term will go through. */
+  @added(Versions.v2026_06_30_preview)
+  @identifiers(#[])
+  productLifecycleStates?: PcdPropertyBag[];
+
+  /** Array of availability identifiers matching this value exchange's skuId + termId. */
+  @added(Versions.v2026_06_30_preview)
+  availabilityIds?: string[];
+
+  /** Count of matching availability records for this value exchange. */
+  @added(Versions.v2026_06_30_preview)
+  availabilityCount?: int32;
+
+  /**
+   * Full-fidelity embedded BigCat ResourceSet objects for this value exchange's
+   * term-level ResourceSetIds. Additive & nullable — null when the embed feature
+   * flag is off or no id matches.
+   */
+  @added(Versions.v2026_06_30_preview)
+  @identifiers(#["resourceSetId"])
+  resourceSets?: ResourceSet[];
+
+  /** Dynamic struct carrying internal-routing provenance fields (for example, `runId`). */
+  @added(Versions.v2026_06_30_preview)
+  diagnosticsInformation?: PcdPropertyBag;
+
+  /** The provisioning state of the catalog resource. */
+  @added(Versions.v2026_06_30_preview)
+  @visibility(Lifecycle.Read)
+  provisioningState?: ResourceProvisioningState;
 }

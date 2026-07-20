@@ -1,0 +1,23 @@
+{
+  "title": "Look up an enumeration set by its type key.",
+  "operationId": "Enumerations_Lookup",
+  "parameters": {
+    "api-version": "2026-06-30-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "body": {
+      "enumerationType": "categories"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "enumerationType": "categories",
+        "values": [
+          "compute",
+          "storage",
+          "networking"
+        ]
+      }
+    }
+  }
+}

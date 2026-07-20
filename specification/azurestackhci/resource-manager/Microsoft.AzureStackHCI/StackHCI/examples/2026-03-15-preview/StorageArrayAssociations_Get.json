@@ -1,0 +1,51 @@
+{
+  "title": "StorageArrayAssociations_Get",
+  "operationId": "StorageArrayAssociations_Get",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "6D37FF61-4C93-4377-B06B-FC6D6D561A7D",
+    "resourceGroupName": "rghci",
+    "clusterName": "contoso-cluster",
+    "storageArrayAssociationName": "pure-1-assoc"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/clusters/contoso-cluster/storageArrayAssociations/pure-1-assoc",
+        "name": "pure-1-assoc",
+        "type": "Microsoft.AzureStackHCI/clusters/storageArrayAssociations",
+        "properties": {
+          "storageArrayResourceId": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1",
+          "operationalMode": "FullManagement",
+          "credentialSecretUri": "https://san-enablement.vault.azure.net/secrets/pure-1",
+          "networkEndpoint": "100.71.95.15",
+          "connectedTransports": [
+            "FC"
+          ],
+          "accessStatus": "Connected",
+          "haRole": "None",
+          "clusterStorageQoS": {
+            "defaultMaxIops": 50000,
+            "defaultMinIops": 500,
+            "policyEnforcement": "Enabled"
+          },
+          "status": {
+            "state": "Attached",
+            "lastConnectedAt": "2026-04-20T18:00:00Z",
+            "discoveredArrayModel": "FlashArray//X50",
+            "discoveredArrayVendor": "PureStorage"
+          },
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2026-03-15T10:00:00.000Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "Application",
+          "lastModifiedAt": "2026-04-20T18:00:00.000Z"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "title": "ClusterVolumeJobs_CreateOrUpdate",
+  "operationId": "ClusterVolumeJobs_CreateOrUpdate",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "fd3c3665-1729-4b7b-9a38-238e83b0f98b",
+    "resourceGroupName": "ArcInstance-rg",
+    "clusterName": "cluster-1",
+    "volumeName": "volume-1",
+    "jobName": "sync-volume-job-001",
+    "resource": {
+      "properties": {
+        "jobType": "VolumeSync",
+        "deploymentMode": "Deploy"
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "jobType": "VolumeSync",
+          "deploymentMode": "Deploy",
+          "provisioningState": "Succeeded",
+          "jobId": "sync-volume-job-001",
+          "startTimeUtc": "2024-11-14T10:46:55.167Z",
+          "endTimeUtc": "2024-11-14T10:50:55.167Z",
+          "status": "Succeeded",
+          "reportedProperties": {
+            "percentComplete": 100
+          }
+        },
+        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/ArcInstance-rg/providers/Microsoft.AzureStackHCI/clusters/cluster-1/volumes/volume-1/jobs/sync-volume-job-001",
+        "name": "sync-volume-job-001",
+        "type": "Microsoft.AzureStackHCI/clusters/volumes/jobs",
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2024-11-14T10:46:55.167Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2024-11-14T10:50:55.167Z"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "properties": {
+          "jobType": "VolumeSync",
+          "deploymentMode": "Deploy",
+          "provisioningState": "Creating",
+          "jobId": "sync-volume-job-001",
+          "startTimeUtc": "2024-11-14T10:46:55.167Z",
+          "status": "Running",
+          "reportedProperties": {
+            "percentComplete": 0
+          }
+        },
+        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/ArcInstance-rg/providers/Microsoft.AzureStackHCI/clusters/cluster-1/volumes/volume-1/jobs/sync-volume-job-001",
+        "name": "sync-volume-job-001",
+        "type": "Microsoft.AzureStackHCI/clusters/volumes/jobs",
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2024-11-14T10:46:55.167Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2024-11-14T10:46:55.167Z"
+        }
+      }
+    }
+  }
+}

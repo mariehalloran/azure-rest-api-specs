@@ -2460,6 +2460,7 @@
       "type": "string",
       "description": "The migration status state.",
       "enum": [
+        "Provisioning",
         "InProgress",
         "Succeeded",
         "Failed",
@@ -2473,6 +2474,11 @@
         "name": "MigrationState",
         "modelAsString": true,
         "values": [
+          {
+            "name": "Provisioning",
+            "value": "Provisioning",
+            "description": "Provisioning resources for Migration"
+          },
           {
             "name": "InProgress",
             "value": "InProgress",

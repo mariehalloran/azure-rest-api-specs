@@ -1,0 +1,205 @@
+{
+  "parameters": {
+    "api-version": "2026-07-01-preview",
+    "componentName": "db01",
+    "virtualInstanceName": "testvi",
+    "resourceGroupName": "test-rg",
+    "subscriptionId": "49d64d54-e966-4c46-a868-1999802b762c"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "name": "db01",
+        "type": "Microsoft.Workloads/virtualInstances/components",
+        "id": "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/test-rg/providers/Microsoft.Workloads/virtualInstances/testvi/components/db01",
+        "location": "eastus2euap",
+        "tags": {
+          "TestSystem": "true"
+        },
+        "properties": {
+          "componentType": "database",
+          "componentRole": "default",
+          "resources": [
+            {
+              "resourceId": "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/virtualMachines/m15dbvm0"
+            },
+            {
+              "resourceId": "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/virtualMachines/m15dbvm1"
+            }
+          ],
+          "metadata": {
+            "DBType": "HANA"
+          },
+          "componentProfile": {
+            "profileType": "SAP-DatabaseServer-Default",
+            "hostname": "m15dbvm0",
+            "ipAddress": "10.0.64.20",
+            "version": "2.00.079.09.1774315524",
+            "hanaDbProperties": {
+              "instanceNumber": "00",
+              "architecture": "Scale-Up",
+              "databases": [
+                {
+                  "databaseName": "SYSTEMDB",
+                  "databasePort": 30013
+                },
+                {
+                  "databaseName": "M15",
+                  "databasePort": 30015
+                }
+              ]
+            },
+            "highAvailability": {
+              "isHaActive": true,
+              "haNodes": [
+                "m15dbvm0",
+                "m15dbvm1"
+              ]
+            }
+          },
+          "storageProfile": {
+            "mountPoints": [
+              {
+                "mountPoint": "/hana/data",
+                "resources": [
+                  {
+                    "virtualMachineNames": [
+                      "m15dbvm0"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm0datadisk00001",
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm0datadisk00002",
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm0datadisk00003"
+                    ]
+                  },
+                  {
+                    "virtualMachineNames": [
+                      "m15dbvm1"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm1datadisk00001",
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm1datadisk00002",
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm1datadisk00003"
+                    ]
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "DB_DATA",
+                    "value": "/hana/data/M15"
+                  }
+                ]
+              },
+              {
+                "mountPoint": "/hana/log",
+                "resources": [
+                  {
+                    "virtualMachineNames": [
+                      "m15dbvm0"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm0logdisk00001",
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm0logdisk00002",
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm0logdisk00003"
+                    ]
+                  },
+                  {
+                    "virtualMachineNames": [
+                      "m15dbvm1"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm1logdisk00001",
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm1logdisk00002",
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm1logdisk00003"
+                    ]
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "DB_LOG",
+                    "value": "/hana/log/M15"
+                  }
+                ]
+              },
+              {
+                "mountPoint": "/hana/backup",
+                "resources": [
+                  {
+                    "virtualMachineNames": [
+                      "m15dbvm0"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm0backupdisk"
+                    ]
+                  },
+                  {
+                    "virtualMachineNames": [
+                      "m15dbvm1"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm1backupdisk"
+                    ]
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "DB_DATA_BACKUP",
+                    "value": "/hana/backup/M15/data"
+                  },
+                  {
+                    "name": "DB_LOG_BACKUP",
+                    "value": "/hana/backup/M15/log"
+                  },
+                  {
+                    "name": "DB_CATALOG_BACKUP",
+                    "value": "/hana/backup/M15/log"
+                  }
+                ]
+              },
+              {
+                "mountPoint": "/hana/shared",
+                "resources": [
+                  {
+                    "virtualMachineNames": [
+                      "m15dbvm0"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm0shareddisk"
+                    ]
+                  },
+                  {
+                    "virtualMachineNames": [
+                      "m15dbvm1"
+                    ],
+                    "resourceList": [
+                      "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-dbrg/providers/Microsoft.Compute/disks/m15dbvm1shareddisk"
+                    ]
+                  }
+                ],
+                "parameters": [
+                  {
+                    "name": "DB_TRACE",
+                    "value": "/usr/sap/M15/HDB03/m15dbvm0"
+                  }
+                ]
+              }
+            ]
+          },
+          "complianceState": "Compliant",
+          "enrollmentState": "Completed",
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdAt": "2024-12-01T00:00:00.001Z",
+          "createdBy": "user@xyz.com",
+          "createdByType": "User",
+          "lastModifiedAt": "2024-12-01T15:10:46.196Z",
+          "lastModifiedBy": "user@xyz.com",
+          "lastModifiedByType": "User"
+        }
+      }
+    }
+  },
+  "operationId": "WorkloadComponents_Get",
+  "title": "Get SAP Database Server workload component - sample 1"
+}

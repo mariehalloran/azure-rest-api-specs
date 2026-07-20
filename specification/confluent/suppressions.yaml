@@ -1,9 +1,0 @@
-- tool: BreakingChange(Cross-Version)
-  reason: >-
-    Pre-existing format:password annotations on connector secret properties
-    (apiKey, apiSecret, storageAccountKey, cosmosMasterKey, synapseSqlPassword).
-    These were introduced in earlier preview versions and are carried forward.
-    The format change improves SDK security annotations and does not affect
-    wire compatibility.
-  paths:
-    - Microsoft.Confluent/preview/2026-06-02-preview/confluent.json
