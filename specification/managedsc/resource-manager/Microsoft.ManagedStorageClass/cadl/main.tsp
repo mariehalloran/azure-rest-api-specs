@@ -12,10 +12,7 @@ using Azure.Core;
 using Azure.ResourceManager;
 
 @armProviderNamespace
-@service(#{
-  title: "Microsoft.ManagedStorageClass",
-  version: "2023-02-01-preview",
-})
+@service(#{ title: "Microsoft.ManagedStorageClass" })
 namespace Microsoft.ManagedStorageClass;
 
 interface Operations extends Azure.ResourceManager.Operations {}
@@ -250,14 +247,13 @@ alias StorageClassPropertiesUpdate = StorageClassProperties &
   OmitProperties<BlobStorageClassProperties, "type">;
 
 @doc("The model for updating managedStorageClass properties")
-model ManagedStorageClassPropertiesUpdate
-  extends OmitProperties<
-    Azure.ResourceManager.Foundations.ResourceUpdateModelProperties<
-      ManagedStorageClassResource,
-      ManagedStorageClassProperties
-    >,
-    "storageClassProperties"
-  > {
+model ManagedStorageClassPropertiesUpdate extends OmitProperties<
+  Azure.ResourceManager.Foundations.ResourceUpdateModelProperties<
+    ManagedStorageClassResource,
+    ManagedStorageClassProperties
+  >,
+  "storageClassProperties"
+> {
   @doc("New storage class properties of ManagedStorageClass")
   storageClassProperties?: StorageClassPropertiesUpdate;
 }

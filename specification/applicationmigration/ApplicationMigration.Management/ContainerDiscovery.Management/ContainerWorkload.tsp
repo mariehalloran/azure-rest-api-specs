@@ -18,8 +18,10 @@ namespace Microsoft.ApplicationMigration;
  * Child of ContainerSite (NOT child of ContainerCluster — enables standalone scenario).
  */
 @parentResource(ContainerSite)
-model ContainerWorkload
-  is Azure.ResourceManager.ProxyResource<ContainerWorkloadProperties, false> {
+model ContainerWorkload is Azure.ResourceManager.ProxyResource<
+  ContainerWorkloadProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = ContainerWorkload,
     KeyName = "workloadName",

@@ -24,6 +24,7 @@ model EventGridTopicTypeEventTypesResourceProperties {
   @doc("Description of the EventType. Required.")
   description: string;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("SchemaUrl of the EventType. Required.")
   schemaUrl: string;
 

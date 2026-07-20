@@ -1,0 +1,80 @@
+{
+  "operationId": "Settings_Update",
+  "title": "Update tenant-level Azure Portal Settings",
+  "parameters": {
+    "name": "default",
+    "api-version": "2026-07-01-preview",
+    "properties": {
+      "properties": {
+        "feedbackControlPolicy": {
+          "connectedExperiences": "Disabled",
+          "policyAllowFeedback": "Disabled",
+          "policyAllowSurvey": "Disabled",
+          "policyAllowScreenshot": "Enabled",
+          "policyAllowContact": "Disabled",
+          "policyAllowContent": "Disabled",
+          "policyResearchInvite": false
+        },
+        "multiFactorAuthentication": {
+          "portalEnforcement": "Enforce",
+          "portalJustification": "Security compliance requirement",
+          "portalEnforcementDate": "2025-01-01T00:00:00Z",
+          "armEnforcementDate": "2025-10-15T00:00:00Z",
+          "armJustification": "Justification for postponing MFA enforcement"
+        },
+        "ops360Settings": {
+          "status": "Approved"
+        },
+        "privacySettings": {
+          "allowSearchDataCollection": false
+        },
+        "tenantFlags": {
+          "enableFeatureX": true,
+          "region": "westus2",
+          "maxRetries": 5
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "feedbackControlPolicy": {
+            "connectedExperiences": "Disabled",
+            "policyAllowFeedback": "Disabled",
+            "policyAllowSurvey": "Disabled",
+            "policyAllowScreenshot": "Enabled",
+            "policyAllowContact": "Disabled",
+            "policyAllowContent": "Disabled",
+            "policyEmailCollectionDefault": "Enabled",
+            "policyScreenshotDefault": "Disabled",
+            "policyContentSamplesDefault": "Enabled",
+            "policyResearchInvite": false
+          },
+          "multiFactorAuthentication": {
+            "portalEnforcement": "Enforce",
+            "portalJustification": "Security compliance requirement",
+            "portalEnforcementDate": "2025-01-01T00:00:00Z",
+            "armEnforcementDate": "2025-10-15T00:00:00Z",
+            "armJustification": "Justification for postponing MFA enforcement"
+          },
+          "privacySettings": {
+            "allowSearchDataCollection": false
+          },
+          "ops360Settings": {
+            "status": "Approved"
+          },
+          "tenantFlags": {
+            "enableFeatureX": true,
+            "region": "westus2",
+            "maxRetries": 5
+          }
+        },
+        "id": "/providers/Microsoft.PortalServices/settings/default",
+        "name": "default",
+        "type": "Microsoft.PortalServices/settings"
+      }
+    }
+  }
+}

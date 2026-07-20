@@ -16,8 +16,10 @@ namespace Microsoft.ApplicationMigration;
  * An NSX NAT rule resource.
  */
 @parentResource(NetworkSite)
-model NsxNatRule
-  is Azure.ResourceManager.ProxyResource<NsxNatRuleProperties, false> {
+model NsxNatRule is Azure.ResourceManager.ProxyResource<
+  NsxNatRuleProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = NsxNatRule,
     KeyName = "natRuleName",

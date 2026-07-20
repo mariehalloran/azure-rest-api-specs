@@ -62,6 +62,7 @@ model BuildProperties {
   repositoryId?: string;
 
   /** The repository URL for the build. */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   repositoryUrl?: string;
 
   /** The branch name for the build. */

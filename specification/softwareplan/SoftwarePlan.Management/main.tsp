@@ -53,6 +53,7 @@ interface SoftwareSubscriptions {
     SoftwareKey[],
     Parameters = SoftwareSubscriptionsListKeysParameters
   >;
+  @doc("A long-running resource action.")
   cancel is ArmResourceActionAsync<
     SoftwareSubscription,
     void,

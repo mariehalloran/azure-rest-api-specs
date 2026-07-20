@@ -34,6 +34,7 @@ model GitHubIssueProperties {
   @doc("GitHub Issue body.")
   body: string;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("GitHub Issue URL.")
   @visibility(Lifecycle.Read)
   githubIssueUrl?: string;

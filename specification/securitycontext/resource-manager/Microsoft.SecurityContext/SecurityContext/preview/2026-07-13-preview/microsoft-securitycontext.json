@@ -1,0 +1,990 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Microsoft.SecurityContext management service",
+    "version": "2026-07-13-preview",
+    "description": "Microsoft.SecurityContext Resource Provider management API.",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "SecurityVulnerabilities"
+    },
+    {
+      "name": "InternetExposures"
+    },
+    {
+      "name": "CodeWeaknesses"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.SecurityContext/codeWeaknesses": {
+      "get": {
+        "operationId": "CodeWeaknesses_List",
+        "tags": [
+          "CodeWeaknesses"
+        ],
+        "description": "Lists code weakness observations in the tenant.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CodeWeaknessListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CodeWeaknesses_List": {
+            "$ref": "./examples/CodeWeaknesses_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.SecurityContext/codeWeaknesses/{codeWeaknessName}": {
+      "get": {
+        "operationId": "CodeWeaknesses_Get",
+        "tags": [
+          "CodeWeaknesses"
+        ],
+        "description": "Gets a code weakness observation.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "codeWeaknessName",
+            "in": "path",
+            "description": "The stable human-readable resource name: `{source-system-slug}--{source-record-slug}`.",
+            "required": true,
+            "type": "string",
+            "minLength": 4,
+            "maxLength": 256,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*--[a-z0-9]+(?:-[a-z0-9]+)*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CodeWeakness"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CodeWeaknesses_Get": {
+            "$ref": "./examples/CodeWeaknesses_Get.json"
+          }
+        }
+      }
+    },
+    "/providers/Microsoft.SecurityContext/internetExposures": {
+      "get": {
+        "operationId": "InternetExposures_List",
+        "tags": [
+          "InternetExposures"
+        ],
+        "description": "Lists internet exposure observations in the tenant.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/InternetExposureListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "InternetExposures_List": {
+            "$ref": "./examples/InternetExposures_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.SecurityContext/internetExposures/{internetExposureName}": {
+      "get": {
+        "operationId": "InternetExposures_Get",
+        "tags": [
+          "InternetExposures"
+        ],
+        "description": "Gets an internet exposure observation.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "internetExposureName",
+            "in": "path",
+            "description": "The stable human-readable resource name: `{source-system-slug}--{source-record-slug}`.",
+            "required": true,
+            "type": "string",
+            "minLength": 4,
+            "maxLength": 256,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*--[a-z0-9]+(?:-[a-z0-9]+)*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/InternetExposure"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "InternetExposures_Get": {
+            "$ref": "./examples/InternetExposures_Get.json"
+          }
+        }
+      }
+    },
+    "/providers/Microsoft.SecurityContext/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Operations_List": {
+            "$ref": "./examples/Operations_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.SecurityContext/securityVulnerabilities": {
+      "get": {
+        "operationId": "SecurityVulnerabilities_List",
+        "tags": [
+          "SecurityVulnerabilities"
+        ],
+        "description": "Lists security vulnerability observations in the tenant.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SecurityVulnerabilityListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SecurityVulnerabilities_List": {
+            "$ref": "./examples/SecurityVulnerabilities_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.SecurityContext/securityVulnerabilities/{securityVulnerabilityName}": {
+      "get": {
+        "operationId": "SecurityVulnerabilities_Get",
+        "tags": [
+          "SecurityVulnerabilities"
+        ],
+        "description": "Gets a security vulnerability observation.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "securityVulnerabilityName",
+            "in": "path",
+            "description": "The stable human-readable resource name: `{source-system-slug}--{source-record-slug}`.",
+            "required": true,
+            "type": "string",
+            "minLength": 4,
+            "maxLength": 256,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*--[a-z0-9]+(?:-[a-z0-9]+)*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SecurityVulnerability"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SecurityVulnerabilities_Get": {
+            "$ref": "./examples/SecurityVulnerabilities_Get.json"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CodeWeakness": {
+      "type": "object",
+      "description": "A weakness observed in source code.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/CodeWeaknessProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "CodeWeaknessListResult": {
+      "type": "object",
+      "description": "The response of a CodeWeakness list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The CodeWeakness items on this page",
+          "items": {
+            "$ref": "#/definitions/CodeWeakness"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "CodeWeaknessProperties": {
+      "type": "object",
+      "description": "Properties of a code weakness observation.",
+      "properties": {
+        "sourceSystem": {
+          "type": "string",
+          "description": "The registered lowercase slug of the system that produced the observation.",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "readOnly": true
+        },
+        "sourceRecordId": {
+          "type": "string",
+          "description": "The stable lowercase slug, unique for this record within its source system and tenant.",
+          "minLength": 1,
+          "maxLength": 190,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "readOnly": true
+        },
+        "displayName": {
+          "type": "string",
+          "description": "A human-readable name for the observation.",
+          "maxLength": 256,
+          "readOnly": true
+        },
+        "severity": {
+          "$ref": "#/definitions/FindingSeverity",
+          "description": "The severity assigned to the observation.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/FindingStatus",
+          "description": "The lifecycle status of the observation.",
+          "readOnly": true
+        },
+        "lastUpdatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The most recent time the published observation changed.",
+          "readOnly": true
+        },
+        "serviceTreeId": {
+          "type": "string",
+          "description": "The Service Tree service identifier associated with the observation.",
+          "maxLength": 128,
+          "readOnly": true
+        },
+        "ruleId": {
+          "type": "string",
+          "description": "The identifier of the rule that detected the weakness.",
+          "minLength": 1,
+          "maxLength": 256,
+          "readOnly": true
+        },
+        "weaknessIds": {
+          "type": "array",
+          "description": "Standard weakness identifiers, such as CWE identifiers.",
+          "maxItems": 32,
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "language": {
+          "type": "string",
+          "description": "The programming language reported by the source.",
+          "maxLength": 128,
+          "readOnly": true
+        },
+        "repositoryRevision": {
+          "type": "string",
+          "description": "The source-control revision at which the weakness was observed.",
+          "maxLength": 256,
+          "readOnly": true
+        },
+        "relativePathHash": {
+          "type": "string",
+          "description": "A privacy-preserving SHA-256 hash of the repository-relative file path.",
+          "minLength": 64,
+          "maxLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "readOnly": true
+        },
+        "startLine": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The first one-based source line associated with the weakness.",
+          "minimum": 1,
+          "readOnly": true
+        },
+        "endLine": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The last one-based source line associated with the weakness.",
+          "minimum": 1,
+          "readOnly": true
+        }
+      },
+      "required": [
+        "sourceSystem",
+        "sourceRecordId",
+        "severity",
+        "status",
+        "lastUpdatedAt",
+        "ruleId",
+        "weaknessIds"
+      ]
+    },
+    "ExploitStatus": {
+      "type": "string",
+      "description": "Exploitability status reported for a vulnerability.",
+      "enum": [
+        "KnownExploited",
+        "ExploitAvailable",
+        "NoKnownExploit",
+        "Unknown"
+      ],
+      "x-ms-enum": {
+        "name": "ExploitStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "KnownExploited",
+            "value": "KnownExploited",
+            "description": "Exploitation is known to occur in the wild."
+          },
+          {
+            "name": "ExploitAvailable",
+            "value": "ExploitAvailable",
+            "description": "Exploit code is publicly available."
+          },
+          {
+            "name": "NoKnownExploit",
+            "value": "NoKnownExploit",
+            "description": "No exploit is known to the reporting source."
+          },
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Exploitability is unknown."
+          }
+        ]
+      }
+    },
+    "FindingSeverity": {
+      "type": "string",
+      "description": "Severity assigned to a security observation.",
+      "enum": [
+        "Critical",
+        "High",
+        "Medium",
+        "Low",
+        "Informational",
+        "Unknown"
+      ],
+      "x-ms-enum": {
+        "name": "FindingSeverity",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Critical",
+            "value": "Critical",
+            "description": "Critical severity."
+          },
+          {
+            "name": "High",
+            "value": "High",
+            "description": "High severity."
+          },
+          {
+            "name": "Medium",
+            "value": "Medium",
+            "description": "Medium severity."
+          },
+          {
+            "name": "Low",
+            "value": "Low",
+            "description": "Low severity."
+          },
+          {
+            "name": "Informational",
+            "value": "Informational",
+            "description": "Informational severity."
+          },
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "The source did not assign a known severity."
+          }
+        ]
+      }
+    },
+    "FindingStatus": {
+      "type": "string",
+      "description": "Lifecycle status of a security observation.",
+      "enum": [
+        "Active",
+        "Resolved",
+        "Suppressed",
+        "Unknown"
+      ],
+      "x-ms-enum": {
+        "name": "FindingStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Active",
+            "value": "Active",
+            "description": "The observation is active."
+          },
+          {
+            "name": "Resolved",
+            "value": "Resolved",
+            "description": "The observation has been resolved."
+          },
+          {
+            "name": "Suppressed",
+            "value": "Suppressed",
+            "description": "The observation has been suppressed."
+          },
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "The source did not assign a known status."
+          }
+        ]
+      }
+    },
+    "InternetExposure": {
+      "type": "object",
+      "description": "A network endpoint or service observed as reachable from the internet.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/InternetExposureProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "InternetExposureListResult": {
+      "type": "object",
+      "description": "The response of a InternetExposure list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The InternetExposure items on this page",
+          "items": {
+            "$ref": "#/definitions/InternetExposure"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "InternetExposureProperties": {
+      "type": "object",
+      "description": "Properties of an internet exposure observation.",
+      "properties": {
+        "sourceSystem": {
+          "type": "string",
+          "description": "The registered lowercase slug of the system that produced the observation.",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "readOnly": true
+        },
+        "sourceRecordId": {
+          "type": "string",
+          "description": "The stable lowercase slug, unique for this record within its source system and tenant.",
+          "minLength": 1,
+          "maxLength": 190,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "readOnly": true
+        },
+        "displayName": {
+          "type": "string",
+          "description": "A human-readable name for the observation.",
+          "maxLength": 256,
+          "readOnly": true
+        },
+        "severity": {
+          "$ref": "#/definitions/FindingSeverity",
+          "description": "The severity assigned to the observation.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/FindingStatus",
+          "description": "The lifecycle status of the observation.",
+          "readOnly": true
+        },
+        "lastUpdatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The most recent time the published observation changed.",
+          "readOnly": true
+        },
+        "serviceTreeId": {
+          "type": "string",
+          "description": "The Service Tree service identifier associated with the observation.",
+          "maxLength": 128,
+          "readOnly": true
+        },
+        "exposureType": {
+          "type": "string",
+          "description": "The source-defined type of exposure.",
+          "minLength": 1,
+          "maxLength": 128,
+          "readOnly": true
+        },
+        "transportProtocol": {
+          "$ref": "#/definitions/TransportProtocol",
+          "description": "The transport protocol on which the endpoint was observed.",
+          "readOnly": true
+        },
+        "applicationProtocol": {
+          "type": "string",
+          "description": "The application protocol identified on the endpoint.",
+          "maxLength": 128,
+          "readOnly": true
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The network port on which the endpoint was observed.",
+          "minimum": 0,
+          "maximum": 65535,
+          "readOnly": true
+        },
+        "scanType": {
+          "type": "string",
+          "description": "The source-defined scan or observation method.",
+          "minLength": 1,
+          "maxLength": 128,
+          "readOnly": true
+        },
+        "confidence": {
+          "type": "number",
+          "format": "float",
+          "description": "The source confidence in the observation, from zero through one.",
+          "minimum": 0,
+          "maximum": 1,
+          "readOnly": true
+        },
+        "endpointFingerprint": {
+          "type": "string",
+          "description": "A privacy-preserving SHA-256 fingerprint of the observed endpoint.",
+          "minLength": 64,
+          "maxLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "sourceSystem",
+        "sourceRecordId",
+        "severity",
+        "status",
+        "lastUpdatedAt",
+        "exposureType",
+        "scanType"
+      ]
+    },
+    "ObservationProperties": {
+      "type": "object",
+      "description": "Properties common to SecurityContext observation resources.",
+      "properties": {
+        "sourceSystem": {
+          "type": "string",
+          "description": "The registered lowercase slug of the system that produced the observation.",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "readOnly": true
+        },
+        "sourceRecordId": {
+          "type": "string",
+          "description": "The stable lowercase slug, unique for this record within its source system and tenant.",
+          "minLength": 1,
+          "maxLength": 190,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "readOnly": true
+        },
+        "displayName": {
+          "type": "string",
+          "description": "A human-readable name for the observation.",
+          "maxLength": 256,
+          "readOnly": true
+        },
+        "severity": {
+          "$ref": "#/definitions/FindingSeverity",
+          "description": "The severity assigned to the observation.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/FindingStatus",
+          "description": "The lifecycle status of the observation.",
+          "readOnly": true
+        },
+        "lastUpdatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The most recent time the published observation changed.",
+          "readOnly": true
+        },
+        "serviceTreeId": {
+          "type": "string",
+          "description": "The Service Tree service identifier associated with the observation.",
+          "maxLength": 128,
+          "readOnly": true
+        }
+      },
+      "required": [
+        "sourceSystem",
+        "sourceRecordId",
+        "severity",
+        "status",
+        "lastUpdatedAt"
+      ]
+    },
+    "SecurityVulnerability": {
+      "type": "object",
+      "description": "A vulnerability observed in software running on a host or in a container.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/SecurityVulnerabilityProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "SecurityVulnerabilityListResult": {
+      "type": "object",
+      "description": "The response of a SecurityVulnerability list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The SecurityVulnerability items on this page",
+          "items": {
+            "$ref": "#/definitions/SecurityVulnerability"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "SecurityVulnerabilityProperties": {
+      "type": "object",
+      "description": "Properties of a security vulnerability observation.",
+      "properties": {
+        "sourceSystem": {
+          "type": "string",
+          "description": "The registered lowercase slug of the system that produced the observation.",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "readOnly": true
+        },
+        "sourceRecordId": {
+          "type": "string",
+          "description": "The stable lowercase slug, unique for this record within its source system and tenant.",
+          "minLength": 1,
+          "maxLength": 190,
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "readOnly": true
+        },
+        "displayName": {
+          "type": "string",
+          "description": "A human-readable name for the observation.",
+          "maxLength": 256,
+          "readOnly": true
+        },
+        "severity": {
+          "$ref": "#/definitions/FindingSeverity",
+          "description": "The severity assigned to the observation.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/FindingStatus",
+          "description": "The lifecycle status of the observation.",
+          "readOnly": true
+        },
+        "lastUpdatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The most recent time the published observation changed.",
+          "readOnly": true
+        },
+        "serviceTreeId": {
+          "type": "string",
+          "description": "The Service Tree service identifier associated with the observation.",
+          "maxLength": 128,
+          "readOnly": true
+        },
+        "vulnerabilityId": {
+          "type": "string",
+          "description": "The vulnerability identifier, such as a CVE or source-native advisory identifier.",
+          "minLength": 1,
+          "maxLength": 256,
+          "readOnly": true
+        },
+        "vulnerabilityScope": {
+          "$ref": "#/definitions/VulnerabilityScope",
+          "description": "The scope on which the vulnerability was observed.",
+          "readOnly": true
+        },
+        "componentName": {
+          "type": "string",
+          "description": "The affected component or package name.",
+          "maxLength": 512,
+          "readOnly": true
+        },
+        "componentVersion": {
+          "type": "string",
+          "description": "The affected component or package version.",
+          "maxLength": 256,
+          "readOnly": true
+        },
+        "componentEcosystem": {
+          "type": "string",
+          "description": "The package ecosystem or component family.",
+          "maxLength": 128,
+          "readOnly": true
+        },
+        "knownExploited": {
+          "type": "boolean",
+          "description": "Whether the vulnerability is known to be exploited in the wild.",
+          "readOnly": true
+        },
+        "exploitStatus": {
+          "$ref": "#/definitions/ExploitStatus",
+          "description": "The exploitability status reported by the source.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "sourceSystem",
+        "sourceRecordId",
+        "severity",
+        "status",
+        "lastUpdatedAt",
+        "vulnerabilityId"
+      ]
+    },
+    "TransportProtocol": {
+      "type": "string",
+      "description": "Transport protocol associated with an internet exposure.",
+      "enum": [
+        "TCP",
+        "UDP"
+      ],
+      "x-ms-enum": {
+        "name": "TransportProtocol",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Tcp",
+            "value": "TCP",
+            "description": "Transmission Control Protocol."
+          },
+          {
+            "name": "Udp",
+            "value": "UDP",
+            "description": "User Datagram Protocol."
+          }
+        ]
+      }
+    },
+    "VulnerabilityScope": {
+      "type": "string",
+      "description": "Scope on which a software vulnerability was observed.",
+      "enum": [
+        "Host",
+        "Container"
+      ],
+      "x-ms-enum": {
+        "name": "VulnerabilityScope",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Host",
+            "value": "Host",
+            "description": "A vulnerability observed on a host."
+          },
+          {
+            "name": "Container",
+            "value": "Container",
+            "description": "A vulnerability observed in a container image or workload."
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {}
+}

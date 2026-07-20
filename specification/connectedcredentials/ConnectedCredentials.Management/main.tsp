@@ -101,6 +101,7 @@ model CredentialProperties {
 
 @doc("Provider specific settings.")
 model AzureKvProvider {
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @visibility(Lifecycle.Read, Lifecycle.Create, Lifecycle.Update)
   @doc("Vault Url from which the secrets to be fetched from.")
   vaultUrl?: string;

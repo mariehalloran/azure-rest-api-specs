@@ -16,11 +16,10 @@ namespace Microsoft.ApplicationMigration;
  * A gateway firewall policy resource.
  */
 @parentResource(NetworkSite)
-model NsxGatewayFirewallPolicy
-  is Azure.ResourceManager.ProxyResource<
-    NsxGatewayFirewallPolicyProperties,
-    false
-  > {
+model NsxGatewayFirewallPolicy is Azure.ResourceManager.ProxyResource<
+  NsxGatewayFirewallPolicyProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = NsxGatewayFirewallPolicy,
     KeyName = "policyName",

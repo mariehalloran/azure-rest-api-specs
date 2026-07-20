@@ -80,12 +80,11 @@ interface ArtifactManifests {
   updateState is ArmResourceActionAsyncBase<
     ArtifactManifest,
     ArtifactManifestUpdateState,
-
-      | ArmResponse<ArtifactManifestUpdateState>
-      | ArmAcceptedLroResponse<
-          "Request of updating artifact manifest state is accepted.",
-          ArmLroLocationHeader<FinalResult = ArtifactManifestUpdateState>
-        >,
+    | ArmResponse<ArtifactManifestUpdateState>
+    | ArmAcceptedLroResponse<
+        "Request of updating artifact manifest state is accepted.",
+        ArmLroLocationHeader<FinalResult = ArtifactManifestUpdateState>
+      >,
     BaseParameters = Azure.ResourceManager.Foundations.DefaultBaseParameters<ArtifactManifest>
   >;
 }
