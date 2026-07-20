@@ -91,7 +91,28 @@
                   "managedBy": "Azure"
                 }
               ]
-            }
+            },
+            "storageInitiators": [
+              {
+                "initiatorType": "iSCSI",
+                "initiatorIdentifier": "iqn.1991-05.com.microsoft:node01.contoso.com",
+                "ethernetAdapterName": "SMB2",
+                "ethernetAdapterMacAddress": "00-15-5D-3A-1C-04",
+                "operationalStatus": "Operational"
+              },
+              {
+                "initiatorType": "FibreChannel",
+                "initiatorIdentifier": "20000025b5aa0100",
+                "portWorldWideName": "20000025b5aa01a0",
+                "operationalStatus": "Operational"
+              },
+              {
+                "initiatorType": "FibreChannel",
+                "initiatorIdentifier": "20000025b5aa0100",
+                "portWorldWideName": "20000025b5aa01a1",
+                "operationalStatus": "Operational"
+              }
+            ]
           },
           "lifecycleDetails": {
             "lifecycleStatus": {

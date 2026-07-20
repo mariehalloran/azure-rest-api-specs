@@ -192,11 +192,13 @@ model SwitchRetrieveDataOutput {
 interface Switches {
   get is ArmResourceRead<Switch>;
   listBySupercomputer is ArmResourceListByParent<Switch>;
+  @doc("A long-running resource action.")
   packetCapture is ArmResourceActionAsync<
     Switch,
     SwitchPacketCaptureRequest,
     SwitchPacketCaptureResult
   >;
+  @doc("A long-running resource action.")
   retrieveData is ArmResourceActionAsync<
     Switch,
     SwitchRetrieveDataRequest,

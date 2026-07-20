@@ -18,7 +18,7 @@ model Dataset is ProxyResource<DatasetProperties> {
   @key("datasetName")
   @visibility(Lifecycle.Read)
   @path
-  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,63}$")
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,127}$")
   name: string;
 
   /**

@@ -15,8 +15,10 @@ namespace Microsoft.ApplicationMigration;
  * The OracleDatabase resource definition.
  */
 @parentResource(OracleSite)
-model OracleDatabase
-  is Azure.ResourceManager.ProxyResource<OracleDatabaseProperties, false> {
+model OracleDatabase is Azure.ResourceManager.ProxyResource<
+  OracleDatabaseProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = OracleDatabase,
     KeyName = "databaseName",

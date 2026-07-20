@@ -123,6 +123,7 @@ model RunRequest {
   /**
    * The model endpoint URL to use for this run.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   modelUrl: string;
 }
 

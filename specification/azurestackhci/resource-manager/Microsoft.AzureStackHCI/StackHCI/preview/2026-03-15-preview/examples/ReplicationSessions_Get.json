@@ -1,0 +1,55 @@
+{
+  "title": "ReplicationSessions_Get",
+  "operationId": "ReplicationSessions_Get",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "6D37FF61-4C93-4377-B06B-FC6D6D561A7D",
+    "resourceGroupName": "rghci",
+    "storageArrayName": "pure-1",
+    "replicationUnitName": "ru-sql-prod",
+    "replicationSessionName": "session-001"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/replicationUnits/ru-sql-prod/replicationSessions/session-001",
+        "name": "session-001",
+        "type": "Microsoft.AzureStackHCI/storageArrays/replicationUnits/replicationSessions",
+        "properties": {
+          "peerReplicationUnitRef": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-dr-1/replicationUnits/ru-sql-prod-dr",
+          "replicationType": "Asynchronous",
+          "purpose": "DisasterRecovery",
+          "policyRef": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/replicationPolicies/async-hourly",
+          "globalReplicationSessionId": "vendor-session-uuid-abc123",
+          "arrayPeeringRef": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/replicationPeerings/peer-to-pure-dr-1",
+          "role": "Source",
+          "direction": "Outbound",
+          "sessionState": "InSync",
+          "lagSeconds": 45,
+          "rpoSeconds": 3600,
+          "rpoCompliance": "Met",
+          "health": "Healthy",
+          "lastSyncedAt": "2026-06-02T23:45:00Z",
+          "memberStatuses": [
+            {
+              "volumeRef": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageArrays/pure-1/volumeGroups/contoso-vg/volumes/sql-data-01",
+              "replicationState": "InSync",
+              "lagSeconds": 45,
+              "health": "Healthy"
+            }
+          ],
+          "vendorSessionId": "pure-repl-session-001",
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2026-03-15T10:00:00.000Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "Application",
+          "lastModifiedAt": "2026-06-02T23:45:00.000Z"
+        }
+      }
+    }
+  }
+}

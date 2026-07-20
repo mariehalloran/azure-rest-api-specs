@@ -41,6 +41,7 @@ model ServiceProperties {
   hostname?: string;
 
   /** The base URL of the service endpoint. */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @visibility(Lifecycle.Read)
   baseUrl?: string;
 

@@ -88,6 +88,7 @@ interface Reservations
   @added(Versions.v2026_03_01_preview)
   @summary("Links a new SaaS to the reservation.")
   @Azure.Core.useFinalStateVia("azure-async-operation")
+  @doc("A long-running resource action.")
   linkSaaS is ArmResourceActionAsync<
     Reservation,
     LinkSaaSRequest,
@@ -1660,7 +1661,6 @@ model VolumeGroupSnapshotListResult {
   value: VolumeGroupSnapshot[];
 
   @doc("URL to fetch the next page of results")
-  @nextLink
   nextLink?: url;
 
   @doc("Number of snapshots in this response page")
