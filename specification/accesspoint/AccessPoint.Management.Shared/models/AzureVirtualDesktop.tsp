@@ -44,6 +44,7 @@ model AzureVirtualDesktopProperties is VirtualDesktopInfrastructureProperties {
   @doc("The Entra Application (client) ID to associate with this service instance.")
   applicationId: string;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("The redirect URL for the service.")
   redirectUrl: url;
 

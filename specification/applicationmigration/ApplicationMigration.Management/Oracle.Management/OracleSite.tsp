@@ -13,8 +13,10 @@ namespace Microsoft.ApplicationMigration;
 /**
  * The OracleSite resource definition.
  */
-model OracleSite
-  is Azure.ResourceManager.TrackedResource<OracleSiteProperties, false> {
+model OracleSite is Azure.ResourceManager.TrackedResource<
+  OracleSiteProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = OracleSite,
     KeyName = "siteName",

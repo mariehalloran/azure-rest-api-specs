@@ -78,12 +78,11 @@ interface NetworkServiceDesignVersions {
   updateState is ArmResourceActionAsyncBase<
     networkServiceDesignVersion,
     NetworkServiceDesignVersionUpdateState,
-
-      | ArmResponse<NetworkServiceDesignVersionUpdateState>
-      | ArmAcceptedLroResponse<
-          "The request of updating network service design version state is accepted.",
-          ArmLroLocationHeader<FinalResult = NetworkServiceDesignVersionUpdateState>
-        >,
+    | ArmResponse<NetworkServiceDesignVersionUpdateState>
+    | ArmAcceptedLroResponse<
+        "The request of updating network service design version state is accepted.",
+        ArmLroLocationHeader<FinalResult = NetworkServiceDesignVersionUpdateState>
+      >,
     BaseParameters = Azure.ResourceManager.Foundations.DefaultBaseParameters<networkServiceDesignVersion>
   >;
 }

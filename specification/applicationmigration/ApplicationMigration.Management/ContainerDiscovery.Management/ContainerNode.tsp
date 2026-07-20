@@ -20,8 +20,10 @@ namespace Microsoft.ApplicationMigration;
  * Linked to parent cluster via containerClusterId property (empty for standalone hosts).
  */
 @parentResource(ContainerSite)
-model ContainerNode
-  is Azure.ResourceManager.ProxyResource<ContainerNodeProperties, false> {
+model ContainerNode is Azure.ResourceManager.ProxyResource<
+  ContainerNodeProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = ContainerNode,
     KeyName = "nodeName",

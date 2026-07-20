@@ -12,10 +12,28 @@ These are the global settings for the DuDeviceRegistry.
 
 ```yaml
 openapi-type: arm
-tag: package-2026-06-01-preview
+tag: package-2026-11-02-preview
 # NOTE: No explicit `default` tag is set intentionally. The `tag` value above
 # serves as the implicit default. A `default` tag will be introduced once a
 # stable API version is published.
+```
+
+### Tag: package-2026-11-02-preview
+
+These settings apply only when `--tag=package-2026-11-02-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-11-02-preview'
+input-file:
+  - preview/2026-11-02-preview/dudeviceupdate.json
+```
+
+### Tag: package-2026-07-02-preview
+
+These settings apply only when `--tag=package-2026-07-02-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-07-02-preview'
+input-file:
+  - preview/2026-07-02-preview/dudeviceupdate.json
 ```
 
 ### Tag: package-2026-06-01-preview

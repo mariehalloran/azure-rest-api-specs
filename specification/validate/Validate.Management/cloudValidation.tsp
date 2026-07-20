@@ -1,6 +1,5 @@
 import "./common.tsp";
 import "@typespec/rest";
-import "@typespec/openapi3";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-autorest";

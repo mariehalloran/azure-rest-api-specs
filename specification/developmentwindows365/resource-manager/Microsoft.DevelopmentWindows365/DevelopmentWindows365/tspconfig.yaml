@@ -1,0 +1,44 @@
+parameters:
+  "service-dir":
+    default: "sdk/developmentwindows365"
+emit:
+  - "@azure-tools/typespec-autorest"
+options:
+  "@azure-tools/typespec-autorest":
+    omit-unreachable-types: true
+    emitter-output-dir: "{project-root}/.."
+    output-file: "{version-status}/{version}/developmentwindows365.json"
+    arm-types-dir: "{project-root}/../../../../common-types/resource-management"
+    emit-lro-options: "all"
+    examples-dir: "{project-root}/examples"
+  "@azure-tools/typespec-python":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-developmentwindows365"
+    namespace: "azure.mgmt.developmentwindows365"
+    generate-test: true
+    generate-sample: true
+    flavor: "azure"
+  "@azure-tools/typespec-java":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-developmentwindows365"
+    namespace: "com.azure.resourcemanager.developmentwindows365"
+    service-name: "Development Windows 365"
+    flavor: azure
+  "@azure-tools/typespec-ts":
+    service-dir: "sdk/developmentwindows365"
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-developmentwindows365"
+    flavor: "azure"
+    experimental-extensible-enums: true
+    package-details:
+      name: "@azure/arm-developmentwindows365"
+  "@azure-tools/typespec-go":
+    service-dir: "sdk/resourcemanager/developmentwindows365"
+    emitter-output-dir: "{output-dir}/{service-dir}/armdevelopmentwindows365"
+    module: "github.com/Azure/azure-sdk-for-go/{service-dir}/armdevelopmentwindows365"
+    fix-const-stuttering: true
+    flavor: "azure"
+    generate-samples: true
+    generate-fakes: true
+    head-as-boolean: true
+    inject-spans: true
+linter:
+  extends:
+    - "@azure-tools/typespec-azure-rulesets/resource-manager"

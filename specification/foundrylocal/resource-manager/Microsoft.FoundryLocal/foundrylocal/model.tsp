@@ -216,6 +216,7 @@ model ModelProperties {
   @maxLength(64)
   license?: string;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("URL to the full license text.")
   @maxLength(512)
   licenseUrl?: url;
@@ -272,6 +273,7 @@ model ModelUpdateProperties {
   @maxLength(64)
   license?: string;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("URL to the full license text.")
   @maxLength(512)
   licenseUrl?: url;

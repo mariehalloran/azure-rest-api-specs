@@ -34,6 +34,7 @@ model ExadbVmClusterProperties {
   @maxLength(32)
   backupSubnetCidr?: string;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("HTTPS link to OCI Network Security Group exposed to Azure Customer via the Azure Interface.")
   @visibility(Lifecycle.Read)
   nsgUrl?: url;
@@ -209,6 +210,7 @@ model ExadbVmClusterProperties {
   @visibility(Lifecycle.Read)
   vipIds?: string[];
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("HTTPS link to OCI resources exposed to Azure Customer via Azure Interface.")
   @visibility(Lifecycle.Read)
   ociUrl?: url;
