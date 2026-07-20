@@ -31,7 +31,7 @@ model InferenceAccountProperties {
 
   /** Whether key-based authentication is enabled for the inference account. */
   @added(Versions.v2026_08_01_preview)
-  @visibility(Lifecycle.Read, Lifecycle.Update)
+  @visibility(Lifecycle.Read, Lifecycle.Create, Lifecycle.Update)
   enableKeyBasedAuthentication?: boolean;
 
   /** Metadata about the inference account's API keys, such as last-usage timestamps. */
@@ -106,6 +106,9 @@ model AccountKeysResult {
 model RegenerateApiKeyRequest {
   /** The type of API key to regenerate. */
   keyType: KeyType;
+
+  /** When true, bypasses the key's last-usage validation when regenerating. Defaults to false when omitted. */
+  bypassLastUsageCheck?: boolean;
 }
 
 @armResourceOperations

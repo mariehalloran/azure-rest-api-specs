@@ -7,7 +7,10 @@
     "resourceGroupName": "inferencerg",
     "inferenceAccountName": "inference-acc-specs",
     "resource": {
-      "location": "eastus2"
+      "location": "eastus2",
+      "properties": {
+        "enableKeyBasedAuthentication": true
+      }
     }
   },
   "responses": {
@@ -15,7 +18,12 @@
       "body": {
         "properties": {
           "endpoint": "https://inference-acc.eastus2.dbinference.azure.com",
-          "provisioningState": "Succeeded"
+          "provisioningState": "Succeeded",
+          "enableKeyBasedAuthentication": true,
+          "keysMetadata": {
+            "primaryKeyLastUsage": "2026-07-08T00:28:48.610Z",
+            "secondaryKeyLastUsage": "2026-07-07T00:28:48.610Z"
+          }
         },
         "location": "eastus2",
         "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/inferencerg/providers/Microsoft.InferenceService/inferenceAccounts/inference-acc-specs",
@@ -40,7 +48,8 @@
       "body": {
         "properties": {
           "endpoint": "https://inference-acc.eastus2.dbinference.azure.com",
-          "provisioningState": "Provisioning"
+          "provisioningState": "Provisioning",
+          "enableKeyBasedAuthentication": true
         },
         "location": "eastus2",
         "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/inferencerg/providers/Microsoft.InferenceService/inferenceAccounts/inference-acc-specs",

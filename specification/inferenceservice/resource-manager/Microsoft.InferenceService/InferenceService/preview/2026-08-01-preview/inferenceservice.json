@@ -591,7 +591,8 @@
           "description": "Whether key-based authentication is enabled for the inference account.",
           "x-ms-mutability": [
             "read",
-            "update"
+            "update",
+            "create"
           ]
         },
         "keysMetadata": {
@@ -627,7 +628,8 @@
           "description": "Whether key-based authentication is enabled for the inference account.",
           "x-ms-mutability": [
             "read",
-            "update"
+            "update",
+            "create"
           ]
         }
       }
@@ -730,6 +732,10 @@
         "keyType": {
           "$ref": "#/definitions/KeyType",
           "description": "The type of API key to regenerate."
+        },
+        "bypassLastUsageCheck": {
+          "type": "boolean",
+          "description": "When true, bypasses the key's last-usage validation when regenerating. Defaults to false when omitted."
         }
       },
       "required": [
