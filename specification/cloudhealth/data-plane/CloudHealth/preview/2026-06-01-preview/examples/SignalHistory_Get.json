@@ -1,5 +1,5 @@
 {
-  "operationId": "SignalHistory_GetSignalHistory",
+  "operationId": "SignalHistory_Get",
   "title": "Get entity signal history",
   "parameters": {
     "healthModelId": "00000000-0000-0000-0000-000000000000",
@@ -29,6 +29,11 @@
           }
         ],
         "nextLink": "https://00000000-0000-0000-0000-000000000000.eastus.data.healthmodels.azure.com/api/entities/frontend-web-app/signals/request-latency-p95/history?api-version=2026-06-01-preview&nextMarker=eyJwYWdlIjoyfQ"
+      }
+    },
+    "404": {
+      "body": {
+        "healthModelExists": false
       }
     }
   }

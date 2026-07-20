@@ -1,5 +1,5 @@
 {
-  "operationId": "DataAnnotations_GetDataAnnotations",
+  "operationId": "DataAnnotations_Get",
   "title": "Get entity data annotations",
   "parameters": {
     "healthModelId": "00000000-0000-0000-0000-000000000000",
@@ -30,6 +30,11 @@
           }
         ],
         "nextLink": "https://00000000-0000-0000-0000-000000000000.eastus.data.healthmodels.azure.com/api/entities/frontend-web-app/dataAnnotations?api-version=2026-06-01-preview&nextMarker=eyJwYWdlIjoyfQ"
+      }
+    },
+    "404": {
+      "body": {
+        "healthModelExists": false
       }
     }
   }

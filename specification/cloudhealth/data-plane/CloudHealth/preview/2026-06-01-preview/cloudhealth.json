@@ -94,7 +94,7 @@
     },
     "/api/entities/{entityName}/dataAnnotations": {
       "get": {
-        "operationId": "DataAnnotations_GetDataAnnotations",
+        "operationId": "DataAnnotations_Get",
         "description": "Return the data annotations recorded for an entity, newest first.",
         "parameters": [
           {
@@ -160,7 +160,7 @@
         },
         "x-ms-examples": {
           "Get entity data annotations": {
-            "$ref": "./examples/DataAnnotations_GetDataAnnotations.json"
+            "$ref": "./examples/DataAnnotations_Get.json"
           }
         }
       }
@@ -222,7 +222,7 @@
     },
     "/api/entities/{entityName}/signals/{signalName}/history": {
       "get": {
-        "operationId": "SignalHistory_GetSignalHistory",
+        "operationId": "SignalHistory_Get",
         "description": "Return the data points recorded for an entity's signal, newest first.",
         "parameters": [
           {
@@ -296,7 +296,7 @@
         },
         "x-ms-examples": {
           "Get entity signal history": {
-            "$ref": "./examples/SignalHistory_GetSignalHistory.json"
+            "$ref": "./examples/SignalHistory_Get.json"
           }
         }
       }

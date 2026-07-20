@@ -260,7 +260,7 @@ interface SignalHistory {
   #suppress "@azure-tools/typespec-azure-core/response-schema-problem" "The 404 branch is an @error response (ModelNotFoundResponse); the emitted OpenAPI correctly marks it x-ms-error-response. The linter's multiple-non-error-schemas heuristic is a false positive here."
   @doc("Return the data points recorded for an entity's signal, newest first.")
   @get
-  getSignalHistory(
+  get(
     @doc("The entity that owns the signal to return history for.")
     @path
     entityName: entityName,
@@ -298,7 +298,7 @@ interface DataAnnotations {
   #suppress "@azure-tools/typespec-azure-core/response-schema-problem" "The 404 branch is an @error response (ModelNotFoundResponse); the emitted OpenAPI correctly marks it x-ms-error-response. The linter's multiple-non-error-schemas heuristic is a false positive here."
   @doc("Return the data annotations recorded for an entity, newest first.")
   @get
-  getDataAnnotations(
+  get(
     @doc("The entity to return data annotations for.")
     @path
     entityName: entityName,
