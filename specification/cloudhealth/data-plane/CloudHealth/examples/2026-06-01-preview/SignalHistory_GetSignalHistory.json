@@ -1,0 +1,35 @@
+{
+  "operationId": "SignalHistory_GetSignalHistory",
+  "title": "Get entity signal history",
+  "parameters": {
+    "healthModelId": "00000000-0000-0000-0000-000000000000",
+    "region": "eastus",
+    "api-version": "2026-06-01-preview",
+    "entityName": "frontend-web-app",
+    "signalName": "request-latency-p95",
+    "startAt": "2026-06-01T00:00:00Z",
+    "endAt": "2026-06-07T00:00:00Z",
+    "top": 1000
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "occurredAt": "2026-06-05T12:00:00Z",
+            "value": 180.5,
+            "healthState": "Healthy",
+            "additionalContext": "p95 latency within the healthy threshold of 200ms."
+          },
+          {
+            "occurredAt": "2026-06-03T08:30:00Z",
+            "value": 240,
+            "healthState": "Degraded",
+            "additionalContext": "p95 latency exceeded the 200ms degraded threshold."
+          }
+        ],
+        "nextLink": "https://00000000-0000-0000-0000-000000000000.eastus.data.healthmodels.azure.com/api/entities/frontend-web-app/signals/request-latency-p95/history?api-version=2026-06-01-preview&nextMarker=eyJwYWdlIjoyfQ"
+      }
+    }
+  }
+}

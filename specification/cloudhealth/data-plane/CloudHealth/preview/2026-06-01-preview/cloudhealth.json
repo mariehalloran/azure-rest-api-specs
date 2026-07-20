@@ -21,14 +21,16 @@
         "in": "path",
         "description": "The health model resource identifier.",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]{1,61}[a-z0-9]$"
       },
       {
         "name": "region",
         "in": "path",
         "description": "The Azure region hosting the health model's data plane.",
         "required": true,
-        "type": "string"
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9]{4,100}$"
       }
     ]
   },
@@ -74,11 +76,91 @@
             "schema": {
               "$ref": "#/definitions/QueryEchoResponse"
             }
+          },
+          "404": {
+            "description": "Returned when the requested health model does not exist.",
+            "schema": {
+              "$ref": "#/definitions/QueryEchoResponse"
+            },
+            "x-ms-error-response": true
           }
         },
         "x-ms-examples": {
           "Get health model status": {
             "$ref": "./examples/Model_Status.json"
+          }
+        }
+      }
+    },
+    "/api/entities/{entityName}/dataAnnotations": {
+      "get": {
+        "operationId": "DataAnnotations_GetDataAnnotations",
+        "description": "Return the data annotations recorded for an entity, newest first.",
+        "parameters": [
+          {
+            "name": "entityName",
+            "in": "path",
+            "description": "The entity to return data annotations for.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "startAt",
+            "in": "query",
+            "description": "Start of the requested window (UTC); defaults to 24 hours before now when omitted.",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endAt",
+            "in": "query",
+            "description": "End of the requested window (UTC); defaults to now when omitted.",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "description": "Maximum number of annotations to return; defaults to 100 when omitted.",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "maximum": 100
+          },
+          {
+            "name": "nextMarker",
+            "in": "query",
+            "description": "An opaque string value that identifies the portion of the result set to be returned with the next operation.",
+            "required": false,
+            "type": "string",
+            "maxLength": 4096
+          },
+          {
+            "$ref": "#/parameters/Azure.Core.Foundations.ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/DataAnnotationsResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the requested health model does not exist.",
+            "schema": {
+              "$ref": "#/definitions/QueryEchoResponse"
+            },
+            "x-ms-error-response": true
+          }
+        },
+        "x-ms-examples": {
+          "Get entity data annotations": {
+            "$ref": "./examples/DataAnnotations_GetDataAnnotations.json"
           }
         }
       }
@@ -122,6 +204,13 @@
             "schema": {
               "$ref": "#/definitions/EntityHealthStateHistoryResponse"
             }
+          },
+          "404": {
+            "description": "Returned when the requested health model does not exist.",
+            "schema": {
+              "$ref": "#/definitions/QueryEchoResponse"
+            },
+            "x-ms-error-response": true
           }
         },
         "x-ms-examples": {
@@ -130,9 +219,207 @@
           }
         }
       }
+    },
+    "/api/entities/{entityName}/signals/{signalName}/history": {
+      "get": {
+        "operationId": "SignalHistory_GetSignalHistory",
+        "description": "Return the data points recorded for an entity's signal, newest first.",
+        "parameters": [
+          {
+            "name": "entityName",
+            "in": "path",
+            "description": "The entity that owns the signal to return history for.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "signalName",
+            "in": "path",
+            "description": "The signal to return history for.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "startAt",
+            "in": "query",
+            "description": "Start of the requested window (UTC); defaults to 24 hours before now when omitted.",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endAt",
+            "in": "query",
+            "description": "End of the requested window (UTC); defaults to now when omitted.",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "description": "Maximum number of data points to return; defaults to 1000 when omitted.",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "maximum": 1000
+          },
+          {
+            "name": "nextMarker",
+            "in": "query",
+            "description": "An opaque string value that identifies the portion of the result set to be returned with the next operation.",
+            "required": false,
+            "type": "string",
+            "maxLength": 4096
+          },
+          {
+            "$ref": "#/parameters/Azure.Core.Foundations.ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/SignalDataPointHistoryResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the requested health model does not exist.",
+            "schema": {
+              "$ref": "#/definitions/QueryEchoResponse"
+            },
+            "x-ms-error-response": true
+          }
+        },
+        "x-ms-examples": {
+          "Get entity signal history": {
+            "$ref": "./examples/SignalHistory_GetSignalHistory.json"
+          }
+        }
+      }
+    },
+    "/api/entities/{entityName}/transitions": {
+      "get": {
+        "operationId": "EntityTransitionHistory_GetTransitionHistory",
+        "description": "Return the health-state transitions recorded for an entity, newest first.",
+        "parameters": [
+          {
+            "name": "entityName",
+            "in": "path",
+            "description": "The entity to return health-state transitions for.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "startAt",
+            "in": "query",
+            "description": "Start of the requested window (UTC); defaults to 24 hours before now when omitted.",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endAt",
+            "in": "query",
+            "description": "End of the requested window (UTC); defaults to now when omitted.",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "description": "Maximum number of transitions to return; defaults to 1000 when omitted.",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "maximum": 1000
+          },
+          {
+            "name": "nextMarker",
+            "in": "query",
+            "description": "An opaque string value that identifies the portion of the result set to be returned with the next operation.",
+            "required": false,
+            "type": "string",
+            "maxLength": 4096
+          },
+          {
+            "$ref": "#/parameters/Azure.Core.Foundations.ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/EntityTransitionHistoryResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get entity health-state transition history": {
+            "$ref": "./examples/EntityTransitionHistory_GetTransitionHistory.json"
+          }
+        }
+      }
     }
   },
   "definitions": {
+    "DataAnnotation": {
+      "type": "object",
+      "description": "A data annotation recorded for an entity.",
+      "properties": {
+        "annotationId": {
+          "type": "string",
+          "description": "Unique identifier of the annotation."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the annotation was created (UTC)."
+        },
+        "description": {
+          "$ref": "#/definitions/string4096",
+          "description": "Description of the annotation; null when none is recorded."
+        },
+        "annotationDetails": {
+          "type": "object",
+          "description": "Additional details for the annotation; null when none is recorded.",
+          "additionalProperties": {
+            "$ref": "#/definitions/string4096"
+          }
+        }
+      },
+      "required": [
+        "annotationId",
+        "createdAt"
+      ]
+    },
+    "DataAnnotationsResponse": {
+      "type": "object",
+      "description": "Data annotations recorded for an entity, newest first.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The data annotations, ordered newest first.",
+          "items": {
+            "$ref": "#/definitions/DataAnnotation"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The full URI to fetch the next page of results; absent when there is no next page."
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "EntityHealthStateHistoryResponse": {
       "type": "object",
       "description": "Health-state periods overlapping the requested window, newest first.",
@@ -172,9 +459,107 @@
         "healthState"
       ]
     },
+    "EntityTransitionHistoryResponse": {
+      "type": "object",
+      "description": "Health-state transitions overlapping the requested window, newest first.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The health-state transitions, ordered newest first.",
+          "items": {
+            "$ref": "#/definitions/HealthStateTransition"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The full URI to fetch the next page of results; absent when there is no next page."
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "HealthState": {
+      "type": "string",
+      "description": "Health state",
+      "enum": [
+        "Healthy",
+        "Degraded",
+        "Unhealthy",
+        "Unknown"
+      ],
+      "x-ms-enum": {
+        "name": "HealthState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Healthy",
+            "value": "Healthy",
+            "description": "Healthy status"
+          },
+          {
+            "name": "Degraded",
+            "value": "Degraded",
+            "description": "Degraded status"
+          },
+          {
+            "name": "Unhealthy",
+            "value": "Unhealthy",
+            "description": "Unhealthy status"
+          },
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Unknown status"
+          }
+        ]
+      }
+    },
+    "HealthStateTransition": {
+      "type": "object",
+      "description": "A health state transition record",
+      "properties": {
+        "previousState": {
+          "$ref": "#/definitions/HealthState",
+          "description": "Previous health state before the transition"
+        },
+        "newState": {
+          "$ref": "#/definitions/HealthState",
+          "description": "New health state after the transition"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the transition occurred"
+        },
+        "reason": {
+          "$ref": "#/definitions/string4096",
+          "description": "Reason of the transition"
+        }
+      },
+      "required": [
+        "previousState",
+        "newState",
+        "occurredAt"
+      ]
+    },
+    "ModelNotFoundResponse": {
+      "type": "object",
+      "description": "Returned when the requested health model does not exist.",
+      "properties": {
+        "body": {
+          "$ref": "#/definitions/QueryEchoResponse",
+          "description": "Echoed health-model status; reports that the requested health model does not exist."
+        }
+      },
+      "required": [
+        "body"
+      ]
+    },
     "QueryEchoResponse": {
       "type": "object",
-      "description": "Health state of the requested health model, echoed by the status endpoint.",
+      "description": "Health state of the requested health model, echoed by data-plane operations.",
       "properties": {
         "healthModelExists": {
           "type": "boolean",
@@ -182,17 +567,76 @@
         },
         "healthModelState": {
           "type": "string",
-          "description": "Health state of the health model; null when the health model does not exist."
+          "description": "Health state of the health model; omitted when the health model does not exist."
         }
       },
       "required": [
         "healthModelExists"
       ]
     },
+    "SignalDataPointHistoryResponse": {
+      "type": "object",
+      "description": "Signal data points recorded for an entity's signal, newest first.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The signal data points, ordered newest first.",
+          "items": {
+            "$ref": "#/definitions/SignalHistoryDataPoint"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The full URI to fetch the next page of results; absent when there is no next page."
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "SignalHistoryDataPoint": {
+      "type": "object",
+      "description": "A single recorded signal data point.",
+      "properties": {
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the data point occurred (UTC)."
+        },
+        "value": {
+          "type": "number",
+          "format": "double",
+          "description": "Value of the signal at this point; null when the signal has no numeric value at this point."
+        },
+        "healthState": {
+          "$ref": "#/definitions/HealthState",
+          "description": "Health state of the signal at this point."
+        },
+        "additionalContext": {
+          "$ref": "#/definitions/string4096",
+          "description": "Additional context for this data point; null when none is recorded."
+        }
+      },
+      "required": [
+        "occurredAt",
+        "healthState"
+      ]
+    },
     "entityName": {
       "type": "string",
       "description": "Entity resource name; matches the control-plane proxy-resource naming contract.",
       "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
+    },
+    "signalName": {
+      "type": "string",
+      "description": "Signal resource name; matches the control-plane proxy-resource naming contract.",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
+    },
+    "string4096": {
+      "type": "string",
+      "description": "String with max length validation of 4096 characters",
+      "maxLength": 4096
     }
   },
   "parameters": {
