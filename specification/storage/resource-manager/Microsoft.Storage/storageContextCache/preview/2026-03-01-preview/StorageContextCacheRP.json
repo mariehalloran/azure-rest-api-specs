@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Storage Context Cache Resource Provider",
-    "version": "2026-02-01-preview",
+    "version": "2026-03-01-preview",
     "description": "Microsoft.Storage Context Cache Resource Provider management API.",
     "x-typespec-generated": [
       {
@@ -285,11 +285,17 @@
           }
         },
         "x-ms-examples": {
-          "Create a Azure Context Cache Account with System Assigned Identity": {
-            "$ref": "./examples/ContextCaches_CreateOrUpdate_SystemIdentity.json"
-          },
           "Create a Context Cache": {
             "$ref": "./examples/ContextCaches_CreateOrUpdate.json"
+          },
+          "Create a Context Cache with system-assigned and user-assigned identity": {
+            "$ref": "./examples/ContextCaches_CreateOrUpdate_SystemAssignedUserAssigned.json"
+          },
+          "Create a Context Cache with system-assigned identity": {
+            "$ref": "./examples/ContextCaches_CreateOrUpdate_SystemIdentity.json"
+          },
+          "Create a Context Cache with user-assigned identity": {
+            "$ref": "./examples/ContextCaches_CreateOrUpdate_UserAssignedIdentity.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -361,10 +367,7 @@
           }
         },
         "x-ms-examples": {
-          "Update a Azure Context Cache Account's Customer Managed Key Encryption Settings": {
-            "$ref": "./examples/ContextCaches_Update_CustomerManagedKey.json"
-          },
-          "Update a Context Cache tags": {
+          "Update Context Cache tags, identity, and encryption": {
             "$ref": "./examples/ContextCaches_Update.json"
           }
         },
@@ -476,7 +479,7 @@
           }
         },
         "x-ms-examples": {
-          "List Context Cache Containers in a Context Cache": {
+          "List Context Cache Containers": {
             "$ref": "./examples/ContextCacheContainers_ListByContextCache.json"
           }
         },
@@ -809,7 +812,7 @@
           }
         },
         "x-ms-examples": {
-          "List internal Context Caches by location": {
+          "List Internal Context Caches by Location": {
             "$ref": "./examples/InternalContextCaches_ListByLocation.json"
           }
         },
@@ -862,7 +865,7 @@
           }
         },
         "x-ms-examples": {
-          "Get an internal Context Cache": {
+          "Get an Internal Context Cache": {
             "$ref": "./examples/InternalContextCaches_Get.json"
           }
         }
@@ -936,7 +939,7 @@
           }
         },
         "x-ms-examples": {
-          "Create an internal Context Cache": {
+          "Create an Internal Context Cache": {
             "$ref": "./examples/InternalContextCaches_CreateOrUpdate.json"
           }
         },
@@ -1012,7 +1015,7 @@
           }
         },
         "x-ms-examples": {
-          "Update an internal Context Cache": {
+          "Update an Internal Context Cache": {
             "$ref": "./examples/InternalContextCaches_Update.json"
           }
         },
@@ -1076,7 +1079,7 @@
           }
         },
         "x-ms-examples": {
-          "Delete an internal Context Cache": {
+          "Delete an Internal Context Cache": {
             "$ref": "./examples/InternalContextCaches_Delete.json"
           }
         },
@@ -1130,7 +1133,7 @@
           }
         },
         "x-ms-examples": {
-          "List internal Context Cache Containers by account": {
+          "List Internal Context Cache Containers": {
             "$ref": "./examples/InternalContextCacheContainers_ListByAccount.json"
           }
         },
@@ -1191,7 +1194,7 @@
           }
         },
         "x-ms-examples": {
-          "Get an internal Context Cache Container": {
+          "Get an Internal Context Cache Container": {
             "$ref": "./examples/InternalContextCacheContainers_Get.json"
           }
         }
@@ -1273,7 +1276,7 @@
           }
         },
         "x-ms-examples": {
-          "Create an internal Context Cache Container": {
+          "Create an Internal Context Cache Container": {
             "$ref": "./examples/InternalContextCacheContainers_CreateOrUpdate.json"
           }
         },
@@ -1357,7 +1360,7 @@
           }
         },
         "x-ms-examples": {
-          "Update an internal Context Cache Container": {
+          "Update an Internal Context Cache Container": {
             "$ref": "./examples/InternalContextCacheContainers_Update.json"
           }
         },
@@ -1429,7 +1432,7 @@
           }
         },
         "x-ms-examples": {
-          "Delete an internal Context Cache Container": {
+          "Delete an Internal Context Cache Container": {
             "$ref": "./examples/InternalContextCacheContainers_Delete.json"
           }
         },
@@ -1608,7 +1611,7 @@
           "description": "The resource-specific properties for this resource."
         },
         "identity": {
-          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/SystemAssignedServiceIdentity",
+          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
           "description": "The managed service identities assigned to this resource."
         }
       },
@@ -1811,7 +1814,7 @@
           }
         },
         "identity": {
-          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/SystemAssignedServiceIdentity",
+          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
           "description": "The managed service identity."
         },
         "properties": {
@@ -2066,6 +2069,16 @@
         "internalId": {
           "type": "string",
           "description": "The internal Managed Identity Resource Provider assigned unique identifier for the identity."
+        },
+        "userAssignedIdentities": {
+          "type": "array",
+          "description": "The list of User-assigned identities to be associated with the backing resource. Only supported from 2026-07-01-preview.",
+          "items": {
+            "$ref": "#/definitions/InternalContextCacheUserAssignedIdentity"
+          },
+          "x-ms-identifiers": [
+            "resourceId"
+          ]
         }
       }
     },
@@ -2113,6 +2126,33 @@
         "properties": {
           "$ref": "#/definitions/InternalContextCachePropertiesUpdate",
           "description": "The updatable properties of the internal Azure Context Cache resource."
+        }
+      }
+    },
+    "InternalContextCacheUserAssignedIdentity": {
+      "type": "object",
+      "description": "User-Assigned Identity information for the backing resource for an internal Azure Context Cache resource.",
+      "properties": {
+        "resourceId": {
+          "type": "string",
+          "description": "The fully qualified ARM resource ID of the user-assigned identity.",
+          "pattern": "^/subscriptions/[^/]+/resourceGroups/[^/]+/providers/Microsoft\\.ManagedIdentity/userAssignedIdentities/[^/]+$"
+        },
+        "principalId": {
+          "type": "string",
+          "description": "The principal ID of the identity."
+        },
+        "tenantId": {
+          "type": "string",
+          "description": "The tenant ID of the identity."
+        },
+        "clientId": {
+          "type": "string",
+          "description": "The client ID of the identity."
+        },
+        "internalId": {
+          "type": "string",
+          "description": "The internal Managed Identity Resource Provider assigned unique identifier for the identity."
         }
       }
     },
