@@ -20665,6 +20665,10 @@
       "type": "object",
       "description": "The deployment data of an edge machine.",
       "properties": {
+        "storageType": {
+          "$ref": "#/definitions/NodeStorageType",
+          "description": "Storage type for the edge machine node."
+        },
         "iScsiConfig": {
           "$ref": "#/definitions/IscsiConfig",
           "description": "iSCSI configuration for the edge machine."
@@ -25048,6 +25052,16 @@
         "addressPrefix": {
           "type": "string",
           "description": "Address prefix (CIDR notation) for the iSCSI network adapter."
+        },
+        "targetPortalAddresses": {
+          "type": "array",
+          "description": "Target portal addresses reachable through this iSCSI network adapter.",
+          "items": {
+            "$ref": "#/definitions/IscsiTargetPortalAddress"
+          },
+          "x-ms-identifiers": [
+            "ipAddress"
+          ]
         }
       }
     },
@@ -25159,16 +25173,6 @@
         "adapterProperties": {
           "$ref": "#/definitions/IscsiAdapterProperties",
           "description": "Common adapter properties applied to all iSCSI network adapters."
-        },
-        "targetPortalAddresses": {
-          "type": "array",
-          "description": "Target portal addresses reachable through the iSCSI network adapters.",
-          "items": {
-            "$ref": "#/definitions/IscsiTargetPortalAddress"
-          },
-          "x-ms-identifiers": [
-            "ipAddress"
-          ]
         },
         "adapterIPConfig": {
           "type": "array",
@@ -27520,6 +27524,36 @@
         ]
       },
       "readOnly": true
+    },
+    "NodeStorageType": {
+      "type": "string",
+      "description": "Node storage type for an edge machine.",
+      "enum": [
+        "S2D",
+        "SANISCSI",
+        "SANFC"
+      ],
+      "x-ms-enum": {
+        "name": "NodeStorageType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "S2D",
+            "value": "S2D",
+            "description": "Storage Spaces Direct (S2D) storage type."
+          },
+          {
+            "name": "SanIscsi",
+            "value": "SANISCSI",
+            "description": "SAN iSCSI storage type."
+          },
+          {
+            "name": "SanFc",
+            "value": "SANFC",
+            "description": "SAN Fibre Channel storage type."
+          }
+        ]
+      }
     },
     "NvmeDiscoveryPortal": {
       "type": "object",
