@@ -17,24 +17,38 @@ options:
     examples-dir: "{project-root}/examples"
   # SDK emitter settings are preconfigured for namespace review. SDK emitters are intentionally
   # omitted from `emit` until SDK generation is enabled for this preview service.
+  "@azure-typespec/http-client-csharp-mgmt":
+    namespace: "Azure.ResourceManager.Migrate.PlatformLandingZones"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-python":
-    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-migrate"
-    namespace: "azure.mgmt.migrate"
-    package-name: "azure-mgmt-migrate"
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-migrateplatformlandingzones"
+    namespace: "azure.mgmt.migrateplatformlandingzones"
+    package-name: "azure-mgmt-migrateplatformlandingzones"
     generate-test: true
     generate-sample: true
     flavor: "azure"
   "@azure-tools/typespec-java":
-    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-migrate"
-    namespace: "com.azure.resourcemanager.migrate"
-    service-name: "migrate"
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-migrateplatformlandingzones"
+    namespace: "com.azure.resourcemanager.migrate.platformlandingzones"
+    service-name: "migrateplatformlandingzones"
     flavor: azure
   "@azure-tools/typespec-ts":
-    emitter-output-dir: "{output-dir}/{service-dir}/arm-migrate"
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-migrateplatformlandingzones"
     flavor: azure
     experimental-extensible-enums: true
     package-details:
-      name: "@azure/arm-migrate"
+      name: "@azure/arm-migrateplatformlandingzones"
+  "@azure-tools/typespec-go":
+    service-dir: "sdk/resourcemanager/migrate"
+    emitter-output-dir: "{output-dir}/{service-dir}/armplatformlandingzones"
+    module: "github.com/Azure/azure-sdk-for-go/{service-dir}/armplatformlandingzones"
+    fix-const-stuttering: true
+    flavor: "azure"
+    generate-examples: true
+    generate-fakes: true
+    head-as-boolean: true
+    inject-spans: true
+    generate-samples: true
   "@azure-tools/typespec-client-generator-cli":
     "additionalDirectories":
       - "specification/migrate/PlatformLandingZones.Management/Common"
