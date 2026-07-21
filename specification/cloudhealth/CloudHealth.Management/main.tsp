@@ -91,7 +91,7 @@ model HealthModelProperties {
 model DataPlaneProperties {
   @visibility(Lifecycle.Read)
   @doc("The data plane endpoint URL for interacting with the health model's data.")
-  dataPlaneUrl: url;
+  dataPlaneUri: url;
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "Self-explanatory"
