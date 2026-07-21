@@ -56,7 +56,22 @@ interface DeviceProfileOperations {
   get is ArmResourceRead<DeviceProfile>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<DeviceProfile>;
   update is ArmResourcePatchSync<DeviceProfile, DeviceProfileProperties>;
-  delete is ArmResourceDeleteWithoutOkAsync<DeviceProfile>;
+
+  @renamedFrom(
+    Microsoft.EncryptedTransport.Versions.v2026_07_01_preview,
+    "delete"
+  )
+  @removed(Microsoft.EncryptedTransport.Versions.v2026_07_01_preview)
+  @sharedRoute
+  deleteV1 is ArmResourceDeleteWithoutOkAsync<DeviceProfile>;
+
+  @added(Microsoft.EncryptedTransport.Versions.v2026_07_01_preview)
+  @sharedRoute
+  delete is ArmResourceDeleteWithoutOkAsync<
+    DeviceProfile,
+    LroHeaders = ArmCombinedLroHeaders<FinalResult = void> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
   listByEncryptedTransportAccount is ArmResourceListByParent<DeviceProfile>;
   listBySubscription is ArmListBySubscription<DeviceProfile>;
 }

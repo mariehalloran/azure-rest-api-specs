@@ -85,7 +85,17 @@ using Azure.Core;
   "csharp"
 );
 @@alternateType(
-  JobDefinitionProperties.crossTenantSourceEndpointResourceId,
+  AzureStorageSmbFileShareEndpointProperties.allowedStorageAccounts,
+  string[],
+  "csharp"
+);
+@@alternateType(
+  AzureStorageSmbFileShareEndpointUpdateProperties.allowedStorageAccounts,
+  string[],
+  "csharp"
+);
+@@alternateType(
+  JobDefinitionProperties.crossTenantEndpointResourceId,
   string,
   "csharp"
 );
