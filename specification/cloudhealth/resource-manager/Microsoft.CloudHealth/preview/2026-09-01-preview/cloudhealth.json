@@ -3401,6 +3401,12 @@
           "$ref": "#/definitions/HealthModelProvisioningState",
           "description": "The status of the last operation.",
           "readOnly": true
+        },
+        "dataPlaneUri": {
+          "type": "string",
+          "format": "uri",
+          "description": "The data plane endpoint URL for interacting with the health model's data.",
+          "readOnly": true
         }
       }
     },

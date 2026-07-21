@@ -61,6 +61,9 @@ model ContainerClusterProperties is AzureResourceProperties {
   @doc("Whether deep discovery has completed.")
   isDeepDiscoveryCompleted?: boolean;
 
+  @doc("Whether kubeconfig-based discovery has completed.")
+  isKubeconfigDiscoveryCompleted?: boolean;
+
   @doc("Container orchestrator details.") orchestrator?: OrchestratorProperties;
 
   @doc("Cluster-wide resource allocation.")
@@ -141,6 +144,9 @@ model ContainerClusterPatch {
 
   @doc("Whether deep discovery has completed.")
   isDeepDiscoveryCompleted?: boolean;
+
+  @doc("Whether kubeconfig-based discovery has completed.")
+  isKubeconfigDiscoveryCompleted?: boolean;
 
   @doc("Orchestrator details.") orchestrator?: OrchestratorProperties;
   @doc("Cluster resources.") clusterResources?: ClusterResources;
