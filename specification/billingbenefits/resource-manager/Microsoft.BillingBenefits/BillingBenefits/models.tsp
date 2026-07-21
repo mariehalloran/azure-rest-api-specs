@@ -35,7 +35,7 @@ model BenefitVersionedExpansionProperties {
   ...BenefitCommonVersionedProperties;
 
   /**
-   * Amount and percentage of the benefit that has been consumed.
+  * Amount of the benefit that has been consumed.
    */
   @visibility(Lifecycle.Read)
   @typeChangedFrom(Versions.v2026_07_01_preview, Price)
@@ -4097,12 +4097,17 @@ model NotificationRecipients {
   /**
    * The scope at which to resolve recipients. Accepts parent resource scope, billing profile scope, or billing account scope.
    */
-  scope?: string;
+  scope?: Azure.Core.armResourceIdentifier;
 
   /**
    * Azure RBAC role definition ID used to identify recipients. Users with this role assignment at the specified scope will receive notifications.
    */
-  roleDefinitionId?: string;
+  roleDefinitionId?: Azure.Core.armResourceIdentifier<[
+    {
+      scopes: ["Tenant", "Subscription", "ResourceGroup", "Extension"];
+      type: "Microsoft.Authorization/roleDefinitions";
+    }
+  ]>;
 }
 
 /**
@@ -4188,7 +4193,7 @@ model NotificationRuleProperties {
    * The parent resource ID this notification rule is scoped to.
    */
   @visibility(Lifecycle.Read)
-  scope?: string;
+  scope?: Azure.Core.armResourceIdentifier;
 
   ...NotificationRuleWritableProperties;
 
@@ -4201,9 +4206,8 @@ model NotificationRuleProperties {
   /**
    * Provisioning state of the notification rule as assigned by RPaaS. This indicates the last operation's status.
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Provisioning state is managed by RPaaS"
   @visibility(Lifecycle.Read)
-  provisioningState?: string;
+  provisioningState?: BenefitProvisioningState;
 }
 
 /**
@@ -4382,6 +4386,7 @@ model SpendPlanProperties {
   /**
    * System identifier
    */
+  @visibility(Lifecycle.Read)
   systemId?: string;
 
   /**
@@ -4483,7 +4488,7 @@ model SpendPlanProperties {
   /**
    * Setting this to true will automatically purchase a new benefit on the expiration date time.
    */
-  renew: boolean = false;
+  renew?: boolean = false;
 
   /**
    * The changes that are scheduled to be applied to the spend plan in the future.
@@ -4554,7 +4559,6 @@ model SpendPlanPatchProperties {
   /**
    * End DateTime in UTC.
    */
-  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
   endAt?: utcDateTime;
 }
 
@@ -4586,14 +4590,12 @@ model SpendPlanTermProperties {
   /**
    * The DateTime from which this configuration became active.
    */
-  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
   @visibility(Lifecycle.Read)
   startAt?: utcDateTime;
 
   /**
    * The DateTime until which this configuration was active.
    */
-  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
   @visibility(Lifecycle.Read)
   endAt?: utcDateTime;
 }

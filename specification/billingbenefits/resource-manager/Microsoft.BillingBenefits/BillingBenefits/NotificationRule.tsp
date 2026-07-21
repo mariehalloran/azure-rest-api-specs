@@ -25,12 +25,7 @@ model NotificationRule
     NamePattern = "^[a-zA-Z0-9_\\-\\.]+$"
   >;
 
-  /**
-   * The kind of notification rule (BuiltIn or Custom).
-   */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "kind is needed to distinguish built-in from custom notification rules"
-  @visibility(Lifecycle.Read, Lifecycle.Create)
-  kind?: NotificationRuleKind;
+  ...ResourceKindProperty<NotificationRuleKind>;
 }
 
 @armResourceOperations
