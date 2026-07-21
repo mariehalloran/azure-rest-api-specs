@@ -2676,25 +2676,6 @@
         "annotationDetails"
       ]
     },
-    "DataPlaneProperties": {
-      "type": "object",
-      "description": "Data plane connection details for a health model.",
-      "properties": {
-        "dataPlaneUri": {
-          "type": "string",
-          "format": "uri",
-          "description": "The data plane endpoint URL for interacting with the health model's data.",
-          "readOnly": true
-        }
-      },
-      "required": [
-        "dataPlaneUri"
-      ]
-    },
-    "DataPlanePropertiesUpdate": {
-      "type": "object",
-      "description": "Data plane connection details for a health model."
-    },
     "DependenciesSignalGroupV2": {
       "type": "object",
       "description": "Properties for dependent entities, i.e. child entities",
@@ -3421,9 +3402,11 @@
           "description": "The status of the last operation.",
           "readOnly": true
         },
-        "dataPlane": {
-          "$ref": "#/definitions/DataPlaneProperties",
-          "description": "Data plane connection details for interacting with the health model's data."
+        "dataPlaneUri": {
+          "type": "string",
+          "format": "uri",
+          "description": "The data plane endpoint URL for interacting with the health model's data.",
+          "readOnly": true
         }
       }
     },
@@ -3482,20 +3465,6 @@
           "additionalProperties": {
             "type": "string"
           }
-        },
-        "properties": {
-          "$ref": "#/definitions/HealthModelUpdateProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      }
-    },
-    "HealthModelUpdateProperties": {
-      "type": "object",
-      "description": "The updatable properties of the HealthModel.",
-      "properties": {
-        "dataPlane": {
-          "$ref": "#/definitions/DataPlanePropertiesUpdate",
-          "description": "Data plane connection details for interacting with the health model's data."
         }
       }
     },

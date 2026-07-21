@@ -82,16 +82,9 @@ model HealthModelProperties {
   discovery?: ModelDiscoverySettings;
 
   @added(Versions.v2026_09_01_preview)
-  @doc("Data plane connection details for interacting with the health model's data.")
-  dataPlane?: DataPlaneProperties;
-}
-
-@added(Versions.v2026_09_01_preview)
-@doc("Data plane connection details for a health model.")
-model DataPlaneProperties {
   @visibility(Lifecycle.Read)
   @doc("The data plane endpoint URL for interacting with the health model's data.")
-  dataPlaneUri: url;
+  dataPlaneUri?: url;
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "Self-explanatory"
