@@ -147,7 +147,7 @@ interface InferenceAccounts {
 
   /** Regenerate an API key for an inference account. */
   @added(Versions.v2026_08_01_preview)
-  regenerateKey is ArmResourceActionSync<
+  regenerateKeys is ArmResourceActionSync<
     InferenceAccount,
     RegenerateApiKeyRequest,
     InferenceAccount
