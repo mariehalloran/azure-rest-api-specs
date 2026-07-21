@@ -99,6 +99,8 @@ model EphemeralNamespaceStorageDefinition extends NamespaceStorageDefinition {
 
 @doc("Storage kind for a namespace storage definition.")
 union NamespaceStorageKind {
+  string,
+
   @doc("Persistent storage backed by a Kubernetes PersistentVolumeClaim.")
   Persistent: "Persistent",
 
@@ -108,6 +110,8 @@ union NamespaceStorageKind {
 
 @doc("Supported storage access modes.")
 union StorageAccessMode {
+  string,
+
   @doc("Mounted read-write by a single node.")
   ReadWriteOnce: "ReadWriteOnce",
 

@@ -2791,7 +2791,7 @@
       ],
       "x-ms-enum": {
         "name": "AuditLogCategory",
-        "modelAsString": false,
+        "modelAsString": true,
         "values": [
           {
             "name": "Administrative",
@@ -4406,7 +4406,7 @@
       ],
       "x-ms-enum": {
         "name": "MdmTransformConditionType",
-        "modelAsString": false,
+        "modelAsString": true,
         "values": [
           {
             "name": "Any",
@@ -4434,31 +4434,37 @@
       ],
       "x-ms-enum": {
         "name": "MdmTransformFunction",
-        "modelAsString": false,
+        "modelAsString": true,
         "values": [
           {
             "name": "Hostname",
-            "value": "hostname"
+            "value": "hostname",
+            "description": "Use the host name."
           },
           {
             "name": "ApMachineFunction",
-            "value": "ap_machine_function"
+            "value": "ap_machine_function",
+            "description": "Use the application platform machine function."
           },
           {
             "name": "ApMachineName",
-            "value": "ap_machine_name"
+            "value": "ap_machine_name",
+            "description": "Use the application platform machine name."
           },
           {
             "name": "ApEnvironment",
-            "value": "ap_environment"
+            "value": "ap_environment",
+            "description": "Use the application platform environment."
           },
           {
             "name": "ApCluster",
-            "value": "ap_cluster"
+            "value": "ap_cluster",
+            "description": "Use the application platform cluster."
           },
           {
             "name": "SourceId",
-            "value": "source_id"
+            "value": "source_id",
+            "description": "Use the source identifier."
           }
         ]
       }
@@ -4499,7 +4505,7 @@
       ],
       "x-ms-enum": {
         "name": "MdmTransformOperationValueType",
-        "modelAsString": false,
+        "modelAsString": true,
         "values": [
           {
             "name": "Value",
@@ -4589,7 +4595,7 @@
       ],
       "x-ms-enum": {
         "name": "MetricTargetType",
-        "modelAsString": false,
+        "modelAsString": true,
         "values": [
           {
             "name": "None",
@@ -4618,6 +4624,69 @@
       "type": "object",
       "description": "Named Geneva MDM sidecar configuration.",
       "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the MDM sidecar is enabled."
+        },
+        "resources": {
+          "$ref": "#/definitions/ComputeResources",
+          "description": "Compute resources for the MDM sidecar."
+        },
+        "secretName": {
+          "type": "string",
+          "description": "Certificate secret name. The platform maps the secret through the configured secret/CSI mechanism."
+        },
+        "appProcessName": {
+          "type": "string",
+          "description": "Application process name used for graceful metrics flush ordering."
+        },
+        "account": {
+          "type": "string",
+          "description": "Geneva metrics account."
+        },
+        "protocol": {
+          "type": "string",
+          "description": "Metrics protocol, for example ifx_tcp, ifx_local, or statsd_tcp."
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Metrics listening port."
+        },
+        "unixDomainSockets": {
+          "type": "boolean",
+          "description": "Use Unix domain sockets for local MDM traffic."
+        },
+        "infraMetricsEnrichment": {
+          "type": "boolean",
+          "description": "Enable Geneva infra metrics enrichment and transform rules."
+        },
+        "defaultDimensions": {
+          "type": "array",
+          "description": "Default dimensions added to metrics when infra metrics enrichment is enabled.",
+          "items": {
+            "$ref": "#/definitions/TelemetryDimension"
+          },
+          "x-ms-identifiers": [
+            "dimension"
+          ]
+        },
+        "transformRules": {
+          "type": "array",
+          "description": "Geneva MDM transform rules.",
+          "items": {
+            "$ref": "#/definitions/MdmTransformRule"
+          },
+          "x-ms-identifiers": []
+        },
+        "azureContainerRegistryUrl": {
+          "type": "string",
+          "description": "ACR URL used for the MDM image when the shared chart cannot infer it."
+        },
+        "openTelemetry": {
+          "$ref": "#/definitions/OpenTelemetryConfig",
+          "description": "OpenTelemetry receiver settings for Geneva MDM."
+        },
         "name": {
           "type": "string",
           "description": "Name of the additional MDM sidecar/pipeline."
@@ -4625,17 +4694,20 @@
       },
       "required": [
         "name"
-      ],
-      "allOf": [
-        {
-          "$ref": "#/definitions/MdmConfig"
-        }
       ]
     },
     "NamedMdsdConfig": {
       "type": "object",
       "description": "Named MDSD collector configuration.",
       "properties": {
+        "secretName": {
+          "type": "string",
+          "description": "MDSD certificate secret name. The platform maps the secret through the configured secret/CSI mechanism."
+        },
+        "resources": {
+          "$ref": "#/definitions/ComputeResources",
+          "description": "Compute resources for the MDSD sidecar."
+        },
         "name": {
           "type": "string",
           "description": "Name of the additional MDSD sidecar/pipeline."
@@ -4643,11 +4715,6 @@
       },
       "required": [
         "name"
-      ],
-      "allOf": [
-        {
-          "$ref": "#/definitions/MdsdConfig"
-        }
       ]
     },
     "Namespace": {
@@ -4818,7 +4885,7 @@
       ],
       "x-ms-enum": {
         "name": "NamespaceStorageKind",
-        "modelAsString": false,
+        "modelAsString": true,
         "values": [
           {
             "name": "Persistent",
@@ -4918,13 +4985,21 @@
     },
     "NodeAffinityOperator": {
       "type": "string",
+      "description": "Node affinity match operator exposed by ConfigGen.",
       "enum": [
         "In"
       ],
       "x-ms-enum": {
-        "modelAsString": false
-      },
-      "x-nullable": false
+        "name": "NodeAffinityOperator",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "In",
+            "value": "In",
+            "description": "Node label value must be in the provided values."
+          }
+        ]
+      }
     },
     "NodeCapacityType": {
       "type": "string",
@@ -5298,7 +5373,8 @@
         "maxReceiveMessageSizeMBytes": {
           "type": "integer",
           "format": "int32",
-          "description": "Maximum OTLP receive message size in MB."
+          "description": "Maximum OTLP receive message size in MB.",
+          "x-ms-client-name": "maxReceiveMessageSizeMbytes"
         }
       }
     },
@@ -5448,19 +5524,22 @@
       ],
       "x-ms-enum": {
         "name": "ProbeType",
-        "modelAsString": false,
+        "modelAsString": true,
         "values": [
           {
             "name": "HttpGet",
-            "value": "httpGet"
+            "value": "httpGet",
+            "description": "Use an HTTP GET probe."
           },
           {
             "name": "TcpSocket",
-            "value": "tcpSocket"
+            "value": "tcpSocket",
+            "description": "Use a TCP socket probe."
           },
           {
             "name": "Exec",
-            "value": "exec"
+            "value": "exec",
+            "description": "Use a command execution probe."
           }
         ]
       }
@@ -5682,7 +5761,7 @@
       ],
       "x-ms-enum": {
         "name": "ScalingMode",
-        "modelAsString": false,
+        "modelAsString": true,
         "values": [
           {
             "name": "Fixed",
@@ -5749,7 +5828,7 @@
       ],
       "x-ms-enum": {
         "name": "ScalingTriggerType",
-        "modelAsString": false,
+        "modelAsString": true,
         "values": [
           {
             "name": "AzureQueue",
@@ -6162,7 +6241,7 @@
       ],
       "x-ms-enum": {
         "name": "StorageAccessMode",
-        "modelAsString": false,
+        "modelAsString": true,
         "values": [
           {
             "name": "ReadWriteOnce",
@@ -6311,23 +6390,27 @@
       ],
       "x-ms-enum": {
         "name": "TelemetryLogDestination",
-        "modelAsString": false,
+        "modelAsString": true,
         "values": [
           {
             "name": "GenevaMdsd",
-            "value": "genevaMdsd"
+            "value": "genevaMdsd",
+            "description": "Send logs to Geneva MDSD."
           },
           {
             "name": "LogTail",
-            "value": "logTail"
+            "value": "logTail",
+            "description": "Send logs to the log tail collector."
           },
           {
             "name": "Fluentd",
-            "value": "fluentd"
+            "value": "fluentd",
+            "description": "Send logs to Fluentd."
           },
           {
             "name": "Splunk",
-            "value": "splunk"
+            "value": "splunk",
+            "description": "Send logs to Splunk."
           }
         ]
       }
@@ -6360,19 +6443,22 @@
       ],
       "x-ms-enum": {
         "name": "TelemetryMetricDestination",
-        "modelAsString": false,
+        "modelAsString": true,
         "values": [
           {
             "name": "GenevaMdm",
-            "value": "genevaMdm"
+            "value": "genevaMdm",
+            "description": "Send metrics to Geneva MDM."
           },
           {
             "name": "Prometheus",
-            "value": "prometheus"
+            "value": "prometheus",
+            "description": "Send metrics to Prometheus."
           },
           {
             "name": "Otlp",
-            "value": "otlp"
+            "value": "otlp",
+            "description": "Send metrics using OpenTelemetry Protocol."
           }
         ]
       }

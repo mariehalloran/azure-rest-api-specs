@@ -180,6 +180,8 @@ model NodeSelectorRequirement {
 
 @doc("Node affinity match operator exposed by ConfigGen.")
 union NodeAffinityOperator {
+  string,
+
   @doc("Node label value must be in the provided values.")
   In: "In",
 }
