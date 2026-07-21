@@ -721,6 +721,10 @@ union ResourceType {
 
   /** Reserved capacity or reserved instances */
   Reservations: "Reservations",
+
+  /** Spend Plans */
+  @added(Versions.v2026_07_01_preview)
+  SpendPlans: "SpendPlans",
 }
 
 /**
