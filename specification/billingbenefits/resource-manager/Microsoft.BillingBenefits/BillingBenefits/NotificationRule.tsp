@@ -24,7 +24,6 @@ model NotificationRule
     SegmentName = "notifications",
     NamePattern = "^[a-zA-Z0-9_\\-\\.]+$"
   >;
-
   ...ResourceKindProperty<NotificationRuleKind>;
 }
 
