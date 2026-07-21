@@ -417,6 +417,59 @@
         },
         "x-ms-long-running-operation": true
       }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/probingGateways/{probingGatewayName}/topologyReferences": {
+      "post": {
+        "operationId": "ProbingGateways_CreateTopologyReference",
+        "tags": [
+          "ProbingGateways"
+        ],
+        "description": "Notifies the Probing Gateway of a topology reference link or unlink event.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "probingGatewayName",
+            "in": "path",
+            "description": "The name of the Probing Gateway.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProbingGatewayTopologyReferenceRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Action completed successfully."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ProbingGateways_CreateTopologyReference": {
+            "$ref": "./examples/ProbingGateways_CreateTopologyReference.json"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -427,7 +480,7 @@
     "AzureServiceConnectionControllerId": {
       "type": "string",
       "format": "arm-id",
-      "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+      "description": "A fully qualified ARM resource ID referencing an azure service connection controller.",
       "x-ms-arm-id-details": {
         "allowedResources": [
           {
@@ -450,6 +503,30 @@
           "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
         }
       ]
+    },
+    "ProbingGatewayEventType": {
+      "type": "string",
+      "description": "The type of Probing Gateway topology reference event.",
+      "enum": [
+        "Linked",
+        "Unlinked"
+      ],
+      "x-ms-enum": {
+        "name": "ProbingGatewayEventType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Linked",
+            "value": "Linked",
+            "description": "The Probing Gateway was linked to a site."
+          },
+          {
+            "name": "Unlinked",
+            "value": "Unlinked",
+            "description": "The Probing Gateway was unlinked from a site."
+          }
+        ]
+      }
     },
     "ProbingGatewayIpConfiguration": {
       "type": "object",
@@ -532,6 +609,34 @@
         "subnetId"
       ]
     },
+    "ProbingGatewayTopologyReferenceRequest": {
+      "type": "object",
+      "description": "The request body describing a Probing Gateway topology reference link or unlink event.",
+      "properties": {
+        "eventType": {
+          "$ref": "#/definitions/ProbingGatewayEventType",
+          "description": "The type of event indicating whether the Probing Gateway was linked or unlinked."
+        },
+        "topologyMapId": {
+          "type": "string",
+          "description": "The internal resource ID of the Topology Map."
+        },
+        "siteId": {
+          "type": "string",
+          "description": "The internal resource ID of the site."
+        },
+        "eventTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the event occurred."
+        }
+      },
+      "required": [
+        "eventType",
+        "topologyMapId",
+        "siteId"
+      ]
+    },
     "ProbingGatewayUpdate": {
       "type": "object",
       "description": "The type used for update operations of the ProbingGateway.",
@@ -600,7 +705,7 @@
           {
             "name": "Provisioning",
             "value": "Provisioning",
-            "description": "The resource is  being provisioned."
+            "description": "The resource is being provisioned."
           },
           {
             "name": "Deleting",
@@ -619,7 +724,7 @@
     "SubnetId": {
       "type": "string",
       "format": "arm-id",
-      "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+      "description": "A fully qualified ARM resource ID referencing a subnet.",
       "x-ms-arm-id-details": {
         "allowedResources": [
           {

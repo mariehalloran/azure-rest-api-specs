@@ -9,10 +9,12 @@ using Azure.ResourceManager;
 
 namespace Microsoft.Network;
 
-@@doc(AzureServiceConnectionController.name,
+@@doc(
+  AzureServiceConnectionController.name,
   "The name of the Azure Service Connection Controller."
 );
-@@doc(AzureServiceConnectionController.properties,
+@@doc(
+  AzureServiceConnectionController.properties,
   "The properties of the Azure Service Connection Controller."
 );
 @doc("Class representing an Azure Service Connection Controller.")
@@ -26,7 +28,8 @@ model AzureServiceConnectionController
   ...ManagedByProperty;
 }
 
-@@doc(AzureServiceConnectionControllers.createOrUpdate::parameters.resource,
+@@doc(
+  AzureServiceConnectionControllers.createOrUpdate::parameters.resource,
   "The Azure Service Connection Controller parameters supplied to the CreateOrUpdate operation."
 );
 @armResourceOperations

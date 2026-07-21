@@ -77,7 +77,7 @@ model AzureServiceConnectionControllerProperties {
   @identifiers(#[])
   ipConfigurations?: IpConfiguration[];
 
-  @doc("Properties of the related Azure components providing the underlying infrastucture.")
+  @doc("Properties of the related Azure components providing the underlying infrastructure.")
   @identifiers(#["name"])
   providerConnections?: ProviderConnectionProperties[];
 

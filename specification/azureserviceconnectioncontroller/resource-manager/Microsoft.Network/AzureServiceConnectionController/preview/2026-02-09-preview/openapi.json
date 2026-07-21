@@ -482,7 +482,7 @@
         },
         "providerConnections": {
           "type": "array",
-          "description": "Infra properties",
+          "description": "Properties of the related Azure components providing the underlying infrastructure.",
           "items": {
             "$ref": "#/definitions/ProviderConnectionProperties"
           },
@@ -576,7 +576,7 @@
         },
         "providerConnections": {
           "type": "array",
-          "description": "Infra properties",
+          "description": "Properties of the related Azure components providing the underlying infrastructure.",
           "items": {
             "$ref": "#/definitions/ProviderConnectionProperties"
           },
@@ -590,6 +590,24 @@
         }
       }
     },
+    "IPAllocationMethod": {
+      "type": "string",
+      "description": "The allowed Private IP allocation methods",
+      "enum": [
+        "Static"
+      ],
+      "x-ms-enum": {
+        "name": "IPAllocationMethod",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Static",
+            "value": "Static",
+            "description": "Static Private IP address allocation"
+          }
+        ]
+      }
+    },
     "IpConfiguration": {
       "type": "object",
       "description": "Class representing the IP configuration properties.",
@@ -599,23 +617,8 @@
           "description": "The IP V4 address."
         },
         "ipAllocationMethod": {
-          "type": "string",
-          "description": "Private IP Allocation Method",
-          "default": "Static",
-          "enum": [
-            "Static"
-          ],
-          "x-ms-enum": {
-            "name": "IPAllocationMethod",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "Static",
-                "value": "Static",
-                "description": "Static Private IP address allocation"
-              }
-            ]
-          }
+          "$ref": "#/definitions/IPAllocationMethod",
+          "description": "Private IP Allocation Method"
         }
       }
     },
@@ -657,7 +660,7 @@
     "SubnetId": {
       "type": "string",
       "format": "arm-id",
-      "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+      "description": "A fully qualified ARM resource ID referencing a subnet.",
       "x-ms-arm-id-details": {
         "allowedResources": [
           {
@@ -669,7 +672,7 @@
     "UDR": {
       "type": "string",
       "format": "arm-id",
-      "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+      "description": "A fully qualified ARM resource ID referencing a user-defined route.",
       "x-ms-arm-id-details": {
         "allowedResources": [
           {

@@ -6,6 +6,7 @@ import "../models/ProbingGatewayModels.tsp";
 
 using Azure.ResourceManager;
 using TypeSpec.Http;
+using TypeSpec.Rest;
 
 namespace Microsoft.Network;
 
@@ -16,7 +17,8 @@ model ProbingGateway is TrackedResource<ProbingGatewayProperties> {
   ...ResourceNameParameter<ProbingGateway>;
 }
 
-@@doc(ProbingGateways.createOrUpdate::parameters.resource,
+@@doc(
+  ProbingGateways.createOrUpdate::parameters.resource,
   "The Probing Gateway parameters supplied to the CreateOrUpdate operation."
 );
 @armResourceOperations
@@ -234,4 +236,30 @@ interface ProbingGateways {
   )
   @doc("Lists all Probing Gateways within a subscription.")
   listBySubscription is ArmListBySubscription<ProbingGateway>;
+
+  @opExample(
+    #{
+      parameters: #{
+        subscriptionId: "00000000-0000-0000-0000-000000000000",
+        resourceGroupName: "rg1",
+        probingGatewayName: "pg1",
+        apiVersion: "2026-02-09-preview",
+        provider: "Microsoft.Network",
+        body: #{
+          eventType: "Linked",
+          topologyMapId: "00000000-0000-0000-0000-000000000001",
+          siteId: "site-west-us",
+          eventTimestamp: utcDateTime.fromISO("2026-02-10T00:00:00Z"),
+        },
+      },
+      returnType: #{ statusCode: 204 },
+    },
+    #{ title: "ProbingGateways_CreateTopologyReference" }
+  )
+  @doc("Notifies the Probing Gateway of a topology reference link or unlink event.")
+  @action("topologyReferences")
+  createTopologyReference is ArmResourceActionNoContentSync<
+    ProbingGateway,
+    ProbingGatewayTopologyReferenceRequest
+  >;
 }
