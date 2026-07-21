@@ -15,8 +15,10 @@ namespace Microsoft.CleanRoom;
 /**
  * Defines the collaboration.
  */
-model Collaboration
-  is Azure.ResourceManager.TrackedResource<CollaborationProperties, true> {
+model Collaboration is Azure.ResourceManager.TrackedResource<
+  CollaborationProperties,
+  true
+> {
   ...ResourceNameParameter<
     Resource = Collaboration,
     KeyName = "collaborationName",

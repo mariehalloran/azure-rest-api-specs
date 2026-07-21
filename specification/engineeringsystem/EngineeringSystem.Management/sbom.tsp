@@ -57,6 +57,7 @@ model SbomProperties {
   branchName?: string;
 
   /** The project ID for the SBOM. */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   repositoryUrl?: string;
 
   /** The change commit ID of the repository for the SBOM. */

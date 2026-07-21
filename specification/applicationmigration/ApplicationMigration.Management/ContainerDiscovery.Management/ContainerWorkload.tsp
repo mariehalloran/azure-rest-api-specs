@@ -18,8 +18,10 @@ namespace Microsoft.ApplicationMigration;
  * Child of ContainerSite (NOT child of ContainerCluster — enables standalone scenario).
  */
 @parentResource(ContainerSite)
-model ContainerWorkload
-  is Azure.ResourceManager.ProxyResource<ContainerWorkloadProperties, false> {
+model ContainerWorkload is Azure.ResourceManager.ProxyResource<
+  ContainerWorkloadProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = ContainerWorkload,
     KeyName = "workloadName",
@@ -79,6 +81,9 @@ model ContainerWorkloadProperties is AzureResourceProperties {
 
   @doc("Whether deep discovery has completed.")
   isDeepDiscoveryCompleted?: boolean;
+
+  @doc("Whether kubeconfig-based discovery has completed.")
+  isKubeconfigDiscoveryCompleted?: boolean;
 
   // ── Workload Identity (Orchestrated only — empty for standalone) ──
   @encodedName("application/json", "namespace")
@@ -252,7 +257,10 @@ model ServicePortInfo {
   @doc("Port name.") name?: string;
   @doc("Transport protocol (for example, TCP or UDP).") protocol?: string;
   @doc("Port number.") port?: int32;
-  @doc("Target port.") targetPort?: int32;
+
+  @doc("Target port (Kubernetes IntOrString: a numeric port or a named port such as \"https\").")
+  targetPort?: string;
+
   @doc("Node port.") nodePort?: int32;
 }
 
@@ -336,6 +344,16 @@ model WorkloadSummary {
   @doc("Total memory request.") totalMemoryRequest?: string;
   @doc("Total memory limit.") totalMemoryLimit?: string;
   @doc("Has GPU requests.") hasGpuRequests?: boolean;
+
+  @doc("Whether the workload uses persistent volumes.")
+  hasPersistentVolumes?: boolean;
+
+  @doc("The number of persistent volumes used by the workload.")
+  persistentVolumeCount?: int32;
+
+  @doc("The total persistent volume size in GB.")
+  totalPvSizeGb?: float64;
+
   @doc("Distinct images.") distinctImages?: string[];
 
   @doc("Image CPU architectures (e.g., amd64, arm64).")
@@ -354,7 +372,7 @@ model WorkloadSummary {
   hasExternalSecrets?: boolean;
 }
 
-@doc("Migration readiness signals (24 booleans).")
+@doc("Migration readiness signals (26 booleans).")
 model ReadinessSignals {
   @doc("Uses host network.") usesHostNetwork?: boolean;
   @doc("Uses host PID.") usesHostPid?: boolean;
@@ -368,16 +386,20 @@ model ReadinessSignals {
   @doc("Has topology spread.") hasTopologySpreadConstraints?: boolean;
   @doc("Has tolerations.") hasTolerations?: boolean;
   @doc("Has Windows containers.") hasWindowsContainers?: boolean;
+  @doc("Has hostPath volumes.") hasHostPathVolumes?: boolean;
   @doc("Uses secrets.") usesSecrets?: boolean;
   @doc("Uses ConfigMaps.") usesConfigMaps?: boolean;
   @doc("Has private registry.") hasPrivateRegistry?: boolean;
+  @doc("Requires GPU resources.") hasGpuRequirement?: boolean;
   @doc("Has HPA.") hasHpa?: boolean;
   @doc("Has VPA.") hasVpa?: boolean;
   @doc("Has PDB.") hasPdb?: boolean;
   @doc("Has ingress rules.") hasIngressRules?: boolean;
+  @doc("Uses TLS secrets.") hasTlsSecrets?: boolean;
   @doc("Has liveness probes.") hasLivenessProbes?: boolean;
   @doc("Has readiness probes.") hasReadinessProbes?: boolean;
   @doc("Exposes multiple ports.") exposesMultiplePorts?: boolean;
+  @doc("Governed by a network policy.") hasNetworkPolicy?: boolean;
 }
 
 @doc("Network exposure summary.")
@@ -413,8 +435,8 @@ model NetworkPolicyRule {
   @doc("Kubernetes namespaces in the policy scope.")
   namespaces?: string[];
 
-  @doc("Port numbers included in the policy rule.")
-  ports?: int32[];
+  @doc("Ports included in the policy rule (Kubernetes IntOrString: numeric or named ports).")
+  ports?: string[];
 }
 
 @doc("Storage summary.")
@@ -535,6 +557,9 @@ model ContainerWorkloadPatch {
 
   @doc("Whether deep discovery has completed.")
   isDeepDiscoveryCompleted?: boolean;
+
+  @doc("Whether kubeconfig-based discovery has completed.")
+  isKubeconfigDiscoveryCompleted?: boolean;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Tags are ARM standard key-value pairs"
   @doc("Resource tags as key-value pairs.") tags?: Record<string>;

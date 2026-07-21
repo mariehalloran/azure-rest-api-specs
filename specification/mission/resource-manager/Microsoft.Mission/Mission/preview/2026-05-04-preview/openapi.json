@@ -5969,7 +5969,9 @@
         "Active",
         "Failed",
         "Connected",
-        "Disconnected"
+        "Disconnected",
+        "Reconciling",
+        "Degraded"
       ],
       "x-ms-enum": {
         "name": "EnclaveConnectionState",
@@ -6009,6 +6011,16 @@
             "name": "Disconnected",
             "value": "Disconnected",
             "description": "EnclaveConnectionState Type Disconnected"
+          },
+          {
+            "name": "Reconciling",
+            "value": "Reconciling",
+            "description": "A topology reconciliation is applying NSG rule changes for this connection."
+          },
+          {
+            "name": "Degraded",
+            "value": "Degraded",
+            "description": "Sticky health state after at least 3 consecutive non-full-success reconciliations."
           }
         ]
       }

@@ -343,6 +343,7 @@ interface PublicCloudConnectors {
   listByResourceGroup is ArmResourceListByParent<PublicCloudConnector>;
   listBySubscription is ArmListBySubscription<PublicCloudConnector>;
 
+  @doc("A long-running resource action.")
   testPermissions is ArmResourceActionAsync<
     PublicCloudConnector,
     void,

@@ -47,6 +47,7 @@ model HanaDatabaseSourceConnectorProperties extends DataSourceProperties {
   @doc("Type of HanaDatabaseSourceConnector")
   connectorType: Models.Connector.ConnectorType.HanaDatabaseSource;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("HANA JDBC connection URI, e.g. jdbc:sap://127.0.0.1:30015.")
   connectionUrl: string;
 

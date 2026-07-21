@@ -15,8 +15,10 @@ namespace Microsoft.ApplicationMigration;
  * The ContainerSite resource — top-level tracked resource for container discovery.
  * Parent for containerClusters, containerWorkloads, and containerAgents.
  */
-model ContainerSite
-  is Azure.ResourceManager.TrackedResource<ContainerSiteProperties, false> {
+model ContainerSite is Azure.ResourceManager.TrackedResource<
+  ContainerSiteProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = ContainerSite,
     KeyName = "siteName",
