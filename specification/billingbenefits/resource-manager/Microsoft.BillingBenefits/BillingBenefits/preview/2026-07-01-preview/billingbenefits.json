@@ -230,7 +230,7 @@
         "description": "List catalog groups at the given scope.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "scope",
@@ -254,7 +254,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -286,7 +286,7 @@
         "description": "Get a specific catalog group at the given scope.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "scope",
@@ -315,7 +315,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -6347,7 +6347,7 @@
         },
         "consumed": {
           "$ref": "#/definitions/Consumed",
-          "description": "Amount and percentage of the benefit that has been consumed.",
+          "description": "Amount of the benefit that has been consumed.",
           "readOnly": true
         }
       },
@@ -6947,7 +6947,7 @@
         },
         "consumed": {
           "$ref": "#/definitions/Consumed",
-          "description": "Amount and percentage of the benefit that has been consumed.",
+          "description": "Amount of the benefit that has been consumed.",
           "readOnly": true
         },
         "productDetails": {
@@ -8619,7 +8619,7 @@
         },
         "consumed": {
           "$ref": "#/definitions/Consumed",
-          "description": "Amount and percentage of the benefit that has been consumed.",
+          "description": "Amount of the benefit that has been consumed.",
           "readOnly": true
         }
       },
@@ -9045,11 +9045,26 @@
       "properties": {
         "scope": {
           "type": "string",
+          "format": "arm-id",
           "description": "The scope at which to resolve recipients. Accepts parent resource scope, billing profile scope, or billing account scope."
         },
         "roleDefinitionId": {
           "type": "string",
-          "description": "Azure RBAC role definition ID used to identify recipients. Users with this role assignment at the specified scope will receive notifications."
+          "format": "arm-id",
+          "description": "Azure RBAC role definition ID used to identify recipients. Users with this role assignment at the specified scope will receive notifications.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "scopes": [
+                  "Tenant",
+                  "Subscription",
+                  "ResourceGroup",
+                  "Extension"
+                ],
+                "type": "Microsoft.Authorization/roleDefinitions"
+              }
+            ]
+          }
         }
       }
     },
@@ -9063,7 +9078,8 @@
         },
         "kind": {
           "$ref": "#/definitions/NotificationRuleKind",
-          "description": "The kind of notification rule (BuiltIn or Custom).",
+          "description": "Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value.",
+          "pattern": "^[-\\w\\._,\\(\\\\\\)]+$",
           "x-ms-mutability": [
             "read",
             "create"
@@ -9181,6 +9197,7 @@
       "properties": {
         "scope": {
           "type": "string",
+          "format": "arm-id",
           "description": "The parent resource ID this notification rule is scoped to.",
           "readOnly": true
         },
@@ -9228,7 +9245,7 @@
           "readOnly": true
         },
         "provisioningState": {
-          "type": "string",
+          "$ref": "#/definitions/BenefitProvisioningState",
           "description": "Provisioning state of the notification rule as assigned by RPaaS. This indicates the last operation's status.",
           "readOnly": true
         }
@@ -11116,7 +11133,8 @@
         },
         "systemId": {
           "type": "string",
-          "description": "System identifier"
+          "description": "System identifier",
+          "readOnly": true
         },
         "orderId": {
           "type": "string",
@@ -11253,7 +11271,7 @@
         },
         "consumed": {
           "$ref": "#/definitions/Consumed",
-          "description": "Amount and percentage of the benefit that has been consumed.",
+          "description": "Amount of the benefit that has been consumed.",
           "readOnly": true
         }
       },
@@ -11264,8 +11282,7 @@
         "term",
         "commitment",
         "billingPlan",
-        "appliedScopeType",
-        "renew"
+        "appliedScopeType"
       ]
     },
     "SpendPlanScheduledChanges": {
