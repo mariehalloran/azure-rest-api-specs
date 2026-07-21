@@ -1,0 +1,54 @@
+{
+  "operationId": "InternalContextCacheContainers_ListByAccount",
+  "title": "List Internal Context Cache Containers",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "testrg",
+    "location": "eastus",
+    "api-version": "2026-03-01-preview",
+    "internalContextCacheName": "testinternalcache"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/locations/eastus/internalContextCaches/testinternalcache/internalContextCacheContainers/gpt4-prompts",
+            "name": "gpt4-prompts",
+            "type": "Microsoft.Storage/locations/internalContextCaches/internalContextCacheContainers",
+            "properties": {
+              "description": "Internal container for GPT-4 prompt caching",
+              "modelName": "gpt-4",
+              "provider": "OpenAI",
+              "timeToLive": 7,
+              "provisioningState": "Succeeded",
+              "resourceProperties": {
+                "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/storageAccounts/teststorage/blobServices/default/containers/gpt4-prompts",
+                "resourceType": "Microsoft.Storage/storageAccounts/blobServices/containers",
+                "baseLocation": "eastus",
+                "parentResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/locations/eastus/internalContextCaches/testinternalcache"
+              }
+            },
+            "systemData": {
+              "createdBy": "user@example.com",
+              "createdByType": "User",
+              "createdAt": "2026-01-01T00:00:00Z",
+              "lastModifiedBy": "user@example.com",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-01-01T00:00:00Z"
+            }
+          }
+        ],
+        "nextLink": null
+      }
+    },
+    "default": {
+      "body": {
+        "error": {
+          "code": "InternalServerError",
+          "message": "An unexpected error occurred"
+        }
+      }
+    }
+  }
+}

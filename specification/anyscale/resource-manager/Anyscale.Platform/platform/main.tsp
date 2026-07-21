@@ -3,6 +3,7 @@ import "@typespec/rest";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
+import "./agreements.tsp";
 import "./cloud.tsp";
 import "./cloudResource.tsp";
 import "./computeConfig.tsp";
