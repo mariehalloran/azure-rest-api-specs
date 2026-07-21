@@ -31,6 +31,12 @@ directive:
     from: securitybaseplatform.json
     where: $.definitions.ManagedResourceGroupConfiguration.properties.location
     reason: The managed resource group configuration is service-generated and read-only.
+  - suppress: AvoidAdditionalProperties
+    from: securitybaseplatform.json
+    where: $.definitions.StringMap
+    reason: >
+      StringMap models user-defined Kubernetes labels and annotations whose keys
+      are not knowable in advance, so an open string-to-string map is required.
 ```
 
 ### Tag: avocado-examples

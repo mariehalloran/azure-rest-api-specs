@@ -30,7 +30,7 @@ union WorkloadKind {
 
 @doc("""
   Common properties of an aggregate deployment projection.
-  
+
   This is the "one for all" read-only view of the actual, cluster-observed
   deployments across every workload kind (Service, Job, CronJob) within a
   Namespace. The concrete shape is discriminated by workloadKind.

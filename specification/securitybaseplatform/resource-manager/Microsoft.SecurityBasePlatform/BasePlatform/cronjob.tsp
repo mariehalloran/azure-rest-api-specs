@@ -45,10 +45,7 @@ interface CronJobs {
   createOrUpdate is ArmResourceCreateOrUpdateAsync<CronJob>;
   update is ArmCustomPatchAsync<
     CronJob,
-    Azure.ResourceManager.Foundations.ResourceUpdateModel<
-      CronJob,
-      CronJobProperties
-    >
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<CronJob, Update<CronJobProperties>>
   >;
   delete is ArmResourceDeleteWithoutOkAsync<CronJob>;
   listByNamespace is ArmResourceListByParent<CronJob>;

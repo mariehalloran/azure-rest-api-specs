@@ -78,7 +78,7 @@ union NodeCapacityType {
 
 @doc("A Kubernetes taint applied to nodes.")
 model NodeTaint {
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "The property contains a Kubernetes label key, not a secret."
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" ""
   @doc("Taint key.")
   key: string;
 
@@ -180,15 +180,13 @@ model NodeSelectorRequirement {
 
 @doc("Node affinity match operator exposed by ConfigGen.")
 union NodeAffinityOperator {
-  string,
-
   @doc("Node label value must be in the provided values.")
   In: "In",
 }
 
 @doc("A toleration that allows a workload to schedule onto nodes with a matching taint.")
 model Toleration {
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "The property contains a Kubernetes taint key, not a secret."
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" ""
   @doc("Key of the taint to tolerate.")
   key?: string;
 

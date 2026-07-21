@@ -4,6 +4,7 @@ import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./shared-models.tsp";
+import "./patch-models.tsp";
 import "./workspace.tsp";
 import "./cluster.tsp";
 import "./namespace.tsp";
@@ -19,7 +20,9 @@ using Azure.Core;
 using Azure.ResourceManager;
 
 @armProviderNamespace("Microsoft.SecurityBasePlatform")
-@service(#{ title: "Microsoft.SecurityBasePlatform" })
+@service(#{
+  title: "Microsoft.SecurityBasePlatform"
+})
 @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
 @versioned(Microsoft.SecurityBasePlatform.Versions)
 namespace Microsoft.SecurityBasePlatform;

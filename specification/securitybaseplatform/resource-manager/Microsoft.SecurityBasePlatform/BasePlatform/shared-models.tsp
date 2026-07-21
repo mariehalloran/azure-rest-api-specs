@@ -12,34 +12,26 @@ interface Operations extends Azure.ResourceManager.Operations {}
 @Azure.Core.lroStatus
 union ProvisioningState {
   string,
-
   @doc("Resource has been created successfully.")
-  Succeeded: "Succeeded",
-
+  Succeeded:"Succeeded",
   @doc("Resource creation failed.")
-  Failed: "Failed",
-
+  Failed:"Failed",
   @doc("Resource creation was canceled.")
-  Canceled: "Canceled",
-
+  Canceled:"Canceled",
   @doc("Resource is being provisioned.")
-  Provisioning: "Provisioning",
-
+  Provisioning:"Provisioning",
   @doc("Resource is being updated.")
-  Updating: "Updating",
-
+  Updating:"Updating",
   @doc("Resource is being deleted.")
-  Deleting: "Deleting",
-
+  Deleting:"Deleting",
   @doc("Resource creation request has been accepted.")
-  Accepted: "Accepted",
+  Accepted:"Accepted"
 }
 
 @doc("Configuration of the managed resource group associated with the resource.")
 model ManagedResourceGroupConfiguration {
   @doc("The resource group name.")
   name: string;
-
   @doc("The resource group location.")
   location: string;
 }

@@ -15,7 +15,7 @@ namespace Microsoft.SecurityBasePlatform;
 
 @doc("""
   Represents a Namespace within a Cluster.
-  
+
   A Namespace is the platform's isolation and tenancy boundary for workloads:
   Services, Jobs, and CronJobs are created within a Namespace. On a Kubernetes
   backend this maps to a Kubernetes namespace, but the concept is intended to
@@ -48,7 +48,7 @@ model NamespaceProperties {
 
 @doc("""
   Namespace-level observability configuration.
-  
+
   Omitted settings inherit from the parent Cluster `observability` defaults.
   Workloads in this namespace inherit these settings unless they provide their
   own workload-level `observability` override.
@@ -56,7 +56,6 @@ model NamespaceProperties {
 model NamespaceObservability {
   @doc("Telemetry namespace (table set) for metrics within the cluster's metrics account.")
   metricsNamespace?: string;
-
   @doc("Telemetry namespace (table set) for logs and traces within the cluster's logs account.")
   logsNamespace?: string;
 
@@ -100,8 +99,6 @@ model EphemeralNamespaceStorageDefinition extends NamespaceStorageDefinition {
 
 @doc("Storage kind for a namespace storage definition.")
 union NamespaceStorageKind {
-  string,
-
   @doc("Persistent storage backed by a Kubernetes PersistentVolumeClaim.")
   Persistent: "Persistent",
 
@@ -111,8 +108,6 @@ union NamespaceStorageKind {
 
 @doc("Supported storage access modes.")
 union StorageAccessMode {
-  string,
-
   @doc("Mounted read-write by a single node.")
   ReadWriteOnce: "ReadWriteOnce",
 
@@ -127,13 +122,7 @@ union StorageAccessMode {
 interface Namespaces {
   get is ArmResourceRead<Namespace>;
   createOrUpdate is ArmResourceCreateOrUpdateAsync<Namespace>;
-  update is ArmCustomPatchAsync<
-    Namespace,
-    Azure.ResourceManager.Foundations.ResourceUpdateModel<
-      Namespace,
-      NamespaceProperties
-    >
-  >;
+  update is ArmCustomPatchAsync<Namespace, Azure.ResourceManager.Foundations.ResourceUpdateModel<Namespace, Update<NamespaceProperties>>>;
   delete is ArmResourceDeleteWithoutOkAsync<Namespace>;
   listByCluster is ArmResourceListByParent<Namespace>;
 }

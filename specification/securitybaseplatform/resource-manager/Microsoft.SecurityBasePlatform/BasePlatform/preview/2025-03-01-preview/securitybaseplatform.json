@@ -2791,7 +2791,7 @@
       ],
       "x-ms-enum": {
         "name": "AuditLogCategory",
-        "modelAsString": true,
+        "modelAsString": false,
         "values": [
           {
             "name": "Administrative",
@@ -2947,6 +2947,20 @@
         }
       }
     },
+    "ClusterIngressConfigUpdate": {
+      "type": "object",
+      "description": "Generated patch properties for ClusterIngressConfig.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the platform provisions ingress (controller and public IP / load balancer) for this cluster. Defaults to false."
+        },
+        "ipTag": {
+          "type": "string",
+          "description": "The service tag stamped on the ingress public IP. Only relevant when ingress is enabled."
+        }
+      }
+    },
     "ClusterKind": {
       "type": "string",
       "description": "Represents the kind of a Cluster.",
@@ -2992,11 +3006,19 @@
       "properties": {
         "workspaceId": {
           "$ref": "#/definitions/WorkspaceResourceId",
-          "description": "The resource ID of the Workspace."
+          "description": "The resource ID of the Workspace.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         },
         "clusterKind": {
           "$ref": "#/definitions/ClusterKind",
-          "description": "The kind of this cluster."
+          "description": "The kind of this cluster.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         },
         "observability": {
           "$ref": "#/definitions/ObservabilityConfiguration",
@@ -3071,7 +3093,7 @@
     },
     "ClusterUpdate": {
       "type": "object",
-      "description": "The type used for update operations of the Cluster.",
+      "description": "The template for adding optional properties.",
       "properties": {
         "sku": {
           "$ref": "#/definitions/ClusterSku",
@@ -3092,27 +3114,26 @@
     },
     "ClusterUpdateProperties": {
       "type": "object",
-      "description": "The updatable properties of the Cluster.",
+      "description": "Generated patch properties for Dk8sClusterProperties.",
       "properties": {
-        "workspaceId": {
-          "$ref": "#/definitions/WorkspaceResourceId",
-          "description": "The resource ID of the Workspace."
-        },
-        "clusterKind": {
-          "$ref": "#/definitions/ClusterKind",
-          "description": "The kind of this cluster."
-        },
         "observability": {
-          "$ref": "#/definitions/ObservabilityConfiguration",
+          "$ref": "#/definitions/ObservabilityConfigurationUpdate",
           "description": "Default observability settings inherited by namespaces and workloads unless overridden at a lower scope."
         },
         "networkConfig": {
-          "$ref": "#/definitions/NetworkingConfig",
+          "$ref": "#/definitions/NetworkingConfigUpdate",
           "description": "Networking configuration."
         },
         "ingress": {
-          "$ref": "#/definitions/ClusterIngressConfig",
+          "$ref": "#/definitions/ClusterIngressConfigUpdate",
           "description": "Ingress configuration for the cluster. When omitted or disabled, the cluster has no ingress."
+        },
+        "additionalNodePools": {
+          "type": "array",
+          "description": "Additional user node pools for scheduling workloads on auto-provisioned capacity.",
+          "items": {
+            "$ref": "#/definitions/NodePool"
+          }
         }
       }
     },
@@ -4385,7 +4406,7 @@
       ],
       "x-ms-enum": {
         "name": "MdmTransformConditionType",
-        "modelAsString": true,
+        "modelAsString": false,
         "values": [
           {
             "name": "Any",
@@ -4413,37 +4434,31 @@
       ],
       "x-ms-enum": {
         "name": "MdmTransformFunction",
-        "modelAsString": true,
+        "modelAsString": false,
         "values": [
           {
             "name": "Hostname",
-            "value": "hostname",
-            "description": "Use the host name."
+            "value": "hostname"
           },
           {
             "name": "ApMachineFunction",
-            "value": "ap_machine_function",
-            "description": "Use the application platform machine function."
+            "value": "ap_machine_function"
           },
           {
             "name": "ApMachineName",
-            "value": "ap_machine_name",
-            "description": "Use the application platform machine name."
+            "value": "ap_machine_name"
           },
           {
             "name": "ApEnvironment",
-            "value": "ap_environment",
-            "description": "Use the application platform environment."
+            "value": "ap_environment"
           },
           {
             "name": "ApCluster",
-            "value": "ap_cluster",
-            "description": "Use the application platform cluster."
+            "value": "ap_cluster"
           },
           {
             "name": "SourceId",
-            "value": "source_id",
-            "description": "Use the source identifier."
+            "value": "source_id"
           }
         ]
       }
@@ -4484,7 +4499,7 @@
       ],
       "x-ms-enum": {
         "name": "MdmTransformOperationValueType",
-        "modelAsString": true,
+        "modelAsString": false,
         "values": [
           {
             "name": "Value",
@@ -4574,7 +4589,7 @@
       ],
       "x-ms-enum": {
         "name": "MetricTargetType",
-        "modelAsString": true,
+        "modelAsString": false,
         "values": [
           {
             "name": "None",
@@ -4603,69 +4618,6 @@
       "type": "object",
       "description": "Named Geneva MDM sidecar configuration.",
       "properties": {
-        "enabled": {
-          "type": "boolean",
-          "description": "Whether the MDM sidecar is enabled."
-        },
-        "resources": {
-          "$ref": "#/definitions/ComputeResources",
-          "description": "Compute resources for the MDM sidecar."
-        },
-        "secretName": {
-          "type": "string",
-          "description": "Certificate secret name. The platform maps the secret through the configured secret/CSI mechanism."
-        },
-        "appProcessName": {
-          "type": "string",
-          "description": "Application process name used for graceful metrics flush ordering."
-        },
-        "account": {
-          "type": "string",
-          "description": "Geneva metrics account."
-        },
-        "protocol": {
-          "type": "string",
-          "description": "Metrics protocol, for example ifx_tcp, ifx_local, or statsd_tcp."
-        },
-        "port": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Metrics listening port."
-        },
-        "unixDomainSockets": {
-          "type": "boolean",
-          "description": "Use Unix domain sockets for local MDM traffic."
-        },
-        "infraMetricsEnrichment": {
-          "type": "boolean",
-          "description": "Enable Geneva infra metrics enrichment and transform rules."
-        },
-        "defaultDimensions": {
-          "type": "array",
-          "description": "Default dimensions added to metrics when infra metrics enrichment is enabled.",
-          "items": {
-            "$ref": "#/definitions/TelemetryDimension"
-          },
-          "x-ms-identifiers": [
-            "dimension"
-          ]
-        },
-        "transformRules": {
-          "type": "array",
-          "description": "Geneva MDM transform rules.",
-          "items": {
-            "$ref": "#/definitions/MdmTransformRule"
-          },
-          "x-ms-identifiers": []
-        },
-        "azureContainerRegistryUrl": {
-          "type": "string",
-          "description": "ACR URL used for the MDM image when the shared chart cannot infer it."
-        },
-        "openTelemetry": {
-          "$ref": "#/definitions/OpenTelemetryConfig",
-          "description": "OpenTelemetry receiver settings for Geneva MDM."
-        },
         "name": {
           "type": "string",
           "description": "Name of the additional MDM sidecar/pipeline."
@@ -4673,20 +4625,17 @@
       },
       "required": [
         "name"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/MdmConfig"
+        }
       ]
     },
     "NamedMdsdConfig": {
       "type": "object",
       "description": "Named MDSD collector configuration.",
       "properties": {
-        "secretName": {
-          "type": "string",
-          "description": "MDSD certificate secret name. The platform maps the secret through the configured secret/CSI mechanism."
-        },
-        "resources": {
-          "$ref": "#/definitions/ComputeResources",
-          "description": "Compute resources for the MDSD sidecar."
-        },
         "name": {
           "type": "string",
           "description": "Name of the additional MDSD sidecar/pipeline."
@@ -4694,6 +4643,11 @@
       },
       "required": [
         "name"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/MdsdConfig"
+        }
       ]
     },
     "Namespace": {
@@ -4864,7 +4818,7 @@
       ],
       "x-ms-enum": {
         "name": "NamespaceStorageKind",
-        "modelAsString": true,
+        "modelAsString": false,
         "values": [
           {
             "name": "Persistent",
@@ -4930,6 +4884,20 @@
         }
       }
     },
+    "NetworkingConfigUpdate": {
+      "type": "object",
+      "description": "Generated patch properties for NetworkingConfig.",
+      "properties": {
+        "egressIpTag": {
+          "type": "string",
+          "description": "The service tag used to identify the cluster's egress NAT IP addresses. Always applied; defaults per-region if omitted."
+        },
+        "networkIdentifierIpTag": {
+          "type": "string",
+          "description": "The service tag used to identify the cluster's network. Always applied; defaults per-region if omitted."
+        }
+      }
+    },
     "NodeAffinityConfig": {
       "type": "object",
       "description": "Node affinity scheduling constraints.",
@@ -4950,21 +4918,13 @@
     },
     "NodeAffinityOperator": {
       "type": "string",
-      "description": "Node affinity match operator exposed by ConfigGen.",
       "enum": [
         "In"
       ],
       "x-ms-enum": {
-        "name": "NodeAffinityOperator",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "In",
-            "value": "In",
-            "description": "Node label value must be in the provided values."
-          }
-        ]
-      }
+        "modelAsString": false
+      },
+      "x-nullable": false
     },
     "NodeCapacityType": {
       "type": "string",
@@ -5217,6 +5177,20 @@
         }
       }
     },
+    "ObservabilityConfigurationUpdate": {
+      "type": "object",
+      "description": "Generated patch properties for ObservabilityConfiguration.",
+      "properties": {
+        "metricsAccount": {
+          "type": "string",
+          "description": "Telemetry account/destination for metrics emitted by this cluster."
+        },
+        "logsAccount": {
+          "type": "string",
+          "description": "Telemetry account/destination for logs and traces emitted by this cluster."
+        }
+      }
+    },
     "ObservabilityLoadBalancerConfig": {
       "type": "object",
       "description": "Kubernetes Service LoadBalancer settings.",
@@ -5324,8 +5298,7 @@
         "maxReceiveMessageSizeMBytes": {
           "type": "integer",
           "format": "int32",
-          "description": "Maximum OTLP receive message size in MB.",
-          "x-ms-client-name": "maxReceiveMessageSizeMbytes"
+          "description": "Maximum OTLP receive message size in MB."
         }
       }
     },
@@ -5475,22 +5448,19 @@
       ],
       "x-ms-enum": {
         "name": "ProbeType",
-        "modelAsString": true,
+        "modelAsString": false,
         "values": [
           {
             "name": "HttpGet",
-            "value": "httpGet",
-            "description": "Use an HTTP GET probe."
+            "value": "httpGet"
           },
           {
             "name": "TcpSocket",
-            "value": "tcpSocket",
-            "description": "Use a TCP socket probe."
+            "value": "tcpSocket"
           },
           {
             "name": "Exec",
-            "value": "exec",
-            "description": "Use a command execution probe."
+            "value": "exec"
           }
         ]
       }
@@ -5712,7 +5682,7 @@
       ],
       "x-ms-enum": {
         "name": "ScalingMode",
-        "modelAsString": true,
+        "modelAsString": false,
         "values": [
           {
             "name": "Fixed",
@@ -5779,7 +5749,7 @@
       ],
       "x-ms-enum": {
         "name": "ScalingTriggerType",
-        "modelAsString": true,
+        "modelAsString": false,
         "values": [
           {
             "name": "AzureQueue",
@@ -6192,7 +6162,7 @@
       ],
       "x-ms-enum": {
         "name": "StorageAccessMode",
-        "modelAsString": true,
+        "modelAsString": false,
         "values": [
           {
             "name": "ReadWriteOnce",
@@ -6341,27 +6311,23 @@
       ],
       "x-ms-enum": {
         "name": "TelemetryLogDestination",
-        "modelAsString": true,
+        "modelAsString": false,
         "values": [
           {
             "name": "GenevaMdsd",
-            "value": "genevaMdsd",
-            "description": "Send logs to Geneva MDSD."
+            "value": "genevaMdsd"
           },
           {
             "name": "LogTail",
-            "value": "logTail",
-            "description": "Send logs to the log tail collector."
+            "value": "logTail"
           },
           {
             "name": "Fluentd",
-            "value": "fluentd",
-            "description": "Send logs to Fluentd."
+            "value": "fluentd"
           },
           {
             "name": "Splunk",
-            "value": "splunk",
-            "description": "Send logs to Splunk."
+            "value": "splunk"
           }
         ]
       }
@@ -6394,22 +6360,19 @@
       ],
       "x-ms-enum": {
         "name": "TelemetryMetricDestination",
-        "modelAsString": true,
+        "modelAsString": false,
         "values": [
           {
             "name": "GenevaMdm",
-            "value": "genevaMdm",
-            "description": "Send metrics to Geneva MDM."
+            "value": "genevaMdm"
           },
           {
             "name": "Prometheus",
-            "value": "prometheus",
-            "description": "Send metrics to Prometheus."
+            "value": "prometheus"
           },
           {
             "name": "Otlp",
-            "value": "otlp",
-            "description": "Send metrics using OpenTelemetry Protocol."
+            "value": "otlp"
           }
         ]
       }

@@ -51,7 +51,7 @@ interface Services {
     Service,
     Azure.ResourceManager.Foundations.ResourceUpdateModel<
       Service,
-      ServiceProperties
+      Update<ServiceProperties>
     >
   >;
   delete is ArmResourceDeleteWithoutOkAsync<Service>;

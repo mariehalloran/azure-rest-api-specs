@@ -82,11 +82,8 @@ model SecurityProfile {
 
 @doc("The scaling mode of a workload.")
 union ScalingMode {
-  string,
-
   @doc("A fixed number of replicas.")
   Fixed: "Fixed",
-
   @doc("Autoscaled between a minimum and maximum replica count based on triggers.")
   Auto: "Auto",
 }
@@ -127,20 +124,14 @@ model AutoScalingConfig {
 
 @doc("The type of autoscaling trigger.")
 union ScalingTriggerType {
-  string,
-
   @doc("Azure Queue Storage trigger.")
   AzureQueue: "azureQueue",
-
   @doc("Azure Service Bus trigger.")
   AzureServiceBus: "azureServiceBus",
-
   @doc("Prometheus metrics trigger.")
   Prometheus: "prometheus",
-
   @doc("CPU utilization trigger.")
   Cpu: "cpu",
-
   @doc("Memory utilization trigger.")
   Memory: "memory",
 }
@@ -151,7 +142,7 @@ model ScalingTrigger {
   @doc("Trigger type.")
   type: ScalingTriggerType;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "The property contains a scaling rule identifier, not a secret."
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" ""
   @doc("Rule identifier")
   key: string;
 }
@@ -238,17 +229,12 @@ model MemoryTrigger extends ScalingTrigger {
 
 @doc("Metric target type.")
 union MetricTargetType {
-  string,
-
   @doc("No metric target type specified.")
   None: "None",
-
   @doc("Target based on resource utilization percentage.")
   Utilization: "Utilization",
-
   @doc("Target based on an absolute metric value.")
   Value: "Value",
-
   @doc("Target based on the average value across all instances.")
   AverageValue: "AverageValue",
 }
@@ -446,17 +432,12 @@ model WorkloadAuditLogsConfig {
 
 @doc("Audit log category.")
 union AuditLogCategory {
-  string,
-
   @doc("Administrative audit events.")
   Administrative: "Administrative",
-
   @doc("Security audit events.")
   Security: "Security",
-
   @doc("Data access audit events.")
   DataAccess: "DataAccess",
-
   @doc("Application-defined audit events.")
   Application: "Application",
 }
@@ -584,9 +565,7 @@ model MdmConfig {
 }
 
 @doc("Named Geneva MDM sidecar configuration.")
-model NamedMdmConfig {
-  ...MdmConfig;
-
+model NamedMdmConfig extends MdmConfig {
   @doc("Name of the additional MDM sidecar/pipeline.")
   name: string;
 }
@@ -628,11 +607,8 @@ model MdmTransformCondition {
 
 @doc("Geneva MDM transform condition type.")
 union MdmTransformConditionType {
-  string,
-
   @doc("Apply to every metric.")
   Any: "any",
-
   @doc("Apply to metrics matching account, namespace, or metric name.")
   SetDimension: "metric_key",
 }
@@ -654,38 +630,21 @@ model MdmTransformOperation {
 
 @doc("Geneva MDM transform operation value type.")
 union MdmTransformOperationValueType {
-  string,
-
   @doc("Use a literal value.")
   Value: "value",
-
   @doc("Read the value from an environment variable.")
   EnvVar: "env_var",
-
   @doc("Use a built-in Geneva function.")
   Function: "function",
 }
 
 @doc("Built-in Geneva MDM transform functions exposed by ConfigGen.")
 union MdmTransformFunction {
-  string,
-
-  @doc("Use the host name.")
   Hostname: "hostname",
-
-  @doc("Use the application platform machine function.")
   ApMachineFunction: "ap_machine_function",
-
-  @doc("Use the application platform machine name.")
   ApMachineName: "ap_machine_name",
-
-  @doc("Use the application platform environment.")
   ApEnvironment: "ap_environment",
-
-  @doc("Use the application platform cluster.")
   ApCluster: "ap_cluster",
-
-  @doc("Use the source identifier.")
   SourceId: "source_id",
 }
 
@@ -698,8 +657,7 @@ model OpenTelemetryConfig {
   otlpPort?: int32;
 
   @doc("Maximum OTLP receive message size in MB.")
-  @encodedName("application/json", "maxReceiveMessageSizeMBytes")
-  maxReceiveMessageSizeMbytes?: int32;
+  maxReceiveMessageSizeMBytes?: int32;
 }
 
 @doc("MDSD collector configuration.")
@@ -712,9 +670,7 @@ model MdsdConfig {
 }
 
 @doc("Named MDSD collector configuration.")
-model NamedMdsdConfig {
-  ...MdsdConfig;
-
+model NamedMdsdConfig extends MdsdConfig {
   @doc("Name of the additional MDSD sidecar/pipeline.")
   name: string;
 }
@@ -783,15 +739,8 @@ model ProbeConfig {
 
 @doc("Probe type.")
 union ProbeType {
-  string,
-
-  @doc("Use an HTTP GET probe.")
   HttpGet: "httpGet",
-
-  @doc("Use a TCP socket probe.")
   TcpSocket: "tcpSocket",
-
-  @doc("Use a command execution probe.")
   Exec: "exec",
 }
 
@@ -924,32 +873,16 @@ model TelemetryMetricRoute {
 
 @doc("Supported log destinations.")
 union TelemetryLogDestination {
-  string,
-
-  @doc("Send logs to Geneva MDSD.")
   GenevaMdsd: "genevaMdsd",
-
-  @doc("Send logs to the log tail collector.")
   LogTail: "logTail",
-
-  @doc("Send logs to Fluentd.")
   Fluentd: "fluentd",
-
-  @doc("Send logs to Splunk.")
   Splunk: "splunk",
 }
 
 @doc("Supported metric destinations.")
 union TelemetryMetricDestination {
-  string,
-
-  @doc("Send metrics to Geneva MDM.")
   GenevaMdm: "genevaMdm",
-
-  @doc("Send metrics to Prometheus.")
   Prometheus: "prometheus",
-
-  @doc("Send metrics using OpenTelemetry Protocol.")
   Otlp: "otlp",
 }
 
@@ -965,7 +898,7 @@ model OperatorManagedObservabilityConfig {
   manageCertificates?: boolean;
 }
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Annotation and label keys are user-defined and cannot be modeled as fixed properties."
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" ""
 @doc("String key/value map used for annotations and labels whose keys are user-defined.")
 model StringMap is Record<string>;
 
@@ -993,7 +926,7 @@ model EnvironmentVariable {
   @pattern("^[A-Za-z_][A-Za-z0-9_]*$")
   name: string;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "This model is explicitly limited to non-sensitive environment variables."
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" ""
   @doc("Environment variable value.")
   value: string;
 }
@@ -1001,16 +934,12 @@ model EnvironmentVariable {
 @doc("Aggregate health of a workload.")
 union WorkloadHealth {
   string,
-
   @doc("The workload is healthy.")
   Healthy: "Healthy",
-
   @doc("The workload is progressing (rolling out).")
   Progressing: "Progressing",
-
   @doc("The workload is degraded.")
   Degraded: "Degraded",
-
   @doc("The workload health is unknown.")
   Unknown: "Unknown",
 }

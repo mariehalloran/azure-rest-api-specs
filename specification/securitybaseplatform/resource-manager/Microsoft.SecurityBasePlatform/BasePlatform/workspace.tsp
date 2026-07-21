@@ -39,6 +39,7 @@ model WorkspaceProperties {
   @visibility(Lifecycle.Read)
   @doc("Managed On Behalf Of Configuration.")
   managedOnBehalfOfConfiguration?: CommonTypes.ManagedOnBehalfOfConfiguration;
+
 }
 
 @armResourceOperations(Workspace)
@@ -49,7 +50,7 @@ interface Workspaces {
     Workspace,
     Azure.ResourceManager.Foundations.ResourceUpdateModel<
       Workspace,
-      WorkspaceProperties
+      Update<WorkspaceProperties>
     >
   >;
   delete is ArmResourceDeleteWithoutOkAsync<Workspace>;
