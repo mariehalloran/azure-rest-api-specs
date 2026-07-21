@@ -13,6 +13,10 @@
         "nodeRole": "worker",
         "machineArmId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.OffAzure/serverSites/mySite/machines/vm-001",
         "availability": "Ready",
+        "containerWorkloadIds": [
+          "nginx-deployment-abc",
+          "redis-cache-xyz"
+        ],
         "hostOs": {
           "osType": "linux",
           "osDistribution": "Ubuntu",
@@ -98,7 +102,8 @@
         "hostPrimaryIp": "10.0.1.10",
         "discoveryCompleteness": "deep-complete",
         "isShallowCompleted": true,
-        "isDeepDiscoveryCompleted": true
+        "isDeepDiscoveryCompleted": true,
+        "isKubeconfigDiscoveryCompleted": true
       }
     }
   },
@@ -113,6 +118,10 @@
           "containerNodeId": "worker-01",
           "nodeRole": "worker",
           "availability": "Ready",
+          "containerWorkloadIds": [
+            "nginx-deployment-abc",
+            "redis-cache-xyz"
+          ],
           "isStandaloneHost": false,
           "containerClusterId": "kube-system-uid-abc123",
           "discoveryCompleteness": "deep-complete"
@@ -129,6 +138,10 @@
           "containerNodeId": "worker-01",
           "nodeRole": "worker",
           "availability": "Ready",
+          "containerWorkloadIds": [
+            "nginx-deployment-abc",
+            "redis-cache-xyz"
+          ],
           "isStandaloneHost": false,
           "containerClusterId": "kube-system-uid-abc123",
           "discoveryCompleteness": "deep-complete"
