@@ -39,7 +39,6 @@ model WorkspaceProperties {
   @visibility(Lifecycle.Read)
   @doc("Managed On Behalf Of Configuration.")
   managedOnBehalfOfConfiguration?: CommonTypes.ManagedOnBehalfOfConfiguration;
-
 }
 
 @armResourceOperations(Workspace)

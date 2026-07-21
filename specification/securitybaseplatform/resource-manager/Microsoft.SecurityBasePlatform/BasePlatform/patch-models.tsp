@@ -9,7 +9,10 @@ namespace Microsoft.SecurityBasePlatform;
 // - OptionalProperties makes top-level PATCH fields optional.
 // The resource-specific properties field is added below with the generated update model.
 model ClusterUpdate
-  is OptionalProperties<UpdateableProperties<OmitProperties<Cluster, "Name" | "name" | "properties">>> {
+  is OptionalProperties<UpdateableProperties<OmitProperties<
+    Cluster,
+    "Name" | "name" | "properties"
+  >>> {
   @doc("The resource-specific properties for this resource.")
   properties?: ClusterUpdateProperties;
 }
@@ -18,10 +21,13 @@ model ClusterUpdate
 model ClusterUpdateProperties {
   @doc("Default observability settings inherited by namespaces and workloads unless overridden at a lower scope.")
   observability?: ObservabilityConfigurationUpdate;
+
   @doc("Networking configuration.")
   networkConfig?: NetworkingConfigUpdate;
+
   @doc("Ingress configuration for the cluster. When omitted or disabled, the cluster has no ingress.")
   ingress?: ClusterIngressConfigUpdate;
+
   @doc("Additional user node pools for scheduling workloads on auto-provisioned capacity.")
   additionalNodePools?: NodePool[];
 }
@@ -30,6 +36,7 @@ model ClusterUpdateProperties {
 model ObservabilityConfigurationUpdate {
   @doc("Telemetry account/destination for metrics emitted by this cluster.")
   metricsAccount?: string;
+
   @doc("Telemetry account/destination for logs and traces emitted by this cluster.")
   logsAccount?: string;
 }
@@ -38,6 +45,7 @@ model ObservabilityConfigurationUpdate {
 model NetworkingConfigUpdate {
   @doc("The service tag used to identify the cluster's egress NAT IP addresses. Always applied; defaults per-region if omitted.")
   egressIpTag?: string;
+
   @doc("The service tag used to identify the cluster's network. Always applied; defaults per-region if omitted.")
   networkIdentifierIpTag?: string;
 }
@@ -46,6 +54,7 @@ model NetworkingConfigUpdate {
 model ClusterIngressConfigUpdate {
   @doc("Whether the platform provisions ingress (controller and public IP / load balancer) for this cluster. Defaults to false.")
   enabled?: boolean;
+
   @doc("The service tag stamped on the ingress public IP. Only relevant when ingress is enabled.")
   ipTag?: string;
 }

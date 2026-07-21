@@ -20,9 +20,7 @@ using Azure.Core;
 using Azure.ResourceManager;
 
 @armProviderNamespace("Microsoft.SecurityBasePlatform")
-@service(#{
-  title: "Microsoft.SecurityBasePlatform"
-})
+@service(#{ title: "Microsoft.SecurityBasePlatform" })
 @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
 @versioned(Microsoft.SecurityBasePlatform.Versions)
 namespace Microsoft.SecurityBasePlatform;

@@ -42,7 +42,10 @@ interface Jobs {
   createOrUpdate is ArmResourceCreateOrUpdateAsync<Job>;
   update is ArmCustomPatchAsync<
     Job,
-    Azure.ResourceManager.Foundations.ResourceUpdateModel<Job, Update<JobProperties>>
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      Job,
+      Update<JobProperties>
+    >
   >;
   delete is ArmResourceDeleteWithoutOkAsync<Job>;
   listByNamespace is ArmResourceListByParent<Job>;
