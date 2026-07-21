@@ -82,14 +82,49 @@ alias BillingProfileScope = Extension.ExternalChildResource<
   Description = "The name of the billing profile."
 >;
 
+/**
+ * Subscription-scoped CatalogGroups operations (2026-06-01 and earlier).
+ */
+@removed(Versions.v2026_07_01_preview)
 @armResourceOperations
 interface SubscriptionCatalogGroupsOps
   extends CatalogGroupsExtensionOps<SubscriptionScope> {}
 
+/**
+ * Billing account-scoped CatalogGroups operations (2026-06-01 and earlier).
+ */
+@removed(Versions.v2026_07_01_preview)
 @armResourceOperations
 interface BillingAccountCatalogGroupsOps
   extends CatalogGroupsExtensionOps<BillingAccountScope> {}
 
+/**
+ * Billing profile-scoped CatalogGroups operations (2026-06-01 and earlier).
+ */
+@removed(Versions.v2026_07_01_preview)
 @armResourceOperations
 interface BillingProfileCatalogGroupsOps
   extends CatalogGroupsExtensionOps<BillingProfileScope> {}
+
+/**
+ * CatalogGroups operations scoped to any ARM scope via the {scope} path parameter.
+ * Supported scopes: tenant, subscription, billing account, billing profile.
+ * Path: /{scope}/providers/Microsoft.BillingBenefits/catalogGroups[/{catalogGroupName}]
+ */
+@added(Versions.v2026_07_01_preview)
+@armResourceOperations
+interface CatalogGroupsOps {
+  /**
+   * List catalog groups at the given scope.
+   */
+  list is Extension.ListByTarget<
+    Extension.ScopeParameter,
+    CatalogGroup,
+    CatalogGroupsListParameters
+  >;
+
+  /**
+   * Get a specific catalog group at the given scope.
+   */
+  get is Extension.Read<Extension.ScopeParameter, CatalogGroup>;
+}

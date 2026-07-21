@@ -88,13 +88,7 @@
       "name": "ConditionalCreditTransactions"
     },
     {
-      "name": "SubscriptionCatalogGroupsOps"
-    },
-    {
-      "name": "BillingAccountCatalogGroupsOps"
-    },
-    {
-      "name": "BillingProfileCatalogGroupsOps"
+      "name": "CatalogGroupsOps"
     },
     {
       "name": "NotificationRules"
@@ -224,6 +218,120 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/{scope}/providers/Microsoft.BillingBenefits/catalogGroups": {
+      "get": {
+        "operationId": "CatalogGroupsOps_List",
+        "tags": [
+          "CatalogGroupsOps"
+        ],
+        "description": "List catalog groups at the given scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "scope",
+            "in": "path",
+            "description": "The fully qualified Azure Resource manager identifier of the resource.",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "$ref": "#/parameters/CatalogGroupsListParameters"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroupListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CatalogGroupsBillingAccountList": {
+            "$ref": "./examples/CatalogGroupsBillingAccountList.json"
+          },
+          "CatalogGroupsBillingProfileList": {
+            "$ref": "./examples/CatalogGroupsBillingProfileList.json"
+          },
+          "CatalogGroupsSubscriptionList": {
+            "$ref": "./examples/CatalogGroupsSubscriptionList.json"
+          },
+          "CatalogGroupsTenantList": {
+            "$ref": "./examples/CatalogGroupsTenantList.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/{scope}/providers/Microsoft.BillingBenefits/catalogGroups/{catalogGroupName}": {
+      "get": {
+        "operationId": "CatalogGroupsOps_Get",
+        "tags": [
+          "CatalogGroupsOps"
+        ],
+        "description": "Get a specific catalog group at the given scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "scope",
+            "in": "path",
+            "description": "The fully qualified Azure Resource manager identifier of the resource.",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "catalogGroupName",
+            "in": "path",
+            "description": "The name of the CatalogGroup",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroup"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CatalogGroupsBillingAccountGet": {
+            "$ref": "./examples/CatalogGroupsBillingAccountGet.json"
+          },
+          "CatalogGroupsBillingProfileGet": {
+            "$ref": "./examples/CatalogGroupsBillingProfileGet.json"
+          },
+          "CatalogGroupsSubscriptionGet": {
+            "$ref": "./examples/CatalogGroupsSubscriptionGet.json"
+          },
+          "CatalogGroupsTenantGet": {
+            "$ref": "./examples/CatalogGroupsTenantGet.json"
+          }
         }
       }
     },
@@ -467,6 +575,7 @@
         }
       }
     },
+<<<<<<< HEAD:specification/billingbenefits/resource-manager/Microsoft.BillingBenefits/BillingBenefits/preview/2026-07-01-preview/billingbenefits.json
     "/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/providers/Microsoft.BillingBenefits/catalogGroups": {
       "get": {
         "operationId": "BillingProfileCatalogGroupsOps_List",
@@ -675,6 +784,8 @@
         }
       }
     },
+=======
+>>>>>>> pr-3:specification/billingbenefits/resource-manager/Microsoft.BillingBenefits/preview/2026-07-01-preview/billingbenefits.json
     "/providers/Microsoft.BillingBenefits/listSellerResources": {
       "post": {
         "operationId": "SellerResource_List",
@@ -1728,6 +1839,7 @@
         }
       }
     },
+<<<<<<< HEAD:specification/billingbenefits/resource-manager/Microsoft.BillingBenefits/BillingBenefits/preview/2026-07-01-preview/billingbenefits.json
     "/subscriptions/{subscriptionId}/providers/Microsoft.BillingBenefits/catalogGroups": {
       "get": {
         "operationId": "SubscriptionCatalogGroupsOps_List",
@@ -1814,6 +1926,8 @@
         }
       }
     },
+=======
+>>>>>>> pr-3:specification/billingbenefits/resource-manager/Microsoft.BillingBenefits/preview/2026-07-01-preview/billingbenefits.json
     "/subscriptions/{subscriptionId}/providers/Microsoft.BillingBenefits/conditionalCredits": {
       "get": {
         "operationId": "ConditionalCredits_ListBySubscription",
@@ -5852,6 +5966,7 @@
         "FreeServices",
         "SavingsPlans",
         "Reservations",
+        "SpendPlans",
         "SavingsPlan",
         "MACC"
       ],
@@ -5893,6 +6008,11 @@
             "name": "Reservations",
             "value": "Reservations",
             "description": "Reserved capacity or reserved instances"
+          },
+          {
+            "name": "SpendPlans",
+            "value": "SpendPlans",
+            "description": "Spend Plans"
           },
           {
             "name": "SavingsPlan",
@@ -10215,7 +10335,8 @@
         "Discounts",
         "FreeServices",
         "SavingsPlans",
-        "Reservations"
+        "Reservations",
+        "SpendPlans"
       ],
       "x-ms-enum": {
         "name": "ResourceType",
@@ -10255,6 +10376,11 @@
             "name": "Reservations",
             "value": "Reservations",
             "description": "Reserved capacity or reserved instances"
+          },
+          {
+            "name": "SpendPlans",
+            "value": "SpendPlans",
+            "description": "Spend Plans"
           }
         ]
       }
