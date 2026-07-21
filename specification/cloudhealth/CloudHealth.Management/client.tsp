@@ -71,3 +71,7 @@ using Microsoft.CloudHealth;
   "EntityGetDataAnnotationsResponse",
   "csharp"
 );
+
+// Keep the wire name `dataPlaneUrl` but present it as `dataPlaneUri` in C#,
+// satisfying the client-sdk `csharp-no-url-suffix` naming rule.
+@@clientName(DataPlaneProperties.dataPlaneUrl, "dataPlaneUri", "csharp");
