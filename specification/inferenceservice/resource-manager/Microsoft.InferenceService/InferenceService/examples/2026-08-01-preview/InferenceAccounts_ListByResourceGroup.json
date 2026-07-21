@@ -13,11 +13,31 @@
           {
             "properties": {
               "endpoint": "https://inference-acc.eastus2.dbinference.azure.com",
-              "provisioningState": "Succeeded"
+              "provisioningState": "Succeeded",
+              "enableKeyBasedAuthentication": true
             },
             "location": "eastus2",
             "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/inferencerg/providers/Microsoft.InferenceService/inferenceAccounts/inference-acc-specs",
             "name": "inference-acc-specs",
+            "type": "Microsoft.InferenceService/inferenceAccounts",
+            "systemData": {
+              "createdBy": "APISpecsTeam",
+              "createdByType": "User",
+              "createdAt": "2023-05-19T00:28:48.610Z",
+              "lastModifiedBy": "APISpecsTeam",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2023-05-19T00:28:48.610Z"
+            }
+          },
+          {
+            "properties": {
+              "endpoint": "https://inference-acc-2.eastus2.dbinference.azure.com",
+              "provisioningState": "Succeeded",
+              "enableKeyBasedAuthentication": false
+            },
+            "location": "eastus2",
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/inferencerg/providers/Microsoft.InferenceService/inferenceAccounts/inference-acc-specs-2",
+            "name": "inference-acc-specs-2",
             "type": "Microsoft.InferenceService/inferenceAccounts",
             "systemData": {
               "createdBy": "APISpecsTeam",

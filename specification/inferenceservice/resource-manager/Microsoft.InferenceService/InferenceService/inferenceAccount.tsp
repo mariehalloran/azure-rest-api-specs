@@ -139,7 +139,7 @@ interface InferenceAccounts {
 
   /** List the API keys for an inference account. */
   @added(Versions.v2026_08_01_preview)
-  listApiKeys is ArmResourceActionSync<
+  listKeys is ArmResourceActionSync<
     InferenceAccount,
     void,
     AccountKeysResult
@@ -147,7 +147,7 @@ interface InferenceAccounts {
 
   /** Regenerate an API key for an inference account. */
   @added(Versions.v2026_08_01_preview)
-  regenerateApiKey is ArmResourceActionSync<
+  regenerateKey is ArmResourceActionSync<
     InferenceAccount,
     RegenerateApiKeyRequest,
     InferenceAccount

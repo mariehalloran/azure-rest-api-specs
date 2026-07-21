@@ -410,9 +410,9 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.InferenceService/inferenceAccounts/{inferenceAccountName}/listApiKeys": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.InferenceService/inferenceAccounts/{inferenceAccountName}/listKeys": {
       "post": {
-        "operationId": "InferenceAccounts_ListApiKeys",
+        "operationId": "InferenceAccounts_ListKeys",
         "tags": [
           "InferenceAccounts"
         ],
@@ -451,15 +451,15 @@
           }
         },
         "x-ms-examples": {
-          "InferenceAccounts_ListApiKeys": {
-            "$ref": "./examples/InferenceAccounts_ListApiKeys.json"
+          "InferenceAccounts_ListKeys": {
+            "$ref": "./examples/InferenceAccounts_ListKeys.json"
           }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.InferenceService/inferenceAccounts/{inferenceAccountName}/regenerateApiKey": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.InferenceService/inferenceAccounts/{inferenceAccountName}/regenerateKey": {
       "post": {
-        "operationId": "InferenceAccounts_RegenerateApiKey",
+        "operationId": "InferenceAccounts_RegenerateKey",
         "tags": [
           "InferenceAccounts"
         ],
@@ -507,8 +507,8 @@
           }
         },
         "x-ms-examples": {
-          "InferenceAccounts_RegenerateApiKey": {
-            "$ref": "./examples/InferenceAccounts_RegenerateApiKey.json"
+          "InferenceAccounts_RegenerateKey": {
+            "$ref": "./examples/InferenceAccounts_RegenerateKey.json"
           }
         }
       }
