@@ -14051,6 +14051,88 @@ model AssociatedCluster {
 
 // ---- END STORAGE ARRAY MODELS ----
 
+// ─────────────────────────── StorageArrayJob models ───────────────────────────
+//
+// Storage array jobs model long running, actionable operations on a storage
+// array (see StorageArrayJob.tsp). The base model is discriminated on `jobType`;
+// each concrete job type carries its own input properties. The reported/terminal
+// fields are read-only and driven by the device-reported status update. This
+// mirrors the ClusterVolumeJob models.
+
+/**
+ * Properties of the Storage Array Job.
+ */
+@added(Versions.v2026_03_15_preview)
+@discriminator("jobType")
+model StorageArrayJobProperties {
+  /** Type of operation. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  jobType: StorageArrayJobType;
+
+  /** Deployment mode to trigger job. */
+  deploymentMode?: DeploymentMode;
+
+  /** Provisioning state of the job. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /** Unique, immutable job id. */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /** The UTC date and time at which the job started. */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /** The UTC date and time at which the job completed. */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /** Status of the storage array job. */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+
+  /** Error details if job failed. */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+
+  /** Reported properties for the storage array job. */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: StorageArrayJobReportedProperties;
+}
+
+/**
+ * Type of storage array job operation.
+ */
+@added(Versions.v2026_03_15_preview)
+union StorageArrayJobType {
+  string,
+
+  /** Job to force the storage controller to re-read the array and reconcile the ARM resources with the physical state. */
+  SyncStorageArray: "SyncStorageArray",
+}
+
+/**
+ * Properties for forcing a storage array inventory sync / reconcile.
+ */
+@added(Versions.v2026_03_15_preview)
+model SyncStorageArrayJobProperties extends StorageArrayJobProperties {
+  /** Job type. */
+  jobType: StorageArrayJobType.SyncStorageArray;
+}
+
+/**
+ * Reported properties for the Storage Array Job.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageArrayJobReportedProperties {
+  /**
+   * The percentage of the job that is complete.
+   */
+  @visibility(Lifecycle.Read)
+  percentComplete?: int32;
+}
+
 // ─────────────────────────── StoragePool models ───────────────────────────
 
 /**

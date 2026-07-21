@@ -53,6 +53,7 @@ import "./client.tsp";
 
 // PRIVATE PREVIEW - Storage Arrays subtree (read-only)
 import "./StorageArray.tsp";
+import "./StorageArrayJob.tsp";
 import "./StoragePool.tsp";
 import "./VolumeGroup.tsp";
 import "./StorageVolume.tsp";
