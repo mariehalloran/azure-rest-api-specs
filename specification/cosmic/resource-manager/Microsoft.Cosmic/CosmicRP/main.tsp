@@ -6,6 +6,7 @@ import "@azure-tools/typespec-azure-resource-manager";
 
 import "./namespace.tsp";
 import "./environment.tsp";
+import "./healthMetadata.tsp";
 import "./migration.tsp";
 import "./deletedEnvironment.tsp";
 
