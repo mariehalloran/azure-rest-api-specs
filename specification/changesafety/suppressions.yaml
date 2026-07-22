@@ -10,6 +10,7 @@
     - options.@azure-tools/typespec-java.*
     - options.@azure-tools/typespec-python.*
     - options.@azure-tools/typespec-ts.*
+    - options.@azure-typespec/http-client-csharp-mgmt.*
   paths: 
   - SafeRollout.Management/tspconfig.yaml
   - ChangeControl.Management/tspconfig.yaml
@@ -22,4 +23,5 @@
   rules: [SdkTspConfigValidation]
   sub-rules:
     - options.@azure-tools/typespec-ts.*
+    - options.@azure-typespec/http-client-csharp-mgmt.*
   paths: [Validation.Management/tspconfig.yaml]
