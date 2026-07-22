@@ -2,9 +2,9 @@ import "@typespec/rest";
 import "@typespec/http";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
-import "./PostgresqlModels.tsp";
-import "./PostgresqlMigrationService.tsp";
-import "./PostgresqlDatabaseMigration.tsp";
+import "./Models.tsp";
+import "./MigrationService.tsp";
+import "./DatabaseMigration.tsp";
 
 using TypeSpec.Http;
 using Azure.ResourceManager;
