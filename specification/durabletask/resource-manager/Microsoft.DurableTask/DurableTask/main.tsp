@@ -2,6 +2,7 @@ import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-resource-manager";
+import "./detector.tsp";
 import "./scheduler.tsp";
 import "./taskhub.tsp";
 import "./retentionpolicy.tsp";
