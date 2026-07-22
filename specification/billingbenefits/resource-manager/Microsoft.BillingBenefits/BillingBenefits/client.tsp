@@ -4,6 +4,18 @@ import "@azure-tools/typespec-client-generator-core";
 using Azure.ClientGenerator.Core;
 using Microsoft.BillingBenefits;
 
+// csharp
+@@clientName(
+  Microsoft.BillingBenefits.ManagedServiceIdentity,
+  "ServiceManagedIdentity",
+  "csharp"
+);
+@@clientName(
+  Microsoft.BillingBenefits.ManagedServiceIdentityType,
+  "ServiceManagedIdentityType",
+  "csharp"
+);
+
 // go
 @@clientLocation(BenefitOperationGroup.validate, "RP", "go");
 @@clientName(Microsoft.BillingBenefits.ResourceSku, "SKU", "go");
