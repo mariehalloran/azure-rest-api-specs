@@ -169,6 +169,9 @@
       "name": "StorageArrays"
     },
     {
+      "name": "StorageArrayJobs"
+    },
+    {
       "name": "StoragePools"
     },
     {
@@ -12699,6 +12702,262 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/storageArrays/{storageArrayName}/jobs": {
+      "get": {
+        "operationId": "StorageArrayJobs_List",
+        "tags": [
+          "StorageArrayJobs"
+        ],
+        "description": "List all jobs for a storage array.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storageArrayName",
+            "in": "path",
+            "description": "The name of the StorageArray",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/StorageArrayJobListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "StorageArrayJobs_List": {
+            "$ref": "./examples/StorageArrayJobs_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/storageArrays/{storageArrayName}/jobs/{jobName}": {
+      "get": {
+        "operationId": "StorageArrayJobs_Get",
+        "tags": [
+          "StorageArrayJobs"
+        ],
+        "description": "Get a specific storage array job.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storageArrayName",
+            "in": "path",
+            "description": "The name of the StorageArray",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the StorageArrayJob",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/StorageArrayJob"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "StorageArrayJobs_Get": {
+            "$ref": "./examples/StorageArrayJobs_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "StorageArrayJobs_CreateOrUpdate",
+        "tags": [
+          "StorageArrayJobs"
+        ],
+        "description": "Create or update a storage array job.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storageArrayName",
+            "in": "path",
+            "description": "The name of the StorageArray",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the StorageArrayJob",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StorageArrayJob"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'StorageArrayJob' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/StorageArrayJob"
+            }
+          },
+          "201": {
+            "description": "Resource 'StorageArrayJob' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/StorageArrayJob"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "StorageArrayJobs_CreateOrUpdate": {
+            "$ref": "./examples/StorageArrayJobs_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "StorageArrayJobs_Delete",
+        "tags": [
+          "StorageArrayJobs"
+        ],
+        "description": "Delete a storage array job.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storageArrayName",
+            "in": "path",
+            "description": "The name of the StorageArray",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the StorageArrayJob",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "StorageArrayJobs_Delete": {
+            "$ref": "./examples/StorageArrayJobs_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/storageArrays/{storageArrayName}/replicationPeerings": {
       "get": {
         "operationId": "ReplicationPeerings_List",
@@ -20540,6 +20799,27 @@
         }
       ]
     },
+    "EdgeMachineAdapterPropertyOverrides": {
+      "type": "object",
+      "description": "The AdapterPropertyOverrides reported for the edge machine.",
+      "properties": {
+        "jumboPacket": {
+          "type": "string",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.",
+          "readOnly": true
+        },
+        "networkDirect": {
+          "type": "string",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.",
+          "readOnly": true
+        },
+        "networkDirectTechnology": {
+          "type": "string",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation. Expected values are 'iWARP', 'RoCEv2', 'RoCE'",
+          "readOnly": true
+        }
+      }
+    },
     "EdgeMachineCollectLogJobProperties": {
       "type": "object",
       "description": "Properties for pausing a server in the cluster.",
@@ -20759,6 +21039,45 @@
         {
           "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
+      ]
+    },
+    "EdgeMachineDiskInfo": {
+      "type": "object",
+      "description": "Represents a storage disk reported for the edge machine.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier of the disk.",
+          "readOnly": true
+        },
+        "sizeInBytes": {
+          "type": "string",
+          "description": "The size of the disk in bytes.",
+          "readOnly": true
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the disk. For example, S2D or SAN.",
+          "readOnly": true
+        },
+        "model": {
+          "type": "string",
+          "description": "Model number of the hardware.",
+          "readOnly": true
+        },
+        "manufacturer": {
+          "type": "string",
+          "description": "The manufacturer of the disk.",
+          "readOnly": true
+        },
+        "isSupported": {
+          "type": "boolean",
+          "description": "Indicates whether the manufacturer is supported.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "id"
       ]
     },
     "EdgeMachineDiskJob": {
@@ -21276,6 +21595,141 @@
         }
       }
     },
+    "EdgeMachineHostNetwork": {
+      "type": "object",
+      "description": "HostNetwork configuration reported for the edge machine.",
+      "properties": {
+        "intents": {
+          "type": "array",
+          "description": "The network intents assigned to the network reference pattern used for the deployment. Each intent will define its own name, traffic type, adapter names, and overrides as recommended by your OEM.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineHostNetworkIntent"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "intentName"
+          ]
+        },
+        "storageNetworks": {
+          "type": "array",
+          "description": "List of StorageNetworks config to deploy AzureStackHCI Cluster.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineStorageNetwork"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "networkAdapterName"
+          ]
+        },
+        "storageConnectivitySwitchless": {
+          "type": "boolean",
+          "description": "Defines how the storage adapters between nodes are connected either switch or switch less.",
+          "readOnly": true
+        },
+        "enableStorageAutoIp": {
+          "type": "boolean",
+          "description": "Optional parameter required only for 3 Nodes Switchless deployments. This allows users to specify IPs and Mask for Storage NICs when Network ATC is not assigning the IPs for storage automatically.",
+          "default": false,
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineHostNetworkIntent": {
+      "type": "object",
+      "description": "The network intent reported for the edge machine.",
+      "properties": {
+        "scope": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Scope for host network intent.",
+          "readOnly": true
+        },
+        "intentType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "IntentType for host network intent.",
+          "readOnly": true
+        },
+        "isComputeIntentSet": {
+          "type": "boolean",
+          "description": "IsComputeIntentSet for host network intent.",
+          "readOnly": true
+        },
+        "isStorageIntentSet": {
+          "type": "boolean",
+          "description": "IsStorageIntentSet for host network intent.",
+          "readOnly": true
+        },
+        "isOnlyStorage": {
+          "type": "boolean",
+          "description": "IntentType for host network intent.",
+          "readOnly": true
+        },
+        "isManagementIntentSet": {
+          "type": "boolean",
+          "description": "IsManagementIntentSet for host network intent.",
+          "readOnly": true
+        },
+        "isStretchIntentSet": {
+          "type": "boolean",
+          "description": "IsStretchIntentSet for host network intent.",
+          "readOnly": true
+        },
+        "isOnlyStretch": {
+          "type": "boolean",
+          "description": "IsOnlyStretch for host network intent.",
+          "readOnly": true
+        },
+        "isNetworkIntentType": {
+          "type": "boolean",
+          "description": "IsNetworkIntentType for host network intent.",
+          "readOnly": true
+        },
+        "intentName": {
+          "type": "string",
+          "description": "Name of the network intent you wish to create.",
+          "readOnly": true
+        },
+        "intentAdapters": {
+          "type": "array",
+          "description": "Array of adapters used for the network intent.",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "overrideVirtualSwitchConfiguration": {
+          "type": "boolean",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.",
+          "readOnly": true
+        },
+        "virtualSwitchConfigurationOverrides": {
+          "$ref": "#/definitions/EdgeMachineVirtualSwitchConfigurationOverrides",
+          "description": "Set virtualSwitch ConfigurationOverrides for cluster.",
+          "readOnly": true
+        },
+        "overrideQosPolicy": {
+          "type": "boolean",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.",
+          "readOnly": true
+        },
+        "qosPolicyOverrides": {
+          "$ref": "#/definitions/QosPolicyOverrides",
+          "description": "Set QoS PolicyOverrides for cluster.",
+          "readOnly": true
+        },
+        "overrideAdapterProperty": {
+          "type": "boolean",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.",
+          "readOnly": true
+        },
+        "adapterPropertyOverrides": {
+          "$ref": "#/definitions/EdgeMachineAdapterPropertyOverrides",
+          "description": "Set Adapter PropertyOverrides for cluster.",
+          "readOnly": true
+        }
+      }
+    },
     "EdgeMachineJob": {
       "type": "object",
       "description": "Cluster Jobs resource",
@@ -21768,6 +22222,16 @@
           "x-ms-identifiers": [
             "switchName"
           ]
+        },
+        "hostNetwork": {
+          "$ref": "#/definitions/EdgeMachineHostNetwork",
+          "description": "HostNetwork configuration reported for the edge machine.",
+          "readOnly": true
+        },
+        "sdnProperties": {
+          "$ref": "#/definitions/SdnProperties",
+          "description": "Software Defined Networking (SDN) properties reported for the edge machine.",
+          "readOnly": true
         }
       }
     },
@@ -22181,6 +22645,11 @@
           "description": "Extension details for edge machine.",
           "readOnly": true
         },
+        "confidentialVmProfile": {
+          "$ref": "#/definitions/ConfidentialVmProfile",
+          "description": "CVM (Confidential VM) support details for the edge machine.",
+          "readOnly": true
+        },
         "workloadInventory": {
           "type": "array",
           "description": "Read-only Hyper-V VM inventory reported by the device management extension for VMs visible on this node.",
@@ -22382,6 +22851,59 @@
         ]
       }
     },
+    "EdgeMachineStorageAdapterIpInfo": {
+      "type": "object",
+      "description": "The StorageAdapter physical nodes reported for the edge machine.",
+      "properties": {
+        "physicalNode": {
+          "type": "string",
+          "description": "storage adapter physical node name.",
+          "readOnly": true
+        },
+        "ipv4Address": {
+          "type": "string",
+          "description": "The IPv4 address assigned to each storage adapter physical node on your Azure Stack HCI cluster.",
+          "readOnly": true
+        },
+        "subnetMask": {
+          "type": "string",
+          "description": "The SubnetMask address assigned to each storage adapter physical node on your Azure Stack HCI cluster.",
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineStorageNetwork": {
+      "type": "object",
+      "description": "The StorageNetworks reported for the edge machine.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the storage network.",
+          "readOnly": true
+        },
+        "networkAdapterName": {
+          "type": "string",
+          "description": "Name of the storage network adapter.",
+          "readOnly": true
+        },
+        "storageVlanId": {
+          "type": "string",
+          "description": "ID specified for the VLAN storage network. This setting is applied to the network interfaces that route the storage and VM migration traffic.",
+          "readOnly": true
+        },
+        "storageAdapterIPInfo": {
+          "type": "array",
+          "description": "List of Storage adapter physical nodes config to deploy AzureStackHCI Cluster.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineStorageAdapterIpInfo"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "physicalNode"
+          ]
+        }
+      }
+    },
     "EdgeMachineUpdate": {
       "type": "object",
       "description": "EdgeMachine Update resource that stores validated update configurations for an edge machine.",
@@ -22523,6 +23045,22 @@
         "status": {
           "type": "string",
           "description": "Edge machine validation status.",
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineVirtualSwitchConfigurationOverrides": {
+      "type": "object",
+      "description": "The VirtualSwitchConfigurationOverrides reported for the edge machine.",
+      "properties": {
+        "enableIov": {
+          "type": "string",
+          "description": "Enable IoV for Virtual Switch",
+          "readOnly": true
+        },
+        "loadBalancingAlgorithm": {
+          "type": "string",
+          "description": "Load Balancing Algorithm for Virtual Switch",
           "readOnly": true
         }
       }
@@ -33185,6 +33723,131 @@
         }
       }
     },
+    "StorageArrayJob": {
+      "type": "object",
+      "description": "Job for a Storage Array.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/StorageArrayJobProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "StorageArrayJobListResult": {
+      "type": "object",
+      "description": "The response of a StorageArrayJob list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The StorageArrayJob items on this page",
+          "items": {
+            "$ref": "#/definitions/StorageArrayJob"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "StorageArrayJobProperties": {
+      "type": "object",
+      "description": "Properties of the Storage Array Job.",
+      "properties": {
+        "jobType": {
+          "$ref": "#/definitions/StorageArrayJobType",
+          "description": "Type of operation.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "deploymentMode": {
+          "$ref": "#/definitions/DeploymentMode",
+          "description": "Deployment mode to trigger job."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the job.",
+          "readOnly": true
+        },
+        "jobId": {
+          "type": "string",
+          "description": "Unique, immutable job id.",
+          "readOnly": true
+        },
+        "startTimeUtc": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The UTC date and time at which the job started.",
+          "readOnly": true
+        },
+        "endTimeUtc": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The UTC date and time at which the job completed.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/JobStatus",
+          "description": "Status of the storage array job.",
+          "readOnly": true
+        },
+        "error": {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details if job failed.",
+          "readOnly": true
+        },
+        "reportedProperties": {
+          "$ref": "#/definitions/StorageArrayJobReportedProperties",
+          "description": "Reported properties for the storage array job.",
+          "readOnly": true
+        }
+      },
+      "discriminator": "jobType",
+      "required": [
+        "jobType"
+      ]
+    },
+    "StorageArrayJobReportedProperties": {
+      "type": "object",
+      "description": "Reported properties for the Storage Array Job.",
+      "properties": {
+        "percentComplete": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The percentage of the job that is complete.",
+          "readOnly": true
+        }
+      }
+    },
+    "StorageArrayJobType": {
+      "type": "string",
+      "description": "Type of storage array job operation.",
+      "enum": [
+        "SyncStorageArray"
+      ],
+      "x-ms-enum": {
+        "name": "StorageArrayJobType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "SyncStorageArray",
+            "value": "SyncStorageArray",
+            "description": "Job to force the storage controller to re-read the array and reconcile the ARM resources with the physical state."
+          }
+        ]
+      }
+    },
     "StorageArrayListResult": {
       "type": "object",
       "description": "The response of a StorageArray list operation.",
@@ -34001,6 +34664,17 @@
           "description": "Number of storage disks in the device with $CanPool as true.",
           "readOnly": true
         },
+        "disks": {
+          "type": "array",
+          "description": "List of storage disks on the edge machine.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineDiskInfo"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "id"
+          ]
+        },
         "localAvailabilityZoneName": {
           "type": "string",
           "description": "Local availability zone name assigned to this edge machine after a ConfigureLocalAvailabilityZone job succeeds.",
@@ -34441,6 +35115,16 @@
         }
       ],
       "x-ms-discriminator-value": "Sync"
+    },
+    "SyncStorageArrayJobProperties": {
+      "type": "object",
+      "description": "Properties for forcing a storage array inventory sync / reconcile.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/StorageArrayJobProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "SyncStorageArray"
     },
     "TargetDeviceConfiguration": {
       "type": "object",
