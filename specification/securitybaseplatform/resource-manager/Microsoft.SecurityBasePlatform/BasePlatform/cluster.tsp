@@ -98,10 +98,6 @@ model Dk8sClusterProperties extends ClusterProperties {
   @doc("The kind of this cluster.")
   @visibility(Lifecycle.Create, Lifecycle.Read)
   clusterKind: ClusterKind.Dk8s;
-
-  @doc("Additional user node pools for scheduling workloads on auto-provisioned capacity.")
-  @identifiers(#["name"])
-  additionalNodePools?: NodePool[];
 }
 
 @doc("Represents the kind of a Cluster.")

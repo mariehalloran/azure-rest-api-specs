@@ -37,15 +37,6 @@ directive:
     reason: >
       StringMap models user-defined Kubernetes labels and annotations whose keys
       are not knowable in advance, so an open string-to-string map is required.
-  - suppress: PatchBodyParametersSchema
-    from: securitybaseplatform.json
-    where:
-      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SecurityBasePlatform/clusters/{clusterName}"].patch.parameters[4].schema
-    reason: >
-      additionalNodePools is an optional PATCH field, but each supplied array
-      element is a full replacement of a node pool, not a partial update, so its
-      name/skuSeries/weight fields remain required by design. Partial patching of
-      individual array entries is not supported.
 ```
 
 ### Tag: avocado-examples

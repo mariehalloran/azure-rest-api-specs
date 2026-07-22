@@ -7,13 +7,7 @@ import "./shared-models.tsp";
 import "./patch-models.tsp";
 import "./workspace.tsp";
 import "./cluster.tsp";
-import "./namespace.tsp";
 import "./kubernetes-models.tsp";
-import "./workload-models.tsp";
-import "./service.tsp";
-import "./job.tsp";
-import "./cronjob.tsp";
-import "./deployment.tsp";
 
 using TypeSpec.Versioning;
 using Azure.Core;
