@@ -112,6 +112,8 @@ union GenevaEnvironment {
 
   @doc("Geneva production environment.")
   Prod: "prod",
+
+  string,
 }
 
 @armResourceOperations
