@@ -1,0 +1,1814 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Azure Migrate Platform Landing Zones Service",
+    "version": "2026-02-01-preview",
+    "description": "Azure Migrate Platform Landing Zones management API. Captures the architectural intent for an Azure Landing Zone deployment associated with a migrate project.",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "PlatformLandingZones"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.Migrate/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Operations_List_MaximumSet": {
+            "$ref": "./examples/Operations_List_MaximumSet_Gen.json"
+          },
+          "Operations_List_MinimumSet": {
+            "$ref": "./examples/Operations_List_MinimumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/migrateProjects/{projectName}/platformLandingZones": {
+      "get": {
+        "operationId": "PlatformLandingZones_ListByParent",
+        "tags": [
+          "PlatformLandingZones"
+        ],
+        "description": "List Platform Landing Zone resources under a migrate project.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Migrate Project Name. The name constraint mirrors the existing GA Microsoft.Migrate/migrateProjects contract.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/PlatformLandingZoneListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List defaulted Platform Landing Zones under a migrate project": {
+            "$ref": "./examples/PlatformLandingZones_ListByMigrateProject_MinimumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/migrateProjects/{projectName}/platformLandingZones/{platformLandingZoneName}": {
+      "get": {
+        "operationId": "PlatformLandingZones_Get",
+        "tags": [
+          "PlatformLandingZones"
+        ],
+        "description": "Get a Platform Landing Zone resource by name.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Migrate Project Name. The name constraint mirrors the existing GA Microsoft.Migrate/migrateProjects contract.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          },
+          {
+            "name": "platformLandingZoneName",
+            "in": "path",
+            "description": "Platform Landing Zone name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/PlatformLandingZone"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a defaulted management-only Platform Landing Zone": {
+            "$ref": "./examples/PlatformLandingZones_Get_MinimumSet_Gen.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "PlatformLandingZones_Create",
+        "tags": [
+          "PlatformLandingZones"
+        ],
+        "description": "Create or update a Platform Landing Zone resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Migrate Project Name. The name constraint mirrors the existing GA Microsoft.Migrate/migrateProjects contract.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          },
+          {
+            "name": "platformLandingZoneName",
+            "in": "path",
+            "description": "Platform Landing Zone name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PlatformLandingZone"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'PlatformLandingZone' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/PlatformLandingZone"
+            }
+          },
+          "201": {
+            "description": "Resource 'PlatformLandingZone' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/PlatformLandingZone"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create a Platform Landing Zone from minimal customer input": {
+            "$ref": "./examples/PlatformLandingZones_CreateOrUpdate_MinimumSet_Gen.json"
+          },
+          "Create a full Virtual WAN Platform Landing Zone": {
+            "$ref": "./examples/PlatformLandingZones_CreateOrUpdate_MaximumSet_VirtualWan_Gen.json"
+          },
+          "Create a full hub-and-spoke Platform Landing Zone": {
+            "$ref": "./examples/PlatformLandingZones_CreateOrUpdate_MaximumSet_HubAndSpoke_Gen.json"
+          },
+          "Create a full hub-and-spoke Platform Landing Zone with a generic NVA": {
+            "$ref": "./examples/PlatformLandingZones_CreateOrUpdate_MaximumSet_HubAndSpoke_Nva_Gen.json"
+          },
+          "Create a management-only Platform Landing Zone": {
+            "$ref": "./examples/PlatformLandingZones_CreateOrUpdate_MaximumSet_ManagementOnly_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "PlatformLandingZones_Delete",
+        "tags": [
+          "PlatformLandingZones"
+        ],
+        "description": "Delete a Platform Landing Zone resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Migrate Project Name. The name constraint mirrors the existing GA Microsoft.Migrate/migrateProjects contract.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[^<>&:\\?/#]{1,260}$"
+          },
+          {
+            "name": "platformLandingZoneName",
+            "in": "path",
+            "description": "Platform Landing Zone name.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a Platform Landing Zone (maximum set)": {
+            "$ref": "./examples/PlatformLandingZones_Delete_MaximumSet_Gen.json"
+          },
+          "Delete a Platform Landing Zone (minimum set)": {
+            "$ref": "./examples/PlatformLandingZones_Delete_MinimumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    }
+  },
+  "definitions": {
+    "AlzManagementGroupScope": {
+      "type": "string",
+      "description": "Azure Landing Zones management-group scope at which a policy assignment override applies.",
+      "enum": [
+        "IntermediateRoot",
+        "Platform",
+        "Security",
+        "Management",
+        "Connectivity",
+        "Identity",
+        "LandingZones",
+        "Corp",
+        "Online",
+        "Local",
+        "Sandbox",
+        "Decommissioned"
+      ],
+      "x-ms-enum": {
+        "name": "AlzManagementGroupScope",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "IntermediateRoot",
+            "value": "IntermediateRoot",
+            "description": "Intermediate root management group."
+          },
+          {
+            "name": "Platform",
+            "value": "Platform",
+            "description": "Platform management group."
+          },
+          {
+            "name": "Security",
+            "value": "Security",
+            "description": "Security management group."
+          },
+          {
+            "name": "Management",
+            "value": "Management",
+            "description": "Management management group."
+          },
+          {
+            "name": "Connectivity",
+            "value": "Connectivity",
+            "description": "Connectivity management group."
+          },
+          {
+            "name": "Identity",
+            "value": "Identity",
+            "description": "Identity management group."
+          },
+          {
+            "name": "LandingZones",
+            "value": "LandingZones",
+            "description": "Landing zones management group."
+          },
+          {
+            "name": "Corp",
+            "value": "Corp",
+            "description": "Corp management group."
+          },
+          {
+            "name": "Online",
+            "value": "Online",
+            "description": "Online management group."
+          },
+          {
+            "name": "Local",
+            "value": "Local",
+            "description": "Local management group."
+          },
+          {
+            "name": "Sandbox",
+            "value": "Sandbox",
+            "description": "Sandbox management group."
+          },
+          {
+            "name": "Decommissioned",
+            "value": "Decommissioned",
+            "description": "Decommissioned management group."
+          }
+        ]
+      }
+    },
+    "Azure.ResourceManager.ResourceProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a resource type.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "AzureFirewallConfig": {
+      "type": "object",
+      "description": "Azure Firewall configuration.",
+      "properties": {
+        "sku": {
+          "$ref": "#/definitions/AzureFirewallSku",
+          "description": "Azure Firewall stock keeping unit."
+        },
+        "dnsProxyEnabled": {
+          "type": "boolean",
+          "description": "Whether the Azure Firewall domain name system proxy is enabled."
+        },
+        "threatIntelMode": {
+          "$ref": "#/definitions/ThreatIntelMode",
+          "description": "Threat intelligence mode."
+        },
+        "idpsMode": {
+          "$ref": "#/definitions/IdpsMode",
+          "description": "Intrusion detection and prevention system mode."
+        },
+        "subnetAddressPrefix": {
+          "$ref": "#/definitions/Ipv4CidrPrefix",
+          "description": "Azure Firewall subnet address prefix."
+        },
+        "deployInRegions": {
+          "type": "array",
+          "description": "Azure regions where Azure Firewall is deployed.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/FirewallConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "AzureFirewall"
+    },
+    "AzureFirewallSku": {
+      "type": "string",
+      "description": "Azure Firewall stock keeping unit.",
+      "enum": [
+        "Premium"
+      ],
+      "x-ms-enum": {
+        "name": "AzureFirewallSku",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Premium",
+            "value": "Premium",
+            "description": "Premium stock keeping unit."
+          }
+        ]
+      }
+    },
+    "AzureMonitorConfig": {
+      "type": "object",
+      "description": "Azure Monitor configuration.",
+      "properties": {
+        "vmInsightsEnabled": {
+          "type": "boolean",
+          "description": "Whether VM Insights is enabled."
+        },
+        "containerInsightsEnabled": {
+          "type": "boolean",
+          "description": "Whether Container Insights is enabled."
+        }
+      }
+    },
+    "BastionConfig": {
+      "type": "object",
+      "description": "Azure Bastion configuration.",
+      "properties": {
+        "deploymentMode": {
+          "$ref": "#/definitions/ConnectivityComponentDeploymentMode",
+          "description": "Whether Azure Bastion is deployed."
+        },
+        "sku": {
+          "$ref": "#/definitions/BastionSku",
+          "description": "Bastion stock keeping unit."
+        },
+        "scaleUnits": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of Bastion scale units.",
+          "minimum": 2,
+          "maximum": 50
+        },
+        "subnetAddressPrefix": {
+          "$ref": "#/definitions/Ipv4CidrPrefix",
+          "description": "Bastion subnet address prefix."
+        },
+        "deployInRegions": {
+          "type": "array",
+          "description": "Regions where Bastion is deployed.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "BastionSku": {
+      "type": "string",
+      "description": "Azure Bastion stock keeping unit.",
+      "enum": [
+        "Standard"
+      ],
+      "x-ms-enum": {
+        "name": "BastionSku",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Standard",
+            "value": "Standard",
+            "description": "Standard stock keeping unit."
+          }
+        ]
+      }
+    },
+    "Connectivity": {
+      "type": "object",
+      "description": "Network connectivity configuration for a full landing zone.",
+      "properties": {
+        "topology": {
+          "$ref": "#/definitions/ConnectivityTopology",
+          "description": "Connectivity topology."
+        },
+        "internetEgress": {
+          "$ref": "#/definitions/InternetEgressModel",
+          "description": "Internet egress model."
+        },
+        "firewall": {
+          "$ref": "#/definitions/FirewallConfig",
+          "description": "Hub firewall configuration."
+        },
+        "bastion": {
+          "$ref": "#/definitions/BastionConfig",
+          "description": "Azure Bastion configuration."
+        },
+        "ddosProtection": {
+          "$ref": "#/definitions/DdosProtectionConfig",
+          "description": "Distributed denial-of-service protection configuration."
+        },
+        "privateDns": {
+          "$ref": "#/definitions/PrivateDnsConfig",
+          "description": "Private domain name system configuration."
+        },
+        "vpnGateway": {
+          "$ref": "#/definitions/VpnGatewayConfig",
+          "description": "Virtual private network gateway configuration."
+        },
+        "expressRoute": {
+          "$ref": "#/definitions/ExpressRouteConfig",
+          "description": "ExpressRoute Gateway configuration."
+        },
+        "gatewaySubnetAddressPrefix": {
+          "$ref": "#/definitions/Ipv4CidrPrefix",
+          "description": "Gateway subnet address prefix for hub-and-spoke deployments."
+        }
+      },
+      "required": [
+        "topology"
+      ]
+    },
+    "ConnectivityComponentDeploymentMode": {
+      "type": "string",
+      "description": "Whether a platform connectivity component is deployed.",
+      "enum": [
+        "Enabled",
+        "Disabled"
+      ],
+      "x-ms-enum": {
+        "name": "ConnectivityComponentDeploymentMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Enabled",
+            "value": "Enabled",
+            "description": "Deploy the component."
+          },
+          {
+            "name": "Disabled",
+            "value": "Disabled",
+            "description": "Do not deploy the component."
+          }
+        ]
+      }
+    },
+    "ConnectivityTopology": {
+      "type": "string",
+      "description": "Connectivity topology for the platform landing zone.",
+      "enum": [
+        "HubAndSpoke",
+        "VirtualWan"
+      ],
+      "x-ms-enum": {
+        "name": "ConnectivityTopology",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "HubAndSpoke",
+            "value": "HubAndSpoke",
+            "description": "Hub-and-spoke virtual network topology."
+          },
+          {
+            "name": "VirtualWan",
+            "value": "VirtualWan",
+            "description": "Azure Virtual WAN topology."
+          }
+        ]
+      }
+    },
+    "DdosProtectionConfig": {
+      "type": "object",
+      "description": "Azure distributed denial-of-service protection configuration.",
+      "properties": {
+        "deploymentMode": {
+          "$ref": "#/definitions/ConnectivityComponentDeploymentMode",
+          "description": "Whether distributed denial-of-service protection is deployed."
+        },
+        "plan": {
+          "$ref": "#/definitions/DdosProtectionPlan",
+          "description": "Distributed denial-of-service protection plan."
+        }
+      }
+    },
+    "DdosProtectionPlan": {
+      "type": "string",
+      "description": "Distributed denial-of-service protection plan.",
+      "enum": [
+        "Network"
+      ],
+      "x-ms-enum": {
+        "name": "DdosProtectionPlan",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Network",
+            "value": "Network",
+            "description": "Network protection plan."
+          }
+        ]
+      }
+    },
+    "DedicatedPlatformSubscriptions": {
+      "type": "object",
+      "description": "Dedicated subscription model: each platform function uses its own subscription.",
+      "properties": {
+        "identity": {
+          "$ref": "#/definitions/ExistingSubscriptionRef",
+          "description": "Subscription that hosts the identity platform."
+        },
+        "connectivity": {
+          "$ref": "#/definitions/ExistingSubscriptionRef",
+          "description": "Subscription that hosts the connectivity platform."
+        },
+        "management": {
+          "$ref": "#/definitions/ExistingSubscriptionRef",
+          "description": "Subscription that hosts the management platform."
+        },
+        "security": {
+          "$ref": "#/definitions/ExistingSubscriptionRef",
+          "description": "Subscription that hosts the security platform. Per CAF Ready guidance, a dedicated security subscription is recommended alongside identity, connectivity, and management."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/PlatformSubscriptions"
+        }
+      ],
+      "x-ms-discriminator-value": "Dedicated"
+    },
+    "ExistingSubscriptionRef": {
+      "type": "object",
+      "description": "Reference to an existing Azure subscription used by the landing zone.",
+      "properties": {
+        "subscriptionId": {
+          "type": "string",
+          "description": "Azure subscription ID in canonical GUID format.",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        }
+      }
+    },
+    "ExpressRouteConfig": {
+      "type": "object",
+      "description": "ExpressRoute Gateway configuration.",
+      "properties": {
+        "topology": {
+          "$ref": "#/definitions/GatewayTopology",
+          "description": "Connectivity topology implemented by the ExpressRoute gateway."
+        },
+        "deployInRegions": {
+          "type": "array",
+          "description": "Azure regions where the ExpressRoute gateway is deployed.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "discriminator": "topology",
+      "required": [
+        "topology"
+      ]
+    },
+    "ExpressRouteGatewaySku": {
+      "type": "string",
+      "description": "ExpressRoute gateway stock keeping unit.",
+      "enum": [
+        "ErGw1AZ"
+      ],
+      "x-ms-enum": {
+        "name": "ExpressRouteGatewaySku",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "ErGw1AZ",
+            "value": "ErGw1AZ",
+            "description": "Availability-zone-aware ErGw1."
+          }
+        ]
+      }
+    },
+    "FirewallConfig": {
+      "type": "object",
+      "description": "Hub firewall configuration.",
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/FirewallKind",
+          "description": "Firewall implementation kind."
+        }
+      },
+      "discriminator": "kind",
+      "required": [
+        "kind"
+      ]
+    },
+    "FirewallKind": {
+      "type": "string",
+      "description": "Firewall implementation used by the platform landing zone.",
+      "enum": [
+        "None",
+        "AzureFirewall",
+        "ThirdPartyNva"
+      ],
+      "x-ms-enum": {
+        "name": "FirewallKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None",
+            "description": "No firewall is deployed."
+          },
+          {
+            "name": "AzureFirewall",
+            "value": "AzureFirewall",
+            "description": "Azure Firewall."
+          },
+          {
+            "name": "ThirdPartyNva",
+            "value": "ThirdPartyNva",
+            "description": "Third-party network virtual appliance."
+          }
+        ]
+      }
+    },
+    "GatewayTopology": {
+      "type": "string",
+      "description": "Topology implemented by an optional connectivity gateway.",
+      "enum": [
+        "None",
+        "HubAndSpoke",
+        "VirtualWan"
+      ],
+      "x-ms-enum": {
+        "name": "GatewayTopology",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None",
+            "description": "No gateway is deployed."
+          },
+          {
+            "name": "HubAndSpoke",
+            "value": "HubAndSpoke",
+            "description": "Hub-and-spoke virtual network topology."
+          },
+          {
+            "name": "VirtualWan",
+            "value": "VirtualWan",
+            "description": "Azure Virtual WAN topology."
+          }
+        ]
+      }
+    },
+    "Governance": {
+      "type": "object",
+      "description": "Governance configuration for the platform landing zone.",
+      "properties": {
+        "policyAssignmentMode": {
+          "$ref": "#/definitions/PolicyAssignmentMode",
+          "description": "Policy assignment baseline."
+        },
+        "policyAssignmentOverrides": {
+          "type": "array",
+          "description": "Overrides applied to policy assignments in the Azure Landing Zones baseline.",
+          "items": {
+            "$ref": "#/definitions/PolicyAssignmentOverride"
+          },
+          "x-ms-identifiers": [
+            "scope",
+            "assignmentName"
+          ]
+        }
+      }
+    },
+    "HubAndSpokeExpressRouteConfig": {
+      "type": "object",
+      "description": "Hub-and-spoke ExpressRoute Gateway configuration.",
+      "properties": {
+        "sku": {
+          "$ref": "#/definitions/ExpressRouteGatewaySku",
+          "description": "ExpressRoute gateway stock keeping unit."
+        },
+        "fastPathEnabled": {
+          "type": "boolean",
+          "description": "Whether ExpressRoute FastPath is enabled."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/ExpressRouteConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "HubAndSpoke"
+    },
+    "HubAndSpokeVpnGatewayConfig": {
+      "type": "object",
+      "description": "Hub-and-spoke virtual private network gateway configuration.",
+      "properties": {
+        "sku": {
+          "$ref": "#/definitions/VpnGatewaySku",
+          "description": "Virtual private network gateway stock keeping unit."
+        },
+        "activeActive": {
+          "type": "boolean",
+          "description": "Whether the virtual private network gateway is active-active."
+        },
+        "enableBgp": {
+          "type": "boolean",
+          "description": "Whether Border Gateway Protocol is enabled."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/VpnGatewayConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "HubAndSpoke"
+    },
+    "IdpsMode": {
+      "type": "string",
+      "description": "Azure Firewall intrusion detection and prevention system mode.",
+      "enum": [
+        "Off"
+      ],
+      "x-ms-enum": {
+        "name": "IdpsMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Off",
+            "value": "Off",
+            "description": "Intrusion detection and prevention system (IDPS) is disabled."
+          }
+        ]
+      }
+    },
+    "InternetEgressModel": {
+      "type": "string",
+      "description": "Internet egress model for the platform landing zone.",
+      "enum": [
+        "ViaHub"
+      ],
+      "x-ms-enum": {
+        "name": "InternetEgressModel",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "ViaHub",
+            "value": "ViaHub",
+            "description": "Spoke egress flows through the hub."
+          }
+        ]
+      }
+    },
+    "Ipv4CidrPrefix": {
+      "type": "string",
+      "description": "An Internet Protocol version 4 network prefix in Classless Inter-Domain Routing notation.",
+      "pattern": "^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}/([0-9]|[12][0-9]|3[0-2])$"
+    },
+    "LogAnalyticsConfig": {
+      "type": "object",
+      "description": "Log Analytics workspace configuration.",
+      "properties": {
+        "workspaceName": {
+          "type": "string",
+          "description": "Log Analytics workspace name."
+        },
+        "sku": {
+          "$ref": "#/definitions/LogAnalyticsSku",
+          "description": "Log Analytics workspace stock keeping unit."
+        },
+        "retentionInDays": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Workspace data retention in days.",
+          "minimum": 30,
+          "maximum": 730
+        }
+      }
+    },
+    "LogAnalyticsSku": {
+      "type": "string",
+      "description": "Log Analytics workspace stock keeping unit.",
+      "enum": [
+        "PerGB2018"
+      ],
+      "x-ms-enum": {
+        "name": "LogAnalyticsSku",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "PerGB2018",
+            "value": "PerGB2018",
+            "description": "Pay-as-you-go ingestion pricing."
+          }
+        ]
+      }
+    },
+    "Management": {
+      "type": "object",
+      "description": "Management configuration for the platform landing zone.",
+      "properties": {
+        "logAnalytics": {
+          "$ref": "#/definitions/LogAnalyticsConfig",
+          "description": "Log Analytics workspace configuration."
+        },
+        "azureMonitor": {
+          "$ref": "#/definitions/AzureMonitorConfig",
+          "description": "Azure Monitor configuration."
+        },
+        "sentinel": {
+          "$ref": "#/definitions/SentinelConfig",
+          "description": "Microsoft Sentinel configuration."
+        }
+      }
+    },
+    "MigrateProject": {
+      "type": "object",
+      "description": "A Migrate project Resource. Defined locally as the parent for PlatformLandingZone; the canonical resource is owned by the sibling Microsoft.Migrate TypeSpec projects.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/MigrateProjectProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "MigrateProjectProperties": {
+      "type": "object",
+      "description": "Properties of a migrate project. Minimal stub used solely to anchor PlatformLandingZone as a child resource; the full property set is defined by the sibling Microsoft.Migrate TypeSpec projects.",
+      "properties": {
+        "serviceEndpoint": {
+          "type": "string",
+          "description": "Service endpoint."
+        }
+      }
+    },
+    "NoExpressRouteConfig": {
+      "type": "object",
+      "description": "Configuration indicating that no ExpressRoute gateway is deployed.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ExpressRouteConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "None"
+    },
+    "NoFirewallConfig": {
+      "type": "object",
+      "description": "Configuration indicating that no firewall is deployed.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/FirewallConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "None"
+    },
+    "NoVpnGatewayConfig": {
+      "type": "object",
+      "description": "Configuration indicating that no virtual private network gateway is deployed.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/VpnGatewayConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "None"
+    },
+    "NvaVendor": {
+      "type": "string",
+      "description": "Network virtual appliance vendor.",
+      "enum": [
+        "Other"
+      ],
+      "x-ms-enum": {
+        "name": "NvaVendor",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Other",
+            "value": "Other",
+            "description": "The network virtual appliance vendor is not specified."
+          }
+        ]
+      }
+    },
+    "PlatformLandingZone": {
+      "type": "object",
+      "description": "Platform Landing Zone resource. Captures the architectural intent for an Azure Landing Zone deployment associated with a migrate project.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/PlatformLandingZoneProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "PlatformLandingZoneGenerationStatus": {
+      "type": "string",
+      "description": "Asynchronous landing-zone generation status.",
+      "enum": [
+        "Running",
+        "Succeeded",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "PlatformLandingZoneGenerationStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Running",
+            "value": "Running",
+            "description": "Generation is running."
+          },
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Generation succeeded."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Generation failed."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "PlatformLandingZoneListResult": {
+      "type": "object",
+      "description": "The response of a PlatformLandingZone list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The PlatformLandingZone items on this page",
+          "items": {
+            "$ref": "#/definitions/PlatformLandingZone"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "PlatformLandingZoneProperties": {
+      "type": "object",
+      "description": "Properties of a Platform Landing Zone. This envelope is grown incrementally as sub-blocks are introduced.",
+      "properties": {
+        "scaleTier": {
+          "$ref": "#/definitions/ScaleTier",
+          "description": "Deployment scale for the platform landing zone. ManagementOnly omits connectivity."
+        },
+        "parentManagementGroupId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Azure resource identifier of the parent management group under which the Azure Landing Zones management-group hierarchy will be created. Create-only; cannot be changed after the landing zone is created.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ],
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Management/managementGroups"
+              }
+            ]
+          }
+        },
+        "platformSubscriptions": {
+          "$ref": "#/definitions/PlatformSubscriptions",
+          "description": "Platform subscription topology."
+        },
+        "regions": {
+          "type": "array",
+          "description": "Azure regions included in the landing zone design.",
+          "items": {
+            "$ref": "#/definitions/PlatformRegion"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        },
+        "connectivity": {
+          "$ref": "#/definitions/Connectivity",
+          "description": "Network connectivity configuration."
+        },
+        "management": {
+          "$ref": "#/definitions/Management",
+          "description": "Management plane configuration."
+        },
+        "security": {
+          "$ref": "#/definitions/Security",
+          "description": "Security configuration."
+        },
+        "governance": {
+          "$ref": "#/definitions/Governance",
+          "description": "Governance configuration."
+        },
+        "versionControlSystem": {
+          "$ref": "#/definitions/VersionControlSystem",
+          "description": "Version control system the generator will use when materializing the landing-zone infrastructure-as-code output and continuous integration pipelines. When omitted, the generator service applies its default (currently GitHub)."
+        },
+        "organizationName": {
+          "type": "string",
+          "description": "Name of the organization or environment that owns this landing zone. Surfaced to the generator (maps to ENVIRONMENT_NAME). Optional.",
+          "maxLength": 200
+        },
+        "serviceName": {
+          "type": "string",
+          "description": "Name of the service associated with this landing zone. Surfaced to the generator (maps to SERVICE_NAME). Optional.",
+          "maxLength": 200
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "Provisioning state of the Platform Landing Zone resource.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/PlatformLandingZoneGenerationStatus",
+          "description": "Status of the asynchronous landing-zone generation run.",
+          "readOnly": true
+        },
+        "artifactId": {
+          "type": "string",
+          "description": "Azure resource identifier of the artifact ({migrateProjectId}/artifacts/plz-{name}) under which the generated design document and infrastructure-as-code output are committed. Read-only and deterministic (derived from the resource identity), so it is available immediately, even while provisioning.",
+          "readOnly": true
+        }
+      }
+    },
+    "PlatformRegion": {
+      "type": "object",
+      "description": "An Azure region included in the landing zone design.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Azure region name, for example \"eastus\"."
+        },
+        "role": {
+          "$ref": "#/definitions/RegionRole",
+          "description": "Role of this region within the landing zone."
+        },
+        "addressSpace": {
+          "$ref": "#/definitions/RegionAddressSpace",
+          "description": "Address space allocated to platform services in this region."
+        },
+        "availabilityZones": {
+          "type": "array",
+          "description": "Availability zones in this region that the landing zone targets, for example [\"1\",\"2\",\"3\"]. Empty when the region does not support availability zones or zonal deployment is not desired.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "connectivityDeploymentMode": {
+          "$ref": "#/definitions/RegionalConnectivityDeploymentMode",
+          "description": "Connectivity resources deployed in this region."
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "PlatformSubscriptionModel": {
+      "type": "string",
+      "description": "Subscription model recorded for platform-tier workloads.",
+      "enum": [
+        "Dedicated",
+        "Shared"
+      ],
+      "x-ms-enum": {
+        "name": "PlatformSubscriptionModel",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Dedicated",
+            "value": "Dedicated",
+            "description": "Each platform function uses a dedicated subscription."
+          },
+          {
+            "name": "Shared",
+            "value": "Shared",
+            "description": "Platform functions share one subscription."
+          }
+        ]
+      }
+    },
+    "PlatformSubscriptions": {
+      "type": "object",
+      "description": "Platform subscription topology. The concrete shape is selected by the discriminator \"subscriptionModel\".",
+      "properties": {
+        "subscriptionModel": {
+          "$ref": "#/definitions/PlatformSubscriptionModel",
+          "description": "Subscription topology model."
+        }
+      },
+      "discriminator": "subscriptionModel",
+      "required": [
+        "subscriptionModel"
+      ]
+    },
+    "PolicyAssignmentMode": {
+      "type": "string",
+      "description": "Policy assignment baseline for the platform landing zone.",
+      "enum": [
+        "AlzDefaults"
+      ],
+      "x-ms-enum": {
+        "name": "PolicyAssignmentMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "AlzDefaults",
+            "value": "AlzDefaults",
+            "description": "Apply the canonical Azure Landing Zone policy baseline."
+          }
+        ]
+      }
+    },
+    "PolicyAssignmentOverride": {
+      "type": "object",
+      "description": "Override applied to an Azure Landing Zones policy assignment.",
+      "properties": {
+        "scope": {
+          "$ref": "#/definitions/AlzManagementGroupScope",
+          "description": "Azure Landing Zones management-group scope at which the override applies."
+        },
+        "assignmentName": {
+          "type": "string",
+          "description": "Name of the Azure Landing Zones policy assignment."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the policy assignment is deployed."
+        },
+        "enforcementMode": {
+          "$ref": "#/definitions/PolicyEnforcementMode",
+          "description": "Enforcement mode applied to the policy assignment."
+        },
+        "effect": {
+          "$ref": "#/definitions/PolicyEffect",
+          "description": "Effect applied to all definitions in the policy assignment."
+        },
+        "parameters": {
+          "type": "array",
+          "description": "Parameter overrides applied to the policy assignment.",
+          "items": {
+            "$ref": "#/definitions/PolicyParameterOverride"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "scope",
+        "assignmentName"
+      ]
+    },
+    "PolicyEffect": {
+      "type": "string",
+      "description": "Effect applied by an Azure Policy assignment override.",
+      "enum": [
+        "Audit",
+        "Deny",
+        "Disabled",
+        "DeployIfNotExists",
+        "Modify",
+        "Append",
+        "AuditIfNotExists"
+      ],
+      "x-ms-enum": {
+        "name": "PolicyEffect",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Audit",
+            "value": "Audit",
+            "description": "Audit noncompliant resources."
+          },
+          {
+            "name": "Deny",
+            "value": "Deny",
+            "description": "Deny noncompliant resource changes."
+          },
+          {
+            "name": "Disabled",
+            "value": "Disabled",
+            "description": "Disable policy evaluation."
+          },
+          {
+            "name": "DeployIfNotExists",
+            "value": "DeployIfNotExists",
+            "description": "Deploy a resource when it does not exist."
+          },
+          {
+            "name": "Modify",
+            "value": "Modify",
+            "description": "Modify a resource."
+          },
+          {
+            "name": "Append",
+            "value": "Append",
+            "description": "Append properties to a resource."
+          },
+          {
+            "name": "AuditIfNotExists",
+            "value": "AuditIfNotExists",
+            "description": "Audit when a related resource does not exist."
+          }
+        ]
+      }
+    },
+    "PolicyEnforcementMode": {
+      "type": "string",
+      "description": "Enforcement mode applied to an Azure Policy assignment.",
+      "enum": [
+        "Default",
+        "DoNotEnforce"
+      ],
+      "x-ms-enum": {
+        "name": "PolicyEnforcementMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Default",
+            "value": "Default",
+            "description": "Enforce the policy assignment."
+          },
+          {
+            "name": "DoNotEnforce",
+            "value": "DoNotEnforce",
+            "description": "Evaluate compliance without enforcing the policy assignment."
+          }
+        ]
+      }
+    },
+    "PolicyParameterOverride": {
+      "type": "object",
+      "description": "Azure Policy parameter override applied to an assignment.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Parameter name defined by the policy assignment."
+        },
+        "value": {
+          "type": "string",
+          "description": "Parameter value serialized as JSON."
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ]
+    },
+    "PrivateDnsConfig": {
+      "type": "object",
+      "description": "Private domain name system configuration.",
+      "properties": {
+        "zoneMode": {
+          "$ref": "#/definitions/PrivateDnsZoneMode",
+          "description": "Private domain name system zone deployment mode."
+        },
+        "centralizedResolutionEnabled": {
+          "type": "boolean",
+          "description": "Whether centralized domain name system resolution is enabled."
+        },
+        "autoRegistrationZoneName": {
+          "type": "string",
+          "description": "Name of the auto-registration private domain name system zone."
+        },
+        "resolverSubnetAddressPrefix": {
+          "$ref": "#/definitions/Ipv4CidrPrefix",
+          "description": "Domain name system resolver subnet address prefix."
+        }
+      }
+    },
+    "PrivateDnsZoneMode": {
+      "type": "string",
+      "description": "Private domain name system zone deployment mode.",
+      "enum": [
+        "None",
+        "PrivateLinkAndAutoRegistration"
+      ],
+      "x-ms-enum": {
+        "name": "PrivateDnsZoneMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None",
+            "description": "Do not deploy private domain name system zones or centralized resolution resources."
+          },
+          {
+            "name": "PrivateLinkAndAutoRegistration",
+            "value": "PrivateLinkAndAutoRegistration",
+            "description": "Deploy Azure Private Link private DNS zones and an auto-registration private DNS zone."
+          }
+        ]
+      }
+    },
+    "RegionAddressSpace": {
+      "type": "object",
+      "description": "Address space allocated to platform services in a given region.",
+      "properties": {
+        "hub": {
+          "$ref": "#/definitions/Ipv4CidrPrefix",
+          "description": "Address space allocated for hub virtual networks in this region, in Classless Inter-Domain Routing notation."
+        }
+      }
+    },
+    "RegionRole": {
+      "type": "string",
+      "description": "Role of an Azure region within the landing zone.",
+      "enum": [
+        "Primary",
+        "Secondary"
+      ],
+      "x-ms-enum": {
+        "name": "RegionRole",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Primary",
+            "value": "Primary",
+            "description": "Primary region."
+          },
+          {
+            "name": "Secondary",
+            "value": "Secondary",
+            "description": "Secondary region."
+          }
+        ]
+      }
+    },
+    "RegionalConnectivityDeploymentMode": {
+      "type": "string",
+      "description": "Connectivity resources deployed in an Azure region.",
+      "enum": [
+        "None",
+        "Hub",
+        "Sidecar",
+        "HubAndSidecar"
+      ],
+      "x-ms-enum": {
+        "name": "RegionalConnectivityDeploymentMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None",
+            "description": "Do not deploy regional connectivity resources."
+          },
+          {
+            "name": "Hub",
+            "value": "Hub",
+            "description": "Deploy only the connectivity hub."
+          },
+          {
+            "name": "Sidecar",
+            "value": "Sidecar",
+            "description": "Deploy only the sidecar virtual network."
+          },
+          {
+            "name": "HubAndSidecar",
+            "value": "HubAndSidecar",
+            "description": "Deploy both the connectivity hub and the sidecar virtual network."
+          }
+        ]
+      }
+    },
+    "ScaleTier": {
+      "type": "string",
+      "description": "Deployment scale for the platform landing zone.",
+      "enum": [
+        "Full",
+        "ManagementOnly"
+      ],
+      "x-ms-enum": {
+        "name": "ScaleTier",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Full",
+            "value": "Full",
+            "description": "Full platform landing zone."
+          },
+          {
+            "name": "ManagementOnly",
+            "value": "ManagementOnly",
+            "description": "Management-only landing zone."
+          }
+        ]
+      }
+    },
+    "Security": {
+      "type": "object",
+      "description": "Security configuration for the platform landing zone.",
+      "properties": {
+        "defenderForCloudEnabled": {
+          "type": "boolean",
+          "description": "Whether Microsoft Defender for Cloud configuration is enabled."
+        },
+        "securityContactEmail": {
+          "type": "string",
+          "description": "Security contact email. Omitted until the caller supplies a real address."
+        }
+      }
+    },
+    "SentinelConfig": {
+      "type": "object",
+      "description": "Microsoft Sentinel configuration.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether Microsoft Sentinel is enabled."
+        }
+      }
+    },
+    "SharedPlatformSubscriptions": {
+      "type": "object",
+      "description": "Shared subscription model: a single subscription hosts all platform functions.",
+      "properties": {
+        "platform": {
+          "$ref": "#/definitions/ExistingSubscriptionRef",
+          "description": "Subscription that hosts all platform functions."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/PlatformSubscriptions"
+        }
+      ],
+      "x-ms-discriminator-value": "Shared"
+    },
+    "ThirdPartyNvaFirewallConfig": {
+      "type": "object",
+      "description": "Generic third-party network virtual appliance configuration.",
+      "properties": {
+        "vendor": {
+          "$ref": "#/definitions/NvaVendor",
+          "description": "Network virtual appliance vendor."
+        },
+        "subnetAddressPrefix": {
+          "$ref": "#/definitions/Ipv4CidrPrefix",
+          "description": "Network virtual appliance subnet address prefix."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/FirewallConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "ThirdPartyNva"
+    },
+    "ThreatIntelMode": {
+      "type": "string",
+      "description": "Azure Firewall threat intelligence mode.",
+      "enum": [
+        "Alert"
+      ],
+      "x-ms-enum": {
+        "name": "ThreatIntelMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Alert",
+            "value": "Alert",
+            "description": "Alert on threat-intelligence matches."
+          }
+        ]
+      }
+    },
+    "VersionControlSystem": {
+      "type": "string",
+      "description": "Version control system used to materialize the platform landing zone.",
+      "enum": [
+        "AzureDevOps",
+        "GitHub",
+        "Local"
+      ],
+      "x-ms-enum": {
+        "name": "VersionControlSystem",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "AzureDevOps",
+            "value": "AzureDevOps",
+            "description": "Azure DevOps."
+          },
+          {
+            "name": "GitHub",
+            "value": "GitHub",
+            "description": "GitHub source control."
+          },
+          {
+            "name": "Local",
+            "value": "Local",
+            "description": "Local output without a remote repository."
+          }
+        ]
+      }
+    },
+    "VirtualWanExpressRouteConfig": {
+      "type": "object",
+      "description": "Azure Virtual WAN ExpressRoute gateway configuration.",
+      "properties": {
+        "scaleUnits": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of Azure Virtual WAN ExpressRoute gateway scale units.",
+          "minimum": 1,
+          "maximum": 20
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/ExpressRouteConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "VirtualWan"
+    },
+    "VirtualWanVpnGatewayConfig": {
+      "type": "object",
+      "description": "Azure Virtual WAN virtual private network gateway configuration.",
+      "properties": {
+        "scaleUnits": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of Azure Virtual WAN virtual private network gateway scale units.",
+          "minimum": 1,
+          "maximum": 20
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/VpnGatewayConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "VirtualWan"
+    },
+    "VpnGatewayConfig": {
+      "type": "object",
+      "description": "Virtual private network gateway configuration.",
+      "properties": {
+        "topology": {
+          "$ref": "#/definitions/GatewayTopology",
+          "description": "Connectivity topology implemented by the virtual private network gateway."
+        },
+        "deployInRegions": {
+          "type": "array",
+          "description": "Azure regions where the virtual private network gateway is deployed.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "discriminator": "topology",
+      "required": [
+        "topology"
+      ]
+    },
+    "VpnGatewaySku": {
+      "type": "string",
+      "description": "Virtual private network gateway stock keeping unit for hub-and-spoke connectivity.",
+      "enum": [
+        "VpnGw1AZ"
+      ],
+      "x-ms-enum": {
+        "name": "VpnGatewaySku",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "VpnGw1AZ",
+            "value": "VpnGw1AZ",
+            "description": "Availability-zone-aware VpnGw1."
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {}
+}
