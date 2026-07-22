@@ -177,11 +177,11 @@ union MigrationState {
   @doc("Migration is pending")
   Pending: "Pending",
 
-  @doc("Migration is cancelled")
-  Cancelled: "Cancelled",
+  @doc("Migration is canceled")
+  Canceled: "Canceled",
 
-  @doc("Migration is being cancelled")
-  Cancelling: "Cancelling",
+  @doc("Migration is being canceled")
+  Canceling: "Canceling",
 
   @doc("Waiting for cutover trigger")
   WaitingForCutover: "WaitingForCutover",
@@ -919,6 +919,6 @@ union OperationStatus {
   @doc("Operation failed")
   Failed: "Failed",
 
-  @doc("Operation was cancelled")
-  Cancelled: "Cancelled",
+  @doc("Operation was canceled")
+  Canceled: "Canceled",
 }
