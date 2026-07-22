@@ -53,29 +53,7 @@
         "ingress": {
           "enabled": true,
           "ipTag": "SecBasePlatform-Ingress"
-        },
-        "additionalNodePools": [
-          {
-            "name": "gpu-training",
-            "skuSeries": [
-              "NCads_v5"
-            ],
-            "capacityType": [
-              "on-demand"
-            ],
-            "weight": 100,
-            "taints": [
-              {
-                "key": "gpu",
-                "value": "true",
-                "effect": "NoSchedule"
-              }
-            ],
-            "labels": [
-              "workload=gpu"
-            ]
-          }
-        ]
+        }
       }
     }
   },
@@ -127,25 +105,6 @@
           "ingress": {
             "enabled": true
           },
-          "additionalNodePools": [
-            {
-              "name": "gpu-training",
-              "skuSeries": [
-                "NCads_v5"
-              ],
-              "capacityType": [
-                "on-demand"
-              ],
-              "weight": 100,
-              "taints": [
-                {
-                  "key": "gpu",
-                  "value": "true",
-                  "effect": "NoSchedule"
-                }
-              ]
-            }
-          ],
           "provisioningState": "Succeeded"
         }
       }
