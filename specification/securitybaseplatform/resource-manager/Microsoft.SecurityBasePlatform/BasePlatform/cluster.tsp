@@ -39,7 +39,7 @@ model Cluster is TrackedResource<ClusterProperties> {
 @doc("Represents the SKU for a Cluster.")
 model ClusterSku {
   @doc("The SKU name.")
-  name: ClusterSkuName;
+  name?: ClusterSkuName;
 }
 
 @doc("Represents the SKU name for a Cluster.")
