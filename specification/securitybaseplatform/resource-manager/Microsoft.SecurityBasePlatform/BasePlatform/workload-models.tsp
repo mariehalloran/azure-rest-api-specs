@@ -1001,12 +1001,16 @@ model EnvironmentVariable {
 @doc("Aggregate health of a workload.")
 union WorkloadHealth {
   string,
+
   @doc("The workload is healthy.")
   Healthy: "Healthy",
+
   @doc("The workload is progressing (rolling out).")
   Progressing: "Progressing",
+
   @doc("The workload is degraded.")
   Degraded: "Degraded",
+
   @doc("The workload health is unknown.")
   Unknown: "Unknown",
 }
