@@ -1,0 +1,107 @@
+{
+  "title": "Create a management-only Platform Landing Zone",
+  "operationId": "PlatformLandingZones_Create",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-migrate",
+    "projectName": "contosoMigrateProject",
+    "platformLandingZoneName": "contoso-management",
+    "api-version": "2026-02-01-preview",
+    "resource": {
+      "properties": {
+        "scaleTier": "ManagementOnly",
+        "regions": [
+          {
+            "name": "eastus"
+          }
+        ]
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones/contoso-management",
+        "name": "contoso-management",
+        "type": "Microsoft.Migrate/migrateProjects/platformLandingZones",
+        "properties": {
+          "scaleTier": "ManagementOnly",
+          "platformSubscriptions": {
+            "subscriptionModel": "Dedicated"
+          },
+          "regions": [
+            {
+              "name": "eastus",
+              "role": "Primary"
+            }
+          ],
+          "management": {
+            "logAnalytics": {
+              "sku": "PerGB2018",
+              "retentionInDays": 30
+            },
+            "azureMonitor": {
+              "vmInsightsEnabled": true,
+              "containerInsightsEnabled": true
+            },
+            "sentinel": {
+              "enabled": false
+            }
+          },
+          "security": {
+            "defenderForCloudEnabled": true
+          },
+          "governance": {
+            "policyAssignmentMode": "AlzDefaults"
+          },
+          "versionControlSystem": "GitHub",
+          "provisioningState": "Succeeded",
+          "status": "Running",
+          "artifactId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/artifacts/plz-contoso-management"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/platformLandingZones/contoso-management",
+        "name": "contoso-management",
+        "type": "Microsoft.Migrate/migrateProjects/platformLandingZones",
+        "properties": {
+          "scaleTier": "ManagementOnly",
+          "platformSubscriptions": {
+            "subscriptionModel": "Dedicated"
+          },
+          "regions": [
+            {
+              "name": "eastus",
+              "role": "Primary"
+            }
+          ],
+          "management": {
+            "logAnalytics": {
+              "sku": "PerGB2018",
+              "retentionInDays": 30
+            },
+            "azureMonitor": {
+              "vmInsightsEnabled": true,
+              "containerInsightsEnabled": true
+            },
+            "sentinel": {
+              "enabled": false
+            }
+          },
+          "security": {
+            "defenderForCloudEnabled": true
+          },
+          "governance": {
+            "policyAssignmentMode": "AlzDefaults"
+          },
+          "versionControlSystem": "GitHub",
+          "provisioningState": "Succeeded",
+          "status": "Running",
+          "artifactId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-migrate/providers/Microsoft.Migrate/migrateProjects/contosoMigrateProject/artifacts/plz-contoso-management"
+        }
+      }
+    }
+  }
+}
