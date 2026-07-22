@@ -7569,7 +7569,8 @@
       "description": "The purpose of the subnet, used to determine automatic configuration behavior.",
       "enum": [
         "General",
-        "AKS"
+        "AKS",
+        "AKSApiServer"
       ],
       "x-ms-enum": {
         "name": "SubnetPurpose",
@@ -7584,6 +7585,11 @@
             "name": "AKS",
             "value": "AKS",
             "description": "Subnet configured for Azure Kubernetes Service (AKS) workloads."
+          },
+          {
+            "name": "AKSApiServer",
+            "value": "AKSApiServer",
+            "description": "Subnet configured for the Azure Kubernetes Service (AKS) API server."
           }
         ]
       }
