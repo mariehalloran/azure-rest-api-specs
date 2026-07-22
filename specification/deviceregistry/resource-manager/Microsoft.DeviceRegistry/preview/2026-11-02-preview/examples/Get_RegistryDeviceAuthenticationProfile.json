@@ -1,0 +1,36 @@
+{
+  "title": "Get_RegistryDeviceAuthenticationProfile",
+  "operationId": "RegistryDeviceAuthenticationProfiles_Get",
+  "description": "Get a device authentication profile.",
+  "parameters": {
+    "api-version": "2026-11-02-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "namespaceName": "my-namespace-1",
+    "registryDeviceName": "adr-smart-device3-f191f536-f652-4eb4-b9a0-1a9d43300cab",
+    "authenticationProfileName": "default"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.DeviceRegistry/namespaces/my-namespace-1/registryDevices/adr-smart-device3-f191f536-f652-4eb4-b9a0-1a9d43300cab/authenticationProfiles/default",
+        "name": "default",
+        "type": "Microsoft.DeviceRegistry/namespaces/registryDevices/authenticationProfiles",
+        "systemData": {
+          "createdBy": "00003442-0000-0000-0000-494059220000",
+          "createdByType": "Application",
+          "createdAt": "2024-10-02T02:30:01.6394987Z",
+          "lastModifiedBy": "00003442-0000-0000-0000-494059220000",
+          "lastModifiedByType": "Application",
+          "lastModifiedAt": "2024-10-02T02:30:01.6394987Z"
+        },
+        "properties": {
+          "authenticationType": "CertificateAuthority",
+          "certificateAuthority": {
+            "adrCertificatePolicyResourceId": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-device-registry/providers/Microsoft.DeviceRegistry/namespaces/my-namespace/credentials/certificatePolicies/policy-default"
+          }
+        }
+      }
+    }
+  }
+}

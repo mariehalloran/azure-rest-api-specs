@@ -1,0 +1,49 @@
+{
+  "title": "Get the latest group best-updates compliance report",
+  "operationId": "Namespaces_GetLatestReport",
+  "description": "Get the most recently generated GroupBestUpdates compliance report without triggering a new report generation.",
+  "parameters": {
+    "api-version": "2026-11-02-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "namespaceName": "my-namespace-1",
+    "body": {
+      "reportType": "GroupBestUpdatesComplianceReport",
+      "reportTarget": "my-group-1"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "reportType": "GroupBestUpdatesComplianceReport",
+        "reportTarget": "my-group-1",
+        "generatedAt": "2026-04-28T20:59:51Z",
+        "expiresAt": "2026-05-28T20:59:51Z",
+        "updateCompliance": {
+          "totalUpdateableDeviceCount": 50,
+          "onBestUpdateDeviceCount": 40,
+          "bestUpdateAvailableDeviceCount": 8,
+          "devicesInProgressOnBestUpdate": 2,
+          "totalNotUpdateableDeviceCount": 3
+        },
+        "bestUpdates": [
+          {
+            "targetDevices": {
+              "compatProperties": {
+                "manufacturer": "Contoso",
+                "model": "Sensor-X"
+              },
+              "agentProfile": 1
+            },
+            "updateId": {
+              "provider": "Contoso",
+              "name": "Sensor-X-Firmware",
+              "version": "2.1.0"
+            },
+            "devicesNotOnBestUpdateCount": 8
+          }
+        ]
+      }
+    }
+  }
+}
