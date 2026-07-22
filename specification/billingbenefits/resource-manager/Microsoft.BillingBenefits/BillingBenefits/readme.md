@@ -114,6 +114,9 @@ These settings apply only when `--tag=package-preview-2026-07-01-preview` is spe
 ```yaml $(tag) == 'package-preview-2026-07-01-preview'
 input-file:
   - preview/2026-07-01-preview/billingbenefits.json
+suppressions:
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    reason: The subscription, billing account, and billing profile scoped catalogGroups paths were consolidated into a single generic scope-parameterized path "/{scope}/providers/Microsoft.BillingBenefits/catalogGroups[/{catalogGroupName}]" in the default 2026-07-01-preview version. The functionality is preserved via the {scope} path, so the per-scope paths are intentionally absent from the default tag.
 ```
 
 ### Tag: package-2026-06-01
@@ -132,9 +135,6 @@ These settings apply only when `--tag=package-preview-2026-02-01-preview` is spe
 ```yaml $(tag) == 'package-preview-2026-02-01-preview'
 input-file:
   - preview/2026-02-01-preview/billingbenefits.json
-suppressions:
-  - code: MISSING_APIS_IN_DEFAULT_TAG
-    reason: The subscription, billing account, and billing profile scoped catalogGroups paths were consolidated into a single generic scope-parameterized path "/{scope}/providers/Microsoft.BillingBenefits/catalogGroups[/{catalogGroupName}]" in the default 2026-07-01-preview version. The functionality is preserved via the {scope} path, so the per-scope paths are intentionally absent from the default tag.
 ```
 
 ### Tag: package-preview-2025-12-01-preview
