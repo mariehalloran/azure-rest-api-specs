@@ -1006,13 +1006,6 @@
         "ingress": {
           "$ref": "#/definitions/ClusterIngressConfigUpdate",
           "description": "Ingress configuration for the cluster. When omitted or disabled, the cluster has no ingress."
-        },
-        "additionalNodePools": {
-          "type": "array",
-          "description": "Additional user node pools for scheduling workloads on auto-provisioned capacity.",
-          "items": {
-            "$ref": "#/definitions/NodePool"
-          }
         }
       }
     },
@@ -1684,135 +1677,6 @@
         }
       }
     },
-    "NodeCapacityType": {
-      "type": "string",
-      "description": "Capacity type for node provisioning.",
-      "enum": [
-        "on-demand",
-        "spot"
-      ],
-      "x-ms-enum": {
-        "name": "NodeCapacityType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "OnDemand",
-            "value": "on-demand",
-            "description": "On-demand capacity."
-          },
-          {
-            "name": "Spot",
-            "value": "spot",
-            "description": "Spot capacity."
-          }
-        ]
-      }
-    },
-    "NodePool": {
-      "type": "object",
-      "description": "A user node pool for auto-provisioned cluster capacity.",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Workload-oriented node pool name (e.g. gpu-training, analytics, highmem).",
-          "pattern": "^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$"
-        },
-        "skuSeries": {
-          "type": "array",
-          "description": "Eligible VM SKU series for this pool.",
-          "items": {
-            "$ref": "#/definitions/NodeSkuSeries"
-          }
-        },
-        "capacityType": {
-          "type": "array",
-          "description": "Capacity types the pool may use. Defaults to on-demand.",
-          "items": {
-            "$ref": "#/definitions/NodeCapacityType"
-          }
-        },
-        "weight": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Scheduling preference; higher is preferred. Use descending unique values across pools.",
-          "minimum": 11
-        },
-        "taints": {
-          "type": "array",
-          "description": "Taints applied to nodes in this pool.",
-          "items": {
-            "$ref": "#/definitions/NodeTaint"
-          },
-          "x-ms-identifiers": [
-            "key"
-          ]
-        },
-        "labels": {
-          "type": "array",
-          "description": "Labels applied to nodes in this pool, formatted as Kubernetes label assignments such as `workload=gpu`.",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": [
-        "name",
-        "skuSeries",
-        "weight"
-      ]
-    },
-    "NodeSkuSeries": {
-      "type": "string",
-      "description": "Supported VM SKU series for auto-provisioned node pools.",
-      "enum": [
-        "Das_v5",
-        "Eas_v6",
-        "NCads_v5"
-      ],
-      "x-ms-enum": {
-        "name": "NodeSkuSeries",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "DasV5",
-            "value": "Das_v5",
-            "description": "D-series general purpose SKU family, version 5."
-          },
-          {
-            "name": "EasV6",
-            "value": "Eas_v6",
-            "description": "E-series memory optimized SKU family, version 6."
-          },
-          {
-            "name": "NCadsV5",
-            "value": "NCads_v5",
-            "description": "N-series GPU SKU family, NCads version 5."
-          }
-        ]
-      }
-    },
-    "NodeTaint": {
-      "type": "object",
-      "description": "A Kubernetes taint applied to nodes.",
-      "properties": {
-        "key": {
-          "type": "string",
-          "description": "Taint key."
-        },
-        "value": {
-          "type": "string",
-          "description": "Taint value."
-        },
-        "effect": {
-          "$ref": "#/definitions/TaintEffect",
-          "description": "Taint effect."
-        }
-      },
-      "required": [
-        "key",
-        "effect"
-      ]
-    },
     "ObservabilityConfiguration": {
       "type": "object",
       "description": "Cluster-level default observability configuration.\n\nThese settings are inherited by namespaces in the cluster unless the Namespace\nresource supplies its own `observability` override. Workloads can still provide\nnarrower workload-level observability overrides.",
@@ -2182,36 +2046,6 @@
       "description": "String key/value map used for annotations and labels whose keys are user-defined.",
       "additionalProperties": {
         "type": "string"
-      }
-    },
-    "TaintEffect": {
-      "type": "string",
-      "description": "Effect of a node taint.",
-      "enum": [
-        "NoSchedule",
-        "PreferNoSchedule",
-        "NoExecute"
-      ],
-      "x-ms-enum": {
-        "name": "TaintEffect",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "NoSchedule",
-            "value": "NoSchedule",
-            "description": "Pods that do not tolerate the taint are not scheduled."
-          },
-          {
-            "name": "PreferNoSchedule",
-            "value": "PreferNoSchedule",
-            "description": "Scheduler avoids placing non-tolerating pods on the node."
-          },
-          {
-            "name": "NoExecute",
-            "value": "NoExecute",
-            "description": "Non-tolerating pods are evicted from the node."
-          }
-        ]
       }
     },
     "TcpSocketProbeConfig": {
