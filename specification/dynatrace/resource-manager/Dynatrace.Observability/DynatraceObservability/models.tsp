@@ -868,6 +868,7 @@ model EnvironmentInfo {
   /**
    * API URL for Dynatrace environment API endpoints
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   apiUrl?: string;
 }
 
@@ -888,6 +889,7 @@ model DynatraceSingleSignOnProperties {
   /**
    * The login URL specific to this Dynatrace Environment
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   singleSignOnUrl?: string;
 
   /**
@@ -1307,11 +1309,13 @@ model SSODetailsResponse {
   /**
    * URL for Azure AD metadata
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   metadataUrl?: string;
 
   /**
    * The login URL specific to this Dynatrace Environment
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   singleSignOnUrl?: string;
 
   /**

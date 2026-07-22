@@ -16,8 +16,10 @@ namespace Microsoft.ApplicationMigration;
  * An NSX load balancer resource.
  */
 @parentResource(NetworkSite)
-model NsxLoadBalancer
-  is Azure.ResourceManager.ProxyResource<NsxLoadBalancerProperties, false> {
+model NsxLoadBalancer is Azure.ResourceManager.ProxyResource<
+  NsxLoadBalancerProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = NsxLoadBalancer,
     KeyName = "loadBalancerName",

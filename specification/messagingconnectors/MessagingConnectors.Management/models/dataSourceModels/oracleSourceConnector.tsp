@@ -50,6 +50,7 @@ model OracleSourceConnectorProperties extends DataSourceProperties {
   @doc("Type of OracleSourceConnector")
   connectorType: Models.Connector.ConnectorType.OracleSource;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("Specifies the raw database JDBC URL. Valid values include raw TNS names and RAC connection strings.")
   databaseUrl: string;
 

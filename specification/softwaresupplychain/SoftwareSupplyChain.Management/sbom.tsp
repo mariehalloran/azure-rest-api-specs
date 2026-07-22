@@ -27,6 +27,7 @@ model SbomProperties {
   digest?: string;
 
   /** The download location of the SBOM */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   downloadUrl?: string;
 
   /** The status of the last operation. */

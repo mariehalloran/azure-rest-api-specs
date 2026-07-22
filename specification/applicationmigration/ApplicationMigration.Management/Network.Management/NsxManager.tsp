@@ -16,8 +16,10 @@ namespace Microsoft.ApplicationMigration;
  * An NSX Manager resource discovered within a network site.
  */
 @parentResource(NetworkSite)
-model NsxManager
-  is Azure.ResourceManager.ProxyResource<NsxManagerProperties, false> {
+model NsxManager is Azure.ResourceManager.ProxyResource<
+  NsxManagerProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = NsxManager,
     KeyName = "managerName",

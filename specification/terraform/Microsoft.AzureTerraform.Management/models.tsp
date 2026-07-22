@@ -124,11 +124,10 @@ model OperationStatus {
   ...ErrorResponse;
 }
 
-model InProgressOperationStatus
-  is ArmAcceptedResponse<
-    "InProgress operation status",
-    ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
-  > {
+model InProgressOperationStatus is ArmAcceptedResponse<
+  "InProgress operation status",
+  ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
+> {
   ...OperationStatus;
 }
 

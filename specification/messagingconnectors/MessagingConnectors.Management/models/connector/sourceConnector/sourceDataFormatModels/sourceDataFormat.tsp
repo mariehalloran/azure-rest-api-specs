@@ -61,6 +61,7 @@ model ConfluentAvroSourceDataFormat extends SourceDataFormat {
   @doc("Type of data format")
   type: SourceDataFormatType.ConfluentAvro;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("Registry url for Confluent.")
   schemaRegistryUrl: url;
 

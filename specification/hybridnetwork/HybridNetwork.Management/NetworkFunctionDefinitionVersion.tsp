@@ -76,12 +76,11 @@ interface NetworkFunctionDefinitionVersions {
   updateState is ArmResourceActionAsyncBase<
     NetworkFunctionDefinitionVersion,
     NetworkFunctionDefinitionVersionUpdateState,
-
-      | ArmResponse<NetworkFunctionDefinitionVersionUpdateState>
-      | ArmAcceptedLroResponse<
-          "The request of updating network function definition version state is accepted.",
-          ArmLroLocationHeader<FinalResult = NetworkFunctionDefinitionVersionUpdateState>
-        >,
+    | ArmResponse<NetworkFunctionDefinitionVersionUpdateState>
+    | ArmAcceptedLroResponse<
+        "The request of updating network function definition version state is accepted.",
+        ArmLroLocationHeader<FinalResult = NetworkFunctionDefinitionVersionUpdateState>
+      >,
     BaseParameters = Azure.ResourceManager.Foundations.DefaultBaseParameters<NetworkFunctionDefinitionVersion>
   >;
 }

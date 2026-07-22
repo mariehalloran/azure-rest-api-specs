@@ -16,11 +16,10 @@ namespace Microsoft.ApplicationMigration;
  * A distributed firewall rule resource.
  */
 @parentResource(NetworkSite)
-model NsxDistributedFirewallRule
-  is Azure.ResourceManager.ProxyResource<
-    NsxDistributedFirewallRuleProperties,
-    false
-  > {
+model NsxDistributedFirewallRule is Azure.ResourceManager.ProxyResource<
+  NsxDistributedFirewallRuleProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = NsxDistributedFirewallRule,
     KeyName = "ruleName",
