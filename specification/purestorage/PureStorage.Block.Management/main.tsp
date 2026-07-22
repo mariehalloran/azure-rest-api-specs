@@ -1720,20 +1720,20 @@ interface VolumeGroupSnapshots {
   listByVolumeGroup is ArmResourceListByParent<
     VolumeGroupSnapshot,
     Parameters = {
-      @doc("OData filter expression (e.g. filter=substringof('sna', name) and space/unique gt 1000)")
-      @query
+      @doc("OData filter expression (e.g. $filter=substringof('sna', name) and space/unique gt 1000)")
+      @query("$filter")
       filter?: string;
 
-      @doc("OData order-by expression (e.g. orderby=name asc)")
-      @query
+      @doc("OData order-by expression (e.g. $orderby=name asc)")
+      @query("$orderby")
       orderby?: string;
 
       @doc("Maximum number of results to return per page")
-      @query
+      @query("$top")
       top?: int32;
 
       @doc("Number of results to skip (page offset)")
-      @query
+      @query("$skip")
       skip?: int32;
     },
     Response = ArmResponse<VolumeGroupSnapshotListResult>
