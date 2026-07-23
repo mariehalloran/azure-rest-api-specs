@@ -157,6 +157,9 @@ union SubnetPurpose {
 
   @doc("Subnet configured for Azure Kubernetes Service (AKS) workloads.")
   AKS: "AKS",
+
+  @doc("Subnet configured for the Azure Kubernetes Service (AKS) API server.")
+  AKSApiServer: "AKSApiServer",
 }
 
 @added(Microsoft.Mission.Versions.v2026_07_01_preview)
