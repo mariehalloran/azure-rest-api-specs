@@ -27,11 +27,9 @@ model HealthMetadata is ProxyResource<HealthMetadataProperties> {
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "HealthMetadata is a pure proxy resource backed by Inventory; it has no RP-owned provisioning lifecycle."
 @doc("Properties of a HealthMetadata resource.")
 model HealthMetadataProperties {
-  @doc("Optional environment this health metadata applies to. Empty means namespace-wide metadata.")
-  @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
-  @minLength(3)
-  @maxLength(63)
-  environmentName?: string;
+  @doc("Platform ring this health metadata applies to.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  platformRing: CosmicRing;
 
   @doc("Regions this health metadata applies to. Empty means all regions.")
   regions?: string[];

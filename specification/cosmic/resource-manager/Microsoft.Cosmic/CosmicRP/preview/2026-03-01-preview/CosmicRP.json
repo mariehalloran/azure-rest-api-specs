@@ -2259,13 +2259,6 @@
       "type": "object",
       "description": "Properties of a HealthMetadata resource.",
       "properties": {
-        "environmentName": {
-          "type": "string",
-          "description": "Optional environment this health metadata applies to. Empty means namespace-wide metadata.",
-          "minLength": 3,
-          "maxLength": 63,
-          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
-        },
         "regions": {
           "type": "array",
           "description": "Regions this health metadata applies to. Empty means all regions.",
@@ -2302,12 +2295,21 @@
           "x-ms-identifiers": [
             "monitorName"
           ]
+        },
+        "platformRing": {
+          "$ref": "#/definitions/CosmicRing",
+          "description": "Platform ring this health metadata applies to.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         }
       },
       "required": [
         "genevaAccount",
         "dimensionMap",
-        "monitors"
+        "monitors",
+        "platformRing"
       ]
     },
     "HealthMetadataUpdate": {
@@ -2324,13 +2326,6 @@
       "type": "object",
       "description": "The updatable properties of the HealthMetadata.",
       "properties": {
-        "environmentName": {
-          "type": "string",
-          "description": "Optional environment this health metadata applies to. Empty means namespace-wide metadata.",
-          "minLength": 3,
-          "maxLength": 63,
-          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
-        },
         "regions": {
           "type": "array",
           "description": "Regions this health metadata applies to. Empty means all regions.",
