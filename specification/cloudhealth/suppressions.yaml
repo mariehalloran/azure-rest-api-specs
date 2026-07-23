@@ -1,0 +1,22 @@
+- tool: TypeSpecValidation
+  reason: >
+    Not ready to generate SDKs from TypeSpec.
+    Responsibility: Service team with SDK team collaboration.
+    More info: https://aka.ms/azsdk/spec-gen-sdk-config.
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - options.@azure-tools/typespec-ts.*
+  paths: [CloudHealth.Management/tspconfig.yaml]
+- tool: TypeSpecValidation
+  reason: >
+    Not ready to generate SDKs from TypeSpec for the data-plane service.
+    SDK emitter configuration (Java, TypeScript, Python) will be added when
+    data-plane SDK generation is in scope.
+    Responsibility: Service team with SDK team collaboration.
+    More info: https://aka.ms/azsdk/spec-gen-sdk-config.
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - options.@azure-tools/typespec-java.*
+    - options.@azure-tools/typespec-ts.*
+    - options.@azure-tools/typespec-python.*
+  paths: [data-plane/CloudHealth/tspconfig.yaml]

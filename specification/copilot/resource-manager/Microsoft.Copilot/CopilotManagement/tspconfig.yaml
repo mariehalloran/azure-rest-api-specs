@@ -1,0 +1,49 @@
+parameters:
+  "service-dir":
+    default: "sdk/copilot"
+emit:
+  - "@azure-tools/typespec-autorest"
+options:
+  "@azure-tools/typespec-autorest":
+    azure-resource-provider-folder: "resource-manager"
+    emit-common-types-schema: "never"
+    emitter-output-dir: "{project-root}"
+    omit-unreachable-types: true
+    output-file: "{version-status}/{version}/copilotmanagement.json"
+    use-read-only-status-schema: true
+    arm-types-dir: "{project-root}/../../../../common-types/resource-management"
+    examples-dir: "{project-root}/examples"
+  "@azure-typespec/http-client-csharp-mgmt":
+    namespace: "Azure.ResourceManager.Copilot"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
+  "@azure-tools/typespec-python":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-copilot"
+    namespace: "azure.mgmt.copilot"
+    generate-test: true
+    generate-sample: true
+    flavor: "azure"
+  "@azure-tools/typespec-java":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-copilot"
+    namespace: "com.azure.resourcemanager.copilot"
+    service-name: "Copilot"
+    flavor: azure
+  "@azure-tools/typespec-ts":
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-copilot"
+    flavor: azure
+    experimental-extensible-enums: true
+    package-details:
+      name: "@azure/arm-copilot"
+  "@azure-tools/typespec-go":
+    service-dir: "sdk/resourcemanager/copilot"
+    emitter-output-dir: "{output-dir}/{service-dir}/armcopilot"
+    module: "github.com/Azure/azure-sdk-for-go/{service-dir}/armcopilot"
+    fix-const-stuttering: true
+    flavor: "azure"
+    generate-samples: true
+    generate-fakes: true
+    head-as-boolean: true
+    inject-spans: true
+linter:
+  extends:
+    - "@azure-tools/typespec-azure-rulesets/resource-manager"
+    - "@azure-tools/typespec-azure-rulesets/client-sdk"

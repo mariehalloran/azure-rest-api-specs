@@ -1,32 +1,37 @@
 import "@azure-tools/typespec-client-generator-core";
 
 using Azure.ClientGenerator.Core;
-using Microsoft.Workloads;
+namespace Microsoft.Workloads;
 
 @@clientName(SAPVirtualInstances, "SapVirtualInstances", "autorest");
 @@clientName(SAPDatabaseInstances, "SapDatabaseInstances", "autorest");
-@@clientName(SAPCentralServerInstances,
+@@clientName(
+  SAPCentralServerInstances,
   "SapCentralServerInstances",
   "autorest"
 );
-@@clientName(SAPApplicationServerInstance,
-  "SAPApplicationServerInstance",
-  "autorest"
-);
-@@clientName(SAPApplicationServerInstances,
+@@clientName(
+  SAPApplicationServerInstances,
   "SapApplicationServerInstances",
   "autorest"
 );
-
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(SAPApplicationServerInstance.properties,
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  SAPApplicationServerInstance.properties,
   "autorest"
 );
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(SAPCentralServerInstance.properties,
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  SAPCentralServerInstance.properties,
   "autorest"
 );
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(SAPVirtualInstance.properties,
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  SAPDatabaseInstance.properties,
   "autorest"
 );
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(SAPDatabaseInstance.properties,
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  SAPVirtualInstance.properties,
   "autorest"
 );

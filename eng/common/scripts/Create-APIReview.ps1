@@ -4,15 +4,13 @@ Param (
   [array] $ArtifactList,
   [Parameter(Mandatory=$True)]
   [string] $ArtifactPath,
-  [Parameter(Mandatory=$True)]
-  [string] $APIKey,
   [string] $SourceBranch,
   [string] $DefaultBranch,
   [string] $RepoName,
   [string] $BuildId,
   [string] $PackageName = "",
   [string] $ConfigFileDir = "",
-  [string] $APIViewUri = "https://apiview.dev/AutoReview",
+  [string] $APIViewUri = "https://apiview.dev/autoreview",
   [string] $ArtifactName = "packages",
   [bool] $MarkPackageAsShipped = $false,
   [Parameter(Mandatory=$False)]
@@ -20,8 +18,27 @@ Param (
 )
 
 Set-StrictMode -Version 3
+
 . (Join-Path $PSScriptRoot common.ps1)
 . (Join-Path $PSScriptRoot Helpers ApiView-Helpers.ps1)
+
+# Get Bearer token for APIView authentication
+# In Azure DevOps, this uses the service connection's Managed Identity/Service Principal
+function Get-ApiViewBearerToken()
+{
+    try {
+        $tokenResponse = az account get-access-token --resource "api://apiview" --output json 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            Write-Error "Failed to acquire access token: $tokenResponse"
+            return $null
+        }
+        return ($tokenResponse | ConvertFrom-Json).accessToken
+    }
+    catch {
+        Write-Error "Failed to acquire access token: $($_.Exception.Message)"
+        return $null
+    }
+}
 
 # Submit API review request and return status whether current revision is approved or pending or failed to create review
 function Upload-SourceArtifact($filePath, $apiLabel, $releaseStatus, $packageVersion, $packageType)
@@ -78,9 +95,17 @@ function Upload-SourceArtifact($filePath, $apiLabel, $releaseStatus, $packageVer
         Write-Host "Request param, compareAllRevisions: true"
     }
 
-    $uri = "${APIViewUri}/UploadAutoReview"
+    $uri = "${APIViewUri}/upload"
+    
+    # Get Bearer token for authentication
+    $bearerToken = Get-ApiViewBearerToken
+    if (-not $bearerToken) {
+        Write-Error "Failed to acquire Bearer token for APIView authentication."
+        return [System.Net.HttpStatusCode]::Unauthorized
+    }
+    
     $headers = @{
-        "ApiKey" = $apiKey;
+        "Authorization" = "Bearer $bearerToken";
         "content-type" = "multipart/form-data"
     }
 
@@ -115,20 +140,28 @@ function Upload-ReviewTokenFile($packageName, $apiLabel, $releaseStatus, $review
     if($MarkPackageAsShipped) {
         $params += "&setReleaseTag=true"
     }
-    $uri = "${APIViewUri}/CreateApiReview?${params}"
+    $uri = "${APIViewUri}/create?${params}"
     if ($releaseStatus -and ($releaseStatus -ne "Unreleased"))
     {
         $uri += "&compareAllRevisions=true"
     }
 
     Write-Host "Request to APIView: $uri"
+    
+    # Get Bearer token for authentication
+    $bearerToken = Get-ApiViewBearerToken
+    if (-not $bearerToken) {
+        Write-Error "Failed to acquire Bearer token for APIView authentication."
+        return [System.Net.HttpStatusCode]::Unauthorized
+    }
+    
     $headers = @{
-        "ApiKey" = $APIKey;
+        "Authorization" = "Bearer $bearerToken"
     }
 
     try
     {
-        $Response = Invoke-WebRequest -Method 'GET' -Uri $uri -Headers $headers
+        $Response = Invoke-WebRequest -Method 'POST' -Uri $uri -Headers $headers
         Write-Host "API review: $($Response.Content)"
         $StatusCode = $Response.StatusCode
     }
@@ -304,10 +337,10 @@ function ProcessPackage($packageInfo)
                     {
                         if (!$apiStatus.IsApproved)
                         {
-                            Write-Host "Package version $($version) is GA and automatic API Review is not yet approved for package $($packageInfo.ArtifactName)."
-                            Write-Host "Build and release is not allowed for GA package without API review approval."
-                            Write-Host "You will need to queue another build to proceed further after API review is approved"
-                            Write-Host "You can check http://aka.ms/azsdk/engsys/apireview/faq for more details on API Approval."
+                            Write-Error "Package version $($version) is GA and automatic API Review is not yet approved for package $($packageInfo.ArtifactName)." -ErrorAction Continue
+                            Write-Error "Build and release is not allowed for GA package without API review approval." -ErrorAction Continue
+                            Write-Error "You will need to queue another build to proceed further after API review is approved" -ErrorAction Continue
+                            Write-Error "You can check https://aka.ms/azsdk/engsys/apireview/faq for more details on API Approval." -ErrorAction Continue
                         }
                         return 1
                     }
@@ -404,7 +437,7 @@ foreach($pkg in $responses.keys)
 {
     if ($responses[$pkg] -eq 1)
     {
-        Write-Host "API changes are not approved for $($pkg)"
+        Write-Error "API changes are not approved for $($pkg)" -ErrorAction Continue
         $exitCode = 1
     }
 }

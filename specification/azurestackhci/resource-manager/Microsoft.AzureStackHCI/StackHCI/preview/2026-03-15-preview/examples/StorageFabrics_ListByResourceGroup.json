@@ -1,0 +1,41 @@
+{
+  "title": "StorageFabrics_ListByResourceGroup",
+  "operationId": "StorageFabrics_ListByResourceGroup",
+  "parameters": {
+    "api-version": "2026-03-15-preview",
+    "subscriptionId": "6D37FF61-4C93-4377-B06B-FC6D6D561A7D",
+    "resourceGroupName": "rghci"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/6D37FF61-4C93-4377-B06B-FC6D6D561A7D/resourceGroups/rghci/providers/Microsoft.AzureStackHCI/storageFabrics/fabric-westus2-a",
+            "name": "fabric-westus2-a",
+            "type": "Microsoft.AzureStackHCI/storageFabrics",
+            "location": "westus2",
+            "properties": {
+              "switchModel": "Brocade G630",
+              "switchWwn": "10:00:00:05:33:9a:e7:80",
+              "firmwareVersion": "9.1.1",
+              "managementAddress": "100.71.95.100",
+              "zoneCount": 24,
+              "aliasCount": 48,
+              "connectionStatus": "Connected",
+              "provisioningState": "Succeeded"
+            },
+            "systemData": {
+              "createdBy": "user1",
+              "createdByType": "User",
+              "createdAt": "2026-03-15T10:00:00.000Z",
+              "lastModifiedBy": "user2",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-03-24T18:00:00.000Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

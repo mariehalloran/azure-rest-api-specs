@@ -3,7 +3,7 @@
   "info": {
     "title": "ConnectedCache",
     "version": "2023-05-01-preview",
-    "description": "Microsoft Connected Cache Rest Api version 2023-05-01-preview",
+    "description": "Microsoft Connected Cache Rest Api version 2026-06-01",
     "x-typespec-generated": [
       {
         "emitter": "@azure-tools/typespec-autorest"
@@ -2882,19 +2882,19 @@
         },
         "autoUpdateRingType": {
           "$ref": "#/definitions/autoUpdateRingType",
-          "description": "Auto Update Ring Type which is slow or fast etc."
+          "description": "Auto Update Ring Type which is stable or beta as new values. slow or fast are legacy from version 2026-06-01."
         },
         "autoUpdateRequestedWeek": {
           "type": "integer",
           "format": "int32",
-          "description": "Customer requested week of month for mcc install of auto update cycle. 0 is default no selection. 1-5 are valid weeks of month, 1 is first week, 2 is second week, etc.",
+          "description": "Customer requested week of month for mcc install of auto update cycle",
           "minimum": 0,
           "maximum": 5
         },
         "autoUpdateRequestedDay": {
           "type": "integer",
           "format": "int32",
-          "description": "Customer requested day of week for mcc install of auto update cycle. 0 is default no selection. 1-7 are days of week, 1 is Sunday, 2 is Monday, etc.",
+          "description": "Customer requested day of week for mcc install of auto update cycle",
           "minimum": 0,
           "maximum": 7
         },

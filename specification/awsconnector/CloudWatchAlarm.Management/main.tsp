@@ -11,6 +11,9 @@ import "../shared/main.tsp";
 using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
+using OpenAPI;
+using Azure.Core;
+using Azure.ClientGenerator.Core;
 using Azure.ResourceManager;
 using Azure.Portal;
 
@@ -25,7 +28,10 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2024-12-01 api version */
-  `2024-12-01`,
+  v2024_12_01: "2024-12-01",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 //---------------------------------------------- CloudWatchAlarms ----------------------------------------------
@@ -87,7 +93,7 @@ model AwsCloudWatchAlarmProperties {
   datapointsToAlarm?: int32;
 
   @doc("The dimensions for the metric associated with the alarm. For an alarm based on a math expression, you can't specify ``Dimensions``. Instead, you use ``Metrics``.")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   dimensions?: Dimension[];
 
   @doc("Used only for alarms based on percentiles. If ``ignore``, the alarm state does not change during periods with too few data points to be statistically significant. If ``evaluate`` or this parameter is not used, the alarm is always evaluated and possibly changes state no matter how many data points are available.")
@@ -122,7 +128,7 @@ model AwsCloudWatchAlarmProperties {
   statistic?: string;
 
   @doc("Property tags")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   tags?: Tag[];
 
   @doc("The value to compare with the specified statistic.")
@@ -218,7 +224,7 @@ model MetricStat {
 @doc("Definition of Metric")
 model Metric {
   @doc("The metric dimensions that you want to be used for the metric that the alarm will watch.")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   dimensions?: Dimension[];
 
   @doc("The name of the metric that you want the alarm to watch. This is a required field.")

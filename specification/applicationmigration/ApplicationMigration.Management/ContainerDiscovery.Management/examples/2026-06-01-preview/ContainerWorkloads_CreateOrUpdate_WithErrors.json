@@ -1,0 +1,313 @@
+{
+  "operationId": "ContainerWorkloads_CreateOrUpdate",
+  "title": "Create or update a container workload with discovery errors",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "siteName": "myContainerSite",
+    "workloadName": "cluster01_default_statefulset_postgres-primary",
+    "api-version": "2026-06-01-preview",
+    "resource": {
+      "properties": {
+        "workloadScenario": "orchestrated",
+        "clusterArmId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerClusters/cluster01",
+        "nodeIds": [
+          "worker-01"
+        ],
+        "softwareAttributes": {
+          "softwareName": "Kubernetes",
+          "softwareVersion": "1.28.4"
+        },
+        "supportStatus": "Mainstream",
+        "discoverySource": "DeepAgent",
+        "applianceName": "myAppliance-01",
+        "namespace": "default",
+        "namespaceLabels": [
+          {
+            "key": "kubernetes.io/metadata.name",
+            "value": "default"
+          }
+        ],
+        "controllerType": "statefulset",
+        "controllerName": "postgres-primary",
+        "controllerLabels": [
+          {
+            "key": "app",
+            "value": "postgres"
+          },
+          {
+            "key": "app.kubernetes.io/component",
+            "value": "primary"
+          }
+        ],
+        "replicasCurrent": 1,
+        "replicasDesired": 1,
+        "applicationGroupId": "default/postgres",
+        "applicationGroupSource": "app-label",
+        "podTemplateLabels": [
+          {
+            "key": "app",
+            "value": "postgres"
+          },
+          {
+            "key": "app.kubernetes.io/component",
+            "value": "primary"
+          }
+        ],
+        "selectorLabels": [
+          {
+            "key": "app",
+            "value": "postgres"
+          }
+        ],
+        "matchingServices": [
+          {
+            "serviceName": "postgres-svc",
+            "serviceNamespace": "default",
+            "serviceType": "ClusterIP",
+            "selectorLabels": [
+              {
+                "key": "app",
+                "value": "postgres"
+              }
+            ],
+            "ports": [
+              {
+                "name": "postgresql",
+                "protocol": "TCP",
+                "port": 5432,
+                "targetPort": "5432"
+              }
+            ],
+            "clusterIp": "10.96.0.55"
+          }
+        ],
+        "matchingRoutes": [],
+        "workloadSummary": {
+          "containerCount": 1,
+          "initContainerCount": 1,
+          "totalCpuRequest": "1000m",
+          "totalCpuLimit": "2000m",
+          "totalMemoryRequest": "2Gi",
+          "totalMemoryLimit": "4Gi",
+          "hasGpuRequests": false,
+          "hasPersistentVolumes": true,
+          "persistentVolumeCount": 1,
+          "totalPvSizeGb": 100.0,
+          "distinctImages": [
+            "postgres:15.4"
+          ],
+          "imageArchitectures": [
+            "amd64"
+          ],
+          "configMapRefCount": 1,
+          "secretRefCount": 2,
+          "secretTypes": [
+            "Opaque",
+            "kubernetes.io/dockerconfigjson"
+          ],
+          "hasExternalSecrets": false
+        },
+        "readinessSignals": {
+          "usesHostNetwork": false,
+          "usesHostPid": false,
+          "usesHostIpc": false,
+          "hasPrivilegedContainers": false,
+          "hasRootContainers": true,
+          "mountsDockerSocket": false,
+          "usesNodeSelector": false,
+          "hasNodeAffinity": false,
+          "hasPodAntiAffinity": true,
+          "hasTopologySpreadConstraints": false,
+          "hasTolerations": false,
+          "hasWindowsContainers": false,
+          "hasHostPathVolumes": false,
+          "usesSecrets": true,
+          "usesConfigMaps": true,
+          "hasPrivateRegistry": false,
+          "hasGpuRequirement": false,
+          "hasHpa": false,
+          "hasVpa": false,
+          "hasPdb": true,
+          "hasIngressRules": false,
+          "hasTlsSecrets": false,
+          "hasLivenessProbes": true,
+          "hasReadinessProbes": true,
+          "exposesMultiplePorts": false,
+          "hasNetworkPolicy": true
+        },
+        "networkExposure": {
+          "serviceTypes": [
+            "ClusterIP"
+          ],
+          "clusterIpCount": 1,
+          "loadBalancerCount": 0,
+          "nodePortCount": 0,
+          "ingressCount": 0,
+          "hasTls": false
+        },
+        "storageSummary": {
+          "volumeTypes": [
+            "pvc"
+          ],
+          "storageClassesUsed": [
+            "standard"
+          ],
+          "pvcCount": 1,
+          "totalPvcSizeGb": 100.0,
+          "hasHostPathVolumes": false,
+          "hasEmptyDirMemory": false
+        },
+        "operationsProfile": {
+          "updateStrategy": "RollingUpdate",
+          "serviceAccountName": "postgres-sa",
+          "restartPolicy": "Always",
+          "terminationGracePeriodSeconds": 60
+        },
+        "dependencySummary": {
+          "inboundServiceCount": 2,
+          "outboundServiceCount": 0,
+          "outboundExternalEndpointCount": 0,
+          "inboundServiceNames": [
+            "web-frontend",
+            "api-server"
+          ]
+        },
+        "containers": [
+          {
+            "containerName": "postgres",
+            "isInitContainer": false,
+            "containerImage": {
+              "imageName": "postgres",
+              "imageTag": "15.4",
+              "imageRegistry": "docker.io",
+              "imageArchitecture": "amd64",
+              "osType": "linux"
+            },
+            "resourceAllocation": {
+              "cpuRequest": "1000m",
+              "cpuLimit": "2000m",
+              "memoryRequest": "2Gi",
+              "memoryLimit": "4Gi"
+            },
+            "securityContext": {
+              "isPrivileged": false,
+              "runAsNonRoot": false,
+              "readOnlyRootFilesystem": false,
+              "allowPrivilegeEscalation": false,
+              "droppedCapabilities": [
+                "ALL"
+              ]
+            },
+            "mountsDockerSocket": false,
+            "healthProbes": {
+              "hasLivenessProbe": true,
+              "hasReadinessProbe": true,
+              "hasStartupProbe": true
+            },
+            "ports": [
+              {
+                "containerPort": 5432,
+                "protocol": "tcp"
+              }
+            ]
+          }
+        ],
+        "errors": [
+          {
+            "id": "err-wl-001",
+            "code": "Container.K8sApi.ImagePullBackOff",
+            "severity": "Error",
+            "message": "Init container 'init-permissions' is in ImagePullBackOff state. Image 'registry.internal.contoso.com/postgres-init:2.1' could not be pulled.",
+            "summaryMessage": "ImagePullBackOff for init container",
+            "possibleCause": "The private container registry is unreachable or the image tag does not exist. The node may lack pull credentials for the registry.",
+            "recommendedAction": "Verify the image exists in the private registry. Ensure imagePullSecrets are configured in the pod spec. Check node network connectivity to the registry.",
+            "runAsAccountId": "sa-token-001",
+            "updatedTimeStamp": "2026-01-15T10:30:00Z"
+          },
+          {
+            "id": "err-wl-002",
+            "code": "Container.K8sApi.PVCPending",
+            "severity": "Warning",
+            "message": "PersistentVolumeClaim 'postgres-data' is in Pending state. No matching PersistentVolume found for storage class 'standard'.",
+            "summaryMessage": "PVC pending — no matching PV",
+            "possibleCause": "The storage class provisioner has not created a PV, or there are no available PVs matching the requested size and access mode.",
+            "recommendedAction": "Verify the storage class provisioner is running. Check if PV capacity matches the PVC request. Consider using a dynamic provisioner.",
+            "runAsAccountId": "sa-token-001",
+            "updatedTimeStamp": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "criticalErrorCount": 1,
+        "warningsCount": 1,
+        "workloadType": "Kubernetes",
+        "discoveryCompleteness": "deep-complete",
+        "isShallowCompleted": true,
+        "isDeepDiscoveryCompleted": true,
+        "isKubeconfigDiscoveryCompleted": true
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerWorkloads/cluster01_default_statefulset_postgres-primary",
+        "name": "cluster01_default_statefulset_postgres-primary",
+        "type": "Microsoft.ApplicationMigration/containerSites/ContainerWorkloads",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "workloadScenario": "orchestrated",
+          "controllerType": "statefulset",
+          "controllerName": "postgres-primary",
+          "namespace": "default",
+          "workloadStatus": "running",
+          "replicasCurrent": 1,
+          "replicasDesired": 1,
+          "applicationGroupId": "default/postgres",
+          "supportStatus": "Mainstream",
+          "errors": [
+            {
+              "id": "err-wl-001",
+              "code": "Container.K8sApi.ImagePullBackOff",
+              "severity": "Error",
+              "message": "Init container 'init-permissions' is in ImagePullBackOff state.",
+              "summaryMessage": "ImagePullBackOff for init container",
+              "possibleCause": "Private container registry unreachable or image tag missing.",
+              "recommendedAction": "Verify image exists and imagePullSecrets are configured.",
+              "runAsAccountId": "sa-token-001",
+              "updatedTimeStamp": "2026-01-15T10:30:00Z"
+            },
+            {
+              "id": "err-wl-002",
+              "code": "Container.K8sApi.PVCPending",
+              "severity": "Warning",
+              "message": "PersistentVolumeClaim 'postgres-data' is in Pending state.",
+              "summaryMessage": "PVC pending — no matching PV",
+              "possibleCause": "No PV matches the PVC request.",
+              "recommendedAction": "Verify storage class provisioner is running.",
+              "runAsAccountId": "sa-token-001",
+              "updatedTimeStamp": "2026-01-15T10:30:00Z"
+            }
+          ],
+          "criticalErrorCount": 1,
+          "warningsCount": 1,
+          "discoveryCompleteness": "deep-complete"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerWorkloads/cluster01_default_statefulset_postgres-primary",
+        "name": "cluster01_default_statefulset_postgres-primary",
+        "type": "Microsoft.ApplicationMigration/containerSites/ContainerWorkloads",
+        "properties": {
+          "provisioningState": "Creating",
+          "workloadScenario": "orchestrated",
+          "controllerType": "statefulset",
+          "controllerName": "postgres-primary",
+          "namespace": "default",
+          "discoveryCompleteness": "deep-complete"
+        }
+      }
+    }
+  }
+}

@@ -8,6 +8,9 @@ options:
     output-file: "{azure-resource-provider-folder}/{service-name}/{version-status}/{version}/logsLogStream.json"
     examples-dir: "{project-root}/examples"
     use-read-only-status-schema: true
+  "@azure-tools/typespec-client-generator-cli":
+    additionalDirectories:
+      - "specification/awsconnector/shared/"
 linter:
   extends:
     - "@azure-tools/typespec-azure-rulesets/resource-manager"

@@ -14,19 +14,21 @@ options:
     emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-python":
     emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-contoso"
-    namespace: "azure.mgmt.contoso"
+    package-name: "azure-mgmt-contoso"
     generate-test: true
     generate-sample: true
     flavor: "azure"
+    namespace: azure.mgmt.contoso #!!!IMPORTANT!!! To ensure the emitter correctly produces SDK, this configuration is added by Azure SDK Team. Some configurations use placeholder values. For modifications, please refer to https://aka.ms/azsdk/specs/typespec-validation#sdktspconfigvalidation
   "@azure-tools/typespec-java":
     emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-contoso"
     namespace: "com.azure.resourcemanager.contoso"
-    service-name: "Contoso" # human-readable service name, whitespace allowed
+    service-name: "contoso"
     flavor: azure
   "@azure-tools/typespec-ts":
     emitter-output-dir: "{output-dir}/{service-dir}/arm-contoso"
-    flavor: azure
     experimental-extensible-enums: true
+    is-modular-library: true
+    flavor: "azure"
     package-details:
       name: "@azure/arm-contoso"
   "@azure-tools/typespec-go":
@@ -35,10 +37,12 @@ options:
     module: "github.com/Azure/azure-sdk-for-go/{service-dir}/armcontoso"
     fix-const-stuttering: true
     flavor: "azure"
-    generate-samples: true
+    generate-examples: true
     generate-fakes: true
     head-as-boolean: true
     inject-spans: true
+    generate-samples: true #!!!IMPORTANT!!! To ensure the emitter correctly produces SDK, this configuration is added by Azure SDK Team. Some configurations use placeholder values. For modifications, please refer to https://aka.ms/azsdk/specs/typespec-validation#sdktspconfigvalidation
 linter:
   extends:
     - "@azure-tools/typespec-azure-rulesets/resource-manager"
+    - "@azure-tools/typespec-azure-rulesets/client-sdk"

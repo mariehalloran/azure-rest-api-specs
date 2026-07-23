@@ -11,6 +11,9 @@ import "../shared/main.tsp";
 using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
+using OpenAPI;
+using Azure.Core;
+using Azure.ClientGenerator.Core;
 using Azure.ResourceManager;
 using Azure.Portal;
 
@@ -25,7 +28,10 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2024-12-01 api version */
-  `2024-12-01`,
+  v2024_12_01: "2024-12-01",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 //---------------------------------------------- Ec2InstanceStatuses ----------------------------------------------
@@ -69,7 +75,7 @@ model AwsEc2InstanceStatusProperties {
   availabilityZone?: string;
 
   @doc("<p>Any scheduled events associated with the instance.</p>")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   events?: InstanceStatusEvent[];
 
   @doc("<p>The ID of the instance.</p>")
@@ -196,7 +202,7 @@ model InstanceStateNameEnumValue {
 @doc("Definition of InstanceStatusSummary")
 model InstanceStatusSummary {
   @doc("<p>The system instance health or application instance health.</p>")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   details?: InstanceStatusDetails[];
 
   @doc("<p>The status.</p>")

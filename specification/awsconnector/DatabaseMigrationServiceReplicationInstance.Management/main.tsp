@@ -11,6 +11,9 @@ import "../shared/main.tsp";
 using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
+using OpenAPI;
+using Azure.Core;
+using Azure.ClientGenerator.Core;
 using Azure.ResourceManager;
 using Azure.Portal;
 
@@ -25,7 +28,10 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2024-12-01 api version */
-  `2024-12-01`,
+  v2024_12_01: "2024-12-01",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 //---------------------------------------------- DatabaseMigrationServiceReplicationInstances ----------------------------------------------
@@ -146,7 +152,7 @@ model AwsDatabaseMigrationServiceReplicationInstanceProperties {
   secondaryAvailabilityZone?: string;
 
   @doc("<p>The VPC security group for the instance.</p>")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   vpcSecurityGroups?: VpcSecurityGroupMembership[];
 }
 
@@ -188,7 +194,7 @@ model ReplicationSubnetGroup {
   subnetGroupStatus?: string;
 
   @doc("<p>The subnets that are in the subnet group.</p>")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   subnets?: Subnet[];
 
   @doc("<p>The IP addressing protocol supported by the subnet group. This is used by a replication instance with values such as IPv4 only or Dual-stack that supports both IPv4 and IPv6 addressing. IPv6 only is not yet supported.</p>")

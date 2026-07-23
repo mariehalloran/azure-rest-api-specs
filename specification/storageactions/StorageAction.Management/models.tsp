@@ -4,10 +4,7 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@azure-tools/typespec-client-generator-core";
 
-using TypeSpec.Rest;
-using TypeSpec.Http;
 using Azure.ResourceManager;
-using Azure.ClientGenerator.Core;
 using Azure.ResourceManager.Foundations;
 
 namespace Microsoft.StorageActions;
@@ -116,6 +113,7 @@ model StorageTaskPreviewAction {
   /**
    * Properties of the storage task preview.
    */
+  #suppress "@azure-tools/typespec-azure-core/no-private-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   properties: StorageTaskPreviewActionProperties;
 }
 
@@ -386,6 +384,7 @@ model StorageTaskUpdateParameters {
   /**
    * Properties of the storage task.
    */
+  #suppress "@azure-tools/typespec-azure-core/no-private-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   properties?: StorageTaskUpdateProperties;
 }
 
@@ -567,19 +566,23 @@ model StorageTaskAssignment {
 
 model StorageTasksListResult is Azure.Core.Page<StorageTask>;
 
-@@doc(StorageTaskAssignmentsListResult.value,
+@@doc(
+  StorageTaskAssignmentsListResult.value,
   "List of Storage Task Assignment Resource IDs associated with this Storage Task."
 );
-@@doc(StorageTaskReportInstance.properties,
+@@doc(
+  StorageTaskReportInstance.properties,
   "Storage task execution report for a run instance."
 );
 @@identifiers(StorageTaskAssignmentsListResult.value, #[]);
 @@doc(StorageTaskReportSummary.value, "Gets storage tasks run result summary.");
 @@identifiers(StorageTaskReportSummary.value, #[]);
-@@doc(StorageTasksListResult,
+@@doc(
+  StorageTasksListResult,
   "The response from the List Storage Task operation."
 );
-@@doc(StorageTasksListResult.value,
+@@doc(
+  StorageTasksListResult.value,
   "Gets the list of storage tasks and their properties."
 );
 @@identifiers(StorageTasksListResult.value, #[]);

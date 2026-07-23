@@ -1,0 +1,375 @@
+{
+  "title": "Create a database migration",
+  "operationId": "PostgresqlDatabaseMigrations_CreateOrUpdate",
+  "parameters": {
+    "subscriptionId": "12345678-1234-1234-1234-123456789012",
+    "resourceGroupName": "my-rg",
+    "serviceName": "myMigrationService",
+    "databaseMigrationId": "mig-123e4567-e89b-12d3-a456-426614174000",
+    "api-version": "2025-01-10-preview",
+    "resource": {
+      "properties": {
+        "migrationName": "prod-oracle-to-azure-pg",
+        "description": "Production Oracle migration to Azure PostgreSQL Flexible Server",
+        "migrationMode": "offline",
+        "sourceServerType": "On-Premises",
+        "targetServerType": "AzurePostgreSQLFlexibleServer",
+        "source": {
+          "sourceType": "Oracle",
+          "serverResourceId": null,
+          "connectionEndPoints": [
+            {
+              "connectionName": "sourceConnection1",
+              "hostName": "source-db.company.com",
+              "port": 1521,
+              "serviceName": "PRODSCHEMA1",
+              "databaseName": null,
+              "credentials": {
+                "authenticationMethod": "password",
+                "userName": "migration_user",
+                "password": "encrypted_password"
+              },
+              "ssl": {
+                "mode": "require"
+              }
+            },
+            {
+              "connectionName": "sourceConnection2",
+              "hostName": "source-db.company.com",
+              "port": 1521,
+              "serviceName": null,
+              "databaseName": "db1",
+              "credentials": {
+                "authenticationMethod": "password",
+                "userName": "migration_user2",
+                "password": "encrypted_password"
+              },
+              "ssl": {
+                "mode": "require"
+              }
+            }
+          ]
+        },
+        "target": {
+          "targetType": "Azure Database for PostgreSQL",
+          "serverResourceId": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.DBforPostgreSQL/flexibleServers/myServer",
+          "connectionEndPoints": [
+            {
+              "connectionName": "targetConnection1",
+              "hostName": "target-server1.postgres.database.azure.com",
+              "port": 5432,
+              "serviceName": null,
+              "databaseName": "target_db",
+              "credentials": {
+                "authenticationMethod": "password",
+                "userName": "migration_user",
+                "password": "encrypted_password"
+              },
+              "ssl": {
+                "mode": "require"
+              }
+            },
+            {
+              "connectionName": "targetConnection2",
+              "hostName": "target-server2.postgres.database.azure.com",
+              "port": 5432,
+              "serviceName": null,
+              "databaseName": "target_db2",
+              "credentials": {
+                "authenticationMethod": "password",
+                "userName": "migration_user",
+                "password": "encrypted_password"
+              },
+              "ssl": {
+                "mode": "require"
+              }
+            }
+          ]
+        },
+        "mappingDefinitions": [
+          {
+            "mappingScope": "schema",
+            "sourceSchemaName": "HR",
+            "sourceDatabaseName": null,
+            "targetDatabaseName": "db1",
+            "targetSchemaName": "hr1",
+            "sourceConnectionName": "sourceConnection1",
+            "targetConnectionName": "targetConnection1"
+          },
+          {
+            "mappingScope": "database",
+            "sourceSchemaName": null,
+            "sourceDatabaseName": "db1",
+            "targetSchemaName": null,
+            "targetDatabaseName": "db1",
+            "sourceConnectionName": "sourceConnection1",
+            "targetConnectionName": "targetConnection2"
+          }
+        ],
+        "migrationJobSettings": [
+          {
+            "settingName": "validateOnly",
+            "settingValue": "false"
+          }
+        ]
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.DataMigration/databaseMigrationServices/myMigrationService/migrations/mig-123e4567-e89b-12d3-a456-426614174000",
+        "name": "mig-123e4567-e89b-12d3-a456-426614174000",
+        "type": "Microsoft.DataMigration/databaseMigrationServices/migrations",
+        "properties": {
+          "migrationName": "prod-oracle-to-azure-pg",
+          "description": "Production Oracle migration to Azure PostgreSQL Flexible Server",
+          "migrationMode": "offline",
+          "sourceServerType": "On-Premises",
+          "targetServerType": "AzurePostgreSQLFlexibleServer",
+          "source": {
+            "sourceType": "Oracle",
+            "serverResourceId": null,
+            "connectionEndPoints": [
+              {
+                "connectionName": "sourceConnection1",
+                "hostName": "source-db.company.com",
+                "port": 1521,
+                "serviceName": "PRODSCHEMA1",
+                "databaseName": null,
+                "credentials": {
+                  "authenticationMethod": "password",
+                  "userName": "migration_user"
+                },
+                "ssl": {
+                  "mode": "require"
+                }
+              },
+              {
+                "connectionName": "sourceConnection2",
+                "hostName": "source-db.company.com",
+                "port": 1521,
+                "serviceName": null,
+                "databaseName": "db1",
+                "credentials": {
+                  "authenticationMethod": "password",
+                  "userName": "migration_user2"
+                },
+                "ssl": {
+                  "mode": "require"
+                }
+              }
+            ]
+          },
+          "target": {
+            "targetType": "Azure Database for PostgreSQL",
+            "serverResourceId": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.DBforPostgreSQL/flexibleServers/myServer",
+            "connectionEndPoints": [
+              {
+                "connectionName": "targetConnection1",
+                "hostName": "target-server1.postgres.database.azure.com",
+                "port": 5432,
+                "serviceName": null,
+                "databaseName": "target_db",
+                "credentials": {
+                  "authenticationMethod": "password",
+                  "userName": "migration_user"
+                },
+                "ssl": {
+                  "mode": "require"
+                }
+              },
+              {
+                "connectionName": "targetConnection2",
+                "hostName": "target-server2.postgres.database.azure.com",
+                "port": 5432,
+                "serviceName": null,
+                "databaseName": "target_db2",
+                "credentials": {
+                  "authenticationMethod": "password",
+                  "userName": "migration_user"
+                },
+                "ssl": {
+                  "mode": "require"
+                }
+              }
+            ]
+          },
+          "mappingDefinitions": [
+            {
+              "mappingScope": "schema",
+              "sourceSchemaName": "HR",
+              "sourceDatabaseName": null,
+              "targetDatabaseName": "db1",
+              "targetSchemaName": "hr1",
+              "sourceConnectionName": "sourceConnection1",
+              "targetConnectionName": "targetConnection1"
+            },
+            {
+              "mappingScope": "database",
+              "sourceSchemaName": null,
+              "sourceDatabaseName": "db1",
+              "targetSchemaName": null,
+              "targetDatabaseName": "db1",
+              "sourceConnectionName": "sourceConnection1",
+              "targetConnectionName": "targetConnection2"
+            }
+          ],
+          "migrationJobSettings": [
+            {
+              "settingName": "validateOnly",
+              "settingValue": "false"
+            }
+          ],
+          "provisioningState": "Provisioning",
+          "migrationStatus": {
+            "state": "InProgress",
+            "errors": [],
+            "lastUpdatedAt": "2025-09-23T10:30:00Z"
+          },
+          "preMigrationValidations": {
+            "state": "InProgress",
+            "preMigrationValidationSummaries": [
+              {
+                "validationName": "SourceConnectivity",
+                "state": "Succeeded",
+                "validationResult": {
+                  "status": "Succeeded"
+                }
+              },
+              {
+                "validationName": "TargetConnectivity",
+                "state": "InProgress",
+                "validationResult": {
+                  "status": "Succeeded"
+                }
+              }
+            ]
+          },
+          "startedAt": "2025-01-10T10:47:41.820717Z",
+          "endedAt": null
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.DataMigration/databaseMigrationServices/myMigrationService/migrations/mig-123e4567-e89b-12d3-a456-426614174000",
+        "name": "mig-123e4567-e89b-12d3-a456-426614174000",
+        "type": "Microsoft.DataMigration/databaseMigrationServices/migrations",
+        "properties": {
+          "migrationName": "prod-oracle-to-azure-pg",
+          "description": "Production Oracle migration to Azure PostgreSQL Flexible Server",
+          "migrationMode": "offline",
+          "sourceServerType": "On-Premises",
+          "targetServerType": "AzurePostgreSQLFlexibleServer",
+          "source": {
+            "sourceType": "Oracle",
+            "serverResourceId": null,
+            "connectionEndPoints": [
+              {
+                "connectionName": "sourceConnection1",
+                "hostName": "source-db.company.com",
+                "port": 1521,
+                "serviceName": "PRODSCHEMA1",
+                "databaseName": null,
+                "credentials": {
+                  "authenticationMethod": "password",
+                  "userName": "migration_user"
+                },
+                "ssl": {
+                  "mode": "require"
+                }
+              },
+              {
+                "connectionName": "sourceConnection2",
+                "hostName": "source-db.company.com",
+                "port": 1521,
+                "serviceName": null,
+                "databaseName": "db1",
+                "credentials": {
+                  "authenticationMethod": "password",
+                  "userName": "migration_user2"
+                },
+                "ssl": {
+                  "mode": "require"
+                }
+              }
+            ]
+          },
+          "target": {
+            "targetType": "Azure Database for PostgreSQL",
+            "serverResourceId": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/my-rg/providers/Microsoft.DBforPostgreSQL/flexibleServers/myServer",
+            "connectionEndPoints": [
+              {
+                "connectionName": "targetConnection1",
+                "hostName": "target-server1.postgres.database.azure.com",
+                "port": 5432,
+                "serviceName": null,
+                "databaseName": "target_db",
+                "credentials": {
+                  "authenticationMethod": "password",
+                  "userName": "migration_user"
+                },
+                "ssl": {
+                  "mode": "require"
+                }
+              },
+              {
+                "connectionName": "targetConnection2",
+                "hostName": "target-server2.postgres.database.azure.com",
+                "port": 5432,
+                "serviceName": null,
+                "databaseName": "target_db2",
+                "credentials": {
+                  "authenticationMethod": "password",
+                  "userName": "migration_user"
+                },
+                "ssl": {
+                  "mode": "require"
+                }
+              }
+            ]
+          },
+          "mappingDefinitions": [
+            {
+              "mappingScope": "schema",
+              "sourceSchemaName": "HR",
+              "sourceDatabaseName": null,
+              "targetDatabaseName": "db1",
+              "targetSchemaName": "hr1",
+              "sourceConnectionName": "sourceConnection1",
+              "targetConnectionName": "targetConnection1"
+            },
+            {
+              "mappingScope": "database",
+              "sourceSchemaName": null,
+              "sourceDatabaseName": "db1",
+              "targetSchemaName": null,
+              "targetDatabaseName": "db1",
+              "sourceConnectionName": "sourceConnection1",
+              "targetConnectionName": "targetConnection2"
+            }
+          ],
+          "migrationJobSettings": [
+            {
+              "settingName": "validateOnly",
+              "settingValue": "false"
+            }
+          ],
+          "provisioningState": "Provisioning",
+          "migrationStatus": {
+            "state": "InProgress",
+            "errors": [],
+            "lastUpdatedAt": "2025-09-23T10:30:00Z"
+          },
+          "preMigrationValidations": {
+            "state": "InProgress",
+            "preMigrationValidationSummaries": []
+          },
+          "startedAt": "2025-01-10T10:47:41.820717Z",
+          "endedAt": null
+        }
+      }
+    }
+  }
+}

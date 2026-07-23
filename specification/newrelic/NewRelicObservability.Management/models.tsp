@@ -565,6 +565,7 @@ model NewRelicSingleSignOnProperties {
   /**
    * The login URL specific to this NewRelic Organization
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   singleSignOnUrl?: string;
 
   /**
@@ -1289,7 +1290,7 @@ model VMExtensionPayload {
   /**
    * Ingestion key of the account
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "TODO: Check if this is a secret and add @secret or update reason"
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "FIXME: Mark with @secret if the contents of this property should be kept private."
   ingestionKey?: string;
 }
 
@@ -1408,7 +1409,8 @@ model MetricsStatusRequestParameter {
 scalar email extends string;
 
 @@identifiers(AppServicesListResponse.value, #["azureResourceId"]);
-@@visibility(NewRelicMonitorResource.properties,
+@@visibility(
+  NewRelicMonitorResource.properties,
   Lifecycle.Read,
   Lifecycle.Create
 );

@@ -1,16 +1,24 @@
-import "@azure-tools/typespec-client-generator-core";
+import "@azure-tools/typespec-azure-core";
+import "@azure-tools/typespec-azure-resource-manager";
+import "@typespec/openapi";
+import "@typespec/rest";
+import "./models.tsp";
+import "@typespec/http";
 
+using Azure.ClientGenerator.Core;
 using TypeSpec.Rest;
 using TypeSpec.Http;
+using Azure.Core;
 using Azure.ResourceManager;
-using Azure.ClientGenerator.Core;
+using Azure.ResourceManager.Foundations;
+using TypeSpec.OpenAPI;
 
 namespace Microsoft.PortalServices;
 /**
  * The portal tenant provider action.
  */
 model PortalTenantCompileFile
-  is TrackedResource<PortalTenantCompileFileProperties> {
+  is Azure.ResourceManager.TrackedResource<PortalTenantCompileFileProperties> {
   /**
    * The name of the portal tenant compile file.
    */
@@ -37,11 +45,7 @@ interface PortalTenant {
   ): ArmResponse<PortalTenantCompileFileResult> | ErrorResponse;
 }
 
-@@clientName(PortalTenant.compilefile::parameters.body,
-  "portalTenantCompileFile"
-);
-#suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
-@@encodedName(PortalTenant.compilefile::parameters.body,
-  "application/json",
+@@clientName(
+  PortalTenant.compilefile::parameters.body,
   "portalTenantCompileFile"
 );

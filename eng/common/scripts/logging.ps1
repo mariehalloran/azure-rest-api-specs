@@ -94,6 +94,9 @@ function LogGroupStart() {
   elseif (Test-SupportsGitHubLogging) {
     Write-Host "::group::$args"
   }
+  else {
+    Write-Host "> $args"
+  }
 }
 
 function LogGroupEnd() {
@@ -122,4 +125,21 @@ function ProcessMsBuildLogLine($line) {
     }
   }
   return $line
+}
+
+function ConvertTo-DevOpsLoggingValue($value) {
+  if ($null -eq $value) {
+    return ""
+  }
+
+  return "$value".Replace('%', '%25').Replace(';', '%3B').Replace(']', '%5D').Replace("`r", '%0D').Replace("`n", '%0A')
+}
+
+function Set-PipelineVariable($Name, $Value = "", [switch]$IsOutput, [switch]$IsSecret) {
+  $properties = "variable=$Name"
+  if ($IsSecret) { $properties += ";issecret=true" }
+  if ($IsOutput) { $properties += ";isOutput=true" }
+
+  $escapedValue = ConvertTo-DevOpsLoggingValue $Value
+  Write-Host "##vso[task.setvariable $properties]$escapedValue"
 }

@@ -1,0 +1,69 @@
+{
+  "parameters": {
+    "api-version": "2026-03-01-preview",
+    "resource": {
+      "properties": {
+        "publishingResourceTypes": [
+          {
+            "resourceType": "Microsoft.Compute/virtualMachines"
+          }
+        ],
+        "alertingInfo": {
+          "severity": "3",
+          "notificationEmail": "compute-alerts@microsoft.com"
+        },
+        "schemaVersion": "1.0",
+        "enabled": true
+      }
+    },
+    "namespaceName": "Microsoft.Compute",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "settingName": "computeVmSetting"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "name": "computeVmSetting",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/computeVmSetting",
+        "type": "Microsoft.ResourceNotifications/namespaces/publisherSettings",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "publishingResourceTypes": [
+            {
+              "resourceType": "Microsoft.Compute/virtualMachines"
+            }
+          ],
+          "alertingInfo": {
+            "severity": "3",
+            "notificationEmail": "compute-alerts@microsoft.com"
+          },
+          "schemaVersion": "1.0",
+          "enabled": true
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "name": "computeVmSetting",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute/publisherSettings/computeVmSetting",
+        "type": "Microsoft.ResourceNotifications/namespaces/publisherSettings",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "publishingResourceTypes": [
+            {
+              "resourceType": "Microsoft.Compute/virtualMachines"
+            }
+          ],
+          "alertingInfo": {
+            "severity": "3",
+            "notificationEmail": "compute-alerts@microsoft.com"
+          },
+          "schemaVersion": "1.0",
+          "enabled": true
+        }
+      }
+    }
+  },
+  "operationId": "PublisherSettingsOperations_CreateOrUpdate",
+  "title": "PublisherSettingsOperations - CreateOrUpdate"
+}

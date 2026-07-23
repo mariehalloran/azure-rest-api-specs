@@ -7,12 +7,27 @@ namespace Microsoft.Impact;
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using OpenAPI;
 using Azure.ResourceManager;
+using TypeSpec.Versioning;
 
 @doc("Insight resource")
 @parentResource(WorkloadImpact)
 @subscriptionResource
 model Insight is ProxyResource<InsightProperties> {
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9.]*[a-zA-Z0-9]{3,180}$")
+  @key("insightName")
+  @segment("insights")
+  @doc("Name of the insight")
+  @visibility(Lifecycle.Read)
+  @path
+  name: string;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Insight resource at resource group scope")
+@parentResource(WorkloadImpactAtResourceGroup)
+model InsightAtResourceGroup is ProxyResource<InsightProperties> {
   @pattern("^[a-zA-Z0-9][a-zA-Z0-9.]*[a-zA-Z0-9]{3,180}$")
   @key("insightName")
   @segment("insights")
@@ -137,4 +152,20 @@ interface Insights {
 
   @doc("Delete Insight resource, This is Admin only operation")
   delete is ArmResourceDeleteSync<Insight>;
+}
+
+@added(Versions.v2026_05_01_preview)
+@armResourceOperations
+interface InsightsAtResourceGroup {
+  @doc("Get Insight resources by workloadImpactName and insightName at resource group scope")
+  getByResourceGroup is ArmResourceRead<InsightAtResourceGroup>;
+
+  @doc("List Insight resources by workloadImpactName at resource group scope")
+  listByResourceGroup is ArmResourceListByParent<InsightAtResourceGroup>;
+
+  @doc("Create Insight resource at resource group scope, This is Admin only operation")
+  createByResourceGroup is ArmResourceCreateOrReplaceSync<InsightAtResourceGroup>;
+
+  @doc("Delete Insight resource at resource group scope, This is Admin only operation")
+  deleteByResourceGroup is ArmResourceDeleteSync<InsightAtResourceGroup>;
 }

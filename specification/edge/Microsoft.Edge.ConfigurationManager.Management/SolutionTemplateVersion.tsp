@@ -25,8 +25,12 @@ union OrchestratorType {
 
 @doc("Solution Template Version Properties")
 model SolutionTemplateVersionProperties {
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Suppress no-unnamed-union since property represents a flexible configuration value"
+  #suppress "@azure-tools/typespec-autorest/union-unsupported" "Union of string | Record<unknown> is required to support both legacy string-encoded JSON and structured object payloads during client migration from prior API versions"
   @doc("Config expressions for this solution version")
-  configurations: string;
+  @typeChangedFrom(Versions.v2026_05_01_preview, string)
+  @madeOptional(Versions.v2026_05_01_preview)
+  configurations?: string | Record<unknown>;
 
   #suppress "@azure-tools/typespec-azure-core/no-unknown" "Suppress no-unknown to handle the datatype object used in dependent service"
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Suppress arm-no-record to handle the datatype object used in dependent service"
@@ -35,6 +39,11 @@ model SolutionTemplateVersionProperties {
 
   @doc("Orchestrator type")
   orchestratorType?: OrchestratorType;
+
+  @added(Versions.v2025_08_01)
+  @doc("Internal State of resource")
+  @visibility(Lifecycle.Read)
+  internalState?: InternalState;
 
   @doc("Provisioning state of resource")
   @visibility(Lifecycle.Read)
@@ -58,10 +67,34 @@ model BulkDeploySolutionParameter {
   @doc("Targets to which solution needs to be deployed")
   @Azure.ResourceManager.identifiers(#[])
   targets: BulkDeployTargetDetails[];
+
+  @removed(Versions.v2025_06_01)
+  @doc("Name of the solution instance")
+  @pattern("^(?!v-)(?!.*-v-)[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?)*$")
+  solutionInstanceName?: string;
+
+  @removed(Versions.v2025_06_01)
+  @doc("Solution dependencies")
+  @Azure.ResourceManager.identifiers(#[])
+  solutionDependencies?: SolutionDependencyParameter[];
 }
 
 @doc("Bulk deploy target details")
 model BulkDeployTargetDetails {
+  @removed(Versions.v2025_06_01)
+  @doc("ArmId of Target")
+  targetId: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Edge/Targets";
+    }
+  ]>;
+
+  @removed(Versions.v2025_06_01)
+  @doc("Name of the solution instance")
+  @pattern("^(?!v-)(?!.*-v-)[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?)*$")
+  solutionInstanceName?: string;
+
+  @added(Versions.v2025_06_01)
   @doc("ArmId of Target Solution Version")
   solutionVersionId: Azure.Core.armResourceIdentifier<[
     {
@@ -97,6 +130,11 @@ model BulkPublishTargetDetails {
       type: "Microsoft.Edge/Targets";
     }
   ]>;
+
+  @added(Versions.v2025_08_01)
+  @doc("Solution dependencies")
+  @Azure.ResourceManager.identifiers(#[])
+  solutionDependencies?: SolutionDependencyParameter[];
 
   @doc("Name of the solution instance")
   @pattern("^(?!v-)(?!.*-v-)[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?)*$")
@@ -144,6 +182,11 @@ model BulkReviewTargetDetails {
     }
   ]>;
 
+  @added(Versions.v2025_08_01)
+  @doc("Solution dependencies")
+  @Azure.ResourceManager.identifiers(#[])
+  solutionDependencies?: SolutionDependencyParameter[];
+
   @doc("Name of the solution instance")
   @pattern("^(?!v-)(?!.*-v-)[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?)*$")
   solutionInstanceName?: string;
@@ -156,6 +199,21 @@ model BulkReviewTargetDetails {
 interface SolutionTemplateVersions {
   @doc("Get a Solution Template Version Resource")
   get is ArmResourceRead<SolutionTemplateVersion>;
+
+  @added(Versions.v2026_03_01)
+  @doc("Create or update a Solution Template Version Resource")
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<SolutionTemplateVersion>;
+
+  @added(Versions.v2026_03_01)
+  @doc("Update a Solution Template Version Resource")
+  update is ArmResourcePatchSync<
+    SolutionTemplateVersion,
+    SolutionTemplateVersionProperties
+  >;
+
+  @added(Versions.v2026_03_01)
+  @doc("Delete a Solution Template Version Resource")
+  delete is ArmResourceDeleteWithoutOkAsync<SolutionTemplateVersion>;
 
   @doc("List Solution Template Version Resources")
   listBySolutionTemplate is ArmResourceListByParent<SolutionTemplateVersion>;

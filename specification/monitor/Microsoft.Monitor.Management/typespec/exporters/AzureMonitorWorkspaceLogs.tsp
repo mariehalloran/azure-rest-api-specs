@@ -2,6 +2,8 @@
   Definitions of elements exclusively defined for the Azure Monitor Workspace for Logs exporter.
 */
 
+using OpenAPI;
+
 namespace Microsoft.Monitor;
 
 @doc("Azure Monitor Workspace Logs specific configurations.")
@@ -18,6 +20,7 @@ model AzureMonitorWorkspaceLogsExporter {
 
 @doc("Azure Monitor Workspace Logs Api configurations.")
 model AzureMonitorWorkspaceLogsApiConfig {
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("Data collection endpoint ingestion url.")
   @pattern("^(https?)://[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$")
   dataCollectionEndpointUrl: string;

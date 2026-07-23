@@ -1,0 +1,28 @@
+- tool: TypeSpecValidation
+  reason: >
+    Not ready to generate SDKs from TypeSpec.
+    Responsibility: Service team with SDK team collaboration.
+    More info: https://aka.ms/azsdk/spec-gen-sdk-config.
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - parameters.service-dir.default
+    - options.@azure-tools/typespec-go.*
+    - options.@azure-tools/typespec-java.*
+    - options.@azure-tools/typespec-python.*
+    - options.@azure-tools/typespec-ts.*
+  paths:
+    - DeviceRegistry.Management/tspconfig.yaml
+
+- tool: TypeSpecValidation
+  rules: [FolderStructure]
+  sub-rules: [MustUseV2]
+  reason: RPSaaS v1 folder structure, not yet converted to v2
+  paths:
+    - DeviceRegistry.Management
+
+- tool: TypeSpecValidation
+  rules: [FolderStructure]
+  reason: Shared types in specification/deviceregistry/common/ are imported by the control-plane project to avoid duplication
+  paths:
+    - DeviceRegistry.Management
+

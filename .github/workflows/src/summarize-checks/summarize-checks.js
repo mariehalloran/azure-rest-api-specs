@@ -83,45 +83,6 @@ import path from "path";
  */
 
 /**
- * @typedef {Object} GraphQLCheckRun
- * @property {string} name
- * @property {string} status
- * @property {string} conclusion
- * @property {boolean} isRequired
- */
-
-/**
- * @typedef {Object} GraphQLCheckSuite
- * @property {GraphQLCheckRun[]} nodes
- */
-
-/**
- * @typedef {Object} GraphQLCheckSuites
- * @property {GraphQLCheckSuite[]} nodes
- */
-
-/**
- * @typedef {Object} GraphQLCommit
- * @property {GraphQLCheckSuites} checkSuites
- */
-
-/**
- * @typedef {Object} GraphQLResource
- * @property {GraphQLCheckSuites} checkSuites
- */
-
-/**
- * @typedef {Object} GraphQLResponse
- * @property {GraphQLResource} resource
- * @property {Object} rateLimit
- * @property {number} rateLimit.limit
- * @property {number} rateLimit.cost
- * @property {number} rateLimit.used
- * @property {number} rateLimit.remaining
- * @property {string} rateLimit.resetAt
- */
-
-/**
  * @typedef {import("./labelling.js").RequiredLabelRule} RequiredLabelRule
  */
 
@@ -270,6 +231,12 @@ const CHECK_METADATA = [
     name: "SDK azure-sdk-for-python-track2",
     suppressionLabels: [],
     troubleshootingGuide: checkAndDiagramTsg(3),
+  },
+  {
+    precedence: 1,
+    name: "Namespace Approval",
+    suppressionLabels: [],
+    troubleshootingGuide: defaultTsg,
   },
   {
     precedence: 10,

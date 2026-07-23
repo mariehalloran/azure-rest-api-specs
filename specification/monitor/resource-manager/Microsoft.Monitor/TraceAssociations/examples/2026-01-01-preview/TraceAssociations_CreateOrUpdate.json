@@ -1,0 +1,54 @@
+{
+  "operationId": "TraceAssociations_CreateOrUpdate",
+  "title": "Create or update a trace association on an App Insights component",
+  "parameters": {
+    "api-version": "2026-01-01-preview",
+    "resourceUri": "subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Insights/components/myAppInsights",
+    "name": "default",
+    "resource": {
+      "properties": {
+        "azureMonitorWorkspaceResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/obs-rg/providers/Microsoft.Monitor/accounts/app-amw"
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Insights/components/myAppInsights/providers/Microsoft.Monitor/traceAssociations/default",
+        "name": "default",
+        "type": "Microsoft.Monitor/traceAssociations",
+        "properties": {
+          "azureMonitorWorkspaceResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/obs-rg/providers/Microsoft.Monitor/accounts/app-amw",
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2026-01-15T00:00:00.000Z",
+          "lastModifiedBy": "user@example.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-01-15T00:00:00.000Z"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Insights/components/myAppInsights/providers/Microsoft.Monitor/traceAssociations/default",
+        "name": "default",
+        "type": "Microsoft.Monitor/traceAssociations",
+        "properties": {
+          "azureMonitorWorkspaceResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/obs-rg/providers/Microsoft.Monitor/accounts/app-amw",
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2026-01-15T00:00:00.000Z",
+          "lastModifiedBy": "user@example.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-01-15T00:00:00.000Z"
+        }
+      }
+    }
+  }
+}

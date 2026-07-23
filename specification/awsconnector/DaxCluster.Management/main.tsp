@@ -11,6 +11,9 @@ import "../shared/main.tsp";
 using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
+using OpenAPI;
+using Azure.Core;
+using Azure.ClientGenerator.Core;
 using Azure.ResourceManager;
 using Azure.Portal;
 
@@ -25,7 +28,10 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2024-12-01 api version */
-  `2024-12-01`,
+  v2024_12_01: "2024-12-01",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 //---------------------------------------------- DaxClusters ----------------------------------------------
@@ -93,7 +99,7 @@ model AwsDaxClusterProperties {
   nodeType?: string;
 
   @doc("<p>A list of nodes that are currently in the cluster.</p>")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   nodes?: Node[];
 
   @doc("<p>Describes a notification topic and its status. Notification topics are used for publishing DAX events to subscribers using Amazon Simple Notification Service (SNS).</p>")
@@ -109,7 +115,7 @@ model AwsDaxClusterProperties {
   sseDescription?: SSEDescription;
 
   @doc("<p>A list of security groups, and the status of each, for the nodes in the cluster.</p>")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   securityGroups?: SecurityGroupMembership[];
 
   @doc("<p>The current status of the cluster.</p>")
