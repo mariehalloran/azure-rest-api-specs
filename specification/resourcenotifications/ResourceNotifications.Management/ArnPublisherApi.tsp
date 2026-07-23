@@ -245,6 +245,7 @@ interface IngestionUnits {
   createOrUpdate is ArmResourceCreateOrReplaceAsync<IngestionUnit>;
 
   /** Update an ingestion unit. Asynchronous operation. */
+  @Azure.Core.useFinalStateVia("azure-async-operation")
   update is ArmCustomPatchAsync<
     IngestionUnit,
     IngestionUnitPatch,
@@ -253,6 +254,7 @@ interface IngestionUnits {
   >;
 
   /** Delete an ingestion unit. Asynchronous operation. */
+  @Azure.Core.useFinalStateVia("azure-async-operation")
   delete is ArmResourceDeleteWithoutOkAsync<
     IngestionUnit,
     LroHeaders = ArmCombinedLroHeaders<ArmOperationStatus, IngestionUnit> &
