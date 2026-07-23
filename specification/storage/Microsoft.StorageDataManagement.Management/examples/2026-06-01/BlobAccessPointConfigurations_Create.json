@@ -1,0 +1,100 @@
+{
+  "operationId": "BlobAccessPointConfigurations_Create",
+  "title": "CreateBlobAccessPointConfiguration",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "testrg",
+    "api-version": "2026-06-01",
+    "blobAccessPointConfigurationName": "testaccesspointconfig",
+    "storageAccountName": "teststorageaccount",
+    "resource": {
+      "location": "eastus",
+      "properties": {
+        "state": "Active",
+        "description": "NetApp ONTAP S3-compatible source",
+        "source": {
+          "type": "RemoteS3Compatible",
+          "backingDataSourceType": "NetApp_ONTAP",
+          "connection": {
+            "type": "Endpoint",
+            "endpoint": "https://netapp.contoso.com/bucket1",
+            "tlsVerification": "Perform"
+          },
+          "auth": {
+            "type": "AccessKey",
+            "accessKeyId": "example-access-key",
+            "secretAccessKey": "example-secret-key",
+            "signingRegion": "us-east-1"
+          },
+          "paymentModel": "Unspecified"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/storageAccounts/teststorageaccount/blobAccessPointConfigurations/testaccesspointconfig",
+        "name": "testaccesspointconfig",
+        "type": "Microsoft.Storage/storageAccounts/blobAccessPointConfigurations",
+        "location": "eastus",
+        "properties": {
+          "uniqueId": "11111111-2222-3333-4444-555555555555",
+          "state": "Active",
+          "creationTime": "2026-06-01T00:00:00Z",
+          "description": "NetApp ONTAP S3-compatible source",
+          "source": {
+            "type": "RemoteS3Compatible",
+            "backingDataSourceType": "NetApp_ONTAP",
+            "connection": {
+              "type": "Endpoint",
+              "endpoint": "https://netapp.contoso.com/bucket1",
+              "tlsVerification": "Perform"
+            },
+            "auth": {
+              "type": "AccessKey",
+              "accessKeyId": "example-access-key",
+              "signingRegion": "us-east-1"
+            },
+            "paymentModel": "Unspecified"
+          },
+          "provisioningState": "Succeeded"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/storageAccounts/teststorageaccount/blobAccessPointConfigurations/testaccesspointconfig",
+        "name": "testaccesspointconfig",
+        "type": "Microsoft.Storage/storageAccounts/blobAccessPointConfigurations",
+        "location": "eastus",
+        "properties": {
+          "uniqueId": "11111111-2222-3333-4444-555555555555",
+          "state": "Active",
+          "creationTime": "2026-06-01T00:00:00Z",
+          "description": "NetApp ONTAP S3-compatible source",
+          "source": {
+            "type": "RemoteS3Compatible",
+            "backingDataSourceType": "NetApp_ONTAP",
+            "connection": {
+              "type": "Endpoint",
+              "endpoint": "https://netapp.contoso.com/bucket1",
+              "tlsVerification": "Perform"
+            },
+            "auth": {
+              "type": "AccessKey",
+              "accessKeyId": "example-access-key",
+              "signingRegion": "us-east-1"
+            },
+            "paymentModel": "Unspecified"
+          },
+          "provisioningState": "Creating"
+        }
+      },
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Storage/locations/eastus/DataManagementRPOperationStatuses/operation-98765?api-version=2026-06-01",
+        "Retry-After": 30
+      }
+    }
+  }
+}

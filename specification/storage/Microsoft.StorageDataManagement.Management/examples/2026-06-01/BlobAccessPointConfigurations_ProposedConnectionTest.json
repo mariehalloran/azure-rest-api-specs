@@ -1,0 +1,42 @@
+{
+  "operationId": "BlobAccessPointConfigurations_ProposedConnectionTest",
+  "title": "BlobAccessPointConfigurationProposedConnectionTest",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "testrg",
+    "storageAccountName": "teststorageaccount",
+    "api-version": "2026-06-01",
+    "body": {
+      "state": "Active",
+      "description": "Proposed private-link-backed S3-compatible source",
+      "source": {
+        "type": "RemoteS3Compatible",
+        "backingDataSourceType": "S3_Compatible",
+        "connection": {
+          "type": "PrivateLink",
+          "privateLinkIdType": "ResourceId",
+          "privateLinkId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Network/privateLinkServices/testpls",
+          "privateLinkGroupId": "s3",
+          "privateLinkLocation": "eastus",
+          "requestMessage": "Blob Access Point connection request",
+          "endpoint": "https://s3.contoso.com/bucket1",
+          "tlsVerification": "Perform"
+        },
+        "auth": {
+          "type": "AssumeRoleWithManagedIdentity",
+          "identityResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/testidentity",
+          "roleArn": "arn:aws:iam::123456789012:role/TestRole"
+        },
+        "paymentModel": "RequesterPays"
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "methodName": "List",
+        "requestId": "request-id-123"
+      }
+    }
+  }
+}
