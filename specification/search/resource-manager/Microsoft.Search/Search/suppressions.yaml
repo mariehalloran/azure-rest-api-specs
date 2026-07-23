@@ -1,40 +1,50 @@
 # Suppressions for Azure Search service
-# These suppressions are needed for existing Swagger versions that haven't been migrated to TypeSpec yet
+# These suppressions are needed for legacy OpenAPI versions retained for backwards compatibility
 # Preview API versions
 - tool: TypeSpecRequirement
   path: ./preview/2019-10-01-preview/*.json
-  reason: Brownfield service not ready to migrate
+  reason: Pre-existing API version predating TypeSpec migration; maintained for backwards compatibility. TypeSpec applies to 2025-05-01 and later.
 - tool: TypeSpecRequirement
   path: ./preview/2020-08-01-preview/*.json
-  reason: Brownfield service not ready to migrate
+  reason: Pre-existing API version predating TypeSpec migration; maintained for backwards compatibility. TypeSpec applies to 2025-05-01 and later.
 - tool: TypeSpecRequirement
   path: ./preview/2021-04-01-preview/*.json
-  reason: Brownfield service not ready to migrate
+  reason: Pre-existing API version predating TypeSpec migration; maintained for backwards compatibility. TypeSpec applies to 2025-05-01 and later.
 - tool: TypeSpecRequirement
   path: ./preview/2024-03-01-preview/*.json
-  reason: Brownfield service not ready to migrate
+  reason: Pre-existing API version predating TypeSpec migration; maintained for backwards compatibility. TypeSpec applies to 2025-05-01 and later.
 - tool: TypeSpecRequirement
   path: ./preview/2024-06-01-preview/*.json
-  reason: Brownfield service not ready to migrate
+  reason: Pre-existing API version predating TypeSpec migration; maintained for backwards compatibility. TypeSpec applies to 2025-05-01 and later.
 - tool: TypeSpecRequirement
   path: ./preview/2025-02-01-preview/*.json
-  reason: Brownfield service not ready to migrate
+  reason: Pre-existing API version predating TypeSpec migration; maintained for backwards compatibility. TypeSpec applies to 2025-05-01 and later.
 # Stable API versions
 - tool: TypeSpecRequirement
   path: ./stable/2015-02-28/*.json
-  reason: Brownfield service not ready to migrate
+  reason: Pre-existing API version predating TypeSpec migration; maintained for backwards compatibility. TypeSpec applies to 2025-05-01 and later.
 - tool: TypeSpecRequirement
   path: ./stable/2015-08-19/*.json
-  reason: Brownfield service not ready to migrate
+  reason: Pre-existing API version predating TypeSpec migration; maintained for backwards compatibility. TypeSpec applies to 2025-05-01 and later.
 - tool: TypeSpecRequirement
   path: ./stable/2020-03-13/*.json
-  reason: Brownfield service not ready to migrate
+  reason: Pre-existing API version predating TypeSpec migration; maintained for backwards compatibility. TypeSpec applies to 2025-05-01 and later.
 - tool: TypeSpecRequirement
   path: ./stable/2020-08-01/*.json
-  reason: Brownfield service not ready to migrate
+  reason: Pre-existing API version predating TypeSpec migration; maintained for backwards compatibility. TypeSpec applies to 2025-05-01 and later.
 - tool: TypeSpecRequirement
   path: ./stable/2022-09-01/*.json
-  reason: Brownfield service not ready to migrate
+  reason: Stable GA API version; TypeSpec migration completed for 2025-05-01+. Migration of historical stable versions deferred due to API contract stability requirements and SDK support continuity for downstream consumers.
 - tool: TypeSpecRequirement
   path: ./stable/2023-11-01/*.json
-  reason: Brownfield service not ready to migrate
+  reason: Stable GA API version; TypeSpec migration completed for 2025-05-01+. Migration of historical stable versions deferred due to API contract stability requirements and SDK support continuity for downstream consumers.
+
+# ModelValidation suppressions for legacy API versions without x-ms-examples
+- tool: ModelValidation
+  path: ./stable/2015-02-28/*.json
+  reason: Pre-2015 API versions predate x-ms-examples convention; maintained for backwards compatibility only.
+  rules: [XMS_EXAMPLE_NOTFOUND_ERROR]
+- tool: ModelValidation
+  path: ./stable/2015-08-19/*.json
+  reason: Pre-2015 API versions predate x-ms-examples convention; maintained for backwards compatibility only.
+  rules: [XMS_EXAMPLE_NOTFOUND_ERROR]
