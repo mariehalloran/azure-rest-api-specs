@@ -438,7 +438,7 @@ model RequestContext {
 @doc("Configuration for an application consent request. Grants first-party application consent for a billing scope. AppConsent is a non-billable production automation request.")
 model AppConsentContext {
   @doc("Whether this is a HOBO (hosted-on-behalf-of) consent. Defaults to false.")
-  isHobo?: boolean;
+  isHobo?: boolean = false;
 
   @doc("The Service Tree ID (GUID) of the billing service that owns the consent.")
   billingServiceTreeId: string;
@@ -679,6 +679,7 @@ model AutomationRequestProperties {
   accountType?: AccountType;
 
   @doc("The estimated monthly spend in USD for this test account. Required and must be greater than zero for billable request types (Account, Subscription, Tenant). Optional for non-billable production request types (AppConsent, PCCodeUpdate).")
+  @minValue(0)
   estimatedMonthlySpend?: float64;
 
   @doc("Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time). Free-form text MUST NOT contain customer data, PII, or secrets.")

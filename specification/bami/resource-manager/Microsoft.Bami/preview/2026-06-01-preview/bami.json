@@ -992,7 +992,8 @@
       "properties": {
         "isHobo": {
           "type": "boolean",
-          "description": "Whether this is a HOBO (hosted-on-behalf-of) consent. Defaults to false."
+          "description": "Whether this is a HOBO (hosted-on-behalf-of) consent. Defaults to false.",
+          "default": false
         },
         "billingServiceTreeId": {
           "type": "string",
@@ -1027,7 +1028,8 @@
       "properties": {
         "isHobo": {
           "type": "boolean",
-          "description": "Whether this is a HOBO (hosted-on-behalf-of) consent. Defaults to false."
+          "description": "Whether this is a HOBO (hosted-on-behalf-of) consent. Defaults to false.",
+          "default": false
         },
         "billingServiceTreeId": {
           "type": "string",
@@ -1301,7 +1303,8 @@
         "estimatedMonthlySpend": {
           "type": "number",
           "format": "double",
-          "description": "The estimated monthly spend in USD for this test account. Required and must be greater than zero for billable request types (Account, Subscription, Tenant). Optional for non-billable production request types (AppConsent, PCCodeUpdate)."
+          "description": "The estimated monthly spend in USD for this test account. Required and must be greater than zero for billable request types (Account, Subscription, Tenant). Optional for non-billable production request types (AppConsent, PCCodeUpdate).",
+          "minimum": 0
         },
         "businessJustification": {
           "type": "string",
@@ -1364,7 +1367,8 @@
         "estimatedMonthlySpend": {
           "type": "number",
           "format": "double",
-          "description": "The estimated monthly spend in USD for this test account. Required and must be greater than zero for billable request types (Account, Subscription, Tenant). Optional for non-billable production request types (AppConsent, PCCodeUpdate)."
+          "description": "The estimated monthly spend in USD for this test account. Required and must be greater than zero for billable request types (Account, Subscription, Tenant). Optional for non-billable production request types (AppConsent, PCCodeUpdate).",
+          "minimum": 0
         },
         "businessJustification": {
           "type": "string",
