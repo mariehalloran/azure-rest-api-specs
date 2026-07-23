@@ -20281,6 +20281,7 @@
       "type": "string",
       "description": "Default provisioning mode for new volumes (pool setting / S2D volume).",
       "enum": [
+        "Unknown",
         "Fixed",
         "Thin"
       ],
@@ -20288,6 +20289,11 @@
         "name": "DriveProvisioningType",
         "modelAsString": true,
         "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Provisioning type is unknown or could not be determined."
+          },
           {
             "name": "Fixed",
             "value": "Fixed",
@@ -20305,40 +20311,28 @@
       "type": "string",
       "description": "Usage classification of a physical drive in the pool (S2D).",
       "enum": [
-        "AutoSelect",
-        "ManualSelect",
-        "HotSpare",
-        "Retired",
-        "Journal"
+        "Unknown",
+        "Cache",
+        "Capacity"
       ],
       "x-ms-enum": {
         "name": "DriveUsage",
         "modelAsString": true,
         "values": [
           {
-            "name": "AutoSelect",
-            "value": "AutoSelect",
-            "description": "Normal data storage; the pool selects the drive automatically."
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Usage is unknown or could not be determined."
           },
           {
-            "name": "ManualSelect",
-            "value": "ManualSelect",
-            "description": "Drive is manually assigned to a tier."
+            "name": "Cache",
+            "value": "Cache",
+            "description": "Drive is used for the storage cache tier (`SDDC_Drive.UsedFor` = `Cache`)."
           },
           {
-            "name": "HotSpare",
-            "value": "HotSpare",
-            "description": "Reserved as a hot spare for automatic rebuild."
-          },
-          {
-            "name": "Retired",
-            "value": "Retired",
-            "description": "Drive is being evacuated; no new allocations."
-          },
-          {
-            "name": "Journal",
-            "value": "Journal",
-            "description": "Drive backs the write-back cache journal."
+            "name": "Capacity",
+            "value": "Capacity",
+            "description": "Drive is used for the storage capacity tier (`SDDC_Drive.UsedFor` = `Capacity`)."
           }
         ]
       }
@@ -29323,28 +29317,16 @@
     },
     "PhysicalDriveLocation": {
       "type": "object",
-      "description": "Physical location of a drive. Enclosure and slot are populated only when the\nhardware exposes SCSI Enclosure Services (SES) data.",
+      "description": "Physical location of a drive, as reported by `SDDC_Drive` (`Server` → `nodeId`,\n`Location` → `physicalLocation`).",
       "properties": {
         "nodeId": {
           "type": "string",
-          "description": "Cluster node that hosts the drive.",
-          "readOnly": true
-        },
-        "enclosureNumber": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Enclosure number (null when no SES hardware).",
-          "readOnly": true
-        },
-        "slotNumber": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Slot number within the enclosure (null when no SES hardware).",
+          "description": "Cluster node that hosts the drive (`SDDC_Drive.Server`).",
           "readOnly": true
         },
         "physicalLocation": {
           "type": "string",
-          "description": "Free-form vendor-defined location string. Diagnostic aid only.",
+          "description": "Free-form vendor-defined location string (`SDDC_Drive.Location`). Diagnostic aid only.",
           "readOnly": true
         }
       }
@@ -29491,6 +29473,7 @@
       "type": "string",
       "description": "Health status of a storage pool (S2D).",
       "enum": [
+        "Unknown",
         "Healthy",
         "Warning",
         "Unhealthy"
@@ -29499,6 +29482,11 @@
         "name": "PoolHealthStatus",
         "modelAsString": true,
         "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Pool health is unknown or could not be determined."
+          },
           {
             "name": "Healthy",
             "value": "Healthy",
@@ -30935,7 +30923,7 @@
       "type": "string",
       "description": "Rebuild speed applied after a drive failure (S2D pool setting).",
       "enum": [
-        "Disabled",
+        "VeryLow",
         "Low",
         "Medium",
         "High",
@@ -30946,9 +30934,9 @@
         "modelAsString": true,
         "values": [
           {
-            "name": "Disabled",
-            "value": "Disabled",
-            "description": "Repair disabled."
+            "name": "VeryLow",
+            "value": "VeryLow",
+            "description": "Very low repair speed."
           },
           {
             "name": "Low",
@@ -34536,7 +34524,7 @@
         },
         "vendorPoolId": {
           "type": "string",
-          "description": "Vendor-assigned pool identifier (SAN).",
+          "description": "Vendor-assigned pool identifier. For SAN this is the vendor pool ID; for S2D\nthis is the storage pool friendly name (`MSFT_StoragePool.FriendlyName`).",
           "readOnly": true
         },
         "driveType": {
