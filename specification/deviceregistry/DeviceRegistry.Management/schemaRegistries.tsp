@@ -110,6 +110,10 @@ union Format {
   @doc("Delta format")
   Delta_1_0: "Delta/1.0",
 
+  @added(Versions.v2026_11_01_preview)
+  @doc("W3C Web of Things JSON-LD format")
+  JsonLD_1_1: "JsonLD/1.1",
+
   string,
 }
 
@@ -118,6 +122,14 @@ union Format {
 union SchemaType {
   @doc("Message Schema schema type")
   MessageSchema: "MessageSchema",
+
+  @added(Versions.v2026_11_01_preview)
+  @doc("W3C Web of Things Thing Model document")
+  ThingModel: "ThingModel",
+
+  @added(Versions.v2026_11_01_preview)
+  @doc("W3C Web of Things Thing Description document")
+  ThingDescription: "ThingDescription",
 
   string,
 }

@@ -21,8 +21,12 @@ namespace Microsoft.InferenceService;
 enum Versions {
   /** 2026-01-15-preview version */
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
-  @Azure.Core.previewVersion
   v2026_01_15_preview: "2026-01-15-preview",
+
+  /** 2026-08-01-preview version */
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  @Azure.Core.previewVersion
+  v2026_08_01_preview: "2026-08-01-preview",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}
