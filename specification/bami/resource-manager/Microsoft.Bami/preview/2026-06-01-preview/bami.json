@@ -1004,17 +1004,8 @@
           "description": "The display name of the billing service that owns the consent."
         },
         "appsToConsent": {
-          "type": "object",
-          "description": "The applications to consent, keyed by Azure environment name, then by tenant ID, to the list of first-party application IDs to grant consent for.",
-          "additionalProperties": {
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "type": "object"
-          }
+          "$ref": "#/definitions/EnvironmentApplicationConsents",
+          "description": "The applications to consent, keyed by Azure environment name, then by tenant ID, to the list of first-party application IDs to grant consent for."
         }
       },
       "required": [
@@ -1040,17 +1031,8 @@
           "description": "The display name of the billing service that owns the consent."
         },
         "appsToConsent": {
-          "type": "object",
-          "description": "The applications to consent, keyed by Azure environment name, then by tenant ID, to the list of first-party application IDs to grant consent for.",
-          "additionalProperties": {
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "type": "object"
-          }
+          "$ref": "#/definitions/EnvironmentApplicationConsents",
+          "description": "The applications to consent, keyed by Azure environment name, then by tenant ID, to the list of first-party application IDs to grant consent for."
         }
       }
     },
@@ -1458,6 +1440,13 @@
           "type": "string",
           "description": "The reason for cancellation."
         }
+      }
+    },
+    "EnvironmentApplicationConsents": {
+      "type": "object",
+      "description": "The applications to consent, keyed by Azure environment name, then by tenant ID.",
+      "additionalProperties": {
+        "$ref": "#/definitions/TenantApplicationConsents"
       }
     },
     "FedGovIndirectContext": {
@@ -2520,6 +2509,16 @@
           "$ref": "#/definitions/SignupError",
           "description": "The signup error."
         }
+      }
+    },
+    "TenantApplicationConsents": {
+      "type": "object",
+      "description": "The first-party application IDs to grant consent for, keyed by tenant ID (GUID).",
+      "additionalProperties": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
       }
     },
     "TenantContext": {

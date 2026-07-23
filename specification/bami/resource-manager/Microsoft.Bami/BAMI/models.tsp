@@ -435,6 +435,14 @@ model RequestContext {
   pcCodeUpdateContext?: PCCodeUpdateContext;
 }
 
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "The AppConsent payload is an inherently dynamic map keyed by tenant ID; modeling it as an explicit type would diverge from the wire contract the BAMI service serializes."
+@doc("The first-party application IDs to grant consent for, keyed by tenant ID (GUID).")
+model TenantApplicationConsents is Record<string[]>;
+
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "The AppConsent payload is an inherently dynamic map keyed by Azure environment name; modeling it as an explicit type would diverge from the wire contract the BAMI service serializes."
+@doc("The applications to consent, keyed by Azure environment name, then by tenant ID.")
+model EnvironmentApplicationConsents is Record<TenantApplicationConsents>;
+
 @doc("Configuration for an application consent request. Grants first-party application consent for a billing scope. AppConsent is a non-billable production automation request.")
 model AppConsentContext {
   @doc("Whether this is a HOBO (hosted-on-behalf-of) consent. Defaults to false.")
@@ -446,9 +454,8 @@ model AppConsentContext {
   @doc("The display name of the billing service that owns the consent.")
   billingServiceName: string;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "The AppConsent payload is an inherently dynamic map keyed by Azure environment name and then tenant ID; modeling it as an explicit type would diverge from the wire contract the BAMI service serializes."
   @doc("The applications to consent, keyed by Azure environment name, then by tenant ID, to the list of first-party application IDs to grant consent for.")
-  appsToConsent?: Record<Record<string[]>>;
+  appsToConsent?: EnvironmentApplicationConsents;
 }
 
 #suppress "@azure-tools/typespec-azure-core/casing-style" "Model name preserves the 'PCCode' (Profit Center code) domain acronym to match the RequestType value and the BAMI service contract."
