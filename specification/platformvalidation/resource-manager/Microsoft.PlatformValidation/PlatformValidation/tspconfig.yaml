@@ -7,10 +7,10 @@ options:
   "@azure-tools/typespec-autorest":
     use-read-only-status-schema: true
     omit-unreachable-types: true
-    emitter-output-dir: "{project-root}/.."
+    emitter-output-dir: "{project-root}"
     azure-resource-provider-folder: "resource-manager"
-    output-file: "{azure-resource-provider-folder}/{service-name}/{version-status}/{version}/platformvalidation.json"
-    examples-dir: "{project-root}/examples"
+    output-file: "{version-status}/{version}/platformvalidation.json"
+    arm-types-dir: "{project-root}/../../../../common-types/resource-management"
   # ----- SDK emission (aligned with the Microsoft.PlatformValidation ARM RP) -----
   # Invoked per-language by tsp-client in the SDK repos; not in `emit` above
   # so `tsp compile` in the spec repo still produces only swagger.
