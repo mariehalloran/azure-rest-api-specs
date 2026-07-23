@@ -53,39 +53,53 @@ interface SAPApplicationServerInstances {
   /**
    * Lists the SAP Application Server Instance resources for a given Virtual Instance for SAP solutions resource.
    */
+  @list
   list is ArmResourceListByParent<SAPApplicationServerInstance>;
 
   /**
    * Starts the SAP Application Server Instance.
    */
-  start is CustomizedArmResourceActionAsync<
+  start is ArmResourceActionAsync<
     SAPApplicationServerInstance,
-    StartRequest,
+    {
+      @doc("SAP Application server instance start request body.")
+      @body
+      body?: StartRequest;
+    },
     Foundations.OperationStatusResult
   >;
 
   /**
    * Stops the SAP Application Server Instance.
    */
-  stop is CustomizedArmResourceActionAsync<
+  stop is ArmResourceActionAsync<
     SAPApplicationServerInstance,
-    StopRequest,
+    {
+      @doc("SAP Application server instance stop request body.")
+      @body
+      body?: StopRequest;
+    },
     Foundations.OperationStatusResult
   >;
 }
 
-@@doc(SAPApplicationServerInstance.name,
+@@doc(
+  SAPApplicationServerInstance.name,
   "The name of SAP Application Server instance resource."
 );
-@@doc(SAPApplicationServerInstances.create::parameters.resource,
+@@doc(
+  SAPApplicationServerInstances.create::parameters.resource,
   "The SAP Application Server Instance resource request body."
 );
-@@doc(SAPApplicationServerInstances.update::parameters.properties,
+@@doc(
+  SAPApplicationServerInstances.update::parameters.properties,
   "The SAP Application Server Instance resource request body."
 );
-@@doc(SAPApplicationServerInstances.start::parameters.body,
+@@doc(
+  SAPApplicationServerInstances.start::parameters.body,
   "SAP Application server instance start request body."
 );
-@@doc(SAPApplicationServerInstances.stop::parameters.body,
+@@doc(
+  SAPApplicationServerInstances.stop::parameters.body,
   "SAP Application server instance stop request body."
 );

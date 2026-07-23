@@ -1,0 +1,66 @@
+{
+  "operationId": "ApplicationEntitlements_ListByResourceGroup",
+  "title": "List Application Entitlements By Resource Group",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "api-version": "2026-06-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Bami/applicationEntitlements/cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa",
+            "name": "cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa",
+            "type": "Microsoft.Bami/applicationEntitlements",
+            "location": "centralus",
+            "properties": {
+              "serviceTreeId": "11111111-1111-1111-1111-111111111111",
+              "applicationId": "44444444-4444-4444-4444-444444444444",
+              "applicationDisplayName": "Contoso Test Automation App",
+              "pcCode": "P10109641",
+              "businessJustification": "Automated test account creation for Contoso CI/CD pipeline.",
+              "status": "Onboarded",
+              "maxAssignedQuota": 50,
+              "estimatedCostPerWindow": 10000.0,
+              "quotaWindowDays": 30,
+              "currentQuotaUsage": 12,
+              "currentCostUsage": 2400.0,
+              "quotaResetDate": "2026-04-01T00:00:00Z",
+              "lastQuotaUsageDate": "2026-03-06T11:30:00Z",
+              "endDate": "2027-04-01T00:00:00Z",
+              "requesterTenantId": "55555555-5555-5555-5555-555555555555",
+              "requesterObjectId": "66666666-6666-6666-6666-666666666666"
+            }
+          },
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Bami/applicationEntitlements/bbbbbbbb-cccc-dddd-eeee-ffffffffffff",
+            "name": "bbbbbbbb-cccc-dddd-eeee-ffffffffffff",
+            "type": "Microsoft.Bami/applicationEntitlements",
+            "location": "centralus",
+            "properties": {
+              "serviceTreeId": "11111111-1111-1111-1111-111111111111",
+              "applicationId": "44444444-4444-4444-4444-444444444444",
+              "applicationDisplayName": "Contoso Test Automation App",
+              "pcCode": "P10109641",
+              "businessJustification": "Legacy entitlement; offboarded after migration.",
+              "status": "Offboarded",
+              "maxAssignedQuota": 25,
+              "estimatedCostPerWindow": 5000.0,
+              "quotaWindowDays": 30,
+              "currentQuotaUsage": 25,
+              "currentCostUsage": 4800.0,
+              "quotaResetDate": "2026-01-01T00:00:00Z",
+              "lastQuotaUsageDate": "2025-12-28T16:00:00Z",
+              "endDate": "2027-04-01T00:00:00Z",
+              "requesterTenantId": "55555555-5555-5555-5555-555555555555",
+              "requesterObjectId": "66666666-6666-6666-6666-666666666666"
+            }
+          }
+        ],
+        "nextLink": null
+      }
+    }
+  }
+}

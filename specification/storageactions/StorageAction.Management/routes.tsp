@@ -22,6 +22,7 @@ interface StorageTasksOperationGroup {
    * Runs the input conditions against input object metadata properties and designates matched objects in response.
    */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  @operationId("StorageTasks_PreviewActions")
   @autoRoute
   previewActions is ArmProviderActionSync<
     Request = StorageTaskPreviewAction,
@@ -36,6 +37,7 @@ interface StorageTasksOperationGroup {
   >;
 }
 
-@@doc(StorageTasksOperationGroup.previewActions::parameters.body,
+@@doc(
+  StorageTasksOperationGroup.previewActions::parameters.body,
   "The parameters to preview action condition."
 );

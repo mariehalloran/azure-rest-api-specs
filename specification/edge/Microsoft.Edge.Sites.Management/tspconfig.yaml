@@ -10,6 +10,10 @@ parameters:
     default: "sitemanager"
 emit:
   - "@azure-tools/typespec-autorest"
+linter:
+  extends:
+    - "@azure-tools/typespec-azure-rulesets/resource-manager"
+    - "@azure-tools/typespec-azure-rulesets/client-sdk"
 options:
   "@azure-tools/typespec-autorest":
     use-read-only-status-schema: true
@@ -34,12 +38,9 @@ options:
     emitter-output-dir: "{output-dir}/{service-dir}/arm-sitemanager"
     package-details:
       name: "@azure/arm-sitemanager"
-  "@azure-tools/typespec-csharp":
-    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
+  "@azure-typespec/http-client-csharp-mgmt":
     namespace: "Azure.ResourceManager.SiteManager"
-    clear-output-folder: true
-    model-namespace: false
-    flavor: azure
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-go":
     service-dir: "sdk/resourcemanager/sitemanager"
     emitter-output-dir: "{output-dir}/{service-dir}/armsitemanager"
@@ -50,6 +51,3 @@ options:
     generate-fakes: true
     head-as-boolean: true
     inject-spans: true
-linter:
-  extends:
-    - "@azure-tools/typespec-azure-rulesets/resource-manager"

@@ -1,0 +1,23 @@
+- tool: TypeSpecValidation
+  reason: >
+    Not ready to generate SDKs from TypeSpec.
+    Responsibility: Service team with SDK team collaboration.
+    More info: https://aka.ms/azsdk/spec-gen-sdk-config.
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - options.@azure-tools/typespec-ts.*
+    - options.@azure-tools/typespec-go.*
+    - options.@azure-typespec/http-client-csharp-mgmt.*
+  paths:
+    - ApplicationMigration.Management/ApplicationDiscovery.Management/tspconfig.yaml
+    - ApplicationMigration.Management/WorkloadsDiscovery.Management/tspconfig.yaml
+    - ApplicationMigration.Management/Network.Management/tspconfig.yaml
+
+- tool: TypeSpecValidation
+  reason: CSharp mgmt emitter namespace/emitter-output-dir not yet configured, as of 2026-07-16
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - options.@azure-typespec/http-client-csharp-mgmt.*
+  paths:
+     - ApplicationMigration.Management/Oracle.Management/tspconfig.yaml
+     - ApplicationMigration.Management/ContainerDiscovery.Management/tspconfig.yaml

@@ -8,9 +8,10 @@ options:
     omit-unreachable-types: true
     emitter-output-dir: "{project-root}/.."
     azure-resource-provider-folder: "resource-manager"
-    output-file: "{azure-resource-provider-folder}/{service-name}/{version-status}/{version}/datadog.json"
+    output-file: "{azure-resource-provider-folder}/{service-name}/{version-status}/{version}/swagger.json"
     examples-dir: "{project-root}/examples"
     emit-lro-options: "all"
+    use-read-only-status-schema: true
   "@azure-tools/typespec-python":
     emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-datadog"
     namespace: "azure.mgmt.datadog"
@@ -22,6 +23,9 @@ options:
     namespace: "com.azure.resourcemanager.datadog"
     service-name: "Microsoft Datadog"
     flavor: azure
+  "@azure-typespec/http-client-csharp-mgmt":
+    namespace: "Azure.ResourceManager.Datadog"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-ts":
     service-dir: sdk/datadog
     emitter-output-dir: "{output-dir}/{service-dir}/arm-datadog"
@@ -43,3 +47,4 @@ options:
 linter:
   extends:
     - "@azure-tools/typespec-azure-rulesets/resource-manager"
+    - "@azure-tools/typespec-azure-rulesets/client-sdk"

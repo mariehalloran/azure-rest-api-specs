@@ -1,0 +1,43 @@
+{
+  "title": "InternetExposures_List",
+  "operationId": "InternetExposures_List",
+  "parameters": {
+    "api-version": "2026-07-13-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/providers/Microsoft.SecurityContext/internetExposures/kusto-internet-exposure--exposure-record-0001",
+            "name": "kusto-internet-exposure--exposure-record-0001",
+            "type": "Microsoft.SecurityContext/internetExposures",
+            "systemData": {
+              "createdBy": "securitycontext-publisher",
+              "createdByType": "Application",
+              "createdAt": "2026-06-30T11:00:00Z",
+              "lastModifiedBy": "securitycontext-publisher",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-06-30T11:00:00Z"
+            },
+            "properties": {
+              "sourceSystem": "kusto-internet-exposure",
+              "sourceRecordId": "exposure-record-0001",
+              "displayName": "Synthetic HTTPS internet exposure",
+              "severity": "Medium",
+              "status": "Active",
+              "lastUpdatedAt": "2026-06-30T11:00:00Z",
+              "exposureType": "PublicNetworkEndpoint",
+              "transportProtocol": "TCP",
+              "applicationProtocol": "HTTPS",
+              "port": 443,
+              "scanType": "Active",
+              "confidence": 0.98,
+              "endpointFingerprint": "a6535e56e955b7a4e7c4f0bbc1643cadf431e50aac5f07553a216da49b2603d2"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

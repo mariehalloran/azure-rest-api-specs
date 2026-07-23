@@ -1,0 +1,42 @@
+{
+  "operationId": "ContainerAgents_Update",
+  "title": "Update a container agent",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "siteName": "myContainerSite",
+    "agentName": "myAgent",
+    "properties": {
+      "properties": {
+        "healthDetails": {
+          "version": "1.0.0",
+          "lastHeartBeatUtc": "2026-01-15T10:30:00Z"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/agents/myAgent",
+        "name": "myAgent",
+        "type": "Microsoft.ApplicationMigration/containerSites/agents",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "servicePrincipalIdentityDetails": {
+            "tenantId": "00000000-0000-0000-0000-000000000000",
+            "applicationId": "00000000-0000-0000-0000-000000000001",
+            "objectId": "00000000-0000-0000-0000-000000000002"
+          },
+          "migrateApplianceName": "myAppliance",
+          "fabricSiteName": "myFabricSite",
+          "healthDetails": {
+            "version": "1.0.0",
+            "lastHeartBeatUtc": "2026-01-15T10:30:00Z"
+          }
+        }
+      }
+    }
+  }
+}

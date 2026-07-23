@@ -6,15 +6,23 @@ using Azure.ResourceManager;
 using Playwright.Management;
 
 // Flatten properties for backward compatibility
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(PlaywrightQuota.properties,
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  PlaywrightQuota.properties,
   "autorest"
 );
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(PlaywrightWorkspace.properties,
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  PlaywrightWorkspace.properties,
   "autorest"
 );
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(PlaywrightWorkspaceQuota.properties,
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  PlaywrightWorkspaceQuota.properties,
   "autorest"
 );
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(Azure.ResourceManager.Foundations.ResourceUpdateModel.properties,
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  Azure.ResourceManager.Foundations.ResourceUpdateModel.properties,
   "autorest"
 );

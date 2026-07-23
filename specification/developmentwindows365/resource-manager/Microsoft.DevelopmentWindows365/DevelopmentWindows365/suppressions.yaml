@@ -1,0 +1,18 @@
+- tool: TypeSpecValidation
+  reason: >
+    The product name "Development Windows 365" contains digits, which are
+    disallowed by the [a-z]+ regex used by SDK package-name and namespace
+    conventions for Python and TypeScript. The "developmentwindows365"
+    identifier is the established product name and is used consistently across
+    Java, Go, and C# SDK configs where digits are permitted. Suppressing these
+    three sub-rules preserves consistent cross-language naming without changing
+    the published product identity.
+  rules:
+    - SdkTspConfigValidation
+  sub-rules:
+    - options.@azure-tools/typespec-ts.package-details.name
+    - options.@azure-tools/typespec-python.emitter-output-dir
+    - options.@azure-tools/typespec-python.namespace
+    - options.@azure-typespec/http-client-csharp-mgmt.*
+  paths:
+    - ./tspconfig.yaml

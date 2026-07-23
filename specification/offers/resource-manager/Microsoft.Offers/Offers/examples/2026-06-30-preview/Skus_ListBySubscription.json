@@ -1,0 +1,33 @@
+{
+  "title": "List SKUs in the catalog by subscription.",
+  "operationId": "Skus_ListBySubscription",
+  "parameters": {
+    "api-version": "2026-06-30-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Offers/skus/0001",
+            "name": "0001",
+            "type": "Microsoft.Offers/skus",
+            "properties": {
+              "productId": "DZH318Z09JCL",
+              "version": 1,
+              "skuType": "enterpriseonline",
+              "fulfillmentType": "SaaS",
+              "isTrial": false,
+              "isPreOrder": false,
+              "skuTitle": "Standard",
+              "description": "Standard SKU for Azure Virtual Machines.",
+              "language": "en",
+              "provisioningState": "Succeeded"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

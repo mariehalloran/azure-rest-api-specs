@@ -9,15 +9,15 @@ import {
   getSpecModel,
   isInDevFolder,
   type BreakingChangeDetectionContext,
-} from "../src/detect-breaking-change.js";
-import { ApiVersionLifecycleStage, Context } from "../src/types/breaking-change.js";
-import { getExistedVersionOperations, getPrecedingSwaggers } from "../src/utils/spec.js";
+} from "../src/detect-breaking-change.ts";
+import { ApiVersionLifecycleStage, type Context } from "../src/types/breaking-change.ts";
+import { getExistedVersionOperations, getPrecedingSwaggers } from "../src/utils/spec.ts";
 
 vi.mock("@azure-tools/specs-shared/spec-model", () => ({
   SpecModel: vi.fn(),
 }));
 
-vi.mock("../src/utils/spec.js", () => ({
+vi.mock("../src/utils/spec.ts", () => ({
   getExistedVersionOperations: vi.fn(),
   getPrecedingSwaggers: vi.fn(),
   deduplicateSwaggers: vi.fn(),
@@ -33,8 +33,8 @@ vi.mock("node:fs", async (importOriginal) => {
 });
 
 // Mock specific functions but keep getSpecModel as real implementation
-vi.mock("../src/detect-breaking-change.js", async () => {
-  const original = await vi.importActual<any>("../src/detect-breaking-change.js");
+vi.mock("../src/detect-breaking-change.ts", async () => {
+  const original = await vi.importActual<any>("../src/detect-breaking-change.ts");
   return {
     ...original,
     createBreakingChangeDetectionContext: vi
@@ -55,7 +55,7 @@ vi.mock("../src/detect-breaking-change.js", async () => {
   };
 });
 
-vi.mock("../src/utils/common-utils.js", () => ({
+vi.mock("../src/utils/common-utils.ts", () => ({
   convertRawErrorToUnifiedMsg: vi.fn().mockReturnValue('{"type":"Raw","level":"Error"}'),
   specIsPreview: vi.fn().mockReturnValue(false),
   blobHref: vi.fn().mockReturnValue("https://github.com/test/test.json"),
@@ -64,7 +64,7 @@ vi.mock("../src/utils/common-utils.js", () => ({
   processOadRuntimeErrorMessage: vi.fn(),
 }));
 
-vi.mock("../src/log.js", () => ({
+vi.mock("../src/log.ts", () => ({
   logMessage: vi.fn(),
   logError: vi.fn(),
   LogLevel: {
@@ -79,15 +79,15 @@ vi.mock("../src/log.js", () => ({
   LOG_PREFIX: "Runner-",
 }));
 
-vi.mock("../src/run-oad.js", () => ({
+vi.mock("../src/run-oad.ts", () => ({
   runOad: vi.fn().mockResolvedValue([]),
 }));
 
-vi.mock("../src/utils/oad-message-processor.js", () => ({
+vi.mock("../src/utils/oad-message-processor.ts", () => ({
   processAndAppendOadMessages: vi.fn(),
 }));
 
-vi.mock("../src/utils/apply-rules.js", () => ({
+vi.mock("../src/utils/apply-rules.ts", () => ({
   applyRules: vi.fn().mockReturnValue([]),
 }));
 
@@ -197,6 +197,7 @@ describe("detect-breaking-change", () => {
         existingVersionSwaggers: ["existing1.json", "existing2.json"],
         newVersionSwaggers: ["new1.json", "new2.json"],
         newVersionChangedSwaggers: ["changed1.json", "changed2.json"],
+        renamedSwaggers: [],
         msgs: [],
         runtimeErrors: [],
         oadTracer: { traces: [], baseBranch: "main", context },
@@ -233,11 +234,13 @@ describe("detect-breaking-change", () => {
     setupSpecModelMock: (mockInstance?: any) => {
       if (mockInstance) {
         // Use the provided instance
-        vi.mocked(SpecModel).mockImplementation(() => mockInstance as unknown as SpecModel);
+        vi.mocked(SpecModel).mockImplementation(function () {
+          return mockInstance as unknown as SpecModel;
+        });
         return mockInstance;
       } else {
         // Create different instances based on folder path
-        vi.mocked(SpecModel).mockImplementation((folder: string) => {
+        vi.mocked(SpecModel).mockImplementation(function (folder: string) {
           return TestFixtures.createMockSpecModel(folder) as unknown as SpecModel;
         });
         return null; // No specific instance to return
@@ -252,7 +255,7 @@ describe("detect-breaking-change", () => {
 
   beforeEach(async () => {
     MockSetup.resetAllMocks();
-    detectionModule = await import("../src/detect-breaking-change.js");
+    detectionModule = await import("../src/detect-breaking-change.ts");
 
     mockContext = TestFixtures.createMockContext();
     mockDetectionContext = TestFixtures.createMockDetectionContext();
@@ -727,7 +730,9 @@ describe("detect-breaking-change", () => {
         { path: "/test/swagger2.json" },
       ]);
 
-      vi.mocked(SpecModel).mockImplementation(() => mockSpecModelInstance);
+      vi.mocked(SpecModel).mockImplementation(function () {
+        return mockSpecModelInstance;
+      });
       vi.mocked(getPrecedingSwaggers).mockResolvedValue({
         stable: "/test/previous-stable.json",
         preview: "/test/previous-preview.json",
@@ -735,7 +740,7 @@ describe("detect-breaking-change", () => {
     });
 
     it("should process new version swaggers", async () => {
-      const detectionModule = await import("../src/detect-breaking-change.js");
+      const detectionModule = await import("../src/detect-breaking-change.ts");
       const getSpecModelSpy = vi.spyOn(detectionModule, "getSpecModel");
       getSpecModelSpy.mockReturnValue(mockSpecModelInstance);
 
@@ -778,7 +783,9 @@ describe("detect-breaking-change", () => {
       };
 
       // Mock SpecModel constructor directly
-      vi.mocked(SpecModel).mockImplementation(() => mockSpecModelInstance as unknown as SpecModel);
+      vi.mocked(SpecModel).mockImplementation(function () {
+        return mockSpecModelInstance as unknown as SpecModel;
+      });
 
       // Mock getExistedVersionOperations to return a proper Map
       vi.mocked(getExistedVersionOperations).mockResolvedValue(new Map());
@@ -790,7 +797,7 @@ describe("detect-breaking-change", () => {
       });
 
       // Import the module
-      const detectionModule = await import("../src/detect-breaking-change.js");
+      const detectionModule = await import("../src/detect-breaking-change.ts");
 
       mockDetectionContext.newVersionSwaggers = [TEST_CONSTANTS.PATHS.storage];
       mockDetectionContext.newVersionChangedSwaggers = [];

@@ -26,7 +26,10 @@ namespace Microsoft.AwsConnector;
 /** Api versions */
 enum Versions {
   /** 2024-12-01 api version */
-  `2024-12-01`,
+  v2024_12_01: "2024-12-01",
+
+  /** 2026-05-31-preview api version */
+  v2026_05_31_preview: "2026-05-31-preview",
 }
 
 //---------------------------------------------- RdsDBClusters ----------------------------------------------
@@ -70,7 +73,7 @@ model AwsRdsDBClusterProperties {
   allocatedStorage?: int32;
 
   @doc("Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB cluster. IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other AWS services on your behalf.")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   associatedRoles?: DBClusterRole[];
 
   @doc("A value that indicates whether minor engine upgrades are applied automatically to the DB cluster during the maintenance window. By default, minor engine upgrades are applied automatically.")
@@ -237,7 +240,7 @@ model AwsRdsDBClusterProperties {
   storageType?: string;
 
   @doc("An array of key-value pairs to apply to this resource.")
-  @identifiers(#[])
+  @Azure.ResourceManager.identifiers(#[])
   tags?: Tag[];
 
   @doc("A value that indicates whether to restore the DB cluster to the latest restorable backup time. By default, the DB cluster is not restored to the latest restorable backup time.")

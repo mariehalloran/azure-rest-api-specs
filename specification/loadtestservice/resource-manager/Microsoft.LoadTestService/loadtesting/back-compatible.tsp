@@ -6,21 +6,33 @@ using Azure.ResourceManager;
 using Microsoft.LoadTestService;
 
 // Flatten properties for backward compatibility
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(LoadTestMappingResource.properties,
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  LoadTestMappingResource.properties,
   "autorest"
 );
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(LoadTestProfileMappingResource.properties,
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  LoadTestProfileMappingResource.properties,
   "autorest"
 );
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(LoadTestResource.properties,
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  LoadTestResource.properties,
   "autorest"
 );
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(MaxMonthlyVirtualUserHoursResource.properties,
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  MaxMonthlyVirtualUserHoursResource.properties,
   "autorest"
 );
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(QuotaResource.properties,
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  QuotaResource.properties,
   "autorest"
 );
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(Azure.ResourceManager.Foundations.ResourceUpdateModel.properties,
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Back compatibility"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  Azure.ResourceManager.Foundations.ResourceUpdateModel.properties,
   "autorest"
 );

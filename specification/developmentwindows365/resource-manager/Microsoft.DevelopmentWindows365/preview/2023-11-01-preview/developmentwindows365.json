@@ -1,0 +1,597 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "DevelopmentWindows365",
+    "version": "2023-11-01-preview",
+    "description": "Windows365 Resource Provider management API for Development purpose, Dont use for production.",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "DevelopmentCloudPcDelegatedMsis"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.DevelopmentWindows365/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "Lists all of the available resource provider operations.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Operations_Get": {
+            "$ref": "./examples/Operations_Get.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.DevelopmentWindows365/developmentCloudPcDelegatedMsis": {
+      "get": {
+        "operationId": "DevelopmentCloudPcDelegatedMsi_ListBySubscription",
+        "tags": [
+          "DevelopmentCloudPcDelegatedMsis"
+        ],
+        "description": "Lists all DevelopmentCloudPcDelegatedMsi in a subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "description": "The maximum number of resources to return from the operation. Example: '$top=10'.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DevelopmentCloudPcDelegatedMsiListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "DevelopmentCloudPcDelegatedMsi_ListBySubscription": {
+            "$ref": "./examples/DevelopmentCloudPcDelegatedMsi_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevelopmentWindows365/developmentCloudPcDelegatedMsis": {
+      "get": {
+        "operationId": "DevelopmentCloudPcDelegatedMsi_ListByResourceGroup",
+        "tags": [
+          "DevelopmentCloudPcDelegatedMsis"
+        ],
+        "description": "Lists all DevelopmentCloudPcDelegatedMsi in a resource group.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.resourceGroupName"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "description": "The maximum number of resources to return from the operation. Example: '$top=10'.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DevelopmentCloudPcDelegatedMsiListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "DevelopmentCloudPcDelegatedMsi_ListByResourceGroup": {
+            "$ref": "./examples/DevelopmentCloudPcDelegatedMsi_ListByResourceGroup.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevelopmentWindows365/developmentCloudPcDelegatedMsis/{developmentCloudPcDelegatedMsiName}": {
+      "get": {
+        "operationId": "DevelopmentCloudPcDelegatedMsi_Get",
+        "tags": [
+          "DevelopmentCloudPcDelegatedMsis"
+        ],
+        "description": "Get a DevelopmentCloudPcDelegatedMsi",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.resourceGroupName"
+          },
+          {
+            "name": "developmentCloudPcDelegatedMsiName",
+            "in": "path",
+            "description": "The name of the developmentCloudPcDelegatedMsi.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z][A-Za-z0-9]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DevelopmentCloudPcDelegatedMsi"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "DevelopmentCloudPcDelegatedMsi_Get": {
+            "$ref": "./examples/DevelopmentCloudPcDelegatedMsi_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "DevelopmentCloudPcDelegatedMsi_CreateOrUpdate",
+        "tags": [
+          "DevelopmentCloudPcDelegatedMsis"
+        ],
+        "description": "Creates or updates a DevelopmentCloudPcDelegatedMsi resource",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.resourceGroupName"
+          },
+          {
+            "name": "developmentCloudPcDelegatedMsiName",
+            "in": "path",
+            "description": "The name of the developmentCloudPcDelegatedMsi.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z][A-Za-z0-9]*$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Represents a DevelopmentCloudPcDelegatedMsi.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DevelopmentCloudPcDelegatedMsi"
+            },
+            "x-ms-client-name": "resource"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'DevelopmentCloudPcDelegatedMsi' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/DevelopmentCloudPcDelegatedMsi"
+            }
+          },
+          "201": {
+            "description": "Resource 'DevelopmentCloudPcDelegatedMsi' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/DevelopmentCloudPcDelegatedMsi"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "DevelopmentCloudPcDelegatedMsi_Create": {
+            "$ref": "./examples/DevelopmentCloudPcDelegatedMsi_Create.json"
+          },
+          "DevelopmentCloudPcDelegatedMsi_CreateWithUserIdentity": {
+            "$ref": "./examples/DevelopmentCloudPcDelegatedMsi_CreateWithUserIdentity.json"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "DevelopmentCloudPcDelegatedMsi_Update",
+        "tags": [
+          "DevelopmentCloudPcDelegatedMsis"
+        ],
+        "description": "Partially updates a DevelopmentCloudPcDelegatedMsi.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.resourceGroupName"
+          },
+          {
+            "name": "developmentCloudPcDelegatedMsiName",
+            "in": "path",
+            "description": "The name of the developmentCloudPcDelegatedMsi.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z][A-Za-z0-9]*$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updatable DevelopmentCloudPcDelegatedMsi properties.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DevelopmentCloudPcDelegatedMsiUpdate"
+            },
+            "x-ms-client-name": "properties"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DevelopmentCloudPcDelegatedMsi"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "DevelopmentCloudPcDelegatedMsi_Patch": {
+            "$ref": "./examples/DevelopmentCloudPcDelegatedMsi_Patch.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DevelopmentCloudPcDelegatedMsi_Delete",
+        "tags": [
+          "DevelopmentCloudPcDelegatedMsis"
+        ],
+        "description": "Deletes a DevelopmentCloudPcDelegatedMsi",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/DevelopmentWindows365ResourceGroupScopeParameters.resourceGroupName"
+          },
+          {
+            "name": "developmentCloudPcDelegatedMsiName",
+            "in": "path",
+            "description": "The name of the developmentCloudPcDelegatedMsi.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z][A-Za-z0-9]*$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "DevelopmentCloudPcDelegatedMsi_Delete": {
+            "$ref": "./examples/DevelopmentCloudPcDelegatedMsi_Delete.json"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Azure.Core.uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Universally Unique Identifier"
+    },
+    "CloudError": {
+      "type": "object",
+      "description": "An error response from the Windows365 RP service.",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/CloudErrorBody",
+          "description": "Error body"
+        }
+      }
+    },
+    "CloudErrorBody": {
+      "type": "object",
+      "description": "An error response from the Windows365 RP service.",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An identifier for the error. Codes are invariant and are intended to be consumed programmatically."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message describing the error, intended to be suitable for display in a user interface."
+        },
+        "target": {
+          "type": "string",
+          "description": "The target of the particular error. For example, the name of the property in error."
+        },
+        "details": {
+          "type": "array",
+          "description": "A list of additional details about the error.",
+          "items": {
+            "$ref": "#/definitions/CloudErrorBody"
+          },
+          "x-ms-identifiers": []
+        }
+      }
+    },
+    "DelegatedResource": {
+      "type": "object",
+      "description": "Delegated resource properties - internal use only.",
+      "properties": {
+        "resourceId": {
+          "type": "string",
+          "description": "The ARM resource id of the delegated resource - internal use only."
+        },
+        "tenantId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The tenant id of the delegated resource - internal use only."
+        },
+        "referralResource": {
+          "type": "string",
+          "description": "The delegation id of the referral delegation (optional) - internal use only."
+        },
+        "location": {
+          "type": "string",
+          "description": "The source resource location - internal use only."
+        }
+      }
+    },
+    "DelegatedResources": {
+      "type": "object",
+      "description": "The set of delegated resources. The delegated resources dictionary keys will be source resource internal ids - internal use only.",
+      "additionalProperties": {
+        "$ref": "#/definitions/DelegatedResource"
+      }
+    },
+    "DevelopmentCloudPcDelegatedMsi": {
+      "type": "object",
+      "description": "Represents a developmentCloudPcDelegatedMsi resource.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/DevelopmentCloudPcDelegatedMsiProperties",
+          "description": "DevelopmentCloudPcDelegatedMsi properties",
+          "x-ms-client-flatten": true
+        },
+        "identity": {
+          "$ref": "#/definitions/ManagedServiceIdentityWithDelegation",
+          "description": "Delegated Managed identity properties"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "DevelopmentCloudPcDelegatedMsiListResult": {
+      "type": "object",
+      "description": "Result of the list developmentCloudPcDelegatedMsis operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "Current page of results.",
+          "items": {
+            "$ref": "#/definitions/DevelopmentCloudPcDelegatedMsi"
+          },
+          "readOnly": true
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "URL to get the next set of results if there are any.",
+          "readOnly": true
+        }
+      }
+    },
+    "DevelopmentCloudPcDelegatedMsiProperties": {
+      "type": "object",
+      "description": "Properties of the developmentCloudPcDelegatedMsi.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the resource.",
+          "readOnly": true
+        }
+      }
+    },
+    "DevelopmentCloudPcDelegatedMsiUpdate": {
+      "type": "object",
+      "description": "The DevelopmentCloudPcDelegatedMsi resource for partial updates. Properties not provided in the update request will not be changed.",
+      "properties": {
+        "identity": {
+          "$ref": "../../../../../common-types/resource-management/v3/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "description": "Managed identity properties"
+        }
+      }
+    },
+    "ManagedServiceIdentityWithDelegation": {
+      "type": "object",
+      "description": "Managed service identity (system assigned and/or user assigned identities and/or delegated identities) - internal use only.",
+      "properties": {
+        "delegatedResources": {
+          "$ref": "#/definitions/DelegatedResources",
+          "description": "The set of delegated resources. The delegated resources dictionary keys will be source resource internal ids - internal use only."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../common-types/resource-management/v3/managedidentity.json#/definitions/ManagedServiceIdentity"
+        }
+      ]
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "description": "Provisioning state of the resource.",
+      "enum": [
+        "Succeeded",
+        "Canceled",
+        "Deleting",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "The resource provisioning operation completed successfully."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "The resource provisioning operation was canceled."
+          },
+          {
+            "name": "Deleting",
+            "value": "Deleting",
+            "description": "The resource is being deleted."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "The resource provisioning operation failed."
+          }
+        ]
+      },
+      "readOnly": true
+    }
+  },
+  "parameters": {
+    "DevelopmentWindows365ResourceGroupScopeParameters.resourceGroupName": {
+      "name": "resourceGroupName",
+      "in": "path",
+      "description": "The name of the resource group.",
+      "required": true,
+      "type": "string",
+      "x-ms-parameter-location": "method"
+    },
+    "DevelopmentWindows365ResourceGroupScopeParameters.subscriptionId": {
+      "name": "subscriptionId",
+      "in": "path",
+      "description": "The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).",
+      "required": true,
+      "type": "string",
+      "x-ms-parameter-location": "method"
+    }
+  }
+}

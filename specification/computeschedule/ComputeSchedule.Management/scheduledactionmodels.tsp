@@ -3,7 +3,6 @@ import "@typespec/rest";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
-import "./scheduledactionmodels.tsp";
 import "./occurrencemodels.tsp";
 import "./occurrenceroutes.tsp";
 
@@ -23,10 +22,10 @@ model ScheduledActionsSchedule {
   @doc("The timezone the scheduled time is specified on")
   timeZone: string;
 
-  @doc("The week days the scheduled action is supposed to run on")
+  @doc("The week days the scheduled action is supposed to run on. If empty, it means it will run on every day of the week.")
   requestedWeekDays: WeekDay[];
 
-  @doc("The months the scheduled action is supposed to run on")
+  @doc("The months the scheduled action is supposed to run on. If empty, it means it will run on every month.")
   requestedMonths: Month[];
 
   @doc("The days of the month the scheduled action is supposed to run on. If empty, it means it will run on every day of the month.")
@@ -39,7 +38,7 @@ model ScheduledActionsSchedule {
   deadlineType?: DeadlineType;
 }
 
-@added(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
+@added(Microsoft.ComputeSchedule.Versions.`2024-08-01-preview`)
 scalar ValidScheduledActionResourceId
   extends armResourceIdentifier<[
     {
@@ -110,14 +109,14 @@ model ResourcePatchRequest {
   resources: Array<ScheduledActionResource>;
 }
 
-@added(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
+@added(Microsoft.ComputeSchedule.Versions.`2024-08-01-preview`)
 @doc("The request to cancel an occurrence.")
 model CancelOccurrenceRequest {
   @doc("The resources the cancellation should act on. If no resource is passed in the list, Scheduled Action will cancel the occurrence for all resources.")
   resourceIds: Array<ValidScheduledActionResourceId>;
 }
 
-@added(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
+@added(Microsoft.ComputeSchedule.Versions.`2024-08-01-preview`)
 @doc("The status of a resource after a resource level operation was performed")
 model ResourceStatus {
   @doc("The arm identifier of the resource")

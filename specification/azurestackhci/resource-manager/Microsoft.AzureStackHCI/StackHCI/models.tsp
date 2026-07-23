@@ -1,0 +1,16200 @@
+import "@typespec/rest";
+import "@typespec/http";
+import "@azure-tools/typespec-azure-core";
+import "@azure-tools/typespec-azure-resource-manager";
+
+using Azure.ResourceManager;
+using TypeSpec.Versioning;
+
+namespace Microsoft.AzureStackHCI;
+
+/**
+ * ClusterJob Type supported.
+ */
+@added(Versions.v2026_03_15_preview)
+union HciJobType {
+  string,
+
+  /** Job to add a server to the cluster. */
+  AddServer: "AddServer",
+
+  /** Job to repair a server in the cluster. */
+  RepairServer: "RepairServer",
+
+  /** Job to configure local availability zones for the cluster. */
+  ConfigureLocalAvailabilityZone: "ConfigureLocalAvailabilityZone",
+
+  // PRIVATE PREVIEW - Arc Gateway and GPU job types
+  /** Job to configure arc gateway for the cluster. */
+  ConfigureArcGateway: "ConfigureArcGateway",
+
+  /** Job to create GPU partitions for the cluster. */
+  GpuCreatePartition: "GpuCreatePartition",
+
+  /** Job to switch GPU mode for the cluster. */
+  GpuSwitchMode: "GpuSwitchMode",
+
+  /**
+   * Job to CVM intent for the cluster.
+   */
+  ConfigureCVM: "ConfigureCVM",
+
+  /**
+   * Job to configure SDN (Software Defined Networking) integration for the cluster.
+   */
+  ConfigureSdnIntegration: "ConfigureSdnIntegration",
+
+  // PRIVATE PREVIEW - VM Connect job types
+  /** Job to open port to enable RDP Connection */
+  VmConnectProvision: "VmConnectProvision",
+
+  /** Job to close port to disable RDP Connection */
+  VmConnectRemove: "VmConnectRemove",
+}
+
+/**
+ * Provisioning state of the ArcSetting proxy resource.
+ */
+union ProvisioningState {
+  string,
+
+  /**
+   * The provisioning state is not specified.
+   */
+  NotSpecified: "NotSpecified",
+
+  /**
+   * An error occurred during provisioning.
+   */
+  Error: "Error",
+
+  /**
+   * Provisioning completed successfully.
+   */
+  Succeeded: "Succeeded",
+
+  /**
+   * Provisioning failed.
+   */
+  Failed: "Failed",
+
+  /**
+   * Provisioning was canceled.
+   */
+  Canceled: "Canceled",
+
+  /**
+   * The resource is connected.
+   */
+  Connected: "Connected",
+
+  /**
+   * The resource is disconnected.
+   */
+  Disconnected: "Disconnected",
+
+  /**
+   * The resource has been deleted.
+   */
+  Deleted: "Deleted",
+
+  /**
+   * The resource is being created.
+   */
+  Creating: "Creating",
+
+  /**
+   * The resource is being updated.
+   */
+  Updating: "Updating",
+
+  /**
+   * The resource is being deleted.
+   */
+  Deleting: "Deleting",
+
+  /**
+   * The resource is being moved.
+   */
+  Moving: "Moving",
+
+  /**
+   * Provisioning partially succeeded.
+   */
+  PartiallySucceeded: "PartiallySucceeded",
+
+  /**
+   * The resource is partially connected.
+   */
+  PartiallyConnected: "PartiallyConnected",
+
+  /**
+   * Provisioning is in progress.
+   */
+  InProgress: "InProgress",
+
+  /**
+   * Provisioning request has been accepted.
+   */
+  Accepted: "Accepted",
+
+  /**
+   * The resource is currently provisioning.
+   */
+  Provisioning: "Provisioning",
+
+  /**
+   * The resource is being disabled.
+   */
+  DisableInProgress: "DisableInProgress",
+}
+
+/**
+ * Aggregate state of Arc agent across the nodes in this HCI cluster.
+ */
+union ArcSettingAggregateState {
+  string,
+
+  /**
+   * The aggregate state is not specified.
+   */
+  NotSpecified: "NotSpecified",
+
+  /**
+   * An error occurred in the aggregate state.
+   */
+  Error: "Error",
+
+  /**
+   * The operation successfully completed across all nodes.
+   */
+  Succeeded: "Succeeded",
+
+  /**
+   * The operation was canceled across the nodes.
+   */
+  Canceled: "Canceled",
+
+  /**
+   * The operation failed on all or most nodes.
+   */
+  Failed: "Failed",
+
+  /**
+   * All nodes are connected.
+   */
+  Connected: "Connected",
+
+  /**
+   * All nodes are disconnected.
+   */
+  Disconnected: "Disconnected",
+
+  /**
+   * The Arc agent has been deleted from all nodes.
+   */
+  Deleted: "Deleted",
+
+  /**
+   * The Arc agent is being created across the nodes.
+   */
+  Creating: "Creating",
+
+  /**
+   * The Arc agent is being updated across the nodes.
+   */
+  Updating: "Updating",
+
+  /**
+   * The Arc agent is being deleted across the nodes.
+   */
+  Deleting: "Deleting",
+
+  /**
+   * The Arc agent is being moved across the nodes.
+   */
+  Moving: "Moving",
+
+  /**
+   * The operation succeeded on some nodes.
+   */
+  PartiallySucceeded: "PartiallySucceeded",
+
+  /**
+   * Some nodes are connected, others are not.
+   */
+  PartiallyConnected: "PartiallyConnected",
+
+  /**
+   * The operation is currently in progress across the nodes.
+   */
+  InProgress: "InProgress",
+
+  /**
+   * The operation has been accepted and is pending execution.
+   */
+  Accepted: "Accepted",
+
+  /**
+   * The Arc agent is being provisioned across the nodes.
+   */
+  Provisioning: "Provisioning",
+
+  /**
+   * The Arc agent is being disabled across the nodes.
+   */
+  DisableInProgress: "DisableInProgress",
+}
+
+/**
+ * State of the Arc agent in this node. Indicates the current lifecycle status of the agent, such as whether it's being provisioned, connected, updated, or has encountered an error.
+ */
+union NodeArcState {
+  string,
+
+  /**
+   * The state is not specified.
+   */
+  NotSpecified: "NotSpecified",
+
+  /**
+   * An error occurred during the agent's lifecycle.
+   */
+  Error: "Error",
+
+  /**
+   * The operation completed successfully.
+   */
+  Succeeded: "Succeeded",
+
+  /**
+   * The operation was canceled before completion.
+   */
+  Canceled: "Canceled",
+
+  /**
+   * The operation failed.
+   */
+  Failed: "Failed",
+
+  /**
+   * The Arc agent is connected on this node.
+   */
+  Connected: "Connected",
+
+  /**
+   * The Arc agent is disconnected on this node.
+   */
+  Disconnected: "Disconnected",
+
+  /**
+   * The Arc agent has been deleted from this node.
+   */
+  Deleted: "Deleted",
+
+  /**
+   * The Arc agent is being created on this node.
+   */
+  Creating: "Creating",
+
+  /**
+   * The Arc agent is being updated on this node.
+   */
+  Updating: "Updating",
+
+  /**
+   * The Arc agent is being deleted from this node.
+   */
+  Deleting: "Deleting",
+
+  /**
+   * The Arc agent is being moved on this node.
+   */
+  Moving: "Moving",
+
+  /**
+   * The operation partially succeeded.
+   */
+  PartiallySucceeded: "PartiallySucceeded",
+
+  /**
+   * The Arc agent is partially connected on this node.
+   */
+  PartiallyConnected: "PartiallyConnected",
+
+  /**
+   * The operation is currently in progress.
+   */
+  InProgress: "InProgress",
+
+  /**
+   * The operation has been accepted and is pending execution.
+   */
+  Accepted: "Accepted",
+
+  /**
+   * The Arc agent is currently being provisioned on this node.
+   */
+  Provisioning: "Provisioning",
+
+  /**
+   * The Arc agent is in the process of being disabled on this node.
+   */
+  DisableInProgress: "DisableInProgress",
+}
+
+/**
+ * Status of the cluster agent. Indicates the current connectivity, validation, and deployment state of the agent within the cluster.
+ */
+union Status {
+  string,
+
+  /**
+   * The cluster agent has not yet registered with Azure.
+   */
+  NotYetRegistered: "NotYetRegistered",
+
+  /**
+   * The cluster agent has connected to Azure recently.
+   */
+  ConnectedRecently: "ConnectedRecently",
+
+  /**
+   * The cluster agent has not connected to Azure recently.
+   */
+  NotConnectedRecently: "NotConnectedRecently",
+
+  /**
+   * The cluster agent is currently disconnected from Azure.
+   */
+  Disconnected: "Disconnected",
+
+  /**
+   * An error occurred in the cluster agent's operation.
+   */
+  Error: "Error",
+
+  /**
+   * The status of the cluster agent is not specified.
+   */
+  NotSpecified: "NotSpecified",
+
+  /**
+   * Validation of the cluster agent is currently in progress.
+   */
+  ValidationInProgress: "ValidationInProgress",
+
+  /**
+   * Validation of the cluster agent completed successfully.
+   */
+  ValidationSuccess: "ValidationSuccess",
+
+  /**
+   * Validation of the cluster agent failed.
+   */
+  ValidationFailed: "ValidationFailed",
+
+  /**
+   * Deployment of the cluster agent is currently in progress.
+   */
+  DeploymentInProgress: "DeploymentInProgress",
+
+  /**
+   * Deployment of the cluster agent failed.
+   */
+  DeploymentFailed: "DeploymentFailed",
+
+  /**
+   * Deployment of the cluster agent completed successfully.
+   */
+  DeploymentSuccess: "DeploymentSuccess",
+}
+
+/**
+ * Overall connectivity status for the cluster resource. Indicates whether the cluster is connected to Azure, partially connected, or has not recently communicated.
+ */
+union ConnectivityStatus {
+  string,
+
+  /**
+   * The cluster has not yet registered with Azure.
+   */
+  NotYetRegistered: "NotYetRegistered",
+
+  /**
+   * The cluster is fully connected to Azure.
+   */
+  Connected: "Connected",
+
+  /**
+   * The cluster has not connected to Azure recently.
+   */
+  NotConnectedRecently: "NotConnectedRecently",
+
+  /**
+   * Some components of the cluster are connected, while others are not.
+   */
+  PartiallyConnected: "PartiallyConnected",
+
+  /**
+   * The cluster is not connected to Azure.
+   */
+  Disconnected: "Disconnected",
+
+  /**
+   * The connectivity status is not specified.
+   */
+  NotSpecified: "NotSpecified",
+}
+
+/**
+ * Status of the Software Assurance for the cluster.
+ */
+union SoftwareAssuranceStatus {
+  string,
+
+  /**
+   * Software Assurance is enabled for the cluster.
+   */
+  Enabled: "Enabled",
+
+  /**
+   * Software Assurance is disabled for the cluster.
+   */
+  Disabled: "Disabled",
+}
+
+/**
+ * Customer Intent for Software Assurance Benefit.
+ */
+union SoftwareAssuranceIntent {
+  string,
+
+  /**
+   * Customer intends to enable the Software Assurance benefit.
+   */
+  Enable: "Enable",
+
+  /**
+   * Customer intends to disable the Software Assurance benefit.
+   */
+  Disable: "Disable",
+}
+
+/**
+ * LogCollection status
+ */
+union LogCollectionStatus {
+  string,
+
+  /**
+   * No log collection has been initiated.
+   */
+  None: "None",
+
+  /**
+   * Log collection is currently in progress.
+   */
+  InProgress: "InProgress",
+
+  /**
+   * Log collection has failed.
+   */
+  Failed: "Failed",
+
+  /**
+   * Log collection completed successfully.
+   */
+  Succeeded: "Succeeded",
+}
+
+/**
+ * Specifies the type of log collection job. Determines whether the logs are collected immediately on demand or as part of a scheduled operation.
+ */
+union LogCollectionJobType {
+  string,
+
+  /**
+   * Log collection is triggered manually and executed immediately.
+   */
+  OnDemand: "OnDemand",
+
+  /**
+   * Log collection is scheduled to run at a predefined time or interval.
+   */
+  Scheduled: "Scheduled",
+}
+
+/**
+ * Remote Support Access Level
+ */
+union AccessLevel {
+  string,
+
+  /**
+   * Allows remote diagnostics operations only.
+   */
+  Diagnostics: "Diagnostics",
+
+  /**
+   * Allows both remote diagnostics and repair operations.
+   */
+  DiagnosticsAndRepair: "DiagnosticsAndRepair",
+}
+
+/**
+ * Remote Support Type for cluster
+ */
+union RemoteSupportType {
+  string,
+
+  /**
+   * Enable remote support for the cluster.
+   */
+  Enable: "Enable",
+
+  /**
+   * Revoke previously enabled remote support for the cluster.
+   */
+  Revoke: "Revoke",
+}
+
+/**
+ * Desired state of Windows Server Subscription.
+ */
+union WindowsServerSubscription {
+  string,
+
+  /**
+   * Windows Server Subscription is disabled.
+   */
+  Disabled: "Disabled",
+
+  /**
+   * Windows Server Subscription is enabled.
+   */
+  Enabled: "Enabled",
+}
+
+/**
+ * Desired level of diagnostic data emitted by the cluster.
+ */
+union DiagnosticLevel {
+  string,
+
+  /**
+   * No diagnostic data will be emitted.
+   */
+  Off: "Off",
+
+  /**
+   * Basic diagnostic data will be emitted, including essential health metrics.
+   */
+  Basic: "Basic",
+
+  /**
+   * Enhanced diagnostic data will be emitted, including detailed performance and usage metrics.
+   */
+  Enhanced: "Enhanced",
+}
+
+/**
+ * Specifies the type of hardware vendor for all nodes in the cluster. Indicates whether the nodes are provided by Microsoft or a third-party vendor.
+ */
+union ClusterNodeType {
+  string,
+
+  /**
+   * All nodes in the cluster are provided and managed by Microsoft.
+   */
+  FirstParty: "FirstParty",
+
+  /**
+   * All nodes in the cluster are provided and managed by a third-party vendor.
+   */
+  ThirdParty: "ThirdParty",
+}
+
+/**
+ * OEM activation status of the cluster.
+ */
+union OemActivation {
+  string,
+
+  /**
+   * OEM activation is disabled for the cluster.
+   */
+  Disabled: "Disabled",
+
+  /**
+   * OEM activation is enabled for the cluster.
+   */
+  Enabled: "Enabled",
+}
+
+/**
+ * IMDS attestation status of the cluster.
+ */
+union ImdsAttestation {
+  string,
+
+  /**
+   * IMDS attestation is disabled for the cluster.
+   */
+  Disabled: "Disabled",
+
+  /**
+   * IMDS attestation is enabled for the cluster.
+   */
+  Enabled: "Enabled",
+}
+
+/**
+ * Hardware class of the cluster.
+ */
+union HardwareClass {
+  string,
+
+  /**
+   * The hardware class is small.
+   */
+  Small: "Small",
+
+  /**
+   * The hardware class is medium. This corresponds to the default
+   */
+  Medium: "Medium",
+
+  /**
+   * The hardware class is large.
+   */
+  Large: "Large",
+}
+
+/**
+ * Witness type for an Azure Stack HCI cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+union WitnessType {
+  string,
+
+  /** Cloud witness backed by an Azure Storage account. */
+  Cloud: "Cloud",
+
+  /** File-share witness on a local SMB share. */
+  FileShare: "FileShare",
+}
+
+/**
+ * Type of secrets to store
+ */
+union SecretsType {
+  string,
+
+  /**
+   * Backup secrets type
+   */
+  BackupSecrets: "BackupSecrets",
+}
+
+/**
+ * Supported Storage Pattern for HCI Cluster
+ */
+union ClusterPattern {
+  string,
+
+  /**
+   * Standard cluster.
+   */
+  Standard: "Standard",
+
+  /**
+   * RackAware cluster.
+   */
+  RackAware: "RackAware",
+}
+
+/**
+ * Identity Provider for the cluster
+ */
+union IdentityProvider {
+  string,
+
+  /**
+   * Uses Active Directory as the identity provider, enabling domain-based authentication and centralized identity management. This is the default option.
+   */
+  ActiveDirectory: "ActiveDirectory",
+
+  /**
+   * Uses a local identity system integrated with Azure Key Vault for authentication. Suitable for AD-less environments where Active Directory is not available or required.
+   */
+  LocalIdentity: "LocalIdentity",
+}
+
+/**
+ * Deployment mode to trigger job.
+ */
+union DeploymentMode {
+  string,
+
+  /**
+   * Validate ECE action deployment for a cluster.
+   */
+  Validate: "Validate",
+
+  /**
+   * Deploy ECE action deployment for a cluster.
+   */
+  Deploy: "Deploy",
+}
+
+/**
+ * The intended operation for a cluster.
+ */
+union OperationType {
+  string,
+
+  /**
+   * Cluster provisioning operation.
+   */
+  ClusterProvisioning: "ClusterProvisioning",
+
+  /**
+   * Cluster upgrade operation.
+   */
+  ClusterUpgrade: "ClusterUpgrade",
+}
+
+/**
+ * Specifies how DNS servers are configured for the infrastructure network. Allowed values are 'UseDnsServer' to use the provided DNS servers, and 'UseForwarder' to use DNS forwarders.
+ */
+union DnsServerConfig {
+  string,
+
+  /**
+   * Use the provided DNS servers for the infrastructure network.
+   */
+  UseDnsServer: "UseDnsServer",
+
+  /**
+   * Use DNS forwarders for the infrastructure network.
+   */
+  UseForwarder: "UseForwarder",
+}
+
+/**
+ * Secret names allowed for Enterprise Cloud Engine (ECE) deployment.
+ */
+union EceSecrets {
+  string,
+
+  /**
+   * AzureStackLCMUserCredential used for LCM operations for AzureStackHCI cluster.
+   */
+  AzureStackLCMUserCredential: "AzureStackLCMUserCredential",
+
+  /**
+   * DefaultARBApplication used to manage Azure Arc resource bridge (ARB) for AzureStackHCI cluster.
+   */
+  DefaultARBApplication: "DefaultARBApplication",
+
+  /**
+   * LocalAdminCredential used for admin operations for AzureStackHCI cluster.
+   */
+  LocalAdminCredential: "LocalAdminCredential",
+
+  /**
+   * WitnessStorageKey used for setting up a cloud witness for AzureStackHCI cluster.
+   */
+  WitnessStorageKey: "WitnessStorageKey",
+
+  /**
+   * chapCredential used for iSCSI CHAP authentication during edge machine node preparation.
+   */
+  @added(Versions.v2026_03_15_preview)
+  chapCredential: "chapCredential",
+
+  /**
+   * mutualChapCredential used for iSCSI mutual (bidirectional) CHAP authentication during edge machine node preparation.
+   */
+  @added(Versions.v2026_03_15_preview)
+  mutualChapCredential: "mutualChapCredential",
+}
+
+/**
+ * Edge device kind.
+ */
+union EdgeDeviceKind {
+  string,
+
+  /**
+   * Arc-enabled edge device with HCI OS.
+   */
+  HCI: "HCI",
+}
+
+/**
+ * Edge device kind.
+ */
+union DeviceKind {
+  string,
+
+  /**
+   * Arc-enabled edge device with HCI OS.
+   */
+  HCI: "HCI",
+}
+
+/**
+ * Aggregate state of Arc Extensions across the nodes in this HCI cluster. This reflects the overall status of the extension deployment and operation across all nodes.
+ */
+union ExtensionAggregateState {
+  string,
+
+  /**
+   * The aggregate state is not specified.
+   */
+  NotSpecified: "NotSpecified",
+
+  /**
+   * An error occurred in the aggregate state.
+   */
+  Error: "Error",
+
+  /**
+   * The operation succeeded across all nodes.
+   */
+  Succeeded: "Succeeded",
+
+  /**
+   * The operation was canceled across the nodes.
+   */
+  Canceled: "Canceled",
+
+  /**
+   * The operation failed on all or most nodes.
+   */
+  Failed: "Failed",
+
+  /**
+   * All nodes are connected.
+   */
+  Connected: "Connected",
+
+  /**
+   * All nodes are disconnected.
+   */
+  Disconnected: "Disconnected",
+
+  /**
+   * The extension has been deleted from all nodes.
+   */
+  Deleted: "Deleted",
+
+  /**
+   * The extension is being created across the nodes.
+   */
+  Creating: "Creating",
+
+  /**
+   * The extension is being updated across the nodes.
+   */
+  Updating: "Updating",
+
+  /**
+   * The extension is being deleted across the nodes.
+   */
+  Deleting: "Deleting",
+
+  /**
+   * The extension is being moved across the nodes.
+   */
+  Moving: "Moving",
+
+  /**
+   * The operation succeeded on some nodes.
+   */
+  PartiallySucceeded: "PartiallySucceeded",
+
+  /**
+   * Some nodes are connected, others are not.
+   */
+  PartiallyConnected: "PartiallyConnected",
+
+  /**
+   * The operation is currently in progress across the nodes.
+   */
+  InProgress: "InProgress",
+
+  /**
+   * The operation has been accepted and is pending execution.
+   */
+  Accepted: "Accepted",
+
+  /**
+   * The extension is currently being provisioned across the nodes.
+   */
+  Provisioning: "Provisioning",
+
+  /**
+   * Extension upgrade failed, but rollback succeeded across the nodes.
+   */
+  UpgradeFailedRollbackSucceeded: "UpgradeFailedRollbackSucceeded",
+}
+
+/**
+ * State of Arc Extension in this node. Reflects the current lifecycle status of the extension on the individual node, such as whether it's being created, updated, deleted, or has encountered an error.
+ */
+union NodeExtensionState {
+  string,
+
+  /**
+   * The state is not specified.
+   */
+  NotSpecified: "NotSpecified",
+
+  /**
+   * An error occurred during the extension lifecycle.
+   */
+  Error: "Error",
+
+  /**
+   * The extension operation completed successfully.
+   */
+  Succeeded: "Succeeded",
+
+  /**
+   * The extension operation was canceled.
+   */
+  Canceled: "Canceled",
+
+  /**
+   * The extension operation failed.
+   */
+  Failed: "Failed",
+
+  /**
+   * The extension is connected on the node.
+   */
+  Connected: "Connected",
+
+  /**
+   * The extension is disconnected on the node.
+   */
+  Disconnected: "Disconnected",
+
+  /**
+   * The extension has been deleted from the node.
+   */
+  Deleted: "Deleted",
+
+  /**
+   * The extension is being created on the node.
+   */
+  Creating: "Creating",
+
+  /**
+   * The extension is being updated on the node.
+   */
+  Updating: "Updating",
+
+  /**
+   * The extension is being deleted from the node.
+   */
+  Deleting: "Deleting",
+
+  /**
+   * The extension is being moved on the node.
+   */
+  Moving: "Moving",
+
+  /**
+   * The extension operation partially succeeded.
+   */
+  PartiallySucceeded: "PartiallySucceeded",
+
+  /**
+   * The extension is partially connected on the node.
+   */
+  PartiallyConnected: "PartiallyConnected",
+
+  /**
+   * The extension operation is currently in progress.
+   */
+  InProgress: "InProgress",
+
+  /**
+   * The extension operation has been accepted and is pending execution.
+   */
+  Accepted: "Accepted",
+
+  /**
+   * The extension is currently being provisioned on the node.
+   */
+  Provisioning: "Provisioning",
+}
+
+/**
+ * The level code. Indicates the severity or importance of the status message.
+ */
+union StatusLevelTypes {
+  string,
+
+  /**
+   * Informational message indicating normal operation.
+   */
+  Info: "Info",
+
+  /**
+   * Warning message indicating a potential issue or non-critical problem.
+   */
+  Warning: "Warning",
+
+  /**
+   * Error message indicating a failure or critical issue.
+   */
+  Error: "Error",
+}
+
+/**
+ * Indicates whether the extension is managed by the user or by Azure.
+ */
+union ExtensionManagedBy {
+  string,
+
+  /**
+   * The extension is managed by the user.
+   */
+  User: "User",
+
+  /**
+   * The extension is managed by Azure.
+   */
+  Azure: "Azure",
+}
+
+/**
+ * Represents the compliance assignment type of a resource.
+ */
+union ComplianceAssignmentType {
+  string,
+
+  /**
+   * Report on the state of the machine, but don't make changes.
+   */
+  Audit: "Audit",
+
+  /**
+   * Applied to the machine. If it drifts, the local service inside the machine makes a correction at the next evaluation.
+   */
+  ApplyAndAutoCorrect: "ApplyAndAutoCorrect",
+}
+
+/**
+ * Represents the compliance status of a resource.
+ */
+union ComplianceStatus {
+  string,
+
+  /**
+   * The resource is compliant
+   */
+  Compliant: "Compliant",
+
+  /**
+   * The resource is non-compliant
+   */
+  NonCompliant: "NonCompliant",
+
+  /**
+   * The resource compliance status is pending
+   */
+  Pending: "Pending",
+}
+
+/**
+ * Represents the current state of the update run. Indicates whether the update is in progress, has completed successfully, failed, or is in an unknown state.
+ */
+union UpdateRunPropertiesState {
+  string,
+
+  /**
+   * The state of the update run is not known.
+   */
+  Unknown: "Unknown",
+
+  /**
+   * The update run completed successfully.
+   */
+  Succeeded: "Succeeded",
+
+  /**
+   * The update run is currently in progress.
+   */
+  InProgress: "InProgress",
+
+  /**
+   * The update run failed to complete successfully.
+   */
+  Failed: "Failed",
+}
+
+/**
+ * Represents the current state of the update as it relates to this stamp. This includes phases such as preparation, installation, scanning, and error handling, providing insight into the update's progress and any issues encountered.
+ */
+union State {
+  string,
+
+  /**
+   * The update has prerequisites that must be fulfilled before it can proceed.
+   */
+  HasPrerequisite: "HasPrerequisite",
+
+  /**
+   * The update is obsolete and no longer applicable.
+   */
+  Obsolete: "Obsolete",
+
+  /**
+   * The update is ready to be installed.
+   */
+  Ready: "Ready",
+
+  /**
+   * The update cannot be applied because another update is currently in progress.
+   */
+  NotApplicableBecauseAnotherUpdateIsInProgress: "NotApplicableBecauseAnotherUpdateIsInProgress",
+
+  /**
+   * The update is currently in the preparation phase.
+   */
+  Preparing: "Preparing",
+
+  /**
+   * The update is currently being installed.
+   */
+  Installing: "Installing",
+
+  /**
+   * The update has been successfully installed.
+   */
+  Installed: "Installed",
+
+  /**
+   * The update preparation phase failed.
+   */
+  PreparationFailed: "PreparationFailed",
+
+  /**
+   * The update installation failed.
+   */
+  InstallationFailed: "InstallationFailed",
+
+  /**
+   * The update is invalid and cannot be applied.
+   */
+  Invalid: "Invalid",
+
+  /**
+   * The update has been recalled and should not be applied.
+   */
+  Recalled: "Recalled",
+
+  /**
+   * The update is currently being downloaded.
+   */
+  Downloading: "Downloading",
+
+  /**
+   * The update download failed.
+   */
+  DownloadFailed: "DownloadFailed",
+
+  /**
+   * A health check is being performed before applying the update.
+   */
+  HealthChecking: "HealthChecking",
+
+  /**
+   * The health check failed, preventing the update from proceeding.
+   */
+  HealthCheckFailed: "HealthCheckFailed",
+
+  /**
+   * The update is ready to be installed after successful preparation and checks.
+   */
+  ReadyToInstall: "ReadyToInstall",
+
+  /**
+   * The system is scanning for updates.
+   */
+  ScanInProgress: "ScanInProgress",
+
+  /**
+   * The scan for updates failed.
+   */
+  ScanFailed: "ScanFailed",
+
+  /**
+   * Additional content is required to proceed with the update.
+   */
+  AdditionalContentRequired: "AdditionalContentRequired",
+
+  /**
+   * The health check has expired and needs to be redone.
+   */
+  @added(Versions.v2026_03_15_preview)
+  HealthCheckExpired: "HealthCheckExpired",
+
+  /**
+   * The update is pending OEM validation before it can proceed.
+   */
+  @added(Versions.v2026_03_15_preview)
+  PendingOEMValidation: "PendingOEMValidation",
+}
+
+/**
+ * Indicates whether a reboot is required after the update or operation. Helps determine if a system restart is necessary to complete the process.
+ */
+union RebootRequirement {
+  string,
+
+  /**
+   * It is not known whether a reboot is required.
+   */
+  Unknown: "Unknown",
+
+  /**
+   * A reboot is required to complete the operation.
+   */
+  True: "True",
+
+  /**
+   * No reboot is required after the operation.
+   */
+  False: "False",
+}
+
+/**
+ * Overall health state for update-specific health checks. Indicates whether the system is functioning correctly, has warnings or errors, or is undergoing a health evaluation.
+ */
+union HealthState {
+  string,
+
+  /**
+   * The health state is not known or cannot be determined.
+   */
+  Unknown: "Unknown",
+
+  /**
+   * The health check completed successfully and the system is healthy.
+   */
+  Success: "Success",
+
+  /**
+   * The health check failed, indicating a critical issue.
+   */
+  Failure: "Failure",
+
+  /**
+   * The health check detected a non-critical issue that may require attention.
+   */
+  Warning: "Warning",
+
+  /**
+   * An error occurred during the health check process.
+   */
+  Error: "Error",
+
+  /**
+   * The health check is currently in progress.
+   */
+  InProgress: "InProgress",
+}
+
+/**
+ * Indicates the importance or impact level of the result. Determines whether the result is informational, a warning, or a critical issue that may block updates.
+ */
+union Severity {
+  string,
+
+  /**
+   * A critical issue that blocks updates and requires immediate attention.
+   */
+  Critical: "Critical",
+
+  /**
+   * A warning that may indicate a potential issue but does not block updates.
+   */
+  Warning: "Warning",
+
+  /**
+   * General information that does not indicate any issue.
+   */
+  Informational: "Informational",
+
+  /**
+   * The result is hidden and not shown in the output.
+   */
+  Hidden: "Hidden",
+}
+
+/**
+ * Indicates how the update content is made available for download. This determines whether the update is sourced locally, from an online repository, or requires user notification.
+ */
+union AvailabilityType {
+  string,
+
+  /**
+   * The update content is available locally within the environment.
+   */
+  Local: "Local",
+
+  /**
+   * The update content is available from an online source.
+   */
+  Online: "Online",
+
+  /**
+   * The system will notify the user when update content becomes available.
+   */
+  Notify: "Notify",
+}
+
+/**
+ * Request body for the check updates action on update summaries.
+ */
+@added(Versions.v2026_03_15_preview)
+model CheckUpdatesRequest {
+  /**
+   * Name of update
+   */
+  updateName?: string;
+}
+
+/**
+ * Overall update state of the stamp. Indicates the current status of update deployment across the stamp, including preparation, application, and any issues encountered.
+ */
+union UpdateSummariesPropertiesState {
+  string,
+
+  /**
+   * The update state is not known.
+   */
+  Unknown: "Unknown",
+
+  /**
+   * Updates have been successfully applied to the stamp.
+   */
+  AppliedSuccessfully: "AppliedSuccessfully",
+
+  /**
+   * Updates are available but have not yet been applied.
+   */
+  UpdateAvailable: "UpdateAvailable",
+
+  /**
+   * Updates are currently being applied to the stamp.
+   */
+  UpdateInProgress: "UpdateInProgress",
+
+  /**
+   * The update process failed.
+   */
+  UpdateFailed: "UpdateFailed",
+
+  /**
+   * The update process requires user intervention or has encountered issues needing attention.
+   */
+  NeedsAttention: "NeedsAttention",
+
+  /**
+   * Preparation for the update is currently in progress.
+   */
+  PreparationInProgress: "PreparationInProgress",
+
+  /**
+   * Preparation for the update failed.
+   */
+  PreparationFailed: "PreparationFailed",
+}
+
+/**
+ * Specifies the name of the service associated with the update or operation. This helps identify which system component or tool is involved.
+ */
+union ServiceName {
+  string,
+
+  /**
+   * Windows Admin Center (WAC) is the service associated with this operation.
+   */
+  WAC: "WAC",
+}
+
+/**
+ * Represents the status of a log collection operation.
+ */
+union DeviceLogCollectionStatus {
+  string,
+
+  /**
+   * Log collection operation has not been initiated.
+   */
+  NotStarted: "NotStarted",
+
+  /**
+   * Indicates that the log collection operation is currently running.
+   */
+  Running: "Running",
+
+  /**
+   * Indicates that the log collection operation has failed.
+   */
+  Failed: "Failed",
+
+  /**
+   * Indicates that the log collection operation has completed successfully.
+   */
+  Succeeded: "Succeeded",
+
+  /**
+   * Indicates that the log collection operation has completed successfully.
+   */
+  Canceled: "Canceled",
+}
+
+/**
+ * Represents the various statuses a job can have throughout its lifecycle.
+ */
+union JobStatus {
+  string,
+
+  /**
+   * The job status has not been specified.
+   */
+  NotSpecified: "NotSpecified",
+
+  /**
+   * The job is currently undergoing validation.
+   */
+  ValidationInProgress: "ValidationInProgress",
+
+  /**
+   * The job has successfully passed validation.
+   */
+  ValidationSuccess: "ValidationSuccess",
+
+  /**
+   * The job has failed validation.
+   */
+  ValidationFailed: "ValidationFailed",
+
+  /**
+   * The job's deployment is currently in progress.
+   */
+  DeploymentInProgress: "DeploymentInProgress",
+
+  /**
+   * The job's deployment has failed.
+   */
+  DeploymentFailed: "DeploymentFailed",
+
+  /**
+   * The job has been successfully deployed.
+   */
+  DeploymentSuccess: "DeploymentSuccess",
+
+  /**
+   * The job has succeeded.
+   */
+  Succeeded: "Succeeded",
+
+  /**
+   * The job has failed.
+   */
+  Failed: "Failed",
+
+  /**
+   * The job has been canceled.
+   */
+  Canceled: "Canceled",
+
+  /**
+   * The job is paused.
+   */
+  Paused: "Paused",
+
+  /**
+   * The job is scheduled to run.
+   */
+  Scheduled: "Scheduled",
+}
+
+/**
+ * Job Type supported.
+ */
+union HciEdgeDeviceJobType {
+  string,
+
+  /**
+   * Job to collect logs from the device.
+   */
+  CollectLog: "CollectLog",
+
+  /**
+   * Job to provide remote support to the device.
+   */
+  RemoteSupport: "RemoteSupport",
+}
+
+/**
+ * Defines the level of remote support access granted.
+ */
+union RemoteSupportAccessLevel {
+  string,
+
+  /**
+   * No remote support access is granted.
+   */
+  None: "None",
+
+  /**
+   * Access is limited to diagnostics information only.
+   */
+  Diagnostics: "Diagnostics",
+
+  /**
+   * Access includes diagnostics information and the ability to perform repairs.
+   */
+  DiagnosticsAndRepair: "DiagnosticsAndRepair",
+}
+
+/**
+ * Provisioning state of remote support operations on the cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+union RemoteSupportProvisioningState {
+  string,
+
+  /**
+   * No operation is in progress.
+   */
+  None: "None",
+
+  /**
+   * A grant (enable) operation is in progress.
+   */
+  GrantInProgress: "GrantInProgress",
+
+  /**
+   * A revoke operation is in progress.
+   */
+  RevokeInProgress: "RevokeInProgress",
+
+  /**
+   * The last operation completed successfully on all nodes.
+   */
+  Succeeded: "Succeeded",
+
+  /**
+   * The last operation succeeded on some nodes but failed on others.
+   */
+  PartiallySucceeded: "PartiallySucceeded",
+
+  /**
+   * The last operation failed on all nodes.
+   */
+  Failed: "Failed",
+}
+
+/**
+ * Arc extension installation state.
+ */
+union ArcExtensionState {
+  string,
+
+  /**
+   * Arc extension state is not specified.
+   */
+  NotSpecified: "NotSpecified",
+
+  /**
+   * Arc extension state is Succeeded.
+   */
+  Succeeded: "Succeeded",
+
+  /**
+   * Arc extension state is Failed.
+   */
+  Failed: "Failed",
+
+  /**
+   * Arc extension state is Canceled.
+   */
+  Canceled: "Canceled",
+
+  /**
+   * Arc extension state is Accepted when extension installation triggered.
+   */
+  Accepted: "Accepted",
+
+  /**
+   * Arc extension is in Creating State.
+   */
+  Creating: "Creating",
+
+  /**
+   * Arc extension is in Updating State.
+   */
+  Updating: "Updating",
+
+  /**
+   * Arc extension is in Moving State.
+   */
+  Moving: "Moving",
+
+  /**
+   * Arc extension is in Deleting State.
+   */
+  Deleting: "Deleting",
+
+  /**
+   * Arc extension is in Deleted State.
+   */
+  Deleted: "Deleted",
+}
+
+/**
+ * Describes the RDMA capability of the network adapter.
+ */
+union RdmaCapability {
+  string,
+
+  /**
+   * Network Adapter on the device is RDMA Capable
+   */
+  Enabled: "Enabled",
+
+  /**
+   * Network Adapter on the device is RDMA Capable
+   */
+  Disabled: "Disabled",
+}
+
+/**
+ * The edge device state.
+ */
+union DeviceState {
+  string,
+
+  /**
+   * The edge device state is not specified.
+   */
+  NotSpecified: "NotSpecified",
+
+  /**
+   * The edge device state is in connected state.
+   */
+  Connected: "Connected",
+
+  /**
+   * The edge device state is in disconnected state.
+   */
+  Disconnected: "Disconnected",
+
+  /**
+   * The edge device state is in repairing state.
+   */
+  Repairing: "Repairing",
+
+  /**
+   * The edge device state is in draining state.
+   */
+  Draining: "Draining",
+
+  /**
+   * The edge device state is in maintenance state.
+   */
+  InMaintenance: "InMaintenance",
+
+  /**
+   * The edge device state is in resuming state.
+   */
+  Resuming: "Resuming",
+
+  /**
+   * The edge device state is in processing state.
+   */
+  Processing: "Processing",
+}
+
+/**
+ * Common Job Types supported.
+ */
+union EdgeDeviceJobType {
+  string,
+
+  /**
+   * Job to collect logs from the device.
+   */
+  CollectLog: "CollectLog",
+
+  /**
+   * Job to provide remote support to the device.
+   */
+  RemoteSupport: "RemoteSupport",
+}
+
+/**
+ * Edge solution type.
+ */
+union EdgeSolutionType {
+  string,
+
+  /**
+   * Edge solution for Windows based edge devices.
+   */
+  WindowsServer: "WindowsServer",
+}
+
+/**
+ * Lifecycle status of an Edge Machine.
+ */
+@added(Versions.v2026_03_15_preview)
+union EdgeMachineLifecycleStatus {
+  string,
+
+  /** Machine is being created. */
+  Creating: "Creating",
+
+  /** Machine is awaiting connection. */
+  AwaitingConnection: "AwaitingConnection",
+
+  /** Machine is being provisioned. */
+  Provisioning: "Provisioning",
+
+  /** Machine is ready for OS installation. */
+  ReadyForOs: "ReadyForOs",
+
+  /** Machine is installing the OS. */
+  InstallingOs: "InstallingOs",
+
+  /** Machine has been provisioned. */
+  Provisioned: "Provisioned",
+
+  /** Machine OS is being updated. */
+  UpdatingOs: "UpdatingOs",
+
+  /** Machine OS is being reset. */
+  ResettingOs: "ResettingOs",
+
+  /** Machine is being deleted. */
+  Deleting: "Deleting",
+
+  /** Machine is in a failed state. */
+  Failed: "Failed",
+}
+
+/**
+ * Status of an operation. Maps to Steps.Status / SubSteps.Status.
+ */
+@added(Versions.v2026_03_15_preview)
+union LifecycleOperationStatus {
+  string,
+
+  /** Operation has not started. */
+  NotStarted: "NotStarted",
+
+  /** Operation is in progress. */
+  InProgress: "InProgress",
+
+  /** Operation has completed successfully. */
+  Completed: "Completed",
+
+  /** Operation has failed. */
+  Failed: "Failed",
+}
+
+/**
+ * List of ArcSetting proxy resources for the HCI cluster.
+ */
+model ArcSettingList is Azure.Core.Page<ArcSetting>;
+
+/**
+ * ArcSetting properties.
+ */
+model ArcSettingProperties {
+  /**
+   * Provisioning state of the ArcSetting proxy resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * The resource group that hosts the Arc agents, ie. Hybrid Compute Machine resources.
+   */
+  arcInstanceResourceGroup?: string;
+
+  /**
+   * App id of arc AAD identity.
+   */
+  arcApplicationClientId?: string;
+
+  /**
+   * Tenant id of arc AAD identity.
+   */
+  arcApplicationTenantId?: string;
+
+  /**
+   * Object id of arc AAD service principal.
+   */
+  arcServicePrincipalObjectId?: string;
+
+  /**
+   * Object id of arc AAD identity.
+   */
+  arcApplicationObjectId?: string;
+
+  /**
+   * Aggregate state of Arc agent across the nodes in this HCI cluster.
+   */
+  @visibility(Lifecycle.Read)
+  aggregateState?: ArcSettingAggregateState;
+
+  /**
+   * State of Arc agent in each of the nodes.
+   */
+  @visibility(Lifecycle.Read)
+  perNodeDetails?: PerNodeState[];
+
+  /**
+   * contains connectivity related configuration for ARC resources
+   */
+  connectivityProperties?: ArcConnectivityProperties;
+
+  /**
+   * Properties for each of the default extensions category
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["category"])
+  defaultExtensions?: DefaultExtensionDetails[];
+}
+
+/**
+ * Status of Arc agent for a particular node in HCI Cluster.
+ */
+model PerNodeState {
+  /**
+   * Name of the Node in HCI Cluster
+   */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /**
+   * Fully qualified resource ID for the Arc agent of this node.
+   */
+  @visibility(Lifecycle.Read)
+  arcInstance?: string;
+
+  /**
+   * The service principal id of the arc for server node
+   */
+  @visibility(Lifecycle.Read)
+  arcNodeServicePrincipalObjectId?: string;
+
+  /**
+   * State of the Arc agent in this node. Indicates the current lifecycle status of the agent, such as whether it's being provisioned, connected, updated, or has encountered an error.
+   */
+  @visibility(Lifecycle.Read)
+  state?: NodeArcState;
+}
+
+/**
+ * Properties for a particular default extension category.
+ */
+model DefaultExtensionDetails {
+  /**
+   * Default extension category
+   */
+  @visibility(Lifecycle.Read)
+  category?: string;
+
+  /**
+   * Consent time for extension category
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  consentTime?: utcDateTime;
+}
+
+/**
+ * ArcSetting details to update.
+ */
+model ArcSettingsPatch {
+  /**
+   * Resource tags.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  tags?: Record<string>;
+
+  /**
+   * ArcSettings properties.
+   */
+  properties?: ArcSettingsPatchProperties;
+
+  @added(Versions.v2026_03_15_preview)
+  @doc("The managed service identities assigned to this resource.")
+  identity?: Azure.ResourceManager.Foundations.ManagedServiceIdentity;
+}
+
+/**
+ * ArcSettings properties.
+ */
+model ArcSettingsPatchProperties {
+  /**
+   * contains connectivity related configuration for ARC resources
+   */
+  connectivityProperties?: ArcConnectivityProperties;
+}
+
+#suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+model PasswordCredential {
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  secretText?: string;
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  keyId?: string;
+
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  startDateTime?: utcDateTime;
+
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  endDateTime?: utcDateTime;
+}
+
+/**
+ * ArcIdentity details.
+ */
+model ArcIdentityResponse {
+  /**
+   * ArcIdentity properties.
+   */
+  @visibility(Lifecycle.Read)
+  properties?: ArcIdentityResponseProperties;
+}
+
+#suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+model ArcIdentityResponseProperties {
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  arcApplicationClientId?: string;
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  arcApplicationTenantId?: string;
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  arcServicePrincipalObjectId?: string;
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  arcApplicationObjectId?: string;
+}
+
+/**
+ * Request for reconciling Arc Settings.
+ */
+model ReconcileArcSettingsRequest {
+  /**
+   * List of Arc Nodes in the cluster
+   */
+  properties?: ReconcileArcSettingsRequestProperties;
+}
+
+/**
+ * List of Arc Nodes in the cluster
+ */
+model ReconcileArcSettingsRequestProperties {
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  clusterNodes?: string[];
+}
+
+/**
+ * List of clusters.
+ */
+model ClusterList is Azure.Core.Page<Cluster>;
+
+/**
+ * Cluster properties.
+ */
+model ClusterProperties {
+  /**
+   * Provisioning state. Indicates the current lifecycle status of the resource, including creation, update, deletion, connectivity, and error states.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Status of the cluster agent. Indicates the current connectivity, validation, and deployment state of the agent within the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  status?: Status;
+
+  /**
+   * Overall connectivity status for the cluster resource. Indicates whether the cluster is connected to Azure, partially connected, or has not recently communicated.
+   */
+  @visibility(Lifecycle.Read)
+  connectivityStatus?: ConnectivityStatus;
+
+  /**
+   * Unique, immutable resource id.
+   */
+  @visibility(Lifecycle.Read)
+  cloudId?: string;
+
+  /**
+   * The ring to which this cluster belongs to.
+   */
+  @visibility(Lifecycle.Read)
+  @added(Versions.v2026_03_15_preview)
+  ring?: string;
+
+  /**
+   * Endpoint configured for management from the Azure portal.
+   */
+  cloudManagementEndpoint?: string;
+
+  /**
+   * App id of cluster AAD identity.
+   */
+  aadClientId?: string;
+
+  /**
+   * Tenant id of cluster AAD identity.
+   */
+  aadTenantId?: string;
+
+  /**
+   * Object id of cluster AAD identity.
+   */
+  aadApplicationObjectId?: string;
+
+  /**
+   * Id of cluster identity service principal.
+   */
+  aadServicePrincipalObjectId?: string;
+
+  /**
+   * Software Assurance properties of the cluster.
+   */
+  softwareAssuranceProperties?: SoftwareAssuranceProperties;
+
+  /**
+   * Is Management Cluster, when true indicates that the cluster is used for managing other clusters
+   */
+  @visibility(Lifecycle.Read)
+  isManagementCluster?: boolean;
+
+  /**
+   * Log Collection properties of the cluster.
+   */
+  logCollectionProperties?: LogCollectionProperties;
+
+  /**
+   * RemoteSupport properties of the cluster.
+   */
+  remoteSupportProperties?: RemoteSupportProperties;
+
+  /**
+   * Desired properties of the cluster.
+   */
+  desiredProperties?: ClusterDesiredProperties;
+
+  /**
+   * Properties reported by cluster agent.
+   */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: ClusterReportedProperties;
+
+  /**
+   * Attestation configurations for isolated VM (e.g. TVM, CVM) of the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  isolatedVmAttestationConfiguration?: IsolatedVmAttestationConfiguration;
+
+  /**
+   * Number of days remaining in the trial period.
+   */
+  @visibility(Lifecycle.Read)
+  trialDaysRemaining?: float32;
+
+  /**
+   * Type of billing applied to the resource.
+   */
+  @visibility(Lifecycle.Read)
+  billingModel?: string;
+
+  /**
+   * Billing properties of the cluster, including upcoming billing model details.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  billingProperties?: ClusterBillingProperties;
+
+  /**
+   * First cluster sync timestamp.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  registrationTimestamp?: utcDateTime;
+
+  /**
+   * Most recent cluster sync timestamp.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  lastSyncTimestamp?: utcDateTime;
+
+  /**
+   * Most recent billing meter timestamp.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  lastBillingTimestamp?: utcDateTime;
+
+  /**
+   * Region specific DataPath Endpoint of the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  serviceEndpoint?: string;
+
+  /**
+   * Object id of RP Service Principal
+   */
+  @visibility(Lifecycle.Read)
+  resourceProviderObjectId?: string;
+
+  /**
+   * List of secret locations.
+   */
+  @identifiers(#[])
+  secretsLocations?: SecretsLocationDetails[];
+
+  /**
+   * Supported Storage Type for HCI Cluster
+   */
+  @visibility(Lifecycle.Read)
+  clusterPattern?: ClusterPattern;
+
+  /**
+   * Represents the Confidential Virtual Machine (CVM) support intent and current status for the cluster resource.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  confidentialVmProperties?: ConfidentialVmProperties;
+
+  /**
+   * Software Defined Networking Properties of the cluster
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  sdnProperties?: ClusterSdnProperties;
+
+  /**
+   * Local Availability Zone information for HCI cluster
+   */
+  @identifiers(#["localAvailabilityZoneName"])
+  localAvailabilityZones?: LocalAvailabilityZones[];
+
+  /**
+   * Identity Provider for the cluster
+   */
+  @visibility(Lifecycle.Read)
+  identityProvider?: IdentityProvider = IdentityProvider.ActiveDirectory;
+
+  // PRIVATE PREVIEW
+  /**
+   * Storage type of the cluster. Indicates whether the cluster uses S2D, SAN, or a combination.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  storageType?: StorageType;
+
+  // PRIVATE PREVIEW
+  /**
+   * Indicates this cluster uses a managed identity (MSI / passwordless) cloud witness rather than a storage account access key.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  useManagedIdentityForWitness?: boolean;
+}
+
+/**
+ * Software Assurance properties of the cluster.
+ */
+model SoftwareAssuranceProperties {
+  /**
+   * Status of the Software Assurance for the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  softwareAssuranceStatus?: SoftwareAssuranceStatus;
+
+  /**
+   * Customer Intent for Software Assurance Benefit.
+   */
+  softwareAssuranceIntent?: SoftwareAssuranceIntent;
+
+  /**
+   * TimeStamp denoting the latest SA benefit applicability is validated.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  lastUpdated?: utcDateTime;
+}
+
+/**
+ * Log Collection properties of the cluster.
+ */
+model LogCollectionProperties {
+  /**
+   * From DateTimeStamp from when logs need to be connected
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  fromDate?: utcDateTime;
+
+  /**
+   * To DateTimeStamp till when logs need to be connected
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  toDate?: utcDateTime;
+
+  /**
+   * Recent DateTimeStamp where logs are successfully generated
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  lastLogGenerated?: utcDateTime;
+
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  logCollectionSessionDetails?: LogCollectionSession[];
+}
+
+/**
+ * Log Collection Session details of the cluster.
+ */
+model LogCollectionSession {
+  /**
+   * Start Time of the logs when it was collected
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  logStartTime?: utcDateTime;
+
+  /**
+   * End Time of the logs when it was collected
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  logEndTime?: utcDateTime;
+
+  /**
+   * Duration of logs collected
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  timeCollected?: utcDateTime;
+
+  /**
+   * Size of the logs collected
+   */
+  @visibility(Lifecycle.Read)
+  logSize?: int64;
+
+  /**
+   * LogCollection status
+   */
+  @visibility(Lifecycle.Read)
+  logCollectionStatus?: LogCollectionStatus;
+
+  /**
+   * CorrelationId of the log collection
+   */
+  @visibility(Lifecycle.Read)
+  correlationId?: string;
+
+  /**
+   * Specifies the type of log collection job. Determines whether the logs are collected immediately on demand or as part of a scheduled operation.
+   */
+  @visibility(Lifecycle.Read)
+  logCollectionJobType?: LogCollectionJobType;
+
+  /**
+   * End Time of the logs when it was collected
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  endTimeCollected?: utcDateTime;
+
+  /**
+   * Log Collection Error details of the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  logCollectionError?: LogCollectionError;
+}
+
+/**
+ * Log Collection Error details of the cluster.
+ */
+model LogCollectionError {
+  /**
+   * Error Code of the log collection
+   */
+  @visibility(Lifecycle.Read)
+  errorCode?: string;
+
+  /**
+   * Error Message of the log collection
+   */
+  @visibility(Lifecycle.Read)
+  errorMessage?: string;
+}
+
+/**
+ * Remote Support properties of the cluster.
+ */
+model RemoteSupportProperties {
+  /**
+   * Remote Support Access Level
+   */
+  @visibility(Lifecycle.Read)
+  accessLevel?: AccessLevel;
+
+  /**
+   * Expiration DateTimeStamp when Remote Support Access will be expired
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  expirationTimeStamp?: utcDateTime;
+
+  /**
+   * Remote Support Type for cluster
+   */
+  @visibility(Lifecycle.Read)
+  remoteSupportType?: RemoteSupportType;
+
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  remoteSupportNodeSettings?: RemoteSupportNodeSettings[];
+
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  remoteSupportSessionDetails?: PerNodeRemoteSupportSession[];
+
+  /**
+   * Provisioning state of remote support operations.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  remoteSupportProvisioningState?: RemoteSupportProvisioningState;
+}
+
+/**
+ * Remote Support Node Settings of the cluster.
+ */
+model RemoteSupportNodeSettings {
+  /**
+   * Arc ResourceId of the Node
+   */
+  @visibility(Lifecycle.Read)
+  arcResourceId?: string;
+
+  /**
+   * Remote Support Access Connection State on the Node
+   */
+  @visibility(Lifecycle.Read)
+  state?: string;
+
+  /**
+   * Remote Support Enablement Request Created TimeStamp on the Node
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  createdAt?: utcDateTime;
+
+  /**
+   * Remote Support Enablement Request Updated TimeStamp on the Node
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  updatedAt?: utcDateTime;
+
+  /**
+   * Remote Support Access Connection Status on the Node
+   */
+  @visibility(Lifecycle.Read)
+  connectionStatus?: string;
+
+  /**
+   * Remote Support Access Connection Error Message on the Node
+   */
+  @visibility(Lifecycle.Read)
+  connectionErrorMessage?: string;
+
+  /**
+   * Remote Support Transcript location on the node
+   */
+  @visibility(Lifecycle.Read)
+  transcriptLocation?: string;
+}
+
+/**
+ * Remote Support Node Session Details on the Node.
+ */
+model PerNodeRemoteSupportSession {
+  /**
+   * Remote Support Session StartTime on the Node
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  sessionStartTime?: utcDateTime;
+
+  /**
+   * Remote Support Session EndTime on the Node
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  sessionEndTime?: utcDateTime;
+
+  /**
+   * Name of the node
+   */
+  @visibility(Lifecycle.Read)
+  nodeName?: string;
+
+  /**
+   * Duration of Remote Support Enablement
+   */
+  @visibility(Lifecycle.Read)
+  duration?: int64;
+
+  /**
+   * Remote Support Access Level
+   */
+  @visibility(Lifecycle.Read)
+  accessLevel?: AccessLevel;
+
+  /**
+   * The location where the session transcript is stored.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  transcriptLocation?: string;
+}
+
+/**
+ * Desired properties of the cluster.
+ */
+model ClusterDesiredProperties {
+  /**
+   * Desired state of Windows Server Subscription.
+   */
+  windowsServerSubscription?: WindowsServerSubscription;
+
+  /**
+   * Desired level of diagnostic data emitted by the cluster.
+   */
+  diagnosticLevel?: DiagnosticLevel;
+}
+
+/**
+ * Properties reported by cluster agent.
+ */
+model ClusterReportedProperties {
+  /**
+   * Name of the on-prem cluster connected to this resource.
+   */
+  @visibility(Lifecycle.Read)
+  clusterName?: string;
+
+  /**
+   * Unique id generated by the on-prem cluster.
+   */
+  @visibility(Lifecycle.Read)
+  clusterId?: string;
+
+  /**
+   * Version of the cluster software.
+   */
+  @visibility(Lifecycle.Read)
+  clusterVersion?: string;
+
+  /**
+   * List of nodes reported by the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  nodes?: ClusterNode[];
+
+  /**
+   * Last time the cluster reported the data.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  lastUpdated?: utcDateTime;
+
+  /**
+   * Specifies the expiration timestamp of the cluster's Managed Service Identity (MSI). The value is expressed in Coordinated Universal Time (UTC).
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  msiExpirationTimeStamp?: utcDateTime;
+
+  /**
+   * IMDS attestation status of the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  imdsAttestation?: ImdsAttestation;
+
+  /**
+   * Level of diagnostic data emitted by the cluster.
+   */
+  diagnosticLevel?: DiagnosticLevel;
+
+  /**
+   * Capabilities supported by the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  supportedCapabilities?: string[];
+
+  /**
+   * Specifies the type of hardware vendor for all nodes in the cluster. Indicates whether the nodes are provided by Microsoft or a third-party vendor.
+   */
+  @visibility(Lifecycle.Read)
+  clusterType?: ClusterNodeType;
+
+  /**
+   * The manufacturer of all the nodes of the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  manufacturer?: string;
+
+  /**
+   * OEM activation status of the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  oemActivation?: OemActivation;
+
+  /**
+   * Hardware class of the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  hardwareClass?: HardwareClass = HardwareClass.Medium;
+
+  /**
+   * Number of local availability zones configured in the cluster.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  localAvailabilityZoneCount?: int32;
+}
+
+/**
+ * Cluster node details.
+ */
+model ClusterNode {
+  /**
+   * Name of the cluster node.
+   */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /**
+   * Id of the node in the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  id?: float32;
+
+  /**
+   * State of Windows Server Subscription.
+   */
+  @visibility(Lifecycle.Read)
+  windowsServerSubscription?: WindowsServerSubscription;
+
+  /**
+   * Type of the cluster node hardware.
+   */
+  @visibility(Lifecycle.Read)
+  nodeType?: ClusterNodeType;
+
+  /**
+   * Edge Hardware Center Resource Id
+   */
+  @visibility(Lifecycle.Read)
+  ehcResourceId?: string;
+
+  /**
+   * Manufacturer of the cluster node hardware.
+   */
+  @visibility(Lifecycle.Read)
+  manufacturer?: string;
+
+  /**
+   * Model name of the cluster node hardware.
+   */
+  @visibility(Lifecycle.Read)
+  `model`?: string;
+
+  /**
+   * Operating system running on the cluster node.
+   */
+  @visibility(Lifecycle.Read)
+  osName?: string;
+
+  /**
+   * Version of the operating system running on the cluster node.
+   */
+  @visibility(Lifecycle.Read)
+  osVersion?: string;
+
+  /**
+   * Display version of the operating system running on the cluster node.
+   */
+  @visibility(Lifecycle.Read)
+  osDisplayVersion?: string;
+
+  /**
+   * Immutable id of the cluster node.
+   */
+  @visibility(Lifecycle.Read)
+  serialNumber?: string;
+
+  /**
+   * Number of physical cores on the cluster node.
+   */
+  @visibility(Lifecycle.Read)
+  coreCount?: float32;
+
+  /**
+   * Total available memory on the cluster node (in GiB).
+   */
+  @visibility(Lifecycle.Read)
+  memoryInGiB?: float32;
+
+  /**
+   * Most recent licensing timestamp.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  lastLicensingTimestamp?: utcDateTime;
+
+  /**
+   * OEM activation status of the node.
+   */
+  @visibility(Lifecycle.Read)
+  oemActivation?: OemActivation;
+}
+
+/**
+ * Attestation configurations for isolated VM (e.g. TVM, CVM) of the cluster.
+ */
+model IsolatedVmAttestationConfiguration {
+  /**
+   * Fully qualified Azure resource id of the Microsoft Azure attestation resource associated with this cluster.
+   */
+  @visibility(Lifecycle.Read)
+  attestationResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Attestation/attestationProviders";
+      scopes: ["Tenant"];
+    }
+  ]>;
+
+  /**
+   * Region specific endpoint for relying party service.
+   */
+  @visibility(Lifecycle.Read)
+  relyingPartyServiceEndpoint?: string;
+
+  /**
+   * Region specific endpoint for Microsoft Azure Attestation service for the cluster
+   */
+  @visibility(Lifecycle.Read)
+  attestationServiceEndpoint?: string;
+}
+
+/**
+ * Secrets location details
+ */
+model SecretsLocationDetails {
+  /**
+   * Type of secrets to store
+   */
+  secretsType: SecretsType;
+
+  /**
+   * secrets location
+   */
+  secretsLocation: string;
+}
+
+/**
+ * Local Availability Zone information for HCI cluster
+ */
+model LocalAvailabilityZones {
+  /**
+   * Local Availability Zone name for HCI cluster
+   */
+  localAvailabilityZoneName?: string;
+
+  /**
+   * Nodes belonging to a particular zone
+   */
+  nodes?: string[];
+}
+
+/**
+ * Cluster details to update.
+ */
+model ClusterPatch {
+  /**
+   * Resource tags.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  tags?: Record<string>;
+
+  /**
+   * Identity of Cluster resource
+   */
+  identity?: Azure.ResourceManager.CommonTypes.ManagedServiceIdentity;
+
+  /**
+   * Cluster properties.
+   */
+  properties?: ClusterPatchProperties;
+}
+
+/**
+ * Cluster properties.
+ */
+model ClusterPatchProperties {
+  /**
+   * Endpoint configured for management from the Azure portal
+   */
+  cloudManagementEndpoint?: string;
+
+  /**
+   * App id of cluster AAD identity.
+   */
+  aadClientId?: string;
+
+  /**
+   * Tenant id of cluster AAD identity.
+   */
+  aadTenantId?: string;
+
+  /**
+   * Desired properties of the cluster.
+   */
+  desiredProperties?: ClusterDesiredProperties;
+}
+
+/**
+ * Billing properties of the cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model ClusterBillingProperties {
+  /**
+   * The next billing model to be applied to the cluster.
+   */
+  nextBillingModel?: NextBillingModel;
+}
+
+/**
+ * Details of the next billing model for the cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model NextBillingModel {
+  /** Type of billing model. */
+  billingModel?: string;
+
+  /** Capabilities enabled under this billing model. */
+  capabilitiesEnabled?: string[];
+
+  /** Number of days remaining in the trial period. */
+  trialDaysRemaining?: float32;
+}
+
+/**
+ * Update secrets locations change  Request.
+ */
+model SecretsLocationsChangeRequest {
+  /**
+   * List of secret locations
+   */
+  @identifiers(#[])
+  properties?: SecretsLocationDetails[];
+}
+
+#suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+model UploadCertificateRequest {
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  properties?: RawCertificateData;
+}
+
+#suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+model RawCertificateData {
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  certificates?: string[];
+}
+
+/**
+ * Cluster Identity details.
+ */
+model ClusterIdentityResponse {
+  /**
+   * Cluster identity properties.
+   */
+  @visibility(Lifecycle.Read)
+  properties?: ClusterIdentityResponseProperties;
+}
+
+#suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+model ClusterIdentityResponseProperties {
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  aadClientId?: string;
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  aadTenantId?: string;
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  aadServicePrincipalObjectId?: string;
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  aadApplicationObjectId?: string;
+}
+
+#suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+model SoftwareAssuranceChangeRequest {
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  properties?: SoftwareAssuranceChangeRequestProperties;
+}
+
+#suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+model SoftwareAssuranceChangeRequestProperties {
+  /**
+   * Customer Intent for Software Assurance Benefit. This indicates whether the customer wishes to opt in or out of the Software Assurance program, which provides licensing and support benefits.
+   */
+  softwareAssuranceIntent?: SoftwareAssuranceIntent;
+}
+
+/**
+ * Request body for the change-ring action on a cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model ChangeRingRequest {
+  /** Properties of the change-ring request. */
+  properties: ChangeRingRequestProperties;
+}
+
+/**
+ * Properties for the change-ring request.
+ */
+@added(Versions.v2026_03_15_preview)
+model ChangeRingRequestProperties {
+  /**
+   * The target ring for the cluster.
+   */
+  targetRing: string;
+}
+
+/**
+ * Log Collection Request
+ */
+model LogCollectionRequest {
+  /**
+   * Properties for Log Collection Request
+   */
+  properties?: LogCollectionRequestProperties;
+}
+
+/**
+ * Properties for Log Collection Request
+ */
+model LogCollectionRequestProperties {
+  /**
+   * From DateTimeStamp from when logs need to be connected
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  fromDate: utcDateTime;
+
+  /**
+   * To DateTimeStamp till when logs need to be connected
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  toDate: utcDateTime;
+}
+
+/**
+ * Remote Support Request
+ */
+model RemoteSupportRequest {
+  /**
+   * Properties for Remote Support Request
+   */
+  properties?: RemoteSupportRequestProperties;
+}
+
+/**
+ * Properties for Remote Support Request
+ */
+model RemoteSupportRequestProperties {
+  /**
+   * Remote Support Access Level
+   */
+  @visibility(Lifecycle.Read)
+  accessLevel?: AccessLevel;
+
+  /**
+   * Expiration DateTimeStamp when Remote Support Access will be expired
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  expirationTimeStamp?: utcDateTime;
+
+  /**
+   * Remote Support Type for cluster
+   */
+  remoteSupportType?: RemoteSupportType;
+}
+
+/**
+ * DeploymentSetting properties
+ */
+model DeploymentSettingsProperties {
+  /**
+   * DeploymentSetting provisioning state
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Azure resource ids of Arc machines to be part of cluster.
+   */
+  arcNodeResourceIds: string[];
+
+  /**
+   * The deployment mode for cluster deployment.
+   */
+  deploymentMode: DeploymentMode;
+
+  /**
+   * The intended operation for a cluster.
+   */
+  operationType?: OperationType = OperationType.ClusterProvisioning;
+
+  /**
+   * Scale units will contains list of deployment data
+   */
+  deploymentConfiguration: DeploymentConfiguration;
+
+  /**
+   * Deployment Status reported from cluster.
+   */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: EceReportedProperties;
+
+  /**
+   * Summary of the deployment.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  deploymentSummary?: DeploymentSummary;
+}
+
+/**
+ * Summary of the deployment error.
+ */
+@added(Versions.v2026_03_15_preview)
+model DeploymentSummary {
+  /** Title for the error summary. */
+  title?: string;
+
+  /** Detailed description of the error. */
+  description?: string;
+
+  /** Recommendation for fixing the error. */
+  recommendation?: string;
+
+  /** URL references related to the summary. */
+  @identifiers(#[])
+  references?: DeploymentSummaryReference[];
+
+  /** Confidence rating for the error recommendation. */
+  confidence?: string;
+}
+
+/**
+ * References from the AI Generated summary.
+ */
+@added(Versions.v2026_03_15_preview)
+model DeploymentSummaryReference {
+  /** Title for the reference. */
+  title: string;
+
+  /** Hyperlink to the reference. */
+  link: string;
+}
+
+/**
+ * Deployment Configuration
+ */
+model DeploymentConfiguration {
+  /**
+   * deployment template version
+   */
+  version?: string;
+
+  /**
+   * Scale units will contains list of deployment data
+   */
+  @identifiers(#[])
+  scaleUnits: ScaleUnits[];
+}
+
+/**
+ * Scale units will contains list of deployment data
+ */
+#suppress "@azure-tools/typespec-azure-core/no-openapi" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+@OpenAPI.externalDocs(
+  "https://learn.microsoft.com/en-us/azure-stack/hci/deploy/deployment-tool-existing-file",
+  "Deploy Azure Stack HCI using an existing configuration file"
+)
+model ScaleUnits {
+  /**
+   * Deployment Data to deploy AzureStackHCI Cluster.
+   */
+  deploymentData: DeploymentData;
+
+  /**
+   * Solution builder extension (SBE) partner properties
+   */
+  sbePartnerInfo?: SbePartnerInfo;
+}
+
+/**
+ * The Deployment data of AzureStackHCI Cluster.
+ */
+model DeploymentData {
+  /**
+   * SecuritySettings to deploy AzureStackHCI Cluster.
+   */
+  securitySettings?: DeploymentSecuritySettings;
+
+  /**
+   * Observability config to deploy AzureStackHCI Cluster.
+   */
+  observability?: Observability;
+
+  /**
+   * Observability config to deploy AzureStackHCI Cluster.
+   */
+  cluster?: DeploymentCluster;
+
+  /**
+   * Identity Provider for the cluster
+   */
+  identityProvider?: IdentityProvider;
+
+  /**
+   * Storage config to deploy AzureStackHCI Cluster.
+   */
+  storage?: Storage;
+
+  /**
+   * naming prefix to deploy cluster.
+   */
+  @pattern("^[a-zA-Z0-9-]{1,8}$")
+  namingPrefix?: string;
+
+  /**
+   * FQDN to deploy cluster
+   */
+  domainFqdn?: string;
+
+  /**
+   * InfrastructureNetwork config to deploy AzureStackHCI Cluster.
+   */
+  @identifiers(#[])
+  infrastructureNetwork?: InfrastructureNetwork[];
+
+  /**
+   * list of physical nodes config to deploy AzureStackHCI Cluster.
+   */
+  @identifiers(#["name"])
+  physicalNodes?: PhysicalNodes[];
+
+  /**
+   * HostNetwork config to deploy AzureStackHCI Cluster.
+   */
+  hostNetwork?: DeploymentSettingHostNetwork;
+
+  /**
+   * SDN Integration config to deploy AzureStackHCI Cluster.
+   */
+  sdnIntegration?: SdnIntegration;
+
+  /**
+   * Is Management Cluster, when true indicates that the cluster is used for managing other clusters
+   */
+  isManagementCluster?: boolean;
+
+  /**
+   * The path to the Active Directory Organizational Unit container object prepared for the deployment.
+   */
+  adouPath?: string;
+
+  /**
+   * Azure key vault endpoint. This property is deprecated from 2023-12-01-preview. Please use secrets property instead.
+   */
+  secretsLocation?: string;
+
+  /**
+   * secrets used for cloud deployment.
+   */
+  @identifiers(#["secretName"])
+  secrets?: EceDeploymentSecrets[];
+
+  /**
+   * OptionalServices config to deploy AzureStackHCI Cluster.
+   */
+  optionalServices?: OptionalServices;
+
+  /**
+   * Local Availability Zone information for HCI cluster
+   */
+  @identifiers(#["localAvailabilityZoneName"])
+  localAvailabilityZones?: LocalAvailabilityZones[];
+
+  /**
+   * Assembly Package details for Validated Solution Recipe for AzureStackHCI Cluster
+   */
+  assemblyInfo?: AssemblyInfo;
+}
+
+/**
+ * The SecuritySettings of AzureStackHCI Cluster.
+ */
+model DeploymentSecuritySettings {
+  /**
+   * By default, Hypervisor-protected Code Integrity is enabled on your Azure HCI cluster.
+   */
+  hvciProtection?: boolean = true;
+
+  /**
+   * By default, Secure Boot is enabled on your Azure HCI cluster. This setting is hardware dependent.
+   */
+  drtmProtection?: boolean = true;
+
+  /**
+   * When set to true, the security baseline is re-applied regularly.
+   */
+  driftControlEnforced?: boolean = true;
+
+  /**
+   * When set to true, Credential Guard is enabled.
+   */
+  credentialGuardEnforced?: boolean = false;
+
+  /**
+   * When set to true, the SMB default instance requires sign in for the client and server services.
+   */
+  smbSigningEnforced?: boolean = true;
+
+  /**
+   * When set to true, cluster east-west traffic is encrypted.
+   */
+  smbClusterEncryption?: boolean = false;
+
+  /**
+   * When set to true, all the side channel mitigations are enabled
+   */
+  sideChannelMitigationEnforced?: boolean = true;
+
+  /**
+   * When set to true, BitLocker XTS_AES 256-bit encryption is enabled for all data-at-rest on the OS volume of your Azure Stack HCI cluster. This setting is TPM-hardware dependent.
+   */
+  bitlockerBootVolume?: boolean = true;
+
+  /**
+   * When set to true, BitLocker XTS-AES 256-bit encryption is enabled for all data-at-rest on your Azure Stack HCI cluster shared volumes.
+   */
+  bitlockerDataVolumes?: boolean = true;
+
+  /**
+   * WDAC is enabled by default and limits the applications and the code that you can run on your Azure Stack HCI cluster.
+   */
+  wdacEnforced?: boolean = true;
+}
+
+/**
+ * The Observability of AzureStackHCI Cluster.
+ */
+model Observability {
+  /**
+   * Enables telemetry data to be sent to Microsoft
+   */
+  streamingDataClient?: boolean = true;
+
+  /**
+   * Location of your cluster. The log and diagnostic data is sent to the appropriate diagnostics servers depending upon where your cluster resides. Setting this to false results in all data sent to Microsoft to be stored outside of the EU.
+   */
+  euLocation?: boolean = false;
+
+  /**
+   * When set to true, collects log data to facilitate quicker issue resolution.
+   */
+  episodicDataUpload?: boolean = true;
+}
+
+/**
+ * AzureStackHCI Cluster deployment properties.
+ */
+model DeploymentCluster {
+  /**
+   * The cluster name provided when preparing Active Directory.
+   */
+  name?: string;
+
+  /**
+   * Use a cloud witness if you have internet access and if you use an Azure Storage account to provide a vote on cluster quorum. A cloud witness uses Azure Blob Storage to read or write a blob file and then uses it to arbitrate in split-brain resolution. Only allowed values are 'Cloud', 'FileShare'.
+   */
+  witnessType?: string;
+
+  /**
+   * Specify the fileshare path for the local witness for your Azure Stack HCI cluster.
+   */
+  witnessPath?: string;
+
+  /**
+   * Specify the Azure Storage account name for cloud witness for your Azure Stack HCI cluster.
+   */
+  cloudAccountName?: string;
+
+  /**
+   * For Azure blob service endpoint type, select either Default or Custom domain. If you selected **Custom domain, enter the domain for the blob service in this format core.windows.net.
+   */
+  azureServiceEndpoint?: string;
+
+  /**
+   * Hardware class of the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  hardwareClass?: HardwareClass = HardwareClass.Medium;
+
+  /**
+   * Cluster Pattern supported.
+   */
+  clusterPattern?: ClusterPattern;
+
+  /**
+   * Indicates the cluster's cloud witness authenticates using each node's managed identity (MSI) instead of a storage account access key. Set by the resource provider from the Validated Solution Recipe; read by the device to configure the witness in identity (passwordless) mode.
+   */
+  @added(Versions.v2026_03_15_preview)
+  useManagedIdentityForWitness?: boolean;
+}
+
+// PRIVATE PREVIEW - Storage type and SAN/S2D configuration
+
+/**
+ * Storage type supported for HCI Cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+union StorageType {
+  string,
+
+  /** Storage Spaces Direct (S2D) storage type. */
+  S2D: "S2D",
+
+  /** Storage Area Network (SAN) storage type. */
+  SAN: "SAN",
+
+  /** Combined SAN and Storage Spaces Direct (SANS2D) storage type. */
+  SANS2D: "SANS2D",
+}
+
+/**
+ * Volume provisioning type for S2D storage.
+ */
+@added(Versions.v2026_03_15_preview)
+union VolumeType {
+  string,
+
+  /** Fixed provisioning type. */
+  Fixed: "Fixed",
+
+  /** Thin provisioned provisioning type. */
+  ThinProvisioned: "ThinProvisioned",
+}
+
+/**
+ * Overprovisioning ratio for S2D storage.
+ */
+@added(Versions.v2026_03_15_preview)
+union OverprovisioningRatio {
+  string,
+
+  /** No overprovisioning. */
+  Zero: "0",
+
+  /** Overprovisioning ratio of 1. */
+  One: "1",
+
+  /** Overprovisioning ratio of 2. */
+  Two: "2",
+}
+
+/**
+ * The S2D (Storage Spaces Direct) configuration for AzureStackHCI Cluster storage.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageS2dConfig {
+  /**
+   * Volume provisioning type. Allowed values are 'Fixed', 'ThinProvisioned'.
+   */
+  volumeType?: VolumeType;
+
+  /**
+   * Overprovisioning ratio for S2D storage. Allowed values are '0', '1', '2'.
+   */
+  overprovisioningRatio?: OverprovisioningRatio;
+}
+
+/**
+ * The SAN (Storage Area Network) configuration for AzureStackHCI Cluster storage.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageSanConfig {
+  /**
+   * Infrastructure volume LUN ID (e.g. PURE1234567890ABCDEF).
+   */
+  infraVolLunId?: string;
+
+  /**
+   * Infrastructure performance LUN ID.
+   */
+  infraPerfLunId?: string;
+}
+
+/**
+ * The Storage config of AzureStackHCI Cluster.
+ */
+model Storage {
+  /**
+   * By default, this mode is set to Express and your storage is configured as per best practices based on the number of nodes in the cluster. Allowed values are 'Express','InfraOnly', 'KeepStorage'
+   */
+  configurationMode?: string = "Express";
+
+  // PRIVATE PREVIEW - Storage type and SAN/S2D sub-configuration
+
+  /**
+   * Storage type for the HCI Cluster. Allowed values are 'S2D', 'SAN', 'SANS2D'.
+   */
+  @added(Versions.v2026_03_15_preview)
+  storageType?: StorageType;
+
+  /**
+   * S2D (Storage Spaces Direct) configuration. Applicable when StorageType is 'S2D' or 'SANS2D'.
+   */
+  @added(Versions.v2026_03_15_preview)
+  s2d?: StorageS2dConfig;
+
+  /**
+   * SAN (Storage Area Network) configuration. Applicable when StorageType is 'SAN' or 'SANS2D'.
+   */
+  @added(Versions.v2026_03_15_preview)
+  san?: StorageSanConfig;
+}
+
+/**
+ * The InfrastructureNetwork of a AzureStackHCI Cluster.
+ */
+model InfrastructureNetwork {
+  /**
+   * Subnet mask that matches the provided IP address space.
+   */
+  subnetMask?: string;
+
+  /**
+   * Default gateway that should be used for the provided IP address space.
+   */
+  gateway?: string;
+
+  /**
+   * Range of IP addresses from which addresses are allocated for nodes within a subnet.
+   */
+  @identifiers(#[])
+  ipPools?: IpPools[];
+
+  /**
+   * Specifies how DNS servers are configured for the infrastructure network. Allowed values are 'UseDnsServer' to use the provided DNS servers, and 'UseForwarder' to use DNS forwarders.
+   */
+  dnsServerConfig?: DnsServerConfig = DnsServerConfig.UseDnsServer;
+
+  /**
+   * Details of the DNS Zones to be configured.
+   */
+  @identifiers(#["dnsZoneName"])
+  dnsZones?: DnsZones[];
+
+  /**
+   * IPv4 address of the DNS servers in your environment.
+   */
+  dnsServers?: string[];
+
+  /**
+   * Allows customers to use DHCP for Hosts and Cluster IPs. If not declared, the deployment will default to static IPs. When true, GW and DNS servers are not required
+   */
+  useDhcp?: boolean;
+}
+
+/**
+ * The dnsServers of a device.
+ */
+model IpPools {
+  /**
+   * Starting IP address for the management network. A minimum of six free, contiguous IPv4 addresses (excluding your host IPs) are needed for infrastructure services such as clustering.
+   */
+  startingAddress?: string;
+
+  /**
+   * Ending IP address for the management network. A minimum of six free, contiguous IPv4 addresses (excluding your host IPs) are needed for infrastructure services such as clustering.
+   */
+  endingAddress?: string;
+}
+
+/**
+ * Details of the DNS Zones to be configured.
+ */
+model DnsZones {
+  /**
+   * Name of the DNS Zone to be configured.
+   */
+  dnsZoneName?: string;
+
+  /**
+   * Forwarder details of the DNS Zone to be configured.
+   */
+  dnsForwarder?: string[];
+}
+
+/**
+ * The PhysicalNodes of a cluster.
+ */
+model PhysicalNodes {
+  /**
+   * NETBIOS name of each physical server on your Azure Stack HCI cluster.
+   */
+  name?: string;
+
+  /**
+   * The IPv4 address assigned to each physical server on your Azure Stack HCI cluster.
+   */
+  ipv4Address?: string;
+}
+
+/**
+ * The HostNetwork of a cluster.
+ */
+model DeploymentSettingHostNetwork {
+  /**
+   * The network intents assigned to the network reference pattern used for the deployment. Each intent will define its own name, traffic type, adapter names, and overrides as recommended by your OEM.
+   */
+  @identifiers(#["name"])
+  intents?: DeploymentSettingIntents[];
+
+  /**
+   * List of S2D (Storage Spaces Direct) storage networks config to deploy AzureStackHCI Cluster.
+   */
+  @identifiers(#["name"])
+  storageNetworks?: DeploymentSettingStorageNetworks[];
+
+  // PRIVATE PREVIEW - SAN host network configuration
+
+  /**
+   * SAN network configuration for the host network. Applicable when StorageType is 'SAN' or 'SANS2D'.
+   */
+  @added(Versions.v2026_03_15_preview)
+  sanNetworks?: SanNetworks;
+
+  /**
+   * Defines how the storage adapters between nodes are connected either switch or switch less..
+   */
+  storageConnectivitySwitchless?: boolean = false;
+
+  /**
+   * Optional parameter required only for 3 Nodes Switchless deployments. This allows users to specify IPs and Mask for Storage NICs when Network ATC is not assigning the IPs for storage automatically.
+   */
+  enableStorageAutoIp?: boolean = false;
+}
+
+/**
+ * The Intents of a cluster.
+ */
+model DeploymentSettingIntents {
+  /**
+   * Name of the network intent you wish to create.
+   */
+  name?: string;
+
+  /**
+   * List of network traffic types. Only allowed values are 'Compute', 'Storage', 'Management'.
+   */
+  trafficType?: string[];
+
+  /**
+   * Array of network interfaces used for the network intent.
+   */
+  adapter?: string[];
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  overrideVirtualSwitchConfiguration?: boolean = false;
+
+  /**
+   * Set virtualSwitch ConfigurationOverrides for cluster.
+   */
+  virtualSwitchConfigurationOverrides?: DeploymentSettingVirtualSwitchConfigurationOverrides;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  overrideQosPolicy?: boolean = false;
+
+  /**
+   * Set QoS PolicyOverrides for cluster.
+   */
+  qosPolicyOverrides?: QosPolicyOverrides;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  overrideAdapterProperty?: boolean = false;
+
+  /**
+   * Set Adapter PropertyOverrides for cluster.
+   */
+  adapterPropertyOverrides?: DeploymentSettingAdapterPropertyOverrides;
+}
+
+/**
+ * The VirtualSwitchConfigurationOverrides of a cluster.
+ */
+model DeploymentSettingVirtualSwitchConfigurationOverrides {
+  /**
+   * Enable IoV for Virtual Switch
+   */
+  enableIov?: string;
+
+  /**
+   * Load Balancing Algorithm for Virtual Switch
+   */
+  loadBalancingAlgorithm?: string;
+}
+
+/**
+ * The QoSPolicyOverrides of a cluster.
+ */
+model QosPolicyOverrides {
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  priorityValue8021Action_Cluster?: string;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  priorityValue8021Action_SMB?: string;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  bandwidthPercentage_SMB?: string;
+}
+
+/**
+ * The AdapterPropertyOverrides of a cluster.
+ */
+model DeploymentSettingAdapterPropertyOverrides {
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  jumboPacket?: string;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  networkDirect?: string;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation. Expected values are 'iWARP', 'RoCEv2', 'RoCE'
+   */
+  networkDirectTechnology?: string;
+}
+
+/**
+ * The StorageNetworks of a cluster.
+ */
+model DeploymentSettingStorageNetworks {
+  /**
+   * Name of the storage network.
+   */
+  name?: string;
+
+  /**
+   * Name of the storage network adapter.
+   */
+  networkAdapterName?: string;
+
+  /**
+   * ID specified for the VLAN storage network. This setting is applied to the network interfaces that route the storage and VM migration traffic.
+   */
+  vlanId?: string;
+
+  /**
+   * List of Storage adapter physical nodes config to deploy AzureStackHCI Cluster.
+   */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  @identifiers(#["physicalNode"])
+  storageAdapterIPInfo?: DeploymentSettingStorageAdapterIPInfo[];
+}
+
+/**
+ * The StorageAdapter physical nodes of a cluster.
+ */
+model DeploymentSettingStorageAdapterIPInfo {
+  /**
+   * storage adapter physical node name.
+   */
+  physicalNode?: string;
+
+  /**
+   * The IPv4 address assigned to each storage adapter physical node on your Azure Stack HCI cluster.
+   */
+  ipv4Address?: string;
+
+  /**
+   * The SubnetMask address assigned to each storage adapter physical node on your Azure Stack HCI cluster.
+   */
+  subnetMask?: string;
+}
+
+// PRIVATE PREVIEW - SAN network models
+
+/**
+ * SAN network configuration for host network of AzureStackHCI Cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model SanNetworks {
+  /**
+   * Cluster (CSV/LiveMig) network configuration for SAN deployments.
+   */
+  clusterNetworkConfig?: SanClusterNetworkConfig;
+}
+
+/**
+ * Cluster network configuration for SAN deployments (CSV/LiveMig traffic).
+ */
+@added(Versions.v2026_03_15_preview)
+model SanClusterNetworkConfig {
+  /**
+   * QoS and adapter overrides for the cluster network.
+   */
+  adapterProperties?: SanAdapterProperties;
+
+  /**
+   * Per-adapter IP configuration for the cluster network.
+   */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  @identifiers(#["name"])
+  adapterIPConfig?: SanAdapterIPConfig[];
+}
+
+/**
+ * QoS and adapter property overrides for SAN cluster network traffic.
+ */
+@added(Versions.v2026_03_15_preview)
+model SanAdapterProperties {
+  /**
+   * 802.1p priority value for cluster traffic.
+   */
+  priorityValue8021ActionCluster?: int32;
+
+  /**
+   * 802.1p priority value for SMB traffic.
+   */
+  priorityValue8021ActionSmb?: int32;
+
+  /**
+   * SMB bandwidth percentage (1-97).
+   */
+  bandwidthPercentageSmb?: int32;
+
+  /**
+   * Jumbo frame size in bytes.
+   */
+  jumboPacket?: int32;
+}
+
+/**
+ * Per-adapter IP configuration for SAN cluster network.
+ */
+@added(Versions.v2026_03_15_preview)
+model SanAdapterIPConfig {
+  /**
+   * Logical name of the adapter IP configuration (e.g., clusterNetwork-A).
+   */
+  name?: string;
+
+  /**
+   * Physical NIC name (e.g., ethernet 3).
+   */
+  networkAdapterName?: string;
+
+  /**
+   * VLAN ID (0-4095). Value of 0 or omitted means untagged.
+   */
+  vlanId?: int32;
+
+  /**
+   * Subnet address prefix in CIDR notation (e.g., 10.10.30.0/24).
+   */
+  addressPrefix?: string;
+}
+
+/**
+ * SDN Integration config to deploy AzureStackHCI Cluster.
+ */
+model SdnIntegration {
+  /**
+   * network controller config for SDN Integration to deploy AzureStackHCI Cluster.
+   */
+  networkController?: NetworkController;
+}
+
+/**
+ * network controller config for SDN Integration to deploy AzureStackHCI Cluster.
+ */
+model NetworkController {
+  /**
+   * macAddressPoolStart of network controller used for SDN Integration.
+   */
+  macAddressPoolStart?: string;
+
+  /**
+   * macAddressPoolStop of network controller used for SDN Integration.
+   */
+  macAddressPoolStop?: string;
+
+  /**
+   * NetworkVirtualizationEnabled of network controller used for SDN Integration.
+   */
+  networkVirtualizationEnabled?: boolean;
+}
+
+/**
+ * Protected parameters list stored in keyvault.
+ */
+model EceDeploymentSecrets {
+  /**
+   * Secret name stored in keyvault.
+   */
+  secretName?: string;
+
+  /**
+   * Secret name expected for Enterprise Cloud Engine (ECE) deployment.
+   */
+  eceSecretName?: EceSecrets;
+
+  /**
+   * Secret URI stored in keyvault.
+   */
+  secretLocation?: url;
+}
+
+/**
+ * The OptionalServices of AzureStackHCI Cluster.
+ */
+model OptionalServices {
+  /**
+   * The name of custom location.
+   */
+  customLocation?: string;
+
+  /**
+   * Optional Day Zero capacity policy used to seed the cluster's Capacity Settings
+   * singleton during deployment. When omitted, the service uses its own defaults.
+   */
+  @added(Versions.v2026_03_15_preview)
+  capacityPolicy?: DeploymentCapacityPolicy;
+}
+
+/**
+ * Day Zero capacity placement policy supplied via Deployment Settings. Mirrors the
+ * patchable shape of AppliedCapacityPolicy so the values can be plumbed into the
+ * Capacity Settings singleton at cluster creation time.
+ */
+@added(Versions.v2026_03_15_preview)
+model DeploymentCapacityPolicy {
+  /**
+   * Cluster-wide CPU overcommit ratio used to calculate effective vCPU capacity.
+   */
+  @minValue(1.0)
+  cpuOvercommitRatio?: float32;
+
+  /**
+   * Cluster-wide system reservation ratio that holds back a fraction of effective
+   * capacity for platform and system overhead. Default: 0.05.
+   */
+  @minValue(0.05)
+  systemReservationRatio?: float32;
+
+  /**
+   * Number of failure domains to reserve for n+1/n+2 style placement planning.
+   */
+  @minValue(0)
+  failureDomainReservationCount?: int32;
+
+  /**
+   * Explicit node names held back from placement for upgrade or maintenance.
+   */
+  reservedNodes?: string[];
+}
+
+/**
+ * Assembly Package details for Validated Solution Recipe for AzureStackHCI Cluster
+ */
+model AssemblyInfo {
+  /**
+   * Assembly Package version for Validated Solution Recipe for AzureStackHCI Cluster
+   */
+  @visibility(Lifecycle.Read)
+  packageVersion?: string;
+
+  /**
+   * Payload properties for Validated Solution Recipe for AzureStackHCI Cluster
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  payload?: AssemblyInfoPayload[];
+}
+
+/**
+ * Payload properties for Validated Solution Recipe for AzureStackHCI Cluster
+ */
+model AssemblyInfoPayload {
+  /**
+   * assembly identifier for Validated Solution Recipe for AzureStackHCI Cluster
+   */
+  @visibility(Lifecycle.Read)
+  identifier?: string;
+
+  /**
+   * Hash of assembly package for Validated Solution Recipe for AzureStackHCI Cluster
+   */
+  @visibility(Lifecycle.Read)
+  hash?: string;
+
+  /**
+   * File name of assembly package for Validated Solution Recipe for AzureStackHCI Cluster
+   */
+  @visibility(Lifecycle.Read)
+  fileName?: string;
+
+  /**
+   * Url of assembly package for Validated Solution Recipe for AzureStackHCI Cluster
+   */
+  @visibility(Lifecycle.Read)
+  url?: string;
+}
+
+/**
+ * The solution builder extension (SBE) partner deployment info for cluster.
+ */
+model SbePartnerInfo {
+  /**
+   * SBE package and manifest information for the solution Builder Extension staged for AzureStackHCI cluster deployment.
+   */
+  sbeDeploymentInfo?: SbeDeploymentInfo;
+
+  /**
+   * List of SBE partner properties for AzureStackHCI cluster deployment.
+   */
+  @identifiers(#[])
+  partnerProperties?: SbePartnerProperties[];
+
+  /**
+   * SBE credentials list for AzureStackHCI cluster deployment.
+   */
+  @identifiers(#["secretName"])
+  credentialList?: SbeCredentials[];
+}
+
+/**
+ * Solution builder extension (SBE) package and manifest information for the solution builder extension staged for AzureStackHCI cluster deployment.
+ */
+model SbeDeploymentInfo {
+  /**
+   * SBE package version.
+   */
+  version?: string;
+
+  /**
+   * SBE family name.
+   */
+  family?: string;
+
+  /**
+   * SBE manifest publisher.
+   */
+  publisher?: string;
+
+  /**
+   * SBE Manifest Source.
+   */
+  sbeManifestSource?: string;
+
+  /**
+   * SBE Manifest Creation Date.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  sbeManifestCreationDate?: utcDateTime;
+}
+
+/**
+ * Solution builder extension (SBE) partner properties object.
+ */
+model SbePartnerProperties {
+  /**
+   * SBE partner property name.
+   */
+  name?: string;
+
+  /**
+   * SBE partner property value.
+   */
+  value?: string;
+}
+
+/**
+ * secrets used for solution builder extension (SBE) partner extensibility.
+ */
+model SbeCredentials {
+  /**
+   * secret name stored in keyvault.
+   */
+  secretName?: string;
+
+  /**
+   * secret name expected for Enterprise Cloud Engine (ECE).
+   */
+  eceSecretName?: string;
+
+  /**
+   * secret URI stored in keyvault.
+   */
+  secretLocation?: url;
+}
+
+/**
+ * The DeploymentStatus of AzureStackHCI Cluster.
+ */
+model EceReportedProperties {
+  /**
+   * validation status of AzureStackHCI Cluster Deployment.
+   */
+  @visibility(Lifecycle.Read)
+  validationStatus?: EceActionStatus;
+
+  /**
+   * Deployment status of AzureStackHCI Cluster Deployment.
+   */
+  @visibility(Lifecycle.Read)
+  deploymentStatus?: EceActionStatus;
+}
+
+/**
+ * The ECE action plan deployment status for AzureStackHCI Cluster.
+ */
+model EceActionStatus {
+  /**
+   * Status of ECE action AzureStackHCI Cluster Deployment.
+   */
+  @visibility(Lifecycle.Read)
+  status?: string;
+
+  /**
+   * List of steps of AzureStackHCI Cluster Deployment.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  steps?: DeploymentStep[];
+}
+
+/**
+ * The Step of AzureStackHCI Cluster.
+ */
+model DeploymentStep {
+  /**
+   * Name of step.
+   */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /**
+   * Description of step.
+   */
+  @visibility(Lifecycle.Read)
+  description?: string;
+
+  /**
+   * FullStepIndex of step.
+   */
+  @visibility(Lifecycle.Read)
+  fullStepIndex?: string;
+
+  /**
+   * Start time of step.
+   */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: string;
+
+  /**
+   * End time of step.
+   */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: string;
+
+  /**
+   * Status of step. Allowed values are 'Error', 'Success', 'InProgress'
+   */
+  @visibility(Lifecycle.Read)
+  status?: string;
+
+  /**
+   * List of nested steps of AzureStackHCI Cluster Deployment.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  steps?: DeploymentStep[];
+
+  /**
+   * List of exceptions in AzureStackHCI Cluster Deployment.
+   */
+  @visibility(Lifecycle.Read)
+  exception?: string[];
+
+  /**
+   * error details.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+}
+
+/**
+ * The validate request for Edge Device.
+ */
+model ValidateRequest {
+  /**
+   * Node Ids against which, current node has to be validated.
+   */
+  edgeDeviceIds: string[];
+
+  /**
+   * Additional info required for validation.
+   */
+  additionalInfo?: string;
+}
+
+/**
+ * An Accepted response with an Operation-Location header.
+ */
+model ValidateResponse {
+  /**
+   * edge device validation status
+   */
+  @visibility(Lifecycle.Read)
+  status?: string;
+}
+
+/**
+ * List of Extensions in HCI cluster.
+ */
+model ExtensionList is Azure.Core.Page<Extension>;
+
+/**
+ * Status of Arc Extension for a particular node in HCI Cluster.
+ */
+model ExtensionProperties {
+  /**
+   * Provisioning state of the Extension proxy resource. Indicates the current lifecycle status of the resource, such as whether it's being created, updated, deleted, or has encountered an error.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Parameters specific to this extension type.
+   */
+  extensionParameters?: ExtensionParameters;
+
+  /**
+   * Aggregate state of Arc Extensions across the nodes in this HCI cluster. This reflects the overall status of the extension deployment and operation across all nodes.
+   */
+  @visibility(Lifecycle.Read)
+  aggregateState?: ExtensionAggregateState;
+
+  /**
+   * State of Arc Extension in each of the nodes.
+   */
+  @visibility(Lifecycle.Read)
+  perNodeExtensionDetails?: PerNodeExtensionState[];
+
+  /**
+   * Indicates if the extension is managed by Azure or the user. This determines who controls the deployment and lifecycle of the extension.
+   */
+  @visibility(Lifecycle.Read)
+  managedBy?: ExtensionManagedBy;
+}
+
+/**
+ * Describes the properties of a Machine Extension. This object mirrors the definition in HybridCompute.
+ */
+model ExtensionParameters {
+  /**
+   * How the extension handler should be forced to update even if the extension configuration has not changed.
+   */
+  forceUpdateTag?: string;
+
+  /**
+   * The name of the extension handler publisher.
+   */
+  publisher?: string;
+
+  /**
+   * Specifies the type of the extension; an example is "CustomScriptExtension".
+   */
+  type?: string;
+
+  /**
+   * Specifies the version of the script handler. Latest version would be used if not specified.
+   */
+  typeHandlerVersion?: string;
+
+  /**
+   * Indicates whether the extension should use a newer minor version if one is available at deployment time. Once deployed, however, the extension will not upgrade minor versions unless redeployed, even with this property set to true.
+   */
+  autoUpgradeMinorVersion?: boolean;
+
+  /**
+   * Json formatted public settings for the extension.
+   */
+  #suppress "@azure-tools/typespec-azure-core/no-unknown" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  settings?: unknown;
+
+  /**
+   * Protected settings (may contain secrets).
+   */
+  #suppress "@azure-tools/typespec-azure-core/no-unknown" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  @secret
+  protectedSettings?: unknown;
+
+  /**
+   * Indicates whether the extension should be automatically upgraded by the platform if there is a newer version available.
+   */
+  enableAutomaticUpgrade?: boolean;
+}
+
+/**
+ * Status of Arc Extension for a particular node in HCI Cluster.
+ */
+model PerNodeExtensionState {
+  /**
+   * Name of the node in HCI Cluster.
+   */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /**
+   * Fully qualified resource ID for the particular Arc Extension on this node.
+   */
+  @visibility(Lifecycle.Read)
+  extension?: string;
+
+  /**
+   * Specifies the version of the script handler.
+   */
+  @visibility(Lifecycle.Read)
+  typeHandlerVersion?: string;
+
+  /**
+   * State of Arc Extension in this node. Reflects the current lifecycle status of the extension on the individual node, such as whether it's being created, updated, deleted, or has encountered an error.
+   */
+  @visibility(Lifecycle.Read)
+  state?: NodeExtensionState;
+
+  /**
+   * The extension instance view.
+   */
+  @visibility(Lifecycle.Read)
+  instanceView?: ExtensionInstanceView;
+}
+
+/**
+ * Describes the Extension Instance View.
+ */
+model ExtensionInstanceView {
+  /**
+   * The extension name.
+   */
+  name?: string;
+
+  /**
+   * Specifies the type of the extension; an example is "MicrosoftMonitoringAgent".
+   */
+  type?: string;
+
+  /**
+   * Specifies the version of the script handler.
+   */
+  typeHandlerVersion?: string;
+
+  /**
+   * Instance view status.
+   */
+  status?: ExtensionInstanceViewStatus;
+}
+
+/**
+ * Instance view status.
+ */
+model ExtensionInstanceViewStatus {
+  /**
+   * The status code.
+   */
+  code?: string;
+
+  /**
+   * The level code. Indicates the severity or importance of the status message.
+   */
+  level?: StatusLevelTypes;
+
+  /**
+   * The short localizable label for the status.
+   */
+  displayStatus?: string;
+
+  /**
+   * The detailed status message, including for alerts and error messages.
+   */
+  message?: string;
+
+  /**
+   * The time of the status.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  time?: utcDateTime;
+}
+
+/**
+ * Extension Details to update
+ */
+model ExtensionPatch {
+  /**
+   * Describes Machine Extension Properties that can be updated.
+   */
+  properties?: ExtensionPatchProperties;
+}
+
+/**
+ * Describes Machine Extension Properties that can be updated.
+ */
+model ExtensionPatchProperties {
+  /**
+   * Describes the properties of a Machine Extension that can be updated.
+   */
+  extensionParameters?: ExtensionPatchParameters;
+}
+
+/**
+ * Describes the properties of a Machine Extension that can be updated.
+ */
+model ExtensionPatchParameters {
+  /**
+   * Specifies the version of the script handler. Latest version would be used if not specified.
+   */
+  typeHandlerVersion?: string;
+
+  /**
+   * Indicates whether the extension should be automatically upgraded by the platform if there is a newer version available.
+   */
+  enableAutomaticUpgrade?: boolean;
+
+  /**
+   * Json formatted public settings for the extension.
+   */
+  #suppress "@azure-tools/typespec-azure-core/no-unknown" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  settings?: unknown;
+
+  /**
+   * Protected settings (may contain secrets).
+   */
+  #suppress "@azure-tools/typespec-azure-core/no-unknown" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  @secret
+  protectedSettings?: unknown;
+}
+
+/**
+ * Describes the parameters for Extension upgrade.
+ */
+model ExtensionUpgradeParameters {
+  /**
+   * Extension Upgrade Target Version.
+   */
+  targetVersion?: string;
+}
+
+/**
+ * List of Offer proxy resources for the HCI cluster.
+ */
+model OfferList is Azure.Core.Page<Offer>;
+
+/**
+ * Publisher properties.
+ */
+model OfferProperties {
+  /**
+   * Provisioning State
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  @visibility(Lifecycle.Read)
+  provisioningState?: string;
+
+  /**
+   * Identifier of the Publisher for the offer
+   */
+  publisherId?: string;
+
+  /**
+   * JSON serialized catalog content of the offer
+   */
+  content?: string;
+
+  /**
+   * The API version of the catalog service used to serve the catalog content
+   */
+  contentVersion?: string;
+
+  /**
+   * Array of SKU mappings
+   */
+  @identifiers(#[])
+  skuMappings?: SkuMappings[];
+}
+
+/**
+ * SKU Mapping details.
+ */
+model SkuMappings {
+  /**
+   * Identifier of the CatalogPlan for the sku
+   */
+  catalogPlanId?: string;
+
+  /**
+   * Identifier for the sku
+   */
+  marketplaceSkuId?: string;
+
+  /**
+   * Array of SKU versions available
+   */
+  marketplaceSkuVersions?: string[];
+}
+
+/**
+ * List of Publisher proxy resources for the HCI cluster.
+ */
+model PublisherList is Azure.Core.Page<Publisher>;
+
+/**
+ * Publisher properties.
+ */
+model PublisherProperties {
+  /**
+   * Provisioning State
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  @visibility(Lifecycle.Read)
+  provisioningState?: string;
+}
+
+/**
+ * Security properties of the resource
+ */
+model SecurityProperties {
+  /**
+   * Secured Core Compliance Assignment
+   */
+  securedCoreComplianceAssignment?: ComplianceAssignmentType = ComplianceAssignmentType.Audit;
+
+  /**
+   * WDAC Compliance Assignment
+   */
+  wdacComplianceAssignment?: ComplianceAssignmentType = ComplianceAssignmentType.Audit;
+
+  /**
+   * SMB encryption for intra-cluster traffic Compliance Assignment
+   */
+  smbEncryptionForIntraClusterTrafficComplianceAssignment?: ComplianceAssignmentType = ComplianceAssignmentType.Audit;
+
+  /**
+   * Desired security settings.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @identifiers(#[])
+  desiredSettings?: DesiredSetting[];
+
+  /**
+   * Reported compliance states for security settings.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  reportedComplianceStates?: ReportedComplianceState[];
+
+  /**
+   * Security Compliance Status
+   */
+  @visibility(Lifecycle.Read)
+  securityComplianceStatus?: SecurityComplianceStatus;
+
+  /**
+   * The status of the last operation.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/**
+ * Security compliance properties of the resource
+ */
+model SecurityComplianceStatus {
+  /**
+   * Indicates whether HCI hosts meets secured-core server requirements.
+   */
+  @visibility(Lifecycle.Read)
+  securedCoreCompliance?: ComplianceStatus;
+
+  /**
+   * Indicates whether HCI hosts have enforced consistent Windows Defender Application Control.
+   */
+  @visibility(Lifecycle.Read)
+  wdacCompliance?: ComplianceStatus;
+
+  /**
+   * Indicates whether data at-rest encryption is enabled on Azure Stack HCI clustered volumes.
+   */
+  @visibility(Lifecycle.Read)
+  dataAtRestEncrypted?: ComplianceStatus;
+
+  /**
+   * Indicates whether HCI cluster has data in-transit protection.
+   */
+  @visibility(Lifecycle.Read)
+  dataInTransitProtected?: ComplianceStatus;
+
+  /**
+   * Contains details about HCI cluster's compliance with security baseline.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  securityBaseline?: SecurityBaseline;
+
+  /**
+   * Time in UTC when compliance status was last updated.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  lastUpdated?: utcDateTime;
+}
+
+/**
+ * Desired security setting.
+ */
+@added(Versions.v2026_03_15_preview)
+model DesiredSetting {
+  /** Name of the setting. */
+  settingName: string;
+
+  /** Value of the setting. */
+  value: string;
+}
+
+/**
+ * Reported compliance state of a security setting.
+ */
+@added(Versions.v2026_03_15_preview)
+model ReportedComplianceState {
+  /** Name of the setting. */
+  @visibility(Lifecycle.Read)
+  settingName: string;
+
+  /** Aggregated compliance state value of the setting across all nodes of the cluster. */
+  @visibility(Lifecycle.Read)
+  value: ComplianceStatus;
+
+  /** Per machine compliance state value and reason for it. */
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  perMachineStates: MachineComplianceState[];
+}
+
+/**
+ * Compliance state on a single machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model MachineComplianceState {
+  /** Name of the machine. */
+  @visibility(Lifecycle.Read)
+  machineName: string;
+
+  /** Compliance state value of the setting. */
+  @visibility(Lifecycle.Read)
+  value: ComplianceStatus;
+
+  /** Compliance score of the setting. */
+  @visibility(Lifecycle.Read)
+  percentScore?: string;
+
+  /** Reason for the compliance state of the machine. */
+  @visibility(Lifecycle.Read)
+  reason: string;
+}
+
+/**
+ * Compliance state of the security baseline.
+ */
+@added(Versions.v2026_03_15_preview)
+model SecurityBaseline {
+  /** Status of compliance. */
+  @visibility(Lifecycle.Read)
+  securityBaselineCompliance?: ComplianceStatus;
+
+  /** Aggregated compliance score across cluster nodes. */
+  @visibility(Lifecycle.Read)
+  percentScore?: string;
+
+  /** Per machine compliance state value and reason for it. */
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  perMachineStates?: MachineComplianceState[];
+}
+
+/**
+ * Name of the recommendation.
+ */
+@added(Versions.v2026_03_15_preview)
+model Recommendation {
+  /** Name of the recommendation. */
+  recommendationName: string;
+}
+
+/**
+ * List of SKU proxy resources for the HCI cluster.
+ */
+model SkuList is Azure.Core.Page<Sku>;
+
+/**
+ * SKU properties.
+ */
+model SkuProperties {
+  /**
+   * Provisioning State
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  @visibility(Lifecycle.Read)
+  provisioningState?: string;
+
+  /**
+   * Identifier of the Publisher for the offer
+   */
+  publisherId?: string;
+
+  /**
+   * Identifier of the Offer for the sku
+   */
+  offerId?: string;
+
+  /**
+   * JSON serialized catalog content of the sku offer
+   */
+  content?: string;
+
+  /**
+   * The API version of the catalog service used to serve the catalog content
+   */
+  contentVersion?: string;
+
+  /**
+   * Array of SKU mappings
+   */
+  @identifiers(#[])
+  skuMappings?: SkuMappings[];
+}
+
+/**
+ * List of Update runs
+ */
+model UpdateRunList is Azure.Core.Page<UpdateRun>;
+
+/**
+ * Details of an Update run
+ */
+model UpdateRunProperties {
+  /**
+   * Provisioning state of the UpdateRuns proxy resource. Indicates the current lifecycle status of the update operation, such as whether it has been accepted, is in progress, or has completed.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Timestamp of the update run was started.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  timeStarted?: utcDateTime;
+
+  /**
+   * Timestamp of the most recently completed step in the update run.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  lastUpdatedTime?: utcDateTime;
+
+  /**
+   * Duration of the update run.
+   */
+  duration?: string;
+
+  /**
+   * Represents the current state of the update run. Indicates whether the update is in progress, has completed successfully, failed, or is in an unknown state.
+   */
+  state?: UpdateRunPropertiesState;
+
+  /**
+   * Progress representation of the update run steps.
+   */
+  progress?: Step;
+}
+
+/**
+ * Progress representation of the update run steps.
+ */
+model Step {
+  /**
+   * Name of the step.
+   */
+  name?: string;
+
+  /**
+   * More detailed description of the step.
+   */
+  description?: string;
+
+  /**
+   * Error message, specified if the step is in a failed state.
+   */
+  errorMessage?: string;
+
+  /**
+   * Status of the step, bubbled up from the ECE action plan for installation attempts. Values are: 'Success', 'Error', 'InProgress', and 'Unknown status'.
+   */
+  status?: string;
+
+  /**
+   * When the step started, or empty if it has not started executing.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  startTimeUtc?: utcDateTime;
+
+  /**
+   * When the step reached a terminal state.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  endTimeUtc?: utcDateTime;
+
+  /**
+   * Completion time of this step or the last completed sub-step.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  lastUpdatedTimeUtc?: utcDateTime;
+
+  /**
+   * Expected execution time of a given step. This is optionally authored in the update action plan and can be empty.
+   */
+  expectedExecutionTime?: string;
+
+  /**
+   * Recursive model for child steps of this step.
+   */
+  @identifiers(#["name"])
+  steps?: Step[];
+}
+
+/**
+ * List of Updates
+ */
+model UpdateList is Azure.Core.Page<Update>;
+
+/**
+ * Details of a singular Update in HCI Cluster
+ */
+model UpdateProperties {
+  /**
+   * Provisioning state of the Updates proxy resource. Indicates the current lifecycle status of the update operation, such as whether it has been accepted, is in progress, or has completed.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Date that the update was installed.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  installedDate?: utcDateTime;
+
+  /**
+   * Description of the update.
+   */
+  description?: string;
+
+  /**
+   * Minimum Sbe Version of the update.
+   */
+  minSbeVersionRequired?: string;
+
+  /**
+   * Represents the current state of the update as it relates to this stamp. This includes phases such as preparation, installation, scanning, and error handling, providing insight into the update's progress and any issues encountered.
+   */
+  state?: State;
+
+  /**
+   * If update State is HasPrerequisite, this property contains an array of objects describing prerequisite updates before installing this update. Otherwise, it is empty.
+   */
+  @identifiers(#["packageName"])
+  prerequisites?: UpdatePrerequisite[];
+
+  /**
+   * An array of component versions for a Solution Bundle update, and an empty array otherwise.
+   */
+  @identifiers(#["version"])
+  componentVersions?: PackageVersionInfo[];
+
+  /**
+   * Indicates whether a reboot is required after the update or operation. Helps determine if a system restart is necessary to complete the process.
+   */
+  rebootRequired?: RebootRequirement;
+
+  /**
+   * Overall health state for update-specific health checks.
+   */
+  healthState?: HealthState;
+
+  /**
+   * An array of PrecheckResult objects.
+   */
+  healthCheckResult?: PrecheckResult[];
+
+  /**
+   * Last time the package-specific checks were run.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  healthCheckDate?: utcDateTime;
+
+  /**
+   * Path where the update package is available.
+   */
+  packagePath?: string;
+
+  /**
+   * Size of the package. This value is a combination of the size from update metadata and size of the payload that results from the live scan operation for OS update content.
+   */
+  packageSizeInMb?: float32;
+
+  /**
+   * Display name of the Update
+   */
+  displayName?: string;
+
+  /**
+   * Version of the update.
+   */
+  version?: string;
+
+  /**
+   * Publisher of the update package.
+   */
+  publisher?: string;
+
+  /**
+   * Link to release notes for the update.
+   */
+  releaseLink?: string;
+
+  /**
+   * Indicates how the update content is made available for download. This determines whether the update is sourced locally, from an online repository, or requires user notification.
+   */
+  availabilityType?: AvailabilityType;
+
+  /**
+   * Customer-visible type of the update.
+   */
+  packageType?: string;
+
+  /**
+   * Extensible KV pairs serialized as a string. This is currently used to report the stamp OEM family and hardware model information when an update is flagged as Invalid for the stamp based on OEM type.
+   */
+  additionalProperties?: string;
+
+  /**
+   * Additional information regarding the state of the update. See definition of UpdateStateProperties type below for more details on this property.
+   */
+  updateStateProperties?: UpdateStateProperties;
+}
+
+/**
+ * If update State is HasPrerequisite, this property contains an array of objects describing prerequisite updates before installing this update. Otherwise, it is empty.
+ */
+model UpdatePrerequisite {
+  /**
+   * Updatable component type.
+   */
+  updateType?: string;
+
+  /**
+   * Version of the prerequisite.
+   */
+  version?: string;
+
+  /**
+   * Friendly name of the prerequisite.
+   */
+  packageName?: string;
+}
+
+/**
+ * Current version of each updatable component.
+ */
+model PackageVersionInfo {
+  /**
+   * Package type
+   */
+  packageType?: string;
+
+  /**
+   * Package version
+   */
+  version?: string;
+
+  /**
+   * Last time this component was updated.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  lastUpdated?: utcDateTime;
+}
+
+#suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+model PrecheckResult {
+  /**
+   * Name of the individual test/rule/alert that was executed. Unique, not exposed to the customer.
+   */
+  name?: string;
+
+  /**
+   * The health check DisplayName localized of the individual test executed.
+   */
+  displayName?: string;
+
+  /**
+   * Key-value pairs that allow grouping/filtering individual tests.
+   */
+  tags?: PrecheckResultTags;
+
+  /**
+   * Key-value pairs that allow grouping/filtering individual tests.
+   */
+  #suppress "@azure-tools/typespec-azure-core/no-unknown" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  healthCheckTags?: unknown;
+
+  /**
+   * User-facing name; one or more sentences indicating the direct issue.
+   */
+  title?: string;
+
+  /**
+   * Represents the current status of the check being performed. Indicates whether the check has completed successfully, failed, or is still in progress.
+   */
+  status?: Status;
+
+  /**
+   * Indicates the importance or impact level of the result. Determines whether the result is informational, a warning, or a critical issue that may block updates.
+   */
+  severity?: Severity;
+
+  /**
+   * Detailed overview of the issue and what impact the issue has on the stamp.
+   */
+  description?: string;
+
+  /**
+   * Set of steps that can be taken to resolve the issue found.
+   */
+  remediation?: string;
+
+  /**
+   * The unique identifier for the affected resource (such as a node or drive).
+   */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  targetResourceID?: string;
+
+  /**
+   * The name of the affected resource.
+   */
+  targetResourceName?: string;
+
+  /**
+   * The type of resource being referred to (well-known set of nouns in infrastructure, aligning with Monitoring).
+   */
+  targetResourceType?: string;
+
+  /**
+   * The time in which the HealthCheck was called.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  timestamp?: utcDateTime;
+
+  /**
+   * Property bag of key value pairs for additional information.
+   */
+  additionalData?: string;
+
+  /**
+   * The name of the services called for the HealthCheck (I.E. Test-AzureStack, Test-Cluster).
+   */
+  healthCheckSource?: string;
+}
+
+/**
+ * Key-value pairs that allow grouping/filtering individual tests.
+ */
+model PrecheckResultTags {
+  /**
+   * Key that allow grouping/filtering individual tests.
+   */
+  key?: string;
+
+  /**
+   * Value of the key that allow grouping/filtering individual tests.
+   */
+  value?: string;
+}
+
+/**
+ * Additional information regarding the state of the update. See definition of UpdateStateProperties type below for more details on this property.
+ */
+model UpdateStateProperties {
+  /**
+   * Progress percentage of ongoing operation. Currently this property is only valid when the update is in the Downloading state, where it maps to how much of the update content has been downloaded.
+   */
+  progressPercentage?: float32;
+
+  /**
+   * Brief message with instructions for updates of AvailabilityType Notify.
+   */
+  notifyMessage?: string;
+}
+
+/**
+ * List of Update Summaries
+ */
+model UpdateSummariesList is Azure.Core.Page<UpdateSummaries>;
+
+/**
+ * Properties of Update summaries
+ */
+model UpdateSummariesProperties {
+  /**
+   * Provisioning state of the UpdateSummaries proxy resource. Indicates the current lifecycle status of the update summary operation, such as whether it has been accepted, is in progress, or has completed.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * OEM family name.
+   */
+  oemFamily?: string;
+
+  /**
+   * Current OEM Version.
+   */
+  currentOemVersion?: string;
+
+  /**
+   * Name of the hardware model.
+   */
+  hardwareModel?: string;
+
+  /**
+   * Current version of each updatable component.
+   */
+  @identifiers(#["version"])
+  packageVersions?: PackageVersionInfo[];
+
+  /**
+   * Current Solution Bundle version of the stamp.
+   */
+  currentVersion?: string;
+
+  /**
+   * Current Sbe version of the stamp.
+   */
+  currentSbeVersion?: string;
+
+  /**
+   * Last time an update installation completed successfully.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  lastUpdated?: utcDateTime;
+
+  /**
+   * Last time the update service successfully checked for updates
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  lastChecked?: utcDateTime;
+
+  /**
+   * Overall health state for update-specific health checks.
+   */
+  healthState?: HealthState;
+
+  /**
+   * An array of pre-check result objects.
+   */
+  @identifiers(#["name"])
+  healthCheckResult?: PrecheckResult[];
+
+  /**
+   * Last time the package-specific checks were run.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  healthCheckDate?: utcDateTime;
+
+  /**
+   * Overall update state of the stamp. Indicates the current status of update deployment across the stamp, including preparation, application, and any issues encountered.
+   */
+  state?: UpdateSummariesPropertiesState;
+}
+
+/**
+ * Represents properties of a validated solution recipe resource.
+ */
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+model ValidatedSolutionRecipeProperties {
+  /**
+   * Represents contents of a validated solution recipe.
+   */
+  recipeContent: ValidatedSolutionRecipeContent;
+
+  /**
+   * Represents the signature of the recipe, to be used for ensuring its integrity.
+   */
+  signature?: string;
+}
+
+/**
+ * Represents contents of a validated solution recipe resource.
+ */
+model ValidatedSolutionRecipeContent {
+  /**
+   * Represents information about a validated solution recipe.
+   */
+  info: ValidatedSolutionRecipeInfo;
+
+  /**
+   * Represents capabilities available in a validated solution recipe.
+   */
+  capabilities?: ValidatedSolutionRecipeCapabilities;
+
+  /**
+   * Represents components available in a validated solution recipe.
+   */
+  @identifiers(#[])
+  components: ValidatedSolutionRecipeComponent[];
+}
+
+/**
+ * Represents information about a validated solution recipe.
+ */
+model ValidatedSolutionRecipeInfo {
+  /**
+   * Represents the solution type for which this validated solution recipe is applicable.
+   */
+  solutionType: string;
+
+  /**
+   * Represents the version for which this validated solution recipe is applicable.
+   */
+  version: string;
+}
+
+/**
+ * Represents capabilities available in a validated solution recipe.
+ */
+model ValidatedSolutionRecipeCapabilities {
+  /**
+   * Represents the cluster capabilities.
+   */
+  @identifiers(#[])
+  clusterCapabilities: ValidatedSolutionRecipeCapability[];
+
+  /**
+   * Represents the node capabilities.
+   */
+  @identifiers(#[])
+  nodeCapabilities: ValidatedSolutionRecipeCapability[];
+}
+
+/**
+ * Represents capability available in a validated solution recipe.
+ */
+model ValidatedSolutionRecipeCapability {
+  /**
+   * Represents the capability name.
+   */
+  capabilityName: string;
+}
+
+/**
+ * Represents component available in a validated solution recipe.
+ */
+model ValidatedSolutionRecipeComponent {
+  /**
+   * Represents the component's name.
+   */
+  name: string;
+
+  /**
+   * Represents the component's type.
+   */
+  type: string;
+
+  /**
+   * Represents the component's required version.
+   */
+  requiredVersion?: string;
+
+  /**
+   * Represents the component's install order.
+   */
+  installOrder?: int64;
+
+  /**
+   * Represents the component's tags.
+   */
+  tags: string[];
+
+  /**
+   * Represents the component's payloads.
+   */
+  @identifiers(#[])
+  payloads?: ValidatedSolutionRecipeComponentPayload[];
+
+  /**
+   * Represents the component's metadata.
+   */
+  metadata?: ValidatedSolutionRecipeComponentMetadata;
+}
+
+/**
+ * Represents payloads associated with a component available in a validated solution recipe.
+ */
+model ValidatedSolutionRecipeComponentPayload {
+  /**
+   * Represents the unique identifier of the payload used to query the URL.
+   */
+  identifier: string;
+
+  /**
+   * Represents the cryptographic hash of the payload, ensuring data integrity.
+   */
+  hash: string;
+
+  /**
+   * Represents the name of the file associated with the payload.
+   */
+  fileName: string;
+
+  /**
+   * Represents the URL from which the payload can be downloaded.
+   */
+  url: string;
+}
+
+/**
+ * Represents metadata associated with a component available in a validated solution recipe.
+ */
+model ValidatedSolutionRecipeComponentMetadata {
+  /**
+   * Represents the type of extension.
+   */
+  extensionType?: string;
+
+  /**
+   * Represents the publisher of the extension.
+   */
+  publisher?: string;
+
+  /**
+   * Indicates whether automatic upgrades of the extension are enabled.
+   */
+  enableAutomaticUpgrade?: boolean;
+
+  /**
+   * Indicates whether the LCM (Lifecycle Management) update of the extension is enabled.
+   */
+  lcmUpdate?: boolean;
+
+  /**
+   * Specifies the catalog to which the extension belongs.
+   */
+  catalog?: string;
+
+  /**
+   * Specifies the ring to which the extension belongs, internally used by component.
+   */
+  ring?: string;
+
+  /**
+   * Specifies the release train to which given component belongs.
+   */
+  releaseTrain?: string;
+
+  /**
+   * Specifies the link associated with the extension.
+   */
+  link?: string;
+
+  /**
+   * Specifies the name of the extension.
+   */
+  name?: string;
+
+  /**
+   * Specifies the expected hash of the extension.
+   */
+  expectedHash?: string;
+
+  /**
+   * Specifies the preview source of the extension.
+   */
+  previewSource?: string;
+}
+
+/**
+ * Connectivity related configuration required by arc server.
+ */
+model ArcConnectivityProperties {
+  /**
+   * True indicates ARC connectivity is enabled
+   */
+  enabled?: boolean;
+
+  /**
+   * Service configurations associated with the connectivity resource. They are only processed by the server if 'enabled' property is set to 'true'.
+   */
+  @identifiers(#["serviceName"])
+  serviceConfigurations?: ServiceConfiguration[];
+}
+
+/**
+ * Service configuration details
+ */
+model ServiceConfiguration {
+  /**
+   * Specifies the name of the service associated with the update or operation. This helps identify which system component or tool is involved.
+   */
+  serviceName: ServiceName;
+
+  /**
+   * The port on which service is enabled.
+   */
+  port: int64;
+}
+
+/**
+ * Represents the properties of a log collection job.
+ */
+model CollectLogJobProperties {
+  /**
+   * From date for log collection.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  fromDate: utcDateTime;
+
+  /**
+   * To date for log collection.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  toDate: utcDateTime;
+
+  /**
+   * To date for log collection.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  lastLogGenerated?: utcDateTime;
+
+  /**
+   * log collection job reported properties.
+   */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: LogCollectionReportedProperties;
+}
+
+/**
+ * Represents the reported properties of a log collection job.
+ */
+model LogCollectionReportedProperties {
+  /**
+   * The percentage of the job that is complete.
+   */
+  @visibility(Lifecycle.Read)
+  percentComplete?: int32;
+
+  /**
+   * Validation status of job.
+   */
+  @visibility(Lifecycle.Read)
+  validationStatus?: EceActionStatus;
+
+  /**
+   * Deployment status of job.
+   */
+  @visibility(Lifecycle.Read)
+  deploymentStatus?: EceActionStatus;
+
+  /**
+   * Details of the log collection session.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["correlationId"])
+  logCollectionSessionDetails?: LogCollectionJobSession[];
+}
+
+/**
+ * Represents a session for collecting logs from an edge device.
+ */
+model LogCollectionJobSession {
+  /**
+   * The timestamp when log collection started, in ISO 8601 format.
+   */
+  @visibility(Lifecycle.Read)
+  startTime?: string;
+
+  /**
+   * The timestamp when log collection ended, in ISO 8601 format.
+   */
+  @visibility(Lifecycle.Read)
+  endTime?: string;
+
+  /**
+   * The total time logs were collected for, in ISO 8601 duration format.
+   */
+  @visibility(Lifecycle.Read)
+  timeCollected?: string;
+
+  /**
+   * The size of the collected logs in bytes.
+   */
+  @visibility(Lifecycle.Read)
+  logSize?: int32;
+
+  /**
+   * The status of the log collection session.
+   */
+  @visibility(Lifecycle.Read)
+  status?: DeviceLogCollectionStatus;
+
+  /**
+   * A unique identifier for correlating this log collection session with other operations or sessions.
+   */
+  @visibility(Lifecycle.Read)
+  correlationId?: string;
+}
+
+/**
+ * Edge device job properties
+ */
+model EdgeDeviceJobProperties {
+  /**
+   * Deployment mode to trigger job.
+   */
+  deploymentMode?: DeploymentMode;
+
+  /**
+   * Job provisioning state
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Unique, immutable job id.
+   */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /**
+   * The UTC date and time at which the job started.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  startTimeUtc?: utcDateTime;
+
+  /**
+   * The UTC date and time at which the job completed.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  endTimeUtc?: utcDateTime;
+
+  /**
+   * Status of Edge device job.
+   */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+}
+
+/**
+ * Represents the properties of an HCI Collect Log job.
+ */
+model HciCollectLogJobProperties extends HciEdgeDeviceJobProperties {
+  /**
+   * From date for log collection.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  fromDate: utcDateTime;
+
+  /**
+   * To date for log collection.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  toDate: utcDateTime;
+
+  /**
+   * To date for log collection.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  lastLogGenerated?: utcDateTime;
+
+  /**
+   * log collection job reported properties.
+   */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: LogCollectionReportedProperties;
+
+  /**
+   * Job Type to support polymorphic resource.
+   */
+  jobType: "CollectLog";
+}
+
+/**
+ * HCI Edge device job properties
+ */
+@discriminator("jobType")
+model HciEdgeDeviceJobProperties {
+  /**
+   * Deployment mode to trigger job.
+   */
+  deploymentMode?: DeploymentMode;
+
+  /**
+   * Job provisioning state
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Unique, immutable job id.
+   */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /**
+   * The UTC date and time at which the job started.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  startTimeUtc?: utcDateTime;
+
+  /**
+   * The UTC date and time at which the job completed.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  endTimeUtc?: utcDateTime;
+
+  /**
+   * Status of Edge device job.
+   */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+
+  /**
+   * Job Type to support polymorphic resource.
+   */
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  jobType: HciEdgeDeviceJobType;
+}
+
+/**
+ * Edge device job for Azure Stack HCI solution.
+ */
+model HciEdgeDeviceJob extends EdgeDeviceJob {
+  /**
+   * HCI Edge device job properties
+   */
+  properties: HciEdgeDeviceJobProperties;
+
+  /**
+   * Edge Solution type to support polymorphic resource.
+   */
+  kind: "HCI";
+}
+
+/**
+ * Represents the properties of a remote support job for HCI.
+ */
+model HciRemoteSupportJobProperties extends HciEdgeDeviceJobProperties {
+  /**
+   * Remote support access level.
+   */
+  accessLevel: RemoteSupportAccessLevel;
+
+  /**
+   * Remote support expiration timestamp.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  expirationTimestamp: utcDateTime;
+
+  /**
+   * Remote support type.
+   */
+  type: RemoteSupportType;
+
+  /**
+   * log collection job reported properties.
+   */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: RemoteSupportJobReportedProperties;
+
+  /**
+   * Job Type to support polymorphic resource.
+   */
+  jobType: "RemoteSupport";
+}
+
+/**
+ * Represents the reported properties of a remote support job.
+ */
+model RemoteSupportJobReportedProperties {
+  /**
+   * The percentage of the job that is complete.
+   */
+  @visibility(Lifecycle.Read)
+  percentComplete?: int32;
+
+  /**
+   * Validation status of job.
+   */
+  @visibility(Lifecycle.Read)
+  validationStatus?: EceActionStatus;
+
+  /**
+   * Deployment status of job.
+   */
+  @visibility(Lifecycle.Read)
+  deploymentStatus?: EceActionStatus;
+
+  /**
+   * Optional settings for configuring the node for remote support.
+   */
+  @visibility(Lifecycle.Read)
+  nodeSettings?: RemoteSupportJobNodeSettings;
+
+  /**
+   * Details of the remote support session.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["sessionId"])
+  sessionDetails?: RemoteSupportSession[];
+}
+
+/**
+ * Represents the settings of a remote support node.
+ */
+model RemoteSupportJobNodeSettings {
+  /**
+   * The state of the remote support node.
+   */
+  @visibility(Lifecycle.Read)
+  state?: string;
+
+  /**
+   * The timestamp when the node settings were created, in UTC.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  createdAt?: utcDateTime;
+
+  /**
+   * The timestamp when the node settings were last updated, in UTC.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  updatedAt?: utcDateTime;
+
+  /**
+   * The current connection status of the remote support session.
+   */
+  @visibility(Lifecycle.Read)
+  connectionStatus?: string;
+
+  /**
+   * The error message, if any, from the last connection attempt.
+   */
+  @visibility(Lifecycle.Read)
+  connectionErrorMessage?: string;
+}
+
+/**
+ * Represents a remote support session.
+ */
+model RemoteSupportSession {
+  /**
+   * Unique session Id.
+   */
+  @visibility(Lifecycle.Read)
+  sessionId?: string;
+
+  /**
+   * The start time of the remote support session, in UTC.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  sessionStartTime?: utcDateTime;
+
+  /**
+   * The end time of the remote support session, in UTC.
+   */
+  @visibility(Lifecycle.Read)
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  sessionEndTime?: utcDateTime;
+
+  /**
+   * The level of access granted during the remote support session.
+   */
+  @visibility(Lifecycle.Read)
+  accessLevel?: RemoteSupportAccessLevel;
+
+  /**
+   * The location where the session transcript is stored.
+   */
+  @visibility(Lifecycle.Read)
+  transcriptLocation?: string;
+}
+
+/**
+ * Reported Properties for job triggered from cloud.
+ */
+model JobReportedProperties {
+  /**
+   * The percentage of the job that is complete.
+   */
+  @visibility(Lifecycle.Read)
+  percentComplete?: int32;
+
+  /**
+   * Validation status of job.
+   */
+  @visibility(Lifecycle.Read)
+  validationStatus?: EceActionStatus;
+
+  /**
+   * Deployment status of job.
+   */
+  @visibility(Lifecycle.Read)
+  deploymentStatus?: EceActionStatus;
+}
+
+/**
+ * Represents the properties of a remote support job.
+ */
+model RemoteSupportJobProperties {
+  /**
+   * Remote support access level.
+   */
+  accessLevel: RemoteSupportAccessLevel;
+
+  /**
+   * Remote support expiration timestamp.
+   */
+  // FIXME: (utcDateTime) Please double check that this is the correct type for your scenario.
+  expirationTimestamp: utcDateTime;
+
+  /**
+   * Remote support type.
+   */
+  type: RemoteSupportType;
+
+  /**
+   * log collection job reported properties.
+   */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: RemoteSupportJobReportedProperties;
+}
+
+/**
+ * The AdapterPropertyOverrides of a cluster.
+ */
+model HciEdgeDeviceAdapterPropertyOverrides {
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  @visibility(Lifecycle.Read)
+  jumboPacket?: string;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  @visibility(Lifecycle.Read)
+  networkDirect?: string;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation. Expected values are 'iWARP', 'RoCEv2', 'RoCE'
+   */
+  @visibility(Lifecycle.Read)
+  networkDirectTechnology?: string;
+}
+
+/**
+ * The device Configuration for edge device.
+ */
+model DeviceConfiguration {
+  /**
+   * NIC Details of device
+   */
+  @identifiers(#["adapterName"])
+  nicDetails?: NicDetail[];
+
+  /**
+   * Device metadata details.
+   */
+  deviceMetadata?: string;
+}
+
+/**
+ * The NIC Detail of a device.
+ */
+model NicDetail {
+  /**
+   * Adapter Name of NIC
+   */
+  adapterName?: string;
+
+  /**
+   * Interface Description of NIC
+   */
+  interfaceDescription?: string;
+
+  /**
+   * Component Id of NIC
+   */
+  componentId?: string;
+
+  /**
+   * Driver Version of NIC
+   */
+  driverVersion?: string;
+
+  /**
+   * Subnet Mask of NIC
+   */
+  ip4Address?: string;
+
+  /**
+   * Subnet Mask of NIC
+   */
+  subnetMask?: string;
+
+  /**
+   * Default Gateway of NIC
+   */
+  defaultGateway?: string;
+
+  /**
+   * DNS Servers for NIC
+   */
+  dnsServers?: string[];
+
+  /**
+   * Default Isolation of Management NIC
+   */
+  defaultIsolationId?: string;
+}
+
+/**
+ * Edge Device properties
+ */
+model EdgeDeviceProperties {
+  /**
+   * Device Configuration
+   */
+  deviceConfiguration?: DeviceConfiguration;
+
+  /**
+   * Provisioning state of edgeDevice resource
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/**
+ * details of validation failure
+ */
+model HciValidationFailureDetail {
+  /**
+   * Exception details while installing extension.
+   */
+  @visibility(Lifecycle.Read)
+  exception?: string;
+}
+
+/**
+ * Arc extension installed on edge device.
+ */
+model HciEdgeDeviceArcExtension {
+  /**
+   * Arc extension name installed on edge device.
+   */
+  @visibility(Lifecycle.Read)
+  extensionName?: string;
+
+  /**
+   * Arc extension state from arc machine extension.
+   */
+  @visibility(Lifecycle.Read)
+  state?: ArcExtensionState;
+
+  /**
+   * Error details while installing Arc extension.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  errorDetails?: HciValidationFailureDetail[];
+
+  /**
+   * Arc Extension Azure resource id.
+   */
+  @visibility(Lifecycle.Read)
+  extensionResourceId?: Azure.Core.armResourceIdentifier;
+
+  /**
+   * Extension version installed.
+   */
+  @visibility(Lifecycle.Read)
+  typeHandlerVersion?: string;
+
+  /**
+   * Indicates whether the extension is managed by the user or by Azure.
+   */
+  @visibility(Lifecycle.Read)
+  managedBy?: ExtensionManagedBy;
+}
+
+/**
+ * Extensions details for edge device.
+ */
+model ExtensionProfile {
+  /**
+   * List of Arc extensions installed on edge device.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["extensionName"])
+  extensions?: HciEdgeDeviceArcExtension[];
+}
+
+/**
+ * Arc-enabled edge device with HCI OS.
+ */
+model HciEdgeDevice extends EdgeDevice {
+  /**
+   * properties for Arc-enabled edge device with HCI OS.
+   */
+  properties?: HciEdgeDeviceProperties;
+
+  /**
+   * Device kind to support polymorphic resource.
+   */
+  kind: "HCI";
+}
+
+/**
+ * properties for Arc-enabled edge device with HCI OS.
+ */
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+model HciEdgeDeviceProperties extends EdgeDeviceProperties {
+  /**
+   * The instance view of all current configurations on HCI device.
+   */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: HciReportedProperties;
+}
+
+/**
+ * The device Configuration for HCI device.
+ */
+#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+model HciReportedProperties extends ReportedProperties {
+  /**
+   * HCI device network information.
+   */
+  @visibility(Lifecycle.Read)
+  networkProfile?: HciNetworkProfile;
+
+  /**
+   * HCI device OS specific information.
+   */
+  @visibility(Lifecycle.Read)
+  osProfile?: HciOsProfile;
+
+  /**
+   * Solution builder extension (SBE) deployment package information.
+   */
+  @visibility(Lifecycle.Read)
+  sbeDeploymentPackageInfo?: SbeDeploymentPackageInfo;
+
+  /**
+   * Hci device storage specific information.
+   */
+  @visibility(Lifecycle.Read)
+  storageProfile?: HciStorageProfile;
+
+  /**
+   * Hci device hardware specific information.
+   */
+  @visibility(Lifecycle.Read)
+  hardwareProfile?: HciHardwareProfile;
+}
+
+/**
+ * The network profile of a device.
+ */
+model HciNetworkProfile {
+  /**
+   * List of NIC Details of device.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["adapterName"])
+  nicDetails?: HciNicDetail[];
+
+  /**
+   * List of switch details for edge device.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["switchName"])
+  switchDetails?: SwitchDetail[];
+
+  /**
+   * HostNetwork config to deploy AzureStackHCI Cluster.
+   */
+  @visibility(Lifecycle.Read)
+  hostNetwork?: HciEdgeDeviceHostNetwork;
+
+  /** Software Defined Networking Properties of the device. */
+  @visibility(Lifecycle.Read)
+  @added(Versions.v2026_03_15_preview)
+  sdnProperties?: SdnProperties;
+}
+
+/**
+ * The NIC Detail of a device.
+ */
+model HciNicDetail {
+  /**
+   * Adapter Name of NIC
+   */
+  @visibility(Lifecycle.Read)
+  adapterName?: string;
+
+  /**
+   * Interface Description of NIC
+   */
+  @visibility(Lifecycle.Read)
+  interfaceDescription?: string;
+
+  /**
+   * Component Id of NIC
+   */
+  @visibility(Lifecycle.Read)
+  componentId?: string;
+
+  /**
+   * Driver Version of NIC
+   */
+  @visibility(Lifecycle.Read)
+  driverVersion?: string;
+
+  /**
+   * Subnet Mask of NIC
+   */
+  @visibility(Lifecycle.Read)
+  ip4Address?: string;
+
+  /**
+   * Subnet Mask of NIC
+   */
+  @visibility(Lifecycle.Read)
+  subnetMask?: string;
+
+  /**
+   * Default Gateway of NIC
+   */
+  @visibility(Lifecycle.Read)
+  defaultGateway?: string;
+
+  /**
+   * DNS Servers for NIC
+   */
+  @visibility(Lifecycle.Read)
+  dnsServers?: string[];
+
+  /**
+   * Default Isolation of Management NIC
+   */
+  @visibility(Lifecycle.Read)
+  defaultIsolationId?: string;
+
+  /**
+   * MAC address information of NIC.
+   */
+  @visibility(Lifecycle.Read)
+  macAddress?: string;
+
+  /**
+   * The slot attached to the NIC.
+   */
+  @visibility(Lifecycle.Read)
+  slot?: string;
+
+  /**
+   * The switch attached to the NIC, if any.
+   */
+  @visibility(Lifecycle.Read)
+  switchName?: string;
+
+  /**
+   * The type of NIC, physical, virtual, management.
+   */
+  @visibility(Lifecycle.Read)
+  nicType?: string;
+
+  /**
+   * The VLAN ID of the physical NIC.
+   */
+  @visibility(Lifecycle.Read)
+  vlanId?: string;
+
+  /**
+   * The status of NIC, up, disconnected.
+   */
+  @visibility(Lifecycle.Read)
+  nicStatus?: string;
+
+  /**
+   * Describes the RDMA capability of the network adapter.
+   */
+  @visibility(Lifecycle.Read)
+  rdmaCapability?: RdmaCapability = RdmaCapability.Disabled;
+}
+
+/**
+ * List of switch details for edge device.
+ */
+model SwitchDetail {
+  /**
+   * The name of the switch.
+   */
+  @visibility(Lifecycle.Read)
+  switchName?: string;
+
+  /**
+   * The type of the switch. e.g. external, internal.
+   */
+  @visibility(Lifecycle.Read)
+  switchType?: string;
+
+  /**
+   * This represents extensions installed on virtualSwitch.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["extensionName"])
+  extensions?: SwitchExtension[];
+}
+
+/**
+ * This represents extensions installed on virtualSwitch.
+ */
+model SwitchExtension {
+  /**
+   * Unique identifier for virtualSwitch.
+   */
+  @visibility(Lifecycle.Read)
+  switchId?: string;
+
+  /**
+   * This will show extension name for virtualSwitch.
+   */
+  @visibility(Lifecycle.Read)
+  extensionName?: string;
+
+  /**
+   * This represents whether extension is enabled on virtualSwitch.
+   */
+  @visibility(Lifecycle.Read)
+  extensionEnabled?: boolean;
+}
+
+/**
+ * The HostNetwork of a cluster.
+ */
+model HciEdgeDeviceHostNetwork {
+  /**
+   * The network intents assigned to the network reference pattern used for the deployment. Each intent will define its own name, traffic type, adapter names, and overrides as recommended by your OEM.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["intentName"])
+  intents?: HciEdgeDeviceIntents[];
+
+  /**
+   * List of StorageNetworks config to deploy AzureStackHCI Cluster.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["networkAdapterName"])
+  storageNetworks?: HciEdgeDeviceStorageNetworks[];
+
+  /**
+   * Defines how the storage adapters between nodes are connected either switch or switch less.
+   */
+  @visibility(Lifecycle.Read)
+  storageConnectivitySwitchless?: boolean;
+
+  /**
+   * Optional parameter required only for 3 Nodes Switchless deployments. This allows users to specify IPs and Mask for Storage NICs when Network ATC is not assigning the IPs for storage automatically.
+   */
+  @visibility(Lifecycle.Read)
+  enableStorageAutoIp?: boolean = false;
+}
+
+/**
+ * The Intents of a cluster.
+ */
+model HciEdgeDeviceIntents {
+  /**
+   * Scope for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  scope?: int64;
+
+  /**
+   * IntentType for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  intentType?: int64;
+
+  /**
+   * IsComputeIntentSet for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isComputeIntentSet?: boolean;
+
+  /**
+   * IsStorageIntentSet for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isStorageIntentSet?: boolean;
+
+  /**
+   * IntentType for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isOnlyStorage?: boolean;
+
+  /**
+   * IsManagementIntentSet for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isManagementIntentSet?: boolean;
+
+  /**
+   * IsStretchIntentSet for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isStretchIntentSet?: boolean;
+
+  /**
+   * IsOnlyStretch for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isOnlyStretch?: boolean;
+
+  /**
+   * IsNetworkIntentType for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isNetworkIntentType?: boolean;
+
+  /**
+   * Name of the network intent you wish to create.
+   */
+  @visibility(Lifecycle.Read)
+  intentName?: string;
+
+  /**
+   * Array of adapters used for the network intent.
+   */
+  @visibility(Lifecycle.Read)
+  intentAdapters?: string[];
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  @visibility(Lifecycle.Read)
+  overrideVirtualSwitchConfiguration?: boolean;
+
+  /**
+   * Set virtualSwitch ConfigurationOverrides for cluster.
+   */
+  @visibility(Lifecycle.Read)
+  virtualSwitchConfigurationOverrides?: HciEdgeDeviceVirtualSwitchConfigurationOverrides;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  @visibility(Lifecycle.Read)
+  overrideQosPolicy?: boolean;
+
+  /**
+   * Set QoS PolicyOverrides for cluster.
+   */
+  @visibility(Lifecycle.Read)
+  qosPolicyOverrides?: QosPolicyOverrides;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  @visibility(Lifecycle.Read)
+  overrideAdapterProperty?: boolean;
+
+  /**
+   * Set Adapter PropertyOverrides for cluster.
+   */
+  @visibility(Lifecycle.Read)
+  adapterPropertyOverrides?: HciEdgeDeviceAdapterPropertyOverrides;
+}
+
+/**
+ * The VirtualSwitchConfigurationOverrides of a cluster.
+ */
+model HciEdgeDeviceVirtualSwitchConfigurationOverrides {
+  /**
+   * Enable IoV for Virtual Switch
+   */
+  @visibility(Lifecycle.Read)
+  enableIov?: string;
+
+  /**
+   * Load Balancing Algorithm for Virtual Switch
+   */
+  @visibility(Lifecycle.Read)
+  loadBalancingAlgorithm?: string;
+}
+
+/**
+ * The StorageNetworks of a cluster.
+ */
+model HciEdgeDeviceStorageNetworks {
+  /**
+   * Name of the storage network.
+   */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /**
+   * Name of the storage network adapter.
+   */
+  @visibility(Lifecycle.Read)
+  networkAdapterName?: string;
+
+  /**
+   * ID specified for the VLAN storage network. This setting is applied to the network interfaces that route the storage and VM migration traffic.
+   */
+  @visibility(Lifecycle.Read)
+  storageVlanId?: string;
+
+  /**
+   * List of Storage adapter physical nodes config to deploy AzureStackHCI Cluster.
+   */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  @visibility(Lifecycle.Read)
+  @identifiers(#["physicalNode"])
+  storageAdapterIPInfo?: HciEdgeDeviceStorageAdapterIPInfo[];
+}
+
+/**
+ * The StorageAdapter physical nodes of a cluster.
+ */
+model HciEdgeDeviceStorageAdapterIPInfo {
+  /**
+   * storage adapter physical node name.
+   */
+  @visibility(Lifecycle.Read)
+  physicalNode?: string;
+
+  /**
+   * The IPv4 address assigned to each storage adapter physical node on your Azure Stack HCI cluster.
+   */
+  @visibility(Lifecycle.Read)
+  ipv4Address?: string;
+
+  /**
+   * The SubnetMask address assigned to each storage adapter physical node on your Azure Stack HCI cluster.
+   */
+  @visibility(Lifecycle.Read)
+  subnetMask?: string;
+}
+
+/**
+ * OS configurations for HCI device.
+ */
+model HciOsProfile {
+  /**
+   * The boot type of the device. e.g. UEFI, Legacy etc
+   */
+  @visibility(Lifecycle.Read)
+  bootType?: string;
+
+  /**
+   * Version of assembly present on device
+   */
+  @visibility(Lifecycle.Read)
+  assemblyVersion?: string;
+}
+
+/**
+ * Solution builder extension (SBE) deployment package information.
+ */
+model SbeDeploymentPackageInfo {
+  /**
+   * SBE deployment validation code.
+   */
+  @visibility(Lifecycle.Read)
+  code?: string;
+
+  /**
+   * A detailed message that explains the SBE package validation result.
+   */
+  @visibility(Lifecycle.Read)
+  message?: string;
+
+  /**
+   * This represents discovered update results for matching updates and store it as SBE manifest.
+   */
+  @visibility(Lifecycle.Read)
+  sbeManifest?: string;
+}
+
+/**
+ * Storage configurations for HCI device.
+ */
+model HciStorageProfile {
+  /**
+   * Number of storage disks in the device with $CanPool as true.
+   */
+  @visibility(Lifecycle.Read)
+  poolableDisksCount?: int64;
+
+  /**
+   * List of storage disks on the device.
+   */
+  @visibility(Lifecycle.Read)
+  @added(Versions.v2026_03_15_preview)
+  @identifiers(#["id"])
+  disks?: EdgeDeviceDisks[];
+}
+
+/**
+ * Represents a storage disk on the device.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeDeviceDisks {
+  /**
+   * The unique identifier of the disk.
+   */
+  @visibility(Lifecycle.Read)
+  id: string;
+
+  /**
+   * The size of the disk in bytes.
+   */
+  @visibility(Lifecycle.Read)
+  sizeInBytes?: string;
+
+  /**
+   * The type of the disk. For example, S2D or SAN.
+   */
+  @visibility(Lifecycle.Read)
+  type?: string;
+
+  /** Model number of the hardware. */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  `model`?: string;
+
+  /** The manufacturer of the disk. */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  manufacturer?: string;
+
+  /** Indicates whether the manufacturer is supported. */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  isSupported?: boolean;
+}
+
+/**
+ * Hardware configurations for HCI device.
+ */
+model HciHardwareProfile {
+  /**
+   * Process type of the device
+   */
+  @visibility(Lifecycle.Read)
+  processorType?: string;
+}
+
+/**
+ * Reported properties pushed from edge device.
+ */
+model ReportedProperties {
+  /**
+   * edge device state.
+   */
+  @visibility(Lifecycle.Read)
+  deviceState?: DeviceState;
+
+  /**
+   * Extensions details for edge device.
+   */
+  @visibility(Lifecycle.Read)
+  extensionProfile?: ExtensionProfile;
+
+  /**
+   * Most recent edge device sync timestamp in UTC.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  lastSyncTimestamp?: utcDateTime;
+
+  /**
+   * CVM support details for edge device.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  confidentialVmProfile?: ConfidentialVmProfile;
+}
+
+////////////////////////////////////////////////////////////////
+//////////////////////Confidential VM //////////////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Represents the Confidential Virtual Machine (CVM) support intent and current status for the cluster resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model ConfidentialVmProperties {
+  /**
+   * Captures the customer's intent to enable or disable CVM support on the cluster, either during initial deployment (Day-0) or at a later stage (Day-N).
+   */
+  @visibility(Lifecycle.Read)
+  confidentialVmIntent?: ConfidentialVmIntent = ConfidentialVmIntent.Disable;
+
+  /**
+   * Captures the current status of CVM support on the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  confidentialVmStatus?: ConfidentialVmStatus = ConfidentialVmStatus.Disabled;
+
+  /**
+   * Additional context about CVM support on the cluster, such as reasons for partial enablement or hardware constraints.
+   */
+  @visibility(Lifecycle.Read)
+  confidentialVmStatusSummary?: string;
+}
+
+/**
+ * Captures the customer's intent to enable or disable Confidential Virtual Machine (CVM) support on the cluster, either during initial deployment (Day-0) or at a later stage (Day-N).
+ */
+@added(Versions.v2026_03_15_preview)
+union ConfidentialVmIntent {
+  string,
+
+  /**
+   * Indicates that the customer intends to enable CVM support on the cluster.
+   */
+  Enable: "Enable",
+
+  /**
+   * Indicates that the customer intends to disable CVM support on the cluster.
+   */
+  Disable: "Disable",
+}
+
+/**
+ * Captures the current status of Confidential Virtual Machine (CVM) support on the cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+union ConfidentialVmStatus {
+  string,
+
+  /**
+   * CVM support is fully enabled on the cluster. All nodes are CVM capable.
+   */
+  Enabled: "Enabled",
+
+  /**
+   * CVM support is partially enabled. At least one node in the cluster is CVM capable.
+   */
+  PartiallyEnabled: "PartiallyEnabled",
+
+  /**
+   * CVM support is disabled. None of the nodes in the cluster are CVM capable.
+   */
+  Disabled: "Disabled",
+}
+
+/**
+ * Represents the Confidential Virtual Machine (CVM) configuration status for an edge device. It includes the current IGVM support state and detailed component-level status information.
+ */
+@added(Versions.v2026_03_15_preview)
+model ConfidentialVmProfile {
+  /**
+   * Indicates whether Independent Guest Virtual Machine (IGVM) support is available on the device. This will be 'Enabled' if the device supports CVMs, 'Disabled' if not, and 'Unknown' if the status cannot be determined.
+   */
+  @visibility(Lifecycle.Read)
+  igvmStatus?: IgvmStatus;
+
+  /**
+   * Provides detailed status entries for IGVM-related components, including deployment status, compatibility checks, and error diagnostics.
+   */
+  @Azure.ResourceManager.identifiers(#["code"])
+  statusDetails?: IgvmStatusDetail[];
+}
+
+/**
+ * Provides component-level status information related to IGVM enablement on the device.
+ */
+@added(Versions.v2026_03_15_preview)
+model IgvmStatusDetail {
+  /**
+   * A machine-readable status code indicating the result or condition of a specific IGVM-related check or operation.
+   */
+  @visibility(Lifecycle.Read)
+  code?: string;
+
+  /**
+   * A human-readable message providing context or explanation for the associated status code.
+   */
+  @visibility(Lifecycle.Read)
+  message?: string;
+}
+
+/**
+ * Represents the IGVM support status for the device.
+ */
+@added(Versions.v2026_03_15_preview)
+union IgvmStatus {
+  string,
+
+  /**
+   * The IGVM status could not be determined due to a query failure or inconsistent system state.
+   */
+  Unknown: "Unknown",
+
+  /**
+   * IGVM support is enabled, indicating that confidential VM features are available on this device.
+   */
+  Enabled: "Enabled",
+
+  /**
+   * IGVM status is disabled, indicating that confidential VM features are not supported on this device.
+   */
+  Disabled: "Disabled",
+}
+
+////////////////////////////////////////////////////////////////
+/////////////Software Defined Networking (SDN) Models //////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Represents the Software Defined Networking (SDN) configuration state of the Azure Stack HCI cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model ClusterSdnProperties {
+  ...SdnProperties;
+
+  /**
+   * Indicates whether Software Defined Networking (SDN) integration should be enabled or disabled for this deployment.
+   */
+  @visibility(Lifecycle.Read)
+  sdnIntegrationIntent?: SdnIntegrationIntent;
+}
+
+/**
+ * Indicates whether Software Defined Networking (SDN) integration should be enabled or disabled for this deployment.
+ */
+@added(Versions.v2026_03_15_preview)
+union SdnIntegrationIntent {
+  string,
+
+  /**
+   * Enable SDN integration for the deployment.
+   */
+  Enable: "Enable",
+
+  /**
+   * Disable SDN integration for the deployment.
+   */
+  Disable: "Disable",
+}
+
+/**
+ * Represents the Software Defined Networking (SDN) configuration state.
+ */
+@added(Versions.v2026_03_15_preview)
+model SdnProperties {
+  /**
+   * Indicates the current Software Defined Networking (SDN) status of the resource, which may be an individual device or a cluster.
+   */
+  @visibility(Lifecycle.Read)
+  sdnStatus?: SdnStatus;
+
+  /**
+   * The fully qualified domain name (FQDN) associated with the SDN deployment. This value is propagated from the Device Management Extension to the cluster resource. It is typically in the format `<sdnPrefix>-nc.<domain>` when SDN is enabled. May be null or absent in unsupported or disabled states.
+   */
+  @visibility(Lifecycle.Read)
+  sdnDomainName?: string;
+
+  /**
+   * Represents the API address for the SDN deployment.
+   */
+  @visibility(Lifecycle.Read)
+  sdnApiAddress?: string;
+}
+
+/**
+ * Indicates the current Software Defined Networking (SDN) status of the resource, which may be an individual device or a cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+union SdnStatus {
+  string,
+
+  /**
+   * The SDN status could not be determined due to a failure in querying the SDN API service. This may occur if the query script fails or if the system is in an inconsistent state. The domain name will be null in this case.
+   */
+  Unknown: "Unknown",
+
+  /**
+   * SDN is not enabled on the resource. The domain name will be null. This is the default state when SDN has not been configured.
+   */
+  Disabled: "Disabled",
+
+  /**
+   * SDN is successfully enabled on the resource. The domain name will be populated in the format `<sdnPrefix>-nc.<domain>`. Customers may need to manage DNS settings to ensure proper resolution.
+   */
+  Enabled: "Enabled",
+}
+
+/**
+ * Properties for configuring SDN integration intent for the cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model HciConfigureSdnIntegrationJobProperties extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.ConfigureSdnIntegration;
+
+  /**
+   * Defines the customer's intent for configuring SDN integration
+   */
+  sdnIntegrationIntent: SdnIntegrationIntent;
+
+  /**
+   * A string identifier used to construct the Network Controller (NC) REST resource name. This prefix helps group and distinguish SDN-managed network components and must follow specific formatting rules.
+   */
+  @maxLength(8)
+  @pattern("^(?!.*--)(?!.*-$)[A-Za-z0-9-]{1,8}$")
+  sdnPrefix?: string;
+}
+
+/**
+ * Defines the customer's intent for updating confidential VM properties
+ */
+@added(Versions.v2026_03_15_preview)
+model HciConfigureCvmJobProperties extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.ConfigureCVM;
+
+  /**
+   * Defines the customer's intent for updating confidential VM properties
+   */
+  confidentialVmIntent: ConfidentialVmIntent;
+}
+
+////////////////////////////////////////////////////////////////
+////////////////////// Add Server Job Models ///////////////////
+////////////////////////////////////////////////////////////////
+
+/** Details of servers to be added to the cluster */
+@added(Versions.v2026_03_15_preview)
+model AddServerJobServerDetails {
+  /** Name of server to be added to cluster. */
+  serverName: string;
+
+  /** Ip address of server to be added to cluster. */
+  hostIpv4Address: string;
+
+  /** Local availability zone name of server to be added to rack aware cluster. */
+  localAvailabilityZoneName?: string;
+
+  /** Azure resource id of machine part of cluster for which job will be triggered. */
+  serverResourceId: Azure.Core.armResourceIdentifier;
+}
+
+/** Properties for adding a server in the cluster. */
+@added(Versions.v2026_03_15_preview)
+model HciAddServerJobProperties extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.AddServer;
+
+  /** Details of servers to be added to the cluster */
+  @Azure.ResourceManager.identifiers(#[])
+  addServerJobServerDetails: AddServerJobServerDetails[];
+
+  /** List of protected parameters to pass to trigger the job for the cluster. */
+  @Azure.ResourceManager.identifiers(#["secretName"])
+  secrets?: EceDeploymentSecrets[];
+
+  /** Use a cloud witness if you have internet access and if you use an Azure Storage account to provide a vote on cluster quorum. A cloud witness uses Azure Blob Storage to read or write a blob file and then uses it to arbitrate in split-brain resolution. */
+  witnessType?: WitnessType;
+
+  /** Specify the fileshare path for the local witness for your Azure Stack HCI cluster. */
+  witnessPath?: string;
+
+  /** Specify the Azure Storage account name for cloud witness for your Azure Stack HCI cluster. */
+  cloudAccountName?: string;
+}
+
+////////////////////////////////////////////////////////////////
+////////////////////// Repair Server Job Models ////////////////
+////////////////////////////////////////////////////////////////
+
+/** Details of servers to be repaired in the cluster */
+@added(Versions.v2026_03_15_preview)
+model RepairServerJobServerDetails {
+  /** Name of server to be repaired in cluster. */
+  serverName: string;
+
+  /** Azure resource id of Arc machine part of cluster for which job will be triggered. */
+  serverResourceId?: Azure.Core.armResourceIdentifier;
+}
+
+/** Properties for repairing a server in the cluster. */
+@added(Versions.v2026_03_15_preview)
+model HciRepairServerJobProperties extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.RepairServer;
+
+  /** Details of servers to be repaired in the cluster */
+  @Azure.ResourceManager.identifiers(#[])
+  repairServerJobServerDetails: RepairServerJobServerDetails[];
+
+  /** List of protected parameters to pass to trigger job for cluster. */
+  @Azure.ResourceManager.identifiers(#["secretName"])
+  secrets?: EceDeploymentSecrets[];
+}
+
+////////////////////////////////////////////////////////////////
+////////// Local Availability Zone Config Job Models //////////
+////////////////////////////////////////////////////////////////
+
+/** A single local availability zone entry containing the list of nodes belonging to it. */
+@added(Versions.v2026_03_15_preview)
+model LocalAvailabilityZoneEntry {
+  /** List of node names assigned to this local availability zone. All cluster nodes must appear exactly once across all zone entries. */
+  nodes: string[];
+}
+
+/** Configuration for local availability zones, including the naming prefix and zone-to-node mappings. */
+@added(Versions.v2026_03_15_preview)
+model LocalAvailabilityZoneConfiguration {
+  /** Naming prefix used to generate local availability zone names (Prefix1..PrefixN). */
+  @pattern("^[a-zA-Z0-9-]{1,8}$")
+  prefix: string;
+
+  /** Array of zone-to-node mappings. Each entry specifies the nodes belonging to one local availability zone. Maximum 8 zones allowed. Each zone must contain at least one node. Every cluster node must be assigned to exactly one zone. */
+  @minItems(1)
+  @maxItems(8)
+  @Azure.ResourceManager.identifiers(#[])
+  zones: LocalAvailabilityZoneEntry[];
+}
+
+/** Properties for configuring local availability zones in the cluster. */
+@added(Versions.v2026_03_15_preview)
+model HciConfigureLocalAvailabilityZoneJobProperties
+  extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.ConfigureLocalAvailabilityZone;
+
+  /** Configuration for local availability zones including naming prefix and zone-to-node mappings. */
+  localAvailabilityZoneConfiguration: LocalAvailabilityZoneConfiguration;
+}
+
+////////////////////////////////////////////////////////////////
+////////// PRIVATE PREVIEW - Arc Gateway and GPU Job Models ////
+////////////////////////////////////////////////////////////////
+
+/** Properties for configuring arc gateway to a cluster. */
+@added(Versions.v2026_03_15_preview)
+model HciConfigureArcGatewayJobProperties extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.ConfigureArcGateway;
+}
+
+/**
+ * Properties for creating GPU partitions for virtualization and workload isolation.
+ */
+@added(Versions.v2026_03_15_preview)
+model GpuCreatePartitionJobProperties extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.GpuCreatePartition;
+
+  /**
+   * Number of partitions to be created on the GPU.
+   */
+  partitionCount: int32;
+}
+
+/**
+ * Properties for switching GPU mode between DDA and GPU-P for different workload requirements.
+ */
+@added(Versions.v2026_03_15_preview)
+model GpuSwitchModeJobProperties extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.GpuSwitchMode;
+
+  /**
+   * Desired GPU mode to switch to.
+   */
+  mode: GpuMode;
+}
+
+/**
+ * GPU modes supported.
+ */
+@added(Versions.v2026_03_15_preview)
+union GpuMode {
+  string,
+
+  /** Unknown mode. */
+  Unknown: "Unknown",
+
+  /** GPU-P mode. */
+  GPUP: "GPUP",
+
+  /** DDA mode. */
+  DDA: "DDA",
+}
+
+////////////////////////////////////////////////////////////////
+////////// PRIVATE PREVIEW - VM Connect Job Models ////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Details of vm connect job.
+ */
+@added(Versions.v2026_03_15_preview)
+model VmConnectJobDetails {
+  /** Name of the VM. */
+  vmName: string;
+
+  /** Name of the node the VM is on. */
+  nodeName?: string;
+
+  /** Name of the resource group of the VM. */
+  vmResourceGroupName?: string;
+}
+
+/** Properties for enabling VM Connect. */
+@added(Versions.v2026_03_15_preview)
+model VmConnectProvisionJobProperties extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.VmConnectProvision;
+
+  /** Details of VM needed to enable VM Connect */
+  @Azure.ResourceManager.identifiers(#[])
+  vmConnectProvisionJobDetails: VmConnectJobDetails[];
+}
+
+/** Properties for disabling VM Connect. */
+@added(Versions.v2026_03_15_preview)
+model VmConnectRemoveJobProperties extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.VmConnectRemove;
+
+  /** Details of VM needed to disable VM Connect */
+  @Azure.ResourceManager.identifiers(#[])
+  vmConnectRemoveJobDetails: VmConnectJobDetails[];
+}
+
+////////////////////////////////////////////////////////////////
+////////////////////// Device Pool Models //////////////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Request for Add/Remove Devices to the pool.
+ */
+@added(Versions.v2026_03_15_preview)
+model ListOfDevicesRequest {
+  /**
+   * List of resource ids of the devices to be modified
+   */
+  devices: Azure.Core.armResourceIdentifier[];
+}
+
+/**
+ * Request for claiming devices of the pool.
+ */
+@added(Versions.v2026_03_15_preview)
+model ClaimDeviceRequest {
+  /**
+   * List of resource ids of the devices to be modified
+   */
+  devices: Azure.Core.armResourceIdentifier[];
+
+  /**
+   * Identifier of the group the device belongs to.
+   */
+  claimedBy?: string;
+}
+
+/**
+ * Request for releasing devices of the pool.
+ */
+@added(Versions.v2026_03_15_preview)
+model ReleaseDeviceRequest {
+  /**
+   * List of resource ids of the devices to be modified
+   */
+  devices: Azure.Core.armResourceIdentifier[];
+}
+
+/**
+ * Properties for device pool.
+ */
+@added(Versions.v2026_03_15_preview)
+model DevicePoolProperties {
+  /**
+   * The provisioning state of a resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Unique, immutable resource id.
+   */
+  @visibility(Lifecycle.Read)
+  cloudId?: string;
+
+  /**
+   * List of machines in device pool.
+   */
+  @Azure.ResourceManager.identifiers(#[])
+  devices?: DeviceDetail[];
+
+  /**
+   * Custom Location Resource Id for the pool
+   */
+  @visibility(Lifecycle.Read)
+  customLocationResourceId?: Azure.Core.armResourceIdentifier;
+
+  /**
+   * Custom Location Name for the pool, default: <DevicePoolName>-CL
+   */
+  customLocationName?: string;
+
+  /**
+   * Managed resource group name for the pool
+   */
+  managedResourceGroup?: string;
+
+  /**
+   * operation status details for device pool.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  operationDetails?: OperationDetail[];
+}
+
+/**
+ * Properties for patching Device Pool.
+ */
+@added(Versions.v2026_03_15_preview)
+model DevicePoolPatch {
+  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+  ...Azure.ResourceManager.ManagedServiceIdentityProperty;
+}
+
+/**
+ * Device details.
+ */
+@added(Versions.v2026_03_15_preview)
+model DeviceDetail {
+  /**
+   * Resource Id of the device.
+   */
+  deviceResourceId?: Azure.Core.armResourceIdentifier;
+
+  /**
+   * Identifier of the group the device belongs to.
+   */
+  @visibility(Lifecycle.Read)
+  claimedBy?: string;
+}
+
+////////////////////////////////////////////////////////////////
+////////////////////// Edge machine Models //////////////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Edge Machine Kind.
+ */
+@added(Versions.v2026_03_15_preview)
+union EdgeMachineKind {
+  string,
+
+  /**
+   * EdgeMachine resource created using Zero-touch provisioning.
+   */
+  Standard: "Standard",
+
+  /**
+   * EdgeMachine resource created for brownfield HCI customers without zero touch provisioning.
+   */
+  Dedicated: "Dedicated",
+}
+
+/**
+ * Properties for edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineProperties {
+  /**
+   * Edge Machine type.
+   */
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  edgeMachineKind?: EdgeMachineKind;
+
+  /**
+   * The provisioning state of a resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Unique, immutable resource id.
+   */
+  @visibility(Lifecycle.Read)
+  cloudId?: string;
+
+  /**
+   * Optional property to create arc machine in custom resource group.
+   */
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  arcMachineResourceGroupId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Resources/resourceGroups";
+    }
+  ]>;
+
+  /**
+   * Arc machine instance resource id.
+   */
+  arcMachineResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.HybridCompute/machines";
+    }
+  ]>;
+
+  /**
+   * Lifecycle details of the resource
+   */
+  @visibility(Lifecycle.Read)
+  lifecycleDetails?: LifecycleDetails;
+
+  /**
+   * Link to Arc Gateway ARM resource Id
+   */
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  arcGatewayResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.HybridCompute/gateways";
+    }
+  ]>;
+
+  /**
+   * Service fetches common configuration from site.
+   */
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  siteDetails?: SiteDetails;
+
+  /**
+   * Ownership voucher details for provisioned machine.
+   */
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  ownershipVoucherDetails?: OwnershipVoucherDetails;
+
+  /**
+   * Details for device provisioning.
+   */
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  provisioningDetails?: ProvisioningDetails;
+
+  /**
+   * A machine can only be assigned to single device pool
+   */
+  @visibility(Lifecycle.Read)
+  devicePoolResourceId?: string;
+
+  /**
+   * OS configuration status details
+   */
+  @visibility(Lifecycle.Read)
+  machineState?: EdgeMachineState;
+
+  /**
+   * machine connectivity status
+   */
+  @visibility(Lifecycle.Read)
+  connectivityStatus?: EdgeMachineConnectivityStatus;
+
+  /**
+   * Tracks the ID of the consuming resource, setting the machine as in-use.
+   */
+  @visibility(Lifecycle.Read)
+  claimedBy?: string;
+
+  /**
+   * Reported properties for edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: EdgeMachineReportedProperties;
+
+  /**
+   * operation status details for edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  operationDetails?: OperationDetail[];
+
+  /**
+   * Last time data updated to service.
+   */
+  @visibility(Lifecycle.Read)
+  lastSyncTimestamp?: utcDateTime;
+}
+
+/**
+ * Model for patching edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachinePatch {
+  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+  ...Azure.ResourceManager.ManagedServiceIdentityProperty;
+}
+
+/**
+ * The validate request for Edge Machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineValidateRequest {
+  /**
+   * Machine Ids against which, current machine has to be validated.
+   */
+  edgeMachineIds: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.AzureStackHCI/edgeMachines";
+    }
+  ]>[];
+
+  /**
+   * Additional info required for validation.
+   */
+  additionalInfo?: string;
+}
+
+/**
+ * The validate response for Edge Machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineValidateResponse {
+  /**
+   * Edge machine validation status.
+   */
+  @visibility(Lifecycle.Read)
+  status?: string;
+}
+
+/**
+ * Details for device provisioning.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProvisioningDetails {
+  /**
+   * Operating system profile.
+   */
+  osProfile: OsProvisionProfile;
+
+  /**
+   * User configuration.
+   */
+  @minItems(1)
+  @Azure.ResourceManager.identifiers(#["userName"])
+  userDetails?: UserDetails[];
+}
+
+/**
+ * Details for ownership voucher.
+ */
+@added(Versions.v2026_03_15_preview)
+model OwnershipVoucherDetails {
+  /**
+   * Ownership voucher in base64 encoded format
+   */
+  @secret
+  ownershipVoucher: string;
+
+  /**
+   * Owner key type
+   */
+  ownerKeyType: OwnerKeyType;
+
+  /**
+   * Ownership Voucher Validation Details
+   */
+  @visibility(Lifecycle.Read)
+  validationDetails?: OwnershipVoucherValidationDetails;
+}
+
+/**
+ * Type of owner key in the voucher
+ */
+@added(Versions.v2026_03_15_preview)
+union OwnerKeyType {
+  string,
+
+  /**
+   * Owner is Microsoft managed key
+   */
+  MicrosoftManaged: "MicrosoftManaged",
+}
+
+/**
+ * operation detail.
+ */
+@added(Versions.v2026_03_15_preview)
+model OperationDetail {
+  /**
+   * operation name.
+   */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /**
+   * operation id.
+   */
+  @visibility(Lifecycle.Read)
+  id?: string;
+
+  /**
+   * operation type.
+   */
+  @visibility(Lifecycle.Read)
+  type?: string;
+
+  /**
+   * operation resource id.
+   */
+  @visibility(Lifecycle.Read)
+  resourceId?: Azure.Core.armResourceIdentifier;
+
+  /**
+   * operation description.
+   */
+  @visibility(Lifecycle.Read)
+  description?: string;
+
+  /**
+   * operation status.
+   */
+  @visibility(Lifecycle.Read)
+  status?: string;
+
+  /**
+   * error details.
+   */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+}
+
+/**
+ * Overall connectivity status for the machine resource.
+ */
+@added(Versions.v2026_03_15_preview)
+union EdgeMachineConnectivityStatus {
+  string,
+
+  /**
+   * The connectivity status of the machine resource is not specified.
+   */
+  NotSpecified: "NotSpecified",
+
+  /**
+   * The machine resource is disconnected.
+   */
+  Disconnected: "Disconnected",
+
+  /**
+   * The machine resource is connected.
+   */
+  Connected: "Connected",
+}
+
+/**
+ * Summary lifecycle status for a resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model LifecycleStatus {
+  /**
+   * Overall lifecycle status of the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  status: EdgeMachineLifecycleStatus;
+
+  /**
+   * Depicts what is the current ongoing stage.
+   */
+  @visibility(Lifecycle.Read)
+  stage?: string;
+
+  /**
+   * Last time the lifecycle status was updated.
+   */
+  @visibility(Lifecycle.Read)
+  lastUpdatedUtc: utcDateTime;
+
+  /**
+   * Message to provide more details on lifecycle status, especially in case of failures.
+   */
+  @visibility(Lifecycle.Read)
+  message?: string;
+
+  /**
+   * Recommended steps to resolve failures.
+   */
+  @visibility(Lifecycle.Read)
+  recommendedSteps?: string[];
+}
+
+/**
+ * Lifecycle stage details for a resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model LifecycleStage {
+  /**
+   * Name of the stage;
+   */
+  @visibility(Lifecycle.Read)
+  name: string;
+
+  /**
+   * Description of the stage.
+   */
+  @visibility(Lifecycle.Read)
+  description: string;
+
+  /**
+   * Status of the stage.
+   */
+  @visibility(Lifecycle.Read)
+  status: LifecycleOperationStatus;
+
+  /**
+   * Start time of the stage.
+   */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /**
+   * End time of the stage.
+   */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /**
+   * Last time the stage was updated.
+   */
+  @visibility(Lifecycle.Read)
+  lastUpdatedUtc?: utcDateTime;
+
+  /**
+   * Error details.
+   */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.CommonTypes.ErrorDetail;
+
+  /**
+   * Sub-stages for this stage.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["name"])
+  subStages?: LifecycleStage[];
+}
+
+/**
+ * Overall Lifecycle details for a resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model LifecycleDetails {
+  /**
+   * Overall lifecycle status of the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  lifecycleStatus?: LifecycleStatus;
+
+  /**
+   * List of lifecycle stages for the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["name"])
+  lifecycleStages: LifecycleStage[];
+}
+
+/**
+ * Site Details consists of common configurations.
+ */
+@added(Versions.v2026_03_15_preview)
+model SiteDetails {
+  /**
+   * Site resource Id to be set during Edge Machine resource creation.
+   */
+  siteResourceId: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Edge/sites";
+    }
+  ]>;
+
+  /**
+   * Edge Device configuration received from site common configuration.
+   */
+  deviceConfiguration?: TargetDeviceConfiguration;
+}
+
+/**
+ * OS State
+ */
+@added(Versions.v2026_03_15_preview)
+union EdgeMachineState {
+  string,
+
+  /**
+   * Created when EdgeMachine resource created
+   */
+  Created: "Created",
+
+  /**
+   * EdgeMachine state during device discovery and registration
+   */
+  Registering: "Registering",
+
+  /**
+   * EdgeMachine state when machine configured with restricted OS and not provisioned to deploy workloads
+   */
+  Unpurposed: "Unpurposed",
+
+  /**
+   * EdgeMachine state when transitioning from initial OS to target OS
+   */
+  Transitioning: "Transitioning",
+
+  /**
+   * EdgeMachine state when machine configured with target OS to deploy workloads
+   */
+  Purposed: "Purposed",
+
+  /**
+   * EdgeMachine state when OS updates are in-progress
+   */
+  Updating: "Updating",
+
+  /**
+   * EdgeMachine state when transitioning from target OS to restricted OS
+   */
+  Resetting: "Resetting",
+
+  /**
+   * EdgeMachine failed state and only option to recover is to re-provisioning machine
+   */
+  Failed: "Failed",
+
+  /**
+   * Preparing EdgeMachine
+   */
+  Preparing: "Preparing",
+}
+
+/**
+ * Reported properties for edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineReportedProperties {
+  /**
+   * Last time data reported.
+   */
+  @visibility(Lifecycle.Read)
+  lastUpdated?: utcDateTime;
+
+  /**
+   * Network details for edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  networkProfile?: EdgeMachineNetworkProfile;
+
+  /**
+   * OS Properties for edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  osProfile?: OsProfile;
+
+  /**
+   * Hardware related information for edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  hardwareProfile?: HardwareProfile;
+
+  /**
+   * Storage related information for edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  storageProfile?: StorageProfile;
+
+  /**
+   * Solution builder extension (SBE) deployment package information.
+   */
+  @visibility(Lifecycle.Read)
+  sbeDeploymentPackageInfo?: SbeDeploymentPackageInfo;
+
+  /**
+   * Extension details for edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  extensionProfile?: ExtensionProfile;
+
+  /**
+   * CVM (Confidential VM) support details for the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  confidentialVmProfile?: ConfidentialVmProfile;
+
+  /**
+   * Read-only Hyper-V VM inventory reported by the device management extension for VMs visible on this node.
+   */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["workloadId"])
+  workloadInventory?: EdgeMachineWorkloadInventoryItem[];
+
+  /**
+   * Last time the device management extension refreshed the local Hyper-V workload inventory.
+   */
+  @visibility(Lifecycle.Read)
+  workloadInventoryLastUpdated?: string;
+
+  /**
+   * Storage fabric initiator ports (iSCSI or Fibre Channel) discovered on the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#[])
+  storageInitiators?: StorageInitiator[];
+}
+
+/**
+ * A storage fabric initiator port (iSCSI or Fibre Channel) discovered on the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageInitiator {
+  /**
+   * Transport type of the initiator port.
+   */
+  @visibility(Lifecycle.Read)
+  initiatorType: StorageInitiatorType;
+
+  /**
+   * Node identifier of the initiator. IQN for iSCSI or node WWN (WWNN) for Fibre Channel. Corresponds to the NodeAddress reported by Get-InitiatorPort.
+   */
+  @visibility(Lifecycle.Read)
+  initiatorIdentifier: string;
+
+  /**
+   * Fibre Channel port World Wide Name (WWPN). Populated for FibreChannel initiators only; corresponds to the PortAddress reported by Get-InitiatorPort.
+   */
+  @visibility(Lifecycle.Read)
+  portWorldWideName?: string;
+
+  /**
+   * Name of the Ethernet adapter the iSCSI initiator is bound to. Populated for iSCSI initiators only; matches EdgeMachineNicDetail.adapterName.
+   */
+  @visibility(Lifecycle.Read)
+  ethernetAdapterName?: string;
+
+  /**
+   * MAC address of the Ethernet adapter the iSCSI initiator is bound to. Populated for iSCSI initiators only; matches EdgeMachineNicDetail.macAddress.
+   */
+  @visibility(Lifecycle.Read)
+  ethernetAdapterMacAddress?: string;
+
+  /**
+   * Operational status of the initiator port as reported by the host (for example, Operational). Corresponds to OperationalStatus from Get-InitiatorPort.
+   */
+  @visibility(Lifecycle.Read)
+  operationalStatus?: string;
+}
+
+/**
+ * Transport type of a storage fabric initiator port on the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+union StorageInitiatorType {
+  string,
+
+  /**
+   * iSCSI initiator. The initiator identifier is an IQN (iSCSI Qualified Name).
+   */
+  iSCSI: "iSCSI",
+
+  /**
+   * Fibre Channel initiator. The initiator identifier is the node WWN (WWNN); the port is identified by its WWPN.
+   */
+  FibreChannel: "FibreChannel",
+
+  /**
+   * The initiator transport type could not be determined.
+   */
+  Unknown: "Unknown",
+}
+
+/**
+ * Represents a single workload (Hyper-V VM) inventory entry reported by the device management extension running on the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineWorkloadInventoryItem {
+  /**
+   * Stable device-reported workload identifier, such as the Hyper-V VM ID when available.
+   */
+  @visibility(Lifecycle.Read)
+  workloadId?: string;
+
+  /**
+   * Hyper-V VM name.
+   */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /**
+   * Optional ARM resource ID when the service can map the local VM to an ARM resource.
+   */
+  @visibility(Lifecycle.Read)
+  resourceId?: Azure.Core.armResourceIdentifier;
+
+  /**
+   * Workload type. For v1 this should be VirtualMachine.
+   */
+  @visibility(Lifecycle.Read)
+  workloadType?: string;
+
+  /**
+   * Hyper-V VM state reported by the node.
+   */
+  @visibility(Lifecycle.Read)
+  state?: string;
+
+  /**
+   * Configured virtual processor count from Hyper-V.
+   */
+  @visibility(Lifecycle.Read)
+  virtualProcessorCount?: string;
+
+  /**
+   * Maximum memory the VM can consume, in bytes.
+   */
+  @visibility(Lifecycle.Read)
+  memoryInBytes?: string;
+}
+
+/**
+ * NetworkProfile of edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineNetworkProfile {
+  /**
+   * List of Network Interface Card (NIC) Details of edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["adapterName"])
+  nicDetails?: EdgeMachineNicDetail[];
+
+  /**
+   * List of switch Details of edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["switchName"])
+  switchDetails?: SwitchDetail[];
+
+  /**
+   * HostNetwork configuration reported for the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  hostNetwork?: EdgeMachineHostNetwork;
+
+  /**
+   * Software Defined Networking (SDN) properties reported for the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  sdnProperties?: SdnProperties;
+}
+
+/**
+ * Network Interface Card (NIC) Details of edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineNicDetail {
+  /**
+   * Adapter Name of NIC
+   */
+  @visibility(Lifecycle.Read)
+  adapterName?: string;
+
+  /**
+   * Interface Description of NIC
+   */
+  @visibility(Lifecycle.Read)
+  interfaceDescription?: string;
+
+  /**
+   * Component Id of NIC
+   */
+  @visibility(Lifecycle.Read)
+  componentId?: string;
+
+  /**
+   * Driver Version of NIC
+   */
+  @visibility(Lifecycle.Read)
+  driverVersion?: string;
+
+  /**
+   * Subnet Mask of NIC
+   */
+  @visibility(Lifecycle.Read)
+  ip4Address?: string;
+
+  /**
+   * Subnet Mask of NIC
+   */
+  @visibility(Lifecycle.Read)
+  subnetMask?: string;
+
+  /**
+   * Default Gateway of NIC
+   */
+  @visibility(Lifecycle.Read)
+  defaultGateway?: string;
+
+  /**
+   * DNS Servers for NIC
+   */
+  @visibility(Lifecycle.Read)
+  dnsServers?: string[];
+
+  /**
+   * Default Isolation of Management NIC
+   */
+  @visibility(Lifecycle.Read)
+  defaultIsolationId?: string;
+
+  /**
+   * MAC address information of NIC.
+   */
+  @visibility(Lifecycle.Read)
+  macAddress?: string;
+
+  /**
+   * The slot attached to the NIC.
+   */
+  @visibility(Lifecycle.Read)
+  slot?: string;
+
+  /**
+   * The switch attached to the NIC, if any.
+   */
+  @visibility(Lifecycle.Read)
+  switchName?: string;
+
+  /**
+   * The type of NIC, physical, virtual, management.
+   */
+  @visibility(Lifecycle.Read)
+  nicType?: string;
+
+  /**
+   * The VLAN ID of the physical NIC.
+   */
+  @visibility(Lifecycle.Read)
+  vlanId?: string;
+
+  /**
+   * The status of NIC, up, disconnected.
+   */
+  @visibility(Lifecycle.Read)
+  nicStatus?: string;
+
+  /**
+   * Describes the RDMA capability of the network adapter.
+   */
+  @visibility(Lifecycle.Read)
+  rdmaCapability?: RdmaCapability = RdmaCapability.Disabled;
+}
+
+/**
+ * OS configurations for HCI device.
+ */
+@added(Versions.v2026_03_15_preview)
+model OsProfile {
+  /**
+   * The boot type of the device. e.g. UEFI, Legacy etc
+   */
+  @visibility(Lifecycle.Read)
+  bootType?: string;
+
+  /**
+   * Version of assembly present on device
+   */
+  @visibility(Lifecycle.Read)
+  assemblyVersion?: string;
+
+  /**
+   * OS type (“windows", “linux”)
+   */
+  @visibility(Lifecycle.Read)
+  osType?: string;
+
+  /**
+   * OS SKU (e.g., “ Microsoft Azure Linux ROE“, “Azure Stack HCI", "Microsoft Azure Linux 3.0")
+   */
+  @visibility(Lifecycle.Read)
+  osSku?: string;
+
+  /**
+   * OS Version
+   */
+  @visibility(Lifecycle.Read)
+  osVersion?: string;
+
+  /**
+   * OS Build Number
+   */
+  @visibility(Lifecycle.Read)
+  buildNumber?: string;
+
+  /**
+   * OS Base Image Version
+   */
+  @visibility(Lifecycle.Read)
+  baseImageVersion?: string;
+
+  /**
+   * OS Image Version
+   */
+  @visibility(Lifecycle.Read)
+  imageVersion?: string;
+}
+
+/**
+ * Hardware profile for the machine
+ */
+@added(Versions.v2026_03_15_preview)
+model HardwareProfile {
+  /**
+   * Number of cpu cores in the machine
+   */
+  @visibility(Lifecycle.Read)
+  cpuCores?: int64;
+
+  /**
+   * Number of cpu sockets in the machine
+   */
+  @visibility(Lifecycle.Read)
+  cpuSockets?: int64;
+
+  /**
+   * Memory capacity of the machine
+   */
+  @visibility(Lifecycle.Read)
+  memoryCapacityInGb?: int64;
+
+  /**
+   * Model info of the machine
+   */
+  @visibility(Lifecycle.Read)
+  `model`?: string;
+
+  /**
+   * manufacturer info of the machine
+   */
+  @visibility(Lifecycle.Read)
+  manufacturer?: string;
+
+  /**
+   * Serial number of the machine
+   */
+  @visibility(Lifecycle.Read)
+  serialNumber?: string;
+
+  /**
+   * Process type of the machine
+   */
+  @visibility(Lifecycle.Read)
+  processorType?: string;
+}
+
+/**
+ * StorageProfile of edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageProfile {
+  /**
+   * Number of storage disks in the device with $CanPool as true.
+   */
+  @visibility(Lifecycle.Read)
+  poolableDisksCount?: int64;
+
+  /**
+   * List of storage disks on the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["id"])
+  disks?: EdgeMachineDiskInfo[];
+
+  /**
+   * Local availability zone name assigned to this edge machine after a ConfigureLocalAvailabilityZone job succeeds.
+   */
+  @visibility(Lifecycle.Read)
+  localAvailabilityZoneName?: string;
+}
+
+/**
+ * HostNetwork configuration reported for the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineHostNetwork {
+  /**
+   * The network intents assigned to the network reference pattern used for the deployment. Each intent will define its own name, traffic type, adapter names, and overrides as recommended by your OEM.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["intentName"])
+  intents?: EdgeMachineHostNetworkIntent[];
+
+  /**
+   * List of StorageNetworks config to deploy AzureStackHCI Cluster.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["networkAdapterName"])
+  storageNetworks?: EdgeMachineStorageNetwork[];
+
+  /**
+   * Defines how the storage adapters between nodes are connected either switch or switch less.
+   */
+  @visibility(Lifecycle.Read)
+  storageConnectivitySwitchless?: boolean;
+
+  /**
+   * Optional parameter required only for 3 Nodes Switchless deployments. This allows users to specify IPs and Mask for Storage NICs when Network ATC is not assigning the IPs for storage automatically.
+   */
+  @visibility(Lifecycle.Read)
+  enableStorageAutoIp?: boolean = false;
+}
+
+/**
+ * The network intent reported for the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineHostNetworkIntent {
+  /**
+   * Scope for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  scope?: int64;
+
+  /**
+   * IntentType for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  intentType?: int64;
+
+  /**
+   * IsComputeIntentSet for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isComputeIntentSet?: boolean;
+
+  /**
+   * IsStorageIntentSet for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isStorageIntentSet?: boolean;
+
+  /**
+   * IntentType for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isOnlyStorage?: boolean;
+
+  /**
+   * IsManagementIntentSet for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isManagementIntentSet?: boolean;
+
+  /**
+   * IsStretchIntentSet for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isStretchIntentSet?: boolean;
+
+  /**
+   * IsOnlyStretch for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isOnlyStretch?: boolean;
+
+  /**
+   * IsNetworkIntentType for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isNetworkIntentType?: boolean;
+
+  /**
+   * Name of the network intent you wish to create.
+   */
+  @visibility(Lifecycle.Read)
+  intentName?: string;
+
+  /**
+   * Array of adapters used for the network intent.
+   */
+  @visibility(Lifecycle.Read)
+  intentAdapters?: string[];
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  @visibility(Lifecycle.Read)
+  overrideVirtualSwitchConfiguration?: boolean;
+
+  /**
+   * Set virtualSwitch ConfigurationOverrides for cluster.
+   */
+  @visibility(Lifecycle.Read)
+  virtualSwitchConfigurationOverrides?: EdgeMachineVirtualSwitchConfigurationOverrides;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  @visibility(Lifecycle.Read)
+  overrideQosPolicy?: boolean;
+
+  /**
+   * Set QoS PolicyOverrides for cluster.
+   */
+  @visibility(Lifecycle.Read)
+  qosPolicyOverrides?: QosPolicyOverrides;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  @visibility(Lifecycle.Read)
+  overrideAdapterProperty?: boolean;
+
+  /**
+   * Set Adapter PropertyOverrides for cluster.
+   */
+  @visibility(Lifecycle.Read)
+  adapterPropertyOverrides?: EdgeMachineAdapterPropertyOverrides;
+}
+
+/**
+ * The VirtualSwitchConfigurationOverrides reported for the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineVirtualSwitchConfigurationOverrides {
+  /**
+   * Enable IoV for Virtual Switch
+   */
+  @visibility(Lifecycle.Read)
+  enableIov?: string;
+
+  /**
+   * Load Balancing Algorithm for Virtual Switch
+   */
+  @visibility(Lifecycle.Read)
+  loadBalancingAlgorithm?: string;
+}
+
+/**
+ * The AdapterPropertyOverrides reported for the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineAdapterPropertyOverrides {
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  @visibility(Lifecycle.Read)
+  jumboPacket?: string;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  @visibility(Lifecycle.Read)
+  networkDirect?: string;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation. Expected values are 'iWARP', 'RoCEv2', 'RoCE'
+   */
+  @visibility(Lifecycle.Read)
+  networkDirectTechnology?: string;
+}
+
+/**
+ * The StorageNetworks reported for the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineStorageNetwork {
+  /**
+   * Name of the storage network.
+   */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /**
+   * Name of the storage network adapter.
+   */
+  @visibility(Lifecycle.Read)
+  networkAdapterName?: string;
+
+  /**
+   * ID specified for the VLAN storage network. This setting is applied to the network interfaces that route the storage and VM migration traffic.
+   */
+  @visibility(Lifecycle.Read)
+  storageVlanId?: string;
+
+  /**
+   * List of Storage adapter physical nodes config to deploy AzureStackHCI Cluster.
+   */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  @visibility(Lifecycle.Read)
+  @identifiers(#["physicalNode"])
+  storageAdapterIPInfo?: EdgeMachineStorageAdapterIpInfo[];
+}
+
+/**
+ * The StorageAdapter physical nodes reported for the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineStorageAdapterIpInfo {
+  /**
+   * storage adapter physical node name.
+   */
+  @visibility(Lifecycle.Read)
+  physicalNode?: string;
+
+  /**
+   * The IPv4 address assigned to each storage adapter physical node on your Azure Stack HCI cluster.
+   */
+  @visibility(Lifecycle.Read)
+  ipv4Address?: string;
+
+  /**
+   * The SubnetMask address assigned to each storage adapter physical node on your Azure Stack HCI cluster.
+   */
+  @visibility(Lifecycle.Read)
+  subnetMask?: string;
+}
+
+/**
+ * Represents a storage disk reported for the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineDiskInfo {
+  /**
+   * The unique identifier of the disk.
+   */
+  @visibility(Lifecycle.Read)
+  id: string;
+
+  /**
+   * The size of the disk in bytes.
+   */
+  @visibility(Lifecycle.Read)
+  sizeInBytes?: string;
+
+  /**
+   * The type of the disk. For example, S2D or SAN.
+   */
+  @visibility(Lifecycle.Read)
+  type?: string;
+
+  /** Model number of the hardware. */
+  @visibility(Lifecycle.Read)
+  `model`?: string;
+
+  /** The manufacturer of the disk. */
+  @visibility(Lifecycle.Read)
+  manufacturer?: string;
+
+  /** Indicates whether the manufacturer is supported. */
+  @visibility(Lifecycle.Read)
+  isSupported?: boolean;
+}
+/**
+ * details of validation failure
+ */
+@added(Versions.v2026_03_15_preview)
+model ErrorDetailModel {
+  /**
+   * Exception details while installing extension.
+   */
+  @visibility(Lifecycle.Read)
+  exception?: string;
+}
+
+////////////////////////////////////////////////////////////////
+////////////////////// Edge machine Job Models //////////////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * EdgeMachine Job properties
+ */
+@added(Versions.v2026_03_15_preview)
+@discriminator("jobType")
+model EdgeMachineJobProperties {
+  /**
+   * Job Type to support polymorphic resource.
+   */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  jobType: EdgeMachineJobType;
+
+  /**
+   * Deployment mode to trigger job.
+   */
+  deploymentMode?: DeploymentMode;
+
+  /**
+   * Job provisioning state
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Unique, immutable job id.
+   */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /**
+   * The UTC date and time at which the job started.
+   */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /**
+   * The UTC date and time at which the job completed.
+   */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /**
+   * Status of Edge device job.
+   */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+
+  /**
+   * error details.
+   */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+}
+
+/**
+ * Job Type supported.
+ */
+@added(Versions.v2026_03_15_preview)
+union EdgeMachineJobType {
+  string,
+
+  /**
+   * Job to collect logs from the device.
+   */
+  CollectLog: "CollectLog",
+
+  /**
+   * Job to provide remote support to the device.
+   */
+  RemoteSupport: "RemoteSupport",
+
+  /**
+   * Job to provision operating system in the device.
+   */
+  ProvisionOs: "ProvisionOs",
+
+  /**
+   * Job to download OS packages on to the device
+   */
+  DownloadOs: "DownloadOs",
+}
+
+/**
+ * Properties for adding a server in the cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineRemoteSupportJobProperties extends EdgeMachineJobProperties {
+  /**
+   * Job Type to support polymorphic resource.
+   */
+  jobType: EdgeMachineJobType.RemoteSupport;
+
+  /**
+   * Remote support access level.
+   */
+  accessLevel: RemoteSupportAccessLevel;
+
+  /**
+   * Remote support expiration timestamp.
+   */
+  expirationTimestamp: utcDateTime;
+
+  /**
+   * Remote support type.
+   */
+  type: RemoteSupportType;
+
+  /**
+   * log collection job reported properties.
+   */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: EdgeMachineRemoteSupportJobReportedProperties;
+}
+
+/**
+ * Represents the properties of an Azure Linux restricted operating environment Provision Os job.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProvisionOsJobProperties extends EdgeMachineJobProperties {
+  /**
+   * Job Type to support polymorphic resource.
+   */
+  jobType: EdgeMachineJobType.ProvisionOs;
+
+  /**
+   * Os Provisioning request.
+   */
+  provisioningRequest: ProvisioningRequest;
+
+  /**
+   * Reported Properties for Provision Os job
+   */
+  reportedProperties?: ProvisionOsReportedProperties;
+}
+
+/**
+ * Download Request properties
+ */
+@added(Versions.v2026_03_15_preview)
+model DownloadRequest {
+  /**
+   * Target operating system to support polymorphic resource.
+   */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  target: ProvisioningOsType;
+
+  /**
+   * Operating system profile.
+   */
+  osProfile: DownloadOsProfile;
+}
+
+/**
+ * Represents the properties of Download Os job.
+ */
+@added(Versions.v2026_03_15_preview)
+model DownloadOsJobProperties extends EdgeMachineJobProperties {
+  /**
+   * Job Type to support polymorphic resource.
+   */
+  jobType: EdgeMachineJobType.DownloadOs;
+
+  /**
+   * Download OS request.
+   */
+  downloadRequest: DownloadRequest;
+
+  /**
+   * Reported Properties for Download Os job
+   */
+  reportedProperties?: ProvisionOsReportedProperties;
+}
+
+/**
+ * Reported Properties for Provision Os job
+ */
+@added(Versions.v2026_03_15_preview)
+model ProvisionOsReportedProperties {
+  ...JobReportedProperties;
+}
+
+/**
+ * Represents a provisioning request.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProvisioningRequest {
+  /**
+   * Target operating system to support polymorphic resource.
+   */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  target: ProvisioningOsType;
+
+  /**
+   * Operating system profile.
+   */
+  osProfile: OsProvisionProfile;
+
+  /**
+   * User configuration.
+   */
+  @Azure.ResourceManager.identifiers(#["userName"])
+  userDetails?: UserDetails[];
+
+  /**
+   * Onboarding configuration.
+   */
+  onboardingConfiguration?: OnboardingConfiguration;
+
+  /**
+   * Device configuration.
+   */
+  deviceConfiguration?: TargetDeviceConfiguration;
+
+  /**
+   * Base64 encoded custom configuration for CAPI to use
+   */
+  customConfiguration?: string;
+}
+
+/**
+ * Represents the provisioning operating system type.
+ */
+@added(Versions.v2026_03_15_preview)
+union ProvisioningOsType {
+  string,
+
+  /**
+   * AzureLinux OS.
+   */
+  AzureLinux: "AzureLinux",
+
+  /**
+   * HCI OS.
+   */
+  HCI: "HCI",
+}
+
+/**
+ * Represents the reported properties of a remote support job.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineRemoteSupportJobReportedProperties {
+  ...EdgeMachineJobReportedProperties;
+
+  /**
+   * Optional settings for configuring the node for remote support.
+   */
+  @visibility(Lifecycle.Read)
+  nodeSettings?: EdgeMachineRemoteSupportNodeSettings;
+
+  /**
+   * Details of the remote support session.
+   */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["sessionId"])
+  sessionDetails?: RemoteSupportSession[];
+}
+
+/**
+ * Represents the settings of a remote support node.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineRemoteSupportNodeSettings {
+  /**
+   * The state of the remote support node.
+   */
+  @visibility(Lifecycle.Read)
+  state?: string;
+
+  /**
+   * The timestamp when the node settings were created, in UTC.
+   */
+  @visibility(Lifecycle.Read)
+  createdAt?: utcDateTime;
+
+  /**
+   * The timestamp when the node settings were last updated, in UTC.
+   */
+  @visibility(Lifecycle.Read)
+  updatedAt?: utcDateTime;
+
+  /**
+   * The current connection status of the remote support session.
+   */
+  @visibility(Lifecycle.Read)
+  connectionStatus?: string;
+
+  /**
+   * The error message, if any, from the last connection attempt.
+   */
+  @visibility(Lifecycle.Read)
+  connectionErrorMessage?: string;
+}
+
+/**
+ * Properties for pausing a server in the cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineCollectLogJobProperties extends EdgeMachineJobProperties {
+  /**
+   * ClusterJob Type to support polymorphic resource.
+   */
+  jobType: EdgeMachineJobType.CollectLog;
+
+  /**
+   * From date for log collection.
+   */
+  fromDate: utcDateTime;
+
+  /**
+   * To date for log collection.
+   */
+  toDate: utcDateTime;
+
+  /**
+   * To date for log collection.
+   */
+  @visibility(Lifecycle.Read)
+  lastLogGenerated?: utcDateTime;
+
+  /**
+   * log collection job reported properties.
+   */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: EdgeMachineCollectLogJobReportedProperties;
+}
+
+/**
+ * Represents the reported properties of a log collection job.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineCollectLogJobReportedProperties {
+  ...JobReportedProperties;
+
+  /**
+   * Details of the log collection session.
+   */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["correlationId"])
+  logCollectionSessionDetails?: LogCollectionJobSession[];
+}
+
+/**
+ * Reported Properties for job triggered from cloud.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineJobReportedProperties {
+  /**
+   * The percentage of the job that is complete.
+   */
+  @visibility(Lifecycle.Read)
+  percentComplete?: int32;
+
+  /**
+   * Validation status of job.
+   */
+  @visibility(Lifecycle.Read)
+  validationStatus?: EceActionStatus;
+
+  /**
+   * Deployment status of job.
+   */
+  @visibility(Lifecycle.Read)
+  deploymentStatus?: EceActionStatus;
+}
+
+/**
+ * Operating system profile.
+ */
+@added(Versions.v2026_03_15_preview)
+model OsProvisionProfile {
+  /**
+   * Name of the operating system.
+   */
+  osName?: string;
+
+  /**
+   * Type of the operating system.
+   */
+  osType?: string;
+
+  /**
+   * Version of the operating system.
+   */
+  osVersion?: string;
+
+  /**
+   * Location of the operating system image.
+   */
+  osImageLocation?: string;
+
+  /**
+   * Validated Solution Recipe version to be used for the job
+   */
+  vsrVersion?: string;
+
+  /**
+   * Hash of the OS package downloaded
+   */
+  imageHash?: string;
+
+  /**
+   * GPG Public Key used for package verification
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "gpgPubKey holds only the GPG public key block used by the device to verify package signatures during OS provisioning. It contains no private key material."
+  gpgPubKey?: string;
+
+  /**
+   * Operation sub type of OS Provisioning
+   */
+  operationType?: OSOperationType = OSOperationType.Provision;
+}
+
+/**
+ * Operating system profile.
+ */
+@added(Versions.v2026_03_15_preview)
+model DownloadOsProfile {
+  /**
+   * Name of the operating system.
+   */
+  osName?: string;
+
+  /**
+   * Type of the operating system.
+   */
+  osType?: string;
+
+  /**
+   * Version of the operating system.
+   */
+  osVersion?: string;
+
+  /**
+   * Location of the operating system image.
+   */
+  osImageLocation?: string;
+
+  /**
+   * Validated Solution Recipe version to be used for the job
+   */
+  vsrVersion?: string;
+
+  /**
+   * Hash of the OS package downloaded
+   */
+  imageHash?: string;
+
+  /**
+   * GPG Public Key used for package verification
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "gpgPubKey holds only the GPG public key block used by the device to verify package signatures during OS provisioning. It contains no private key material."
+  gpgPubKey?: string;
+}
+
+/**
+ * OS Provision Operation type
+ */
+@added(Versions.v2026_03_15_preview)
+union OSOperationType {
+  string,
+
+  /**
+   * OS Provisioning operation
+   */
+  Provision: "Provision",
+
+  /**
+   * OS Update operation
+   */
+  Update: "Update",
+
+  /**
+   * OS ReImage operation
+   */
+  ReImage: "ReImage",
+}
+
+/**
+ * Type of secret used for authentication.
+ */
+@added(Versions.v2026_03_15_preview)
+union SecretType {
+  string,
+
+  /**
+   * Key Vault based authentication
+   */
+  KeyVault: "KeyVault",
+
+  /**
+   * SSH Public Key based authentication
+   */
+  SshPubKey: "SshPubKey",
+}
+
+/**
+ * User configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model UserDetails {
+  /**
+   * Name of the user.
+   */
+  userName: string;
+
+  /**
+   * Type of the secret used for authentication.
+   */
+  secretType: SecretType;
+
+  /**
+   * Location of the secret used for authentication.
+   */
+  secretLocation?: string;
+
+  /**
+   * SSH Public Key for the user.
+   */
+  sshPubKey?: string[];
+}
+
+/**
+ * Onboarding resource type.
+ */
+@added(Versions.v2026_03_15_preview)
+union OnboardingResourceType {
+  string,
+
+  /**
+   * Hybrid Compute Machine.
+   */
+  HybridComputeMachine: "HybridComputeMachine",
+}
+
+/**
+ * Onboarding configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model OnboardingConfiguration {
+  /**
+   * Type of the onboarding resource to support polymorphic resource.
+   */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  type?: OnboardingResourceType;
+
+  /**
+   * Resource ID.
+   */
+  resourceId?: Azure.Core.armResourceIdentifier;
+
+  /**
+   * Location of the resource.
+   */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  location?: string;
+
+  /**
+   * Tenant ID of the resource.
+   */
+  tenantId?: string;
+
+  /**
+   * Azure Arc virtual machine ID.
+   */
+  arcVirtualMachineId?: string;
+}
+
+/**
+ * Device configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model TargetDeviceConfiguration {
+  /**
+   * Network configuration.
+   */
+  network?: NetworkConfiguration;
+
+  /**
+   * Hostname of the device.
+   */
+  hostName?: string;
+
+  /**
+   * Web proxy configuration.
+   */
+  webProxy?: WebProxyConfiguration;
+
+  /**
+   * Time configuration.
+   */
+  time?: TimeConfiguration;
+
+  /**
+   * Storage configuration.
+   */
+  storage?: StorageConfiguration;
+
+  /**
+   * Volume configuration.
+   */
+  volume?: ProvisionOsVolumeConfiguration;
+}
+
+/**
+ * Network configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkConfiguration {
+  /**
+   * List of network adapters.
+   */
+  @Azure.ResourceManager.identifiers(#[])
+  networkAdapters?: NetworkAdapter[];
+}
+
+/**
+ * Storage configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageConfiguration {
+  /**
+   * Partition size.
+   */
+  partitionSize?: string;
+}
+
+/**
+ * Volume configuration for device provisioning.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProvisionOsVolumeConfiguration {
+  /**
+   * List of volume details.
+   */
+  @Azure.ResourceManager.identifiers(#[])
+  configuration?: VolumeDetails[];
+}
+
+/**
+ * Details of a volume to be configured on the device.
+ */
+@added(Versions.v2026_03_15_preview)
+model VolumeDetails {
+  /**
+   * Size of the volume in bytes.
+   */
+  sizeInBytes?: string;
+
+  /**
+   * Mount path for the volume.
+   */
+  path?: string;
+
+  /**
+   * File system type to format the volume with.
+   */
+  fileSystem?: DiskFileSystemType;
+
+  /**
+   * Name of the volume.
+   */
+  name?: string;
+
+  /**
+   * Name of the disk on which the volume resides.
+   */
+  diskName?: string;
+}
+
+/**
+ * Network adapter configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkAdapter {
+  /**
+   * Type of IP assignment.
+   */
+  ipAssignmentType: IpAssignmentType;
+
+  /**
+   * IP address.
+   */
+  ipAddress?: string;
+
+  /**
+   * Adapter Name.
+   */
+  adapterName?: string;
+
+  /**
+   * MAC address.
+   */
+  macAddress?: string;
+
+  /**
+   * IP address range.
+   */
+  ipAddressRange?: IpAddressRange;
+
+  /**
+   * Gateway id.
+   */
+  gateway?: string;
+
+  /**
+   * Subnet mask.
+   */
+  subnetMask?: string;
+
+  /**
+   * Array of DNS addresses.
+   */
+  dnsAddressArray?: string[];
+
+  /**
+   * VLAN ID for the network setup.
+   */
+  vlanId?: string;
+
+  /**
+   * Interface description of NIC.
+   */
+  interfaceDescription?: string;
+
+  /**
+   * Component ID of NIC.
+   */
+  componentId?: string;
+
+  /**
+   * Driver version of NIC.
+   */
+  driverVersion?: string;
+
+  /**
+   * Default isolation of management NIC.
+   */
+  defaultIsolationId?: string;
+
+  /**
+   * The slot attached to the NIC.
+   */
+  slot?: string;
+
+  /**
+   * The switch attached to the NIC, if any.
+   */
+  switchName?: string;
+
+  /**
+   * Type of network interface.
+   */
+  interfaceType?: NetworkInterfaceType;
+
+  /**
+   * Interface speed in Mbps.
+   */
+  interfaceSpeed?: int32;
+
+  /**
+   * Current state of the interface.
+   */
+  interfaceState?: InterfaceState;
+
+  /**
+   * The type of NIC (physical, virtual, management).
+   */
+  nicType?: string;
+
+  /**
+   * The status of NIC (up, disconnected).
+   */
+  nicStatus?: string;
+
+  /**
+   * Indicates if this is a management interface.
+   */
+  managementInterface?: boolean;
+
+  /**
+   * RDMA capability of the network adapter.
+   */
+  rdmaCapability?: RdmaCapability;
+
+  /**
+   * The observed state of network adapter.
+   */
+  networkAdapterStatus?: NetworkAdapterStatus;
+
+  /**
+   * WiFi configuration properties.
+   */
+  wifiConfiguration?: WifiConfigurationReportedProperties;
+}
+
+/**
+ * IP assignment types
+ */
+@added(Versions.v2026_03_15_preview)
+union IpAssignmentType {
+  string,
+
+  /**
+   * Automatic IP assignment
+   */
+  Automatic: "Automatic",
+
+  /**
+   * Manual IP assignment
+   */
+  Manual: "Manual",
+}
+
+/**
+ * IP address range configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model IpAddressRange {
+  /**
+   * Start IP address.
+   */
+  startIp: string;
+
+  /**
+   * End IP address.
+   */
+  endIp: string;
+}
+
+/**
+ * Web proxy configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model WebProxyConfiguration {
+  /**
+   * Connection URI of the web proxy.
+   */
+  connectionUri?: url;
+
+  /**
+   * Port of the web proxy.
+   */
+  @pattern("^[0-9]{0,5}$")
+  port?: string;
+
+  /**
+   * Bypass list for the web proxy.
+   */
+  bypassList?: url[];
+}
+
+/**
+ * Time configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model TimeConfiguration {
+  /**
+   * Primary NTP server.
+   */
+  primaryTimeServer?: string;
+
+  /**
+   * Secondary NTP server.
+   */
+  secondaryTimeServer?: string;
+
+  /**
+   * Time zone.
+   */
+  timeZone?: string;
+}
+
+////////////////////////////////////////////////////////////////
+////////////////////// Kubernetes Version Models //////////////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Represents properties of a kubernetes version.
+ */
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "KubernetesVersion is a read-only catalog proxy resource exposing available versions; it has no lifecycle and therefore no provisioningState."
+@added(Versions.v2026_03_15_preview)
+model KubernetesVersionProperties {
+  /**
+   * Represents kubernetes version.
+   */
+  version: string;
+}
+
+////////////////////////////////////////////////////////////////
+////////////////////// Cluster Job Models //////////////////////
+////////////////////////////////////////////////////////////////
+
+/** Cluster Job properties */
+@added(Versions.v2026_03_15_preview)
+@discriminator("jobType")
+model ClusterJobProperties {
+  /** Job Type to support polymorphic resource. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  jobType: HciJobType;
+
+  /** Deployment mode to trigger job. */
+  deploymentMode?: DeploymentMode = DeploymentMode.Deploy;
+
+  /** Job provisioning state */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /** Unique, immutable job id. */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /** The UTC date and time at which the job started. */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /** The UTC date and time at which the job completed. */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /** Status of Cluster job. */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+
+  /** Reported properties for job */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: JobReportedProperties;
+}
+
+/**
+ * List of Cluster Job resources for the HCI cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model ClusterJobListResult is Azure.Core.Page<ClusterJob>;
+
+////////////////////////////////////////////////////////////////
+////////////////////// OS Image Models //////////////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Represents properties of a os image resource.
+ */
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "OsImage is a read-only catalog proxy resource exposing available OS images; it has no lifecycle and therefore no provisioningState."
+@added(Versions.v2026_03_15_preview)
+model OsImageProperties {
+  /**
+   * Represents validated solution recipe version of a os image.
+   */
+  validatedSolutionRecipeVersion?: string;
+
+  /**
+   * Represents composed image version of a os image.
+   */
+  composedImageVersion?: string;
+
+  /**
+   * Represents composed image iso download url of a os image.
+   */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
+  composedImageIsoUrl?: string;
+
+  /**
+   * Represents composed image iso hash of a os image.
+   */
+  composedImageIsoHash?: string;
+}
+
+////////////////////////////////////////////////////////////////
+////////////////////// Platform Update Models //////////////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Represents properties of a platform update resource.
+ */
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "PlatformUpdate is a read-only catalog proxy resource exposing available platform updates; it has no lifecycle and therefore no provisioningState."
+@added(Versions.v2026_03_15_preview)
+model PlatformUpdateProperties {
+  /**
+   * Represents applicable platform updates.
+   */
+  @Azure.ResourceManager.identifiers(#[])
+  platformUpdateDetails: Array<PlatformUpdateDetails>;
+}
+
+/**
+ * Represents details of a specific platform update.
+ */
+@added(Versions.v2026_03_15_preview)
+model PlatformUpdateDetails {
+  /**
+   * Represents validated solution recipe version of a platform update.
+   */
+  validatedSolutionRecipeVersion?: string;
+
+  /**
+   * Represents version of a platform update.
+   */
+  platformVersion?: string;
+
+  /**
+   * Represents the platform payloads of a platform update.
+   */
+  @Azure.ResourceManager.identifiers(#[])
+  platformPayloads: Array<PlatformPayload>;
+}
+
+/**
+ * Represents details of a specific platform update payload.
+ */
+@added(Versions.v2026_03_15_preview)
+model PlatformPayload {
+  /**
+   * Represents url of a platform update payload.
+   */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
+  payloadUrl?: string;
+
+  /**
+   * Represents hash of a platform update payload.
+   */
+  payloadHash?: string;
+
+  /**
+   * Represents size in bytes of a platform update payload.
+   */
+  payloadPackageSizeInBytes?: string;
+
+  /**
+   * Represents identifier of a platform update payload.
+   */
+  payloadIdentifier?: string;
+}
+
+////////////////////////////////////////////////////////////////
+////////////////////// Validate Ownership Vouchers Models //////////////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Validate Ownership Voucher Request
+ */
+@added(Versions.v2026_03_15_preview)
+model ValidateOwnershipVouchersRequest {
+  /**
+   * Ownership Voucher Details.
+   */
+  @identifiers(#[])
+  @minItems(1)
+  ownershipVoucherDetails: OwnershipVoucherDetails[];
+}
+
+/**
+ * Validate Ownership Voucher Response
+ */
+@added(Versions.v2026_03_15_preview)
+model ValidateOwnershipVouchersResponse {
+  /**
+   * Ownership Voucher Validation Details.
+   */
+  @identifiers(#["id"])
+  ownershipVoucherValidationDetails: OwnershipVoucherValidationDetails[];
+}
+
+/**
+ * Ownership Voucher Validation Details
+ */
+@added(Versions.v2026_03_15_preview)
+model OwnershipVoucherValidationDetails {
+  /**
+   * The ownership voucher validation status.
+   */
+  validationStatus?: OwnershipVoucherValidationStatus;
+
+  /**
+   * Serial number of the device.
+   */
+  serialNumber?: string;
+
+  /**
+   * FDO guid of the Ownership Voucher.
+   */
+  id?: string;
+
+  /**
+   * Name of the manufacturer.
+   */
+  manufacturer?: string;
+
+  /**
+   * Name of the model.
+   */
+  modelName?: string;
+
+  /**
+   * Version of the Ownership Voucher format
+   */
+  version?: string;
+
+  /**
+   * Azure Machine Id of the Ownership voucher
+   */
+  azureMachineId?: string;
+
+  /**
+   * Error details if the validation failed.
+   */
+  error?: Azure.ResourceManager.CommonTypes.ErrorDetail;
+}
+
+/**
+ * Ownership Voucher validation Status.
+ */
+@added(Versions.v2026_03_15_preview)
+union OwnershipVoucherValidationStatus {
+  string,
+
+  /**
+   * Voucher evaluated as valid.
+   */
+  Valid: "Valid",
+
+  /**
+   * Voucher evaluated as invalid.
+   */
+  Invalid: "Invalid",
+}
+
+////////////////////////////////////////////////////////////////
+////////////////////// Update Content Models //////////////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Represents properties of a update content resource.
+ */
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "UpdateContent is a read-only catalog proxy resource exposing update payloads; it has no lifecycle and therefore no provisioningState."
+@added(Versions.v2026_03_15_preview)
+model UpdateContentProperties {
+  /**
+   * Represents the payloads of a update content resource.
+   */
+  @Azure.ResourceManager.identifiers(#[])
+  updatePayloads: Array<ContentPayload>;
+}
+
+/**
+ * Represents details of a specific update content payload.
+ */
+@added(Versions.v2026_03_15_preview)
+model ContentPayload {
+  /**
+   * Represents url of a update payload.
+   */
+  url?: string;
+
+  /**
+   * Represents hash of a update payload.
+   */
+  hash?: string;
+
+  /**
+   * Represents hash algorithm of a update payload.
+   */
+  hashAlgorithm?: string;
+
+  /**
+   * Represents identifier of a update payload.
+   */
+  identifier?: string;
+
+  /**
+   * Represents size in bytes of a update payload.
+   */
+  packageSizeInBytes?: string;
+
+  /**
+   * Represents the group of a update payload.
+   */
+  group?: string;
+
+  /**
+   * Represents the file name of a update payload.
+   */
+  fileName?: string;
+}
+
+////////////////////////////////////////////////////////////////
+////////// PRIVATE PREVIEW - Edge Machine GPU Models ///////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * List of GPUs in Edge Machine.
+ */
+#suppress "@azure-tools/typespec-azure-core/casing-style" "model nomenclature"
+@added(Versions.v2026_03_15_preview)
+model GpuList is Azure.Core.Page<EdgeMachineGpu>;
+
+/**
+ * GPU resource properties
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineGpuProperties {
+  /**
+   * The provisioning state of the GPU.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Represents the instance Id of the GPU.
+   */
+  @visibility(Lifecycle.Read)
+  gpuId?: string;
+
+  /**
+   * The vendor of the GPU.
+   */
+  @visibility(Lifecycle.Read)
+  manufacturer?: string;
+
+  /**
+   * The model of the GPU.
+   */
+  @visibility(Lifecycle.Read)
+  `model`?: string;
+
+  /**
+   * The status of the GPU.
+   */
+  @visibility(Lifecycle.Read)
+  status?: string;
+
+  /**
+   * The PCI location of the GPU.
+   */
+  @visibility(Lifecycle.Read)
+  pciLocation?: string;
+
+  /**
+   * Indicates whether the GPU is assignable.
+   */
+  @visibility(Lifecycle.Read)
+  assignable?: boolean;
+
+  /**
+   * Indicates whether the GPU is partitionable.
+   */
+  @visibility(Lifecycle.Read)
+  partitionable?: boolean;
+
+  /**
+   * This is the host driver for the host on which GPU is assigned, only for DDA
+   */
+  @visibility(Lifecycle.Read)
+  hostDriverVersion?: string;
+
+  /**
+   * This is the assignment status of the GPU.
+   */
+  @visibility(Lifecycle.Read)
+  assignmentStatus?: string;
+
+  /**
+   * Specified by admin whether this GPU can be used as DDA, GPU-P with LM. Can only be updated when the GPU is not attached to any VM.
+   */
+  @visibility(Lifecycle.Read)
+  gpuMode?: GpuMode;
+
+  /**
+   * Details of the workload using DDA mode.
+   */
+  @visibility(Lifecycle.Read)
+  ddaDetails?: DdaDetails;
+
+  /**
+   * Details of the GPU specifically in GPU-P mode.
+   */
+  @visibility(Lifecycle.Read)
+  partitionDetails?: GpuPartitionDetails;
+
+  /**
+   * The type of the accelerator.
+   */
+  @visibility(Lifecycle.Read)
+  acceleratorType?: string;
+
+  /**
+   * The memory model of the GPU. Possible values are 'Dedicated VRAM', 'Unified (Shared System Memory)', and 'Unified (SoC LPDDR)'.
+   */
+  @visibility(Lifecycle.Read)
+  memoryModel?: string;
+
+  /**
+   * The total memory of the GPU in bytes.
+   */
+  @visibility(Lifecycle.Read)
+  totalMemoryInBytes?: string;
+}
+
+/**
+ * GPU Vendor Type supported.
+ */
+@added(Versions.v2026_03_15_preview)
+union GpuVendorType {
+  string,
+
+  /** Nvidia GPU. */
+  Nvidia: "Nvidia",
+
+  /** AMD GPU. */
+  AMD: "AMD",
+
+  /** Intel GPU. */
+  Intel: "Intel",
+}
+
+/**
+ * Represents the details of a workload.
+ */
+@added(Versions.v2026_03_15_preview)
+model WorkloadDetails {
+  /**
+   * workload Id to which GPU is assigned.
+   */
+  @visibility(Lifecycle.Read)
+  workloadId?: string;
+
+  /**
+   * This gives information about workload name (VM/AKS) specifically the VM Name or AKS Name.
+   */
+  @visibility(Lifecycle.Read)
+  workloadName?: string;
+
+  /**
+   * This gives information about workload status, running or down.
+   */
+  @visibility(Lifecycle.Read)
+  workloadStatus?: string;
+
+  /**
+   * This tells if workload is VM, AKS, etc.
+   */
+  @visibility(Lifecycle.Read)
+  workloadType?: string;
+
+  /**
+   * This is the unique instance path for a workload using GPU-P.
+   */
+  @visibility(Lifecycle.Read)
+  slotLocation?: string;
+}
+
+/**
+ * Represents the details of the GPU specifically in DDA mode.
+ */
+@added(Versions.v2026_03_15_preview)
+model DdaDetails {
+  /**
+   * It is a resource pool on each server containing the clustered GPU resources.
+   */
+  @visibility(Lifecycle.Read)
+  ddaPool?: string;
+
+  /**
+   * The workload to which this GPU is assigned.
+   */
+  @visibility(Lifecycle.Read)
+  workloadDetail?: WorkloadDetails;
+}
+
+/**
+ * Represents the details of the GPU specifically in GPU-P mode.
+ */
+@added(Versions.v2026_03_15_preview)
+model GpuPartitionDetails {
+  /**
+   * The name used by Hyper-V commandlets for GPU partitioning
+   */
+  partitionableGpuName?: string;
+
+  /**
+   * Reported partition size in MB (default: 0 for DDA) For e.g. 2, 4, etc.
+   */
+  @visibility(Lifecycle.Read)
+  partitionSizeMb?: string;
+
+  /**
+   * This is the count of total partitions.
+   */
+  @visibility(Lifecycle.Read)
+  totalPartitions?: int32;
+
+  /**
+   * The number of available partitions.
+   */
+  @visibility(Lifecycle.Read)
+  availablePartitions?: int32;
+
+  /**
+   * This is the count of assigned partitions.
+   */
+  @visibility(Lifecycle.Read)
+  assignedPartitions?: int32;
+
+  /**
+   * It is the available processing power to encode video.
+   */
+  @visibility(Lifecycle.Read)
+  availableEncode?: string;
+
+  /**
+   * It is the available processing power to decode video.
+   */
+  @visibility(Lifecycle.Read)
+  availableDecode?: string;
+
+  /**
+   * It is a high-speed memory which drivers allow the GPU to borrow from system memory.
+   */
+  @visibility(Lifecycle.Read)
+  availableVram?: string;
+
+  /**
+   * VRAM (Video Random-Access Memory) is the total RAM that is plugged into your GPU and acts as temporary storage for data related to graphics rendering.
+   */
+  @visibility(Lifecycle.Read)
+  totalVram?: string;
+
+  /**
+   * IA set of valid partition counts that's predefined to configure.
+   */
+  @visibility(Lifecycle.Read)
+  validPartitionCount?: string[];
+
+  /**
+   * partition details to which GPU is assigned.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["uniqueId"])
+  partitions?: PartitionDetails[];
+}
+
+/**
+ * Represents the GPU partition details
+ */
+@added(Versions.v2026_03_15_preview)
+model PartitionDetails {
+  /**
+   * Unique identifier for the partition
+   */
+  @visibility(Lifecycle.Read)
+  uniqueId?: string;
+
+  /**
+   * The partition number that is being used by the workload
+   */
+  @visibility(Lifecycle.Read)
+  partitionId?: int32;
+
+  /**
+   * The current vRAM that is used by the partition
+   */
+  @visibility(Lifecycle.Read)
+  currentVram?: string;
+
+  /**
+   * The current encode that is used by the partition
+   */
+  @visibility(Lifecycle.Read)
+  currentEncode?: string;
+
+  /**
+   * The current decode that is used by the partition
+   */
+  @visibility(Lifecycle.Read)
+  currentDecode?: string;
+
+  /**
+   * The workload to which this partition is assigned.
+   */
+  @visibility(Lifecycle.Read)
+  workloadDetail?: WorkloadDetails;
+}
+
+////////////////////////////////////////////////////////////////
+//////// PRIVATE PREVIEW - Edge Machine GPU Jobs Models ////////
+////////////////////////////////////////////////////////////////
+
+/**
+ *EdgeMachine GPU Job properties
+ */
+@added(Versions.v2026_03_15_preview)
+@discriminator("jobType")
+model EdgeMachineGpuJobProperties {
+  /**
+   * The ID of the GPU on which the job is to be performed.
+   */
+  @visibility(Lifecycle.Read)
+  gpuId?: string;
+
+  /**
+   * Type of GPU job to be performed.
+   */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  jobType: EdgeMachineGpuJobType;
+
+  /**
+   * Deployment mode for the GPU job.
+   */
+  deploymentMode?: DeploymentMode;
+
+  /**
+   * Job provisioning state
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Unique, immutable job id.
+   */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /**
+   * The UTC date and time at which the job started.
+   */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /**
+   * The UTC date and time at which the job completed.
+   */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /**
+   * Status of GPU job.
+   */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+
+  /**
+   * Error details.
+   */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+
+  /**
+   * Reported properties specific to the GPU job.
+   */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: JobReportedProperties;
+}
+
+/**
+ * GPU Job Type supported for Edge Machine GPU operations.
+ */
+@added(Versions.v2026_03_15_preview)
+union EdgeMachineGpuJobType {
+  string,
+
+  /**
+   * Create GPU partitions for virtualization and workload isolation.
+   */
+  CreatePartition: "CreatePartition",
+
+  /**
+   * Switch GPU mode between DDA and GPU-P for different workload requirements.
+   */
+  SwitchMode: "SwitchMode",
+
+  /**
+   * Assign GPU partition to a specific workload or virtual machine.
+   */
+  AssignPartition: "AssignPartition",
+
+  /**
+   * Remove GPU partition and free up resources for other workloads.
+   */
+  RemovePartition: "RemovePartition",
+}
+
+/**
+ * Properties for creating GPU partitions for virtualization and workload isolation.
+ */
+@added(Versions.v2026_03_15_preview)
+model CreatePartitionGpuJobProperties extends EdgeMachineGpuJobProperties {
+  /**
+   * Type of GPU job to be performed.
+   */
+  jobType: EdgeMachineGpuJobType.CreatePartition;
+
+  /**
+   * Number of partitions to be created on the GPU.
+   */
+  partitionCount: int32;
+}
+
+/**
+ * Properties for switching GPU mode between DDA and GPU-P for different workload requirements.
+ */
+@added(Versions.v2026_03_15_preview)
+model SwitchModeGpuJobProperties extends EdgeMachineGpuJobProperties {
+  /**
+   * Type of GPU job to be performed.
+   */
+  jobType: EdgeMachineGpuJobType.SwitchMode;
+
+  /**
+   * Desired GPU mode to switch to.
+   */
+  mode: GpuMode;
+}
+
+/**
+ * Properties for assigning GPU partition to a specific workload or virtual machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model AssignPartitionGpuJobProperties extends EdgeMachineGpuJobProperties {
+  /**
+   * Type of GPU job to be performed.
+   */
+  jobType: EdgeMachineGpuJobType.AssignPartition;
+
+  /**
+   * Virtual machine ID to which the GPU partition is assigned.
+   */
+  vmId: string;
+}
+
+/**
+ * Properties for removing GPU partition and freeing up resources for other workloads.
+ */
+@added(Versions.v2026_03_15_preview)
+model RemovePartitionGpuJobProperties extends EdgeMachineGpuJobProperties {
+  /**
+   * Type of GPU job to be performed.
+   */
+  jobType: EdgeMachineGpuJobType.RemovePartition;
+
+  /**
+   * Virtual machine ID from which the GPU partition is removed.
+   */
+  vmId: string;
+}
+
+////////////////////////////////////////////////////////////////
+//////// PRIVATE PREVIEW - Edge Machine Storage Models /////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Properties of a disk.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineDiskProperties {
+  /** The authoritative desired configuration for this disk. */
+  diskConfiguration?: DiskConfiguration;
+
+  /** The actual state of the disk as reported by the device. */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: DiskReportedProperties;
+
+  /** Provisioning state of the disk resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/**
+ * Desired configuration for a disk.
+ */
+@added(Versions.v2026_03_15_preview)
+model DiskConfiguration {
+  /** List of desired volumes on this disk. */
+  @identifiers(#["path"])
+  volumes?: DiskVolumeConfiguration[];
+}
+
+/**
+ * Configuration for a volume on a disk.
+ */
+@added(Versions.v2026_03_15_preview)
+model DiskVolumeConfiguration {
+  /** Size of the volume in bytes. */
+  sizeInBytes: string;
+
+  /** Mount path for the volume (e.g., /data or D:\data). */
+  path: string;
+
+  /** File system type to format the volume with. */
+  fileSystem?: DiskFileSystemType;
+}
+
+/**
+ * File system types supported for volumes.
+ */
+@added(Versions.v2026_03_15_preview)
+union DiskFileSystemType {
+  string,
+
+  /** ext4 file system (Linux). */
+  ext4: "ext4",
+
+  /** xfs file system (Linux). */
+  xfs: "xfs",
+
+  /** NTFS file system (Windows). */
+  NTFS: "NTFS",
+
+  /** ReFS file system (Windows). */
+  ReFS: "ReFS",
+
+  /** vfat file system (Linux/cross-platform). */
+  vfat: "vfat",
+
+  /** FAT32 file system. */
+  fat32: "fat32",
+
+  /** FAT file system. */
+  fat: "fat",
+}
+
+/**
+ * The actual state of the disk as reported by the device.
+ */
+@added(Versions.v2026_03_15_preview)
+model DiskReportedProperties {
+  /** The actual disk name as reported by the OS. */
+  @visibility(Lifecycle.Read)
+  diskName?: string;
+
+  /** Model number of the hardware. */
+  @visibility(Lifecycle.Read)
+  `model`?: string;
+
+  /** The manufacturer of the disk. */
+  @visibility(Lifecycle.Read)
+  manufacturer?: string;
+
+  /** Indicates whether the disk manufacturer is supported for the validated solution recipe ring. Defaults to true. Set to false when the SAN vendor is not in the allowed vendor list for the current ring. */
+  @visibility(Lifecycle.Read)
+  isSupported?: boolean;
+
+  /** Serial number. */
+  @visibility(Lifecycle.Read)
+  serialNumber?: string;
+
+  /** Firmware version. */
+  @visibility(Lifecycle.Read)
+  firmwareVersion?: string;
+
+  /** Size in bytes. */
+  @visibility(Lifecycle.Read)
+  sizeInBytes?: string;
+
+  /** Type of the disk. */
+  @visibility(Lifecycle.Read)
+  diskType?: DiskType;
+
+  /** Bus location of the disk. */
+  @visibility(Lifecycle.Read)
+  busLocation?: string;
+
+  /** Unallocated space on the disk in bytes. */
+  @visibility(Lifecycle.Read)
+  unallocatedSizeInBytes?: string;
+
+  /** Current state of the disk. */
+  @visibility(Lifecycle.Read)
+  state?: DiskState;
+
+  /** List of volumes on this disk. */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["volumeId"])
+  volumes?: DiskVolumeReportedProperties[];
+}
+
+/**
+ * Type of disk.
+ */
+@added(Versions.v2026_03_15_preview)
+union DiskType {
+  string,
+
+  /** Unknown disk type. */
+  Unknown: "Unknown",
+
+  /** Storage Class Memory disk. */
+  SCM: "SCM",
+
+  /** NVMe disk. */
+  NVMe: "NVMe",
+
+  /** SATA disk. */
+  SATA: "SATA",
+
+  /** Solid State Drive. */
+  SSD: "SSD",
+
+  /** Hard Disk Drive. */
+  HDD: "HDD",
+
+  /** Virtual disk. */
+  Virtual: "Virtual",
+
+  /** Other disk type. */
+  Other: "Other",
+}
+
+/**
+ * State of the disk.
+ */
+@added(Versions.v2026_03_15_preview)
+union DiskState {
+  string,
+
+  /** Disk is online and available. */
+  Online: "Online",
+
+  /** Disk is offline. */
+  Offline: "Offline",
+
+  /** Disk has failed. */
+  Failed: "Failed",
+
+  /** Disk is missing. */
+  Missing: "Missing",
+
+  /** Disk state is unknown. */
+  Unknown: "Unknown",
+}
+
+/**
+ * Reported properties of a volume on the disk.
+ */
+@added(Versions.v2026_03_15_preview)
+model DiskVolumeReportedProperties {
+  /** Size of the volume in bytes. */
+  @visibility(Lifecycle.Read)
+  sizeInBytes?: string;
+
+  /** Mount path for the volume. */
+  @visibility(Lifecycle.Read)
+  path?: string;
+
+  /** File system type. */
+  @visibility(Lifecycle.Read)
+  fileSystem?: string;
+
+  /** Unique identifier for the partition. */
+  @visibility(Lifecycle.Read)
+  partitionId?: string;
+
+  /** Partition number. */
+  @visibility(Lifecycle.Read)
+  partitionNumber?: int32;
+
+  /** Byte offset of the partition start. */
+  @visibility(Lifecycle.Read)
+  offsetInBytes?: int64;
+
+  /** Name of the volume. */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /** Indicates if this volume is a boot volume. */
+  @visibility(Lifecycle.Read)
+  isBoot?: boolean;
+
+  /** Available space on the volume in bytes. */
+  @visibility(Lifecycle.Read)
+  sizeRemainingInBytes?: string;
+
+  /** Resource name of the volume. */
+  @visibility(Lifecycle.Read)
+  resourceName?: string;
+}
+
+/**
+ * Properties of a volume.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineVolumeProperties {
+  /** Desired configuration for this volume. */
+  volumeConfiguration?: VolumeConfiguration;
+
+  /** The actual state of the volume as reported by the device. */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: VolumeReportedProperties;
+
+  /** Provisioning state of the volume resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/**
+ * Desired configuration for a volume. Reserved for future use.
+ */
+@added(Versions.v2026_03_15_preview)
+model VolumeConfiguration {
+  /** Reserved for future volume configuration options. */
+  reserved?: string;
+}
+
+/**
+ * The actual state of the volume as reported by the device.
+ */
+@added(Versions.v2026_03_15_preview)
+model VolumeReportedProperties {
+  /** Unique identifier for the partition. */
+  @visibility(Lifecycle.Read)
+  partitionId?: string;
+
+  /** Byte offset of the partition start. */
+  @visibility(Lifecycle.Read)
+  offsetInBytes?: int64;
+
+  /** Label of the volume. */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /** Access path for the volume. */
+  @visibility(Lifecycle.Read)
+  path?: string;
+
+  /** ARM resource ID of the parent disk. */
+  @visibility(Lifecycle.Read)
+  parentDiskId?: string;
+
+  /** Indicates if this volume is a boot volume. */
+  @visibility(Lifecycle.Read)
+  isBoot?: boolean;
+
+  /** Total size of the volume in bytes. */
+  @visibility(Lifecycle.Read)
+  sizeInBytes?: string;
+
+  /** Available space on the volume in bytes. */
+  @visibility(Lifecycle.Read)
+  sizeRemainingInBytes?: string;
+
+  /** File system on the volume. */
+  @visibility(Lifecycle.Read)
+  fileSystem?: string;
+}
+
+/**
+ * Base properties shared by all disk job types.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineDiskJobBaseProperties {
+  /** Deployment mode to trigger job. */
+  deploymentMode?: DeploymentMode;
+
+  /** Job provisioning state. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /** Unique, immutable job id. */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /** The UTC date and time at which the job started. */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /** The UTC date and time at which the job completed. */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /** Status of disk job. */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+
+  /** Error details if job failed. */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+
+  /** Properties reported by the job execution. */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: DiskJobReportedProperties;
+}
+
+/**
+ * Disk Job properties.
+ */
+@added(Versions.v2026_03_15_preview)
+@discriminator("jobType")
+model EdgeMachineDiskJobProperties {
+  /** Job Type to support polymorphic resource. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  jobType: DiskJobType;
+
+  ...EdgeMachineDiskJobBaseProperties;
+}
+
+/**
+ * Job Type supported for disk operations.
+ */
+@added(Versions.v2026_03_15_preview)
+union DiskJobType {
+  string,
+
+  /** Job to create a volume on the disk. */
+  CreateVolume: "CreateVolume",
+
+  /** Job to resolve configuration drift between desired and reported state. */
+  SyncConfiguration: "SyncConfiguration",
+}
+
+/**
+ * Reported properties of a disk job.
+ */
+@added(Versions.v2026_03_15_preview)
+model DiskJobReportedProperties {
+  /** Percentage of job completion. */
+  @visibility(Lifecycle.Read)
+  percentComplete?: int32;
+
+  /** Validation status of Disk Job. */
+  @visibility(Lifecycle.Read)
+  validationStatus?: DiskActionStatus;
+
+  /** Deployment status of Disk Job. */
+  @visibility(Lifecycle.Read)
+  deploymentStatus?: DiskActionStatus;
+}
+
+/**
+ * The action plan deployment status for Disk Job.
+ */
+@added(Versions.v2026_03_15_preview)
+model DiskActionStatus {
+  /** Status of ECE action Disk Job. */
+  @visibility(Lifecycle.Read)
+  status?: string;
+
+  /** List of steps of Disk Job. */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["name"])
+  steps?: DiskDeploymentStep[];
+}
+
+/**
+ * The Step of Disk Job.
+ */
+@added(Versions.v2026_03_15_preview)
+model DiskDeploymentStep {
+  /** Name of step. */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /** Description of step. */
+  @visibility(Lifecycle.Read)
+  description?: string;
+
+  /** FullStepIndex of step. */
+  @visibility(Lifecycle.Read)
+  fullStepIndex?: string;
+
+  /** Start time of step. */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: string;
+
+  /** End time of step. */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: string;
+
+  /** Status of step (Error, Success, InProgress). */
+  @visibility(Lifecycle.Read)
+  status?: string;
+
+  /** List of nested steps. */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["name"])
+  steps?: DiskDeploymentStep[];
+
+  /** List of exceptions. */
+  @visibility(Lifecycle.Read)
+  exception?: string[];
+}
+
+/**
+ * Properties for creating a volume on a disk.
+ */
+@added(Versions.v2026_03_15_preview)
+model CreateVolumeJobProperties extends EdgeMachineDiskJobProperties {
+  /** Job type. */
+  jobType: DiskJobType.CreateVolume;
+
+  /** Size of the volume to create in bytes. */
+  sizeInBytes: string;
+
+  /** Absolute path where the volume should be mounted. */
+  path: string;
+
+  /** File system type to format the volume with. */
+  @visibility(Lifecycle.Create)
+  fileSystem?: DiskFileSystemType;
+
+  /** ARM resource ID of the created volume. */
+  @visibility(Lifecycle.Read)
+  createdVolumeId?: string;
+}
+
+/**
+ * Properties for deleting a volume from a disk.
+ */
+@added(Versions.v2026_03_15_preview)
+model DeleteVolumeJobProperties extends EdgeMachineDiskPrivilegedJobProperties {
+  /** Job type. */
+  jobType: PrivilegedJobType.DeleteVolume;
+
+  /** The mount path of the volume to delete. */
+  volumePath: string;
+
+  /** Confirmation flag that must be set to true to proceed with deletion. */
+  confirmDeletion?: boolean = false;
+}
+
+/**
+ * Properties for resolving configuration drift.
+ */
+@added(Versions.v2026_03_15_preview)
+model SyncConfigurationJobProperties extends EdgeMachineDiskJobProperties {
+  /** Job type. */
+  jobType: DiskJobType.SyncConfiguration;
+
+  /** The strategy to use for resolving the configuration drift. */
+  @visibility(Lifecycle.Create)
+  resolutionStrategy: ResolutionStrategy;
+}
+
+/**
+ * Strategy for resolving configuration drift.
+ */
+@added(Versions.v2026_03_15_preview)
+union ResolutionStrategy {
+  string,
+
+  /** Trust Cloud. Push the desiredConfiguration down to the device. */
+  ApplyDesired: "ApplyDesired",
+
+  /** Trust Device. Update the desiredConfiguration in ARM to match the reported state. */
+  AcceptReported: "AcceptReported",
+}
+
+/**
+ * Describes a single drift discrepancy between desired and reported state.
+ */
+@added(Versions.v2026_03_15_preview)
+model DriftDetail {
+  /** The type of drift detected. */
+  @visibility(Lifecycle.Read)
+  driftType?: DriftType;
+
+  /** Property name that has drifted (for PropertyMismatch). */
+  @visibility(Lifecycle.Read)
+  propertyName?: string;
+
+  /** Desired value (for PropertyMismatch). */
+  @visibility(Lifecycle.Read)
+  desiredValue?: string;
+
+  /** Reported value (for PropertyMismatch). */
+  @visibility(Lifecycle.Read)
+  reportedValue?: string;
+}
+
+/**
+ * Type of drift detected.
+ */
+@added(Versions.v2026_03_15_preview)
+union DriftType {
+  string,
+
+  /** A volume exists in desiredConfiguration but is not present on the device. */
+  MissingOnDevice: "MissingOnDevice",
+
+  /** A volume exists on the device but is not present in desiredConfiguration. */
+  ExtraOnDevice: "ExtraOnDevice",
+
+  /** A property value differs between desired and reported state. */
+  PropertyMismatch: "PropertyMismatch",
+}
+
+////////////////////////////////////////////////////////////////
+////////// Disk Privileged Job Models //////////////////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Disk Privileged Job properties.
+ */
+@added(Versions.v2026_03_15_preview)
+@discriminator("jobType")
+model EdgeMachineDiskPrivilegedJobProperties {
+  /** Privileged Job Type to support polymorphic resource. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  jobType: PrivilegedJobType;
+
+  ...EdgeMachineDiskJobBaseProperties;
+}
+
+/**
+ * Job Type supported for disk privileged operations.
+ */
+@added(Versions.v2026_03_15_preview)
+union PrivilegedJobType {
+  string,
+
+  /** Job to delete a volume from the disk. */
+  DeleteVolume: "DeleteVolume",
+}
+
+/**
+ * List of Disk Privileged Job resources.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineDiskPrivilegedJobListResult
+  is Azure.Core.Page<EdgeMachineDiskPrivilegedJob>;
+
+////////////////////////////////////////////////////////////////
+///// PRIVATE PREVIEW - Edge Machine Network Adapter Models ////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Properties of the Network Adapter resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineNetworkAdapterProperties {
+  /** The authoritative desired configuration for this specific interface. */
+  networkConfiguration?: NetworkAdapterConfiguration;
+
+  /** The actual applied configuration reported by the device. */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: NetworkAdapterReportedProperties;
+
+  /** Provisioning state of the network adapter resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/**
+ * Network adapter configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkAdapterConfiguration {
+  /** Adapter name. */
+  adapterName?: string;
+
+  /** IP address. */
+  ip4Address?: string;
+
+  /** Subnet mask. */
+  subnetMask?: string;
+
+  /** Default gateway. */
+  defaultGateway?: string;
+
+  /** List of DNS servers. */
+  dnsServers?: string[];
+
+  /** IP configuration type (Dhcp or Static). */
+  ipInterfaceType?: IpInterfaceType;
+
+  /** VLAN identifier for network segmentation. */
+  vlanId?: int32;
+
+  /** Administrative state of the interface (up or down). */
+  interfaceState?: InterfaceState;
+
+  /** WiFi configuration desired properties. */
+  wifiConfiguration?: WifiConfigurationDesiredProperties;
+}
+
+/**
+ * Reported properties of a network adapter.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkAdapterReportedProperties {
+  /** Adapter name. */
+  adapterName?: string;
+
+  /** IP address. */
+  ip4Address?: string;
+
+  /** Subnet mask. */
+  subnetMask?: string;
+
+  /** Default gateway. */
+  defaultGateway?: string;
+
+  /** List of DNS servers. */
+  dnsServers?: string[];
+
+  /** Interface description of NIC. */
+  @visibility(Lifecycle.Read)
+  interfaceDescription?: string;
+
+  /** Component ID of NIC. */
+  @visibility(Lifecycle.Read)
+  componentId?: string;
+
+  /** Driver version of NIC. */
+  @visibility(Lifecycle.Read)
+  driverVersion?: string;
+
+  /** Default isolation of management NIC. */
+  @visibility(Lifecycle.Read)
+  defaultIsolationId?: string;
+
+  /** MAC address. */
+  @visibility(Lifecycle.Read)
+  macAddress?: string;
+
+  /** The slot attached to the NIC. */
+  @visibility(Lifecycle.Read)
+  slot?: string;
+
+  /** The switch attached to the NIC, if any. */
+  @visibility(Lifecycle.Read)
+  switchName?: string;
+
+  /** Type of network interface. */
+  @visibility(Lifecycle.Read)
+  interfaceType?: NetworkInterfaceType;
+
+  /** Interface speed in Mbps. */
+  @visibility(Lifecycle.Read)
+  interfaceSpeed?: int32;
+
+  /** Current state of the interface. */
+  @visibility(Lifecycle.Read)
+  interfaceState?: InterfaceState;
+
+  /** The type of NIC (physical, virtual, management). */
+  @visibility(Lifecycle.Read)
+  nicType?: string;
+
+  /** The status of NIC (up, disconnected). */
+  @visibility(Lifecycle.Read)
+  nicStatus?: string;
+
+  /** IP configuration type. */
+  @visibility(Lifecycle.Read)
+  ipInterfaceType?: IpInterfaceType;
+
+  /** VLAN identifier (0-4096). */
+  @visibility(Lifecycle.Read)
+  @minValue(0)
+  @maxValue(4096)
+  vlanId?: int32;
+
+  /** Indicates if this is a management interface. */
+  @visibility(Lifecycle.Read)
+  managementInterface?: boolean;
+
+  /** RDMA capability of the network adapter. */
+  @visibility(Lifecycle.Read)
+  rdmaCapability?: RdmaCapability;
+
+  /** The observed state of network adapter. */
+  @visibility(Lifecycle.Read)
+  networkAdapterStatus?: NetworkAdapterStatus;
+
+  /** WiFi configuration reported properties. */
+  @visibility(Lifecycle.Read)
+  wifiConfiguration?: WifiConfigurationReportedProperties;
+}
+
+/**
+ * Type of network interface.
+ */
+@added(Versions.v2026_03_15_preview)
+union NetworkInterfaceType {
+  string,
+
+  /** Ethernet interface. */
+  Eth: "Eth",
+
+  /** Wi-Fi interface. */
+  wifi: "wifi",
+}
+
+/**
+ * Current state of the interface.
+ */
+@added(Versions.v2026_03_15_preview)
+union InterfaceState {
+  string,
+
+  /** Interface is up. */
+  up: "up",
+
+  /** Interface is down. */
+  down: "down",
+}
+
+/**
+ * IP configuration type.
+ */
+@added(Versions.v2026_03_15_preview)
+union IpInterfaceType {
+  string,
+
+  /** DHCP configuration. */
+  Dhcp: "Dhcp",
+
+  /** Static configuration. */
+  Static: "Static",
+}
+
+/**
+ * The observed state of network adapters.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkAdapterStatus {
+  /** Network adapter provisioning error code. */
+  @visibility(Lifecycle.Read)
+  errorCode?: string;
+
+  /** Descriptive error message. */
+  @visibility(Lifecycle.Read)
+  errorMessage?: string;
+
+  /** Network adapter provisioning status. */
+  @visibility(Lifecycle.Read)
+  provisioningStatus?: NetworkAdapterProvisioningStatus;
+}
+
+/**
+ * Network adapter provisioning status.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkAdapterProvisioningStatus {
+  /** The ID of the operation performed on the network adapter. */
+  @visibility(Lifecycle.Read)
+  operationId?: string;
+
+  /** The status of the operation performed on the network adapter. */
+  @visibility(Lifecycle.Read)
+  status?: NetworkAdapterOperationStatus;
+}
+
+// ==================== WiFi Types ====================
+
+/**
+ * WiFi configuration desired properties.
+ */
+@added(Versions.v2026_03_15_preview)
+model WifiConfigurationDesiredProperties {
+  /** WiFi SSID. */
+  ssid?: string;
+
+  /** WiFi authentication type. */
+  authenticationType?: AuthenticationType;
+
+  /** EAP method used for authentication. */
+  eapMethod?: EAPMethod;
+
+  /** Username for enterprise WiFi authentication. */
+  username?: string;
+
+  /** WiFi secret reference. */
+  wifiSecret?: WifiSecret;
+}
+
+/**
+ * WiFi secret reference for storing credentials.
+ */
+@added(Versions.v2026_03_15_preview)
+model WifiSecret {
+  /** Name of the secret. */
+  secretName?: string;
+
+  /** Location of the secret. */
+  secretLocation?: string;
+
+  /** Type of the WiFi secret. */
+  secretType?: WifiSecretType;
+}
+
+/**
+ * Type of WiFi secret.
+ */
+@added(Versions.v2026_03_15_preview)
+union WifiSecretType {
+  string,
+
+  /** WiFi password. */
+  WiFiPassword: "WiFiPassword",
+
+  /** WiFi certificate. */
+  WiFiCertificate: "WiFiCertificate",
+
+  /** WiFi CA certificate. */
+  WiFiCACertificate: "WiFiCACertificate",
+}
+
+/**
+ * WiFi configuration reported properties.
+ */
+@added(Versions.v2026_03_15_preview)
+model WifiConfigurationReportedProperties {
+  /** WiFi SSID. */
+  ssid?: string;
+
+  /** WiFi authentication type. */
+  authenticationType?: AuthenticationType;
+
+  /** EAP method used for authentication. */
+  eapMethod?: EAPMethod;
+
+  /** WiFi signal strength. */
+  @visibility(Lifecycle.Read)
+  signalStrength?: int32;
+
+  /** Last successful WiFi connection timestamp. */
+  @visibility(Lifecycle.Read)
+  lastSuccessfulConnectionTimestamp?: string;
+
+  /** Current WiFi connection state. */
+  @visibility(Lifecycle.Read)
+  connectionState?: ConnectionState;
+
+  /** Username for enterprise WiFi authentication. */
+  username?: string;
+}
+
+/**
+ * WiFi connection state.
+ */
+@added(Versions.v2026_03_15_preview)
+union ConnectionState {
+  string,
+
+  /** WiFi is not configured. */
+  NotConfigured: "NotConfigured",
+
+  /** WiFi is connected. */
+  Connected: "Connected",
+
+  /** WiFi is disconnected. */
+  Disconnected: "Disconnected",
+
+  /** WiFi is connecting. */
+  Connecting: "Connecting",
+
+  /** WiFi is disconnecting. */
+  Disconnecting: "Disconnecting",
+
+  /** WiFi authentication failed. */
+  AuthenticationFailed: "AuthenticationFailed",
+}
+
+/**
+ * WiFi authentication type.
+ */
+@added(Versions.v2026_03_15_preview)
+union AuthenticationType {
+  string,
+
+  /** WPA2 Personal. */
+  `WPA2-Personal`: "WPA2-Personal",
+
+  /** WPA2 Enterprise. */
+  `WPA2-Enterprise`: "WPA2-Enterprise",
+
+  /** WPA3 Personal. */
+  `WPA3-Personal`: "WPA3-Personal",
+
+  /** WPA3 Enterprise. */
+  `WPA3-Enterprise`: "WPA3-Enterprise",
+
+  /** Open network. */
+  Open: "Open",
+}
+
+/**
+ * EAP authentication method.
+ */
+@added(Versions.v2026_03_15_preview)
+union EAPMethod {
+  string,
+
+  /** PEAP authentication. */
+  PEAP: "PEAP",
+
+  /** EAP-TLS authentication. */
+  `EAP-TLS`: "EAP-TLS",
+
+  /** EAP-TTLS authentication. */
+  `EAP-TTLS`: "EAP-TTLS",
+
+  /** EAP-FAST authentication. */
+  `EAP-FAST`: "EAP-FAST",
+}
+
+/**
+ * Status of network adapter operation.
+ */
+@added(Versions.v2026_03_15_preview)
+union NetworkAdapterOperationStatus {
+  string,
+
+  /** Operation succeeded. */
+  Succeeded: "Succeeded",
+
+  /** Operation failed. */
+  Failed: "Failed",
+
+  /** Operation in progress. */
+  InProgress: "InProgress",
+}
+
+/**
+ * Properties of the Network Adapter Job.
+ */
+@added(Versions.v2026_03_15_preview)
+@discriminator("jobType")
+model EdgeMachineNetworkAdapterJobProperties {
+  /** Type of operation. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  jobType: NetworkAdapterJobType;
+
+  /** Deployment mode to trigger job. */
+  deploymentMode?: DeploymentMode;
+
+  /** Provisioning state of the job. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /** Unique, immutable job id. */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /** The UTC date and time at which the job started. */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /** The UTC date and time at which the job completed. */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /** Status of Edge device job. */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+
+  /** Error details if job failed. */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+
+  /** Reported properties for Network Adapter Job. */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: NetworkAdapterJobReportedProperties;
+}
+
+/**
+ * Type of network adapter job operation.
+ */
+@added(Versions.v2026_03_15_preview)
+union NetworkAdapterJobType {
+  string,
+
+  /** Apply configuration to the network adapter. */
+  ApplyConfiguration: "ApplyConfiguration",
+
+  /** Force push configuration to the network adapter. */
+  ForcePush: "ForcePush",
+
+  /** Job to resolve configuration drift between desired and reported state. */
+  SyncConfiguration: "SyncConfiguration",
+}
+
+/**
+ * Properties for applying network adapter configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model ApplyConfigurationNetworkAdapterJobProperties
+  extends EdgeMachineNetworkAdapterJobProperties {
+  /** Job type. */
+  jobType: NetworkAdapterJobType.ApplyConfiguration;
+
+  /** The desired network configuration to apply. */
+  targetConfiguration: NetworkAdapterConfiguration;
+}
+
+/**
+ * Properties for force push of network adapter configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model ForcePushNetworkAdapterJobProperties
+  extends EdgeMachineNetworkAdapterJobProperties {
+  /** Job type. */
+  jobType: NetworkAdapterJobType.ForcePush;
+}
+
+/**
+ * Properties for resolving network adapter configuration drift.
+ */
+@added(Versions.v2026_03_15_preview)
+model SyncConfigurationNetworkAdapterJobProperties
+  extends EdgeMachineNetworkAdapterJobProperties {
+  /** Job type. */
+  jobType: NetworkAdapterJobType.SyncConfiguration;
+
+  /** The strategy to use for resolving the configuration drift. */
+  @visibility(Lifecycle.Create)
+  resolutionStrategy: ResolutionStrategy;
+}
+
+/**
+ * Reported properties for Network Adapter Job.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkAdapterJobReportedProperties {
+  /**
+   * The percentage of the job that is complete.
+   */
+  @visibility(Lifecycle.Read)
+  percentComplete?: int32;
+
+  /** Validation status of Network Adapter Job. */
+  @visibility(Lifecycle.Read)
+  validationStatus?: NetworkAdapterActionStatus;
+
+  /** Deployment status of Network Adapter Job. */
+  @visibility(Lifecycle.Read)
+  deploymentStatus?: NetworkAdapterActionStatus;
+}
+
+/**
+ * The action plan deployment status for Network Adapter Job.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkAdapterActionStatus {
+  /** Status of ECE action Network Adapter Job. */
+  @visibility(Lifecycle.Read)
+  status?: string;
+
+  /** List of steps of Network Adapter Job. */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["name"])
+  steps?: NetworkAdapterDeploymentStep[];
+}
+
+/**
+ * The Step of Network Adapter Job.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkAdapterDeploymentStep {
+  /** Name of step. */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /** Description of step. */
+  @visibility(Lifecycle.Read)
+  description?: string;
+
+  /** FullStepIndex of step. */
+  @visibility(Lifecycle.Read)
+  fullStepIndex?: string;
+
+  /** Start time of step. */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: string;
+
+  /** End time of step. */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: string;
+
+  /** Status of step (Error, Success, InProgress). */
+  @visibility(Lifecycle.Read)
+  status?: string;
+
+  /** List of nested steps. */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["name"])
+  steps?: NetworkAdapterDeploymentStep[];
+
+  /** List of exceptions. */
+  @visibility(Lifecycle.Read)
+  exception?: string[];
+}
+
+/**
+ * Edge machine metadata properties.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineMetadataProperties {
+  /**
+   * Validated Recipe name or identifier.
+   */
+  validatedRecipe?: string;
+
+  /**
+   * Provisioning state of the metadata resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+////////////////////////////////////////////////////////////////
+//////// PRIVATE PREVIEW - Edge Device Metadata Models /////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Edge device metadata properties.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeDeviceMetadataProperties {
+  /**
+   * Validated Recipe name or identifier.
+   */
+  validatedRecipe?: string;
+
+  /**
+   * Provisioning state of the metadata resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+////////////////////////////////////////////////////////////////
+/////////// PRIVATE PREVIEW - Network Profile Models ///////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Network Profile properties.
+ */
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+@added(Versions.v2026_03_15_preview)
+model NetworkProfileProperties {
+  /**
+   * Network profile properties reported from the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: NetworkProfileReportedProperties;
+
+  /**
+   * Network profile resource Last sync timestamp.
+   */
+  @visibility(Lifecycle.Read)
+  lastSyncTimestamp?: utcDateTime;
+
+  /**
+   * Network profile resource Last sync status.
+   */
+  @visibility(Lifecycle.Read)
+  lastSyncStatus?: string;
+}
+
+/**
+ * Network Profile properties reported by the cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkProfileReportedProperties {
+  /**
+   * The IPv4 addresses of the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  clusterIpv4Addresses?: string[];
+
+  /**
+   * The IPv6 addresses of the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  clusterIpv6Addresses?: string[];
+
+  /**
+   * The subnet associated with the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  subnet?: string;
+
+  /**
+   * Whether auto-selection for VM migration network is enabled.
+   */
+  @visibility(Lifecycle.Read)
+  autoSelectMigrationNetwork?: boolean;
+
+  /**
+   * Whether network naming is enabled.
+   */
+  @visibility(Lifecycle.Read)
+  enableNetworkNaming?: boolean;
+
+  /**
+   * Whether auto-selection for VM migration performance is enabled.
+   */
+  @visibility(Lifecycle.Read)
+  autoSelectVmMigrationPerformance?: boolean;
+
+  /**
+   * The maximum number of VM migrations allowed.
+   */
+  @visibility(Lifecycle.Read)
+  maxVmMigration?: int32;
+
+  /**
+   * The performance type for VM migration.
+   */
+  @visibility(Lifecycle.Read)
+  vmMigrationPerformance?: string;
+
+  /**
+   * Maximum bandwidth for SMB migration.
+   */
+  @visibility(Lifecycle.Read)
+  maxSmbMigrationBandwidth?: string;
+
+  /**
+   * Details of nodes in the network profile.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["id"])
+  nodes?: NetworkProfileNode[];
+
+  /**
+   * Details of physical adapters.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["id"])
+  physicalAdapters?: NetworkProfilePhysicalAdapter[];
+
+  /**
+   * Details of virtual switches.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["id"])
+  virtualSwitches?: NetworkProfileVirtualSwitch[];
+
+  /**
+   * Details of networks.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["id"])
+  networks?: NetworkProfileNetwork[];
+
+  /**
+   * Details of virtual adapters.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["id"])
+  virtualAdapters?: NetworkProfileVirtualAdapter[];
+
+  /**
+   * Details of network intents.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["id"])
+  intents?: NetworkProfileIntent[];
+}
+
+/**
+ * Details of a node in the network profile.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkProfileNode {
+  /**
+   * The node ID.
+   */
+  id: string;
+
+  /**
+   * The physical adapter IDs associated with the node.
+   */
+  physicalAdapterIds?: string[];
+
+  /**
+   * The virtual switch IDs associated with the node.
+   */
+  virtualSwitchIds?: string[];
+
+  /**
+   * The arc status of the node.
+   */
+  arcStatus?: string;
+
+  /**
+   * The Azure resource id of Arc machine of the corresponding node.
+   */
+  arcMachineId?: Azure.Core.armResourceIdentifier;
+}
+
+/**
+ * Details of a physical adapter.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkProfilePhysicalAdapter {
+  /**
+   * The physical adapter ID.
+   */
+  id: string;
+
+  /**
+   * The name of the physical adapter.
+   */
+  name?: string;
+
+  /**
+   * The description of the physical adapter.
+   */
+  description?: string;
+
+  /**
+   * The VLAN associated with the physical adapter.
+   */
+  vlan?: int32;
+
+  /**
+   * The IPv4 addresses of the physical adapter.
+   */
+  ipv4Addresses?: string[];
+
+  /**
+   * The IPv6 addresses of the physical adapter.
+   */
+  ipv6Addresses?: string[];
+
+  /**
+   * The driver version of the physical adapter.
+   */
+  driverVersion?: string;
+
+  /**
+   * The node ID the physical adapter is associated with.
+   */
+  nodeId?: string;
+}
+
+/**
+ * Details of a virtual switch.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkProfileVirtualSwitch {
+  /**
+   * The virtual switch ID.
+   */
+  id: string;
+
+  /**
+   * The name of the virtual switch.
+   */
+  name?: string;
+
+  /**
+   * The virtual adapter IDs associated with the virtual switch.
+   */
+  virtualAdapterIds?: string[];
+
+  /**
+   * The physical adapter IDs associated with the virtual switch.
+   */
+  physicalAdapterIds?: string[];
+
+  /**
+   * The physical adapter names associated with the virtual switch.
+   */
+  physicalAdapterNames?: string[];
+
+  /**
+   * The virtual adapter names associated with the virtual switch.
+   */
+  virtualAdapterNames?: string[];
+
+  /**
+   * The intent ID associated with the virtual switch.
+   */
+  intentId?: string;
+}
+
+/**
+ * Details of a network.
+ */
+@added(Versions.v2026_03_15_preview)
+@discriminator("type")
+model NetworkProfileNetwork {
+  /**
+   * The network ID.
+   */
+  id: string;
+
+  /**
+   * The name of the network.
+   */
+  name?: string;
+
+  /**
+   * The type of the network.
+   */
+  type: NetworkProfileNetworkType;
+
+  /**
+   * The VLAN associated with the network.
+   */
+  vlan?: int32;
+
+  /**
+   * The intent ID associated with the network.
+   */
+  intentId?: string;
+}
+
+/**
+ * Details of a storage network.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkProfileStorageNetwork extends NetworkProfileNetwork {
+  /**
+   * The type of the network.
+   */
+  type: NetworkProfileNetworkType.Storage;
+
+  /**
+   * Whether the network supports direct access.
+   */
+  networkDirect?: string;
+}
+
+/**
+ * Details of a logical network.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkProfileLogicalNetwork extends NetworkProfileNetwork {
+  /**
+   * The type of the network.
+   */
+  type: NetworkProfileNetworkType.Logical;
+
+  /**
+   * IP address space of the logical network.
+   */
+  addressSpace?: string;
+}
+
+/**
+ * Details of a virtual adapter.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkProfileVirtualAdapter {
+  /**
+   * The virtual adapter ID.
+   */
+  id: string;
+
+  /**
+   * The name of the virtual adapter.
+   */
+  name?: string;
+
+  /**
+   * The VLAN associated with the virtual adapter.
+   */
+  vlan?: int32;
+
+  /**
+   * The IPv4 addresses of the virtual adapter.
+   */
+  ipv4Addresses?: string[];
+
+  /**
+   * The IPv6 addresses of the virtual adapter.
+   */
+  ipv6Addresses?: string[];
+}
+
+/**
+ * Details of a network intent.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkProfileIntent {
+  /**
+   * The intent ID.
+   */
+  id: string;
+
+  /**
+   * The name of the intent.
+   */
+  name?: string;
+
+  /**
+   * Whether this is a compute type intent.
+   */
+  isComputeType?: boolean;
+
+  /**
+   * Whether this is a storage type intent.
+   */
+  isStorageType?: boolean;
+
+  /**
+   * Whether this is a management type intent.
+   */
+  isManagementType?: boolean;
+
+  /**
+   * The physical adapter IDs associated with the intent.
+   */
+  physicalAdapterIds?: string[];
+
+  /**
+   * The virtual adapter IDs associated with the intent.
+   */
+  virtualAdapterIds?: string[];
+
+  /**
+   * The virtual switch IDs associated with the intent.
+   */
+  virtualSwitchIds?: string[];
+
+  /**
+   * The network IDs associated with the intent.
+   */
+  networkIds?: string[];
+
+  /**
+   * The physical adapter names associated with the intent.
+   */
+  physicalAdapterNames?: string[];
+
+  /**
+   * The virtual adapter names associated with the intent.
+   */
+  virtualAdapterNames?: string[];
+
+  /**
+   * The virtual switch names associated with the intent.
+   */
+  virtualSwitchNames?: string[];
+
+  /**
+   * The network names associated with the intent.
+   */
+  networkNames?: string[];
+}
+
+/**
+ * Types of networks.
+ */
+@added(Versions.v2026_03_15_preview)
+union NetworkProfileNetworkType {
+  string,
+
+  /** Storage network type. */
+  Storage: "Storage",
+
+  /** Logical network type. */
+  Logical: "Logical",
+}
+
+////////////////////////////////////////////////////////////////
+////////// PRIVATE PREVIEW - Cluster Volume Models /////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Properties of a cluster volume.
+ */
+@added(Versions.v2026_03_15_preview)
+model ClusterVolumeProperties {
+  /** The authoritative desired configuration for the cluster volume. Contains only the properties that can be set by the caller. */
+  configuration?: ClusterVolumeConfiguration;
+
+  /** The actual state of the cluster volume as reported by the cluster. */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: ClusterVolumeReportedProperties;
+
+  /** Provisioning state of the cluster volume resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/**
+ * The writable configuration for a cluster volume. Only properties that a caller can set are declared here; additional writable properties can be added over time.
+ */
+@added(Versions.v2026_03_15_preview)
+model ClusterVolumeConfiguration {
+  /** Placement mode for the volume. */
+  placementMode?: ClusterVolumePlacementMode;
+}
+
+/**
+ * The actual state of the cluster volume as reported by the cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model ClusterVolumeReportedProperties {
+  /** Volume GUID. Primary identifier for the cluster volume. */
+  @visibility(Lifecycle.Read)
+  id?: string;
+
+  /** User-visible volume label. */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /** Cluster volume mount path. This can be a CSV path or device path depending on the backing storage. */
+  @visibility(Lifecycle.Read)
+  path?: string;
+
+  /** Volume GUID. Primary identifier for the cluster volume. */
+  @visibility(Lifecycle.Read)
+  volumeId?: string;
+
+  /** Cluster resource GUID for a PDR-backed volume when applicable. */
+  @visibility(Lifecycle.Read)
+  clusterResourceId?: string;
+
+  /** Health roll-up reported by Windows Health Service. */
+  @visibility(Lifecycle.Read)
+  statusCategory?: ClusterVolumeStatusCategory;
+
+  /** Operational status codes for the volume. */
+  @visibility(Lifecycle.Read)
+  status?: int32[];
+
+  /** Total cluster volume size in bytes. */
+  @visibility(Lifecycle.Read)
+  sizeInBytes?: int64;
+
+  /** Free space in bytes. */
+  @visibility(Lifecycle.Read)
+  sizeRemainingInBytes?: int64;
+
+  /** Filesystem type (NTFS, ReFS, CSVFS_NTFS, CSVFS_ReFS). */
+  @visibility(Lifecycle.Read)
+  fileSystem?: string;
+
+  /** Volume resiliency type. */
+  @visibility(Lifecycle.Read)
+  resiliency?: ClusterVolumeResiliency;
+
+  /** Dominant media type for the volume. */
+  @visibility(Lifecycle.Read)
+  media?: ClusterVolumeMediaType;
+
+  /** Fault domain level for placement. */
+  @visibility(Lifecycle.Read)
+  faultDomainAwareness?: ClusterVolumeFaultDomainAwareness;
+
+  /** Provisioning mode for the volume. */
+  @visibility(Lifecycle.Read)
+  provisioningType?: ClusterVolumeProvisioningType;
+
+  /** Placement mode for the volume. */
+  @visibility(Lifecycle.Read)
+  placementMode?: ClusterVolumePlacementMode;
+
+  /** Name of the containing storage pool. */
+  @visibility(Lifecycle.Read)
+  storagePoolName?: string;
+
+  /** Current owner node for the cluster volume when applicable. */
+  @visibility(Lifecycle.Read)
+  server?: string;
+
+  /** Whether data deduplication is enabled. */
+  @visibility(Lifecycle.Read)
+  isDedupEnabled?: boolean;
+
+  /** Whether BitLocker encryption is enabled. */
+  @visibility(Lifecycle.Read)
+  isEncrypted?: boolean;
+
+  /** Whether ReFS integrity streams are enabled. */
+  @visibility(Lifecycle.Read)
+  isIntegrityEnabled?: boolean;
+}
+
+/**
+ * Health roll-up status category for a cluster volume.
+ */
+@added(Versions.v2026_03_15_preview)
+union ClusterVolumeStatusCategory {
+  string,
+
+  /** Volume is healthy. */
+  Healthy: "Healthy",
+
+  /** Volume has a warning. */
+  Warning: "Warning",
+
+  /** Volume is unhealthy. */
+  Unhealthy: "Unhealthy",
+
+  /** Volume is missing. */
+  Missing: "Missing",
+
+  /** Other status. */
+  Others: "Others",
+}
+
+/**
+ * Volume resiliency type.
+ */
+@added(Versions.v2026_03_15_preview)
+union ClusterVolumeResiliency {
+  string,
+
+  /** Unknown resiliency. */
+  Unknown: "Unknown",
+
+  /** Simple (no resiliency). */
+  Simple: "Simple",
+
+  /** Single parity. */
+  SingleParity: "SingleParity",
+
+  /** Dual parity. */
+  DualParity: "DualParity",
+
+  /** Two-way mirror. */
+  TwoWayMirror: "TwoWayMirror",
+
+  /** Three-way mirror. */
+  ThreeWayMirror: "ThreeWayMirror",
+
+  /** Mirror-accelerated parity (MRT). */
+  MRT: "MRT",
+}
+
+/**
+ * Dominant media type for a cluster volume.
+ */
+@added(Versions.v2026_03_15_preview)
+union ClusterVolumeMediaType {
+  string,
+
+  /** Unknown media type. */
+  Unknown: "Unknown",
+
+  /** Hard disk drive. */
+  Disk: "Disk",
+
+  /** Solid-state drive. */
+  SSD: "SSD",
+
+  /** Journal device. */
+  Journal: "Journal",
+
+  /** Storage-class memory. */
+  SCM: "SCM",
+}
+
+/**
+ * Fault domain awareness level for a cluster volume.
+ */
+@added(Versions.v2026_03_15_preview)
+union ClusterVolumeFaultDomainAwareness {
+  string,
+
+  /** Unknown fault domain. */
+  Unknown: "Unknown",
+
+  /** Drive-level fault domain. */
+  Drive: "Drive",
+
+  /** Enclosure-level fault domain. */
+  Enclosure: "Enclosure",
+
+  /** Server-level fault domain. */
+  Server: "Server",
+
+  /** Chassis-level fault domain. */
+  Chassis: "Chassis",
+
+  /** Rack-level fault domain. */
+  Rack: "Rack",
+}
+
+/**
+ * Provisioning type for a cluster volume.
+ */
+@added(Versions.v2026_03_15_preview)
+union ClusterVolumeProvisioningType {
+  string,
+
+  /** Thin provisioning. */
+  Thin: "Thin",
+
+  /** Fixed provisioning. */
+  Fixed: "Fixed",
+}
+
+/**
+ * Placement mode for a cluster volume.
+ */
+@added(Versions.v2026_03_15_preview)
+union ClusterVolumePlacementMode {
+  string,
+
+  /** Infrastructure-managed placement. */
+  Infrastructure: "infrastructure",
+
+  /** Automatic placement. */
+  Auto: "auto",
+
+  /** Manual placement. */
+  Manual: "manual",
+
+  /** Reserved placement. */
+  Reserved: "reserved",
+}
+
+/**
+ * Properties of the Cluster Volume Job.
+ */
+@added(Versions.v2026_03_15_preview)
+@discriminator("jobType")
+model ClusterVolumeJobProperties {
+  /** Type of operation. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  jobType: ClusterVolumeJobType;
+
+  /** Deployment mode to trigger job. */
+  deploymentMode?: DeploymentMode;
+
+  /** Provisioning state of the job. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /** Unique, immutable job id. */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /** The UTC date and time at which the job started. */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /** The UTC date and time at which the job completed. */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /** Status of the cluster volume job. */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+
+  /** Error details if job failed. */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+
+  /** Reported properties for the cluster volume job. */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: ClusterVolumeJobReportedProperties;
+}
+
+/**
+ * Type of cluster volume job operation.
+ */
+@added(Versions.v2026_03_15_preview)
+union ClusterVolumeJobType {
+  string,
+
+  /** Job to resolve configuration drift between the desired and reported state of the cluster volume. */
+  VolumeSync: "VolumeSync",
+
+  /** Job to apply the desired configuration to the cluster volume. */
+  ApplyVolumeConfiguration: "ApplyVolumeConfiguration",
+}
+
+/**
+ * Properties for resolving cluster volume configuration drift.
+ */
+@added(Versions.v2026_03_15_preview)
+model VolumeSyncClusterVolumeJobProperties extends ClusterVolumeJobProperties {
+  /** Job type. */
+  jobType: ClusterVolumeJobType.VolumeSync;
+}
+
+/**
+ * Properties for applying the desired configuration to the cluster volume.
+ */
+@added(Versions.v2026_03_15_preview)
+model ApplyVolumeConfigurationClusterVolumeJobProperties
+  extends ClusterVolumeJobProperties {
+  /** Job type. */
+  jobType: ClusterVolumeJobType.ApplyVolumeConfiguration;
+
+  /** The desired cluster volume configuration to apply. */
+  targetConfiguration: ClusterVolumeConfiguration;
+}
+
+/**
+ * Reported properties for the Cluster Volume Job.
+ */
+@added(Versions.v2026_03_15_preview)
+model ClusterVolumeJobReportedProperties {
+  /**
+   * The percentage of the job that is complete.
+   */
+  @visibility(Lifecycle.Read)
+  percentComplete?: int32;
+}
+
+/** Represents an available update for an edge machine. */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineUpdateInfo {
+  /** The VSR version of the update. */
+  vsrVersion: string;
+
+  /** The display name of the update. */
+  displayName?: string;
+
+  /** Link to the release notes for this update. */
+  releaseNotesLink?: string;
+
+  /** Total size of the update in bytes. */
+  totalSizeBytes?: int64;
+
+  /** Indicates whether a reboot is required after installing this update. */
+  rebootRequired?: boolean;
+
+  /** Estimated time in minutes to install this update. */
+  estimatedInstallTimeMinutes?: int32;
+
+  /** The type of update (e.g., FullImage). */
+  updateType?: string;
+
+  /** The Arc agent version included in this update. */
+  arcAgentVersion?: string;
+}
+
+/** Properties for EdgeMachineUpdate resource. */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineUpdateProperties {
+  /** The solution type for the available updates. */
+  solutionType?: ProvisioningOsType;
+
+  /** The list of available updates. */
+  @identifiers(#[])
+  values: EdgeMachineUpdateInfo[];
+
+  /**
+   * Provisioning state of the updates resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+////////////////////////////////////////////////////////////////
+////// EdgeMachineSecuritySettings Models /////////////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Properties of an Edge Machine Security Settings resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineSecurityProperties {
+  /**
+   * The provisioning state of the resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Compliance status values synchronized from Guest Configuration.
+   */
+  @visibility(Lifecycle.Read)
+  securityComplianceStatus?: EdgeMachineSecurityComplianceStatus;
+
+  /**
+   * First synchronization timestamp in UTC.
+   */
+  @visibility(Lifecycle.Read)
+  registrationTimestamp?: utcDateTime;
+
+  /**
+   * Most recent synchronization timestamp in UTC.
+   */
+  @visibility(Lifecycle.Read)
+  lastSyncTimestamp?: utcDateTime;
+}
+
+/**
+ * Compliance status payload for edge machine security settings.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineSecurityComplianceStatus {
+  /**
+   * FIPS compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  fipsStatus?: ComplianceStatus;
+
+  /**
+   * Secure Boot compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  secureBootStatus?: ComplianceStatus;
+
+  /**
+   * Encryption at rest compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  encryptionAtRestStatus?: ComplianceStatus;
+
+  /**
+   * SELinux policy compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  seLinuxPolicyStatus?: ComplianceStatus;
+
+  /**
+   * Security baseline compliance status.
+   */
+  @visibility(Lifecycle.Read)
+  securityBaselineStatus?: ComplianceStatus;
+}
+
+////////////////////////////////////////////////////////////////
+//////// PRIVATE PREVIEW - Capacity Settings Models ////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Properties of the Capacity Settings singleton child resource. Capacity Settings
+ * is hydrated by the service during cluster deployment and surfaces the applied
+ * capacity policy plus the latest reported capacity snapshot collated from cluster
+ * services and edge machines.
+ */
+@added(Versions.v2026_03_15_preview)
+model CapacitySettingProperties {
+  /**
+   * Placement settings currently applied to capacity calculations. Service-hydrated
+   * during cluster deployment and updatable through PATCH for Day N edits.
+   */
+  appliedPolicy?: AppliedCapacityPolicy;
+
+  /**
+   * The latest aggregate capacity snapshot reported by the cluster, with effective
+   * availability already adjusted by the applied policy. Read-only.
+   */
+  @visibility(Lifecycle.Read)
+  reportedCapacity?: ReportedCapacitySnapshot;
+
+  /**
+   * Provisioning state of the Capacity Settings resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Last time the top-level Capacity Settings projection was refreshed by the service.
+   */
+  @visibility(Lifecycle.Read)
+  lastUpdated?: utcDateTime;
+}
+
+/**
+ * Cluster-wide placement policy used by capacity calculations. Day Zero values are
+ * hydrated from Deployment Settings; missing values are filled in with service defaults.
+ * Day N updates use PATCH on the Capacity Settings singleton.
+ */
+@added(Versions.v2026_03_15_preview)
+model AppliedCapacityPolicy {
+  /**
+   * Cluster-wide CPU overcommit ratio used to calculate effective vCPU capacity. Default: 1.0.
+   */
+  @minValue(1.0)
+  cpuOvercommitRatio?: float32;
+
+  /**
+   * Cluster-wide system reservation ratio that holds back a fraction of effective
+   * capacity for platform and system overhead. Default: 0.05.
+   */
+  @minValue(0.05)
+  systemReservationRatio?: float32;
+
+  /**
+   * Number of failure domains to reserve for n+1/n+2 style placement planning. Default: 0.
+   */
+  @minValue(0)
+  failureDomainReservationCount?: int32;
+
+  /**
+   * Explicit node names or machine references held back from placement for upgrade or
+   * maintenance. Empty by default.
+   */
+  reservedNodes?: string[];
+}
+
+/**
+ * Aggregate, placement-oriented capacity snapshot reported by the cluster. All
+ * properties are read-only and reflect the latest service-collated view.
+ */
+@added(Versions.v2026_03_15_preview)
+model ReportedCapacitySnapshot {
+  /**
+   * Last time the aggregate snapshot was updated.
+   */
+  @visibility(Lifecycle.Read)
+  lastUpdated?: utcDateTime;
+
+  /**
+   * Storage capacity aggregated from eligible user Cluster Volume resources.
+   * Infrastructure volumes are excluded.
+   */
+  @visibility(Lifecycle.Read)
+  storage?: CapacityStorageSnapshot;
+
+  /**
+   * CPU capacity summary including P-core, L-core, policy-adjusted vCPU, and consumption.
+   */
+  @visibility(Lifecycle.Read)
+  cpu?: CapacityCpuSnapshot;
+
+  /**
+   * Memory capacity summary including supply, allocation, and policy reservation.
+   */
+  @visibility(Lifecycle.Read)
+  memory?: CapacityMemorySnapshot;
+
+  /**
+   * GPU capacity summary including device, mode, partition, and assignment data.
+   */
+  @visibility(Lifecycle.Read)
+  gpu?: CapacityGpuSnapshot;
+
+  /**
+   * Workload networking capacity summary covering workload logical networks and
+   * static IP address pools. Infrastructure logical networks are excluded.
+   */
+  @visibility(Lifecycle.Read)
+  networking?: CapacityNetworkingSnapshot;
+
+  /**
+   * Per-machine capacity breakdown for cluster nodes. Upper-layer placement systems
+   * should use this list, with workload-specific constraints, to evaluate VM fit.
+   */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["machineName"])
+  machines?: CapacityMachineSnapshot[];
+
+  /**
+   * Placement-relevant workload allocation records collated from EdgeMachine
+   * workload inventory across the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["workloadId"])
+  workloads?: CapacityWorkloadConsumption[];
+}
+
+/**
+ * Cluster-wide storage capacity aggregate derived from eligible user volumes
+ * projected by the Cluster Volume resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model CapacityStorageSnapshot {
+  /**
+   * Sum of reportedProperties.sizeInBytes across user volumes.
+   */
+  @visibility(Lifecycle.Read)
+  totalBytes?: int64;
+
+  /**
+   * Sum of sizeInBytes minus sizeRemainingInBytes across user volumes.
+   */
+  @visibility(Lifecycle.Read)
+  consumedBytes?: int64;
+
+  /**
+   * Sum of reportedProperties.sizeRemainingInBytes across user volumes.
+   */
+  @visibility(Lifecycle.Read)
+  effectiveAvailableBytes?: int64;
+
+  /**
+   * Last storage update time.
+   */
+  @visibility(Lifecycle.Read)
+  lastUpdated?: utcDateTime;
+}
+
+/**
+ * Cluster-wide CPU capacity summary. Useful for fleet reporting and coarse filtering;
+ * not a single-workload fit signal. Final placement must evaluate machines[] with
+ * workload-specific constraints.
+ */
+@added(Versions.v2026_03_15_preview)
+model CapacityCpuSnapshot {
+  /**
+   * Physical CPU core count (P-core count) aggregated across cluster machines.
+   */
+  @visibility(Lifecycle.Read)
+  physicalCoreCount?: int32;
+
+  /**
+   * Logical CPU core count (L-core count) aggregated across cluster machines.
+   */
+  @visibility(Lifecycle.Read)
+  logicalCoreCount?: int32;
+
+  /**
+   * Processor package count aggregated across cluster machines.
+   */
+  @visibility(Lifecycle.Read)
+  processorCount?: int32;
+
+  /**
+   * CPU socket count aggregated across cluster machines.
+   */
+  @visibility(Lifecycle.Read)
+  socketCount?: int32;
+
+  /**
+   * Effective cluster policy value mirrored from appliedPolicy.cpuOvercommitRatio.
+   */
+  @visibility(Lifecycle.Read)
+  cpuOvercommitRatio?: float32;
+
+  /**
+   * Total cluster vCPU supply after applying cpuOvercommitRatio, before allocation
+   * and reservation. For v1 this is calculated from logicalCoreCount * cpuOvercommitRatio.
+   */
+  @visibility(Lifecycle.Read)
+  totalEffectiveVirtualCpuCapacity?: int32;
+
+  /**
+   * vCPU already allocated to workloads. This is not runtime CPU utilization.
+   */
+  @visibility(Lifecycle.Read)
+  workloadAllocatedVirtualCpu?: int32;
+
+  /**
+   * vCPU withheld by reserved nodes, failure-domain reservation policy, upgrade, or
+   * maintenance policy.
+   */
+  @visibility(Lifecycle.Read)
+  policyReservedVirtualCpu?: int32;
+
+  /**
+   * vCPU reserved at the machine level for the host OS and Azure Local platform
+   * services before workload allocation and policy reservation.
+   */
+  @visibility(Lifecycle.Read)
+  systemReservedVirtualCpu?: int64;
+
+  /**
+   * Total remaining vCPU across nodes, derived from node-level availability after
+   * machine-level system reserve, workload allocation, and policy reservation. This
+   * is a summed value and must not be treated as the largest VM that can fit.
+   */
+  @visibility(Lifecycle.Read)
+  aggregateAvailableVirtualCpu?: int32;
+
+  /**
+   * Last CPU inventory or consumption update.
+   */
+  @visibility(Lifecycle.Read)
+  lastUpdated?: utcDateTime;
+}
+
+/**
+ * Cluster-wide memory capacity summary. Useful for reporting and coarse filtering;
+ * not a single-workload fit guarantee.
+ */
+@added(Versions.v2026_03_15_preview)
+model CapacityMemorySnapshot {
+  /**
+   * Total memory across cluster machines, in bytes.
+   */
+  @visibility(Lifecycle.Read)
+  totalBytes?: int64;
+
+  /**
+   * Memory allocated to workloads across the cluster. This is not runtime memory pressure.
+   */
+  @visibility(Lifecycle.Read)
+  workloadAllocatedBytes?: int64;
+
+  /**
+   * Memory withheld for host OS, Azure Local platform services, reserved nodes,
+   * failure-domain reservation policy, upgrade, or maintenance policy.
+   */
+  @visibility(Lifecycle.Read)
+  policyReservedBytes?: int64;
+
+  /**
+   * Memory reserved at the machine level for the host OS and Azure Local platform
+   * services before workload allocation as well as policy reservation, in bytes.
+   */
+  @visibility(Lifecycle.Read)
+  systemReservedBytes?: int64;
+
+  /**
+   * Total remaining memory across nodes after workload allocation and
+   * policy/platform reservation. Summed value; not a per-node fit guarantee.
+   */
+  @visibility(Lifecycle.Read)
+  aggregateAvailableBytes?: int64;
+
+  /**
+   * Last memory update time.
+   */
+  @visibility(Lifecycle.Read)
+  lastUpdated?: utcDateTime;
+}
+
+/**
+ * Cluster-wide GPU capacity summary. Per-GPU details remain available through the
+ * EdgeMachineGpu resource tree.
+ */
+@added(Versions.v2026_03_15_preview)
+model CapacityGpuSnapshot {
+  /**
+   * Total GPU resources discovered across edge machines.
+   */
+  @visibility(Lifecycle.Read)
+  totalGpuCount?: int32;
+
+  /**
+   * Count of GPUs where assignable is true.
+   */
+  @visibility(Lifecycle.Read)
+  assignableGpuCount?: int32;
+
+  /**
+   * Count of GPUs assigned in DDA mode or otherwise consumed by workloads.
+   */
+  @visibility(Lifecycle.Read)
+  consumedGpuCount?: int32;
+
+  /**
+   * Sum of GPU-P partitionDetails.totalPartitions across GPUs in partitioned mode.
+   */
+  @visibility(Lifecycle.Read)
+  totalPartitionCount?: int32;
+
+  /**
+   * Sum of GPU-P partitionDetails.assignedPartitions across GPUs in partitioned mode.
+   */
+  @visibility(Lifecycle.Read)
+  consumedPartitionCount?: int32;
+
+  /**
+   * GPU-P partitions available for placement after assignments and reservation policy.
+   */
+  @visibility(Lifecycle.Read)
+  effectiveAvailablePartitionCount?: int32;
+
+  /**
+   * Last GPU inventory update time.
+   */
+  @visibility(Lifecycle.Read)
+  lastUpdated?: utcDateTime;
+}
+
+/**
+ * Cluster-wide workload networking capacity summary. Represents workload logical
+ * networks and the static IP address pools VMs can attach to. Infrastructure logical
+ * networks are excluded.
+ */
+@added(Versions.v2026_03_15_preview)
+model CapacityNetworkingSnapshot {
+  /**
+   * Count of workload logical networks known to the cluster. Infrastructure logical
+   * networks are excluded.
+   */
+  @visibility(Lifecycle.Read)
+  totalLogicalNetworkCount?: int32;
+
+  /**
+   * Count of workload logical networks that can accept new VM network interfaces.
+   * For static IP networks, this requires at least one available static IP address.
+   */
+  @visibility(Lifecycle.Read)
+  availableLogicalNetworkCount?: int32;
+
+  /**
+   * Count of workload logical networks using static IP address pools.
+   */
+  @visibility(Lifecycle.Read)
+  staticLogicalNetworkCount?: int32;
+
+  /**
+   * Count of workload logical networks using DHCP address assignment. DHCP IP pool
+   * capacity is not calculated in v1.
+   */
+  @visibility(Lifecycle.Read)
+  dhcpLogicalNetworkCount?: int32;
+
+  /**
+   * Total allocatable static IP addresses across workload logical network IP pools.
+   */
+  @visibility(Lifecycle.Read)
+  totalStaticIpAddressCount?: int32;
+
+  /**
+   * Static IP addresses already assigned or reserved for VM network interfaces across
+   * workload logical networks.
+   */
+  @visibility(Lifecycle.Read)
+  allocatedStaticIpAddressCount?: int32;
+
+  /**
+   * Remaining allocatable static IP addresses across workload logical networks after
+   * assignments and reservations.
+   */
+  @visibility(Lifecycle.Read)
+  effectiveAvailableStaticIpAddressCount?: int32;
+
+  /**
+   * Last logical network or IP pool capacity update time.
+   */
+  @visibility(Lifecycle.Read)
+  lastUpdated?: utcDateTime;
+}
+
+/**
+ * Per-machine capacity breakdown. Includes identifiers, node state, connectivity, and
+ * the CPU, memory, and GPU facts upper-layer placement systems need for fit-aware
+ * decisions.
+ */
+@added(Versions.v2026_03_15_preview)
+model CapacityMachineSnapshot {
+  /**
+   * Cluster node name as reported by Arc (properties.displayName).
+   */
+  @visibility(Lifecycle.Read)
+  machineName?: string;
+
+  /**
+   * ARM resource ID of the corresponding EdgeMachine resource when available.
+   */
+  @visibility(Lifecycle.Read)
+  edgeMachineResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.AzureStackHCI/edgeMachines";
+    }
+  ]>;
+
+  /**
+   * ARM resource ID of the corresponding Arc for Server machine resource when available.
+   */
+  @visibility(Lifecycle.Read)
+  arcMachineResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.HybridCompute/machines";
+    }
+  ]>;
+
+  /**
+   * Cluster-perspective state of the machine, such as whether it is active, reserved,
+   * draining, or excluded from placement.
+   */
+  @visibility(Lifecycle.Read)
+  machineState?: CapacityMachineState;
+
+  /**
+   * Connectivity status reported by Arc for the underlying machine.
+   */
+  @visibility(Lifecycle.Read)
+  connectivityStatus?: CapacityMachineConnectivityStatus;
+
+  /**
+   * Node-local CPU capacity breakdown.
+   */
+  @visibility(Lifecycle.Read)
+  cpu?: MachineCpuCapacity;
+
+  /**
+   * Node-local memory capacity breakdown.
+   */
+  @visibility(Lifecycle.Read)
+  memory?: MachineMemoryCapacity;
+
+  /**
+   * Node-local GPU capacity breakdown.
+   */
+  @visibility(Lifecycle.Read)
+  gpu?: MachineGpuCapacity;
+}
+
+/**
+ * Cluster-perspective state of a machine for capacity and placement.
+ */
+@added(Versions.v2026_03_15_preview)
+union CapacityMachineState {
+  string,
+
+  /** The machine is an active placement target. */
+  Active: "Active",
+
+  /** The machine is explicitly reserved (for example, listed in appliedPolicy.reservedNodes). */
+  Reserved: "Reserved",
+
+  /** The machine is being drained for maintenance or upgrade. */
+  Draining: "Draining",
+
+  /** The machine is in maintenance and not a placement target. */
+  Maintenance: "Maintenance",
+
+  /** The machine is excluded from placement for another reason. */
+  Excluded: "Excluded",
+
+  /** The machine is in an unknown state. */
+  Unknown: "Unknown",
+}
+
+/**
+ * Connectivity status reported by Arc for a cluster machine.
+ */
+@added(Versions.v2026_03_15_preview)
+union CapacityMachineConnectivityStatus {
+  string,
+
+  /** The machine is connected to Arc. */
+  Connected: "Connected",
+
+  /** The machine is disconnected from Arc. */
+  Disconnected: "Disconnected",
+
+  /** The machine has expired Arc credentials. */
+  Expired: "Expired",
+
+  /** The connectivity status is unknown. */
+  Unknown: "Unknown",
+}
+
+/**
+ * Node-local CPU capacity values used for fit-aware placement. CPU overcommit
+ * remains a cluster-level policy and is not exposed per machine; effective vCPU
+ * values here already reflect that policy.
+ */
+@added(Versions.v2026_03_15_preview)
+model MachineCpuCapacity {
+  /**
+   * Physical CPU core count on the machine.
+   */
+  @visibility(Lifecycle.Read)
+  physicalCoreCount?: int32;
+
+  /**
+   * Logical CPU core count on the machine.
+   */
+  @visibility(Lifecycle.Read)
+  logicalCoreCount?: int32;
+
+  /**
+   * Processor package count on the machine.
+   */
+  @visibility(Lifecycle.Read)
+  processorCount?: int32;
+
+  /**
+   * CPU socket count on the machine.
+   */
+  @visibility(Lifecycle.Read)
+  socketCount?: int32;
+
+  /**
+   * Node-local vCPU supply after applying the cluster-level CPU overcommit policy.
+   */
+  @visibility(Lifecycle.Read)
+  effectiveVirtualCpuCapacity?: int32;
+
+  /**
+   * Service-computed vCPU-equivalent host and platform reserve on this machine. The
+   * initial implementation may compute this as a percentage of the machine's effective
+   * vCPU capacity; later implementations can replace the rule with CPU model-aware
+   * calculation while preserving this field.
+   */
+  @visibility(Lifecycle.Read)
+  systemReservedVirtualCpu?: int32;
+
+  /**
+   * vCPU already allocated to workloads on this machine.
+   */
+  @visibility(Lifecycle.Read)
+  workloadAllocatedVirtualCpu?: int32;
+
+  /**
+   * vCPU withheld from this machine because the node or its failure domain is reserved.
+   */
+  @visibility(Lifecycle.Read)
+  policyReservedVirtualCpu?: int32;
+
+  /**
+   * Node-local vCPU available for placement after system reserve, workload allocation,
+   * and policy reservation. Upper-layer systems should use this value with memory and
+   * other constraints to evaluate VM fit.
+   */
+  @visibility(Lifecycle.Read)
+  availableVirtualCpu?: int32;
+}
+
+/**
+ * Node-local memory capacity values used for fit-aware placement.
+ */
+@added(Versions.v2026_03_15_preview)
+model MachineMemoryCapacity {
+  /**
+   * Total memory on the machine, in bytes.
+   */
+  @visibility(Lifecycle.Read)
+  totalBytes?: int64;
+
+  /**
+   * Memory withheld for host OS and Azure Local platform services on this machine.
+   */
+  @visibility(Lifecycle.Read)
+  systemReservedBytes?: int64;
+
+  /**
+   * Memory allocated to workloads on this machine.
+   */
+  @visibility(Lifecycle.Read)
+  workloadAllocatedBytes?: int64;
+
+  /**
+   * Memory withheld from this machine because the node or its failure domain is reserved.
+   */
+  @visibility(Lifecycle.Read)
+  policyReservedBytes?: int64;
+
+  /**
+   * Node-local memory available for placement after system reserve, workload allocation,
+   * and policy reservation.
+   */
+  @visibility(Lifecycle.Read)
+  availableBytes?: int64;
+}
+
+/**
+ * Node-local GPU capacity values used for placement. Per-GPU details remain available
+ * through the EdgeMachineGpu resource tree under each machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model MachineGpuCapacity {
+  /**
+   * Total GPUs on this machine.
+   */
+  @visibility(Lifecycle.Read)
+  totalGpuCount?: int32;
+
+  /**
+   * Count of GPUs on this machine where properties.assignable is true.
+   */
+  @visibility(Lifecycle.Read)
+  assignableGpuCount?: int32;
+
+  /**
+   * Count of GPUs on this machine assigned in DDA mode or otherwise consumed by workloads.
+   */
+  @visibility(Lifecycle.Read)
+  consumedGpuCount?: int32;
+
+  /**
+   * Sum of GPU-P partitionDetails.totalPartitions across GPUs on this machine in
+   * partitioned mode.
+   */
+  @visibility(Lifecycle.Read)
+  totalPartitionCount?: int32;
+
+  /**
+   * Sum of GPU-P partitionDetails.assignedPartitions across GPUs on this machine in
+   * partitioned mode.
+   */
+  @visibility(Lifecycle.Read)
+  consumedPartitionCount?: int32;
+
+  /**
+   * GPU-P partitions available for placement on this machine after assignments and
+   * reservation policy.
+   */
+  @visibility(Lifecycle.Read)
+  effectiveAvailablePartitionCount?: int32;
+}
+
+/**
+ * Placement-relevant workload allocation record, collated from EdgeMachine workload
+ * inventory reported by the device management extension. For v1 this is intentionally
+ * VM-shaped and does not distinguish between standalone Hyper-V VMs, Azure-created VMs,
+ * or VMs that back AKS nodes.
+ */
+@added(Versions.v2026_03_15_preview)
+model CapacityWorkloadConsumption {
+  /**
+   * Stable device-reported workload identifier, such as the Hyper-V VM ID when available.
+   */
+  @visibility(Lifecycle.Read)
+  workloadId?: string;
+
+  /**
+   * Hyper-V VM name reported by the node.
+   */
+  @visibility(Lifecycle.Read)
+  workloadName?: string;
+
+  /**
+   * Optional ARM resource ID when the service can map the local VM to an ARM resource.
+   */
+  @visibility(Lifecycle.Read)
+  resourceId?: Azure.Core.armResourceIdentifier;
+
+  /**
+   * Workload type. For v1 this should be VirtualMachine.
+   */
+  @visibility(Lifecycle.Read)
+  workloadType?: string;
+
+  /**
+   * Cluster node name that currently hosts the workload.
+   */
+  @visibility(Lifecycle.Read)
+  machineName?: string;
+
+  /**
+   * Hyper-V VM state reported by the node.
+   */
+  @visibility(Lifecycle.Read)
+  workloadState?: string;
+
+  /**
+   * Configured virtual processor count from Hyper-V used for vCPU allocation accounting.
+   */
+  @visibility(Lifecycle.Read)
+  virtualCpu?: int32;
+
+  /**
+   * Maximum memory the VM can consume, in bytes, used for memory allocation accounting.
+   * For a dynamic memory VM this is the Hyper-V maximum memory value; for a fixed
+   * memory VM this is the configured startup memory.
+   */
+  @visibility(Lifecycle.Read)
+  memoryBytes?: int64;
+}
+
+/**
+ * Patch shape for Day N edits to Capacity Settings. Only appliedPolicy fields are
+ * updatable; reportedCapacity, provisioningState, and lastUpdated remain service-owned.
+ */
+@added(Versions.v2026_03_15_preview)
+model CapacitySettingPatch {
+  /**
+   * The patchable properties of the Capacity Settings resource.
+   */
+  properties?: CapacitySettingPatchProperties;
+}
+
+/**
+ * Patchable properties of the Capacity Settings resource for Day N edits.
+ */
+@added(Versions.v2026_03_15_preview)
+model CapacitySettingPatchProperties {
+  /**
+   * Updated placement policy to apply to capacity calculations.
+   */
+  appliedPolicy?: AppliedCapacityPolicy;
+}
+
+////////////////////////////////////////////////////////////////
+///// PRIVATE PREVIEW - Edge Machine Proxy Configuration Models ////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Properties of a proxy configuration resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProxyConfigurationProperties {
+  /**
+   * The intended proxy configuration as set from the cloud.
+   * Updated at Apply job creation time. Seeded from webProxy in
+   * TargetDeviceConfiguration when the EdgeMachine first reaches Purposed.
+   */
+  @visibility(Lifecycle.Read)
+  desiredConfiguration?: ProxyConfigurationDetail;
+
+  /**
+   * The actual proxy configuration last reported by the device via the RP data path.
+   */
+  @visibility(Lifecycle.Read)
+  reportedConfiguration?: ProxyConfigurationReportedDetail;
+
+  /**
+   * Indicates whether desiredConfiguration and reportedConfiguration are in sync.
+   */
+  @visibility(Lifecycle.Read)
+  configurationState?: ProxyConfigurationState;
+
+  /** Provisioning state of the proxy configuration resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/**
+ * The desired proxy configuration set from the cloud.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProxyConfigurationDetail {
+  /** Connection URI of the proxy server (e.g., 'http://proxy.contoso.com'). Required when isEnabled is true. */
+  connectionUri?: string;
+
+  /** Port number of the proxy server. Required when isEnabled is true. */
+  port?: string;
+
+  /** List of addresses or patterns that should bypass the proxy. */
+  bypassList?: string[];
+
+  /** Whether the proxy should be active on the device. */
+  isEnabled?: boolean;
+}
+
+/**
+ * The actual proxy configuration as last reported by the device.
+ * Written by the RP data path; read-only for customers.
+ */
+@added(Versions.v2026_03_15_preview)
+model ProxyConfigurationReportedDetail {
+  /** Connection URI as reported by the device. */
+  @visibility(Lifecycle.Read)
+  connectionUri?: string;
+
+  /** Port number as reported by the device. */
+  @visibility(Lifecycle.Read)
+  port?: string;
+
+  /** Bypass list as reported by the device. */
+  @visibility(Lifecycle.Read)
+  bypassList?: string[];
+
+  /** Whether the proxy is currently active on the device, as reported. */
+  @visibility(Lifecycle.Read)
+  isEnabled?: boolean;
+
+  /** UTC timestamp of the last device report received by the RP. */
+  @visibility(Lifecycle.Read)
+  lastReportedTimestamp?: utcDateTime;
+}
+
+/**
+ * Indicates whether the desired and reported proxy configurations are in sync.
+ */
+@added(Versions.v2026_03_15_preview)
+union ProxyConfigurationState {
+  string,
+
+  /** Desired and reported configurations match. */
+  InSync: "InSync",
+
+  /** Desired and reported configurations diverge. A Sync job must be submitted before a new Apply job is accepted. */
+  Drifted: "Drifted",
+}
+
+////////////////////////////////////////////////////////////////
+// PRIVATE PREVIEW - Proxy Configuration Job Models ////////////
+////////////////////////////////////////////////////////////////
+
+/**
+ * Base properties for a proxy configuration job.
+ */
+@added(Versions.v2026_03_15_preview)
+@discriminator("jobType")
+model ProxyConfigurationJobProperties {
+  /** Type of proxy configuration job. Determines the polymorphic subtype. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  jobType: ProxyConfigurationJobType;
+
+  /** Provisioning state of the proxy configuration job resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /** Unique, immutable job identifier. */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /** UTC time at which the job started. */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /** UTC time at which the job completed. */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /** Status of the job. */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+
+  /** Error details. */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+}
+
+/**
+ * Type of proxy configuration job.
+ */
+@added(Versions.v2026_03_15_preview)
+union ProxyConfigurationJobType {
+  string,
+
+  /** Push a new proxy configuration to the device. Updates desiredConfiguration on the proxy resource at job creation time. Rejected if configurationState is Drifted or if a ConfigureNetworking, ProvisionOs, or DownloadOs EdgeMachine job is in-flight. */
+  Apply: "Apply",
+
+  /** Reconcile a configuration drift. Does not require a clean configurationState — this is the intended remediation path. Sub-typed by syncDirection. */
+  Sync: "Sync",
+}
+
+/**
+ * Properties for an Apply job that pushes a new proxy configuration to the device.
+ */
+@added(Versions.v2026_03_15_preview)
+model ApplyProxyConfigurationJobProperties
+  extends ProxyConfigurationJobProperties {
+  /** Type of proxy configuration job. */
+  jobType: ProxyConfigurationJobType.Apply;
+
+  /** Whether to enable or disable the proxy on the device. When false, the proxy is disabled on the device but connectionUri and port are preserved in desiredConfiguration. */
+  isEnabled: boolean;
+
+  /** Connection URI of the proxy server. Required when isEnabled is true. */
+  connectionUri?: string;
+
+  /** Port number of the proxy server. Required when isEnabled is true. */
+  port?: string;
+
+  /** List of addresses or patterns that should bypass the proxy. */
+  bypassList?: string[];
+}
+
+/**
+ * Properties for a Sync job that reconciles configuration drift.
+ */
+@added(Versions.v2026_03_15_preview)
+model SyncProxyConfigurationJobProperties
+  extends ProxyConfigurationJobProperties {
+  /** Type of proxy configuration job. */
+  jobType: ProxyConfigurationJobType.Sync;
+
+  /** Direction of the sync operation. */
+  syncDirection: ProxySyncDirection;
+}
+
+/**
+ * Direction of a proxy configuration sync operation.
+ */
+@added(Versions.v2026_03_15_preview)
+union ProxySyncDirection {
+  string,
+
+  /** Re-push the current desiredConfiguration to the device. Use to recover after a failed Apply or to override an unwanted local device change. */
+  SyncToDevice: "SyncToDevice",
+
+  /** Copy reportedConfiguration into desiredConfiguration. Use to acknowledge and canonicalize a locally-made change on the device, clearing the Drifted state. */
+  AcceptReported: "AcceptReported",
+}
+
+////////////////////////////////////////////////////////////////
+////////// PRIVATE PREVIEW - Edge Machine Deployment Setting ///
+////////////////////////////////////////////////////////////////
+
+/**
+ * The properties of an Edge Machine Deployment Setting.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineDeploymentSettingProperties {
+  /**
+   * The provisioning state of the deployment setting resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /**
+   * Scale units will contain the list of deployment data for the edge machine.
+   */
+  deploymentConfiguration: EdgeMachineDeploymentConfiguration;
+
+  /**
+   * Deployment status reported from the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: EceReportedProperties;
+}
+
+/**
+ * Edge Machine Deployment Configuration
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineDeploymentConfiguration {
+  /**
+   * Deployment template version.
+   */
+  version?: string;
+
+  /**
+   * Scale units will contain the list of deployment data.
+   */
+  @identifiers(#[])
+  scaleUnits: EdgeMachineScaleUnits[];
+}
+
+/**
+ * Scale units will contain the list of deployment data.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineScaleUnits {
+  /**
+   * Deployment data to configure the edge machine.
+   */
+  deploymentData: EdgeMachineDeploymentData;
+}
+
+/**
+ * The deployment data of an edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineDeploymentData {
+  /**
+   * Storage type for the edge machine node.
+   */
+  storageType?: NodeStorageType;
+
+  /**
+   * iSCSI configuration for the edge machine.
+   */
+  iScsiConfig?: IscsiConfig;
+
+  /**
+   * Protected parameters (secret references) stored in Key Vault and applied
+   * during edge machine node preparation, for example iSCSI CHAP credentials.
+   */
+  @identifiers(#[])
+  secrets?: EceDeploymentSecrets[];
+}
+
+/**
+ * Node storage type for an edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+union NodeStorageType {
+  string,
+
+  /** Storage Spaces Direct (S2D) storage type. */
+  S2D: "S2D",
+
+  /** SAN iSCSI storage type. */
+  SanIscsi: "SANISCSI",
+
+  /** SAN Fibre Channel storage type. */
+  SanFc: "SANFC",
+}
+
+/**
+ * iSCSI configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model IscsiConfig {
+  /**
+   * iSCSI network configuration including adapter properties and per-adapter IP configuration.
+   */
+  iScsiNetworkConfig?: IscsiNetworkConfig;
+
+  /**
+   * CHAP authentication settings used when connecting to the iSCSI target portals.
+   */
+  chapSettings?: IscsiChapSettings;
+
+  /**
+   * iSCSI Qualified Name (IQN) of the initiator.
+   */
+  initiatorIqn?: string;
+}
+
+/**
+ * iSCSI network configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model IscsiNetworkConfig {
+  /**
+   * Common adapter properties applied to all iSCSI network adapters.
+   */
+  adapterProperties?: IscsiAdapterProperties;
+
+  /**
+   * Per-adapter IP configuration for the iSCSI network adapters.
+   */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "Property name matches the iSCSI network configuration wire format."
+  @identifiers(#["networkAdapterName"])
+  adapterIPConfig?: IscsiAdapterIPConfig[];
+}
+
+/**
+ * Common properties applied to iSCSI network adapters.
+ */
+@added(Versions.v2026_03_15_preview)
+model IscsiAdapterProperties {
+  /**
+   * 802.1p priority value for iSCSI traffic.
+   */
+  priorityValue8021ActionIscsi?: int32;
+
+  /**
+   * iSCSI bandwidth percentage.
+   */
+  bandwidthPercentageIscsi?: int32;
+
+  /**
+   * Jumbo frame size in bytes.
+   */
+  jumboPacket?: int32;
+}
+
+/**
+ * IP configuration for a single iSCSI network adapter.
+ */
+@added(Versions.v2026_03_15_preview)
+model IscsiAdapterIPConfig {
+  /**
+   * Name of the iSCSI network adapter.
+   */
+  networkAdapterName?: string;
+
+  /**
+   * VLAN ID associated with the iSCSI network adapter.
+   */
+  vlanId?: int32;
+
+  /**
+   * Address prefix (CIDR notation) for the iSCSI network adapter.
+   */
+  addressPrefix?: string;
+
+  /**
+   * Target portal addresses reachable through this iSCSI network adapter.
+   */
+  @identifiers(#["ipAddress"])
+  targetPortalAddresses?: IscsiTargetPortalAddress[];
+}
+
+/**
+ * iSCSI target portal address.
+ */
+@added(Versions.v2026_03_15_preview)
+model IscsiTargetPortalAddress {
+  /**
+   * IP address of the iSCSI target portal.
+   */
+  ipAddress?: string;
+
+  /**
+   * Next hop (gateway) IP address used to reach the target portal.
+   */
+  nextHop?: string;
+}
+
+/**
+ * CHAP authentication settings for an iSCSI connection. The CHAP credentials
+ * (username and secret) are referenced via the deployment data secrets
+ * (Key Vault) using the chapCredential and mutualChapCredential secret names,
+ * not carried inline.
+ */
+@added(Versions.v2026_03_15_preview)
+model IscsiChapSettings {
+  /**
+   * The CHAP authentication mode to use for the iSCSI connection.
+   */
+  chapType?: IscsiChapType;
+}
+
+/**
+ * The CHAP authentication mode for an iSCSI connection.
+ */
+@added(Versions.v2026_03_15_preview)
+union IscsiChapType {
+  string,
+
+  /** No CHAP authentication is used. */
+  NoChap: "NoChap",
+
+  /** One-way CHAP: the target authenticates the initiator. */
+  OneWay: "OneWay",
+
+  /** Bidirectional (mutual) CHAP: initiator and target authenticate each other. */
+  Bidirectional: "Bidirectional",
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////// PRIVATE PREVIEW - Storage Arrays subtree (read-only) ////////////////
+////////////////////////////////////////////////////////////////////////////////
+//
+// Read-only ARM model for the `storageArrays` resource subtree, sourced from the
+// v20 storage design spec (docs/v20/01-Design-Spec.md).
+//
+// SCOPE: storageArrays (tracked root) + its proxy children storagePools,
+// volumeGroups, volumes, volumeMappings, consistencyGroups, replicationUnits,
+// replicationSessions, replicationPeerings, replicationPolicies.
+//
+// PRIVATE PREVIEW POLICY: for this preview EVERY property is emitted read-only
+// (`@visibility(Lifecycle.Read)`), regardless of the mutability documented in the
+// design spec. Controllers, FC ports, iSCSI targets, NVMe subsystems, physical
+// drives, storage jobs, and associated clusters are modeled as INLINE read-only
+// status sub-objects on StorageArray (not as separate child resources), matching
+// the design-spec prose. See storage-arrays-readonly-inventory.md for the full
+// documented-vs-preview visibility deviation record.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+// ─────────────────────────── Storage array enums ───────────────────────────
+
+/**
+ * The kind of storage backing a storage array. Determines whether the array is
+ * an external SAN or local Storage Spaces Direct (S2D) capacity.
+ */
+@added(Versions.v2026_03_15_preview)
+union ArrayType {
+  string,
+
+  /** External SAN array reached over FC, iSCSI, or NVMe-oF. */
+  SAN: "SAN",
+
+  /** Storage Spaces Direct — local, cluster-pooled storage. */
+  S2D: "S2D",
+}
+
+/**
+ * Storage array vendor. `Microsoft` denotes a Storage Spaces Direct (S2D) array.
+ */
+@added(Versions.v2026_03_15_preview)
+union StorageArrayVendor {
+  string,
+
+  /** Pure Storage FlashArray. */
+  PureStorage: "PureStorage",
+
+  /** Dell PowerStore. */
+  DellPowerStore: "DellPowerStore",
+
+  /** NetApp ONTAP. */
+  NetAppONTAP: "NetAppONTAP",
+
+  /** HPE Alletra Storage MP. */
+  HPEAlletra: "HPEAlletra",
+
+  /** Hitachi Vantara VSP. */
+  HitachiVSP: "HitachiVSP",
+
+  /** Microsoft Storage Spaces Direct (S2D). */
+  Microsoft: "Microsoft",
+}
+
+/**
+ * Transport protocol used to reach storage. Used for array capabilities, volume
+ * access, and host mappings. `Local` denotes S2D (no external transport).
+ */
+@added(Versions.v2026_03_15_preview)
+union StorageTransportType {
+  string,
+
+  /** Fibre Channel. */
+  FC: "FC",
+
+  /** Internet Small Computer Systems Interface. */
+  iSCSI: "iSCSI",
+
+  /** NVMe over Fabrics. */
+  NVMe: "NVMe",
+
+  /** Local storage (Storage Spaces Direct). */
+  Local: "Local",
+}
+
+/**
+ * Reachability of a storage array as reported by the storage controller (SC).
+ */
+@added(Versions.v2026_03_15_preview)
+union ConnectionStatus {
+  string,
+
+  /** Array is connected and responding. */
+  Connected: "Connected",
+
+  /** Array is not reachable. */
+  Disconnected: "Disconnected",
+
+  /** Array is partially available. */
+  Degraded: "Degraded",
+
+  /** Connection status could not be determined. */
+  Unknown: "Unknown",
+}
+
+/**
+ * Array-wide encryption-at-rest state.
+ */
+@added(Versions.v2026_03_15_preview)
+union EncryptionAtRestStatus {
+  string,
+
+  /** Encryption at rest is enabled on the array. */
+  Enabled: "Enabled",
+
+  /** Encryption at rest is disabled on the array. */
+  Disabled: "Disabled",
+
+  /** Encryption-at-rest state could not be determined. */
+  Unknown: "Unknown",
+}
+
+/**
+ * Operational status of a storage array controller.
+ */
+@added(Versions.v2026_03_15_preview)
+union ControllerStatus {
+  string,
+
+  /** Controller is online and operational. */
+  Online: "Online",
+
+  /** Controller is offline. */
+  Offline: "Offline",
+
+  /** Controller is in a degraded state. */
+  Degraded: "Degraded",
+
+  /** Controller is under maintenance. */
+  Maintenance: "Maintenance",
+}
+
+/**
+ * Role of a controller within the array.
+ */
+@added(Versions.v2026_03_15_preview)
+union ControllerRole {
+  string,
+
+  /** Primary controller. */
+  Primary: "Primary",
+
+  /** Secondary controller. */
+  Secondary: "Secondary",
+
+  /** Active-active controller pair. */
+  ActiveActive: "Active-Active",
+
+  /** Standby controller. */
+  Standby: "Standby",
+}
+
+/**
+ * Link state of a target port, portal, or subsystem endpoint.
+ */
+@added(Versions.v2026_03_15_preview)
+union PortState {
+  string,
+
+  /** Endpoint is online. */
+  Online: "Online",
+
+  /** Endpoint is offline. */
+  Offline: "Offline",
+
+  /** Endpoint is degraded. */
+  Degraded: "Degraded",
+}
+
+/**
+ * NVMe transport type for a subsystem or discovery portal.
+ */
+@added(Versions.v2026_03_15_preview)
+union NvmeTransportType {
+  string,
+
+  /** NVMe/TCP. */
+  TCP: "TCP",
+
+  /** NVMe over RDMA. */
+  RDMA: "RDMA",
+
+  /** NVMe over Fibre Channel. */
+  FC: "FC",
+}
+
+/**
+ * Usage classification of a physical drive in the pool (S2D).
+ */
+@added(Versions.v2026_03_15_preview)
+union DriveUsage {
+  string,
+
+  /** Usage is unknown or could not be determined. */
+  Unknown: "Unknown",
+
+  /** Drive is used for the storage cache tier (`SDDC_Drive.UsedFor` = `Cache`). */
+  Cache: "Cache",
+
+  /** Drive is used for the storage capacity tier (`SDDC_Drive.UsedFor` = `Capacity`). */
+  Capacity: "Capacity",
+}
+
+/**
+ * Type of an S2D background or user-triggered storage job.
+ */
+@added(Versions.v2026_03_15_preview)
+union StorageJobType {
+  string,
+
+  /** Automatic rebuild after drive failure or retirement. */
+  Regeneration: "Regeneration",
+
+  /** User-initiated repair on an unhealthy virtual disk. */
+  Repair: "Repair",
+
+  /** Pool rebalance after expansion. */
+  Optimize: "Optimize",
+
+  /** Background integrity scan (data scrubbing). */
+  Scrub: "Scrub",
+
+  /** SSD TRIM/unmap propagation. */
+  Retrim: "Retrim",
+}
+
+/**
+ * State of a storage background job.
+ */
+@added(Versions.v2026_03_15_preview)
+union StorageJobState {
+  string,
+
+  /** Job created but not yet started. */
+  New: "New",
+
+  /** Job is initializing. */
+  Starting: "Starting",
+
+  /** Job is actively running. */
+  Running: "Running",
+
+  /** Job is suspended and can be resumed. */
+  Suspended: "Suspended",
+
+  /** Job completed successfully. */
+  Completed: "Completed",
+
+  /** Job failed. */
+  Failed: "Failed",
+
+  /** Job was cancelled. */
+  Cancelled: "Cancelled",
+}
+
+/**
+ * Vendor pool concept represented by a storage pool.
+ */
+@added(Versions.v2026_03_15_preview)
+union PoolType {
+  string,
+
+  /** NetApp aggregate. */
+  Aggregate: "Aggregate",
+
+  /** HPE Common Provisioning Group. */
+  CPG: "CPG",
+
+  /** Hitachi Dynamic Provisioning pool. */
+  DPPool: "DPPool",
+
+  /** Dell or S2D storage pool. */
+  StoragePool: "StoragePool",
+
+  /** Pure Storage implicit default pool. */
+  Default: "Default",
+}
+
+/**
+ * State of a storage pool (SAN).
+ */
+@added(Versions.v2026_03_15_preview)
+union PoolState {
+  string,
+
+  /** Pool is online and available. */
+  Online: "Online",
+
+  /** Pool is offline. */
+  Offline: "Offline",
+
+  /** Pool is degraded. */
+  Degraded: "Degraded",
+}
+
+/**
+ * Health status of a storage pool (S2D).
+ */
+@added(Versions.v2026_03_15_preview)
+union PoolHealthStatus {
+  string,
+
+  /** Pool health is unknown or could not be determined. */
+  Unknown: "Unknown",
+
+  /** Pool is healthy. */
+  Healthy: "Healthy",
+
+  /** Pool has a warning but redundancy is maintained. */
+  Warning: "Warning",
+
+  /** Pool is unhealthy and data may be at risk. */
+  Unhealthy: "Unhealthy",
+}
+
+/**
+ * Default provisioning mode for new volumes (pool setting / S2D volume).
+ */
+@added(Versions.v2026_03_15_preview)
+union DriveProvisioningType {
+  string,
+
+  /** Provisioning type is unknown or could not be determined. */
+  Unknown: "Unknown",
+
+  /** Fixed (thick) provisioning. */
+  Fixed: "Fixed",
+
+  /** Thin provisioning. */
+  Thin: "Thin",
+}
+
+/**
+ * Rebuild speed applied after a drive failure (S2D pool setting).
+ */
+@added(Versions.v2026_03_15_preview)
+union RepairSpeed {
+  string,
+
+  /** Very low repair speed. */
+  VeryLow: "VeryLow",
+
+  /** Low repair speed. */
+  Low: "Low",
+
+  /** Medium repair speed. */
+  Medium: "Medium",
+
+  /** High repair speed. */
+  High: "High",
+
+  /** Very high repair speed. */
+  VeryHigh: "VeryHigh",
+}
+
+/**
+ * How rebuild jobs execute for an S2D pool.
+ */
+@added(Versions.v2026_03_15_preview)
+union RepairPolicy {
+  string,
+
+  /** Repair one extent at a time (lower resource usage). */
+  Sequential: "Sequential",
+
+  /** Repair multiple extents simultaneously (faster rebuild). */
+  Parallel: "Parallel",
+}
+
+/**
+ * Behavior for drives absent from an S2D pool.
+ */
+@added(Versions.v2026_03_15_preview)
+union RetireMissingPhysicalDisksPolicy {
+  string,
+
+  /** Retire missing drives, but rebuild only if a hot spare exists. */
+  Auto: "Auto",
+
+  /** Always retire and auto-rebuild onto free pool space. */
+  Always: "Always",
+
+  /** Never auto-retire; require manual intervention. */
+  Never: "Never",
+}
+
+/**
+ * Default fault-domain level for new S2D virtual disks.
+ */
+@added(Versions.v2026_03_15_preview)
+union FaultDomainAwareness {
+  string,
+
+  /** Physical-disk-level fault domains. */
+  PhysicalDisk: "PhysicalDisk",
+
+  /** Enclosure-level fault domains. */
+  StorageEnclosure: "StorageEnclosure",
+
+  /** Node-level fault domains (standard S2D). */
+  StorageScaleUnit: "StorageScaleUnit",
+}
+
+// ─────────────────────────── Volume enums ───────────────────────────
+
+/**
+ * Intended purpose of a volume.
+ */
+@added(Versions.v2026_03_15_preview)
+union VolumePurpose {
+  string,
+
+  /** Infrastructure storage. */
+  Infrastructure: "Infrastructure",
+
+  /** User/workload data. */
+  UserData: "UserData",
+
+  /** Cluster quorum. */
+  Quorum: "Quorum",
+
+  /** Backup target. */
+  Backup: "Backup",
+
+  /** Scratch/temporary storage. */
+  Scratch: "Scratch",
+
+  /** Custom purpose. */
+  Custom: "Custom",
+}
+
+/**
+ * Array-reported state of a volume.
+ */
+@added(Versions.v2026_03_15_preview)
+union VolumeState {
+  string,
+
+  /** Volume is online. */
+  Online: "Online",
+
+  /** Volume is offline. */
+  Offline: "Offline",
+
+  /** Volume is degraded. */
+  Degraded: "Degraded",
+
+  /** Volume is not mapped to any host. */
+  Unmapped: "Unmapped",
+}
+
+/**
+ * How a volume is provisioned/managed.
+ */
+@added(Versions.v2026_03_15_preview)
+union ProvisioningSource {
+  string,
+
+  /** Provisioned via ARM. */
+  ARM: "ARM",
+
+  /** Provisioned via a CSI driver. */
+  CSI: "CSI",
+
+  /** Provisioned manually / out of band. */
+  Manual: "Manual",
+
+  /** Provisioned by Storage Spaces Direct. */
+  S2D: "S2D",
+}
+
+/**
+ * How the platform presents a volume to consumers. Transport-agnostic.
+ */
+@added(Versions.v2026_03_15_preview)
+union PresentationMode {
+  string,
+
+  /** Host formats the LUN and adds it to the cluster's CSV namespace. */
+  clusterSharedVolume: "clusterSharedVolume",
+
+  /** Raw block, single-node; the guest formats it. */
+  rawExclusive: "rawExclusive",
+
+  /** Raw block, multi-node; requires SCSI PR or NVMe reservations. */
+  rawShared: "rawShared",
+}
+
+/**
+ * Whether a volume is currently mapped to hosts. Derived from volume mappings.
+ */
+@added(Versions.v2026_03_15_preview)
+union MappingState {
+  string,
+
+  /** Volume is mapped. */
+  Mapped: "Mapped",
+
+  /** Volume is not mapped. */
+  Unmapped: "Unmapped",
+
+  /** Volume is mapped via some but not all expected protocols/groups. */
+  PartiallyMapped: "PartiallyMapped",
+}
+
+/**
+ * Format of a durable volume identifier (Swordfish-aligned).
+ */
+@added(Versions.v2026_03_15_preview)
+union DurableNameFormat {
+  string,
+
+  /** SCSI Network Address Authority identifier. */
+  NAA: "NAA",
+
+  /** Vendor REST API key. */
+  VendorAPI: "VendorAPI",
+}
+
+/**
+ * Type of a volume replica (Swordfish `ReplicaInfo`).
+ */
+@added(Versions.v2026_03_15_preview)
+union ReplicaType {
+  string,
+
+  /** Point-in-time snapshot. */
+  Snapshot: "Snapshot",
+
+  /** Full clone. */
+  Clone: "Clone",
+
+  /** Synchronous replica. */
+  Synchronous: "Synchronous",
+
+  /** Asynchronous replica. */
+  Asynchronous: "Asynchronous",
+}
+
+/**
+ * Role of a volume in a replica relationship.
+ */
+@added(Versions.v2026_03_15_preview)
+union ReplicaRole {
+  string,
+
+  /** Source (production) volume. */
+  Source: "Source",
+
+  /** Target (replica) volume. */
+  Target: "Target",
+}
+
+/**
+ * State of a replica relationship.
+ */
+@added(Versions.v2026_03_15_preview)
+union ReplicaState {
+  string,
+
+  /** Fully synchronized. */
+  Synchronized: "Synchronized",
+
+  /** Out of sync (lag exceeds target). */
+  OutOfSync: "OutOfSync",
+
+  /** Replication broken. */
+  Broken: "Broken",
+
+  /** Replica fractured (split from source). */
+  Fractured: "Fractured",
+
+  /** Replica inactive. */
+  Inactive: "Inactive",
+
+  /** Re-synchronizing. */
+  Resyncing: "Resyncing",
+
+  /** In sync (per-member replication healthy). */
+  InSync: "InSync",
+}
+
+/**
+ * S2D virtual-disk resiliency type.
+ */
+@added(Versions.v2026_03_15_preview)
+union ResiliencyType {
+  string,
+
+  /** Mirror resiliency. */
+  Mirror: "Mirror",
+
+  /** Parity resiliency. */
+  Parity: "Parity",
+
+  /** Mirror-accelerated parity. */
+  MAP: "MAP",
+
+  /** Nested mirror. */
+  NestedMirror: "NestedMirror",
+
+  /** Nested parity. */
+  NestedParity: "NestedParity",
+}
+
+/**
+ * File system of an S2D volume.
+ */
+@added(Versions.v2026_03_15_preview)
+union VolumeFileSystem {
+  string,
+
+  /** Resilient File System. */
+  ReFS: "ReFS",
+
+  /** Cluster Shared Volume File System over ReFS. */
+  CSVFS_ReFS: "CSVFS_ReFS",
+}
+
+/**
+ * Mirror-accelerated-parity ratio for nested MAP volumes.
+ */
+@added(Versions.v2026_03_15_preview)
+union ParityPercentage {
+  string,
+
+  /** 70% parity / 30% mirror. */
+  Ratio70_30: "70_30",
+
+  /** 80% parity / 20% mirror. */
+  Ratio80_20: "80_20",
+
+  /** 90% parity / 10% mirror. */
+  Ratio90_10: "90_10",
+}
+
+/**
+ * Performance tier of an S2D volume.
+ */
+@added(Versions.v2026_03_15_preview)
+union S2dStorageTier {
+  string,
+
+  /** Performance tier. */
+  Performance: "Performance",
+
+  /** Capacity tier. */
+  Capacity: "Capacity",
+}
+
+/**
+ * Unified cross-provider volume category.
+ */
+@added(Versions.v2026_03_15_preview)
+union VolumeCategory {
+  string,
+
+  /** Storage Spaces Direct volume. */
+  S2D: "S2D",
+
+  /** PowerFlex volume. */
+  PowerFlex: "PowerFlex",
+
+  /** SAN volume. */
+  SAN: "SAN",
+}
+
+/**
+ * Access mode of a volume mapping.
+ */
+@added(Versions.v2026_03_15_preview)
+union AccessMode {
+  string,
+
+  /** Read/write access. */
+  ReadWrite: "ReadWrite",
+
+  /** Read-only access. */
+  ReadOnly: "ReadOnly",
+}
+
+// ─────────────────────────── Replication / DR enums ───────────────────────────
+
+/**
+ * State of a replication unit.
+ */
+@added(Versions.v2026_03_15_preview)
+union ReplicationUnitState {
+  string,
+
+  /** Fully synchronized. */
+  Synchronized: "Synchronized",
+
+  /** Out of sync. */
+  OutOfSync: "OutOfSync",
+
+  /** Initializing baseline copy. */
+  Initializing: "Initializing",
+
+  /** Re-synchronizing. */
+  Resyncing: "Resyncing",
+
+  /** Replication suspended. */
+  Suspended: "Suspended",
+
+  /** Replication failed. */
+  Failed: "Failed",
+
+  /** Failed over to the target. */
+  FailedOver: "FailedOver",
+}
+
+/**
+ * Replication mode of a replication session.
+ */
+@added(Versions.v2026_03_15_preview)
+union ReplicationType {
+  string,
+
+  /** Synchronous replication (RPO = 0). */
+  Synchronous: "Synchronous",
+
+  /** Asynchronous replication. */
+  Asynchronous: "Asynchronous",
+
+  /** Continuous active DR replication. */
+  ActiveDR: "ActiveDR",
+}
+
+/**
+ * Declared intent of a replication session (informational).
+ */
+@added(Versions.v2026_03_15_preview)
+union ReplicationPurpose {
+  string,
+
+  /** Local high-availability sync (e.g. RAC dual-array). */
+  LocalHA: "LocalHA",
+
+  /** Cross-site disaster recovery. */
+  DisasterRecovery: "DisasterRecovery",
+
+  /** Temporary migration between pools/arrays. */
+  Migration: "Migration",
+
+  /** Unspecified (default). */
+  Unspecified: "Unspecified",
+}
+
+/**
+ * Role of a replication session instance relative to its hosting array.
+ */
+@added(Versions.v2026_03_15_preview)
+union ReplicationSessionRole {
+  string,
+
+  /** Source side of the session. */
+  Source: "Source",
+
+  /** Target side of the session. */
+  Target: "Target",
+}
+
+/**
+ * Data-flow direction of a replication session relative to its hosting array.
+ */
+@added(Versions.v2026_03_15_preview)
+union ReplicationDirection {
+  string,
+
+  /** Data flows out (this array is the source). */
+  Outbound: "Outbound",
+
+  /** Data flows in (this array is the target). */
+  Inbound: "Inbound",
+}
+
+/**
+ * Lifecycle state of a replication session.
+ */
+@added(Versions.v2026_03_15_preview)
+union ReplicationSessionState {
+  string,
+
+  /** Establishing replication with the vendor. */
+  Creating: "Creating",
+
+  /** Waiting for the peer side to correlate. */
+  Pairing: "Pairing",
+
+  /** Initial baseline copy in progress. */
+  InitialSync: "InitialSync",
+
+  /** Healthy and within RPO target. */
+  InSync: "InSync",
+
+  /** Running but lag exceeds RPO target. */
+  OutOfSync: "OutOfSync",
+
+  /** Replication paused. */
+  Suspended: "Suspended",
+
+  /** Re-establishing sync. */
+  Resyncing: "Resyncing",
+
+  /** Replication broken; manual intervention required. */
+  Failed: "Failed",
+
+  /** Removing vendor replication config. */
+  Deleting: "Deleting",
+}
+
+/**
+ * RPO compliance verdict for a replication session.
+ */
+@added(Versions.v2026_03_15_preview)
+union RpoCompliance {
+  string,
+
+  /** RPO target met. */
+  Met: "Met",
+
+  /** RPO at risk. */
+  Warning: "Warning",
+
+  /** RPO violated. */
+  Violated: "Violated",
+
+  /** RPO compliance unknown. */
+  Unknown: "Unknown",
+}
+
+/**
+ * Health of a replication session.
+ */
+@added(Versions.v2026_03_15_preview)
+union ReplicationHealth {
+  string,
+
+  /** The replication session is healthy and operating normally. */
+  Healthy: "Healthy",
+
+  /** The replication session is degraded and operating with reduced capability. */
+  Degraded: "Degraded",
+
+  /** The replication session is unhealthy and not operating correctly. */
+  Unhealthy: "Unhealthy",
+
+  /** The replication session health could not be determined. */
+  Unknown: "Unknown",
+}
+
+/**
+ * Role of an array in a replication peering, from this array's perspective.
+ */
+@added(Versions.v2026_03_15_preview)
+union PeeringRole {
+  string,
+
+  /** This array is the replication source. */
+  Source: "Source",
+
+  /** This array is the replication target. */
+  Target: "Target",
+
+  /** Bidirectional peering. */
+  Bidirectional: "Bidirectional",
+}
+
+/**
+ * Transport carrying replication data between peered arrays.
+ */
+@added(Versions.v2026_03_15_preview)
+union PeeringTransport {
+  string,
+
+  /** IP-based replication. */
+  IP: "IP",
+
+  /** Fibre Channel replication. */
+  FC: "FC",
+}
+
+/**
+ * State of an array-to-array replication peering.
+ */
+@added(Versions.v2026_03_15_preview)
+union PeeringState {
+  string,
+
+  /** Discovered on one array; peer not yet registered. */
+  Discovered: "Discovered",
+
+  /** Peer registered; correlating. */
+  Pairing: "Pairing",
+
+  /** Both sides correlated; infrastructure ready. */
+  Active: "Active",
+
+  /** Peering degraded. */
+  Degraded: "Degraded",
+
+  /** Peering broken. */
+  Broken: "Broken",
+
+  /** Peering suspended. */
+  Suspended: "Suspended",
+}
+
+/**
+ * Health of a replication peering.
+ */
+@added(Versions.v2026_03_15_preview)
+union PeeringHealth {
+  string,
+
+  /** The replication peering is healthy and operating normally. */
+  Healthy: "Healthy",
+
+  /** The replication peering is degraded and operating with reduced capability. */
+  Degraded: "Degraded",
+
+  /** The replication peering is unhealthy and not operating correctly. */
+  Unhealthy: "Unhealthy",
+
+  /** The replication peering health could not be determined. */
+  Unknown: "Unknown",
+}
+
+/**
+ * Type of a discovered vendor replication policy.
+ */
+@added(Versions.v2026_03_15_preview)
+union ReplicationPolicyType {
+  string,
+
+  /** Synchronous replication policy. */
+  Synchronous: "Synchronous",
+
+  /** Asynchronous replication policy. */
+  Asynchronous: "Asynchronous",
+
+  /** Continuous active DR policy. */
+  ActiveDR: "ActiveDR",
+
+  /** Periodic snapshot-based policy. */
+  PeriodicSnapshot: "PeriodicSnapshot",
+}
+
+// ---- END STORAGE ARRAYS SUBTREE UNIONS ----
+
+// ─────────────────────────── StorageArray models ───────────────────────────
+
+/**
+ * Properties of a storage array. A `storageArrays` resource represents a single
+ * external SAN array or a local Storage Spaces Direct (S2D) pool; `arrayType`
+ * distinguishes the two. All properties are read-only in this private preview.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageArrayProperties {
+  /** Mutable, human-friendly display label for the array. */
+  @visibility(Lifecycle.Read)
+  displayName?: string;
+
+  /** Whether the array is an external SAN or local S2D pool. */
+  @visibility(Lifecycle.Read)
+  arrayType?: ArrayType;
+
+  /** Storage vendor of the array (`Microsoft` for S2D). */
+  @visibility(Lifecycle.Read)
+  vendor?: StorageArrayVendor;
+
+  /** Hardware model, discovered from the array. */
+  @visibility(Lifecycle.Read)
+  `model`?: string;
+
+  /** Serial number, discovered from the array. */
+  @visibility(Lifecycle.Read)
+  serialNumber?: string;
+
+  /** Firmware/OS version, discovered from the array. */
+  @visibility(Lifecycle.Read)
+  firmwareVersion?: string;
+
+  /** Management endpoint URI of the array (SAN only). */
+  @visibility(Lifecycle.Read)
+  managementEndpoint?: url;
+
+  /** Azure Key Vault secret URI holding the array credentials (SAN only). */
+  @visibility(Lifecycle.Read)
+  credentialSecretUri?: url;
+
+  /** Custom location resource ID that determines management routing. */
+  @visibility(Lifecycle.Read)
+  customLocationId?: Azure.Core.armResourceIdentifier;
+
+  /** Owning cluster resource ID (S2D arrays only). */
+  @visibility(Lifecycle.Read)
+  clusterResourceId?: Azure.Core.armResourceIdentifier;
+
+  /** Transports supported by the array. */
+  @visibility(Lifecycle.Read)
+  supportedTransports?: StorageTransportType[];
+
+  /** Normalized capacity metrics for the array. */
+  @visibility(Lifecycle.Read)
+  capacity?: StorageArrayCapacity;
+
+  /** Number of controllers in the array. */
+  @visibility(Lifecycle.Read)
+  controllerCount?: int32;
+
+  /** Array-wide encryption-at-rest state. */
+  @visibility(Lifecycle.Read)
+  encryptionAtRest?: EncryptionAtRestStatus;
+
+  /** Capabilities discovered from the array (used for placement decisions). */
+  @visibility(Lifecycle.Read)
+  capabilities?: StorageArrayCapabilities;
+
+  /** Connection status reported by the storage controller (SC). */
+  @visibility(Lifecycle.Read)
+  connectionStatus?: ConnectionStatus;
+
+  /** Timestamp of the last successful inventory sync. */
+  @visibility(Lifecycle.Read)
+  lastSyncedAt?: utcDateTime;
+
+  /** Read-only hardware inventory (controllers, ports, drives, jobs, etc.). */
+  @visibility(Lifecycle.Read)
+  status?: StorageArrayStatus;
+
+  /** The provisioning state of the storage array resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/**
+ * Normalized, seven-field capacity model for a storage array. All byte values
+ * are normalized to bytes by the SC during inventory sync. All fields read-only.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageArrayCapacity {
+  /** Total usable physical capacity after RAID/parity overhead, in bytes. */
+  @visibility(Lifecycle.Read)
+  totalPhysicalBytes?: int64;
+
+  /** Physical bytes consumed on media (post-dedup, post-compression). */
+  @visibility(Lifecycle.Read)
+  usedPhysicalBytes?: int64;
+
+  /** Free physical capacity remaining, in bytes. */
+  @visibility(Lifecycle.Read)
+  freePhysicalBytes?: int64;
+
+  /** Sum of provisioned (logical) sizes of all volumes, in bytes. */
+  @visibility(Lifecycle.Read)
+  totalProvisionedBytes?: int64;
+
+  /** Physical bytes consumed by snapshots, in bytes. */
+  @visibility(Lifecycle.Read)
+  snapshotUsedBytes?: int64;
+
+  /** Combined dedup + compression ratio (logical / physical), excludes snapshots. */
+  @visibility(Lifecycle.Read)
+  dataReductionRatio?: float64;
+
+  /** Overcommit ratio: totalProvisionedBytes / totalPhysicalBytes. */
+  @visibility(Lifecycle.Read)
+  provisioningRatio?: float64;
+
+  /** Whether thin provisioning is enabled on the array. */
+  @visibility(Lifecycle.Read)
+  thinProvisioningEnabled?: boolean;
+}
+
+/**
+ * Capabilities discovered from a storage array. All fields read-only.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageArrayCapabilities {
+  /** Maximum IOPS the array can sustain. */
+  @visibility(Lifecycle.Read)
+  maxIops?: int64;
+
+  /** Maximum bandwidth, in MB/s. */
+  @visibility(Lifecycle.Read)
+  maxBandwidthMbps?: int64;
+
+  /** Whether thin provisioning is supported. */
+  @visibility(Lifecycle.Read)
+  thinProvisioningSupported?: boolean;
+
+  /** Whether deduplication is supported. */
+  @visibility(Lifecycle.Read)
+  dedupSupported?: boolean;
+
+  /** Whether compression is supported. */
+  @visibility(Lifecycle.Read)
+  compressionSupported?: boolean;
+
+  /** Whether encryption at rest is enabled. */
+  @visibility(Lifecycle.Read)
+  encryptionAtRestEnabled?: boolean;
+
+  /** Whether replication is supported. */
+  @visibility(Lifecycle.Read)
+  replicationSupported?: boolean;
+
+  /** Whether snapshots are supported. */
+  @visibility(Lifecycle.Read)
+  snapshotSupported?: boolean;
+
+  /** Transports supported by the array (discovered). */
+  @visibility(Lifecycle.Read)
+  supportedTransports?: StorageTransportType[];
+
+  /** Minimum volume size, in bytes. */
+  @visibility(Lifecycle.Read)
+  minVolumeBytes?: int64;
+
+  /** Maximum volume size, in bytes. */
+  @visibility(Lifecycle.Read)
+  maxVolumeBytes?: int64;
+
+  /** Maximum number of volumes. */
+  @visibility(Lifecycle.Read)
+  maxVolumeCount?: int32;
+}
+
+/**
+ * Read-only hardware inventory for a storage array, returned inline on GET.
+ * Controllers, FC ports, iSCSI targets, and NVMe subsystems apply to SAN arrays;
+ * physical drives and storage jobs apply to S2D arrays.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageArrayStatus {
+  /** Storage controllers. */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["controllerId"])
+  controllers?: StorageController[];
+
+  /** Fibre Channel target ports. */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["portId"])
+  fcPorts?: FcPortInfo[];
+
+  /** iSCSI target portals. */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["targetId"])
+  iscsiTargets?: IscsiTargetInfo[];
+
+  /** NVMe subsystems. */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["subsystemNqn"])
+  nvmeSubsystems?: NvmeSubsystemInfo[];
+
+  /** Physical drives (S2D arrays only). */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["serialNumber"])
+  physicalDrives?: PhysicalDrive[];
+
+  /** Background/user storage jobs (S2D arrays only). */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["jobId"])
+  storageJobs?: StorageJob[];
+
+  /** Clusters associated with this array (reverse lookup). */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["clusterResourceId"])
+  associatedClusters?: AssociatedCluster[];
+}
+
+/**
+ * A storage array controller (read-only, discovered via sync).
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageController {
+  /** Vendor-assigned controller identifier (e.g. "CT0"). */
+  @visibility(Lifecycle.Read)
+  controllerId: string;
+
+  /** Controller hardware model. */
+  @visibility(Lifecycle.Read)
+  `model`?: string;
+
+  /** Controller firmware version. */
+  @visibility(Lifecycle.Read)
+  firmwareVersion?: string;
+
+  /** Controller operational status. */
+  @visibility(Lifecycle.Read)
+  status?: ControllerStatus;
+
+  /** Controller role. */
+  @visibility(Lifecycle.Read)
+  role?: ControllerRole;
+
+  /** Port identifiers owned by this controller. */
+  @visibility(Lifecycle.Read)
+  targetPorts?: string[];
+}
+
+/**
+ * A Fibre Channel target port on the storage array (read-only).
+ */
+@added(Versions.v2026_03_15_preview)
+model FcPortInfo {
+  /** Vendor-assigned port identifier (e.g. "CT0-FC0"). */
+  @visibility(Lifecycle.Read)
+  portId: string;
+
+  /** World Wide Name of the FC port. */
+  @visibility(Lifecycle.Read)
+  wwn?: string;
+
+  /** Link speed (e.g. "32Gbps"). */
+  @visibility(Lifecycle.Read)
+  speed?: string;
+
+  /** FC port state. */
+  @visibility(Lifecycle.Read)
+  portState?: PortState;
+
+  /** Controller that owns this port. */
+  @visibility(Lifecycle.Read)
+  controller?: string;
+
+  /** ARM name or ID of the connected fabric. */
+  @visibility(Lifecycle.Read)
+  fabricId?: string;
+}
+
+/**
+ * An iSCSI target portal on the storage array (read-only).
+ */
+@added(Versions.v2026_03_15_preview)
+model IscsiTargetInfo {
+  /** Vendor-assigned target identifier. */
+  @visibility(Lifecycle.Read)
+  targetId: string;
+
+  /** IP address of the iSCSI target portal. */
+  @visibility(Lifecycle.Read)
+  portalAddress?: string;
+
+  /** TCP port (default 3260). */
+  @visibility(Lifecycle.Read)
+  port?: int32;
+
+  /** iSCSI Qualified Name of the target. */
+  @visibility(Lifecycle.Read)
+  targetIqn?: string;
+
+  /** Controller that owns this target portal. */
+  @visibility(Lifecycle.Read)
+  controller?: string;
+
+  /** iSCSI portal state. */
+  @visibility(Lifecycle.Read)
+  portalState?: PortState;
+
+  /** Whether CHAP authentication is required. */
+  @visibility(Lifecycle.Read)
+  chapRequired?: boolean;
+
+  /** MTU size for the iSCSI interface (e.g. 9000 for jumbo frames). */
+  @visibility(Lifecycle.Read)
+  mtu?: int32;
+}
+
+/**
+ * An NVMe subsystem on the storage array (read-only).
+ */
+@added(Versions.v2026_03_15_preview)
+model NvmeSubsystemInfo {
+  /** NVMe Qualified Name of the subsystem. */
+  @visibility(Lifecycle.Read)
+  subsystemNqn: string;
+
+  /** NVMe transport type. */
+  @visibility(Lifecycle.Read)
+  transportType?: NvmeTransportType;
+
+  /** Discovery endpoints for the subsystem. */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["address"])
+  discoveryPortals?: NvmeDiscoveryPortal[];
+
+  /** Subsystem state. */
+  @visibility(Lifecycle.Read)
+  state?: PortState;
+
+  /** Controller that owns this subsystem. */
+  @visibility(Lifecycle.Read)
+  controller?: string;
+}
+
+/**
+ * An NVMe discovery portal endpoint.
+ */
+@added(Versions.v2026_03_15_preview)
+model NvmeDiscoveryPortal {
+  /** Discovery portal address. */
+  @visibility(Lifecycle.Read)
+  address: string;
+
+  /** Discovery portal port. */
+  @visibility(Lifecycle.Read)
+  port?: int32;
+
+  /** Transport of the discovery portal. */
+  @visibility(Lifecycle.Read)
+  transport?: NvmeTransportType;
+}
+
+/**
+ * A physical drive reported in the storage array status (S2D only). The serial
+ * number is the primary key for the drive; it is stable across reboots/node moves.
+ */
+@added(Versions.v2026_03_15_preview)
+model PhysicalDrive {
+  /** Drive serial number — the primary key for the drive. */
+  @visibility(Lifecycle.Read)
+  serialNumber: string;
+
+  /** WMI-derived persistent identifier (EUI-64 for NVMe, NAA for SAS/SATA). */
+  @visibility(Lifecycle.Read)
+  uniqueId?: string;
+
+  /** Media type of the drive (for example, "HDD", "SSD", "NVMe", "SCM"). */
+  @visibility(Lifecycle.Read)
+  mediaType?: string;
+
+  /** Bus type of the drive (for example, "SCSI", "SAS", "SATA", "NVMe"). */
+  @visibility(Lifecycle.Read)
+  busType?: string;
+
+  /** Raw capacity of the drive, in bytes. */
+  @visibility(Lifecycle.Read)
+  capacityBytes?: int64;
+
+  /** Allocated capacity on this drive, in bytes. */
+  @visibility(Lifecycle.Read)
+  allocatedBytes?: int64;
+
+  /** Current usage classification of the drive in the pool. */
+  @visibility(Lifecycle.Read)
+  usage?: DriveUsage;
+
+  /** Health status of the drive (for example, "Healthy", "Warning", "Unhealthy"). */
+  @visibility(Lifecycle.Read)
+  healthStatus?: string;
+
+  /** Operational status from WMI (e.g. "OK", "Degraded"). */
+  @visibility(Lifecycle.Read)
+  operationalStatus?: string;
+
+  /** Whether the drive can be added to a pool. */
+  @visibility(Lifecycle.Read)
+  canPool?: boolean;
+
+  /** Name of the storage pool the drive belongs to (null if not pooled). */
+  @visibility(Lifecycle.Read)
+  poolName?: string;
+
+  /** Physical location of the drive (node, enclosure, slot). */
+  @visibility(Lifecycle.Read)
+  location?: PhysicalDriveLocation;
+
+  /** Drive firmware version. */
+  @visibility(Lifecycle.Read)
+  firmwareVersion?: string;
+
+  /** Drive model. */
+  @visibility(Lifecycle.Read)
+  `model`?: string;
+
+  /** Drive manufacturer. */
+  @visibility(Lifecycle.Read)
+  manufacturer?: string;
+
+  /** Drive part number. */
+  @visibility(Lifecycle.Read)
+  partNumber?: string;
+
+  /** Whether the drive has power-loss protection. */
+  @visibility(Lifecycle.Read)
+  isPowerProtected?: boolean;
+
+  /** Whether the locator/identification LED is active. */
+  @visibility(Lifecycle.Read)
+  ledActive?: boolean;
+}
+
+/**
+ * Physical location of a drive, as reported by `SDDC_Drive` (`Server` → `nodeId`,
+ * `Location` → `physicalLocation`).
+ */
+@added(Versions.v2026_03_15_preview)
+model PhysicalDriveLocation {
+  /** Cluster node that hosts the drive (`SDDC_Drive.Server`). */
+  @visibility(Lifecycle.Read)
+  nodeId?: string;
+
+  /** Free-form vendor-defined location string (`SDDC_Drive.Location`). Diagnostic aid only. */
+  @visibility(Lifecycle.Read)
+  physicalLocation?: string;
+}
+
+/**
+ * A background or user-triggered storage job (S2D only).
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageJob {
+  /** Unique job identifier. */
+  @visibility(Lifecycle.Read)
+  jobId: string;
+
+  /** Type of storage job. */
+  @visibility(Lifecycle.Read)
+  jobType?: StorageJobType;
+
+  /** Current state of the job. */
+  @visibility(Lifecycle.Read)
+  jobState?: StorageJobState;
+
+  /** Whether this is an automatic background task. */
+  @visibility(Lifecycle.Read)
+  isBackgroundTask?: boolean;
+
+  /** Name of the affected resource (pool or virtual disk). */
+  @visibility(Lifecycle.Read)
+  targetResource?: string;
+
+  /** Completion percentage (0-100). */
+  @visibility(Lifecycle.Read)
+  percentComplete?: int32;
+
+  /** Elapsed time as an ISO 8601 duration. */
+  @visibility(Lifecycle.Read)
+  elapsedTime?: string;
+
+  /** Timestamp when the job was created. */
+  @visibility(Lifecycle.Read)
+  createdAt?: utcDateTime;
+}
+
+/**
+ * A cluster associated with the storage array (reverse lookup).
+ */
+@added(Versions.v2026_03_15_preview)
+model AssociatedCluster {
+  /** ARM resource ID of the associated cluster. */
+  @visibility(Lifecycle.Read)
+  clusterResourceId: Azure.Core.armResourceIdentifier;
+
+  /** ARM resource ID of the storageArrayAssociation linking array and cluster. */
+  @visibility(Lifecycle.Read)
+  associationResourceId?: Azure.Core.armResourceIdentifier;
+}
+
+// ---- END STORAGE ARRAY MODELS ----
+
+// ─────────────────────────── StorageArrayJob models ───────────────────────────
+//
+// Storage array jobs model long running, actionable operations on a storage
+// array (see StorageArrayJob.tsp). The base model is discriminated on `jobType`;
+// each concrete job type carries its own input properties. The reported/terminal
+// fields are read-only and driven by the device-reported status update. This
+// mirrors the ClusterVolumeJob models.
+
+/**
+ * Properties of the Storage Array Job.
+ */
+@added(Versions.v2026_03_15_preview)
+@discriminator("jobType")
+model StorageArrayJobProperties {
+  /** Type of operation. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  jobType: StorageArrayJobType;
+
+  /** Deployment mode to trigger job. */
+  deploymentMode?: DeploymentMode;
+
+  /** Provisioning state of the job. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /** Unique, immutable job id. */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /** The UTC date and time at which the job started. */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /** The UTC date and time at which the job completed. */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /** Status of the storage array job. */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+
+  /** Error details if job failed. */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+
+  /** Reported properties for the storage array job. */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: StorageArrayJobReportedProperties;
+}
+
+/**
+ * Type of storage array job operation.
+ */
+@added(Versions.v2026_03_15_preview)
+union StorageArrayJobType {
+  string,
+
+  /** Job to force the storage controller to re-read the array and reconcile the ARM resources with the physical state. */
+  SyncStorageArray: "SyncStorageArray",
+}
+
+/**
+ * Properties for forcing a storage array inventory sync / reconcile.
+ */
+@added(Versions.v2026_03_15_preview)
+model SyncStorageArrayJobProperties extends StorageArrayJobProperties {
+  /** Job type. */
+  jobType: StorageArrayJobType.SyncStorageArray;
+}
+
+/**
+ * Reported properties for the Storage Array Job.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageArrayJobReportedProperties {
+  /**
+   * The percentage of the job that is complete.
+   */
+  @visibility(Lifecycle.Read)
+  percentComplete?: int32;
+}
+
+// ─────────────────────────── StoragePool models ───────────────────────────
+
+/**
+ * Properties of a storage pool — a capacity source on a storage array. SAN and S2D
+ * pool settings are discovered and reported by the service (read-only). Capacity,
+ * counts, state, health, and provisioning state are also service-owned.
+ */
+@added(Versions.v2026_03_15_preview)
+model StoragePoolProperties {
+  /** Vendor pool concept (aggregate, CPG, DP pool, storage pool, default). */
+  @visibility(Lifecycle.Read)
+  poolType?: PoolType;
+
+  /**
+   * Vendor-assigned pool identifier. For SAN this is the vendor pool ID; for S2D
+   * this is the storage pool friendly name (`MSFT_StoragePool.FriendlyName`).
+   */
+  @visibility(Lifecycle.Read)
+  vendorPoolId?: string;
+
+  /** Primary media type of the pool (e.g. "SSD", "NVMe", "Mixed"). */
+  @visibility(Lifecycle.Read)
+  driveType?: string;
+
+  /** Vendor RAID type (SAN); null for S2D which uses per-volume resiliency. */
+  @visibility(Lifecycle.Read)
+  raidType?: string;
+
+  /** Default provisioning mode for new volumes (S2D setting). */
+  @visibility(Lifecycle.Read)
+  defaultProvisioningType?: DriveProvisioningType;
+
+  /** Rebuild speed after a drive failure (S2D setting). */
+  @visibility(Lifecycle.Read)
+  repairSpeed?: RepairSpeed;
+
+  /** How rebuild jobs execute (S2D setting). */
+  @visibility(Lifecycle.Read)
+  repairPolicy?: RepairPolicy;
+
+  /** Policy for handling drives absent from the pool (S2D setting). */
+  @visibility(Lifecycle.Read)
+  retireMissingPhysicalDisks?: RetireMissingPhysicalDisksPolicy;
+
+  /** Default fault-domain level for new virtual disks (S2D setting). */
+  @visibility(Lifecycle.Read)
+  faultDomainAwarenessDefault?: FaultDomainAwareness;
+
+  /** Whether new drives are automatically added to the pool (S2D setting). */
+  @visibility(Lifecycle.Read)
+  autoPoolEnabled?: boolean;
+
+  /** Whether failed drives are automatically retired (S2D setting). */
+  @visibility(Lifecycle.Read)
+  autoRetireEnabled?: boolean;
+
+  /** Whether a cache tier exists (S2D, auto-managed). */
+  @visibility(Lifecycle.Read)
+  cacheTierEnabled?: boolean;
+
+  /** Total raw pool capacity, in bytes. */
+  @visibility(Lifecycle.Read)
+  totalCapacityBytes?: int64;
+
+  /** Capacity after RAID overhead — provisionable capacity, in bytes (S2D). */
+  @visibility(Lifecycle.Read)
+  usableCapacityBytes?: int64;
+
+  /** Capacity consumed by volumes, in bytes. */
+  @visibility(Lifecycle.Read)
+  usedCapacityBytes?: int64;
+
+  /** Available capacity, in bytes (SAN). */
+  @visibility(Lifecycle.Read)
+  freeCapacityBytes?: int64;
+
+  /** Number of physical drives in the pool (S2D). */
+  @visibility(Lifecycle.Read)
+  driveCount?: int32;
+
+  /** Number of volumes/virtual disks in the pool. */
+  @visibility(Lifecycle.Read)
+  volumeCount?: int32;
+
+  /** Pool state (SAN). */
+  @visibility(Lifecycle.Read)
+  state?: PoolState;
+
+  /** Pool health status (S2D). */
+  @visibility(Lifecycle.Read)
+  healthStatus?: PoolHealthStatus;
+
+  /** Capacity reserved for rebuild operations, in bytes (S2D). */
+  @visibility(Lifecycle.Read)
+  reservedCapacityBytes?: int64;
+
+  /** Write-back cache tier size, in bytes; null if no cache tier (S2D). */
+  @visibility(Lifecycle.Read)
+  writeCacheSizeBytes?: int64;
+
+  /** The provisioning state of the storage pool resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+// ─────────────────────────── VolumeGroup models ───────────────────────────
+
+/**
+ * Quality-of-service settings applied to volumes. Used both as volume-group
+ * defaults (`defaultQoS`) and per-volume overrides (`qos`).
+ */
+@added(Versions.v2026_03_15_preview)
+model VolumeQos {
+  /** Maximum IOPS. */
+  @visibility(Lifecycle.Read)
+  maxIops?: int64;
+
+  /** Minimum guaranteed IOPS. */
+  @visibility(Lifecycle.Read)
+  minIops?: int64;
+
+  /** Maximum bandwidth, in MB/s. */
+  @visibility(Lifecycle.Read)
+  maxBandwidthMbps?: int64;
+
+  /** Burst IOPS ceiling. */
+  @visibility(Lifecycle.Read)
+  burstIops?: int64;
+
+  /** Burst duration, in seconds. */
+  @visibility(Lifecycle.Read)
+  burstDurationSeconds?: int32;
+
+  /** Target latency, in milliseconds. */
+  @visibility(Lifecycle.Read)
+  latencyTargetMs?: int32;
+}
+
+/**
+ * Data-protection settings. Used as volume-group defaults
+ * (`defaultDataProtection`) and per-volume overrides (`dataProtection`).
+ */
+@added(Versions.v2026_03_15_preview)
+model DataProtectionSettings {
+  /** Whether scheduled snapshots are enabled. */
+  @visibility(Lifecycle.Read)
+  snapshotEnabled?: boolean;
+
+  /** Snapshot frequency as an ISO 8601 duration (e.g. "PT4H"). */
+  @visibility(Lifecycle.Read)
+  snapshotFrequency?: string;
+
+  /** Number of snapshots to retain. */
+  @visibility(Lifecycle.Read)
+  snapshotRetention?: int32;
+
+  /** Whether replication is enabled. */
+  @visibility(Lifecycle.Read)
+  replicationEnabled?: boolean;
+
+  /** Replication unit backing this volume's replication (volume-level only). */
+  @visibility(Lifecycle.Read)
+  replicationUnitRef?: Azure.Core.armResourceIdentifier;
+}
+
+/**
+ * Properties of a volume group — the administrative scope for naming, RBAC,
+ * quota, and multi-tenancy on a storage array. All properties read-only here.
+ */
+@added(Versions.v2026_03_15_preview)
+model VolumeGroupProperties {
+  /** Name of the cluster this volume group serves. */
+  @visibility(Lifecycle.Read)
+  clusterName?: string;
+
+  /** ARM resource ID of the cluster this volume group serves. */
+  @visibility(Lifecycle.Read)
+  clusterResourceId?: Azure.Core.armResourceIdentifier;
+
+  /** Prefix prepended to volume names in vendor API calls. */
+  @visibility(Lifecycle.Read)
+  fabricPrefix?: string;
+
+  /** Capacity quota for this volume group, in bytes. */
+  @visibility(Lifecycle.Read)
+  capacityQuotaBytes?: int64;
+
+  /** Capacity consumed by child volumes, in bytes. */
+  @visibility(Lifecycle.Read)
+  usedCapacityBytes?: int64;
+
+  /** Number of volumes in this volume group. */
+  @visibility(Lifecycle.Read)
+  volumeCount?: int32;
+
+  /** Default storage pool (short reference) for child volumes. */
+  @visibility(Lifecycle.Read)
+  storagePoolRef?: string;
+
+  /** Default QoS inherited by child volumes unless overridden. */
+  @visibility(Lifecycle.Read)
+  defaultQoS?: VolumeQos;
+
+  /** Default data protection inherited by child volumes unless overridden. */
+  @visibility(Lifecycle.Read)
+  defaultDataProtection?: DataProtectionSettings;
+
+  /** Timestamp when the volume group was created. */
+  @visibility(Lifecycle.Read)
+  createdAt?: utcDateTime;
+
+  /** The provisioning state of the volume group resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+// ─────────────────────────── Volume models ───────────────────────────
+
+/**
+ * A durable, immutable volume identifier (Swordfish-aligned).
+ */
+@added(Versions.v2026_03_15_preview)
+model VolumeIdentifier {
+  /** The durable name value (e.g. an NAA or NVMe NGUID). */
+  @visibility(Lifecycle.Read)
+  durableName: string;
+
+  /** The format of the durable name. */
+  @visibility(Lifecycle.Read)
+  durableNameFormat?: DurableNameFormat;
+}
+
+/**
+ * A per-protocol access point through which a volume is presented.
+ */
+@added(Versions.v2026_03_15_preview)
+model VolumeAccessPoint {
+  /** Transport protocol of this access point. */
+  @visibility(Lifecycle.Read)
+  protocol?: StorageTransportType;
+
+  /** Initiator group the volume is presented to. */
+  @visibility(Lifecycle.Read)
+  initiatorGroupRef?: Azure.Core.armResourceIdentifier;
+
+  /** LUN ID for FC/iSCSI (null for NVMe). */
+  @visibility(Lifecycle.Read)
+  lunId?: int32;
+}
+
+/**
+ * Replica metadata (Swordfish `ReplicaInfo`). Null on normal volumes; populated
+ * on promoted snapshots, clones, and replication targets/sources.
+ */
+@added(Versions.v2026_03_15_preview)
+model ReplicaInfo {
+  /** The kind of replica. */
+  @visibility(Lifecycle.Read)
+  replicaType?: ReplicaType;
+
+  /** Role of this volume in the replica relationship. */
+  @visibility(Lifecycle.Read)
+  replicaRole?: ReplicaRole;
+
+  /** State of the replica relationship. */
+  @visibility(Lifecycle.Read)
+  replicaState?: ReplicaState;
+
+  /** Source volume of this replica (when target). */
+  @visibility(Lifecycle.Read)
+  sourceVolumeRef?: Azure.Core.armResourceIdentifier;
+
+  /** Source array of this replica (when cross-array). */
+  @visibility(Lifecycle.Read)
+  sourceArrayRef?: Azure.Core.armResourceIdentifier;
+
+  /** Consistency group associated with this replica. */
+  @visibility(Lifecycle.Read)
+  consistencyGroupRef?: Azure.Core.armResourceIdentifier;
+
+  /** Target volumes of this replica (when source). */
+  @visibility(Lifecycle.Read)
+  targetVolumes?: Azure.Core.armResourceIdentifier[];
+
+  /** Timestamp when the replica was created/last replicated. */
+  @visibility(Lifecycle.Read)
+  replicatedAt?: utcDateTime;
+
+  /** Whether the replica is writable. */
+  @visibility(Lifecycle.Read)
+  isWritable?: boolean;
+
+  /** Expiry timestamp of the replica (if any). */
+  @visibility(Lifecycle.Read)
+  expiresAt?: utcDateTime;
+}
+
+/**
+ * Deduplication schedule for an S2D volume.
+ */
+@added(Versions.v2026_03_15_preview)
+model DedupSchedule {
+  /** Day of week the schedule runs. */
+  @visibility(Lifecycle.Read)
+  dayOfWeek?: string;
+
+  /** Start time of the schedule. */
+  @visibility(Lifecycle.Read)
+  startTime?: string;
+
+  /** Duration of the schedule window. */
+  @visibility(Lifecycle.Read)
+  duration?: string;
+}
+
+/**
+ * S2D-specific volume properties. Absent for SAN volumes.
+ */
+@added(Versions.v2026_03_15_preview)
+model S2dVolumeProperties {
+  /** Virtual-disk resiliency type. */
+  @visibility(Lifecycle.Read)
+  resiliencyType?: ResiliencyType;
+
+  /** Number of data copies (e.g. 3 for three-way mirror). */
+  @visibility(Lifecycle.Read)
+  numberOfDataCopies?: int32;
+
+  /** Whether ReFS integrity checksums are enabled. */
+  @visibility(Lifecycle.Read)
+  integrityChecksumsEnabled?: boolean;
+
+  /** File system of the volume. */
+  @visibility(Lifecycle.Read)
+  fileSystem?: VolumeFileSystem;
+
+  /** Provisioning mode (one-way Fixed -> Thin). */
+  @visibility(Lifecycle.Read)
+  provisioningType?: DriveProvisioningType;
+
+  /** Mirror-accelerated-parity ratio (nested MAP only). */
+  @visibility(Lifecycle.Read)
+  parityPercentage?: ParityPercentage;
+
+  /** Whether the volume is eligible for workload placement. */
+  @visibility(Lifecycle.Read)
+  workloadPlacementEligible?: boolean;
+
+  /** Whether the volume is encrypted. */
+  @visibility(Lifecycle.Read)
+  isEncrypted?: boolean;
+
+  /** Performance tier of the volume. */
+  @visibility(Lifecycle.Read)
+  storageTier?: S2dStorageTier;
+
+  /** Whether deduplication is enabled. */
+  @visibility(Lifecycle.Read)
+  isDedupEnabled?: boolean;
+
+  /** Deduplication schedule. */
+  @visibility(Lifecycle.Read)
+  dedupSchedule?: DedupSchedule;
+
+  /** Raw capacity for VM/AKS placement, in bytes. */
+  @visibility(Lifecycle.Read)
+  capacityBytes?: int64;
+
+  /** Current logical utilization, in bytes. */
+  @visibility(Lifecycle.Read)
+  usedBytes?: int64;
+
+  /** Physical pool consumption incl. RAID overhead and metadata, in bytes. */
+  @visibility(Lifecycle.Read)
+  footprintOnPoolBytes?: int64;
+
+  /** Unified cross-provider volume category. */
+  @visibility(Lifecycle.Read)
+  volumeCategory?: VolumeCategory;
+
+  /** Maximum volume size, in bytes. */
+  @visibility(Lifecycle.Read)
+  maxVolumeSize?: int64;
+}
+
+/**
+ * Properties of an array-side block volume (LUN / LDEV / VV / S2D virtual disk).
+ * Child of a volume group. All properties read-only in this private preview.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageVolumeProperties {
+  /** Provisioned size of the volume, in bytes. */
+  @visibility(Lifecycle.Read)
+  sizeBytes?: int64;
+
+  /** Vendor-assigned serial number (discovered). */
+  @visibility(Lifecycle.Read)
+  serialNumber?: string;
+
+  /** Immutable SCSI VPD83 NAA identifier. */
+  @visibility(Lifecycle.Read)
+  scsiUniqueId?: string;
+
+  /** Immutable NVMe NGUID. */
+  @visibility(Lifecycle.Read)
+  nvmeNguid?: string;
+
+  /** Vendor REST API key used to address this volume (discovered). */
+  @visibility(Lifecycle.Read)
+  vendorVolumeId?: string;
+
+  /** Durable identifiers for the volume. */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["durableName"])
+  identifiers?: VolumeIdentifier[];
+
+  /** Purpose of the volume. */
+  @visibility(Lifecycle.Read)
+  purpose?: VolumePurpose;
+
+  /** Storage pool (short reference) the volume draws from. */
+  @visibility(Lifecycle.Read)
+  storagePoolRef?: string;
+
+  /** Whether the volume is thin-provisioned. */
+  @visibility(Lifecycle.Read)
+  thinProvisioned?: boolean;
+
+  /** Whether the volume is encrypted (writable for S2D, read-only for SAN). */
+  @visibility(Lifecycle.Read)
+  isEncrypted?: boolean;
+
+  /** Array-reported utilization, in bytes. */
+  @visibility(Lifecycle.Read)
+  usedBytes?: int64;
+
+  /** Combined dedup x compress ratio (array-reported). */
+  @visibility(Lifecycle.Read)
+  dataReductionRatio?: float64;
+
+  /** Deduplication ratio alone (null if not reported separately). */
+  @visibility(Lifecycle.Read)
+  dedupRatio?: float64;
+
+  /** Compression ratio alone (null if not reported separately). */
+  @visibility(Lifecycle.Read)
+  compressRatio?: float64;
+
+  /** Total bytes consumed by all array-managed snapshots of this volume. */
+  @visibility(Lifecycle.Read)
+  snapshotUsedBytes?: int64;
+
+  /** Array-reported state of the volume. */
+  @visibility(Lifecycle.Read)
+  state?: VolumeState;
+
+  /** Transport over which the volume is presented. */
+  @visibility(Lifecycle.Read)
+  transport?: StorageTransportType;
+
+  /** How the volume is presented (CSV vs raw). Determines CSV lifecycle. */
+  @visibility(Lifecycle.Read)
+  presentationMode?: PresentationMode;
+
+  /** How the volume was provisioned. */
+  @visibility(Lifecycle.Read)
+  provisioningSource?: ProvisioningSource;
+
+  /** Whether the volume is exposed via multiple protocols simultaneously. */
+  @visibility(Lifecycle.Read)
+  isMultiProtocolShared?: boolean;
+
+  /** Consistency group the volume belongs to (set via CG membership). */
+  @visibility(Lifecycle.Read)
+  consistencyGroupRef?: Azure.Core.armResourceIdentifier;
+
+  /** Whether the volume is mapped to hosts (derived from volume mappings). */
+  @visibility(Lifecycle.Read)
+  mappingState?: MappingState;
+
+  /** Replica metadata (populated on snapshots/clones/replicas). */
+  @visibility(Lifecycle.Read)
+  replicaInfo?: ReplicaInfo;
+
+  /** Per-protocol access points for the volume. */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#[])
+  accessPoints?: VolumeAccessPoint[];
+
+  /** Per-volume QoS override (inherits from volume group if unset). */
+  @visibility(Lifecycle.Read)
+  qos?: VolumeQos;
+
+  /** Per-volume data-protection override (inherits from volume group if unset). */
+  @visibility(Lifecycle.Read)
+  dataProtection?: DataProtectionSettings;
+
+  /** S2D-specific properties (absent for SAN volumes). */
+  @visibility(Lifecycle.Read)
+  s2dProperties?: S2dVolumeProperties;
+
+  /** Opaque vendor-specific pass-through options, provided as a JSON-encoded string (escaped JSON) because the shape is vendor-defined and may be nested (e.g. `{"pure":{"protectionGroup":"contoso-pg"}}`). Concrete per-vendor models are deferred to public preview. */
+  @visibility(Lifecycle.Read)
+  vendorOptions?: string;
+
+  /** Timestamp when the volume was created on the array. */
+  @visibility(Lifecycle.Read)
+  createdAt?: utcDateTime;
+
+  /** The provisioning state of the volume resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+// ─────────────────────────── VolumeMapping models ───────────────────────────
+
+/**
+ * Properties of a volume mapping — the access mapping between a volume and an
+ * initiator group. All properties read-only in this private preview.
+ */
+@added(Versions.v2026_03_15_preview)
+model VolumeMappingProperties {
+  /** ARM resource ID of the volume being presented. */
+  @visibility(Lifecycle.Read)
+  volumeRef?: Azure.Core.armResourceIdentifier;
+
+  /** ARM resource ID of the target initiator group. */
+  @visibility(Lifecycle.Read)
+  initiatorGroupId?: Azure.Core.armResourceIdentifier;
+
+  /** Transport protocol for this mapping (must match the initiator group). */
+  @visibility(Lifecycle.Read)
+  transport?: StorageTransportType;
+
+  /** LUN ID for FC/iSCSI (null for NVMe). */
+  @visibility(Lifecycle.Read)
+  lunId?: int32;
+
+  /** Access mode of the mapping. */
+  @visibility(Lifecycle.Read)
+  accessMode?: AccessMode;
+
+  /** Vendor port where this mapping is active (e.g. "CT0-FC0"). */
+  @visibility(Lifecycle.Read)
+  arrayPortId?: string;
+
+  /** iSCSI target IQN (SC-populated). */
+  @visibility(Lifecycle.Read)
+  iscsiTargetIqn?: string;
+
+  /** iSCSI target portal address (SC-populated). */
+  @visibility(Lifecycle.Read)
+  iscsiTargetPortal?: string;
+
+  /** NVMe subsystem NQN (SC-populated). */
+  @visibility(Lifecycle.Read)
+  nvmeSubsystemNqn?: string;
+
+  /** NVMe namespace ID assigned by the array. */
+  @visibility(Lifecycle.Read)
+  nvmeNsid?: int32;
+
+  /** Timestamp when the mapping was created on the array. */
+  @visibility(Lifecycle.Read)
+  mappedAt?: utcDateTime;
+
+  /** The provisioning state of the volume mapping resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+// ─────────────────────────── ConsistencyGroup models ───────────────────────────
+
+/**
+ * Properties of a consistency group — an array-scoped grouping of volumes for
+ * write-order-consistent snapshots and as a replication/failover boundary.
+ */
+@added(Versions.v2026_03_15_preview)
+model ConsistencyGroupProperties {
+  /** ARM resource IDs of member volumes (a volume belongs to at most one CG). */
+  @visibility(Lifecycle.Read)
+  memberVolumes?: Azure.Core.armResourceIdentifier[];
+
+  /** Vendor-assigned group identifier (pod, volume group, CG UUID, etc.). */
+  @visibility(Lifecycle.Read)
+  vendorGroupId?: string;
+
+  /** Timestamp of the last group snapshot (null if none). */
+  @visibility(Lifecycle.Read)
+  lastSnapshotAt?: utcDateTime;
+
+  /** Opaque vendor-specific options (e.g. backing-construct selection), provided as a JSON-encoded string (escaped JSON) because the shape is vendor-defined and may be nested (e.g. `{"pure":{"protectionGroup":"contoso-pg"}}`). Concrete per-vendor models are deferred to public preview. */
+  @visibility(Lifecycle.Read)
+  vendorOptions?: string;
+
+  /** The provisioning state of the consistency group resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+// ─────────────────────────── ReplicationUnit models ───────────────────────────
+
+/**
+ * Properties of a replication unit — wraps a single volume or a consistency
+ * group as the unit of replication. Exactly one of `sourceVolumeRef` /
+ * `consistencyGroupRef` is set. All properties read-only in this private preview.
+ */
+@added(Versions.v2026_03_15_preview)
+model ReplicationUnitProperties {
+  /** Volume being replicated (mutually exclusive with consistencyGroupRef). */
+  @visibility(Lifecycle.Read)
+  sourceVolumeRef?: Azure.Core.armResourceIdentifier;
+
+  /** Consistency group being replicated (mutually exclusive with sourceVolumeRef). */
+  @visibility(Lifecycle.Read)
+  consistencyGroupRef?: Azure.Core.armResourceIdentifier;
+
+  /** Replication state, derived from vendor replication status. */
+  @visibility(Lifecycle.Read)
+  state?: ReplicationUnitState;
+
+  /** Timestamp of the last successful replication sync point. */
+  @visibility(Lifecycle.Read)
+  lastReplicatedAt?: utcDateTime;
+
+  /** Target volume or CG on the peer array. */
+  @visibility(Lifecycle.Read)
+  targetRef?: Azure.Core.armResourceIdentifier;
+
+  /** Vendor-specific identifier for the replication unit. */
+  @visibility(Lifecycle.Read)
+  vendorUnitId?: string;
+
+  /** The provisioning state of the replication unit resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+// ─────────────────────────── ReplicationSession models ───────────────────────────
+
+/**
+ * Per-volume replication status within a CG session; a single entry for
+ * volume-type sessions.
+ */
+@added(Versions.v2026_03_15_preview)
+model ReplicationMemberStatus {
+  /** Volume this status entry refers to. */
+  @visibility(Lifecycle.Read)
+  volumeRef: Azure.Core.armResourceIdentifier;
+
+  /** Replication state of this member. */
+  @visibility(Lifecycle.Read)
+  replicationState?: ReplicaState;
+
+  /** Replication lag for this member, in seconds. */
+  @visibility(Lifecycle.Read)
+  lagSeconds?: int64;
+
+  /** Health of this member's replication. */
+  @visibility(Lifecycle.Read)
+  health?: ReplicationHealth;
+}
+
+/**
+ * Properties of a replication session — an active, dual-homed replication
+ * relationship for a replication unit. All properties read-only in this preview.
+ */
+@added(Versions.v2026_03_15_preview)
+model ReplicationSessionProperties {
+  /** Peer replication unit on the target array. */
+  @visibility(Lifecycle.Read)
+  peerReplicationUnitRef?: Azure.Core.armResourceIdentifier;
+
+  /** Replication mode of the session. */
+  @visibility(Lifecycle.Read)
+  replicationType?: ReplicationType;
+
+  /** Declared intent of the session (informational). */
+  @visibility(Lifecycle.Read)
+  purpose?: ReplicationPurpose;
+
+  /** Replication policy applied to the session (null = vendor default). */
+  @visibility(Lifecycle.Read)
+  policyRef?: Azure.Core.armResourceIdentifier;
+
+  /** Opaque vendor-specific pass-through options, provided as a JSON-encoded string (escaped JSON) because the shape is vendor-defined and may be nested (e.g. `{"pure":{"protectionGroup":"contoso-pg"}}`). Concrete per-vendor models are deferred to public preview. */
+  @visibility(Lifecycle.Read)
+  vendorOptions?: string;
+
+  /** Vendor-assigned globally unique session ID (same on both arrays). */
+  @visibility(Lifecycle.Read)
+  globalReplicationSessionId?: string;
+
+  /** Replication peering used for this session's transport. */
+  @visibility(Lifecycle.Read)
+  arrayPeeringRef?: Azure.Core.armResourceIdentifier;
+
+  /** Role of this session instance relative to its hosting array. */
+  @visibility(Lifecycle.Read)
+  role?: ReplicationSessionRole;
+
+  /** Data-flow direction relative to this array. */
+  @visibility(Lifecycle.Read)
+  direction?: ReplicationDirection;
+
+  /** Lifecycle state of the session. */
+  @visibility(Lifecycle.Read)
+  sessionState?: ReplicationSessionState;
+
+  /** Current replication lag (worst-case across CG members), in seconds. */
+  @visibility(Lifecycle.Read)
+  lagSeconds?: int64;
+
+  /** Target RPO from the policy, in seconds. */
+  @visibility(Lifecycle.Read)
+  rpoSeconds?: int64;
+
+  /** RPO compliance verdict. */
+  @visibility(Lifecycle.Read)
+  rpoCompliance?: RpoCompliance;
+
+  /** Health of the session. */
+  @visibility(Lifecycle.Read)
+  health?: ReplicationHealth;
+
+  /** Timestamp of the last successful sync. */
+  @visibility(Lifecycle.Read)
+  lastSyncedAt?: utcDateTime;
+
+  /** Per-volume replication status (single entry for volume sessions). */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["volumeRef"])
+  memberStatuses?: ReplicationMemberStatus[];
+
+  /** Vendor-specific session identifier for vendor API correlation. */
+  @visibility(Lifecycle.Read)
+  vendorSessionId?: string;
+
+  /** The provisioning state of the replication session resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+// ─────────────────────────── ReplicationPeering models ───────────────────────────
+
+/**
+ * Properties of a replication peering — an array-to-array trust/network
+ * relationship. Read-only, discovered by the SC from array configuration.
+ */
+@added(Versions.v2026_03_15_preview)
+model ReplicationPeeringProperties {
+  /** Vendor-provided globally unique ID for the peering (correlation key). */
+  @visibility(Lifecycle.Read)
+  globalPeeringId?: string;
+
+  /** Peer array ARM resource ID (null until the peer is registered in ARM). */
+  @visibility(Lifecycle.Read)
+  peerArrayRef?: Azure.Core.armResourceIdentifier;
+
+  /** Role of this array in the peering. */
+  @visibility(Lifecycle.Read)
+  role?: PeeringRole;
+
+  /** Transport carrying replication data between the arrays. */
+  @visibility(Lifecycle.Read)
+  replicationTransport?: PeeringTransport;
+
+  /** State of the peering. */
+  @visibility(Lifecycle.Read)
+  peeringState?: PeeringState;
+
+  /** Health of the peering. */
+  @visibility(Lifecycle.Read)
+  peeringHealth?: PeeringHealth;
+
+  /** Bandwidth throttle, in MB/s; null = unlimited. */
+  @visibility(Lifecycle.Read)
+  throttleBandwidthMbps?: int64;
+
+  /** Timestamp of the last successful verification/heartbeat. */
+  @visibility(Lifecycle.Read)
+  lastVerifiedAt?: utcDateTime;
+
+  /** Vendor-specific peering identifier. */
+  @visibility(Lifecycle.Read)
+  vendorPeeringId?: string;
+
+  /** Opaque vendor-specific pass-through options, provided as a JSON-encoded string (escaped JSON) because the shape is vendor-defined and may be nested (e.g. `{"pure":{"protectionGroup":"contoso-pg"}}`). Concrete per-vendor models are deferred to public preview. */
+  @visibility(Lifecycle.Read)
+  vendorOptions?: string;
+
+  /** The provisioning state of the replication peering resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+// ─────────────────────────── ReplicationPolicy models ───────────────────────────
+
+/**
+ * Properties of a replication policy — a discovered, read-only vendor policy
+ * defining RPO targets, schedules, and retention for replication sessions.
+ */
+@added(Versions.v2026_03_15_preview)
+model ReplicationPolicyProperties {
+  /** Vendor-assigned policy identifier. */
+  @visibility(Lifecycle.Read)
+  vendorPolicyId?: string;
+
+  /** Type of the replication policy. */
+  @visibility(Lifecycle.Read)
+  policyType?: ReplicationPolicyType;
+
+  /** Target RPO, in seconds. */
+  @visibility(Lifecycle.Read)
+  rpoTargetSeconds?: int64;
+
+  /** Replication schedule as an ISO 8601 duration (null for continuous). */
+  @visibility(Lifecycle.Read)
+  schedule?: string;
+
+  /** Number of retained recovery points. */
+  @visibility(Lifecycle.Read)
+  retentionCount?: int32;
+
+  /** Retention period as an ISO 8601 duration (e.g. "P7D"). */
+  @visibility(Lifecycle.Read)
+  retentionPeriod?: string;
+
+  /** Whether at-rest compression is enabled. */
+  @visibility(Lifecycle.Read)
+  compressionEnabled?: boolean;
+
+  /** Whether network (in-flight) compression is enabled. */
+  @visibility(Lifecycle.Read)
+  networkCompressionEnabled?: boolean;
+
+  /** Opaque vendor-specific pass-through options, provided as a JSON-encoded string (escaped JSON) because the shape is vendor-defined and may be nested (e.g. `{"pure":{"protectionGroup":"contoso-pg"}}`). Concrete per-vendor models are deferred to public preview. */
+  @visibility(Lifecycle.Read)
+  vendorOptions?: string;
+
+  /** The provisioning state of the replication policy resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+// ---- END STORAGE ARRAYS SUBTREE MODELS ----
+
+////////////////////////////////////////////////////////////////////////////////
+////////// PRIVATE PREVIEW - Cluster storage & shared resources (read-only) /////
+////////////////////////////////////////////////////////////////////////////////
+//
+// Read-only ARM model for the shared/cluster storage resources, sourced from the
+// v20 storage design spec (docs/v20/01-Design-Spec.md):
+//   - initiatorGroups (§4.7, tracked root)
+//   - storageFabrics (§4.8, tracked root) + fabricAliases / fabricZones (children)
+//   - storageArrayAssociations (§4.13, child of clusters)
+//
+// Same PRIVATE PREVIEW policy as the storageArrays subtree: EVERY property is
+// emitted read-only (@visibility(Lifecycle.Read)); GET + LIST operations only.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+// ─────────────────────────── Initiator group enums ───────────────────────────
+
+/**
+ * Role of an initiator group (host access role).
+ */
+@added(Versions.v2026_03_15_preview)
+union InitiatorGroupRole {
+  string,
+
+  /** Active workload path. */
+  Active: "Active",
+
+  /** Backup path. */
+  Backup: "Backup",
+
+  /** Migration path. */
+  Migration: "Migration",
+}
+
+/**
+ * Host operating-system persona for an initiator group. Affects vendor host-side
+ * SCSI behavior (ALUA mode, LUN scanning, multipath).
+ */
+@added(Versions.v2026_03_15_preview)
+union OsType {
+  string,
+
+  /** Windows host persona (default for Azure Local). */
+  Windows: "Windows",
+
+  /** Linux host persona. */
+  Linux: "Linux",
+
+  /** VMware ESXi host persona. */
+  ESXi: "ESXi",
+
+  /** IBM AIX host persona. */
+  AIX: "AIX",
+
+  /** Oracle Solaris host persona. */
+  Solaris: "Solaris",
+}
+
+// ─────────────────────────── Association enums ───────────────────────────
+
+/**
+ * Administrator intent for how the storage controller manages an associated array.
+ */
+@added(Versions.v2026_03_15_preview)
+union OperationalMode {
+  string,
+
+  /** SC reads and writes — full provisioning, mapping, lifecycle. */
+  FullManagement: "FullManagement",
+
+  /** SC reads only — discovers, populates ARM, monitors. */
+  ReadOnly: "ReadOnly",
+
+  /** SC does cluster-side discovery only. */
+  Unmanaged: "Unmanaged",
+}
+
+/**
+ * Real-time reachability of a cluster-to-array association.
+ */
+@added(Versions.v2026_03_15_preview)
+union AssociationAccessStatus {
+  string,
+
+  /** Array is reachable. */
+  Connected: "Connected",
+
+  /** Array is partially reachable. */
+  Degraded: "Degraded",
+
+  /** Array is not reachable. */
+  Disconnected: "Disconnected",
+}
+
+/**
+ * High-availability role of an association in a dual-array (RAC) pair.
+ */
+@added(Versions.v2026_03_15_preview)
+union HaRole {
+  string,
+
+  /** Both arrays serve I/O simultaneously. */
+  ActiveActive: "ActiveActive",
+
+  /** One array is primary; failover is whole-group. */
+  ActivePassive: "ActivePassive",
+
+  /** Not part of an HA pair (default). */
+  None: "None",
+}
+
+/**
+ * ALUA behavior of a dual-array HA pair (discovered).
+ */
+@added(Versions.v2026_03_15_preview)
+union AluaModel {
+  string,
+
+  /** Per-volume ALUA preference. */
+  ActiveActive: "ActiveActive",
+
+  /** Entire replication group flips as a unit. */
+  ActivePassive: "ActivePassive",
+}
+
+/**
+ * Lifecycle state of a cluster-to-array association.
+ */
+@added(Versions.v2026_03_15_preview)
+union AssociationState {
+  string,
+
+  /** SC is establishing connectivity and running initial discovery. */
+  Attaching: "Attaching",
+
+  /** Healthy — SC has connectivity and is operating per its mode. */
+  Attached: "Attached",
+
+  /** Intermittent connectivity or partial discovery failure. */
+  Degraded: "Degraded",
+
+  /** Admin-initiated detach — SC is cleaning up host records. */
+  Detaching: "Detaching",
+
+  /** SC cannot reach the array or credentials are invalid. */
+  Error: "Error",
+
+  /** Terminal — cleanup complete; the association can be deleted. */
+  Detached: "Detached",
+}
+
+/**
+ * Whether cluster-side storage QoS policy enforcement is enabled.
+ */
+@added(Versions.v2026_03_15_preview)
+union PolicyEnforcement {
+  string,
+
+  /** QoS policy is enforced. */
+  Enabled: "Enabled",
+
+  /** QoS policy is not enforced. */
+  Disabled: "Disabled",
+}
+
+// ─────────────────────────── InitiatorGroup models ───────────────────────────
+
+/**
+ * A World Wide Name entry for an FC initiator, with its fabric attachment.
+ */
+@added(Versions.v2026_03_15_preview)
+model FcInitiatorWwn {
+  /** World Wide Name of the FC initiator port. */
+  @visibility(Lifecycle.Read)
+  wwn: string;
+
+  /** Fabric the port is attached to (for example, "A" or "B"). */
+  @visibility(Lifecycle.Read)
+  fabric?: string;
+}
+
+/**
+ * An FC initiator (a cluster node and its FC ports).
+ */
+@added(Versions.v2026_03_15_preview)
+model FcInitiator {
+  /** Cluster node that owns these ports. */
+  @visibility(Lifecycle.Read)
+  nodeName: string;
+
+  /** WWNs of the node's FC ports. */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["wwn"])
+  wwns?: FcInitiatorWwn[];
+}
+
+/**
+ * An iSCSI initiator (a cluster node and its IQNs).
+ */
+@added(Versions.v2026_03_15_preview)
+model IscsiInitiator {
+  /** Cluster node that owns these IQNs. */
+  @visibility(Lifecycle.Read)
+  nodeName: string;
+
+  /** iSCSI Qualified Names of the node's initiators. */
+  @visibility(Lifecycle.Read)
+  iqns?: string[];
+}
+
+/**
+ * An NVMe initiator (a cluster node and its host NQN).
+ */
+@added(Versions.v2026_03_15_preview)
+model NvmeInitiator {
+  /** Cluster node that owns this host NQN. */
+  @visibility(Lifecycle.Read)
+  nodeName: string;
+
+  /** NVMe host Qualified Name. */
+  @visibility(Lifecycle.Read)
+  hostNqn?: string;
+}
+
+/**
+ * Outbound transport QoS applied on the initiator side, per initiator group.
+ */
+@added(Versions.v2026_03_15_preview)
+model TransportQos {
+  /** Maximum outbound bandwidth, in MB/s; null = unlimited. */
+  @visibility(Lifecycle.Read)
+  maxBandwidthMbps?: int64;
+}
+
+/**
+ * iSCSI transport security (CHAP) settings for an initiator group.
+ */
+@added(Versions.v2026_03_15_preview)
+model IscsiTransportSecurity {
+  /** Whether CHAP authentication is required. */
+  @visibility(Lifecycle.Read)
+  chapRequired?: boolean;
+
+  /** Whether mutual (bidirectional) CHAP is required. */
+  @visibility(Lifecycle.Read)
+  mutualChapRequired?: boolean;
+
+  /** Key Vault secret URI holding the CHAP secret. */
+  @visibility(Lifecycle.Read)
+  chapSecretUri?: url;
+
+  /** Credential rotation period, in days. */
+  @visibility(Lifecycle.Read)
+  rotationPeriodDays?: int32;
+}
+
+/**
+ * Fibre Channel transport security (Secure HBA / FC-SP) settings.
+ */
+@added(Versions.v2026_03_15_preview)
+model FcTransportSecurity {
+  /** Whether Secure HBA is required. */
+  @visibility(Lifecycle.Read)
+  secureHbaRequired?: boolean;
+
+  /** Key Vault secret URI holding the FC-SP certificate. */
+  @visibility(Lifecycle.Read)
+  fcspCertificateUri?: url;
+}
+
+/**
+ * NVMe transport security (TLS / DH-HMAC-CHAP) settings.
+ */
+@added(Versions.v2026_03_15_preview)
+model NvmeTransportSecurity {
+  /** Whether TLS is required. */
+  @visibility(Lifecycle.Read)
+  tlsRequired?: boolean;
+
+  /** Key Vault secret URI holding the TLS secret. */
+  @visibility(Lifecycle.Read)
+  tlsSecretUri?: url;
+
+  /** Whether DH-HMAC-CHAP is required. */
+  @visibility(Lifecycle.Read)
+  dhHmacChapRequired?: boolean;
+}
+
+/**
+ * Transport security settings for an initiator group, per transport.
+ */
+@added(Versions.v2026_03_15_preview)
+model TransportSecurity {
+  /** iSCSI (CHAP) security settings. */
+  @visibility(Lifecycle.Read)
+  iscsi?: IscsiTransportSecurity;
+
+  /** Fibre Channel (Secure HBA / FC-SP) security settings. */
+  @visibility(Lifecycle.Read)
+  fc?: FcTransportSecurity;
+
+  /** NVMe (TLS / DH-HMAC-CHAP) security settings. */
+  @visibility(Lifecycle.Read)
+  nvme?: NvmeTransportSecurity;
+}
+
+/**
+ * Properties of an initiator group — a set of host initiators (FC WWPNs, iSCSI
+ * IQNs, or NVMe host NQNs) for one transport and role. All properties read-only
+ * in this private preview.
+ */
+@added(Versions.v2026_03_15_preview)
+model InitiatorGroupProperties {
+  /** ARM resource ID of the owning cluster. */
+  @visibility(Lifecycle.Read)
+  clusterResourceId?: Azure.Core.armResourceIdentifier;
+
+  /** Display name of the owning cluster. */
+  @visibility(Lifecycle.Read)
+  clusterName?: string;
+
+  /** Prefix used for vendor host-group naming. */
+  @visibility(Lifecycle.Read)
+  fabricPrefix?: string;
+
+  /** Transport type of this initiator group (single transport per group). */
+  @visibility(Lifecycle.Read)
+  transport?: StorageTransportType;
+
+  /** Access role of this initiator group. */
+  @visibility(Lifecycle.Read)
+  role?: InitiatorGroupRole;
+
+  /** Host OS persona. */
+  @visibility(Lifecycle.Read)
+  osType?: OsType;
+
+  /** FC initiator entries (populated only when transport is FC). */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["nodeName"])
+  fcInitiators?: FcInitiator[];
+
+  /** iSCSI initiator entries (populated only when transport is iSCSI). */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["nodeName"])
+  iscsiInitiators?: IscsiInitiator[];
+
+  /** NVMe initiator entries (populated only when transport is NVMe). */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["nodeName"])
+  nvmeInitiators?: NvmeInitiator[];
+
+  /** Outbound transport QoS (initiator-side bandwidth limits). */
+  @visibility(Lifecycle.Read)
+  transportQoS?: TransportQos;
+
+  /** Transport security (CHAP / TLS / Secure HBA) settings. */
+  @visibility(Lifecycle.Read)
+  transportSecurity?: TransportSecurity;
+
+  /** The provisioning state of the initiator group resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+// ---- END INITIATOR GROUP MODELS ----
+
+// ─────────────────────────── StorageFabric models ───────────────────────────
+
+/**
+ * Properties of a storage fabric — an FC fabric (Brocade switch or director)
+ * that contains zones and aliases. All properties read-only in this preview.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageFabricProperties {
+  /** Switch model, discovered from the fabric switch. */
+  @visibility(Lifecycle.Read)
+  switchModel?: string;
+
+  /** Principal switch WWN — identifies the physical switch. */
+  @visibility(Lifecycle.Read)
+  switchWwn?: string;
+
+  /** Switch firmware version, discovered from the fabric switch. */
+  @visibility(Lifecycle.Read)
+  firmwareVersion?: string;
+
+  /** IP address/hostname for the fabric management API. */
+  @visibility(Lifecycle.Read)
+  managementAddress?: string;
+
+  /** Number of zone definitions on the fabric. */
+  @visibility(Lifecycle.Read)
+  zoneCount?: int32;
+
+  /** Number of alias definitions on the fabric. */
+  @visibility(Lifecycle.Read)
+  aliasCount?: int32;
+
+  /** Connection status of the fabric management API. */
+  @visibility(Lifecycle.Read)
+  connectionStatus?: ConnectionStatus;
+
+  /** The provisioning state of the storage fabric resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/**
+ * Properties of a fabric alias — a named set of WWNs defined on the fabric switch.
+ */
+@added(Versions.v2026_03_15_preview)
+model FabricAliasProperties {
+  /** The alias name as defined in the fabric switch. */
+  @visibility(Lifecycle.Read)
+  aliasName?: string;
+
+  /** WWNs associated with this alias. */
+  @visibility(Lifecycle.Read)
+  wwns?: string[];
+
+  /** Human-readable description. */
+  @visibility(Lifecycle.Read)
+  description?: string;
+
+  /** The provisioning state of the fabric alias resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/**
+ * Properties of a fabric zone — a zone defined on the fabric switch.
+ */
+@added(Versions.v2026_03_15_preview)
+model FabricZoneProperties {
+  /** The zone name as defined in the fabric switch. */
+  @visibility(Lifecycle.Read)
+  zoneName?: string;
+
+  /** Members of this zone (aliases or raw WWNs). */
+  @visibility(Lifecycle.Read)
+  members?: string[];
+
+  /** Whether the zone is in the currently active zone set. */
+  @visibility(Lifecycle.Read)
+  isActive?: boolean;
+
+  /** Name of the zone set this zone belongs to. */
+  @visibility(Lifecycle.Read)
+  zoneSetName?: string;
+
+  /** The provisioning state of the fabric zone resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+// ─────────────────────────── StorageArrayAssociation models ───────────────────────────
+
+/**
+ * Cluster-side (Windows Storage QoS) settings for an association.
+ */
+@added(Versions.v2026_03_15_preview)
+model ClusterStorageQos {
+  /** Default maximum IOPS. */
+  @visibility(Lifecycle.Read)
+  defaultMaxIops?: int64;
+
+  /** Default minimum (guaranteed) IOPS. */
+  @visibility(Lifecycle.Read)
+  defaultMinIops?: int64;
+
+  /** Whether QoS policy enforcement is enabled. */
+  @visibility(Lifecycle.Read)
+  policyEnforcement?: PolicyEnforcement;
+}
+
+/**
+ * Read-only, SC-reported status of a cluster-to-array association.
+ * (In the design JSON this appears as a top-level `status`; here it is nested
+ * under `properties.status`, per ARM conventions.)
+ */
+@added(Versions.v2026_03_15_preview)
+model AssociationStatus {
+  /** Association lifecycle state. */
+  @visibility(Lifecycle.Read)
+  state?: AssociationState;
+
+  /** Timestamp of the last successful connectivity to the array. */
+  @visibility(Lifecycle.Read)
+  lastConnectedAt?: utcDateTime;
+
+  /** Array model discovered during initial sync. */
+  @visibility(Lifecycle.Read)
+  discoveredArrayModel?: string;
+
+  /** Array vendor discovered during initial sync. */
+  @visibility(Lifecycle.Read)
+  discoveredArrayVendor?: string;
+}
+
+/**
+ * Properties of a storage-array association — links a cluster to a storage array.
+ * The admin entry point for storage management. All properties read-only here.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageArrayAssociationProperties {
+  /** ARM resource ID of the associated storage array. */
+  @visibility(Lifecycle.Read)
+  storageArrayResourceId?: Azure.Core.armResourceIdentifier;
+
+  /** Administrator management intent for the array. */
+  @visibility(Lifecycle.Read)
+  operationalMode?: OperationalMode;
+
+  /** Key Vault secret URI for array credentials (FullManagement). */
+  @visibility(Lifecycle.Read)
+  credentialSecretUri?: url;
+
+  /** Management IP/hostname for the array. */
+  @visibility(Lifecycle.Read)
+  networkEndpoint?: string;
+
+  /** Pool names this tenant may allocate from; null = all pools. */
+  @visibility(Lifecycle.Read)
+  allowedPools?: string[];
+
+  /** Default pool for new volumes; null = SC auto-selects. */
+  @visibility(Lifecycle.Read)
+  defaultPoolRef?: string;
+
+  /** Transports wired between this cluster and array (discovered). */
+  @visibility(Lifecycle.Read)
+  connectedTransports?: StorageTransportType[];
+
+  /** Real-time reachability status of the association. */
+  @visibility(Lifecycle.Read)
+  accessStatus?: AssociationAccessStatus;
+
+  /** Partner association forming the HA pair (mutual); null if single-array. */
+  @visibility(Lifecycle.Read)
+  haPartnerAssociationRef?: Azure.Core.armResourceIdentifier;
+
+  /** HA role of this association in a dual-array pair. */
+  @visibility(Lifecycle.Read)
+  haRole?: HaRole;
+
+  /** Consistency group new volumes auto-join; null if none. */
+  @visibility(Lifecycle.Read)
+  defaultConsistencyGroupRef?: Azure.Core.armResourceIdentifier;
+
+  /** ALUA behavior of the HA pair (discovered). */
+  @visibility(Lifecycle.Read)
+  aluaModel?: AluaModel;
+
+  /** Cluster-side (Windows Storage QoS) settings. */
+  @visibility(Lifecycle.Read)
+  clusterStorageQoS?: ClusterStorageQos;
+
+  /** Read-only, SC-reported association status. */
+  @visibility(Lifecycle.Read)
+  status?: AssociationStatus;
+
+  /** The provisioning state of the association resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+// ─────────────────────────── Placeholder tags-only patch models (tracked roots) ───────────────────────────
+// The tracked root resources (storageArrays, initiatorGroups, storageFabrics) are
+// read-only for this private preview, but ARM requires a TrackedResource to expose
+// the full lifecycle (PUT/PATCH/DELETE). These tags-only patch models back the
+// placeholder update operations; no domain properties are settable.
+
+/**
+ * The type used for updating tags in StorageArray resources.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageArrayPatch {
+  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+}
+
+/**
+ * The type used for updating tags in InitiatorGroup resources.
+ */
+@added(Versions.v2026_03_15_preview)
+model InitiatorGroupPatch {
+  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+}
+
+/**
+ * The type used for updating tags in StorageFabric resources.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageFabricPatch {
+  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+}
+
+// ---- END CLUSTER STORAGE & SHARED RESOURCE MODELS ----

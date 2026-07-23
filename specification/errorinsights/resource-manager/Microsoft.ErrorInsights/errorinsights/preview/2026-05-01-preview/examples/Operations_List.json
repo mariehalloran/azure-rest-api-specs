@@ -1,0 +1,35 @@
+{
+  "operationId": "Operations_List",
+  "title": "List available operations for Microsoft.ErrorInsights",
+  "parameters": {
+    "api-version": "2026-05-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "Microsoft.ErrorInsights/errors/read",
+            "display": {
+              "provider": "Microsoft.ErrorInsights",
+              "resource": "errors",
+              "operation": "Read error events",
+              "description": "Read error events associated with Azure resources."
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.ErrorInsights/errorClusters/read",
+            "display": {
+              "provider": "Microsoft.ErrorInsights",
+              "resource": "errorClusters",
+              "operation": "Read error clusters",
+              "description": "Read error clusters grouping similar error events."
+            },
+            "isDataAction": false
+          }
+        ]
+      }
+    }
+  }
+}

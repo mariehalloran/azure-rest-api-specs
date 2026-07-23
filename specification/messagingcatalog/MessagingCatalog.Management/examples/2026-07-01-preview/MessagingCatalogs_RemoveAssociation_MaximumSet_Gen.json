@@ -1,0 +1,26 @@
+{
+  "title": "MessagingCatalogs_RemoveAssociation_MaximumSet_Gen",
+  "operationId": "MessagingCatalogs_RemoveAssociation",
+  "parameters": {
+    "api-version": "2026-07-01-preview",
+    "resourceGroupName": "rgmessagingcatalog",
+    "subscriptionId": "A7BFF0F7-F69A-4D4B-AB83-BE8EB0ADC35E",
+    "catalogName": "mycatalog",
+    "body": {
+      "associationId": "52fc1de0-ac86-4d13-8e22-278874a8c78b"
+    }
+  },
+  "responses": {
+    "202": {
+      "headers": {
+        "Location": "https://management.azure.com/subscriptions/A7BFF0F7-F69A-4D4B-AB83-BE8EB0ADC35E/providers/Microsoft.MessagingCatalog/locations/eastus/operationStatuses/00000000-0000-0000-0000-000000000001?api-version=2026-07-01-preview",
+        "Retry-After": 30
+      }
+    },
+    "200": {
+      "body": {
+        "status": "Deleting"
+      }
+    }
+  }
+}

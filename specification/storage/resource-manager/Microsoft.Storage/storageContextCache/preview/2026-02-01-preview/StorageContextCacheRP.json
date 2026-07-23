@@ -1,0 +1,2176 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Storage Context Cache Resource Provider",
+    "version": "2026-02-01-preview",
+    "description": "Microsoft.Storage Context Cache Resource Provider management API.",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "ContextCaches"
+    },
+    {
+      "name": "ContextCacheContainers"
+    },
+    {
+      "name": "InternalContextCaches"
+    },
+    {
+      "name": "InternalContextCacheContainers"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.Storage/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Available Operations": {
+            "$ref": "./examples/Operations_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Storage/contextCaches": {
+      "get": {
+        "operationId": "ContextCaches_ListBySubscription",
+        "tags": [
+          "ContextCaches"
+        ],
+        "description": "List Context Caches by subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ContextCacheListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Context Caches by Subscription": {
+            "$ref": "./examples/ContextCaches_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/contextCaches": {
+      "get": {
+        "operationId": "ContextCaches_ListByResourceGroup",
+        "tags": [
+          "ContextCaches"
+        ],
+        "description": "List Context Caches by resource group.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ContextCacheListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Context Caches by Resource Group": {
+            "$ref": "./examples/ContextCaches_ListByResourceGroup.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/contextCaches/{contextCacheName}": {
+      "get": {
+        "operationId": "ContextCaches_Get",
+        "tags": [
+          "ContextCaches"
+        ],
+        "description": "Get a Context Cache.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "contextCacheName",
+            "in": "path",
+            "description": "The name of the context cache",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ContextCache"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a Context Cache": {
+            "$ref": "./examples/ContextCaches_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ContextCaches_CreateOrUpdate",
+        "tags": [
+          "ContextCaches"
+        ],
+        "description": "Create or update a Context Cache.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "contextCacheName",
+            "in": "path",
+            "description": "The name of the context cache",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContextCache"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ContextCache' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ContextCache"
+            }
+          },
+          "201": {
+            "description": "Resource 'ContextCache' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ContextCache"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create a Azure Context Cache Account with System Assigned Identity": {
+            "$ref": "./examples/ContextCaches_CreateOrUpdate_SystemIdentity.json"
+          },
+          "Create a Context Cache": {
+            "$ref": "./examples/ContextCaches_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation",
+          "final-state-schema": "#/definitions/ContextCache"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "ContextCaches_Update",
+        "tags": [
+          "ContextCaches"
+        ],
+        "description": "Update a Context Cache.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "contextCacheName",
+            "in": "path",
+            "description": "The name of the context cache",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContextCacheUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ContextCache"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update a Azure Context Cache Account's Customer Managed Key Encryption Settings": {
+            "$ref": "./examples/ContextCaches_Update_CustomerManagedKey.json"
+          },
+          "Update a Context Cache tags": {
+            "$ref": "./examples/ContextCaches_Update.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location",
+          "final-state-schema": "#/definitions/ContextCache"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "ContextCaches_Delete",
+        "tags": [
+          "ContextCaches"
+        ],
+        "description": "Delete a Context Cache.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "contextCacheName",
+            "in": "path",
+            "description": "The name of the context cache",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a Context Cache": {
+            "$ref": "./examples/ContextCaches_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/contextCaches/{contextCacheName}/contextCacheContainers": {
+      "get": {
+        "operationId": "ContextCacheContainers_ListByContextCache",
+        "tags": [
+          "ContextCacheContainers"
+        ],
+        "description": "List all containers in a Context Cache.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "contextCacheName",
+            "in": "path",
+            "description": "The name of the context cache",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ContextCacheContainerListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Context Cache Containers in a Context Cache": {
+            "$ref": "./examples/ContextCacheContainers_ListByContextCache.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/contextCaches/{contextCacheName}/contextCacheContainers/{contextCacheContainerName}": {
+      "get": {
+        "operationId": "ContextCacheContainers_Get",
+        "tags": [
+          "ContextCacheContainers"
+        ],
+        "description": "Get a container in a Context Cache.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "contextCacheName",
+            "in": "path",
+            "description": "The name of the context cache",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          },
+          {
+            "name": "contextCacheContainerName",
+            "in": "path",
+            "description": "The name of the context cache container",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ContextCacheContainer"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a Context Cache Container": {
+            "$ref": "./examples/ContextCacheContainers_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ContextCacheContainers_CreateOrUpdate",
+        "tags": [
+          "ContextCacheContainers"
+        ],
+        "description": "Create or update a container in a Context Cache.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "contextCacheName",
+            "in": "path",
+            "description": "The name of the context cache",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          },
+          {
+            "name": "contextCacheContainerName",
+            "in": "path",
+            "description": "The name of the context cache container",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContextCacheContainer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ContextCacheContainer' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ContextCacheContainer"
+            }
+          },
+          "201": {
+            "description": "Resource 'ContextCacheContainer' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ContextCacheContainer"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create a Context Cache Container": {
+            "$ref": "./examples/ContextCacheContainers_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation",
+          "final-state-schema": "#/definitions/ContextCacheContainer"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "ContextCacheContainers_Update",
+        "tags": [
+          "ContextCacheContainers"
+        ],
+        "description": "Update a container in a Context Cache.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "contextCacheName",
+            "in": "path",
+            "description": "The name of the context cache",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          },
+          {
+            "name": "contextCacheContainerName",
+            "in": "path",
+            "description": "The name of the context cache container",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContextCacheContainerUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ContextCacheContainer"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update a Context Cache Container": {
+            "$ref": "./examples/ContextCacheContainers_Update.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location",
+          "final-state-schema": "#/definitions/ContextCacheContainer"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "ContextCacheContainers_Delete",
+        "tags": [
+          "ContextCacheContainers"
+        ],
+        "description": "Delete a container from a Context Cache.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "contextCacheName",
+            "in": "path",
+            "description": "The name of the context cache",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          },
+          {
+            "name": "contextCacheContainerName",
+            "in": "path",
+            "description": "The name of the context cache container",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a Context Cache Container": {
+            "$ref": "./examples/ContextCacheContainers_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/locations/{location}/internalContextCaches": {
+      "get": {
+        "operationId": "InternalContextCaches_ListByLocation",
+        "tags": [
+          "InternalContextCaches"
+        ],
+        "description": "List internal Azure Context Cache resources by location.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/InternalContextCacheListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List internal Context Caches by location": {
+            "$ref": "./examples/InternalContextCaches_ListByLocation.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/locations/{location}/internalContextCaches/{internalContextCacheName}": {
+      "get": {
+        "operationId": "InternalContextCaches_Get",
+        "tags": [
+          "InternalContextCaches"
+        ],
+        "description": "Get an internal Azure Context Cache resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          },
+          {
+            "name": "internalContextCacheName",
+            "in": "path",
+            "description": "The name of the internal Azure Context Cache resource.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/InternalContextCache"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get an internal Context Cache": {
+            "$ref": "./examples/InternalContextCaches_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "InternalContextCaches_CreateOrUpdate",
+        "tags": [
+          "InternalContextCaches"
+        ],
+        "description": "Create or update an internal Azure Context Cache resource. For RPaaS-internal use only.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          },
+          {
+            "name": "internalContextCacheName",
+            "in": "path",
+            "description": "The name of the internal Azure Context Cache resource.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InternalContextCache"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'InternalContextCache' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/InternalContextCache"
+            }
+          },
+          "201": {
+            "description": "Resource 'InternalContextCache' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/InternalContextCache"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create an internal Context Cache": {
+            "$ref": "./examples/InternalContextCaches_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation",
+          "final-state-schema": "#/definitions/InternalContextCache"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "InternalContextCaches_Update",
+        "tags": [
+          "InternalContextCaches"
+        ],
+        "description": "Update an internal Azure Context Cache resource. For RPaaS-internal use only.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          },
+          {
+            "name": "internalContextCacheName",
+            "in": "path",
+            "description": "The name of the internal Azure Context Cache resource.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InternalContextCacheUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/InternalContextCache"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update an internal Context Cache": {
+            "$ref": "./examples/InternalContextCaches_Update.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location",
+          "final-state-schema": "#/definitions/InternalContextCache"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "InternalContextCaches_Delete",
+        "tags": [
+          "InternalContextCaches"
+        ],
+        "description": "Delete an internal Azure Context Cache resource. For RPaaS-internal use only.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          },
+          {
+            "name": "internalContextCacheName",
+            "in": "path",
+            "description": "The name of the internal Azure Context Cache resource.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete an internal Context Cache": {
+            "$ref": "./examples/InternalContextCaches_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/locations/{location}/internalContextCaches/{internalContextCacheName}/internalContextCacheContainers": {
+      "get": {
+        "operationId": "InternalContextCacheContainers_ListByAccount",
+        "tags": [
+          "InternalContextCacheContainers"
+        ],
+        "description": "List all containers in an internal Azure Context Cache resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          },
+          {
+            "name": "internalContextCacheName",
+            "in": "path",
+            "description": "The name of the internal Azure Context Cache resource.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/InternalContextCacheContainerListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List internal Context Cache Containers by account": {
+            "$ref": "./examples/InternalContextCacheContainers_ListByAccount.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/locations/{location}/internalContextCaches/{internalContextCacheName}/internalContextCacheContainers/{internalContextCacheContainerName}": {
+      "get": {
+        "operationId": "InternalContextCacheContainers_Get",
+        "tags": [
+          "InternalContextCacheContainers"
+        ],
+        "description": "Get a container in an internal Azure Context Cache resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          },
+          {
+            "name": "internalContextCacheName",
+            "in": "path",
+            "description": "The name of the internal Azure Context Cache resource.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          },
+          {
+            "name": "internalContextCacheContainerName",
+            "in": "path",
+            "description": "The name of the internal container.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/InternalContextCacheContainer"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get an internal Context Cache Container": {
+            "$ref": "./examples/InternalContextCacheContainers_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "InternalContextCacheContainers_CreateOrUpdate",
+        "tags": [
+          "InternalContextCacheContainers"
+        ],
+        "description": "Create or update a container in an internal Azure Context Cache resource. For RPaaS-internal use only.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          },
+          {
+            "name": "internalContextCacheName",
+            "in": "path",
+            "description": "The name of the internal Azure Context Cache resource.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          },
+          {
+            "name": "internalContextCacheContainerName",
+            "in": "path",
+            "description": "The name of the internal container.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InternalContextCacheContainer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'InternalContextCacheContainer' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/InternalContextCacheContainer"
+            }
+          },
+          "201": {
+            "description": "Resource 'InternalContextCacheContainer' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/InternalContextCacheContainer"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create an internal Context Cache Container": {
+            "$ref": "./examples/InternalContextCacheContainers_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation",
+          "final-state-schema": "#/definitions/InternalContextCacheContainer"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "InternalContextCacheContainers_Update",
+        "tags": [
+          "InternalContextCacheContainers"
+        ],
+        "description": "Update a container in an internal Azure Context Cache resource. For RPaaS-internal use only.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          },
+          {
+            "name": "internalContextCacheName",
+            "in": "path",
+            "description": "The name of the internal Azure Context Cache resource.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          },
+          {
+            "name": "internalContextCacheContainerName",
+            "in": "path",
+            "description": "The name of the internal container.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InternalContextCacheContainerUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/InternalContextCacheContainer"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update an internal Context Cache Container": {
+            "$ref": "./examples/InternalContextCacheContainers_Update.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location",
+          "final-state-schema": "#/definitions/InternalContextCacheContainer"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "InternalContextCacheContainers_Delete",
+        "tags": [
+          "InternalContextCacheContainers"
+        ],
+        "description": "Delete a container from an internal Azure Context Cache resource. For RPaaS-internal use only.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          },
+          {
+            "name": "internalContextCacheName",
+            "in": "path",
+            "description": "The name of the internal Azure Context Cache resource.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$"
+          },
+          {
+            "name": "internalContextCacheContainerName",
+            "in": "path",
+            "description": "The name of the internal container.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete an internal Context Cache Container": {
+            "$ref": "./examples/InternalContextCacheContainers_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    }
+  },
+  "definitions": {
+    "AccountKind": {
+      "type": "string",
+      "description": "The kind of context cache account, determining storage topology.",
+      "enum": [
+        "Regional",
+        "DataZone",
+        "Global"
+      ],
+      "x-ms-enum": {
+        "name": "AccountKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Regional",
+            "value": "Regional",
+            "description": "Single-region storage account"
+          },
+          {
+            "name": "DataZone",
+            "value": "DataZone",
+            "description": "Multi-region within a data zone"
+          },
+          {
+            "name": "Global",
+            "value": "Global",
+            "description": "All regions with global distribution"
+          }
+        ]
+      }
+    },
+    "AiProvider": {
+      "type": "string",
+      "description": "The AI provider associated with a container.",
+      "enum": [
+        "OpenAI"
+      ],
+      "x-ms-enum": {
+        "name": "AiProvider",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "OpenAI",
+            "value": "OpenAI",
+            "description": "OpenAI provider."
+          }
+        ]
+      }
+    },
+    "Azure.Core.uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Universally Unique Identifier"
+    },
+    "Azure.ResourceManager.CommonTypes.CustomerManagedKeyEncryption": {
+      "type": "object",
+      "description": "Customer-managed key encryption properties for the resource.",
+      "properties": {
+        "keyEncryptionKeyIdentity": {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.KeyEncryptionKeyIdentity",
+          "description": "All identity configuration for Customer-managed key settings defining which identity should be used to auth to Key Vault."
+        },
+        "keyEncryptionKeyUrl": {
+          "type": "string",
+          "description": "key encryption key Url, versioned or non-versioned. Ex: https://contosovault.vault.azure.net/keys/contosokek/562a4bb76b524a1493a6afe8e536ee78 or https://contosovault.vault.azure.net/keys/contosokek."
+        }
+      }
+    },
+    "Azure.ResourceManager.CommonTypes.Encryption": {
+      "type": "object",
+      "description": "(Optional) Discouraged to include in resource definition. Only needed where it is possible to disable platform (AKA infrastructure) encryption. Azure SQL TDE is an example of this. Values are enabled and disabled.",
+      "properties": {
+        "infrastructureEncryption": {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.InfrastructureEncryption",
+          "description": "Values are enabled and disabled."
+        },
+        "customerManagedKeyEncryption": {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.CustomerManagedKeyEncryption",
+          "description": "All Customer-managed key encryption properties for the resource."
+        }
+      }
+    },
+    "Azure.ResourceManager.CommonTypes.InfrastructureEncryption": {
+      "type": "string",
+      "description": "(Optional) Discouraged to include in resource definition. Only needed where it is possible to disable platform (AKA infrastructure) encryption. Azure SQL TDE is an example of this. Values are enabled and disabled.",
+      "enum": [
+        "enabled",
+        "disabled"
+      ],
+      "x-ms-enum": {
+        "name": "InfrastructureEncryption",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Enabled",
+            "value": "enabled",
+            "description": "Encryption is enabled"
+          },
+          {
+            "name": "Disabled",
+            "value": "disabled",
+            "description": "Encryption is disabled"
+          }
+        ]
+      }
+    },
+    "Azure.ResourceManager.CommonTypes.KeyEncryptionKeyIdentity": {
+      "type": "object",
+      "description": "All identity configuration for Customer-managed key settings defining which identity should be used to auth to Key Vault.",
+      "properties": {
+        "identityType": {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.KeyEncryptionKeyIdentityType",
+          "description": "The type of identity to use. Values can be systemAssignedIdentity, userAssignedIdentity, or delegatedResourceIdentity."
+        },
+        "userAssignedIdentityResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "User assigned identity to use for accessing key encryption key Url. Ex: /subscriptions/fa5fc227-a624-475e-b696-cdd604c735bc/resourceGroups/<resource group>/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myId. Mutually exclusive with identityType systemAssignedIdentity."
+        },
+        "federatedClientId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "application client identity to use for accessing key encryption key Url in a different tenant. Ex: f83c6b1b-4d34-47e4-bb34-9d83df58b540"
+        },
+        "delegatedIdentityClientId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "delegated identity to use for accessing key encryption key Url. Ex: /subscriptions/fa5fc227-a624-475e-b696-cdd604c735bc/resourceGroups/<resource group>/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myId. Mutually exclusive with identityType systemAssignedIdentity and userAssignedIdentity - internal use only."
+        }
+      }
+    },
+    "Azure.ResourceManager.CommonTypes.KeyEncryptionKeyIdentityType": {
+      "type": "string",
+      "description": "The type of identity to use.",
+      "enum": [
+        "systemAssignedIdentity",
+        "userAssignedIdentity",
+        "delegatedResourceIdentity"
+      ],
+      "x-ms-enum": {
+        "name": "KeyEncryptionKeyIdentityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "SystemAssignedIdentity",
+            "value": "systemAssignedIdentity",
+            "description": "System assigned identity"
+          },
+          {
+            "name": "UserAssignedIdentity",
+            "value": "userAssignedIdentity",
+            "description": "User assigned identity"
+          },
+          {
+            "name": "DelegatedResourceIdentity",
+            "value": "delegatedResourceIdentity",
+            "description": "Delegated identity"
+          }
+        ]
+      }
+    },
+    "ContextCache": {
+      "type": "object",
+      "description": "A Context Cache resource",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ContextCacheProperties",
+          "description": "The resource-specific properties for this resource."
+        },
+        "identity": {
+          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/SystemAssignedServiceIdentity",
+          "description": "The managed service identities assigned to this resource."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "ContextCacheContainer": {
+      "type": "object",
+      "description": "A container resource within a Context Cache",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ContextCacheContainerProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "ContextCacheContainerListResult": {
+      "type": "object",
+      "description": "The response of a ContextCacheContainer list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ContextCacheContainer items on this page",
+          "items": {
+            "$ref": "#/definitions/ContextCacheContainer"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ContextCacheContainerProperties": {
+      "type": "object",
+      "description": "Details of a container within a Context Cache.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Container description.",
+          "maxLength": 250
+        },
+        "modelName": {
+          "type": "string",
+          "description": "The model name associated with this container (e.g., gpt-4, claude-3).",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "provider": {
+          "$ref": "#/definitions/AiProvider",
+          "description": "The AI provider associated with this container.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "timeToLive": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The Time to Live (TTL) in days between 1-30 days for this container, after which it will be automatically deleted. If not specified at creation time, it defaults to 1 day.",
+          "default": 1,
+          "minimum": 1,
+          "maximum": 30
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The status of the last operation.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "modelName",
+        "provider"
+      ]
+    },
+    "ContextCacheContainerPropertiesUpdate": {
+      "type": "object",
+      "description": "Updatable properties of a container within a Context Cache.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Container description.",
+          "maxLength": 250
+        },
+        "timeToLive": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Time to live in days after last access before container blobs are deleted. Must be between 1 and 30.",
+          "minimum": 1,
+          "maximum": 30
+        }
+      }
+    },
+    "ContextCacheContainerUpdate": {
+      "type": "object",
+      "description": "The type used for update operations of the Context Cache Container.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ContextCacheContainerPropertiesUpdate",
+          "description": "The updatable properties of the Context Cache Container."
+        }
+      }
+    },
+    "ContextCacheListResult": {
+      "type": "object",
+      "description": "The response of a ContextCache list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ContextCache items on this page",
+          "items": {
+            "$ref": "#/definitions/ContextCache"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ContextCacheProperties": {
+      "type": "object",
+      "description": "Details of the Context Cache.",
+      "properties": {
+        "accountKind": {
+          "$ref": "#/definitions/AccountKind",
+          "description": "The kind of account determining storage topology.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "description": "Account description.",
+          "maxLength": 250
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The status of the last operation.",
+          "readOnly": true
+        },
+        "encryption": {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.Encryption",
+          "description": "Encryption settings for the account."
+        }
+      },
+      "required": [
+        "accountKind"
+      ]
+    },
+    "ContextCachePropertiesUpdate": {
+      "type": "object",
+      "description": "Updatable properties of the Context Cache.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Account description.",
+          "maxLength": 250
+        },
+        "encryption": {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.Encryption",
+          "description": "Encryption settings for the account."
+        }
+      }
+    },
+    "ContextCacheUpdate": {
+      "type": "object",
+      "description": "The type used for update operations of the Context Cache.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "identity": {
+          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/SystemAssignedServiceIdentity",
+          "description": "The managed service identity."
+        },
+        "properties": {
+          "$ref": "#/definitions/ContextCachePropertiesUpdate",
+          "description": "The updatable properties of the Context Cache."
+        }
+      }
+    },
+    "InternalContextCache": {
+      "type": "object",
+      "description": "An internal Azure Context Cache resource. This is a ProxyOnly, location-based resource hidden from end users via AFEC. Metadata is stored in RPaaS.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/InternalContextCacheProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "InternalContextCacheContainer": {
+      "type": "object",
+      "description": "An internal container resource within an internal Azure Context Cache resource. This is a ProxyOnly resource hidden from end users via AFEC.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/InternalContextCacheContainerProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "required": [
+        "properties"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "InternalContextCacheContainerListResult": {
+      "type": "object",
+      "description": "The response of a InternalContextCacheContainer list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The InternalContextCacheContainer items on this page",
+          "items": {
+            "$ref": "#/definitions/InternalContextCacheContainer"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "InternalContextCacheContainerProperties": {
+      "type": "object",
+      "description": "Details of a container within an internal Azure Context Cache Service Account. This resource is hidden from end users via AFEC and is managed internally by the resource provider.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Container description.",
+          "maxLength": 250
+        },
+        "modelName": {
+          "type": "string",
+          "description": "The model name associated with this container (e.g., gpt-4, claude-3)."
+        },
+        "provider": {
+          "$ref": "#/definitions/AiProvider",
+          "description": "The AI provider associated with this container (e.g., OpenAI)."
+        },
+        "timeToLive": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Time to live in days after last access before container blobs are deleted. Must be between 1 and 30.",
+          "minimum": 1,
+          "maximum": 30
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The status of the last operation.",
+          "readOnly": true
+        },
+        "resourceProperties": {
+          "$ref": "#/definitions/InternalContextCacheContainerResourceProperties",
+          "description": "Properties linking this internal container to the originating customer-facing Context Cache container resource."
+        }
+      },
+      "required": [
+        "modelName",
+        "provider",
+        "resourceProperties"
+      ]
+    },
+    "InternalContextCacheContainerPropertiesUpdate": {
+      "type": "object",
+      "description": "The updatable properties of an internal Azure Context Cache container resource.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Container description.",
+          "maxLength": 250
+        },
+        "timeToLive": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Time to live in days after last access before container blobs are deleted. Must be between 1 and 30.",
+          "minimum": 1,
+          "maximum": 30
+        },
+        "resourceProperties": {
+          "$ref": "#/definitions/InternalContextCacheContainerResourceProperties",
+          "description": "Properties linking this internal container to the originating customer-facing Context Cache container resource."
+        }
+      }
+    },
+    "InternalContextCacheContainerResourceProperties": {
+      "type": "object",
+      "description": "Properties linking the internal container resource back to the originating customer-facing Context Cache container resource.",
+      "properties": {
+        "resourceId": {
+          "type": "string",
+          "description": "The ARM resource ID of the customer-facing Context Cache container resource."
+        },
+        "resourceType": {
+          "type": "string",
+          "description": "The resource type of the customer-facing container resource (e.g., Microsoft.Storage/contextCaches/contextCacheContainers)."
+        },
+        "baseLocation": {
+          "type": "string",
+          "description": "The base location (region) where the customer-facing resource resides."
+        },
+        "parentResourceId": {
+          "type": "string",
+          "description": "The ARM resource ID of the parent internal Context Cache resource."
+        }
+      }
+    },
+    "InternalContextCacheContainerUpdate": {
+      "type": "object",
+      "description": "The type used for update operations of an internal Azure Context Cache container resource.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/InternalContextCacheContainerPropertiesUpdate",
+          "description": "The updatable properties of the internal Azure Context Cache container resource."
+        }
+      }
+    },
+    "InternalContextCacheListResult": {
+      "type": "object",
+      "description": "The response of a InternalContextCache list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The InternalContextCache items on this page",
+          "items": {
+            "$ref": "#/definitions/InternalContextCache"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "InternalContextCacheProperties": {
+      "type": "object",
+      "description": "Details of an internal Azure Context Cache Service Account. This resource is hidden from end users via AFEC and is managed internally by the resource provider.",
+      "properties": {
+        "accountKind": {
+          "$ref": "#/definitions/AccountKind",
+          "description": "The kind of account determining storage topology."
+        },
+        "description": {
+          "type": "string",
+          "description": "Account description.",
+          "maxLength": 250
+        },
+        "encryption": {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.Encryption",
+          "description": "Encryption settings for the account."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The status of the last operation.",
+          "readOnly": true
+        },
+        "resourceProperties": {
+          "$ref": "#/definitions/InternalContextCacheResourceProperties",
+          "description": "Properties linking this internal resource to the originating customer-facing Context Cache resource."
+        }
+      },
+      "required": [
+        "accountKind",
+        "resourceProperties"
+      ]
+    },
+    "InternalContextCachePropertiesUpdate": {
+      "type": "object",
+      "description": "The updatable properties of an internal Azure Context Cache resource.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Account description.",
+          "maxLength": 250
+        },
+        "encryption": {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.Encryption",
+          "description": "Encryption settings for the account."
+        },
+        "resourceProperties": {
+          "$ref": "#/definitions/InternalContextCacheResourceProperties",
+          "description": "Properties linking this internal resource to the originating customer-facing Context Cache resource."
+        }
+      }
+    },
+    "InternalContextCacheResourceIdentity": {
+      "type": "object",
+      "description": "The managed identity associated with the internal context cache resource, populated by the system.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of the identity (e.g. SystemAssigned, UserAssigned)."
+        },
+        "principalId": {
+          "type": "string",
+          "description": "The principal ID of the identity."
+        },
+        "tenantId": {
+          "type": "string",
+          "description": "The tenant ID of the identity."
+        },
+        "clientId": {
+          "type": "string",
+          "description": "The client ID of the identity."
+        },
+        "internalId": {
+          "type": "string",
+          "description": "The internal Managed Identity Resource Provider assigned unique identifier for the identity."
+        }
+      }
+    },
+    "InternalContextCacheResourceProperties": {
+      "type": "object",
+      "description": "Properties linking the internal location-based resource back to the originating customer-facing Context Cache resource.",
+      "properties": {
+        "resourceId": {
+          "type": "string",
+          "description": "The ARM resource ID of the customer-facing Context Cache resource."
+        },
+        "resourceType": {
+          "type": "string",
+          "description": "The resource type of the customer-facing resource (e.g., Microsoft.Storage/contextCaches)."
+        },
+        "baseLocation": {
+          "type": "string",
+          "description": "The base location (region) where the customer-facing resource resides."
+        },
+        "baseAccountKind": {
+          "$ref": "#/definitions/AccountKind",
+          "description": "The account kind of the customer-facing Context Cache resource."
+        },
+        "storageAccountName": {
+          "type": "string",
+          "description": "The name of the backing storage account for this regional resource. Populated by the internal creation flow; response-only."
+        },
+        "identity": {
+          "$ref": "#/definitions/InternalContextCacheResourceIdentity",
+          "description": "The managed identity for this internal resource."
+        },
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "InternalContextCacheUpdate": {
+      "type": "object",
+      "description": "The type used for update operations of an internal Azure Context Cache resource.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/InternalContextCachePropertiesUpdate",
+          "description": "The updatable properties of the internal Azure Context Cache resource."
+        }
+      }
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "description": "The status of the current operation.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Creating",
+        "Updating",
+        "Deleting",
+        "Accepted"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          },
+          {
+            "name": "Creating",
+            "value": "Creating",
+            "description": "Initial provisioning in progress"
+          },
+          {
+            "name": "Updating",
+            "value": "Updating",
+            "description": "Update in progress"
+          },
+          {
+            "name": "Deleting",
+            "value": "Deleting",
+            "description": "Deletion in progress"
+          },
+          {
+            "name": "Accepted",
+            "value": "Accepted",
+            "description": "Change accepted for processing"
+          }
+        ]
+      },
+      "readOnly": true
+    }
+  },
+  "parameters": {}
+}

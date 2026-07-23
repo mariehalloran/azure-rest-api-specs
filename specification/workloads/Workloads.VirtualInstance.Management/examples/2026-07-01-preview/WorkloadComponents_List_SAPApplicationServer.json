@@ -1,0 +1,161 @@
+{
+  "parameters": {
+    "api-version": "2026-07-01-preview",
+    "virtualInstanceName": "testvi",
+    "resourceGroupName": "test-rg",
+    "subscriptionId": "49d64d54-e966-4c46-a868-1999802b762c"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "app01",
+            "type": "Microsoft.Workloads/virtualInstances/components",
+            "id": "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/test-rg/providers/Microsoft.Workloads/virtualInstances/testvi/components/app01",
+            "location": "eastus2euap",
+            "tags": {
+              "TestSystem": "true"
+            },
+            "properties": {
+              "componentType": "application",
+              "componentRole": "default",
+              "resources": [
+                {
+                  "resourceId": "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.Compute/virtualMachines/m15appvm0"
+                }
+              ],
+              "componentProfile": {
+                "profileType": "SAP-ApplicationServer-Default",
+                "instanceNumber": "00",
+                "kernelVersion": "789",
+                "kernelPatch": "201",
+                "hostname": "m15appvm0",
+                "ipAddress": "10.0.0.134",
+                "dispatcher": {
+                  "dispPort": 3200
+                },
+                "gateway": {
+                  "gwPort": 3300
+                },
+                "icm": {
+                  "httpPort": 0,
+                  "httpsPort": 0
+                }
+              },
+              "storageProfile": {
+                "mountPoints": [
+                  {
+                    "mountPoint": "/usr/sap",
+                    "resources": [
+                      {
+                        "virtualMachineNames": [
+                          "m15appvm0"
+                        ],
+                        "resourceList": [
+                          "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.Compute/disks/m15appvm0sapdisk"
+                        ]
+                      }
+                    ],
+                    "parameters": [
+                      {
+                        "name": "DIR_EXECUTABLE",
+                        "value": "/usr/sap/M15/SYS/exe/run"
+                      },
+                      {
+                        "name": "DIR_PERF",
+                        "value": "/usr/sap/tmp"
+                      }
+                    ]
+                  },
+                  {
+                    "mountPoint": "/usr/sap/M15/D00",
+                    "resources": [
+                      {
+                        "virtualMachineNames": [
+                          "m15appvm0"
+                        ],
+                        "resourceList": [
+                          "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.Compute/disks/m15appvm0instancedisk"
+                        ]
+                      }
+                    ],
+                    "parameters": [
+                      {
+                        "name": "DIR_INSTANCE",
+                        "value": "/usr/sap/M15/D00"
+                      },
+                      {
+                        "name": "DIR_DATA",
+                        "value": "/usr/sap/M15/D00/data"
+                      }
+                    ]
+                  },
+                  {
+                    "mountPoint": "/sapmnt/M15",
+                    "resources": [
+                      {
+                        "virtualMachineNames": [
+                          "m15appvm0"
+                        ],
+                        "resourceList": [
+                          "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.NetApp/netAppAccounts/m15anf/capacityPools/pool1/volumes/m15-sapmnt"
+                        ]
+                      }
+                    ],
+                    "parameters": [
+                      {
+                        "name": "DIR_PROFILE",
+                        "value": "/usr/sap/M15/SYS/profile"
+                      },
+                      {
+                        "name": "DIR_GLOBAL",
+                        "value": "/usr/sap/M15/SYS/global"
+                      },
+                      {
+                        "name": "DIR_CT_RUN",
+                        "value": "/usr/sap/M15/SYS/exe/uc/linuxx86_64"
+                      }
+                    ]
+                  },
+                  {
+                    "mountPoint": "/usr/sap/trans",
+                    "resources": [
+                      {
+                        "virtualMachineNames": [
+                          "m15appvm0"
+                        ],
+                        "resourceList": [
+                          "/subscriptions/49d64d54-e966-4c46-a868-1999802b762c/resourceGroups/saprise-apprg/providers/Microsoft.NetApp/netAppAccounts/m15anf/capacityPools/pool1/volumes/m15-trans"
+                        ]
+                      }
+                    ],
+                    "parameters": [
+                      {
+                        "name": "DIR_TRANS",
+                        "value": "/usr/sap/trans"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "complianceState": "Compliant",
+              "enrollmentState": "Completed",
+              "provisioningState": "Succeeded"
+            },
+            "systemData": {
+              "createdAt": "2024-12-01T00:00:00.001Z",
+              "createdBy": "user@xyz.com",
+              "createdByType": "User",
+              "lastModifiedAt": "2024-12-01T15:10:46.196Z",
+              "lastModifiedBy": "user@xyz.com",
+              "lastModifiedByType": "User"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "WorkloadComponents_List",
+  "title": "List SAP Application Server workload components by virtual instance - sample 1"
+}
