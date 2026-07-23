@@ -27,7 +27,28 @@ These are the global settings for Messaging Catalog.
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2026-06-01-preview
+tag: package-2026-07-01-preview
+```
+
+### Tag: package-2027-06-01-preview
+
+These settings apply only when `--tag=package-2026-07-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-07-01-preview'
+input-file:
+  - Microsoft.MessagingCatalog/preview/2026-07-01-preview/messagingcatalog.json
+suppressions:
+  - code: XMSSecretInResponse
+    reason: publicNetworkAccess is not a secret - it is a network configuration setting that controls public endpoint access.
+    from:
+      - messagingcatalog.json
+    where:
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MessagingCatalog/catalogs/{catalogName}"].put.responses["200"].schema.properties.properties.properties.publicNetworkAccess
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MessagingCatalog/catalogs/{catalogName}"].put.responses["201"].schema.properties.properties.properties.publicNetworkAccess
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MessagingCatalog/catalogs/{catalogName}"].get.responses["200"].schema.properties.properties.properties.publicNetworkAccess
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MessagingCatalog/catalogs/{catalogName}"].patch.responses["200"].schema.properties.properties.properties.publicNetworkAccess
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MessagingCatalog/catalogs"].get.responses["200"].schema.properties.properties.properties.publicNetworkAccess
+      - $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.MessagingCatalog/catalogs"].get.responses["200"].schema.properties.properties.properties.publicNetworkAccess
 ```
 
 ### Tag: package-2026-06-01-preview
