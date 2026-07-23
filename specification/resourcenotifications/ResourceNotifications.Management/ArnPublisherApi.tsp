@@ -141,8 +141,10 @@ model DstsClaimAuthorization {
 /** Regional ingestion capacity for a publisher registered with Microsoft.ProviderHub. */
 @added(Versions.v2026_08_01_preview)
 @parentResource(ArmLocationResource<"Extension">)
-model IngestionUnit
-  is Azure.ResourceManager.ProxyResource<IngestionUnitProperties, false> {
+model IngestionUnit is Azure.ResourceManager.ProxyResource<
+  IngestionUnitProperties,
+  false
+> {
   /** Ingestion unit name. */
   @key("ingestionUnitName")
   @segment("ingestionUnits")
