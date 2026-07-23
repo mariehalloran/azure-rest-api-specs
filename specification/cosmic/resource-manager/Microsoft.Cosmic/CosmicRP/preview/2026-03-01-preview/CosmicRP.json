@@ -2259,6 +2259,14 @@
       "type": "object",
       "description": "Properties of a HealthMetadata resource.",
       "properties": {
+        "platformRing": {
+          "$ref": "#/definitions/CosmicRing",
+          "description": "Platform ring this health metadata applies to.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
         "regions": {
           "type": "array",
           "description": "Regions this health metadata applies to. Empty means all regions.",
@@ -2295,21 +2303,13 @@
           "x-ms-identifiers": [
             "monitorName"
           ]
-        },
-        "platformRing": {
-          "$ref": "#/definitions/CosmicRing",
-          "description": "Platform ring this health metadata applies to.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
         }
       },
       "required": [
+        "platformRing",
         "genevaAccount",
         "dimensionMap",
-        "monitors",
-        "platformRing"
+        "monitors"
       ]
     },
     "HealthMetadataUpdate": {
