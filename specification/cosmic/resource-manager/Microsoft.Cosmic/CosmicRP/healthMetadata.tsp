@@ -49,6 +49,7 @@ model HealthMetadataProperties {
 
   @doc("Monitors configured for health evaluation.")
   @identifiers(#["monitorName"])
+  @minItems(1)
   monitors: HealthMetadataMonitor[];
 }
 
