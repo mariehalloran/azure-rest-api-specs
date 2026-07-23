@@ -45,6 +45,9 @@ input-file:
 directive:
   - suppress: AvoidAdditionalProperties
     from: bami.json
+    where:
+      - $.definitions.EnvironmentApplicationConsents
+      - $.definitions.TenantApplicationConsents
     reason: >-
       AppConsentContext.appsToConsent is an inherently dynamic map (Azure environment name -> tenant ID ->
       first-party application IDs) that mirrors the wire contract the BAMI service serializes. It is modeled in
