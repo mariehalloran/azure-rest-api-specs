@@ -16,8 +16,10 @@ namespace Microsoft.ApplicationMigration;
  * A network agent resource definition.
  */
 @parentResource(NetworkSite)
-model NetworkAgent
-  is Azure.ResourceManager.ProxyResource<NetworkAgentProperties, false> {
+model NetworkAgent is Azure.ResourceManager.ProxyResource<
+  NetworkAgentProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = NetworkAgent,
     KeyName = "agentName",

@@ -16,8 +16,10 @@ namespace Microsoft.OpenEnergyPlatform;
  * The group information for creating a private endpoint on an Account
  */
 @parentResource(EnergyService)
-model GroupInformation
-  is Azure.ResourceManager.ProxyResource<GroupInformationProperties, false> {
+model GroupInformation is Azure.ResourceManager.ProxyResource<
+  GroupInformationProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = GroupInformation,
     KeyName = "groupId",

@@ -31,6 +31,10 @@ enum Versions {
   /** 2026-02-01-preview version */
   @useDependency(Azure.ResourceManager.CommonTypes.Versions.v6)
   v2026_02_01_preview: "2026-02-01-preview",
+
+  /** 2026-03-01-preview version */
+  @useDependency(Azure.ResourceManager.CommonTypes.Versions.v6)
+  v2026_03_01_preview: "2026-03-01-preview",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}
@@ -44,8 +48,15 @@ model ContextCache is TrackedResource<ContextCacheProperties, false> {
   @path
   name: string;
 
-  ...ManagedSystemAssignedIdentityProperty;
+  ...ManagedServiceIdentityProperty;
 }
+
+// Keep 2026-02-01-preview as SystemAssigned and broaden from 2026-03-01-preview.
+@@typeChangedFrom(
+  ContextCache.identity,
+  Versions.v2026_03_01_preview,
+  Azure.ResourceManager.CommonTypes.SystemAssignedServiceIdentity
+);
 
 @armResourceOperations(ContextCache)
 interface ContextCaches {
@@ -70,8 +81,10 @@ interface ContextCaches {
 
 /** A container resource within a Context Cache */
 @parentResource(ContextCache)
-model ContextCacheContainer
-  is ProxyResource<ContextCacheContainerProperties, false> {
+model ContextCacheContainer is ProxyResource<
+  ContextCacheContainerProperties,
+  false
+> {
   /** The name of the context cache container */
   @pattern("^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$")
   @key("contextCacheContainerName")
@@ -110,8 +123,10 @@ interface ContextCacheContainers {
 /** An internal Azure Context Cache resource. This is a ProxyOnly, location-based resource hidden from end users via AFEC. Metadata is stored in RPaaS. */
 @added(Versions.v2026_02_01_preview)
 @parentResource(ResourceGroupLocationResource)
-model InternalContextCache
-  is ProxyResource<InternalContextCacheProperties, false> {
+model InternalContextCache is ProxyResource<
+  InternalContextCacheProperties,
+  false
+> {
   /** The name of the internal Azure Context Cache resource. */
   @pattern("^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$")
   @key("internalContextCacheName")
@@ -145,8 +160,10 @@ interface InternalContextCaches {
 /** An internal container resource within an internal Azure Context Cache resource. This is a ProxyOnly resource hidden from end users via AFEC. */
 @added(Versions.v2026_02_01_preview)
 @parentResource(InternalContextCache)
-model InternalContextCacheContainer
-  is ProxyResource<InternalContextCacheContainerProperties, false> {
+model InternalContextCacheContainer is ProxyResource<
+  InternalContextCacheContainerProperties,
+  false
+> {
   /** The name of the internal container. */
   @pattern("^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$")
   @key("internalContextCacheContainerName")

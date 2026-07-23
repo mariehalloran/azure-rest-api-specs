@@ -15,8 +15,10 @@ namespace Microsoft.ApplicationMigration;
  * The PGSQLDatabase resource definition.
  */
 @parentResource(PgsqlSite)
-model PgsqlDatabase
-  is Azure.ResourceManager.ProxyResource<PgsqlDatabaseProperties, false> {
+model PgsqlDatabase is Azure.ResourceManager.ProxyResource<
+  PgsqlDatabaseProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = PgsqlDatabase,
     KeyName = "databaseName",

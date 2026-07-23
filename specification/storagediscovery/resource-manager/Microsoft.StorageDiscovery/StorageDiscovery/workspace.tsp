@@ -25,7 +25,7 @@ model StorageDiscoveryWorkspaceProperties {
   description?: string;
 
   @doc("The capabilities configured for the storage discovery workspace.")
-  @added(ApiVersion.v2026_07_01_preview)
+  @added(ApiVersion.v2026_10_01_preview)
   capabilities?: StorageDiscoveryCapabilities;
 
   @doc("The view level storage discovery data estate")
@@ -83,10 +83,6 @@ model StorageDiscoveryScope {
   @doc("Resource types for the collection")
   resourceTypes: StorageDiscoveryResourceType[];
 
-  @doc("Indicates whether the object metadata repository is enabled for this scope.")
-  @added(ApiVersion.v2026_07_01_preview)
-  objectMetadataRepositoryState?: ObjectMetadataRepositoryState;
-
   @doc("The storage account tags keys to filter")
   tagKeysOnly?: string[];
 
@@ -96,43 +92,69 @@ model StorageDiscoveryScope {
 /**
  * The capabilities configured for a storage discovery workspace.
  */
-@added(ApiVersion.v2026_07_01_preview)
+@added(ApiVersion.v2026_10_01_preview)
 model StorageDiscoveryCapabilities {
-  @doc("Configuration for the object metadata repository capability, which stores discovered object metadata in a customer-owned storage account container.")
-  objectMetadataRepository?: ObjectMetadataRepository;
+  @doc("The Azure Blob Storage capability configuration for the storage discovery workspace.")
+  azureBlobStorage: AzureBlobStorageCapability;
 }
 
 /**
- * Configuration for an object metadata repository hosted in a customer-owned storage account container.
+ * The Azure Blob Storage capability configuration.
  */
-@added(ApiVersion.v2026_07_01_preview)
-model ObjectMetadataRepository {
-  @doc("The ARM resource ID of the storage account that hosts the object metadata repository.")
-  storageAccountResourceId?: Azure.Core.armResourceIdentifier<[
-    {
-      type: "Microsoft.Storage/storageAccounts";
-    }
-  ]>;
+@added(ApiVersion.v2026_10_01_preview)
+model AzureBlobStorageCapability {
+  @doc("The capacity details configuration for Azure Blob Storage.")
+  capacityDetails: CapacityDetails;
 
-  @doc("The name of the blob container in the storage account where object metadata is written.")
-  @minLength(3)
-  @maxLength(63)
-  @pattern("^[a-z0-9]([a-z0-9]|(-(?!-))){1,61}[a-z0-9]$")
-  containerName?: string;
+  @doc("The prefix definitions that scope the capacity details to specific storage accounts, containers, and prefixes.")
+  @identifiers(#[])
+  prefixDefinitions?: PrefixDefinition[];
 }
 
 /**
- * The enablement state of the object metadata repository on a storage discovery scope.
+ * The capacity details configuration.
  */
-@added(ApiVersion.v2026_07_01_preview)
-union ObjectMetadataRepositoryState {
-  @doc("Object metadata repository is enabled for this scope.")
+@added(ApiVersion.v2026_10_01_preview)
+model CapacityDetails {
+  @doc("The enablement status of the capacity details capability.")
+  status: CapabilityStatus;
+}
+
+/**
+ * The enablement status of a storage discovery capability.
+ */
+@added(ApiVersion.v2026_10_01_preview)
+union CapabilityStatus {
+  @doc("The capability is enabled.")
   Enabled: "Enabled",
 
-  @doc("Object metadata repository is disabled for this scope.")
+  @doc("The capability is disabled.")
   Disabled: "Disabled",
 
   string,
+}
+
+/**
+ * A prefix definition that scopes capacity details to a specific storage account, container, and prefix.
+ */
+@added(ApiVersion.v2026_10_01_preview)
+model PrefixDefinition {
+  @doc("The name of the storage account.")
+  @minLength(3)
+  @maxLength(24)
+  @pattern("^[a-z0-9]{3,24}$")
+  storageAccountName: string;
+
+  @doc("The name of the blob container within the storage account.")
+  @minLength(3)
+  @maxLength(63)
+  @pattern("^[a-z0-9]([a-z0-9]|(-(?!-))){1,61}[a-z0-9]$")
+  containerName: string;
+
+  @doc("The blob prefix within the container to scope capacity details to. An empty value scopes to the entire container. Must not start with a '/'.")
+  @maxLength(1024)
+  @pattern("^([^/].*)?$")
+  prefix: string;
 }
 
 /**
@@ -162,6 +184,7 @@ interface StorageDiscoveryWorkspaces {
 
   @autoRoute
   @post
+  @doc("A long-running resource action.")
   report is ArmResourceActionAsync<
     StorageDiscoveryWorkspace,
     GetReportContent,

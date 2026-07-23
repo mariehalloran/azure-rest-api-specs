@@ -28,6 +28,7 @@ model MqttSourceConnectorProperties extends DataSourceProperties {
   @doc("Topic to subscribe to.")
   topic: string;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("URL of the broker where to establish the connection.")
   brokerUrl: string;
 

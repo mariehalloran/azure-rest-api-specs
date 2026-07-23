@@ -42,6 +42,7 @@ import "./EdgeMachineGpu.tsp";
 import "./EdgeMachineStorage.tsp";
 import "./EdgeMachineNetworkAdapters.tsp";
 import "./EdgeMachineSecuritySettings.tsp";
+import "./EdgeMachineDeploymentSetting.tsp";
 import "./ValidateOwnershipVouchers.tsp";
 import "./ClusterJobs.tsp";
 import "./ClusterVolume.tsp";
@@ -53,6 +54,7 @@ import "./client.tsp";
 
 // PRIVATE PREVIEW - Storage Arrays subtree (read-only)
 import "./StorageArray.tsp";
+import "./StorageArrayJob.tsp";
 import "./StoragePool.tsp";
 import "./VolumeGroup.tsp";
 import "./StorageVolume.tsp";

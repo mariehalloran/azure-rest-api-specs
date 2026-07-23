@@ -142,6 +142,9 @@
       "name": "EdgeMachineSecuritySettingsOperations"
     },
     {
+      "name": "EdgeMachineDeploymentSettings"
+    },
+    {
       "name": "ClusterJobs"
     },
     {
@@ -164,6 +167,9 @@
     },
     {
       "name": "StorageArrays"
+    },
+    {
+      "name": "StorageArrayJobs"
     },
     {
       "name": "StoragePools"
@@ -7926,6 +7932,265 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/deploymentSettings": {
+      "get": {
+        "operationId": "EdgeMachineDeploymentSettings_ListByEdgeMachine",
+        "tags": [
+          "EdgeMachineDeploymentSettings"
+        ],
+        "description": "List Edge Machine Deployment Setting resources by Edge Machine.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineDeploymentSettingListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeMachineDeploymentSettings_ListByEdgeMachine": {
+            "$ref": "./examples/EdgeMachineDeploymentSettings_ListByEdgeMachine.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/deploymentSettings/{deploymentSettingName}": {
+      "get": {
+        "operationId": "EdgeMachineDeploymentSettings_Get",
+        "tags": [
+          "EdgeMachineDeploymentSettings"
+        ],
+        "description": "Get an Edge Machine Deployment Setting.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "deploymentSettingName",
+            "in": "path",
+            "description": "Name of Edge Machine Deployment Setting",
+            "required": true,
+            "type": "string",
+            "default": "default",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineDeploymentSetting"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeMachineDeploymentSettings_Get": {
+            "$ref": "./examples/EdgeMachineDeploymentSettings_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "EdgeMachineDeploymentSettings_CreateOrUpdate",
+        "tags": [
+          "EdgeMachineDeploymentSettings"
+        ],
+        "description": "Create or update an Edge Machine Deployment Setting.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "deploymentSettingName",
+            "in": "path",
+            "description": "Name of Edge Machine Deployment Setting",
+            "required": true,
+            "type": "string",
+            "default": "default",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineDeploymentSetting"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'EdgeMachineDeploymentSetting' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineDeploymentSetting"
+            }
+          },
+          "201": {
+            "description": "Resource 'EdgeMachineDeploymentSetting' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/EdgeMachineDeploymentSetting"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeMachineDeploymentSettings_CreateOrUpdate": {
+            "$ref": "./examples/EdgeMachineDeploymentSettings_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "EdgeMachineDeploymentSettings_Delete",
+        "tags": [
+          "EdgeMachineDeploymentSettings"
+        ],
+        "description": "Delete an Edge Machine Deployment Setting.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "deploymentSettingName",
+            "in": "path",
+            "description": "Name of Edge Machine Deployment Setting",
+            "required": true,
+            "type": "string",
+            "default": "default",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "EdgeMachineDeploymentSettings_Delete": {
+            "$ref": "./examples/EdgeMachineDeploymentSettings_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/disks": {
       "get": {
         "operationId": "EdgeMachineDisks_List",
@@ -12437,6 +12702,262 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/storageArrays/{storageArrayName}/jobs": {
+      "get": {
+        "operationId": "StorageArrayJobs_List",
+        "tags": [
+          "StorageArrayJobs"
+        ],
+        "description": "List all jobs for a storage array.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storageArrayName",
+            "in": "path",
+            "description": "The name of the StorageArray",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/StorageArrayJobListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "StorageArrayJobs_List": {
+            "$ref": "./examples/StorageArrayJobs_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/storageArrays/{storageArrayName}/jobs/{jobName}": {
+      "get": {
+        "operationId": "StorageArrayJobs_Get",
+        "tags": [
+          "StorageArrayJobs"
+        ],
+        "description": "Get a specific storage array job.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storageArrayName",
+            "in": "path",
+            "description": "The name of the StorageArray",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the StorageArrayJob",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/StorageArrayJob"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "StorageArrayJobs_Get": {
+            "$ref": "./examples/StorageArrayJobs_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "StorageArrayJobs_CreateOrUpdate",
+        "tags": [
+          "StorageArrayJobs"
+        ],
+        "description": "Create or update a storage array job.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storageArrayName",
+            "in": "path",
+            "description": "The name of the StorageArray",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the StorageArrayJob",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StorageArrayJob"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'StorageArrayJob' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/StorageArrayJob"
+            }
+          },
+          "201": {
+            "description": "Resource 'StorageArrayJob' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/StorageArrayJob"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "StorageArrayJobs_CreateOrUpdate": {
+            "$ref": "./examples/StorageArrayJobs_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "StorageArrayJobs_Delete",
+        "tags": [
+          "StorageArrayJobs"
+        ],
+        "description": "Delete a storage array job.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storageArrayName",
+            "in": "path",
+            "description": "The name of the StorageArray",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the StorageArrayJob",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "StorageArrayJobs_Delete": {
+            "$ref": "./examples/StorageArrayJobs_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/storageArrays/{storageArrayName}/replicationPeerings": {
       "get": {
         "operationId": "ReplicationPeerings_List",
@@ -16713,6 +17234,11 @@
           "$ref": "#/definitions/StorageType",
           "description": "Storage type of the cluster. Indicates whether the cluster uses S2D, SAN, or a combination.",
           "readOnly": true
+        },
+        "useManagedIdentityForWitness": {
+          "type": "boolean",
+          "description": "Indicates this cluster uses a managed identity (MSI / passwordless) cloud witness rather than a storage account access key.",
+          "readOnly": true
         }
       }
     },
@@ -18228,6 +18754,10 @@
         "clusterPattern": {
           "$ref": "#/definitions/ClusterPattern",
           "description": "Cluster Pattern supported."
+        },
+        "useManagedIdentityForWitness": {
+          "type": "boolean",
+          "description": "Indicates the cluster's cloud witness authenticates using each node's managed identity (MSI) instead of a storage account access key. Set by the resource provider from the Validated Solution Recipe; read by the device to configure the witness in identity (passwordless) mode."
         }
       }
     },
@@ -19929,7 +20459,9 @@
         "AzureStackLCMUserCredential",
         "DefaultARBApplication",
         "LocalAdminCredential",
-        "WitnessStorageKey"
+        "WitnessStorageKey",
+        "chapCredential",
+        "mutualChapCredential"
       ],
       "x-ms-enum": {
         "name": "EceSecrets",
@@ -19954,6 +20486,16 @@
             "name": "WitnessStorageKey",
             "value": "WitnessStorageKey",
             "description": "WitnessStorageKey used for setting up a cloud witness for AzureStackHCI cluster."
+          },
+          {
+            "name": "chapCredential",
+            "value": "chapCredential",
+            "description": "chapCredential used for iSCSI CHAP authentication during edge machine node preparation."
+          },
+          {
+            "name": "mutualChapCredential",
+            "value": "mutualChapCredential",
+            "description": "mutualChapCredential used for iSCSI mutual (bidirectional) CHAP authentication during edge machine node preparation."
           }
         ]
       }
@@ -20251,6 +20793,27 @@
         }
       ]
     },
+    "EdgeMachineAdapterPropertyOverrides": {
+      "type": "object",
+      "description": "The AdapterPropertyOverrides reported for the edge machine.",
+      "properties": {
+        "jumboPacket": {
+          "type": "string",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.",
+          "readOnly": true
+        },
+        "networkDirect": {
+          "type": "string",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.",
+          "readOnly": true
+        },
+        "networkDirectTechnology": {
+          "type": "string",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation. Expected values are 'iWARP', 'RoCEv2', 'RoCE'",
+          "readOnly": true
+        }
+      }
+    },
     "EdgeMachineCollectLogJobProperties": {
       "type": "object",
       "description": "Properties for pausing a server in the cluster.",
@@ -20351,6 +20914,112 @@
         ]
       }
     },
+    "EdgeMachineDeploymentConfiguration": {
+      "type": "object",
+      "description": "Edge Machine Deployment Configuration",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Deployment template version."
+        },
+        "scaleUnits": {
+          "type": "array",
+          "description": "Scale units will contain the list of deployment data.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineScaleUnits"
+          },
+          "x-ms-identifiers": []
+        }
+      },
+      "required": [
+        "scaleUnits"
+      ]
+    },
+    "EdgeMachineDeploymentData": {
+      "type": "object",
+      "description": "The deployment data of an edge machine.",
+      "properties": {
+        "storageType": {
+          "$ref": "#/definitions/NodeStorageType",
+          "description": "Storage type for the edge machine node."
+        },
+        "iScsiConfig": {
+          "$ref": "#/definitions/IscsiConfig",
+          "description": "iSCSI configuration for the edge machine."
+        },
+        "secrets": {
+          "type": "array",
+          "description": "Protected parameters (secret references) stored in Key Vault and applied\nduring edge machine node preparation, for example iSCSI CHAP credentials.",
+          "items": {
+            "$ref": "#/definitions/EceDeploymentSecrets"
+          },
+          "x-ms-identifiers": []
+        }
+      }
+    },
+    "EdgeMachineDeploymentSetting": {
+      "type": "object",
+      "description": "Deployment setting resource for an Edge Machine.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/EdgeMachineDeploymentSettingProperties",
+          "description": "The resource-specific properties for this resource.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "EdgeMachineDeploymentSettingListResult": {
+      "type": "object",
+      "description": "The response of a EdgeMachineDeploymentSetting list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The EdgeMachineDeploymentSetting items on this page",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineDeploymentSetting"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "EdgeMachineDeploymentSettingProperties": {
+      "type": "object",
+      "description": "The properties of an Edge Machine Deployment Setting.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the deployment setting resource.",
+          "readOnly": true
+        },
+        "deploymentConfiguration": {
+          "$ref": "#/definitions/EdgeMachineDeploymentConfiguration",
+          "description": "Scale units will contain the list of deployment data for the edge machine."
+        },
+        "reportedProperties": {
+          "$ref": "#/definitions/EceReportedProperties",
+          "description": "Deployment status reported from the edge machine.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "deploymentConfiguration"
+      ]
+    },
     "EdgeMachineDisk": {
       "type": "object",
       "description": "Disk resource representing a physical disk on an Edge Machine.",
@@ -20364,6 +21033,45 @@
         {
           "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
+      ]
+    },
+    "EdgeMachineDiskInfo": {
+      "type": "object",
+      "description": "Represents a storage disk reported for the edge machine.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier of the disk.",
+          "readOnly": true
+        },
+        "sizeInBytes": {
+          "type": "string",
+          "description": "The size of the disk in bytes.",
+          "readOnly": true
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the disk. For example, S2D or SAN.",
+          "readOnly": true
+        },
+        "model": {
+          "type": "string",
+          "description": "Model number of the hardware.",
+          "readOnly": true
+        },
+        "manufacturer": {
+          "type": "string",
+          "description": "The manufacturer of the disk.",
+          "readOnly": true
+        },
+        "isSupported": {
+          "type": "boolean",
+          "description": "Indicates whether the manufacturer is supported.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "id"
       ]
     },
     "EdgeMachineDiskJob": {
@@ -20881,6 +21589,141 @@
         }
       }
     },
+    "EdgeMachineHostNetwork": {
+      "type": "object",
+      "description": "HostNetwork configuration reported for the edge machine.",
+      "properties": {
+        "intents": {
+          "type": "array",
+          "description": "The network intents assigned to the network reference pattern used for the deployment. Each intent will define its own name, traffic type, adapter names, and overrides as recommended by your OEM.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineHostNetworkIntent"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "intentName"
+          ]
+        },
+        "storageNetworks": {
+          "type": "array",
+          "description": "List of StorageNetworks config to deploy AzureStackHCI Cluster.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineStorageNetwork"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "networkAdapterName"
+          ]
+        },
+        "storageConnectivitySwitchless": {
+          "type": "boolean",
+          "description": "Defines how the storage adapters between nodes are connected either switch or switch less.",
+          "readOnly": true
+        },
+        "enableStorageAutoIp": {
+          "type": "boolean",
+          "description": "Optional parameter required only for 3 Nodes Switchless deployments. This allows users to specify IPs and Mask for Storage NICs when Network ATC is not assigning the IPs for storage automatically.",
+          "default": false,
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineHostNetworkIntent": {
+      "type": "object",
+      "description": "The network intent reported for the edge machine.",
+      "properties": {
+        "scope": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Scope for host network intent.",
+          "readOnly": true
+        },
+        "intentType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "IntentType for host network intent.",
+          "readOnly": true
+        },
+        "isComputeIntentSet": {
+          "type": "boolean",
+          "description": "IsComputeIntentSet for host network intent.",
+          "readOnly": true
+        },
+        "isStorageIntentSet": {
+          "type": "boolean",
+          "description": "IsStorageIntentSet for host network intent.",
+          "readOnly": true
+        },
+        "isOnlyStorage": {
+          "type": "boolean",
+          "description": "IntentType for host network intent.",
+          "readOnly": true
+        },
+        "isManagementIntentSet": {
+          "type": "boolean",
+          "description": "IsManagementIntentSet for host network intent.",
+          "readOnly": true
+        },
+        "isStretchIntentSet": {
+          "type": "boolean",
+          "description": "IsStretchIntentSet for host network intent.",
+          "readOnly": true
+        },
+        "isOnlyStretch": {
+          "type": "boolean",
+          "description": "IsOnlyStretch for host network intent.",
+          "readOnly": true
+        },
+        "isNetworkIntentType": {
+          "type": "boolean",
+          "description": "IsNetworkIntentType for host network intent.",
+          "readOnly": true
+        },
+        "intentName": {
+          "type": "string",
+          "description": "Name of the network intent you wish to create.",
+          "readOnly": true
+        },
+        "intentAdapters": {
+          "type": "array",
+          "description": "Array of adapters used for the network intent.",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "overrideVirtualSwitchConfiguration": {
+          "type": "boolean",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.",
+          "readOnly": true
+        },
+        "virtualSwitchConfigurationOverrides": {
+          "$ref": "#/definitions/EdgeMachineVirtualSwitchConfigurationOverrides",
+          "description": "Set virtualSwitch ConfigurationOverrides for cluster.",
+          "readOnly": true
+        },
+        "overrideQosPolicy": {
+          "type": "boolean",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.",
+          "readOnly": true
+        },
+        "qosPolicyOverrides": {
+          "$ref": "#/definitions/QosPolicyOverrides",
+          "description": "Set QoS PolicyOverrides for cluster.",
+          "readOnly": true
+        },
+        "overrideAdapterProperty": {
+          "type": "boolean",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.",
+          "readOnly": true
+        },
+        "adapterPropertyOverrides": {
+          "$ref": "#/definitions/EdgeMachineAdapterPropertyOverrides",
+          "description": "Set Adapter PropertyOverrides for cluster.",
+          "readOnly": true
+        }
+      }
+    },
     "EdgeMachineJob": {
       "type": "object",
       "description": "Cluster Jobs resource",
@@ -21373,6 +22216,16 @@
           "x-ms-identifiers": [
             "switchName"
           ]
+        },
+        "hostNetwork": {
+          "$ref": "#/definitions/EdgeMachineHostNetwork",
+          "description": "HostNetwork configuration reported for the edge machine.",
+          "readOnly": true
+        },
+        "sdnProperties": {
+          "$ref": "#/definitions/SdnProperties",
+          "description": "Software Defined Networking (SDN) properties reported for the edge machine.",
+          "readOnly": true
         }
       }
     },
@@ -21786,6 +22639,11 @@
           "description": "Extension details for edge machine.",
           "readOnly": true
         },
+        "confidentialVmProfile": {
+          "$ref": "#/definitions/ConfidentialVmProfile",
+          "description": "CVM (Confidential VM) support details for the edge machine.",
+          "readOnly": true
+        },
         "workloadInventory": {
           "type": "array",
           "description": "Read-only Hyper-V VM inventory reported by the device management extension for VMs visible on this node.",
@@ -21801,8 +22659,30 @@
           "type": "string",
           "description": "Last time the device management extension refreshed the local Hyper-V workload inventory.",
           "readOnly": true
+        },
+        "storageInitiators": {
+          "type": "array",
+          "description": "Storage fabric initiator ports (iSCSI or Fibre Channel) discovered on the edge machine.",
+          "items": {
+            "$ref": "#/definitions/StorageInitiator"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
         }
       }
+    },
+    "EdgeMachineScaleUnits": {
+      "type": "object",
+      "description": "Scale units will contain the list of deployment data.",
+      "properties": {
+        "deploymentData": {
+          "$ref": "#/definitions/EdgeMachineDeploymentData",
+          "description": "Deployment data to configure the edge machine."
+        }
+      },
+      "required": [
+        "deploymentData"
+      ]
     },
     "EdgeMachineSecurityComplianceStatus": {
       "type": "object",
@@ -21965,6 +22845,59 @@
         ]
       }
     },
+    "EdgeMachineStorageAdapterIpInfo": {
+      "type": "object",
+      "description": "The StorageAdapter physical nodes reported for the edge machine.",
+      "properties": {
+        "physicalNode": {
+          "type": "string",
+          "description": "storage adapter physical node name.",
+          "readOnly": true
+        },
+        "ipv4Address": {
+          "type": "string",
+          "description": "The IPv4 address assigned to each storage adapter physical node on your Azure Stack HCI cluster.",
+          "readOnly": true
+        },
+        "subnetMask": {
+          "type": "string",
+          "description": "The SubnetMask address assigned to each storage adapter physical node on your Azure Stack HCI cluster.",
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineStorageNetwork": {
+      "type": "object",
+      "description": "The StorageNetworks reported for the edge machine.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the storage network.",
+          "readOnly": true
+        },
+        "networkAdapterName": {
+          "type": "string",
+          "description": "Name of the storage network adapter.",
+          "readOnly": true
+        },
+        "storageVlanId": {
+          "type": "string",
+          "description": "ID specified for the VLAN storage network. This setting is applied to the network interfaces that route the storage and VM migration traffic.",
+          "readOnly": true
+        },
+        "storageAdapterIPInfo": {
+          "type": "array",
+          "description": "List of Storage adapter physical nodes config to deploy AzureStackHCI Cluster.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineStorageAdapterIpInfo"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "physicalNode"
+          ]
+        }
+      }
+    },
     "EdgeMachineUpdate": {
       "type": "object",
       "description": "EdgeMachine Update resource that stores validated update configurations for an edge machine.",
@@ -22106,6 +23039,22 @@
         "status": {
           "type": "string",
           "description": "Edge machine validation status.",
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineVirtualSwitchConfigurationOverrides": {
+      "type": "object",
+      "description": "The VirtualSwitchConfigurationOverrides reported for the edge machine.",
+      "properties": {
+        "enableIov": {
+          "type": "string",
+          "description": "Enable IoV for Virtual Switch",
+          "readOnly": true
+        },
+        "loadBalancingAlgorithm": {
+          "type": "string",
+          "description": "Load Balancing Algorithm for Virtual Switch",
           "readOnly": true
         }
       }
@@ -24619,6 +25568,114 @@
         }
       }
     },
+    "IscsiAdapterIPConfig": {
+      "type": "object",
+      "description": "IP configuration for a single iSCSI network adapter.",
+      "properties": {
+        "networkAdapterName": {
+          "type": "string",
+          "description": "Name of the iSCSI network adapter."
+        },
+        "vlanId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "VLAN ID associated with the iSCSI network adapter."
+        },
+        "addressPrefix": {
+          "type": "string",
+          "description": "Address prefix (CIDR notation) for the iSCSI network adapter."
+        },
+        "targetPortalAddresses": {
+          "type": "array",
+          "description": "Target portal addresses reachable through this iSCSI network adapter.",
+          "items": {
+            "$ref": "#/definitions/IscsiTargetPortalAddress"
+          },
+          "x-ms-identifiers": [
+            "ipAddress"
+          ]
+        }
+      }
+    },
+    "IscsiAdapterProperties": {
+      "type": "object",
+      "description": "Common properties applied to iSCSI network adapters.",
+      "properties": {
+        "priorityValue8021ActionIscsi": {
+          "type": "integer",
+          "format": "int32",
+          "description": "802.1p priority value for iSCSI traffic."
+        },
+        "bandwidthPercentageIscsi": {
+          "type": "integer",
+          "format": "int32",
+          "description": "iSCSI bandwidth percentage."
+        },
+        "jumboPacket": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Jumbo frame size in bytes."
+        }
+      }
+    },
+    "IscsiChapSettings": {
+      "type": "object",
+      "description": "CHAP authentication settings for an iSCSI connection. The CHAP credentials\n(username and secret) are referenced via the deployment data secrets\n(Key Vault) using the chapCredential and mutualChapCredential secret names,\nnot carried inline.",
+      "properties": {
+        "chapType": {
+          "$ref": "#/definitions/IscsiChapType",
+          "description": "The CHAP authentication mode to use for the iSCSI connection."
+        }
+      }
+    },
+    "IscsiChapType": {
+      "type": "string",
+      "description": "The CHAP authentication mode for an iSCSI connection.",
+      "enum": [
+        "NoChap",
+        "OneWay",
+        "Bidirectional"
+      ],
+      "x-ms-enum": {
+        "name": "IscsiChapType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "NoChap",
+            "value": "NoChap",
+            "description": "No CHAP authentication is used."
+          },
+          {
+            "name": "OneWay",
+            "value": "OneWay",
+            "description": "One-way CHAP: the target authenticates the initiator."
+          },
+          {
+            "name": "Bidirectional",
+            "value": "Bidirectional",
+            "description": "Bidirectional (mutual) CHAP: initiator and target authenticate each other."
+          }
+        ]
+      }
+    },
+    "IscsiConfig": {
+      "type": "object",
+      "description": "iSCSI configuration.",
+      "properties": {
+        "iScsiNetworkConfig": {
+          "$ref": "#/definitions/IscsiNetworkConfig",
+          "description": "iSCSI network configuration including adapter properties and per-adapter IP configuration."
+        },
+        "chapSettings": {
+          "$ref": "#/definitions/IscsiChapSettings",
+          "description": "CHAP authentication settings used when connecting to the iSCSI target portals."
+        },
+        "initiatorIqn": {
+          "type": "string",
+          "description": "iSCSI Qualified Name (IQN) of the initiator."
+        }
+      }
+    },
     "IscsiInitiator": {
       "type": "object",
       "description": "An iSCSI initiator (a cluster node and its IQNs).",
@@ -24640,6 +25697,26 @@
       "required": [
         "nodeName"
       ]
+    },
+    "IscsiNetworkConfig": {
+      "type": "object",
+      "description": "iSCSI network configuration.",
+      "properties": {
+        "adapterProperties": {
+          "$ref": "#/definitions/IscsiAdapterProperties",
+          "description": "Common adapter properties applied to all iSCSI network adapters."
+        },
+        "adapterIPConfig": {
+          "type": "array",
+          "description": "Per-adapter IP configuration for the iSCSI network adapters.",
+          "items": {
+            "$ref": "#/definitions/IscsiAdapterIPConfig"
+          },
+          "x-ms-identifiers": [
+            "networkAdapterName"
+          ]
+        }
+      }
     },
     "IscsiTargetInfo": {
       "type": "object",
@@ -24691,6 +25768,20 @@
       "required": [
         "targetId"
       ]
+    },
+    "IscsiTargetPortalAddress": {
+      "type": "object",
+      "description": "iSCSI target portal address.",
+      "properties": {
+        "ipAddress": {
+          "type": "string",
+          "description": "IP address of the iSCSI target portal."
+        },
+        "nextHop": {
+          "type": "string",
+          "description": "Next hop (gateway) IP address used to reach the target portal."
+        }
+      }
     },
     "IscsiTransportSecurity": {
       "type": "object",
@@ -26965,6 +28056,36 @@
         ]
       },
       "readOnly": true
+    },
+    "NodeStorageType": {
+      "type": "string",
+      "description": "Node storage type for an edge machine.",
+      "enum": [
+        "S2D",
+        "SANISCSI",
+        "SANFC"
+      ],
+      "x-ms-enum": {
+        "name": "NodeStorageType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "S2D",
+            "value": "S2D",
+            "description": "Storage Spaces Direct (S2D) storage type."
+          },
+          {
+            "name": "SanIscsi",
+            "value": "SANISCSI",
+            "description": "SAN iSCSI storage type."
+          },
+          {
+            "name": "SanFc",
+            "value": "SANFC",
+            "description": "SAN Fibre Channel storage type."
+          }
+        ]
+      }
     },
     "NvmeDiscoveryPortal": {
       "type": "object",
@@ -32590,6 +33711,131 @@
         }
       }
     },
+    "StorageArrayJob": {
+      "type": "object",
+      "description": "Job for a Storage Array.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/StorageArrayJobProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "StorageArrayJobListResult": {
+      "type": "object",
+      "description": "The response of a StorageArrayJob list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The StorageArrayJob items on this page",
+          "items": {
+            "$ref": "#/definitions/StorageArrayJob"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "StorageArrayJobProperties": {
+      "type": "object",
+      "description": "Properties of the Storage Array Job.",
+      "properties": {
+        "jobType": {
+          "$ref": "#/definitions/StorageArrayJobType",
+          "description": "Type of operation.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "deploymentMode": {
+          "$ref": "#/definitions/DeploymentMode",
+          "description": "Deployment mode to trigger job."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the job.",
+          "readOnly": true
+        },
+        "jobId": {
+          "type": "string",
+          "description": "Unique, immutable job id.",
+          "readOnly": true
+        },
+        "startTimeUtc": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The UTC date and time at which the job started.",
+          "readOnly": true
+        },
+        "endTimeUtc": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The UTC date and time at which the job completed.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/JobStatus",
+          "description": "Status of the storage array job.",
+          "readOnly": true
+        },
+        "error": {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details if job failed.",
+          "readOnly": true
+        },
+        "reportedProperties": {
+          "$ref": "#/definitions/StorageArrayJobReportedProperties",
+          "description": "Reported properties for the storage array job.",
+          "readOnly": true
+        }
+      },
+      "discriminator": "jobType",
+      "required": [
+        "jobType"
+      ]
+    },
+    "StorageArrayJobReportedProperties": {
+      "type": "object",
+      "description": "Reported properties for the Storage Array Job.",
+      "properties": {
+        "percentComplete": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The percentage of the job that is complete.",
+          "readOnly": true
+        }
+      }
+    },
+    "StorageArrayJobType": {
+      "type": "string",
+      "description": "Type of storage array job operation.",
+      "enum": [
+        "SyncStorageArray"
+      ],
+      "x-ms-enum": {
+        "name": "StorageArrayJobType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "SyncStorageArray",
+            "value": "SyncStorageArray",
+            "description": "Job to force the storage controller to re-read the array and reconcile the ARM resources with the physical state."
+          }
+        ]
+      }
+    },
     "StorageArrayListResult": {
       "type": "object",
       "description": "The response of a StorageArray list operation.",
@@ -33014,6 +34260,76 @@
         }
       }
     },
+    "StorageInitiator": {
+      "type": "object",
+      "description": "A storage fabric initiator port (iSCSI or Fibre Channel) discovered on the edge machine.",
+      "properties": {
+        "initiatorType": {
+          "$ref": "#/definitions/StorageInitiatorType",
+          "description": "Transport type of the initiator port.",
+          "readOnly": true
+        },
+        "initiatorIdentifier": {
+          "type": "string",
+          "description": "Node identifier of the initiator. IQN for iSCSI or node WWN (WWNN) for Fibre Channel. Corresponds to the NodeAddress reported by Get-InitiatorPort.",
+          "readOnly": true
+        },
+        "portWorldWideName": {
+          "type": "string",
+          "description": "Fibre Channel port World Wide Name (WWPN). Populated for FibreChannel initiators only; corresponds to the PortAddress reported by Get-InitiatorPort.",
+          "readOnly": true
+        },
+        "ethernetAdapterName": {
+          "type": "string",
+          "description": "Name of the Ethernet adapter the iSCSI initiator is bound to. Populated for iSCSI initiators only; matches EdgeMachineNicDetail.adapterName.",
+          "readOnly": true
+        },
+        "ethernetAdapterMacAddress": {
+          "type": "string",
+          "description": "MAC address of the Ethernet adapter the iSCSI initiator is bound to. Populated for iSCSI initiators only; matches EdgeMachineNicDetail.macAddress.",
+          "readOnly": true
+        },
+        "operationalStatus": {
+          "type": "string",
+          "description": "Operational status of the initiator port as reported by the host (for example, Operational). Corresponds to OperationalStatus from Get-InitiatorPort.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "initiatorType",
+        "initiatorIdentifier"
+      ]
+    },
+    "StorageInitiatorType": {
+      "type": "string",
+      "description": "Transport type of a storage fabric initiator port on the edge machine.",
+      "enum": [
+        "iSCSI",
+        "FibreChannel",
+        "Unknown"
+      ],
+      "x-ms-enum": {
+        "name": "StorageInitiatorType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "iSCSI",
+            "value": "iSCSI",
+            "description": "iSCSI initiator. The initiator identifier is an IQN (iSCSI Qualified Name)."
+          },
+          {
+            "name": "FibreChannel",
+            "value": "FibreChannel",
+            "description": "Fibre Channel initiator. The initiator identifier is the node WWN (WWNN); the port is identified by its WWPN."
+          },
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "The initiator transport type could not be determined."
+          }
+        ]
+      }
+    },
     "StorageJob": {
       "type": "object",
       "description": "A background or user-triggered storage job (S2D only).",
@@ -33335,6 +34651,17 @@
           "format": "int64",
           "description": "Number of storage disks in the device with $CanPool as true.",
           "readOnly": true
+        },
+        "disks": {
+          "type": "array",
+          "description": "List of storage disks on the edge machine.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineDiskInfo"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "id"
+          ]
         },
         "localAvailabilityZoneName": {
           "type": "string",
@@ -33776,6 +35103,16 @@
         }
       ],
       "x-ms-discriminator-value": "Sync"
+    },
+    "SyncStorageArrayJobProperties": {
+      "type": "object",
+      "description": "Properties for forcing a storage array inventory sync / reconcile.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/StorageArrayJobProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "SyncStorageArray"
     },
     "TargetDeviceConfiguration": {
       "type": "object",

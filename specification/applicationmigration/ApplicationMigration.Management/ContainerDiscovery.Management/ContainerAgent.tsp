@@ -17,8 +17,10 @@ namespace Microsoft.ApplicationMigration;
  * Child of ContainerSite. Follows the same agent pattern as MongoAgent/PgsqlAgent.
  */
 @parentResource(ContainerSite)
-model ContainerAgent
-  is Azure.ResourceManager.ProxyResource<ContainerAgentProperties, false> {
+model ContainerAgent is Azure.ResourceManager.ProxyResource<
+  ContainerAgentProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = ContainerAgent,
     KeyName = "agentName",
