@@ -12772,20 +12772,14 @@ union NvmeTransportType {
 union DriveUsage {
   string,
 
-  /** Normal data storage; the pool selects the drive automatically. */
-  AutoSelect: "AutoSelect",
+  /** Usage is unknown or could not be determined. */
+  Unknown: "Unknown",
 
-  /** Drive is manually assigned to a tier. */
-  ManualSelect: "ManualSelect",
+  /** Drive is used for the storage cache tier (`SDDC_Drive.UsedFor` = `Cache`). */
+  Cache: "Cache",
 
-  /** Reserved as a hot spare for automatic rebuild. */
-  HotSpare: "HotSpare",
-
-  /** Drive is being evacuated; no new allocations. */
-  Retired: "Retired",
-
-  /** Drive backs the write-back cache journal. */
-  Journal: "Journal",
+  /** Drive is used for the storage capacity tier (`SDDC_Drive.UsedFor` = `Capacity`). */
+  Capacity: "Capacity",
 }
 
 /**
@@ -12887,6 +12881,9 @@ union PoolState {
 union PoolHealthStatus {
   string,
 
+  /** Pool health is unknown or could not be determined. */
+  Unknown: "Unknown",
+
   /** Pool is healthy. */
   Healthy: "Healthy",
 
@@ -12904,6 +12901,9 @@ union PoolHealthStatus {
 union DriveProvisioningType {
   string,
 
+  /** Provisioning type is unknown or could not be determined. */
+  Unknown: "Unknown",
+
   /** Fixed (thick) provisioning. */
   Fixed: "Fixed",
 
@@ -12918,8 +12918,8 @@ union DriveProvisioningType {
 union RepairSpeed {
   string,
 
-  /** Repair disabled. */
-  Disabled: "Disabled",
+  /** Very low repair speed. */
+  VeryLow: "VeryLow",
 
   /** Low repair speed. */
   Low: "Low",
@@ -13975,24 +13975,16 @@ model PhysicalDrive {
 }
 
 /**
- * Physical location of a drive. Enclosure and slot are populated only when the
- * hardware exposes SCSI Enclosure Services (SES) data.
+ * Physical location of a drive, as reported by `SDDC_Drive` (`Server` → `nodeId`,
+ * `Location` → `physicalLocation`).
  */
 @added(Versions.v2026_03_15_preview)
 model PhysicalDriveLocation {
-  /** Cluster node that hosts the drive. */
+  /** Cluster node that hosts the drive (`SDDC_Drive.Server`). */
   @visibility(Lifecycle.Read)
   nodeId?: string;
 
-  /** Enclosure number (null when no SES hardware). */
-  @visibility(Lifecycle.Read)
-  enclosureNumber?: int32;
-
-  /** Slot number within the enclosure (null when no SES hardware). */
-  @visibility(Lifecycle.Read)
-  slotNumber?: int32;
-
-  /** Free-form vendor-defined location string. Diagnostic aid only. */
+  /** Free-form vendor-defined location string (`SDDC_Drive.Location`). Diagnostic aid only. */
   @visibility(Lifecycle.Read)
   physicalLocation?: string;
 }
@@ -14064,7 +14056,10 @@ model StoragePoolProperties {
   @visibility(Lifecycle.Read)
   poolType?: PoolType;
 
-  /** Vendor-assigned pool identifier (SAN). */
+  /**
+   * Vendor-assigned pool identifier. For SAN this is the vendor pool ID; for S2D
+   * this is the storage pool friendly name (`MSFT_StoragePool.FriendlyName`).
+   */
   @visibility(Lifecycle.Read)
   vendorPoolId?: string;
 
