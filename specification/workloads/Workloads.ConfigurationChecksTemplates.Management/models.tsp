@@ -312,7 +312,69 @@ union CheckExecutionStatus {
   @doc("The execution of the check is disabled.")
   Disabled: "Disabled",
 
+  /**
+   * The check is not applicable to the current workload configuration.
+   */
+  @doc("The check is not applicable to the current workload configuration.")
+  NotApplicable: "NotApplicable",
+
   string,
+}
+
+@doc("The scope at which the check was evaluated.")
+union CheckLevel {
+  /**
+   * The check was evaluated at the common (workload) level.
+   */
+  @doc("The check was evaluated at the common (workload) level.")
+  Common: "Common",
+
+  /**
+   * The check was evaluated at the component level.
+   */
+  @doc("The check was evaluated at the component level.")
+  Component: "Component",
+
+  /**
+   * The check was evaluated at the role level.
+   */
+  @doc("The check was evaluated at the role level.")
+  Role: "Role",
+
+  string,
+}
+
+@doc("Represents a configuration check that is not applicable to the current workload, with a structured reason. Does not carry an execution state since the check does not run.")
+model NotApplicableCheck {
+  /**
+   * The unique identifier of the check.
+   */
+  @doc("The unique identifier of the check.")
+  checkId: string;
+
+  /**
+   * A short code indicating why the check is not applicable. Common values include "ComponentTypeMismatch", "MetadataValueMismatch", "MetadataKeyNotFound", "ResourceTypeNotFound", and "UnsupportedOSType", but any string value returned by the backend is accepted.
+   */
+  @doc("A short code indicating why the check is not applicable. Common values include \"ComponentTypeMismatch\", \"MetadataValueMismatch\", \"MetadataKeyNotFound\", \"ResourceTypeNotFound\", and \"UnsupportedOSType\", but any string value returned by the backend is accepted.")
+  reason: string;
+
+  /**
+   * The scope at which the check was evaluated.
+   */
+  @doc("The scope at which the check was evaluated.")
+  checkLevel: CheckLevel;
+
+  /**
+   * The component name the check was evaluated against. Null for common-level checks.
+   */
+  @doc("The component name the check was evaluated against. Null for common-level checks.")
+  componentName?: string;
+
+  /**
+   * The role name the check was evaluated against. Null for common-level and component-level checks.
+   */
+  @doc("The role name the check was evaluated against. Null for common-level and component-level checks.")
+  roleName?: string;
 }
 
 @doc("Schema for role configuration including checks and resources.")
@@ -402,6 +464,13 @@ model Configuration {
   @doc("List of common checks to be executed for all the components (or) at parent resource level.")
   @Azure.ResourceManager.identifiers(#["checkId"])
   commonChecks?: CheckConfiguration[];
+
+  /**
+   * List of checks that are not applicable to the current workload configuration. Stored as a separate section from commonChecks and does not carry an execution status (enabled/disabled).
+   */
+  @doc("List of checks that are not applicable to the current workload configuration. Stored as a separate section from commonChecks and does not carry an execution status (enabled/disabled).")
+  @Azure.ResourceManager.identifiers(#["checkId"])
+  notApplicableChecks?: NotApplicableCheck[];
 }
 
 @doc("Defines the properties of the configuration checks template.")

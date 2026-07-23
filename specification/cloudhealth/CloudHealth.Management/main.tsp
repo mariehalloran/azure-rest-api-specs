@@ -80,6 +80,11 @@ model HealthModelProperties {
   @removed(Versions.v2026_01_01_preview)
   @doc("Configure to automatically discover entities from a given scope, such as a Service Group. The discovered entities will be linked to the root entity of the health model.")
   discovery?: ModelDiscoverySettings;
+
+  @added(Versions.v2026_09_01_preview)
+  @visibility(Lifecycle.Read)
+  @doc("The data plane endpoint URL for interacting with the health model's data.")
+  dataPlaneUri?: url;
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "Self-explanatory"

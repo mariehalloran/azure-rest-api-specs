@@ -121,6 +121,7 @@ interface NamespaceAssets {
   @removed(Versions.v2025_07_01_preview)
   listBySubscription is ArmListBySubscription<NamespaceAsset>;
   @added(Versions.v2026_02_01_preview)
+  @Azure.Core.useFinalStateVia("azure-async-operation")
   executeAction is ArmResourceActionAsync<
     NamespaceAsset,
     NamespaceAssetExecuteActionRequest,

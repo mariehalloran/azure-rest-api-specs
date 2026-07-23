@@ -10,8 +10,10 @@ namespace Microsoft.ApplicationMigration;
  * The MongoCollection resource definition.
  */
 @parentResource(MongoSite)
-model MongoCollection
-  is Azure.ResourceManager.ProxyResource<MongoCollectionProperties, false> {
+model MongoCollection is Azure.ResourceManager.ProxyResource<
+  MongoCollectionProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = MongoCollection,
     KeyName = "collectionName",

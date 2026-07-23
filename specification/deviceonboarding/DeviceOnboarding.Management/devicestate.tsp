@@ -122,6 +122,7 @@ interface DeviceStates {
   update is ArmResourcePatchSync<DeviceState, DeviceStateProperties>;
   listByParent is ArmResourceListByParent<DeviceState>;
   @added(Versions.v2024_12_01_preview)
+  @doc("A long-running resource action.")
   prepareForOnboarding is ArmResourceActionNoResponseContentAsync<
     DeviceState,
     PrepareForOnboardingProperties

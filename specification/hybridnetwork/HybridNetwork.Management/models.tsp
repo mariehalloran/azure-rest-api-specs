@@ -1687,6 +1687,7 @@ model AzureContainerRegistryScopedTokenCredential
   /**
    * The Acr server url
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   acrServerUrl?: string;
 
   /**

@@ -16,8 +16,10 @@ namespace Microsoft.ApplicationMigration;
  * An NSX segment resource.
  */
 @parentResource(NetworkSite)
-model NsxSegment
-  is Azure.ResourceManager.ProxyResource<NsxSegmentProperties, false> {
+model NsxSegment is Azure.ResourceManager.ProxyResource<
+  NsxSegmentProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = NsxSegment,
     KeyName = "segmentName",

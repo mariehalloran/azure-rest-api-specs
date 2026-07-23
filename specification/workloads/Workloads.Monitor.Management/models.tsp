@@ -703,6 +703,7 @@ model PrometheusOsProviderInstanceProperties
   /**
    * URL of the Node Exporter endpoint
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   prometheusUrl?: string;
 
   /**
@@ -790,6 +791,7 @@ model PrometheusHaClusterProviderInstanceProperties
   /**
    * URL of the Node Exporter endpoint.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   prometheusUrl?: string;
 
   /**

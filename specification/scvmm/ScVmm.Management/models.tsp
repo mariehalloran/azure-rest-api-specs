@@ -593,11 +593,10 @@ model VirtualMachineInstanceProperties {
 model VirtualMachineInstanceUpdateProperties
   is UpdateableProperties<OmitProperties<
     VirtualMachineInstanceProperties,
-
-      | "hardwareProfile"
-      | "networkProfile"
-      | "storageProfile"
-      | "infrastructureProfile"
+    | "hardwareProfile"
+    | "networkProfile"
+    | "storageProfile"
+    | "infrastructureProfile"
   >> {
   /** Hardware properties. */
   hardwareProfile?: HardwareProfileUpdate;

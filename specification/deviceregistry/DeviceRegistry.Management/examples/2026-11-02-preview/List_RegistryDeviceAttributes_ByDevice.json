@@ -1,0 +1,45 @@
+{
+  "title": "List Device Attributes for a Device",
+  "operationId": "RegistryDeviceAttributes_ListByDevice",
+  "description": "List device attributes for a device.",
+  "parameters": {
+    "api-version": "2026-11-02-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "namespaceName": "my-namespace-1",
+    "registryDeviceName": "adr-smart-device3-f191f536-f652-4eb4-b9a0-1a9d43300cab"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.DeviceRegistry/namespaces/my-namespace-1/registryDevices/adr-smart-device3-f191f536-f652-4eb4-b9a0-1a9d43300cab/attributes/update",
+            "name": "update",
+            "type": "Microsoft.DeviceRegistry/namespaces/registryDevices/attributes",
+            "properties": {
+              "reportedBy": "Microsoft.DeviceUpdate",
+              "deviceUuid": "d1a2b3c4-5678-90ab-cdef-1234567890ab",
+              "deviceClassId": "deviceClass1",
+              "installedUpdateId": {
+                "provider": "provider1",
+                "name": "name1",
+                "version": "2.0.0.0"
+              },
+              "agentInfoEtag": "value",
+              "agentInfo": {
+                "compatibilityProperties": {
+                  "manufacturer": "manufacturer1",
+                  "model": "model1"
+                },
+                "agentProfile": 1,
+                "agentSdkVersion": "value"
+              },
+              "provisioningState": "Succeeded"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@
   rules: [SdkTspConfigValidation]
   sub-rules:
     - options.@azure-tools/typespec-ts.*
+    - options.@azure-typespec/http-client-csharp-mgmt.*
   paths: [Microsoft.EntraIDGovernance.Management/tspconfig.yaml]
 
 - tool: TypeSpecValidation
@@ -16,4 +17,5 @@
   rules: [SdkTspConfigValidation]
   sub-rules:
     - options.@azure-tools/typespec-python.*
+    - options.@azure-typespec/http-client-csharp-mgmt.*
   paths: [Microsoft.EntraIDGovernance.ScimApiConsumption.Management/tspconfig.yaml]

@@ -10,8 +10,10 @@ namespace Microsoft.ApplicationMigration;
  * The Agent resource definition.
  */
 @parentResource(MongoSite)
-model MongoAgent
-  is Azure.ResourceManager.ProxyResource<AgentProperties, false> {
+model MongoAgent is Azure.ResourceManager.ProxyResource<
+  AgentProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = MongoAgent,
     KeyName = "agentName",

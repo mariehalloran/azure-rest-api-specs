@@ -3,10 +3,10 @@ import "@typespec/http";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
-import "./PostgresqlModels.tsp";
-import "./PostgresqlMigrationService.tsp";
-import "./PostgresqlDatabaseMigration.tsp";
-import "./PostgresqlRoutes.tsp";
+import "./Models.tsp";
+import "./MigrationService.tsp";
+import "./DatabaseMigration.tsp";
+import "./Routes.tsp";
 
 using TypeSpec.Versioning;
 using Azure.ResourceManager;

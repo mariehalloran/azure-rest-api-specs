@@ -15,8 +15,10 @@ namespace Microsoft.HybridInventory;
  * The PGSQLInstance resource definition.
  */
 @parentResource(PgsqlSite)
-model PgsqlInstance
-  is Azure.ResourceManager.ProxyResource<PgsqlInstanceProperties, false> {
+model PgsqlInstance is Azure.ResourceManager.ProxyResource<
+  PgsqlInstanceProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = PgsqlInstance,
     KeyName = "instanceName",

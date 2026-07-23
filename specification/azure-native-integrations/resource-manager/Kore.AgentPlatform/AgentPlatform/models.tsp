@@ -106,6 +106,17 @@ model DefaultWorkspaceProperties {
   @minLength(2)
   @maxLength(100)
   name: string;
+
+  /**
+   * Azure Marketplace SaaS subscriptions linked to this Workspace.
+   * At least one entry is required. Mutable to support Marketplace-driven
+   * plan changes.
+   */
+  @added(Versions.v2026_07_01_preview)
+  @minItems(1)
+  @maxItems(20)
+  @identifiers(#["subscriptionId"])
+  marketplaceDetails: LiftrBase.MarketplaceDetails[];
 }
 
 // =============================================================================
@@ -119,6 +130,7 @@ model OrganizationProperties {
    * At least one entry is required. Mutable to support Marketplace-driven
    * plan changes.
    */
+  @removed(Versions.v2026_07_01_preview)
   @minItems(1)
   @identifiers(#["subscriptionId"])
   marketplaceDetails: LiftrBase.MarketplaceDetails[];
@@ -135,6 +147,16 @@ model OrganizationProperties {
   /** Single sign-on metadata returned by the partner after Organization creation. */
   @visibility(Lifecycle.Read)
   singleSignOn?: SingleSignOnProperties;
+
+  /** Partner-issued identifier of the default Workspace for this Organization. */
+  @added(Versions.v2026_07_01_preview)
+  @visibility(Lifecycle.Read)
+  defaultWorkspaceId?: string;
+
+  /** Total count of Workspaces under this Organization. */
+  @added(Versions.v2026_07_01_preview)
+  @visibility(Lifecycle.Read)
+  workspaceCount?: int32;
 
   /** Provisioning state of the resource. */
   @visibility(Lifecycle.Read)
@@ -176,6 +198,17 @@ model WorkspacePartnerProperties {
 
 /** Properties of a Kore.AgentPlatform Workspace. */
 model WorkspaceProperties {
+  /**
+   * Azure Marketplace SaaS subscriptions linked to this Workspace.
+   * At least one entry is required. Mutable to support Marketplace-driven
+   * plan changes.
+   */
+  @added(Versions.v2026_07_01_preview)
+  @minItems(1)
+  @maxItems(20)
+  @identifiers(#["subscriptionId"])
+  marketplaceDetails: LiftrBase.MarketplaceDetails[];
+
   /** Partner-specific (Kore) Workspace properties. */
   partnerProperties: WorkspacePartnerProperties;
 
@@ -216,6 +249,7 @@ model OrganizationPropertiesUpdate {
    * Azure Marketplace SaaS subscriptions linked to this Organization.
    * Mutable to support Marketplace-driven plan changes.
    */
+  @removed(Versions.v2026_07_01_preview)
   @identifiers(#["subscriptionId"])
   marketplaceDetails?: LiftrBase.MarketplaceDetails[];
 
@@ -256,6 +290,18 @@ model OrganizationPartnerPropertiesUpdate {
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
 model SaaSData {
   /** ARM resource IDs of the Microsoft.SaaS marketplace resources to link to this Organization. */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
+  saaSResourceIds: armResourceIdentifier<[
+    {
+      type: "Microsoft.SaaS/resources";
+    }
+  ]>[];
+}
+
+/** SaaS-related data properties. Contains the full list of SaaS resource IDs to link. */
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
+model WorkspaceSaaSData {
+  /** ARM resource IDs of the Microsoft.SaaS marketplace resources to link to this Workspace. */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
   saaSResourceIds: armResourceIdentifier<[
     {
@@ -306,4 +352,27 @@ model LinkedSaaSListResponse {
   /** List of SaaS resources linked to this Organization. */
   @identifiers(#["saaSResourceId"])
   value: LinkedSaaSItem[];
+}
+
+/** Individual SaaS resource linked to the Workspace. */
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
+model WorkspaceLinkedSaaSItem {
+  /** ARM resource ID of the Microsoft.SaaS marketplace resource linked to this Workspace. */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
+  saaSResourceId: armResourceIdentifier<[
+    {
+      type: "Microsoft.SaaS/resources";
+    }
+  ]>;
+
+  /** Flag indicating if the SaaS resource is hidden. */
+  isHiddenSaaS?: boolean;
+}
+
+/** Response containing the list of SaaS resources linked to the Workspace. */
+#suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
+model WorkspaceLinkedSaaSListResponse {
+  /** List of SaaS resources linked to this Workspace. */
+  @identifiers(#["saaSResourceId"])
+  value: WorkspaceLinkedSaaSItem[];
 }

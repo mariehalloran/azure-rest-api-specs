@@ -14,8 +14,10 @@ namespace Microsoft.ApplicationMigration;
  * The StorageDatabase resource definition.
  */
 @parentResource(StorageSite)
-model FileShare
-  is Azure.ResourceManager.ProxyResource<FileShareProperties, false> {
+model FileShare is Azure.ResourceManager.ProxyResource<
+  FileShareProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = FileShare,
     KeyName = "shareName",

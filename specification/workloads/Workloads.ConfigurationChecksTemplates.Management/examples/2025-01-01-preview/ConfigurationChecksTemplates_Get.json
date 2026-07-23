@@ -154,6 +154,26 @@
                   }
                 ]
               }
+            ],
+            "notApplicableChecks": [
+              {
+                "checkId": "Azure-VM-SAP-HANA-Supported-SKU",
+                "reason": "ResourceTypeNotFound",
+                "checkLevel": "Common"
+              },
+              {
+                "checkId": "Azure-AKS-AutoScale",
+                "reason": "UnsupportedOSType",
+                "checkLevel": "Component",
+                "componentName": "DatabaseServer"
+              },
+              {
+                "checkId": "SAP-NetWeaver-Patch-Level",
+                "reason": "MetadataValueMismatch",
+                "checkLevel": "Role",
+                "componentName": "ApplicationServer",
+                "roleName": "PrimaryNode"
+              }
             ]
           }
         },

@@ -31,6 +31,7 @@ model StorageAccountConnectorProperties {
   @doc("The resource ID of an existing hub resource to link/associate this storageAccountConnector resource to.")
   hubResourceId: HubResourceId;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("URL of the Azure storage account container to connect to.")
   @pattern(".+\\.core\\.windows\\.net\\/.+")
   storageAccountContainerUrl: url;
