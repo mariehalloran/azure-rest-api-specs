@@ -1,0 +1,925 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Windows365",
+    "version": "2026-09-01-preview",
+    "description": "Windows365 Resource Provider management API.",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "CloudPcDelegatedMsis"
+    },
+    {
+      "name": "ServiceConnectors"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.Windows365/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "Lists all of the available resource provider operations.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List resource provider operations": {
+            "$ref": "./examples/Operations_Get.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Windows365/cloudPcDelegatedMsis": {
+      "get": {
+        "operationId": "CloudPcDelegatedMsi_ListBySubscription",
+        "tags": [
+          "CloudPcDelegatedMsis"
+        ],
+        "description": "List Cloud PC delegated managed identity resources by subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "description": "The maximum number of resources to return.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CloudPcDelegatedMsiListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Cloud PC delegated managed identities by subscription": {
+            "$ref": "./examples/CloudPcDelegatedMsi_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Windows365/serviceConnectors": {
+      "get": {
+        "operationId": "ServiceConnector_ListBySubscription",
+        "tags": [
+          "ServiceConnectors"
+        ],
+        "description": "List service connector resources by subscription.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ServiceConnectorListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List service connectors by subscription": {
+            "$ref": "./examples/ServiceConnectors_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Windows365/cloudPcDelegatedMsis": {
+      "get": {
+        "operationId": "CloudPcDelegatedMsi_ListByResourceGroup",
+        "tags": [
+          "CloudPcDelegatedMsis"
+        ],
+        "description": "List Cloud PC delegated managed identity resources by resource group.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Windows365ResourceGroupScopeParameters.subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/Windows365ResourceGroupScopeParameters.resourceGroupName"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "description": "The maximum number of resources to return.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CloudPcDelegatedMsiListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Cloud PC delegated managed identities by resource group": {
+            "$ref": "./examples/CloudPcDelegatedMsi_ListByResourceGroup.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Windows365/cloudPcDelegatedMsis/{cloudPcDelegatedMsiName}": {
+      "get": {
+        "operationId": "CloudPcDelegatedMsi_Get",
+        "tags": [
+          "CloudPcDelegatedMsis"
+        ],
+        "description": "Get a Cloud PC delegated managed identity resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Windows365ResourceGroupScopeParameters.subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/Windows365ResourceGroupScopeParameters.resourceGroupName"
+          },
+          {
+            "name": "cloudPcDelegatedMsiName",
+            "in": "path",
+            "description": "The name of the cloudPcDelegatedMsi.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CloudPcDelegatedMsi"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a Cloud PC delegated managed identity": {
+            "$ref": "./examples/CloudPcDelegatedMsi_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "CloudPcDelegatedMsi_CreateOrUpdate",
+        "tags": [
+          "CloudPcDelegatedMsis"
+        ],
+        "description": "Create or update a Cloud PC delegated managed identity resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Windows365ResourceGroupScopeParameters.subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/Windows365ResourceGroupScopeParameters.resourceGroupName"
+          },
+          {
+            "name": "cloudPcDelegatedMsiName",
+            "in": "path",
+            "description": "The name of the cloudPcDelegatedMsi.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Represents a CloudPcDelegatedMsi.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CloudPcDelegatedMsi"
+            },
+            "x-ms-client-name": "resource"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CloudPcDelegatedMsi"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create a Cloud PC delegated managed identity": {
+            "$ref": "./examples/CloudPcDelegatedMsi_Create.json"
+          },
+          "Create a Cloud PC delegated managed identity with identity": {
+            "$ref": "./examples/CloudPcDelegatedMsi_CreateWithUserIdentity.json"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "CloudPcDelegatedMsi_Update",
+        "tags": [
+          "CloudPcDelegatedMsis"
+        ],
+        "description": "Update a Cloud PC delegated managed identity resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Windows365ResourceGroupScopeParameters.subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/Windows365ResourceGroupScopeParameters.resourceGroupName"
+          },
+          {
+            "name": "cloudPcDelegatedMsiName",
+            "in": "path",
+            "description": "The name of the cloudPcDelegatedMsi.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updatable CloudPcDelegatedMsi properties.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CloudPcDelegatedMsiUpdate"
+            },
+            "x-ms-client-name": "properties"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CloudPcDelegatedMsi"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update a Cloud PC delegated managed identity": {
+            "$ref": "./examples/CloudPcDelegatedMsi_Patch.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "CloudPcDelegatedMsi_Delete",
+        "tags": [
+          "CloudPcDelegatedMsis"
+        ],
+        "description": "Delete a Cloud PC delegated managed identity resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Windows365ResourceGroupScopeParameters.subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/Windows365ResourceGroupScopeParameters.resourceGroupName"
+          },
+          {
+            "name": "cloudPcDelegatedMsiName",
+            "in": "path",
+            "description": "The name of the cloudPcDelegatedMsi.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a Cloud PC delegated managed identity": {
+            "$ref": "./examples/CloudPcDelegatedMsi_Delete.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Windows365/serviceConnectors": {
+      "get": {
+        "operationId": "ServiceConnector_ListByResourceGroup",
+        "tags": [
+          "ServiceConnectors"
+        ],
+        "description": "List service connector resources by resource group.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ServiceConnectorListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List service connectors by resource group": {
+            "$ref": "./examples/ServiceConnectors_ListByResourceGroup.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Windows365/serviceConnectors/{serviceConnectorName}": {
+      "get": {
+        "operationId": "ServiceConnector_Get",
+        "tags": [
+          "ServiceConnectors"
+        ],
+        "description": "Get a service connector resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "serviceConnectorName",
+            "in": "path",
+            "description": "The name of the ServiceConnector",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ServiceConnector"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a service connector": {
+            "$ref": "./examples/ServiceConnectors_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ServiceConnector_CreateOrUpdate",
+        "tags": [
+          "ServiceConnectors"
+        ],
+        "description": "Create or replace a service connector resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "serviceConnectorName",
+            "in": "path",
+            "description": "The name of the ServiceConnector",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceConnector"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ServiceConnector' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ServiceConnector"
+            }
+          },
+          "201": {
+            "description": "Resource 'ServiceConnector' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ServiceConnector"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create a service connector with a system-assigned identity": {
+            "$ref": "./examples/ServiceConnectors_CreateWithSystemAssignedIdentity.json"
+          },
+          "Create a service connector with a user-assigned identity": {
+            "$ref": "./examples/ServiceConnectors_CreateWithUserAssignedIdentity.json"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "ServiceConnector_Update",
+        "tags": [
+          "ServiceConnectors"
+        ],
+        "description": "Update the tags of a service connector resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "serviceConnectorName",
+            "in": "path",
+            "description": "The name of the ServiceConnector",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceConnectorTagsUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ServiceConnector"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update service connector tags": {
+            "$ref": "./examples/ServiceConnectors_Update.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "ServiceConnector_Delete",
+        "tags": [
+          "ServiceConnectors"
+        ],
+        "description": "Delete a service connector resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "serviceConnectorName",
+            "in": "path",
+            "description": "The name of the ServiceConnector",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a service connector": {
+            "$ref": "./examples/ServiceConnectors_Delete.json"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Azure.ResourceManager.ResourceProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a resource type.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "CloudError": {
+      "type": "object",
+      "description": "An error response from the Windows 365 resource provider.",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/CloudErrorBody",
+          "description": "The error body."
+        }
+      },
+      "x-ms-external": true
+    },
+    "CloudErrorBody": {
+      "type": "object",
+      "description": "An error response from the Windows 365 resource provider.",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An invariant identifier for the error."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message describing the error."
+        },
+        "target": {
+          "type": "string",
+          "description": "The target of the particular error."
+        },
+        "details": {
+          "type": "array",
+          "description": "Additional details about the error.",
+          "items": {
+            "$ref": "#/definitions/CloudErrorBody"
+          },
+          "x-ms-identifiers": []
+        }
+      },
+      "x-ms-external": true
+    },
+    "CloudPcDelegatedMsi": {
+      "type": "object",
+      "description": "Represents a cloudPcDelegatedMsi resource.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/CloudPcDelegatedMsiProperties",
+          "description": "CloudPcDelegatedMsi properties",
+          "x-ms-client-flatten": true
+        },
+        "identity": {
+          "$ref": "../../../../../../common-types/resource-management/v5/managedidentitywithdelegation.json#/definitions/ManagedServiceIdentityWithDelegation",
+          "description": "Delegated managed identity properties."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "CloudPcDelegatedMsiListResult": {
+      "type": "object",
+      "description": "Result of the list cloudPcDelegatedMsis operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "Current page of results.",
+          "items": {
+            "$ref": "#/definitions/CloudPcDelegatedMsi"
+          },
+          "readOnly": true
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "URL to get the next set of results, if any.",
+          "readOnly": true
+        }
+      }
+    },
+    "CloudPcDelegatedMsiProperties": {
+      "type": "object",
+      "description": "Properties of the cloudPcDelegatedMsi.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the resource.",
+          "readOnly": true
+        }
+      }
+    },
+    "CloudPcDelegatedMsiUpdate": {
+      "type": "object",
+      "description": "The CloudPcDelegatedMsi resource for partial updates.",
+      "properties": {
+        "identity": {
+          "$ref": "../../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "description": "Managed identity properties."
+        }
+      }
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "description": "Provisioning state of the resource.",
+      "enum": [
+        "Succeeded",
+        "Canceled",
+        "Deleting",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "The resource provisioning operation completed successfully."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "The resource provisioning operation was canceled."
+          },
+          {
+            "name": "Deleting",
+            "value": "Deleting",
+            "description": "The resource is being deleted."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "The resource provisioning operation failed."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "ServiceConnector": {
+      "type": "object",
+      "description": "A Windows 365 service connector resource.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ServiceConnectorProperties",
+          "description": "The resource-specific properties for this resource."
+        },
+        "identity": {
+          "$ref": "../../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "description": "The managed identity used by the service connector. The service accepts exactly one identity: either a system-assigned identity or one user-assigned identity."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "ServiceConnectorListResult": {
+      "type": "object",
+      "description": "The response of a ServiceConnector list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ServiceConnector items on this page",
+          "items": {
+            "$ref": "#/definitions/ServiceConnector"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ServiceConnectorProperties": {
+      "type": "object",
+      "description": "The short-term service connector contract has no customer-configurable properties; configuration is expressed through the resource identity and tags.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "The provisioning state of the resource.",
+          "readOnly": true
+        }
+      }
+    },
+    "ServiceConnectorTagsUpdate": {
+      "type": "object",
+      "description": "The type used for updating tags in ServiceConnector resources.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "parameters": {
+    "Windows365ResourceGroupScopeParameters.resourceGroupName": {
+      "name": "resourceGroupName",
+      "in": "path",
+      "description": "The name of the resource group.",
+      "required": true,
+      "type": "string",
+      "x-ms-parameter-location": "method"
+    },
+    "Windows365ResourceGroupScopeParameters.subscriptionId": {
+      "name": "subscriptionId",
+      "in": "path",
+      "description": "The Azure subscription ID.",
+      "required": true,
+      "type": "string",
+      "x-ms-parameter-location": "method"
+    }
+  }
+}
