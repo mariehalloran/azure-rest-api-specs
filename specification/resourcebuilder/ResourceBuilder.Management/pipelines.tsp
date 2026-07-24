@@ -181,6 +181,14 @@ model PipelineRunProperties {
 interface Pipelines {
   get is ArmResourceRead<Pipeline>;
   createOrUpdate is ArmResourceCreateOrReplaceSync<Pipeline>;
+
+  /**
+   * Delete a pipeline.
+   *
+   * Deleting a pipeline cascades to its child resources (jobs and runs), which are removed as part of
+   * the ARM delete. A pipeline is not subject to active-consumer dependency validation, so this delete
+   * is not blocked by references from its child jobs.
+   */
   delete is ArmResourceDeleteSync<Pipeline>;
   list is ArmResourceListByParent<Pipeline>;
 
