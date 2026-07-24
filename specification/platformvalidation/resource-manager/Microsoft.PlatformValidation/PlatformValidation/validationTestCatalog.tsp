@@ -222,6 +222,9 @@ model ValidationTestCategory
 
 @doc("Validation test category properties.")
 model ValidationTestCategoryProperties {
+  @doc("Display name of the validation test category.")
+  displayName?: string;
+
   @doc("Validation test category description.")
   description?: string;
 
@@ -234,6 +237,9 @@ model ValidationTestCategoryProperties {
 
   @doc("Parent validation test category id.")
   parentCategoryId?: string;
+
+  @doc("Owners of the validation test category.")
+  owners?: string[];
 }
 
 @armResourceOperations

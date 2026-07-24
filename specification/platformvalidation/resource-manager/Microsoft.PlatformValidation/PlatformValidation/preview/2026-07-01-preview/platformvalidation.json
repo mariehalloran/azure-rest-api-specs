@@ -2959,6 +2959,10 @@
       "type": "object",
       "description": "Validation test category properties.",
       "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "Display name of the validation test category."
+        },
         "description": {
           "type": "string",
           "description": "Validation test category description."
@@ -2975,6 +2979,13 @@
         "parentCategoryId": {
           "type": "string",
           "description": "Parent validation test category id."
+        },
+        "owners": {
+          "type": "array",
+          "description": "Owners of the validation test category.",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
