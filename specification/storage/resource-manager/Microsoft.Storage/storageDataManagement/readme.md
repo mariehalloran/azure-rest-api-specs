@@ -82,6 +82,34 @@ These settings apply only when `--tag=package-2026-06-01` is specified on the co
 ```yaml $(tag) == 'package-2026-06-01'
 input-file:
   - stable/2026-06-01/StorageDataManagementRP.json
+suppressions:
+  - code: PatchBodyParametersSchema
+    from:
+      - StorageDataManagementRP.json
+    reason: >
+      The Connector PATCH contract is carried forward from prior API versions,
+      and the Blob Access Point authentication discriminator is required to
+      select the credential shape.
+    where:
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/connectors/{connectorName}"].patch.parameters[5].schema.properties.properties
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/{blobAccessPointConfigurationName}"].patch.parameters[5].schema.properties.properties
+  - code: ConsistentPatchProperties
+    from:
+      - StorageDataManagementRP.json
+    reason: >
+      The validator does not correlate mutable properties with the concrete
+      variants of the discriminated Blob Access Point source model.
+    where:
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/{blobAccessPointConfigurationName}"].patch.parameters[5].schema
+  - code: PathForResourceAction
+    from:
+      - StorageDataManagementRP.json
+    reason: >
+      proposedconnectiontest validates a configuration before a Blob Access
+      Point configuration resource exists, so it is intentionally a collection
+      action.
+    where:
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/proposedconnectiontest"]
 ```
 
 ## Code Generation
