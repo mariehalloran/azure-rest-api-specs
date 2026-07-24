@@ -35,15 +35,6 @@ input-file:
   - preview/2026-09-01-preview/windows365.json
 ```
 
-### Tag: 2022-09-01-preview
-
-These settings apply only when `--tag=2022-09-01-preview` is specified.
-
-```yaml $(tag) == '2022-09-01-preview'
-input-file:
-  - preview/2022-09-01-preview/windows365.json
-```
-
 ---
 
 # Code Generation

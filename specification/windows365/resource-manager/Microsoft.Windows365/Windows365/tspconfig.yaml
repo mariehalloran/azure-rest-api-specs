@@ -13,6 +13,39 @@ options:
     output-file: "{version-status}/{version}/windows365.json"
     arm-types-dir: "{project-root}/../../../../common-types/resource-management"
     use-read-only-status-schema: true
+  "@azure-typespec/http-client-csharp-mgmt":
+    namespace: "Azure.ResourceManager.Windows365"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
+  "@azure-tools/typespec-python":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-windows365"
+    package-name: "azure-mgmt-windows365"
+    namespace: "azure.mgmt.windows365"
+    generate-sample: true
+    generate-test: true
+    flavor: "azure"
+  "@azure-tools/typespec-java":
+    emitter-output-dir: "{output-dir}/{service-dir}/azure-resourcemanager-windows365"
+    namespace: "com.azure.resourcemanager.windows365"
+    service-name: "Windows 365"
+    flavor: azure
+  "@azure-tools/typespec-ts":
+    emitter-output-dir: "{output-dir}/{service-dir}/arm-windows365"
+    experimental-extensible-enums: true
+    is-modular-library: true
+    flavor: "azure"
+    package-details:
+      name: "@azure/arm-windows365"
+  "@azure-tools/typespec-go":
+    service-dir: "sdk/resourcemanager/windows365"
+    emitter-output-dir: "{output-dir}/{service-dir}/armwindows365"
+    module: "github.com/Azure/azure-sdk-for-go/{service-dir}/armwindows365"
+    fix-const-stuttering: true
+    flavor: "azure"
+    generate-examples: true
+    generate-samples: true
+    generate-fakes: true
+    head-as-boolean: true
+    inject-spans: true
 linter:
   extends:
     - "@azure-tools/typespec-azure-rulesets/resource-manager"
