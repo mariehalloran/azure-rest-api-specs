@@ -65,6 +65,12 @@ suppressions:
     from:
       - deviceregistry.json
     where:
+      - $.definitions.NamespaceObservability.properties.endpoints
+    reason: Endpoint keys are customer-supplied endpoint names and therefore cannot be predefined; each value is strongly typed as an ObservabilityEndpoint. All endpoints in this repository follow this dictionary pattern.
+  - code: AvoidAdditionalProperties
+    from:
+      - deviceregistry.json
+    where:
       - $.definitions.Management.properties.endpoints
       - $.definitions.Messaging.properties.endpoints
       - $.definitions.NamespaceProvisioning.properties.endpoints
@@ -131,6 +137,8 @@ suppressions:
     where:
       - $.definitions.GroupListMembersRequest.properties.skipToken
       - $.definitions.GroupListMembersResult.properties.skipToken
+      - $.definitions.JobRunResultListResponse.properties.skipToken
+      - $.definitions.JobRunResultsRequest.properties.skipToken
     reason: skipToken is an opaque pagination continuation token used to page group members, not a credential or secret.
 ```
 

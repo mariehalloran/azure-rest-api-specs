@@ -40,19 +40,24 @@ model RegistryDeviceAuthenticationProfile
 
 @@added(AuthenticationProfileProperties, Versions.v2026_11_02_preview);
 @@added(AuthenticationType, Versions.v2026_11_02_preview);
-@@added(SymmetricKeyAuthenticationProfileProperties,
+@@added(
+  SymmetricKeyAuthenticationProfileProperties,
   Versions.v2026_11_02_preview
 );
-@@added(CertificateAuthorityAuthenticationProfileProperties,
+@@added(
+  CertificateAuthorityAuthenticationProfileProperties,
   Versions.v2026_11_02_preview
 );
-@@added(SelfSignedX509CertificateAuthenticationProfileProperties,
+@@added(
+  SelfSignedX509CertificateAuthenticationProfileProperties,
   Versions.v2026_11_02_preview
 );
-@@removed(AuthenticationType.X509HubUploadedCertificateAuthority,
+@@removed(
+  AuthenticationType.X509HubUploadedCertificateAuthority,
   Versions.v2023_10_01_preview
 );
-@@removed(X509HubUploadedCertificateAuthorityAuthenticationProfileProperties,
+@@removed(
+  X509HubUploadedCertificateAuthorityAuthenticationProfileProperties,
   Versions.v2023_10_01_preview
 );
 @@added(SymmetricKeyCredentials, Versions.v2026_11_02_preview);

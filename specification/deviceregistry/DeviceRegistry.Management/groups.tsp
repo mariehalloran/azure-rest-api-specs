@@ -26,8 +26,6 @@ model Group is TrackedResource<GroupProperties> {
   @minLength(3)
   @maxLength(63)
   name: string;
-
-  ...ManagedSystemAssignedIdentityProperty;
 }
 
 @@added(GroupType, Versions.v2026_11_02_preview);
@@ -113,8 +111,8 @@ alias RefreshMembersLroHeaders = Azure.Core.Foundations.RetryAfterHeader &
 @armResourceOperations
 interface Groups {
   get is ArmResourceRead<Group>;
-  createOrReplace is ArmResourceCreateOrReplaceAsync<Group>;
-  update is ArmResourcePatchAsync<Group, GroupProperties>;
+  createOrReplace is ArmResourceCreateOrReplaceSync<Group>;
+  update is ArmResourcePatchSync<Group, GroupProperties>;
   delete is ArmResourceDeleteWithoutOkAsync<Group>;
   listByNamespace is ArmResourceListByParent<Group>;
 
