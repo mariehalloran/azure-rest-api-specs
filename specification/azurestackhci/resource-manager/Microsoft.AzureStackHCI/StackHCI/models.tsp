@@ -7638,6 +7638,12 @@ model EdgeMachineReportedProperties {
   extensionProfile?: ExtensionProfile;
 
   /**
+   * CVM (Confidential VM) support details for the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  confidentialVmProfile?: ConfidentialVmProfile;
+
+  /**
    * Read-only Hyper-V VM inventory reported by the device management extension for VMs visible on this node.
    */
   @visibility(Lifecycle.Read)
@@ -7789,6 +7795,18 @@ model EdgeMachineNetworkProfile {
   @visibility(Lifecycle.Read)
   @Azure.ResourceManager.identifiers(#["switchName"])
   switchDetails?: SwitchDetail[];
+
+  /**
+   * HostNetwork configuration reported for the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  hostNetwork?: EdgeMachineHostNetwork;
+
+  /**
+   * Software Defined Networking (SDN) properties reported for the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  sdnProperties?: SdnProperties;
 }
 
 /**
@@ -8007,10 +8025,291 @@ model StorageProfile {
   poolableDisksCount?: int64;
 
   /**
+   * List of storage disks on the edge machine.
+   */
+  @visibility(Lifecycle.Read)
+  @Azure.ResourceManager.identifiers(#["id"])
+  disks?: EdgeMachineDiskInfo[];
+
+  /**
    * Local availability zone name assigned to this edge machine after a ConfigureLocalAvailabilityZone job succeeds.
    */
   @visibility(Lifecycle.Read)
   localAvailabilityZoneName?: string;
+}
+
+/**
+ * HostNetwork configuration reported for the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineHostNetwork {
+  /**
+   * The network intents assigned to the network reference pattern used for the deployment. Each intent will define its own name, traffic type, adapter names, and overrides as recommended by your OEM.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["intentName"])
+  intents?: EdgeMachineHostNetworkIntent[];
+
+  /**
+   * List of StorageNetworks config to deploy AzureStackHCI Cluster.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["networkAdapterName"])
+  storageNetworks?: EdgeMachineStorageNetwork[];
+
+  /**
+   * Defines how the storage adapters between nodes are connected either switch or switch less.
+   */
+  @visibility(Lifecycle.Read)
+  storageConnectivitySwitchless?: boolean;
+
+  /**
+   * Optional parameter required only for 3 Nodes Switchless deployments. This allows users to specify IPs and Mask for Storage NICs when Network ATC is not assigning the IPs for storage automatically.
+   */
+  @visibility(Lifecycle.Read)
+  enableStorageAutoIp?: boolean = false;
+}
+
+/**
+ * The network intent reported for the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineHostNetworkIntent {
+  /**
+   * Scope for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  scope?: int64;
+
+  /**
+   * IntentType for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  intentType?: int64;
+
+  /**
+   * IsComputeIntentSet for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isComputeIntentSet?: boolean;
+
+  /**
+   * IsStorageIntentSet for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isStorageIntentSet?: boolean;
+
+  /**
+   * IntentType for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isOnlyStorage?: boolean;
+
+  /**
+   * IsManagementIntentSet for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isManagementIntentSet?: boolean;
+
+  /**
+   * IsStretchIntentSet for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isStretchIntentSet?: boolean;
+
+  /**
+   * IsOnlyStretch for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isOnlyStretch?: boolean;
+
+  /**
+   * IsNetworkIntentType for host network intent.
+   */
+  @visibility(Lifecycle.Read)
+  isNetworkIntentType?: boolean;
+
+  /**
+   * Name of the network intent you wish to create.
+   */
+  @visibility(Lifecycle.Read)
+  intentName?: string;
+
+  /**
+   * Array of adapters used for the network intent.
+   */
+  @visibility(Lifecycle.Read)
+  intentAdapters?: string[];
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  @visibility(Lifecycle.Read)
+  overrideVirtualSwitchConfiguration?: boolean;
+
+  /**
+   * Set virtualSwitch ConfigurationOverrides for cluster.
+   */
+  @visibility(Lifecycle.Read)
+  virtualSwitchConfigurationOverrides?: EdgeMachineVirtualSwitchConfigurationOverrides;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  @visibility(Lifecycle.Read)
+  overrideQosPolicy?: boolean;
+
+  /**
+   * Set QoS PolicyOverrides for cluster.
+   */
+  @visibility(Lifecycle.Read)
+  qosPolicyOverrides?: QosPolicyOverrides;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  @visibility(Lifecycle.Read)
+  overrideAdapterProperty?: boolean;
+
+  /**
+   * Set Adapter PropertyOverrides for cluster.
+   */
+  @visibility(Lifecycle.Read)
+  adapterPropertyOverrides?: EdgeMachineAdapterPropertyOverrides;
+}
+
+/**
+ * The VirtualSwitchConfigurationOverrides reported for the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineVirtualSwitchConfigurationOverrides {
+  /**
+   * Enable IoV for Virtual Switch
+   */
+  @visibility(Lifecycle.Read)
+  enableIov?: string;
+
+  /**
+   * Load Balancing Algorithm for Virtual Switch
+   */
+  @visibility(Lifecycle.Read)
+  loadBalancingAlgorithm?: string;
+}
+
+/**
+ * The AdapterPropertyOverrides reported for the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineAdapterPropertyOverrides {
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  @visibility(Lifecycle.Read)
+  jumboPacket?: string;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.
+   */
+  @visibility(Lifecycle.Read)
+  networkDirect?: string;
+
+  /**
+   * This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation. Expected values are 'iWARP', 'RoCEv2', 'RoCE'
+   */
+  @visibility(Lifecycle.Read)
+  networkDirectTechnology?: string;
+}
+
+/**
+ * The StorageNetworks reported for the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineStorageNetwork {
+  /**
+   * Name of the storage network.
+   */
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  /**
+   * Name of the storage network adapter.
+   */
+  @visibility(Lifecycle.Read)
+  networkAdapterName?: string;
+
+  /**
+   * ID specified for the VLAN storage network. This setting is applied to the network interfaces that route the storage and VM migration traffic.
+   */
+  @visibility(Lifecycle.Read)
+  storageVlanId?: string;
+
+  /**
+   * List of Storage adapter physical nodes config to deploy AzureStackHCI Cluster.
+   */
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+  @visibility(Lifecycle.Read)
+  @identifiers(#["physicalNode"])
+  storageAdapterIPInfo?: EdgeMachineStorageAdapterIpInfo[];
+}
+
+/**
+ * The StorageAdapter physical nodes reported for the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineStorageAdapterIpInfo {
+  /**
+   * storage adapter physical node name.
+   */
+  @visibility(Lifecycle.Read)
+  physicalNode?: string;
+
+  /**
+   * The IPv4 address assigned to each storage adapter physical node on your Azure Stack HCI cluster.
+   */
+  @visibility(Lifecycle.Read)
+  ipv4Address?: string;
+
+  /**
+   * The SubnetMask address assigned to each storage adapter physical node on your Azure Stack HCI cluster.
+   */
+  @visibility(Lifecycle.Read)
+  subnetMask?: string;
+}
+
+/**
+ * Represents a storage disk reported for the edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+model EdgeMachineDiskInfo {
+  /**
+   * The unique identifier of the disk.
+   */
+  @visibility(Lifecycle.Read)
+  id: string;
+
+  /**
+   * The size of the disk in bytes.
+   */
+  @visibility(Lifecycle.Read)
+  sizeInBytes?: string;
+
+  /**
+   * The type of the disk. For example, S2D or SAN.
+   */
+  @visibility(Lifecycle.Read)
+  type?: string;
+
+  /** Model number of the hardware. */
+  @visibility(Lifecycle.Read)
+  `model`?: string;
+
+  /** The manufacturer of the disk. */
+  @visibility(Lifecycle.Read)
+  manufacturer?: string;
+
+  /** Indicates whether the manufacturer is supported. */
+  @visibility(Lifecycle.Read)
+  isSupported?: boolean;
 }
 /**
  * details of validation failure
@@ -12730,6 +13029,11 @@ model EdgeMachineScaleUnits {
 @added(Versions.v2026_03_15_preview)
 model EdgeMachineDeploymentData {
   /**
+   * Storage type for the edge machine node.
+   */
+  storageType?: NodeStorageType;
+
+  /**
    * iSCSI configuration for the edge machine.
    */
   iScsiConfig?: IscsiConfig;
@@ -12740,6 +13044,23 @@ model EdgeMachineDeploymentData {
    */
   @identifiers(#[])
   secrets?: EceDeploymentSecrets[];
+}
+
+/**
+ * Node storage type for an edge machine.
+ */
+@added(Versions.v2026_03_15_preview)
+union NodeStorageType {
+  string,
+
+  /** Storage Spaces Direct (S2D) storage type. */
+  S2D: "S2D",
+
+  /** SAN iSCSI storage type. */
+  SanIscsi: "SANISCSI",
+
+  /** SAN Fibre Channel storage type. */
+  SanFc: "SANFC",
 }
 
 /**
@@ -12772,12 +13093,6 @@ model IscsiNetworkConfig {
    * Common adapter properties applied to all iSCSI network adapters.
    */
   adapterProperties?: IscsiAdapterProperties;
-
-  /**
-   * Target portal addresses reachable through the iSCSI network adapters.
-   */
-  @identifiers(#["ipAddress"])
-  targetPortalAddresses?: IscsiTargetPortalAddress[];
 
   /**
    * Per-adapter IP configuration for the iSCSI network adapters.
@@ -12827,6 +13142,12 @@ model IscsiAdapterIPConfig {
    * Address prefix (CIDR notation) for the iSCSI network adapter.
    */
   addressPrefix?: string;
+
+  /**
+   * Target portal addresses reachable through this iSCSI network adapter.
+   */
+  @identifiers(#["ipAddress"])
+  targetPortalAddresses?: IscsiTargetPortalAddress[];
 }
 
 /**
@@ -13079,20 +13400,14 @@ union NvmeTransportType {
 union DriveUsage {
   string,
 
-  /** Normal data storage; the pool selects the drive automatically. */
-  AutoSelect: "AutoSelect",
+  /** Usage is unknown or could not be determined. */
+  Unknown: "Unknown",
 
-  /** Drive is manually assigned to a tier. */
-  ManualSelect: "ManualSelect",
+  /** Drive is used for the storage cache tier (`SDDC_Drive.UsedFor` = `Cache`). */
+  Cache: "Cache",
 
-  /** Reserved as a hot spare for automatic rebuild. */
-  HotSpare: "HotSpare",
-
-  /** Drive is being evacuated; no new allocations. */
-  Retired: "Retired",
-
-  /** Drive backs the write-back cache journal. */
-  Journal: "Journal",
+  /** Drive is used for the storage capacity tier (`SDDC_Drive.UsedFor` = `Capacity`). */
+  Capacity: "Capacity",
 }
 
 /**
@@ -13194,6 +13509,9 @@ union PoolState {
 union PoolHealthStatus {
   string,
 
+  /** Pool health is unknown or could not be determined. */
+  Unknown: "Unknown",
+
   /** Pool is healthy. */
   Healthy: "Healthy",
 
@@ -13211,6 +13529,9 @@ union PoolHealthStatus {
 union DriveProvisioningType {
   string,
 
+  /** Provisioning type is unknown or could not be determined. */
+  Unknown: "Unknown",
+
   /** Fixed (thick) provisioning. */
   Fixed: "Fixed",
 
@@ -13225,8 +13546,8 @@ union DriveProvisioningType {
 union RepairSpeed {
   string,
 
-  /** Repair disabled. */
-  Disabled: "Disabled",
+  /** Very low repair speed. */
+  VeryLow: "VeryLow",
 
   /** Low repair speed. */
   Low: "Low",
@@ -14282,24 +14603,16 @@ model PhysicalDrive {
 }
 
 /**
- * Physical location of a drive. Enclosure and slot are populated only when the
- * hardware exposes SCSI Enclosure Services (SES) data.
+ * Physical location of a drive, as reported by `SDDC_Drive` (`Server` → `nodeId`,
+ * `Location` → `physicalLocation`).
  */
 @added(Versions.v2026_03_15_preview)
 model PhysicalDriveLocation {
-  /** Cluster node that hosts the drive. */
+  /** Cluster node that hosts the drive (`SDDC_Drive.Server`). */
   @visibility(Lifecycle.Read)
   nodeId?: string;
 
-  /** Enclosure number (null when no SES hardware). */
-  @visibility(Lifecycle.Read)
-  enclosureNumber?: int32;
-
-  /** Slot number within the enclosure (null when no SES hardware). */
-  @visibility(Lifecycle.Read)
-  slotNumber?: int32;
-
-  /** Free-form vendor-defined location string. Diagnostic aid only. */
+  /** Free-form vendor-defined location string (`SDDC_Drive.Location`). Diagnostic aid only. */
   @visibility(Lifecycle.Read)
   physicalLocation?: string;
 }
@@ -14358,6 +14671,88 @@ model AssociatedCluster {
 
 // ---- END STORAGE ARRAY MODELS ----
 
+// ─────────────────────────── StorageArrayJob models ───────────────────────────
+//
+// Storage array jobs model long running, actionable operations on a storage
+// array (see StorageArrayJob.tsp). The base model is discriminated on `jobType`;
+// each concrete job type carries its own input properties. The reported/terminal
+// fields are read-only and driven by the device-reported status update. This
+// mirrors the ClusterVolumeJob models.
+
+/**
+ * Properties of the Storage Array Job.
+ */
+@added(Versions.v2026_03_15_preview)
+@discriminator("jobType")
+model StorageArrayJobProperties {
+  /** Type of operation. */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  jobType: StorageArrayJobType;
+
+  /** Deployment mode to trigger job. */
+  deploymentMode?: DeploymentMode;
+
+  /** Provisioning state of the job. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+
+  /** Unique, immutable job id. */
+  @visibility(Lifecycle.Read)
+  jobId?: string;
+
+  /** The UTC date and time at which the job started. */
+  @visibility(Lifecycle.Read)
+  startTimeUtc?: utcDateTime;
+
+  /** The UTC date and time at which the job completed. */
+  @visibility(Lifecycle.Read)
+  endTimeUtc?: utcDateTime;
+
+  /** Status of the storage array job. */
+  @visibility(Lifecycle.Read)
+  status?: JobStatus;
+
+  /** Error details if job failed. */
+  @visibility(Lifecycle.Read)
+  error?: Azure.ResourceManager.Foundations.ErrorDetail;
+
+  /** Reported properties for the storage array job. */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: StorageArrayJobReportedProperties;
+}
+
+/**
+ * Type of storage array job operation.
+ */
+@added(Versions.v2026_03_15_preview)
+union StorageArrayJobType {
+  string,
+
+  /** Job to force the storage controller to re-read the array and reconcile the ARM resources with the physical state. */
+  SyncStorageArray: "SyncStorageArray",
+}
+
+/**
+ * Properties for forcing a storage array inventory sync / reconcile.
+ */
+@added(Versions.v2026_03_15_preview)
+model SyncStorageArrayJobProperties extends StorageArrayJobProperties {
+  /** Job type. */
+  jobType: StorageArrayJobType.SyncStorageArray;
+}
+
+/**
+ * Reported properties for the Storage Array Job.
+ */
+@added(Versions.v2026_03_15_preview)
+model StorageArrayJobReportedProperties {
+  /**
+   * The percentage of the job that is complete.
+   */
+  @visibility(Lifecycle.Read)
+  percentComplete?: int32;
+}
+
 // ─────────────────────────── StoragePool models ───────────────────────────
 
 /**
@@ -14371,7 +14766,10 @@ model StoragePoolProperties {
   @visibility(Lifecycle.Read)
   poolType?: PoolType;
 
-  /** Vendor-assigned pool identifier (SAN). */
+  /**
+   * Vendor-assigned pool identifier. For SAN this is the vendor pool ID; for S2D
+   * this is the storage pool friendly name (`MSFT_StoragePool.FriendlyName`).
+   */
   @visibility(Lifecycle.Read)
   vendorPoolId?: string;
 

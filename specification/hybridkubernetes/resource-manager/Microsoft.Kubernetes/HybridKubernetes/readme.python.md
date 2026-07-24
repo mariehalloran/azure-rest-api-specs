@@ -1,0 +1,18 @@
+## Python
+
+These settings apply only when `--python` is specified on the command line.
+
+```yaml $(python)
+azure-arm: true
+license-header: MICROSOFT_MIT_NO_VERSION
+payload-flattening-threshold: 2
+package-name: azure-mgmt-hybridkubernetes
+package-version: 1.0.0b1
+clear-output-folder: true
+no-namespace-folders: true
+```
+
+``` yaml $(python)
+no-namespace-folders: true
+output-folder: $(python-sdks-folder)/hybridkubernetes/azure-mgmt-hybridkubernetes/azure/mgmt/hybridkubernetes
+```

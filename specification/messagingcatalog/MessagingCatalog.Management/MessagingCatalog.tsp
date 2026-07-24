@@ -79,6 +79,7 @@ interface MessagingCatalogs {
   listBySubscription is ArmListBySubscription<MessagingCatalog>;
 
   @added(Versions.v2024_10_01_preview)
+  @doc("A long-running resource action.")
   associate is ArmResourceActionAsync<
     MessagingCatalog,
     Association,
@@ -87,6 +88,7 @@ interface MessagingCatalogs {
   >;
 
   @added(Versions.v2024_10_01_preview)
+  @doc("A long-running resource action.")
   listAssociations is ArmResourceActionAsync<
     MessagingCatalog,
     AssociationListRequest,
@@ -94,6 +96,7 @@ interface MessagingCatalogs {
   >;
 
   @added(Versions.v2024_10_01_preview)
+  @doc("A long-running resource action.")
   removeAssociation is ArmResourceActionAsync<
     MessagingCatalog,
     AssociationRemoveRequest,
@@ -101,6 +104,7 @@ interface MessagingCatalogs {
   >;
 
   @added(Versions.v2025_11_01_preview)
+  @doc("A long-running resource action.")
   updateFabricPrivateLinks is ArmResourceActionAsync<
     MessagingCatalog,
     FabricPrivateLinksRequest,

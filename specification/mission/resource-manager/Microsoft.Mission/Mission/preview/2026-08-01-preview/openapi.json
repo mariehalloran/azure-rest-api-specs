@@ -6007,7 +6007,9 @@
         "Active",
         "Failed",
         "Connected",
-        "Disconnected"
+        "Disconnected",
+        "Reconciling",
+        "Degraded"
       ],
       "x-ms-enum": {
         "name": "EnclaveConnectionState",
@@ -6047,6 +6049,16 @@
             "name": "Disconnected",
             "value": "Disconnected",
             "description": "EnclaveConnectionState Type Disconnected"
+          },
+          {
+            "name": "Reconciling",
+            "value": "Reconciling",
+            "description": "A topology reconciliation is applying NSG rule changes for this connection."
+          },
+          {
+            "name": "Degraded",
+            "value": "Degraded",
+            "description": "Sticky health state after at least 3 consecutive non-full-success reconciliations."
           }
         ]
       }
@@ -7557,7 +7569,8 @@
       "description": "The purpose of the subnet, used to determine automatic configuration behavior.",
       "enum": [
         "General",
-        "AKS"
+        "AKS",
+        "AKSApiServer"
       ],
       "x-ms-enum": {
         "name": "SubnetPurpose",
@@ -7572,6 +7585,11 @@
             "name": "AKS",
             "value": "AKS",
             "description": "Subnet configured for Azure Kubernetes Service (AKS) workloads."
+          },
+          {
+            "name": "AKSApiServer",
+            "value": "AKSApiServer",
+            "description": "Subnet configured for the Azure Kubernetes Service (AKS) API server."
           }
         ]
       }

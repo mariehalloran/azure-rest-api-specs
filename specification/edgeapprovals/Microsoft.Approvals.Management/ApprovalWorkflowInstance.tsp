@@ -158,6 +158,7 @@ interface ApprovalWorkflowInstances {
   create is ArmResourceCreateOrReplaceSync<ApprovalWorkflowInstance>;
   delete is ArmResourceDeleteSync<ApprovalWorkflowInstance>;
   listByParent is ArmResourceListByParent<ApprovalWorkflowInstance>;
+  @doc("A long-running resource action.")
   executeStage is ArmResourceActionNoResponseContentAsync<
     ApprovalWorkflowInstance,
     ApprovalStageExecutionInput

@@ -184,6 +184,7 @@ interface StorageDiscoveryWorkspaces {
 
   @autoRoute
   @post
+  @doc("A long-running resource action.")
   report is ArmResourceActionAsync<
     StorageDiscoveryWorkspace,
     GetReportContent,

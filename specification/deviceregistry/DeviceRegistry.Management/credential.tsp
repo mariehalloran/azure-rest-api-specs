@@ -30,6 +30,11 @@ model CredentialProperties {
   @visibility(Lifecycle.Read)
   @doc("The status of the last operation.")
   provisioningState?: ProvisioningState;
+
+  @added(Versions.v2026_11_01_preview)
+  @visibility(Lifecycle.Read)
+  @doc("Globally unique, immutable, non-reusable identifier of the Credential resource.")
+  uuid?: string;
 }
 
 @added(Versions.v2025_08_01_preview)
@@ -39,6 +44,8 @@ interface Credentials {
   createOrUpdate is ArmResourceCreateOrUpdateAsync<Credential>;
   delete is ArmResourceDeleteWithoutOkAsync<Credential>;
   update is ArmResourcePatchAsync<Credential, CredentialProperties>;
-  listByResourceGroup is ArmResourceListByParent<Credential>;
+  @renamedFrom(Versions.v2026_11_01_preview, "listByResourceGroup")
+  listByNamespace is ArmResourceListByParent<Credential>;
+  /** Synchronize the credential. */
   synchronize is ArmResourceActionNoResponseContentAsync<Credential, void>;
 }

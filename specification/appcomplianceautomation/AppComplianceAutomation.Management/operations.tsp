@@ -71,9 +71,8 @@ interface AcatOperations {
   > is AcatOperations.AcatCreateOperation<
     ResourceInstanceParameters<Resource, BaseParameters> & Parameters,
     Resource,
-
-      | ArmResourceUpdatedResponse<Resource>
-      | ArmResourceCreatedResponse<Resource, LroHeaders>,
+    | ArmResourceUpdatedResponse<Resource>
+    | ArmResourceCreatedResponse<Resource, LroHeaders>,
     Error
   >;
 

@@ -16,8 +16,10 @@ namespace Microsoft.ApplicationMigration;
  * An NSX Tier-1 gateway resource.
  */
 @parentResource(NetworkSite)
-model NsxTier1Gateway
-  is Azure.ResourceManager.ProxyResource<NsxTier1GatewayProperties, false> {
+model NsxTier1Gateway is Azure.ResourceManager.ProxyResource<
+  NsxTier1GatewayProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = NsxTier1Gateway,
     KeyName = "gatewayName",
