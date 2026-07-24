@@ -51,7 +51,7 @@ model IotHubDeviceCapabilityProperties extends DeviceCapabilityProperties {
 /** The device capabilities properties for an update capability. */
 model UpdateDeviceCapabilityProperties extends DeviceCapabilityProperties {
   /** Discriminator for Update capability. */
-  capabilityType: CapabilityType.Update;
+  capabilityType: CapabilityType.SoftwareUpdate;
 }
 
 /** The provisioning state of a device capability. */
@@ -77,8 +77,8 @@ union CapabilityType {
   string,
 
   /** IoT Hub connection. */
-  IoTHub: "IoTHub",
+  IoTHub: "Microsoft.IoTHub",
 
   /** Device Update connection. */
-  Update: "Update",
+  SoftwareUpdate: "Microsoft.SoftwareUpdate",
 }

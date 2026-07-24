@@ -1,3 +1,5 @@
+import "@azure-tools/typespec-azure-core";
+
 namespace Microsoft.DeviceRegistry;
 
 // ──────────────────────────────────────────────
@@ -27,9 +29,8 @@ union AuthenticationType {
   /** Symmetric key authentication. */
   SymmetricKey: "SymmetricKey",
 
-  /** Certificate authority authentication.
-      TODO: Change to "X509Certificate" */
-  CertificateAuthority: "CertificateAuthority",
+  /** Certificate authority signed X.509 certificate authentication. */
+  CertificateAuthoritySignedX509Certificate: "CertificateAuthoritySignedX509Certificate",
 
   /** Self-signed X.509 certificate authentication. */
   SelfSignedX509Certificate: "SelfSignedX509Certificate",
@@ -53,7 +54,7 @@ model SymmetricKeyAuthenticationProfileProperties
 model CertificateAuthorityAuthenticationProfileProperties
   extends AuthenticationProfileProperties {
   /** The authentication type. */
-  authenticationType: AuthenticationType.CertificateAuthority;
+  authenticationType: AuthenticationType.CertificateAuthoritySignedX509Certificate;
 
   /** Certificate authority credentials. Required when type is CertificateAuthority. */
   certificateAuthority: CertificateAuthorityCredentials;
@@ -99,5 +100,9 @@ model SelfSignedThumbprints {
 /** Certificate authority credentials for device provisioning. */
 model CertificateAuthorityCredentials {
   /** ADR certificate policy resource ID. */
-  adrCertificatePolicyResourceId: string;
+  certificatePolicyResourceId: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.DeviceRegistry/namespaces/certificateAuthorities/certificatePolicies";
+    }
+  ]>;
 }

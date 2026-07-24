@@ -46,5 +46,6 @@ interface Credentials {
   update is ArmResourcePatchAsync<Credential, CredentialProperties>;
   @renamedFrom(Versions.v2026_11_01_preview, "listByResourceGroup")
   listByNamespace is ArmResourceListByParent<Credential>;
+  /** Synchronize the credential. */
   synchronize is ArmResourceActionNoResponseContentAsync<Credential, void>;
 }
