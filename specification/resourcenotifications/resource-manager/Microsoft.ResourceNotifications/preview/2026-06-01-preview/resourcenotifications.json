@@ -586,7 +586,7 @@
         "tags": [
           "ResourceSubscriptions"
         ],
-        "description": "Updates a resource subscription (supports tags and property updates)",
+        "description": "Updates the tags on a resource subscription",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -611,7 +611,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ResourceSubscriptionUpdate"
+              "$ref": "#/definitions/ResourceSubscriptionTagsUpdate"
             }
           }
         ],
@@ -640,7 +640,7 @@
         "tags": [
           "ResourceSubscriptions"
         ],
-        "description": "Deletes a resource subscription",
+        "description": "Deletes a resource subscription. Asynchronous operation.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -661,8 +661,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -678,7 +689,11 @@
           "Delete a resource subscription": {
             "$ref": "./examples/ResourceSubscriptions_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/resourceSubscriptions/{subscriptionRuleName}/destinations": {
@@ -790,7 +805,7 @@
         "tags": [
           "Destinations"
         ],
-        "description": "Creates or updates a destination",
+        "description": "Creates or updates a destination. Asynchronous operation.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -838,6 +853,17 @@
             "description": "Resource 'Destination' create operation succeeded",
             "schema": {
               "$ref": "#/definitions/Destination"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
             }
           },
           "default": {
@@ -850,6 +876,78 @@
         "x-ms-examples": {
           "Create or update a fabric table destination": {
             "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate.json"
+          },
+          "Create or update a webhook destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_Webhook.json"
+          },
+          "Create or update an event hub destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_EventHub.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "ResourceSubscriptionDestinations_Update",
+        "tags": [
+          "Destinations"
+        ],
+        "description": "Updates the tags on a destination",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "subscriptionRuleName",
+            "in": "path",
+            "description": "The name of the resource subscription",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          },
+          {
+            "name": "destinationName",
+            "in": "path",
+            "description": "The name of the destination",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DestinationUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Destination"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update the tags on a destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_Update.json"
           }
         }
       },
@@ -858,7 +956,7 @@
         "tags": [
           "Destinations"
         ],
-        "description": "Deletes a destination",
+        "description": "Deletes a destination. Asynchronous operation.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -887,8 +985,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -904,7 +1013,11 @@
           "Delete a destination": {
             "$ref": "./examples/ResourceSubscriptionDestinations_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     }
   },
@@ -1002,29 +1115,118 @@
         ]
       }
     },
+    "CallerIdentity": {
+      "type": "object",
+      "description": "The caller identity extracted from the AAD token, validated against the manifest",
+      "properties": {
+        "appId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The application ID extracted from the auth token",
+          "readOnly": true
+        },
+        "objectId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The object ID extracted from the auth token",
+          "readOnly": true
+        },
+        "tenantId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The tenant ID extracted from the auth token",
+          "readOnly": true
+        }
+      }
+    },
     "CloudScope": {
       "type": "object",
       "description": "Cloud scope configuration",
       "properties": {
+        "id": {
+          "type": "string",
+          "description": "The resource provider id populated by the caller, used to perform the linked access check and validate the caller has permission against the RP itself."
+        },
         "providerNamespace": {
           "type": "string",
           "description": "The provider namespace populated by caller"
         },
         "appId": {
           "$ref": "#/definitions/Azure.Core.uuid",
-          "description": "The application ID extracted from request, checked against manifest",
-          "readOnly": true
+          "description": "The application ID extracted from request, checked against manifest"
         }
       },
-      "required": [
-        "providerNamespace"
-      ],
       "allOf": [
         {
           "$ref": "#/definitions/Scope"
         }
       ],
       "x-ms-discriminator-value": "cloud"
+    },
+    "DataBoundary": {
+      "type": "string",
+      "description": "The data boundary used for routing notifications and enforcing data residency/compliance",
+      "enum": [
+        "Global",
+        "EU"
+      ],
+      "x-ms-enum": {
+        "name": "DataBoundary",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "global",
+            "value": "Global",
+            "description": "Global data boundary"
+          },
+          {
+            "name": "eu",
+            "value": "EU",
+            "description": "European Union data boundary"
+          }
+        ]
+      }
+    },
+    "DeliveryModeConfiguration": {
+      "type": "object",
+      "description": "Base configuration for how notifications are distributed across a subscription's destination endpoints",
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/DeliveryModeKind",
+          "description": "The kind of delivery mode"
+        }
+      },
+      "discriminator": "kind",
+      "required": [
+        "kind"
+      ]
+    },
+    "DeliveryModeKind": {
+      "type": "string",
+      "description": "The kind of delivery mode, determining how notifications are distributed across destination endpoints",
+      "enum": [
+        "FanOut",
+        "Partitioning",
+        "EqualDistribution"
+      ],
+      "x-ms-enum": {
+        "name": "DeliveryModeKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "fanOut",
+            "value": "FanOut",
+            "description": "Deliver every notification to all endpoints (default)"
+          },
+          {
+            "name": "partitioning",
+            "value": "Partitioning",
+            "description": "Distribute notifications across endpoints based on partitioning"
+          },
+          {
+            "name": "equalDistribution",
+            "value": "EqualDistribution",
+            "description": "Distribute notifications evenly across endpoints"
+          }
+        ]
+      }
     },
     "Destination": {
       "type": "object",
@@ -1033,11 +1235,15 @@
         "properties": {
           "$ref": "#/definitions/DestinationProperties",
           "description": "The resource-specific properties for this resource."
+        },
+        "identity": {
+          "$ref": "#/definitions/Identity",
+          "description": "The managed identity used by ARN to deliver notifications to the destination endpoint."
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -1046,7 +1252,9 @@
       "description": "Destination kind discriminator",
       "enum": [
         "fabricTable",
-        "storageAccount"
+        "storageAccount",
+        "webhook",
+        "eventhub"
       ],
       "x-ms-enum": {
         "name": "DestinationKind",
@@ -1061,6 +1269,16 @@
             "name": "storageAccount",
             "value": "storageAccount",
             "description": "Storage account destination"
+          },
+          {
+            "name": "webhook",
+            "value": "webhook",
+            "description": "Webhook (HTTP endpoint) destination"
+          },
+          {
+            "name": "eventhub",
+            "value": "eventhub",
+            "description": "Event Hub destination"
           }
         ]
       }
@@ -1123,6 +1341,23 @@
         "kind"
       ]
     },
+    "DestinationUpdate": {
+      "type": "object",
+      "description": "The updatable fields of a destination resource.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "identity": {
+          "$ref": "#/definitions/IdentityUpdate",
+          "description": "The managed identity used by ARN to deliver notifications to the destination endpoint."
+        }
+      }
+    },
     "EndpointDeliveryMode": {
       "type": "string",
       "description": "The delivery mode for endpoints, determining how notifications are distributed across endpoints",
@@ -1146,6 +1381,65 @@
           }
         ]
       }
+    },
+    "EqualDistributionDeliveryModeConfiguration": {
+      "type": "object",
+      "description": "Equal-distribution delivery mode: notifications are distributed evenly across endpoints",
+      "allOf": [
+        {
+          "$ref": "#/definitions/DeliveryModeConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "EqualDistribution"
+    },
+    "EventHubDestinationProperties": {
+      "type": "object",
+      "description": "Event Hub destination properties",
+      "properties": {
+        "outputSchema": {
+          "type": "string",
+          "description": "The schema to use for the delivered notifications"
+        },
+        "outputEncoding": {
+          "type": "string",
+          "description": "The encoding/format to use for the delivered notifications"
+        },
+        "endpoints": {
+          "type": "array",
+          "description": "The set of event hub endpoints to deliver notifications to",
+          "items": {
+            "$ref": "#/definitions/EventHubEndpoint"
+          },
+          "x-ms-identifiers": [
+            "id"
+          ]
+        }
+      },
+      "required": [
+        "outputSchema",
+        "outputEncoding",
+        "endpoints"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/DestinationProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "eventhub"
+    },
+    "EventHubEndpoint": {
+      "type": "object",
+      "description": "Event Hub endpoint configuration",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "The Azure resource ID of the target Event Hub"
+        }
+      },
+      "required": [
+        "id"
+      ]
     },
     "FabricEndpoint": {
       "type": "object",
@@ -1202,6 +1496,16 @@
       ],
       "x-ms-discriminator-value": "fabricTable"
     },
+    "FanOutDeliveryModeConfiguration": {
+      "type": "object",
+      "description": "Fan-out delivery mode: every notification is delivered to all endpoints",
+      "allOf": [
+        {
+          "$ref": "#/definitions/DeliveryModeConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "FanOut"
+    },
     "GetNotificationSessionDetails": {
       "type": "object",
       "description": "Session details for connecting to a notification session",
@@ -1237,6 +1541,43 @@
           "description": "Duration in minutes for session validity",
           "minimum": 1,
           "maximum": 240
+        }
+      }
+    },
+    "Identity": {
+      "type": "object",
+      "description": "Identity for the destination resource, used by ARN to deliver notifications to the destination endpoint.",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ResourceIdentityType",
+          "description": "The identity type."
+        },
+        "userAssignedIdentities": {
+          "type": "object",
+          "description": "The user identity associated with the destination. The user identity dictionary key references will be ARM resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.",
+          "additionalProperties": {
+            "$ref": "#/definitions/UserAssignedIdentitiesValue"
+          }
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "IdentityUpdate": {
+      "type": "object",
+      "description": "Identity for the destination resource, used by ARN to deliver notifications to the destination endpoint.",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ResourceIdentityType",
+          "description": "The identity type."
+        },
+        "userAssignedIdentities": {
+          "type": "object",
+          "description": "The user identity associated with the destination. The user identity dictionary key references will be ARM resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.",
+          "additionalProperties": {
+            "$ref": "#/definitions/UserAssignedIdentitiesValue"
+          }
         }
       }
     },
@@ -1461,7 +1802,10 @@
       "type": "string",
       "description": "Partitioning configuration kind discriminator",
       "enum": [
-        "arnLocation"
+        "arnLocation",
+        "resourceLocation",
+        "routingLocation",
+        "scopeId"
       ],
       "x-ms-enum": {
         "name": "PartitioningConfigurationKind",
@@ -1471,9 +1815,43 @@
             "name": "arnLocation",
             "value": "arnLocation",
             "description": "ARN location partitioning"
+          },
+          {
+            "name": "resourceLocation",
+            "value": "resourceLocation",
+            "description": "Resource location partitioning"
+          },
+          {
+            "name": "routingLocation",
+            "value": "routingLocation",
+            "description": "Routing location partitioning"
+          },
+          {
+            "name": "scopeId",
+            "value": "scopeId",
+            "description": "Scope ID hash-based partitioning"
           }
         ]
       }
+    },
+    "PartitioningDeliveryModeConfiguration": {
+      "type": "object",
+      "description": "Partitioning delivery mode: notifications are distributed across endpoints based on partitioning",
+      "properties": {
+        "configurationSettings": {
+          "$ref": "#/definitions/PartitioningConfiguration",
+          "description": "The partitioning configuration settings. Supported kind: arnLocation"
+        }
+      },
+      "required": [
+        "configurationSettings"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/DeliveryModeConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "Partitioning"
     },
     "PathPolicy": {
       "type": "object",
@@ -1562,6 +1940,49 @@
       },
       "readOnly": true
     },
+    "ResourceIdentityType": {
+      "type": "string",
+      "description": "The identity type.",
+      "enum": [
+        "UserAssigned"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceIdentityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "UserAssigned",
+            "value": "UserAssigned",
+            "description": "Indicates that a user assigned identity is associated with the resource."
+          }
+        ]
+      }
+    },
+    "ResourceLocationPartitioningConfiguration": {
+      "type": "object",
+      "description": "Resource location partitioning configuration",
+      "properties": {
+        "partitions": {
+          "type": "array",
+          "description": "The partitions list",
+          "items": {
+            "$ref": "#/definitions/Partition"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "partitions"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/PartitioningConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "resourceLocation"
+    },
     "ResourceSubscription": {
       "type": "object",
       "description": "Resource subscription for Azure Resource Notifications",
@@ -1610,9 +2031,33 @@
           "$ref": "#/definitions/Scope",
           "description": "The scope for the execution of the filter"
         },
+        "dataBoundary": {
+          "$ref": "#/definitions/DataBoundary",
+          "description": "The data boundary used for routing notifications and enforcing data residency/compliance"
+        },
+        "subscriberAuthType": {
+          "$ref": "#/definitions/SubscriberAuthType",
+          "description": "The authentication type used by ARN when delivering notifications to the subscriber. Defaults to DSTS."
+        },
+        "deliveryMode": {
+          "$ref": "#/definitions/DeliveryModeConfiguration",
+          "description": "Determines how notifications are distributed across the subscription's destination endpoints. Defaults to FanOut."
+        },
+        "deliveryModeConfiguration": {
+          "$ref": "#/definitions/DeliveryModeConfiguration",
+          "description": "Compatibility alias for delivery mode configuration used by existing examples."
+        },
         "partitioningConfiguration": {
           "$ref": "#/definitions/PartitioningConfiguration",
           "description": "Defines how to partition the event stream. Supported kind: arnLocation"
+        },
+        "partitionConfigurations": {
+          "type": "array",
+          "description": "Additional partitioning configurations applied to the event stream",
+          "items": {
+            "$ref": "#/definitions/PartitioningConfiguration"
+          },
+          "x-ms-identifiers": []
         },
         "options": {
           "type": "array",
@@ -1633,9 +2078,9 @@
         "scope"
       ]
     },
-    "ResourceSubscriptionUpdate": {
+    "ResourceSubscriptionTagsUpdate": {
       "type": "object",
-      "description": "The type used for update operations of the ResourceSubscription.",
+      "description": "The type used for updating tags in ResourceSubscription resources.",
       "properties": {
         "tags": {
           "type": "object",
@@ -1643,22 +2088,33 @@
           "additionalProperties": {
             "type": "string"
           }
-        },
-        "properties": {
-          "$ref": "#/definitions/ResourceSubscriptionUpdateProperties",
-          "description": "The resource-specific properties for this resource."
         }
       }
     },
-    "ResourceSubscriptionUpdateProperties": {
+    "RoutingLocationPartitioningConfiguration": {
       "type": "object",
-      "description": "The updatable properties of the ResourceSubscription.",
+      "description": "Routing location partitioning configuration",
       "properties": {
-        "query": {
-          "type": "string",
-          "description": "The query to execute - only one table can be targeted at a time"
+        "partitions": {
+          "type": "array",
+          "description": "The partitions list",
+          "items": {
+            "$ref": "#/definitions/Partition"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
         }
-      }
+      },
+      "required": [
+        "partitions"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/PartitioningConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "routingLocation"
     },
     "Scope": {
       "type": "object",
@@ -1673,6 +2129,74 @@
       "required": [
         "kind"
       ]
+    },
+    "ScopeIdPartitionEntry": {
+      "type": "object",
+      "description": "A key/value pair entry for scope ID partitioning",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The partition key"
+        },
+        "value": {
+          "type": "string",
+          "description": "The partition value"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "ScopeIdPartitioningConfiguration": {
+      "type": "object",
+      "description": "Scope ID hash-based partitioning configuration",
+      "properties": {
+        "configName": {
+          "type": "string",
+          "description": "The field based on which the scope is hashed"
+        },
+        "hashBucket": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of hash buckets. The scope id is hashed into the range [0, hashBucket - 1]. Must be a positive integer."
+        },
+        "partitions": {
+          "type": "array",
+          "description": "Map of partition key to partition value. Must be non-null/non-empty.",
+          "items": {
+            "$ref": "#/definitions/ScopeIdPartitionEntry"
+          },
+          "x-ms-identifiers": [
+            "key"
+          ]
+        },
+        "partitionToPartitioningConfigurationMappings": {
+          "type": "array",
+          "description": "Optional map from a partition key to the name of a nested partitioning configuration, enabling hierarchical partitioning.",
+          "items": {
+            "$ref": "#/definitions/ScopeIdPartitionEntry"
+          },
+          "x-ms-identifiers": [
+            "key"
+          ]
+        },
+        "dataBoundary": {
+          "$ref": "#/definitions/DataBoundary",
+          "description": "Data boundary for the configuration. Defaults to Global."
+        }
+      },
+      "required": [
+        "configName",
+        "hashBucket",
+        "partitions"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/PartitioningConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "scopeId"
     },
     "ScopeKind": {
       "type": "string",
@@ -1742,7 +2266,7 @@
             "$ref": "#/definitions/StorageAccountEndpoint"
           },
           "x-ms-identifiers": [
-            "url"
+            "id"
           ]
         }
       },
@@ -1764,14 +2288,38 @@
       "type": "object",
       "description": "Storage account endpoint",
       "properties": {
-        "url": {
+        "id": {
           "type": "string",
-          "description": "The storage account endpoint URL"
+          "description": "The storage account endpoint resource ID"
         }
       },
       "required": [
-        "url"
+        "id"
       ]
+    },
+    "SubscriberAuthType": {
+      "type": "string",
+      "description": "The authentication type used by ARN when delivering notifications to the subscriber",
+      "enum": [
+        "DefaultRBAC",
+        "DSTS"
+      ],
+      "x-ms-enum": {
+        "name": "SubscriberAuthType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "defaultRBAC",
+            "value": "DefaultRBAC",
+            "description": "Default RBAC based authentication"
+          },
+          {
+            "name": "dSTS",
+            "value": "DSTS",
+            "description": "Datacenter STS based authentication (default)"
+          }
+        ]
+      }
     },
     "SubscriptionOptions": {
       "type": "string",
@@ -1802,14 +2350,13 @@
       "description": "Tenant scope configuration",
       "properties": {
         "tenantId": {
-          "type": "string",
-          "description": "The tenant ID populated by API after validation (from Aux token)",
-          "readOnly": true
+          "type": "string"
         },
         "servicePrincipal": {
-          "type": "string",
-          "description": "The service principal populated by API after validation (from Aux token)",
-          "readOnly": true
+          "type": "string"
+        },
+        "identity": {
+          "$ref": "#/definitions/CallerIdentity"
         }
       },
       "allOf": [
@@ -1853,6 +2400,76 @@
         }
       ],
       "x-ms-discriminator-value": "timeAndScopeRangeHash"
+    },
+    "UserAssignedIdentitiesValue": {
+      "type": "object",
+      "description": "The details of a user assigned identity.",
+      "properties": {
+        "principalId": {
+          "type": "string",
+          "description": "The principal id of user assigned identity.",
+          "readOnly": true
+        },
+        "clientId": {
+          "type": "string",
+          "description": "The client id of user assigned identity.",
+          "readOnly": true
+        }
+      }
+    },
+    "WebhookDestinationProperties": {
+      "type": "object",
+      "description": "Webhook destination properties",
+      "properties": {
+        "outputSchema": {
+          "type": "string",
+          "description": "The schema to use for the delivered notifications"
+        },
+        "outputEncoding": {
+          "type": "string",
+          "description": "The encoding/format to use for the delivered notifications"
+        },
+        "endpoints": {
+          "type": "array",
+          "description": "The set of webhook endpoints to deliver notifications to",
+          "items": {
+            "$ref": "#/definitions/WebhookEndpoint"
+          },
+          "x-ms-identifiers": [
+            "url"
+          ]
+        }
+      },
+      "required": [
+        "outputSchema",
+        "outputEncoding",
+        "endpoints"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/DestinationProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "webhook"
+    },
+    "WebhookEndpoint": {
+      "type": "object",
+      "description": "Webhook endpoint configuration",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The HTTPS endpoint URL to which notifications are delivered"
+        },
+        "applicationId": {
+          "type": "string",
+          "description": "The application ID used to acquire a token for delivery"
+        }
+      },
+      "required": [
+        "url",
+        "applicationId"
+      ]
     }
   },
   "parameters": {}

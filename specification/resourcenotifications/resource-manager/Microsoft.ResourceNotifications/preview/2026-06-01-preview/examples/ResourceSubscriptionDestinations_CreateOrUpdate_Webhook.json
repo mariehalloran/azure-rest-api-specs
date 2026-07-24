@@ -1,19 +1,23 @@
 {
   "operationId": "ResourceSubscriptionDestinations_CreateOrUpdate",
-  "title": "Create or update a fabric table destination",
+  "title": "Create or update a webhook destination",
   "parameters": {
     "subscriptionId": "12345678-1234-1234-1234-123456789012",
     "resourceGroupName": "example-rg",
     "subscriptionRuleName": "example-subscription",
-    "destinationName": "fabric-destination",
+    "destinationName": "webhook-destination",
     "api-version": "2026-06-01-preview",
     "resource": {
       "properties": {
-        "endpoint": {
-          "workspaceId": "12345678-1234-1234-1234-123456789012",
-          "databaseId": "sample-database-id"
-        },
-        "kind": "fabricTable"
+        "outputSchema": "firstParty",
+        "outputEncoding": "json",
+        "endpoints": [
+          {
+            "url": "https://contoso.example.com/arn/notifications",
+            "applicationId": "api://contoso-arn-receiver"
+          }
+        ],
+        "kind": "webhook"
       },
       "location": "westus",
       "identity": {
@@ -27,21 +31,20 @@
   "responses": {
     "200": {
       "body": {
-        "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ResourceNotifications/resourceSubscriptions/example-subscription/destinations/fabric-destination",
-        "name": "fabric-destination",
+        "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ResourceNotifications/resourceSubscriptions/example-subscription/destinations/webhook-destination",
+        "name": "webhook-destination",
         "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
         "properties": {
-          "outputSchema": "fabric",
-          "outputEncoding": "parquet",
-          "endpoint": {
-            "workspaceId": "12345678-1234-1234-1234-123456789012",
-            "databaseId": "sample-database-id"
-          },
-          "options": [
-            "enableInitialSnapshot"
-          ],
+          "outputSchema": "firstParty",
+          "outputEncoding": "json",
           "provisioningState": "Succeeded",
-          "kind": "fabricTable"
+          "endpoints": [
+            {
+              "url": "https://contoso.example.com/arn/notifications",
+              "applicationId": "api://contoso-arn-receiver"
+            }
+          ],
+          "kind": "webhook"
         },
         "location": "westus",
         "identity": {
@@ -61,21 +64,20 @@
         "Retry-After": 10
       },
       "body": {
-        "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ResourceNotifications/resourceSubscriptions/example-subscription/destinations/fabric-destination",
-        "name": "fabric-destination",
+        "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ResourceNotifications/resourceSubscriptions/example-subscription/destinations/webhook-destination",
+        "name": "webhook-destination",
         "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
         "properties": {
-          "outputSchema": "fabric",
-          "outputEncoding": "parquet",
-          "endpoint": {
-            "workspaceId": "12345678-1234-1234-1234-123456789012",
-            "databaseId": "sample-database-id"
-          },
-          "options": [
-            "enableInitialSnapshot"
-          ],
+          "outputSchema": "firstParty",
+          "outputEncoding": "json",
           "provisioningState": "Accepted",
-          "kind": "fabricTable"
+          "endpoints": [
+            {
+              "url": "https://contoso.example.com/arn/notifications",
+              "applicationId": "api://contoso-arn-receiver"
+            }
+          ],
+          "kind": "webhook"
         },
         "location": "westus",
         "identity": {

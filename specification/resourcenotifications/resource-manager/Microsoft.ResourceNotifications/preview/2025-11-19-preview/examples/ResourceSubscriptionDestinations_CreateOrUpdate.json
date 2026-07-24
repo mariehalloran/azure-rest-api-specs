@@ -9,12 +9,13 @@
     "api-version": "2025-11-19-preview",
     "resource": {
       "properties": {
-        "kind": "fabricTable",
         "endpoint": {
           "workspaceId": "12345678-1234-1234-1234-123456789012",
           "databaseId": "sample-database-id"
-        }
-      }
+        },
+        "kind": "fabricTable"
+      },
+      "location": "westus"
     }
   },
   "responses": {
@@ -24,7 +25,6 @@
         "name": "fabric-destination",
         "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
         "properties": {
-          "kind": "fabricTable",
           "outputSchema": "fabric",
           "outputEncoding": "parquet",
           "endpoint": {
@@ -34,17 +34,22 @@
           "options": [
             "enableInitialSnapshot"
           ],
-          "provisioningState": "Succeeded"
-        }
+          "provisioningState": "Succeeded",
+          "kind": "fabricTable"
+        },
+        "location": "westus"
       }
     },
     "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/12345678-1234-1234-1234-123456789012/providers/Microsoft.ResourceNotifications/operationStatuses/11111111-2222-3333-4444-555555555555?api-version=2025-11-19-preview",
+        "Retry-After": 10
+      },
       "body": {
         "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ResourceNotifications/resourceSubscriptions/example-subscription/destinations/fabric-destination",
         "name": "fabric-destination",
         "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
         "properties": {
-          "kind": "fabricTable",
           "outputSchema": "fabric",
           "outputEncoding": "parquet",
           "endpoint": {
@@ -54,8 +59,10 @@
           "options": [
             "enableInitialSnapshot"
           ],
-          "provisioningState": "Accepted"
-        }
+          "provisioningState": "Accepted",
+          "kind": "fabricTable"
+        },
+        "location": "westus"
       }
     }
   }
