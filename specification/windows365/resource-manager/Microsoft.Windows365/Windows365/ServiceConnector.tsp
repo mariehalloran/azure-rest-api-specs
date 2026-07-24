@@ -38,15 +38,11 @@ interface ServiceConnectors {
   /** Create or replace a service connector resource. */
   createOrUpdate is ArmResourceCreateOrReplaceSync<ServiceConnector>;
 
-  /** Update the tags of a service connector resource. */
-  update is ArmTagsPatchSync<ServiceConnector>;
+  /** Update a service connector resource. */
+  update is ArmResourcePatchSync<ServiceConnector, ServiceConnectorProperties>;
 
   /** Delete a service connector resource. */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "ARM RPC requires the new synchronous DELETE operation to return 204 only."
-  delete is ArmResourceDeleteSync<
-    ServiceConnector,
-    Response = ArmDeletedNoContentResponse
-  >;
+  delete is ArmResourceDeleteSync<ServiceConnector>;
 
   /** List service connector resources by resource group. */
   listByResourceGroup is ArmResourceListByParent<ServiceConnector>;

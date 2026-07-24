@@ -244,7 +244,8 @@
             "in": "path",
             "description": "The name of the cloudPcDelegatedMsi.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^(?![.-])[A-Za-z0-9_.-]{1,128}$"
           }
         ],
         "responses": {
@@ -288,7 +289,8 @@
             "in": "path",
             "description": "The name of the cloudPcDelegatedMsi.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^(?![.-])[A-Za-z0-9_.-]{1,128}$"
           },
           {
             "name": "body",
@@ -303,7 +305,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Azure operation completed successfully.",
+            "description": "Resource 'CloudPcDelegatedMsi' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/CloudPcDelegatedMsi"
+            }
+          },
+          "201": {
+            "description": "Resource 'CloudPcDelegatedMsi' create operation succeeded",
             "schema": {
               "$ref": "#/definitions/CloudPcDelegatedMsi"
             }
@@ -345,7 +353,8 @@
             "in": "path",
             "description": "The name of the cloudPcDelegatedMsi.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^(?![.-])[A-Za-z0-9_.-]{1,128}$"
           },
           {
             "name": "body",
@@ -399,7 +408,8 @@
             "in": "path",
             "description": "The name of the cloudPcDelegatedMsi.",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "pattern": "^(?![.-])[A-Za-z0-9_.-]{1,128}$"
           }
         ],
         "responses": {
@@ -579,7 +589,7 @@
         "tags": [
           "ServiceConnectors"
         ],
-        "description": "Update the tags of a service connector resource.",
+        "description": "Update a service connector resource.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
@@ -604,7 +614,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ServiceConnectorTagsUpdate"
+              "$ref": "#/definitions/ServiceConnectorUpdate"
             }
           }
         ],
@@ -654,6 +664,9 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
           "204": {
             "description": "Resource does not exist."
           },
@@ -890,18 +903,24 @@
         }
       }
     },
-    "ServiceConnectorTagsUpdate": {
+    "ServiceConnectorUpdate": {
       "type": "object",
-      "description": "The type used for updating tags in ServiceConnector resources.",
+      "description": "A Windows 365 service connector resource.",
       "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
+        "properties": {
+          "$ref": "#/definitions/ServiceConnectorProperties",
+          "description": "The resource-specific properties for this resource."
+        },
+        "identity": {
+          "$ref": "../../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "description": "The managed identity used by the service connector. The service accepts exactly one identity: either a system-assigned identity or one user-assigned identity."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
+        }
+      ]
     }
   },
   "parameters": {

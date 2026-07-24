@@ -34,7 +34,7 @@ model Windows365ResourceGroupScopeParameters {
 model CloudPcDelegatedMsi
   is Azure.ResourceManager.TrackedResource<CloudPcDelegatedMsiProperties> {
   /** The name of the Cloud PC delegated managed identity resource. */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-name-pattern" "The existing API does not define a resource name pattern."
+  @pattern("^(?![.-])[A-Za-z0-9_.-]{1,128}$")
   @key("cloudPcDelegatedMsiName")
   @segment("cloudPcDelegatedMsis")
   @path
@@ -60,12 +60,10 @@ interface CloudPcDelegatedMsis {
 
   /** Create or update a Cloud PC delegated managed identity resource. */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "The operation ID preserves the existing API contract."
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-put-operation-response-codes" "The existing synchronous PUT contract returns 200 only."
   @operationId("CloudPcDelegatedMsi_CreateOrUpdate")
   createOrUpdate is ArmResourceCreateOrReplaceSync<
     CloudPcDelegatedMsi,
     BaseParameters = Windows365ResourceGroupScopeParameters,
-    Response = ArmResponse<CloudPcDelegatedMsi>,
     Error = CloudError
   >;
 
