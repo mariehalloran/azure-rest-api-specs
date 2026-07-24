@@ -4283,6 +4283,11 @@ union SpendPlanStatus {
    * The spend plan operation failed.
    */
   Failed: "Failed",
+
+  /**
+   * The spend plan is exhausted.
+   */
+  Exhausted: "Exhausted",
 }
 
 /**
