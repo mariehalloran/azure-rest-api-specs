@@ -1197,6 +1197,12 @@
         "x-ms-examples": {
           "Create or update a fabric table destination": {
             "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate.json"
+          },
+          "Create or update a webhook destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_Webhook.json"
+          },
+          "Create or update an event hub destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_EventHub.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -1258,6 +1264,11 @@
             "schema": {
               "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Update the tags on a destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_Update.json"
           }
         }
       },
