@@ -33,6 +33,11 @@ model FailoverInstanceProperties {
   @doc("The replication role of the parent scheduler")
   replicationRole?: ReplicationRole;
 
+  @visibility(Lifecycle.Read)
+  @added(Versions.v2026_07_01_Preview)
+  @doc("The current state of the failover operation")
+  failoverState?: FailoverState;
+
   @doc("The resource ID of the partner scheduler in the failover configuration")
   partnerSchedulerResourceId: string;
 
@@ -51,6 +56,24 @@ union ReplicationRole {
 
   @doc("The parent scheduler is the secondary in the failover configuration")
   Secondary: "Secondary",
+}
+
+@doc("The current state of the failover operation")
+@added(Versions.v2026_07_01_Preview)
+union FailoverState {
+  string,
+
+  @doc("No failover operation is active")
+  None: "None",
+
+  @doc("The failover operation is in progress")
+  InProgress: "InProgress",
+
+  @doc("The failover operation completed successfully")
+  Succeeded: "Succeeded",
+
+  @doc("The failover operation failed")
+  Failed: "Failed",
 }
 
 @added(Versions.v2026_07_01_Preview)
