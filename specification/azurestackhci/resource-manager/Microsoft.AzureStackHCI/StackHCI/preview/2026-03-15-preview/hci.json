@@ -4377,67 +4377,6 @@
           }
         }
       },
-      "patch": {
-        "operationId": "NetworkProfiles_Update",
-        "tags": [
-          "NetworkProfiles"
-        ],
-        "description": "Update a Network Profile.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "clusterName",
-            "in": "path",
-            "description": "The name of the cluster.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "networkProfileName",
-            "in": "path",
-            "description": "The name of the NetworkProfile",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "The resource properties to be updated.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/NetworkProfile"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/NetworkProfile"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "NetworkProfiles_Update": {
-            "$ref": "./examples/NetworkProfiles_Update.json"
-          }
-        }
-      },
       "delete": {
         "operationId": "NetworkProfiles_Delete",
         "tags": [
@@ -27206,90 +27145,261 @@
         }
       ]
     },
-    "NetworkProfileIntent": {
+    "NetworkProfileArcGateway": {
       "type": "object",
-      "description": "Details of a network intent.",
+      "description": "Arc gateway connectivity policy applied uniformly across the cluster.",
       "properties": {
-        "id": {
+        "gatewayResourceId": {
           "type": "string",
-          "description": "The intent ID."
+          "format": "arm-id",
+          "description": "Azure resource ID of the Arc gateway.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.HybridCompute/gateways"
+              }
+            ]
+          }
         },
-        "name": {
+        "gatewayEndpoint": {
           "type": "string",
-          "description": "The name of the intent."
+          "format": "uri",
+          "description": "Public endpoint URL of the Arc gateway."
         },
-        "isComputeType": {
-          "type": "boolean",
-          "description": "Whether this is a compute type intent."
+        "gatewayType": {
+          "type": "string",
+          "description": "Type of the Arc gateway, for example Public."
         },
-        "isStorageType": {
-          "type": "boolean",
-          "description": "Whether this is a storage type intent."
-        },
-        "isManagementType": {
-          "type": "boolean",
-          "description": "Whether this is a management type intent."
-        },
-        "physicalAdapterIds": {
+        "allowedFeatures": {
           "type": "array",
-          "description": "The physical adapter IDs associated with the intent.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "virtualAdapterIds": {
-          "type": "array",
-          "description": "The virtual adapter IDs associated with the intent.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "virtualSwitchIds": {
-          "type": "array",
-          "description": "The virtual switch IDs associated with the intent.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "networkIds": {
-          "type": "array",
-          "description": "The network IDs associated with the intent.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "physicalAdapterNames": {
-          "type": "array",
-          "description": "The physical adapter names associated with the intent.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "virtualAdapterNames": {
-          "type": "array",
-          "description": "The virtual adapter names associated with the intent.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "virtualSwitchNames": {
-          "type": "array",
-          "description": "The virtual switch names associated with the intent.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "networkNames": {
-          "type": "array",
-          "description": "The network names associated with the intent.",
+          "description": "Features allowed through the Arc gateway. An asterisk indicates that all features are allowed.",
           "items": {
             "type": "string"
           }
         }
-      },
-      "required": [
-        "id"
-      ]
+      }
+    },
+    "NetworkProfileClusterIdentity": {
+      "type": "object",
+      "description": "Cluster identity values that are identical regardless of which node reports them.",
+      "properties": {
+        "clusterName": {
+          "type": "string",
+          "description": "Cluster name."
+        },
+        "clusterIpAddress": {
+          "type": "string",
+          "description": "Cluster management IP address."
+        },
+        "clusterIpIntentName": {
+          "type": "string",
+          "description": "Name of the Network ATC intent that carries the cluster IP."
+        },
+        "subnet": {
+          "type": "string",
+          "description": "Management subnet expressed in CIDR notation."
+        },
+        "clusterPattern": {
+          "type": "string",
+          "description": "Cluster topology pattern, for example Standard or HyperConverged."
+        },
+        "liveMigrationPolicy": {
+          "$ref": "#/definitions/NetworkProfileLiveMigrationPolicy",
+          "description": "Live migration policy configured at cluster scope."
+        }
+      }
+    },
+    "NetworkProfileDesiredSnapshot": {
+      "type": "object",
+      "description": "Snapshot of the desired networking configuration used as the baseline for drift detection.",
+      "properties": {
+        "hostNetwork": {
+          "$ref": "#/definitions/DeploymentSettingHostNetwork",
+          "description": "Host network configuration captured from the deployment settings of the cluster."
+        },
+        "infrastructureNetwork": {
+          "$ref": "#/definitions/InfrastructureNetwork",
+          "description": "Infrastructure network configuration captured from the deployment settings of the cluster."
+        },
+        "proxy": {
+          "$ref": "#/definitions/ProxyConfigurationDetail",
+          "description": "Proxy configuration desired on every node of the cluster."
+        },
+        "capturedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time at which the desired configuration snapshot was captured."
+        }
+      }
+    },
+    "NetworkProfileDriftEntry": {
+      "type": "object",
+      "description": "A single desired versus observed delta detected during reconciliation.",
+      "properties": {
+        "propertyPath": {
+          "type": "string",
+          "description": "Dotted path to the diverged field, for example infrastructureNetwork.dnsServers."
+        },
+        "desiredValue": {
+          "description": "Value taken from the desired configuration snapshot."
+        },
+        "observedValue": {
+          "description": "Value reported by the cluster nodes."
+        },
+        "scope": {
+          "type": "string",
+          "description": "Where the drift was detected, for example cluster or node:contoso-node-02."
+        },
+        "firstDetectedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time at which the drift was first observed."
+        },
+        "severity": {
+          "$ref": "#/definitions/NetworkProfileDriftSeverity",
+          "description": "Severity of the detected drift."
+        }
+      }
+    },
+    "NetworkProfileDriftSeverity": {
+      "type": "string",
+      "description": "Severity of a detected configuration drift.",
+      "enum": [
+        "Informational",
+        "Warning",
+        "Error"
+      ],
+      "x-ms-enum": {
+        "name": "NetworkProfileDriftSeverity",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Informational",
+            "value": "Informational",
+            "description": "The drift is informational and requires no action."
+          },
+          {
+            "name": "Warning",
+            "value": "Warning",
+            "description": "The drift may affect cluster networking and should be reviewed."
+          },
+          {
+            "name": "Error",
+            "value": "Error",
+            "description": "The drift affects cluster networking and requires remediation."
+          }
+        ]
+      }
+    },
+    "NetworkProfileInfrastructureNetwork": {
+      "type": "object",
+      "description": "Cluster wide infrastructure networking reported by the cluster.",
+      "properties": {
+        "subnetMask": {
+          "type": "string",
+          "description": "Subnet mask that matches the management IP address space."
+        },
+        "vlanId": {
+          "type": "string",
+          "description": "ID specified for the management network VLAN."
+        },
+        "gateway": {
+          "type": "string",
+          "description": "Default gateway used for the management IP address space."
+        },
+        "useDhcp": {
+          "type": "boolean",
+          "description": "Whether DHCP is used for hosts and cluster IPs instead of static IP pools."
+        },
+        "dnsServers": {
+          "type": "array",
+          "description": "IP addresses of the DNS servers configured for the cluster.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dnsServerConfig": {
+          "$ref": "#/definitions/DnsServerConfig",
+          "description": "Specifies how DNS servers are configured for the infrastructure network."
+        },
+        "dnsZones": {
+          "type": "array",
+          "description": "Names of the DNS zones configured for the cluster.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ipPools": {
+          "type": "array",
+          "description": "Ranges of IP addresses from which addresses are allocated for nodes within the management\nsubnet.",
+          "items": {
+            "$ref": "#/definitions/IpPools"
+          },
+          "x-ms-identifiers": [
+            "startingAddress"
+          ]
+        }
+      }
+    },
+    "NetworkProfileIntent": {
+      "type": "object",
+      "description": "A Network ATC intent applied identically on every node of the cluster.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the network intent, for example Management_Compute or Storage."
+        },
+        "trafficType": {
+          "type": "array",
+          "description": "Network traffic types carried by the intent.",
+          "items": {
+            "$ref": "#/definitions/NetworkProfileTrafficType"
+          }
+        },
+        "memberAdapters": {
+          "type": "array",
+          "description": "Names of the physical adapters bound to the intent.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isManagementType": {
+          "type": "boolean",
+          "description": "Whether the intent carries management traffic."
+        },
+        "isComputeType": {
+          "type": "boolean",
+          "description": "Whether the intent carries compute traffic."
+        },
+        "isStorageType": {
+          "type": "boolean",
+          "description": "Whether the intent carries storage traffic."
+        },
+        "overrideAdapterProperty": {
+          "type": "boolean",
+          "description": "Whether adapter property overrides apply to the intent."
+        },
+        "adapterPropertyOverrides": {
+          "$ref": "#/definitions/DeploymentSettingAdapterPropertyOverrides",
+          "description": "Adapter property overrides applied to the intent. Not set when the intent is not overridden."
+        },
+        "overrideQosPolicy": {
+          "type": "boolean",
+          "description": "Whether QoS policy overrides apply to the intent."
+        },
+        "qosPolicyOverrides": {
+          "$ref": "#/definitions/QosPolicyOverrides",
+          "description": "QoS policy overrides applied to the intent. Not set when the intent is not overridden."
+        },
+        "overrideVirtualSwitchConfiguration": {
+          "type": "boolean",
+          "description": "Whether virtual switch configuration overrides apply to the intent."
+        },
+        "virtualSwitchConfigurationOverrides": {
+          "$ref": "#/definitions/DeploymentSettingVirtualSwitchConfigurationOverrides",
+          "description": "Virtual switch configuration overrides applied to the intent. Not set when the intent is not\noverridden."
+        }
+      }
     },
     "NetworkProfileListResult": {
       "type": "object",
@@ -27312,408 +27422,236 @@
         "value"
       ]
     },
-    "NetworkProfileLogicalNetwork": {
+    "NetworkProfileLiveMigrationPolicy": {
       "type": "object",
-      "description": "Details of a logical network.",
+      "description": "Live migration policy configured at cluster scope and applied uniformly to every node.",
       "properties": {
-        "addressSpace": {
-          "type": "string",
-          "description": "IP address space of the logical network."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/NetworkProfileNetwork"
-        }
-      ],
-      "x-ms-discriminator-value": "Logical"
-    },
-    "NetworkProfileNetwork": {
-      "type": "object",
-      "description": "Details of a network.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The network ID."
+        "autoSelectMigrationNetwork": {
+          "type": "boolean",
+          "description": "Whether the network used for virtual machine live migration is selected automatically."
         },
-        "name": {
-          "type": "string",
-          "description": "The name of the network."
+        "autoSelectVmMigrationPerformance": {
+          "type": "boolean",
+          "description": "Whether the performance option used for virtual machine live migration is selected\nautomatically."
         },
-        "type": {
-          "$ref": "#/definitions/NetworkProfileNetworkType",
-          "description": "The type of the network."
-        },
-        "vlan": {
+        "maxVmMigration": {
           "type": "integer",
           "format": "int32",
-          "description": "The VLAN associated with the network."
+          "description": "Maximum number of simultaneous virtual machine live migrations allowed on the cluster."
         },
-        "intentId": {
+        "vmMigrationPerformance": {
           "type": "string",
-          "description": "The intent ID associated with the network."
+          "description": "Performance option used for virtual machine live migration, for example SMB or Compression."
+        },
+        "maxSmbMigrationBandwidth": {
+          "type": "string",
+          "description": "Maximum bandwidth available for SMB live migration traffic."
         }
-      },
-      "discriminator": "type",
-      "required": [
-        "id",
-        "type"
-      ]
-    },
-    "NetworkProfileNetworkType": {
-      "type": "string",
-      "description": "Types of networks.",
-      "enum": [
-        "Storage",
-        "Logical"
-      ],
-      "x-ms-enum": {
-        "name": "NetworkProfileNetworkType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Storage",
-            "value": "Storage",
-            "description": "Storage network type."
-          },
-          {
-            "name": "Logical",
-            "value": "Logical",
-            "description": "Logical network type."
-          }
-        ]
       }
     },
-    "NetworkProfileNode": {
+    "NetworkProfileManagementNetwork": {
       "type": "object",
-      "description": "Details of a node in the network profile.",
+      "description": "Management network adapter details reported by the cluster.",
       "properties": {
-        "id": {
+        "nicName": {
           "type": "string",
-          "description": "The node ID."
+          "description": "Name of the management network adapter."
         },
-        "physicalAdapterIds": {
-          "type": "array",
-          "description": "The physical adapter IDs associated with the node.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "virtualSwitchIds": {
-          "type": "array",
-          "description": "The virtual switch IDs associated with the node.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "arcStatus": {
+        "vlanId": {
           "type": "string",
-          "description": "The arc status of the node."
+          "description": "ID specified for the management VLAN."
         },
-        "arcMachineId": {
+        "macAddress": {
           "type": "string",
-          "format": "arm-id",
-          "description": "The Azure resource id of Arc machine of the corresponding node."
+          "description": "MAC address of the management network adapter."
         }
-      },
-      "required": [
-        "id"
-      ]
-    },
-    "NetworkProfilePhysicalAdapter": {
-      "type": "object",
-      "description": "Details of a physical adapter.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The physical adapter ID."
-        },
-        "name": {
-          "type": "string",
-          "description": "The name of the physical adapter."
-        },
-        "description": {
-          "type": "string",
-          "description": "The description of the physical adapter."
-        },
-        "vlan": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The VLAN associated with the physical adapter."
-        },
-        "ipv4Addresses": {
-          "type": "array",
-          "description": "The IPv4 addresses of the physical adapter.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "ipv6Addresses": {
-          "type": "array",
-          "description": "The IPv6 addresses of the physical adapter.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "driverVersion": {
-          "type": "string",
-          "description": "The driver version of the physical adapter."
-        },
-        "nodeId": {
-          "type": "string",
-          "description": "The node ID the physical adapter is associated with."
-        }
-      },
-      "required": [
-        "id"
-      ]
+      }
     },
     "NetworkProfileProperties": {
       "type": "object",
-      "description": "Network Profile properties.",
+      "description": "Network Profile properties. The resource is a service hydrated projection that merges the\ndesired networking configuration of the cluster with the state observed on the nodes.",
       "properties": {
-        "reportedProperties": {
-          "$ref": "#/definitions/NetworkProfileReportedProperties",
-          "description": "Network profile properties reported from the cluster.",
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Lifecycle state of the network profile projection.",
           "readOnly": true
         },
         "lastSyncTimestamp": {
           "type": "string",
           "format": "date-time",
-          "description": "Network profile resource Last sync timestamp.",
+          "description": "Last time the reconciled snapshot was refreshed across all sections.",
           "readOnly": true
         },
         "lastSyncStatus": {
-          "type": "string",
-          "description": "Network profile resource Last sync status.",
+          "$ref": "#/definitions/NetworkProfileSyncStatus",
+          "description": "Outcome of the last reconciliation pass.",
           "readOnly": true
+        },
+        "reportedProperties": {
+          "$ref": "#/definitions/NetworkProfileReportedProperties",
+          "description": "Reconciled cluster uniform networking snapshot. Contains only values that are identical on\nevery node because Network ATC enforces network symmetry.",
+          "readOnly": true
+        },
+        "desiredSnapshot": {
+          "$ref": "#/definitions/NetworkProfileDesiredSnapshot",
+          "description": "Snapshot of the desired networking configuration captured from the deployment settings of the\ncluster together with the cluster wide proxy settings.",
+          "readOnly": true
+        },
+        "drift": {
+          "type": "array",
+          "description": "Explicit desired versus observed deltas with scope and severity. Drift is surfaced for\nidentification only; remediation must be performed through the desired state authority.",
+          "items": {
+            "$ref": "#/definitions/NetworkProfileDriftEntry"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "propertyPath"
+          ]
         }
       }
     },
     "NetworkProfileReportedProperties": {
       "type": "object",
-      "description": "Network Profile properties reported by the cluster.",
+      "description": "Network Profile properties reported by the cluster. Every value in this section is cluster\nuniform. Per node varying data such as NIC MAC and IP addresses, storage adapter IP addresses,\nand node heartbeat lives on the edgeDevices resource and is intentionally omitted here.",
       "properties": {
-        "clusterIpv4Addresses": {
-          "type": "array",
-          "description": "The IPv4 addresses of the cluster.",
-          "items": {
-            "type": "string"
-          },
+        "cluster": {
+          "$ref": "#/definitions/NetworkProfileClusterIdentity",
+          "description": "Cluster identity, management IP and subnet, topology pattern, and live migration policy.",
           "readOnly": true
-        },
-        "clusterIpv6Addresses": {
-          "type": "array",
-          "description": "The IPv6 addresses of the cluster.",
-          "items": {
-            "type": "string"
-          },
-          "readOnly": true
-        },
-        "subnet": {
-          "type": "string",
-          "description": "The subnet associated with the cluster.",
-          "readOnly": true
-        },
-        "autoSelectMigrationNetwork": {
-          "type": "boolean",
-          "description": "Whether auto-selection for VM migration network is enabled.",
-          "readOnly": true
-        },
-        "enableNetworkNaming": {
-          "type": "boolean",
-          "description": "Whether network naming is enabled.",
-          "readOnly": true
-        },
-        "autoSelectVmMigrationPerformance": {
-          "type": "boolean",
-          "description": "Whether auto-selection for VM migration performance is enabled.",
-          "readOnly": true
-        },
-        "maxVmMigration": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The maximum number of VM migrations allowed.",
-          "readOnly": true
-        },
-        "vmMigrationPerformance": {
-          "type": "string",
-          "description": "The performance type for VM migration.",
-          "readOnly": true
-        },
-        "maxSmbMigrationBandwidth": {
-          "type": "string",
-          "description": "Maximum bandwidth for SMB migration.",
-          "readOnly": true
-        },
-        "nodes": {
-          "type": "array",
-          "description": "Details of nodes in the network profile.",
-          "items": {
-            "$ref": "#/definitions/NetworkProfileNode"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": [
-            "id"
-          ]
-        },
-        "physicalAdapters": {
-          "type": "array",
-          "description": "Details of physical adapters.",
-          "items": {
-            "$ref": "#/definitions/NetworkProfilePhysicalAdapter"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": [
-            "id"
-          ]
-        },
-        "virtualSwitches": {
-          "type": "array",
-          "description": "Details of virtual switches.",
-          "items": {
-            "$ref": "#/definitions/NetworkProfileVirtualSwitch"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": [
-            "id"
-          ]
-        },
-        "networks": {
-          "type": "array",
-          "description": "Details of networks.",
-          "items": {
-            "$ref": "#/definitions/NetworkProfileNetwork"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": [
-            "id"
-          ]
-        },
-        "virtualAdapters": {
-          "type": "array",
-          "description": "Details of virtual adapters.",
-          "items": {
-            "$ref": "#/definitions/NetworkProfileVirtualAdapter"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": [
-            "id"
-          ]
         },
         "intents": {
           "type": "array",
-          "description": "Details of network intents.",
+          "description": "Network ATC intents applied identically on every node.",
           "items": {
             "$ref": "#/definitions/NetworkProfileIntent"
           },
           "readOnly": true,
           "x-ms-identifiers": [
-            "id"
+            "name"
           ]
+        },
+        "managementNetworks": {
+          "type": "array",
+          "description": "Management network adapter name, VLAN, and MAC address per management adapter.",
+          "items": {
+            "$ref": "#/definitions/NetworkProfileManagementNetwork"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "nicName"
+          ]
+        },
+        "storageNetworks": {
+          "type": "array",
+          "description": "Storage VLAN and RDMA technology per storage adapter.",
+          "items": {
+            "$ref": "#/definitions/NetworkProfileStorageNetwork"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "networkAdapterName"
+          ]
+        },
+        "storageConnectivitySwitchless": {
+          "type": "boolean",
+          "description": "Whether the storage adapters between nodes are connected without a switch.",
+          "readOnly": true
+        },
+        "enableStorageAutoIp": {
+          "type": "boolean",
+          "description": "Whether automatic storage IP assignment is enabled across the cluster.",
+          "readOnly": true
+        },
+        "infrastructureNetwork": {
+          "$ref": "#/definitions/NetworkProfileInfrastructureNetwork",
+          "description": "Cluster wide infrastructure networking: subnet mask, gateway, DNS servers and zones, DHCP\nmode, and static IP pools.",
+          "readOnly": true
+        },
+        "arcGateway": {
+          "$ref": "#/definitions/NetworkProfileArcGateway",
+          "description": "Fleet wide Arc gateway connectivity policy.",
+          "readOnly": true
         }
       }
     },
     "NetworkProfileStorageNetwork": {
       "type": "object",
-      "description": "Details of a storage network.",
+      "description": "Storage network details reported by the cluster. Per adapter storage IP addresses differ per\nnode and live on the edgeDevices resource.",
       "properties": {
-        "networkDirect": {
+        "networkAdapterName": {
           "type": "string",
-          "description": "Whether the network supports direct access."
+          "description": "Name of the storage network adapter bound to the storage network, for example SMB1."
+        },
+        "vlanId": {
+          "type": "string",
+          "description": "ID specified for the VLAN storage network."
+        },
+        "rdmaTechnology": {
+          "type": "string",
+          "description": "RDMA technology used by the storage network. Expected values are 'iWARP', 'RoCEv2', 'RoCE'."
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/NetworkProfileNetwork"
-        }
+      }
+    },
+    "NetworkProfileSyncStatus": {
+      "type": "string",
+      "description": "Outcome of the last network profile reconciliation pass.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Partial"
       ],
-      "x-ms-discriminator-value": "Storage"
-    },
-    "NetworkProfileVirtualAdapter": {
-      "type": "object",
-      "description": "Details of a virtual adapter.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The virtual adapter ID."
-        },
-        "name": {
-          "type": "string",
-          "description": "The name of the virtual adapter."
-        },
-        "vlan": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The VLAN associated with the virtual adapter."
-        },
-        "ipv4Addresses": {
-          "type": "array",
-          "description": "The IPv4 addresses of the virtual adapter.",
-          "items": {
-            "type": "string"
+      "x-ms-enum": {
+        "name": "NetworkProfileSyncStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "The last reconciliation pass completed successfully."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "The last reconciliation pass failed."
+          },
+          {
+            "name": "Partial",
+            "value": "Partial",
+            "description": "The last reconciliation pass refreshed only part of the snapshot."
           }
-        },
-        "ipv6Addresses": {
-          "type": "array",
-          "description": "The IPv6 addresses of the virtual adapter.",
-          "items": {
-            "type": "string"
-          }
-        }
+        ]
       },
-      "required": [
-        "id"
-      ]
+      "readOnly": true
     },
-    "NetworkProfileVirtualSwitch": {
-      "type": "object",
-      "description": "Details of a virtual switch.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The virtual switch ID."
-        },
-        "name": {
-          "type": "string",
-          "description": "The name of the virtual switch."
-        },
-        "virtualAdapterIds": {
-          "type": "array",
-          "description": "The virtual adapter IDs associated with the virtual switch.",
-          "items": {
-            "type": "string"
+    "NetworkProfileTrafficType": {
+      "type": "string",
+      "description": "Network traffic type carried by a Network ATC intent.",
+      "enum": [
+        "Management",
+        "Compute",
+        "Storage"
+      ],
+      "x-ms-enum": {
+        "name": "NetworkProfileTrafficType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Management",
+            "value": "Management",
+            "description": "The intent carries management traffic."
+          },
+          {
+            "name": "Compute",
+            "value": "Compute",
+            "description": "The intent carries compute traffic."
+          },
+          {
+            "name": "Storage",
+            "value": "Storage",
+            "description": "The intent carries storage traffic."
           }
-        },
-        "physicalAdapterIds": {
-          "type": "array",
-          "description": "The physical adapter IDs associated with the virtual switch.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "physicalAdapterNames": {
-          "type": "array",
-          "description": "The physical adapter names associated with the virtual switch.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "virtualAdapterNames": {
-          "type": "array",
-          "description": "The virtual adapter names associated with the virtual switch.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "intentId": {
-          "type": "string",
-          "description": "The intent ID associated with the virtual switch."
-        }
-      },
-      "required": [
-        "id"
-      ]
+        ]
+      }
     },
     "NextBillingModel": {
       "type": "object",

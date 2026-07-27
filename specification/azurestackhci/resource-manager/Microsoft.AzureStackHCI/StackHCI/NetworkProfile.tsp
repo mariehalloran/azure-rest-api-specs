@@ -7,7 +7,6 @@ import "./models.tsp";
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
 using Azure.ResourceManager;
-using TypeSpec.Http;
 
 namespace Microsoft.AzureStackHCI;
 
@@ -41,12 +40,6 @@ interface NetworkProfiles {
    * Create a Network Profile.
    */
   create is ArmResourceCreateOrReplaceSync<NetworkProfile>;
-
-  /**
-   * Update a Network Profile.
-   */
-  @patch(#{ implicitOptionality: false })
-  update is ArmCustomPatchSync<NetworkProfile, NetworkProfile>;
 
   /**
    * Delete a Network Profile.
