@@ -223,7 +223,7 @@ model BlobAccessPointEndpointConnectionProperties
   @visibility(Lifecycle.Create, Lifecycle.Read)
   @doc("The backing endpoint, including its protocol, host, optional port, and optional path.")
   @minLength(4)
-  endpoint: string;
+  endpoint: url;
 
   @doc("TLS certificate verification behavior.")
   tlsVerification?: BlobAccessPointTlsVerification = BlobAccessPointTlsVerification.Perform;
@@ -259,7 +259,7 @@ model BlobAccessPointPrivateLinkConnectionProperties
   @visibility(Lifecycle.Create, Lifecycle.Read)
   @doc("The backing endpoint as seen by the target of the Private Link.")
   @minLength(4)
-  endpoint: string;
+  endpoint: url;
 
   @doc("TLS certificate verification behavior.")
   tlsVerification?: BlobAccessPointTlsVerification = BlobAccessPointTlsVerification.Perform;
@@ -519,7 +519,7 @@ model BlobAccessPointConfigurationProperties {
 
   @visibility(Lifecycle.Read)
   @doc("The system-generated creation time.")
-  creationTime?: string;
+  creationTime?: utcDateTime;
 
   @maxLength(250)
   @doc("An arbitrary description of the Blob Access Point configuration.")
@@ -531,7 +531,7 @@ model BlobAccessPointConfigurationProperties {
 
   @visibility(Lifecycle.Read)
   @doc("The timestamp of the most recent connection test.")
-  lastConnectionTestTimestamp?: string;
+  lastConnectionTestTimestamp?: utcDateTime;
 
   @visibility(Lifecycle.Read)
   @doc("The normalized and redacted error from the most recent failed connection test.")

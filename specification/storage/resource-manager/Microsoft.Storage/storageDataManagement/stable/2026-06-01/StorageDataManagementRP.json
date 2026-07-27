@@ -197,7 +197,7 @@
         "tags": [
           "BlobAccessPointConfigurations"
         ],
-        "description": "Create a Blob Access Point configuration.",
+        "description": "Creates or updates a Blob Access Point configuration.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -1956,6 +1956,7 @@
         },
         "creationTime": {
           "type": "string",
+          "format": "date-time",
           "description": "The system-generated creation time.",
           "readOnly": true
         },
@@ -1971,6 +1972,7 @@
         },
         "lastConnectionTestTimestamp": {
           "type": "string",
+          "format": "date-time",
           "description": "The timestamp of the most recent connection test.",
           "readOnly": true
         },
@@ -2176,6 +2178,7 @@
       "properties": {
         "endpoint": {
           "type": "string",
+          "format": "uri",
           "description": "The backing endpoint, including its protocol, host, optional port, and optional path.",
           "minLength": 4,
           "x-ms-mutability": [
@@ -2368,6 +2371,7 @@
         },
         "endpoint": {
           "type": "string",
+          "format": "uri",
           "description": "The backing endpoint as seen by the target of the Private Link.",
           "minLength": 4,
           "x-ms-mutability": [

@@ -121,7 +121,7 @@ interface BlobAccessPointConfigurations {
   @added(Versions.v2026_06_01)
   get is ArmResourceRead<BlobAccessPointConfiguration>;
 
-  @doc("Create a Blob Access Point configuration.")
+  @doc("Creates or updates a Blob Access Point configuration.")
   @added(Versions.v2026_06_01)
   create is ArmResourceCreateOrReplaceAsync<BlobAccessPointConfiguration>;
 
