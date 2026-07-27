@@ -88,7 +88,16 @@
       "name": "ConditionalCreditTransactions"
     },
     {
-      "name": "CatalogGroupsOps"
+      "name": "SubscriptionCatalogGroupsOps"
+    },
+    {
+      "name": "BillingAccountCatalogGroupsOps"
+    },
+    {
+      "name": "BillingProfileCatalogGroupsOps"
+    },
+    {
+      "name": "TenantCatalogGroupsOps"
     },
     {
       "name": "NotificationRules"
@@ -218,114 +227,6 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/{scope}/providers/Microsoft.BillingBenefits/catalogGroups": {
-      "get": {
-        "operationId": "CatalogGroupsOps_List",
-        "tags": [
-          "CatalogGroupsOps"
-        ],
-        "description": "List catalog groups at the given scope.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "scope",
-            "in": "path",
-            "description": "The fully qualified Azure Resource manager identifier of the resource.",
-            "required": true,
-            "type": "string",
-            "x-ms-skip-url-encoding": true
-          },
-          {
-            "$ref": "#/parameters/CatalogGroupsListParameters"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/CatalogGroupListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "CatalogGroupsBillingAccountList": {
-            "$ref": "./examples/CatalogGroupsBillingAccountList.json"
-          },
-          "CatalogGroupsBillingProfileList": {
-            "$ref": "./examples/CatalogGroupsBillingProfileList.json"
-          },
-          "CatalogGroupsSubscriptionList": {
-            "$ref": "./examples/CatalogGroupsSubscriptionList.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/{scope}/providers/Microsoft.BillingBenefits/catalogGroups/{catalogGroupName}": {
-      "get": {
-        "operationId": "CatalogGroupsOps_Get",
-        "tags": [
-          "CatalogGroupsOps"
-        ],
-        "description": "Get a specific catalog group at the given scope.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "scope",
-            "in": "path",
-            "description": "The fully qualified Azure Resource manager identifier of the resource.",
-            "required": true,
-            "type": "string",
-            "x-ms-skip-url-encoding": true
-          },
-          {
-            "name": "catalogGroupName",
-            "in": "path",
-            "description": "The name of the CatalogGroup",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/CatalogGroup"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "CatalogGroupsBillingAccountGet": {
-            "$ref": "./examples/CatalogGroupsBillingAccountGet.json"
-          },
-          "CatalogGroupsBillingProfileGet": {
-            "$ref": "./examples/CatalogGroupsBillingProfileGet.json"
-          },
-          "CatalogGroupsSubscriptionGet": {
-            "$ref": "./examples/CatalogGroupsSubscriptionGet.json"
-          }
         }
       }
     },
@@ -565,6 +466,294 @@
         "x-ms-examples": {
           "NotificationRuleDelete": {
             "$ref": "./examples/NotificationRuleDelete.json"
+          }
+        }
+      }
+    },
+    "/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/providers/Microsoft.BillingBenefits/catalogGroups": {
+      "get": {
+        "operationId": "BillingProfileCatalogGroupsOps_List",
+        "tags": [
+          "BillingProfileCatalogGroupsOps"
+        ],
+        "description": "List catalog groups at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "billingAccountName",
+            "in": "path",
+            "description": "The name of the billing account.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.:]+$"
+          },
+          {
+            "name": "billingProfileName",
+            "in": "path",
+            "description": "The name of the billing profile.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "$ref": "#/parameters/CatalogGroupsListParameters"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroupListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CatalogGroupsBillingProfileList": {
+            "$ref": "./examples/CatalogGroupsBillingProfileList.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/providers/Microsoft.BillingBenefits/catalogGroups/{catalogGroupName}": {
+      "get": {
+        "operationId": "BillingProfileCatalogGroupsOps_Get",
+        "tags": [
+          "BillingProfileCatalogGroupsOps"
+        ],
+        "description": "Get a specific catalog group at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "billingAccountName",
+            "in": "path",
+            "description": "The name of the billing account.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.:]+$"
+          },
+          {
+            "name": "billingProfileName",
+            "in": "path",
+            "description": "The name of the billing profile.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          },
+          {
+            "name": "catalogGroupName",
+            "in": "path",
+            "description": "The name of the CatalogGroup",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroup"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CatalogGroupsBillingProfileGet": {
+            "$ref": "./examples/CatalogGroupsBillingProfileGet.json"
+          }
+        }
+      }
+    },
+    "/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/providers/Microsoft.BillingBenefits/catalogGroups": {
+      "get": {
+        "operationId": "BillingAccountCatalogGroupsOps_List",
+        "tags": [
+          "BillingAccountCatalogGroupsOps"
+        ],
+        "description": "List catalog groups at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "billingAccountName",
+            "in": "path",
+            "description": "The name of the billing account.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.:]+$"
+          },
+          {
+            "$ref": "#/parameters/CatalogGroupsListParameters"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroupListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CatalogGroupsBillingAccountList": {
+            "$ref": "./examples/CatalogGroupsBillingAccountList.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/providers/Microsoft.BillingBenefits/catalogGroups/{catalogGroupName}": {
+      "get": {
+        "operationId": "BillingAccountCatalogGroupsOps_Get",
+        "tags": [
+          "BillingAccountCatalogGroupsOps"
+        ],
+        "description": "Get a specific catalog group at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "billingAccountName",
+            "in": "path",
+            "description": "The name of the billing account.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.:]+$"
+          },
+          {
+            "name": "catalogGroupName",
+            "in": "path",
+            "description": "The name of the CatalogGroup",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroup"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CatalogGroupsBillingAccountGet": {
+            "$ref": "./examples/CatalogGroupsBillingAccountGet.json"
+          }
+        }
+      }
+    },
+    "/providers/Microsoft.BillingBenefits/catalogGroups": {
+      "get": {
+        "operationId": "TenantCatalogGroupsOps_List",
+        "tags": [
+          "TenantCatalogGroupsOps"
+        ],
+        "description": "List catalog groups at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/CatalogGroupsListParameters"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroupListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CatalogGroupsTenantList": {
+            "$ref": "./examples/CatalogGroupsTenantList.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/providers/Microsoft.BillingBenefits/catalogGroups/{catalogGroupName}": {
+      "get": {
+        "operationId": "TenantCatalogGroupsOps_Get",
+        "tags": [
+          "TenantCatalogGroupsOps"
+        ],
+        "description": "Get a specific catalog group at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "catalogGroupName",
+            "in": "path",
+            "description": "The name of the CatalogGroup",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroup"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CatalogGroupsTenantGet": {
+            "$ref": "./examples/CatalogGroupsTenantGet.json"
           }
         }
       }
@@ -1619,6 +1808,92 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.BillingBenefits/catalogGroups": {
+      "get": {
+        "operationId": "SubscriptionCatalogGroupsOps_List",
+        "tags": [
+          "SubscriptionCatalogGroupsOps"
+        ],
+        "description": "List catalog groups at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/CatalogGroupsListParameters"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroupListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CatalogGroupsSubscriptionList": {
+            "$ref": "./examples/CatalogGroupsSubscriptionList.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.BillingBenefits/catalogGroups/{catalogGroupName}": {
+      "get": {
+        "operationId": "SubscriptionCatalogGroupsOps_Get",
+        "tags": [
+          "SubscriptionCatalogGroupsOps"
+        ],
+        "description": "Get a specific catalog group at the target scope.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "catalogGroupName",
+            "in": "path",
+            "description": "The name of the CatalogGroup",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CatalogGroup"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CatalogGroupsSubscriptionGet": {
+            "$ref": "./examples/CatalogGroupsSubscriptionGet.json"
+          }
         }
       }
     },
@@ -11335,7 +11610,8 @@
         "Pending",
         "Canceled",
         "Expired",
-        "Failed"
+        "Failed",
+        "Exhausted"
       ],
       "x-ms-enum": {
         "name": "SpendPlanStatus",
@@ -11365,6 +11641,11 @@
             "name": "Failed",
             "value": "Failed",
             "description": "The spend plan operation failed."
+          },
+          {
+            "name": "Exhausted",
+            "value": "Exhausted",
+            "description": "The spend plan is exhausted."
           }
         ]
       }
