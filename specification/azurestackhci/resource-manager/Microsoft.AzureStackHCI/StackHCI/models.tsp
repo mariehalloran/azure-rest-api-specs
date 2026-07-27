@@ -8025,13 +8025,6 @@ model StorageProfile {
   poolableDisksCount?: int64;
 
   /**
-   * List of storage disks on the edge machine.
-   */
-  @visibility(Lifecycle.Read)
-  @Azure.ResourceManager.identifiers(#["id"])
-  disks?: EdgeMachineDiskInfo[];
-
-  /**
    * Local availability zone name assigned to this edge machine after a ConfigureLocalAvailabilityZone job succeeds.
    */
   @visibility(Lifecycle.Read)
@@ -8276,41 +8269,6 @@ model EdgeMachineStorageAdapterIpInfo {
   subnetMask?: string;
 }
 
-/**
- * Represents a storage disk reported for the edge machine.
- */
-@added(Versions.v2026_03_15_preview)
-model EdgeMachineDiskInfo {
-  /**
-   * The unique identifier of the disk.
-   */
-  @visibility(Lifecycle.Read)
-  id: string;
-
-  /**
-   * The size of the disk in bytes.
-   */
-  @visibility(Lifecycle.Read)
-  sizeInBytes?: string;
-
-  /**
-   * The type of the disk. For example, S2D or SAN.
-   */
-  @visibility(Lifecycle.Read)
-  type?: string;
-
-  /** Model number of the hardware. */
-  @visibility(Lifecycle.Read)
-  `model`?: string;
-
-  /** The manufacturer of the disk. */
-  @visibility(Lifecycle.Read)
-  manufacturer?: string;
-
-  /** Indicates whether the manufacturer is supported. */
-  @visibility(Lifecycle.Read)
-  isSupported?: boolean;
-}
 /**
  * details of validation failure
  */
