@@ -4377,67 +4377,6 @@
           }
         }
       },
-      "patch": {
-        "operationId": "NetworkProfiles_Update",
-        "tags": [
-          "NetworkProfiles"
-        ],
-        "description": "Update a Network Profile.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "clusterName",
-            "in": "path",
-            "description": "The name of the cluster.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "networkProfileName",
-            "in": "path",
-            "description": "The name of the NetworkProfile",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "The resource properties to be updated.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/NetworkProfile"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/NetworkProfile"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "NetworkProfiles_Update": {
-            "$ref": "./examples/NetworkProfiles_Update.json"
-          }
-        }
-      },
       "delete": {
         "operationId": "NetworkProfiles_Delete",
         "tags": [
