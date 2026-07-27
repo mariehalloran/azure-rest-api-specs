@@ -1,7 +1,8 @@
 {
   "parameters": {
     "api-version": "2026-07-01-preview",
-    "scope": "providers/Microsoft.Billing/billingAccounts/10000000-0000-0000-0000-000000000000:00000000-0000-0000-0000-000000000000_2019-05-31/billingProfiles/xxxx-xxxx-xxx-xxx",
+    "billingAccountName": "10000000-0000-0000-0000-000000000000:00000000-0000-0000-0000-000000000000_2019-05-31",
+    "billingProfileName": "xxxx-xxxx-xxx-xxx",
     "catalogGroupName": "reservations.VirtualMachines"
   },
   "responses": {
@@ -52,6 +53,6 @@
       }
     }
   },
-  "operationId": "CatalogGroupsOps_Get",
+  "operationId": "BillingProfileCatalogGroupsOps_Get",
   "title": "CatalogGroupsBillingProfileGet"
 }

@@ -83,48 +83,31 @@ alias BillingProfileScope = Extension.ExternalChildResource<
 >;
 
 /**
- * Subscription-scoped CatalogGroups operations (2026-06-01 and earlier).
+ * Subscription-scoped CatalogGroups operations.
  */
-@removed(Versions.v2026_07_01_preview)
 @armResourceOperations
 interface SubscriptionCatalogGroupsOps
   extends CatalogGroupsExtensionOps<SubscriptionScope> {}
 
 /**
- * Billing account-scoped CatalogGroups operations (2026-06-01 and earlier).
+ * Billing account-scoped CatalogGroups operations.
  */
-@removed(Versions.v2026_07_01_preview)
 @armResourceOperations
 interface BillingAccountCatalogGroupsOps
   extends CatalogGroupsExtensionOps<BillingAccountScope> {}
 
 /**
- * Billing profile-scoped CatalogGroups operations (2026-06-01 and earlier).
+ * Billing profile-scoped CatalogGroups operations.
  */
-@removed(Versions.v2026_07_01_preview)
 @armResourceOperations
 interface BillingProfileCatalogGroupsOps
   extends CatalogGroupsExtensionOps<BillingProfileScope> {}
 
 /**
- * CatalogGroups operations scoped to any ARM scope via the {scope} path parameter.
- * Supported scopes: tenant, subscription, billing account, billing profile.
- * Path: /{scope}/providers/Microsoft.BillingBenefits/catalogGroups[/{catalogGroupName}]
+ * Tenant-scoped CatalogGroups operations (added in 2026-07-01-preview).
+ * Path: /providers/Microsoft.BillingBenefits/catalogGroups[/{catalogGroupName}]
  */
 @added(Versions.v2026_07_01_preview)
 @armResourceOperations
-interface CatalogGroupsOps {
-  /**
-   * List catalog groups at the given scope.
-   */
-  list is Extension.ListByTarget<
-    Extension.ScopeParameter,
-    CatalogGroup,
-    CatalogGroupsListParameters
-  >;
-
-  /**
-   * Get a specific catalog group at the given scope.
-   */
-  get is Extension.Read<Extension.ScopeParameter, CatalogGroup>;
-}
+interface TenantCatalogGroupsOps
+  extends CatalogGroupsExtensionOps<Extension.Tenant> {}
