@@ -1218,6 +1218,9 @@ model ConnectionParametersResponse {
 model VolumeGroupOverwriteRequest {
   @doc("Azure resource ID of the volume group snapshot to restore from")
   sourceSnapshotResourceId: Azure.Core.armResourceIdentifier;
+
+  @doc("Azure resource ID of the source volume group")
+  sourceVolumeGroupResourceId: Azure.Core.armResourceIdentifier;
 }
 
 @added(Versions.v2026_05_01_preview)
@@ -1602,6 +1605,10 @@ model VolumeSnapshotInfo {
   @doc("Provisioned size of the volume, in bytes")
   @visibility(Lifecycle.Read)
   provisionedSize?: int64;
+
+  @doc("Serial number of the volume")
+  @visibility(Lifecycle.Read)
+  serialNumber?: string;
 }
 
 @added(Versions.v2026_05_01_preview)
@@ -1652,22 +1659,45 @@ model VolumeGroupSnapshot is ProxyResource<VolumeGroupSnapshotProperties> {
   name: string;
 }
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-list-response" "VolumeGroupSnapshotListResult includes count and totalCount fields for pagination metadata beyond value and nextLink"
 @added(Versions.v2026_05_01_preview)
 @doc("Paged list result for volume group snapshots")
 model VolumeGroupSnapshotListResult {
-  @doc("Array of volume group snapshots")
   @pageItems
+  @doc("Array of volume group snapshots")
   value: VolumeGroupSnapshot[];
 
   @doc("URL to fetch the next page of results")
+  @nextLink
   nextLink?: url;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("List result for volume group snapshots returned by the listSnapshots POST action")
+model VolumeGroupSnapshotPostListResult {
+  @doc("Array of volume group snapshots")
+  value: VolumeGroupSnapshot[];
 
   @doc("Number of snapshots in this response page")
   count?: int32;
 
   @doc("Total number of snapshots")
   totalCount?: int32;
+}
+
+@added(Versions.v2026_05_01_preview)
+@doc("Request payload for listing volume group snapshots")
+model VolumeGroupSnapshotListRequest {
+  @doc("OData filter expression (e.g. filter=substringof('sna', name) and space/unique gt 1000)")
+  filter?: string;
+
+  @doc("OData order-by expression (e.g. orderby=name asc)")
+  orderby?: string;
+
+  @doc("Maximum number of results to return per page")
+  top?: int32;
+
+  @doc("Number of results to skip (page offset)")
+  skip?: int32;
 }
 
 @added(Versions.v2026_05_01_preview)
@@ -1690,22 +1720,35 @@ interface VolumeGroupSnapshots {
   listByVolumeGroup is ArmResourceListByParent<
     VolumeGroupSnapshot,
     Parameters = {
-      @doc("OData filter expression (e.g. filter=substringof('sna', name) and space/unique gt 1000)")
-      @query
+      @doc("OData filter expression (e.g. $filter=substringof('sna', name) and space/unique gt 1000)")
+      @query("$filter")
       filter?: string;
 
-      @doc("OData order-by expression (e.g. orderby=name asc)")
-      @query
+      @doc("OData order-by expression (e.g. $orderby=name asc)")
+      @query("$orderby")
       orderby?: string;
 
       @doc("Maximum number of results to return per page")
-      @query
+      @query("$top")
       top?: int32;
 
       @doc("Number of results to skip (page offset)")
-      @query
+      @query("$skip")
       skip?: int32;
     },
     Response = ArmResponse<VolumeGroupSnapshotListResult>
   >;
+
+  @added(Versions.v2026_05_01_preview)
+  @doc("List all snapshots for a given volume group using POST with the same request and response contract")
+  @armResourceAction(VolumeGroup)
+  @action("listSnapshots")
+  @post
+  listSnapshots(
+    ...ResourceInstanceParameters<VolumeGroup>,
+
+    @doc("Snapshot list request payload")
+    @body
+    properties: VolumeGroupSnapshotListRequest,
+  ): ArmResponse<VolumeGroupSnapshotPostListResult> | ErrorResponse;
 }

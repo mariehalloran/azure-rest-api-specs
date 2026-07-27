@@ -69,11 +69,11 @@ enum Versions {
   v2026_02_01_preview: "2026-02-01-preview",
 
   @doc("Microsoft.DeviceRegistry Resource Provider management API version 2026-11-01-preview.")
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   v2026_11_01_preview: "2026-11-01-preview",
 
   @doc("Microsoft.DeviceRegistry Resource Provider management API version 2026-11-02-preview.")
-  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   v2026_11_02_preview: "2026-11-02-preview",
 }
 
@@ -140,15 +140,7 @@ interface AsyncOperationStatus {
     @doc("The ID of an ongoing async operation.")
     @armCommonParameter(
       "OperationIdParameter",
-      Azure.ResourceManager.CommonTypes.Versions.v3
-    )
-    @armCommonParameter(
-      "OperationIdParameter",
-      Azure.ResourceManager.CommonTypes.Versions.v4
-    )
-    @armCommonParameter(
-      "OperationIdParameter",
-      Azure.ResourceManager.CommonTypes.Versions.v5
+      Azure.ResourceManager.CommonTypes.Versions.v6
     )
     operationId: string,
   ): ArmResponse<OperationStatusResult> | ErrorResponse;

@@ -105,8 +105,8 @@ union CertificateAuthorityType {
 union CertificateAuthorityIssuerType {
   string,
 
-  @doc("The intermediate Certificate Authority is issued by an internal Certificate Authority.")
-  Internal: "Internal",
+  @doc("The intermediate Certificate Authority is issued by Microsoft.")
+  Microsoft: "Microsoft",
 
   @doc("The intermediate Certificate Authority is issued by an external Certificate Authority.")
   External: "External",
@@ -122,14 +122,18 @@ model CertificateAuthorityIssuer {
 }
 
 @added(Versions.v2026_11_01_preview)
-@doc("An internal issuer for an intermediate Certificate Authority.")
-model InternalCertificateAuthorityIssuer extends CertificateAuthorityIssuer {
-  @doc("The internal issuer type.")
-  issuerType: CertificateAuthorityIssuerType.Internal;
+@doc("A Microsoft issuer for an intermediate Certificate Authority.")
+model MicrosoftCertificateAuthorityIssuer extends CertificateAuthorityIssuer {
+  @doc("The Microsoft issuer type.")
+  issuerType: CertificateAuthorityIssuerType.Microsoft;
 
   @visibility(Lifecycle.Create, Lifecycle.Read)
-  @doc("The UUID of the issuer Certificate Authority in the same namespace.")
-  issuerCertificateAuthorityUuid: string;
+  @doc("The resource ID of the root issuer Certificate Authority in the same namespace.")
+  certificateAuthorityResourceId: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.DeviceRegistry/namespaces/certificateAuthorities";
+    }
+  ]>;
 }
 
 @added(Versions.v2026_11_01_preview)
@@ -193,13 +197,16 @@ interface CertificateAuthorities {
   listByNamespace is ArmResourceListByParent<CertificateAuthority>;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "The final response has no content, so 204 is returned."
-  @doc("Activates an intermediate Certificate Authority issued by an external certificate authority.")
+  @doc("Activates a Certificate Authority of type `ICA` and issuer type `External`. If the Certificate Authority is an invalid type, the API responds with HTTP 400.")
   activate is ArmResourceActionNoContentAsync<
     CertificateAuthority,
     ActivateCertificateAuthorityRequest
   >;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "The final response has no content, so 204 is returned."
-  @doc("Revokes an intermediate Certificate Authority issued by an internal Certificate Authority.")
-  revoke is ArmResourceActionNoContentAsync<CertificateAuthority, void>;
+  @doc("Revokes a Certificate Authority of type `ICA` and issuer type `Internal`. If the Certificate Authority is an invalid type, the API responds with HTTP 400.")
+  revokeAndRotate is ArmResourceActionNoContentAsync<
+    CertificateAuthority,
+    void
+  >;
 }

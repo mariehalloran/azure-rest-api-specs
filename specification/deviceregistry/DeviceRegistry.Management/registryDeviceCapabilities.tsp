@@ -28,7 +28,11 @@ namespace Microsoft.DeviceRegistry;
   with the service.
   """)
 model RegistryDeviceCapability is ProxyResource<DeviceCapabilityProperties> {
-  @doc("The name of the device capability.")
+  @doc("""
+    The name of the device capability. For \"IoT Hub\" device capabilities created through the
+    Device Provisioning Service, this name corresponds to the IoT Hub endpoint name assigned in
+    the Namespace resource.
+    """)
   @key("capabilityName")
   @segment("capabilities")
   @pattern("^[0-9a-zA-Z][a-zA-Z0-9-]*$")

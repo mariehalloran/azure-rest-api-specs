@@ -15,7 +15,6 @@
         "name": "storage-destination",
         "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
         "properties": {
-          "kind": "storageAccount",
           "partitions": [
             "p0",
             "p1",
@@ -39,14 +38,16 @@
           "endpointDeliveryMode": "round-robin",
           "endpoints": [
             {
-              "url": "https://storage1.blob.core.windows.net"
+              "id": "https://storage1.blob.core.windows.net"
             },
             {
-              "url": "https://storage2.blob.core.windows.net"
+              "id": "https://storage2.blob.core.windows.net"
             }
           ],
-          "provisioningState": "Succeeded"
-        }
+          "provisioningState": "Succeeded",
+          "kind": "storageAccount"
+        },
+        "location": "westus"
       }
     }
   }
