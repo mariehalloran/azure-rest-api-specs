@@ -506,7 +506,7 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/proposedconnectiontest": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/{blobAccessPointConfigurationName}/proposedconnectiontest": {
       "post": {
         "operationId": "BlobAccessPointConfigurations_ProposedConnectionTest",
         "tags": [
@@ -532,9 +532,17 @@
             "pattern": "^[a-zA-Z0-9-]{3,24}$"
           },
           {
+            "name": "blobAccessPointConfigurationName",
+            "in": "path",
+            "description": "The name of the Blob Access Point configuration.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$"
+          },
+          {
             "name": "body",
             "in": "body",
-            "description": "The proposed Blob Access Point configuration properties.",
+            "description": "The content of the action request",
             "required": true,
             "schema": {
               "$ref": "#/definitions/BlobAccessPointProposedConnectionTestRequest"

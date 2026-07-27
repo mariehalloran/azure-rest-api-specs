@@ -101,15 +101,6 @@ suppressions:
       variants of the discriminated Blob Access Point source model.
     where:
       - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/{blobAccessPointConfigurationName}"].patch.parameters[5].schema
-  - code: PathForResourceAction
-    from:
-      - StorageDataManagementRP.json
-    reason: >
-      proposedconnectiontest validates a configuration before a Blob Access
-      Point configuration resource exists, so it is intentionally a collection
-      action.
-    where:
-      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/proposedconnectiontest"]
 ```
 
 ## Code Generation

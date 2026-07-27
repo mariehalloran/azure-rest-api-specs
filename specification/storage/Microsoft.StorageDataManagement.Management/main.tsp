@@ -154,15 +154,10 @@ interface BlobAccessPointConfigurations {
 
   @doc("Test a proposed Blob Access Point connection before creating or updating the configuration.")
   @added(Versions.v2026_06_01)
-  @post
-  @autoRoute
-  @armResourceCollectionAction
-  @action("blobAccessPointConfigurations/proposedconnectiontest")
-  proposedConnectionTest(
-    ...Azure.ResourceManager.ResourceParentParameters<BlobAccessPointConfiguration>,
-
-    @doc("The proposed Blob Access Point configuration properties.")
-    @bodyRoot
-    body: BlobAccessPointProposedConnectionTestRequest,
-  ): ArmResponse<BlobAccessPointConnectionTestResponse> | ErrorResponse;
+  @action("proposedconnectiontest")
+  proposedConnectionTest is ArmResourceActionSync<
+    BlobAccessPointConfiguration,
+    BlobAccessPointProposedConnectionTestRequest,
+    BlobAccessPointConnectionTestResponse
+  >;
 }
