@@ -1,3 +1,5 @@
+import "./common.tsp";
+
 namespace Microsoft.DeviceRegistry;
 
 /** The type of group. */
@@ -5,7 +7,7 @@ union GroupType {
   string,
 
   /** A group of devices. */
-  Device: "Device",
+  RegistryDevice: "RegistryDevice",
 }
 
 /** The membership state of a group. */
@@ -20,19 +22,18 @@ union GroupMembershipState {
 
   /** The group is ready. */
   Ready: "Ready",
+
+  /** The group failed to resolve its members. */
+  FailedToResolveMembers: "FailedToResolveMembers",
 }
 
 /** Common group properties shared across data-plane and control-plane. */
 model GroupPropertiesBase {
+  ...DisplayProperties;
+
   /** Globally unique, immutable, non-reusable ID. */
   @visibility(Lifecycle.Read)
   uuid?: string;
-
-  /** Human-readable description of the group. */
-  description?: string;
-
-  /** Human-readable display name for the group. */
-  displayName?: string;
 
   /** The type of group that determines what kind of resources can be members. */
   @visibility(Lifecycle.Read, Lifecycle.Create)
@@ -46,7 +47,7 @@ model GroupPropertiesBase {
   @visibility(Lifecycle.Read)
   membershipState?: GroupMembershipState;
 
-  /** The query string used to determine group membership. */
+  /** The filter string used to determine group membership. To define a group that contains all devices in the namespace, use \"*\". */
   @visibility(Lifecycle.Read, Lifecycle.Create)
-  query: string;
+  queryFilter: string;
 }

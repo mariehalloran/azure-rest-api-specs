@@ -3,6 +3,7 @@ import "@typespec/rest";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
+import "../common/common.tsp";
 import "./common/provisioningState.tsp";
 import "./common/error.tsp";
 
@@ -75,6 +76,16 @@ model NamespaceProperties {
   @doc("The identity used for outbound calls from the ADR namespace. If not specified and the namespace has a system-assigned identity enabled, the system-assigned identity is used by default.")
   outboundIdentity?: OutboundIdentity;
 
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Container wrapping the observability endpoints dictionary."
+  @added(Versions.v2026_11_02_preview)
+  @doc("""
+    The observability configuration associated with this namespace.
+    On create or replace, this property replaces the complete observability
+    configuration. Omitting it removes any existing configuration. On PATCH,
+    omitting it preserves the existing configuration.
+    """)
+  observability?: NamespaceObservability;
+
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Container wrapping the device update endpoints dictionary."
   @added(Versions.v2026_11_02_preview)
   @doc("The device update endpoints associated with this namespace.")
@@ -83,6 +94,58 @@ model NamespaceProperties {
   @doc("Provisioning state of the resource.")
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
+}
+
+@added(Versions.v2026_11_02_preview)
+@doc("The observability configuration associated with a namespace.")
+model NamespaceObservability {
+  @doc("""
+    Whether observability features are enabled. When omitted during create or
+    replace, the effective value is false. On PATCH, omission preserves the
+    current value. Setting this property to false prevents new Live Data
+    sessions while preserving the configured endpoints.
+    """)
+  enabled?: boolean;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Dictionary keyed by the full ARM resource ID of an Azure Custom Location."
+  @doc("""
+    Event Grid MQTT endpoints keyed by custom location resource ID. The key is
+    the full ARM resource ID of the Azure Custom Location for one AIO site.
+    On PATCH, omission preserves the existing endpoint map. Supplying this
+    property replaces the complete endpoint map.
+    """)
+  endpoints?: Record<ObservabilityEndpoint>;
+}
+
+@added(Versions.v2026_11_02_preview)
+@doc("An Event Grid MQTT endpoint used for namespace observability.")
+model ObservabilityEndpoint {
+  @doc("The Azure resource type of the observability endpoint.")
+  endpointType: ObservabilityEndpointType;
+
+  // Intentionally typed as string, not url. The value is an MQTT hostname
+  // without a URI scheme.
+  @doc("The Event Grid namespace MQTT hostname.")
+  address: string;
+
+  @doc("The Azure IoT Operations instance scope ID used for MQTT authentication and Live Data topic construction.")
+  scopeId: string;
+
+  @doc("The full Azure resource ID of the Event Grid namespace.")
+  resourceId: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.EventGrid/namespaces";
+    }
+  ]>;
+}
+
+@added(Versions.v2026_11_02_preview)
+@doc("The type of endpoint used for namespace observability.")
+union ObservabilityEndpointType {
+  string,
+
+  @doc("Azure Event Grid namespace.")
+  EventGridNamespace: "Microsoft.EventGrid/namespaces",
 }
 
 @added(Versions.v2024_10_01_preview)
@@ -485,22 +548,6 @@ model NamespaceUpdateComplianceReport extends Report {
 }
 
 @added(Versions.v2026_11_02_preview)
-@doc("Identifies a specific update by provider, name, and version.")
-model UpdateId {
-  @doc("The provider that published the update.")
-  @visibility(Lifecycle.Read)
-  provider: string;
-
-  @doc("The name of the update.")
-  @visibility(Lifecycle.Read)
-  name: string;
-
-  @doc("The version of the update.")
-  @visibility(Lifecycle.Read)
-  version: string;
-}
-
-@added(Versions.v2026_11_02_preview)
 @doc("Criteria selecting which devices an update targets.")
 model TargetDevices {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Free-form compatibility properties keyed by device attribute name."
@@ -520,9 +567,9 @@ model BestUpdate {
   @visibility(Lifecycle.Read)
   targetDevices: TargetDevices;
 
-  @doc("The identifier of the best-available update for the targeted devices.")
+  @doc("The URI of the best-available update for the targeted devices.")
   @visibility(Lifecycle.Read)
-  updateId: UpdateId;
+  updateResourceId: string;
 
   @doc("The number of devices in the group that target this update but are not yet running it.")
   @visibility(Lifecycle.Read)
@@ -575,6 +622,14 @@ model GroupBestUpdatesComplianceReport extends Report {
 }
 
 @added(Versions.v2026_11_02_preview)
+@doc("An installable update represented as a resource URI.")
+model InstallableUpdate {
+  @doc("The URI of the installable update.")
+  @visibility(Lifecycle.Read)
+  updateResourceId: string;
+}
+
+@added(Versions.v2026_11_02_preview)
 @doc("The set of installable updates available for a class of target devices in the group.")
 model InstallableUpdatesForTargetDevices {
   @doc("The devices that this set of updates targets.")
@@ -584,7 +639,7 @@ model InstallableUpdatesForTargetDevices {
   @doc("The updates that can be installed on the targeted devices.")
   @identifiers(#[])
   @visibility(Lifecycle.Read)
-  installableUpdates: UpdateId[];
+  installableUpdates: InstallableUpdate[];
 }
 
 @added(Versions.v2026_11_02_preview)

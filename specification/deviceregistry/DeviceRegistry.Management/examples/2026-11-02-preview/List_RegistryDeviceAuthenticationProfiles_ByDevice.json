@@ -18,9 +18,9 @@
             "name": "default",
             "type": "Microsoft.DeviceRegistry/namespaces/registryDevices/authenticationProfiles",
             "properties": {
-              "authenticationType": "CertificateAuthority",
+              "authenticationType": "CertificateAuthoritySignedX509Certificate",
               "certificateAuthority": {
-                "adrCertificatePolicyResourceId": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-device-registry/providers/Microsoft.DeviceRegistry/namespaces/my-namespace/credentials/certificatePolicies/policy-default"
+                "certificatePolicyResourceId": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-device-registry/providers/Microsoft.DeviceRegistry/namespaces/my-namespace/certificateAuthorities/my-ca/certificatePolicies/policy-default"
               }
             }
           }
