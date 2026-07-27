@@ -905,22 +905,20 @@
     },
     "ServiceConnectorUpdate": {
       "type": "object",
-      "description": "A Windows 365 service connector resource.",
+      "description": "The ServiceConnector resource properties that can be updated.",
       "properties": {
-        "properties": {
-          "$ref": "#/definitions/ServiceConnectorProperties",
-          "description": "The resource-specific properties for this resource."
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "identity": {
           "$ref": "../../../../../../common-types/resource-management/v5/managedidentity.json#/definitions/ManagedServiceIdentity",
-          "description": "The managed identity used by the service connector. The service accepts exactly one identity: either a system-assigned identity or one user-assigned identity."
+          "description": "The managed service identities assigned to this resource."
         }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/TrackedResource"
-        }
-      ]
+      }
     }
   },
   "parameters": {

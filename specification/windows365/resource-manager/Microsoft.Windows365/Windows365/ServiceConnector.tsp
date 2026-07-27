@@ -29,6 +29,12 @@ model ServiceConnectorProperties {
   ...DefaultProvisioningStateProperty;
 }
 
+/** The ServiceConnector resource properties that can be updated. */
+model ServiceConnectorUpdate {
+  ...Azure.ResourceManager.Foundations.ArmTagsProperty;
+  ...Azure.ResourceManager.ManagedServiceIdentityProperty;
+}
+
 /** Operations for Windows 365 service connector resources. */
 @armResourceOperations
 interface ServiceConnectors {
@@ -39,7 +45,7 @@ interface ServiceConnectors {
   createOrUpdate is ArmResourceCreateOrReplaceSync<ServiceConnector>;
 
   /** Update a service connector resource. */
-  update is ArmResourcePatchSync<ServiceConnector, ServiceConnectorProperties>;
+  update is ArmCustomPatchSync<ServiceConnector, ServiceConnectorUpdate>;
 
   /** Delete a service connector resource. */
   delete is ArmResourceDeleteSync<ServiceConnector>;
