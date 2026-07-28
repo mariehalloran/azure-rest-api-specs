@@ -17,28 +17,22 @@
         "type": "Microsoft.DeviceRegistry/namespaces/jobs",
         "location": "North Europe",
         "systemData": {
+          "createdAt": "2026-04-01T21:39:27.7050447Z",
           "createdBy": "00003442-0000-0000-0000-494059220000",
           "createdByType": "Application",
-          "createdAt": "2026-04-01T21:39:27.7050447Z",
+          "lastModifiedAt": "2026-04-01T21:39:27.7050447Z",
           "lastModifiedBy": "00003442-0000-0000-0000-494059220000",
-          "lastModifiedByType": "Application",
-          "lastModifiedAt": "2026-04-01T21:39:27.7050447Z"
+          "lastModifiedByType": "Application"
         },
         "properties": {
-          "uuid": "91339e2f-7339-4b18-a6ae-dd3d392a4275",
-          "jobType": "OnboardingUpdate",
           "definition": {
             "schedulingType": "Continuous",
-            "update": {
-              "updateId": {
-                "provider": "contoso",
-                "name": "toaster-firmware",
-                "version": "2.0.0"
-              }
-            }
+            "updateResourceId": "updates/providers/contoso/names/windowsApp/versions/1.0"
           },
           "description": "Onboarding rollout for all compatible toasters.",
-          "provisioningState": "Succeeded"
+          "jobType": "OnboardingUpdate",
+          "provisioningState": "Succeeded",
+          "uuid": "91339e2f-7339-4b18-a6ae-dd3d392a4275"
         }
       }
     }

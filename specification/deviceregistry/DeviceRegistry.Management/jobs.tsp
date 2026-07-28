@@ -4,6 +4,7 @@ import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./common/provisioningState.tsp";
+import "../common/common.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
@@ -47,14 +48,11 @@ model Job is TrackedResource<JobProperties> {
 @doc("The job properties.")
 @discriminator("jobType")
 model JobProperties {
+  ...DisplayProperties;
+
   @doc("Globally unique, immutable, non-reusable ID.")
   @visibility(Lifecycle.Read)
   uuid?: string;
-
-  @doc("A human-readable description of the job. Mutable on PUT.")
-  @visibility(Lifecycle.Create, Lifecycle.Read)
-  @maxLength(1024)
-  description?: string;
 
   @doc("The type of the job. Set at create time; immutable thereafter.")
   @visibility(Lifecycle.Create, Lifecycle.Read)
@@ -127,8 +125,8 @@ model SoftwareUpdateJobDefinition {
   @doc("The scheduling type for the SoftwareUpdate job. SoftwareUpdate jobs are always continuous: ADU deployments target the group until superseded, canceled, or the parent job is deleted.")
   schedulingType: SoftwareUpdateJobSchedulingType;
 
-  @doc("The update definition for the job.")
-  update: JobUpdateDefinition;
+  @doc("The update resource URI for the job.")
+  updateResourceId: string;
 }
 
 @added(Versions.v2026_11_02_preview)
@@ -146,8 +144,8 @@ model OnboardingUpdateJobDefinition {
   @doc("The scheduling type for the OnboardingUpdate job. OnboardingUpdate jobs are always continuous: ADU deployments target all compatible devices until superseded, canceled, or the parent job is deleted.")
   schedulingType: OnboardingUpdateJobSchedulingType;
 
-  @doc("The update definition for the job.")
-  update: JobUpdateDefinition;
+  @doc("The update resource URI for the job.")
+  updateResourceId: string;
 }
 
 @added(Versions.v2026_11_02_preview)
@@ -157,36 +155,6 @@ union OnboardingUpdateJobSchedulingType {
 
   @doc("The job runs continuously against all compatible devices until superseded, canceled, or the parent job is deleted.")
   Continuous: "Continuous",
-}
-
-@added(Versions.v2026_11_02_preview)
-@doc("The update definition for a job.")
-model JobUpdateDefinition {
-  @doc("The Azure Device Update (ADU) update identity to deploy.")
-  updateId: JobUpdateId;
-}
-
-@added(Versions.v2026_11_02_preview)
-@doc("Identifier of an Azure Device Update (ADU) update.")
-model JobUpdateId {
-  @doc("The provider of the update.")
-  provider: string;
-
-  @doc("The name of the update.")
-  name: string;
-
-  @doc("The version of the update.")
-  version: string;
-}
-
-@added(Versions.v2026_11_02_preview)
-@doc("Request body for scheduling a job.")
-model JobScheduleRequest {
-  @doc("The time at which the job should be scheduled to run.")
-  scheduledTime?: utcDateTime;
-
-  @doc("The timeout duration for the job execution (ISO 8601 duration format).")
-  timeout?: duration;
 }
 
 @added(Versions.v2026_11_02_preview)
@@ -202,8 +170,4 @@ interface Jobs {
   update is ArmTagsPatchSync<Job>;
   delete is ArmResourceDeleteWithoutOkAsync<Job>;
   listByNamespace is ArmResourceListByParent<Job>;
-
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-post-operation-response-codes" "The final response has no content, so 204 is returned."
-  @doc("Schedule the job for execution.")
-  schedule is ArmResourceActionNoContentAsync<Job, JobScheduleRequest>;
 }

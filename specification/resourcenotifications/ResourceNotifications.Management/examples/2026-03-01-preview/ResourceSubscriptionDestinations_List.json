@@ -16,7 +16,6 @@
             "name": "fabric-destination",
             "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
             "properties": {
-              "kind": "fabricTable",
               "outputSchema": "fabric",
               "outputEncoding": "parquet",
               "endpoint": {
@@ -26,15 +25,16 @@
               "options": [
                 "enableInitialSnapshot"
               ],
-              "provisioningState": "Succeeded"
-            }
+              "provisioningState": "Succeeded",
+              "kind": "fabricTable"
+            },
+            "location": "westus"
           },
           {
             "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ResourceNotifications/resourceSubscriptions/example-subscription/destinations/storage-destination",
             "name": "storage-destination",
             "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
             "properties": {
-              "kind": "storageAccount",
               "partitions": [
                 "p0",
                 "p1"
@@ -57,14 +57,16 @@
               "endpointDeliveryMode": "failover",
               "endpoints": [
                 {
-                  "url": "https://primary.blob.core.windows.net"
+                  "id": "https://primary.blob.core.windows.net"
                 },
                 {
-                  "url": "https://secondary.blob.core.windows.net"
+                  "id": "https://secondary.blob.core.windows.net"
                 }
               ],
-              "provisioningState": "Succeeded"
-            }
+              "provisioningState": "Succeeded",
+              "kind": "storageAccount"
+            },
+            "location": "westus"
           }
         ]
       }

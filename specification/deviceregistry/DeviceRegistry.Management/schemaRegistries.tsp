@@ -25,7 +25,13 @@ model SchemaRegistry is TrackedResource<SchemaRegistryProperties> {
   @maxLength(63)
   name: string;
 
-  ...ManagedSystemAssignedIdentityProperty;
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Explicit identity property required for @typeChangedFrom versioning"
+  @doc("The managed service identities assigned to this resource.")
+  @typeChangedFrom(
+    Versions.v2026_11_01_preview,
+    Azure.ResourceManager.CommonTypes.SystemAssignedServiceIdentity
+  )
+  identity?: Azure.ResourceManager.CommonTypes.ManagedServiceIdentity;
 }
 
 @added(Versions.v2024_07_01_preview)
@@ -50,6 +56,10 @@ model SchemaRegistryProperties {
   @doc("The Storage Account's Container URL where schemas will be stored.")
   @visibility(Lifecycle.Read, Lifecycle.Create)
   storageAccountContainerUrl: string;
+
+  @added(Versions.v2026_11_01_preview)
+  @doc("The identity used for outbound calls from the ADR schema registry. If not specified and the schema registry has a system-assigned identity enabled, the system-assigned identity is used by default.")
+  outboundIdentity?: OutboundIdentity;
 
   @doc("Provisioning state of the resource.")
   @visibility(Lifecycle.Read)

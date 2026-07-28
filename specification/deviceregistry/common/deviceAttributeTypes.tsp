@@ -198,9 +198,12 @@ model UpdateStepResult {
   resultDetails?: string;
 }
 
-/** Authoritative terminal outcome of an update attempt or step, as reported by the device update agent. */
+/** Outcome of an update attempt or step, as reported by the device update agent. */
 union InstallResultOutcome {
   string,
+
+  /** Installation is underway; a device-asserted, non-terminal outcome. */
+  InProgress: "IN_PROGRESS",
 
   /** The step or workflow completed successfully. */
   Succeeded: "SUCCEEDED",

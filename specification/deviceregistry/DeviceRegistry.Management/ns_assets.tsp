@@ -107,7 +107,6 @@ alias NamespaceAssetPropertiesUpdate = {
 interface NamespaceAssets {
   get is ArmResourceRead<NamespaceAsset>;
   createOrReplace is ArmResourceCreateOrReplaceAsync<NamespaceAsset>;
-  #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchAsync<
     NamespaceAsset,
@@ -120,6 +119,7 @@ interface NamespaceAssets {
   listByResourceGroup is ArmResourceListByParent<NamespaceAsset>;
   @removed(Versions.v2025_07_01_preview)
   listBySubscription is ArmListBySubscription<NamespaceAsset>;
+  /** Execute a management action on the asset. */
   @added(Versions.v2026_02_01_preview)
   @Azure.Core.useFinalStateVia("azure-async-operation")
   executeAction is ArmResourceActionAsync<

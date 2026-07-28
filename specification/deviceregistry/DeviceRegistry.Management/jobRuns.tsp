@@ -44,16 +44,8 @@ model JobRunProperties {
   @visibility(Lifecycle.Read)
   cancellationReason?: JobRunCancellationReason;
 
-  @doc("The Azure resource ID of the target group for this job run. Same as the parent Job's target. Must reference a Microsoft.DeviceRegistry/namespaces/groups resource. Not present for OnboardingUpdate job runs, which have no group target.")
-  @visibility(Lifecycle.Read)
-  targetResourceId?: Azure.Core.armResourceIdentifier<[
-    {
-      type: "Microsoft.DeviceRegistry/namespaces/groups";
-    }
-  ]>;
-
   @doc("The scheduled time for the job run.")
-  @visibility(Lifecycle.Read)
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   scheduledTime?: utcDateTime;
 
   @doc("The start time of the job run.")
@@ -63,10 +55,6 @@ model JobRunProperties {
   @doc("The end time of the job run.")
   @visibility(Lifecycle.Read)
   endTime?: utcDateTime;
-
-  @doc("The results summary of the job run.")
-  @visibility(Lifecycle.Read)
-  results?: JobRunResults;
 
   @doc("Provisioning state of the resource.")
   @visibility(Lifecycle.Read)
@@ -114,7 +102,7 @@ union JobRunCancellationReason {
 
 @added(Versions.v2026_11_02_preview)
 @doc("The results summary of a job run.")
-model JobRunResults {
+model JobRunSummary {
   @doc("Total number of targets.")
   total?: int32;
 
@@ -142,6 +130,9 @@ model JobRunResults {
 model JobRunResultItem {
   @doc("The resource type of the target this result entry describes, which determines which identifier property is populated. `Microsoft.DeviceRegistry/namespaces/registryDevices` for a registered ADR device (SoftwareUpdate job runs), identified by `resourceUuid`; `Microsoft.DeviceRegistry/namespaces/onboardingDevices` for an onboarding device served by an OnboardingUpdate job run, identified by `resourceExternalId`. Note: `onboardingDevices` is not yet a provisioned resource type; the value follows the resource type naming pattern.")
   resourceType?: JobRunResultResourceType;
+
+  @doc("The ADR resource's ID. Populated when `resourceType` is `Microsoft.DeviceRegistry/namespaces/registryDevices`.")
+  resourceId?: string;
 
   @doc("The ADR resource's stable UUID. Populated when `resourceType` is `Microsoft.DeviceRegistry/namespaces/registryDevices`.")
   resourceUuid?: string;
@@ -218,6 +209,13 @@ union JobRunResultResourceType {
 model JobRunResultsRequest {
   @doc("An OData-style filter expression that selects which device result entries to return, aligned with the Azure API Guidelines `filter` convention. Currently supports equality on the result status, e.g. \"status eq 'Failed'\". Accepted status values mirror JobRunResultItemStatus: Succeeded, Failed, InProgress, Canceled, NotApplied. When omitted, all device results are returned.")
   filter?: string;
+
+  @doc("An OData order by expression to sort the results. For example, \"status asc\" or \"status desc\".")
+  orderBy?: string;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "This is a paging cursor, not a credential or secret."
+  @doc("Opaque continuation token from a previous listResults response.")
+  skipToken?: string;
 }
 
 @added(Versions.v2026_11_02_preview)
@@ -227,14 +225,18 @@ model JobRunResultListResponse {
   @identifiers(#[])
   value: JobRunResultItem[];
 
-  @doc("The link to the next page of results.")
-  nextLink?: string;
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "This is a paging cursor, not a credential or secret."
+  @doc("Opaque continuation token to use in the next listResults request, if more results remain after the requested page.")
+  skipToken?: string;
 }
 
 @added(Versions.v2026_11_02_preview)
 @armResourceOperations
 interface JobRuns {
+  createOrReplace is ArmResourceCreateOrReplaceAsync<JobRun>;
   get is ArmResourceRead<JobRun>;
+  delete is ArmResourceDeleteWithoutOkAsync<JobRun>;
+
   listByJob is ArmResourceListByParent<
     JobRun,
     Foundations.BaseParameters<JobRun>,
@@ -244,8 +246,15 @@ interface JobRuns {
       @doc("An OData filter expression to restrict results by job run status. Supports equality on the status property, e.g. \"status eq 'Active'\", and logical OR for multiple statuses, e.g. \"status eq 'Active' or status eq 'Scheduled'\". Accepted status values: Scheduled, Queued, Active, Succeeded, Failed, TimedOut, Canceled. When omitted, all job runs are returned.")
       @query("$filter")
       filter?: string;
+
+      @doc("An OData order by expression to sort the results. For example, \"status asc\" or \"status desc\".")
+      @query("$orderBy")
+      orderBy?: string;
     }
   >;
+
+  @doc("Get a summary of the progress of a job run.")
+  getSummary is ArmResourceActionSync<JobRun, void, JobRunSummary>;
 
   @doc("Browse the results of a job run to find individual device statuses.")
   listResults is ArmResourceActionSync<
@@ -292,5 +301,9 @@ interface JobRunsByNamespace {
     @doc("An OData filter expression to restrict results by job run status. Supports equality on the status property, e.g. \"status eq 'Active'\", and logical OR for multiple statuses, e.g. \"status eq 'Active' or status eq 'Scheduled'\". Accepted status values: Scheduled, Queued, Active, Succeeded, Failed, TimedOut, Canceled. When omitted, all job runs are returned.")
     @query("$filter")
     filter?: string,
+
+    @doc("An OData order by expression to sort the results. For example, \"status asc\" or \"status desc\".")
+    @query("$orderBy")
+    orderBy?: string,
   ): ArmResponse<ResourceListResult<JobRun>> | ErrorResponse;
 }

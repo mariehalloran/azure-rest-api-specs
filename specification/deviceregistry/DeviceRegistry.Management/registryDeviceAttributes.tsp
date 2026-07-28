@@ -53,5 +53,7 @@ model RegistryDeviceAttribute is ProxyResource<DeviceAttributeProperties> {
 @armResourceOperations
 interface RegistryDeviceAttributes {
   get is ArmResourceRead<RegistryDeviceAttribute>;
+  createOrReplace is ArmResourceCreateOrReplaceSync<RegistryDeviceAttribute>;
+  delete is ArmResourceDeleteSync<RegistryDeviceAttribute>;
   listByDevice is ArmResourceListByParent<RegistryDeviceAttribute>;
 }

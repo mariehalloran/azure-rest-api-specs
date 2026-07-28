@@ -49,11 +49,15 @@ model CertificatePolicyConfiguration {
   validityPeriodInDays: int32;
 }
 
-@added(Versions.v2026_11_01_preview)
-@doc("Update model for Certificate Policy.")
-model CertificatePolicyUpdate {
-  ...Azure.ResourceManager.Foundations.TagsUpdateModel<CertificatePolicy>;
-}
+alias CertificatePolicyPropertiesUpdate = {
+  ...OptionalProperties<UpdateableProperties<OmitProperties<
+    CertificatePolicyProperties,
+    "certificate"
+  >>>;
+
+  @doc("The certificate configuration.")
+  certificate?: OptionalProperties<CertificatePolicyConfiguration>;
+};
 
 @added(Versions.v2026_11_01_preview)
 @armResourceOperations
@@ -62,6 +66,12 @@ interface CertificatePolicies {
   createOrUpdate is ArmResourceCreateOrUpdateAsync<CertificatePolicy>;
   delete is ArmResourceDeleteWithoutOkAsync<CertificatePolicy>;
   @patch(#{ implicitOptionality: false })
-  update is ArmCustomPatchAsync<CertificatePolicy, CertificatePolicyUpdate>;
+  update is ArmCustomPatchAsync<
+    CertificatePolicy,
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      CertificatePolicy,
+      CertificatePolicyPropertiesUpdate
+    >
+  >;
   listByCertificateAuthority is ArmResourceListByParent<CertificatePolicy>;
 }

@@ -22,15 +22,6 @@
         "name": "my-group-1",
         "type": "Microsoft.DeviceRegistry/namespaces/groups",
         "location": "West Europe",
-        "properties": {
-          "uuid": "cfbef47a-6971-4c90-a7a9-99be82dea167",
-          "description": "Updated description for temperature sensors",
-          "displayName": "Building 1 Sensors (Updated)",
-          "groupType": "Device",
-          "query": "where properties.attributes.deviceType == 'sensor' and properties.attributes.sensorType == 'temperature'",
-          "membershipState": "Ready",
-          "provisioningState": "Succeeded"
-        },
         "systemData": {
           "createdBy": "00003442-0000-0000-0000-494059220000",
           "createdByType": "Application",
@@ -38,12 +29,16 @@
           "lastModifiedBy": "00003442-0000-0000-0000-494059220000",
           "lastModifiedByType": "Application",
           "lastModifiedAt": "2026-03-20T14:45:00Z"
+        },
+        "properties": {
+          "uuid": "cfbef47a-6971-4c90-a7a9-99be82dea167",
+          "description": "Updated description for temperature sensors",
+          "displayName": "Building 1 Sensors (Updated)",
+          "groupType": "RegistryDevice",
+          "queryFilter": "where properties.attributes.deviceType == 'sensor' and properties.attributes.sensorType == 'temperature'",
+          "membershipState": "Ready",
+          "provisioningState": "Succeeded"
         }
-      }
-    },
-    "202": {
-      "headers": {
-        "Location": "https://contoso.com/operationstatus"
       }
     }
   }
