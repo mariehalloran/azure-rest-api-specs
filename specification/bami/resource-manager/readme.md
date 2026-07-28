@@ -38,20 +38,3 @@ These settings apply only when `--tag=package-preview-2026-06-01` is specified o
 input-file:
   - Microsoft.Bami/preview/2026-06-01-preview/bami.json
 ```
-
-### Suppressions
-
-```yaml
-directive:
-  - suppress: AvoidAdditionalProperties
-    from: bami.json
-    where:
-      - $.definitions.EnvironmentApplicationConsents
-      - $.definitions.TenantApplicationConsents
-    reason: >-
-      AppConsentContext.appsToConsent is an inherently dynamic map (Azure environment name -> tenant ID ->
-      first-party application IDs) that mirrors the wire contract the BAMI service serializes. It is modeled in
-      TypeSpec as named Record-based definitions (EnvironmentApplicationConsents, TenantApplicationConsents) so
-      SDKs get named types; the resulting additionalProperties usage is required and intentional.
-```
-
