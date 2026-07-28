@@ -1,0 +1,44 @@
+{
+  "title": "List availabilities in the catalog by subscription.",
+  "operationId": "Availabilities_ListBySubscription",
+  "parameters": {
+    "api-version": "2026-06-30-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Offers/availabilities/DZH318Z0995B",
+            "name": "DZH318Z0995B",
+            "type": "Microsoft.Offers/availabilities",
+            "properties": {
+              "productId": "DZH318Z09JCL",
+              "version": 1,
+              "skuId": "0001",
+              "displayRank": 100,
+              "consumptionUnitType": "DAY",
+              "termIds": [
+                "term-1y"
+              ],
+              "markets": [
+                "SE"
+              ],
+              "resourceSets": [
+                {
+                  "displayCatalogId": 4,
+                  "resourceSetId": "mdf.cayman.b6e79bc2",
+                  "resourceSetStatus": "Active",
+                  "revisionId": "1",
+                  "groups": []
+                }
+              ],
+              "provisioningState": "Succeeded"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

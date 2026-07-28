@@ -11,10 +11,10 @@
       "properties": {
         "workloadScenario": "orchestrated",
         "clusterArmId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerClusters/cluster01",
-        "parentClusterName": "prod-k8s",
         "nodeIds": [
           "worker-01"
         ],
+        "machineArmId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.OffAzure/serverSites/mySite/machines/vm-001",
         "softwareAttributes": {
           "softwareName": "Kubernetes",
           "softwareVersion": "1.28.4"
@@ -77,7 +77,7 @@
                 "name": "postgresql",
                 "protocol": "TCP",
                 "port": 5432,
-                "targetPort": 5432
+                "targetPort": "5432"
               }
             ],
             "clusterIp": "10.96.0.55"
@@ -92,6 +92,9 @@
           "totalMemoryRequest": "2Gi",
           "totalMemoryLimit": "4Gi",
           "hasGpuRequests": false,
+          "hasPersistentVolumes": true,
+          "persistentVolumeCount": 1,
+          "totalPvSizeGb": 100.0,
           "distinctImages": [
             "postgres:15.4"
           ],
@@ -119,16 +122,20 @@
           "hasTopologySpreadConstraints": false,
           "hasTolerations": false,
           "hasWindowsContainers": false,
+          "hasHostPathVolumes": false,
           "usesSecrets": true,
           "usesConfigMaps": true,
           "hasPrivateRegistry": false,
+          "hasGpuRequirement": false,
           "hasHpa": false,
           "hasVpa": false,
           "hasPdb": true,
           "hasIngressRules": false,
+          "hasTlsSecrets": false,
           "hasLivenessProbes": true,
           "hasReadinessProbes": true,
-          "exposesMultiplePorts": false
+          "exposesMultiplePorts": false,
+          "hasNetworkPolicy": true
         },
         "networkExposure": {
           "serviceTypes": [
@@ -150,10 +157,7 @@
           "pvcCount": 1,
           "totalPvcSizeGb": 100.0,
           "hasHostPathVolumes": false,
-          "hasEmptyDirMemory": false,
-          "pvcAccessModes": [
-            "ReadWriteOnce"
-          ]
+          "hasEmptyDirMemory": false
         },
         "operationsProfile": {
           "updateStrategy": "RollingUpdate",
@@ -239,7 +243,8 @@
         "workloadType": "Kubernetes",
         "discoveryCompleteness": "deep-complete",
         "isShallowCompleted": true,
-        "isDeepDiscoveryCompleted": true
+        "isDeepDiscoveryCompleted": true,
+        "isKubeconfigDiscoveryCompleted": true
       }
     }
   },
@@ -248,7 +253,7 @@
       "body": {
         "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerWorkloads/cluster01_default_statefulset_postgres-primary",
         "name": "cluster01_default_statefulset_postgres-primary",
-        "type": "Microsoft.ApplicationMigration/containerSites/containerWorkloads",
+        "type": "Microsoft.ApplicationMigration/containerSites/ContainerWorkloads",
         "properties": {
           "provisioningState": "Succeeded",
           "workloadScenario": "orchestrated",
@@ -294,7 +299,7 @@
       "body": {
         "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerWorkloads/cluster01_default_statefulset_postgres-primary",
         "name": "cluster01_default_statefulset_postgres-primary",
-        "type": "Microsoft.ApplicationMigration/containerSites/containerWorkloads",
+        "type": "Microsoft.ApplicationMigration/containerSites/ContainerWorkloads",
         "properties": {
           "provisioningState": "Creating",
           "workloadScenario": "orchestrated",

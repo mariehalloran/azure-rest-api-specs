@@ -13,23 +13,43 @@ using Azure.ResourceManager;
 
 namespace Microsoft.Storage;
 
+/** The internal identity properties for an internal Azure Context Cache resource. */
+alias InternalContextCacheResourceIdentityProperties = {
+  /** The principal ID of the identity. */
+  principalId?: string;
+
+  /** The tenant ID of the identity. */
+  tenantId?: string;
+
+  /** The client ID of the identity. */
+  clientId?: string;
+
+  /** The internal Managed Identity Resource Provider assigned unique identifier for the identity. */
+  internalId?: string;
+};
+
+/** User-Assigned Identity information for the backing resource for an internal Azure Context Cache resource. */
+@added(Versions.v2026_03_01_preview)
+model InternalContextCacheUserAssignedIdentity {
+  /** The fully qualified ARM resource ID of the user-assigned identity. */
+  @pattern("^/subscriptions/[^/]+/resourceGroups/[^/]+/providers/Microsoft\\.ManagedIdentity/userAssignedIdentities/[^/]+$")
+  resourceId?: string;
+
+  ...InternalContextCacheResourceIdentityProperties;
+}
+
 /** The managed identity associated with the internal context cache resource, populated by the system. */
 @added(Versions.v2026_02_01_preview)
 model InternalContextCacheResourceIdentity {
-  /** The type of identity (e.g., SystemAssigned). */
+  /** The type of the identity (e.g. SystemAssigned, UserAssigned). */
   type?: string;
 
-  /** The principal ID of the system-assigned identity. */
-  principalId?: string;
+  ...InternalContextCacheResourceIdentityProperties;
 
-  /** The tenant ID of the system-assigned identity. */
-  tenantId?: string;
-
-  /** The client ID of the system-assigned identity. */
-  clientId?: string;
-
-  /** The internal MetaRP-assigned identity ID. */
-  internalId?: string;
+  /** The list of User-assigned identities to be associated with the backing resource. Only supported from 2026-07-01-preview. */
+  @added(Versions.v2026_03_01_preview)
+  @identifiers(#["resourceId"])
+  userAssignedIdentities?: InternalContextCacheUserAssignedIdentity[];
 }
 
 /** Properties linking the internal location-based resource back to the originating customer-facing Context Cache resource. */

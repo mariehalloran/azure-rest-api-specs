@@ -18,8 +18,10 @@ namespace Microsoft.ApplicationMigration;
  * node summary, and a slim nodes[] array. Child of ContainerSite.
  */
 @parentResource(ContainerSite)
-model ContainerCluster
-  is Azure.ResourceManager.ProxyResource<ContainerClusterProperties, false> {
+model ContainerCluster is Azure.ResourceManager.ProxyResource<
+  ContainerClusterProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = ContainerCluster,
     KeyName = "clusterName",
@@ -58,6 +60,9 @@ model ContainerClusterProperties is AzureResourceProperties {
 
   @doc("Whether deep discovery has completed.")
   isDeepDiscoveryCompleted?: boolean;
+
+  @doc("Whether kubeconfig-based discovery has completed.")
+  isKubeconfigDiscoveryCompleted?: boolean;
 
   @doc("Container orchestrator details.") orchestrator?: OrchestratorProperties;
 
@@ -139,6 +144,9 @@ model ContainerClusterPatch {
 
   @doc("Whether deep discovery has completed.")
   isDeepDiscoveryCompleted?: boolean;
+
+  @doc("Whether kubeconfig-based discovery has completed.")
+  isKubeconfigDiscoveryCompleted?: boolean;
 
   @doc("Orchestrator details.") orchestrator?: OrchestratorProperties;
   @doc("Cluster resources.") clusterResources?: ClusterResources;

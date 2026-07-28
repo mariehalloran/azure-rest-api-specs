@@ -34,6 +34,7 @@ interface Report {
   get is ArmResourceRead<ReportResource>;
   @autoRoute
   @post
+  @doc("A long-running resource action.")
   generateReport is ArmResourceActionAsync<
     ReportResource,
     GetReportContent,

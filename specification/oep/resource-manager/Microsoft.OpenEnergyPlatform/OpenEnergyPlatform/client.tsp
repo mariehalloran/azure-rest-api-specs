@@ -26,12 +26,12 @@ using Microsoft.OpenEnergyPlatform;
 
 // Disambiguate the local PrivateEndpointConnection from the Azure.ResourceManager.CommonTypes
 // model of the same name (referenced in createOrUpdate / listByOAKInstance response overrides).
-// JS/Go scope namespaces differently and do not collide; Python/Java flatten to a single
+// JS/Go scope namespaces differently and do not collide; C#/Python/Java flatten to a single
 // client namespace and need an explicit rename to avoid duplicate-client-name errors.
 @@clientName(
   PrivateEndpointConnection,
   "EnergyServicePrivateEndpointConnection",
-  "python,java"
+  "csharp,python,java"
 );
 
 // NOTE: body-parameter @@clientName overrides for the swagger migration

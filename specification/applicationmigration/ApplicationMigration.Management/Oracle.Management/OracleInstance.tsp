@@ -15,8 +15,10 @@ namespace Microsoft.ApplicationMigration;
  * The OracleInstance resource definition.
  */
 @parentResource(OracleSite)
-model OracleInstance
-  is Azure.ResourceManager.ProxyResource<OracleInstanceProperties, false> {
+model OracleInstance is Azure.ResourceManager.ProxyResource<
+  OracleInstanceProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = OracleInstance,
     KeyName = "instanceName",

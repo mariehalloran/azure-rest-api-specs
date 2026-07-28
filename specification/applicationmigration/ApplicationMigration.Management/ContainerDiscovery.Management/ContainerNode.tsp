@@ -20,8 +20,10 @@ namespace Microsoft.ApplicationMigration;
  * Linked to parent cluster via containerClusterId property (empty for standalone hosts).
  */
 @parentResource(ContainerSite)
-model ContainerNode
-  is Azure.ResourceManager.ProxyResource<ContainerNodeProperties, false> {
+model ContainerNode is Azure.ResourceManager.ProxyResource<
+  ContainerNodeProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = ContainerNode,
     KeyName = "nodeName",
@@ -71,6 +73,10 @@ model ContainerNodeProperties is AzureResourceProperties {
   @doc("Primary IP address of the host.") hostPrimaryIp?: string;
   @doc("Node availability status.") availability?: NodeAvailability;
 
+  // ── Workload Linkage (reverse edge) ──
+  @doc("Resource names of the container workloads scheduled on this node.")
+  containerWorkloadIds?: string[];
+
   // ── Software & Discovery Metadata ──
   @doc("Software attributes.") softwareAttributes?: SoftwareAttributes;
 
@@ -87,6 +93,9 @@ model ContainerNodeProperties is AzureResourceProperties {
 
   @doc("Whether deep discovery has completed.")
   isDeepDiscoveryCompleted?: boolean;
+
+  @doc("Whether kubeconfig-based discovery has completed.")
+  isKubeconfigDiscoveryCompleted?: boolean;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Tags are dynamic key-value pairs"
   @doc("Resource tags as key-value pairs.")
@@ -152,6 +161,20 @@ model ContainerNodePatchProperties {
  * Patch properties for ContainerNode.
  */
 model ContainerNodePatch {
+  // ── Cluster Linkage ──
+  // Patchable so the service can backfill node→cluster linkage with a sparse,
+  // concurrency-safe PATCH after cluster composition, without a read-modify-write PUT.
+  @doc("Whether this is a standalone container host (no orchestrator).")
+  isStandaloneHost?: boolean;
+
+  @doc("ARM resource ID of the parent cluster. Empty for standalone hosts.")
+  clusterArmId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ApplicationMigration/containerSites/containerClusters";
+    }
+  ]>;
+
+  @doc("Parent cluster name.") parentClusterName?: string;
   @doc("Node display name.") nodeDisplayName?: string;
   @doc("Node role.") nodeRole?: NodeRole;
   @doc("Node availability status.") availability?: NodeAvailability;
@@ -168,6 +191,9 @@ model ContainerNodePatch {
 
   @doc("Whether deep discovery has completed.")
   isDeepDiscoveryCompleted?: boolean;
+
+  @doc("Whether kubeconfig-based discovery has completed.")
+  isKubeconfigDiscoveryCompleted?: boolean;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Tags are dynamic key-value pairs"
   @doc("Resource tags as key-value pairs.")

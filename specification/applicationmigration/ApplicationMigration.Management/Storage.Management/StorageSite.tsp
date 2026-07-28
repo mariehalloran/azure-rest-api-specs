@@ -13,8 +13,10 @@ namespace Microsoft.ApplicationMigration;
 /**
  * The StorageSite resource definition.
  */
-model StorageSite
-  is Azure.ResourceManager.TrackedResource<StorageSiteProperties, false> {
+model StorageSite is Azure.ResourceManager.TrackedResource<
+  StorageSiteProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = StorageSite,
     KeyName = "siteName",

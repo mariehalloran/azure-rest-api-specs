@@ -248,6 +248,7 @@ model GenerateLandingZoneResponse {
   @doc("The name of the Landing Zone configuration resource.")
   landingZoneConfigurationName: string;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("The url to access the generated code..")
   @secret
   generatedCodeUrl: url;

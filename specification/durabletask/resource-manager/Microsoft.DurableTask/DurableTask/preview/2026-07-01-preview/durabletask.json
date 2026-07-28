@@ -42,6 +42,9 @@
       "name": "Operations"
     },
     {
+      "name": "Detectors"
+    },
+    {
       "name": "Schedulers"
     },
     {
@@ -427,6 +430,111 @@
           "final-state-via": "location"
         },
         "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DurableTask/schedulers/{schedulerName}/detectors": {
+      "get": {
+        "operationId": "Detectors_ListByScheduler",
+        "tags": [
+          "Detectors"
+        ],
+        "description": "Lists the diagnostic detectors belonging to a scheduler.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "schedulerName",
+            "in": "path",
+            "description": "The name of the Scheduler",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,64}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DetectorListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Detectors_ListByScheduler": {
+            "$ref": "./examples/Detectors_ListByScheduler.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DurableTask/schedulers/{schedulerName}/detectors/{detectorId}": {
+      "get": {
+        "operationId": "Detectors_Get",
+        "tags": [
+          "Detectors"
+        ],
+        "description": "Gets a diagnostic detector.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "schedulerName",
+            "in": "path",
+            "description": "The name of the Scheduler",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,64}$"
+          },
+          {
+            "name": "detectorId",
+            "in": "path",
+            "description": "The name of the Detector",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Detector"
+            }
+          },
+          "default": {
+            "description": "Not found error: resource does not exist",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Detectors_Get": {
+            "$ref": "./examples/Detectors_Get.json"
+          }
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DurableTask/schedulers/{schedulerName}/failoverInstances": {
@@ -2069,6 +2177,369 @@
         }
       }
     },
+    "Detector": {
+      "type": "object",
+      "description": "A diagnostic detector resource belonging to the scheduler.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/DetectorProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "DetectorDataset": {
+      "type": "object",
+      "description": "A dataset produced by a detector.",
+      "properties": {
+        "table": {
+          "$ref": "#/definitions/DetectorTable",
+          "description": "The tabular data produced by the detector.",
+          "readOnly": true
+        },
+        "renderingProperties": {
+          "$ref": "#/definitions/DetectorRenderingProperties",
+          "description": "The rendering information for the tabular data.",
+          "readOnly": true
+        }
+      }
+    },
+    "DetectorListResult": {
+      "type": "object",
+      "description": "The response of a Detector list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Detector items on this page",
+          "items": {
+            "$ref": "#/definitions/Detector"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "DetectorMetadata": {
+      "type": "object",
+      "description": "Metadata that identifies and describes a detector.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier of the detector.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "The display name of the detector.",
+          "readOnly": true
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the detector.",
+          "readOnly": true
+        },
+        "author": {
+          "type": "string",
+          "description": "The author of the detector when available for the caller.",
+          "readOnly": true
+        },
+        "category": {
+          "type": "string",
+          "description": "The category of the detector.",
+          "readOnly": true
+        },
+        "supportTopicList": {
+          "type": "array",
+          "description": "The case-submission support topic identifiers for which the detector is enabled.",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "analysisTypes": {
+          "type": "array",
+          "description": "The analysis identifiers for which the detector is enabled.",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "type": {
+          "$ref": "#/definitions/DetectorType",
+          "description": "The kind of diagnostic response.",
+          "readOnly": true
+        },
+        "score": {
+          "type": "number",
+          "format": "double",
+          "description": "The match score when the detector is returned from a search.",
+          "readOnly": true
+        }
+      }
+    },
+    "DetectorProperties": {
+      "type": "object",
+      "description": "The diagnostic response returned for a detector.",
+      "properties": {
+        "metadata": {
+          "$ref": "#/definitions/DetectorMetadata",
+          "description": "Metadata that identifies and describes the detector.",
+          "readOnly": true
+        },
+        "dataset": {
+          "type": "array",
+          "description": "The datasets produced when the detector runs.",
+          "items": {
+            "$ref": "#/definitions/DetectorDataset"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        },
+        "status": {
+          "$ref": "#/definitions/DetectorStatus",
+          "description": "The overall result of the detector.",
+          "readOnly": true
+        }
+      }
+    },
+    "DetectorRenderingProperties": {
+      "type": "object",
+      "description": "The rendering information for a detector dataset.",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/DetectorRenderingType",
+          "description": "The rendering type for the dataset.",
+          "readOnly": true
+        },
+        "title": {
+          "type": "string",
+          "description": "The optional title of the rendering block.",
+          "readOnly": true
+        },
+        "description": {
+          "type": "string",
+          "description": "The optional description of the rendering block.",
+          "readOnly": true
+        }
+      }
+    },
+    "DetectorRenderingType": {
+      "type": "number",
+      "description": "The rendering type for a detector dataset.",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "x-ms-enum": {
+        "name": "DetectorRenderingType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Table",
+            "value": 1,
+            "description": "A table rendering."
+          },
+          {
+            "name": "TimeSeriesGraph",
+            "value": 2,
+            "description": "A time series graph rendering."
+          },
+          {
+            "name": "TimeSeriesPerInstanceGraph",
+            "value": 3,
+            "description": "A time series per-instance graph rendering."
+          },
+          {
+            "name": "PieChart",
+            "value": 4,
+            "description": "A pie chart rendering."
+          },
+          {
+            "name": "DataSummary",
+            "value": 5,
+            "description": "A data summary rendering."
+          },
+          {
+            "name": "EmailSnippet",
+            "value": 6,
+            "description": "An email snippet rendering."
+          },
+          {
+            "name": "Insight",
+            "value": 7,
+            "description": "An insight rendering."
+          },
+          {
+            "name": "DynamicInsight",
+            "value": 8,
+            "description": "A dynamic insight rendering."
+          },
+          {
+            "name": "Markdown",
+            "value": 9,
+            "description": "A Markdown rendering."
+          }
+        ]
+      }
+    },
+    "DetectorStatus": {
+      "type": "object",
+      "description": "The overall result of a detector.",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "The optional message describing the detector result.",
+          "readOnly": true
+        },
+        "statusId": {
+          "$ref": "#/definitions/DetectorStatusId",
+          "description": "The status of the detector result.",
+          "readOnly": true
+        }
+      }
+    },
+    "DetectorStatusId": {
+      "type": "number",
+      "description": "The status of a detector result.",
+      "enum": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "x-ms-enum": {
+        "name": "DetectorStatusId",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Critical",
+            "value": 0,
+            "description": "A critical issue was detected."
+          },
+          {
+            "name": "Warning",
+            "value": 1,
+            "description": "A warning was detected."
+          },
+          {
+            "name": "Info",
+            "value": 2,
+            "description": "An informational result was returned."
+          },
+          {
+            "name": "Success",
+            "value": 3,
+            "description": "The detector completed without detecting an issue."
+          },
+          {
+            "name": "None",
+            "value": 4,
+            "description": "The detector did not run or returned no insights."
+          }
+        ]
+      }
+    },
+    "DetectorTable": {
+      "type": "object",
+      "description": "A table included in a detector dataset.",
+      "properties": {
+        "tableName": {
+          "type": "string",
+          "description": "The name of the table.",
+          "readOnly": true
+        },
+        "columns": {
+          "type": "array",
+          "description": "The column definitions for the table.",
+          "items": {
+            "$ref": "#/definitions/DetectorTableColumn"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "columnName"
+          ]
+        },
+        "rows": {
+          "type": "array",
+          "description": "The rows in the table. Values use the types specified by their columns.",
+          "items": {
+            "type": "array",
+            "items": {}
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        }
+      }
+    },
+    "DetectorTableColumn": {
+      "type": "object",
+      "description": "A column definition in a detector table.",
+      "properties": {
+        "columnName": {
+          "type": "string",
+          "description": "The name of the column.",
+          "readOnly": true
+        },
+        "dataType": {
+          "type": "string",
+          "description": "The data type of values in the column.",
+          "readOnly": true
+        },
+        "columnType": {
+          "type": "string",
+          "description": "The optional semantic classification of the column.",
+          "readOnly": true
+        }
+      }
+    },
+    "DetectorType": {
+      "type": "string",
+      "description": "The kind of diagnostic response.",
+      "enum": [
+        "Detector",
+        "Analysis",
+        "CategoryOverview"
+      ],
+      "x-ms-enum": {
+        "name": "DetectorType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Detector",
+            "value": "Detector",
+            "description": "A diagnostic detector."
+          },
+          {
+            "name": "Analysis",
+            "value": "Analysis",
+            "description": "A diagnostic analysis."
+          },
+          {
+            "name": "CategoryOverview",
+            "value": "CategoryOverview",
+            "description": "A diagnostic category overview."
+          }
+        ]
+      }
+    },
     "FailoverInstance": {
       "type": "object",
       "description": "A failover instance belonging to the scheduler",
@@ -2119,6 +2590,11 @@
           "description": "The replication role of the parent scheduler",
           "readOnly": true
         },
+        "failoverState": {
+          "$ref": "#/definitions/FailoverState",
+          "description": "The current state of the failover operation",
+          "readOnly": true
+        },
         "partnerSchedulerResourceId": {
           "type": "string",
           "description": "The resource ID of the partner scheduler in the failover configuration"
@@ -2132,6 +2608,43 @@
       "required": [
         "partnerSchedulerResourceId"
       ]
+    },
+    "FailoverState": {
+      "type": "string",
+      "description": "The current state of the failover operation",
+      "enum": [
+        "None",
+        "InProgress",
+        "Succeeded",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "FailoverState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None",
+            "description": "No failover operation is active"
+          },
+          {
+            "name": "InProgress",
+            "value": "InProgress",
+            "description": "The failover operation is in progress"
+          },
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "The failover operation completed successfully"
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "The failover operation failed"
+          }
+        ]
+      },
+      "readOnly": true
     },
     "MyPrivateLinkResourceListResult": {
       "type": "object",

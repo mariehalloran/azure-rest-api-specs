@@ -169,6 +169,9 @@
       "name": "StorageArrays"
     },
     {
+      "name": "StorageArrayJobs"
+    },
+    {
       "name": "StoragePools"
     },
     {
@@ -4371,67 +4374,6 @@
         "x-ms-examples": {
           "NetworkProfiles_Create": {
             "$ref": "./examples/NetworkProfiles_Create.json"
-          }
-        }
-      },
-      "patch": {
-        "operationId": "NetworkProfiles_Update",
-        "tags": [
-          "NetworkProfiles"
-        ],
-        "description": "Update a Network Profile.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "clusterName",
-            "in": "path",
-            "description": "The name of the cluster.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "networkProfileName",
-            "in": "path",
-            "description": "The name of the NetworkProfile",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "The resource properties to be updated.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/NetworkProfile"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/NetworkProfile"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "NetworkProfiles_Update": {
-            "$ref": "./examples/NetworkProfiles_Update.json"
           }
         }
       },
@@ -10897,6 +10839,68 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/refreshApplicableUpdates": {
+      "post": {
+        "operationId": "EdgeMachines_RefreshApplicableUpdates",
+        "tags": [
+          "EdgeMachines"
+        ],
+        "description": "Trigger an on-demand refresh of applicable updates for the edge machine.\nCreates or updates the default EdgeMachineUpdate child resource with the latest set of applicable updates.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Action completed successfully."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Refresh edge machine applicable updates": {
+            "$ref": "./examples/EdgeMachines_RefreshApplicableUpdates.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/refreshSecuritySettings": {
       "post": {
         "operationId": "EdgeMachines_RefreshSecuritySettings",
@@ -12695,6 +12699,262 @@
         },
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/storageArrays/{storageArrayName}/jobs": {
+      "get": {
+        "operationId": "StorageArrayJobs_List",
+        "tags": [
+          "StorageArrayJobs"
+        ],
+        "description": "List all jobs for a storage array.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storageArrayName",
+            "in": "path",
+            "description": "The name of the StorageArray",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/StorageArrayJobListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "StorageArrayJobs_List": {
+            "$ref": "./examples/StorageArrayJobs_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/storageArrays/{storageArrayName}/jobs/{jobName}": {
+      "get": {
+        "operationId": "StorageArrayJobs_Get",
+        "tags": [
+          "StorageArrayJobs"
+        ],
+        "description": "Get a specific storage array job.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storageArrayName",
+            "in": "path",
+            "description": "The name of the StorageArray",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the StorageArrayJob",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/StorageArrayJob"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "StorageArrayJobs_Get": {
+            "$ref": "./examples/StorageArrayJobs_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "StorageArrayJobs_CreateOrUpdate",
+        "tags": [
+          "StorageArrayJobs"
+        ],
+        "description": "Create or update a storage array job.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storageArrayName",
+            "in": "path",
+            "description": "The name of the StorageArray",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the StorageArrayJob",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StorageArrayJob"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'StorageArrayJob' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/StorageArrayJob"
+            }
+          },
+          "201": {
+            "description": "Resource 'StorageArrayJob' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/StorageArrayJob"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "StorageArrayJobs_CreateOrUpdate": {
+            "$ref": "./examples/StorageArrayJobs_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "StorageArrayJobs_Delete",
+        "tags": [
+          "StorageArrayJobs"
+        ],
+        "description": "Delete a storage array job.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storageArrayName",
+            "in": "path",
+            "description": "The name of the StorageArray",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          },
+          {
+            "name": "jobName",
+            "in": "path",
+            "description": "The name of the StorageArrayJob",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "StorageArrayJobs_Delete": {
+            "$ref": "./examples/StorageArrayJobs_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
         },
         "x-ms-long-running-operation": true
       }
@@ -20022,6 +20282,7 @@
       "type": "string",
       "description": "Default provisioning mode for new volumes (pool setting / S2D volume).",
       "enum": [
+        "Unknown",
         "Fixed",
         "Thin"
       ],
@@ -20029,6 +20290,11 @@
         "name": "DriveProvisioningType",
         "modelAsString": true,
         "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Provisioning type is unknown or could not be determined."
+          },
           {
             "name": "Fixed",
             "value": "Fixed",
@@ -20046,40 +20312,28 @@
       "type": "string",
       "description": "Usage classification of a physical drive in the pool (S2D).",
       "enum": [
-        "AutoSelect",
-        "ManualSelect",
-        "HotSpare",
-        "Retired",
-        "Journal"
+        "Unknown",
+        "Cache",
+        "Capacity"
       ],
       "x-ms-enum": {
         "name": "DriveUsage",
         "modelAsString": true,
         "values": [
           {
-            "name": "AutoSelect",
-            "value": "AutoSelect",
-            "description": "Normal data storage; the pool selects the drive automatically."
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Usage is unknown or could not be determined."
           },
           {
-            "name": "ManualSelect",
-            "value": "ManualSelect",
-            "description": "Drive is manually assigned to a tier."
+            "name": "Cache",
+            "value": "Cache",
+            "description": "Drive is used for the storage cache tier (`SDDC_Drive.UsedFor` = `Cache`)."
           },
           {
-            "name": "HotSpare",
-            "value": "HotSpare",
-            "description": "Reserved as a hot spare for automatic rebuild."
-          },
-          {
-            "name": "Retired",
-            "value": "Retired",
-            "description": "Drive is being evacuated; no new allocations."
-          },
-          {
-            "name": "Journal",
-            "value": "Journal",
-            "description": "Drive backs the write-back cache journal."
+            "name": "Capacity",
+            "value": "Capacity",
+            "description": "Drive is used for the storage capacity tier (`SDDC_Drive.UsedFor` = `Capacity`)."
           }
         ]
       }
@@ -20540,6 +20794,27 @@
         }
       ]
     },
+    "EdgeMachineAdapterPropertyOverrides": {
+      "type": "object",
+      "description": "The AdapterPropertyOverrides reported for the edge machine.",
+      "properties": {
+        "jumboPacket": {
+          "type": "string",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.",
+          "readOnly": true
+        },
+        "networkDirect": {
+          "type": "string",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.",
+          "readOnly": true
+        },
+        "networkDirectTechnology": {
+          "type": "string",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation. Expected values are 'iWARP', 'RoCEv2', 'RoCE'",
+          "readOnly": true
+        }
+      }
+    },
     "EdgeMachineCollectLogJobProperties": {
       "type": "object",
       "description": "Properties for pausing a server in the cluster.",
@@ -20665,6 +20940,10 @@
       "type": "object",
       "description": "The deployment data of an edge machine.",
       "properties": {
+        "storageType": {
+          "$ref": "#/definitions/NodeStorageType",
+          "description": "Storage type for the edge machine node."
+        },
         "iScsiConfig": {
           "$ref": "#/definitions/IscsiConfig",
           "description": "iSCSI configuration for the edge machine."
@@ -21272,6 +21551,141 @@
         }
       }
     },
+    "EdgeMachineHostNetwork": {
+      "type": "object",
+      "description": "HostNetwork configuration reported for the edge machine.",
+      "properties": {
+        "intents": {
+          "type": "array",
+          "description": "The network intents assigned to the network reference pattern used for the deployment. Each intent will define its own name, traffic type, adapter names, and overrides as recommended by your OEM.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineHostNetworkIntent"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "intentName"
+          ]
+        },
+        "storageNetworks": {
+          "type": "array",
+          "description": "List of StorageNetworks config to deploy AzureStackHCI Cluster.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineStorageNetwork"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "networkAdapterName"
+          ]
+        },
+        "storageConnectivitySwitchless": {
+          "type": "boolean",
+          "description": "Defines how the storage adapters between nodes are connected either switch or switch less.",
+          "readOnly": true
+        },
+        "enableStorageAutoIp": {
+          "type": "boolean",
+          "description": "Optional parameter required only for 3 Nodes Switchless deployments. This allows users to specify IPs and Mask for Storage NICs when Network ATC is not assigning the IPs for storage automatically.",
+          "default": false,
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineHostNetworkIntent": {
+      "type": "object",
+      "description": "The network intent reported for the edge machine.",
+      "properties": {
+        "scope": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Scope for host network intent.",
+          "readOnly": true
+        },
+        "intentType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "IntentType for host network intent.",
+          "readOnly": true
+        },
+        "isComputeIntentSet": {
+          "type": "boolean",
+          "description": "IsComputeIntentSet for host network intent.",
+          "readOnly": true
+        },
+        "isStorageIntentSet": {
+          "type": "boolean",
+          "description": "IsStorageIntentSet for host network intent.",
+          "readOnly": true
+        },
+        "isOnlyStorage": {
+          "type": "boolean",
+          "description": "IntentType for host network intent.",
+          "readOnly": true
+        },
+        "isManagementIntentSet": {
+          "type": "boolean",
+          "description": "IsManagementIntentSet for host network intent.",
+          "readOnly": true
+        },
+        "isStretchIntentSet": {
+          "type": "boolean",
+          "description": "IsStretchIntentSet for host network intent.",
+          "readOnly": true
+        },
+        "isOnlyStretch": {
+          "type": "boolean",
+          "description": "IsOnlyStretch for host network intent.",
+          "readOnly": true
+        },
+        "isNetworkIntentType": {
+          "type": "boolean",
+          "description": "IsNetworkIntentType for host network intent.",
+          "readOnly": true
+        },
+        "intentName": {
+          "type": "string",
+          "description": "Name of the network intent you wish to create.",
+          "readOnly": true
+        },
+        "intentAdapters": {
+          "type": "array",
+          "description": "Array of adapters used for the network intent.",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "overrideVirtualSwitchConfiguration": {
+          "type": "boolean",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.",
+          "readOnly": true
+        },
+        "virtualSwitchConfigurationOverrides": {
+          "$ref": "#/definitions/EdgeMachineVirtualSwitchConfigurationOverrides",
+          "description": "Set virtualSwitch ConfigurationOverrides for cluster.",
+          "readOnly": true
+        },
+        "overrideQosPolicy": {
+          "type": "boolean",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.",
+          "readOnly": true
+        },
+        "qosPolicyOverrides": {
+          "$ref": "#/definitions/QosPolicyOverrides",
+          "description": "Set QoS PolicyOverrides for cluster.",
+          "readOnly": true
+        },
+        "overrideAdapterProperty": {
+          "type": "boolean",
+          "description": "This parameter should only be modified based on your OEM guidance. Do not modify this parameter without OEM validation.",
+          "readOnly": true
+        },
+        "adapterPropertyOverrides": {
+          "$ref": "#/definitions/EdgeMachineAdapterPropertyOverrides",
+          "description": "Set Adapter PropertyOverrides for cluster.",
+          "readOnly": true
+        }
+      }
+    },
     "EdgeMachineJob": {
       "type": "object",
       "description": "Cluster Jobs resource",
@@ -21764,6 +22178,16 @@
           "x-ms-identifiers": [
             "switchName"
           ]
+        },
+        "hostNetwork": {
+          "$ref": "#/definitions/EdgeMachineHostNetwork",
+          "description": "HostNetwork configuration reported for the edge machine.",
+          "readOnly": true
+        },
+        "sdnProperties": {
+          "$ref": "#/definitions/SdnProperties",
+          "description": "Software Defined Networking (SDN) properties reported for the edge machine.",
+          "readOnly": true
         }
       }
     },
@@ -22177,6 +22601,11 @@
           "description": "Extension details for edge machine.",
           "readOnly": true
         },
+        "confidentialVmProfile": {
+          "$ref": "#/definitions/ConfidentialVmProfile",
+          "description": "CVM (Confidential VM) support details for the edge machine.",
+          "readOnly": true
+        },
         "workloadInventory": {
           "type": "array",
           "description": "Read-only Hyper-V VM inventory reported by the device management extension for VMs visible on this node.",
@@ -22378,6 +22807,59 @@
         ]
       }
     },
+    "EdgeMachineStorageAdapterIpInfo": {
+      "type": "object",
+      "description": "The StorageAdapter physical nodes reported for the edge machine.",
+      "properties": {
+        "physicalNode": {
+          "type": "string",
+          "description": "storage adapter physical node name.",
+          "readOnly": true
+        },
+        "ipv4Address": {
+          "type": "string",
+          "description": "The IPv4 address assigned to each storage adapter physical node on your Azure Stack HCI cluster.",
+          "readOnly": true
+        },
+        "subnetMask": {
+          "type": "string",
+          "description": "The SubnetMask address assigned to each storage adapter physical node on your Azure Stack HCI cluster.",
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineStorageNetwork": {
+      "type": "object",
+      "description": "The StorageNetworks reported for the edge machine.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the storage network.",
+          "readOnly": true
+        },
+        "networkAdapterName": {
+          "type": "string",
+          "description": "Name of the storage network adapter.",
+          "readOnly": true
+        },
+        "storageVlanId": {
+          "type": "string",
+          "description": "ID specified for the VLAN storage network. This setting is applied to the network interfaces that route the storage and VM migration traffic.",
+          "readOnly": true
+        },
+        "storageAdapterIPInfo": {
+          "type": "array",
+          "description": "List of Storage adapter physical nodes config to deploy AzureStackHCI Cluster.",
+          "items": {
+            "$ref": "#/definitions/EdgeMachineStorageAdapterIpInfo"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "physicalNode"
+          ]
+        }
+      }
+    },
     "EdgeMachineUpdate": {
       "type": "object",
       "description": "EdgeMachine Update resource that stores validated update configurations for an edge machine.",
@@ -22519,6 +23001,22 @@
         "status": {
           "type": "string",
           "description": "Edge machine validation status.",
+          "readOnly": true
+        }
+      }
+    },
+    "EdgeMachineVirtualSwitchConfigurationOverrides": {
+      "type": "object",
+      "description": "The VirtualSwitchConfigurationOverrides reported for the edge machine.",
+      "properties": {
+        "enableIov": {
+          "type": "string",
+          "description": "Enable IoV for Virtual Switch",
+          "readOnly": true
+        },
+        "loadBalancingAlgorithm": {
+          "type": "string",
+          "description": "Load Balancing Algorithm for Virtual Switch",
           "readOnly": true
         }
       }
@@ -25048,6 +25546,16 @@
         "addressPrefix": {
           "type": "string",
           "description": "Address prefix (CIDR notation) for the iSCSI network adapter."
+        },
+        "targetPortalAddresses": {
+          "type": "array",
+          "description": "Target portal addresses reachable through this iSCSI network adapter.",
+          "items": {
+            "$ref": "#/definitions/IscsiTargetPortalAddress"
+          },
+          "x-ms-identifiers": [
+            "ipAddress"
+          ]
         }
       }
     },
@@ -25159,16 +25667,6 @@
         "adapterProperties": {
           "$ref": "#/definitions/IscsiAdapterProperties",
           "description": "Common adapter properties applied to all iSCSI network adapters."
-        },
-        "targetPortalAddresses": {
-          "type": "array",
-          "description": "Target portal addresses reachable through the iSCSI network adapters.",
-          "items": {
-            "$ref": "#/definitions/IscsiTargetPortalAddress"
-          },
-          "x-ms-identifiers": [
-            "ipAddress"
-          ]
         },
         "adapterIPConfig": {
           "type": "array",
@@ -26709,90 +27207,261 @@
         }
       ]
     },
-    "NetworkProfileIntent": {
+    "NetworkProfileArcGateway": {
       "type": "object",
-      "description": "Details of a network intent.",
+      "description": "Arc gateway connectivity policy applied uniformly across the cluster.",
       "properties": {
-        "id": {
+        "gatewayResourceId": {
           "type": "string",
-          "description": "The intent ID."
+          "format": "arm-id",
+          "description": "Azure resource ID of the Arc gateway.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.HybridCompute/gateways"
+              }
+            ]
+          }
         },
-        "name": {
+        "gatewayEndpoint": {
           "type": "string",
-          "description": "The name of the intent."
+          "format": "uri",
+          "description": "Public endpoint URL of the Arc gateway."
         },
-        "isComputeType": {
-          "type": "boolean",
-          "description": "Whether this is a compute type intent."
+        "gatewayType": {
+          "type": "string",
+          "description": "Type of the Arc gateway, for example Public."
         },
-        "isStorageType": {
-          "type": "boolean",
-          "description": "Whether this is a storage type intent."
-        },
-        "isManagementType": {
-          "type": "boolean",
-          "description": "Whether this is a management type intent."
-        },
-        "physicalAdapterIds": {
+        "allowedFeatures": {
           "type": "array",
-          "description": "The physical adapter IDs associated with the intent.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "virtualAdapterIds": {
-          "type": "array",
-          "description": "The virtual adapter IDs associated with the intent.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "virtualSwitchIds": {
-          "type": "array",
-          "description": "The virtual switch IDs associated with the intent.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "networkIds": {
-          "type": "array",
-          "description": "The network IDs associated with the intent.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "physicalAdapterNames": {
-          "type": "array",
-          "description": "The physical adapter names associated with the intent.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "virtualAdapterNames": {
-          "type": "array",
-          "description": "The virtual adapter names associated with the intent.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "virtualSwitchNames": {
-          "type": "array",
-          "description": "The virtual switch names associated with the intent.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "networkNames": {
-          "type": "array",
-          "description": "The network names associated with the intent.",
+          "description": "Features allowed through the Arc gateway. An asterisk indicates that all features are allowed.",
           "items": {
             "type": "string"
           }
         }
-      },
-      "required": [
-        "id"
-      ]
+      }
+    },
+    "NetworkProfileClusterIdentity": {
+      "type": "object",
+      "description": "Cluster identity values that are identical regardless of which node reports them.",
+      "properties": {
+        "clusterName": {
+          "type": "string",
+          "description": "Cluster name."
+        },
+        "clusterIpAddress": {
+          "type": "string",
+          "description": "Cluster management IP address."
+        },
+        "clusterIpIntentName": {
+          "type": "string",
+          "description": "Name of the Network ATC intent that carries the cluster IP."
+        },
+        "subnet": {
+          "type": "string",
+          "description": "Management subnet expressed in CIDR notation."
+        },
+        "clusterPattern": {
+          "type": "string",
+          "description": "Cluster topology pattern, for example Standard or HyperConverged."
+        },
+        "liveMigrationPolicy": {
+          "$ref": "#/definitions/NetworkProfileLiveMigrationPolicy",
+          "description": "Live migration policy configured at cluster scope."
+        }
+      }
+    },
+    "NetworkProfileDesiredSnapshot": {
+      "type": "object",
+      "description": "Snapshot of the desired networking configuration used as the baseline for drift detection.",
+      "properties": {
+        "hostNetwork": {
+          "$ref": "#/definitions/DeploymentSettingHostNetwork",
+          "description": "Host network configuration captured from the deployment settings of the cluster."
+        },
+        "infrastructureNetwork": {
+          "$ref": "#/definitions/InfrastructureNetwork",
+          "description": "Infrastructure network configuration captured from the deployment settings of the cluster."
+        },
+        "proxy": {
+          "$ref": "#/definitions/ProxyConfigurationDetail",
+          "description": "Proxy configuration desired on every node of the cluster."
+        },
+        "capturedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time at which the desired configuration snapshot was captured."
+        }
+      }
+    },
+    "NetworkProfileDriftEntry": {
+      "type": "object",
+      "description": "A single desired versus observed delta detected during reconciliation.",
+      "properties": {
+        "propertyPath": {
+          "type": "string",
+          "description": "Dotted path to the diverged field, for example infrastructureNetwork.dnsServers."
+        },
+        "desiredValue": {
+          "description": "Value taken from the desired configuration snapshot."
+        },
+        "observedValue": {
+          "description": "Value reported by the cluster nodes."
+        },
+        "scope": {
+          "type": "string",
+          "description": "Where the drift was detected, for example cluster or node:contoso-node-02."
+        },
+        "firstDetectedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time at which the drift was first observed."
+        },
+        "severity": {
+          "$ref": "#/definitions/NetworkProfileDriftSeverity",
+          "description": "Severity of the detected drift."
+        }
+      }
+    },
+    "NetworkProfileDriftSeverity": {
+      "type": "string",
+      "description": "Severity of a detected configuration drift.",
+      "enum": [
+        "Informational",
+        "Warning",
+        "Error"
+      ],
+      "x-ms-enum": {
+        "name": "NetworkProfileDriftSeverity",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Informational",
+            "value": "Informational",
+            "description": "The drift is informational and requires no action."
+          },
+          {
+            "name": "Warning",
+            "value": "Warning",
+            "description": "The drift may affect cluster networking and should be reviewed."
+          },
+          {
+            "name": "Error",
+            "value": "Error",
+            "description": "The drift affects cluster networking and requires remediation."
+          }
+        ]
+      }
+    },
+    "NetworkProfileInfrastructureNetwork": {
+      "type": "object",
+      "description": "Cluster wide infrastructure networking reported by the cluster.",
+      "properties": {
+        "subnetMask": {
+          "type": "string",
+          "description": "Subnet mask that matches the management IP address space."
+        },
+        "vlanId": {
+          "type": "string",
+          "description": "ID specified for the management network VLAN."
+        },
+        "gateway": {
+          "type": "string",
+          "description": "Default gateway used for the management IP address space."
+        },
+        "useDhcp": {
+          "type": "boolean",
+          "description": "Whether DHCP is used for hosts and cluster IPs instead of static IP pools."
+        },
+        "dnsServers": {
+          "type": "array",
+          "description": "IP addresses of the DNS servers configured for the cluster.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dnsServerConfig": {
+          "$ref": "#/definitions/DnsServerConfig",
+          "description": "Specifies how DNS servers are configured for the infrastructure network."
+        },
+        "dnsZones": {
+          "type": "array",
+          "description": "Names of the DNS zones configured for the cluster.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ipPools": {
+          "type": "array",
+          "description": "Ranges of IP addresses from which addresses are allocated for nodes within the management\nsubnet.",
+          "items": {
+            "$ref": "#/definitions/IpPools"
+          },
+          "x-ms-identifiers": [
+            "startingAddress"
+          ]
+        }
+      }
+    },
+    "NetworkProfileIntent": {
+      "type": "object",
+      "description": "A Network ATC intent applied identically on every node of the cluster.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the network intent, for example Management_Compute or Storage."
+        },
+        "trafficType": {
+          "type": "array",
+          "description": "Network traffic types carried by the intent.",
+          "items": {
+            "$ref": "#/definitions/NetworkProfileTrafficType"
+          }
+        },
+        "memberAdapters": {
+          "type": "array",
+          "description": "Names of the physical adapters bound to the intent.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isManagementType": {
+          "type": "boolean",
+          "description": "Whether the intent carries management traffic."
+        },
+        "isComputeType": {
+          "type": "boolean",
+          "description": "Whether the intent carries compute traffic."
+        },
+        "isStorageType": {
+          "type": "boolean",
+          "description": "Whether the intent carries storage traffic."
+        },
+        "overrideAdapterProperty": {
+          "type": "boolean",
+          "description": "Whether adapter property overrides apply to the intent."
+        },
+        "adapterPropertyOverrides": {
+          "$ref": "#/definitions/DeploymentSettingAdapterPropertyOverrides",
+          "description": "Adapter property overrides applied to the intent. Not set when the intent is not overridden."
+        },
+        "overrideQosPolicy": {
+          "type": "boolean",
+          "description": "Whether QoS policy overrides apply to the intent."
+        },
+        "qosPolicyOverrides": {
+          "$ref": "#/definitions/QosPolicyOverrides",
+          "description": "QoS policy overrides applied to the intent. Not set when the intent is not overridden."
+        },
+        "overrideVirtualSwitchConfiguration": {
+          "type": "boolean",
+          "description": "Whether virtual switch configuration overrides apply to the intent."
+        },
+        "virtualSwitchConfigurationOverrides": {
+          "$ref": "#/definitions/DeploymentSettingVirtualSwitchConfigurationOverrides",
+          "description": "Virtual switch configuration overrides applied to the intent. Not set when the intent is not\noverridden."
+        }
+      }
     },
     "NetworkProfileListResult": {
       "type": "object",
@@ -26815,408 +27484,236 @@
         "value"
       ]
     },
-    "NetworkProfileLogicalNetwork": {
+    "NetworkProfileLiveMigrationPolicy": {
       "type": "object",
-      "description": "Details of a logical network.",
+      "description": "Live migration policy configured at cluster scope and applied uniformly to every node.",
       "properties": {
-        "addressSpace": {
-          "type": "string",
-          "description": "IP address space of the logical network."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/NetworkProfileNetwork"
-        }
-      ],
-      "x-ms-discriminator-value": "Logical"
-    },
-    "NetworkProfileNetwork": {
-      "type": "object",
-      "description": "Details of a network.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The network ID."
+        "autoSelectMigrationNetwork": {
+          "type": "boolean",
+          "description": "Whether the network used for virtual machine live migration is selected automatically."
         },
-        "name": {
-          "type": "string",
-          "description": "The name of the network."
+        "autoSelectVmMigrationPerformance": {
+          "type": "boolean",
+          "description": "Whether the performance option used for virtual machine live migration is selected\nautomatically."
         },
-        "type": {
-          "$ref": "#/definitions/NetworkProfileNetworkType",
-          "description": "The type of the network."
-        },
-        "vlan": {
+        "maxVmMigration": {
           "type": "integer",
           "format": "int32",
-          "description": "The VLAN associated with the network."
+          "description": "Maximum number of simultaneous virtual machine live migrations allowed on the cluster."
         },
-        "intentId": {
+        "vmMigrationPerformance": {
           "type": "string",
-          "description": "The intent ID associated with the network."
+          "description": "Performance option used for virtual machine live migration, for example SMB or Compression."
+        },
+        "maxSmbMigrationBandwidth": {
+          "type": "string",
+          "description": "Maximum bandwidth available for SMB live migration traffic."
         }
-      },
-      "discriminator": "type",
-      "required": [
-        "id",
-        "type"
-      ]
-    },
-    "NetworkProfileNetworkType": {
-      "type": "string",
-      "description": "Types of networks.",
-      "enum": [
-        "Storage",
-        "Logical"
-      ],
-      "x-ms-enum": {
-        "name": "NetworkProfileNetworkType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Storage",
-            "value": "Storage",
-            "description": "Storage network type."
-          },
-          {
-            "name": "Logical",
-            "value": "Logical",
-            "description": "Logical network type."
-          }
-        ]
       }
     },
-    "NetworkProfileNode": {
+    "NetworkProfileManagementNetwork": {
       "type": "object",
-      "description": "Details of a node in the network profile.",
+      "description": "Management network adapter details reported by the cluster.",
       "properties": {
-        "id": {
+        "nicName": {
           "type": "string",
-          "description": "The node ID."
+          "description": "Name of the management network adapter."
         },
-        "physicalAdapterIds": {
-          "type": "array",
-          "description": "The physical adapter IDs associated with the node.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "virtualSwitchIds": {
-          "type": "array",
-          "description": "The virtual switch IDs associated with the node.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "arcStatus": {
+        "vlanId": {
           "type": "string",
-          "description": "The arc status of the node."
+          "description": "ID specified for the management VLAN."
         },
-        "arcMachineId": {
+        "macAddress": {
           "type": "string",
-          "format": "arm-id",
-          "description": "The Azure resource id of Arc machine of the corresponding node."
+          "description": "MAC address of the management network adapter."
         }
-      },
-      "required": [
-        "id"
-      ]
-    },
-    "NetworkProfilePhysicalAdapter": {
-      "type": "object",
-      "description": "Details of a physical adapter.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The physical adapter ID."
-        },
-        "name": {
-          "type": "string",
-          "description": "The name of the physical adapter."
-        },
-        "description": {
-          "type": "string",
-          "description": "The description of the physical adapter."
-        },
-        "vlan": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The VLAN associated with the physical adapter."
-        },
-        "ipv4Addresses": {
-          "type": "array",
-          "description": "The IPv4 addresses of the physical adapter.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "ipv6Addresses": {
-          "type": "array",
-          "description": "The IPv6 addresses of the physical adapter.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "driverVersion": {
-          "type": "string",
-          "description": "The driver version of the physical adapter."
-        },
-        "nodeId": {
-          "type": "string",
-          "description": "The node ID the physical adapter is associated with."
-        }
-      },
-      "required": [
-        "id"
-      ]
+      }
     },
     "NetworkProfileProperties": {
       "type": "object",
-      "description": "Network Profile properties.",
+      "description": "Network Profile properties. The resource is a service hydrated projection that merges the\ndesired networking configuration of the cluster with the state observed on the nodes.",
       "properties": {
-        "reportedProperties": {
-          "$ref": "#/definitions/NetworkProfileReportedProperties",
-          "description": "Network profile properties reported from the cluster.",
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Lifecycle state of the network profile projection.",
           "readOnly": true
         },
         "lastSyncTimestamp": {
           "type": "string",
           "format": "date-time",
-          "description": "Network profile resource Last sync timestamp.",
+          "description": "Last time the reconciled snapshot was refreshed across all sections.",
           "readOnly": true
         },
         "lastSyncStatus": {
-          "type": "string",
-          "description": "Network profile resource Last sync status.",
+          "$ref": "#/definitions/NetworkProfileSyncStatus",
+          "description": "Outcome of the last reconciliation pass.",
           "readOnly": true
+        },
+        "reportedProperties": {
+          "$ref": "#/definitions/NetworkProfileReportedProperties",
+          "description": "Reconciled cluster uniform networking snapshot. Contains only values that are identical on\nevery node because Network ATC enforces network symmetry.",
+          "readOnly": true
+        },
+        "desiredSnapshot": {
+          "$ref": "#/definitions/NetworkProfileDesiredSnapshot",
+          "description": "Snapshot of the desired networking configuration captured from the deployment settings of the\ncluster together with the cluster wide proxy settings.",
+          "readOnly": true
+        },
+        "drift": {
+          "type": "array",
+          "description": "Explicit desired versus observed deltas with scope and severity. Drift is surfaced for\nidentification only; remediation must be performed through the desired state authority.",
+          "items": {
+            "$ref": "#/definitions/NetworkProfileDriftEntry"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "propertyPath"
+          ]
         }
       }
     },
     "NetworkProfileReportedProperties": {
       "type": "object",
-      "description": "Network Profile properties reported by the cluster.",
+      "description": "Network Profile properties reported by the cluster. Every value in this section is cluster\nuniform. Per node varying data such as NIC MAC and IP addresses, storage adapter IP addresses,\nand node heartbeat lives on the edgeDevices resource and is intentionally omitted here.",
       "properties": {
-        "clusterIpv4Addresses": {
-          "type": "array",
-          "description": "The IPv4 addresses of the cluster.",
-          "items": {
-            "type": "string"
-          },
+        "cluster": {
+          "$ref": "#/definitions/NetworkProfileClusterIdentity",
+          "description": "Cluster identity, management IP and subnet, topology pattern, and live migration policy.",
           "readOnly": true
-        },
-        "clusterIpv6Addresses": {
-          "type": "array",
-          "description": "The IPv6 addresses of the cluster.",
-          "items": {
-            "type": "string"
-          },
-          "readOnly": true
-        },
-        "subnet": {
-          "type": "string",
-          "description": "The subnet associated with the cluster.",
-          "readOnly": true
-        },
-        "autoSelectMigrationNetwork": {
-          "type": "boolean",
-          "description": "Whether auto-selection for VM migration network is enabled.",
-          "readOnly": true
-        },
-        "enableNetworkNaming": {
-          "type": "boolean",
-          "description": "Whether network naming is enabled.",
-          "readOnly": true
-        },
-        "autoSelectVmMigrationPerformance": {
-          "type": "boolean",
-          "description": "Whether auto-selection for VM migration performance is enabled.",
-          "readOnly": true
-        },
-        "maxVmMigration": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The maximum number of VM migrations allowed.",
-          "readOnly": true
-        },
-        "vmMigrationPerformance": {
-          "type": "string",
-          "description": "The performance type for VM migration.",
-          "readOnly": true
-        },
-        "maxSmbMigrationBandwidth": {
-          "type": "string",
-          "description": "Maximum bandwidth for SMB migration.",
-          "readOnly": true
-        },
-        "nodes": {
-          "type": "array",
-          "description": "Details of nodes in the network profile.",
-          "items": {
-            "$ref": "#/definitions/NetworkProfileNode"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": [
-            "id"
-          ]
-        },
-        "physicalAdapters": {
-          "type": "array",
-          "description": "Details of physical adapters.",
-          "items": {
-            "$ref": "#/definitions/NetworkProfilePhysicalAdapter"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": [
-            "id"
-          ]
-        },
-        "virtualSwitches": {
-          "type": "array",
-          "description": "Details of virtual switches.",
-          "items": {
-            "$ref": "#/definitions/NetworkProfileVirtualSwitch"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": [
-            "id"
-          ]
-        },
-        "networks": {
-          "type": "array",
-          "description": "Details of networks.",
-          "items": {
-            "$ref": "#/definitions/NetworkProfileNetwork"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": [
-            "id"
-          ]
-        },
-        "virtualAdapters": {
-          "type": "array",
-          "description": "Details of virtual adapters.",
-          "items": {
-            "$ref": "#/definitions/NetworkProfileVirtualAdapter"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": [
-            "id"
-          ]
         },
         "intents": {
           "type": "array",
-          "description": "Details of network intents.",
+          "description": "Network ATC intents applied identically on every node.",
           "items": {
             "$ref": "#/definitions/NetworkProfileIntent"
           },
           "readOnly": true,
           "x-ms-identifiers": [
-            "id"
+            "name"
           ]
+        },
+        "managementNetworks": {
+          "type": "array",
+          "description": "Management network adapter name, VLAN, and MAC address per management adapter.",
+          "items": {
+            "$ref": "#/definitions/NetworkProfileManagementNetwork"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "nicName"
+          ]
+        },
+        "storageNetworks": {
+          "type": "array",
+          "description": "Storage VLAN and RDMA technology per storage adapter.",
+          "items": {
+            "$ref": "#/definitions/NetworkProfileStorageNetwork"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "networkAdapterName"
+          ]
+        },
+        "storageConnectivitySwitchless": {
+          "type": "boolean",
+          "description": "Whether the storage adapters between nodes are connected without a switch.",
+          "readOnly": true
+        },
+        "enableStorageAutoIp": {
+          "type": "boolean",
+          "description": "Whether automatic storage IP assignment is enabled across the cluster.",
+          "readOnly": true
+        },
+        "infrastructureNetwork": {
+          "$ref": "#/definitions/NetworkProfileInfrastructureNetwork",
+          "description": "Cluster wide infrastructure networking: subnet mask, gateway, DNS servers and zones, DHCP\nmode, and static IP pools.",
+          "readOnly": true
+        },
+        "arcGateway": {
+          "$ref": "#/definitions/NetworkProfileArcGateway",
+          "description": "Fleet wide Arc gateway connectivity policy.",
+          "readOnly": true
         }
       }
     },
     "NetworkProfileStorageNetwork": {
       "type": "object",
-      "description": "Details of a storage network.",
+      "description": "Storage network details reported by the cluster. Per adapter storage IP addresses differ per\nnode and live on the edgeDevices resource.",
       "properties": {
-        "networkDirect": {
+        "networkAdapterName": {
           "type": "string",
-          "description": "Whether the network supports direct access."
+          "description": "Name of the storage network adapter bound to the storage network, for example SMB1."
+        },
+        "vlanId": {
+          "type": "string",
+          "description": "ID specified for the VLAN storage network."
+        },
+        "rdmaTechnology": {
+          "type": "string",
+          "description": "RDMA technology used by the storage network. Expected values are 'iWARP', 'RoCEv2', 'RoCE'."
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/NetworkProfileNetwork"
-        }
+      }
+    },
+    "NetworkProfileSyncStatus": {
+      "type": "string",
+      "description": "Outcome of the last network profile reconciliation pass.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Partial"
       ],
-      "x-ms-discriminator-value": "Storage"
-    },
-    "NetworkProfileVirtualAdapter": {
-      "type": "object",
-      "description": "Details of a virtual adapter.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The virtual adapter ID."
-        },
-        "name": {
-          "type": "string",
-          "description": "The name of the virtual adapter."
-        },
-        "vlan": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The VLAN associated with the virtual adapter."
-        },
-        "ipv4Addresses": {
-          "type": "array",
-          "description": "The IPv4 addresses of the virtual adapter.",
-          "items": {
-            "type": "string"
+      "x-ms-enum": {
+        "name": "NetworkProfileSyncStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "The last reconciliation pass completed successfully."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "The last reconciliation pass failed."
+          },
+          {
+            "name": "Partial",
+            "value": "Partial",
+            "description": "The last reconciliation pass refreshed only part of the snapshot."
           }
-        },
-        "ipv6Addresses": {
-          "type": "array",
-          "description": "The IPv6 addresses of the virtual adapter.",
-          "items": {
-            "type": "string"
-          }
-        }
+        ]
       },
-      "required": [
-        "id"
-      ]
+      "readOnly": true
     },
-    "NetworkProfileVirtualSwitch": {
-      "type": "object",
-      "description": "Details of a virtual switch.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The virtual switch ID."
-        },
-        "name": {
-          "type": "string",
-          "description": "The name of the virtual switch."
-        },
-        "virtualAdapterIds": {
-          "type": "array",
-          "description": "The virtual adapter IDs associated with the virtual switch.",
-          "items": {
-            "type": "string"
+    "NetworkProfileTrafficType": {
+      "type": "string",
+      "description": "Network traffic type carried by a Network ATC intent.",
+      "enum": [
+        "Management",
+        "Compute",
+        "Storage"
+      ],
+      "x-ms-enum": {
+        "name": "NetworkProfileTrafficType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Management",
+            "value": "Management",
+            "description": "The intent carries management traffic."
+          },
+          {
+            "name": "Compute",
+            "value": "Compute",
+            "description": "The intent carries compute traffic."
+          },
+          {
+            "name": "Storage",
+            "value": "Storage",
+            "description": "The intent carries storage traffic."
           }
-        },
-        "physicalAdapterIds": {
-          "type": "array",
-          "description": "The physical adapter IDs associated with the virtual switch.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "physicalAdapterNames": {
-          "type": "array",
-          "description": "The physical adapter names associated with the virtual switch.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "virtualAdapterNames": {
-          "type": "array",
-          "description": "The virtual adapter names associated with the virtual switch.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "intentId": {
-          "type": "string",
-          "description": "The intent ID associated with the virtual switch."
-        }
-      },
-      "required": [
-        "id"
-      ]
+        ]
+      }
     },
     "NextBillingModel": {
       "type": "object",
@@ -27520,6 +28017,36 @@
         ]
       },
       "readOnly": true
+    },
+    "NodeStorageType": {
+      "type": "string",
+      "description": "Node storage type for an edge machine.",
+      "enum": [
+        "S2D",
+        "SANISCSI",
+        "SANFC"
+      ],
+      "x-ms-enum": {
+        "name": "NodeStorageType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "S2D",
+            "value": "S2D",
+            "description": "Storage Spaces Direct (S2D) storage type."
+          },
+          {
+            "name": "SanIscsi",
+            "value": "SANISCSI",
+            "description": "SAN iSCSI storage type."
+          },
+          {
+            "name": "SanFc",
+            "value": "SANFC",
+            "description": "SAN Fibre Channel storage type."
+          }
+        ]
+      }
     },
     "NvmeDiscoveryPortal": {
       "type": "object",
@@ -28751,28 +29278,16 @@
     },
     "PhysicalDriveLocation": {
       "type": "object",
-      "description": "Physical location of a drive. Enclosure and slot are populated only when the\nhardware exposes SCSI Enclosure Services (SES) data.",
+      "description": "Physical location of a drive, as reported by `SDDC_Drive` (`Server` → `nodeId`,\n`Location` → `physicalLocation`).",
       "properties": {
         "nodeId": {
           "type": "string",
-          "description": "Cluster node that hosts the drive.",
-          "readOnly": true
-        },
-        "enclosureNumber": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Enclosure number (null when no SES hardware).",
-          "readOnly": true
-        },
-        "slotNumber": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Slot number within the enclosure (null when no SES hardware).",
+          "description": "Cluster node that hosts the drive (`SDDC_Drive.Server`).",
           "readOnly": true
         },
         "physicalLocation": {
           "type": "string",
-          "description": "Free-form vendor-defined location string. Diagnostic aid only.",
+          "description": "Free-form vendor-defined location string (`SDDC_Drive.Location`). Diagnostic aid only.",
           "readOnly": true
         }
       }
@@ -28919,6 +29434,7 @@
       "type": "string",
       "description": "Health status of a storage pool (S2D).",
       "enum": [
+        "Unknown",
         "Healthy",
         "Warning",
         "Unhealthy"
@@ -28927,6 +29443,11 @@
         "name": "PoolHealthStatus",
         "modelAsString": true,
         "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Pool health is unknown or could not be determined."
+          },
           {
             "name": "Healthy",
             "value": "Healthy",
@@ -30363,7 +30884,7 @@
       "type": "string",
       "description": "Rebuild speed applied after a drive failure (S2D pool setting).",
       "enum": [
-        "Disabled",
+        "VeryLow",
         "Low",
         "Medium",
         "High",
@@ -30374,9 +30895,9 @@
         "modelAsString": true,
         "values": [
           {
-            "name": "Disabled",
-            "value": "Disabled",
-            "description": "Repair disabled."
+            "name": "VeryLow",
+            "value": "VeryLow",
+            "description": "Very low repair speed."
           },
           {
             "name": "Low",
@@ -33151,6 +33672,131 @@
         }
       }
     },
+    "StorageArrayJob": {
+      "type": "object",
+      "description": "Job for a Storage Array.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/StorageArrayJobProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "StorageArrayJobListResult": {
+      "type": "object",
+      "description": "The response of a StorageArrayJob list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The StorageArrayJob items on this page",
+          "items": {
+            "$ref": "#/definitions/StorageArrayJob"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "StorageArrayJobProperties": {
+      "type": "object",
+      "description": "Properties of the Storage Array Job.",
+      "properties": {
+        "jobType": {
+          "$ref": "#/definitions/StorageArrayJobType",
+          "description": "Type of operation.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "deploymentMode": {
+          "$ref": "#/definitions/DeploymentMode",
+          "description": "Deployment mode to trigger job."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "Provisioning state of the job.",
+          "readOnly": true
+        },
+        "jobId": {
+          "type": "string",
+          "description": "Unique, immutable job id.",
+          "readOnly": true
+        },
+        "startTimeUtc": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The UTC date and time at which the job started.",
+          "readOnly": true
+        },
+        "endTimeUtc": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The UTC date and time at which the job completed.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/JobStatus",
+          "description": "Status of the storage array job.",
+          "readOnly": true
+        },
+        "error": {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Error details if job failed.",
+          "readOnly": true
+        },
+        "reportedProperties": {
+          "$ref": "#/definitions/StorageArrayJobReportedProperties",
+          "description": "Reported properties for the storage array job.",
+          "readOnly": true
+        }
+      },
+      "discriminator": "jobType",
+      "required": [
+        "jobType"
+      ]
+    },
+    "StorageArrayJobReportedProperties": {
+      "type": "object",
+      "description": "Reported properties for the Storage Array Job.",
+      "properties": {
+        "percentComplete": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The percentage of the job that is complete.",
+          "readOnly": true
+        }
+      }
+    },
+    "StorageArrayJobType": {
+      "type": "string",
+      "description": "Type of storage array job operation.",
+      "enum": [
+        "SyncStorageArray"
+      ],
+      "x-ms-enum": {
+        "name": "StorageArrayJobType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "SyncStorageArray",
+            "value": "SyncStorageArray",
+            "description": "Job to force the storage controller to re-read the array and reconcile the ARM resources with the physical state."
+          }
+        ]
+      }
+    },
     "StorageArrayListResult": {
       "type": "object",
       "description": "The response of a StorageArray list operation.",
@@ -33839,7 +34485,7 @@
         },
         "vendorPoolId": {
           "type": "string",
-          "description": "Vendor-assigned pool identifier (SAN).",
+          "description": "Vendor-assigned pool identifier. For SAN this is the vendor pool ID; for S2D\nthis is the storage pool friendly name (`MSFT_StoragePool.FriendlyName`).",
           "readOnly": true
         },
         "driveType": {
@@ -34407,6 +35053,16 @@
         }
       ],
       "x-ms-discriminator-value": "Sync"
+    },
+    "SyncStorageArrayJobProperties": {
+      "type": "object",
+      "description": "Properties for forcing a storage array inventory sync / reconcile.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/StorageArrayJobProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "SyncStorageArray"
     },
     "TargetDeviceConfiguration": {
       "type": "object",

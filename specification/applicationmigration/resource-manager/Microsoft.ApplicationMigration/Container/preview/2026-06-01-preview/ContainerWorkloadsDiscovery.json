@@ -2338,6 +2338,10 @@
           "type": "boolean",
           "description": "Whether deep discovery has completed."
         },
+        "isKubeconfigDiscoveryCompleted": {
+          "type": "boolean",
+          "description": "Whether kubeconfig-based discovery has completed."
+        },
         "orchestrator": {
           "$ref": "#/definitions/OrchestratorProperties",
           "description": "Orchestrator details."
@@ -2497,6 +2501,10 @@
         "isDeepDiscoveryCompleted": {
           "type": "boolean",
           "description": "Whether deep discovery has completed."
+        },
+        "isKubeconfigDiscoveryCompleted": {
+          "type": "boolean",
+          "description": "Whether kubeconfig-based discovery has completed."
         },
         "orchestrator": {
           "$ref": "#/definitions/OrchestratorProperties",
@@ -2962,6 +2970,26 @@
       "type": "object",
       "description": "Patch properties for ContainerNode.",
       "properties": {
+        "isStandaloneHost": {
+          "type": "boolean",
+          "description": "Whether this is a standalone container host (no orchestrator)."
+        },
+        "clusterArmId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the parent cluster. Empty for standalone hosts.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.ApplicationMigration/containerSites/containerClusters"
+              }
+            ]
+          }
+        },
+        "parentClusterName": {
+          "type": "string",
+          "description": "Parent cluster name."
+        },
         "nodeDisplayName": {
           "type": "string",
           "description": "Node display name."
@@ -3006,6 +3034,10 @@
         "isDeepDiscoveryCompleted": {
           "type": "boolean",
           "description": "Whether deep discovery has completed."
+        },
+        "isKubeconfigDiscoveryCompleted": {
+          "type": "boolean",
+          "description": "Whether kubeconfig-based discovery has completed."
         },
         "tags": {
           "type": "object",
@@ -3182,6 +3214,13 @@
           "$ref": "#/definitions/NodeAvailability",
           "description": "Node availability status."
         },
+        "containerWorkloadIds": {
+          "type": "array",
+          "description": "Resource names of the container workloads scheduled on this node.",
+          "items": {
+            "type": "string"
+          }
+        },
         "softwareAttributes": {
           "$ref": "#/definitions/SoftwareAttributes",
           "description": "Software attributes."
@@ -3214,6 +3253,10 @@
         "isDeepDiscoveryCompleted": {
           "type": "boolean",
           "description": "Whether deep discovery has completed."
+        },
+        "isKubeconfigDiscoveryCompleted": {
+          "type": "boolean",
+          "description": "Whether kubeconfig-based discovery has completed."
         },
         "tags": {
           "type": "object",
@@ -3816,6 +3859,10 @@
           "type": "boolean",
           "description": "Whether deep discovery has completed."
         },
+        "isKubeconfigDiscoveryCompleted": {
+          "type": "boolean",
+          "description": "Whether kubeconfig-based discovery has completed."
+        },
         "tags": {
           "type": "object",
           "description": "Resource tags as key-value pairs.",
@@ -4055,6 +4102,24 @@
             ]
           }
         },
+        "machineArmId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Azure resource ID of the underlying VM.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.OffAzure/serverSites/machines"
+              },
+              {
+                "type": "Microsoft.OffAzure/vmwareSites/machines"
+              },
+              {
+                "type": "Microsoft.OffAzure/hyperVSites/machines"
+              }
+            ]
+          }
+        },
         "softwareAttributes": {
           "$ref": "#/definitions/SoftwareAttributes",
           "description": "Software attributes."
@@ -4094,6 +4159,10 @@
         "isDeepDiscoveryCompleted": {
           "type": "boolean",
           "description": "Whether deep discovery has completed."
+        },
+        "isKubeconfigDiscoveryCompleted": {
+          "type": "boolean",
+          "description": "Whether kubeconfig-based discovery has completed."
         },
         "namespace": {
           "type": "string",
@@ -5265,10 +5334,9 @@
         },
         "ports": {
           "type": "array",
-          "description": "Port numbers included in the policy rule.",
+          "description": "Ports included in the policy rule (Kubernetes IntOrString: numeric or named ports).",
           "items": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string"
           }
         }
       }
@@ -5890,7 +5958,7 @@
     },
     "ReadinessSignals": {
       "type": "object",
-      "description": "Migration readiness signals (24 booleans).",
+      "description": "Migration readiness signals (26 booleans).",
       "properties": {
         "usesHostNetwork": {
           "type": "boolean",
@@ -5940,6 +6008,10 @@
           "type": "boolean",
           "description": "Has Windows containers."
         },
+        "hasHostPathVolumes": {
+          "type": "boolean",
+          "description": "Has hostPath volumes."
+        },
         "usesSecrets": {
           "type": "boolean",
           "description": "Uses secrets."
@@ -5951,6 +6023,10 @@
         "hasPrivateRegistry": {
           "type": "boolean",
           "description": "Has private registry."
+        },
+        "hasGpuRequirement": {
+          "type": "boolean",
+          "description": "Requires GPU resources."
         },
         "hasHpa": {
           "type": "boolean",
@@ -5968,6 +6044,10 @@
           "type": "boolean",
           "description": "Has ingress rules."
         },
+        "hasTlsSecrets": {
+          "type": "boolean",
+          "description": "Uses TLS secrets."
+        },
         "hasLivenessProbes": {
           "type": "boolean",
           "description": "Has liveness probes."
@@ -5979,6 +6059,10 @@
         "exposesMultiplePorts": {
           "type": "boolean",
           "description": "Exposes multiple ports."
+        },
+        "hasNetworkPolicy": {
+          "type": "boolean",
+          "description": "Governed by a network policy."
         }
       }
     },
@@ -6088,9 +6172,8 @@
           "description": "Port number."
         },
         "targetPort": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Target port."
+          "type": "string",
+          "description": "Target port (Kubernetes IntOrString: a numeric port or a named port such as \"https\")."
         },
         "nodePort": {
           "type": "integer",
@@ -6488,6 +6571,20 @@
         "hasGpuRequests": {
           "type": "boolean",
           "description": "Has GPU requests."
+        },
+        "hasPersistentVolumes": {
+          "type": "boolean",
+          "description": "Whether the workload uses persistent volumes."
+        },
+        "persistentVolumeCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of persistent volumes used by the workload."
+        },
+        "totalPvSizeGb": {
+          "type": "number",
+          "format": "double",
+          "description": "The total persistent volume size in GB."
         },
         "distinctImages": {
           "type": "array",

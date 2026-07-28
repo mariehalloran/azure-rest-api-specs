@@ -36,5 +36,6 @@ interface SampleOperations {
   update is ArmResourcePatchSync<Sample, SampleProperties>;
   delete is ArmResourceDeleteSync<Sample>;
   listByParent is ArmResourceListByParent<Sample>;
+  @doc("A long-running resource action.")
   identify is ArmResourceActionAsync<Sample, IdentifyRequest, Analysis>;
 }
