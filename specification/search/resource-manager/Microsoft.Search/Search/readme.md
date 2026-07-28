@@ -126,6 +126,10 @@ These settings apply only when `--tag=package-2015-08` is specified on the comma
 ```yaml $(tag) == 'package-2015-08'
 input-file:
   - stable/2015-08-19/search.json
+suppressions:
+  - code: XMS_EXAMPLE_NOTFOUND_ERROR
+    from: stable/2015-08-19/search.json
+    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
 ```
 
 ### Tag: package-2015-02
@@ -135,6 +139,10 @@ These settings apply only when `--tag=package-2015-02` is specified on the comma
 ```yaml $(tag) == 'package-2015-02'
 input-file:
   - stable/2015-02-28/search.json
+suppressions:
+  - code: XMS_EXAMPLE_NOTFOUND_ERROR
+    from: stable/2015-02-28/search.json
+    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
 ```
 
 ### Tag: package-2021-04-preview
