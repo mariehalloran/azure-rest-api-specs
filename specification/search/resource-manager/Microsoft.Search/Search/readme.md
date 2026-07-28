@@ -129,7 +129,6 @@ input-file:
 suppressions:
   - code: XMS_EXAMPLE_NOTFOUND_ERROR
     from: stable/2015-08-19/search.json
-    where: $.paths["/providers/Microsoft.Search/operations"].get
     reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
 ```
 
@@ -143,23 +142,6 @@ input-file:
 suppressions:
   - code: XMS_EXAMPLE_NOTFOUND_ERROR
     from: stable/2015-02-28/search.json
-    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices/{serviceName}/listAdminKeys"].post
-    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
-  - code: XMS_EXAMPLE_NOTFOUND_ERROR
-    from: stable/2015-02-28/search.json
-    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices/{serviceName}/listQueryKeys"].get
-    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
-  - code: XMS_EXAMPLE_NOTFOUND_ERROR
-    from: stable/2015-02-28/search.json
-    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices/{serviceName}"].put
-    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
-  - code: XMS_EXAMPLE_NOTFOUND_ERROR
-    from: stable/2015-02-28/search.json
-    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices/{serviceName}"].delete
-    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
-  - code: XMS_EXAMPLE_NOTFOUND_ERROR
-    from: stable/2015-02-28/search.json
-    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices"].get
     reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
 ```
 
