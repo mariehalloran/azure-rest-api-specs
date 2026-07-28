@@ -1,0 +1,7 @@
+- tool: TypeSpecValidation
+  reason: The typespec-go emitter options do not yet satisfy SdkTspConfigValidation. Go SDK generation for Azure Migrate is deferred to a future change, so these Go tspconfig options are suppressed in the interim.
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - options.@azure-tools/typespec-go.*
+  paths:
+    - ./tspconfig.yaml
