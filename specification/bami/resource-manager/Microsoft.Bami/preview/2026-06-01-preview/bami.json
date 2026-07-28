@@ -817,51 +817,6 @@
         "accountType"
       ]
     },
-    "AccountContextUpdate": {
-      "type": "object",
-      "description": "Configuration for an account creation request. Specifies the account type and the corresponding type-specific sub-context.",
-      "properties": {
-        "accountType": {
-          "$ref": "#/definitions/AccountType",
-          "description": "The account type to create."
-        },
-        "smbContext": {
-          "$ref": "#/definitions/SMBContextUpdate",
-          "description": "The SMB account context. Required when accountType is 'SMB' or 'SMBSafelist'."
-        },
-        "fieldLedContext": {
-          "$ref": "#/definitions/FieldLedContextUpdate",
-          "description": "The field-led account context. Required when accountType is 'FieldLed'."
-        },
-        "fedGovDirectContext": {
-          "$ref": "#/definitions/FieldLedContextUpdate",
-          "description": "The FedGov direct account context. Required when accountType is 'FedGovDirect'. Uses the same schema as FieldLedContext."
-        },
-        "fedGovIndirectContext": {
-          "$ref": "#/definitions/FedGovIndirectContextUpdate",
-          "description": "The FedGov indirect account context. Required when accountType is 'FedGovIndirect'."
-        },
-        "indirectContext": {
-          "$ref": "#/definitions/IndirectContextUpdate",
-          "description": "The indirect account context. Required when accountType is 'IndirectPartnerAccount', 'IndirectCustomerAccount', or 'IndirectAccount'."
-        },
-        "ncoeContext": {
-          "$ref": "#/definitions/FieldLedContextUpdate",
-          "description": "The NCOE customer account context. Required when accountType is 'NCOECustomerAccount'. Uses the same schema as FieldLedContext."
-        },
-        "applicationIds": {
-          "type": "array",
-          "description": "First-party application IDs that should be granted access to the newly created tenant.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "governancePolicyTemplateId": {
-          "type": "string",
-          "description": "The governance policy template ID for configuring application access in the new tenant."
-        }
-      }
-    },
     "AccountType": {
       "type": "string",
       "description": "The account type to create.",
@@ -1012,29 +967,6 @@
         "billingServiceTreeId",
         "billingServiceName"
       ]
-    },
-    "AppConsentContextUpdate": {
-      "type": "object",
-      "description": "Configuration for an application consent request. Grants first-party application consent for a billing scope. AppConsent is a non-billable production automation request.",
-      "properties": {
-        "isHobo": {
-          "type": "boolean",
-          "description": "Whether this is a HOBO (hosted-on-behalf-of) consent. Defaults to false.",
-          "default": false
-        },
-        "billingServiceTreeId": {
-          "type": "string",
-          "description": "The Service Tree ID (GUID) of the billing service that owns the consent."
-        },
-        "billingServiceName": {
-          "type": "string",
-          "description": "The display name of the billing service that owns the consent."
-        },
-        "appsToConsent": {
-          "$ref": "#/definitions/EnvironmentApplicationConsents",
-          "description": "The applications to consent, keyed by Azure environment name, then by tenant ID, to the list of first-party application IDs to grant consent for."
-        }
-      }
     },
     "AppConsentFulfillmentDetail": {
       "type": "object",
@@ -1204,18 +1136,16 @@
     },
     "ApplicationEntitlementResourceUpdate": {
       "type": "object",
-      "description": "An application entitlement resource representing the application's automation onboarding status and usage limits.",
+      "description": "The type used for update operations of the ApplicationEntitlementResource.",
       "properties": {
-        "properties": {
-          "$ref": "#/definitions/ApplicationEntitlementProperties",
-          "description": "The resource-specific properties for this resource."
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
-        }
-      ]
+      }
     },
     "ApplicationEntitlementStatus": {
       "type": "string",
@@ -1334,34 +1264,6 @@
         "context"
       ]
     },
-    "AutomationRequestPropertiesUpdate": {
-      "type": "object",
-      "description": "Properties of an automation request.",
-      "properties": {
-        "requestType": {
-          "$ref": "#/definitions/RequestType",
-          "description": "The type of request to create."
-        },
-        "accountType": {
-          "$ref": "#/definitions/AccountType",
-          "description": "The account type to create. Required for Account requests."
-        },
-        "estimatedMonthlySpend": {
-          "type": "number",
-          "format": "double",
-          "description": "The estimated monthly spend in USD for this test account. Required and must be greater than zero for billable request types (Account, Subscription, Tenant). Optional for non-billable production request types (AppConsent, PCCodeUpdate).",
-          "minimum": 0
-        },
-        "businessJustification": {
-          "type": "string",
-          "description": "Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time). Free-form text MUST NOT contain customer data, PII, or secrets."
-        },
-        "context": {
-          "$ref": "#/definitions/RequestContextUpdate",
-          "description": "The test account context containing all configuration for the request."
-        }
-      }
-    },
     "AutomationRequestResource": {
       "type": "object",
       "description": "An automation request resource for test account provisioning.",
@@ -1400,23 +1302,7 @@
     },
     "AutomationRequestResourceUpdate": {
       "type": "object",
-      "description": "An automation request resource for test account provisioning.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/AutomationRequestPropertiesUpdate",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
-        }
-      ]
-    },
-    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
-      "type": "object",
-      "title": "Tracked Resource",
-      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
+      "description": "The type used for update operations of the AutomationRequestResource.",
       "properties": {
         "tags": {
           "type": "object",
@@ -1424,13 +1310,40 @@
           "additionalProperties": {
             "type": "string"
           }
+        },
+        "properties": {
+          "$ref": "#/definitions/AutomationRequestResourceUpdateProperties",
+          "description": "The resource-specific properties for this resource."
         }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/Resource"
+      }
+    },
+    "AutomationRequestResourceUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of the AutomationRequestResource.",
+      "properties": {
+        "requestType": {
+          "$ref": "#/definitions/RequestType",
+          "description": "The type of request to create."
+        },
+        "accountType": {
+          "$ref": "#/definitions/AccountType",
+          "description": "The account type to create. Required for Account requests."
+        },
+        "estimatedMonthlySpend": {
+          "type": "number",
+          "format": "double",
+          "description": "The estimated monthly spend in USD for this test account. Required and must be greater than zero for billable request types (Account, Subscription, Tenant). Optional for non-billable production request types (AppConsent, PCCodeUpdate).",
+          "minimum": 0
+        },
+        "businessJustification": {
+          "type": "string",
+          "description": "Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time). Free-form text MUST NOT contain customer data, PII, or secrets."
+        },
+        "context": {
+          "$ref": "#/definitions/RequestContext",
+          "description": "The test account context containing all configuration for the request."
         }
-      ]
+      }
     },
     "CancelRequestBody": {
       "type": "object",
@@ -1496,52 +1409,6 @@
         },
         "customerSignupEntity": {
           "$ref": "#/definitions/SignupEntity",
-          "description": "The customer signup entity for the FedGov indirect account."
-        }
-      }
-    },
-    "FedGovIndirectContextUpdate": {
-      "type": "object",
-      "description": "Configuration for FedGov indirect account types. Composes FieldLedContext with a customer signup entity.",
-      "properties": {
-        "audienceType": {
-          "$ref": "#/definitions/FieldLedAudienceType",
-          "description": "The audience type."
-        },
-        "configurationType": {
-          "$ref": "#/definitions/FieldLedConfigurationType",
-          "description": "The configuration type."
-        },
-        "environmentType": {
-          "$ref": "#/definitions/FieldLedEnvironmentType",
-          "description": "The environment type."
-        },
-        "mcapiAuthorization": {
-          "$ref": "#/definitions/McapiAuthorization",
-          "description": "The MCAPI authorization level."
-        },
-        "objectId": {
-          "type": "string",
-          "description": "The object ID (GUID) for BYOT (Bring Your Own Tenant) scenarios. Mutually exclusive with signupEntity."
-        },
-        "tier": {
-          "type": "string",
-          "description": "The organization tier."
-        },
-        "tenantId": {
-          "type": "string",
-          "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
-        },
-        "countryCode": {
-          "type": "string",
-          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
-        },
-        "signupEntity": {
-          "$ref": "#/definitions/SignupEntityUpdate",
-          "description": "The signup entity for new tenant creation. Mutually exclusive with tenantId + objectId."
-        },
-        "customerSignupEntity": {
-          "$ref": "#/definitions/SignupEntityUpdate",
           "description": "The customer signup entity for the FedGov indirect account."
         }
       }
@@ -1637,48 +1504,6 @@
         },
         "signupEntity": {
           "$ref": "#/definitions/SignupEntity",
-          "description": "The signup entity for new tenant creation. Mutually exclusive with tenantId + objectId."
-        }
-      }
-    },
-    "FieldLedContextUpdate": {
-      "type": "object",
-      "description": "Configuration for a field-led account type. Used as the base schema for FedGovDirect, NCOE, and other field-led-derived account types.",
-      "properties": {
-        "audienceType": {
-          "$ref": "#/definitions/FieldLedAudienceType",
-          "description": "The audience type."
-        },
-        "configurationType": {
-          "$ref": "#/definitions/FieldLedConfigurationType",
-          "description": "The configuration type."
-        },
-        "environmentType": {
-          "$ref": "#/definitions/FieldLedEnvironmentType",
-          "description": "The environment type."
-        },
-        "mcapiAuthorization": {
-          "$ref": "#/definitions/McapiAuthorization",
-          "description": "The MCAPI authorization level."
-        },
-        "objectId": {
-          "type": "string",
-          "description": "The object ID (GUID) for BYOT (Bring Your Own Tenant) scenarios. Mutually exclusive with signupEntity."
-        },
-        "tier": {
-          "type": "string",
-          "description": "The organization tier."
-        },
-        "tenantId": {
-          "type": "string",
-          "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
-        },
-        "countryCode": {
-          "type": "string",
-          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
-        },
-        "signupEntity": {
-          "$ref": "#/definitions/SignupEntityUpdate",
           "description": "The signup entity for new tenant creation. Mutually exclusive with tenantId + objectId."
         }
       }
@@ -1823,52 +1648,6 @@
         }
       }
     },
-    "IndirectContextUpdate": {
-      "type": "object",
-      "description": "Configuration for indirect (CSP) account types. Composes FieldLedContext with a partner signup entity.",
-      "properties": {
-        "audienceType": {
-          "$ref": "#/definitions/FieldLedAudienceType",
-          "description": "The audience type."
-        },
-        "configurationType": {
-          "$ref": "#/definitions/FieldLedConfigurationType",
-          "description": "The configuration type."
-        },
-        "environmentType": {
-          "$ref": "#/definitions/FieldLedEnvironmentType",
-          "description": "The environment type."
-        },
-        "mcapiAuthorization": {
-          "$ref": "#/definitions/McapiAuthorization",
-          "description": "The MCAPI authorization level."
-        },
-        "objectId": {
-          "type": "string",
-          "description": "The object ID (GUID) for BYOT (Bring Your Own Tenant) scenarios. Mutually exclusive with signupEntity."
-        },
-        "tier": {
-          "type": "string",
-          "description": "The organization tier."
-        },
-        "tenantId": {
-          "type": "string",
-          "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
-        },
-        "countryCode": {
-          "type": "string",
-          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
-        },
-        "signupEntity": {
-          "$ref": "#/definitions/SignupEntityUpdate",
-          "description": "The signup entity for new tenant creation. Mutually exclusive with tenantId + objectId."
-        },
-        "partnerSignupEntity": {
-          "$ref": "#/definitions/SignupEntityUpdate",
-          "description": "The partner signup entity for the indirect account."
-        }
-      }
-    },
     "McapiAuthorization": {
       "type": "string",
       "description": "The MCAPI authorization level.",
@@ -1913,24 +1692,6 @@
       "required": [
         "displayName"
       ]
-    },
-    "OrganizationInfoUpdate": {
-      "type": "object",
-      "description": "Organization information for tenant and account creation.",
-      "properties": {
-        "displayName": {
-          "type": "string",
-          "description": "The display name of the organization."
-        },
-        "domainName": {
-          "type": "string",
-          "description": "The domain name (subdomain portion). The full domain suffix is appended by the service."
-        },
-        "size": {
-          "type": "string",
-          "description": "The organization size."
-        }
-      }
     },
     "PCCodeUpdateContext": {
       "type": "object",
@@ -2095,28 +1856,6 @@
         },
         "appConsentContext": {
           "$ref": "#/definitions/AppConsentContext",
-          "description": "The application consent context. Required when requestType is 'AppConsent'."
-        },
-        "pcCodeUpdateContext": {
-          "$ref": "#/definitions/PCCodeUpdateContext",
-          "description": "The PC code update context. Required when requestType is 'PCCodeUpdate'."
-        }
-      }
-    },
-    "RequestContextUpdate": {
-      "type": "object",
-      "description": "The test account context associated with the automation request. Contains configuration for account or tenant provisioning.",
-      "properties": {
-        "accountContext": {
-          "$ref": "#/definitions/AccountContextUpdate",
-          "description": "The account context. Required when requestType is 'Account'."
-        },
-        "tenantContext": {
-          "$ref": "#/definitions/TenantContextUpdate",
-          "description": "The tenant context. Required when requestType is 'Tenant'."
-        },
-        "appConsentContext": {
-          "$ref": "#/definitions/AppConsentContextUpdate",
           "description": "The application consent context. Required when requestType is 'AppConsent'."
         },
         "pcCodeUpdateContext": {
@@ -2378,52 +2117,6 @@
         }
       }
     },
-    "SMBContextUpdate": {
-      "type": "object",
-      "description": "Configuration specific to SMB account types. Composes FieldLedContext with SMB-specific properties.",
-      "properties": {
-        "audienceType": {
-          "$ref": "#/definitions/FieldLedAudienceType",
-          "description": "The audience type."
-        },
-        "configurationType": {
-          "$ref": "#/definitions/FieldLedConfigurationType",
-          "description": "The configuration type."
-        },
-        "environmentType": {
-          "$ref": "#/definitions/FieldLedEnvironmentType",
-          "description": "The environment type."
-        },
-        "mcapiAuthorization": {
-          "$ref": "#/definitions/McapiAuthorization",
-          "description": "The MCAPI authorization level."
-        },
-        "objectId": {
-          "type": "string",
-          "description": "The object ID (GUID) for BYOT (Bring Your Own Tenant) scenarios. Mutually exclusive with signupEntity."
-        },
-        "tier": {
-          "type": "string",
-          "description": "The organization tier."
-        },
-        "tenantId": {
-          "type": "string",
-          "description": "The tenant ID (GUID) for BYOT scenarios. Mutually exclusive with signupEntity."
-        },
-        "countryCode": {
-          "type": "string",
-          "description": "The ISO country code for BYOT scenarios. Used by the service to determine country-specific account configuration."
-        },
-        "signupEntity": {
-          "$ref": "#/definitions/SignupEntityUpdate",
-          "description": "The signup entity for new tenant creation. Mutually exclusive with tenantId + objectId."
-        },
-        "userEmail": {
-          "type": "string",
-          "description": "The user email to be used for allow listing and test account configuration."
-        }
-      }
-    },
     "SignupEntity": {
       "type": "object",
       "description": "The signup entity containing organization and user information for tenant creation.",
@@ -2463,27 +2156,6 @@
         "errorDetails": {
           "$ref": "#/definitions/SignupErrorDetails",
           "description": "Error details if tenant creation failed."
-        }
-      }
-    },
-    "SignupEntityUpdate": {
-      "type": "object",
-      "description": "The signup entity containing organization and user information for tenant creation.",
-      "properties": {
-        "organizationInfo": {
-          "$ref": "#/definitions/OrganizationInfoUpdate",
-          "description": "The organization information."
-        },
-        "userInfo": {
-          "$ref": "#/definitions/UserInfo",
-          "description": "The user information. Auto-populated from the application entitlement onboarding record if not provided."
-        },
-        "tags": {
-          "type": "array",
-          "description": "Tags for the signup entity.",
-          "items": {
-            "type": "string"
-          }
         }
       }
     },
@@ -2573,46 +2245,6 @@
       "required": [
         "organizationInfo"
       ]
-    },
-    "TenantContextUpdate": {
-      "type": "object",
-      "description": "Configuration for a tenant creation request.",
-      "properties": {
-        "organizationInfo": {
-          "$ref": "#/definitions/OrganizationInfoUpdate",
-          "description": "Organization information including display name and domain name."
-        },
-        "userInfo": {
-          "$ref": "#/definitions/UserInfo",
-          "description": "User information for tenant creation. Auto-populated from the application entitlement onboarding record if not provided."
-        },
-        "tenantProvisionLocation": {
-          "type": "string",
-          "description": "The tenant provision location."
-        },
-        "additionalTags": {
-          "type": "array",
-          "description": "Additional tags for the tenant.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "tenantClassification": {
-          "type": "string",
-          "description": "The tenant classification."
-        },
-        "applicationIds": {
-          "type": "array",
-          "description": "First-party application IDs that should be granted access to the newly created tenant.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "governancePolicyTemplateId": {
-          "type": "string",
-          "description": "The governance policy template ID for configuring application access in the new tenant."
-        }
-      }
     },
     "TenantDetails": {
       "type": "object",

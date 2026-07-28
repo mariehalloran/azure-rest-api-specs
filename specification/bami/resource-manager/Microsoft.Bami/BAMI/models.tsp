@@ -834,9 +834,12 @@ interface AutomationRequests {
   createOrUpdate is ArmResourceCreateOrUpdateAsync<AutomationRequestResource>;
 
   @doc("Update an automation request.")
-  update is ArmResourcePatchSync<
+  update is ArmCustomPatchSync<
     AutomationRequestResource,
-    AutomationRequestProperties
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      AutomationRequestResource,
+      AutomationRequestProperties
+    >
   >;
 
   @doc("Delete an automation request.")
@@ -862,9 +865,12 @@ interface ApplicationEntitlements {
   createOrUpdate is ArmResourceCreateOrUpdateAsync<ApplicationEntitlementResource>;
 
   @doc("Update application entitlement.")
-  update is ArmResourcePatchSync<
+  update is ArmCustomPatchSync<
     ApplicationEntitlementResource,
-    ApplicationEntitlementProperties
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      ApplicationEntitlementResource,
+      ApplicationEntitlementProperties
+    >
   >;
 
   @doc("Delete application entitlement.")
