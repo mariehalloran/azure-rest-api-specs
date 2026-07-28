@@ -27,7 +27,7 @@ These are the global settings for the MEDS.
 ``` yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2026-02-02-preview
+tag: package-2026-07-21-preview
 ```
 ### Tag: package-2025-08-06
 
@@ -153,6 +153,23 @@ These settings apply only when `--tag=package-2025-12-15` is specified on the co
 ```yaml $(tag) == 'package-2025-12-15'
 input-file:
   - stable/2025-12-15/oep.json
+```
+
+### Tag: package-2026-07-21-preview
+
+These settings apply only when `--tag=package-2026-07-21-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-07-21-preview'
+input-file:
+  - preview/2026-07-21-preview/oep.json
+suppressions:
+  - code: LroLocationHeader
+    from: oep.json
+    reason: "The PATCH on EnergyService uses an existing async pattern that returns Azure-AsyncOperation and Retry-After headers but no Location header. This wire contract predates the rule and is already suppressed at the TypeSpec level for the same operation. Note: scoping via `where:` was attempted but is not honored by LintDiff's `suppressions:` block — file-wide is required for this rule code."
+  - code: ProvisioningStateSpecifiedForLROPut
+    from: oep.json
+    where: '$.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OpenEnergyPlatform/energyServices/{resourceName}/privateEndpointConnectionProxies/{privateEndpointConnectionProxyId}"].put'
+    reason: "PrivateEndpointConnectionProxies is an internal RPaaS-only DO NOT USE API consumed by the Network Resource Provider. Its 201 response intentionally omits provisioningState from the resource properties. Already suppressed at the TypeSpec level on the same model."
 ```
 
 ### Tag: package-2026-02-02-preview

@@ -1,10 +1,12 @@
 import "@typespec/rest";
 import "@typespec/http";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Foundations;
 
@@ -151,6 +153,24 @@ union GeoRedundancy {
 }
 
 /**
+ * Specifies whether backup and restore is enabled or disabled for the energy service.
+ */
+@added(Versions.v2026_07_21_preview)
+union BackupAndRestore {
+  string,
+
+  /**
+   * Backup and restore is enabled for the energy service.
+   */
+  Enabled: "Enabled",
+
+  /**
+   * Backup and restore is disabled for the energy service.
+   */
+  Disabled: "Disabled",
+}
+
+/**
  * Ingestion method for reference data
  */
 union Ingestion {
@@ -215,37 +235,56 @@ union AddOnPackageName {
   /**
    * External Data Services add-on package.
    */
+  @removed(Versions.v2026_07_21_preview)
   ExternalDataServices: "ExternalDataServices",
 
   /**
    * Petrel V2 add-on package.
    */
+  @removed(Versions.v2026_07_21_preview)
   PetrelV2: "PetrelV2",
 
   /**
    * Reservoir add-on package.
    */
+  @removed(Versions.v2026_07_21_preview)
   Reservoir: "Reservoir",
 
   /**
    * Rock and Fluid add-on package.
    */
+  @removed(Versions.v2026_07_21_preview)
   RockAndFluid: "RockAndFluid",
 
   /**
    * Seismic add-on package.
    */
+  @removed(Versions.v2026_07_21_preview)
   Seismic: "Seismic",
 
   /**
    * Wellbore add-on package.
    */
+  @removed(Versions.v2026_07_21_preview)
   Wellbore: "Wellbore",
 
   /**
    * Well Delivery add-on package.
    */
+  @removed(Versions.v2026_07_21_preview)
   WellDelivery: "WellDelivery",
+
+  /**
+   * Enterprise add-on package.
+   */
+  @added(Versions.v2026_07_21_preview)
+  Enterprise: "Enterprise",
+
+  /**
+   * Analytics add-on package.
+   */
+  @added(Versions.v2026_07_21_preview)
+  Analytics: "Analytics",
 }
 
 /**
@@ -388,6 +427,12 @@ model EnergyServiceProperties {
   eds?: Eds;
 
   /**
+   * Properties to configure ACZ.
+   */
+  @added(Versions.v2026_07_21_preview)
+  acz?: Acz;
+
+  /**
    * Whether or not public network access is allowed for the OAK resource.
    */
   publicNetworkAccess?: PublicNetworkAccess = PublicNetworkAccess.Enabled;
@@ -411,12 +456,19 @@ model EnergyServiceProperties {
   /**
    * Maximum autoscale capacity limit for the energy service. Must be a power of 2 between 1 and 256 (applicable for Flex SKU).
    */
+  @removed(Versions.v2026_07_21_preview)
   autoScaleMaxCapacity?: int32;
 
   /**
    * Specifies whether geo-redundancy is enabled or disabled for the energy service.
    */
   geoRedundancy?: GeoRedundancy = GeoRedundancy.Enabled;
+
+  /**
+   * Specifies whether backup and restore is enabled or disabled for the energy service.
+   */
+  @added(Versions.v2026_07_21_preview)
+  backupAndRestore?: BackupAndRestore = BackupAndRestore.Enabled;
 
   /**
    * Defines the properties related to reference data ingestion.
@@ -437,8 +489,16 @@ model EnergyServiceProperties {
   /**
    * List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.
    */
+  @removed(Versions.v2026_07_21_preview)
+  @renamedFrom(Versions.v2026_07_21_preview, "addOnPackages")
   @identifiers(#["name"])
-  addOnPackages?: AddOnPackage[];
+  addOnPackagesV1?: AddOnPackage[];
+
+  /**
+   * List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.
+   */
+  @added(Versions.v2026_07_21_preview)
+  addOnPackages?: AddOnPackageName[];
 }
 
 /**
@@ -525,6 +585,33 @@ model EdsKeyVaultPropertiesIdentity {
 
   /**
    * The user assigned identity (ARM resource id) that has access to the key. This property is required if identityType is 'UserAssigned'.
+   */
+  userAssignedIdentityId?: string;
+}
+
+/**
+ * Properties to configure ACZ.
+ */
+@added(Versions.v2026_07_21_preview)
+model Acz {
+  /**
+   * The identity used to access ACZ.
+   */
+  identity?: AczIdentity;
+}
+
+/**
+ * The identity used to access ACZ.
+ */
+@added(Versions.v2026_07_21_preview)
+model AczIdentity {
+  /**
+   * The type of identity used for accessing ACZ. Possible values include: 'SystemAssigned', 'UserAssigned'
+   */
+  identityType?: IdentityType;
+
+  /**
+   * The user assigned identity (ARM resource id) that has access to ACZ. This property is required if identityType is 'UserAssigned'.
    */
   userAssignedIdentityId?: string;
 }
@@ -624,6 +711,17 @@ model EnergyResourceUpdate {
 }
 
 /**
+ * The SKU update definition for the energy service. Only the capacity is updatable.
+ */
+@added(Versions.v2026_07_21_preview)
+model SkuUpdate {
+  /**
+   * The scale capacity for the energy service. Must be a power of 2 between 1 and 256 (applicable for Flex SKU).
+   */
+  capacity?: int32;
+}
+
+/**
  * The properties of an Energy service resource patch.
  */
 model EnergyServiceUpdateProperties {
@@ -633,10 +731,67 @@ model EnergyServiceUpdateProperties {
   encryption?: Encryption;
 
   /**
+   * The SKU of the energy service. Only the capacity can be updated.
+   */
+  @added(Versions.v2026_07_21_preview)
+  sku?: SkuUpdate;
+
+  /**
+   * Specifies whether geo-redundancy is enabled or disabled for the energy service.
+   */
+  @added(Versions.v2026_07_21_preview)
+  geoRedundancy?: GeoRedundancy;
+
+  /**
+   * Specifies whether backup and restore is enabled or disabled for the energy service.
+   */
+  @added(Versions.v2026_07_21_preview)
+  backupAndRestore?: BackupAndRestore;
+
+  /**
+   * Properties to configure ACZ.
+   */
+  @added(Versions.v2026_07_21_preview)
+  acz?: Acz;
+
+  /**
+   * Properties to configure EDS
+   */
+  @added(Versions.v2026_07_21_preview)
+  eds?: Eds;
+
+  /**
+   * Whether or not public network access is allowed for the OAK resource.
+   */
+  @added(Versions.v2026_07_21_preview)
+  publicNetworkAccess?: PublicNetworkAccess;
+
+  /**
+   * List of cors rules
+   */
+  @added(Versions.v2026_07_21_preview)
+  @identifiers(#[])
+  corsRules?: CorsRulesList[];
+
+  /**
+   * The upgrade settings for the energy services instance.
+   */
+  @added(Versions.v2026_07_21_preview)
+  upgradeSettings?: UpgradeSettings;
+
+  /**
    * List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.
    */
+  @removed(Versions.v2026_07_21_preview)
+  @renamedFrom(Versions.v2026_07_21_preview, "addOnPackages")
   @identifiers(#["name"])
-  addOnPackages?: AddOnPackage[];
+  addOnPackagesV1?: AddOnPackage[];
+
+  /**
+   * List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.
+   */
+  @added(Versions.v2026_07_21_preview)
+  addOnPackages?: AddOnPackageName[];
 }
 
 /**
@@ -697,16 +852,22 @@ model PrivateEndpointConnectionProxyProperties {
   /**
    * ETag from NRP.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-duplicate-property" "Version transition: eTag moves from the nested properties bag (2026-02-02-preview) to the top-level envelope (2026-07-21-preview); never present in both within a single version."
+  @removed(Versions.v2026_07_21_preview)
   eTag?: string;
 
   /**
    * Remote private endpoint details.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-duplicate-property" "Version transition: remotePrivateEndpoint moves from the nested properties bag (2026-02-02-preview) to the top-level envelope (2026-07-21-preview); never present in both within a single version."
+  @removed(Versions.v2026_07_21_preview)
   remotePrivateEndpoint?: RemotePrivateEndpoint;
 
   /**
    * Operation status.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-duplicate-property" "Version transition: status moves from the nested properties bag (2026-02-02-preview) to the top-level envelope (2026-07-21-preview); never present in both within a single version."
+  @removed(Versions.v2026_07_21_preview)
   status?: string;
 
   /**
@@ -930,6 +1091,7 @@ model DataPartitionsList {
 /**
  * External Data Services add-on package configuration.
  */
+@removed(Versions.v2026_07_21_preview)
 model ExternalDataServicesAddOnPackage extends AddOnPackage {
   /**
    * Common properties for an add-on package.
@@ -955,6 +1117,7 @@ model AddOnPackageItemProperties {
 /**
  * Petrel V2 add-on package configuration.
  */
+@removed(Versions.v2026_07_21_preview)
 model PetrelV2AddOnPackage extends AddOnPackage {
   /**
    * Common properties for an add-on package.
@@ -970,6 +1133,7 @@ model PetrelV2AddOnPackage extends AddOnPackage {
 /**
  * Reservoir add-on package configuration.
  */
+@removed(Versions.v2026_07_21_preview)
 model ReservoirAddOnPackage extends AddOnPackage {
   /**
    * Common properties for an add-on package.
@@ -985,6 +1149,7 @@ model ReservoirAddOnPackage extends AddOnPackage {
 /**
  * Rock and Fluid add-on package configuration.
  */
+@removed(Versions.v2026_07_21_preview)
 model RockAndFluidAddOnPackage extends AddOnPackage {
   /**
    * Common properties for an add-on package.
@@ -1000,6 +1165,7 @@ model RockAndFluidAddOnPackage extends AddOnPackage {
 /**
  * Seismic add-on package configuration.
  */
+@removed(Versions.v2026_07_21_preview)
 model SeismicAddOnPackage extends AddOnPackage {
   /**
    * Common properties for an add-on package.
@@ -1015,6 +1181,7 @@ model SeismicAddOnPackage extends AddOnPackage {
 /**
  * Wellbore add-on package configuration.
  */
+@removed(Versions.v2026_07_21_preview)
 model WellboreAddOnPackage extends AddOnPackage {
   /**
    * Common properties for an add-on package.
@@ -1030,6 +1197,7 @@ model WellboreAddOnPackage extends AddOnPackage {
 /**
  * Well Delivery add-on package configuration.
  */
+@removed(Versions.v2026_07_21_preview)
 model WellDeliveryAddOnPackage extends AddOnPackage {
   /**
    * Common properties for an add-on package.
