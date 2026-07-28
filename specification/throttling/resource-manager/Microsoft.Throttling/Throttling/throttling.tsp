@@ -65,7 +65,7 @@ model ThrottlingAccount is TrackedResource<ThrottlingAccountProperties> {
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property"
   @doc("Throttling account kind")
   @visibility(Lifecycle.Create, Lifecycle.Read)
-  @pattern("^direct|indirect,[a-z]+$")
+  @pattern("^direct|indirect,([a-z]+)$")
   kind: string;
 }
 

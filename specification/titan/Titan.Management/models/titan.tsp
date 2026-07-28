@@ -183,14 +183,17 @@ model AppfLogicalMachineProperties {
   @visibility(Lifecycle.Read)
   status: string;
 
+  @removed(Versions.v2026_07_01_preview)
   @doc("The machine status")
   @visibility(Lifecycle.Read)
   machineStatus: string;
 
+  @removed(Versions.v2026_07_01_preview)
   @doc("The management type")
   @visibility(Lifecycle.Read)
   managementType: string;
 
+  @removed(Versions.v2026_07_01_preview)
   @doc("The manatree")
   @visibility(Lifecycle.Read)
   manatree: string;
@@ -207,6 +210,7 @@ model AppfLogicalMachineProperties {
   @visibility(Lifecycle.Read)
   machineFunction: string;
 
+  @removed(Versions.v2026_07_01_preview)
   @doc("The manatree contact")
   @visibility(Lifecycle.Read)
   manatreeContact: string;
@@ -219,21 +223,90 @@ model AppfLogicalMachineProperties {
   @visibility(Lifecycle.Read)
   cluster: string;
 
+  @removed(Versions.v2026_07_01_preview)
   @doc("The environment name")
   @visibility(Lifecycle.Read)
   environmentName: string;
 
+  @removed(Versions.v2026_07_01_preview)
   @doc("The inventory type")
   @visibility(Lifecycle.Read)
   inventoryType: string;
 
+  @removed(Versions.v2026_07_01_preview)
   @doc("The machine type")
   @visibility(Lifecycle.Read)
   machineType: string;
 
+  @removed(Versions.v2026_07_01_preview)
   @doc("The status of the last operation")
   @visibility(Lifecycle.Read)
   provisioningState?: ResourceProvisioningState;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("The logical machine type")
+  @visibility(Lifecycle.Read)
+  logicalMachineType: string;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("The inventory management type")
+  @visibility(Lifecycle.Read)
+  inventoryManagementType: string;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("Additional status information")
+  @visibility(Lifecycle.Read)
+  statusO: string;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("The pod name")
+  @visibility(Lifecycle.Read)
+  podName: string;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("The scale unit")
+  @visibility(Lifecycle.Read)
+  scaleUnit: string;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("Whether the machine is virtual")
+  @visibility(Lifecycle.Read)
+  isVirtual: boolean;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("The logical service tree identifier")
+  @visibility(Lifecycle.Read)
+  logicalServiceTreeId: string;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("The engineering group")
+  @visibility(Lifecycle.Read)
+  engineeringGroup: string;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("The datacenter code")
+  @visibility(Lifecycle.Read)
+  dcCode: string;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("The host physical name")
+  @visibility(Lifecycle.Read)
+  hostPhysicalName: string;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("The host physical identifier")
+  @visibility(Lifecycle.Read)
+  hostPhysicalId: string;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("The host logical name")
+  @visibility(Lifecycle.Read)
+  hostLogicalName: string;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("The host inventory type")
+  @visibility(Lifecycle.Read)
+  hostInventoryType: string;
 }
 
 @armResourceOperations

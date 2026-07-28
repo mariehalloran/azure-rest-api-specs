@@ -8025,13 +8025,6 @@ model StorageProfile {
   poolableDisksCount?: int64;
 
   /**
-   * List of storage disks on the edge machine.
-   */
-  @visibility(Lifecycle.Read)
-  @Azure.ResourceManager.identifiers(#["id"])
-  disks?: EdgeMachineDiskInfo[];
-
-  /**
    * Local availability zone name assigned to this edge machine after a ConfigureLocalAvailabilityZone job succeeds.
    */
   @visibility(Lifecycle.Read)
@@ -8276,41 +8269,6 @@ model EdgeMachineStorageAdapterIpInfo {
   subnetMask?: string;
 }
 
-/**
- * Represents a storage disk reported for the edge machine.
- */
-@added(Versions.v2026_03_15_preview)
-model EdgeMachineDiskInfo {
-  /**
-   * The unique identifier of the disk.
-   */
-  @visibility(Lifecycle.Read)
-  id: string;
-
-  /**
-   * The size of the disk in bytes.
-   */
-  @visibility(Lifecycle.Read)
-  sizeInBytes?: string;
-
-  /**
-   * The type of the disk. For example, S2D or SAN.
-   */
-  @visibility(Lifecycle.Read)
-  type?: string;
-
-  /** Model number of the hardware. */
-  @visibility(Lifecycle.Read)
-  `model`?: string;
-
-  /** The manufacturer of the disk. */
-  @visibility(Lifecycle.Read)
-  manufacturer?: string;
-
-  /** Indicates whether the manufacturer is supported. */
-  @visibility(Lifecycle.Read)
-  isSupported?: boolean;
-}
 /**
  * details of validation failure
  */
@@ -11152,428 +11110,481 @@ model EdgeDeviceMetadataProperties {
 ////////////////////////////////////////////////////////////////
 
 /**
- * Network Profile properties.
+ * Network Profile properties. The resource is a service hydrated projection that merges the
+ * desired networking configuration of the cluster with the state observed on the nodes.
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
 @added(Versions.v2026_03_15_preview)
 model NetworkProfileProperties {
   /**
-   * Network profile properties reported from the cluster.
+   * Lifecycle state of the network profile projection.
    */
   @visibility(Lifecycle.Read)
-  reportedProperties?: NetworkProfileReportedProperties;
+  provisioningState?: ProvisioningState;
 
   /**
-   * Network profile resource Last sync timestamp.
+   * Last time the reconciled snapshot was refreshed across all sections.
    */
   @visibility(Lifecycle.Read)
   lastSyncTimestamp?: utcDateTime;
 
   /**
-   * Network profile resource Last sync status.
+   * Outcome of the last reconciliation pass.
    */
   @visibility(Lifecycle.Read)
-  lastSyncStatus?: string;
+  lastSyncStatus?: NetworkProfileSyncStatus;
+
+  /**
+   * Reconciled cluster uniform networking snapshot. Contains only values that are identical on
+   * every node because Network ATC enforces network symmetry.
+   */
+  @visibility(Lifecycle.Read)
+  reportedProperties?: NetworkProfileReportedProperties;
+
+  /**
+   * Snapshot of the desired networking configuration captured from the deployment settings of the
+   * cluster together with the cluster wide proxy settings.
+   */
+  @visibility(Lifecycle.Read)
+  desiredSnapshot?: NetworkProfileDesiredSnapshot;
+
+  /**
+   * Explicit desired versus observed deltas with scope and severity. Drift is surfaced for
+   * identification only; remediation must be performed through the desired state authority.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["propertyPath"])
+  drift?: NetworkProfileDriftEntry[];
 }
 
 /**
- * Network Profile properties reported by the cluster.
+ * Network Profile properties reported by the cluster. Every value in this section is cluster
+ * uniform. Per node varying data such as NIC MAC and IP addresses, storage adapter IP addresses,
+ * and node heartbeat lives on the edgeDevices resource and is intentionally omitted here.
  */
 @added(Versions.v2026_03_15_preview)
 model NetworkProfileReportedProperties {
   /**
-   * The IPv4 addresses of the cluster.
+   * Cluster identity, management IP and subnet, topology pattern, and live migration policy.
    */
   @visibility(Lifecycle.Read)
-  clusterIpv4Addresses?: string[];
+  cluster?: NetworkProfileClusterIdentity;
 
   /**
-   * The IPv6 addresses of the cluster.
+   * Network ATC intents applied identically on every node.
    */
   @visibility(Lifecycle.Read)
-  clusterIpv6Addresses?: string[];
+  @identifiers(#["name"])
+  intents?: NetworkProfileIntent[];
 
   /**
-   * The subnet associated with the cluster.
+   * Management network adapter name, VLAN, and MAC address per management adapter.
    */
   @visibility(Lifecycle.Read)
+  @identifiers(#["nicName"])
+  managementNetworks?: NetworkProfileManagementNetwork[];
+
+  /**
+   * Storage VLAN and RDMA technology per storage adapter.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["networkAdapterName"])
+  storageNetworks?: NetworkProfileStorageNetwork[];
+
+  /**
+   * Whether the storage adapters between nodes are connected without a switch.
+   */
+  @visibility(Lifecycle.Read)
+  storageConnectivitySwitchless?: boolean;
+
+  /**
+   * Whether automatic storage IP assignment is enabled across the cluster.
+   */
+  @visibility(Lifecycle.Read)
+  enableStorageAutoIp?: boolean;
+
+  /**
+   * Cluster wide infrastructure networking: subnet mask, gateway, DNS servers and zones, DHCP
+   * mode, and static IP pools.
+   */
+  @visibility(Lifecycle.Read)
+  infrastructureNetwork?: NetworkProfileInfrastructureNetwork;
+
+  /**
+   * Fleet wide Arc gateway connectivity policy.
+   */
+  @visibility(Lifecycle.Read)
+  arcGateway?: NetworkProfileArcGateway;
+}
+
+/**
+ * Cluster identity values that are identical regardless of which node reports them.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkProfileClusterIdentity {
+  /**
+   * Cluster name.
+   */
+  clusterName?: string;
+
+  /**
+   * Cluster management IP address.
+   */
+  clusterIpAddress?: string;
+
+  /**
+   * Name of the Network ATC intent that carries the cluster IP.
+   */
+  clusterIpIntentName?: string;
+
+  /**
+   * Management subnet expressed in CIDR notation.
+   */
   subnet?: string;
 
   /**
-   * Whether auto-selection for VM migration network is enabled.
+   * Cluster topology pattern, for example Standard or HyperConverged.
    */
-  @visibility(Lifecycle.Read)
+  clusterPattern?: string;
+
+  /**
+   * Live migration policy configured at cluster scope.
+   */
+  liveMigrationPolicy?: NetworkProfileLiveMigrationPolicy;
+}
+
+/**
+ * Live migration policy configured at cluster scope and applied uniformly to every node.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkProfileLiveMigrationPolicy {
+  /**
+   * Whether the network used for virtual machine live migration is selected automatically.
+   */
   autoSelectMigrationNetwork?: boolean;
 
   /**
-   * Whether network naming is enabled.
+   * Whether the performance option used for virtual machine live migration is selected
+   * automatically.
    */
-  @visibility(Lifecycle.Read)
-  enableNetworkNaming?: boolean;
-
-  /**
-   * Whether auto-selection for VM migration performance is enabled.
-   */
-  @visibility(Lifecycle.Read)
   autoSelectVmMigrationPerformance?: boolean;
 
   /**
-   * The maximum number of VM migrations allowed.
+   * Maximum number of simultaneous virtual machine live migrations allowed on the cluster.
    */
-  @visibility(Lifecycle.Read)
   maxVmMigration?: int32;
 
   /**
-   * The performance type for VM migration.
+   * Performance option used for virtual machine live migration, for example SMB or Compression.
    */
-  @visibility(Lifecycle.Read)
   vmMigrationPerformance?: string;
 
   /**
-   * Maximum bandwidth for SMB migration.
+   * Maximum bandwidth available for SMB live migration traffic.
    */
-  @visibility(Lifecycle.Read)
   maxSmbMigrationBandwidth?: string;
-
-  /**
-   * Details of nodes in the network profile.
-   */
-  @visibility(Lifecycle.Read)
-  @identifiers(#["id"])
-  nodes?: NetworkProfileNode[];
-
-  /**
-   * Details of physical adapters.
-   */
-  @visibility(Lifecycle.Read)
-  @identifiers(#["id"])
-  physicalAdapters?: NetworkProfilePhysicalAdapter[];
-
-  /**
-   * Details of virtual switches.
-   */
-  @visibility(Lifecycle.Read)
-  @identifiers(#["id"])
-  virtualSwitches?: NetworkProfileVirtualSwitch[];
-
-  /**
-   * Details of networks.
-   */
-  @visibility(Lifecycle.Read)
-  @identifiers(#["id"])
-  networks?: NetworkProfileNetwork[];
-
-  /**
-   * Details of virtual adapters.
-   */
-  @visibility(Lifecycle.Read)
-  @identifiers(#["id"])
-  virtualAdapters?: NetworkProfileVirtualAdapter[];
-
-  /**
-   * Details of network intents.
-   */
-  @visibility(Lifecycle.Read)
-  @identifiers(#["id"])
-  intents?: NetworkProfileIntent[];
 }
 
 /**
- * Details of a node in the network profile.
- */
-@added(Versions.v2026_03_15_preview)
-model NetworkProfileNode {
-  /**
-   * The node ID.
-   */
-  id: string;
-
-  /**
-   * The physical adapter IDs associated with the node.
-   */
-  physicalAdapterIds?: string[];
-
-  /**
-   * The virtual switch IDs associated with the node.
-   */
-  virtualSwitchIds?: string[];
-
-  /**
-   * The arc status of the node.
-   */
-  arcStatus?: string;
-
-  /**
-   * The Azure resource id of Arc machine of the corresponding node.
-   */
-  arcMachineId?: Azure.Core.armResourceIdentifier;
-}
-
-/**
- * Details of a physical adapter.
- */
-@added(Versions.v2026_03_15_preview)
-model NetworkProfilePhysicalAdapter {
-  /**
-   * The physical adapter ID.
-   */
-  id: string;
-
-  /**
-   * The name of the physical adapter.
-   */
-  name?: string;
-
-  /**
-   * The description of the physical adapter.
-   */
-  description?: string;
-
-  /**
-   * The VLAN associated with the physical adapter.
-   */
-  vlan?: int32;
-
-  /**
-   * The IPv4 addresses of the physical adapter.
-   */
-  ipv4Addresses?: string[];
-
-  /**
-   * The IPv6 addresses of the physical adapter.
-   */
-  ipv6Addresses?: string[];
-
-  /**
-   * The driver version of the physical adapter.
-   */
-  driverVersion?: string;
-
-  /**
-   * The node ID the physical adapter is associated with.
-   */
-  nodeId?: string;
-}
-
-/**
- * Details of a virtual switch.
- */
-@added(Versions.v2026_03_15_preview)
-model NetworkProfileVirtualSwitch {
-  /**
-   * The virtual switch ID.
-   */
-  id: string;
-
-  /**
-   * The name of the virtual switch.
-   */
-  name?: string;
-
-  /**
-   * The virtual adapter IDs associated with the virtual switch.
-   */
-  virtualAdapterIds?: string[];
-
-  /**
-   * The physical adapter IDs associated with the virtual switch.
-   */
-  physicalAdapterIds?: string[];
-
-  /**
-   * The physical adapter names associated with the virtual switch.
-   */
-  physicalAdapterNames?: string[];
-
-  /**
-   * The virtual adapter names associated with the virtual switch.
-   */
-  virtualAdapterNames?: string[];
-
-  /**
-   * The intent ID associated with the virtual switch.
-   */
-  intentId?: string;
-}
-
-/**
- * Details of a network.
- */
-@added(Versions.v2026_03_15_preview)
-@discriminator("type")
-model NetworkProfileNetwork {
-  /**
-   * The network ID.
-   */
-  id: string;
-
-  /**
-   * The name of the network.
-   */
-  name?: string;
-
-  /**
-   * The type of the network.
-   */
-  type: NetworkProfileNetworkType;
-
-  /**
-   * The VLAN associated with the network.
-   */
-  vlan?: int32;
-
-  /**
-   * The intent ID associated with the network.
-   */
-  intentId?: string;
-}
-
-/**
- * Details of a storage network.
- */
-@added(Versions.v2026_03_15_preview)
-model NetworkProfileStorageNetwork extends NetworkProfileNetwork {
-  /**
-   * The type of the network.
-   */
-  type: NetworkProfileNetworkType.Storage;
-
-  /**
-   * Whether the network supports direct access.
-   */
-  networkDirect?: string;
-}
-
-/**
- * Details of a logical network.
- */
-@added(Versions.v2026_03_15_preview)
-model NetworkProfileLogicalNetwork extends NetworkProfileNetwork {
-  /**
-   * The type of the network.
-   */
-  type: NetworkProfileNetworkType.Logical;
-
-  /**
-   * IP address space of the logical network.
-   */
-  addressSpace?: string;
-}
-
-/**
- * Details of a virtual adapter.
- */
-@added(Versions.v2026_03_15_preview)
-model NetworkProfileVirtualAdapter {
-  /**
-   * The virtual adapter ID.
-   */
-  id: string;
-
-  /**
-   * The name of the virtual adapter.
-   */
-  name?: string;
-
-  /**
-   * The VLAN associated with the virtual adapter.
-   */
-  vlan?: int32;
-
-  /**
-   * The IPv4 addresses of the virtual adapter.
-   */
-  ipv4Addresses?: string[];
-
-  /**
-   * The IPv6 addresses of the virtual adapter.
-   */
-  ipv6Addresses?: string[];
-}
-
-/**
- * Details of a network intent.
+ * A Network ATC intent applied identically on every node of the cluster.
  */
 @added(Versions.v2026_03_15_preview)
 model NetworkProfileIntent {
   /**
-   * The intent ID.
-   */
-  id: string;
-
-  /**
-   * The name of the intent.
+   * Name of the network intent, for example Management_Compute or Storage.
    */
   name?: string;
 
   /**
-   * Whether this is a compute type intent.
+   * Network traffic types carried by the intent.
    */
-  isComputeType?: boolean;
+  trafficType?: NetworkProfileTrafficType[];
 
   /**
-   * Whether this is a storage type intent.
+   * Names of the physical adapters bound to the intent.
    */
-  isStorageType?: boolean;
+  memberAdapters?: string[];
 
   /**
-   * Whether this is a management type intent.
+   * Whether the intent carries management traffic.
    */
   isManagementType?: boolean;
 
   /**
-   * The physical adapter IDs associated with the intent.
+   * Whether the intent carries compute traffic.
    */
-  physicalAdapterIds?: string[];
+  isComputeType?: boolean;
 
   /**
-   * The virtual adapter IDs associated with the intent.
+   * Whether the intent carries storage traffic.
    */
-  virtualAdapterIds?: string[];
+  isStorageType?: boolean;
 
   /**
-   * The virtual switch IDs associated with the intent.
+   * Whether adapter property overrides apply to the intent.
    */
-  virtualSwitchIds?: string[];
+  overrideAdapterProperty?: boolean;
 
   /**
-   * The network IDs associated with the intent.
+   * Adapter property overrides applied to the intent. Not set when the intent is not overridden.
    */
-  networkIds?: string[];
+  adapterPropertyOverrides?: DeploymentSettingAdapterPropertyOverrides;
 
   /**
-   * The physical adapter names associated with the intent.
+   * Whether QoS policy overrides apply to the intent.
    */
-  physicalAdapterNames?: string[];
+  overrideQosPolicy?: boolean;
 
   /**
-   * The virtual adapter names associated with the intent.
+   * QoS policy overrides applied to the intent. Not set when the intent is not overridden.
    */
-  virtualAdapterNames?: string[];
+  qosPolicyOverrides?: QosPolicyOverrides;
 
   /**
-   * The virtual switch names associated with the intent.
+   * Whether virtual switch configuration overrides apply to the intent.
    */
-  virtualSwitchNames?: string[];
+  overrideVirtualSwitchConfiguration?: boolean;
 
   /**
-   * The network names associated with the intent.
+   * Virtual switch configuration overrides applied to the intent. Not set when the intent is not
+   * overridden.
    */
-  networkNames?: string[];
+  virtualSwitchConfigurationOverrides?: DeploymentSettingVirtualSwitchConfigurationOverrides;
 }
 
 /**
- * Types of networks.
+ * Management network adapter details reported by the cluster.
  */
 @added(Versions.v2026_03_15_preview)
-union NetworkProfileNetworkType {
+model NetworkProfileManagementNetwork {
+  /**
+   * Name of the management network adapter.
+   */
+  nicName?: string;
+
+  /**
+   * ID specified for the management VLAN.
+   */
+  vlanId?: string;
+
+  /**
+   * MAC address of the management network adapter.
+   */
+  macAddress?: string;
+}
+
+/**
+ * Storage network details reported by the cluster. Per adapter storage IP addresses differ per
+ * node and live on the edgeDevices resource.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkProfileStorageNetwork {
+  /**
+   * Name of the storage network adapter bound to the storage network, for example SMB1.
+   */
+  networkAdapterName?: string;
+
+  /**
+   * ID specified for the VLAN storage network.
+   */
+  vlanId?: string;
+
+  /**
+   * RDMA technology used by the storage network. Expected values are 'iWARP', 'RoCEv2', 'RoCE'.
+   */
+  rdmaTechnology?: string;
+}
+
+/**
+ * Cluster wide infrastructure networking reported by the cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkProfileInfrastructureNetwork {
+  /**
+   * Subnet mask that matches the management IP address space.
+   */
+  subnetMask?: string;
+
+  /**
+   * ID specified for the management network VLAN.
+   */
+  vlanId?: string;
+
+  /**
+   * Default gateway used for the management IP address space.
+   */
+  gateway?: string;
+
+  /**
+   * Whether DHCP is used for hosts and cluster IPs instead of static IP pools.
+   */
+  useDhcp?: boolean;
+
+  /**
+   * IP addresses of the DNS servers configured for the cluster.
+   */
+  dnsServers?: string[];
+
+  /**
+   * Specifies how DNS servers are configured for the infrastructure network.
+   */
+  dnsServerConfig?: DnsServerConfig;
+
+  /**
+   * Names of the DNS zones configured for the cluster.
+   */
+  dnsZones?: string[];
+
+  /**
+   * Ranges of IP addresses from which addresses are allocated for nodes within the management
+   * subnet.
+   */
+  @identifiers(#["startingAddress"])
+  ipPools?: IpPools[];
+}
+
+/**
+ * Arc gateway connectivity policy applied uniformly across the cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkProfileArcGateway {
+  /**
+   * Azure resource ID of the Arc gateway.
+   */
+  gatewayResourceId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.HybridCompute/gateways";
+    }
+  ]>;
+
+  /**
+   * Public endpoint URL of the Arc gateway.
+   */
+  gatewayEndpoint?: url;
+
+  /**
+   * Type of the Arc gateway, for example Public.
+   */
+  gatewayType?: string;
+
+  /**
+   * Features allowed through the Arc gateway. An asterisk indicates that all features are allowed.
+   */
+  allowedFeatures?: string[];
+}
+
+/**
+ * Snapshot of the desired networking configuration used as the baseline for drift detection.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkProfileDesiredSnapshot {
+  /**
+   * Host network configuration captured from the deployment settings of the cluster.
+   */
+  hostNetwork?: DeploymentSettingHostNetwork;
+
+  /**
+   * Infrastructure network configuration captured from the deployment settings of the cluster.
+   */
+  infrastructureNetwork?: InfrastructureNetwork;
+
+  /**
+   * Proxy configuration desired on every node of the cluster.
+   */
+  proxy?: ProxyConfigurationDetail;
+
+  /**
+   * Time at which the desired configuration snapshot was captured.
+   */
+  capturedAt?: utcDateTime;
+}
+
+/**
+ * A single desired versus observed delta detected during reconciliation.
+ */
+@added(Versions.v2026_03_15_preview)
+model NetworkProfileDriftEntry {
+  /**
+   * Dotted path to the diverged field, for example infrastructureNetwork.dnsServers.
+   */
+  propertyPath?: string;
+
+  /**
+   * Value taken from the desired configuration snapshot.
+   */
+  #suppress "@azure-tools/typespec-azure-core/no-unknown" "The diverged value can be any JSON type because the drift entry is addressed by an arbitrary property path."
+  desiredValue?: unknown;
+
+  /**
+   * Value reported by the cluster nodes.
+   */
+  #suppress "@azure-tools/typespec-azure-core/no-unknown" "The diverged value can be any JSON type because the drift entry is addressed by an arbitrary property path."
+  observedValue?: unknown;
+
+  /**
+   * Where the drift was detected, for example cluster or node:contoso-node-02.
+   */
+  scope?: string;
+
+  /**
+   * Time at which the drift was first observed.
+   */
+  firstDetectedAt?: utcDateTime;
+
+  /**
+   * Severity of the detected drift.
+   */
+  severity?: NetworkProfileDriftSeverity;
+}
+
+/**
+ * Outcome of the last network profile reconciliation pass.
+ */
+@added(Versions.v2026_03_15_preview)
+union NetworkProfileSyncStatus {
   string,
 
-  /** Storage network type. */
-  Storage: "Storage",
+  /** The last reconciliation pass completed successfully. */
+  Succeeded: "Succeeded",
 
-  /** Logical network type. */
-  Logical: "Logical",
+  /** The last reconciliation pass failed. */
+  Failed: "Failed",
+
+  /** The last reconciliation pass refreshed only part of the snapshot. */
+  Partial: "Partial",
+}
+
+/**
+ * Network traffic type carried by a Network ATC intent.
+ */
+@added(Versions.v2026_03_15_preview)
+union NetworkProfileTrafficType {
+  string,
+
+  /** The intent carries management traffic. */
+  Management: "Management",
+
+  /** The intent carries compute traffic. */
+  Compute: "Compute",
+
+  /** The intent carries storage traffic. */
+  Storage: "Storage",
+}
+
+/**
+ * Severity of a detected configuration drift.
+ */
+@added(Versions.v2026_03_15_preview)
+union NetworkProfileDriftSeverity {
+  string,
+
+  /** The drift is informational and requires no action. */
+  Informational: "Informational",
+
+  /** The drift may affect cluster networking and should be reviewed. */
+  Warning: "Warning",
+
+  /** The drift affects cluster networking and requires remediation. */
+  Error: "Error",
 }
 
 ////////////////////////////////////////////////////////////////
@@ -13400,20 +13411,14 @@ union NvmeTransportType {
 union DriveUsage {
   string,
 
-  /** Normal data storage; the pool selects the drive automatically. */
-  AutoSelect: "AutoSelect",
+  /** Usage is unknown or could not be determined. */
+  Unknown: "Unknown",
 
-  /** Drive is manually assigned to a tier. */
-  ManualSelect: "ManualSelect",
+  /** Drive is used for the storage cache tier (`SDDC_Drive.UsedFor` = `Cache`). */
+  Cache: "Cache",
 
-  /** Reserved as a hot spare for automatic rebuild. */
-  HotSpare: "HotSpare",
-
-  /** Drive is being evacuated; no new allocations. */
-  Retired: "Retired",
-
-  /** Drive backs the write-back cache journal. */
-  Journal: "Journal",
+  /** Drive is used for the storage capacity tier (`SDDC_Drive.UsedFor` = `Capacity`). */
+  Capacity: "Capacity",
 }
 
 /**
@@ -13515,6 +13520,9 @@ union PoolState {
 union PoolHealthStatus {
   string,
 
+  /** Pool health is unknown or could not be determined. */
+  Unknown: "Unknown",
+
   /** Pool is healthy. */
   Healthy: "Healthy",
 
@@ -13532,6 +13540,9 @@ union PoolHealthStatus {
 union DriveProvisioningType {
   string,
 
+  /** Provisioning type is unknown or could not be determined. */
+  Unknown: "Unknown",
+
   /** Fixed (thick) provisioning. */
   Fixed: "Fixed",
 
@@ -13546,8 +13557,8 @@ union DriveProvisioningType {
 union RepairSpeed {
   string,
 
-  /** Repair disabled. */
-  Disabled: "Disabled",
+  /** Very low repair speed. */
+  VeryLow: "VeryLow",
 
   /** Low repair speed. */
   Low: "Low",
@@ -14603,24 +14614,16 @@ model PhysicalDrive {
 }
 
 /**
- * Physical location of a drive. Enclosure and slot are populated only when the
- * hardware exposes SCSI Enclosure Services (SES) data.
+ * Physical location of a drive, as reported by `SDDC_Drive` (`Server` → `nodeId`,
+ * `Location` → `physicalLocation`).
  */
 @added(Versions.v2026_03_15_preview)
 model PhysicalDriveLocation {
-  /** Cluster node that hosts the drive. */
+  /** Cluster node that hosts the drive (`SDDC_Drive.Server`). */
   @visibility(Lifecycle.Read)
   nodeId?: string;
 
-  /** Enclosure number (null when no SES hardware). */
-  @visibility(Lifecycle.Read)
-  enclosureNumber?: int32;
-
-  /** Slot number within the enclosure (null when no SES hardware). */
-  @visibility(Lifecycle.Read)
-  slotNumber?: int32;
-
-  /** Free-form vendor-defined location string. Diagnostic aid only. */
+  /** Free-form vendor-defined location string (`SDDC_Drive.Location`). Diagnostic aid only. */
   @visibility(Lifecycle.Read)
   physicalLocation?: string;
 }
@@ -14774,7 +14777,10 @@ model StoragePoolProperties {
   @visibility(Lifecycle.Read)
   poolType?: PoolType;
 
-  /** Vendor-assigned pool identifier (SAN). */
+  /**
+   * Vendor-assigned pool identifier. For SAN this is the vendor pool ID; for S2D
+   * this is the storage pool friendly name (`MSFT_StoragePool.FriendlyName`).
+   */
   @visibility(Lifecycle.Read)
   vendorPoolId?: string;
 

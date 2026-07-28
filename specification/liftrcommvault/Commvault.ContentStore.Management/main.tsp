@@ -133,6 +133,10 @@ model CompanyProfile {
 @doc("Optional activate SaaS request parameters")
 @added(Versions.v9_preview)
 model ActivateSaaSRequestParam {
+  @doc("Optional Marketplace SaaS resource identifier")
+  @added(Versions.v9_preview)
+  saasResourceId?: string;
+
   @doc("Optional user details")
   user?: UserDetails;
 
