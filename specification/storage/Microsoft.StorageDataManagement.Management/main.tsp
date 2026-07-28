@@ -131,7 +131,7 @@ interface BlobAccessPointConfigurations {
     BlobAccessPointConfiguration,
     Azure.ResourceManager.Foundations.ResourceUpdateModel<
       BlobAccessPointConfiguration,
-      BlobAccessPointConfigurationMutableProperties
+      BlobAccessPointConfigurationUpdateProperties
     >
   >;
 
@@ -145,18 +145,20 @@ interface BlobAccessPointConfigurations {
 
   @doc("Test the connection configured on an existing Blob Access Point configuration.")
   @added(Versions.v2026_06_01)
-  @action("connectiontest")
-  connectionTest is ArmResourceActionAsync<
+  testExistingConnection is ArmResourceActionAsync<
     BlobAccessPointConfiguration,
     BlobAccessPointConnectionTestRequest,
     BlobAccessPointConnectionTestResponse
   >;
+}
 
-  @doc("Test a proposed Blob Access Point connection before creating or updating the configuration.")
+@armResourceOperations(StorageAccount)
+interface BlobAccessPointConnectionTests {
+  @doc("Test a proposed Blob Access Point connection before the configuration is created. The connection is validated in the context of the storage account in the request path, so no Blob Access Point configuration needs to exist beforehand.")
   @added(Versions.v2026_06_01)
-  @action("proposedconnectiontest")
-  proposedConnectionTest is ArmResourceActionSync<
-    BlobAccessPointConfiguration,
+  @action("testBlobAccessPointProposedConnection")
+  testProposedConnection is ArmResourceActionSync<
+    StorageAccount,
     BlobAccessPointProposedConnectionTestRequest,
     BlobAccessPointConnectionTestResponse
   >;

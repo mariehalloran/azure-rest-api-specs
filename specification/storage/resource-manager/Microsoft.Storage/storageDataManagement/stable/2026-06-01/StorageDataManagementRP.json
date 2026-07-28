@@ -49,6 +49,9 @@
     },
     {
       "name": "BlobAccessPointConfigurations"
+    },
+    {
+      "name": "BlobAccessPointConnectionTests"
     }
   ],
   "paths": {
@@ -424,9 +427,9 @@
         "x-ms-long-running-operation": true
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/{blobAccessPointConfigurationName}/connectiontest": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/{blobAccessPointConfigurationName}/testExistingConnection": {
       "post": {
-        "operationId": "BlobAccessPointConfigurations_ConnectionTest",
+        "operationId": "BlobAccessPointConfigurations_TestExistingConnection",
         "tags": [
           "BlobAccessPointConfigurations"
         ],
@@ -496,78 +499,14 @@
           }
         },
         "x-ms-examples": {
-          "BlobAccessPointConfigurationConnectionTest": {
-            "$ref": "./examples/BlobAccessPointConfigurations_ConnectionTest.json"
+          "BlobAccessPointConfigurationTestExistingConnection": {
+            "$ref": "./examples/BlobAccessPointConfigurations_TestExistingConnection.json"
           }
         },
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
         },
         "x-ms-long-running-operation": true
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/{blobAccessPointConfigurationName}/proposedconnectiontest": {
-      "post": {
-        "operationId": "BlobAccessPointConfigurations_ProposedConnectionTest",
-        "tags": [
-          "BlobAccessPointConfigurations"
-        ],
-        "description": "Test a proposed Blob Access Point connection before creating or updating the configuration.",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "storageAccountName",
-            "in": "path",
-            "description": "The name of the storage account.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "name": "blobAccessPointConfigurationName",
-            "in": "path",
-            "description": "The name of the Blob Access Point configuration.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "The content of the action request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/BlobAccessPointProposedConnectionTestRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/BlobAccessPointConnectionTestResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "BlobAccessPointConfigurationProposedConnectionTest": {
-            "$ref": "./examples/BlobAccessPointConfigurations_ProposedConnectionTest.json"
-          }
-        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/connectors": {
@@ -1323,6 +1262,62 @@
         },
         "x-ms-long-running-operation": true
       }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/testBlobAccessPointProposedConnection": {
+      "post": {
+        "operationId": "BlobAccessPointConnectionTests_TestProposedConnection",
+        "tags": [
+          "BlobAccessPointConnectionTests"
+        ],
+        "description": "Test a proposed Blob Access Point connection before the configuration is created. The connection is validated in the context of the storage account in the request path, so no Blob Access Point configuration needs to exist beforehand.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "storageAccountName",
+            "in": "path",
+            "description": "The name of the storage account.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BlobAccessPointProposedConnectionTestRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/BlobAccessPointConnectionTestResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "BlobAccessPointTestProposedConnection": {
+            "$ref": "./examples/BlobAccessPointConnectionTests_TestProposedConnection.json"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1698,15 +1693,14 @@
       "properties": {
         "identityResourceId": {
           "type": "string",
-          "description": "The ARM resource ID of the managed identity."
+          "description": "The Azure resource ID of the user-assigned managed identity used to obtain credentials for the role. Omit this value to use the storage account's system-assigned managed identity."
         },
         "roleArn": {
           "type": "string",
-          "description": "The ARN of the role to assume."
+          "description": "The Amazon Resource Name (ARN) of the role that Azure Storage assumes on the backing data source, for example 'arn:aws:iam::123456789012:role/ContosoStorageAccess'. Azure Storage presents the managed identity to the backing source to obtain temporary credentials for this role, and signs subsequent requests with those credentials."
         }
       },
       "required": [
-        "identityResourceId",
         "roleArn"
       ],
       "allOf": [
@@ -1722,11 +1716,11 @@
       "properties": {
         "identityResourceId": {
           "type": "string",
-          "description": "The ARM resource ID of the managed identity."
+          "description": "The Azure resource ID of the user-assigned managed identity used to obtain credentials for the role. Omit this value to use the storage account's system-assigned managed identity."
         },
         "roleArn": {
           "type": "string",
-          "description": "The ARN of the role to assume."
+          "description": "The Amazon Resource Name (ARN) of the role that Azure Storage assumes on the backing data source, for example 'arn:aws:iam::123456789012:role/ContosoStorageAccess'. Azure Storage presents the managed identity to the backing source to obtain temporary credentials for this role, and signs subsequent requests with those credentials."
         }
       },
       "allOf": [
@@ -2260,12 +2254,9 @@
       "properties": {
         "identityResourceId": {
           "type": "string",
-          "description": "The ARM resource ID of the managed identity."
+          "description": "The Azure resource ID of the user-assigned managed identity to authenticate with. Omit this value to use the storage account's system-assigned managed identity."
         }
       },
-      "required": [
-        "identityResourceId"
-      ],
       "allOf": [
         {
           "$ref": "#/definitions/BlobAccessPointAzureAuthProperties"
@@ -2279,7 +2270,7 @@
       "properties": {
         "identityResourceId": {
           "type": "string",
-          "description": "The ARM resource ID of the managed identity."
+          "description": "The Azure resource ID of the user-assigned managed identity to authenticate with. Omit this value to use the storage account's system-assigned managed identity."
         }
       },
       "allOf": [
@@ -2339,7 +2330,7 @@
       "properties": {
         "privateLinkIdType": {
           "$ref": "#/definitions/BlobAccessPointPrivateLinkIdType",
-          "description": "Whether privateLinkId contains an ARM resource ID or a Private Link alias.",
+          "description": "Whether privateLinkId contains an Azure resource ID or a Private Link alias.",
           "x-ms-mutability": [
             "read",
             "create"
@@ -2347,7 +2338,7 @@
         },
         "privateLinkId": {
           "type": "string",
-          "description": "The ARM resource ID or alias of the backing Private Link resource.",
+          "description": "The Azure resource ID or alias of the backing Private Link resource.",
           "x-ms-mutability": [
             "read",
             "create"
@@ -2446,7 +2437,7 @@
           {
             "name": "ResourceId",
             "value": "ResourceId",
-            "description": "The identifier is an ARM resource ID."
+            "description": "The identifier is an Azure resource ID."
           },
           {
             "name": "Alias",

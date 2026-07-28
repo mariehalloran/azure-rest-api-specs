@@ -88,7 +88,7 @@ union BlobAccessPointConnectionType {
 @added(Versions.v2026_06_01)
 @doc("The format used by a Private Link identifier.")
 union BlobAccessPointPrivateLinkIdType {
-  @doc("The identifier is an ARM resource ID.")
+  @doc("The identifier is an Azure resource ID.")
   ResourceId: "ResourceId",
 
   @doc("The identifier is a Private Link alias.")
@@ -237,11 +237,11 @@ model BlobAccessPointPrivateLinkConnectionProperties
   type: BlobAccessPointConnectionType.PrivateLink;
 
   @visibility(Lifecycle.Create, Lifecycle.Read)
-  @doc("Whether privateLinkId contains an ARM resource ID or a Private Link alias.")
+  @doc("Whether privateLinkId contains an Azure resource ID or a Private Link alias.")
   privateLinkIdType: BlobAccessPointPrivateLinkIdType;
 
   @visibility(Lifecycle.Create, Lifecycle.Read)
-  @doc("The ARM resource ID or alias of the backing Private Link resource.")
+  @doc("The Azure resource ID or alias of the backing Private Link resource.")
   privateLinkId: string;
 
   @visibility(Lifecycle.Create, Lifecycle.Read)
@@ -308,10 +308,10 @@ model BlobAccessPointAssumeRoleAuthProperties
   @visibility(Lifecycle.Read)
   type: BlobAccessPointRemoteAuthType.AssumeRoleWithManagedIdentity;
 
-  @doc("The ARM resource ID of the managed identity.")
-  identityResourceId: string;
+  @doc("The Azure resource ID of the user-assigned managed identity used to obtain credentials for the role. Omit this value to use the storage account's system-assigned managed identity.")
+  identityResourceId?: string;
 
-  @doc("The ARN of the role to assume.")
+  @doc("The Amazon Resource Name (ARN) of the role that Azure Storage assumes on the backing data source, for example 'arn:aws:iam::123456789012:role/ContosoStorageAccess'. Azure Storage presents the managed identity to the backing source to obtain temporary credentials for this role, and signs subsequent requests with those credentials.")
   roleArn: string;
 }
 
@@ -330,8 +330,8 @@ model BlobAccessPointManagedIdentityAuthProperties
   @visibility(Lifecycle.Read)
   type: BlobAccessPointAzureAuthType.ManagedIdentity;
 
-  @doc("The ARM resource ID of the managed identity.")
-  identityResourceId: string;
+  @doc("The Azure resource ID of the user-assigned managed identity to authenticate with. Omit this value to use the storage account's system-assigned managed identity.")
+  identityResourceId?: string;
 }
 
 @added(Versions.v2026_06_01)
@@ -451,10 +451,10 @@ model BlobAccessPointAssumeRoleAuthUpdateProperties
   extends BlobAccessPointAuthUpdateProperties {
   type: BlobAccessPointAuthUpdateType.AssumeRoleWithManagedIdentity;
 
-  @doc("The ARM resource ID of the managed identity.")
+  @doc("The Azure resource ID of the user-assigned managed identity used to obtain credentials for the role. Omit this value to use the storage account's system-assigned managed identity.")
   identityResourceId?: string;
 
-  @doc("The ARN of the role to assume.")
+  @doc("The Amazon Resource Name (ARN) of the role that Azure Storage assumes on the backing data source, for example 'arn:aws:iam::123456789012:role/ContosoStorageAccess'. Azure Storage presents the managed identity to the backing source to obtain temporary credentials for this role, and signs subsequent requests with those credentials.")
   roleArn?: string;
 }
 
@@ -464,7 +464,7 @@ model BlobAccessPointManagedIdentityAuthUpdateProperties
   extends BlobAccessPointAuthUpdateProperties {
   type: BlobAccessPointAuthUpdateType.ManagedIdentity;
 
-  @doc("The ARM resource ID of the managed identity.")
+  @doc("The Azure resource ID of the user-assigned managed identity to authenticate with. Omit this value to use the storage account's system-assigned managed identity.")
   identityResourceId?: string;
 }
 
@@ -490,7 +490,7 @@ model BlobAccessPointSourceUpdateProperties {
 
 @added(Versions.v2026_06_01)
 @doc("Properties that can be updated on a Blob Access Point configuration.")
-model BlobAccessPointConfigurationMutableProperties {
+model BlobAccessPointConfigurationUpdateProperties {
   @doc("The configuration state.")
   state?: BlobAccessPointConfigurationState;
 
