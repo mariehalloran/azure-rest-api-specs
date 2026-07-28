@@ -305,6 +305,16 @@
               "operation": "Refresh EdgeMachine SecuritySettings",
               "description": "Triggers an on-demand sync of EdgeMachine SecuritySettings compliance status from Guest Configuration RP, creating the SecuritySettings child resource if it does not already exist."
             }
+          },
+          {
+            "name": "Microsoft.AzureStackHCI/EdgeMachines/RefreshApplicableUpdates/Action",
+            "isDataAction": false,
+            "display": {
+              "provider": "Microsoft.AzureStackHCI",
+              "resource": "EdgeMachines",
+              "operation": "Refresh EdgeMachine Applicable Updates",
+              "description": "Triggers an on-demand refresh of applicable updates for the EdgeMachine, creating or updating the default EdgeMachineUpdate child resource with the latest set of applicable updates."
+            }
           }
         ]
       }
