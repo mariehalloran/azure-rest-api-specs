@@ -34,6 +34,10 @@ enum Versions {
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   @doc("The 2026-06-01-preview API version.")
   v2026_06_01_preview: "2026-06-01-preview",
+
+  @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
+  @doc("The 2026-07-01-preview API version.")
+  v2026_07_01_preview: "2026-07-01-preview",
 }
 
 @doc("Provisioning State")
@@ -211,6 +215,10 @@ model AssociationDefinition {
 
   @doc("The artifact id to associate.")
   artifactId?: string;
+
+  @added(Versions.v2026_07_01_preview)
+  @doc("The endpoint id to associate.")
+  endpointId?: string;
 
   @doc("The message group id to associate.")
   messageGroupId?: string;

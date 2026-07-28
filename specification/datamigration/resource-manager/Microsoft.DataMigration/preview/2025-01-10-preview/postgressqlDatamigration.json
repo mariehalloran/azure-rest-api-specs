@@ -125,7 +125,7 @@
         },
         "x-ms-examples": {
           "List migration services by subscription": {
-            "$ref": "./examples/PostgresqlMigrationServices_ListBySubscription.json"
+            "$ref": "./examples/MigrationServices_ListBySubscription.json"
           }
         },
         "x-ms-pageable": {
@@ -167,7 +167,7 @@
         },
         "x-ms-examples": {
           "List migration services by resource group": {
-            "$ref": "./examples/PostgresqlMigrationServices_ListByResourceGroup.json"
+            "$ref": "./examples/MigrationServices_ListByResourceGroup.json"
           }
         },
         "x-ms-pageable": {
@@ -217,7 +217,7 @@
         },
         "x-ms-examples": {
           "Get a migration service": {
-            "$ref": "./examples/PostgresqlMigrationServices_Get.json"
+            "$ref": "./examples/MigrationServices_Get.json"
           }
         }
       },
@@ -277,7 +277,7 @@
         },
         "x-ms-examples": {
           "Create a migration service": {
-            "$ref": "./examples/PostgresqlMigrationServices_Create.json"
+            "$ref": "./examples/MigrationServices_Create.json"
           }
         }
       },
@@ -331,7 +331,7 @@
         },
         "x-ms-examples": {
           "Update a migration service": {
-            "$ref": "./examples/PostgresqlMigrationServices_Update.json"
+            "$ref": "./examples/MigrationServices_Update.json"
           }
         }
       },
@@ -376,7 +376,7 @@
         },
         "x-ms-examples": {
           "Delete a migration service": {
-            "$ref": "./examples/PostgresqlMigrationServices_Delete.json"
+            "$ref": "./examples/MigrationServices_Delete.json"
           }
         }
       }
@@ -446,7 +446,7 @@
         },
         "x-ms-examples": {
           "Discover database objects from postgresQL source": {
-            "$ref": "./examples/PostgresqlMigrationServices_DiscoverDatabaseObjects.json"
+            "$ref": "./examples/MigrationServices_DiscoverDatabaseObjects.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -497,7 +497,7 @@
         },
         "x-ms-examples": {
           "List all database migrations by migration service": {
-            "$ref": "./examples/PostgresqlDatabaseMigrations_ListByMigrationService.json"
+            "$ref": "./examples/DatabaseMigrations_ListByMigrationService.json"
           }
         },
         "x-ms-pageable": {
@@ -555,7 +555,7 @@
         },
         "x-ms-examples": {
           "Get a database migration": {
-            "$ref": "./examples/PostgresqlDatabaseMigrations_Get.json"
+            "$ref": "./examples/DatabaseMigrations_Get.json"
           }
         }
       },
@@ -623,7 +623,7 @@
         },
         "x-ms-examples": {
           "Create a database migration": {
-            "$ref": "./examples/PostgresqlDatabaseMigrations_CreateOrUpdate.json"
+            "$ref": "./examples/DatabaseMigrations_CreateOrUpdate.json"
           }
         }
       },
@@ -685,7 +685,7 @@
         },
         "x-ms-examples": {
           "Cutover a database migration": {
-            "$ref": "./examples/PostgresqlDatabaseMigrations_Update.json"
+            "$ref": "./examples/DatabaseMigrations_Update.json"
           }
         }
       },
@@ -749,7 +749,7 @@
         },
         "x-ms-examples": {
           "Delete a database migration": {
-            "$ref": "./examples/PostgresqlDatabaseMigrations_Delete.json"
+            "$ref": "./examples/DatabaseMigrations_Delete.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -1186,7 +1186,7 @@
         },
         "x-ms-examples": {
           "Test connectivity to source and target databases": {
-            "$ref": "./examples/PostgresqlMigrationServices_TestConnectivity.json"
+            "$ref": "./examples/MigrationServices_TestConnectivity.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -2465,8 +2465,8 @@
         "Succeeded",
         "Failed",
         "Pending",
-        "Cancelled",
-        "Cancelling",
+        "Canceled",
+        "Canceling",
         "WaitingForCutover",
         "PostCutoverReplicationCatchUp"
       ],
@@ -2500,14 +2500,14 @@
             "description": "Migration is pending"
           },
           {
-            "name": "Cancelled",
-            "value": "Cancelled",
-            "description": "Migration is cancelled"
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Migration is canceled"
           },
           {
-            "name": "Cancelling",
-            "value": "Cancelling",
-            "description": "Migration is being cancelled"
+            "name": "Canceling",
+            "value": "Canceling",
+            "description": "Migration is being canceled"
           },
           {
             "name": "WaitingForCutover",
@@ -2557,7 +2557,7 @@
         "InProgress",
         "Succeeded",
         "Failed",
-        "Cancelled"
+        "Canceled"
       ],
       "x-ms-enum": {
         "name": "OperationStatus",
@@ -2579,9 +2579,9 @@
             "description": "Operation failed"
           },
           {
-            "name": "Cancelled",
-            "value": "Cancelled",
-            "description": "Operation was cancelled"
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Operation was canceled"
           }
         ]
       },

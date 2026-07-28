@@ -4102,6 +4102,24 @@
             ]
           }
         },
+        "machineArmId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Azure resource ID of the underlying VM.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.OffAzure/serverSites/machines"
+              },
+              {
+                "type": "Microsoft.OffAzure/vmwareSites/machines"
+              },
+              {
+                "type": "Microsoft.OffAzure/hyperVSites/machines"
+              }
+            ]
+          }
+        },
         "softwareAttributes": {
           "$ref": "#/definitions/SoftwareAttributes",
           "description": "Software attributes."

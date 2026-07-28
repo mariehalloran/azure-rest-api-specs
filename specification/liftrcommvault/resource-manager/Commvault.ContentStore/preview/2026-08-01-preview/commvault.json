@@ -2465,6 +2465,10 @@
       "type": "object",
       "description": "Optional activate SaaS request parameters",
       "properties": {
+        "saasResourceId": {
+          "type": "string",
+          "description": "Optional Marketplace SaaS resource identifier"
+        },
         "user": {
           "$ref": "#/definitions/LiftrBase.UserDetails",
           "description": "Optional user details"

@@ -177,7 +177,7 @@ interface ReportResources {
   ReportResources.checkNameAvailability::parameters.body,
   "NameAvailabilityRequest object."
 );
-#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Deprecated: Using encodedName for the body property is meaningless."
+#suppress "deprecated" "LEGACY - DO NOT COPY - FIX"
 @@encodedName(
   ReportResources.update::parameters.properties,
   "application/json",

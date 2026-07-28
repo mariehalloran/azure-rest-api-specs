@@ -586,7 +586,7 @@
         "tags": [
           "ResourceSubscriptions"
         ],
-        "description": "Updates a resource subscription (supports tags and property updates)",
+        "description": "Updates the tags on a resource subscription",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -611,7 +611,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ResourceSubscriptionUpdate"
+              "$ref": "#/definitions/ResourceSubscriptionTagsUpdate"
             }
           }
         ],
@@ -640,7 +640,7 @@
         "tags": [
           "ResourceSubscriptions"
         ],
-        "description": "Deletes a resource subscription",
+        "description": "Deletes a resource subscription. Asynchronous operation.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -661,8 +661,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -678,7 +689,11 @@
           "Delete a resource subscription": {
             "$ref": "./examples/ResourceSubscriptions_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/resourceSubscriptions/{subscriptionRuleName}/destinations": {
@@ -790,7 +805,7 @@
         "tags": [
           "Destinations"
         ],
-        "description": "Creates or updates a destination",
+        "description": "Creates or updates a destination. Asynchronous operation.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -838,6 +853,17 @@
             "description": "Resource 'Destination' create operation succeeded",
             "schema": {
               "$ref": "#/definitions/Destination"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
             }
           },
           "default": {
@@ -851,6 +877,72 @@
           "Create or update a fabric table destination": {
             "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate.json"
           }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "ResourceSubscriptionDestinations_Update",
+        "tags": [
+          "Destinations"
+        ],
+        "description": "Updates the tags on a destination",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "subscriptionRuleName",
+            "in": "path",
+            "description": "The name of the resource subscription",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          },
+          {
+            "name": "destinationName",
+            "in": "path",
+            "description": "The name of the destination",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DestinationUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Destination"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update the tags on a destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_Update.json"
+          }
         }
       },
       "delete": {
@@ -858,7 +950,7 @@
         "tags": [
           "Destinations"
         ],
-        "description": "Deletes a destination",
+        "description": "Deletes a destination. Asynchronous operation.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -887,8 +979,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -904,7 +1007,11 @@
           "Delete a destination": {
             "$ref": "./examples/ResourceSubscriptionDestinations_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     }
   },
@@ -1012,13 +1119,9 @@
         },
         "appId": {
           "$ref": "#/definitions/Azure.Core.uuid",
-          "description": "The application ID extracted from request, checked against manifest",
-          "readOnly": true
+          "description": "The application ID extracted from request, checked against manifest"
         }
       },
-      "required": [
-        "providerNamespace"
-      ],
       "allOf": [
         {
           "$ref": "#/definitions/Scope"
@@ -1037,7 +1140,7 @@
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -1122,6 +1225,19 @@
       "required": [
         "kind"
       ]
+    },
+    "DestinationUpdate": {
+      "type": "object",
+      "description": "The updatable fields of a destination resource.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
     },
     "EndpointDeliveryMode": {
       "type": "string",
@@ -1633,9 +1749,9 @@
         "scope"
       ]
     },
-    "ResourceSubscriptionUpdate": {
+    "ResourceSubscriptionTagsUpdate": {
       "type": "object",
-      "description": "The type used for update operations of the ResourceSubscription.",
+      "description": "The type used for updating tags in ResourceSubscription resources.",
       "properties": {
         "tags": {
           "type": "object",
@@ -1643,20 +1759,6 @@
           "additionalProperties": {
             "type": "string"
           }
-        },
-        "properties": {
-          "$ref": "#/definitions/ResourceSubscriptionUpdateProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      }
-    },
-    "ResourceSubscriptionUpdateProperties": {
-      "type": "object",
-      "description": "The updatable properties of the ResourceSubscription.",
-      "properties": {
-        "query": {
-          "type": "string",
-          "description": "The query to execute - only one table can be targeted at a time"
         }
       }
     },
@@ -1742,7 +1844,7 @@
             "$ref": "#/definitions/StorageAccountEndpoint"
           },
           "x-ms-identifiers": [
-            "url"
+            "id"
           ]
         }
       },
@@ -1764,13 +1866,13 @@
       "type": "object",
       "description": "Storage account endpoint",
       "properties": {
-        "url": {
+        "id": {
           "type": "string",
-          "description": "The storage account endpoint URL"
+          "description": "The storage account endpoint resource ID"
         }
       },
       "required": [
-        "url"
+        "id"
       ]
     },
     "SubscriptionOptions": {
@@ -1802,14 +1904,10 @@
       "description": "Tenant scope configuration",
       "properties": {
         "tenantId": {
-          "type": "string",
-          "description": "The tenant ID populated by API after validation (from Aux token)",
-          "readOnly": true
+          "type": "string"
         },
         "servicePrincipal": {
-          "type": "string",
-          "description": "The service principal populated by API after validation (from Aux token)",
-          "readOnly": true
+          "type": "string"
         }
       },
       "allOf": [

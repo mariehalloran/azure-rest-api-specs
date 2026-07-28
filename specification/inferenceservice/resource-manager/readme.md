@@ -28,7 +28,16 @@ These are the global settings for the Inference Service API.
 title: InferenceServiceManagementClient
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-preview-2026-01-15-preview
+tag: package-preview-2026-08-01-preview
+```
+
+### Tag: package-preview-2026-08-01-preview
+
+These settings apply only when `--tag=package-preview-2026-08-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-preview-2026-08-01-preview'
+input-file:
+  - Microsoft.InferenceService/InferenceService/preview/2026-08-01-preview/inferenceservice.json
 ```
 
 ### Tag: package-preview-2026-01-15-preview
