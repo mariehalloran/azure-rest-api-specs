@@ -1,0 +1,112 @@
+{
+  "title": "MigratePlans_ListByParent_MaximumSet_Gen",
+  "operationId": "MigratePlans_ListByParent",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "4bd2aa0f-2bd2-4d67-91a8-5a4533d58600",
+    "resourceGroupName": "myResourceGroup",
+    "projectName": "myMigrateProject"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "properties": {
+              "planType": "DataCenter",
+              "provisioningState": "Succeeded",
+              "status": "Completed",
+              "artifactId": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.Migrate/migrateProjects/myMigrateProject/artifacts/default",
+              "settings": {
+                "migrationStrategy": "LiftAndShift"
+              },
+              "artifacts": {
+                "discovery": {
+                  "status": "Completed",
+                  "scope": {
+                    "azureResourceGraphQuery": "Resources | where type =~ 'Microsoft.Migrate/migrateProjects/machines' | where resourceGroup =~ 'myResourceGroup'"
+                  },
+                  "error": {
+                    "code": "NullResult",
+                    "message": "The discovery script completed but returned no result from Guest VM.",
+                    "updatedTimeStamp": "2026-07-01T00:55:00.000Z"
+                  }
+                },
+                "heterogeneousAssessment": {
+                  "armId": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.Migrate/assessmentProjects/myAssessmentProject/heterogeneousAssessments/myHaAssessment",
+                  "status": "Completed",
+                  "error": {
+                    "code": "PartialAssessment",
+                    "message": "Assessment completed with some machines marked as unsupported.",
+                    "updatedTimeStamp": "2026-07-01T00:55:05.000Z"
+                  }
+                },
+                "businessCases": [
+                  {
+                    "armId": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.Migrate/assessmentProjects/myAssessmentProject/businessCases/myBusinessCase",
+                    "status": "Completed",
+                    "migrationStrategy": "LiftAndShift",
+                    "error": {
+                      "code": "PricingDataStale",
+                      "message": "Business case generated using cached pricing data.",
+                      "updatedTimeStamp": "2026-07-01T00:55:10.000Z"
+                    }
+                  }
+                ],
+                "wavePlans": [
+                  {
+                    "armId": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.Migrate/migrateProjects/myMigrateProject/waves/myWave-LiftAndShift",
+                    "status": "Completed",
+                    "migrationStrategy": "LiftAndShift",
+                    "error": {
+                      "code": "WaveDependencyWarning",
+                      "message": "Wave plan generated with unresolved cross-server dependencies.",
+                      "updatedTimeStamp": "2026-07-01T00:55:15.000Z"
+                    }
+                  }
+                ],
+                "platformLandingZone": {
+                  "armId": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.Migrate/migrateProjects/myMigrateProject/platformLandingZones/myLandingZone",
+                  "status": "Completed",
+                  "error": {
+                    "code": "LandingZoneProvisioningWarning",
+                    "message": "Platform landing zone provisioned with warnings.",
+                    "updatedTimeStamp": "2026-07-01T00:55:20.000Z"
+                  }
+                },
+                "ameReports": [
+                  {
+                    "armId": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.Migrate/assessmentProjects/myAssessmentProject/ameReports/myAmeReport",
+                    "status": "Completed",
+                    "migrationStrategy": "LiftAndShift",
+                    "error": {
+                      "code": "ReportPartialData",
+                      "message": "AME report generated with partial application data.",
+                      "updatedTimeStamp": "2026-07-01T00:55:25.000Z"
+                    }
+                  }
+                ]
+              },
+              "error": {
+                "code": "PlanGenerationPartialSuccess",
+                "message": "The plan was generated but one or more features reported errors.",
+                "updatedTimeStamp": "2026-07-01T00:55:30.000Z"
+              }
+            },
+            "id": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.Migrate/migrateProjects/myMigrateProject/plans/default",
+            "name": "default",
+            "type": "Microsoft.Migrate/migrateProjects/plans",
+            "systemData": {
+              "createdBy": "user@contoso.com",
+              "createdByType": "User",
+              "createdAt": "2026-07-01T00:00:00.000Z",
+              "lastModifiedBy": "user@contoso.com",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-07-01T01:00:00.000Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
