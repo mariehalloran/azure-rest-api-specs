@@ -1,0 +1,27 @@
+{
+  "title": "Get session details",
+  "operationId": "NotificationsSessions_GetSessionDetails",
+  "description": "This example demonstrates retrieving connection details for an active notification session.",
+  "parameters": {
+    "api-version": "2026-08-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "locationName": "westus2",
+    "notificationSessionName": "MyTestSession",
+    "body": {
+      "durationInMinutes": 60
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ResourceNotifications/locations/westus2/notificationSessions/MyTestSession",
+        "encodedNotificationSession": "PLACEHOLDER_ENCODED_SESSION_TOKEN",
+        "connectionDetails": {
+          "connectionString": "{connection-string}",
+          "endpoint": "https://example.servicebus.windows.net/sessions/00000000-0000-0000-0000-000000000000"
+        },
+        "validUntil": "2025-03-27T15:30:00.000Z"
+      }
+    }
+  }
+}

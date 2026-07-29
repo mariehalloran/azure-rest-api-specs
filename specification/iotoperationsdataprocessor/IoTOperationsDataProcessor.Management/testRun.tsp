@@ -1,7 +1,6 @@
 import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/versioning";
-import "@azure-tools/typespec-providerhub";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./common.tsp";
@@ -20,11 +19,11 @@ namespace Microsoft.IoTOperationsDataProcessor;
 @doc("The request properties to execute a test run.")
 @added(Versions.Preview20240201)
 model TestRunRequest {
-  #suppress "@azure-tools/typespec-azure-core/bad-record-type"
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "existing API"
   @doc("Configure where test run messages are sourced from.")
   dataSource: DataSourceBase;
 
-  #suppress "@azure-tools/typespec-azure-core/bad-record-type"
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "existing API"
   @doc("Map of stage IDs to stage configurations for all pipeline processing and output stages.")
   stages?: Record<PipelineStage>;
 }
@@ -44,13 +43,14 @@ model TestRunResponse {
 @doc("The properties for a Message.")
 @added(Versions.Preview20240201)
 model Message {
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "Partition key is a routing identifier for sampled messages, not a credential or secret."
   @doc("The partition key of the message.")
   partitionKey: string;
 
   @doc("ISO 8601 timestamp indicating when the message was ingested.")
   timestamp: string;
 
-  #suppress "@azure-tools/typespec-azure-core/bad-record-type"
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "existing API"
   @doc("The entire message object.")
   data: Record<unknown>;
 }
@@ -75,11 +75,14 @@ model ExecutionResult {
   duration?: string;
 }
 
-#suppress "@azure-tools/typespec-azure-core/bad-record-type"
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "existing API"
 @doc("The data source properties.")
 @added(Versions.Preview20240201)
 @discriminator("type")
-model DataSourceBase {}
+model DataSourceBase {
+  @doc("The type of data source used to execute the test run.")
+  type: DataSourceType;
+}
 
 @added(Versions.Preview20240201)
 @doc("Data source input sampling is used to retrieve messages from the specified input stage.")
@@ -114,10 +117,12 @@ model DataSourceMessages extends DataSourceBase {
 
 @doc("The data source type that should be used to execute a test run.")
 @added(Versions.Preview20240201)
-enum DataSourceType {
+union DataSourceType {
   @doc("The input sampling data source type performs sampling from the provided input stage.")
-  inputSampling,
+  inputSampling: "inputSampling",
 
   @doc("The messages data source type uses the provided messages directly.")
-  messages,
+  messages: "messages",
+
+  string,
 }
