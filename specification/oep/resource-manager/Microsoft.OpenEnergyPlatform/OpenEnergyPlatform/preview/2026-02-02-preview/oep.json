@@ -680,7 +680,7 @@
         "tags": [
           "PrivateEndpointConnectionProxies"
         ],
-        "description": "(INTERNAL - DO NOT USE) List all private endpoint connection proxies in a OAK instance.",
+        "description": "(INTERNAL - DO NOT USE) List all private endpoint connection proxies in a ADME instance.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -735,7 +735,7 @@
         "tags": [
           "PrivateEndpointConnectionProxies"
         ],
-        "description": "(INTERNAL - DO NOT USE) Get the specified private endpoint connection proxy associated with the OAK Instance.",
+        "description": "(INTERNAL - DO NOT USE) Get the specified private endpoint connection proxy associated with the ADME Instance.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -792,7 +792,7 @@
         "tags": [
           "PrivateEndpointConnectionProxies"
         ],
-        "description": "(INTERNAL - DO NOT USE) Creates or updates the specified private endpoint connection proxy resource associated with the OAK instance.",
+        "description": "(INTERNAL - DO NOT USE) Creates or updates the specified private endpoint connection proxy resource associated with the ADME instance.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -880,7 +880,7 @@
         "tags": [
           "PrivateEndpointConnectionProxies"
         ],
-        "description": "(INTERNAL - DO NOT USE) Deletes the specified private endpoint connection proxy associated with the OAK Instance.",
+        "description": "(INTERNAL - DO NOT USE) Deletes the specified private endpoint connection proxy associated with the ADME Instance.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -1022,7 +1022,7 @@
         "tags": [
           "PrivateEndpointConnections"
         ],
-        "description": "List all private endpoint connections in a OAK instance.",
+        "description": "List all private endpoint connections in a ADME instance.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -1077,7 +1077,7 @@
         "tags": [
           "PrivateEndpointConnections"
         ],
-        "description": "Get the specified private endpoint connection associated with the OAK Instance.",
+        "description": "Get the specified private endpoint connection associated with the ADME Instance.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -1130,7 +1130,7 @@
         "tags": [
           "PrivateEndpointConnections"
         ],
-        "description": "Update the state of specified private endpoint connection associated with the OAK Instance.",
+        "description": "Update the state of specified private endpoint connection associated with the ADME Instance.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -1204,7 +1204,7 @@
         "tags": [
           "PrivateEndpointConnections"
         ],
-        "description": "Deletes the specified private endpoint connection associated with the OAK Instance.",
+        "description": "Deletes the specified private endpoint connection associated with the ADME Instance.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -1277,7 +1277,7 @@
         "tags": [
           "PrivateLinkResources"
         ],
-        "description": "List all private link resources in a OAK instance.",
+        "description": "List all private link resources in a ADME instance.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -1332,7 +1332,7 @@
         "tags": [
           "PrivateLinkResources"
         ],
-        "description": "Get the specified private link resource associated with the OAK instance.",
+        "description": "Get the specified private link resource associated with the ADME instance.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -1798,7 +1798,7 @@
       "properties": {
         "dnsName": {
           "type": "string",
-          "description": "DNS name of the OAK service.",
+          "description": "DNS name of the ADME service.",
           "readOnly": true
         },
         "provisioningState": {
@@ -1828,7 +1828,7 @@
         },
         "publicNetworkAccess": {
           "type": "string",
-          "description": "Whether or not public network access is allowed for the OAK resource.",
+          "description": "Whether or not public network access is allowed for the ADME resource.",
           "default": "Enabled",
           "enum": [
             "Enabled",
@@ -1853,7 +1853,7 @@
         },
         "privateEndpointConnections": {
           "type": "array",
-          "description": "List of private endpoint connections associated with the OAK resource.",
+          "description": "List of private endpoint connections associated with the ADME resource.",
           "items": {
             "$ref": "../../../../../../common-types/resource-management/v6/privatelinks.json#/definitions/PrivateEndpointConnection"
           }
@@ -1915,7 +1915,7 @@
         },
         "addOnPackages": {
           "type": "array",
-          "description": "List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.",
+          "description": "DEPRECATED and not supported. Legacy add-on packages list (array of objects) used by\n2026-02-02-preview and earlier; removed in 2026-07-21-preview and replaced by an\n`addOnPackages` enum array. Packages not included in the list will be considered for removal.",
           "items": {
             "$ref": "#/definitions/AddOnPackage"
           },
@@ -1935,7 +1935,7 @@
         },
         "addOnPackages": {
           "type": "array",
-          "description": "List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.",
+          "description": "DEPRECATED and not supported. Legacy add-on packages list (array of objects) used by\n2026-02-02-preview and earlier; removed in 2026-07-21-preview and replaced by an\n`addOnPackages` enum array. Packages not included in the list will be considered for removal.",
           "items": {
             "$ref": "#/definitions/AddOnPackage"
           },

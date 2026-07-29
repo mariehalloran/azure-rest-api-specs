@@ -48,14 +48,14 @@ model PrivateLinkResourceListResult {
 @armResourceOperations
 interface PrivateLinkResources {
   /**
-   * Get the specified private link resource associated with the OAK instance.
+   * Get the specified private link resource associated with the ADME instance.
    */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "non-standard operations"
   @operationId("PrivateLinkResources_Get")
   get is ArmResourceRead<GroupInformation>;
 
   /**
-   * List all private link resources in a OAK instance.
+   * List all private link resources in a ADME instance.
    */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "non-standard operations"
   #suppress "@azure-tools/typespec-azure-core/casing-style" "Preserving existing operationId casing (OAK acronym)."

@@ -67,7 +67,7 @@ union KeySource {
 }
 
 /**
- * Whether or not public network access is allowed for the OAK resource.
+ * Whether or not public network access is allowed for the ADME resource.
  */
 union PublicNetworkAccess {
   string,
@@ -401,7 +401,7 @@ model EnergyServiceList is Azure.Core.Page<EnergyService>;
  * The properties of an Energy service resource.
  */
 model EnergyServiceProperties {
-  /** DNS name of the OAK service. */
+  /** DNS name of the ADME service. */
   @visibility(Lifecycle.Read)
   dnsName?: string;
 
@@ -433,12 +433,12 @@ model EnergyServiceProperties {
   acz?: Acz;
 
   /**
-   * Whether or not public network access is allowed for the OAK resource.
+   * Whether or not public network access is allowed for the ADME resource.
    */
   publicNetworkAccess?: PublicNetworkAccess = PublicNetworkAccess.Enabled;
 
   /**
-   * List of private endpoint connections associated with the OAK resource.
+   * List of private endpoint connections associated with the ADME resource.
    */
   privateEndpointConnections?: PrivateEndpointConnection[];
 
@@ -462,13 +462,21 @@ model EnergyServiceProperties {
   /**
    * Specifies whether geo-redundancy is enabled or disabled for the energy service.
    */
-  geoRedundancy?: GeoRedundancy = GeoRedundancy.Enabled;
+  @removed(Versions.v2026_07_21_preview)
+  @renamedFrom(Versions.v2026_07_21_preview, "geoRedundancy")
+  geoRedundancyV1?: GeoRedundancy = GeoRedundancy.Enabled;
+
+  /**
+   * Specifies whether geo-redundancy is enabled or disabled for the energy service.
+   */
+  @added(Versions.v2026_07_21_preview)
+  geoRedundancy: GeoRedundancy;
 
   /**
    * Specifies whether backup and restore is enabled or disabled for the energy service.
    */
   @added(Versions.v2026_07_21_preview)
-  backupAndRestore?: BackupAndRestore = BackupAndRestore.Enabled;
+  backupAndRestore: BackupAndRestore;
 
   /**
    * Defines the properties related to reference data ingestion.
@@ -487,7 +495,9 @@ model EnergyServiceProperties {
   upgradeSettings?: UpgradeSettings;
 
   /**
-   * List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.
+   * DEPRECATED and not supported. Legacy add-on packages list (array of objects) used by
+   * 2026-02-02-preview and earlier; removed in 2026-07-21-preview and replaced by an
+   * `addOnPackages` enum array. Packages not included in the list will be considered for removal.
    */
   @removed(Versions.v2026_07_21_preview)
   @renamedFrom(Versions.v2026_07_21_preview, "addOnPackages")
@@ -716,7 +726,7 @@ model EnergyResourceUpdate {
 @added(Versions.v2026_07_21_preview)
 model SkuUpdate {
   /**
-   * The scale capacity for the energy service. Must be a power of 2 between 1 and 256 (applicable for Flex SKU).
+   * The scale capacity for the energy service. Must be a power of 2 between 2 and 128 (applicable for Flex SKU).
    */
   capacity?: int32;
 }
@@ -761,7 +771,7 @@ model EnergyServiceUpdateProperties {
   eds?: Eds;
 
   /**
-   * Whether or not public network access is allowed for the OAK resource.
+   * Whether or not public network access is allowed for the ADME resource.
    */
   @added(Versions.v2026_07_21_preview)
   publicNetworkAccess?: PublicNetworkAccess;
@@ -780,7 +790,9 @@ model EnergyServiceUpdateProperties {
   upgradeSettings?: UpgradeSettings;
 
   /**
-   * List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.
+   * DEPRECATED and not supported. Legacy add-on packages list (array of objects) used by
+   * 2026-02-02-preview and earlier; removed in 2026-07-21-preview and replaced by an
+   * `addOnPackages` enum array. Packages not included in the list will be considered for removal.
    */
   @removed(Versions.v2026_07_21_preview)
   @renamedFrom(Versions.v2026_07_21_preview, "addOnPackages")

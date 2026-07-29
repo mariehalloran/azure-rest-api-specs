@@ -6,10 +6,14 @@
 
 > **TL;DR for the reviewer**
 >
-> New preview version. All changes are version-gated, so `2026-02-02-preview/oep.json`
-> is **byte-for-byte unchanged**. Changes are limited to the `EnergyService` resource
-> `properties` and its PATCH body: 2 properties added, 1 removed, `addOnPackages`
-> reshaped to a 2-value enum, and the PATCH surface expanded.
+> New preview version. `2026-02-02-preview` was **not modified** — its `oep.json` is
+> byte-for-byte unchanged. However, **`2026-02-02-preview` is not used by any customers and
+> will not be supported**; `2026-07-21-preview` supersedes it. Several changes below are
+> intentionally **breaking versus `2026-02-02-preview`** — that is expected and acceptable
+> because that version is unused, and in some cases the change reverts behavior back to how
+> all other API versions function. Changes are limited to the `EnergyService` resource
+> `properties` and its PATCH body: 2 properties added, 1 removed, `addOnPackages` reshaped to
+> a 2-value enum, and the PATCH surface expanded.
 
 ---
 
@@ -17,8 +21,14 @@
 
 | Property | Type | Notes |
 |---|---|---|
-| `backupAndRestore` | extensible enum: `Enabled` \| `Disabled` | Default `Enabled`. Modeled as an extensible enum (not a boolean) per API-review guidance. |
+| `backupAndRestore` | extensible enum: `Enabled` \| `Disabled` | **Required** (create + response). Modeled as an extensible enum (not a boolean) per API-review guidance. No default — the caller must choose explicitly. |
 | `acz` | object | `{ "identity": { "identityType": "SystemAssigned" \| "UserAssigned", "userAssignedIdentityId": string } }`. `userAssignedIdentityId` required when `identityType == UserAssigned`. |
+
+> **`geoRedundancy` is now also required** (create + response) in `2026-07-21-preview` — it was
+> optional with a default of `Enabled` in `2026-02-02-preview`. Both `geoRedundancy` and
+> `backupAndRestore` drop their defaults so callers must explicitly choose `Enabled`/`Disabled`,
+> removing ambiguity about the omitted-value behavior. On PATCH both remain optional (partial
+> updates). Requiring `geoRedundancy` is a breaking change versus the unused `2026-02-02-preview`.
 
 ## Properties removed
 
@@ -37,7 +47,18 @@
 
 > Impact: the element type changes from a package DTO (`{name, properties.state}`) to a
 > plain enum. The old `AddOnPackage` / `AddOnPackageItemProperties` / `PackageState` types
-> and the 7 old package names are no longer part of this version.
+> and the 7 old package names are no longer part of this version. This is a **breaking change
+> versus `2026-02-02-preview`**, which is acceptable because `2026-02-02-preview` is not used
+> by any customers and will not be supported.
+>
+> Note: the shared `.tsp` retains the old object-array field (as `addOnPackagesV1`, emitted on
+> the wire as `addOnPackages` in `2026-02-02-preview` via `@renamedFrom`) so the old version's
+> contract is preserved. Its doc comment is now marked **"DEPRECATED and not supported"**; because
+> the `.tsp` is shared, that also updates the `addOnPackages` description in
+> `2026-02-02-preview/oep.json` (doc-only, non-breaking). The `AddOnPackage` /
+> `AddOnPackageItemProperties` / `PackageState` definitions are not marked `@removed` — they
+> remain in use by `2026-02-02-preview` and drop out of `2026-07-21-preview` automatically as
+> unreachable types.
 
 ## New types
 
@@ -60,6 +81,12 @@ New shape (`2026-07-21-preview`): `{ id, name, type, eTag, remotePrivateEndpoint
 > This is an internal RPaaS DO-NOT-USE resource; the flat shape is intentional and matches the
 > control-plane RP. Two lint rules are suppressed at the TypeSpec level with justification
 > (`arm-resource-invalid-envelope-property`, `arm-resource-duplicate-property`).
+>
+> This is a **breaking change versus `2026-02-02-preview`**, and that is expected and fine:
+> `2026-02-02-preview` is not used by any customers and will not be supported, and this change
+> reverts `PrivateEndpointConnectionProxy` back to the flat shape used by **all other API
+> versions** (including stable `2025-12-15`) and by the control-plane RP. The nested shape in
+> `2026-02-02-preview` was the anomaly.
 
 ---
 
@@ -109,3 +136,12 @@ name/tier/size/family/capacity), `geoRedundancy`, `referenceData`, `milestoneVer
 
 - The per-package config for `Enterprise`/`Analytics` is intentionally minimal (enum values
   only) pending the service team's final design.
+- `sku.capacity` (PATCHable): the scale capacity must be a power of 2 **between 2 and 128**
+  (applicable for Flex SKU).
+- Terminology cleanup: internal references to the legacy names **`OAK`** and **`MEDS`** in
+  descriptions/config prose were changed to **`ADME`**. This is doc-only and non-breaking. The
+  `.tsp` source is shared across versions, so the description-only text change also appears in
+  `2026-02-02-preview`. OperationIds, the `meds.json` input filename, and older/stable shipped
+  `oep.json` files were intentionally left unchanged to keep the change minimal.
+- `readme.md`: the `package-2026-07-21-preview` tag section was placed **after**
+  `package-2026-02-02-preview` to keep the tag blocks in date-sorted order (no functional effect).

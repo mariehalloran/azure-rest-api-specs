@@ -1,8 +1,8 @@
-# MEDS
+# ADME
 
 > see https://aka.ms/autorest
 
-This is the AutoRest configuration file for MEDS.
+This is the AutoRest configuration file for ADME.
 
 ## Getting Started
 
@@ -22,7 +22,7 @@ For other options on installation see [Installing AutoRest](https://aka.ms/autor
 
 ### Basic Information
 
-These are the global settings for the MEDS.
+These are the global settings for the ADME.
 
 ``` yaml
 openapi-type: arm
@@ -155,6 +155,23 @@ input-file:
   - stable/2025-12-15/oep.json
 ```
 
+### Tag: package-2026-02-02-preview
+
+These settings apply only when `--tag=package-2026-02-02-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-02-02-preview'
+input-file:
+  - preview/2026-02-02-preview/oep.json
+suppressions:
+  - code: LroLocationHeader
+    from: oep.json
+    reason: "The PATCH on EnergyService uses an existing async pattern that returns Azure-AsyncOperation and Retry-After headers but no Location header. This wire contract predates the rule and is already suppressed at the TypeSpec level for the same operation. Note: scoping via `where:` was attempted but is not honored by LintDiff's `suppressions:` block — file-wide is required for this rule code."
+  - code: ProvisioningStateSpecifiedForLROPut
+    from: oep.json
+    where: '$.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OpenEnergyPlatform/energyServices/{resourceName}/privateEndpointConnectionProxies/{privateEndpointConnectionProxyId}"].put'
+    reason: "PrivateEndpointConnectionProxies is an internal RPaaS-only DO NOT USE API consumed by the Network Resource Provider. Its 201 response intentionally omits provisioningState from the resource properties. Already suppressed at the TypeSpec level on the same model."
+```
+
 ### Tag: package-2026-07-21-preview
 
 These settings apply only when `--tag=package-2026-07-21-preview` is specified on the command line.
@@ -169,23 +186,6 @@ suppressions:
   - code: BodyTopLevelProperties
     from: oep.json
     reason: "PrivateEndpointConnectionProxy is an internal RPaaS-only DO NOT USE resource consumed by the Network Resource Provider. Its eTag / remotePrivateEndpoint / status are intentionally top-level (not under `properties`) to match the control-plane RP and the stable 2025-12-15 contract, correcting the nested defect that shipped in 2026-02-02-preview. This resource was historically suppressed for the same rule via the legacy directive block that references the pre-migration file name."
-  - code: LroLocationHeader
-    from: oep.json
-    reason: "The PATCH on EnergyService uses an existing async pattern that returns Azure-AsyncOperation and Retry-After headers but no Location header. This wire contract predates the rule and is already suppressed at the TypeSpec level for the same operation. Note: scoping via `where:` was attempted but is not honored by LintDiff's `suppressions:` block — file-wide is required for this rule code."
-  - code: ProvisioningStateSpecifiedForLROPut
-    from: oep.json
-    where: '$.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OpenEnergyPlatform/energyServices/{resourceName}/privateEndpointConnectionProxies/{privateEndpointConnectionProxyId}"].put'
-    reason: "PrivateEndpointConnectionProxies is an internal RPaaS-only DO NOT USE API consumed by the Network Resource Provider. Its 201 response intentionally omits provisioningState from the resource properties. Already suppressed at the TypeSpec level on the same model."
-```
-
-### Tag: package-2026-02-02-preview
-
-These settings apply only when `--tag=package-2026-02-02-preview` is specified on the command line.
-
-```yaml $(tag) == 'package-2026-02-02-preview'
-input-file:
-  - preview/2026-02-02-preview/oep.json
-suppressions:
   - code: LroLocationHeader
     from: oep.json
     reason: "The PATCH on EnergyService uses an existing async pattern that returns Azure-AsyncOperation and Retry-After headers but no Location header. This wire contract predates the rule and is already suppressed at the TypeSpec level for the same operation. Note: scoping via `where:` was attempted but is not honored by LintDiff's `suppressions:` block — file-wide is required for this rule code."

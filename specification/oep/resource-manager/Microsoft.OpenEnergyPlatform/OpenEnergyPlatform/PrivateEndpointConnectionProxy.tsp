@@ -51,17 +51,17 @@ model PrivateEndpointConnectionProxy
 @armResourceOperations
 interface PrivateEndpointConnectionProxies {
   /**
-   * (INTERNAL - DO NOT USE) Get the specified private endpoint connection proxy associated with the OAK Instance.
+   * (INTERNAL - DO NOT USE) Get the specified private endpoint connection proxy associated with the ADME Instance.
    */
   get is ArmResourceRead<PrivateEndpointConnectionProxy>;
 
   /**
-   * (INTERNAL - DO NOT USE) Creates or updates the specified private endpoint connection proxy resource associated with the OAK instance.
+   * (INTERNAL - DO NOT USE) Creates or updates the specified private endpoint connection proxy resource associated with the ADME instance.
    */
   createOrUpdate is ArmResourceCreateOrReplaceAsync<PrivateEndpointConnectionProxy>;
 
   /**
-   * (INTERNAL - DO NOT USE) Deletes the specified private endpoint connection proxy associated with the OAK Instance.
+   * (INTERNAL - DO NOT USE) Deletes the specified private endpoint connection proxy associated with the ADME Instance.
    */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "Preserving original response shape for backward compatibility."
   delete is ArmResourceDeleteWithoutOkAsync<
@@ -73,7 +73,7 @@ interface PrivateEndpointConnectionProxies {
   >;
 
   /**
-   * (INTERNAL - DO NOT USE) List all private endpoint connection proxies in a OAK instance.
+   * (INTERNAL - DO NOT USE) List all private endpoint connection proxies in a ADME instance.
    */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "Preserving existing operationId casing (OAK acronym)."
   listByOAKInstance is ArmResourceListByParent<PrivateEndpointConnectionProxy>;

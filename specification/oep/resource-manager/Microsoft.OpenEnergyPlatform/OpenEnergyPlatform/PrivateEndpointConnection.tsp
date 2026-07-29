@@ -20,7 +20,7 @@ alias PrivateEndpointOperations = PrivateEndpoints<PrivateEndpointConnection>;
 @armResourceOperations
 interface PrivateEndpointConnections {
   /**
-   * Get the specified private endpoint connection associated with the OAK Instance.
+   * Get the specified private endpoint connection associated with the ADME Instance.
    */
   get is PrivateEndpointOperations.Read<
     EnergyService,
@@ -28,7 +28,7 @@ interface PrivateEndpointConnections {
   >;
 
   /**
-   * Update the state of specified private endpoint connection associated with the OAK Instance.
+   * Update the state of specified private endpoint connection associated with the ADME Instance.
    */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-put-operation-response-codes" "Preserving original response shape for backward compatibility."
   createOrUpdate is PrivateEndpointOperations.CreateOrReplaceAsync<
@@ -38,7 +38,7 @@ interface PrivateEndpointConnections {
   >;
 
   /**
-   * Deletes the specified private endpoint connection associated with the OAK Instance.
+   * Deletes the specified private endpoint connection associated with the ADME Instance.
    */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-delete-operation-response-codes" "Preserving original response shape for backward compatibility."
   delete is PrivateEndpointOperations.DeleteAsync<
@@ -51,7 +51,7 @@ interface PrivateEndpointConnections {
   >;
 
   /**
-   * List all private endpoint connections in a OAK instance.
+   * List all private endpoint connections in a ADME instance.
    */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "Preserving existing operationId casing (OAK acronym)."
   listByOAKInstance is PrivateEndpointOperations.ListByParent<
