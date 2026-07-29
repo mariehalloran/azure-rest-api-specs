@@ -115,6 +115,12 @@ model SqlServerSourceConnectorProperties extends DataSourceProperties {
   @doc("Specifies the criteria for running a snapshot when the connector starts.")
   snapshotMode?: SqlServerSnapshotMode;
 
+  @doc("Controls how frequently the connector sends heartbeat messages to a Kafka topic. The default behavior is that the connector does not send heartbeat messages.")
+  heartbeatIntervalMs?: int32;
+
+  @doc("Specifies a query that the connector executes on the source database when the connector sends a heartbeat message.")
+  heartbeatActionQuery?: string;
+
   @doc("A Boolean value that specifies whether the connector records schema structures from all tables in a schema or database, or only from tables that are designated for capture.")
   isStoreOnlyCapturedTablesDdl?: boolean;
 
