@@ -514,7 +514,7 @@ model AppConsentContext {
 
   @doc("The applications to consent, grouped by Azure environment then by tenant.")
   @identifiers(#["environment"])
-  appsToConsent?: AppConsentEnvironmentSelection[];
+  appsConsentPerTenant?: AppConsentEnvironmentSelection[];
 }
 
 #suppress "@azure-tools/typespec-azure-core/casing-style" "'PCCode' is the Profit Center code domain acronym; this casing matches the enum and field names already serialized by the deployed BAMI service (e.g. RequestType.PCCodeUpdate, currentPCCode), so the spec must preserve it to stay wire-accurate."
