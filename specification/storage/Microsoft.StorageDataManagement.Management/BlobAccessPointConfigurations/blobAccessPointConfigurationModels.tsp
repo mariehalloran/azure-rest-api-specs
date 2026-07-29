@@ -134,24 +134,6 @@ union BlobAccessPointAzureAuthType {
 }
 
 @added(Versions.v2026_06_01)
-@doc("An authentication type that can be supplied in a configuration update.")
-union BlobAccessPointAuthUpdateType {
-  @doc("S3 access-key authentication.")
-  AccessKey: "AccessKey",
-
-  @doc("Managed-identity role-assumption authentication.")
-  AssumeRoleWithManagedIdentity: "AssumeRoleWithManagedIdentity",
-
-  @doc("Managed-identity authentication to an Azure Blob source.")
-  ManagedIdentity: "ManagedIdentity",
-
-  @doc("Pass-through authentication to an Azure Blob source.")
-  PassThrough: "PassThrough",
-
-  string,
-}
-
-@added(Versions.v2026_06_01)
 @doc("The payment model for requests to an S3-compatible backing source.")
 union BlobAccessPointPaymentModel {
   @doc("Use the backing source's default payment model.")
@@ -417,17 +399,17 @@ model BlobAccessPointAccessPolicy {
 
 @added(Versions.v2026_06_01)
 @discriminator("type")
-@doc("Mutable authentication properties for a Blob Access Point source.")
-model BlobAccessPointAuthUpdateProperties {
+@doc("Mutable authentication properties for a non-Azure S3-compatible source.")
+model BlobAccessPointRemoteAuthUpdateProperties {
   @doc("The authentication type. This value determines the remaining shape of the authentication object.")
-  type: BlobAccessPointAuthUpdateType;
+  type: BlobAccessPointRemoteAuthType;
 }
 
 @added(Versions.v2026_06_01)
 @doc("Mutable S3 access-key authentication properties.")
 model BlobAccessPointAccessKeyAuthUpdateProperties
-  extends BlobAccessPointAuthUpdateProperties {
-  type: BlobAccessPointAuthUpdateType.AccessKey;
+  extends BlobAccessPointRemoteAuthUpdateProperties {
+  type: BlobAccessPointRemoteAuthType.AccessKey;
 
   @minLength(3)
   @doc("The access key ID.")
@@ -448,8 +430,8 @@ model BlobAccessPointAccessKeyAuthUpdateProperties
 @added(Versions.v2026_06_01)
 @doc("Mutable managed-identity role-assumption authentication properties.")
 model BlobAccessPointAssumeRoleAuthUpdateProperties
-  extends BlobAccessPointAuthUpdateProperties {
-  type: BlobAccessPointAuthUpdateType.AssumeRoleWithManagedIdentity;
+  extends BlobAccessPointRemoteAuthUpdateProperties {
+  type: BlobAccessPointRemoteAuthType.AssumeRoleWithManagedIdentity;
 
   @doc("The Azure resource ID of the user-assigned managed identity used to obtain credentials for the role. Omit this value to use the storage account's system-assigned managed identity.")
   identityResourceId?: string;
@@ -459,10 +441,18 @@ model BlobAccessPointAssumeRoleAuthUpdateProperties
 }
 
 @added(Versions.v2026_06_01)
+@discriminator("type")
+@doc("Mutable authentication properties for an Azure Blob source.")
+model BlobAccessPointAzureAuthUpdateProperties {
+  @doc("The authentication type. This value determines the remaining shape of the authentication object.")
+  type: BlobAccessPointAzureAuthType;
+}
+
+@added(Versions.v2026_06_01)
 @doc("Mutable managed-identity authentication properties for an Azure Blob source.")
 model BlobAccessPointManagedIdentityAuthUpdateProperties
-  extends BlobAccessPointAuthUpdateProperties {
-  type: BlobAccessPointAuthUpdateType.ManagedIdentity;
+  extends BlobAccessPointAzureAuthUpdateProperties {
+  type: BlobAccessPointAzureAuthType.ManagedIdentity;
 
   @doc("The Azure resource ID of the user-assigned managed identity to authenticate with. Omit this value to use the storage account's system-assigned managed identity.")
   identityResourceId?: string;
@@ -471,21 +461,59 @@ model BlobAccessPointManagedIdentityAuthUpdateProperties
 @added(Versions.v2026_06_01)
 @doc("Pass-through authentication update properties.")
 model BlobAccessPointPassThroughAuthUpdateProperties
-  extends BlobAccessPointAuthUpdateProperties {
-  type: BlobAccessPointAuthUpdateType.PassThrough;
+  extends BlobAccessPointAzureAuthUpdateProperties {
+  type: BlobAccessPointAzureAuthType.PassThrough;
 }
 
 @added(Versions.v2026_06_01)
-@doc("Mutable properties of a Blob Access Point source.")
+@discriminator("type")
+@doc("Mutable properties of a Blob Access Point source. The source type cannot be changed, so this value must match the source type of the existing configuration.")
 model BlobAccessPointSourceUpdateProperties {
+  @doc("The source type. This value determines the remaining shape of the source object.")
+  type: BlobAccessPointSourceType;
+}
+
+@added(Versions.v2026_06_01)
+@doc("Mutable properties of a path in the storage account that owns the configuration. This source type has no mutable properties.")
+model BlobAccessPointLocalSourceUpdateProperties
+  extends BlobAccessPointSourceUpdateProperties {
+  type: BlobAccessPointSourceType.Local;
+}
+
+@added(Versions.v2026_06_01)
+@doc("Mutable properties of a non-Azure S3-compatible backing source.")
+model BlobAccessPointRemoteS3SourceUpdateProperties
+  extends BlobAccessPointSourceUpdateProperties {
+  type: BlobAccessPointSourceType.RemoteS3Compatible;
+
   @doc("Replacement authentication properties.")
-  auth?: BlobAccessPointAuthUpdateProperties;
+  auth?: BlobAccessPointRemoteAuthUpdateProperties;
 
   @doc("The expected bucket owner account ID.")
   expectedBucketOwner?: string;
 
   @doc("The backing source payment model.")
   paymentModel?: BlobAccessPointPaymentModel;
+}
+
+@added(Versions.v2026_06_01)
+@doc("Mutable properties of a Blob Access Point source in another storage account.")
+model BlobAccessPointRemoteAccessPointSourceUpdateProperties
+  extends BlobAccessPointSourceUpdateProperties {
+  type: BlobAccessPointSourceType.BlobAccessPoint;
+
+  @doc("Replacement authentication properties.")
+  auth?: BlobAccessPointAzureAuthUpdateProperties;
+}
+
+@added(Versions.v2026_06_01)
+@doc("Mutable properties of an Azure Storage account backing source.")
+model BlobAccessPointAzureStorageAccountSourceUpdateProperties
+  extends BlobAccessPointSourceUpdateProperties {
+  type: BlobAccessPointSourceType.AzureStorageAccount;
+
+  @doc("Replacement authentication properties.")
+  auth?: BlobAccessPointAzureAuthUpdateProperties;
 }
 
 @added(Versions.v2026_06_01)
@@ -572,7 +600,7 @@ model BlobAccessPointProposedConnectionTestRequest {
 @added(Versions.v2026_06_01)
 @doc("The request used to test an existing Blob Access Point configuration.")
 model BlobAccessPointConnectionTestRequest {
-  @doc("The unique identifier of the Blob Access Point configuration.")
+  @doc("The system-generated unique identifier of the Blob Access Point configuration, as returned by a read operation. This value must match the configuration named in the request path, and is required so that a configuration which was deleted and recreated under the same name is not tested by mistake.")
   @pattern("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
   uniqueId: string;
 }

@@ -157,7 +157,7 @@ interface BlobAccessPointConnectionTests {
   @doc("Test a proposed Blob Access Point connection before the configuration is created. The connection is validated in the context of the storage account in the request path, so no Blob Access Point configuration needs to exist beforehand.")
   @added(Versions.v2026_06_01)
   @action("testBlobAccessPointConfigurationProposedConnection")
-  testProposedConnection is ArmResourceActionSync<
+  testProposedConnection is ArmResourceActionAsync<
     StorageAccount,
     BlobAccessPointProposedConnectionTestRequest,
     BlobAccessPointConnectionTestResponse
