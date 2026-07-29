@@ -1006,8 +1006,14 @@
           "description": "The display name of the billing service that owns the consent."
         },
         "appsToConsent": {
-          "$ref": "#/definitions/EnvironmentApplicationConsents",
-          "description": "The applications to consent, keyed by Azure environment name, then by tenant ID, to the list of first-party application IDs to grant consent for."
+          "type": "array",
+          "description": "The applications to consent, grouped by Azure environment then by tenant.",
+          "items": {
+            "$ref": "#/definitions/AppConsentEnvironmentSelection"
+          },
+          "x-ms-identifiers": [
+            "environment"
+          ]
         }
       },
       "required": [
@@ -1032,10 +1038,40 @@
           "description": "The display name of the billing service that owns the consent."
         },
         "appsToConsent": {
-          "$ref": "#/definitions/EnvironmentApplicationConsents",
-          "description": "The applications to consent, keyed by Azure environment name, then by tenant ID, to the list of first-party application IDs to grant consent for."
+          "type": "array",
+          "description": "The applications to consent, grouped by Azure environment then by tenant.",
+          "items": {
+            "$ref": "#/definitions/AppConsentEnvironmentSelection"
+          },
+          "x-ms-identifiers": [
+            "environment"
+          ]
         }
       }
+    },
+    "AppConsentEnvironmentSelection": {
+      "type": "object",
+      "description": "The application consent selections for a single Azure environment.",
+      "properties": {
+        "environment": {
+          "$ref": "#/definitions/AzureEnvironment",
+          "description": "The Azure environment (cloud) the consent applies to."
+        },
+        "tenants": {
+          "type": "array",
+          "description": "The per-tenant application consent grants for this environment.",
+          "items": {
+            "$ref": "#/definitions/TenantAppConsent"
+          },
+          "x-ms-identifiers": [
+            "tenantId"
+          ]
+        }
+      },
+      "required": [
+        "environment",
+        "tenants"
+      ]
     },
     "AppConsentFulfillmentDetail": {
       "type": "object",
@@ -1433,6 +1469,102 @@
         }
       ]
     },
+    "AzureEnvironment": {
+      "type": "string",
+      "description": "The Azure environment (cloud) that an application consent selection applies to.",
+      "enum": [
+        "Public",
+        "Prod",
+        "AirCapi",
+        "Fairfax",
+        "Mooncake",
+        "Blackforest",
+        "Test",
+        "Dog",
+        "Development",
+        "USNat",
+        "USSec",
+        "Cbv",
+        "France",
+        "Delos"
+      ],
+      "x-ms-enum": {
+        "name": "AzureEnvironment",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Public",
+            "value": "Public",
+            "description": "The Azure public cloud."
+          },
+          {
+            "name": "Prod",
+            "value": "Prod",
+            "description": "The Azure production environment."
+          },
+          {
+            "name": "AirCapi",
+            "value": "AirCapi",
+            "description": "The air-gapped canary (AirCAPI) environment."
+          },
+          {
+            "name": "Fairfax",
+            "value": "Fairfax",
+            "description": "The Azure US Government (Fairfax) cloud."
+          },
+          {
+            "name": "Mooncake",
+            "value": "Mooncake",
+            "description": "The Azure China (Mooncake) cloud."
+          },
+          {
+            "name": "Blackforest",
+            "value": "Blackforest",
+            "description": "The Azure Germany (Blackforest) cloud."
+          },
+          {
+            "name": "Test",
+            "value": "Test",
+            "description": "The test environment."
+          },
+          {
+            "name": "Dog",
+            "value": "Dog",
+            "description": "The dogfood environment."
+          },
+          {
+            "name": "Development",
+            "value": "Development",
+            "description": "The development environment."
+          },
+          {
+            "name": "UsNat",
+            "value": "USNat",
+            "description": "The US Nat air-gapped cloud."
+          },
+          {
+            "name": "UsSec",
+            "value": "USSec",
+            "description": "The US Sec air-gapped cloud."
+          },
+          {
+            "name": "Cbv",
+            "value": "Cbv",
+            "description": "The CBV environment."
+          },
+          {
+            "name": "France",
+            "value": "France",
+            "description": "The France cloud."
+          },
+          {
+            "name": "Delos",
+            "value": "Delos",
+            "description": "The Delos air-gapped cloud."
+          }
+        ]
+      }
+    },
     "CancelRequestBody": {
       "type": "object",
       "description": "The request body for cancelling an automation request.",
@@ -1441,13 +1573,6 @@
           "type": "string",
           "description": "The reason for cancellation."
         }
-      }
-    },
-    "EnvironmentApplicationConsents": {
-      "type": "object",
-      "description": "The applications to consent, keyed by Azure environment name, then by tenant ID.",
-      "additionalProperties": {
-        "$ref": "#/definitions/TenantApplicationConsents"
       }
     },
     "FedGovIndirectContext": {
@@ -2512,15 +2637,26 @@
         }
       }
     },
-    "TenantApplicationConsents": {
+    "TenantAppConsent": {
       "type": "object",
-      "description": "The first-party application IDs to grant consent for, keyed by tenant ID (GUID).",
-      "additionalProperties": {
-        "items": {
-          "type": "string"
+      "description": "The first-party application consent grant for a single tenant.",
+      "properties": {
+        "tenantId": {
+          "type": "string",
+          "description": "The tenant ID (GUID) the applications belong to."
         },
-        "type": "array"
-      }
+        "applicationIds": {
+          "type": "array",
+          "description": "The first-party application IDs (GUIDs) to grant consent for in this tenant.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "tenantId",
+        "applicationIds"
+      ]
     },
     "TenantContext": {
       "type": "object",

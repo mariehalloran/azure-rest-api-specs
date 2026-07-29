@@ -435,13 +435,71 @@ model RequestContext {
   pcCodeUpdateContext?: PCCodeUpdateContext;
 }
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "The AppConsent payload is an inherently dynamic map keyed by tenant ID; modeling it as an explicit type would diverge from the wire contract the BAMI service serializes."
-@doc("The first-party application IDs to grant consent for, keyed by tenant ID (GUID).")
-model TenantApplicationConsents is Record<string[]>;
+@doc("The Azure environment (cloud) that an application consent selection applies to.")
+union AzureEnvironment {
+  string,
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "The AppConsent payload is an inherently dynamic map keyed by Azure environment name; modeling it as an explicit type would diverge from the wire contract the BAMI service serializes."
-@doc("The applications to consent, keyed by Azure environment name, then by tenant ID.")
-model EnvironmentApplicationConsents is Record<TenantApplicationConsents>;
+  @doc("The Azure public cloud.")
+  Public: "Public",
+
+  @doc("The Azure production environment.")
+  Prod: "Prod",
+
+  @doc("The air-gapped canary (AirCAPI) environment.")
+  AirCapi: "AirCapi",
+
+  @doc("The Azure US Government (Fairfax) cloud.")
+  Fairfax: "Fairfax",
+
+  @doc("The Azure China (Mooncake) cloud.")
+  Mooncake: "Mooncake",
+
+  @doc("The Azure Germany (Blackforest) cloud.")
+  Blackforest: "Blackforest",
+
+  @doc("The test environment.")
+  Test: "Test",
+
+  @doc("The dogfood environment.")
+  Dog: "Dog",
+
+  @doc("The development environment.")
+  Development: "Development",
+
+  @doc("The US Nat air-gapped cloud.")
+  UsNat: "USNat",
+
+  @doc("The US Sec air-gapped cloud.")
+  UsSec: "USSec",
+
+  @doc("The CBV environment.")
+  Cbv: "Cbv",
+
+  @doc("The France cloud.")
+  France: "France",
+
+  @doc("The Delos air-gapped cloud.")
+  Delos: "Delos",
+}
+
+@doc("The first-party application consent grant for a single tenant.")
+model TenantAppConsent {
+  @doc("The tenant ID (GUID) the applications belong to.")
+  tenantId: string;
+
+  @doc("The first-party application IDs (GUIDs) to grant consent for in this tenant.")
+  applicationIds: string[];
+}
+
+@doc("The application consent selections for a single Azure environment.")
+model AppConsentEnvironmentSelection {
+  @doc("The Azure environment (cloud) the consent applies to.")
+  environment: AzureEnvironment;
+
+  @doc("The per-tenant application consent grants for this environment.")
+  @identifiers(#["tenantId"])
+  tenants: TenantAppConsent[];
+}
 
 @doc("Configuration for an application consent request. Grants first-party application consent for a billing scope. AppConsent is a non-billable production automation request.")
 model AppConsentContext {
@@ -454,8 +512,9 @@ model AppConsentContext {
   @doc("The display name of the billing service that owns the consent.")
   billingServiceName: string;
 
-  @doc("The applications to consent, keyed by Azure environment name, then by tenant ID, to the list of first-party application IDs to grant consent for.")
-  appsToConsent?: EnvironmentApplicationConsents;
+  @doc("The applications to consent, grouped by Azure environment then by tenant.")
+  @identifiers(#["environment"])
+  appsToConsent?: AppConsentEnvironmentSelection[];
 }
 
 #suppress "@azure-tools/typespec-azure-core/casing-style" "'PCCode' is the Profit Center code domain acronym; this casing matches the enum and field names already serialized by the deployed BAMI service (e.g. RequestType.PCCodeUpdate, currentPCCode), so the spec must preserve it to stay wire-accurate."
