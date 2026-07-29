@@ -445,8 +445,8 @@ model EnvironmentApplicationConsents is Record<TenantApplicationConsents>;
 
 @doc("Configuration for an application consent request. Grants first-party application consent for a billing scope. AppConsent is a non-billable production automation request.")
 model AppConsentContext {
-  @doc("Whether this is a HOBO (hosted-on-behalf-of) consent. Defaults to false.")
-  isHobo?: boolean = false;
+  @doc("Whether this is a HOBO (hosted-on-behalf-of) consent. Defaults to false server-side.")
+  isHobo?: boolean;
 
   @doc("The Service Tree ID (GUID) of the billing service that owns the consent.")
   billingServiceTreeId: string;
@@ -458,10 +458,10 @@ model AppConsentContext {
   appsToConsent?: EnvironmentApplicationConsents;
 }
 
-#suppress "@azure-tools/typespec-azure-core/casing-style" "Model name preserves the 'PCCode' (Profit Center code) domain acronym to match the RequestType value and the BAMI service contract."
+#suppress "@azure-tools/typespec-azure-core/casing-style" "'PCCode' is the Profit Center code domain acronym; this casing matches the enum and field names already serialized by the deployed BAMI service (e.g. RequestType.PCCodeUpdate, currentPCCode), so the spec must preserve it to stay wire-accurate."
 @doc("Configuration for a PC (Profit Center) code update request. Updates the PC code / service group mapping for a billing scope. PCCodeUpdate is a non-billable production automation request.")
 model PCCodeUpdateContext {
-  #suppress "@azure-tools/typespec-azure-core/casing-style" "Property name matches the wire contract field 'currentPCCode' serialized by the BAMI service."
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "'currentPCCode' matches the field name already serialized by the deployed BAMI service (Profit Center code domain term); renaming would diverge the spec from the wire contract."
   @doc("The current PC code prior to the update.")
   currentPCCode?: string;
 
@@ -488,7 +488,7 @@ model PCCodeUpdateContext {
   serviceSelections?: PCCodeUpdateServiceSelection[];
 }
 
-#suppress "@azure-tools/typespec-azure-core/casing-style" "Model name preserves the 'PCCode' (Profit Center code) domain acronym to match the RequestType value and the BAMI service contract."
+#suppress "@azure-tools/typespec-azure-core/casing-style" "'PCCode' is the Profit Center code domain acronym; this casing matches the enum and field names already serialized by the deployed BAMI service (e.g. RequestType.PCCodeUpdate, currentPCCode), so the spec must preserve it to stay wire-accurate."
 @doc("A service and its selected subscriptions within a service-group-scoped PC code update.")
 model PCCodeUpdateServiceSelection {
   @doc("The service identifier (Service Tree ID, GUID) within the service group.")
@@ -610,7 +610,7 @@ model AppConsentFulfillmentDetail {
   errorDetail?: FulfillmentErrorDetail;
 }
 
-#suppress "@azure-tools/typespec-azure-core/casing-style" "Model name preserves the 'PCCode' (Profit Center code) domain acronym to match the RequestType value and the BAMI service contract."
+#suppress "@azure-tools/typespec-azure-core/casing-style" "'PCCode' is the Profit Center code domain acronym; this casing matches the enum and field names already serialized by the deployed BAMI service (e.g. RequestType.PCCodeUpdate, currentPCCode), so the spec must preserve it to stay wire-accurate."
 @doc("Fulfillment details for a completed PC code update request.")
 model PCCodeUpdateFulfillmentDetail {
   @doc("The transfer ID generated for a subscription-scoped PC code update.")
@@ -624,7 +624,7 @@ model PCCodeUpdateFulfillmentDetail {
   errorDetail?: FulfillmentErrorDetail;
 }
 
-#suppress "@azure-tools/typespec-azure-core/casing-style" "Model name preserves the 'PCCode' (Profit Center code) domain acronym to match the RequestType value and the BAMI service contract."
+#suppress "@azure-tools/typespec-azure-core/casing-style" "'PCCode' is the Profit Center code domain acronym; this casing matches the enum and field names already serialized by the deployed BAMI service (e.g. RequestType.PCCodeUpdate, currentPCCode), so the spec must preserve it to stay wire-accurate."
 @doc("The transfer ID produced for a single service within a service-group-scoped PC code update.")
 model PCCodeUpdateServiceTransfer {
   @doc("The service identifier (Service Tree ID, GUID) the transfer belongs to.")
