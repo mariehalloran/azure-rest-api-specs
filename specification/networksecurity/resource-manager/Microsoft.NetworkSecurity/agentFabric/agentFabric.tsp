@@ -1,10 +1,12 @@
 import "@typespec/rest";
 import "@typespec/http";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
 using Rest;
 using Http;
+using Versioning;
 using Azure.Core;
 using Azure.ResourceManager;
 
@@ -38,6 +40,16 @@ model AgentFabricProperties {
     }
   ]>[];
 
+  /**
+   * The trust domain that scopes this fabric's member identities. It is the leading component of
+   * each member's identity, which takes the form `<trustDomain>/<agentFabricName>/<memberName>`.
+   * Set at creation and immutable thereafter; when omitted, the shared default trust domain
+   * `microsoft.agentfabric` is used.
+   */
+  @added(Versions.v2026_07_21_preview)
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  trustDomain?: string;
+
   /** The provisioning state of the resource. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
@@ -58,7 +70,12 @@ union WorkloadType {
   string,
 
   /** Foundry workload type */
+  @removed(Versions.v2026_07_21_preview)
   Foundry: "Foundry",
+
+  /** ACI (Azure Container Instances) sandbox workload type */
+  @added(Versions.v2026_07_21_preview)
+  ACI: "ACI",
 
   /** Agent Fabric sandbox workload type */
   AgentFabricSandbox: "AgentFabricSandbox",
@@ -77,12 +94,23 @@ model WorkloadBase {
 }
 
 /** Foundry workload configuration. */
+@removed(Versions.v2026_07_21_preview)
 model FoundryWorkload extends WorkloadBase {
   /** The workload type. */
   type: "Foundry";
 
   /** The ARM resource ID of the Foundry resource. */
   resourceId?: Azure.Core.armResourceIdentifier;
+}
+
+/** ACI (Azure Container Instances) sandbox workload configuration. */
+@added(Versions.v2026_07_21_preview)
+model AciWorkload extends WorkloadBase {
+  /** The workload type. */
+  type: "ACI";
+
+  /** The ARM resource ID of the ACI container group backing this member's sandbox. */
+  resourceId: Azure.Core.armResourceIdentifier;
 }
 
 /** The image pull policy for a sandbox workload container image. */
