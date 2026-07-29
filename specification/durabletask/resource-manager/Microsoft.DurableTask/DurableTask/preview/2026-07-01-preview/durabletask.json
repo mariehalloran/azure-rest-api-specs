@@ -2590,6 +2590,11 @@
           "description": "The replication role of the parent scheduler",
           "readOnly": true
         },
+        "failoverState": {
+          "$ref": "#/definitions/FailoverState",
+          "description": "The current state of the failover operation",
+          "readOnly": true
+        },
         "partnerSchedulerResourceId": {
           "type": "string",
           "description": "The resource ID of the partner scheduler in the failover configuration"
@@ -2603,6 +2608,43 @@
       "required": [
         "partnerSchedulerResourceId"
       ]
+    },
+    "FailoverState": {
+      "type": "string",
+      "description": "The current state of the failover operation",
+      "enum": [
+        "None",
+        "InProgress",
+        "Succeeded",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "FailoverState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None",
+            "description": "No failover operation is active"
+          },
+          {
+            "name": "InProgress",
+            "value": "InProgress",
+            "description": "The failover operation is in progress"
+          },
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "The failover operation completed successfully"
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "The failover operation failed"
+          }
+        ]
+      },
+      "readOnly": true
     },
     "MyPrivateLinkResourceListResult": {
       "type": "object",
