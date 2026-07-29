@@ -249,6 +249,7 @@ Read-only child resource of `Cluster` for surfacing cluster storage volumes.
 | Value | Description |
 |---|---|
 | `ConfigureLocalAvailabilityZone` | Job to configure local availability zones for the cluster. |
+| `SetGpuConfidentialComputingMode` | Job to set the confidential computing mode for the GPUs in the cluster. |
 
 ## HciConfigureLocalAvailabilityZoneJobProperties (new model)
 
@@ -269,3 +270,58 @@ Extends `ClusterJobProperties` with discriminator value `ConfigureLocalAvailabil
 |---|---|---|---|
 | `localAvailabilityZoneName` | `string` | Read/Write | Name of the local availability zone (e.g., Zone1, Zone2). |
 | `nodes` | `string[]` | Read/Write | List of node names assigned to this local availability zone. |
+
+---
+
+## EdgeMachineGpuJobType
+
+### New enum value
+
+| Value | Description |
+|---|---|
+| `SetConfidentialComputingMode` | Set the confidential computing mode on the GPU. |
+
+## SetConfidentialComputingModeGpuJobProperties (new model)
+
+Extends `EdgeMachineGpuJobProperties` with discriminator value `SetConfidentialComputingMode`.
+
+### New fields
+
+| Field | Type | Access | Description |
+|---|---|---|---|
+| `mode` | `ConfidentialComputingMode` | Read/Write | Desired confidential computing mode to set on the GPU. Required. |
+
+### New unions
+
+| Union | Values |
+|---|---|
+| `ConfidentialComputingMode` | `Off`, `DevTools`, `On` |
+
+### New examples
+
+| File | Operation |
+|---|---|
+| `EdgeMachineGpuJobs_CreateOrUpdate_SetConfidentialComputingMode.json` | `EdgeMachineGpuJobs_CreateOrUpdate` |
+| `EdgeMachineGpuJobs_Get_SetConfidentialComputingMode.json` | `EdgeMachineGpuJobs_Get` |
+
+---
+
+## SetGpuConfidentialComputingModeClusterJobProperties (new model)
+
+Extends `ClusterJobProperties` with discriminator value `SetGpuConfidentialComputingMode`.
+Cluster-scoped counterpart of the GPU-level `SetConfidentialComputingModeGpuJobProperties`,
+reusing the same `ConfidentialComputingMode` union. Applies to the GPUs in the
+cluster only, not to the cluster generally.
+
+### New fields
+
+| Field | Type | Access | Description |
+|---|---|---|---|
+| `mode` | `ConfidentialComputingMode` | Read/Write | Desired confidential computing mode to set for the GPUs in the cluster. Required. |
+
+### New examples
+
+| File | Operation |
+|---|---|
+| `ClusterJobs_CreateOrUpdate_SetGpuConfidentialComputingMode.json` | `ClusterJobs_CreateOrUpdate` |
+| `ClusterJobs_Get_SetGpuConfidentialComputingModeJob.json` | `ClusterJobs_Get` |
