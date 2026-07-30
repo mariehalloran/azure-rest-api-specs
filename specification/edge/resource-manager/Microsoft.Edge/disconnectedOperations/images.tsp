@@ -3,17 +3,18 @@ import "@azure-tools/typespec-azure-resource-manager";
 import "@typespec/openapi";
 import "@typespec/rest";
 import "./models.tsp";
-import "./winfields.tsp";
-import "../Microsoft.Edge.Shared/common.tsp";
+import "./disconnectedOperations.tsp";
+import "./shared/common.tsp";
 
 using TypeSpec.Rest;
 using Azure.ResourceManager;
 using TypeSpec.Http;
 using TypeSpec.OpenAPI;
+using TypeSpec.Versioning;
 
 namespace Microsoft.Edge;
-@doc("Winfield image resource.")
-@parentResource(Winfield)
+@doc("Disconnected operations image resource.")
+@parentResource(DisconnectedOperation)
 model Image is ProxyResource<ImageProperties> {
   ...ResourceNameParameter<Image>;
 }
@@ -21,10 +22,23 @@ model Image is ProxyResource<ImageProperties> {
 @armResourceOperations
 interface Images {
   @doc("List by parent")
+  @removed(Microsoft.Edge.Versions.v2025_06_01)
   listByParent is ArmResourceListByParent<
     Image,
     {
       ...ApiVersionParameter;
+      ...FilterQueryParameter;
+      ...TopQueryParameter;
+      ...SkipQueryParameter;
+    }
+  >;
+
+  @doc("List by parent")
+  @added(Microsoft.Edge.Versions.v2025_05_01)
+  @renamedFrom(Microsoft.Edge.Versions.v2026_04_01, "listAll")
+  listByDisconnectedOperation is ArmResourceListByParent<
+    Image,
+    Azure.ResourceManager.Foundations.DefaultBaseParameters<Image> & {
       ...FilterQueryParameter;
       ...TopQueryParameter;
       ...SkipQueryParameter;
@@ -38,6 +52,6 @@ interface Images {
   listDownloadUri is ArmResourceActionSync<
     Image,
     void,
-    ArmResponse<ImageDownloadResponse> | ErrorResponse
+    ArmResponse<ImageDownloadResult> | ErrorResponse
   >;
 }
