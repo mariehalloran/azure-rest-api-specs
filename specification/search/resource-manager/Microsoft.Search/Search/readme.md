@@ -126,10 +126,6 @@ These settings apply only when `--tag=package-2015-08` is specified on the comma
 ```yaml $(tag) == 'package-2015-08'
 input-file:
   - stable/2015-08-19/search.json
-suppressions:
-  - code: OAV107
-    from: stable/2015-08-19/search.json
-    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
 ```
 
 ### Tag: package-2015-02
@@ -139,10 +135,6 @@ These settings apply only when `--tag=package-2015-02` is specified on the comma
 ```yaml $(tag) == 'package-2015-02'
 input-file:
   - stable/2015-02-28/search.json
-suppressions:
-  - code: OAV107
-    from: stable/2015-02-28/search.json
-    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
 ```
 
 ### Tag: package-2021-04-preview
@@ -298,4 +290,16 @@ suppressions:
     from: search.json
     where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices/{searchServiceName}"].patch.parameters[5].schema.properties.properties
     reason: PATCH body uses a polymorphic properties payload that requires '@odata.type' as a discriminator in DataIdentity for type resolution; making it optional would break update semantics.
+```
+
+### Suppression
+
+```yaml
+directive:
+  - suppress: OAV107
+    from: stable/2015-08-19/search.json
+    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
+  - suppress: OAV107
+    from: stable/2015-02-28/search.json
+    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
 ```
