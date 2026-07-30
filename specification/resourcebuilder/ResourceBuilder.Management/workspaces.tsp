@@ -36,6 +36,14 @@ interface Workspaces {
   get is ArmResourceRead<Workspace>;
   createOrUpdate is ArmResourceCreateOrReplaceSync<Workspace>;
   update is ArmResourcePatchSync<Workspace, WorkspaceProperties>;
+
+  /**
+   * Delete a workspace.
+   *
+   * Deleting a workspace cascades to all child resources (datasets, data connections, pipelines, jobs,
+   * and runs), which are removed as part of the ARM delete. A workspace is not subject to active-consumer
+   * dependency validation, so this delete is not blocked by references between its child resources.
+   */
   delete is ArmResourceDeleteSync<Workspace>;
   list is ArmResourceListByParent<Workspace>;
   listBySubscription is ArmListBySubscription<Workspace>;
