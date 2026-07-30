@@ -410,11 +410,13 @@ model EnergyServiceProperties {
   provisioningState?: ProvisioningState;
 
   /** App ID of the application used for authentication. */
-  authAppId?: string;
+  @madeRequired(Versions.v2026_07_21_preview)
+  authAppId: string;
 
   /** Data partition names. */
+  @madeRequired(Versions.v2026_07_21_preview)
   @identifiers(#[])
-  dataPartitionNames?: DataPartitionNames[];
+  dataPartitionNames: DataPartitionNames[];
 
   /**
    * Properties to configure Encryption
@@ -451,7 +453,8 @@ model EnergyServiceProperties {
   /**
    * The resource model definition representing SKU
    */
-  sku?: Azure.ResourceManager.CommonTypes.Sku;
+  @madeRequired(Versions.v2026_07_21_preview)
+  sku: Azure.ResourceManager.CommonTypes.Sku;
 
   /**
    * Maximum autoscale capacity limit for the energy service. Must be a power of 2 between 1 and 256 (applicable for Flex SKU).
@@ -470,13 +473,13 @@ model EnergyServiceProperties {
    * Specifies whether geo-redundancy is enabled or disabled for the energy service.
    */
   @added(Versions.v2026_07_21_preview)
-  geoRedundancy: GeoRedundancy;
+  geoRedundancy?: GeoRedundancy;
 
   /**
    * Specifies whether backup and restore is enabled or disabled for the energy service.
    */
   @added(Versions.v2026_07_21_preview)
-  backupAndRestore: BackupAndRestore;
+  backupAndRestore?: BackupAndRestore;
 
   /**
    * Defines the properties related to reference data ingestion.

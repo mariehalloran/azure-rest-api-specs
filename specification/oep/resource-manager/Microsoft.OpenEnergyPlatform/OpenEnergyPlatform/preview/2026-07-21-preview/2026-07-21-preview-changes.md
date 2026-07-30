@@ -21,14 +21,24 @@
 
 | Property | Type | Notes |
 |---|---|---|
-| `backupAndRestore` | extensible enum: `Enabled` \| `Disabled` | **Required** (create + response). Modeled as an extensible enum (not a boolean) per API-review guidance. No default — the caller must choose explicitly. |
+| `backupAndRestore` | extensible enum: `Enabled` \| `Disabled` | **Optional, no default.** Modeled as an extensible enum (not a boolean) per API-review guidance. When omitted, the resource provider applies `Disabled`. Intentionally no spec-level `default` so the RP can distinguish "omitted" from an explicit `Disabled`. |
 | `acz` | object | `{ "identity": { "identityType": "SystemAssigned" \| "UserAssigned", "userAssignedIdentityId": string } }`. `userAssignedIdentityId` required when `identityType == UserAssigned`. |
 
-> **`geoRedundancy` is now also required** (create + response) in `2026-07-21-preview` — it was
-> optional with a default of `Enabled` in `2026-02-02-preview`. Both `geoRedundancy` and
-> `backupAndRestore` drop their defaults so callers must explicitly choose `Enabled`/`Disabled`,
-> removing ambiguity about the omitted-value behavior. On PATCH both remain optional (partial
-> updates). Requiring `geoRedundancy` is a breaking change versus the unused `2026-02-02-preview`.
+> **Required vs optional (finalized):**
+> - **Required** (create + response): `authAppId`, `dataPartitionNames`, `sku`. Version-gated via
+>   `@madeRequired(2026_07_21_preview)`, so they stay **optional** in `2026-02-02-preview` (which is
+>   preserved byte-for-byte on this branch).
+> - **Optional**: `encryption`, `eds`, `acz`, `privateEndpointConnections`, `corsRules`,
+>   `addOnPackages`, `geoRedundancy`, `backupAndRestore`, `referenceData`, `upgradeSettings`,
+>   `publicNetworkAccess`.
+> - **Read-only** (server-set): `dnsName`, `provisioningState`, `milestoneVersion`.
+>
+> `geoRedundancy` and `backupAndRestore` are **optional with no default**. The resource provider
+> applies `Disabled` when either is omitted. We deliberately omit a spec-level `default` so the RP
+> can tell "customer omitted the field" apart from "customer explicitly chose `Disabled`" — a
+> spec `default` (or a client SDK materializing it) would erase that distinction. In
+> `2026-02-02-preview`, `geoRedundancy` keeps its original optional + default `Enabled` (unchanged).
+> Only `publicNetworkAccess` retains a documented default (`Enabled`) in the new version.
 
 ## Properties removed
 
@@ -119,12 +129,20 @@ New shape (`2026-07-21-preview`): `{ id, name, type, eTag, remotePrivateEndpoint
 
 ---
 
+## Required-status changes
+
+In `2026-07-21-preview`, `authAppId`, `dataPartitionNames`, and `sku` are now **required** on
+create + response (they were optional in all prior versions). Applied via
+`@madeRequired(2026_07_21_preview)`, so they remain **optional** in `2026-02-02-preview` (preserved
+byte-for-byte on this branch). `sku` being required means every create must specify a SKU and every
+`2026-07-21-preview` GET response returns one.
+
 ## Unchanged (carried over)
 
-`authAppId`, `dataPartitionNames`, `encryption`, `eds`, `publicNetworkAccess`,
-`privateEndpointConnections`, `corsRules`, `sku` (read shape = full ARM SKU:
-name/tier/size/family/capacity), `geoRedundancy`, `referenceData`, `milestoneVersion`,
-`upgradeSettings`, plus the resource envelope (`location`, `tags`, `identity`, `systemData`).
+`encryption`, `eds`, `publicNetworkAccess`, `privateEndpointConnections`, `corsRules`,
+`geoRedundancy`, `referenceData`, `milestoneVersion`, `upgradeSettings`, plus the resource
+envelope (`location`, `tags`, `identity`, `systemData`). (`sku` read shape is still the full ARM
+SKU: name/tier/size/family/capacity.)
 
 ## Files touched
 
