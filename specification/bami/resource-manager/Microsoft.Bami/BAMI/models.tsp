@@ -445,9 +445,6 @@ union AzureEnvironment {
   @doc("The Azure production environment.")
   Prod: "Prod",
 
-  @doc("The air-gapped canary (AirCAPI) environment.")
-  AirCapi: "AirCapi",
-
   @doc("The Azure US Government (Fairfax) cloud.")
   Fairfax: "Fairfax",
 
