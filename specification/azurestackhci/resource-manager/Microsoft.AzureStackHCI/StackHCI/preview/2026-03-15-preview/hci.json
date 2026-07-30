@@ -19929,6 +19929,11 @@
           "description": "Size in bytes.",
           "readOnly": true
         },
+        "storageType": {
+          "$ref": "#/definitions/DiskStorageType",
+          "description": "Storage type of the disk.",
+          "readOnly": true
+        },
         "diskType": {
           "$ref": "#/definitions/DiskType",
           "description": "Type of the disk.",
@@ -20000,6 +20005,30 @@
             "name": "Unknown",
             "value": "Unknown",
             "description": "Disk state is unknown."
+          }
+        ]
+      }
+    },
+    "DiskStorageType": {
+      "type": "string",
+      "description": "Storage type of the disk.",
+      "enum": [
+        "SAN",
+        "S2D"
+      ],
+      "x-ms-enum": {
+        "name": "DiskStorageType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "SAN",
+            "value": "SAN",
+            "description": "SAN storage."
+          },
+          {
+            "name": "S2D",
+            "value": "S2D",
+            "description": "Storage Spaces Direct storage."
           }
         ]
       }
