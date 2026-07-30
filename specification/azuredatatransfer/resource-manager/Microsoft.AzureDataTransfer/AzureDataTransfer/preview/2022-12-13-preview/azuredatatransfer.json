@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2023-06-28",
+    "version": "2022-12-13-preview",
     "title": "azuredatatransferrp",
     "description": "Azure Data Transfer service resource provider"
   },
@@ -45,10 +45,10 @@
         "operationId": "Flows_Get",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/connectionNameParameter"
@@ -57,7 +57,7 @@
             "$ref": "#/parameters/flowNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -70,7 +70,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -85,10 +85,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/connectionNameParameter"
@@ -97,7 +97,7 @@
             "$ref": "#/parameters/flowNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "flow",
@@ -125,7 +125,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -144,10 +144,10 @@
         "operationId": "Flows_Delete",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/connectionNameParameter"
@@ -156,7 +156,7 @@
             "$ref": "#/parameters/flowNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -178,7 +178,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -197,10 +197,10 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/connectionNameParameter"
@@ -209,7 +209,7 @@
             "$ref": "#/parameters/flowNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "flow",
@@ -243,7 +243,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -264,10 +264,10 @@
         "operationId": "Flows_Enable",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/connectionNameParameter"
@@ -276,7 +276,7 @@
             "$ref": "#/parameters/flowNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -301,7 +301,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -322,10 +322,10 @@
         "operationId": "Flows_Disable",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/connectionNameParameter"
@@ -334,7 +334,7 @@
             "$ref": "#/parameters/flowNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -359,7 +359,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -380,10 +380,10 @@
         "operationId": "Flows_Link",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/connectionNameParameter"
@@ -392,7 +392,7 @@
             "$ref": "#/parameters/flowNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "flow",
@@ -426,7 +426,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -447,13 +447,13 @@
         "operationId": "Flows_ListByConnection",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "#/parameters/connectionNameParameter"
@@ -469,7 +469,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -489,16 +489,16 @@
         "operationId": "Connections_Get",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/connectionNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -511,7 +511,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -526,16 +526,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/connectionNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "connection",
@@ -563,7 +563,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -582,16 +582,16 @@
         "operationId": "Connections_Delete",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/connectionNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -613,7 +613,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -632,16 +632,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/connectionNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "connection",
@@ -675,7 +675,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -696,16 +696,16 @@
         "operationId": "Connections_Link",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/connectionNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "connection",
@@ -739,7 +739,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -749,69 +749,27 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureDataTransfer/connections/{connectionName}/listPendingConnections": {
-      "post": {
-        "description": "Lists all pending connections for a connection.",
-        "x-ms-examples": {
-          "Lists a list of pending connections": {
-            "$ref": "examples/listPendingConnections.json"
-          }
-        },
-        "operationId": "ListPendingConnections_List",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "#/parameters/connectionNameParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Listed all pending connections.",
-            "schema": {
-              "$ref": "#/definitions/pendingConnectionsListResult"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureDataTransfer/connections/{connectionName}/listPendingFlows": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureDataTransfer/connections/{connectionName}/generatePendingFlows": {
       "post": {
         "description": "Lists all pending flows for a connection.",
         "x-ms-examples": {
-          "Lists a list of pending flows": {
-            "$ref": "examples/listPendingFlows.json"
+          "Generates a list of pending flows": {
+            "$ref": "examples/generatePendingFlows.json"
           }
         },
-        "operationId": "ListPendingFlows_List",
+        "operationId": "GeneratePendingFlows_List",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/connectionNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -824,7 +782,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -844,13 +802,13 @@
         "operationId": "Connections_ListByResourceGroup",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -863,7 +821,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -883,10 +841,10 @@
         "operationId": "Connections_ListBySubscription",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -899,7 +857,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -919,16 +877,16 @@
         "operationId": "Pipelines_Get",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/pipelineNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -941,7 +899,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -956,16 +914,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/pipelineNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "pipeline",
@@ -993,7 +951,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1012,16 +970,16 @@
         "operationId": "Pipelines_Delete",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/pipelineNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -1043,7 +1001,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1062,16 +1020,16 @@
         },
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/pipelineNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "pipeline",
@@ -1105,7 +1063,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1126,16 +1084,16 @@
         "operationId": "Pipelines_ApproveConnection",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/pipelineNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "connection",
@@ -1169,7 +1127,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1190,16 +1148,16 @@
         "operationId": "Pipelines_RejectConnection",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/pipelineNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "connection",
@@ -1233,7 +1191,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1243,52 +1201,45 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureDataTransfer/pipelines/{pipelineName}/listSchemas": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureDataTransfer/pipelines/{pipelineName}/generatePendingConnections": {
       "post": {
-        "description": "Lists the schemas for the specified connection in a pipeline.",
+        "description": "Lists all pending connections for a pipeline.",
         "x-ms-examples": {
-          "Lists schemas for a pipeline": {
-            "$ref": "examples/listSchemas.json"
+          "Generates a list of pending connections": {
+            "$ref": "examples/generatePendingConnections.json"
           }
         },
-        "operationId": "ListSchemas_List",
+        "operationId": "GeneratePendingConnections_List",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/pipelineNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "schema",
-            "description": "Schema(s) to retrieve",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/schema"
-            }
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
           "200": {
-            "description": "Approves a connection.",
+            "description": "Listed all connections under the resource group.",
             "schema": {
-              "description": "The schemas for this connection",
-              "$ref": "#/definitions/schemasListResult"
+              "$ref": "#/definitions/pendingConnectionsListResult"
             }
           },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
         }
       }
     },
@@ -1303,13 +1254,13 @@
         "operationId": "Pipelines_ListByResourceGroup",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -1322,7 +1273,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1342,10 +1293,10 @@
         "operationId": "Pipelines_ListBySubscription",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -1358,7 +1309,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1381,20 +1332,20 @@
         "description": "Lists all of the available Microsoft.AzureDataTransfer REST API operations.",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
           "200": {
             "description": "Listed all of the available operations.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/OperationListResult"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/OperationListResult"
             }
           },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1484,52 +1435,18 @@
           "type": "string",
           "description": "Storage Account"
         },
-        "storageAccountId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "Storage Account ID",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "scopes": [
-                  "*"
-                ],
-                "type": "Microsoft.Storage/storageAccounts"
-              }
-            ]
-          }
-        },
         "storageContainerName": {
           "type": "string",
-          "description": "Storage Container Name"
-        },
-        "serviceBusQueueId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "Service Bus Queue ID",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "scopes": [
-                  "*"
-                ],
-                "type": "Microsoft.Storage/namespaces/queues"
-              }
-            ]
-          }
+          "description": "Storage Container"
         },
         "flowType": {
-          "$ref": "#/definitions/flowType",
-          "description": "The flow type for this flow"
-        },
-        "dataType": {
           "enum": [
             "Blob",
             "Table"
           ],
           "type": "string",
           "x-ms-enum": {
-            "name": "dataType",
+            "name": "flowType",
             "modelAsString": true
           },
           "description": "Transfer Storage Blobs or Tables"
@@ -1555,12 +1472,11 @@
           "items": {
             "type": "string"
           }
-        },
-        "schema": {
-          "$ref": "#/definitions/schema",
-          "description": "The selected schema for this flow"
         }
       },
+      "required": [
+        "flowType"
+      ],
       "description": "Properties of flow"
     },
     "flow": {
@@ -1571,7 +1487,7 @@
           "$ref": "#/definitions/flowProperties"
         },
         "plan": {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/Plan"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/Plan"
         }
       },
       "required": [
@@ -1579,7 +1495,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
         }
       ],
       "description": "The flow resource definition."
@@ -1604,7 +1520,7 @@
           "$ref": "#/definitions/flowProperties"
         },
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -1702,9 +1618,22 @@
           "description": "Resource ID of the linked connection",
           "readOnly": true
         },
-        "flowTypes": {
-          "$ref": "#/definitions/flowTypes",
-          "description": "The flow types being requested for this connection"
+        "connectionTypes": {
+          "description": "Types of connection being requested",
+          "type": "array",
+          "items": {
+            "enum": [
+              "DevSecOps",
+              "ComplexDocuments",
+              "Messaging",
+              "Streaming"
+            ],
+            "type": "string",
+            "x-ms-enum": {
+              "name": "connectionTypes",
+              "modelAsString": true
+            }
+          }
         },
         "requirementId": {
           "description": "Requirement ID of the connection",
@@ -1761,10 +1690,6 @@
           "items": {
             "type": "string"
           }
-        },
-        "schemas": {
-          "description": "The schemas for this connection",
-          "$ref": "#/definitions/schemas"
         }
       },
       "required": [
@@ -1785,7 +1710,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
         }
       ],
       "description": "The connection resource definition."
@@ -1805,7 +1730,7 @@
           "$ref": "#/definitions/connectionProperties"
         },
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -1958,7 +1883,7 @@
           "readOnly": true
         },
         "systemData": {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/systemData"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/systemData"
         },
         "properties": {
           "type": "object",
@@ -2026,10 +1951,6 @@
           "items": {
             "type": "string"
           }
-        },
-        "flowTypes": {
-          "$ref": "#/definitions/flowTypes",
-          "description": "The flow types allowed for this pipeline"
         }
       },
       "required": [
@@ -2050,7 +1971,7 @@
       ],
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/TrackedResource"
         }
       ],
       "description": "The pipeline resource definition."
@@ -2070,10 +1991,6 @@
               "x-ms-identifiers": [
                 "id"
               ]
-            },
-            "flowTypes": {
-              "$ref": "#/definitions/flowTypes",
-              "description": "The flow types allowed for this pipeline"
             }
           },
           "description": "Properties of pipelines patch body."
@@ -2121,84 +2038,6 @@
           "description": "Number specifying what notifications to receive"
         }
       }
-    },
-    "schemas": {
-      "type": "array",
-      "description": "The schemas for this connection",
-      "x-ms-identifiers": [
-        "connectionId",
-        "name"
-      ],
-      "items": {
-        "$ref": "#/definitions/schema"
-      }
-    },
-    "schema": {
-      "type": "object",
-      "description": "The schema object.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "ID associated with this schema"
-        },
-        "connectionId": {
-          "type": "string",
-          "description": "Connection ID associated with this schema"
-        },
-        "status": {
-          "enum": [
-            "New",
-            "Approved"
-          ],
-          "type": "string",
-          "x-ms-enum": {
-            "name": "schemaStatus",
-            "modelAsString": true
-          },
-          "description": "Status of the schema"
-        },
-        "name": {
-          "type": "string",
-          "description": "Name of the schema"
-        },
-        "content": {
-          "type": "string",
-          "description": "Content of the schema"
-        }
-      }
-    },
-    "schemasListResult": {
-      "type": "object",
-      "properties": {
-        "value": {
-          "description": "Schemas array.",
-          "$ref": "#/definitions/schemas"
-        }
-      },
-      "description": "The schemas list result."
-    },
-    "flowTypes": {
-      "type": "array",
-      "description": "The flow types that are allowed for this resource",
-      "items": {
-        "$ref": "#/definitions/flowType"
-      }
-    },
-    "flowType": {
-      "enum": [
-        "Unknown",
-        "Complex",
-        "DevSecOps",
-        "Messaging",
-        "Mission",
-        "MicrosoftInternal"
-      ],
-      "type": "string",
-      "x-ms-enum": {
-        "name": "flowType",
-        "modelAsString": true
-      },
-      "description": "Flow type for the specified resource"
     },
     "resourceBody": {
       "type": "object",
