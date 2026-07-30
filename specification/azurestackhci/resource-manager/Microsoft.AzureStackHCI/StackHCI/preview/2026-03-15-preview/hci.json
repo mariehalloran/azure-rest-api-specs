@@ -4023,6 +4023,9 @@
           "ClusterJobs_Get_RepairServerJob": {
             "$ref": "./examples/ClusterJobs_Get_RepairServerJob.json"
           },
+          "ClusterJobs_Get_SetGpuConfidentialComputingModeJob": {
+            "$ref": "./examples/ClusterJobs_Get_SetGpuConfidentialComputingModeJob.json"
+          },
           "ClusterJobs_Get_VmConnectProvisionJob": {
             "$ref": "./examples/ClusterJobs_Get_VmConnectProvisionJob.json"
           },
@@ -4127,6 +4130,9 @@
           },
           "ClusterJobs_CreateOrUpdate_RepairServerJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_RepairServer.json"
+          },
+          "ClusterJobs_CreateOrUpdate_SetGpuConfidentialComputingModeJob": {
+            "$ref": "./examples/ClusterJobs_CreateOrUpdate_SetGpuConfidentialComputingMode.json"
           },
           "ClusterJobs_CreateOrUpdate_VmConnectProvisionJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_VmConnectProvision.json"
@@ -9607,6 +9613,9 @@
           "EdgeMachineGpuJobs_Get_RemovePartition": {
             "$ref": "./examples/EdgeMachineGpuJobs_Get_RemovePartition.json"
           },
+          "EdgeMachineGpuJobs_Get_SetConfidentialComputingMode": {
+            "$ref": "./examples/EdgeMachineGpuJobs_Get_SetConfidentialComputingMode.json"
+          },
           "EdgeMachineGpuJobs_Get_SwitchMode": {
             "$ref": "./examples/EdgeMachineGpuJobs_Get_SwitchMode.json"
           }
@@ -9702,6 +9711,9 @@
           },
           "EdgeMachineGpuJobs_CreateOrUpdate_RemovePartition": {
             "$ref": "./examples/EdgeMachineGpuJobs_CreateOrUpdate_RemovePartition.json"
+          },
+          "EdgeMachineGpuJobs_CreateOrUpdate_SetConfidentialComputingMode": {
+            "$ref": "./examples/EdgeMachineGpuJobs_CreateOrUpdate_SetConfidentialComputingMode.json"
           },
           "EdgeMachineGpuJobs_CreateOrUpdate_SwitchMode": {
             "$ref": "./examples/EdgeMachineGpuJobs_CreateOrUpdate_SwitchMode.json"
@@ -10831,6 +10843,68 @@
         "x-ms-examples": {
           "ProxyConfigurationJobs_Delete": {
             "$ref": "./examples/ProxyConfigurationJobs_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/edgeMachines/{edgeMachineName}/refreshApplicableUpdates": {
+      "post": {
+        "operationId": "EdgeMachines_RefreshApplicableUpdates",
+        "tags": [
+          "EdgeMachines"
+        ],
+        "description": "Trigger an on-demand refresh of applicable updates for the edge machine.\nCreates or updates the default EdgeMachineUpdate child resource with the latest set of applicable updates.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "edgeMachineName",
+            "in": "path",
+            "description": "Name of Device",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Action completed successfully."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Refresh edge machine applicable updates": {
+            "$ref": "./examples/EdgeMachines_RefreshApplicableUpdates.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -17981,6 +18055,36 @@
         ]
       }
     },
+    "ConfidentialComputingMode": {
+      "type": "string",
+      "description": "Confidential computing modes supported on a GPU.",
+      "enum": [
+        "Off",
+        "DevTools",
+        "On"
+      ],
+      "x-ms-enum": {
+        "name": "ConfidentialComputingMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Off",
+            "value": "Off",
+            "description": "Confidential computing is disabled on the GPU."
+          },
+          {
+            "name": "DevTools",
+            "value": "DevTools",
+            "description": "Confidential computing is enabled on the GPU in developer tools mode, which permits debugging and profiling tools that are blocked when confidential computing is fully enabled."
+          },
+          {
+            "name": "On",
+            "value": "On",
+            "description": "Confidential computing is enabled on the GPU."
+          }
+        ]
+      }
+    },
     "ConfidentialVmIntent": {
       "type": "string",
       "description": "Captures the customer's intent to enable or disable Confidential Virtual Machine (CVM) support on the cluster, either during initial deployment (Day-0) or at a later stage (Day-N).",
@@ -21374,7 +21478,8 @@
         "CreatePartition",
         "SwitchMode",
         "AssignPartition",
-        "RemovePartition"
+        "RemovePartition",
+        "SetConfidentialComputingMode"
       ],
       "x-ms-enum": {
         "name": "EdgeMachineGpuJobType",
@@ -21399,6 +21504,11 @@
             "name": "RemovePartition",
             "value": "RemovePartition",
             "description": "Remove GPU partition and free up resources for other workloads."
+          },
+          {
+            "name": "SetConfidentialComputingMode",
+            "value": "SetConfidentialComputingMode",
+            "description": "Set the confidential computing mode on the GPU."
           }
         ]
       }
@@ -24626,6 +24736,7 @@
         "ConfigureArcGateway",
         "GpuCreatePartition",
         "GpuSwitchMode",
+        "SetGpuConfidentialComputingMode",
         "ConfigureCVM",
         "ConfigureSdnIntegration",
         "VmConnectProvision",
@@ -24664,6 +24775,11 @@
             "name": "GpuSwitchMode",
             "value": "GpuSwitchMode",
             "description": "Job to switch GPU mode for the cluster."
+          },
+          {
+            "name": "SetGpuConfidentialComputingMode",
+            "value": "SetGpuConfidentialComputingMode",
+            "description": "Job to set the confidential computing mode for the GPUs in the cluster."
           },
           {
             "name": "ConfigureCVM",
@@ -32774,6 +32890,44 @@
           }
         ]
       }
+    },
+    "SetConfidentialComputingModeGpuJobProperties": {
+      "type": "object",
+      "description": "Properties for setting the confidential computing mode on the GPU.",
+      "properties": {
+        "mode": {
+          "$ref": "#/definitions/ConfidentialComputingMode",
+          "description": "Desired confidential computing mode to set on the GPU."
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/EdgeMachineGpuJobProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "SetConfidentialComputingMode"
+    },
+    "SetGpuConfidentialComputingModeClusterJobProperties": {
+      "type": "object",
+      "description": "Properties for setting the confidential computing mode for the GPUs in the cluster.",
+      "properties": {
+        "mode": {
+          "$ref": "#/definitions/ConfidentialComputingMode",
+          "description": "Desired confidential computing mode to set for the GPUs in the cluster."
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/ClusterJobProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "SetGpuConfidentialComputingMode"
     },
     "Severity": {
       "type": "string",

@@ -34,6 +34,9 @@ union HciJobType {
   /** Job to switch GPU mode for the cluster. */
   GpuSwitchMode: "GpuSwitchMode",
 
+  /** Job to set the confidential computing mode for the GPUs in the cluster. */
+  SetGpuConfidentialComputingMode: "SetGpuConfidentialComputingMode",
+
   /**
    * Job to CVM intent for the cluster.
    */
@@ -6927,6 +6930,21 @@ model GpuSwitchModeJobProperties extends ClusterJobProperties {
 }
 
 /**
+ * Properties for setting the confidential computing mode for the GPUs in the cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model SetGpuConfidentialComputingModeClusterJobProperties
+  extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.SetGpuConfidentialComputingMode;
+
+  /**
+   * Desired confidential computing mode to set for the GPUs in the cluster.
+   */
+  mode: ConfidentialComputingMode;
+}
+
+/**
  * GPU modes supported.
  */
 @added(Versions.v2026_03_15_preview)
@@ -9863,6 +9881,34 @@ union EdgeMachineGpuJobType {
    * Remove GPU partition and free up resources for other workloads.
    */
   RemovePartition: "RemovePartition",
+
+  /**
+   * Set the confidential computing mode on the GPU.
+   */
+  SetConfidentialComputingMode: "SetConfidentialComputingMode",
+}
+
+/**
+ * Confidential computing modes supported on a GPU.
+ */
+@added(Versions.v2026_03_15_preview)
+union ConfidentialComputingMode {
+  string,
+
+  /**
+   * Confidential computing is disabled on the GPU.
+   */
+  Off: "Off",
+
+  /**
+   * Confidential computing is enabled on the GPU in developer tools mode, which permits debugging and profiling tools that are blocked when confidential computing is fully enabled.
+   */
+  DevTools: "DevTools",
+
+  /**
+   * Confidential computing is enabled on the GPU.
+   */
+  On: "On",
 }
 
 /**
@@ -9927,6 +9973,23 @@ model RemovePartitionGpuJobProperties extends EdgeMachineGpuJobProperties {
    * Virtual machine ID from which the GPU partition is removed.
    */
   vmId: string;
+}
+
+/**
+ * Properties for setting the confidential computing mode on the GPU.
+ */
+@added(Versions.v2026_03_15_preview)
+model SetConfidentialComputingModeGpuJobProperties
+  extends EdgeMachineGpuJobProperties {
+  /**
+   * Type of GPU job to be performed.
+   */
+  jobType: EdgeMachineGpuJobType.SetConfidentialComputingMode;
+
+  /**
+   * Desired confidential computing mode to set on the GPU.
+   */
+  mode: ConfidentialComputingMode;
 }
 
 ////////////////////////////////////////////////////////////////
