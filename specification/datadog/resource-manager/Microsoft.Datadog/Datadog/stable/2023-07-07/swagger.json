@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Microsoft.Datadog",
-    "version": "2020-02-01-preview"
+    "version": "2023-07-07"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -19,7 +19,7 @@
       "type": "oauth2",
       "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
       "flow": "implicit",
-      "description": "Azure Active Directory OAuth2 Flow",
+      "description": "Microsoft Entra ID OAuth2 Flow",
       "scopes": {
         "user_impersonation": "impersonate your user account"
       }
@@ -38,10 +38,10 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -54,7 +54,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -74,7 +74,7 @@
           "Agreements"
         ],
         "summary": "Create Datadog marketplace agreement in the subscription.",
-        "operationId": "MarketplaceAgreements_Create",
+        "operationId": "MarketplaceAgreements_CreateOrUpdate",
         "consumes": [
           "application/json"
         ],
@@ -83,10 +83,10 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           },
           {
             "in": "body",
@@ -106,13 +106,100 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
         "x-ms-examples": {
-          "MarketplaceAgreements_Create": {
+          "MarketplaceAgreements_CreateOrUpdate": {
             "$ref": "./examples/MarketplaceAgreements_Create.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Datadog/subscriptionStatuses": {
+      "get": {
+        "tags": [
+          "CreateResource"
+        ],
+        "summary": "Informs if the current subscription is being already monitored for selected Datadog organization.",
+        "operationId": "CreationSupported_List",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/DatadogOrganizationId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateResourceSupportedResponseList"
+            }
+          },
+          "default": {
+            "description": "Default error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        },
+        "x-ms-examples": {
+          "CreationSupported_List": {
+            "$ref": "./examples/CreationSupported_List.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Datadog/subscriptionStatuses/default": {
+      "get": {
+        "tags": [
+          "CreateResource"
+        ],
+        "summary": "Informs if the current subscription is being already monitored for selected Datadog organization.",
+        "operationId": "CreationSupported_Get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/DatadogOrganizationId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateResourceSupportedResponse"
+            }
+          },
+          "default": {
+            "description": "Default error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CreationSupported_Get": {
+            "$ref": "./examples/CreationSupported_Get.json"
           }
         }
       }
@@ -123,22 +210,22 @@
           "ApiKey"
         ],
         "summary": "List the api keys for a given monitor resource.",
-        "operationId": "ApiKeys_List",
+        "operationId": "Monitors_ListApiKeys",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -151,7 +238,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -159,7 +246,7 @@
           "nextLinkName": "nextLink"
         },
         "x-ms-examples": {
-          "ApiKeys_List": {
+          "Monitors_ListApiKeys": {
             "$ref": "./examples/ApiKeys_List.json"
           }
         }
@@ -171,22 +258,22 @@
           "ApiKey"
         ],
         "summary": "Get the default api key.",
-        "operationId": "ApiKeys_GetDefaultKey",
+        "operationId": "Monitors_GetDefaultKey",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -199,12 +286,12 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
         "x-ms-examples": {
-          "ApiKeys_GetDefaultKey": {
+          "Monitors_GetDefaultKey": {
             "$ref": "./examples/ApiKeys_GetDefaultKey.json"
           }
         }
@@ -216,7 +303,7 @@
           "ApiKey"
         ],
         "summary": "Set the default api key.",
-        "operationId": "ApiKeys_SetDefaultKey",
+        "operationId": "Monitors_SetDefaultKey",
         "consumes": [
           "application/json"
         ],
@@ -225,16 +312,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           },
           {
             "in": "body",
@@ -251,12 +338,12 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
         "x-ms-examples": {
-          "ApiKeys_SetDefaultKey": {
+          "Monitors_SetDefaultKey": {
             "$ref": "./examples/ApiKeys_SetDefaultKey.json"
           }
         }
@@ -268,22 +355,22 @@
           "Hosts"
         ],
         "summary": "List the hosts for a given monitor resource.",
-        "operationId": "Hosts_List",
+        "operationId": "Monitors_ListHosts",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -296,7 +383,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -304,7 +391,7 @@
           "nextLinkName": "nextLink"
         },
         "x-ms-examples": {
-          "Hosts_List": {
+          "Monitors_ListHosts": {
             "$ref": "./examples/Hosts_List.json"
           }
         }
@@ -316,22 +403,22 @@
           "LinkedResources"
         ],
         "summary": "List all Azure resources associated to the same Datadog organization as the target resource.",
-        "operationId": "LinkedResources_List",
+        "operationId": "Monitors_ListLinkedResources",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -344,7 +431,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -352,7 +439,7 @@
           "nextLinkName": "nextLink"
         },
         "x-ms-examples": {
-          "LinkedResources_List": {
+          "Monitors_ListLinkedResources": {
             "$ref": "./examples/LinkedResources_List.json"
           }
         }
@@ -364,22 +451,22 @@
           "MonitoredResources"
         ],
         "summary": "List the resources currently being monitored by the Datadog monitor resource.",
-        "operationId": "MonitoredResources_List",
+        "operationId": "Monitors_ListMonitoredResources",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -392,7 +479,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -400,7 +487,7 @@
           "nextLinkName": "nextLink"
         },
         "x-ms-examples": {
-          "MonitoredResources_List": {
+          "Monitors_ListMonitoredResources": {
             "$ref": "./examples/MonitoredResources_List.json"
           }
         }
@@ -411,14 +498,14 @@
         "tags": [
           "MonitorsResource"
         ],
-        "summary": "List all operations provided by Microsoft.Datadog for the 2020-02-01-preview api version.",
+        "summary": "List all operations provided by Microsoft.Datadog for the 2023-07-07 api version.",
         "operationId": "Operations_List",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -431,7 +518,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -457,10 +544,10 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -473,7 +560,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -499,13 +586,13 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -518,7 +605,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -544,16 +631,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -566,7 +653,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -590,16 +677,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           },
           {
             "in": "body",
@@ -625,7 +712,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -653,16 +740,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           },
           {
             "in": "body",
@@ -688,7 +775,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -710,16 +797,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -735,7 +822,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -753,22 +840,22 @@
           "RefreshSetPasswordLink"
         ],
         "summary": "Refresh the set password link and return a latest one.",
-        "operationId": "RefreshSetPassword_Get",
+        "operationId": "Monitors_RefreshSetPasswordLink",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -781,12 +868,12 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
         "x-ms-examples": {
-          "RefreshSetPassword_Get": {
+          "Monitors_RefreshSetPasswordLink": {
             "$ref": "./examples/RefreshSetPassword_Get.json"
           }
         }
@@ -804,16 +891,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -826,7 +913,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -855,10 +942,10 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
@@ -871,7 +958,7 @@
             "type": "string"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           },
           {
             "in": "body",
@@ -891,7 +978,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -912,10 +999,10 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
@@ -928,7 +1015,7 @@
             "type": "string"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -941,7 +1028,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -964,16 +1051,16 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -986,7 +1073,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1015,10 +1102,10 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
@@ -1031,7 +1118,7 @@
             "type": "string"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           },
           {
             "in": "body",
@@ -1057,7 +1144,7 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1082,10 +1169,10 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "#/parameters/MonitorNameParameter"
@@ -1098,7 +1185,7 @@
             "type": "string"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -1111,13 +1198,298 @@
           "default": {
             "description": "Default error response.",
             "schema": {
-              "$ref": "#/definitions/ResourceProviderDefaultErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
             }
           }
         },
         "x-ms-examples": {
           "SingleSignOnConfigurations_Get": {
             "$ref": "./examples/SingleSignOnConfigurations_Get.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Datadog/monitors/{monitorName}/monitoredSubscriptions": {
+      "get": {
+        "tags": [
+          "monitoredSubscriptions"
+        ],
+        "summary": "List the subscriptions currently being monitored by the Datadog monitor resource.",
+        "operationId": "MonitoredSubscriptions_List",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MonitoredSubscriptionPropertiesList"
+            }
+          },
+          "default": {
+            "description": "Default error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        },
+        "x-ms-examples": {
+          "Monitors_GetMonitoredSubscriptions": {
+            "$ref": "./examples/MonitoredSubscriptions_List.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Datadog/monitors/{monitorName}/monitoredSubscriptions/{configurationName}": {
+      "get": {
+        "tags": [
+          "monitoredSubscriptions"
+        ],
+        "summary": "List the subscriptions currently being monitored by the Datadog monitor resource.",
+        "operationId": "MonitoredSubscriptions_Get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "description": "The configuration name. Only 'default' value is supported.",
+            "in": "path",
+            "name": "configurationName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MonitoredSubscriptionProperties"
+            }
+          },
+          "default": {
+            "description": "Default error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Monitors_GetMonitoredSubscriptions": {
+            "$ref": "./examples/MonitoredSubscriptions_Get.json"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "monitoredSubscriptions"
+        ],
+        "summary": "Add the subscriptions that should be monitored by the Datadog monitor resource.",
+        "operationId": "MonitoredSubscriptions_CreateorUpdate",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "description": "The configuration name. Only 'default' value is supported.",
+            "in": "path",
+            "name": "configurationName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/MonitoredSubscriptionProperties"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MonitoredSubscriptionProperties"
+            }
+          },
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MonitoredSubscriptionProperties"
+            }
+          },
+          "202": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Default error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-examples": {
+          "Monitors_AddMonitoredSubscriptions": {
+            "$ref": "./examples/MonitoredSubscriptions_CreateorUpdate.json"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "MonitoredSubscriptions"
+        ],
+        "summary": "Updates the subscriptions that are being monitored by the Datadog monitor resource",
+        "operationId": "MonitoredSubscriptions_Update",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "description": "The configuration name. Only 'default' value is supported.",
+            "in": "path",
+            "name": "configurationName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/MonitoredSubscriptionProperties"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MonitoredSubscriptionProperties"
+            }
+          },
+          "202": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Default error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-examples": {
+          "Monitors_UpdateMonitoredSubscriptions": {
+            "$ref": "./examples/MonitoredSubscriptions_Update.json"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "MonitoredSubscriptions"
+        ],
+        "summary": "Updates the subscriptions that are being monitored by the Datadog monitor resource",
+        "operationId": "MonitoredSubscriptions_Delete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/MonitorNameParameter"
+          },
+          {
+            "description": "Configuration name",
+            "in": "path",
+            "name": "configurationName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "202": {
+            "description": "Success"
+          },
+          "204": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Default error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-examples": {
+          "Monitors_DeleteMonitoredSubscriptions": {
+            "$ref": "./examples/MonitoredSubscriptions_Delete.json"
           }
         }
       }
@@ -1185,6 +1557,10 @@
         "properties": {
           "$ref": "#/definitions/DatadogAgreementProperties",
           "description": "Represents the properties of the resource."
+        },
+        "systemData": {
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "readOnly": true
         }
       }
     },
@@ -1198,6 +1574,48 @@
           "items": {
             "$ref": "#/definitions/DatadogAgreementResource"
           }
+        },
+        "nextLink": {
+          "description": "Link to the next set of results, if any.",
+          "type": "string"
+        }
+      }
+    },
+    "CreateResourceSupportedProperties": {
+      "description": "Datadog resource can be created or not properties.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The ARM id of the subscription.",
+          "type": "string",
+          "readOnly": true
+        },
+        "creationSupported": {
+          "description": "Indicates if selected subscription supports Datadog resource creation, if not it is already being monitored for the selected organization via multi subscription feature. ",
+          "type": "boolean",
+          "readOnly": true
+        }
+      }
+    },
+    "CreateResourceSupportedResponse": {
+      "description": "Datadog resource can be created or not.",
+      "type": "object",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/CreateResourceSupportedProperties",
+          "description": "Represents the properties of the resource."
+        }
+      }
+    },
+    "CreateResourceSupportedResponseList": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CreateResourceSupportedResponse"
+          },
+          "x-ms-identifiers": []
         },
         "nextLink": {
           "description": "Link to the next set of results, if any.",
@@ -1243,34 +1661,6 @@
         "nextLink": {
           "description": "Link to the next set of results, if any.",
           "type": "string"
-        }
-      }
-    },
-    "ErrorResponseBody": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "string"
-        },
-        "message": {
-          "type": "string"
-        },
-        "target": {
-          "type": "string"
-        },
-        "details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ErrorResponseBody"
-          }
-        }
-      }
-    },
-    "ResourceProviderDefaultErrorResponse": {
-      "type": "object",
-      "properties": {
-        "error": {
-          "$ref": "#/definitions/ErrorResponseBody"
         }
       }
     },
@@ -1323,7 +1713,7 @@
           "type": "string"
         },
         "aliases": {
-          "description": "The aliases for the host.",
+          "description": "The aliases for the host installed via the Datadog agent.",
           "type": "array",
           "items": {
             "type": "string"
@@ -1428,6 +1818,111 @@
         }
       }
     },
+    "MonitoredSubscription": {
+      "description": "The list of subscriptions and it's monitoring status by current Datadog monitor.",
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "description": "The subscriptionId to be monitored.",
+          "required": [
+            "subscriptionId"
+          ],
+          "type": "string"
+        },
+        "status": {
+          "description": "The state of monitoring.",
+          "enum": [
+            "InProgress",
+            "Active",
+            "Failed",
+            "Deleting"
+          ],
+          "x-ms-enum": {
+            "modelAsString": true,
+            "name": "Status"
+          },
+          "type": "string"
+        },
+        "error": {
+          "description": "The reason of not monitoring the subscription.",
+          "type": "string"
+        },
+        "tagRules": {
+          "$ref": "#/definitions/MonitoringTagRulesProperties"
+        }
+      }
+    },
+    "SubscriptionList": {
+      "description": "The request to update subscriptions needed to be monitored by the Datadog monitor resource.",
+      "type": "object",
+      "properties": {
+        "operation": {
+          "description": "The operation for the patch on the resource.",
+          "enum": [
+            "AddBegin",
+            "AddComplete",
+            "DeleteBegin",
+            "DeleteComplete",
+            "Active"
+          ],
+          "type": "string",
+          "x-ms-enum": {
+            "modelAsString": true,
+            "name": "Operation"
+          },
+          "x-ms-mutability": [
+            "create",
+            "update"
+          ]
+        },
+        "monitoredSubscriptionList": {
+          "description": "List of subscriptions and the state of the monitoring.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MonitoredSubscription"
+          }
+        }
+      }
+    },
+    "MonitoredSubscriptionProperties": {
+      "description": "The request to update subscriptions needed to be monitored by the Datadog monitor resource.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the monitored subscription resource.",
+          "type": "string",
+          "readOnly": true
+        },
+        "id": {
+          "description": "The id of the monitored subscription resource.",
+          "type": "string",
+          "readOnly": true
+        },
+        "type": {
+          "description": "The type of the monitored subscription resource.",
+          "type": "string",
+          "readOnly": true
+        },
+        "properties": {
+          "$ref": "#/definitions/SubscriptionList"
+        }
+      }
+    },
+    "MonitoredSubscriptionPropertiesList": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MonitoredSubscriptionProperties"
+          }
+        },
+        "nextLink": {
+          "description": "Link to the next set of results, if any.",
+          "type": "string"
+        }
+      }
+    },
     "OperationDisplay": {
       "description": "The object that represents the operation.",
       "type": "object",
@@ -1460,6 +1955,10 @@
         },
         "display": {
           "$ref": "#/definitions/OperationDisplay"
+        },
+        "isDataAction": {
+          "description": "Indicates whether the operation is a data action",
+          "type": "boolean"
         }
       }
     },
@@ -1487,7 +1986,7 @@
       "type": "object",
       "properties": {
         "name": {
-          "description": "Name of the SKU.",
+          "description": "Name of the SKU in {PlanId} format. For Terraform, the only allowed value is 'Linked'.",
           "type": "string"
         }
       }
@@ -1508,7 +2007,8 @@
       "x-ms-enum": {
         "modelAsString": true,
         "name": "ProvisioningState"
-      }
+      },
+      "readOnly": true
     },
     "MonitoringStatus": {
       "description": "Flag specifying if the resource monitoring is enabled or disabled.",
@@ -1516,6 +2016,7 @@
         "Enabled",
         "Disabled"
       ],
+      "default": "Enabled",
       "type": "string",
       "x-ms-enum": {
         "modelAsString": true,
@@ -1538,21 +2039,27 @@
       "readOnly": true
     },
     "DatadogOrganizationProperties": {
-      "description": "Datadog organization properties",
+      "description": "Specify the Datadog organization name. In the case of linking to existing organizations, Id, ApiKey, and Applicationkey is required as well.",
       "type": "object",
       "properties": {
         "name": {
           "description": "Name of the Datadog organization.",
           "type": "string",
-          "readOnly": true
+          "x-ms-mutability": [
+            "create",
+            "read"
+          ]
         },
         "id": {
           "description": "Id of the Datadog organization.",
           "type": "string",
-          "readOnly": true
+          "x-ms-mutability": [
+            "create",
+            "read"
+          ]
         },
         "linkingAuthCode": {
-          "description": "The auth code used to linking to an existing datadog organization.",
+          "description": "The auth code used to linking to an existing Datadog organization.",
           "type": "string",
           "x-ms-mutability": [
             "create"
@@ -1564,10 +2071,11 @@
           "type": "string",
           "x-ms-mutability": [
             "create"
-          ]
+          ],
+          "x-ms-secret": true
         },
         "redirectUri": {
-          "description": "The redirect uri for linking.",
+          "description": "The redirect URI for linking.",
           "type": "string",
           "x-ms-mutability": [
             "create"
@@ -1595,11 +2103,15 @@
           "x-ms-mutability": [
             "create"
           ]
+        },
+        "cspm": {
+          "description": "The configuration which describes the state of cloud security posture management. This collects configuration information for all resources in a subscription and track conformance to industry benchmarks.",
+          "type": "boolean"
         }
       }
     },
     "UserInfo": {
-      "description": "User info",
+      "description": "Includes name, email and optionally, phone number. User Information can't be null.",
       "type": "object",
       "properties": {
         "name": {
@@ -1668,7 +2180,7 @@
         "UserAssigned"
       ],
       "type": "string",
-      "description": "Identity type",
+      "description": "Specifies the identity type of the Datadog Monitor. At this time the only allowed value is 'SystemAssigned'.",
       "x-ms-enum": {
         "modelAsString": true,
         "name": "ManagedIdentityTypes"
@@ -1731,6 +2243,10 @@
         },
         "location": {
           "type": "string"
+        },
+        "systemData": {
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "readOnly": true
         }
       }
     },
@@ -1757,6 +2273,10 @@
       "properties": {
         "monitoringStatus": {
           "$ref": "#/definitions/MonitoringStatus"
+        },
+        "cspm": {
+          "description": "The new cloud security posture management value of the monitor resource. This collects configuration information for all resources in a subscription and track conformance to industry benchmarks.",
+          "type": "boolean"
         }
       }
     },
@@ -1866,6 +2386,14 @@
         },
         "metricRules": {
           "$ref": "#/definitions/MetricRules"
+        },
+        "automuting": {
+          "description": "Configuration to enable/disable auto-muting flag",
+          "type": "boolean"
+        },
+        "customMetrics": {
+          "description": "Configuration to enable/disable custom metrics. If enabled, custom metrics from app insights will be sent.",
+          "type": "boolean"
         }
       }
     },
@@ -1891,6 +2419,10 @@
         },
         "properties": {
           "$ref": "#/definitions/MonitoringTagRulesProperties"
+        },
+        "systemData": {
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "readOnly": true
         }
       }
     },
@@ -1966,6 +2498,10 @@
         },
         "properties": {
           "$ref": "#/definitions/DatadogSingleSignOnProperties"
+        },
+        "systemData": {
+          "$ref": "../../../../../../common-types/resource-management/v2/types.json#/definitions/systemData",
+          "readOnly": true
         }
       }
     },
@@ -1988,25 +2524,18 @@
     }
   },
   "parameters": {
-    "SubscriptionIdParameter": {
-      "name": "subscriptionId",
-      "in": "path",
-      "description": "The Microsoft Azure subscription ID.",
-      "required": true,
-      "type": "string"
-    },
-    "ResourceGroupNameParameter": {
-      "name": "resourceGroupName",
-      "in": "path",
-      "description": "The name of the resource group to which the Datadog resource belongs.",
-      "required": true,
-      "type": "string",
-      "x-ms-parameter-location": "method"
-    },
     "MonitorNameParameter": {
       "in": "path",
       "name": "monitorName",
       "description": "Monitor resource name",
+      "required": true,
+      "type": "string",
+      "x-ms-parameter-location": "method"
+    },
+    "DatadogOrganizationId": {
+      "in": "query",
+      "name": "datadogOrganizationId",
+      "description": "Datadog Organization Id",
       "required": true,
       "type": "string",
       "x-ms-parameter-location": "method"
