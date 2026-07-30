@@ -230,6 +230,7 @@ model ThresholdRuleV2 {
   sensitivity?: DynamicThresholdSensitivity;
 
   @added(Versions.v2026_05_01_preview)
+  @removed(Versions.v2026_09_01_preview)
   @doc("ISO 8601 duration for the historical look-back window used by dynamic threshold computation. Only applicable when operator is Dynamic.")
   lookBackWindow?: LookBackWindow;
 }
