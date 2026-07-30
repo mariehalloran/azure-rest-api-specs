@@ -13151,7 +13151,7 @@ model EdgeMachineDeploymentData {
   /**
    * Storage type for the edge machine node.
    */
-  storageType?: NodeStorageType;
+  storageType: NodeStorageType;
 
   /**
    * iSCSI configuration for the edge machine.
