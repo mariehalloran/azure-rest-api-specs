@@ -302,4 +302,10 @@ directive:
   - suppress: OAV107
     from: stable/2015-02-28/search.json
     reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
+  - suppress: OAV107
+    from: preview/2019-10-01-preview/search.json
+    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
+  - suppress: OAV107
+    from: preview/2020-08-01-preview/search.json
+    reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
 ```
