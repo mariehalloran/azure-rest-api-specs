@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Microsoft.ComputeSchedule management service",
-    "version": "2023-10-01-preview",
+    "version": "2023-12-01-preview",
     "description": "Microsoft.ComputeSchedule Resource Provider management API.",
     "x-typespec-generated": [
       {
@@ -53,20 +53,20 @@
         "description": "List the operations for the provider",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
           "200": {
             "description": "ARM operation completed successfully.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/OperationListResult"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/OperationListResult"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v3/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -83,16 +83,16 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/locations/{locationparameter}/providers/Microsoft.ComputeSchedule/virtualMachinesCancelOperationsAction": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesCancelOperations": {
       "post": {
-        "operationId": "ScheduledActions_VirtualMachinesCancelOperationsAction",
-        "description": "virtualMachinesCancelOperationsAction: cancelOperations action for a virtual machine",
+        "operationId": "ScheduledActions_VirtualMachinesCancelOperations",
+        "description": "virtualMachinesCancelOperations: cancelOperations for a virtual machine",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
             "name": "locationparameter",
@@ -127,25 +127,25 @@
           }
         },
         "x-ms-examples": {
-          "ScheduledActions_VirtualMachinesCancelOperationsAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesCancelOperationsAction_MaximumSet_Gen.json"
+          "ScheduledActions_VirtualMachinesCancelOperations": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesCancelOperations_MaximumSet_Gen.json"
           },
-          "VirtualMachinesCancelOperationsAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesCancelOperationsAction_MinimumSet_Gen.json"
+          "VirtualMachinesCancelOperations": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesCancelOperations_MinimumSet_Gen.json"
           }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/locations/{locationparameter}/providers/Microsoft.ComputeSchedule/virtualMachinesExecuteDeallocateAction": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesExecuteDeallocate": {
       "post": {
-        "operationId": "ScheduledActions_VirtualMachinesExecuteDeallocateAction",
-        "description": "virtualMachinesExecuteDeallocateAction: executeDeallocate action for a virtual machine",
+        "operationId": "ScheduledActions_VirtualMachinesExecuteDeallocate",
+        "description": "virtualMachinesExecuteDeallocate: executeDeallocate for a virtual machine",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
             "name": "locationparameter",
@@ -180,25 +180,25 @@
           }
         },
         "x-ms-examples": {
-          "ScheduledActions_VirtualMachinesExecuteDeallocateAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesExecuteDeallocateAction_MaximumSet_Gen.json"
+          "ScheduledActions_VirtualMachinesExecuteDeallocate": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesExecuteDeallocate_MaximumSet_Gen.json"
           },
-          "VirtualMachinesExecuteDeallocateAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesExecuteDeallocateAction_MinimumSet_Gen.json"
+          "VirtualMachinesExecuteDeallocate": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesExecuteDeallocate_MinimumSet_Gen.json"
           }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/locations/{locationparameter}/providers/Microsoft.ComputeSchedule/virtualMachinesExecuteHibernateAction": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesExecuteHibernate": {
       "post": {
-        "operationId": "ScheduledActions_VirtualMachinesExecuteHibernateAction",
-        "description": "virtualMachinesExecuteHibernateAction: executeHibernate action for a virtual machine",
+        "operationId": "ScheduledActions_VirtualMachinesExecuteHibernate",
+        "description": "virtualMachinesExecuteHibernate: executeHibernate for a virtual machine",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
             "name": "locationparameter",
@@ -233,25 +233,25 @@
           }
         },
         "x-ms-examples": {
-          "ScheduledActions_VirtualMachinesExecuteHibernateAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesExecuteHibernateAction_MaximumSet_Gen.json"
+          "ScheduledActions_VirtualMachinesExecuteHibernate": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesExecuteHibernate_MaximumSet_Gen.json"
           },
-          "VirtualMachinesExecuteHibernateAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesExecuteHibernateAction_MinimumSet_Gen.json"
+          "VirtualMachinesExecuteHibernate": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesExecuteHibernate_MinimumSet_Gen.json"
           }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/locations/{locationparameter}/providers/Microsoft.ComputeSchedule/virtualMachinesExecuteStartAction": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesExecuteStart": {
       "post": {
-        "operationId": "ScheduledActions_VirtualMachinesExecuteStartAction",
-        "description": "virtualMachinesExecuteStartAction: executeHibernate action for a virtual machine",
+        "operationId": "ScheduledActions_VirtualMachinesExecuteStart",
+        "description": "virtualMachinesExecuteStart: executeStart for a virtual machine",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
             "name": "locationparameter",
@@ -286,25 +286,25 @@
           }
         },
         "x-ms-examples": {
-          "ScheduledActions_VirtualMachinesExecuteStartAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesExecuteStartAction_MaximumSet_Gen.json"
+          "ScheduledActions_VirtualMachinesExecuteStart": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesExecuteStart_MaximumSet_Gen.json"
           },
-          "VirtualMachinesExecuteStartAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesExecuteStartAction_MinimumSet_Gen.json"
+          "VirtualMachinesExecuteStart": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesExecuteStart_MinimumSet_Gen.json"
           }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/locations/{locationparameter}/providers/Microsoft.ComputeSchedule/virtualMachinesGetOperationStatusAction": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesGetOperationStatus": {
       "post": {
-        "operationId": "ScheduledActions_VirtualMachinesGetOperationStatusAction",
-        "description": "virtualMachinesGetOperationStatusAction: getOperationStatus action for a virtual machine",
+        "operationId": "ScheduledActions_VirtualMachinesGetOperationStatus",
+        "description": "virtualMachinesGetOperationStatus: getOperationStatus for a virtual machine",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
             "name": "locationparameter",
@@ -339,25 +339,25 @@
           }
         },
         "x-ms-examples": {
-          "ScheduledActions_VirtualMachinesGetOperationStatusAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesGetOperationStatusAction_MaximumSet_Gen.json"
+          "ScheduledActions_VirtualMachinesGetOperationStatus": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesGetOperationStatus_MaximumSet_Gen.json"
           },
-          "VirtualMachinesGetOperationStatusAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesGetOperationStatusAction_MinimumSet_Gen.json"
+          "VirtualMachinesGetOperationStatus": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesGetOperationStatus_MinimumSet_Gen.json"
           }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/locations/{locationparameter}/providers/Microsoft.ComputeSchedule/virtualMachinesSubmitDeallocateAction": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesSubmitDeallocate": {
       "post": {
-        "operationId": "ScheduledActions_VirtualMachinesSubmitDeallocateAction",
-        "description": "virtualMachinesSubmitDeallocateAction: submitDeallocate action for a virtual machine",
+        "operationId": "ScheduledActions_VirtualMachinesSubmitDeallocate",
+        "description": "virtualMachinesSubmitDeallocate: submitDeallocate for a virtual machine",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
             "name": "locationparameter",
@@ -392,25 +392,25 @@
           }
         },
         "x-ms-examples": {
-          "ScheduledActions_VirtualMachinesSubmitDeallocateAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesSubmitDeallocateAction_MaximumSet_Gen.json"
+          "ScheduledActions_VirtualMachinesSubmitDeallocate": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesSubmitDeallocate_MaximumSet_Gen.json"
           },
-          "VirtualMachinesSubmitDeallocateAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesSubmitDeallocateAction_MinimumSet_Gen.json"
+          "VirtualMachinesSubmitDeallocate": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesSubmitDeallocate_MinimumSet_Gen.json"
           }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/locations/{locationparameter}/providers/Microsoft.ComputeSchedule/virtualMachinesSubmitHibernateAction": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesSubmitHibernate": {
       "post": {
-        "operationId": "ScheduledActions_VirtualMachinesSubmitHibernateAction",
-        "description": "virtualMachinesSubmitHibernateAction: submitHibernate action for a virtual machine",
+        "operationId": "ScheduledActions_VirtualMachinesSubmitHibernate",
+        "description": "virtualMachinesSubmitHibernate: submitHibernate for a virtual machine",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
             "name": "locationparameter",
@@ -445,25 +445,25 @@
           }
         },
         "x-ms-examples": {
-          "ScheduledActions_VirtualMachinesSubmitHibernateAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesSubmitHibernateAction_MaximumSet_Gen.json"
+          "ScheduledActions_VirtualMachinesSubmitHibernate": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesSubmitHibernate_MaximumSet_Gen.json"
           },
-          "VirtualMachinesSubmitHibernateAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesSubmitHibernateAction_MinimumSet_Gen.json"
+          "VirtualMachinesSubmitHibernate": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesSubmitHibernate_MinimumSet_Gen.json"
           }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/locations/{locationparameter}/providers/Microsoft.ComputeSchedule/virtualMachinesSubmitStartAction": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesSubmitStart": {
       "post": {
-        "operationId": "ScheduledActions_VirtualMachinesSubmitStartAction",
-        "description": "virtualMachinesSubmitStartAction: submitStart action for a virtual machine",
+        "operationId": "ScheduledActions_VirtualMachinesSubmitStart",
+        "description": "virtualMachinesSubmitStart: submitStart for a virtual machine",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v3/types.json#/parameters/SubscriptionIdParameter"
           },
           {
             "name": "locationparameter",
@@ -498,11 +498,11 @@
           }
         },
         "x-ms-examples": {
-          "ScheduledActions_VirtualMachinesSubmitStartAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesSubmitStartAction_MaximumSet_Gen.json"
+          "ScheduledActions_VirtualMachinesSubmitStart": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesSubmitStart_MaximumSet_Gen.json"
           },
-          "VirtualMachinesSubmitStartAction": {
-            "$ref": "./examples/ScheduledActions_VirtualMachinesSubmitStartAction_MinimumSet_Gen.json"
+          "VirtualMachinesSubmitStart": {
+            "$ref": "./examples/ScheduledActions_VirtualMachinesSubmitStart_MinimumSet_Gen.json"
           }
         }
       }
@@ -608,34 +608,12 @@
           "x-ms-identifiers": [
             "resourceId"
           ]
-        },
-        "error": {
-          "$ref": "#/definitions/RequestError",
-          "description": "Request level error if it exists"
         }
       },
       "required": [
         "description",
         "type",
         "location"
-      ]
-    },
-    "ErrorInfo": {
-      "type": "object",
-      "description": "Error for the resource operation",
-      "properties": {
-        "errorCode": {
-          "type": "string",
-          "description": "Error code for the error, eg 404"
-        },
-        "errorDetails": {
-          "type": "string",
-          "description": "More details about the error"
-        }
-      },
-      "required": [
-        "errorCode",
-        "errorDetails"
       ]
     },
     "ExecuteDeallocateRequest": {
@@ -791,10 +769,6 @@
           "x-ms-identifiers": [
             "resourceId"
           ]
-        },
-        "error": {
-          "$ref": "#/definitions/RequestError",
-          "description": "Request level error if it exists"
         }
       },
       "required": [
@@ -1025,6 +999,11 @@
           "type": "string",
           "format": "date-time",
           "description": "Time the operation was complete if errors are null"
+        },
+        "retryWindowInMinutes": {
+          "type": "number",
+          "format": "float",
+          "description": "Number of minutes to retry retriable errors"
         }
       },
       "required": [
@@ -1034,8 +1013,7 @@
         "subscriptionId",
         "deadline",
         "deadlineType",
-        "state",
-        "timeZone"
+        "state"
       ]
     },
     "ResourceOperationError": {
@@ -1163,10 +1141,6 @@
           "x-ms-identifiers": [
             "resourceId"
           ]
-        },
-        "error": {
-          "$ref": "#/definitions/RequestError",
-          "description": "Request level error if it exists"
         }
       },
       "required": [
