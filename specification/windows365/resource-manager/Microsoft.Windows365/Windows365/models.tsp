@@ -10,9 +10,7 @@ using Azure.ResourceManager.Foundations;
 namespace Microsoft.Windows365;
 
 /** Provisioning state of the resource. */
-#suppress "@azure-tools/typespec-azure-core/friendly-name" "For backward compatibility with the existing Swagger enum schema name."
-@friendlyName("ProvisioningState")
-union ResourceProvisioningState {
+union ProvisioningState {
   string,
 
   /** The resource provisioning operation completed successfully. */
@@ -32,7 +30,7 @@ union ResourceProvisioningState {
 model CloudPcDelegatedMsiProperties {
   /** The provisioning state of the resource. */
   @visibility(Lifecycle.Read)
-  provisioningState?: ResourceProvisioningState;
+  provisioningState?: ProvisioningState;
 }
 
 /** An error response from the Windows 365 resource provider. */

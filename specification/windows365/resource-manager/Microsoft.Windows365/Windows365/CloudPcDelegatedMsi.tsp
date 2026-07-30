@@ -134,7 +134,7 @@ model CloudPcDelegatedMsiListResult {
 #suppress "@azure-tools/typespec-azure-core/no-openapi" "For backward compatibility with the existing x-ms-client-flatten extension."
 @@extension(CloudPcDelegatedMsi.properties, "x-ms-client-flatten", true);
 #suppress "@azure-tools/typespec-azure-core/no-openapi" "For backward compatibility with the existing readOnly enum extension."
-@@extension(ResourceProvisioningState, "readOnly", true);
+@@extension(ProvisioningState, "readOnly", true);
 #suppress "@azure-tools/typespec-azure-core/no-openapi" "For backward compatibility with the existing x-ms-external extension."
 @@extension(CloudError, "x-ms-external", true);
 #suppress "@azure-tools/typespec-azure-core/no-openapi" "For backward compatibility with the existing x-ms-external extension."
