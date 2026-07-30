@@ -6,10 +6,4 @@
   rules: [SdkTspConfigValidation]
   sub-rules:
     - options.@azure-tools/typespec-ts.*
-  paths: [Carbon.Management/tspconfig.yaml]
-- tool: TypeSpecValidation
-  rules: [FolderStructure]
-  sub-rules: [MustUseV2]
-  reason: Carbon spec predates folder structure v2. Keeping on v1 until a full migration is planned.
-  paths:
-    - Carbon.Management
+  paths: [tspconfig.yaml]

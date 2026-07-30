@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Carbon",
-    "version": "2025-04-01",
+    "version": "2026-05-01-preview",
     "description": "Carbon Report Resource Provider query API.",
     "x-typespec-generated": [
       {
@@ -44,13 +44,60 @@
     }
   ],
   "paths": {
+    "/{scope}/providers/Microsoft.Carbon/carbonEmissionReports": {
+      "post": {
+        "operationId": "CarbonService_QueryCarbonEmissionReportsByBillingAccount",
+        "description": "API for Carbon Emissions Reports scoped to a billing account.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "scope",
+            "in": "path",
+            "description": "The scope associated with carbon emission report operations. This includes '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope.",
+            "required": true,
+            "type": "string",
+            "x-ms-skip-url-encoding": true
+          },
+          {
+            "name": "queryParameters",
+            "in": "body",
+            "description": "Query parameters",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BillingAccountQueryFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/CarbonEmissionDataListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "QueryCarbonEmission By BillingAccount Overall Summary Report": {
+            "$ref": "./examples/queryCarbonEmissionsByBillingAccountOverallSummaryReport.json"
+          }
+        }
+      }
+    },
     "/providers/Microsoft.Carbon/carbonEmissionReports": {
       "post": {
         "operationId": "CarbonService_QueryCarbonEmissionReports",
         "description": "API for Carbon Emissions Reports",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           },
           {
             "name": "queryParameters",
@@ -72,70 +119,13 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
         "x-ms-examples": {
-          "QueryCarbonEmission Location item details Report": {
-            "$ref": "./examples/queryCarbonEmissionsLocationItemDetailsReport.json"
-          },
-          "QueryCarbonEmission Monthly Summary Report with optional filter - locationList, resourceTypeList, resourceGroupUrlList": {
-            "$ref": "./examples/queryCarbonEmissionsMonthlySummaryReportWithOtherOptionalFilter.json"
-          },
-          "QueryCarbonEmission Overall Monthly Summary Report": {
-            "$ref": "./examples/queryCarbonEmissionsMonthlySummaryReport.json"
-          },
           "QueryCarbonEmission Overall Summary Report": {
             "$ref": "./examples/queryCarbonEmissionsOverallSummaryReport.json"
-          },
-          "QueryCarbonEmission Overall Summary Report with optional filter - locationList, resourceTypeList, resourceGroupUrlList": {
-            "$ref": "./examples/queryCarbonEmissionsOverallSummaryReportWithOtherOptionalFilter.json"
-          },
-          "QueryCarbonEmission ResourceGroup item details Report": {
-            "$ref": "./examples/queryCarbonEmissionsResourceGroupItemDetailsReport.json"
-          },
-          "QueryCarbonEmission ResourceType item details Report": {
-            "$ref": "./examples/queryCarbonEmissionsResourceTypeItemDetailsReport.json"
-          },
-          "QueryCarbonEmission Subscriptions item details Report": {
-            "$ref": "./examples/queryCarbonEmissionsSubscriptionItemDetailsReportReport.json"
-          },
-          "QueryCarbonEmission Top N Locations Report": {
-            "$ref": "./examples/queryCarbonEmissionsTopNLocationItemsReport.json"
-          },
-          "QueryCarbonEmission Top N Locations monthly Report": {
-            "$ref": "./examples/queryCarbonEmissionsTopNLocationItemsMonthlyReport.json"
-          },
-          "QueryCarbonEmission Top N ResourceGroup Report": {
-            "$ref": "./examples/queryCarbonEmissionsTopNResourceGroupItemsReport.json"
-          },
-          "QueryCarbonEmission Top N ResourceGroup monthly Report": {
-            "$ref": "./examples/queryCarbonEmissionsTopNResourceGroupItemsMonthlyReport.json"
-          },
-          "QueryCarbonEmission Top N ResourceType Report": {
-            "$ref": "./examples/queryCarbonEmissionsTopNResourceTypeItemsReport.json"
-          },
-          "QueryCarbonEmission Top N ResourceType monthly Report": {
-            "$ref": "./examples/queryCarbonEmissionsTopNResourceTypeItemsMonthlyReport.json"
-          },
-          "QueryCarbonEmission Top N Subscriptions Report": {
-            "$ref": "./examples/queryCarbonEmissionsTopNSubscriptionItemsReport.json"
-          },
-          "QueryCarbonEmission Top N Subscriptions monthly Report": {
-            "$ref": "./examples/queryCarbonEmissionsTopNSubscriptionItemsMonthlyReport.json"
-          },
-          "QueryCarbonEmission Top N resource Report": {
-            "$ref": "./examples/queryCarbonEmissionsTopNResourceItemsReport.json"
-          },
-          "QueryCarbonEmission Top N resource monthly Report": {
-            "$ref": "./examples/queryCarbonEmissionsTopNResourceItemsMonthlyReport.json"
-          },
-          "QueryCarbonEmission resource item details Report": {
-            "$ref": "./examples/queryCarbonEmissionsResourceItemDetailsReport.json"
-          },
-          "QueryCarbonEmission resource item details Report with pagination token": {
-            "$ref": "./examples/queryCarbonEmissionsResourceItemDetailsReportWithPaginationToken.json"
           }
         }
       }
@@ -149,25 +139,25 @@
         "description": "List the operations for the provider",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/OperationListResult"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/OperationListResult"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
         "x-ms-examples": {
-          "Operations_List": {
+          "List Operations": {
             "$ref": "./examples/listOperations.json"
           }
         },
@@ -182,7 +172,7 @@
         "description": "API for query carbon emission data available date range",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
@@ -195,12 +185,12 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
             }
           }
         },
         "x-ms-examples": {
-          "CarbonService_QueryCarbonEmissionDataAvailableDateRange": {
+          "QueryCarbonEmission Data Available Date Range": {
             "$ref": "./examples/carbonEmissionsDataAvailableDateRange.json"
           }
         }
@@ -231,6 +221,239 @@
           }
         ]
       }
+    },
+    "BillingAccountCategoryTypeEnum": {
+      "type": "string",
+      "description": "Supported category types for billing account scoped queries. The ResourceGroup and Resource category types are not supported for billing account scope.",
+      "enum": [
+        "Subscription",
+        "Location",
+        "ResourceType"
+      ],
+      "x-ms-enum": {
+        "name": "BillingAccountCategoryTypeEnum",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Subscription",
+            "value": "Subscription",
+            "description": "Emissions aggregated at the subscription level."
+          },
+          {
+            "name": "Location",
+            "value": "Location",
+            "description": "Emissions aggregated at the location level."
+          },
+          {
+            "name": "ResourceType",
+            "value": "ResourceType",
+            "description": "Emissions aggregated at the resource type level."
+          }
+        ]
+      }
+    },
+    "BillingAccountItemDetailsReportQueryFilter": {
+      "type": "object",
+      "description": "Query filter parameter to configure ItemDetailsReport queries scoped to a billing account.",
+      "properties": {
+        "categoryType": {
+          "$ref": "#/definitions/BillingAccountCategoryTypeEnum",
+          "description": "Specifies the category type for item details."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Page size for server paging. Optional. Default value is 1000 items per page.",
+          "minimum": 1,
+          "maximum": 5000
+        },
+        "skipToken": {
+          "type": "string",
+          "description": "Pagination token for fetching the next page of data. Optional."
+        },
+        "orderBy": {
+          "$ref": "#/definitions/BillingAccountOrderByColumnEnum",
+          "description": "The column name to order the results by. See supported values in BillingAccountOrderByColumnEnum."
+        },
+        "sortDirection": {
+          "$ref": "#/definitions/SortDirectionEnum",
+          "description": "Sort direction."
+        }
+      },
+      "required": [
+        "categoryType",
+        "pageSize"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/BillingAccountQueryFilter"
+        }
+      ],
+      "x-ms-discriminator-value": "ItemDetailsReport"
+    },
+    "BillingAccountMonthlySummaryReportQueryFilter": {
+      "type": "object",
+      "description": "Query filter parameter to configure MonthlySummaryReport queries scoped to a billing account.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/BillingAccountQueryFilter"
+        }
+      ],
+      "x-ms-discriminator-value": "MonthlySummaryReport"
+    },
+    "BillingAccountOrderByColumnEnum": {
+      "type": "string",
+      "description": "Sorting is supported for columns in billing account scoped ItemDetailsReport. This object includes the column names that sorting is allowed for. Select one of these supported values. The ResourceGroup column is not supported for billing account scope.",
+      "enum": [
+        "ItemName",
+        "LatestMonthEmissions",
+        "PreviousMonthEmissions",
+        "MonthOverMonthEmissionsChangeRatio",
+        "MonthlyEmissionsChangeValue"
+      ],
+      "x-ms-enum": {
+        "name": "BillingAccountOrderByColumnEnum",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "ItemName",
+            "value": "ItemName",
+            "description": "The itemName filed in ItemDetailsReport result, see CarbonEmissionItemDetailData for more information."
+          },
+          {
+            "name": "LatestMonthEmissions",
+            "value": "LatestMonthEmissions",
+            "description": "The latestMonthEmissions filed in ItemDetailsReport result, see CarbonEmissionItemDetailData for more information."
+          },
+          {
+            "name": "PreviousMonthEmissions",
+            "value": "PreviousMonthEmissions",
+            "description": "The previousMonthEmissions filed in ItemDetailsReport result, see CarbonEmissionItemDetailData for more information."
+          },
+          {
+            "name": "MonthOverMonthEmissionsChangeRatio",
+            "value": "MonthOverMonthEmissionsChangeRatio",
+            "description": "The monthOverMonthEmissionsChangeRatio filed in ItemDetailsReport result, see CarbonEmissionItemDetailData for more information."
+          },
+          {
+            "name": "MonthlyEmissionsChangeValue",
+            "value": "MonthlyEmissionsChangeValue",
+            "description": "The monthlyEmissionsChangeValue filed in ItemDetailsReport result, see CarbonEmissionItemDetailData for more information."
+          }
+        ]
+      }
+    },
+    "BillingAccountOverallSummaryReportQueryFilter": {
+      "type": "object",
+      "description": "Query filter parameter to configure OverallSummaryReport queries scoped to a billing account.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/BillingAccountQueryFilter"
+        }
+      ],
+      "x-ms-discriminator-value": "OverallSummaryReport"
+    },
+    "BillingAccountQueryFilter": {
+      "type": "object",
+      "description": "Query filter parameter for billing account scoped carbon emissions queries. The billing account ID is derived from the URL scope parameter.",
+      "properties": {
+        "reportType": {
+          "$ref": "#/definitions/ReportTypeEnum",
+          "description": "The ReportType requested for carbon emissions data. Required. Specifies how data is aggregated and displayed in the output, as explained in the ReportTypeEnum."
+        },
+        "dateRange": {
+          "$ref": "#/definitions/DateRange",
+          "description": "The start and end dates for carbon emissions data. Required. For ItemDetailsReport and TopItemsSummaryReport, only one month of data is supported at a time, so start and end dates should be equal within DateRange (e.g., start: 2024-06-01 and end: 2024-06-01)."
+        },
+        "subscriptionList": {
+          "type": "array",
+          "description": "List of subscription IDs for which carbon emissions data is requested. Optional. Each subscription ID should be in lowercase format. If not provided, data for all subscriptions under the billing account will be returned.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "resourceTypeList": {
+          "type": "array",
+          "description": "List of resource types for carbon emissions data. Optional. Each resource type should be specified in lowercase, following the format 'microsoft.{service}/{resourceType}', e.g., 'microsoft.storage/storageaccounts'.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "locationList": {
+          "type": "array",
+          "description": "List of locations(Azure Region Display Name) for carbon emissions data, with each location specified in lowercase (e.g., 'east us'). Optional. You can use the command 'az account list-locations -o table' to find Azure Region Display Names.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "carbonScopeList": {
+          "type": "array",
+          "description": "List of carbon emission scopes. Required. Accepts one or more values from EmissionScopeEnum (e.g., Scope1, Scope2, Scope3) in list form. The output will include the total emissions for the specified scopes.",
+          "items": {
+            "$ref": "#/definitions/EmissionScopeEnum"
+          }
+        }
+      },
+      "discriminator": "reportType",
+      "required": [
+        "reportType",
+        "dateRange",
+        "carbonScopeList"
+      ]
+    },
+    "BillingAccountTopItemsMonthlySummaryReportQueryFilter": {
+      "type": "object",
+      "description": "Query filter parameter to configure TopItemsMonthlySummaryReport queries scoped to a billing account.",
+      "properties": {
+        "categoryType": {
+          "$ref": "#/definitions/BillingAccountCategoryTypeEnum",
+          "description": "Specifies the category type to retrieve top-emitting items, aggregated by month."
+        },
+        "topItems": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of top items to return, based on emissions. Must be between 1 and 10.",
+          "minimum": 1,
+          "maximum": 10
+        }
+      },
+      "required": [
+        "categoryType",
+        "topItems"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/BillingAccountQueryFilter"
+        }
+      ],
+      "x-ms-discriminator-value": "TopItemsMonthlySummaryReport"
+    },
+    "BillingAccountTopItemsSummaryReportQueryFilter": {
+      "type": "object",
+      "description": "Query filter parameter to configure TopItemsSummaryReport queries scoped to a billing account.",
+      "properties": {
+        "categoryType": {
+          "$ref": "#/definitions/BillingAccountCategoryTypeEnum",
+          "description": "Specifies the category type for which to retrieve top-emitting items."
+        },
+        "topItems": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of top items to return, based on emissions. This value must be between 1 and 10.",
+          "minimum": 1,
+          "maximum": 10
+        }
+      },
+      "required": [
+        "categoryType",
+        "topItems"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/BillingAccountQueryFilter"
+        }
+      ],
+      "x-ms-discriminator-value": "TopItemsSummaryReport"
     },
     "CarbonEmissionData": {
       "type": "object",

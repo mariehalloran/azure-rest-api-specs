@@ -3,7 +3,7 @@
 These settings apply only when `--java` is specified on the command line.
 Please also specify `--azure-libraries-for-java-folder=<path to the root directory of your azure-libraries-for-java clone>`.
 
-``` yaml $(java)
+```yaml $(java)
 azure-arm: true
 fluent: true
 namespace: com.azure.resourcemanager.carbonoptimization
@@ -16,7 +16,7 @@ description: "Carbon Optimization Client"
 
 ### Java multi-api
 
-``` yaml $(java) && $(multiapi)
+```yaml $(java) && $(multiapi)
 batch:
   - tag: package-2025-04-01
 ```
