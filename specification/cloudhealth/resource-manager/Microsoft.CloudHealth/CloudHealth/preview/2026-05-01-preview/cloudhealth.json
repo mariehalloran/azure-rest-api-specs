@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Microsoft.CloudHealth",
-    "version": "2026-01-01-preview",
+    "version": "2026-05-01-preview",
     "x-typespec-generated": [
       {
         "emitter": "@azure-tools/typespec-autorest"
@@ -70,20 +70,20 @@
         "description": "List the operations for the provider",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           }
         ],
         "responses": {
           "200": {
             "description": "Azure operation completed successfully.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/OperationListResult"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/OperationListResult"
             }
           },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -106,10 +106,10 @@
         "description": "List HealthModel resources by subscription ID",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -122,7 +122,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -145,13 +145,13 @@
         "description": "List HealthModel resources by resource group",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           }
         ],
         "responses": {
@@ -164,7 +164,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -187,13 +187,13 @@
         "description": "Get a HealthModel",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -214,7 +214,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -232,13 +232,13 @@
         "description": "Create a HealthModel",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -285,7 +285,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -307,13 +307,13 @@
         "description": "Update a HealthModel",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -357,7 +357,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -379,13 +379,13 @@
         "description": "Delete a HealthModel",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -417,7 +417,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -441,13 +441,13 @@
         "description": "List AuthenticationSetting resources by HealthModel",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -468,7 +468,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -491,13 +491,13 @@
         "description": "Get a AuthenticationSetting",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -526,7 +526,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -544,13 +544,13 @@
         "description": "Create a AuthenticationSetting",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -605,7 +605,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -627,13 +627,13 @@
         "description": "Delete a AuthenticationSetting",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -673,7 +673,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -697,13 +697,13 @@
         "description": "List DiscoveryRule resources by HealthModel",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "timestamp",
@@ -732,7 +732,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -755,13 +755,13 @@
         "description": "Get a DiscoveryRule",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -790,7 +790,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -808,13 +808,13 @@
         "description": "Create a DiscoveryRule",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -869,7 +869,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -891,13 +891,13 @@
         "description": "Delete a DiscoveryRule",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -937,7 +937,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -961,13 +961,13 @@
         "description": "List Entity resources by HealthModel",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "timestamp",
@@ -996,7 +996,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1019,13 +1019,13 @@
         "description": "Get a Entity",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -1054,7 +1054,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1072,13 +1072,13 @@
         "description": "Create a Entity",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -1133,7 +1133,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1155,13 +1155,13 @@
         "description": "Delete a Entity",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -1201,7 +1201,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1216,6 +1216,134 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CloudHealth/healthmodels/{healthModelName}/entities/{entityName}/addDataAnnotation": {
+      "post": {
+        "operationId": "Entities_AddDataAnnotation",
+        "tags": [
+          "Entities"
+        ],
+        "description": "Add a data annotation to an entity",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "healthModelName",
+            "in": "path",
+            "description": "Name of health model resource",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9-]{1,42}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "entityName",
+            "in": "path",
+            "description": "Name of the entity. Must be unique within a health model.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddDataAnnotationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/DataAnnotation"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Entities_AddDataAnnotation": {
+            "$ref": "./examples/Entities_AddDataAnnotation.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CloudHealth/healthmodels/{healthModelName}/entities/{entityName}/getDataAnnotations": {
+      "post": {
+        "operationId": "Entities_GetDataAnnotations",
+        "tags": [
+          "Entities"
+        ],
+        "description": "Retrieve data annotations for an entity",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "healthModelName",
+            "in": "path",
+            "description": "Name of health model resource",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9-]{1,42}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "entityName",
+            "in": "path",
+            "description": "Name of the entity. Must be unique within a health model.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetDataAnnotationsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/GetDataAnnotationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Entities_GetDataAnnotations": {
+            "$ref": "./examples/Entities_GetDataAnnotations.json"
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CloudHealth/healthmodels/{healthModelName}/entities/{entityName}/getHistory": {
       "post": {
         "operationId": "Entities_GetHistory",
@@ -1225,13 +1353,13 @@
         "description": "Retrieve the health state transition history for an entity",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -1269,7 +1397,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1289,13 +1417,13 @@
         "description": "Retrieve the time series history for a signal on an entity",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -1333,13 +1461,68 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
         "x-ms-examples": {
           "Entities_GetSignalHistory": {
             "$ref": "./examples/Entities_GetSignalHistory.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CloudHealth/healthmodels/{healthModelName}/entities/{entityName}/getSignalRecommendations": {
+      "post": {
+        "operationId": "Entities_GetSignalRecommendations",
+        "tags": [
+          "Entities"
+        ],
+        "description": "Get recommended signal configurations for a given Entity (only applicable for Entities representing Azure resources)",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "healthModelName",
+            "in": "path",
+            "description": "Name of health model resource",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9-]{1,42}[a-zA-Z0-9]$"
+          },
+          {
+            "name": "entityName",
+            "in": "path",
+            "description": "Name of the entity. Must be unique within a health model.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/GetSignalRecommendationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Entities_GetSignalRecommendations": {
+            "$ref": "./examples/Entities_GetSignalRecommendations.json"
           }
         }
       }
@@ -1353,13 +1536,13 @@
         "description": "Ingest a health report for a specific signal on an entity (the entity must already exist)",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -1394,7 +1577,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1414,13 +1597,13 @@
         "description": "List Relationship resources by HealthModel",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "timestamp",
@@ -1449,7 +1632,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1472,13 +1655,13 @@
         "description": "Get a Relationship",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -1507,7 +1690,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1525,13 +1708,13 @@
         "description": "Create a Relationship",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -1586,7 +1769,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1608,13 +1791,13 @@
         "description": "Delete a Relationship",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -1654,7 +1837,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1678,13 +1861,13 @@
         "description": "List SignalDefinition resources by HealthModel",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "timestamp",
@@ -1713,7 +1896,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1736,13 +1919,13 @@
         "description": "Get a SignalDefinition",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -1771,7 +1954,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1789,13 +1972,13 @@
         "description": "Create a SignalDefinition",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -1850,7 +2033,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1872,13 +2055,13 @@
         "description": "Delete a SignalDefinition",
         "parameters": [
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "name": "healthModelName",
@@ -1918,7 +2101,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -1935,6 +2118,26 @@
     }
   },
   "definitions": {
+    "AddDataAnnotationRequest": {
+      "type": "object",
+      "description": "Request body for adding a data annotation.",
+      "properties": {
+        "annotationDetails": {
+          "type": "object",
+          "description": "Annotation details as a dynamic key-value pair bag. Service-enforced limits: a maximum of 10 entries per annotation and a maximum value length of 256 characters. Requests exceeding these limits will be rejected with a 400 response.",
+          "additionalProperties": {
+            "$ref": "#/definitions/string256"
+          }
+        },
+        "description": {
+          "$ref": "#/definitions/string4096",
+          "description": "Optional description of the annotation"
+        }
+      },
+      "required": [
+        "annotationDetails"
+      ]
+    },
     "AlertConfiguration": {
       "type": "object",
       "description": "Alert configuration details",
@@ -2069,7 +2272,7 @@
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -2160,6 +2363,115 @@
         "azureMonitorWorkspaceResourceId"
       ]
     },
+    "AzureResourceHealthSignal": {
+      "type": "object",
+      "description": "Azure resource health signal configuration",
+      "properties": {
+        "enabled": {
+          "type": "string",
+          "description": "Whether to automatically add a signal for the Azure resource's availability state from Azure Resource Health. Defaults to Enabled.",
+          "default": "Enabled",
+          "enum": [
+            "Enabled",
+            "Disabled"
+          ],
+          "x-ms-enum": {
+            "name": "ResourceHealthAvailabilityStateSignalBehavior",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "Enabled",
+                "value": "Enabled",
+                "description": "Automatically add resource health availability state signal"
+              },
+              {
+                "name": "Disabled",
+                "value": "Disabled",
+                "description": "Do not automatically add resource health availability state signal"
+              }
+            ]
+          }
+        },
+        "signalName": {
+          "$ref": "#/definitions/string256",
+          "description": "The unique name of the Azure resource health signal. System assigned.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/AzureResourceHealthSignalStatus",
+          "description": "Current status of the Azure resource health signal.",
+          "readOnly": true
+        }
+      }
+    },
+    "AzureResourceHealthSignalStatus": {
+      "type": "object",
+      "description": "Status of an Azure Resource Health signal, including availability information reported by Azure Resource Health.",
+      "properties": {
+        "healthState": {
+          "$ref": "#/definitions/HealthState",
+          "description": "Health state of this signal",
+          "readOnly": true
+        },
+        "value": {
+          "type": "number",
+          "format": "double",
+          "description": "Reported value of the signal",
+          "readOnly": true
+        },
+        "reportedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the value was reported",
+          "readOnly": true
+        },
+        "error": {
+          "type": "string",
+          "description": "Error message if the signal status cannot be retrieved",
+          "readOnly": true
+        },
+        "additionalContext": {
+          "$ref": "#/definitions/string4096",
+          "description": "Additional context as provided by the submitter"
+        },
+        "availabilityState": {
+          "$ref": "#/definitions/ResourceHealthAvailabilityState",
+          "description": "Availability state of the Azure resource as reported by Azure Resource Health.",
+          "readOnly": true
+        },
+        "category": {
+          "$ref": "#/definitions/ResourceHealthCategory",
+          "description": "Whether the status changing event was planned or unplanned.",
+          "readOnly": true
+        },
+        "detailedStatus": {
+          "$ref": "#/definitions/string4096",
+          "description": "Detailed status of the Azure resource as reported by Azure Resource Health.",
+          "readOnly": true
+        },
+        "summary": {
+          "type": "string",
+          "description": "Human-readable summary of the current availability state from Azure Resource Health.",
+          "readOnly": true
+        },
+        "reasonType": {
+          "$ref": "#/definitions/ResourceHealthReasonType",
+          "description": "Reason type for the current availability state (e.g. 'Unplanned', 'Planned', 'UserInitiated').",
+          "readOnly": true
+        },
+        "reasonChronicity": {
+          "$ref": "#/definitions/ResourceHealthReasonChronicity",
+          "description": "Whether the current availability state is 'Persistent' or 'Transient'.",
+          "readOnly": true
+        },
+        "availabilityReportedTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when Azure Resource Health observed the current availability state.",
+          "readOnly": true
+        }
+      }
+    },
     "AzureResourceSignal": {
       "type": "object",
       "description": "An Azure Resource Metric signal instance assigned to an entity.",
@@ -2185,12 +2497,6 @@
         "aggregationType": {
           "$ref": "#/definitions/MetricAggregationType",
           "description": "Type of aggregation to apply to the metric"
-        },
-        "dimension": {
-          "type": "string",
-          "description": "Optional: Dimension to split by",
-          "minLength": 1,
-          "maxLength": 256
         },
         "dimensionFilter": {
           "type": "string",
@@ -2303,11 +2609,47 @@
           "x-ms-identifiers": [
             "name"
           ]
+        },
+        "resourceHealth": {
+          "$ref": "#/definitions/AzureResourceHealthSignal",
+          "description": "Optional configuration for automatically adding a signal based on the resource's availability state in Azure Resource Health."
         }
       },
       "required": [
         "authenticationSetting",
         "azureResourceId"
+      ]
+    },
+    "DataAnnotation": {
+      "type": "object",
+      "description": "A single data annotation on an entity",
+      "properties": {
+        "annotationId": {
+          "type": "string",
+          "description": "Auto-assigned identifier for the annotation",
+          "maxLength": 256,
+          "readOnly": true
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the annotation was created",
+          "readOnly": true
+        },
+        "annotationDetails": {
+          "type": "object",
+          "description": "Annotation details as a dynamic key-value pair bag. Service-enforced limits: a maximum of 10 entries per annotation and a maximum value length of 256 characters. Requests exceeding these limits will be rejected with a 400 response.",
+          "additionalProperties": {
+            "$ref": "#/definitions/string256"
+          }
+        },
+        "description": {
+          "$ref": "#/definitions/string4096",
+          "description": "Optional description of the annotation"
+        }
+      },
+      "required": [
+        "annotationDetails"
       ]
     },
     "DependenciesAggregationUnit": {
@@ -2428,7 +2770,7 @@
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -2507,6 +2849,31 @@
         "specification": {
           "$ref": "#/definitions/DiscoveryRuleSpecification",
           "description": "Specification of the discovery rule defining how entities are discovered."
+        },
+        "addResourceHealthSignal": {
+          "type": "string",
+          "description": "Whether to automatically add a signal for the Azure resource's availability state from Azure Resource Health to the discovered entities. Defaults to `Enabled`: discovery rules updated via this API version without setting this field will begin emitting a Resource Health availability signal. Pass `Disabled` to preserve pre-`2026-05-01-preview` behavior.",
+          "default": "Enabled",
+          "enum": [
+            "Enabled",
+            "Disabled"
+          ],
+          "x-ms-enum": {
+            "name": "ResourceHealthAvailabilityStateSignalBehavior",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "Enabled",
+                "value": "Enabled",
+                "description": "Automatically add resource health availability state signal"
+              },
+              {
+                "name": "Disabled",
+                "value": "Disabled",
+                "description": "Do not automatically add resource health availability state signal"
+              }
+            ]
+          }
         },
         "error": {
           "$ref": "#/definitions/DiscoveryError",
@@ -2589,6 +2956,36 @@
         "kind"
       ]
     },
+    "DynamicThresholdSensitivity": {
+      "type": "string",
+      "description": "Sensitivity level for dynamic threshold detection",
+      "enum": [
+        "Low",
+        "Medium",
+        "High"
+      ],
+      "x-ms-enum": {
+        "name": "DynamicThresholdSensitivity",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Low",
+            "value": "Low",
+            "description": "Low sensitivity — fewer anomalies detected, wider threshold band"
+          },
+          {
+            "name": "Medium",
+            "value": "Medium",
+            "description": "Medium sensitivity — balanced detection"
+          },
+          {
+            "name": "High",
+            "value": "High",
+            "description": "High sensitivity — more anomalies detected, tighter threshold band"
+          }
+        ]
+      }
+    },
     "Entity": {
       "type": "object",
       "description": "An entity (aka node) of a health model",
@@ -2600,7 +2997,7 @@
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -2651,6 +3048,18 @@
           "type": "string",
           "format": "date-time",
           "description": "End time for the history query. Defaults to now if not specified."
+        },
+        "top": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum number of health state transitions to return per page. Defaults to 1000.",
+          "default": 1000,
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "nextMarker": {
+          "$ref": "#/definitions/string4096",
+          "description": "An opaque string value that identifies the portion of the result set to be returned with the next operation. Must not be combined with startAt or endAt."
         }
       }
     },
@@ -2671,6 +3080,10 @@
           "x-ms-identifiers": [
             "occurredAt"
           ]
+        },
+        "nextMarker": {
+          "$ref": "#/definitions/string4096",
+          "description": "An opaque string value that identifies the portion of the result set to be returned with the next operation."
         }
       },
       "required": [
@@ -2837,6 +3250,92 @@
         }
       }
     },
+    "GetDataAnnotationsRequest": {
+      "type": "object",
+      "description": "Request body for querying data annotations",
+      "properties": {
+        "startAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start of UTC time range. Defaults to 24 hours ago if not specified."
+        },
+        "endAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End of UTC time range. Defaults to now if not specified."
+        },
+        "top": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum number of annotations to return per page. Defaults to 100.",
+          "default": 100,
+          "minimum": 1,
+          "maximum": 100
+        },
+        "nextMarker": {
+          "$ref": "#/definitions/string4096",
+          "description": "An opaque string value that identifies the portion of the result set to be returned with the next operation. Must not be combined with startAt or endAt."
+        }
+      }
+    },
+    "GetDataAnnotationsResponse": {
+      "type": "object",
+      "description": "Response containing data annotations for an entity",
+      "properties": {
+        "entityName": {
+          "$ref": "#/definitions/entityName",
+          "description": "Name of the entity"
+        },
+        "annotations": {
+          "type": "array",
+          "description": "List of data annotations",
+          "items": {
+            "$ref": "#/definitions/DataAnnotation"
+          },
+          "x-ms-identifiers": [
+            "annotationId"
+          ]
+        },
+        "nextMarker": {
+          "$ref": "#/definitions/string4096",
+          "description": "An opaque string value that identifies the portion of the result set to be returned with the next operation."
+        }
+      },
+      "required": [
+        "entityName",
+        "annotations"
+      ]
+    },
+    "GetSignalRecommendationsResponse": {
+      "type": "object",
+      "description": "Response from `getSignalRecommendations` containing two independent suggestion streams for the Azure resource type represented by the target Entity. `recommendedSignals` lists signals broadly recommended to be enabled by default; `recommendedConfigurations` lists additional metrics that are not broadly applicable but, if a caller chooses to monitor one of them, ship with suggested starting-point thresholds. The two arrays are independent — items are not paired by index, and callers should treat them as two separate suggestion streams.",
+      "properties": {
+        "recommendedSignals": {
+          "type": "array",
+          "description": "Signals that are broadly recommended to be enabled by default for health models monitoring an Entity of this resource type. Each entry is a complete signal configuration (metric, aggregation, thresholds) ready to be added to a health model. Independent of `recommendedConfigurations` — not paired by index.",
+          "items": {
+            "$ref": "#/definitions/SignalConfiguration"
+          },
+          "x-ms-identifiers": [
+            "signalId"
+          ]
+        },
+        "recommendedConfigurations": {
+          "type": "array",
+          "description": "Additional signal configurations for metrics that are not broadly applicable to every health model for an Entity of this resource type, but if a caller chooses to monitor one of these metrics, the provided thresholds are suggested as a starting point. Independent of `recommendedSignals` — not paired by index.",
+          "items": {
+            "$ref": "#/definitions/SignalConfiguration"
+          },
+          "x-ms-identifiers": [
+            "signalId"
+          ]
+        }
+      },
+      "required": [
+        "recommendedSignals",
+        "recommendedConfigurations"
+      ]
+    },
     "HealthModel": {
       "type": "object",
       "description": "A HealthModel resource",
@@ -2846,13 +3345,13 @@
           "description": "The resource-specific properties for this resource."
         },
         "identity": {
-          "$ref": "../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
           "description": "The managed service identities assigned to this resource."
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -2934,7 +3433,7 @@
       "description": "The type used for update operations of the HealthModel.",
       "properties": {
         "identity": {
-          "$ref": "../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
           "description": "The managed service identities assigned to this resource."
         },
         "tags": {
@@ -3262,6 +3761,42 @@
         ]
       }
     },
+    "LookBackWindow": {
+      "type": "string",
+      "description": "Allowed look-back window durations for dynamic threshold computation",
+      "enum": [
+        "PT5M",
+        "PT15M",
+        "PT30M",
+        "PT1H"
+      ],
+      "x-ms-enum": {
+        "name": "LookBackWindow",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "PT5M",
+            "value": "PT5M",
+            "description": "Five minutes"
+          },
+          {
+            "name": "PT15M",
+            "value": "PT15M",
+            "description": "Fifteen minutes"
+          },
+          {
+            "name": "PT30M",
+            "value": "PT30M",
+            "description": "Thirty minutes"
+          },
+          {
+            "name": "PT1H",
+            "value": "PT1H",
+            "description": "One hour"
+          }
+        ]
+      }
+    },
     "ManagedIdentityAuthenticationSettingProperties": {
       "type": "object",
       "description": "Authentication setting properties for Azure Managed Identity",
@@ -3452,7 +3987,7 @@
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -3547,6 +4082,120 @@
       ],
       "x-ms-discriminator-value": "ResourceGraphQuery"
     },
+    "ResourceHealthAvailabilityState": {
+      "type": "string",
+      "description": "Availability state of an Azure resource as reported by Azure Resource Health.",
+      "enum": [
+        "Available",
+        "Unavailable",
+        "Degraded",
+        "Unknown"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceHealthAvailabilityState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Available",
+            "value": "Available",
+            "description": "The resource is available."
+          },
+          {
+            "name": "Unavailable",
+            "value": "Unavailable",
+            "description": "The resource is unavailable."
+          },
+          {
+            "name": "Degraded",
+            "value": "Degraded",
+            "description": "The resource is degraded."
+          },
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "The resource availability state is unknown."
+          }
+        ]
+      }
+    },
+    "ResourceHealthCategory": {
+      "type": "string",
+      "description": "Whether an Azure Resource Health status changing event was planned or unplanned.",
+      "enum": [
+        "Planned",
+        "Unplanned"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceHealthCategory",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Planned",
+            "value": "Planned",
+            "description": "The event was planned."
+          },
+          {
+            "name": "Unplanned",
+            "value": "Unplanned",
+            "description": "The event was unplanned."
+          }
+        ]
+      }
+    },
+    "ResourceHealthReasonChronicity": {
+      "type": "string",
+      "description": "Whether the current Azure Resource Health availability state is persistent or transient.",
+      "enum": [
+        "Persistent",
+        "Transient"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceHealthReasonChronicity",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Persistent",
+            "value": "Persistent",
+            "description": "Persistent state."
+          },
+          {
+            "name": "Transient",
+            "value": "Transient",
+            "description": "Transient state."
+          }
+        ]
+      }
+    },
+    "ResourceHealthReasonType": {
+      "type": "string",
+      "description": "Reason type for the current Azure Resource Health availability state.",
+      "enum": [
+        "Unplanned",
+        "Planned",
+        "UserInitiated"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceHealthReasonType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unplanned",
+            "value": "Unplanned",
+            "description": "Unplanned reason."
+          },
+          {
+            "name": "Planned",
+            "value": "Planned",
+            "description": "Planned reason."
+          },
+          {
+            "name": "UserInitiated",
+            "value": "UserInitiated",
+            "description": "User-initiated reason."
+          }
+        ]
+      }
+    },
     "ResourceMetricSignalDefinitionProperties": {
       "type": "object",
       "description": "Azure Resource Metric Signal Definition properties",
@@ -3573,12 +4222,6 @@
           "$ref": "#/definitions/MetricAggregationType",
           "description": "Type of aggregation to apply to the metric"
         },
-        "dimension": {
-          "type": "string",
-          "description": "Optional: Dimension to split by",
-          "minLength": 1,
-          "maxLength": 256
-        },
         "dimensionFilter": {
           "type": "string",
           "description": "Optional: Dimension filter to apply to the dimension. Must only be set if also Dimension is set.",
@@ -3599,6 +4242,59 @@
       ],
       "x-ms-discriminator-value": "AzureResourceMetric"
     },
+    "SignalConfiguration": {
+      "type": "object",
+      "description": "A signal configuration for an Azure resource type",
+      "properties": {
+        "signalId": {
+          "type": "string",
+          "description": "Unique identifier of the recommended signal configuration.",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "metricNamespace": {
+          "type": "string",
+          "description": "Metric namespace (e.g. 'microsoft.compute/virtualmachines').",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "metricName": {
+          "type": "string",
+          "description": "Name of the metric (e.g. 'Percentage CPU').",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "aggregationType": {
+          "$ref": "#/definitions/MetricAggregationType",
+          "description": "Type of aggregation to apply to the metric."
+        },
+        "unit": {
+          "type": "string",
+          "description": "Unit of the metric (e.g. Percent, Bytes, Count).",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "timeGrain": {
+          "type": "string",
+          "description": "Time range of the metric. ISO 8601 duration format (e.g. 'PT5M').",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "dimensionFilter": {
+          "type": "string",
+          "description": "Optional dimension filter to apply to the metric.",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "evaluationRules": {
+          "$ref": "#/definitions/EvaluationRule",
+          "description": "Evaluation rules with recommended thresholds."
+        }
+      },
+      "required": [
+        "signalId"
+      ]
+    },
     "SignalDefinition": {
       "type": "object",
       "description": "A signal definition in a health model",
@@ -3610,7 +4306,7 @@
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
         }
       ]
     },
@@ -3799,6 +4495,18 @@
           "type": "string",
           "format": "date-time",
           "description": "End time for the history query. Defaults to now if not specified."
+        },
+        "top": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum number of data points to return per page. Defaults to 1000.",
+          "default": 1000,
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "nextMarker": {
+          "$ref": "#/definitions/string4096",
+          "description": "An opaque string value that identifies the portion of the result set to be returned with the next operation. Must not be combined with startAt or endAt."
         }
       },
       "required": [
@@ -3826,6 +4534,10 @@
           "x-ms-identifiers": [
             "occurredAt"
           ]
+        },
+        "nextMarker": {
+          "$ref": "#/definitions/string4096",
+          "description": "An opaque string value that identifies the portion of the result set to be returned with the next operation."
         }
       },
       "required": [
@@ -3903,7 +4615,8 @@
         "LessThanOrEqual",
         "GreaterThanOrEqual",
         "Equal",
-        "NotEqual"
+        "NotEqual",
+        "Dynamic"
       ],
       "x-ms-enum": {
         "name": "SignalOperator",
@@ -3938,6 +4651,11 @@
             "name": "NotEqual",
             "value": "NotEqual",
             "description": "Not equal to"
+          },
+          {
+            "name": "Dynamic",
+            "value": "Dynamic",
+            "description": "Dynamic threshold — uses deviation from a ML-computed baseline to determine health state transitions. Only valid for the unhealthy threshold rule. Requires `sensitivity` and `lookBackWindow` on the rule; `threshold` is ignored."
           }
         ]
       }
@@ -3967,6 +4685,10 @@
           "type": "string",
           "description": "Error message if the signal status cannot be retrieved",
           "readOnly": true
+        },
+        "additionalContext": {
+          "$ref": "#/definitions/string4096",
+          "description": "Additional context as provided by the submitter"
         }
       }
     },
@@ -3982,11 +4704,18 @@
           "type": "number",
           "format": "double",
           "description": "Threshold value"
+        },
+        "sensitivity": {
+          "$ref": "#/definitions/DynamicThresholdSensitivity",
+          "description": "Sensitivity level for dynamic threshold detection. Only applicable when operator is Dynamic."
+        },
+        "lookBackWindow": {
+          "$ref": "#/definitions/LookBackWindow",
+          "description": "ISO 8601 duration for the historical look-back window used by dynamic threshold computation. Only applicable when operator is Dynamic."
         }
       },
       "required": [
-        "operator",
-        "threshold"
+        "operator"
       ]
     },
     "authenticationSettingName": {
@@ -4013,6 +4742,11 @@
       "type": "string",
       "description": "Type for signal name.",
       "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
+    },
+    "string256": {
+      "type": "string",
+      "description": "String with max length validation of 256 characters",
+      "maxLength": 256
     },
     "string4096": {
       "type": "string",
