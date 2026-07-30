@@ -736,19 +736,24 @@ model AutomationRequestProperties {
   provisioningState?: ProvisioningState;
 
   @doc("The type of request to create.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   requestType: RequestType;
 
   @doc("The account type to create. Required for Account requests.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   accountType?: AccountType;
 
   @doc("The estimated monthly spend in USD for this test account. Required and must be greater than zero for billable request types (Account, Subscription, Tenant). Optional for non-billable production request types (AppConsent, PCCodeUpdate).")
   @minValue(0)
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   estimatedMonthlySpend?: float64;
 
   @doc("Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time). Free-form text MUST NOT contain customer data, PII, or secrets.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   businessJustification?: string;
 
   @doc("The test account context containing all configuration for the request.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   context: RequestContext;
 
   @doc("The current processing status of the request.")

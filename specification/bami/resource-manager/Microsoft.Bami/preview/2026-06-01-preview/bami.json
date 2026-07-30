@@ -1238,25 +1238,45 @@
         },
         "requestType": {
           "$ref": "#/definitions/RequestType",
-          "description": "The type of request to create."
+          "description": "The type of request to create.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         },
         "accountType": {
           "$ref": "#/definitions/AccountType",
-          "description": "The account type to create. Required for Account requests."
+          "description": "The account type to create. Required for Account requests.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         },
         "estimatedMonthlySpend": {
           "type": "number",
           "format": "double",
           "description": "The estimated monthly spend in USD for this test account. Required and must be greater than zero for billable request types (Account, Subscription, Tenant). Optional for non-billable production request types (AppConsent, PCCodeUpdate).",
-          "minimum": 0
+          "minimum": 0,
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         },
         "businessJustification": {
           "type": "string",
-          "description": "Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time). Free-form text MUST NOT contain customer data, PII, or secrets."
+          "description": "Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time). Free-form text MUST NOT contain customer data, PII, or secrets.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         },
         "context": {
           "$ref": "#/definitions/RequestContext",
-          "description": "The test account context containing all configuration for the request."
+          "description": "The test account context containing all configuration for the request.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         },
         "requestStatus": {
           "$ref": "#/definitions/RequestStatus",
@@ -1342,38 +1362,6 @@
           "additionalProperties": {
             "type": "string"
           }
-        },
-        "properties": {
-          "$ref": "#/definitions/AutomationRequestResourceUpdateProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      }
-    },
-    "AutomationRequestResourceUpdateProperties": {
-      "type": "object",
-      "description": "The updatable properties of the AutomationRequestResource.",
-      "properties": {
-        "requestType": {
-          "$ref": "#/definitions/RequestType",
-          "description": "The type of request to create."
-        },
-        "accountType": {
-          "$ref": "#/definitions/AccountType",
-          "description": "The account type to create. Required for Account requests."
-        },
-        "estimatedMonthlySpend": {
-          "type": "number",
-          "format": "double",
-          "description": "The estimated monthly spend in USD for this test account. Required and must be greater than zero for billable request types (Account, Subscription, Tenant). Optional for non-billable production request types (AppConsent, PCCodeUpdate).",
-          "minimum": 0
-        },
-        "businessJustification": {
-          "type": "string",
-          "description": "Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time). Free-form text MUST NOT contain customer data, PII, or secrets."
-        },
-        "context": {
-          "$ref": "#/definitions/RequestContext",
-          "description": "The test account context containing all configuration for the request."
         }
       }
     },
