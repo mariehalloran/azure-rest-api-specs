@@ -127,7 +127,7 @@ These settings apply only when `--tag=package-2015-08` is specified on the comma
 input-file:
   - stable/2015-08-19/search.json
 suppressions:
-  - code: XMS_EXAMPLE_NOTFOUND_ERROR
+  - code: OAV107
     from: stable/2015-08-19/search.json
     reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
 ```
@@ -140,7 +140,7 @@ These settings apply only when `--tag=package-2015-02` is specified on the comma
 input-file:
   - stable/2015-02-28/search.json
 suppressions:
-  - code: XMS_EXAMPLE_NOTFOUND_ERROR
+  - code: OAV107
     from: stable/2015-02-28/search.json
     reason: Pre-existing API version predating x-ms-examples convention; maintained for backwards compatibility only.
 ```
