@@ -1085,6 +1085,7 @@ model WebhookProperties {
   /**
    * webhook payload url
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @pattern("^(http(s)?://)[\\S]{0,64994}$")
   payloadUrl?: string;
 
@@ -1096,6 +1097,7 @@ model WebhookProperties {
   /**
    * webhook secret token. If not set, this field value is null; otherwise, please set a string value.
    */
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "TODO: Check if this is a secret and add @secret or update reason"
   @pattern("^.{0,2048}$")
   webhookKey?: string;
 
