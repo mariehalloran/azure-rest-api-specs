@@ -8075,6 +8075,12 @@ model HardwareProfile {
    */
   @visibility(Lifecycle.Read)
   processorType?: string;
+
+  /**
+   * CPU architecture of the machine, for example amd64 or arm64.
+   */
+  @visibility(Lifecycle.Read)
+  architecture?: string;
 }
 
 /**
@@ -8825,6 +8831,11 @@ union OSOperationType {
    * OS ReImage operation
    */
   ReImage: "ReImage",
+
+  /**
+   * OS Reset operation
+   */
+  Reset: "Reset",
 }
 
 /**
@@ -9314,6 +9325,11 @@ model OsImageProperties {
    * Represents composed image iso hash of a os image.
    */
   composedImageIsoHash?: string;
+
+  /**
+   * Represents the CPU architecture of a os image, for example amd64 or arm64.
+   */
+  architecture?: string;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -9450,6 +9466,11 @@ model OwnershipVoucherValidationDetails {
    * Azure Machine Id of the Ownership voucher
    */
   azureMachineId?: string;
+
+  /**
+   * CPU architecture of the device, for example amd64 or arm64.
+   */
+  architecture?: string;
 
   /**
    * Error details if the validation failed.

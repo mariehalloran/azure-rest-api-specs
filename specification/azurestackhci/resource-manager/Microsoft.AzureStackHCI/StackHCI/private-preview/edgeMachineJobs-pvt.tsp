@@ -568,6 +568,9 @@ union OSOperationType {
 
   @doc("OS ReImage operation")
   ReImage: "ReImage",
+
+  @doc("OS Reset operation")
+  Reset: "Reset",
 }
 
 @doc("User configuration.")
