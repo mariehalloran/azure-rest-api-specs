@@ -23,19 +23,18 @@
           "lastConnectionTestStatus": "Succeeded",
           "lastConnectionTestTimestamp": "2026-06-01T01:00:00Z",
           "source": {
-            "type": "RemoteS3Compatible",
+            "sourceType": "NonAzureSource",
             "backingDataSourceType": "NetApp_ONTAP",
             "connection": {
-              "type": "Endpoint",
+              "connectionType": "Endpoint",
               "endpoint": "https://netapp.contoso.com/bucket1",
               "tlsVerification": "Perform"
             },
             "auth": {
-              "type": "AccessKey",
+              "authType": "AccessKey",
               "accessKeyId": "example-access-key",
               "signingRegion": "us-east-1"
-            },
-            "paymentModel": "Unspecified"
+            }
           },
           "provisioningState": "Succeeded"
         }

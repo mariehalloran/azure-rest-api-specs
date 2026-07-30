@@ -40,17 +40,8 @@ union BlobAccessPointConnectionTestStatus {
 @added(Versions.v2026_06_01)
 @doc("The type of source exposed through the Blob Access Point.")
 union BlobAccessPointSourceType {
-  @doc("A path in the storage account that owns the Blob Access Point configuration.")
-  Local: "Local",
-
-  @doc("A Blob Access Point in another storage account.")
-  BlobAccessPoint: "BlobAccessPoint",
-
-  @doc("An Azure Storage account endpoint.")
-  AzureStorageAccount: "AzureStorageAccount",
-
   @doc("A non-Azure data source that implements the S3-compatible REST API.")
-  RemoteS3Compatible: "RemoteS3Compatible",
+  NonAzureSource: "NonAzureSource",
 
   string,
 }
@@ -122,77 +113,19 @@ union BlobAccessPointRemoteAuthType {
 }
 
 @added(Versions.v2026_06_01)
-@doc("How Azure Storage authenticates to an Azure Blob source.")
-union BlobAccessPointAzureAuthType {
-  @doc("Authenticate with the configured managed identity.")
-  ManagedIdentity: "ManagedIdentity",
-
-  @doc("Pass the original caller identity to the provider Blob Access Point.")
-  PassThrough: "PassThrough",
-
-  string,
-}
-
-@added(Versions.v2026_06_01)
-@doc("The payment model for requests to an S3-compatible backing source.")
-union BlobAccessPointPaymentModel {
-  @doc("Use the backing source's default payment model.")
-  Unspecified: "Unspecified",
-
-  @doc("Set the S3 requester-pays request option.")
-  RequesterPays: "RequesterPays",
-
-  string,
-}
-
-@added(Versions.v2026_06_01)
-@doc("The permission granted by a Blob Access Point access policy.")
-union BlobAccessPointAccessPolicyPermission {
-  @doc("Read and list data through the Blob Access Point.")
-  Read: "Read",
-
-  string,
-}
-
-@added(Versions.v2026_06_01)
-@doc("The billing mode applied to a Blob Access Point access policy.")
-union BlobAccessPointBillingType {
-  @doc("Charge the owner of the provider Blob Access Point.")
-  OwnerPay: "OwnerPay",
-
-  @doc("Charge the requester.")
-  RequesterPay: "RequesterPay",
-
-  string,
-}
-
-@added(Versions.v2026_06_01)
-@discriminator("type")
+@discriminator("sourceType")
 @doc("Information about the data source exposed through a Blob Access Point.")
 model BlobAccessPointSourceProperties {
   @doc("The source type. This value determines the remaining shape of the source object.")
-  type: BlobAccessPointSourceType;
+  sourceType: BlobAccessPointSourceType;
 }
 
 @added(Versions.v2026_06_01)
-@doc("A path in the storage account that owns the Blob Access Point configuration.")
-model BlobAccessPointLocalSourceProperties
-  extends BlobAccessPointSourceProperties {
-  @visibility(Lifecycle.Read)
-  type: BlobAccessPointSourceType.Local;
-
-  @visibility(Lifecycle.Create, Lifecycle.Read)
-  @doc("The source path, beginning with the container name, for example '/container1/directory1'.")
-  @minLength(2)
-  path: string;
-}
-
-@added(Versions.v2026_06_01)
-@discriminator("type")
+@discriminator("connectionType")
 @doc("Details for connecting to a backing data source.")
 model BlobAccessPointConnectionProperties {
   @doc("The connection type. This value determines the remaining shape of the connection object.")
-  type: BlobAccessPointConnectionType;
+  connectionType: BlobAccessPointConnectionType;
 }
 
 @added(Versions.v2026_06_01)
@@ -200,7 +133,7 @@ model BlobAccessPointConnectionProperties {
 model BlobAccessPointEndpointConnectionProperties
   extends BlobAccessPointConnectionProperties {
   @visibility(Lifecycle.Read)
-  type: BlobAccessPointConnectionType.Endpoint;
+  connectionType: BlobAccessPointConnectionType.Endpoint;
 
   @visibility(Lifecycle.Create, Lifecycle.Read)
   @doc("The backing endpoint, including its protocol, host, optional port, and optional path.")
@@ -216,7 +149,7 @@ model BlobAccessPointEndpointConnectionProperties
 model BlobAccessPointPrivateLinkConnectionProperties
   extends BlobAccessPointConnectionProperties {
   @visibility(Lifecycle.Read)
-  type: BlobAccessPointConnectionType.PrivateLink;
+  connectionType: BlobAccessPointConnectionType.PrivateLink;
 
   @visibility(Lifecycle.Create, Lifecycle.Read)
   @doc("Whether privateLinkId contains an Azure resource ID or a Private Link alias.")
@@ -252,11 +185,11 @@ model BlobAccessPointPrivateLinkConnectionProperties
 }
 
 @added(Versions.v2026_06_01)
-@discriminator("type")
+@discriminator("authType")
 @doc("Authentication properties for a non-Azure S3-compatible source.")
 model BlobAccessPointRemoteAuthProperties {
   @doc("The authentication type. This value determines the remaining shape of the authentication object.")
-  type: BlobAccessPointRemoteAuthType;
+  authType: BlobAccessPointRemoteAuthType;
 }
 
 @added(Versions.v2026_06_01)
@@ -264,7 +197,7 @@ model BlobAccessPointRemoteAuthProperties {
 model BlobAccessPointAccessKeyAuthProperties
   extends BlobAccessPointRemoteAuthProperties {
   @visibility(Lifecycle.Read)
-  type: BlobAccessPointRemoteAuthType.AccessKey;
+  authType: BlobAccessPointRemoteAuthType.AccessKey;
 
   @minLength(3)
   @doc("The access key ID.")
@@ -288,7 +221,7 @@ model BlobAccessPointAccessKeyAuthProperties
 model BlobAccessPointAssumeRoleAuthProperties
   extends BlobAccessPointRemoteAuthProperties {
   @visibility(Lifecycle.Read)
-  type: BlobAccessPointRemoteAuthType.AssumeRoleWithManagedIdentity;
+  authType: BlobAccessPointRemoteAuthType.AssumeRoleWithManagedIdentity;
 
   @doc("The Azure resource ID of the user-assigned managed identity used to obtain credentials for the role. Omit this value to use the storage account's system-assigned managed identity.")
   identityResourceId?: string;
@@ -298,38 +231,11 @@ model BlobAccessPointAssumeRoleAuthProperties
 }
 
 @added(Versions.v2026_06_01)
-@discriminator("type")
-@doc("Authentication properties for an Azure Blob source.")
-model BlobAccessPointAzureAuthProperties {
-  @doc("The authentication type. This value determines the remaining shape of the authentication object.")
-  type: BlobAccessPointAzureAuthType;
-}
-
-@added(Versions.v2026_06_01)
-@doc("Managed-identity authentication properties for an Azure Blob source.")
-model BlobAccessPointManagedIdentityAuthProperties
-  extends BlobAccessPointAzureAuthProperties {
-  @visibility(Lifecycle.Read)
-  type: BlobAccessPointAzureAuthType.ManagedIdentity;
-
-  @doc("The Azure resource ID of the user-assigned managed identity to authenticate with. Omit this value to use the storage account's system-assigned managed identity.")
-  identityResourceId?: string;
-}
-
-@added(Versions.v2026_06_01)
-@doc("Pass-through authentication properties for an Azure Blob source.")
-model BlobAccessPointPassThroughAuthProperties
-  extends BlobAccessPointAzureAuthProperties {
-  @visibility(Lifecycle.Read)
-  type: BlobAccessPointAzureAuthType.PassThrough;
-}
-
-@added(Versions.v2026_06_01)
 @doc("A non-Azure S3-compatible backing source.")
-model BlobAccessPointRemoteS3SourceProperties
+model BlobAccessPointNonAzureSourceProperties
   extends BlobAccessPointSourceProperties {
   @visibility(Lifecycle.Read)
-  type: BlobAccessPointSourceType.RemoteS3Compatible;
+  sourceType: BlobAccessPointSourceType.NonAzureSource;
 
   @visibility(Lifecycle.Create, Lifecycle.Read)
   @doc("The type of the backing S3-compatible data source.")
@@ -344,72 +250,21 @@ model BlobAccessPointRemoteS3SourceProperties
 
   @doc("The expected bucket owner account ID.")
   expectedBucketOwner?: string;
-
-  @doc("The backing source payment model.")
-  paymentModel?: BlobAccessPointPaymentModel = BlobAccessPointPaymentModel.Unspecified;
 }
 
 @added(Versions.v2026_06_01)
-@doc("A Blob Access Point in another Azure Storage account.")
-model BlobAccessPointRemoteAccessPointSourceProperties
-  extends BlobAccessPointSourceProperties {
-  @visibility(Lifecycle.Read)
-  type: BlobAccessPointSourceType.BlobAccessPoint;
-
-  @visibility(Lifecycle.Create, Lifecycle.Read)
-  @doc("The endpoint of the provider Blob Access Point.")
-  endpointConnection: BlobAccessPointEndpointConnectionProperties;
-
-  @doc("Details for authenticating to the provider Blob Access Point.")
-  auth: BlobAccessPointAzureAuthProperties;
-}
-
-@added(Versions.v2026_06_01)
-@doc("An Azure Storage account backing source.")
-model BlobAccessPointAzureStorageAccountSourceProperties
-  extends BlobAccessPointSourceProperties {
-  @visibility(Lifecycle.Read)
-  type: BlobAccessPointSourceType.AzureStorageAccount;
-
-  @visibility(Lifecycle.Create, Lifecycle.Read)
-  @doc("The endpoint of the Azure Storage account or container.")
-  endpointConnection: BlobAccessPointEndpointConnectionProperties;
-
-  @doc("Details for authenticating to the Azure Storage account.")
-  auth: BlobAccessPointAzureAuthProperties;
-}
-
-@added(Versions.v2026_06_01)
-@doc("An access policy for a Blob Access Point configuration.")
-model BlobAccessPointAccessPolicy {
-  @doc("The Microsoft Entra object ID of the principal.")
-  @pattern("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
-  principalId: string;
-
-  @doc("The Microsoft Entra tenant ID of the principal.")
-  @pattern("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
-  tenantId: string;
-
-  @doc("The permission granted to the principal.")
-  permission?: BlobAccessPointAccessPolicyPermission = BlobAccessPointAccessPolicyPermission.Read;
-
-  @doc("The billing mode applied to requests authorized by this policy.")
-  billingType?: BlobAccessPointBillingType = BlobAccessPointBillingType.OwnerPay;
-}
-
-@added(Versions.v2026_06_01)
-@discriminator("type")
+@discriminator("authType")
 @doc("Mutable authentication properties for a non-Azure S3-compatible source.")
 model BlobAccessPointRemoteAuthUpdateProperties {
   @doc("The authentication type. This value determines the remaining shape of the authentication object.")
-  type: BlobAccessPointRemoteAuthType;
+  authType: BlobAccessPointRemoteAuthType;
 }
 
 @added(Versions.v2026_06_01)
 @doc("Mutable S3 access-key authentication properties.")
 model BlobAccessPointAccessKeyAuthUpdateProperties
   extends BlobAccessPointRemoteAuthUpdateProperties {
-  type: BlobAccessPointRemoteAuthType.AccessKey;
+  authType: BlobAccessPointRemoteAuthType.AccessKey;
 
   @minLength(3)
   @doc("The access key ID.")
@@ -431,7 +286,7 @@ model BlobAccessPointAccessKeyAuthUpdateProperties
 @doc("Mutable managed-identity role-assumption authentication properties.")
 model BlobAccessPointAssumeRoleAuthUpdateProperties
   extends BlobAccessPointRemoteAuthUpdateProperties {
-  type: BlobAccessPointRemoteAuthType.AssumeRoleWithManagedIdentity;
+  authType: BlobAccessPointRemoteAuthType.AssumeRoleWithManagedIdentity;
 
   @doc("The Azure resource ID of the user-assigned managed identity used to obtain credentials for the role. Omit this value to use the storage account's system-assigned managed identity.")
   identityResourceId?: string;
@@ -441,79 +296,24 @@ model BlobAccessPointAssumeRoleAuthUpdateProperties
 }
 
 @added(Versions.v2026_06_01)
-@discriminator("type")
-@doc("Mutable authentication properties for an Azure Blob source.")
-model BlobAccessPointAzureAuthUpdateProperties {
-  @doc("The authentication type. This value determines the remaining shape of the authentication object.")
-  type: BlobAccessPointAzureAuthType;
-}
-
-@added(Versions.v2026_06_01)
-@doc("Mutable managed-identity authentication properties for an Azure Blob source.")
-model BlobAccessPointManagedIdentityAuthUpdateProperties
-  extends BlobAccessPointAzureAuthUpdateProperties {
-  type: BlobAccessPointAzureAuthType.ManagedIdentity;
-
-  @doc("The Azure resource ID of the user-assigned managed identity to authenticate with. Omit this value to use the storage account's system-assigned managed identity.")
-  identityResourceId?: string;
-}
-
-@added(Versions.v2026_06_01)
-@doc("Pass-through authentication update properties.")
-model BlobAccessPointPassThroughAuthUpdateProperties
-  extends BlobAccessPointAzureAuthUpdateProperties {
-  type: BlobAccessPointAzureAuthType.PassThrough;
-}
-
-@added(Versions.v2026_06_01)
-@discriminator("type")
+@discriminator("sourceType")
 @doc("Mutable properties of a Blob Access Point source. The source type cannot be changed, so this value must match the source type of the existing configuration.")
 model BlobAccessPointSourceUpdateProperties {
   @doc("The source type. This value determines the remaining shape of the source object.")
-  type: BlobAccessPointSourceType;
-}
-
-@added(Versions.v2026_06_01)
-@doc("Mutable properties of a path in the storage account that owns the configuration. This source type has no mutable properties.")
-model BlobAccessPointLocalSourceUpdateProperties
-  extends BlobAccessPointSourceUpdateProperties {
-  type: BlobAccessPointSourceType.Local;
+  sourceType: BlobAccessPointSourceType;
 }
 
 @added(Versions.v2026_06_01)
 @doc("Mutable properties of a non-Azure S3-compatible backing source.")
-model BlobAccessPointRemoteS3SourceUpdateProperties
+model BlobAccessPointNonAzureSourceUpdateProperties
   extends BlobAccessPointSourceUpdateProperties {
-  type: BlobAccessPointSourceType.RemoteS3Compatible;
+  sourceType: BlobAccessPointSourceType.NonAzureSource;
 
   @doc("Replacement authentication properties.")
   auth?: BlobAccessPointRemoteAuthUpdateProperties;
 
   @doc("The expected bucket owner account ID.")
   expectedBucketOwner?: string;
-
-  @doc("The backing source payment model.")
-  paymentModel?: BlobAccessPointPaymentModel;
-}
-
-@added(Versions.v2026_06_01)
-@doc("Mutable properties of a Blob Access Point source in another storage account.")
-model BlobAccessPointRemoteAccessPointSourceUpdateProperties
-  extends BlobAccessPointSourceUpdateProperties {
-  type: BlobAccessPointSourceType.BlobAccessPoint;
-
-  @doc("Replacement authentication properties.")
-  auth?: BlobAccessPointAzureAuthUpdateProperties;
-}
-
-@added(Versions.v2026_06_01)
-@doc("Mutable properties of an Azure Storage account backing source.")
-model BlobAccessPointAzureStorageAccountSourceUpdateProperties
-  extends BlobAccessPointSourceUpdateProperties {
-  type: BlobAccessPointSourceType.AzureStorageAccount;
-
-  @doc("Replacement authentication properties.")
-  auth?: BlobAccessPointAzureAuthUpdateProperties;
 }
 
 @added(Versions.v2026_06_01)
@@ -528,10 +328,6 @@ model BlobAccessPointConfigurationUpdateProperties {
 
   @doc("Mutable backing-source properties.")
   source?: BlobAccessPointSourceUpdateProperties;
-
-  @doc("Access policies used for Blob Access Point data-sharing scenarios.")
-  @Azure.ResourceManager.identifiers(#["principalId", "tenantId"])
-  accessPolicies?: BlobAccessPointAccessPolicy[];
 }
 
 @added(Versions.v2026_06_01)
@@ -567,10 +363,6 @@ model BlobAccessPointConfigurationProperties {
 
   @doc("Information about the backing data source.")
   source: BlobAccessPointSourceProperties;
-
-  @doc("Access policies used for Blob Access Point data-sharing scenarios.")
-  @Azure.ResourceManager.identifiers(#["principalId", "tenantId"])
-  accessPolicies?: BlobAccessPointAccessPolicy[];
 
   @visibility(Lifecycle.Read)
   @doc("The status of the last operation.")

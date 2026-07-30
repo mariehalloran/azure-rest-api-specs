@@ -13,20 +13,19 @@
         "state": "Active",
         "description": "NetApp ONTAP S3-compatible source",
         "source": {
-          "type": "RemoteS3Compatible",
+          "sourceType": "NonAzureSource",
           "backingDataSourceType": "NetApp_ONTAP",
           "connection": {
-            "type": "Endpoint",
+            "connectionType": "Endpoint",
             "endpoint": "https://netapp.contoso.com/bucket1",
             "tlsVerification": "Perform"
           },
           "auth": {
-            "type": "AccessKey",
+            "authType": "AccessKey",
             "accessKeyId": "example-access-key",
             "secretAccessKey": "example-secret-key",
             "signingRegion": "us-east-1"
-          },
-          "paymentModel": "Unspecified"
+          }
         }
       }
     }
@@ -44,19 +43,18 @@
           "creationTime": "2026-06-01T00:00:00Z",
           "description": "NetApp ONTAP S3-compatible source",
           "source": {
-            "type": "RemoteS3Compatible",
+            "sourceType": "NonAzureSource",
             "backingDataSourceType": "NetApp_ONTAP",
             "connection": {
-              "type": "Endpoint",
+              "connectionType": "Endpoint",
               "endpoint": "https://netapp.contoso.com/bucket1",
               "tlsVerification": "Perform"
             },
             "auth": {
-              "type": "AccessKey",
+              "authType": "AccessKey",
               "accessKeyId": "example-access-key",
               "signingRegion": "us-east-1"
-            },
-            "paymentModel": "Unspecified"
+            }
           },
           "provisioningState": "Succeeded"
         }
@@ -74,19 +72,18 @@
           "creationTime": "2026-06-01T00:00:00Z",
           "description": "NetApp ONTAP S3-compatible source",
           "source": {
-            "type": "RemoteS3Compatible",
+            "sourceType": "NonAzureSource",
             "backingDataSourceType": "NetApp_ONTAP",
             "connection": {
-              "type": "Endpoint",
+              "connectionType": "Endpoint",
               "endpoint": "https://netapp.contoso.com/bucket1",
               "tlsVerification": "Perform"
             },
             "auth": {
-              "type": "AccessKey",
+              "authType": "AccessKey",
               "accessKeyId": "example-access-key",
               "signingRegion": "us-east-1"
-            },
-            "paymentModel": "Unspecified"
+            }
           },
           "provisioningState": "Creating"
         }

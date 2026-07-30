@@ -22,36 +22,51 @@
               "creationTime": "2026-06-01T00:00:00Z",
               "description": "NetApp ONTAP S3-compatible source",
               "source": {
-                "type": "RemoteS3Compatible",
+                "sourceType": "NonAzureSource",
                 "backingDataSourceType": "NetApp_ONTAP",
                 "connection": {
-                  "type": "Endpoint",
+                  "connectionType": "Endpoint",
                   "endpoint": "https://netapp.contoso.com/bucket1",
                   "tlsVerification": "Perform"
                 },
                 "auth": {
-                  "type": "AccessKey",
+                  "authType": "AccessKey",
                   "accessKeyId": "example-access-key",
                   "signingRegion": "us-east-1"
-                },
-                "paymentModel": "Unspecified"
+                }
               },
               "provisioningState": "Succeeded"
             }
           },
           {
-            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/storageAccounts/teststorageaccount/blobAccessPointConfigurations/localaccesspointconfig",
-            "name": "localaccesspointconfig",
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/storageAccounts/teststorageaccount/blobAccessPointConfigurations/privatelinkaccesspointconfig",
+            "name": "privatelinkaccesspointconfig",
             "type": "Microsoft.Storage/storageAccounts/blobAccessPointConfigurations",
             "location": "eastus",
             "properties": {
               "uniqueId": "22222222-3333-4444-5555-666666666666",
               "state": "Active",
               "creationTime": "2026-06-01T00:00:00Z",
-              "description": "Local container path",
+              "description": "Private-link-backed S3-compatible source",
               "source": {
-                "type": "Local",
-                "path": "/sourcecontainer/data"
+                "sourceType": "NonAzureSource",
+                "backingDataSourceType": "Dell_OneFS",
+                "connection": {
+                  "connectionType": "PrivateLink",
+                  "privateLinkIdType": "ResourceId",
+                  "privateLinkId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Network/privateLinkServices/testpls",
+                  "privateLinkGroupId": "s3",
+                  "privateLinkLocation": "eastus",
+                  "requestMessage": "Blob Access Point connection request",
+                  "endpoint": "https://onefs.contoso.com/bucket2",
+                  "tlsVerification": "Perform",
+                  "privateEndpointName": "testpe"
+                },
+                "auth": {
+                  "authType": "AssumeRoleWithManagedIdentity",
+                  "identityResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/testidentity",
+                  "roleArn": "arn:aws:iam::123456789012:role/TestRole"
+                }
               },
               "provisioningState": "Succeeded"
             }

@@ -1641,70 +1641,6 @@
       ],
       "x-ms-discriminator-value": "AccessKey"
     },
-    "BlobAccessPointAccessPolicy": {
-      "type": "object",
-      "description": "An access policy for a Blob Access Point configuration.",
-      "properties": {
-        "principalId": {
-          "type": "string",
-          "description": "The Microsoft Entra object ID of the principal.",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-        },
-        "tenantId": {
-          "type": "string",
-          "description": "The Microsoft Entra tenant ID of the principal.",
-          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-        },
-        "permission": {
-          "type": "string",
-          "description": "The permission granted to the principal.",
-          "default": "Read",
-          "enum": [
-            "Read"
-          ],
-          "x-ms-enum": {
-            "name": "BlobAccessPointAccessPolicyPermission",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "Read",
-                "value": "Read",
-                "description": "Read and list data through the Blob Access Point."
-              }
-            ]
-          }
-        },
-        "billingType": {
-          "type": "string",
-          "description": "The billing mode applied to requests authorized by this policy.",
-          "default": "OwnerPay",
-          "enum": [
-            "OwnerPay",
-            "RequesterPay"
-          ],
-          "x-ms-enum": {
-            "name": "BlobAccessPointBillingType",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "OwnerPay",
-                "value": "OwnerPay",
-                "description": "Charge the owner of the provider Blob Access Point."
-              },
-              {
-                "name": "RequesterPay",
-                "value": "RequesterPay",
-                "description": "Charge the requester."
-              }
-            ]
-          }
-        }
-      },
-      "required": [
-        "principalId",
-        "tenantId"
-      ]
-    },
     "BlobAccessPointAssumeRoleAuthProperties": {
       "type": "object",
       "description": "Managed-identity role-assumption authentication properties.",
@@ -1747,102 +1683,6 @@
         }
       ],
       "x-ms-discriminator-value": "AssumeRoleWithManagedIdentity"
-    },
-    "BlobAccessPointAzureAuthProperties": {
-      "type": "object",
-      "description": "Authentication properties for an Azure Blob source.",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/BlobAccessPointAzureAuthType",
-          "description": "The authentication type. This value determines the remaining shape of the authentication object."
-        }
-      },
-      "discriminator": "type",
-      "required": [
-        "type"
-      ]
-    },
-    "BlobAccessPointAzureAuthType": {
-      "type": "string",
-      "description": "How Azure Storage authenticates to an Azure Blob source.",
-      "enum": [
-        "ManagedIdentity",
-        "PassThrough"
-      ],
-      "x-ms-enum": {
-        "name": "BlobAccessPointAzureAuthType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "ManagedIdentity",
-            "value": "ManagedIdentity",
-            "description": "Authenticate with the configured managed identity."
-          },
-          {
-            "name": "PassThrough",
-            "value": "PassThrough",
-            "description": "Pass the original caller identity to the provider Blob Access Point."
-          }
-        ]
-      }
-    },
-    "BlobAccessPointAzureAuthUpdateProperties": {
-      "type": "object",
-      "description": "Mutable authentication properties for an Azure Blob source.",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/BlobAccessPointAzureAuthType",
-          "description": "The authentication type. This value determines the remaining shape of the authentication object."
-        }
-      },
-      "discriminator": "type",
-      "required": [
-        "type"
-      ]
-    },
-    "BlobAccessPointAzureStorageAccountSourceProperties": {
-      "type": "object",
-      "description": "An Azure Storage account backing source.",
-      "properties": {
-        "endpointConnection": {
-          "$ref": "#/definitions/BlobAccessPointEndpointConnectionProperties",
-          "description": "The endpoint of the Azure Storage account or container.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "auth": {
-          "$ref": "#/definitions/BlobAccessPointAzureAuthProperties",
-          "description": "Details for authenticating to the Azure Storage account."
-        }
-      },
-      "required": [
-        "endpointConnection",
-        "auth"
-      ],
-      "allOf": [
-        {
-          "$ref": "#/definitions/BlobAccessPointSourceProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "AzureStorageAccount"
-    },
-    "BlobAccessPointAzureStorageAccountSourceUpdateProperties": {
-      "type": "object",
-      "description": "Mutable properties of an Azure Storage account backing source.",
-      "properties": {
-        "auth": {
-          "$ref": "#/definitions/BlobAccessPointAzureAuthUpdateProperties",
-          "description": "Replacement authentication properties."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/BlobAccessPointSourceUpdateProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "AzureStorageAccount"
     },
     "BlobAccessPointBackingDataSourceType": {
       "type": "string",
@@ -1985,17 +1825,6 @@
           "$ref": "#/definitions/BlobAccessPointSourceProperties",
           "description": "Information about the backing data source."
         },
-        "accessPolicies": {
-          "type": "array",
-          "description": "Access policies used for Blob Access Point data-sharing scenarios.",
-          "items": {
-            "$ref": "#/definitions/BlobAccessPointAccessPolicy"
-          },
-          "x-ms-identifiers": [
-            "principalId",
-            "tenantId"
-          ]
-        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "The status of the last operation.",
@@ -2063,17 +1892,6 @@
         "source": {
           "$ref": "#/definitions/BlobAccessPointSourceUpdateProperties",
           "description": "Mutable backing-source properties."
-        },
-        "accessPolicies": {
-          "type": "array",
-          "description": "Access policies used for Blob Access Point data-sharing scenarios.",
-          "items": {
-            "$ref": "#/definitions/BlobAccessPointAccessPolicy"
-          },
-          "x-ms-identifiers": [
-            "principalId",
-            "tenantId"
-          ]
         }
       }
     },
@@ -2081,14 +1899,14 @@
       "type": "object",
       "description": "Details for connecting to a backing data source.",
       "properties": {
-        "type": {
+        "connectionType": {
           "$ref": "#/definitions/BlobAccessPointConnectionType",
           "description": "The connection type. This value determines the remaining shape of the connection object."
         }
       },
-      "discriminator": "type",
+      "discriminator": "connectionType",
       "required": [
-        "type"
+        "connectionType"
       ]
     },
     "BlobAccessPointConnectionTestRequest": {
@@ -2222,115 +2040,66 @@
       ],
       "x-ms-discriminator-value": "Endpoint"
     },
-    "BlobAccessPointLocalSourceProperties": {
+    "BlobAccessPointNonAzureSourceProperties": {
       "type": "object",
-      "description": "A path in the storage account that owns the Blob Access Point configuration.",
+      "description": "A non-Azure S3-compatible backing source.",
       "properties": {
-        "path": {
-          "type": "string",
-          "description": "The source path, beginning with the container name, for example '/container1/directory1'.",
-          "minLength": 2,
+        "backingDataSourceType": {
+          "$ref": "#/definitions/BlobAccessPointBackingDataSourceType",
+          "description": "The type of the backing S3-compatible data source.",
           "x-ms-mutability": [
             "read",
             "create"
           ]
+        },
+        "connection": {
+          "$ref": "#/definitions/BlobAccessPointConnectionProperties",
+          "description": "Details for connecting to the backing data source.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthProperties",
+          "description": "Details for authenticating to the backing data source."
+        },
+        "expectedBucketOwner": {
+          "type": "string",
+          "description": "The expected bucket owner account ID."
         }
       },
       "required": [
-        "path"
+        "backingDataSourceType",
+        "connection",
+        "auth"
       ],
       "allOf": [
         {
           "$ref": "#/definitions/BlobAccessPointSourceProperties"
         }
       ],
-      "x-ms-discriminator-value": "Local"
+      "x-ms-discriminator-value": "NonAzureSource"
     },
-    "BlobAccessPointLocalSourceUpdateProperties": {
+    "BlobAccessPointNonAzureSourceUpdateProperties": {
       "type": "object",
-      "description": "Mutable properties of a path in the storage account that owns the configuration. This source type has no mutable properties.",
+      "description": "Mutable properties of a non-Azure S3-compatible backing source.",
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthUpdateProperties",
+          "description": "Replacement authentication properties."
+        },
+        "expectedBucketOwner": {
+          "type": "string",
+          "description": "The expected bucket owner account ID."
+        }
+      },
       "allOf": [
         {
           "$ref": "#/definitions/BlobAccessPointSourceUpdateProperties"
         }
       ],
-      "x-ms-discriminator-value": "Local"
-    },
-    "BlobAccessPointManagedIdentityAuthProperties": {
-      "type": "object",
-      "description": "Managed-identity authentication properties for an Azure Blob source.",
-      "properties": {
-        "identityResourceId": {
-          "type": "string",
-          "description": "The Azure resource ID of the user-assigned managed identity to authenticate with. Omit this value to use the storage account's system-assigned managed identity."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/BlobAccessPointAzureAuthProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "ManagedIdentity"
-    },
-    "BlobAccessPointManagedIdentityAuthUpdateProperties": {
-      "type": "object",
-      "description": "Mutable managed-identity authentication properties for an Azure Blob source.",
-      "properties": {
-        "identityResourceId": {
-          "type": "string",
-          "description": "The Azure resource ID of the user-assigned managed identity to authenticate with. Omit this value to use the storage account's system-assigned managed identity."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/BlobAccessPointAzureAuthUpdateProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "ManagedIdentity"
-    },
-    "BlobAccessPointPassThroughAuthProperties": {
-      "type": "object",
-      "description": "Pass-through authentication properties for an Azure Blob source.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/BlobAccessPointAzureAuthProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "PassThrough"
-    },
-    "BlobAccessPointPassThroughAuthUpdateProperties": {
-      "type": "object",
-      "description": "Pass-through authentication update properties.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/BlobAccessPointAzureAuthUpdateProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "PassThrough"
-    },
-    "BlobAccessPointPaymentModel": {
-      "type": "string",
-      "description": "The payment model for requests to an S3-compatible backing source.",
-      "enum": [
-        "Unspecified",
-        "RequesterPays"
-      ],
-      "x-ms-enum": {
-        "name": "BlobAccessPointPaymentModel",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Unspecified",
-            "value": "Unspecified",
-            "description": "Use the backing source's default payment model."
-          },
-          {
-            "name": "RequesterPays",
-            "value": "RequesterPays",
-            "description": "Set the S3 requester-pays request option."
-          }
-        ]
-      }
+      "x-ms-discriminator-value": "NonAzureSource"
     },
     "BlobAccessPointPrivateLinkConnectionProperties": {
       "type": "object",
@@ -2492,79 +2261,24 @@
         "source": {
           "$ref": "#/definitions/BlobAccessPointSourceProperties",
           "description": "Information about the backing data source."
-        },
-        "accessPolicies": {
-          "type": "array",
-          "description": "Access policies used for Blob Access Point data-sharing scenarios.",
-          "items": {
-            "$ref": "#/definitions/BlobAccessPointAccessPolicy"
-          },
-          "x-ms-identifiers": [
-            "principalId",
-            "tenantId"
-          ]
         }
       },
       "required": [
         "source"
       ]
     },
-    "BlobAccessPointRemoteAccessPointSourceProperties": {
-      "type": "object",
-      "description": "A Blob Access Point in another Azure Storage account.",
-      "properties": {
-        "endpointConnection": {
-          "$ref": "#/definitions/BlobAccessPointEndpointConnectionProperties",
-          "description": "The endpoint of the provider Blob Access Point.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "auth": {
-          "$ref": "#/definitions/BlobAccessPointAzureAuthProperties",
-          "description": "Details for authenticating to the provider Blob Access Point."
-        }
-      },
-      "required": [
-        "endpointConnection",
-        "auth"
-      ],
-      "allOf": [
-        {
-          "$ref": "#/definitions/BlobAccessPointSourceProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "BlobAccessPoint"
-    },
-    "BlobAccessPointRemoteAccessPointSourceUpdateProperties": {
-      "type": "object",
-      "description": "Mutable properties of a Blob Access Point source in another storage account.",
-      "properties": {
-        "auth": {
-          "$ref": "#/definitions/BlobAccessPointAzureAuthUpdateProperties",
-          "description": "Replacement authentication properties."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/BlobAccessPointSourceUpdateProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "BlobAccessPoint"
-    },
     "BlobAccessPointRemoteAuthProperties": {
       "type": "object",
       "description": "Authentication properties for a non-Azure S3-compatible source.",
       "properties": {
-        "type": {
+        "authType": {
           "$ref": "#/definitions/BlobAccessPointRemoteAuthType",
           "description": "The authentication type. This value determines the remaining shape of the authentication object."
         }
       },
-      "discriminator": "type",
+      "discriminator": "authType",
       "required": [
-        "type"
+        "authType"
       ]
     },
     "BlobAccessPointRemoteAuthType": {
@@ -2595,151 +2309,43 @@
       "type": "object",
       "description": "Mutable authentication properties for a non-Azure S3-compatible source.",
       "properties": {
-        "type": {
+        "authType": {
           "$ref": "#/definitions/BlobAccessPointRemoteAuthType",
           "description": "The authentication type. This value determines the remaining shape of the authentication object."
         }
       },
-      "discriminator": "type",
+      "discriminator": "authType",
       "required": [
-        "type"
+        "authType"
       ]
-    },
-    "BlobAccessPointRemoteS3SourceProperties": {
-      "type": "object",
-      "description": "A non-Azure S3-compatible backing source.",
-      "properties": {
-        "backingDataSourceType": {
-          "$ref": "#/definitions/BlobAccessPointBackingDataSourceType",
-          "description": "The type of the backing S3-compatible data source.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "connection": {
-          "$ref": "#/definitions/BlobAccessPointConnectionProperties",
-          "description": "Details for connecting to the backing data source.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "auth": {
-          "$ref": "#/definitions/BlobAccessPointRemoteAuthProperties",
-          "description": "Details for authenticating to the backing data source."
-        },
-        "expectedBucketOwner": {
-          "type": "string",
-          "description": "The expected bucket owner account ID."
-        },
-        "paymentModel": {
-          "type": "string",
-          "description": "The backing source payment model.",
-          "default": "Unspecified",
-          "enum": [
-            "Unspecified",
-            "RequesterPays"
-          ],
-          "x-ms-enum": {
-            "name": "BlobAccessPointPaymentModel",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "Unspecified",
-                "value": "Unspecified",
-                "description": "Use the backing source's default payment model."
-              },
-              {
-                "name": "RequesterPays",
-                "value": "RequesterPays",
-                "description": "Set the S3 requester-pays request option."
-              }
-            ]
-          }
-        }
-      },
-      "required": [
-        "backingDataSourceType",
-        "connection",
-        "auth"
-      ],
-      "allOf": [
-        {
-          "$ref": "#/definitions/BlobAccessPointSourceProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "RemoteS3Compatible"
-    },
-    "BlobAccessPointRemoteS3SourceUpdateProperties": {
-      "type": "object",
-      "description": "Mutable properties of a non-Azure S3-compatible backing source.",
-      "properties": {
-        "auth": {
-          "$ref": "#/definitions/BlobAccessPointRemoteAuthUpdateProperties",
-          "description": "Replacement authentication properties."
-        },
-        "expectedBucketOwner": {
-          "type": "string",
-          "description": "The expected bucket owner account ID."
-        },
-        "paymentModel": {
-          "$ref": "#/definitions/BlobAccessPointPaymentModel",
-          "description": "The backing source payment model."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/BlobAccessPointSourceUpdateProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "RemoteS3Compatible"
     },
     "BlobAccessPointSourceProperties": {
       "type": "object",
       "description": "Information about the data source exposed through a Blob Access Point.",
       "properties": {
-        "type": {
+        "sourceType": {
           "$ref": "#/definitions/BlobAccessPointSourceType",
           "description": "The source type. This value determines the remaining shape of the source object."
         }
       },
-      "discriminator": "type",
+      "discriminator": "sourceType",
       "required": [
-        "type"
+        "sourceType"
       ]
     },
     "BlobAccessPointSourceType": {
       "type": "string",
       "description": "The type of source exposed through the Blob Access Point.",
       "enum": [
-        "Local",
-        "BlobAccessPoint",
-        "AzureStorageAccount",
-        "RemoteS3Compatible"
+        "NonAzureSource"
       ],
       "x-ms-enum": {
         "name": "BlobAccessPointSourceType",
         "modelAsString": true,
         "values": [
           {
-            "name": "Local",
-            "value": "Local",
-            "description": "A path in the storage account that owns the Blob Access Point configuration."
-          },
-          {
-            "name": "BlobAccessPoint",
-            "value": "BlobAccessPoint",
-            "description": "A Blob Access Point in another storage account."
-          },
-          {
-            "name": "AzureStorageAccount",
-            "value": "AzureStorageAccount",
-            "description": "An Azure Storage account endpoint."
-          },
-          {
-            "name": "RemoteS3Compatible",
-            "value": "RemoteS3Compatible",
+            "name": "NonAzureSource",
+            "value": "NonAzureSource",
             "description": "A non-Azure data source that implements the S3-compatible REST API."
           }
         ]
@@ -2749,14 +2355,14 @@
       "type": "object",
       "description": "Mutable properties of a Blob Access Point source. The source type cannot be changed, so this value must match the source type of the existing configuration.",
       "properties": {
-        "type": {
+        "sourceType": {
           "$ref": "#/definitions/BlobAccessPointSourceType",
           "description": "The source type. This value determines the remaining shape of the source object."
         }
       },
-      "discriminator": "type",
+      "discriminator": "sourceType",
       "required": [
-        "type"
+        "sourceType"
       ]
     },
     "BucketSource": {

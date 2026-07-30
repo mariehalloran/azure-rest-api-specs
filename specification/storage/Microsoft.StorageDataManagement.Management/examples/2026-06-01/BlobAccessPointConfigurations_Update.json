@@ -12,9 +12,9 @@
         "state": "Inactive",
         "description": "Updated NetApp ONTAP S3-compatible source",
         "source": {
-          "type": "RemoteS3Compatible",
+          "sourceType": "NonAzureSource",
           "auth": {
-            "type": "AccessKey",
+            "authType": "AccessKey",
             "secretAccessKey": "rotated-secret-key"
           }
         }
@@ -34,19 +34,18 @@
           "creationTime": "2026-06-01T00:00:00Z",
           "description": "Updated NetApp ONTAP S3-compatible source",
           "source": {
-            "type": "RemoteS3Compatible",
+            "sourceType": "NonAzureSource",
             "backingDataSourceType": "NetApp_ONTAP",
             "connection": {
-              "type": "Endpoint",
+              "connectionType": "Endpoint",
               "endpoint": "https://netapp.contoso.com/bucket1",
               "tlsVerification": "Perform"
             },
             "auth": {
-              "type": "AccessKey",
+              "authType": "AccessKey",
               "accessKeyId": "example-access-key",
               "signingRegion": "us-east-1"
-            },
-            "paymentModel": "Unspecified"
+            }
           },
           "provisioningState": "Succeeded"
         }
