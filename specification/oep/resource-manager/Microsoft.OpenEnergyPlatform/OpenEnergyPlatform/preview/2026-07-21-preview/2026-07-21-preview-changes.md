@@ -155,7 +155,9 @@ SKU: name/tier/size/family/capacity.)
 - The per-package config for `Enterprise`/`Analytics` is intentionally minimal (enum values
   only) pending the service team's final design.
 - `sku.capacity` (PATCHable): the scale capacity must be a power of 2 **between 2 and 128**
-  (applicable for Flex SKU).
+  (applicable for Flex SKU). The `2`–`128` range is now enforced in the schema via
+  `minimum`/`maximum` on `SkuUpdate.capacity`; the "power of 2" rule remains server-enforced
+  (not expressible in OpenAPI).
 - Terminology cleanup: internal references to the legacy names **`OAK`** and **`MEDS`** in
   descriptions/config prose were changed to **`ADME`**. This is doc-only and non-breaking. The
   `.tsp` source is shared across versions, so the description-only text change also appears in

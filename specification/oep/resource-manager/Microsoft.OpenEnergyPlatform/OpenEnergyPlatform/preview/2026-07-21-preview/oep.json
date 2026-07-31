@@ -2475,7 +2475,9 @@
         "capacity": {
           "type": "integer",
           "format": "int32",
-          "description": "The scale capacity for the energy service. Must be a power of 2 between 2 and 128 (applicable for Flex SKU)."
+          "description": "The scale capacity for the energy service. Must be a power of 2 between 2 and 128 (applicable for Flex SKU).",
+          "minimum": 2,
+          "maximum": 128
         }
       }
     },

@@ -731,6 +731,8 @@ model SkuUpdate {
   /**
    * The scale capacity for the energy service. Must be a power of 2 between 2 and 128 (applicable for Flex SKU).
    */
+  @minValue(2)
+  @maxValue(128)
   capacity?: int32;
 }
 
