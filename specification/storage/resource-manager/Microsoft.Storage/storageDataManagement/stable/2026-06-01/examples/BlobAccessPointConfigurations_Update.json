@@ -12,7 +12,7 @@
         "state": "Inactive",
         "description": "Updated NetApp ONTAP S3-compatible source",
         "source": {
-          "sourceType": "NonAzureSource",
+          "sourceType": "NetApp_ONTAP",
           "auth": {
             "authType": "AccessKey",
             "secretAccessKey": "rotated-secret-key"
@@ -34,8 +34,7 @@
           "creationTime": "2026-06-01T00:00:00Z",
           "description": "Updated NetApp ONTAP S3-compatible source",
           "source": {
-            "sourceType": "NonAzureSource",
-            "backingDataSourceType": "NetApp_ONTAP",
+            "sourceType": "NetApp_ONTAP",
             "connection": {
               "connectionType": "Endpoint",
               "endpoint": "https://netapp.contoso.com/bucket1",

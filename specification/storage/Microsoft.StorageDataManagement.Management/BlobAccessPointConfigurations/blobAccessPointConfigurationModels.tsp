@@ -38,17 +38,8 @@ union BlobAccessPointConnectionTestStatus {
 }
 
 @added(Versions.v2026_06_01)
-@doc("The type of source exposed through the Blob Access Point.")
+@doc("The type of the non-Azure S3-compatible data source exposed through the Blob Access Point.")
 union BlobAccessPointSourceType {
-  @doc("A non-Azure data source that implements the S3-compatible REST API.")
-  NonAzureSource: "NonAzureSource",
-
-  string,
-}
-
-@added(Versions.v2026_06_01)
-@doc("The type of a non-Azure S3-compatible backing data source.")
-union BlobAccessPointBackingDataSourceType {
   @doc("NetApp ONTAP.")
   NetApp_ONTAP: "NetApp_ONTAP",
 
@@ -107,14 +98,6 @@ union BlobAccessPointRemoteAuthType {
   AccessKey: "AccessKey",
 
   string,
-}
-
-@added(Versions.v2026_06_01)
-@discriminator("sourceType")
-@doc("Information about the data source exposed through a Blob Access Point.")
-model BlobAccessPointSourceProperties {
-  @doc("The source type. This value determines the remaining shape of the source object.")
-  sourceType: BlobAccessPointSourceType;
 }
 
 @added(Versions.v2026_06_01)
@@ -214,15 +197,11 @@ model BlobAccessPointAccessKeyAuthProperties
 }
 
 @added(Versions.v2026_06_01)
-@doc("A non-Azure S3-compatible backing source.")
-model BlobAccessPointNonAzureSourceProperties
-  extends BlobAccessPointSourceProperties {
-  @visibility(Lifecycle.Read)
-  sourceType: BlobAccessPointSourceType.NonAzureSource;
-
+@doc("Information about the non-Azure S3-compatible data source exposed through a Blob Access Point.")
+model BlobAccessPointSourceProperties {
   @visibility(Lifecycle.Create, Lifecycle.Read)
   @doc("The type of the backing S3-compatible data source.")
-  backingDataSourceType: BlobAccessPointBackingDataSourceType;
+  sourceType: BlobAccessPointSourceType;
 
   @visibility(Lifecycle.Create, Lifecycle.Read)
   @doc("Details for connecting to the backing data source.")
@@ -266,18 +245,10 @@ model BlobAccessPointAccessKeyAuthUpdateProperties
 }
 
 @added(Versions.v2026_06_01)
-@discriminator("sourceType")
-@doc("Mutable properties of a Blob Access Point source. The source type cannot be changed, so this value must match the source type of the existing configuration.")
+@doc("Mutable properties of a Blob Access Point source.")
 model BlobAccessPointSourceUpdateProperties {
-  @doc("The source type. This value determines the remaining shape of the source object.")
+  @doc("The source type. The source type cannot be changed, so this value must match the source type of the existing configuration.")
   sourceType: BlobAccessPointSourceType;
-}
-
-@added(Versions.v2026_06_01)
-@doc("Mutable properties of a non-Azure S3-compatible backing source.")
-model BlobAccessPointNonAzureSourceUpdateProperties
-  extends BlobAccessPointSourceUpdateProperties {
-  sourceType: BlobAccessPointSourceType.NonAzureSource;
 
   @doc("Replacement authentication properties.")
   auth?: BlobAccessPointRemoteAuthUpdateProperties;

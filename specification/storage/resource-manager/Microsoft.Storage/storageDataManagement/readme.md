@@ -87,9 +87,11 @@ suppressions:
     from:
       - StorageDataManagementRP.json
     reason: >
-      The Connector PATCH contract is carried forward from prior API versions,
-      and the Blob Access Point authentication discriminator is required to
-      select the credential shape.
+      The Connector PATCH contract is carried forward from prior API versions.
+      The Blob Access Point PATCH body requires the authentication type
+      discriminator to select the credential shape, and requires the source
+      type so the caller confirms the immutable source type of the
+      configuration being updated.
     where:
       - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/connectors/{connectorName}"].patch.parameters[5].schema.properties.properties
       - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/{blobAccessPointConfigurationName}"].patch.parameters[5].schema.properties.properties
