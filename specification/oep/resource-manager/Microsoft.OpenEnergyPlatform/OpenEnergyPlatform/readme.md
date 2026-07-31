@@ -188,7 +188,8 @@ suppressions:
     reason: "PrivateEndpointConnectionProxy is an internal RPaaS-only DO NOT USE resource consumed by the Network Resource Provider. Its eTag / remotePrivateEndpoint / status are intentionally top-level (not under `properties`) to match the control-plane RP and the stable 2025-12-15 contract, correcting the nested defect that shipped in 2026-02-02-preview. This resource was historically suppressed for the same rule via the legacy directive block that references the pre-migration file name."
   - code: LroLocationHeader
     from: oep.json
-    reason: "The PATCH on EnergyService uses an existing async pattern that returns Azure-AsyncOperation and Retry-After headers but no Location header. This wire contract predates the rule and is already suppressed at the TypeSpec level for the same operation. Note: scoping via `where:` was attempted but is not honored by LintDiff's `suppressions:` block — file-wide is required for this rule code."
+    where: '$.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OpenEnergyPlatform/energyServices/{resourceName}"].patch'
+    reason: "The PATCH on EnergyService uses an existing async pattern that returns Azure-AsyncOperation and Retry-After headers but no Location header. This wire contract predates the rule and is already suppressed at the TypeSpec level for the same operation. Scoped to the PATCH operation to verify whether LintDiff honors `where:` for this rule code (per reviewer request); if the error re-surfaces we will file an issue and fall back to a file-wide suppression."
   - code: ProvisioningStateSpecifiedForLROPut
     from: oep.json
     where: '$.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OpenEnergyPlatform/energyServices/{resourceName}/privateEndpointConnectionProxies/{privateEndpointConnectionProxyId}"].put'
