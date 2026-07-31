@@ -23,9 +23,10 @@
           "tlsVerification": "Perform"
         },
         "auth": {
-          "authType": "AssumeRoleWithManagedIdentity",
-          "identityResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/testidentity",
-          "roleArn": "arn:aws:iam::123456789012:role/TestRole"
+          "authType": "AccessKey",
+          "accessKeyId": "example-access-key",
+          "secretAccessKey": "example-secret-key",
+          "signingRegion": "us-east-1"
         }
       }
     }

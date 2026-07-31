@@ -63,9 +63,10 @@
                   "privateEndpointName": "testpe"
                 },
                 "auth": {
-                  "authType": "AssumeRoleWithManagedIdentity",
-                  "identityResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/testidentity",
-                  "roleArn": "arn:aws:iam::123456789012:role/TestRole"
+                  "authType": "AccessKey",
+                  "accessKeyId": "example-access-key-2",
+                  "signingRegion": "us-east-1",
+                  "hostOverride": "onefs.contoso.com"
                 }
               },
               "provisioningState": "Succeeded"

@@ -106,9 +106,6 @@ union BlobAccessPointRemoteAuthType {
   @doc("Authenticate with an S3 access key and secret access key.")
   AccessKey: "AccessKey",
 
-  @doc("Use a managed identity to assume an S3-compatible role.")
-  AssumeRoleWithManagedIdentity: "AssumeRoleWithManagedIdentity",
-
   string,
 }
 
@@ -217,20 +214,6 @@ model BlobAccessPointAccessKeyAuthProperties
 }
 
 @added(Versions.v2026_06_01)
-@doc("Managed-identity role-assumption authentication properties.")
-model BlobAccessPointAssumeRoleAuthProperties
-  extends BlobAccessPointRemoteAuthProperties {
-  @visibility(Lifecycle.Read)
-  authType: BlobAccessPointRemoteAuthType.AssumeRoleWithManagedIdentity;
-
-  @doc("The Azure resource ID of the user-assigned managed identity used to obtain credentials for the role. Omit this value to use the storage account's system-assigned managed identity.")
-  identityResourceId?: string;
-
-  @doc("The Amazon Resource Name (ARN) of the role that Azure Storage assumes on the backing data source, for example 'arn:aws:iam::123456789012:role/ContosoStorageAccess'. Azure Storage presents the managed identity to the backing source to obtain temporary credentials for this role, and signs subsequent requests with those credentials.")
-  roleArn: string;
-}
-
-@added(Versions.v2026_06_01)
 @doc("A non-Azure S3-compatible backing source.")
 model BlobAccessPointNonAzureSourceProperties
   extends BlobAccessPointSourceProperties {
@@ -280,19 +263,6 @@ model BlobAccessPointAccessKeyAuthUpdateProperties
 
   @doc("The host used when computing request signatures.")
   hostOverride?: string;
-}
-
-@added(Versions.v2026_06_01)
-@doc("Mutable managed-identity role-assumption authentication properties.")
-model BlobAccessPointAssumeRoleAuthUpdateProperties
-  extends BlobAccessPointRemoteAuthUpdateProperties {
-  authType: BlobAccessPointRemoteAuthType.AssumeRoleWithManagedIdentity;
-
-  @doc("The Azure resource ID of the user-assigned managed identity used to obtain credentials for the role. Omit this value to use the storage account's system-assigned managed identity.")
-  identityResourceId?: string;
-
-  @doc("The Amazon Resource Name (ARN) of the role that Azure Storage assumes on the backing data source, for example 'arn:aws:iam::123456789012:role/ContosoStorageAccess'. Azure Storage presents the managed identity to the backing source to obtain temporary credentials for this role, and signs subsequent requests with those credentials.")
-  roleArn?: string;
 }
 
 @added(Versions.v2026_06_01)
