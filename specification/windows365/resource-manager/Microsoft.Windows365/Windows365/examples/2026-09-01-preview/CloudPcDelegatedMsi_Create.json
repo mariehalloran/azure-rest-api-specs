@@ -1,0 +1,54 @@
+{
+  "parameters": {
+    "api-version": "2026-09-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg1",
+    "cloudPcDelegatedMsiName": "Contoso",
+    "body": {
+      "location": "centralus",
+      "properties": {}
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Windows365/cloudPcDelegatedMsis/Contoso",
+        "name": "Contoso",
+        "type": "Microsoft.Windows365/cloudPcDelegatedMsis",
+        "location": "centralus",
+        "properties": {
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2020-11-11T22:00:08.896Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2020-11-11T22:00:10.896Z"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Windows365/cloudPcDelegatedMsis/Contoso",
+        "name": "Contoso",
+        "type": "Microsoft.Windows365/cloudPcDelegatedMsis",
+        "location": "centralus",
+        "properties": {
+          "provisioningState": "Succeeded"
+        },
+        "systemData": {
+          "createdBy": "user1",
+          "createdByType": "User",
+          "createdAt": "2020-11-11T22:00:08.896Z",
+          "lastModifiedBy": "user2",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2020-11-11T22:00:10.896Z"
+        }
+      }
+    }
+  },
+  "operationId": "CloudPcDelegatedMsi_CreateOrUpdate",
+  "title": "Create a Cloud PC delegated managed identity"
+}
