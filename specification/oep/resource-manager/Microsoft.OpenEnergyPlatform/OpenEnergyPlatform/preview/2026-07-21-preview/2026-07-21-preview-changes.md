@@ -167,5 +167,11 @@ SKU: name/tier/size/family/capacity.)
   **"Azure resource id"** in the user-assigned-identity descriptions on `Encryption`, `Eds`, and
   `Acz`. "ARM" is redundant there. `Encryption`/`Eds` are shared models, so this description-only
   text change also appears in `2026-02-02-preview`; `Acz` is new to this version.
+- `Acz.identity.userAssignedIdentityId` (per API review): typed as
+  `armResourceIdentifier<[{ type: "Microsoft.ManagedIdentity/userAssignedIdentities" }]>` so it
+  emits `format: arm-id` and `x-ms-arm-id-details` restricting the allowed resource type to a
+  user-assigned managed identity. Scoped to `Acz` (new this version); the shared `Encryption`/`Eds`
+  identity fields were left as-is to keep `2026-02-02-preview` byte-for-byte and avoid a
+  breaking-change flag on the already-shipped preview.
 - `readme.md`: the `package-2026-07-21-preview` tag section was placed **after**
   `package-2026-02-02-preview` to keep the tag blocks in date-sorted order (no functional effect).

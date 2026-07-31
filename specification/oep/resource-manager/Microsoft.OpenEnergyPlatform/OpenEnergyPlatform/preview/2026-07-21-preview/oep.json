@@ -1483,7 +1483,15 @@
         },
         "userAssignedIdentityId": {
           "type": "string",
-          "description": "The user assigned identity (Azure resource id) that has access to ACZ. This property is required if identityType is 'UserAssigned'."
+          "format": "arm-id",
+          "description": "The user assigned identity (Azure resource id) that has access to ACZ. This property is required if identityType is 'UserAssigned'.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.ManagedIdentity/userAssignedIdentities"
+              }
+            ]
+          }
         }
       }
     },

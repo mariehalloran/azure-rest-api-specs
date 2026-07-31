@@ -626,7 +626,11 @@ model AczIdentity {
   /**
    * The user assigned identity (Azure resource id) that has access to ACZ. This property is required if identityType is 'UserAssigned'.
    */
-  userAssignedIdentityId?: string;
+  userAssignedIdentityId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedIdentity/userAssignedIdentities";
+    }
+  ]>;
 }
 
 /**
