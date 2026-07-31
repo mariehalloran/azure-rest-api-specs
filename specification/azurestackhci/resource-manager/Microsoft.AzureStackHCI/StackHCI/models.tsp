@@ -34,6 +34,9 @@ union HciJobType {
   /** Job to switch GPU mode for the cluster. */
   GpuSwitchMode: "GpuSwitchMode",
 
+  /** Job to set the confidential computing mode for the GPUs in the cluster. */
+  SetGpuConfidentialComputingMode: "SetGpuConfidentialComputingMode",
+
   /**
    * Job to CVM intent for the cluster.
    */
@@ -1140,6 +1143,34 @@ union UpdateRunPropertiesState {
 }
 
 /**
+ * Differentiates the purpose of an update run so that clients can represent it correctly.
+ */
+@added(Versions.v2026_03_15_preview)
+union UpdateRunType {
+  string,
+
+  /**
+   * The update run type is unknown.
+   */
+  Unknown: "Unknown",
+
+  /**
+   * Preparation run that will transition into installation if it completes successfully.
+   */
+  PrepareIntoInstall: "PrepareIntoInstall",
+
+  /**
+   * Preparation-only run that will not transition into installation.
+   */
+  PrepareOnly: "PrepareOnly",
+
+  /**
+   * Installation run.
+   */
+  Install: "Install",
+}
+
+/**
  * Represents the current state of the update as it relates to this stamp. This includes phases such as preparation, installation, scanning, and error handling, providing insight into the update's progress and any issues encountered.
  */
 union State {
@@ -1251,6 +1282,18 @@ union State {
    */
   @added(Versions.v2026_03_15_preview)
   PendingOEMValidation: "PendingOEMValidation",
+
+  /**
+   * The update is scheduled to be installed at a later time.
+   */
+  @added(Versions.v2026_03_15_preview)
+  ScheduledToInstall: "ScheduledToInstall",
+
+  /**
+   * The update is currently being installed as part of a scheduled installation.
+   */
+  @added(Versions.v2026_03_15_preview)
+  InstallingPerSchedule: "InstallingPerSchedule",
 }
 
 /**
@@ -4693,6 +4736,12 @@ model UpdateRunProperties {
    * Progress representation of the update run steps.
    */
   progress?: Step;
+
+  /**
+   * Differentiates the purpose of an update run so that clients can represent it correctly.
+   */
+  @added(Versions.v2026_03_15_preview)
+  updateRunType?: UpdateRunType;
 }
 
 /**
@@ -6924,6 +6973,21 @@ model GpuSwitchModeJobProperties extends ClusterJobProperties {
    * Desired GPU mode to switch to.
    */
   mode: GpuMode;
+}
+
+/**
+ * Properties for setting the confidential computing mode for the GPUs in the cluster.
+ */
+@added(Versions.v2026_03_15_preview)
+model SetGpuConfidentialComputingModeClusterJobProperties
+  extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.SetGpuConfidentialComputingMode;
+
+  /**
+   * Desired confidential computing mode to set for the GPUs in the cluster.
+   */
+  mode: ConfidentialComputingMode;
 }
 
 /**
@@ -9863,6 +9927,34 @@ union EdgeMachineGpuJobType {
    * Remove GPU partition and free up resources for other workloads.
    */
   RemovePartition: "RemovePartition",
+
+  /**
+   * Set the confidential computing mode on the GPU.
+   */
+  SetConfidentialComputingMode: "SetConfidentialComputingMode",
+}
+
+/**
+ * Confidential computing modes supported on a GPU.
+ */
+@added(Versions.v2026_03_15_preview)
+union ConfidentialComputingMode {
+  string,
+
+  /**
+   * Confidential computing is disabled on the GPU.
+   */
+  Off: "Off",
+
+  /**
+   * Confidential computing is enabled on the GPU in developer tools mode, which permits debugging and profiling tools that are blocked when confidential computing is fully enabled.
+   */
+  DevTools: "DevTools",
+
+  /**
+   * Confidential computing is enabled on the GPU.
+   */
+  On: "On",
 }
 
 /**
@@ -9927,6 +10019,23 @@ model RemovePartitionGpuJobProperties extends EdgeMachineGpuJobProperties {
    * Virtual machine ID from which the GPU partition is removed.
    */
   vmId: string;
+}
+
+/**
+ * Properties for setting the confidential computing mode on the GPU.
+ */
+@added(Versions.v2026_03_15_preview)
+model SetConfidentialComputingModeGpuJobProperties
+  extends EdgeMachineGpuJobProperties {
+  /**
+   * Type of GPU job to be performed.
+   */
+  jobType: EdgeMachineGpuJobType.SetConfidentialComputingMode;
+
+  /**
+   * Desired confidential computing mode to set on the GPU.
+   */
+  mode: ConfidentialComputingMode;
 }
 
 ////////////////////////////////////////////////////////////////
