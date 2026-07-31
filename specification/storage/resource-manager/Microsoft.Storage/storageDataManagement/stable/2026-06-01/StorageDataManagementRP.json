@@ -2246,12 +2246,8 @@
     },
     "BlobAccessPointSourceUpdateProperties": {
       "type": "object",
-      "description": "Mutable properties of a Blob Access Point source.",
+      "description": "Mutable properties of a Blob Access Point source. The source type and its connection details are fixed when the configuration is created and cannot be changed.",
       "properties": {
-        "sourceType": {
-          "$ref": "#/definitions/BlobAccessPointSourceType",
-          "description": "The source type. The source type cannot be changed, so this value must match the source type of the existing configuration."
-        },
         "auth": {
           "$ref": "#/definitions/BlobAccessPointRemoteAuthUpdateProperties",
           "description": "Replacement authentication properties."
@@ -2260,10 +2256,7 @@
           "type": "string",
           "description": "The expected bucket owner account ID."
         }
-      },
-      "required": [
-        "sourceType"
-      ]
+      }
     },
     "BucketSource": {
       "type": "object",

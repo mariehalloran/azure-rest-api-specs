@@ -245,11 +245,8 @@ model BlobAccessPointAccessKeyAuthUpdateProperties
 }
 
 @added(Versions.v2026_06_01)
-@doc("Mutable properties of a Blob Access Point source.")
+@doc("Mutable properties of a Blob Access Point source. The source type and its connection details are fixed when the configuration is created and cannot be changed.")
 model BlobAccessPointSourceUpdateProperties {
-  @doc("The source type. The source type cannot be changed, so this value must match the source type of the existing configuration.")
-  sourceType: BlobAccessPointSourceType;
-
   @doc("Replacement authentication properties.")
   auth?: BlobAccessPointRemoteAuthUpdateProperties;
 
