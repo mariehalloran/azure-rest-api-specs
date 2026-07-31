@@ -557,7 +557,7 @@ model KeyVaultProperties {
   keyVaultUri: string;
 
   /**
-   * The user assigned identity (ARM resource id) that has access to the key.
+   * The user assigned identity (Azure resource id) that has access to the key.
    */
   userIdentity?: string;
 }
@@ -597,7 +597,7 @@ model EdsKeyVaultPropertiesIdentity {
   identityType?: IdentityType;
 
   /**
-   * The user assigned identity (ARM resource id) that has access to the key. This property is required if identityType is 'UserAssigned'.
+   * The user assigned identity (Azure resource id) that has access to the key. This property is required if identityType is 'UserAssigned'.
    */
   userAssignedIdentityId?: string;
 }
@@ -624,7 +624,7 @@ model AczIdentity {
   identityType?: IdentityType;
 
   /**
-   * The user assigned identity (ARM resource id) that has access to ACZ. This property is required if identityType is 'UserAssigned'.
+   * The user assigned identity (Azure resource id) that has access to ACZ. This property is required if identityType is 'UserAssigned'.
    */
   userAssignedIdentityId?: string;
 }

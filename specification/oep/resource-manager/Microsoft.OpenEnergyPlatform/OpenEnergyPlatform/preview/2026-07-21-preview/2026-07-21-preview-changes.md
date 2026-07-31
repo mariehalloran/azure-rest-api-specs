@@ -163,5 +163,9 @@ SKU: name/tier/size/family/capacity.)
   `.tsp` source is shared across versions, so the description-only text change also appears in
   `2026-02-02-preview`. OperationIds, the `meds.json` input filename, and older/stable shipped
   `oep.json` files were intentionally left unchanged to keep the change minimal.
+- Terminology cleanup (per API review): the phrase **"ARM resource id"** was changed to
+  **"Azure resource id"** in the user-assigned-identity descriptions on `Encryption`, `Eds`, and
+  `Acz`. "ARM" is redundant there. `Encryption`/`Eds` are shared models, so this description-only
+  text change also appears in `2026-02-02-preview`; `Acz` is new to this version.
 - `readme.md`: the `package-2026-07-21-preview` tag section was placed **after**
   `package-2026-02-02-preview` to keep the tag blocks in date-sorted order (no functional effect).
