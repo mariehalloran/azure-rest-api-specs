@@ -310,14 +310,16 @@ model BlobAccessPointConfigurationProperties {
 @added(Versions.v2026_06_01)
 @doc("The result of testing a Blob Access Point configuration connection.")
 model BlobAccessPointConnectionTestResponse {
-  @doc("The request attempted against the backing source. Valid values include 'List' and 'GetBlob'.")
-  methodName?: string;
+  @doc("The request attempted against the backing data source. Valid values include `List` and `GetBlob`.")
+  @minLength(1)
+  methodName: string;
 
-  @doc("A normalized and redacted backing-source error message.")
+  @doc("A normalized and redacted error message received from the backing data source. This value is empty when the connection test succeeds.")
   errorMessage?: string;
 
-  @doc("The request ID returned by the backing source, when available.")
-  requestId?: string;
+  @doc("The request ID associated with the request sent to the backing data source for validation.")
+  @minLength(1)
+  requestId: string;
 }
 
 @added(Versions.v2026_06_01)
