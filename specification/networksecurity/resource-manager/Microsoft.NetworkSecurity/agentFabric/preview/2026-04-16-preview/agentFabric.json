@@ -50,6 +50,9 @@
     },
     {
       "name": "PolicyGroups"
+    },
+    {
+      "name": "OperationStatus"
     }
   ],
   "paths": {
@@ -125,6 +128,48 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.NetworkSecurity/locations/{location}/operationStatuses/{operationId}": {
+      "get": {
+        "operationId": "OperationStatus_Get",
+        "tags": [
+          "OperationStatus"
+        ],
+        "description": "Returns the current status of an async operation.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/LocationParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/OperationIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/OperationStatusResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "OperationStatus_Get": {
+            "$ref": "./examples/OperationStatus_Get.json"
+          }
         }
       }
     },
@@ -410,8 +455,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -427,7 +483,11 @@
           "AgentFabrics_Delete": {
             "$ref": "./examples/AgentFabrics_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkSecurity/agentFabrics/{agentFabricName}/members": {
@@ -619,6 +679,68 @@
           "final-state-via": "azure-async-operation"
         },
         "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "Members_Update",
+        "tags": [
+          "Members"
+        ],
+        "description": "Update a Member",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "agentFabricName",
+            "in": "path",
+            "description": "The name of the AgentFabric",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "memberName",
+            "in": "path",
+            "description": "The name of the Member",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MemberUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Member"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Members_Update": {
+            "$ref": "./examples/Members_Update.json"
+          }
+        }
       },
       "delete": {
         "operationId": "Members_Delete",
@@ -929,8 +1051,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -946,7 +1079,11 @@
           "PolicyGroups_Delete": {
             "$ref": "./examples/PolicyGroups_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     }
   },
@@ -1863,7 +2000,11 @@
       "properties": {
         "workload": {
           "$ref": "#/definitions/WorkloadBase",
-          "description": "The workload configuration of the member."
+          "description": "The workload configuration of the member. Set at creation and immutable\nthereafter; to change the workload, delete and recreate the member.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
@@ -1871,6 +2012,25 @@
           "readOnly": true
         }
       }
+    },
+    "MemberPropertiesUpdate": {
+      "type": "object",
+      "description": "Member properties"
+    },
+    "MemberUpdate": {
+      "type": "object",
+      "description": "Member resource",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/MemberPropertiesUpdate",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
     },
     "NetworkSecurityPolicyBase": {
       "type": "object",
@@ -2130,7 +2290,11 @@
       "enum": [
         "Succeeded",
         "Failed",
-        "Canceled"
+        "Canceled",
+        "Provisioning",
+        "Updating",
+        "Deleting",
+        "Accepted"
       ],
       "x-ms-enum": {
         "name": "ProvisioningState",
@@ -2150,6 +2314,26 @@
             "name": "Canceled",
             "value": "Canceled",
             "description": "Resource provisioning was canceled"
+          },
+          {
+            "name": "Provisioning",
+            "value": "Provisioning",
+            "description": "The resource create request has been accepted; provisioning is in progress."
+          },
+          {
+            "name": "Updating",
+            "value": "Updating",
+            "description": "The resource update request has been accepted; the update is in progress."
+          },
+          {
+            "name": "Deleting",
+            "value": "Deleting",
+            "description": "The resource delete request has been accepted; deletion is in progress."
+          },
+          {
+            "name": "Accepted",
+            "value": "Accepted",
+            "description": "The long-running operation has been accepted and is not yet complete."
           }
         ]
       },

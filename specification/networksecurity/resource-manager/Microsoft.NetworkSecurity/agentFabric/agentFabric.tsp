@@ -29,6 +29,18 @@ union ProvisioningState {
 
   /** Resource provisioning was canceled */
   Canceled: "Canceled",
+
+  /** The resource create request has been accepted; provisioning is in progress. */
+  Provisioning: "Provisioning",
+
+  /** The resource update request has been accepted; the update is in progress. */
+  Updating: "Updating",
+
+  /** The resource delete request has been accepted; deletion is in progress. */
+  Deleting: "Deleting",
+
+  /** The long-running operation has been accepted and is not yet complete. */
+  Accepted: "Accepted",
 }
 
 /** AgentFabric properties */
@@ -60,7 +72,7 @@ interface AgentFabrics {
   get is ArmResourceRead<AgentFabric>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<AgentFabric>;
   update is ArmTagsPatchSync<AgentFabric>;
-  delete is ArmResourceDeleteSync<AgentFabric>;
+  delete is ArmResourceDeleteWithoutOkAsync<AgentFabric>;
   listByResourceGroup is ArmResourceListByParent<AgentFabric>;
   listBySubscription is ArmListBySubscription<AgentFabric>;
 }
@@ -196,7 +208,11 @@ model Member is ProxyResource<MemberProperties> {
 
 /** Member properties */
 model MemberProperties {
-  /** The workload configuration of the member. */
+  /**
+   * The workload configuration of the member. Set at creation and immutable
+   * thereafter; to change the workload, delete and recreate the member.
+   */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   workload?: WorkloadBase;
 
   /** The provisioning state of the resource. */
@@ -208,6 +224,7 @@ model MemberProperties {
 interface Members {
   get is ArmResourceRead<Member>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Member>;
+  update is ArmResourcePatchSync<Member, MemberProperties>;
   delete is ArmResourceDeleteSync<Member>;
   listByParent is ArmResourceListByParent<Member>;
 }
@@ -792,7 +809,29 @@ interface PolicyGroups {
   get is ArmResourceRead<PolicyGroup>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<PolicyGroup>;
   update is ArmTagsPatchSync<PolicyGroup>;
-  delete is ArmResourceDeleteSync<PolicyGroup>;
+  delete is ArmResourceDeleteWithoutOkAsync<PolicyGroup>;
   listByResourceGroup is ArmResourceListByParent<PolicyGroup>;
   listBySubscription is ArmListBySubscription<PolicyGroup>;
 }
+
+@armResourceOperations
+interface OperationStatus {
+  @doc("Returns the current status of an async operation.")
+  @autoRoute
+  get(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+
+    @path
+    @segment("providers")
+    @doc("The provider namespace (this parameter will not show up in operations).")
+    provider: "Microsoft.NetworkSecurity",
+
+    ...LocationParameter,
+    ...Azure.ResourceManager.Foundations.OperationIdParameter,
+  ):
+    | ArmResponse<Azure.ResourceManager.CommonTypes.OperationStatusResult>
+    | ErrorResponse;
+}
+
+@@segment(OperationStatus.get::parameters.operationId, "operationStatuses");
