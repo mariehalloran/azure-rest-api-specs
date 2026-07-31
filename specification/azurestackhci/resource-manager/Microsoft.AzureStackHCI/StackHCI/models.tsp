@@ -10146,6 +10146,10 @@ model DiskReportedProperties {
   @visibility(Lifecycle.Read)
   sizeInBytes?: string;
 
+  /** Storage type of the disk. */
+  @visibility(Lifecycle.Read)
+  storageType?: DiskStorageType;
+
   /** Type of the disk. */
   @visibility(Lifecycle.Read)
   diskType?: DiskType;
@@ -10198,6 +10202,20 @@ union DiskType {
 
   /** Other disk type. */
   Other: "Other",
+}
+
+/**
+ * Storage type of the disk.
+ */
+@added(Versions.v2026_03_15_preview)
+union DiskStorageType {
+  string,
+
+  /** SAN storage. */
+  SAN: "SAN",
+
+  /** Storage Spaces Direct storage. */
+  S2D: "S2D",
 }
 
 /**
@@ -13151,7 +13169,7 @@ model EdgeMachineDeploymentData {
   /**
    * Storage type for the edge machine node.
    */
-  storageType?: NodeStorageType;
+  storageType: NodeStorageType;
 
   /**
    * iSCSI configuration for the edge machine.
