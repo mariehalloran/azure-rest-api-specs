@@ -36,6 +36,9 @@ These settings apply only when `--tag=package-preview-2026-06` is specified on t
 ```yaml $(tag) == 'package-preview-2026-06'
 input-file:
   - preview/2026-06-06-preview/businessCases.json
+suppressions:
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    reason: The getReportDownloadUrl action was intentionally removed in the 2026-06-06-preview version, where report generation is modeled as a separate ARM resource (reportArmId/reportsRequired). The operation remains available in prior preview versions (package-preview-2025-09 and earlier).
 ```
 
 ### Tag: package-preview-2025-09
