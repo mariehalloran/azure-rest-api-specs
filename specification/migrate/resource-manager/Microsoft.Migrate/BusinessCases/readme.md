@@ -29,15 +29,6 @@ openapi-type: arm
 tag: package-preview-2026-06
 ```
 
-## Suppression
-
-```yaml
-directive:
-  - suppress: MISSING_APIS_IN_DEFAULT_TAG
-    from: businessCases.json
-    reason: The getReportDownloadUrl action was intentionally removed in the default (latest) 2026-06-06-preview version, where report generation is modeled as a separate ARM resource (reportArmId/reportsRequired). The operation remains available in prior preview versions (package-preview-2025-09 and earlier).
-```
-
 ### Tag: package-preview-2026-06
 
 These settings apply only when `--tag=package-preview-2026-06` is specified on the command line.
