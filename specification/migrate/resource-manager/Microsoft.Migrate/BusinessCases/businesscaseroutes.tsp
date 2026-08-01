@@ -32,6 +32,7 @@ interface BusinessCaseOperations {
   #suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model" "Download URL POST body is empty."
   @summary("Get download URL for the business case report.")
   @doc("Get the URL for downloading the business case in a report format.")
+  @removed(BusinessCaseApiVersions.v2026_06_06_preview)
   getReportDownloadUrl is ArmResourceActionAsync<
     BusinessCase,
     {},

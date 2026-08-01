@@ -55,9 +55,11 @@ model BusinessCaseProperties is AzureResourceProperties {
   @visibility(Lifecycle.Read)
   @identifiers(#[])
   @added(BusinessCaseApiVersions.v2025_09_09_preview)
+  @removed(BusinessCaseApiVersions.v2026_06_06_preview)
   assessments?: Assessments[];
 
   @doc("Business case settings.")
+  @removed(BusinessCaseApiVersions.v2026_06_06_preview)
   settings?: Settings;
 
   @doc("Business case state.")
@@ -71,11 +73,22 @@ model BusinessCaseProperties is AzureResourceProperties {
 
   @doc("Gets the business case scope.")
   @visibility(Lifecycle.Read)
+  @removed(BusinessCaseApiVersions.v2026_06_06_preview)
   businessCaseScope?: BusinessCaseScope;
 
   @doc("Arm id of dependent partner assessments.")
   @added(BusinessCaseApiVersions.v2025_09_09_preview)
-  dependentAssessmentIds?: string[];
+  @madeRequired(BusinessCaseApiVersions.v2026_06_06_preview)
+  dependentAssessmentIds: string[];
+
+  @doc("Whether report generation is requested after the business case completes.")
+  @added(BusinessCaseApiVersions.v2026_06_06_preview)
+  reportsRequired?: boolean;
+
+  @doc("ARM resource ID of the generated report.")
+  @visibility(Lifecycle.Read)
+  @added(BusinessCaseApiVersions.v2026_06_06_preview)
+  reportArmId?: string;
 }
 
 @added(BusinessCaseApiVersions.v2025_09_09_preview)
