@@ -18085,6 +18085,42 @@
         ]
       }
     },
+    "ConfidentialComputingModeStatus": {
+      "type": "string",
+      "description": "Confidential computing status of a GPU, reporting either that the GPU cannot support confidential computing or the mode it is currently in.",
+      "enum": [
+        "GpuNotCapable",
+        "Off",
+        "DevTools",
+        "On"
+      ],
+      "x-ms-enum": {
+        "name": "ConfidentialComputingModeStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "GpuNotCapable",
+            "value": "GpuNotCapable",
+            "description": "The GPU does not support confidential computing."
+          },
+          {
+            "name": "Off",
+            "value": "Off",
+            "description": "Confidential computing is disabled on the GPU."
+          },
+          {
+            "name": "DevTools",
+            "value": "DevTools",
+            "description": "Confidential computing is enabled on the GPU in developer tools mode, which permits debugging and profiling tools that are blocked when confidential computing is fully enabled."
+          },
+          {
+            "name": "On",
+            "value": "On",
+            "description": "Confidential computing is enabled on the GPU."
+          }
+        ]
+      }
+    },
     "ConfidentialVmIntent": {
       "type": "string",
       "description": "Captures the customer's intent to enable or disable Confidential Virtual Machine (CVM) support on the cluster, either during initial deployment (Day-0) or at a later stage (Day-N).",
@@ -21587,6 +21623,11 @@
         "partitionable": {
           "type": "boolean",
           "description": "Indicates whether the GPU is partitionable.",
+          "readOnly": true
+        },
+        "confidentialComputingModeStatus": {
+          "$ref": "#/definitions/ConfidentialComputingModeStatus",
+          "description": "The confidential computing status of the GPU. Reports GpuNotCapable when the GPU does not support confidential computing, otherwise the mode the GPU is currently in.",
           "readOnly": true
         },
         "hostDriverVersion": {
