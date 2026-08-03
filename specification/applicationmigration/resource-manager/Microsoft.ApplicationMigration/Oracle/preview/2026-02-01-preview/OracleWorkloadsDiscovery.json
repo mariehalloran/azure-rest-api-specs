@@ -1635,10 +1635,8 @@
         "Unknown",
         "STANDALONE",
         "RAC",
-        "EXADATA",
-        "DATAGUARD",
-        "AUTONOMOUS",
-        "MULTITENANT"
+        "RAC_ONE_NODE",
+        "ORACLE_RESTART"
       ],
       "x-ms-enum": {
         "name": "DataBasePlatformType",
@@ -1660,24 +1658,50 @@
             "description": "Real Application Cluster (RAC) ."
           },
           {
-            "name": "EXADATA",
-            "value": "EXADATA",
-            "description": "Oracle Exadata ."
+            "name": "RAC_ONE_NODE",
+            "value": "RAC_ONE_NODE",
+            "description": "Real Application Cluster One Node (RAC ONE NODE) ."
           },
           {
-            "name": "DATAGUARD",
-            "value": "DATAGUARD",
-            "description": "Oracle Data Guard ."
+            "name": "ORACLE_RESTART",
+            "value": "ORACLE_RESTART",
+            "description": "Oracle Restart (Single Instance High Availability)."
+          }
+        ]
+      }
+    },
+    "DatabaseInfrastructureType": {
+      "type": "string",
+      "description": "Represents the infrastructure type of the database. i.e standard, exadata, autonomous.",
+      "enum": [
+        "Unknown",
+        "STANDARD",
+        "EXADATA",
+        "AUTONOMOUS"
+      ],
+      "x-ms-enum": {
+        "name": "DatabaseInfrastructureType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Unknown ."
+          },
+          {
+            "name": "STANDARD",
+            "value": "STANDARD",
+            "description": "Oracle running on standard infrastructure\n(VMware, Hyper-V, Physical, Azure VM, AWS, OCI Compute, etc.)"
+          },
+          {
+            "name": "EXADATA",
+            "value": "EXADATA",
+            "description": "Oracle running on Exadata infrastructure."
           },
           {
             "name": "AUTONOMOUS",
             "value": "AUTONOMOUS",
-            "description": "Oracle Autonomous ."
-          },
-          {
-            "name": "MULTITENANT",
-            "value": "MULTITENANT",
-            "description": "Oracle Multitenant ."
+            "description": "Oracle Autonomous Database."
           }
         ]
       }
@@ -2858,7 +2882,18 @@
         },
         "dbPlatformType": {
           "$ref": "#/definitions/DataBasePlatformType",
-          "description": "The database platform type, i.e standlone, RAC, EXADATA, DATA_GUARD, AUTONOMOUS, MULTITENANT."
+          "description": "The database platform type, i.e standlone, RAC."
+        },
+        "dbInfrastructureType": {
+          "$ref": "#/definitions/DatabaseInfrastructureType",
+          "description": "The database infrastructure type, i.e standard, exadata, autonomous."
+        },
+        "dbFeatures": {
+          "type": "array",
+          "description": "The list of database features, i.e. partitioning, olap, spatial, inmemory, asm, dataguard, multitenant etc.",
+          "items": {
+            "type": "string"
+          }
         },
         "memSgaSize": {
           "type": "integer",
@@ -3139,7 +3174,18 @@
         },
         "dbPlatformType": {
           "$ref": "#/definitions/DataBasePlatformType",
-          "description": "The database platform type, i.e standlone, RAC, EXADATA, DATA_GUARD, AUTONOMOUS, MULTITENANT."
+          "description": "The database platform type, i.e standlone, RAC."
+        },
+        "dbInfrastructureType": {
+          "$ref": "#/definitions/DatabaseInfrastructureType",
+          "description": "The database infrastructure type, i.e standard, exadata, autonomous."
+        },
+        "dbFeatures": {
+          "type": "array",
+          "description": "The list of database features, i.e. partitioning, olap, spatial, inmemory, asm, dataguard, multitenant etc.",
+          "items": {
+            "type": "string"
+          }
         },
         "memSgaSize": {
           "type": "integer",

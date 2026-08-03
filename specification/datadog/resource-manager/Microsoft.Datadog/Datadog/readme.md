@@ -1,0 +1,140 @@
+# Datadog
+
+> see https://aka.ms/autorest
+
+This is the AutoRest configuration file for Datadog.
+
+---
+
+## Getting Started
+
+To build the SDK for Datadog, simply [Install AutoRest](https://aka.ms/autorest/install) and in this folder, run:
+
+> `autorest`
+
+To see additional help and options, run:
+
+> `autorest --help`
+
+---
+
+## Configuration
+
+### Basic Information
+
+These are the global settings for the Datadog API.
+
+```yaml
+title: DatadogManagementClient
+openapi-type: arm
+openapi-subtype: rpaas
+tag: package-2025-06
+```
+
+### Tag: package-2025-12-preview
+
+These settings apply only when `--tag=package-2025-12-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2025-12-preview'
+input-file:
+  - preview/2025-12-26-preview/swagger.json
+```
+
+### Tag: package-2025-11-preview
+
+These settings apply only when `--tag=package-2025-11-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2025-11-preview'
+input-file:
+  - preview/2025-11-03-preview/swagger.json
+```
+
+### Tag: package-2025-06
+
+These settings apply only when `--tag=package-2025-06` is specified on the command line.
+
+```yaml $(tag) == 'package-2025-06'
+input-file:
+  - stable/2025-06-11/swagger.json
+```
+
+### Tag: package-2025-01
+
+These settings apply only when `--tag=package-2025-01` is specified on the command line.
+
+```yaml $(tag) == 'package-2025-01'
+input-file:
+  - stable/2025-01-07/swagger.json
+```
+
+### Tag: package-2024-03
+
+These settings apply only when `--tag=package-2024-03` is specified on the command line.
+
+```yaml $(tag) == 'package-2024-03'
+input-file:
+  - stable/2024-03-01/swagger.json
+```
+
+### Tag: package-2023-10
+
+These settings apply only when `--tag=package-2023-10` is specified on the command line.
+
+```yaml $(tag) == 'package-2023-10'
+input-file:
+  - stable/2023-10-20/swagger.json
+```
+
+### Tag: package-2023-07
+
+These settings apply only when `--tag=package-2023-07` is specified on the command line.
+
+```yaml $(tag) == 'package-2023-07'
+input-file:
+  - stable/2023-07-07/swagger.json
+```
+
+### Tag: package-2021-03
+
+These settings apply only when `--tag=package-2021-03` is specified on the command line.
+
+```yaml $(tag) == 'package-2021-03'
+input-file:
+  - stable/2021-03-01/swagger.json
+```
+
+### Tag: package-2020-02-01-preview
+
+These settings apply only when `--tag=package-2020-02-01-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2020-02-01-preview'
+input-file:
+  - preview/2020-02-01-preview/swagger.json
+```
+
+### Tag: package-2022-06-01
+
+These settings apply only when `--tag=package-2022-06-01` is specified on the command line.
+
+```yaml $(tag) == 'package-2022-06-01'
+input-file:
+  - stable/2022-06-01/swagger.json
+```
+
+### Tag: package-2022-08-01
+
+These settings apply only when `--tag=package-2022-08-01` is specified on the command line.
+
+```yaml $(tag) == 'package-2022-08-01'
+input-file:
+  - stable/2022-08-01/swagger.json
+```
+
+### Tag: package-2023-01-01
+
+These settings apply only when `--tag=package-2023-01-01` is specified on the command line.
+
+```yaml $(tag) == 'package-2023-01-01'
+input-file:
+  - stable/2023-01-01/swagger.json
+```

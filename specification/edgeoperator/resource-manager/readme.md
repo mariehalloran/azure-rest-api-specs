@@ -27,25 +27,11 @@ These are the global settings for the edgeoperator.
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2026-06-01-preview
 ```
 
-### Tag: package-2026-06-01-preview
+Each service under `Microsoft.EdgeOperator` is configured by its own `readme.md`:
 
-These settings apply only when `--tag=package-2026-06-01-preview` is specified on the command line.
-
-```yaml $(tag) == 'package-2026-06-01-preview'
-input-file:
-  - Microsoft.EdgeOperator/BillingConfigurations/preview/2026-06-01-preview/edgeoperator.json
-```
-
-### Suppressions
-
-```yaml
-suppressions:
-  - code: AllProxyResourcesShouldHaveDelete
-    where: $.definitions.BillingConfiguration
-    reason: BillingConfiguration is a singleton resource that intentionally does not support DELETE. The active configuration can only be replaced via PUT /billingConfigurations/default.
-```
+- [BillingConfigurations](Microsoft.EdgeOperator/BillingConfigurations/readme.md)
+- [SystemReadiness](Microsoft.EdgeOperator/SystemReadiness/readme.md)
 
 ---
