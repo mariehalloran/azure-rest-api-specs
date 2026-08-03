@@ -1,6 +1,3 @@
-parameters:
-  "service-dir":
-    default: "sdk/platformvalidation"
 emit:
   - "@azure-tools/typespec-autorest"
 options:
@@ -11,18 +8,6 @@ options:
     azure-resource-provider-folder: "resource-manager"
     output-file: "{version-status}/{version}/platformvalidation.json"
     arm-types-dir: "{project-root}/../../../../common-types/resource-management"
-  # ----- SDK emission (aligned with the Microsoft.PlatformValidation ARM RP) -----
-  # Invoked per-language by tsp-client in the SDK repos; not in `emit` above
-  # so `tsp compile` in the spec repo still produces only swagger.
-  "@azure-tools/typespec-python":
-    emitter-output-dir: "{output-dir}/{service-dir}/azure-mgmt-platformvalidation"
-    namespace: "azure.mgmt.platformvalidation"
-    flavor: "azure"
-    generate-test: true
-    generate-sample: true
-  "@azure-typespec/http-client-csharp-mgmt":
-    emitter-output-dir: "{output-dir}/{service-dir}/Azure.ResourceManager.PlatformValidation"
-    namespace: "Azure.ResourceManager.PlatformValidation"
 linter:
   extends:
     - "@azure-tools/typespec-azure-rulesets/resource-manager"

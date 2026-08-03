@@ -9,7 +9,6 @@ import "./validationExecutionPlan.tsp";
 import "./validationExecutionPlanRun.tsp";
 import "./validationTestRun.tsp";
 import "./validationTestCatalog.tsp";
-import "./client.tsp";
 
 using TypeSpec.Versioning;
 using Azure.ResourceManager;
