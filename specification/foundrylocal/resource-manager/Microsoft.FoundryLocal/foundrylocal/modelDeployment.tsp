@@ -333,7 +333,7 @@ union EndpointExposure {
 @doc("External endpoint (Gateway API) configuration for the deployment.")
 model EndpointConfig {
   @doc("Exposure mode for the deployment's inference endpoint. Cluster default is `internal` if omitted.")
-  exposure?: EndpointExposure = EndpointExposure.Internal;
+  exposure?: EndpointExposure;
 
   @doc("Hostname for routing.")
   @maxLength(253)

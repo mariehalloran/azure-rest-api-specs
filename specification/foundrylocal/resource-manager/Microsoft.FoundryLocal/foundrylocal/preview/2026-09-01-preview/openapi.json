@@ -883,35 +883,8 @@
       "description": "External endpoint (Gateway API) configuration for the deployment.",
       "properties": {
         "exposure": {
-          "type": "string",
-          "description": "Exposure mode for the deployment's inference endpoint. Cluster default is `internal` if omitted.",
-          "default": "internal",
-          "enum": [
-            "internal",
-            "external",
-            "none"
-          ],
-          "x-ms-enum": {
-            "name": "EndpointExposure",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "Internal",
-                "value": "internal",
-                "description": "Route through the in-cluster Gateway (reachable within the cluster only)."
-              },
-              {
-                "name": "External",
-                "value": "external",
-                "description": "Route through a LoadBalancer Gateway (externally reachable)."
-              },
-              {
-                "name": "None",
-                "value": "none",
-                "description": "No Gateway route; a ClusterIP Service only."
-              }
-            ]
-          }
+          "$ref": "#/definitions/EndpointExposure",
+          "description": "Exposure mode for the deployment's inference endpoint. Cluster default is `internal` if omitted."
         },
         "host": {
           "type": "string",
