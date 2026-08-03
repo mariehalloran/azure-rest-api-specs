@@ -1,0 +1,24 @@
+{
+  "parameters": {
+    "api-version": "2026-09-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg1",
+    "cloudPcDelegatedMsiName": "Contoso",
+    "body": {}
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Windows365/cloudPcDelegatedMsis/Contoso",
+        "name": "Contoso",
+        "type": "Microsoft.Windows365/cloudPcDelegatedMsis",
+        "location": "centralus",
+        "properties": {
+          "provisioningState": "Succeeded"
+        }
+      }
+    }
+  },
+  "operationId": "CloudPcDelegatedMsi_Update",
+  "title": "Update a Cloud PC delegated managed identity"
+}
