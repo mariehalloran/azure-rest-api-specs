@@ -28,7 +28,7 @@ These are the global settings for the sovereign.
 title: Microsoft.Sovereign
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-2026-03-15-preview
+tag: package-2026-07-31-preview
 ```
 
 ### Tag: package-2023-09-28-preview
@@ -80,6 +80,28 @@ These settings apply only when `--tag=package-2026-03-15-preview` is specified o
 ```yaml $(tag) == 'package-2026-03-15-preview'
 input-file:
   - preview/2026-03-15-preview/sovereign.json
+suppressions:
+  - code: AvoidAdditionalProperties
+    from: sovereign.json
+    where: $.definitions.SovereignViewPolicyInitiativeDetail.properties.assignmentParameters
+    reason: Parameters vary based on the selected policy initiatives.
+  - code: GuidUsage
+    from: sovereign.json
+    where:
+      - $.definitions["SovereignViewSubscriptionScope"].properties.id.format
+      - $.definitions["Azure.Core.uuid"].format
+    reason: Subscription Ids are uuids.
+```
+
+---
+
+### Tag: package-2026-07-31-preview
+
+These settings apply only when `--tag=package-2026-07-31-preview` is specified on the command line.
+
+```yaml $(tag) == 'package-2026-07-31-preview'
+input-file:
+  - preview/2026-07-31-preview/sovereign.json
 suppressions:
   - code: AvoidAdditionalProperties
     from: sovereign.json
