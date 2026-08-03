@@ -1641,6 +1641,34 @@
       ],
       "x-ms-discriminator-value": "AccessKey"
     },
+    "BlobAccessPointAzureNetAppFilesSourceProperties": {
+      "type": "object",
+      "description": "An Azure NetApp Files backing source.",
+      "properties": {
+        "connection": {
+          "$ref": "#/definitions/BlobAccessPointConnectionProperties",
+          "description": "Details for connecting to the backing data source.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthProperties",
+          "description": "Details for authenticating to the backing data source."
+        }
+      },
+      "required": [
+        "connection",
+        "auth"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointSourceProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "Azure_NetApp_Files"
+    },
     "BlobAccessPointConfiguration": {
       "type": "object",
       "description": "A BlobAccessPointConfiguration is a tracked ARM resource modeled as a sub-resource of a Storage Account.",
@@ -1917,6 +1945,34 @@
         ]
       }
     },
+    "BlobAccessPointDellOneFsSourceProperties": {
+      "type": "object",
+      "description": "A Dell OneFS backing source.",
+      "properties": {
+        "connection": {
+          "$ref": "#/definitions/BlobAccessPointConnectionProperties",
+          "description": "Details for connecting to the backing data source.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthProperties",
+          "description": "Details for authenticating to the backing data source."
+        }
+      },
+      "required": [
+        "connection",
+        "auth"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointSourceProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "Dell_OneFS"
+    },
     "BlobAccessPointEndpointConnectionProperties": {
       "type": "object",
       "description": "A direct endpoint connection.",
@@ -1966,6 +2022,62 @@
         }
       ],
       "x-ms-discriminator-value": "Endpoint"
+    },
+    "BlobAccessPointGenericS3SourceProperties": {
+      "type": "object",
+      "description": "Another S3-compatible backing source.",
+      "properties": {
+        "connection": {
+          "$ref": "#/definitions/BlobAccessPointConnectionProperties",
+          "description": "Details for connecting to the backing data source.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthProperties",
+          "description": "Details for authenticating to the backing data source."
+        }
+      },
+      "required": [
+        "connection",
+        "auth"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointSourceProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "S3_Compatible"
+    },
+    "BlobAccessPointNetAppOntapSourceProperties": {
+      "type": "object",
+      "description": "A NetApp ONTAP backing source.",
+      "properties": {
+        "connection": {
+          "$ref": "#/definitions/BlobAccessPointConnectionProperties",
+          "description": "Details for connecting to the backing data source.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthProperties",
+          "description": "Details for authenticating to the backing data source."
+        }
+      },
+      "required": [
+        "connection",
+        "auth"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointSourceProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "NetApp_ONTAP"
     },
     "BlobAccessPointPrivateLinkConnectionProperties": {
       "type": "object",
@@ -2181,33 +2293,16 @@
     },
     "BlobAccessPointSourceProperties": {
       "type": "object",
-      "description": "Information about the non-Azure S3-compatible data source exposed through a Blob Access Point.",
+      "description": "Information about the data source exposed through a Blob Access Point.",
       "properties": {
         "sourceType": {
           "$ref": "#/definitions/BlobAccessPointSourceType",
-          "description": "The type of the backing S3-compatible data source.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "connection": {
-          "$ref": "#/definitions/BlobAccessPointConnectionProperties",
-          "description": "Details for connecting to the backing data source.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
-        },
-        "auth": {
-          "$ref": "#/definitions/BlobAccessPointRemoteAuthProperties",
-          "description": "Details for authenticating to the backing data source."
+          "description": "The source type. This value determines the remaining shape of the source object."
         }
       },
+      "discriminator": "sourceType",
       "required": [
-        "sourceType",
-        "connection",
-        "auth"
+        "sourceType"
       ]
     },
     "BlobAccessPointSourceType": {

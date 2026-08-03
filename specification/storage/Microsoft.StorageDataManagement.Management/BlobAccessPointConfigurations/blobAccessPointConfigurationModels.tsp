@@ -197,18 +197,62 @@ model BlobAccessPointAccessKeyAuthProperties
 }
 
 @added(Versions.v2026_09_01)
-@doc("Information about the non-Azure S3-compatible data source exposed through a Blob Access Point.")
+@discriminator("sourceType")
+@doc("Information about the data source exposed through a Blob Access Point.")
 model BlobAccessPointSourceProperties {
-  @visibility(Lifecycle.Create, Lifecycle.Read)
-  @doc("The type of the backing S3-compatible data source.")
+  @doc("The source type. This value determines the remaining shape of the source object.")
   sourceType: BlobAccessPointSourceType;
+}
 
+@added(Versions.v2026_09_01)
+@doc("Properties shared by every non-Azure S3-compatible backing source.")
+model BlobAccessPointS3CompatibleSourceProperties {
   @visibility(Lifecycle.Create, Lifecycle.Read)
   @doc("Details for connecting to the backing data source.")
   connection: BlobAccessPointConnectionProperties;
 
   @doc("Details for authenticating to the backing data source.")
   auth: BlobAccessPointRemoteAuthProperties;
+}
+
+@added(Versions.v2026_09_01)
+@doc("A NetApp ONTAP backing source.")
+model BlobAccessPointNetAppOntapSourceProperties
+  extends BlobAccessPointSourceProperties {
+  @visibility(Lifecycle.Read)
+  sourceType: BlobAccessPointSourceType.NetApp_ONTAP;
+
+  ...BlobAccessPointS3CompatibleSourceProperties;
+}
+
+@added(Versions.v2026_09_01)
+@doc("An Azure NetApp Files backing source.")
+model BlobAccessPointAzureNetAppFilesSourceProperties
+  extends BlobAccessPointSourceProperties {
+  @visibility(Lifecycle.Read)
+  sourceType: BlobAccessPointSourceType.Azure_NetApp_Files;
+
+  ...BlobAccessPointS3CompatibleSourceProperties;
+}
+
+@added(Versions.v2026_09_01)
+@doc("A Dell OneFS backing source.")
+model BlobAccessPointDellOneFsSourceProperties
+  extends BlobAccessPointSourceProperties {
+  @visibility(Lifecycle.Read)
+  sourceType: BlobAccessPointSourceType.Dell_OneFS;
+
+  ...BlobAccessPointS3CompatibleSourceProperties;
+}
+
+@added(Versions.v2026_09_01)
+@doc("Another S3-compatible backing source.")
+model BlobAccessPointGenericS3SourceProperties
+  extends BlobAccessPointSourceProperties {
+  @visibility(Lifecycle.Read)
+  sourceType: BlobAccessPointSourceType.S3_Compatible;
+
+  ...BlobAccessPointS3CompatibleSourceProperties;
 }
 
 @added(Versions.v2026_09_01)
