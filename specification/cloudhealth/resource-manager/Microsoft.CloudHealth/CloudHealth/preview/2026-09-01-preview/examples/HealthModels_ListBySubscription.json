@@ -12,7 +12,12 @@
           {
             "properties": {
               "provisioningState": "Succeeded",
-              "dataPlaneUri": "https://online-store.eastus.data.healthmodels.azure.com"
+              "dataPlaneUri": "https://online-store.eastus.data.healthmodels.azure.com",
+              "publicNetworkAccess": "Enabled",
+              "dataPlaneIpAllowList": [
+                "203.0.113.0/24",
+                "2001:db8::/32"
+              ]
             },
             "identity": {
               "type": "SystemAssigned",
@@ -39,7 +44,8 @@
           {
             "properties": {
               "provisioningState": "Succeeded",
-              "dataPlaneUri": "https://online-store-staging.eastus.data.healthmodels.azure.com"
+              "dataPlaneUri": "https://online-store-staging.eastus.data.healthmodels.azure.com",
+              "publicNetworkAccess": "Disabled"
             },
             "identity": {
               "type": "UserAssigned",

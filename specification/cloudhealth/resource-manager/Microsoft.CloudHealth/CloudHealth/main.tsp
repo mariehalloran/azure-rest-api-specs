@@ -45,6 +45,9 @@ scalar stringModelResourceName extends string;
 // Regex for all our proxy resource name validations. Up to 260 characters, alphanumeric and hyphens, must start and end with an alphanumeric character
 alias proxyResourceNameRegex = "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$";
 
+@doc("An IP address or IP range in CIDR notation (IPv4 /0-/32 or IPv6 /0-/128).")
+scalar ipAddressOrRange extends string;
+
 @maxLength(4096)
 @doc("String with max length validation of 4096 characters")
 scalar string4096 extends string;
@@ -85,6 +88,27 @@ model HealthModelProperties {
   @visibility(Lifecycle.Read)
   @doc("The data plane endpoint URL for interacting with the health model's data.")
   dataPlaneUri?: url;
+
+  @added(Versions.v2026_09_01_preview)
+  @doc("Controls public-network access to the data plane only; Default `Disabled` value denies all data-plane requests.")
+  publicNetworkAccess?: PublicNetworkAccess;
+
+  @added(Versions.v2026_09_01_preview)
+  @doc("IP addresses or CIDR ranges allowed to reach the data plane when `publicNetworkAccess` is `Enabled`. Empty array means all public IPs are allowed when `publicNetworkAccess` is `Enabled`.")
+  @maxItems(100)
+  dataPlaneIpAllowList?: ipAddressOrRange[];
+}
+
+@added(Versions.v2026_09_01_preview)
+@doc("Whether requests from the public network are allowed.")
+union PublicNetworkAccess {
+  string,
+
+  @doc("Data plane requests are allowed, subject to `dataPlaneIpAllowList`.")
+  Enabled: "Enabled",
+
+  @doc("All data plane requests are denied.")
+  Disabled: "Disabled",
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "Self-explanatory"
