@@ -209,9 +209,6 @@ model BlobAccessPointSourceProperties {
 
   @doc("Details for authenticating to the backing data source.")
   auth: BlobAccessPointRemoteAuthProperties;
-
-  @doc("The expected bucket owner account ID.")
-  expectedBucketOwner?: string;
 }
 
 @added(Versions.v2026_09_01)
@@ -249,9 +246,6 @@ model BlobAccessPointAccessKeyAuthUpdateProperties
 model BlobAccessPointSourceUpdateProperties {
   @doc("Replacement authentication properties.")
   auth?: BlobAccessPointRemoteAuthUpdateProperties;
-
-  @doc("The expected bucket owner account ID.")
-  expectedBucketOwner?: string;
 }
 
 @added(Versions.v2026_09_01)
