@@ -13,7 +13,7 @@ using Azure.ResourceManager;
 
 namespace Microsoft.Storage;
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("The state of a Blob Access Point configuration.")
 union BlobAccessPointConfigurationState {
   @doc("The Blob Access Point configuration is active.")
@@ -25,7 +25,7 @@ union BlobAccessPointConfigurationState {
   string,
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("The status of the most recent connection test.")
 union BlobAccessPointConnectionTestStatus {
   @doc("The connection test succeeded.")
@@ -37,7 +37,7 @@ union BlobAccessPointConnectionTestStatus {
   string,
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("The type of the non-Azure S3-compatible data source exposed through the Blob Access Point.")
 union BlobAccessPointSourceType {
   @doc("NetApp ONTAP.")
@@ -55,7 +55,7 @@ union BlobAccessPointSourceType {
   string,
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("The connection type used to reach a non-Azure backing data source.")
 union BlobAccessPointConnectionType {
   @doc("Connect directly to a public or otherwise routable endpoint.")
@@ -67,7 +67,7 @@ union BlobAccessPointConnectionType {
   string,
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("The format used by a Private Link identifier.")
 union BlobAccessPointPrivateLinkIdType {
   @doc("The identifier is an Azure resource ID.")
@@ -79,7 +79,7 @@ union BlobAccessPointPrivateLinkIdType {
   string,
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("TLS certificate verification behavior.")
 union BlobAccessPointTlsVerification {
   @doc("Verify the TLS certificate chain.")
@@ -91,7 +91,7 @@ union BlobAccessPointTlsVerification {
   string,
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("How Azure Storage authenticates to a non-Azure S3-compatible source.")
 union BlobAccessPointRemoteAuthType {
   @doc("Authenticate with an S3 access key and secret access key.")
@@ -100,7 +100,7 @@ union BlobAccessPointRemoteAuthType {
   string,
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @discriminator("connectionType")
 @doc("Details for connecting to a backing data source.")
 model BlobAccessPointConnectionProperties {
@@ -108,7 +108,7 @@ model BlobAccessPointConnectionProperties {
   connectionType: BlobAccessPointConnectionType;
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("A direct endpoint connection.")
 model BlobAccessPointEndpointConnectionProperties
   extends BlobAccessPointConnectionProperties {
@@ -124,7 +124,7 @@ model BlobAccessPointEndpointConnectionProperties
   tlsVerification?: BlobAccessPointTlsVerification = BlobAccessPointTlsVerification.Perform;
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("A connection established through Azure Private Link.")
 model BlobAccessPointPrivateLinkConnectionProperties
   extends BlobAccessPointConnectionProperties {
@@ -164,7 +164,7 @@ model BlobAccessPointPrivateLinkConnectionProperties
   privateEndpointName?: string;
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @discriminator("authType")
 @doc("Authentication properties for a non-Azure S3-compatible source.")
 model BlobAccessPointRemoteAuthProperties {
@@ -172,7 +172,7 @@ model BlobAccessPointRemoteAuthProperties {
   authType: BlobAccessPointRemoteAuthType;
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("S3 access-key authentication properties.")
 model BlobAccessPointAccessKeyAuthProperties
   extends BlobAccessPointRemoteAuthProperties {
@@ -196,7 +196,7 @@ model BlobAccessPointAccessKeyAuthProperties
   hostOverride?: string;
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("Information about the non-Azure S3-compatible data source exposed through a Blob Access Point.")
 model BlobAccessPointSourceProperties {
   @visibility(Lifecycle.Create, Lifecycle.Read)
@@ -214,7 +214,7 @@ model BlobAccessPointSourceProperties {
   expectedBucketOwner?: string;
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @discriminator("authType")
 @doc("Mutable authentication properties for a non-Azure S3-compatible source.")
 model BlobAccessPointRemoteAuthUpdateProperties {
@@ -222,7 +222,7 @@ model BlobAccessPointRemoteAuthUpdateProperties {
   authType: BlobAccessPointRemoteAuthType;
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("Mutable S3 access-key authentication properties.")
 model BlobAccessPointAccessKeyAuthUpdateProperties
   extends BlobAccessPointRemoteAuthUpdateProperties {
@@ -244,7 +244,7 @@ model BlobAccessPointAccessKeyAuthUpdateProperties
   hostOverride?: string;
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("Mutable properties of a Blob Access Point source. The source type and its connection details are fixed when the configuration is created and cannot be changed.")
 model BlobAccessPointSourceUpdateProperties {
   @doc("Replacement authentication properties.")
@@ -254,7 +254,7 @@ model BlobAccessPointSourceUpdateProperties {
   expectedBucketOwner?: string;
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("Properties that can be updated on a Blob Access Point configuration.")
 model BlobAccessPointConfigurationUpdateProperties {
   @doc("The configuration state.")
@@ -268,7 +268,7 @@ model BlobAccessPointConfigurationUpdateProperties {
   source?: BlobAccessPointSourceUpdateProperties;
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("Details of a Blob Access Point configuration.")
 model BlobAccessPointConfigurationProperties {
   @visibility(Lifecycle.Read)
@@ -307,7 +307,7 @@ model BlobAccessPointConfigurationProperties {
   provisioningState?: ProvisioningState;
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("The result of testing a Blob Access Point configuration connection.")
 model BlobAccessPointConnectionTestResponse {
   @doc("The request attempted against the backing data source. Valid values include `List` and `GetBlob`.")
@@ -322,14 +322,14 @@ model BlobAccessPointConnectionTestResponse {
   requestId: string;
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @withVisibility(Lifecycle.Create)
 @doc("The request used to test a proposed Blob Access Point configuration.")
 model BlobAccessPointProposedConnectionTestRequest {
   ...BlobAccessPointConfigurationProperties;
 }
 
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 @doc("The request used to test an existing Blob Access Point configuration.")
 model BlobAccessPointConnectionTestRequest {
   @doc("The system-generated unique identifier of the Blob Access Point configuration, as returned by a read operation. This value must match the configuration named in the request path, and is required so that a configuration which was deleted and recreated under the same name is not tested by mistake.")

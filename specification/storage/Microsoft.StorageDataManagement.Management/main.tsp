@@ -24,7 +24,7 @@ enum Versions {
   v2025_01_01_preview: "2025-01-01-preview",
   v2025_05_01_preview: "2025-05-01-preview",
   v2025_07_01_preview: "2025-07-01-preview",
-  v2026_06_01: "2026-06-01",
+  v2026_09_01: "2026-09-01",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}
@@ -102,7 +102,7 @@ interface DataShares {
 
 @doc("A BlobAccessPointConfiguration is a tracked ARM resource modeled as a sub-resource of a Storage Account.")
 @parentResource(StorageAccount)
-@added(Versions.v2026_06_01)
+@added(Versions.v2026_09_01)
 model BlobAccessPointConfiguration is TrackedResource<
   BlobAccessPointConfigurationProperties,
   false
@@ -118,15 +118,15 @@ model BlobAccessPointConfiguration is TrackedResource<
 @armResourceOperations(BlobAccessPointConfiguration)
 interface BlobAccessPointConfigurations {
   @doc("Get the specified Blob Access Point configuration.")
-  @added(Versions.v2026_06_01)
+  @added(Versions.v2026_09_01)
   get is ArmResourceRead<BlobAccessPointConfiguration>;
 
   @doc("Creates or updates a Blob Access Point configuration.")
-  @added(Versions.v2026_06_01)
+  @added(Versions.v2026_09_01)
   create is ArmResourceCreateOrReplaceAsync<BlobAccessPointConfiguration>;
 
   @doc("Update a Blob Access Point configuration.")
-  @added(Versions.v2026_06_01)
+  @added(Versions.v2026_09_01)
   update is ArmCustomPatchAsync<
     BlobAccessPointConfiguration,
     Azure.ResourceManager.Foundations.ResourceUpdateModel<
@@ -136,15 +136,15 @@ interface BlobAccessPointConfigurations {
   >;
 
   @doc("Delete a Blob Access Point configuration.")
-  @added(Versions.v2026_06_01)
+  @added(Versions.v2026_09_01)
   delete is ArmResourceDeleteWithoutOkAsync<BlobAccessPointConfiguration>;
 
   @doc("List all Blob Access Point configurations in a Storage Account.")
-  @added(Versions.v2026_06_01)
+  @added(Versions.v2026_09_01)
   listByStorageAccount is ArmResourceListByParent<BlobAccessPointConfiguration>;
 
   @doc("Test the connection configured on an existing Blob Access Point configuration.")
-  @added(Versions.v2026_06_01)
+  @added(Versions.v2026_09_01)
   testExistingConnection is ArmResourceActionAsync<
     BlobAccessPointConfiguration,
     BlobAccessPointConnectionTestRequest,
@@ -155,7 +155,7 @@ interface BlobAccessPointConfigurations {
 @armResourceOperations(StorageAccount)
 interface BlobAccessPointConnectionTests {
   @doc("Test a proposed Blob Access Point connection before the configuration is created. The connection is validated in the context of the storage account in the request path, so no Blob Access Point configuration needs to exist beforehand.")
-  @added(Versions.v2026_06_01)
+  @added(Versions.v2026_09_01)
   @action("testBlobAccessPointConfigurationProposedConnection")
   testProposedConnection is ArmResourceActionAsync<
     StorageAccount,
