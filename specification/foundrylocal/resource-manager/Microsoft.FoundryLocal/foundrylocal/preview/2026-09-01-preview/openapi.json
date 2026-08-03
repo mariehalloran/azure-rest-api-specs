@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Microsoft.FoundryLocal management service",
-    "version": "2026-05-01-preview",
+    "version": "2026-09-01-preview",
     "description": "Microsoft.FoundryLocal Resource Provider management API.",
     "x-typespec-generated": [
       {
@@ -880,20 +880,47 @@
     },
     "EndpointConfig": {
       "type": "object",
-      "description": "External endpoint (Kubernetes Ingress) configuration for the deployment.",
+      "description": "External endpoint (Gateway API) configuration for the deployment.",
       "properties": {
-        "enabled": {
-          "type": "boolean",
-          "description": "Whether to provision an Ingress for the deployment. Cluster default is false if omitted."
+        "exposure": {
+          "type": "string",
+          "description": "Exposure mode for the deployment's inference endpoint. Cluster default is `internal` if omitted.",
+          "default": "internal",
+          "enum": [
+            "internal",
+            "external",
+            "none"
+          ],
+          "x-ms-enum": {
+            "name": "EndpointExposure",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "Internal",
+                "value": "internal",
+                "description": "Route through the in-cluster Gateway (reachable within the cluster only)."
+              },
+              {
+                "name": "External",
+                "value": "external",
+                "description": "Route through a LoadBalancer Gateway (externally reachable)."
+              },
+              {
+                "name": "None",
+                "value": "none",
+                "description": "No Gateway route; a ClusterIP Service only."
+              }
+            ]
+          }
         },
         "host": {
           "type": "string",
-          "description": "Hostname for the Ingress.",
+          "description": "Hostname for routing.",
           "maxLength": 253
         },
         "path": {
           "type": "string",
-          "description": "URL path served by the Ingress. Derived from the deployment name if not specified."
+          "description": "URL path served by the endpoint. Derived from the deployment name if not specified."
         },
         "rewritePath": {
           "type": "string",
@@ -903,14 +930,40 @@
           "$ref": "#/definitions/PathType",
           "description": "Path matching type. Cluster default is 'ImplementationSpecific' if omitted."
         },
-        "ingressClassName": {
-          "type": "string",
-          "description": "Name of the IngressClass to use. Cluster default is 'nginx' if omitted."
-        },
         "tls": {
           "$ref": "#/definitions/TlsConfig",
-          "description": "TLS configuration for the Ingress."
+          "description": "TLS configuration for the endpoint."
         }
+      }
+    },
+    "EndpointExposure": {
+      "type": "string",
+      "description": "How the deployment's inference endpoint is exposed via the cluster's Gateway API.",
+      "enum": [
+        "internal",
+        "external",
+        "none"
+      ],
+      "x-ms-enum": {
+        "name": "EndpointExposure",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Internal",
+            "value": "internal",
+            "description": "Route through the in-cluster Gateway (reachable within the cluster only)."
+          },
+          {
+            "name": "External",
+            "value": "external",
+            "description": "Route through a LoadBalancer Gateway (externally reachable)."
+          },
+          {
+            "name": "None",
+            "value": "none",
+            "description": "No Gateway route; a ClusterIP Service only."
+          }
+        ]
       }
     },
     "EnvVar": {
@@ -931,6 +984,16 @@
         "name",
         "value"
       ]
+    },
+    "EppConfig": {
+      "type": "object",
+      "description": "EPP (Endpoint Picker) configuration for inference-aware load balancing. Relevant only when `runtime` is `Vllm`.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether to enable EPP intelligent routing for this deployment. If omitted, the cluster defaults to true when `replicas` > 1 and false when `replicas` == 1."
+        }
+      }
     },
     "KubernetesSecretCredentials": {
       "type": "object",
@@ -1303,6 +1366,11 @@
           "type": "string",
           "format": "date-time",
           "description": "Timestamp of the last transition for this condition."
+        },
+        "observedGeneration": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The value of metadata.generation the condition was set for."
         }
       },
       "required": [
@@ -2309,11 +2377,11 @@
     },
     "TlsConfig": {
       "type": "object",
-      "description": "TLS configuration for the Ingress.",
+      "description": "TLS configuration for the endpoint.",
       "properties": {
         "enabled": {
           "type": "boolean",
-          "description": "Whether TLS is enabled on the Ingress. Cluster default is false if omitted. When true, `endpoint.host` and `secretName` are required."
+          "description": "Whether TLS is enabled on the endpoint. Cluster default is false if omitted. When true, `endpoint.host` and `secretName` are required."
         },
         "secretName": {
           "type": "string",
@@ -2420,6 +2488,10 @@
           "format": "int32",
           "description": "Size of the model weight cache PVC in GiB. Cluster default is 100 if omitted.",
           "minimum": 1
+        },
+        "epp": {
+          "$ref": "#/definitions/EppConfig",
+          "description": "EPP (Endpoint Picker) configuration for inference-aware load balancing."
         },
         "preferences": {
           "type": "object",

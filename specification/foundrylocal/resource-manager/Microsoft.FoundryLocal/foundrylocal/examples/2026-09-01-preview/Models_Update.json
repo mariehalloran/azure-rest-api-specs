@@ -1,11 +1,19 @@
 {
-  "operationId": "Models_Get",
-  "title": "Get a Model",
+  "operationId": "Models_Update",
+  "title": "Update a Model",
   "parameters": {
     "subscriptionId": "00000000-0000-0000-0000-000000000000",
     "resourceGroupName": "rg1",
     "modelName": "my-custom-model",
-    "api-version": "2026-05-01-preview"
+    "api-version": "2026-09-01-preview",
+    "properties": {
+      "tags": {
+        "team": "platform"
+      },
+      "properties": {
+        "description": "Updated description for the custom model."
+      }
+    }
   },
   "responses": {
     "200": {
@@ -17,6 +25,9 @@
         "extendedLocation": {
           "name": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ExtendedLocation/customLocations/my-custom-location",
           "type": "CustomLocation"
+        },
+        "tags": {
+          "team": "platform"
         },
         "properties": {
           "provisioningState": "Succeeded",
@@ -34,35 +45,7 @@
             }
           },
           "displayName": "My Custom Model",
-          "description": "Custom in-house model for production inference.",
-          "publisher": "Contoso",
-          "license": "Apache-2.0",
-          "variants": [
-            {
-              "id": "cpu-fp16",
-              "compute": "Cpu",
-              "executionProvider": "CPUExecutionProvider",
-              "priority": 10
-            }
-          ],
-          "capabilities": {
-            "task": "chat-completion",
-            "contextLength": 4096,
-            "streaming": true
-          },
-          "status": {
-            "phase": "Available",
-            "message": "Model artifact pulled and verified.",
-            "conditions": [
-              {
-                "type": "Available",
-                "status": "True",
-                "reason": "ArtifactReady",
-                "lastTransitionTime": "2026-05-20T00:01:00Z"
-              }
-            ],
-            "lastObservedAt": "2026-05-20T00:01:00Z"
-          }
+          "description": "Updated description for the custom model."
         },
         "systemData": {
           "createdBy": "user@example.com",
@@ -70,8 +53,15 @@
           "createdAt": "2026-05-20T00:00:00.000Z",
           "lastModifiedBy": "user@example.com",
           "lastModifiedByType": "User",
-          "lastModifiedAt": "2026-05-20T00:00:00.000Z"
+          "lastModifiedAt": "2026-05-21T00:00:00.000Z"
         }
+      }
+    },
+    "202": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.FoundryLocal/locations/eastus/operationStatuses/operationId?api-version=2026-09-01-preview",
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.FoundryLocal/locations/eastus/operationStatuses/operationId?api-version=2026-09-01-preview",
+        "Retry-After": 10
       }
     }
   }

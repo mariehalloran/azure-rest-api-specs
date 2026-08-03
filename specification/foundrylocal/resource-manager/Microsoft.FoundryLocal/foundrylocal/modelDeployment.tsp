@@ -107,6 +107,9 @@ model ModelDeploymentCondition {
 
   @doc("Timestamp of the last transition for this condition.")
   lastTransitionTime?: utcDateTime;
+
+  @doc("The value of metadata.generation the condition was set for.")
+  observedGeneration?: int64;
 }
 
 @doc("Identifies the specific model variant the cluster resolved and deployed.")
@@ -176,11 +179,20 @@ union RuntimeType {
   string,
 }
 
+@doc("EPP (Endpoint Picker) configuration for inference-aware load balancing. Relevant only when `runtime` is `Vllm`.")
+model EppConfig {
+  @doc("Whether to enable EPP intelligent routing for this deployment. If omitted, the cluster defaults to true when `replicas` > 1 and false when `replicas` == 1.")
+  enabled?: boolean;
+}
+
 @doc("vLLM-specific runtime configuration. Relevant only when `runtime` is `Vllm`.")
 model VllmConfig {
   @doc("Size of the model weight cache PVC in GiB. Cluster default is 100 if omitted.")
   @minValue(1)
   modelCacheStorageGi?: int32;
+
+  @doc("EPP (Endpoint Picker) configuration for inference-aware load balancing.")
+  epp?: EppConfig;
 
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "vLLM engine arguments are passed through to the runtime; the set of valid keys depends on the vLLM version installed on the cluster, so the schema is intentionally extensible. Pending review at ARM modeling office hours pre-GA."
   @doc("vLLM engine preferences passed through to the runtime, e.g. `max_model_len`, `gpu_memory_utilization`. Keys and accepted values depend on the vLLM version installed on the cluster.")
@@ -293,9 +305,9 @@ union PathType {
   string,
 }
 
-@doc("TLS configuration for the Ingress.")
+@doc("TLS configuration for the endpoint.")
 model TlsConfig {
-  @doc("Whether TLS is enabled on the Ingress. Cluster default is false if omitted. When true, `endpoint.host` and `secretName` are required.")
+  @doc("Whether TLS is enabled on the endpoint. Cluster default is false if omitted. When true, `endpoint.host` and `secretName` are required.")
   enabled?: boolean;
 
   @doc("Name of the Kubernetes TLS secret to use. Required when TLS is enabled.")
@@ -304,16 +316,30 @@ model TlsConfig {
   secretName?: string;
 }
 
-@doc("External endpoint (Kubernetes Ingress) configuration for the deployment.")
-model EndpointConfig {
-  @doc("Whether to provision an Ingress for the deployment. Cluster default is false if omitted.")
-  enabled?: boolean;
+@doc("How the deployment's inference endpoint is exposed via the cluster's Gateway API.")
+union EndpointExposure {
+  @doc("Route through the in-cluster Gateway (reachable within the cluster only).")
+  Internal: "internal",
 
-  @doc("Hostname for the Ingress.")
+  @doc("Route through a LoadBalancer Gateway (externally reachable).")
+  External: "external",
+
+  @doc("No Gateway route; a ClusterIP Service only.")
+  None: "none",
+
+  string,
+}
+
+@doc("External endpoint (Gateway API) configuration for the deployment.")
+model EndpointConfig {
+  @doc("Exposure mode for the deployment's inference endpoint. Cluster default is `internal` if omitted.")
+  exposure?: EndpointExposure = EndpointExposure.Internal;
+
+  @doc("Hostname for routing.")
   @maxLength(253)
   host?: string;
 
-  @doc("URL path served by the Ingress. Derived from the deployment name if not specified.")
+  @doc("URL path served by the endpoint. Derived from the deployment name if not specified.")
   path?: string;
 
   @doc("Target path to rewrite incoming requests to.")
@@ -322,10 +348,7 @@ model EndpointConfig {
   @doc("Path matching type. Cluster default is 'ImplementationSpecific' if omitted.")
   pathType?: PathType;
 
-  @doc("Name of the IngressClass to use. Cluster default is 'nginx' if omitted.")
-  ingressClassName?: string;
-
-  @doc("TLS configuration for the Ingress.")
+  @doc("TLS configuration for the endpoint.")
   tls?: TlsConfig;
 }
 
