@@ -4159,11 +4159,6 @@
           "type": "string",
           "description": "Process type of the machine",
           "readOnly": true
-        },
-        "architecture": {
-          "type": "string",
-          "description": "CPU architecture of the machine, for example amd64 or arm64.",
-          "readOnly": true
         }
       }
     },
@@ -4798,8 +4793,7 @@
       "enum": [
         "Provision",
         "Update",
-        "ReImage",
-        "Reset"
+        "ReImage"
       ],
       "x-ms-enum": {
         "name": "OSOperationType",
@@ -4819,11 +4813,6 @@
             "name": "ReImage",
             "value": "ReImage",
             "description": "OS ReImage operation"
-          },
-          {
-            "name": "Reset",
-            "value": "Reset",
-            "description": "OS Reset operation"
           }
         ]
       }
@@ -5020,8 +5009,7 @@
           "enum": [
             "Provision",
             "Update",
-            "ReImage",
-            "Reset"
+            "ReImage"
           ],
           "x-ms-enum": {
             "name": "OSOperationType",
@@ -5041,11 +5029,6 @@
                 "name": "ReImage",
                 "value": "ReImage",
                 "description": "OS ReImage operation"
-              },
-              {
-                "name": "Reset",
-                "value": "Reset",
-                "description": "OS Reset operation"
               }
             ]
           }
@@ -5121,10 +5104,6 @@
         "azureMachineId": {
           "type": "string",
           "description": "Azure Machine Id of the Ownership voucher"
-        },
-        "architecture": {
-          "type": "string",
-          "description": "CPU architecture of the device, for example amd64 or arm64."
         },
         "error": {
           "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorDetail",
