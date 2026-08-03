@@ -686,6 +686,9 @@ union WitnessType {
 
   /** File-share witness on a local SMB share. */
   FileShare: "FileShare",
+
+  /** Cluster witness disk for RAC SAN clusters. */
+  ClusterWitnessDisk: "ClusterWitnessDisk",
 }
 
 /**
@@ -3334,6 +3337,12 @@ model DeploymentCluster {
    * Cluster Pattern supported.
    */
   clusterPattern?: ClusterPattern;
+
+  /**
+   * Witness volume LUN ID (e.g. PURE1234567890ABCDEF). Required when witnessType is ClusterWitnessDisk. Minimum LUN size is 1 GB.
+   */
+  @added(Versions.v2026_03_15_preview)
+  witnessLunId?: string;
 
   /**
    * Indicates the cluster's cloud witness authenticates using each node's managed identity (MSI) instead of a storage account access key. Set by the resource provider from the Validated Solution Recipe; read by the device to configure the witness in identity (passwordless) mode.
@@ -6869,6 +6878,9 @@ model HciAddServerJobProperties extends ClusterJobProperties {
 
   /** Specify the Azure Storage account name for cloud witness for your Azure Stack HCI cluster. */
   cloudAccountName?: string;
+
+  /** Witness volume LUN ID (e.g. PURE1234567890ABCDEF). Required when witnessType is ClusterWitnessDisk. Minimum LUN size is 1 GB. */
+  witnessLunId?: string;
 }
 
 ////////////////////////////////////////////////////////////////
