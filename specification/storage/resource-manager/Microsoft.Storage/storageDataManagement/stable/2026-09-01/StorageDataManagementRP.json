@@ -1650,11 +1650,7 @@
       "properties": {
         "connection": {
           "$ref": "#/definitions/BlobAccessPointConnectionProperties",
-          "description": "Details for connecting to the backing data source.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
+          "description": "Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards."
         },
         "auth": {
           "$ref": "#/definitions/BlobAccessPointRemoteAuthProperties",
@@ -1676,6 +1672,10 @@
       "type": "object",
       "description": "An Azure NetApp Files backing source.",
       "properties": {
+        "connection": {
+          "$ref": "#/definitions/BlobAccessPointConnectionPropertiesUpdate",
+          "description": "Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards."
+        },
         "auth": {
           "$ref": "#/definitions/BlobAccessPointRemoteAuthPropertiesUpdate",
           "description": "Details for authenticating to the backing data source."
@@ -1872,6 +1872,20 @@
         "connectionType"
       ]
     },
+    "BlobAccessPointConnectionPropertiesUpdate": {
+      "type": "object",
+      "description": "Details for connecting to a backing data source.",
+      "properties": {
+        "connectionType": {
+          "$ref": "#/definitions/BlobAccessPointConnectionType",
+          "description": "The connection type. This value determines the remaining shape of the connection object."
+        }
+      },
+      "discriminator": "connectionType",
+      "required": [
+        "connectionType"
+      ]
+    },
     "BlobAccessPointConnectionTestRequest": {
       "type": "object",
       "description": "The request used to test an existing Blob Access Point configuration.",
@@ -1965,11 +1979,7 @@
       "properties": {
         "connection": {
           "$ref": "#/definitions/BlobAccessPointConnectionProperties",
-          "description": "Details for connecting to the backing data source.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
+          "description": "Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards."
         },
         "auth": {
           "$ref": "#/definitions/BlobAccessPointRemoteAuthProperties",
@@ -1991,6 +2001,10 @@
       "type": "object",
       "description": "A Dell OneFS backing source.",
       "properties": {
+        "connection": {
+          "$ref": "#/definitions/BlobAccessPointConnectionPropertiesUpdate",
+          "description": "Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards."
+        },
         "auth": {
           "$ref": "#/definitions/BlobAccessPointRemoteAuthPropertiesUpdate",
           "description": "Details for authenticating to the backing data source."
@@ -2053,17 +2067,50 @@
       ],
       "x-ms-discriminator-value": "Endpoint"
     },
+    "BlobAccessPointEndpointConnectionPropertiesUpdate": {
+      "type": "object",
+      "description": "A direct endpoint connection.",
+      "properties": {
+        "tlsVerification": {
+          "type": "string",
+          "description": "TLS certificate verification behavior.",
+          "default": "Perform",
+          "enum": [
+            "Perform",
+            "Skip"
+          ],
+          "x-ms-enum": {
+            "name": "BlobAccessPointTlsVerification",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "Perform",
+                "value": "Perform",
+                "description": "Verify the TLS certificate chain."
+              },
+              {
+                "name": "Skip",
+                "value": "Skip",
+                "description": "Skip TLS certificate-chain verification."
+              }
+            ]
+          }
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointConnectionPropertiesUpdate"
+        }
+      ],
+      "x-ms-discriminator-value": "Endpoint"
+    },
     "BlobAccessPointGenericS3SourceProperties": {
       "type": "object",
       "description": "Another S3-compatible backing source.",
       "properties": {
         "connection": {
           "$ref": "#/definitions/BlobAccessPointConnectionProperties",
-          "description": "Details for connecting to the backing data source.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
+          "description": "Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards."
         },
         "auth": {
           "$ref": "#/definitions/BlobAccessPointRemoteAuthProperties",
@@ -2085,6 +2132,10 @@
       "type": "object",
       "description": "Another S3-compatible backing source.",
       "properties": {
+        "connection": {
+          "$ref": "#/definitions/BlobAccessPointConnectionPropertiesUpdate",
+          "description": "Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards."
+        },
         "auth": {
           "$ref": "#/definitions/BlobAccessPointRemoteAuthPropertiesUpdate",
           "description": "Details for authenticating to the backing data source."
@@ -2103,11 +2154,7 @@
       "properties": {
         "connection": {
           "$ref": "#/definitions/BlobAccessPointConnectionProperties",
-          "description": "Details for connecting to the backing data source.",
-          "x-ms-mutability": [
-            "read",
-            "create"
-          ]
+          "description": "Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards."
         },
         "auth": {
           "$ref": "#/definitions/BlobAccessPointRemoteAuthProperties",
@@ -2129,6 +2176,10 @@
       "type": "object",
       "description": "A NetApp ONTAP backing source.",
       "properties": {
+        "connection": {
+          "$ref": "#/definitions/BlobAccessPointConnectionPropertiesUpdate",
+          "description": "Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards."
+        },
         "auth": {
           "$ref": "#/definitions/BlobAccessPointRemoteAuthPropertiesUpdate",
           "description": "Details for authenticating to the backing data source."
@@ -2236,6 +2287,43 @@
       "allOf": [
         {
           "$ref": "#/definitions/BlobAccessPointConnectionProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "PrivateLink"
+    },
+    "BlobAccessPointPrivateLinkConnectionPropertiesUpdate": {
+      "type": "object",
+      "description": "A connection established through Azure Private Link.",
+      "properties": {
+        "tlsVerification": {
+          "type": "string",
+          "description": "TLS certificate verification behavior.",
+          "default": "Perform",
+          "enum": [
+            "Perform",
+            "Skip"
+          ],
+          "x-ms-enum": {
+            "name": "BlobAccessPointTlsVerification",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "Perform",
+                "value": "Perform",
+                "description": "Verify the TLS certificate chain."
+              },
+              {
+                "name": "Skip",
+                "value": "Skip",
+                "description": "Skip TLS certificate-chain verification."
+              }
+            ]
+          }
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointConnectionPropertiesUpdate"
         }
       ],
       "x-ms-discriminator-value": "PrivateLink"

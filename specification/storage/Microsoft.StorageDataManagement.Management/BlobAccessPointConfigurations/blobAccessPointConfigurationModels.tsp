@@ -207,8 +207,7 @@ model BlobAccessPointSourceProperties {
 @added(Versions.v2026_09_01)
 @doc("Properties shared by every non-Azure S3-compatible backing source.")
 model BlobAccessPointS3CompatibleSourceProperties {
-  @visibility(Lifecycle.Create, Lifecycle.Read)
-  @doc("Details for connecting to the backing data source.")
+  @doc("Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards.")
   connection: BlobAccessPointConnectionProperties;
 
   @doc("Details for authenticating to the backing data source.")
