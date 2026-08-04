@@ -17,11 +17,19 @@ namespace Microsoft.AzureStackHCI;
 // PRIVATE PREVIEW: GET and LIST are read-only; PUT (createOrUpdate) and DELETE
 // are also exposed.
 //
-// DELETE detaches the storage array from the cluster. For a Storage Spaces
-// Direct (S2D) array — which has no lifecycle independent of its owning cluster
-// — deleting the association also deletes the storage array itself. Directly
-// deleting the association of an S2D array owned by the cluster is rejected;
-// it is removed only as part of deleting the cluster.
+// DELETE is driven by cluster deletion. Deleting a cluster cascades to its child
+// associations, and each association is torn down in order: the deletion is
+// validated, the referenced Storage Spaces Direct (S2D) storage array is
+// deleted, and the association is then removed. A storage array is a top-level
+// tracked resource rather than an ARM child of the cluster, so the association is
+// the last record of which array belonged to the cluster and the only point at
+// which an S2D array can be reclaimed.
+//
+// SAN arrays are never deleted by this operation. They represent external
+// hardware that may be shared by several clusters, so only the association is
+// removed. A direct request to delete an association that references an S2D array
+// owned by the cluster is rejected; such associations are removed only as part of
+// deleting their cluster.
 
 /**
  * A storage-array association — links a cluster to a storage array.
@@ -40,8 +48,8 @@ model StorageArrayAssociation
 
 /**
  * Operations for storage-array associations. GET and LIST are read-only; PUT
- * (createOrUpdate) edits the settings; DELETE detaches the storage array from
- * the cluster.
+ * (createOrUpdate) edits the settings; DELETE removes the association and, for a
+ * Storage Spaces Direct (S2D) array, the storage array it references.
  */
 @added(Versions.v2026_03_15_preview)
 @armResourceOperations
@@ -56,10 +64,13 @@ interface StorageArrayAssociations {
   createOrUpdate is ArmResourceCreateOrUpdateAsync<StorageArrayAssociation>;
 
   /**
-   * Delete a storage-array association, detaching the storage array from the
-   * cluster. Deleting the association of a Storage Spaces Direct (S2D) array
-   * owned by this cluster also deletes that storage array; such an association
-   * cannot be deleted directly and is removed only when the cluster is deleted.
+   * Delete a storage-array association. Associations are removed as part of
+   * deleting their owning cluster, which cascades the deletion to its children:
+   * the request is validated, the referenced Storage Spaces Direct (S2D) storage
+   * array is deleted, and the association is then removed. SAN arrays are not
+   * deleted, as they may be shared by several clusters; only the association is
+   * removed. A direct request to delete an association that references an S2D
+   * array owned by the cluster is rejected.
    */
   delete is ArmResourceDeleteWithoutOkAsync<StorageArrayAssociation>;
 }

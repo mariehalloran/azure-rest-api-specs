@@ -5406,7 +5406,7 @@
         "tags": [
           "StorageArrayAssociations"
         ],
-        "description": "Delete a storage-array association, detaching the storage array from the\ncluster. Deleting the association of a Storage Spaces Direct (S2D) array\nowned by this cluster also deletes that storage array; such an association\ncannot be deleted directly and is removed only when the cluster is deleted.",
+        "description": "Delete a storage-array association. Associations are removed as part of\ndeleting their owning cluster, which cascades the deletion to its children:\nthe request is validated, the referenced Storage Spaces Direct (S2D) storage\narray is deleted, and the association is then removed. SAN arrays are not\ndeleted, as they may be shared by several clusters; only the association is\nremoved. A direct request to delete an association that references an S2D\narray owned by the cluster is rejected.",
         "parameters": [
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
