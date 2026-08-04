@@ -1590,8 +1590,7 @@
         },
         "signingRegion": {
           "type": "string",
-          "description": "The region used by the request-signing algorithm. The default is 'us-east-1'.",
-          "default": "us-east-1"
+          "description": "The region used by the request-signing algorithm. Defaults to 'us-east-1' when not specified."
         },
         "hostOverride": {
           "type": "string",
@@ -1631,8 +1630,7 @@
         },
         "signingRegion": {
           "type": "string",
-          "description": "The region used by the request-signing algorithm. The default is 'us-east-1'.",
-          "default": "us-east-1"
+          "description": "The region used by the request-signing algorithm. Defaults to 'us-east-1' when not specified."
         },
         "hostOverride": {
           "type": "string",
@@ -1741,7 +1739,7 @@
         },
         "state": {
           "type": "string",
-          "description": "The configuration state.",
+          "description": "The configuration state. A configuration is created in the Active state when this value is not specified.",
           "default": "Active",
           "enum": [
             "Active",
@@ -1811,7 +1809,7 @@
       "properties": {
         "state": {
           "type": "string",
-          "description": "The configuration state.",
+          "description": "The configuration state. A configuration is created in the Active state when this value is not specified.",
           "default": "Active",
           "enum": [
             "Active",
@@ -2272,7 +2270,7 @@
       "properties": {
         "state": {
           "type": "string",
-          "description": "The configuration state.",
+          "description": "The configuration state. A configuration is created in the Active state when this value is not specified.",
           "default": "Active",
           "enum": [
             "Active",

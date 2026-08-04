@@ -87,10 +87,10 @@ suppressions:
     from:
       - StorageDataManagementRP.json
     reason: >
-      Both PATCH contracts carry a state property with a default and require
-      discriminators to select the concrete source and credential shapes. The
-      Connector contract is carried forward unchanged from prior API versions,
-      and Blob Access Point follows the same pattern.
+      Both PATCH contracts carry a state property that defaults to Active, and
+      both require a discriminator to select the concrete shape of the source
+      object being updated. The Connector contract is carried forward unchanged
+      from prior API versions.
     where:
       - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/connectors/{connectorName}"].patch.parameters[5].schema.properties.properties
       - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/{blobAccessPointConfigurationName}"].patch.parameters[5].schema.properties.properties

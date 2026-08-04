@@ -189,8 +189,8 @@ model BlobAccessPointAccessKeyAuthProperties
   @doc("The secret access key. This value is never returned by read or list operations.")
   secretAccessKey: string;
 
-  @doc("The region used by the request-signing algorithm. The default is 'us-east-1'.")
-  signingRegion?: string = "us-east-1";
+  @doc("The region used by the request-signing algorithm. Defaults to 'us-east-1' when not specified.")
+  signingRegion?: string;
 
   @doc("The host used when computing request signatures. The endpoint host is used by default.")
   hostOverride?: string;
@@ -263,7 +263,7 @@ model BlobAccessPointConfigurationProperties {
   @pattern("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
   uniqueId?: string;
 
-  @doc("The configuration state.")
+  @doc("The configuration state. A configuration is created in the Active state when this value is not specified.")
   state?: BlobAccessPointConfigurationState = BlobAccessPointConfigurationState.Active;
 
   @visibility(Lifecycle.Read)
