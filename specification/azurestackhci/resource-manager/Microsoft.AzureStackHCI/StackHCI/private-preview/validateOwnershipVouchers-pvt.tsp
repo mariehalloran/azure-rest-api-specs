@@ -45,9 +45,6 @@ model OwnershipVoucherValidationDetails {
   @doc("Azure Machine Id of the Ownership voucher")
   azureMachineId?: string;
 
-  @doc("CPU architecture of the device, for example amd64 or arm64.")
-  architecture?: string;
-
   @doc("Error details if the validation failed.")
   error?: Azure.ResourceManager.CommonTypes.ErrorDetail;
 }

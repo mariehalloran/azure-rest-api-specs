@@ -699,12 +699,6 @@ model HardwareProfile {
    */
   @visibility(Lifecycle.Read)
   processorType?: string;
-
-  /**
-   * CPU architecture of the machine, for example amd64 or arm64.
-   */
-  @visibility(Lifecycle.Read)
-  architecture?: string;
 }
 
 @doc("StorageProfile of edge machine.")
