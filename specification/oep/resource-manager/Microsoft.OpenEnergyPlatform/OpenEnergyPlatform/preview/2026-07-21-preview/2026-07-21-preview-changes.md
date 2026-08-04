@@ -6,14 +6,15 @@
 
 > **TL;DR for the reviewer**
 >
-> New preview version. `2026-02-02-preview` was **not modified** — its `oep.json` is
-> byte-for-byte unchanged. However, **`2026-02-02-preview` is not used by any customers and
-> will not be supported**; `2026-07-21-preview` supersedes it. Several changes below are
-> intentionally **breaking versus `2026-02-02-preview`** — that is expected and acceptable
-> because that version is unused, and in some cases the change reverts behavior back to how
-> all other API versions function. Changes are limited to the `EnergyService` resource
-> `properties` and its PATCH body: 2 properties added, 1 removed, `addOnPackages` reshaped to
-> a 2-value enum, and the PATCH surface expanded.
+> New preview version. `2026-02-02-preview` is **functionally unchanged**; the only deltas to its
+> emitted `oep.json` are doc-string wording fixes and the `ListByOAKInstance`→`ListByADMEInstance`
+> operationId rename, all applied per API-review feedback (no behavioral change).
+> **`2026-02-02-preview` is not used by any customers and will not be supported**;
+> `2026-07-21-preview` supersedes it. Several changes below are intentionally **breaking versus
+> `2026-02-02-preview`** — that is expected and acceptable because that version is unused, and in
+> some cases the change reverts behavior back to how all other API versions function. Changes
+> include: 2 properties added, 1 removed, `addOnPackages` reshaped to a 2-value enum, `sku` moved
+> from `properties` to the resource envelope (and made required), and the PATCH surface expanded.
 
 ---
 
@@ -25,9 +26,10 @@
 | `acz` | object | `{ "identity": { "identityType": "SystemAssigned" \| "UserAssigned", "userAssignedIdentityId": string } }`. `userAssignedIdentityId` required when `identityType == UserAssigned`. |
 
 > **Required vs optional (finalized):**
-> - **Required** (create + response): `authAppId`, `dataPartitionNames`, `sku`. Version-gated via
->   `@madeRequired(2026_07_21_preview)`, so they stay **optional** in `2026-02-02-preview` (which is
->   preserved byte-for-byte on this branch).
+> - **Required** (create + response): `authAppId`, `dataPartitionNames` (in `properties`), and
+>   `sku` (now a **top-level envelope** property, moved out of `properties` per ARM §2.6). All are
+>   version-gated to `2026-07-21-preview`, so `2026-02-02-preview` keeps them optional and keeps
+>   `sku` inside `properties`.
 > - **Optional**: `encryption`, `eds`, `acz`, `privateEndpointConnections`, `corsRules`,
 >   `addOnPackages`, `geoRedundancy`, `backupAndRestore`, `referenceData`, `upgradeSettings`,
 >   `publicNetworkAccess`.
@@ -106,14 +108,14 @@ New shape (`2026-07-21-preview`): `{ id, name, type, eTag, remotePrivateEndpoint
 
 | PATCH field | Type | Note |
 |---|---|---|
-| `sku` | object, **`capacity` only** | Only `capacity` (int32) is updatable. `name`/`tier`/`size`/`family` are **not** patchable. |
+| `sku` | object, **`capacity` only** | Top-level **envelope** property (mirrors the resource layout per RPC-Patch-V1-01). Only `capacity` (int32) is updatable via `SkuUpdate`; `name`/`tier`/`size`/`family` are **not** patchable. |
 | `geoRedundancy` | enum `Enabled`/`Disabled` | now patchable |
 | `backupAndRestore` | enum `Enabled`/`Disabled` | now patchable |
 | `acz` | object | now patchable |
-| `eds` | object | now patchable |
+| `eds` | object (`EdsUpdate`) | now patchable — PATCH-specific model with no required/default sub-properties |
 | `publicNetworkAccess` | enum `Enabled`/`Disabled` | now patchable |
 | `corsRules` | array | now patchable |
-| `upgradeSettings` | object | now patchable — incl. `upgradePolicy` and `readyForUpgrade`; `autoUpgradeAfterDate` stays read-only |
+| `upgradeSettings` | object (`UpgradeSettingsUpdate`) | now patchable — PATCH-specific model (no defaults); incl. `upgradePolicy` and `readyForUpgrade`; `autoUpgradeAfterDate` stays read-only |
 | `addOnPackages` | enum array | new `["Advanced","Analytics"]` shape |
 | `encryption` | object | already patchable |
 
@@ -132,10 +134,12 @@ New shape (`2026-07-21-preview`): `{ id, name, type, eTag, remotePrivateEndpoint
 ## Required-status changes
 
 In `2026-07-21-preview`, `authAppId`, `dataPartitionNames`, and `sku` are now **required** on
-create + response (they were optional in all prior versions). Applied via
-`@madeRequired(2026_07_21_preview)`, so they remain **optional** in `2026-02-02-preview` (preserved
-byte-for-byte on this branch). `sku` being required means every create must specify a SKU and every
-`2026-07-21-preview` GET response returns one.
+create + response (they were optional in all prior versions). `authAppId`/`dataPartitionNames` use
+`@madeRequired(2026_07_21_preview)` inside `properties`; `sku` is **added to the resource envelope**
+(top-level, per ARM §2.6) as a required, version-gated property and **removed from `properties`**.
+`2026-02-02-preview` is unaffected — it keeps all three optional and keeps `sku` inside `properties`.
+`sku` being required means every create must specify a SKU and every `2026-07-21-preview` GET
+response returns one.
 
 ## Unchanged (carried over)
 
@@ -146,9 +150,12 @@ SKU: name/tier/size/family/capacity.)
 
 ## Files touched
 
-- `main.tsp`, `models.tsp`, `PrivateEndpointConnectionProxy.tsp`, `readme.md` (modified)
-- `examples/2026-07-21-preview/` (40 source examples)
-- `preview/2026-07-21-preview/oep.json` + emitted `examples/` (generated by `tsp compile`)
+- `models.tsp`, `EnergyService.tsp`, `GroupInformation.tsp`, `PrivateEndpointConnection.tsp`,
+  `PrivateEndpointConnectionProxy.tsp`, `readme.md` (modified)
+- `examples/2026-07-21-preview/` and `examples/2026-02-02-preview/` (source examples; the
+  OAK→ADME operation rename affects both)
+- `preview/2026-07-21-preview/oep.json`, `preview/2026-02-02-preview/oep.json` + emitted
+  `examples/` (generated by `tsp compile`)
 
 ## Notes
 
@@ -159,10 +166,31 @@ SKU: name/tier/size/family/capacity.)
   `minimum`/`maximum` on `SkuUpdate.capacity`; the "power of 2" rule remains server-enforced
   (not expressible in OpenAPI).
 - Terminology cleanup: internal references to the legacy names **`OAK`** and **`MEDS`** in
-  descriptions/config prose were changed to **`ADME`**. This is doc-only and non-breaking. The
-  `.tsp` source is shared across versions, so the description-only text change also appears in
-  `2026-02-02-preview`. OperationIds, the `meds.json` input filename, and older/stable shipped
-  `oep.json` files were intentionally left unchanged to keep the change minimal.
+  descriptions/config prose were changed to **`ADME`**. The `.tsp` source is shared across
+  versions, so this text change also appears in `2026-02-02-preview`. Per API-review feedback, the
+  three `ListByOAKInstance` operationIds were also renamed to **`ListByADMEInstance`**
+  (`PrivateEndpointConnectionProxies` / `PrivateEndpointConnections` / `PrivateLinkResources`) in
+  both `2026-02-02-preview` and `2026-07-21-preview`, and the matching example files were renamed;
+  this changes SDK method names for these internal DO-NOT-USE operations. The `meds.json` input
+  filename and older/stable shipped `oep.json` files were left unchanged.
+- Acronyms expanded on first use (per API review): **ADME** → "Azure Data Manager for Energy
+  (ADME)" and **ACZ** → "Analytics Consumption Zone (ACZ)"; also fixed "a ADME" → "an ADME".
+- `sku` moved to the resource **envelope** (per API review, ARM §2.6): in `2026-07-21-preview`
+  `sku` is a required top-level property (`@added` + a raw declaration, since the
+  `ResourceSkuProperty` template only offers an optional sku) and is `@removed` from `properties`.
+  The PATCH body mirrors this — `sku` (`SkuUpdate`) moves to the `EnergyResourceUpdate` envelope. A
+  cross-version `arm-resource-duplicate-property` suppression covers the properties→envelope
+  transition. `2026-02-02-preview` keeps `sku` inside `properties`.
+- PATCH-specific models (per API review, RPC-Patch-V1-10): `eds` and `upgradeSettings` in the PATCH
+  body now use `EdsUpdate` / `UpgradeSettingsUpdate`, which drop all required and default
+  sub-properties so omitted fields are preserved under JSON Merge Patch. As a result the file-wide
+  `PatchBodyParametersSchema` suppression was **removed**; the remaining `BodyTopLevelProperties`
+  suppression is now scoped with `where: '$.definitions.PrivateEndpointConnectionProxy'`.
+- `geoRedundancy` (per API review): the doc comment now states that omitting the property leaves
+  geo-redundancy not enabled (in `2026-02-02-preview` it defaulted to `Enabled`).
+- Canonical Create example (per API review): the `sku` block now uses realistic Flex values
+  (`{ "name": "Flex", "tier": "Standard", "capacity": 8 }`) and the envelope `identity` was
+  corrected to `{ "type": "None" }`.
 - Terminology cleanup (per API review): the phrase **"ARM resource id"** was changed to
   **"Azure resource id"** in the user-assigned-identity descriptions on `Encryption`, `Eds`, and
   `Acz`. "ARM" is redundant there. `Encryption`/`Eds` are shared models, so this description-only

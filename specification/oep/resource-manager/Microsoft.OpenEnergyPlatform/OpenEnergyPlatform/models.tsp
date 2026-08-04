@@ -401,7 +401,7 @@ model EnergyServiceList is Azure.Core.Page<EnergyService>;
  * The properties of an Energy service resource.
  */
 model EnergyServiceProperties {
-  /** DNS name of the ADME service. */
+  /** DNS name of the Azure Data Manager for Energy (ADME) service. */
   @visibility(Lifecycle.Read)
   dnsName?: string;
 
@@ -429,7 +429,7 @@ model EnergyServiceProperties {
   eds?: Eds;
 
   /**
-   * Properties to configure ACZ.
+   * Properties to configure the Analytics Consumption Zone (ACZ).
    */
   @added(Versions.v2026_07_21_preview)
   acz?: Acz;
@@ -453,8 +453,9 @@ model EnergyServiceProperties {
   /**
    * The resource model definition representing SKU
    */
-  @madeRequired(Versions.v2026_07_21_preview)
-  sku: Azure.ResourceManager.CommonTypes.Sku;
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-duplicate-property" "Version transition: sku moves from the properties bag (2026-02-02-preview) to the top-level envelope (2026-07-21-preview); never present in both within a single version."
+  @removed(Versions.v2026_07_21_preview)
+  sku?: Azure.ResourceManager.CommonTypes.Sku;
 
   /**
    * Maximum autoscale capacity limit for the energy service. Must be a power of 2 between 1 and 256 (applicable for Flex SKU).
@@ -470,7 +471,7 @@ model EnergyServiceProperties {
   geoRedundancyV1?: GeoRedundancy = GeoRedundancy.Enabled;
 
   /**
-   * Specifies whether geo-redundancy is enabled or disabled for the energy service.
+   * Specifies whether geo-redundancy is enabled or disabled for the energy service. If omitted, geo-redundancy is not enabled. (In 2026-02-02-preview this property defaulted to Enabled.)
    */
   @added(Versions.v2026_07_21_preview)
   geoRedundancy?: GeoRedundancy;
@@ -498,9 +499,7 @@ model EnergyServiceProperties {
   upgradeSettings?: UpgradeSettings;
 
   /**
-   * DEPRECATED and not supported. Legacy add-on packages list (array of objects) used by
-   * 2026-02-02-preview and earlier; removed in 2026-07-21-preview and replaced by an
-   * `addOnPackages` enum array. Packages not included in the list will be considered for removal.
+   * List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.
    */
   @removed(Versions.v2026_07_21_preview)
   @renamedFrom(Versions.v2026_07_21_preview, "addOnPackages")
@@ -509,6 +508,7 @@ model EnergyServiceProperties {
 
   /**
    * List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.
+   * Replaces the legacy object-array add-on packages property from 2026-02-02-preview and earlier; this is now an array of add-on package names (`Advanced`, `Analytics`).
    */
   @added(Versions.v2026_07_21_preview)
   addOnPackages?: AddOnPackageName[];
@@ -603,12 +603,39 @@ model EdsKeyVaultPropertiesIdentity {
 }
 
 /**
- * Properties to configure ACZ.
+ * Properties to configure EDS for a PATCH request. Mirrors Eds but all sub-properties are optional and carry no defaults, so fields omitted from a JSON Merge Patch are left unchanged.
+ */
+@added(Versions.v2026_07_21_preview)
+model EdsUpdate {
+  /**
+   * Properties of KeyVault
+   */
+  keyVaultProperties?: EdsKeyVaultPropertiesUpdate;
+}
+
+/**
+ * KeyVault properties for an EDS PATCH request. All fields are optional so unspecified values are preserved.
+ */
+@added(Versions.v2026_07_21_preview)
+model EdsKeyVaultPropertiesUpdate {
+  /**
+   * The Uri of the key vault.
+   */
+  keyVaultUri?: string;
+
+  /**
+   * The identity used to access the key vault.
+   */
+  identity?: EdsKeyVaultPropertiesIdentity;
+}
+
+/**
+ * Properties to configure the Analytics Consumption Zone (ACZ).
  */
 @added(Versions.v2026_07_21_preview)
 model Acz {
   /**
-   * The identity used to access ACZ.
+   * The identity used to access the Analytics Consumption Zone (ACZ).
    */
   identity?: AczIdentity;
 }
@@ -696,6 +723,22 @@ model UpgradeSettings {
 }
 
 /**
+ * Upgrade settings for a PATCH request. Mirrors UpgradeSettings without defaults so fields omitted from a JSON Merge Patch are left unchanged. The read-only autoUpgradeAfterDate is not settable via PATCH.
+ */
+@added(Versions.v2026_07_21_preview)
+model UpgradeSettingsUpdate {
+  /**
+   * Specifies the upgrade policy for the service during milestone upgrade periods.
+   */
+  upgradePolicy?: UpgradePolicy;
+
+  /**
+   * Indicates the readiness status of the instance for upgrade.
+   */
+  readyForUpgrade?: ReadyForUpgrade;
+}
+
+/**
  * An add-on package configuration for the energy service. Use the 'name' field to specify the package type.
  */
 @discriminator("name")
@@ -714,6 +757,12 @@ model EnergyResourceUpdate {
    * The properties of an Energy service resource patch.
    */
   properties?: EnergyServiceUpdateProperties;
+
+  /**
+   * The SKU of the energy service. Only the capacity can be updated.
+   */
+  @added(Versions.v2026_07_21_preview)
+  sku?: SkuUpdate;
 
   /**
    * Resource tags.
@@ -750,13 +799,7 @@ model EnergyServiceUpdateProperties {
   encryption?: Encryption;
 
   /**
-   * The SKU of the energy service. Only the capacity can be updated.
-   */
-  @added(Versions.v2026_07_21_preview)
-  sku?: SkuUpdate;
-
-  /**
-   * Specifies whether geo-redundancy is enabled or disabled for the energy service.
+   * Specifies whether geo-redundancy is enabled or disabled for the energy service. If omitted, geo-redundancy is not enabled. (In 2026-02-02-preview this property defaulted to Enabled.)
    */
   @added(Versions.v2026_07_21_preview)
   geoRedundancy?: GeoRedundancy;
@@ -768,7 +811,7 @@ model EnergyServiceUpdateProperties {
   backupAndRestore?: BackupAndRestore;
 
   /**
-   * Properties to configure ACZ.
+   * Properties to configure the Analytics Consumption Zone (ACZ).
    */
   @added(Versions.v2026_07_21_preview)
   acz?: Acz;
@@ -777,7 +820,7 @@ model EnergyServiceUpdateProperties {
    * Properties to configure EDS
    */
   @added(Versions.v2026_07_21_preview)
-  eds?: Eds;
+  eds?: EdsUpdate;
 
   /**
    * Whether or not public network access is allowed for the ADME resource.
@@ -796,12 +839,10 @@ model EnergyServiceUpdateProperties {
    * The upgrade settings for the energy services instance.
    */
   @added(Versions.v2026_07_21_preview)
-  upgradeSettings?: UpgradeSettings;
+  upgradeSettings?: UpgradeSettingsUpdate;
 
   /**
-   * DEPRECATED and not supported. Legacy add-on packages list (array of objects) used by
-   * 2026-02-02-preview and earlier; removed in 2026-07-21-preview and replaced by an
-   * `addOnPackages` enum array. Packages not included in the list will be considered for removal.
+   * List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.
    */
   @removed(Versions.v2026_07_21_preview)
   @renamedFrom(Versions.v2026_07_21_preview, "addOnPackages")
@@ -810,6 +851,7 @@ model EnergyServiceUpdateProperties {
 
   /**
    * List of add-on packages to be enabled for the energy service. Packages not included in the list will be considered for removal.
+   * Replaces the legacy object-array add-on packages property from 2026-02-02-preview and earlier; this is now an array of add-on package names (`Advanced`, `Analytics`).
    */
   @added(Versions.v2026_07_21_preview)
   addOnPackages?: AddOnPackageName[];

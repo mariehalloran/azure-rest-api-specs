@@ -55,12 +55,12 @@ interface PrivateLinkResources {
   get is ArmResourceRead<GroupInformation>;
 
   /**
-   * List all private link resources in a ADME instance.
+   * List all private link resources in an ADME instance.
    */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "non-standard operations"
-  #suppress "@azure-tools/typespec-azure-core/casing-style" "Preserving existing operationId casing (OAK acronym)."
-  @operationId("PrivateLinkResources_ListByOAKInstance")
-  listByOAKInstance is ArmResourceListByParent<
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "Preserving existing operationId casing (ADME acronym)."
+  @operationId("PrivateLinkResources_ListByADMEInstance")
+  listByADMEInstance is ArmResourceListByParent<
     GroupInformation,
     Response = ArmResponse<PrivateLinkResourceListResult>
   >;

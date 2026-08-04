@@ -51,10 +51,10 @@ interface PrivateEndpointConnections {
   >;
 
   /**
-   * List all private endpoint connections in a ADME instance.
+   * List all private endpoint connections in an ADME instance.
    */
-  #suppress "@azure-tools/typespec-azure-core/casing-style" "Preserving existing operationId casing (OAK acronym)."
-  listByOAKInstance is PrivateEndpointOperations.ListByParent<
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "Preserving existing operationId casing (ADME acronym)."
+  listByADMEInstance is PrivateEndpointOperations.ListByParent<
     EnergyService,
     PrivateEndpointConnection,
     Response = ArmResponse<Azure.ResourceManager.CommonTypes.PrivateEndpointConnectionListResult>

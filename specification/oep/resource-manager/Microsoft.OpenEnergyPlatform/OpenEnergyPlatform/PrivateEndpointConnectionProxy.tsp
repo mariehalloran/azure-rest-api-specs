@@ -73,10 +73,10 @@ interface PrivateEndpointConnectionProxies {
   >;
 
   /**
-   * (INTERNAL - DO NOT USE) List all private endpoint connection proxies in a ADME instance.
+   * (INTERNAL - DO NOT USE) List all private endpoint connection proxies in an ADME instance.
    */
-  #suppress "@azure-tools/typespec-azure-core/casing-style" "Preserving existing operationId casing (OAK acronym)."
-  listByOAKInstance is ArmResourceListByParent<PrivateEndpointConnectionProxy>;
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "Preserving existing operationId casing (ADME acronym)."
+  listByADMEInstance is ArmResourceListByParent<PrivateEndpointConnectionProxy>;
 
   /**
    * (INTERNAL - DO NOT USE) Validates a private endpoint connection proxy object.

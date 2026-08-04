@@ -180,11 +180,9 @@ These settings apply only when `--tag=package-2026-07-21-preview` is specified o
 input-file:
   - preview/2026-07-21-preview/oep.json
 suppressions:
-  - code: PatchBodyParametersSchema
-    from: oep.json
-    reason: "The EnergyService PATCH body reuses shared resource models (Encryption, Eds, UpgradeSettings) and the ManagedServiceIdentity common type, which carry required and default sub-properties by design (e.g. Encryption.keyVaultProperties.keyName, Eds.keyVaultProperties, ManagedServiceIdentity.type, UpgradeSettings.upgradePolicy/readyForUpgrade defaults). This preserves the established PATCH wire contract from prior API versions for this brownfield RP; omitted fields are not reset server-side. Applied file-wide because the affected properties span multiple shared model definitions and `where:` scoping is not reliably honored by LintDiff's `suppressions:` block."
   - code: BodyTopLevelProperties
     from: oep.json
+    where: '$.definitions.PrivateEndpointConnectionProxy'
     reason: "PrivateEndpointConnectionProxy is an internal RPaaS-only DO NOT USE resource consumed by the Network Resource Provider. Its eTag / remotePrivateEndpoint / status are intentionally top-level (not under `properties`) to match the control-plane RP and the stable 2025-12-15 contract, correcting the nested defect that shipped in 2026-02-02-preview. This resource was historically suppressed for the same rule via the legacy directive block that references the pre-migration file name."
   - code: LroLocationHeader
     from: oep.json
