@@ -1,0 +1,7 @@
+- tool: TypeSpecValidation
+  paths:
+    - resource-manager/Microsoft.PlatformValidation/PlatformValidation/tspconfig.yaml
+  rules:
+    - SdkTspConfigValidation
+  reason: >
+    We are onboarding new namespace once we test the APIs, we will onboard to SDK in subsequent PR
