@@ -253,13 +253,16 @@ model SovereignViewComplianceDetailsRequest {
   @identifiers(#["field", "operator"])
   filters?: SovereignViewComplianceDetailsFilters[];
 
+  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "sort is a request input array whose element type changed via @typeChangedFrom; @identifiers cannot be applied because the property is not an array in the prior version."
   @doc("The sorting to apply when querying for compliance details.")
-  sort?: SovereignViewComplianceDetailsSort;
+  @typeChangedFrom(Versions.Preview20260731, SovereignViewComplianceDetailsSort)
+  sort?: SovereignViewComplianceDetailsSort[];
 
   @doc("The search to apply when querying for compliance details.")
   search?: SovereignViewComplianceDetailsSearch;
 
   @doc("The order of sorting to apply when querying for compliance details. Works with policy states.")
+  @removed(Versions.Preview20260731)
   sortingOrder?: string[];
 }
 
@@ -343,6 +346,10 @@ union SovereignViewFilterField {
   @doc("Filter by Controlled Network Exposure compliance dimension.")
   controlledNetworkExposure: "ControlledNetworkExposure",
 
+  @added(Versions.Preview20260731)
+  @doc("Filter by parent resource name.")
+  parentResourceName: "ParentResourceName",
+
   string,
 }
 
@@ -363,6 +370,10 @@ model SovereignViewComplianceDetailsSort {
 
   @doc("The direction to sort in.")
   direction: SovereignViewComplianceDetailsSortDirections;
+
+  @added(Versions.Preview20260731)
+  @doc("The order of sorting to apply when querying for compliance details. Works with policy states.")
+  sortingOrder?: string[];
 }
 
 @added(Versions.Preview20260315)
@@ -413,6 +424,10 @@ model SovereignViewComplianceDetailsResponse {
 model SovereignViewComplianceDetailResource {
   @doc("The resource identifier.")
   resourceId: armResourceIdentifier;
+
+  @added(Versions.Preview20260731)
+  @doc("The parent resource identifier.")
+  parentResourceId: armResourceIdentifier;
 
   @doc("The location of the resource.")
   location: string;

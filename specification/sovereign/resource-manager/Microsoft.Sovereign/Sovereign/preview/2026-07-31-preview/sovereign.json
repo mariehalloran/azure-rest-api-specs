@@ -3911,6 +3911,11 @@
           "format": "arm-id",
           "description": "The resource identifier."
         },
+        "parentResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "The parent resource identifier."
+        },
         "location": {
           "type": "string",
           "description": "The location of the resource."
@@ -3928,6 +3933,7 @@
       },
       "required": [
         "resourceId",
+        "parentResourceId",
         "location",
         "dimensionDetails"
       ]
@@ -4035,19 +4041,15 @@
           ]
         },
         "sort": {
-          "$ref": "#/definitions/SovereignViewComplianceDetailsSort",
-          "description": "The sorting to apply when querying for compliance details."
+          "type": "array",
+          "description": "The sorting to apply when querying for compliance details.",
+          "items": {
+            "$ref": "#/definitions/SovereignViewComplianceDetailsSort"
+          }
         },
         "search": {
           "$ref": "#/definitions/SovereignViewComplianceDetailsSearch",
           "description": "The search to apply when querying for compliance details."
-        },
-        "sortingOrder": {
-          "type": "array",
-          "description": "The order of sorting to apply when querying for compliance details. Works with policy states.",
-          "items": {
-            "type": "string"
-          }
         }
       },
       "required": [
@@ -4122,6 +4124,13 @@
         "direction": {
           "$ref": "#/definitions/SovereignViewComplianceDetailsSortDirections",
           "description": "The direction to sort in."
+        },
+        "sortingOrder": {
+          "type": "array",
+          "description": "The order of sorting to apply when querying for compliance details. Works with policy states.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -4384,7 +4393,8 @@
         "DataResidency",
         "EncryptionAtRest",
         "EncryptionInUse",
-        "ControlledNetworkExposure"
+        "ControlledNetworkExposure",
+        "ParentResourceName"
       ],
       "x-ms-enum": {
         "name": "SovereignViewFilterField",
@@ -4439,6 +4449,11 @@
             "name": "controlledNetworkExposure",
             "value": "ControlledNetworkExposure",
             "description": "Filter by Controlled Network Exposure compliance dimension."
+          },
+          {
+            "name": "parentResourceName",
+            "value": "ParentResourceName",
+            "description": "Filter by parent resource name."
           }
         ]
       }
