@@ -275,10 +275,10 @@ union AddOnPackageName {
   WellDelivery: "WellDelivery",
 
   /**
-   * Enterprise add-on package.
+   * Advanced add-on package.
    */
   @added(Versions.v2026_07_21_preview)
-  Enterprise: "Enterprise",
+  Advanced: "Advanced",
 
   /**
    * Analytics add-on package.

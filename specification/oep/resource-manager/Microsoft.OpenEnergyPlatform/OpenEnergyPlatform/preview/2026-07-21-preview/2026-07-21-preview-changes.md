@@ -52,8 +52,8 @@
 
 - Old (`2026-02-02`): `[ { "name": "Reservoir", "properties": { "state": "Enabled" } }, ... ]`
   Allowed names: `ExternalDataServices`, `PetrelV2`, `Reservoir`, `RockAndFluid`, `Seismic`, `Wellbore`, `WellDelivery`.
-- New (`2026-07-21`): `[ "Enterprise", "Analytics" ]`
-  Allowed values (extensible enum): **`Enterprise`, `Analytics` only**.
+- New (`2026-07-21`): `[ "Advanced", "Analytics" ]`
+  Allowed values (extensible enum): **`Advanced`, `Analytics` only**.
 
 > Impact: the element type changes from a package DTO (`{name, properties.state}`) to a
 > plain enum. The old `AddOnPackage` / `AddOnPackageItemProperties` / `PackageState` types
@@ -73,7 +73,7 @@
 ## New types
 
 - `BackupAndRestore` enum: `Enabled`, `Disabled`
-- `AddOnPackageName` (now the `addOnPackages` element type): `Enterprise`, `Analytics`
+- `AddOnPackageName` (now the `addOnPackages` element type): `Advanced`, `Analytics`
 - `Acz` object + `AczIdentity` object (`identityType`: `SystemAssigned` / `UserAssigned`; `userAssignedIdentityId`: string)
 
 ## PrivateEndpointConnectionProxy — nested → flat shape correction
@@ -114,7 +114,7 @@ New shape (`2026-07-21-preview`): `{ id, name, type, eTag, remotePrivateEndpoint
 | `publicNetworkAccess` | enum `Enabled`/`Disabled` | now patchable |
 | `corsRules` | array | now patchable |
 | `upgradeSettings` | object | now patchable — incl. `upgradePolicy` and `readyForUpgrade`; `autoUpgradeAfterDate` stays read-only |
-| `addOnPackages` | enum array | new `["Enterprise","Analytics"]` shape |
+| `addOnPackages` | enum array | new `["Advanced","Analytics"]` shape |
 | `encryption` | object | already patchable |
 
 **Full PATCHable set:** `encryption`, `sku.capacity`, `addOnPackages`, `geoRedundancy`,
@@ -152,7 +152,7 @@ SKU: name/tier/size/family/capacity.)
 
 ## Notes
 
-- The per-package config for `Enterprise`/`Analytics` is intentionally minimal (enum values
+- The per-package config for `Advanced`/`Analytics` is intentionally minimal (enum values
   only) pending the service team's final design.
 - `sku.capacity` (PATCHable): the scale capacity must be a power of 2 **between 2 and 128**
   (applicable for Flex SKU). The `2`–`128` range is now enforced in the schema via
