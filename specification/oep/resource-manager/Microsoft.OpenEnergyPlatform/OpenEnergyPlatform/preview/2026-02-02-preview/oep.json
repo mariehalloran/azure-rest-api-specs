@@ -2047,17 +2047,32 @@
       "type": "object",
       "description": "The properties for a group information object",
       "properties": {
+        "groupId": {
+          "type": "string",
+          "description": "The private link resource group id.",
+          "readOnly": true
+        },
+        "requiredMembers": {
+          "type": "array",
+          "description": "The private link resource required member names.",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "requiredZoneNames": {
+          "type": "array",
+          "description": "The private link resource private link DNS zone name.",
+          "items": {
+            "type": "string"
+          }
+        },
         "provisioningState": {
           "$ref": "#/definitions/GroupIdProvisioningState",
           "description": "The provisioning state of private link group ID.",
           "readOnly": true
         }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v6/privatelinks.json#/definitions/PrivateLinkResourceProperties"
-        }
-      ]
+      }
     },
     "IdentityType": {
       "type": "string",

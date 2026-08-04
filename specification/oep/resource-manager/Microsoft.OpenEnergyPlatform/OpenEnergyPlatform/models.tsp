@@ -897,9 +897,9 @@ model DataPartitionProperties {
 /**
  * The properties for a group information object
  */
-#suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "For backward compatibility"
-model GroupInformationProperties
-  extends Azure.ResourceManager.CommonTypes.PrivateLinkResourceProperties {
+model GroupInformationProperties {
+  ...Azure.ResourceManager.CommonTypes.PrivateLinkResourceProperties;
+
   /**
    * The provisioning state of private link group ID.
    */

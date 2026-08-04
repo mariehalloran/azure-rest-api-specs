@@ -191,6 +191,15 @@ SKU: name/tier/size/family/capacity.)
 - Canonical Create example (per API review): the `sku` block now uses realistic Flex values
   (`{ "name": "Flex", "tier": "Standard", "capacity": 8 }`) and the envelope `identity` was
   corrected to `{ "type": "None" }`.
+- `checkNameAvailability` tag restored to **`Locations`** (the TypeSpec conversion had renamed the
+  interface to `LocationsOperationGroup`, changing the swagger tag in `2026-02-02-preview`). Done by
+  renaming the interface back to `Locations`; operationId is unchanged. Tag-only, applies to both
+  `2026-02-02-preview` and `2026-07-21-preview`.
+- Private link resource alignment: `GroupInformationProperties` now uses **composition** (spreads
+  `...PrivateLinkResourceProperties`) instead of `extends`, removing the
+  `composition-over-inheritance` suppression. The emitted swagger definition changes from an
+  `allOf` reference to inlined `groupId`/`requiredMembers`/`requiredZoneNames` properties; the
+  fields and their `readOnly` flags — and therefore the runtime JSON contract — are unchanged.
 - Terminology cleanup (per API review): the phrase **"ARM resource id"** was changed to
   **"Azure resource id"** in the user-assigned-identity descriptions on `Encryption`, `Eds`, and
   `Acz`. "ARM" is redundant there. `Encryption`/`Eds` are shared models, so this description-only
