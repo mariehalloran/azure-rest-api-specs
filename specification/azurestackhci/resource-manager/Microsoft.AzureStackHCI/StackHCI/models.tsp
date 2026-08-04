@@ -9332,6 +9332,12 @@ model OsImageProperties {
    */
   @added(Versions.v2026_03_15_preview)
   architecture?: string;
+
+  /**
+   * The solution type (OS family) of the os image, for example AzureLinux or HCI.
+   */
+  @added(Versions.v2026_03_15_preview)
+  solutionType?: ProvisioningOsType;
 }
 
 ////////////////////////////////////////////////////////////////

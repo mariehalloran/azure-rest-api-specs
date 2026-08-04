@@ -28614,6 +28614,10 @@
         "architecture": {
           "type": "string",
           "description": "Represents the CPU architecture of a os image, for example amd64 or arm64."
+        },
+        "solutionType": {
+          "$ref": "#/definitions/ProvisioningOsType",
+          "description": "The solution type (OS family) of the os image, for example AzureLinux or HCI."
         }
       }
     },
