@@ -113,6 +113,66 @@ suppressions:
       - $.definitions["SovereignViewSubscriptionScope"].properties.id.format
       - $.definitions["Azure.Core.uuid"].format
     reason: Subscription Ids are uuids.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: sovereign.json
+    where: $.paths["/providers/Microsoft.Sovereign/transparencyLogs"]
+    reason: This resource type was removed in the 2026-07-31-preview API version and is intentionally not part of the default tag.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: sovereign.json
+    where: $.paths["/providers/Microsoft.Sovereign/transparencyLogs/{name}"]
+    reason: This resource type was removed in the 2026-07-31-preview API version and is intentionally not part of the default tag.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: sovereign.json
+    where: $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.Sovereign/landingZoneAccounts"]
+    reason: This resource type was removed in the 2026-07-31-preview API version and is intentionally not part of the default tag.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: sovereign.json
+    where: $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.Sovereign/landingZoneAccounts/{landingZoneAccountName}/landingZoneConfigurations"]
+    reason: This resource type was removed in the 2026-07-31-preview API version and is intentionally not part of the default tag.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: sovereign.json
+    where: $.paths["/subscriptions/{subscriptionId}/providers/Microsoft.Sovereign/landingZoneAccounts/{landingZoneAccountName}/landingZoneRegistrations"]
+    reason: This resource type was removed in the 2026-07-31-preview API version and is intentionally not part of the default tag.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: sovereign.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sovereign/landingZoneAccounts"]
+    reason: This resource type was removed in the 2026-07-31-preview API version and is intentionally not part of the default tag.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: sovereign.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sovereign/landingZoneAccounts/{landingZoneAccountName}"]
+    reason: This resource type was removed in the 2026-07-31-preview API version and is intentionally not part of the default tag.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: sovereign.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sovereign/landingZoneAccounts/{landingZoneAccountName}/landingZoneConfigurations"]
+    reason: This resource type was removed in the 2026-07-31-preview API version and is intentionally not part of the default tag.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: sovereign.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sovereign/landingZoneAccounts/{landingZoneAccountName}/landingZoneConfigurations/{landingZoneConfigurationName}"]
+    reason: This resource type was removed in the 2026-07-31-preview API version and is intentionally not part of the default tag.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: sovereign.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sovereign/landingZoneAccounts/{landingZoneAccountName}/landingZoneConfigurations/{landingZoneConfigurationName}/createCopy"]
+    reason: This resource type was removed in the 2026-07-31-preview API version and is intentionally not part of the default tag.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: sovereign.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sovereign/landingZoneAccounts/{landingZoneAccountName}/landingZoneConfigurations/{landingZoneConfigurationName}/generateLandingZone"]
+    reason: This resource type was removed in the 2026-07-31-preview API version and is intentionally not part of the default tag.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: sovereign.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sovereign/landingZoneAccounts/{landingZoneAccountName}/landingZoneConfigurations/{landingZoneConfigurationName}/updateAuthoringStatus"]
+    reason: This resource type was removed in the 2026-07-31-preview API version and is intentionally not part of the default tag.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: sovereign.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sovereign/landingZoneAccounts/{landingZoneAccountName}/landingZoneRegistrations"]
+    reason: This resource type was removed in the 2026-07-31-preview API version and is intentionally not part of the default tag.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: sovereign.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sovereign/landingZoneAccounts/{landingZoneAccountName}/landingZoneRegistrations/{landingZoneRegistrationName}"]
+    reason: This resource type was removed in the 2026-07-31-preview API version and is intentionally not part of the default tag.
+  - code: MISSING_APIS_IN_DEFAULT_TAG
+    from: sovereign.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sovereign/landingZoneAccounts/{landingZoneAccountName}/landingZoneRegistrations/{landingZoneRegistrationName}/drift"]
+    reason: This resource type was removed in the 2026-07-31-preview API version and is intentionally not part of the default tag.
 ```
 
 ---
