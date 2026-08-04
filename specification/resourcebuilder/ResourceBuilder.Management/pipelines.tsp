@@ -188,8 +188,11 @@ interface Pipelines {
    * Deleting a pipeline cascades to its child resources (jobs and runs), which are removed as part of
    * the ARM delete. A pipeline is not subject to active-consumer dependency validation, so this delete
    * is not blocked by references from its child jobs.
+   *
+   * The cascade is performed asynchronously: the service returns 202 Accepted with a Location header
+   * to poll, or 204 No Content when the pipeline does not exist.
    */
-  delete is ArmResourceDeleteSync<Pipeline>;
+  delete is ArmResourceDeleteWithoutOkAsync<Pipeline>;
   list is ArmResourceListByParent<Pipeline>;
 
   /** Trigger a run of the pipeline. */
