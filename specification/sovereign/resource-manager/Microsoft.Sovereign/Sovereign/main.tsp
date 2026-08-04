@@ -114,6 +114,7 @@ interface LandingZoneRegistrations
 
 @doc("The Landing zone account parent resource type.")
 @added(Versions.Preview20241031)
+@removed(Versions.Preview20260731)
 @resource("landingZoneAccounts")
 model LandingZoneAccountResource
   is TrackedResource<LandingZoneAccountResourceProperties> {
@@ -130,6 +131,7 @@ model LandingZoneAccountResource
 
 @armResourceOperations(LandingZoneAccountResource)
 @added(Versions.Preview20241031)
+@removed(Versions.Preview20260731)
 interface LandingZoneAccountOperations {
   @doc("Gets the landing zone account.")
   get is ArmResourceRead<LandingZoneAccountResource>;
@@ -216,6 +218,7 @@ interface SovereignViewOperations {
 
 @parentResource(LandingZoneAccountResource)
 @added(Versions.Preview20241031)
+@removed(Versions.Preview20260731)
 @resource("landingZoneConfigurations")
 model LandingZoneConfigurationResource
   is ProxyResource<LandingZoneConfigurationResourceProperties> {
@@ -229,6 +232,7 @@ model LandingZoneConfigurationResource
 }
 
 @added(Versions.Preview20241031)
+@removed(Versions.Preview20260731)
 @armResourceOperations(LandingZoneConfigurationResource)
 interface LandingZoneConfigurationOperations {
   @doc("Gets the landing zone configuration.")
@@ -281,6 +285,7 @@ interface LandingZoneConfigurationOperations {
 // Landing zone registration resource type
 @parentResource(LandingZoneAccountResource)
 @added(Versions.Preview20241031)
+@removed(Versions.Preview20260731)
 @resource("landingZoneRegistrations")
 @doc("The Landing Zone registration resource type")
 model LandingZoneRegistrationResource
@@ -294,6 +299,7 @@ model LandingZoneRegistrationResource
 }
 
 @added(Versions.Preview20241031)
+@removed(Versions.Preview20260731)
 @armResourceOperations(LandingZoneRegistrationResource)
 interface LandingZoneRegistrationOperations {
   @doc("Gets the landing zone registration.")
@@ -326,6 +332,7 @@ interface LandingZoneRegistrationOperations {
 // Transparency Logs setting Resource Type
 @tenantResource
 @added(Versions.Preview20240331)
+@removed(Versions.Preview20260731)
 @doc("The Transparency Log resource type.")
 model TransparencyLog is ProxyResource<TransparencyLogProperties> {
   @doc("The name of the Transparency Log resource.")
@@ -337,6 +344,7 @@ model TransparencyLog is ProxyResource<TransparencyLogProperties> {
 }
 
 @added(Versions.Preview20240331)
+@removed(Versions.Preview20260731)
 @armResourceOperations
 interface TransparencyLogs {
   get is ArmResourceRead<TransparencyLog>;
