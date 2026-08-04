@@ -44,6 +44,12 @@ model NsxDistributedFirewallRuleProperties is AzureResourceProperties {
   /** The traffic direction the rule applies to. */
   direction?: FirewallDirection;
 
+  /** The sequence number determining rule evaluation order. */
+  sequenceNumber?: int64;
+
+  /** The deterministic global priority used to order the rule. */
+  globalPriority?: string;
+
   /** Whether scope is ANY. */
   anyScope?: boolean;
 

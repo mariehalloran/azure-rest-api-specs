@@ -5505,6 +5505,21 @@
           "format": "int32",
           "description": "The sequence number determining policy evaluation order."
         },
+        "internalSequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The internal sequence number determining policy evaluation order."
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The creation time in milliseconds since the Unix epoch."
+        },
+        "precedenceRank": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The zero-based precedence rank, where zero is the highest precedence."
+        },
         "isDefault": {
           "type": "boolean",
           "description": "Whether this is a default policy."
@@ -5606,6 +5621,21 @@
           "type": "integer",
           "format": "int32",
           "description": "The sequence number determining policy evaluation order."
+        },
+        "internalSequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The internal sequence number determining policy evaluation order."
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The creation time in milliseconds since the Unix epoch."
+        },
+        "precedenceRank": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The zero-based precedence rank, where zero is the highest precedence."
         },
         "isDefault": {
           "type": "boolean",
@@ -5716,6 +5746,15 @@
         "direction": {
           "$ref": "#/definitions/FirewallDirection",
           "description": "The traffic direction the rule applies to."
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The sequence number determining rule evaluation order."
+        },
+        "globalPriority": {
+          "type": "string",
+          "description": "The deterministic global priority used to order the rule."
         },
         "anyScope": {
           "type": "boolean",
@@ -5872,6 +5911,15 @@
         "direction": {
           "$ref": "#/definitions/FirewallDirection",
           "description": "The traffic direction the rule applies to."
+        },
+        "sequenceNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The sequence number determining rule evaluation order."
+        },
+        "globalPriority": {
+          "type": "string",
+          "description": "The deterministic global priority used to order the rule."
         },
         "anyScope": {
           "type": "boolean",
