@@ -41,12 +41,6 @@ model NsxDistributedFirewallPolicyProperties is AzureResourceProperties {
   /** The sequence number determining policy evaluation order. */
   sequenceNumber?: int32;
 
-  /** The internal sequence number determining policy evaluation order. */
-  internalSequenceNumber?: int64;
-
-  /** The creation time in milliseconds since the Unix epoch. */
-  createTime?: int64;
-
   /** The zero-based precedence rank, where zero is the highest precedence. */
   precedenceRank?: int32;
 
