@@ -14,8 +14,14 @@ namespace Microsoft.AzureStackHCI;
 //
 // `storageArrayAssociations` is a proxy child of `clusters` — links a cluster to
 // a storage array (the admin entry point for storage management). Supports N:N.
-// PRIVATE PREVIEW: GET and LIST are read-only; PUT (createOrUpdate) is also
-// exposed.
+// PRIVATE PREVIEW: GET and LIST are read-only; PUT (createOrUpdate) and DELETE
+// are also exposed.
+//
+// DELETE detaches the storage array from the cluster. For a Storage Spaces
+// Direct (S2D) array — which has no lifecycle independent of its owning cluster
+// — deleting the association also deletes the storage array itself. Directly
+// deleting the association of an S2D array owned by the cluster is rejected;
+// it is removed only as part of deleting the cluster.
 
 /**
  * A storage-array association — links a cluster to a storage array.
@@ -34,9 +40,9 @@ model StorageArrayAssociation
 
 /**
  * Operations for storage-array associations. GET and LIST are read-only; PUT
- * (createOrUpdate) edits the settings.
+ * (createOrUpdate) edits the settings; DELETE detaches the storage array from
+ * the cluster.
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/no-resource-delete-operation" "Storage-array associations are discovered from the cluster and cannot be created or deleted through ARM; PUT only edits the settings of an existing storage-array association."
 @added(Versions.v2026_03_15_preview)
 @armResourceOperations
 interface StorageArrayAssociations {
@@ -48,4 +54,12 @@ interface StorageArrayAssociations {
 
   /** Create or update a storage-array association. */
   createOrUpdate is ArmResourceCreateOrUpdateAsync<StorageArrayAssociation>;
+
+  /**
+   * Delete a storage-array association, detaching the storage array from the
+   * cluster. Deleting the association of a Storage Spaces Direct (S2D) array
+   * owned by this cluster also deletes that storage array; such an association
+   * cannot be deleted directly and is removed only when the cluster is deleted.
+   */
+  delete is ArmResourceDeleteWithoutOkAsync<StorageArrayAssociation>;
 }
