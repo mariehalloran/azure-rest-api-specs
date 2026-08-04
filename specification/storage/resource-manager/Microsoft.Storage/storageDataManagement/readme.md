@@ -87,20 +87,13 @@ suppressions:
     from:
       - StorageDataManagementRP.json
     reason: >
-      The Connector PATCH contract is carried forward from prior API versions,
-      and the Blob Access Point authentication discriminator is required to
-      select the credential shape.
+      Both PATCH contracts carry a state property with a default and require
+      discriminators to select the concrete source and credential shapes. The
+      Connector contract is carried forward unchanged from prior API versions,
+      and Blob Access Point follows the same pattern.
     where:
       - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/connectors/{connectorName}"].patch.parameters[5].schema.properties.properties
       - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/{blobAccessPointConfigurationName}"].patch.parameters[5].schema.properties.properties
-  - code: ConsistentPatchProperties
-    from:
-      - StorageDataManagementRP.json
-    reason: >
-      The validator does not correlate mutable properties with the concrete
-      variants of the discriminated Blob Access Point source model.
-    where:
-      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/{blobAccessPointConfigurationName}"].patch.parameters[5].schema
 ```
 
 ## Code Generation

@@ -256,57 +256,6 @@ model BlobAccessPointGenericS3SourceProperties
 }
 
 @added(Versions.v2026_09_01)
-@discriminator("authType")
-@doc("Mutable authentication properties for a non-Azure S3-compatible source.")
-model BlobAccessPointRemoteAuthUpdateProperties {
-  @doc("The authentication type. This value determines the remaining shape of the authentication object.")
-  authType: BlobAccessPointRemoteAuthType;
-}
-
-@added(Versions.v2026_09_01)
-@doc("Mutable S3 access-key authentication properties.")
-model BlobAccessPointAccessKeyAuthUpdateProperties
-  extends BlobAccessPointRemoteAuthUpdateProperties {
-  authType: BlobAccessPointRemoteAuthType.AccessKey;
-
-  @minLength(3)
-  @doc("The access key ID.")
-  accessKeyId?: string;
-
-  @secret
-  @minLength(3)
-  @doc("A replacement secret access key.")
-  secretAccessKey?: string;
-
-  @doc("The region used by the request-signing algorithm.")
-  signingRegion?: string;
-
-  @doc("The host used when computing request signatures.")
-  hostOverride?: string;
-}
-
-@added(Versions.v2026_09_01)
-@doc("Mutable properties of a Blob Access Point source. The source type and its connection details are fixed when the configuration is created and cannot be changed.")
-model BlobAccessPointSourceUpdateProperties {
-  @doc("Replacement authentication properties.")
-  auth?: BlobAccessPointRemoteAuthUpdateProperties;
-}
-
-@added(Versions.v2026_09_01)
-@doc("Properties that can be updated on a Blob Access Point configuration.")
-model BlobAccessPointConfigurationUpdateProperties {
-  @doc("The configuration state.")
-  state?: BlobAccessPointConfigurationState;
-
-  @maxLength(250)
-  @doc("An arbitrary description of the Blob Access Point configuration.")
-  description?: string;
-
-  @doc("Mutable backing-source properties.")
-  source?: BlobAccessPointSourceUpdateProperties;
-}
-
-@added(Versions.v2026_09_01)
 @doc("Details of a Blob Access Point configuration.")
 model BlobAccessPointConfigurationProperties {
   @visibility(Lifecycle.Read)

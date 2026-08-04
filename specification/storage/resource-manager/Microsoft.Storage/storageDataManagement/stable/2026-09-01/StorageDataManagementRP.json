@@ -1609,9 +1609,9 @@
       ],
       "x-ms-discriminator-value": "AccessKey"
     },
-    "BlobAccessPointAccessKeyAuthUpdateProperties": {
+    "BlobAccessPointAccessKeyAuthPropertiesUpdate": {
       "type": "object",
-      "description": "Mutable S3 access-key authentication properties.",
+      "description": "S3 access-key authentication properties.",
       "properties": {
         "accessKeyId": {
           "type": "string",
@@ -1621,22 +1621,27 @@
         "secretAccessKey": {
           "type": "string",
           "format": "password",
-          "description": "A replacement secret access key.",
+          "description": "The secret access key. This value is never returned by read or list operations.",
           "minLength": 3,
+          "x-ms-mutability": [
+            "update",
+            "create"
+          ],
           "x-ms-secret": true
         },
         "signingRegion": {
           "type": "string",
-          "description": "The region used by the request-signing algorithm."
+          "description": "The region used by the request-signing algorithm. The default is 'us-east-1'.",
+          "default": "us-east-1"
         },
         "hostOverride": {
           "type": "string",
-          "description": "The host used when computing request signatures."
+          "description": "The host used when computing request signatures. The endpoint host is used by default."
         }
       },
       "allOf": [
         {
-          "$ref": "#/definitions/BlobAccessPointRemoteAuthUpdateProperties"
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthPropertiesUpdate"
         }
       ],
       "x-ms-discriminator-value": "AccessKey"
@@ -1665,6 +1670,22 @@
       "allOf": [
         {
           "$ref": "#/definitions/BlobAccessPointSourceProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "Azure_NetApp_Files"
+    },
+    "BlobAccessPointAzureNetAppFilesSourcePropertiesUpdate": {
+      "type": "object",
+      "description": "An Azure NetApp Files backing source.",
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthPropertiesUpdate",
+          "description": "Details for authenticating to the backing data source."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointSourcePropertiesUpdate"
         }
       ],
       "x-ms-discriminator-value": "Azure_NetApp_Files"
@@ -1784,54 +1805,34 @@
         "source"
       ]
     },
-    "BlobAccessPointConfigurationState": {
-      "type": "string",
-      "description": "The state of a Blob Access Point configuration.",
-      "enum": [
-        "Active",
-        "Inactive"
-      ],
-      "x-ms-enum": {
-        "name": "BlobAccessPointConfigurationState",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Active",
-            "value": "Active",
-            "description": "The Blob Access Point configuration is active."
-          },
-          {
-            "name": "Inactive",
-            "value": "Inactive",
-            "description": "The Blob Access Point configuration is inactive."
-          }
-        ]
-      }
-    },
-    "BlobAccessPointConfigurationUpdate": {
+    "BlobAccessPointConfigurationPropertiesUpdate": {
       "type": "object",
-      "description": "The type used for update operations of the BlobAccessPointConfiguration.",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "properties": {
-          "$ref": "#/definitions/BlobAccessPointConfigurationUpdateProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      }
-    },
-    "BlobAccessPointConfigurationUpdateProperties": {
-      "type": "object",
-      "description": "The updatable properties of the BlobAccessPointConfiguration.",
+      "description": "Details of a Blob Access Point configuration.",
       "properties": {
         "state": {
-          "$ref": "#/definitions/BlobAccessPointConfigurationState",
-          "description": "The configuration state."
+          "type": "string",
+          "description": "The configuration state.",
+          "default": "Active",
+          "enum": [
+            "Active",
+            "Inactive"
+          ],
+          "x-ms-enum": {
+            "name": "BlobAccessPointConfigurationState",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "Active",
+                "value": "Active",
+                "description": "The Blob Access Point configuration is active."
+              },
+              {
+                "name": "Inactive",
+                "value": "Inactive",
+                "description": "The Blob Access Point configuration is inactive."
+              }
+            ]
+          }
         },
         "description": {
           "type": "string",
@@ -1839,10 +1840,25 @@
           "maxLength": 250
         },
         "source": {
-          "$ref": "#/definitions/BlobAccessPointSourceUpdateProperties",
-          "description": "Mutable backing-source properties."
+          "$ref": "#/definitions/BlobAccessPointSourcePropertiesUpdate",
+          "description": "Information about the backing data source."
         }
       }
+    },
+    "BlobAccessPointConfigurationUpdate": {
+      "type": "object",
+      "description": "A BlobAccessPointConfiguration is a tracked ARM resource modeled as a sub-resource of a Storage Account.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/BlobAccessPointConfigurationPropertiesUpdate",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
+        }
+      ]
     },
     "BlobAccessPointConnectionProperties": {
       "type": "object",
@@ -1973,6 +1989,22 @@
       ],
       "x-ms-discriminator-value": "Dell_OneFS"
     },
+    "BlobAccessPointDellOneFsSourcePropertiesUpdate": {
+      "type": "object",
+      "description": "A Dell OneFS backing source.",
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthPropertiesUpdate",
+          "description": "Details for authenticating to the backing data source."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointSourcePropertiesUpdate"
+        }
+      ],
+      "x-ms-discriminator-value": "Dell_OneFS"
+    },
     "BlobAccessPointEndpointConnectionProperties": {
       "type": "object",
       "description": "A direct endpoint connection.",
@@ -2051,6 +2083,22 @@
       ],
       "x-ms-discriminator-value": "S3_Compatible"
     },
+    "BlobAccessPointGenericS3SourcePropertiesUpdate": {
+      "type": "object",
+      "description": "Another S3-compatible backing source.",
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthPropertiesUpdate",
+          "description": "Details for authenticating to the backing data source."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointSourcePropertiesUpdate"
+        }
+      ],
+      "x-ms-discriminator-value": "S3_Compatible"
+    },
     "BlobAccessPointNetAppOntapSourceProperties": {
       "type": "object",
       "description": "A NetApp ONTAP backing source.",
@@ -2075,6 +2123,22 @@
       "allOf": [
         {
           "$ref": "#/definitions/BlobAccessPointSourceProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "NetApp_ONTAP"
+    },
+    "BlobAccessPointNetAppOntapSourcePropertiesUpdate": {
+      "type": "object",
+      "description": "A NetApp ONTAP backing source.",
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthPropertiesUpdate",
+          "description": "Details for authenticating to the backing data source."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointSourcePropertiesUpdate"
         }
       ],
       "x-ms-discriminator-value": "NetApp_ONTAP"
@@ -2259,6 +2323,20 @@
         "authType"
       ]
     },
+    "BlobAccessPointRemoteAuthPropertiesUpdate": {
+      "type": "object",
+      "description": "Authentication properties for a non-Azure S3-compatible source.",
+      "properties": {
+        "authType": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthType",
+          "description": "The authentication type. This value determines the remaining shape of the authentication object."
+        }
+      },
+      "discriminator": "authType",
+      "required": [
+        "authType"
+      ]
+    },
     "BlobAccessPointRemoteAuthType": {
       "type": "string",
       "description": "How Azure Storage authenticates to a non-Azure S3-compatible source.",
@@ -2277,21 +2355,21 @@
         ]
       }
     },
-    "BlobAccessPointRemoteAuthUpdateProperties": {
+    "BlobAccessPointSourceProperties": {
       "type": "object",
-      "description": "Mutable authentication properties for a non-Azure S3-compatible source.",
+      "description": "Information about the data source exposed through a Blob Access Point.",
       "properties": {
-        "authType": {
-          "$ref": "#/definitions/BlobAccessPointRemoteAuthType",
-          "description": "The authentication type. This value determines the remaining shape of the authentication object."
+        "sourceType": {
+          "$ref": "#/definitions/BlobAccessPointSourceType",
+          "description": "The source type. This value determines the remaining shape of the source object."
         }
       },
-      "discriminator": "authType",
+      "discriminator": "sourceType",
       "required": [
-        "authType"
+        "sourceType"
       ]
     },
-    "BlobAccessPointSourceProperties": {
+    "BlobAccessPointSourcePropertiesUpdate": {
       "type": "object",
       "description": "Information about the data source exposed through a Blob Access Point.",
       "properties": {
@@ -2339,16 +2417,6 @@
             "description": "Another S3-compatible data source."
           }
         ]
-      }
-    },
-    "BlobAccessPointSourceUpdateProperties": {
-      "type": "object",
-      "description": "Mutable properties of a Blob Access Point source. The source type and its connection details are fixed when the configuration is created and cannot be changed.",
-      "properties": {
-        "auth": {
-          "$ref": "#/definitions/BlobAccessPointRemoteAuthUpdateProperties",
-          "description": "Replacement authentication properties."
-        }
       }
     },
     "BucketSource": {

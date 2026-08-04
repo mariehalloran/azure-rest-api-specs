@@ -127,12 +127,9 @@ interface BlobAccessPointConfigurations {
 
   @doc("Update a Blob Access Point configuration.")
   @added(Versions.v2026_09_01)
-  update is ArmCustomPatchAsync<
+  update is ArmResourcePatchAsync<
     BlobAccessPointConfiguration,
-    Azure.ResourceManager.Foundations.ResourceUpdateModel<
-      BlobAccessPointConfiguration,
-      BlobAccessPointConfigurationUpdateProperties
-    >
+    BlobAccessPointConfigurationProperties
   >;
 
   @doc("Delete a Blob Access Point configuration.")
