@@ -5,12 +5,12 @@
     "api-version": "2026-06-01",
     "subscriptionId": "00000000-0000-0000-0000-000000000000",
     "resourceGroupName": "rgopenapi",
-    "exadbVmClusterName": "Replace this value with a string matching RegExp .*",
+    "exadbVmClusterName": "resource1",
     "resource": {
       "properties": {
         "ocid": "ocid1.autonomousdatabase.oc1..aaaaa3klq",
         "clusterName": "lnmm",
-        "backupSubnetCidr": "msbbvvpjietvlqgltshmjeqplmnhx",
+        "backupSubnetCidr": "example",
         "lifecycleState": "Provisioning",
         "vnetId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg000/providers/Microsoft.Network/virtualNetworks/vnet1",
         "subnetId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg000/providers/Microsoft.Network/virtualNetworks/vnet1/subnets/subnet1",
@@ -19,13 +19,13 @@
           "isHealthMonitoringEnabled": true,
           "isIncidentLogsEnabled": true
         },
-        "displayName": "zhynzuykwaqeeailonqmpklcxgznrqokwcchgsgpwtqlbezkjsuaeyokpxqdylysmgtbotlmqtdlqmzzvdpvkfwezatwubxnghyikvpjflukpzpkmkohbuzwcfjuvdilsggkzliqhmjxfjpqzrmnhdzxmyidfvzjvoomyiyioagjdangahwk",
+        "displayName": "resource1",
         "domain": "tzc",
         "enabledEcpuCount": 0,
-        "exascaleDbStorageVaultId": "mgofzcpmaeschjtbimkrpzmkrs",
+        "exascaleDbStorageVaultId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg000/providers/Oracle.Database/exascaleDbStorageVaults/vault1",
         "gridImageOcid": "ocid1.autonomousdatabase.oc1..aaaaa3klq",
         "gridImageType": "ReleaseUpdate",
-        "hostname": "rwnrofcyiazuoxreltfrmymbajf",
+        "hostname": "resource1",
         "licenseModel": "LicenseIncluded",
         "nodeCount": 5,
         "nsgCidrs": [
@@ -45,8 +45,8 @@
         "sshPublicKeys": [
           "ocw"
         ],
-        "systemVersion": "zquzxdnmemuhldqgubczevxkkflmzwgkwyxwtlbpczlovswxiihivjhayfochmrwhgywidcwkmqpfrejpznevwfyykxubbdxewvlriyhfffuhcqujazfpiqkfbfektk",
-        "timeZone": "csqfbdkgvwstplwvvkvrqkubkggywzxshltj",
+        "systemVersion": "example",
+        "timeZone": "2026-06-01T00:00:00Z",
         "totalEcpuCount": 33,
         "vmFileSystemStorage": {
           "totalSizeInGbs": 27
@@ -80,7 +80,7 @@
       "tags": {
         "key9568": "fwg"
       },
-      "location": "aknvzkmgvbsqabplfmsgesgoca"
+      "location": "eastus"
     }
   },
   "responses": {
@@ -89,7 +89,7 @@
         "properties": {
           "ocid": "ocid1.autonomousdatabase.oc1..aaaaa3klq",
           "clusterName": "lnmm",
-          "backupSubnetCidr": "msbbvvpjietvlqgltshmjeqplmnhx",
+          "backupSubnetCidr": "example",
           "nsgUrl": "https://microsoft.com/abn",
           "provisioningState": "Succeeded",
           "lifecycleState": "Provisioning",
@@ -100,14 +100,14 @@
             "isHealthMonitoringEnabled": true,
             "isIncidentLogsEnabled": true
           },
-          "displayName": "zhynzuykwaqeeailonqmpklcxgznrqokwcchgsgpwtqlbezkjsuaeyokpxqdylysmgtbotlmqtdlqmzzvdpvkfwezatwubxnghyikvpjflukpzpkmkohbuzwcfjuvdilsggkzliqhmjxfjpqzrmnhdzxmyidfvzjvoomyiyioagjdangahwk",
+          "displayName": "resource1",
           "domain": "tzc",
           "enabledEcpuCount": 0,
-          "exascaleDbStorageVaultId": "mgofzcpmaeschjtbimkrpzmkrs",
+          "exascaleDbStorageVaultId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg000/providers/Oracle.Database/exascaleDbStorageVaults/vault1",
           "gridImageOcid": "ocid1.autonomousdatabase.oc1..aaaaa3klq",
           "gridImageType": "ReleaseUpdate",
-          "giVersion": "mxnmntjffzcagbdxpumotuosoorgwdkosbklgetgoqowquyhheyrztscuxtvwojgopmhwdgurgyhowtnkwvjtfvworneeqbofafzmfyxdserorgsvygunhyoimzoumrzcjqmshgdxuikynheyszxnxdjnkgfiqabcbccnvntlexhbbrvpwzguqdcibyqwsakivomxbcqltozdoqeunycggfkqbsguvo",
-          "hostname": "rwnrofcyiazuoxreltfrmymbajf",
+          "giVersion": "example",
+          "hostname": "resource1",
           "licenseModel": "LicenseIncluded",
           "memorySizeInGbs": 5,
           "nodeCount": 5,
@@ -129,16 +129,16 @@
           "sshPublicKeys": [
             "ocw"
           ],
-          "systemVersion": "zquzxdnmemuhldqgubczevxkkflmzwgkwyxwtlbpczlovswxiihivjhayfochmrwhgywidcwkmqpfrejpznevwfyykxubbdxewvlriyhfffuhcqujazfpiqkfbfektk",
-          "timeZone": "csqfbdkgvwstplwvvkvrqkubkggywzxshltj",
+          "systemVersion": "example",
+          "timeZone": "2026-06-01T00:00:00Z",
           "totalEcpuCount": 33,
           "vmFileSystemStorage": {
             "totalSizeInGbs": 27
           },
-          "lifecycleDetails": "zqdswyvcmlidfsfgvhf",
-          "scanDnsName": "dxebupggaztvitboz",
+          "lifecycleDetails": "example",
+          "scanDnsName": "resource1",
           "scanIpIds": [
-            "dhvgyashuvcvvgaozaecwtrttbcj"
+            "example"
           ],
           "scanDnsRecordId": "ocid1.autonomousdatabase.oc1..aaaaa3klq",
           "snapshotFileSystemStorage": {
@@ -148,7 +148,7 @@
             "totalSizeInGbs": 27
           },
           "vipIds": [
-            "vkpmewfyufrkpdjglyorhlkdecpt"
+            "example"
           ],
           "ociUrl": "https://microsoft.com/aqm",
           "iormConfigCache": {
@@ -173,15 +173,15 @@
         "tags": {
           "key9568": "fwg"
         },
-        "location": "aknvzkmgvbsqabplfmsgesgoca",
-        "id": "kqbghpdrcdrkavrxoamrlrexrxct",
-        "name": "obmvsweiedqdxsiwuluzolbsgwpd",
-        "type": "rwbwjuqpvrlbflmmblpipqcvezn",
+        "location": "eastus",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg000/providers/Oracle.Database/resources/resource1",
+        "name": "resource1",
+        "type": "Oracle.Database/resource",
         "systemData": {
           "createdBy": "ns",
           "createdByType": "User",
           "createdAt": "2026-07-28T21:47:08.141Z",
-          "lastModifiedBy": "jbykoushovrkjpntqphddh",
+          "lastModifiedBy": "example",
           "lastModifiedByType": "User",
           "lastModifiedAt": "2026-07-28T21:47:08.141Z"
         }
@@ -195,7 +195,7 @@
         "properties": {
           "ocid": "ocid1.autonomousdatabase.oc1..aaaaa3klq",
           "clusterName": "lnmm",
-          "backupSubnetCidr": "msbbvvpjietvlqgltshmjeqplmnhx",
+          "backupSubnetCidr": "example",
           "nsgUrl": "https://microsoft.com/abn",
           "provisioningState": "Succeeded",
           "lifecycleState": "Provisioning",
@@ -206,14 +206,14 @@
             "isHealthMonitoringEnabled": true,
             "isIncidentLogsEnabled": true
           },
-          "displayName": "zhynzuykwaqeeailonqmpklcxgznrqokwcchgsgpwtqlbezkjsuaeyokpxqdylysmgtbotlmqtdlqmzzvdpvkfwezatwubxnghyikvpjflukpzpkmkohbuzwcfjuvdilsggkzliqhmjxfjpqzrmnhdzxmyidfvzjvoomyiyioagjdangahwk",
+          "displayName": "resource1",
           "domain": "tzc",
           "enabledEcpuCount": 0,
-          "exascaleDbStorageVaultId": "mgofzcpmaeschjtbimkrpzmkrs",
+          "exascaleDbStorageVaultId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg000/providers/Oracle.Database/exascaleDbStorageVaults/vault1",
           "gridImageOcid": "ocid1.autonomousdatabase.oc1..aaaaa3klq",
           "gridImageType": "ReleaseUpdate",
-          "giVersion": "mxnmntjffzcagbdxpumotuosoorgwdkosbklgetgoqowquyhheyrztscuxtvwojgopmhwdgurgyhowtnkwvjtfvworneeqbofafzmfyxdserorgsvygunhyoimzoumrzcjqmshgdxuikynheyszxnxdjnkgfiqabcbccnvntlexhbbrvpwzguqdcibyqwsakivomxbcqltozdoqeunycggfkqbsguvo",
-          "hostname": "rwnrofcyiazuoxreltfrmymbajf",
+          "giVersion": "example",
+          "hostname": "resource1",
           "licenseModel": "LicenseIncluded",
           "memorySizeInGbs": 5,
           "nodeCount": 5,
@@ -235,16 +235,16 @@
           "sshPublicKeys": [
             "ocw"
           ],
-          "systemVersion": "zquzxdnmemuhldqgubczevxkkflmzwgkwyxwtlbpczlovswxiihivjhayfochmrwhgywidcwkmqpfrejpznevwfyykxubbdxewvlriyhfffuhcqujazfpiqkfbfektk",
-          "timeZone": "csqfbdkgvwstplwvvkvrqkubkggywzxshltj",
+          "systemVersion": "example",
+          "timeZone": "2026-06-01T00:00:00Z",
           "totalEcpuCount": 33,
           "vmFileSystemStorage": {
             "totalSizeInGbs": 27
           },
-          "lifecycleDetails": "zqdswyvcmlidfsfgvhf",
-          "scanDnsName": "dxebupggaztvitboz",
+          "lifecycleDetails": "example",
+          "scanDnsName": "resource1",
           "scanIpIds": [
-            "dhvgyashuvcvvgaozaecwtrttbcj"
+            "example"
           ],
           "scanDnsRecordId": "ocid1.autonomousdatabase.oc1..aaaaa3klq",
           "snapshotFileSystemStorage": {
@@ -254,7 +254,7 @@
             "totalSizeInGbs": 27
           },
           "vipIds": [
-            "vkpmewfyufrkpdjglyorhlkdecpt"
+            "example"
           ],
           "ociUrl": "https://microsoft.com/aqm",
           "iormConfigCache": {
@@ -279,15 +279,15 @@
         "tags": {
           "key9568": "fwg"
         },
-        "location": "aknvzkmgvbsqabplfmsgesgoca",
-        "id": "kqbghpdrcdrkavrxoamrlrexrxct",
-        "name": "obmvsweiedqdxsiwuluzolbsgwpd",
-        "type": "rwbwjuqpvrlbflmmblpipqcvezn",
+        "location": "eastus",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg000/providers/Oracle.Database/resources/resource1",
+        "name": "resource1",
+        "type": "Oracle.Database/resource",
         "systemData": {
           "createdBy": "ns",
           "createdByType": "User",
           "createdAt": "2026-07-28T21:47:08.141Z",
-          "lastModifiedBy": "jbykoushovrkjpntqphddh",
+          "lastModifiedBy": "example",
           "lastModifiedByType": "User",
           "lastModifiedAt": "2026-07-28T21:47:08.141Z"
         }

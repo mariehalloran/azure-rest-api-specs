@@ -5,7 +5,7 @@
     "api-version": "2026-06-01",
     "subscriptionId": "00000000-0000-0000-0000-000000000000",
     "resourceGroupName": "rgopenapi",
-    "autonomousdatabasename": "Replace this value with a string matching RegExp .*",
+    "autonomousdatabasename": "resource1",
     "body": {
       "action": "Start"
     }
@@ -28,7 +28,7 @@
           "cpuCoreCount": 1,
           "customerContacts": [
             {
-              "email": "fhcyjvdfmgesmmzlpitjhqoiykdfohcjijldpshdrzxgkflvnbdegxjhmdzujqlqdnj"
+              "email": "example"
             }
           ],
           "dataStorageSizeInGbs": 1024,
@@ -36,7 +36,7 @@
           "isAutoScalingEnabled": true,
           "isAutoScalingForStorageEnabled": true,
           "peerDbIds": [
-            "smitcbuwuoejmijkrrkjulp"
+            "example"
           ],
           "isLocalDataGuardEnabled": true,
           "isRemoteDataGuardEnabled": true,
@@ -51,7 +51,7 @@
           "localStandbyDb": {
             "lagTimeInSeconds": 29,
             "lifecycleState": "Provisioning",
-            "lifecycleDetails": "fcmrtngzpnmo",
+            "lifecycleDetails": "example",
             "timeDataGuardRoleChanged": "dofkfatm",
             "timeDisasterRecoveryRoleChanged": "gxz"
           },
@@ -66,12 +66,12 @@
               "dayOfWeek": {
                 "name": "Monday"
               },
-              "scheduledStartTime": "xrvjulentoyewwnovbmzddvpbzdbnohxaaenilrwnrpimuxkh",
-              "scheduledStopTime": "mxfmemxrwvtg"
+              "scheduledStartTime": "2026-06-01T00:00:00Z",
+              "scheduledStopTime": "2026-06-01T00:00:00Z"
             }
           ],
           "privateEndpointIp": "nqndpar",
-          "privateEndpointLabel": "wgjcsabrpqahscjmjwtzxkyetfi",
+          "privateEndpointLabel": "example",
           "ociUrl": "https://fake",
           "timeCreated": "2024-01-09T20:44:09.466Z",
           "timeMaintenanceBegin": "2026-07-28T21:47:08.144Z",
@@ -79,44 +79,44 @@
           "actualUsedDataStorageSizeInTbs": 10,
           "allocatedStorageSizeInTbs": 8,
           "apexDetails": {
-            "apexVersion": "bnbqgabxnvhrrdsiskxcwhd",
-            "ordsVersion": "ztcmrxwpyuqmesdpqvt"
+            "apexVersion": "example",
+            "ordsVersion": "example"
           },
           "availableUpgradeVersions": [
-            "cgsgrpwybomhgjnwdafnxbnyyiw"
+            "example"
           ],
           "connectionStrings": {
             "allConnectionStrings": {
-              "high": "wptdulraelnzladanyqdoqqlzfkvbdptbccwctxujkezibgcrghozkvrsuqwfszwerypxmazjfjgijmowghygosxwdpcqajaaxvsxsrcxfggcftfnkaowyfdygkxoznrrlruhbmjbqxsthyhmfmswzcmibfvagbqrerykxs",
-              "low": "jpmhslzgplnnqfddhpvfmjqfojnhimcejzdlajznkxcdcaozgjsriegttvuhtrwihzqoostageprzwgiuprhgkgmojfclnfhjbkrptdfjwbm",
-              "medium": "bjjbkeodcwwqlyizbhtbofsjxswmrjpanpmftareht"
+              "high": "tcps://db_high_connection",
+              "low": "tcps://db_low_connection",
+              "medium": "tcps://db_medium_connection"
             },
-            "dedicated": "fxylrslpxzzrkrlhuavexfpqmrreospwezptjknp",
-            "high": "jvvhhvxhsekpcwoemflbyedzcejmzhdzdyqlgllabfmrdcpqsphspq",
-            "low": "kjgwerobuqazlplxqxbqnevxboatkqnowswefcrqsbyisemmxply",
-            "medium": "xxcnjknwspnnddwplycugwqxlsdrhdue",
+            "dedicated": "tcps://db_dedicated_connection",
+            "high": "tcps://db_high_connection",
+            "low": "tcps://db_low_connection",
+            "medium": "tcps://db_medium_connection",
             "profiles": [
               {
                 "consumerGroup": "High",
-                "displayName": "csiovidetmjlmfzxg",
+                "displayName": "resource1",
                 "hostFormat": "Fqdn",
                 "isRegional": true,
                 "protocol": "TCP",
                 "sessionMode": "Direct",
                 "syntaxFormat": "Long",
                 "tlsAuthentication": "Server",
-                "value": "abxpsuklyhuudrqlpqwvhmiuorjc"
+                "value": "example"
               }
             ]
           },
           "connectionUrls": {
-            "apexUrl": "voodfqtlvapdijdkrsabffcgofdujbfkfdwghwxdqrklhoppfipwkzmmfdyelqzlggzmzzfupwubxqrhxrfvqepbqrbwrecfeitgmczmuxeauwelwlytrlothatnmfgmbwojyvllacacfdzqmmnlkmdbkbtptbqfegfxfihkccpmxptviflcipdnulbgubhlgewxozuhhxwvaxuibgzsbzuvtltkpelnlvyovmzttrvkmvkrqgtjzhexdpsjyidwraoufofkkinpggaxkepspvatamanspjdqxvvvpzlgtyyenlsqnwvtfjqfieuwgikmqu",
+            "apexUrl": "https://example.com",
             "databaseTransformsUrl": "cqqnacphflw",
-            "graphStudioUrl": "szldtovsnwnvlksviodyyohlxgwvabogcahvhihbbansgvzspjwhhgsuuxbzitqsguklbglyyfeeiqpnbycaiwciixtraeoetyobsjjzqxdozctcwrjgixprkrcuwirbxejsqaeyjrxbtdkorrmmeefsdhwgvorckrascjzkrbimmaypzojfw",
-            "machineLearningNotebookUrl": "wulzfzihukwytfslrufvevgdcflgnlsmoodktowpbscljvqpijhcpjrdoldopeejyiazlplphhxempvznubixaezxulsjxfghczhyetvczynfjugzmssunjknrxlytuamfefvrcwrnouuywyyjqxepfwvisthpkpevkmdljpmkmkdlrukfndycysavqvzabpgnxaccdlcnhcfxexr",
-            "mongoDbUrl": "fqdoqelzxypiiwkyrkryyjgpzwirpwfllybuypjrywyllgdpwtsahwgnbykikkhkhewzbamszvaakshhdkipmeidviokhhobdisccgaapcbgruaxppvtrzxpjwwquejdonbgcxzpwftpaawuzglthqnivtu",
-            "ordsUrl": "lujftnatiwevhqmmpqzivbvbeztpckbrhifxbhhtijpfxudyghujjvjjfxesbnivwgqbgoseoivyqccntpvofcoouivpjgmkvotfnbrqzudhmvsvochmpjuahohfeatphlcmadpjdxt",
-            "sqlDevWebUrl": "ukdiyuxtyqrxbalmlqqrtmgaiakwishjijbqjwdxpybobvqsypcvlzysgqokcgcfmdmewhstabhzsqjblyjsfrgwnfptgjfbopuoxheolmsdgodefulqyfwnqga"
+            "graphStudioUrl": "https://example.com",
+            "machineLearningNotebookUrl": "https://example.com",
+            "mongoDbUrl": "https://example.com",
+            "ordsUrl": "https://example.com",
+            "sqlDevWebUrl": "https://example.com"
           },
           "dataSafeStatus": "Registering",
           "databaseEdition": "EnterpriseEdition",
@@ -135,31 +135,31 @@
           "openMode": "ReadOnly",
           "operationsInsightsStatus": "Enabling",
           "permissionLevel": "Restricted",
-          "privateEndpoint": "yzvjbednmvecpzfvfefckqa",
+          "privateEndpoint": "example",
           "provisionableCpus": [
             11
           ],
           "role": "Primary",
-          "serviceConsoleUrl": "fxpzcrsxiwrrsbdkuufmsofxdzvlorlvekdhflctwxhlgrheimxnbmrfosswpeonsenypahiukpahhawrojonevoc",
-          "sqlWebDeveloperUrl": "wolwdzmesdkelurlholefrojonkhjtkazdjgkhruqhmnabofoawqupfomzgnqlsqxlsnhpunfrpoewxnhhqewupwsbffkkhfcyemfplzhbeloqfxfphqhwbhjectscpyceurczxfrhhzwznacciloqqkwfdvucbgabemqgdiaezsviidkqjqfsfjdobwuodfwrpdkorawpktkudeyscgfozmighvcagglbpiwsskamjdygbuzrapvifrkamqyqkijvmhuapjzdczpemgsaovroghdbdugcdheysfrqhnkggrwycyedenbijsnzrpdbqidrazudawxrzworzexqxpywrqczceikifnswyhsynktzzcsbiumvcfvcaespthayvtnbfxquzwbgxyaihouujxtqsfiiggtxffzdcqylbtmlfxqpzypminymjwpnrsewdchplseevukcnikrxfptwzdkqhziaclmxnaxrqbictzwarrzrdhrpwvbererfaiujcwpuyrlmgbbvonyuodkfvhveqojgcxbvbyaisxbfaktjxvkkavguyyfwxzymnwwatavufkshpmzvrdbmrpdmcbgdsaibeekcokyceozjpbvkyowizzaigpuchqigixgbafslhchmdtnvxuvfxufsqysngwincqsxrxsbtvemtdwledsohetxstdlpvmpdmoskzjzyhhwaahovadegrbpygzgetkrscitofgijxtsvhctybdtrkjuxksosxpmitvixmuhxttjyptmkpecadmysqkvkgbbgmigcerlgbmwvuzavgptxynjwuxhpabxxmkizlqfksbibsyaryrzywvqazgwknanmdzslasbpsvdndgqryoskcqjqiyawwyhftltlrindmewvwzjdqvhnhefhxtppllpessqcvheqypuvhsocrcgpptczmwdhwnkjmroajnflomxezbqsxhufidffacfhkcmymuadpekhkcepwoxefieekknoimxwhfjztjthfbfndsjnsxoqdvfozordabdivzhoatuykgljujffglwrqeonzaynsdanghftnrktljevgrlbonvxypfxvbxprvntsyvxesjlqkmqzeidqtwoczzlvvuqdzrhbjcbvjgeofwhcsscqmvvnzckatsyjvficvngcqfcpyzqxtzeypgjaiybqgakbizdacgndefwhwimfvjfchffetgyasduwobrwxjrpvofqzgdpuzngqggmywllnavddqxmpcgvmbnabnpmcvnuyqhvkyofdekndqeblhchvqoqcmjkklqcznzlveobddnepnmmugomowszsfjkruaeofwjcnblcwttpigovhmy",
+          "serviceConsoleUrl": "https://example.com",
+          "sqlWebDeveloperUrl": "https://example.com",
           "supportedRegionsToCloneTo": [
-            "pfizggscpdgnfcpdbwx",
-            "pfizggscpdgnfcpdbwx",
-            "pfizggscpdgnfcpdbwx",
-            "pfizggscpdgnfcpdbwx",
-            "pfizggscpdgnfcpdbwx",
-            "pfizggscpdgnfcpdbwx",
-            "pfizggscpdgnfcpdbwx",
-            "pfizggscpdgnfcpdbwx"
+            "example",
+            "example",
+            "example",
+            "example",
+            "example",
+            "example",
+            "example",
+            "example"
           ],
           "timeDataGuardRoleChanged": "sjpv",
           "timeDeletionOfFreeAutonomousDatabase": "pntinw",
           "timeLocalDataGuardEnabled": "nmofbv",
           "timeOfLastFailover": "p",
           "timeOfLastRefresh": "phm",
-          "timeOfLastRefreshPoint": "dzzrvyzudernlqtmyzhz",
+          "timeOfLastRefreshPoint": "2026-06-01T00:00:00Z",
           "timeOfLastSwitchover": "hawddo",
-          "timeReclamationOfFreeAutonomousDatabase": "zlyeernpwotnh",
+          "timeReclamationOfFreeAutonomousDatabase": "2026-06-01T00:00:00Z",
           "usedDataStorageSizeInGbs": 20,
           "usedDataStorageSizeInTbs": 25,
           "ocid": "ocid1..aaaaa",
@@ -169,21 +169,21 @@
             "1.1.1.0/24",
             "1.1.2.25"
           ],
-          "zone": "mvcdfaevjsebkpw",
+          "zone": "example",
           "backupDestination": "OCI",
-          "resourceAnchorId": "uqytsyetibxxenxoilaglhqzsnirfk",
-          "networkAnchorId": "otgbyfrkcc"
+          "resourceAnchorId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg000/providers/Oracle.Database/resourceAnchors/anchor1",
+          "networkAnchorId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg000/providers/Oracle.Database/networkAnchors/networkanchor1"
         },
         "location": "eastus",
         "tags": {},
-        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg000/providers/Oracle.Database/autonomousDatabases/databasedb1",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg000/providers/Oracle.Database/resources/resource1",
         "name": "e",
         "type": "Oracle.Database/resource",
         "systemData": {
           "createdBy": "ns",
           "createdByType": "User",
           "createdAt": "2026-07-28T21:47:08.141Z",
-          "lastModifiedBy": "jbykoushovrkjpntqphddh",
+          "lastModifiedBy": "example",
           "lastModifiedByType": "User",
           "lastModifiedAt": "2026-07-28T21:47:08.141Z"
         }

@@ -5,7 +5,7 @@
     "api-version": "2026-06-01",
     "subscriptionId": "00000000-0000-0000-0000-000000000000",
     "resourceGroupName": "rgopenapi",
-    "cloudexadatainfrastructurename": "Replace this value with a string matching RegExp .*",
+    "cloudexadatainfrastructurename": "resource1",
     "body": {
       "totalStorageInGbs": 14
     }
@@ -23,11 +23,11 @@
               "isBackupPartition": true,
               "isResizable": true,
               "minSizeGb": 8,
-              "mountPoint": "virbbjcydkzpayaldnpyrjjcdd"
+              "mountPoint": "example"
             }
           ],
           "ocid": "ocid1..aaaaaa",
-          "resourceAnchorId": "uqytsyetibxxenxoilaglhqzsnirfk",
+          "resourceAnchorId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg000/providers/Oracle.Database/resourceAnchors/anchor1",
           "totalStorageSizeInGbs": 1000,
           "availableStorageSizeInGbs": 1000,
           "timeCreated": "2026-04-01T10:00:00Z",
@@ -70,8 +70,8 @@
           "provisioningState": "Succeeded",
           "lifecycleState": "Provisioning",
           "proximityPlacementGroup": {
-            "proximityPlacementGroupId": "ricjfpnecxwwtalqcjwojujoopqihi",
-            "proximityAnchorId": "sizsbcftlpobxjsliccjnf",
+            "proximityPlacementGroupId": "example",
+            "proximityAnchorId": "example",
             "entityTypeIntendedToUse": "CloudExadataInfrastructure"
           },
           "ociUrl": "https://url",
@@ -91,8 +91,8 @@
           "nextMaintenanceRunId": "ocid1..aaaaaa",
           "monthlyDbServerVersion": "aaaa",
           "monthlyStorageServerVersion": "aaaa",
-          "databaseServerType": "ducppngcqtbolsjpscyovgqnpomvxwrblvxomukolczihsdgsamnnefjavqpiarerrsbzjsjeuxbfwbfhldeszuoqdxzziwmivifirxngwpxtqfkjjxefyhluphmxcmjxohejmjstoywatcyqbbliqtavqzdalddopuehosfgwunefbrqbxavfbwpuucwyhftlltzhcaroujlvoglkhgoycjtxoeyknz",
-          "storageServerType": "agbrrbdvrroqoqb",
+          "databaseServerType": "example",
+          "storageServerType": "example",
           "computeModel": "ECPU",
           "exascaleConfig": {
             "totalStorageInGbs": 3,
@@ -104,14 +104,14 @@
         "zones": [
           "1"
         ],
-        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg000/providers/Oracle.Database/cloudExadataInfrastructures/infra1",
-        "name": "nktgotrgoewmqde",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg000/providers/Oracle.Database/resources/resource1",
+        "name": "resource1",
         "type": "Oracle.Database/resource",
         "systemData": {
           "createdBy": "ns",
           "createdByType": "User",
           "createdAt": "2026-07-28T21:47:08.141Z",
-          "lastModifiedBy": "jbykoushovrkjpntqphddh",
+          "lastModifiedBy": "example",
           "lastModifiedByType": "User",
           "lastModifiedAt": "2026-07-28T21:47:08.141Z"
         }
