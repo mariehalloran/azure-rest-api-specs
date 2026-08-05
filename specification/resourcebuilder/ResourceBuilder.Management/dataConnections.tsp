@@ -100,7 +100,10 @@ interface DataConnections {
    * 2. For each consuming dataset, either update it to reference a different data connection (detach)
    *    or delete the dataset.
    * 3. Once no dataset references this data connection, retry this delete request.
+   *
+   * The delete is performed asynchronously: the service returns 202 Accepted with a Location header
+   * to poll, or 204 No Content when the data connection does not exist.
    */
-  delete is ArmResourceDeleteSync<DataConnection>;
+  delete is ArmResourceDeleteWithoutOkAsync<DataConnection>;
   list is ArmResourceListByParent<DataConnection>;
 }
