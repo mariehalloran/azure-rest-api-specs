@@ -157,7 +157,9 @@ model JobDataset {
   missingPartitionPolicy?: MissingPartitionPolicy;
 }
 
-/** Dataset reference */
+/** Dataset reference.
+ * While a job references a dataset (as an input or output), that dataset cannot be deleted.
+ * Update the job to remove the reference or delete the job before deleting the dataset. */
 model DatasetReference {
   /** Resource ID of the dataset. Required when type is ResourceId. */
   id?: string;
@@ -525,6 +527,23 @@ model AutoDataQualityParameters {
 interface Jobs {
   get is ArmResourceRead<Job>;
   createOrUpdate is ArmResourceCreateOrReplaceSync<Job>;
-  delete is ArmResourceDeleteSync<Job>;
+
+  /**
+   * Delete a job.
+   *
+   * Delete-time dependency validation is enforced. A job cannot be deleted while its parent pipeline
+   * still references it by name through `PipelineProperties.activities[].job` (a `ReferencePipelineJob`).
+   * If the parent pipeline references this job, the delete is rejected with the
+   * `ResourceDeleteHasActiveConsumers` error (code `ARB-RP-228`) and the job is not deleted. The error reports the consuming
+   * pipeline and the property path of the reference.
+   *
+   * Required steps before deleting a job:
+   * 1. Update the parent pipeline to remove the activity that references this job, or delete the pipeline.
+   * 2. Once no pipeline activity references this job, retry this delete request.
+   *
+   * The delete is performed asynchronously: the service returns 202 Accepted with a Location header
+   * to poll, or 204 No Content when the job does not exist.
+   */
+  delete is ArmResourceDeleteWithoutOkAsync<Job>;
   list is ArmResourceListByParent<Job>;
 }

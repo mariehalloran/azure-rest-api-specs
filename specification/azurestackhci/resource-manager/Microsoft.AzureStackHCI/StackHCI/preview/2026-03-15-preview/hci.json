@@ -4026,6 +4026,9 @@
           "ClusterJobs_Get_SetGpuConfidentialComputingModeJob": {
             "$ref": "./examples/ClusterJobs_Get_SetGpuConfidentialComputingModeJob.json"
           },
+          "ClusterJobs_Get_SyncVolume": {
+            "$ref": "./examples/ClusterJobs_Get_SyncVolume.json"
+          },
           "ClusterJobs_Get_VmConnectProvisionJob": {
             "$ref": "./examples/ClusterJobs_Get_VmConnectProvisionJob.json"
           },
@@ -4133,6 +4136,9 @@
           },
           "ClusterJobs_CreateOrUpdate_SetGpuConfidentialComputingModeJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_SetGpuConfidentialComputingMode.json"
+          },
+          "ClusterJobs_CreateOrUpdate_SyncVolume": {
+            "$ref": "./examples/ClusterJobs_CreateOrUpdate_SyncVolume.json"
           },
           "ClusterJobs_CreateOrUpdate_VmConnectProvisionJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_VmConnectProvision.json"
@@ -6960,9 +6966,6 @@
           }
         },
         "x-ms-examples": {
-          "ClusterVolumeJobs_Get": {
-            "$ref": "./examples/ClusterVolumeJobs_Get.json"
-          },
           "ClusterVolumeJobs_Get_ApplyVolumeConfiguration": {
             "$ref": "./examples/ClusterVolumeJobs_Get_ApplyVolumeConfiguration.json"
           }
@@ -7049,9 +7052,6 @@
           }
         },
         "x-ms-examples": {
-          "ClusterVolumeJobs_CreateOrUpdate": {
-            "$ref": "./examples/ClusterVolumeJobs_CreateOrUpdate.json"
-          },
           "ClusterVolumeJobs_CreateOrUpdate_ApplyVolumeConfiguration": {
             "$ref": "./examples/ClusterVolumeJobs_CreateOrUpdate_ApplyVolumeConfiguration.json"
           }
@@ -17599,18 +17599,12 @@
       "type": "string",
       "description": "Type of cluster volume job operation.",
       "enum": [
-        "VolumeSync",
         "ApplyVolumeConfiguration"
       ],
       "x-ms-enum": {
         "name": "ClusterVolumeJobType",
         "modelAsString": true,
         "values": [
-          {
-            "name": "VolumeSync",
-            "value": "VolumeSync",
-            "description": "Job to resolve configuration drift between the desired and reported state of the cluster volume."
-          },
           {
             "name": "ApplyVolumeConfiguration",
             "value": "ApplyVolumeConfiguration",
@@ -18067,6 +18061,42 @@
         "name": "ConfidentialComputingMode",
         "modelAsString": true,
         "values": [
+          {
+            "name": "Off",
+            "value": "Off",
+            "description": "Confidential computing is disabled on the GPU."
+          },
+          {
+            "name": "DevTools",
+            "value": "DevTools",
+            "description": "Confidential computing is enabled on the GPU in developer tools mode, which permits debugging and profiling tools that are blocked when confidential computing is fully enabled."
+          },
+          {
+            "name": "On",
+            "value": "On",
+            "description": "Confidential computing is enabled on the GPU."
+          }
+        ]
+      }
+    },
+    "ConfidentialComputingModeStatus": {
+      "type": "string",
+      "description": "Confidential computing status of a GPU, reporting either that the GPU cannot support confidential computing or the mode it is currently in.",
+      "enum": [
+        "GpuNotCapable",
+        "Off",
+        "DevTools",
+        "On"
+      ],
+      "x-ms-enum": {
+        "name": "ConfidentialComputingModeStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "GpuNotCapable",
+            "value": "GpuNotCapable",
+            "description": "The GPU does not support confidential computing."
+          },
           {
             "name": "Off",
             "value": "Off",
@@ -18797,6 +18827,10 @@
         "clusterPattern": {
           "$ref": "#/definitions/ClusterPattern",
           "description": "Cluster Pattern supported."
+        },
+        "witnessLunId": {
+          "type": "string",
+          "description": "Witness volume LUN ID (e.g. PURE1234567890ABCDEF). Required when witnessType is ClusterWitnessDisk. Minimum LUN size is 1 GB."
         },
         "useManagedIdentityForWitness": {
           "type": "boolean",
@@ -19929,6 +19963,11 @@
           "description": "Size in bytes.",
           "readOnly": true
         },
+        "storageType": {
+          "$ref": "#/definitions/DiskStorageType",
+          "description": "Storage type of the disk.",
+          "readOnly": true
+        },
         "diskType": {
           "$ref": "#/definitions/DiskType",
           "description": "Type of the disk.",
@@ -20000,6 +20039,30 @@
             "name": "Unknown",
             "value": "Unknown",
             "description": "Disk state is unknown."
+          }
+        ]
+      }
+    },
+    "DiskStorageType": {
+      "type": "string",
+      "description": "Storage type of the disk.",
+      "enum": [
+        "SAN",
+        "S2D"
+      ],
+      "x-ms-enum": {
+        "name": "DiskStorageType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "SAN",
+            "value": "SAN",
+            "description": "SAN storage."
+          },
+          {
+            "name": "S2D",
+            "value": "S2D",
+            "description": "Storage Spaces Direct storage."
           }
         ]
       }
@@ -20998,7 +21061,10 @@
           },
           "x-ms-identifiers": []
         }
-      }
+      },
+      "required": [
+        "storageType"
+      ]
     },
     "EdgeMachineDeploymentSetting": {
       "type": "object",
@@ -21555,6 +21621,11 @@
         "partitionable": {
           "type": "boolean",
           "description": "Indicates whether the GPU is partitionable.",
+          "readOnly": true
+        },
+        "confidentialComputingModeStatus": {
+          "$ref": "#/definitions/ConfidentialComputingModeStatus",
+          "description": "The confidential computing status of the GPU. Reports GpuNotCapable when the GPU does not support confidential computing, otherwise the mode the GPU is currently in.",
           "readOnly": true
         },
         "hostDriverVersion": {
@@ -24208,6 +24279,10 @@
         "cloudAccountName": {
           "type": "string",
           "description": "Specify the Azure Storage account name for cloud witness for your Azure Stack HCI cluster."
+        },
+        "witnessLunId": {
+          "type": "string",
+          "description": "Witness volume LUN ID (e.g. PURE1234567890ABCDEF). Required when witnessType is ClusterWitnessDisk. Minimum LUN size is 1 GB."
         }
       },
       "required": [
@@ -24737,6 +24812,7 @@
       "enum": [
         "AddServer",
         "RepairServer",
+        "SyncVolume",
         "ConfigureLocalAvailabilityZone",
         "ConfigureArcGateway",
         "GpuCreatePartition",
@@ -24760,6 +24836,11 @@
             "name": "RepairServer",
             "value": "RepairServer",
             "description": "Job to repair a server in the cluster."
+          },
+          {
+            "name": "SyncVolume",
+            "value": "SyncVolume",
+            "description": "Job to synchronize the cluster volumes."
           },
           {
             "name": "ConfigureLocalAvailabilityZone",
@@ -25099,6 +25180,16 @@
           ]
         }
       }
+    },
+    "HciSyncVolumeJobProperties": {
+      "type": "object",
+      "description": "Properties for synchronizing the cluster volumes.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ClusterJobProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "SyncVolume"
     },
     "HciValidationFailureDetail": {
       "type": "object",
@@ -36830,16 +36921,6 @@
         ]
       }
     },
-    "VolumeSyncClusterVolumeJobProperties": {
-      "type": "object",
-      "description": "Properties for resolving cluster volume configuration drift.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/ClusterVolumeJobProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "VolumeSync"
-    },
     "VolumeType": {
       "type": "string",
       "description": "Volume provisioning type for S2D storage.",
@@ -37029,7 +37110,8 @@
       "description": "Witness type for an Azure Stack HCI cluster.",
       "enum": [
         "Cloud",
-        "FileShare"
+        "FileShare",
+        "ClusterWitnessDisk"
       ],
       "x-ms-enum": {
         "name": "WitnessType",
@@ -37044,6 +37126,11 @@
             "name": "FileShare",
             "value": "FileShare",
             "description": "File-share witness on a local SMB share."
+          },
+          {
+            "name": "ClusterWitnessDisk",
+            "value": "ClusterWitnessDisk",
+            "description": "Cluster witness disk for RAC SAN clusters."
           }
         ]
       }

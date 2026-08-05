@@ -662,6 +662,7 @@ model OracleInstanceProperties is AzureResourceProperties {
   /**
    *The Server IP in ipv4/ipv6 format.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   hostIp?: string[];
 
   /**
@@ -956,6 +957,7 @@ model OracleInstanceResourcePatch {
   /**
    * The Server IP in ipv4/ipv6 format.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   hostIp?: string[];
 
   /**
