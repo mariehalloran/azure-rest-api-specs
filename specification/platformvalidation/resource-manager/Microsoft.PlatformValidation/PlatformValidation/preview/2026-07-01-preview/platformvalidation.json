@@ -119,22 +119,7 @@
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.top"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.skip"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.maxpagesize"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.orderby"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.filter"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.audience"
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters"
           }
         ],
         "responses": {
@@ -355,22 +340,7 @@
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.top"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.skip"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.maxpagesize"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.orderby"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.filter"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.audience"
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters"
           }
         ],
         "responses": {
@@ -599,22 +569,7 @@
             "pattern": "^[a-zA-Z0-9-]{1,90}$"
           },
           {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.top"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.skip"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.maxpagesize"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.orderby"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.filter"
-          },
-          {
-            "$ref": "#/parameters/ValidationCatalogListQueryParameters.audience"
+            "$ref": "#/parameters/ValidationCatalogListQueryParameters"
           }
         ],
         "responses": {
@@ -870,19 +825,7 @@
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "#/parameters/Azure.Core.TopQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.SkipQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.MaxPageSizeQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.OrderByQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.FilterQueryParameter"
+            "$ref": "#/parameters/ODataFilterQueryParameter"
           }
         ],
         "responses": {
@@ -902,68 +845,6 @@
         "x-ms-examples": {
           "CloudValidations_ListBySubscription_MaximumSet": {
             "$ref": "./examples/CloudValidations_ListBySubscription_MaximumSet_Gen.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.PlatformValidation/cloudValidations/{cloudValidationName}/validationExecutionPlans": {
-      "get": {
-        "operationId": "ValidationExecutionPlans_ListBySubscription",
-        "tags": [
-          "Validation Test Execution Plan Interfaces"
-        ],
-        "description": "List validation test execution plans by subscription",
-        "parameters": [
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "cloudValidationName",
-            "in": "path",
-            "description": "The name of the CloudValidation",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9-]{3,24}$"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.TopQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.SkipQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.MaxPageSizeQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.OrderByQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.FilterQueryParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ValidationExecutionPlanListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ValidationExecutionPlans_ListBySubscription_MaximumSet": {
-            "$ref": "./examples/ValidationExecutionPlans_ListBySubscription_MaximumSet_Gen.json"
           }
         },
         "x-ms-pageable": {
@@ -1031,19 +912,7 @@
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
           },
           {
-            "$ref": "#/parameters/Azure.Core.TopQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.SkipQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.MaxPageSizeQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.OrderByQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.FilterQueryParameter"
+            "$ref": "#/parameters/ODataFilterQueryParameter"
           }
         ],
         "responses": {
@@ -1350,19 +1219,7 @@
             "pattern": "^[a-zA-Z0-9-]{3,24}$"
           },
           {
-            "$ref": "#/parameters/Azure.Core.TopQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.SkipQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.MaxPageSizeQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.OrderByQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.FilterQueryParameter"
+            "$ref": "#/parameters/ODataFilterQueryParameter"
           }
         ],
         "responses": {
@@ -1709,19 +1566,7 @@
             "pattern": "^[a-zA-Z0-9-]{3,24}$"
           },
           {
-            "$ref": "#/parameters/Azure.Core.TopQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.SkipQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.MaxPageSizeQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.OrderByQueryParameter"
-          },
-          {
-            "$ref": "#/parameters/Azure.Core.FilterQueryParameter"
+            "$ref": "#/parameters/ODataFilterQueryParameter"
           }
         ],
         "responses": {
@@ -2414,7 +2259,8 @@
       "type": "string",
       "description": "The Overall states of the validation resource.",
       "enum": [
-        "Enabled"
+        "Enabled",
+        "Disabled"
       ],
       "x-ms-enum": {
         "name": "CloudValidationOverallState",
@@ -2424,6 +2270,11 @@
             "name": "Enabled",
             "value": "Enabled",
             "description": "The resource is in enabled state."
+          },
+          {
+            "name": "Disabled",
+            "value": "Disabled",
+            "description": "The resource is in disabled state."
           }
         ]
       }
@@ -2732,6 +2583,36 @@
       },
       "readOnly": true
     },
+    "TestRunOverallResult": {
+      "type": "string",
+      "description": "The overall result of a validation test run collection.",
+      "enum": [
+        "Passed",
+        "Failed",
+        "PartiallyPassed"
+      ],
+      "x-ms-enum": {
+        "name": "TestRunOverallResult",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Passed",
+            "value": "Passed",
+            "description": "All tests passed."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "One or more tests failed."
+          },
+          {
+            "name": "PartiallyPassed",
+            "value": "PartiallyPassed",
+            "description": "Some tests passed and some failed."
+          }
+        ]
+      }
+    },
     "TestRunSummary": {
       "type": "object",
       "description": "Execution summary details for a validation test run collection.",
@@ -2757,7 +2638,7 @@
           "description": "Number of skipped tests."
         },
         "overallResult": {
-          "type": "string",
+          "$ref": "#/definitions/TestRunOverallResult",
           "description": "Overall result for the execution plan run."
         },
         "message": {
@@ -2806,7 +2687,8 @@
       "type": "string",
       "description": "The Overall states of the validation execution plan.",
       "enum": [
-        "Enabled"
+        "Enabled",
+        "Disabled"
       ],
       "x-ms-enum": {
         "name": "ValidationExecutionPlanOverallState",
@@ -2816,6 +2698,11 @@
             "name": "Enabled",
             "value": "Enabled",
             "description": "The resource is in enabled state."
+          },
+          {
+            "name": "Disabled",
+            "value": "Disabled",
+            "description": "The resource is in disabled state."
           }
         ]
       }
@@ -2856,15 +2743,31 @@
       "type": "string",
       "description": "The execution plan resource provisioning state.",
       "enum": [
-        "Creating",
-        "Updating",
         "Succeeded",
-        "Failed"
+        "Failed",
+        "Canceled",
+        "Creating",
+        "Updating"
       ],
       "x-ms-enum": {
         "name": "ValidationExecutionPlanProvisioningState",
         "modelAsString": true,
         "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          },
           {
             "name": "Creating",
             "value": "Creating",
@@ -2874,16 +2777,6 @@
             "name": "Updating",
             "value": "Updating",
             "description": "The resource is updating."
-          },
-          {
-            "name": "Succeeded",
-            "value": "Succeeded",
-            "description": "The resource has been successfully provisioned."
-          },
-          {
-            "name": "Failed",
-            "value": "Failed",
-            "description": "The resource provisioning failed."
           }
         ]
       },
@@ -3311,7 +3204,7 @@
           "readOnly": true
         },
         "provisioningState": {
-          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "$ref": "#/definitions/ValidationTestRunProvisioningState",
           "description": "The state of the test run.",
           "readOnly": true
         },
@@ -3369,6 +3262,43 @@
           "x-ms-identifiers": []
         }
       }
+    },
+    "ValidationTestRunProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of the validation test run.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Running"
+      ],
+      "x-ms-enum": {
+        "name": "ValidationTestRunProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          },
+          {
+            "name": "Running",
+            "value": "Running",
+            "description": "The validation test run is in progress."
+          }
+        ]
+      },
+      "readOnly": true
     },
     "ValidationTestRunStatus": {
       "type": "string",
@@ -3530,83 +3460,16 @@
     }
   },
   "parameters": {
-    "Azure.Core.FilterQueryParameter": {
-      "name": "filter",
+    "ODataFilterQueryParameter": {
+      "name": "$filter",
       "in": "query",
-      "description": "Filter the result list using the given expression.",
+      "description": "The OData filter expression to apply to the list operation.",
       "required": false,
       "type": "string",
-      "x-ms-parameter-location": "method"
+      "x-ms-parameter-location": "method",
+      "x-ms-client-name": "filter"
     },
-    "Azure.Core.MaxPageSizeQueryParameter": {
-      "name": "maxpagesize",
-      "in": "query",
-      "description": "The maximum number of result items per page.",
-      "required": false,
-      "type": "integer",
-      "format": "int32",
-      "x-ms-parameter-location": "method"
-    },
-    "Azure.Core.OrderByQueryParameter": {
-      "name": "orderby",
-      "in": "query",
-      "description": "Expressions that specify the order of returned results.",
-      "required": false,
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "collectionFormat": "multi",
-      "x-ms-parameter-location": "method"
-    },
-    "Azure.Core.SkipQueryParameter": {
-      "name": "skip",
-      "in": "query",
-      "description": "The number of result items to skip.",
-      "required": false,
-      "type": "integer",
-      "format": "int32",
-      "default": 0,
-      "x-ms-parameter-location": "method"
-    },
-    "Azure.Core.TopQueryParameter": {
-      "name": "top",
-      "in": "query",
-      "description": "The number of result items to return.",
-      "required": false,
-      "type": "integer",
-      "format": "int32",
-      "x-ms-parameter-location": "method"
-    },
-    "ValidationCatalogListQueryParameters.audience": {
-      "name": "audience",
-      "in": "query",
-      "description": "Filter by audience visibility.",
-      "required": false,
-      "type": "string",
-      "enum": [
-        "Public",
-        "Internal"
-      ],
-      "x-ms-enum": {
-        "name": "CatalogAudience",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Public",
-            "value": "Public",
-            "description": "Visible to all customers, including 1P and 3P callers."
-          },
-          {
-            "name": "Internal",
-            "value": "Internal",
-            "description": "Visible only to authorized internal 1P callers."
-          }
-        ]
-      },
-      "x-ms-parameter-location": "method"
-    },
-    "ValidationCatalogListQueryParameters.filter": {
+    "ValidationCatalogListQueryParameters": {
       "name": "$filter",
       "in": "query",
       "description": "Filter expression used to constrain the returned items.",
@@ -3614,47 +3477,6 @@
       "type": "string",
       "x-ms-parameter-location": "method",
       "x-ms-client-name": "filter"
-    },
-    "ValidationCatalogListQueryParameters.maxpagesize": {
-      "name": "maxpagesize",
-      "in": "query",
-      "description": "The maximum number of items to return in each page.",
-      "required": false,
-      "type": "integer",
-      "format": "int32",
-      "minimum": 1,
-      "x-ms-parameter-location": "method"
-    },
-    "ValidationCatalogListQueryParameters.orderby": {
-      "name": "$orderby",
-      "in": "query",
-      "description": "Order-by expression to sort the returned items.",
-      "required": false,
-      "type": "string",
-      "x-ms-parameter-location": "method",
-      "x-ms-client-name": "orderby"
-    },
-    "ValidationCatalogListQueryParameters.skip": {
-      "name": "$skip",
-      "in": "query",
-      "description": "The number of items to skip before starting to collect the result set.",
-      "required": false,
-      "type": "integer",
-      "format": "int32",
-      "minimum": 0,
-      "x-ms-parameter-location": "method",
-      "x-ms-client-name": "skip"
-    },
-    "ValidationCatalogListQueryParameters.top": {
-      "name": "$top",
-      "in": "query",
-      "description": "The number of items to return in the current page.",
-      "required": false,
-      "type": "integer",
-      "format": "int32",
-      "minimum": 1,
-      "x-ms-parameter-location": "method",
-      "x-ms-client-name": "top"
     }
   }
 }

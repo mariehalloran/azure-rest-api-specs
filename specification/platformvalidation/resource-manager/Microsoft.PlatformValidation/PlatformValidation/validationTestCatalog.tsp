@@ -83,34 +83,15 @@ model ValidationTestInput {
   definition: ValidationTestInputDefinition;
 }
 
-@doc("Common list query parameters for validation catalog operations.")
+@doc("""
+  Common list query parameters for validation catalog operations. Supports OData
+  filtering on fields such as `categoryIds` and `audience`, e.g.
+  `$filter=audience eq 'Public'`.
+  """)
 model ValidationCatalogListQueryParameters {
-  @doc("The number of items to return in the current page.")
-  @query("$top")
-  @minValue(1)
-  top?: int32;
-
-  @doc("The number of items to skip before starting to collect the result set.")
-  @query("$skip")
-  @minValue(0)
-  skip?: int32;
-
-  @doc("The maximum number of items to return in each page.")
-  @query("maxpagesize")
-  @minValue(1)
-  maxpagesize?: int32;
-
-  @doc("Order-by expression to sort the returned items.")
-  @query("$orderby")
-  orderby?: string;
-
   @doc("Filter expression used to constrain the returned items.")
   @query("$filter")
   filter?: string;
-
-  @doc("Filter by audience visibility.")
-  @query("audience")
-  audience?: CatalogAudience;
 }
 
 @doc("Validation test catalog entry.")

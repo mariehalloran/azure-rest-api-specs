@@ -115,10 +115,24 @@ model TestRunSummary {
   skippedTests?: int32;
 
   @doc("Overall result for the execution plan run.")
-  overallResult?: string;
+  overallResult?: TestRunOverallResult;
 
   @doc("Human-readable summary message.")
   message?: string;
+}
+
+@doc("The overall result of a validation test run collection.")
+union TestRunOverallResult {
+  @doc("All tests passed.")
+  Passed: "Passed",
+
+  @doc("One or more tests failed.")
+  Failed: "Failed",
+
+  @doc("Some tests passed and some failed.")
+  PartiallyPassed: "PartiallyPassed",
+
+  string,
 }
 
 @armResourceOperations
@@ -136,8 +150,6 @@ interface ValidationExecutionPlanRuns {
   @doc("List Validation test execution plan runs for an execution plan")
   listByExecutionPlan is ArmResourceListByParent<
     ExecutionPlanRun,
-    Parameters = StandardListQueryParameters &
-      OrderByQueryParameter &
-      FilterQueryParameter
+    Parameters = ODataFilterQueryParameter
   >;
 }

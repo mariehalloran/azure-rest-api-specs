@@ -38,3 +38,14 @@ These settings apply only when `--tag=package-2026-07-01-preview` is specified o
 input-file:
   - preview/2026-07-01-preview/platformvalidation.json
 ```
+
+## Suppression
+
+``` yaml
+directive:
+  - suppress: TenantLevelAPIsNotAllowed
+    from: platformvalidation.json
+    where: $.paths
+    reason: ValidationTest/ValidationTestVersion/ValidationTestCategory catalog resources are intentionally tenant-scoped, shared across all subscriptions in the tenant. ARM office-hours sign-off obtained; PAS team security approval pending.
+```
+

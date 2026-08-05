@@ -53,7 +53,6 @@ union ProvisioningState {
   @doc("The resource is being deleted")
   Deleting: "Deleting",
 
-  /** The resource create request has been accepted */
   @doc("The resource create request has been accepted")
   Accepted: "Accepted",
 
@@ -64,6 +63,9 @@ union ProvisioningState {
 union CloudValidationOverallState {
   @doc("The resource is in enabled state.")
   Enabled: "Enabled",
+
+  @doc("The resource is in disabled state.")
+  Disabled: "Disabled",
 
   string,
 }
@@ -89,14 +91,12 @@ interface CloudValidations {
   @doc("List cloud validations by resource group")
   listByResourceGroup is ArmResourceListByParent<
     CloudValidation,
-    Parameters = StandardListQueryParameters &
-      OrderByQueryParameter &
-      FilterQueryParameter
+    Parameters = ODataFilterQueryParameter
   >;
 
   @doc("List cloud validations by subscription")
   listBySubscription is ArmListBySubscription<
     CloudValidation,
-    StandardListQueryParameters & OrderByQueryParameter & FilterQueryParameter
+    ODataFilterQueryParameter
   >;
 }

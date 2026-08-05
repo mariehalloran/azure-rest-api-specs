@@ -3,6 +3,7 @@ import "./validationExecutionPlan.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
+using Azure.Core;
 using Azure.ResourceManager;
 
 namespace Microsoft.PlatformValidation;
@@ -11,19 +12,6 @@ namespace Microsoft.PlatformValidation;
 @parentResource(ExecutionPlanRun)
 model ValidationTestRun is ProxyResource<ValidationTestRunProperties> {
   ...ResourceNameParameter<ValidationTestRun>;
-}
-
-@doc("Validation Test Run represents execution instance(s) of a Validation Test instance under execution plan.")
-model ValidationTestRunDetails {
-  @doc("The unique identifier for the test run.")
-  @visibility(Lifecycle.Read)
-  id?: string;
-
-  @doc("The name of the test run.")
-  name?: string;
-
-  @doc("The properties of the test run.")
-  properties?: ValidationTestRunProperties;
 }
 
 @doc("Validation Test Run properties.")
@@ -38,7 +26,7 @@ model ValidationTestRunProperties {
 
   @doc("The state of the test run.")
   @visibility(Lifecycle.Read)
-  provisioningState?: ResourceProvisioningState;
+  provisioningState?: ValidationTestRunProvisioningState;
 
   @doc("The start time of the test run.")
   @visibility(Lifecycle.Read)
@@ -72,6 +60,17 @@ model ValidationTestRunProperties {
   @identifiers(#[])
   @maxItems(100)
   failureDetails?: ValidationTestFailureDetails[];
+}
+
+@doc("The provisioning state of the validation test run.")
+@lroStatus
+union ValidationTestRunProvisioningState {
+  ResourceProvisioningState,
+
+  @doc("The validation test run is in progress.")
+  Running: "Running",
+
+  string,
 }
 
 @doc("The overall status of the test run.")

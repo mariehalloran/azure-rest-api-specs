@@ -43,21 +43,16 @@ model ValidationExecutionPlanProperties {
   overallState?: ValidationExecutionPlanOverallState;
 }
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "Q-VEP-1 public-preview design constrains this status to Creating/Updating/Succeeded/Failed."
 @doc("The execution plan resource provisioning state.")
 @lroStatus
 union ValidationExecutionPlanProvisioningState {
+  ResourceProvisioningState,
+
   @doc("The resource is being provisioned.")
   Creating: "Creating",
 
   @doc("The resource is updating.")
   Updating: "Updating",
-
-  @doc("The resource has been successfully provisioned.")
-  Succeeded: "Succeeded",
-
-  @doc("The resource provisioning failed.")
-  Failed: "Failed",
 
   string,
 }
@@ -66,6 +61,9 @@ union ValidationExecutionPlanProvisioningState {
 union ValidationExecutionPlanOverallState {
   @doc("The resource is in enabled state.")
   Enabled: "Enabled",
+
+  @doc("The resource is in disabled state.")
+  Disabled: "Disabled",
 
   string,
 }
@@ -92,14 +90,6 @@ interface ValidationExecutionPlans {
   @doc("List validation test execution plans by resource group")
   listByResourceGroup is ArmResourceListByParent<
     ValidationExecutionPlan,
-    Parameters = StandardListQueryParameters &
-      OrderByQueryParameter &
-      FilterQueryParameter
-  >;
-
-  @doc("List validation test execution plans by subscription")
-  listBySubscription is ArmListBySubscription<
-    ValidationExecutionPlan,
-    StandardListQueryParameters & OrderByQueryParameter & FilterQueryParameter
+    Parameters = ODataFilterQueryParameter
   >;
 }
