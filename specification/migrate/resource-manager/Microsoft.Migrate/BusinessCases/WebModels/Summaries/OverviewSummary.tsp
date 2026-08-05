@@ -215,10 +215,9 @@ model OverviewSummaryProperties {
   futureAzureArcEnabledOnPremisesCostDetails?: TotalCostDetails;
 
   @added(BusinessCaseApiVersions.v2026_06_06_preview)
-  @doc("Azure value uplift benefits, aggregated across the heterogeneous assessments that contribute to this business case. Absent when none of the contributing assessments reported value benefits.")
+  @doc("Azure value uplift benefits, aggregated across the heterogeneous assessment that contributes to this business case. Absent when the contributing assessment reported no value benefits.")
   @visibility(Lifecycle.Read)
-  @identifiers(#[])
-  valueBenefitComponents?: ValueBenefitDetails[];
+  valueBenefit?: ValueBenefitDetails;
 }
 
 @doc("Azure value uplift benefits for a set of workloads, broken down by pillar.")

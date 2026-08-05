@@ -2368,14 +2368,10 @@
           "description": "The final azure arc enabled on-premises cost based on the final migration percentage.",
           "readOnly": true
         },
-        "valueBenefitComponents": {
-          "type": "array",
-          "description": "Azure value uplift benefits, aggregated across the heterogeneous assessments that contribute to this business case. Absent when none of the contributing assessments reported value benefits.",
-          "items": {
-            "$ref": "#/definitions/ValueBenefitDetails"
-          },
-          "readOnly": true,
-          "x-ms-identifiers": []
+        "valueBenefit": {
+          "$ref": "#/definitions/ValueBenefitDetails",
+          "description": "Azure value uplift benefits, aggregated across the heterogeneous assessment that contributes to this business case. Absent when the contributing assessment reported no value benefits.",
+          "readOnly": true
         }
       },
       "required": [
