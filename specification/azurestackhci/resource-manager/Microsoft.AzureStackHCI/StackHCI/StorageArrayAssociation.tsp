@@ -64,13 +64,10 @@ interface StorageArrayAssociations {
   createOrUpdate is ArmResourceCreateOrUpdateAsync<StorageArrayAssociation>;
 
   /**
-   * Delete a storage-array association. Associations are removed as part of
-   * deleting their owning cluster, which cascades the deletion to its children:
-   * the request is validated, the referenced Storage Spaces Direct (S2D) storage
-   * array is deleted, and the association is then removed. SAN arrays are not
-   * deleted, as they may be shared by several clusters; only the association is
-   * removed. A direct request to delete an association that references an S2D
-   * array owned by the cluster is rejected.
+   * Delete a storage-array association. For a Storage Spaces Direct (S2D) array
+   * owned by this cluster the association cannot be deleted directly; it is
+   * removed only when the cluster is deleted, which also deletes the array. For
+   * a SAN array only the association is removed.
    */
   delete is ArmResourceDeleteWithoutOkAsync<StorageArrayAssociation>;
 }
