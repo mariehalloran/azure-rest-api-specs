@@ -410,13 +410,11 @@ model EnergyServiceProperties {
   provisioningState?: ProvisioningState;
 
   /** App ID of the application used for authentication. */
-  @madeRequired(Versions.v2026_07_21_preview)
-  authAppId: string;
+  authAppId?: string;
 
   /** Data partition names. */
-  @madeRequired(Versions.v2026_07_21_preview)
   @identifiers(#[])
-  dataPartitionNames: DataPartitionNames[];
+  dataPartitionNames?: DataPartitionNames[];
 
   /**
    * Properties to configure Encryption
@@ -453,8 +451,7 @@ model EnergyServiceProperties {
   /**
    * The resource model definition representing SKU
    */
-  @madeRequired(Versions.v2026_07_21_preview)
-  sku: Azure.ResourceManager.CommonTypes.Sku;
+  sku?: Azure.ResourceManager.CommonTypes.Sku;
 
   /**
    * Maximum autoscale capacity limit for the energy service. Must be a power of 2 between 1 and 256 (applicable for Flex SKU).

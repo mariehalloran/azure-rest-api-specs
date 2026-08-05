@@ -14,7 +14,7 @@
 > `2026-02-02-preview`** — that is expected and acceptable because that version is unused, and in
 > some cases the change reverts behavior back to how all other API versions function. Changes
 > include: 2 properties added, 1 removed, `addOnPackages` reshaped to a 2-value enum,
-> `sku`/`authAppId`/`dataPartitionNames` made required, and the PATCH surface expanded.
+> and the PATCH surface expanded.
 
 ---
 
@@ -26,12 +26,12 @@
 | `acz` | object | `{ "identity": { "identityType": "SystemAssigned" \| "UserAssigned", "userAssignedIdentityId": string } }`. `userAssignedIdentityId` required when `identityType == UserAssigned`. |
 
 > **Required vs optional (finalized):**
-> - **Required** (create + response): `authAppId`, `dataPartitionNames`, `sku` (all in
->   `properties`). Version-gated via `@madeRequired(2026_07_21_preview)`, so they stay **optional**
->   in `2026-02-02-preview`.
-> - **Optional**: `encryption`, `eds`, `acz`, `privateEndpointConnections`, `corsRules`,
->   `addOnPackages`, `geoRedundancy`, `backupAndRestore`, `referenceData`, `upgradeSettings`,
->   `publicNetworkAccess`.
+> - **Required** (create + response): none — all properties remain **optional**, matching
+>   `2025-12-15` and prior. (An earlier revision made `authAppId`/`dataPartitionNames`/`sku`
+>   required via `@madeRequired`; that was reverted.)
+> - **Optional**: `authAppId`, `dataPartitionNames`, `sku`, `encryption`, `eds`, `acz`,
+>   `privateEndpointConnections`, `corsRules`, `addOnPackages`, `geoRedundancy`, `backupAndRestore`,
+>   `referenceData`, `upgradeSettings`, `publicNetworkAccess`.
 > - **Read-only** (server-set): `dnsName`, `provisioningState`, `milestoneVersion`.
 >
 > `geoRedundancy` and `backupAndRestore` are **optional with no default**. The resource provider
@@ -132,13 +132,10 @@ New shape (`2026-07-21-preview`): `{ id, name, type, eTag, remotePrivateEndpoint
 
 ## Required-status changes
 
-In `2026-07-21-preview`, `authAppId`, `dataPartitionNames`, and `sku` are now **required** on
-create + response (they were optional in all prior versions). Applied via
-`@madeRequired(2026_07_21_preview)` inside `properties`, so they remain **optional** in
-`2026-02-02-preview`. `sku` being required means every create must specify a SKU and every
-`2026-07-21-preview` GET response returns one.
-`sku` being required means every create must specify a SKU and every `2026-07-21-preview` GET
-response returns one.
+None. `authAppId`, `dataPartitionNames`, and `sku` remain **optional** in `2026-07-21-preview`,
+matching `2025-12-15` and all prior versions. (An earlier revision made them required via
+`@madeRequired(2026_07_21_preview)`; that was reverted, so no property becomes newly required in
+this version.)
 
 ## Unchanged (carried over)
 
