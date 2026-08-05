@@ -14,19 +14,22 @@
         "value": [
           {
             "properties": {
-              "jobType": "VolumeSync",
+              "jobType": "ApplyVolumeConfiguration",
               "deploymentMode": "Deploy",
               "provisioningState": "Succeeded",
-              "jobId": "sync-volume-job-001",
+              "jobId": "update-volume-job-001",
               "startTimeUtc": "2024-11-14T10:46:55.167Z",
               "endTimeUtc": "2024-11-14T10:50:55.167Z",
               "status": "Succeeded",
+              "targetConfiguration": {
+                "placementMode": "manual"
+              },
               "reportedProperties": {
                 "percentComplete": 100
               }
             },
-            "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/ArcInstance-rg/providers/Microsoft.AzureStackHCI/clusters/cluster-1/volumes/volume-1/jobs/sync-volume-job-001",
-            "name": "sync-volume-job-001",
+            "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/ArcInstance-rg/providers/Microsoft.AzureStackHCI/clusters/cluster-1/volumes/volume-1/jobs/update-volume-job-001",
+            "name": "update-volume-job-001",
             "type": "Microsoft.AzureStackHCI/clusters/volumes/jobs",
             "systemData": {
               "createdBy": "user1",

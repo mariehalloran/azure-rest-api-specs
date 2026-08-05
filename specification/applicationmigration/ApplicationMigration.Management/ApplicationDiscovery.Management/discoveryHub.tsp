@@ -92,6 +92,7 @@ union AppDiscoveryFeatureState {
   string,
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request model for the auto-discover applications operation.")
 @added(Microsoft.ApplicationMigration.Versions.v2026_01_01_preview)
 model AutoDiscoverAppsRequest {
