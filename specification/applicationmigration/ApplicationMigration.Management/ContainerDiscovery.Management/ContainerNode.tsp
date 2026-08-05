@@ -70,6 +70,7 @@ model ContainerNodeProperties is AzureResourceProperties {
   hostId?: string;
 
   @doc("Fully qualified domain name of the host.") hostFqdn?: string;
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("Primary IP address of the host.") hostPrimaryIp?: string;
   @doc("Node availability status.") availability?: NodeAvailability;
 
@@ -102,6 +103,7 @@ model ContainerNodeProperties is AzureResourceProperties {
   tags?: Record<string>;
 
   // ── Host OS Details ──
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("Host OS details.") hostOs?: HostOsProperties;
 
   // ── Container Runtimes (full detail) ──
@@ -179,6 +181,7 @@ model ContainerNodePatch {
   @doc("Node role.") nodeRole?: NodeRole;
   @doc("Node availability status.") availability?: NodeAvailability;
   @doc("Fully qualified domain name of the host.") hostFqdn?: string;
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("Primary IP address of the host.") hostPrimaryIp?: string;
   @doc("Software attributes.") softwareAttributes?: SoftwareAttributes;
   @doc("Support status.") supportStatus?: SupportStatus;
@@ -199,6 +202,7 @@ model ContainerNodePatch {
   @doc("Resource tags as key-value pairs.")
   tags?: Record<string>;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("Host OS details.") hostOs?: HostOsProperties;
 
   @doc("Container runtimes.")

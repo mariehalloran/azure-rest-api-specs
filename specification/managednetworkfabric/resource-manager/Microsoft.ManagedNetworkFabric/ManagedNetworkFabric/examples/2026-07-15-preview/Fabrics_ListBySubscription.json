@@ -12,6 +12,7 @@
             "name": "example-fabric",
             "type": "Microsoft.ManagedNetworkFabric/fabrics",
             "location": "eastus",
+            "kind": "UserManaged",
             "systemData": {
               "createdBy": "example@contoso.com",
               "createdByType": "User",
@@ -21,104 +22,121 @@
               "lastModifiedAt": "2026-04-15T00:00:00Z"
             },
             "properties": {
-              "managementMode": "unmanaged",
-              "fabricSku": "2-rack-ha",
+              "description": "BYOF user-managed fabric in East US — all infrastructure networks (management, pxe, bmc, pdu, storage, ovn, vmLiveMigration), platform proxy, and tenant networking.",
+              "fabricSku": "M8-A100-A25-C16-ac",
               "infrastructure": {
                 "networks": [
                   {
                     "purpose": "management",
-                    "name": "oam-net",
+                    "name": "oam",
                     "vlanId": 42,
-                    "ipv4Subnet": "10.2.0.0/24",
-                    "ipv4Gateway": "10.2.0.1",
-                    "ipv4StartAddr": "10.2.0.20",
-                    "ipv4EndAddr": "10.2.0.99",
-                    "ipv4Mtu": 9000
+                    "ipv4Subnet": "10.49.6.0/24",
+                    "ipv4Gateway": "10.49.6.1",
+                    "ipv4StartAddr": "10.49.6.20",
+                    "ipv4EndAddr": "10.49.6.179",
+                    "ipv4Mtu": 1500
                   },
                   {
                     "purpose": "pxe",
-                    "name": "pxe-net",
+                    "name": "pxe-boot",
                     "vlanId": 41,
-                    "ipv4Subnet": "10.2.1.0/24",
-                    "ipv4Gateway": "10.2.1.1",
-                    "ipv4StartAddr": "10.2.1.20",
-                    "ipv4EndAddr": "10.2.1.99",
+                    "ipv4Subnet": "10.49.4.0/23",
+                    "ipv4Gateway": "10.49.4.1",
+                    "ipv4StartAddr": "10.49.4.20",
+                    "ipv4EndAddr": "10.49.4.179",
                     "ipv4Mtu": 1500
                   },
                   {
                     "purpose": "bmc",
-                    "name": "bmc-net",
+                    "name": "bmc-mgmt",
                     "vlanId": 40,
-                    "ipv4Subnet": "10.2.2.0/24",
-                    "ipv4Gateway": "10.2.2.1",
-                    "ipv4StartAddr": "10.2.2.11",
-                    "ipv4EndAddr": "10.2.2.99",
+                    "ipv4Subnet": "10.49.3.0/24",
+                    "ipv4Gateway": "10.49.3.1",
+                    "ipv4StartAddr": "10.49.3.11",
+                    "ipv4EndAddr": "10.49.3.179",
+                    "ipv4Mtu": 1500
+                  },
+                  {
+                    "purpose": "pdu",
+                    "name": "pdu-mgmt",
+                    "vlanId": 38,
+                    "ipv4Subnet": "10.49.1.0/24",
+                    "ipv4Gateway": "10.49.1.1",
+                    "ipv4StartAddr": "10.49.1.20",
+                    "ipv4EndAddr": "10.49.1.179",
                     "ipv4Mtu": 1500
                   },
                   {
                     "purpose": "storage",
                     "name": "storage-data",
                     "vlanId": 43,
-                    "ipv4Subnet": "10.2.3.0/24",
-                    "ipv4Gateway": "10.2.3.1",
-                    "ipv4StartAddr": "10.2.3.20",
-                    "ipv4EndAddr": "10.2.3.179",
+                    "ipv4Subnet": "10.49.8.0/24",
+                    "ipv4Gateway": "10.49.8.1",
+                    "ipv4StartAddr": "10.49.8.20",
+                    "ipv4EndAddr": "10.49.8.179",
                     "ipv4Mtu": 9000
                   },
                   {
-                    "purpose": "storageMgmt",
-                    "name": "storage-mgmt",
-                    "vlanId": 37,
-                    "ipv4Subnet": "10.2.4.0/24",
-                    "ipv4Mtu": 1500
+                    "purpose": "ovn",
+                    "name": "ovn-net",
+                    "vlanId": 44,
+                    "ipv4Subnet": "10.49.11.0/24",
+                    "ipv4Gateway": "10.49.11.1",
+                    "ipv4StartAddr": "10.49.11.8",
+                    "ipv4EndAddr": "10.49.11.254",
+                    "ipv4Mtu": 9000
                   },
                   {
-                    "purpose": "pdu",
-                    "name": "pdu-net",
-                    "vlanId": 38,
-                    "ipv4Subnet": "10.2.5.0/24",
-                    "ipv4Gateway": "10.2.5.1",
-                    "ipv4StartAddr": "10.2.5.20",
-                    "ipv4EndAddr": "10.2.5.179",
-                    "ipv4Mtu": 1500
+                    "purpose": "vmLiveMigration",
+                    "name": "livemig-net",
+                    "vlanId": 45,
+                    "ipv4Subnet": "10.49.7.0/24",
+                    "ipv4Gateway": "10.49.7.1",
+                    "ipv4StartAddr": "10.49.7.8",
+                    "ipv4EndAddr": "10.49.7.254",
+                    "ipv4Mtu": 9000
                   }
                 ],
                 "proxyConfigs": [
                   {
                     "purpose": "platformProxy",
-                    "httpProxy": "http://10.2.0.60:3128",
-                    "httpsProxy": "http://10.2.0.60:3128",
+                    "httpProxy": "http://10.252.34.5:3128",
+                    "httpsProxy": "http://10.252.34.5:3128",
                     "noProxy": [
-                      "10.2.0.0/24",
-                      "10.2.1.0/24",
-                      "10.2.2.0/24",
-                      "10.2.3.0/24",
-                      "localhost",
-                      "169.254.169.254",
-                      ".svc"
+                      ".svc",
+                      ".cluster.local",
+                      ".aods.local",
+                      ".networkcloud.local",
+                      "172.29.0.0/16",
+                      "172.28.0.0/16",
+                      "10.49.0.0/16",
+                      "fda0:d59c:da0a:3100::/56",
+                      "127.0.0.1",
+                      "::1",
+                      "localhost"
                     ]
                   }
                 ],
                 "ntpServers": [
-                  "10.2.0.100"
+                  "10.252.34.5"
                 ],
                 "dnsServers": [
-                  "10.2.0.50"
+                  "10.252.228.152"
                 ]
               },
               "tenant": {
                 "network": {
                   "name": "tenant-proxy-net",
                   "vlanId": 50,
-                  "ipv4Subnet": "10.2.6.0/24",
-                  "ipv4Gateway": "10.2.6.1",
-                  "ipv4StartAddr": "10.2.6.8",
-                  "ipv4EndAddr": "10.2.6.254",
+                  "ipv4Subnet": "10.49.10.0/24",
+                  "ipv4Gateway": "10.49.10.1",
+                  "ipv4StartAddr": "10.49.10.8",
+                  "ipv4EndAddr": "10.49.10.254",
                   "ipv4Mtu": 1500
                 },
                 "proxyConfig": {
-                  "httpProxy": "http://10.2.0.60:3128",
-                  "httpsProxy": "http://10.2.0.60:3128"
+                  "httpProxy": "http://10.252.254.93:3128",
+                  "httpsProxy": "http://10.252.254.93:3128"
                 }
               },
               "provisioningState": "Succeeded"

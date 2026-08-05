@@ -4026,6 +4026,9 @@
           "ClusterJobs_Get_SetGpuConfidentialComputingModeJob": {
             "$ref": "./examples/ClusterJobs_Get_SetGpuConfidentialComputingModeJob.json"
           },
+          "ClusterJobs_Get_SyncVolume": {
+            "$ref": "./examples/ClusterJobs_Get_SyncVolume.json"
+          },
           "ClusterJobs_Get_VmConnectProvisionJob": {
             "$ref": "./examples/ClusterJobs_Get_VmConnectProvisionJob.json"
           },
@@ -4133,6 +4136,9 @@
           },
           "ClusterJobs_CreateOrUpdate_SetGpuConfidentialComputingModeJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_SetGpuConfidentialComputingMode.json"
+          },
+          "ClusterJobs_CreateOrUpdate_SyncVolume": {
+            "$ref": "./examples/ClusterJobs_CreateOrUpdate_SyncVolume.json"
           },
           "ClusterJobs_CreateOrUpdate_VmConnectProvisionJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_VmConnectProvision.json"
@@ -5398,6 +5404,73 @@
         },
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "StorageArrayAssociations_Delete",
+        "tags": [
+          "StorageArrayAssociations"
+        ],
+        "description": "Delete a storage-array association. For a Storage Spaces Direct (S2D) array\nowned by this cluster the association cannot be deleted directly; it is\nremoved only when the cluster is deleted, which also deletes the array. For\na SAN array only the association is removed.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the cluster.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "storageArrayAssociationName",
+            "in": "path",
+            "description": "The name of the StorageArrayAssociation",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{3,63}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "StorageArrayAssociations_Delete": {
+            "$ref": "./examples/StorageArrayAssociations_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
         },
         "x-ms-long-running-operation": true
       }
@@ -6960,9 +7033,6 @@
           }
         },
         "x-ms-examples": {
-          "ClusterVolumeJobs_Get": {
-            "$ref": "./examples/ClusterVolumeJobs_Get.json"
-          },
           "ClusterVolumeJobs_Get_ApplyVolumeConfiguration": {
             "$ref": "./examples/ClusterVolumeJobs_Get_ApplyVolumeConfiguration.json"
           }
@@ -7049,9 +7119,6 @@
           }
         },
         "x-ms-examples": {
-          "ClusterVolumeJobs_CreateOrUpdate": {
-            "$ref": "./examples/ClusterVolumeJobs_CreateOrUpdate.json"
-          },
           "ClusterVolumeJobs_CreateOrUpdate_ApplyVolumeConfiguration": {
             "$ref": "./examples/ClusterVolumeJobs_CreateOrUpdate_ApplyVolumeConfiguration.json"
           }
@@ -17599,18 +17666,12 @@
       "type": "string",
       "description": "Type of cluster volume job operation.",
       "enum": [
-        "VolumeSync",
         "ApplyVolumeConfiguration"
       ],
       "x-ms-enum": {
         "name": "ClusterVolumeJobType",
         "modelAsString": true,
         "values": [
-          {
-            "name": "VolumeSync",
-            "value": "VolumeSync",
-            "description": "Job to resolve configuration drift between the desired and reported state of the cluster volume."
-          },
           {
             "name": "ApplyVolumeConfiguration",
             "value": "ApplyVolumeConfiguration",
@@ -24813,6 +24874,7 @@
       "enum": [
         "AddServer",
         "RepairServer",
+        "SyncVolume",
         "ConfigureLocalAvailabilityZone",
         "ConfigureArcGateway",
         "GpuCreatePartition",
@@ -24836,6 +24898,11 @@
             "name": "RepairServer",
             "value": "RepairServer",
             "description": "Job to repair a server in the cluster."
+          },
+          {
+            "name": "SyncVolume",
+            "value": "SyncVolume",
+            "description": "Job to synchronize the cluster volumes."
           },
           {
             "name": "ConfigureLocalAvailabilityZone",
@@ -25175,6 +25242,16 @@
           ]
         }
       }
+    },
+    "HciSyncVolumeJobProperties": {
+      "type": "object",
+      "description": "Properties for synchronizing the cluster volumes.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ClusterJobProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "SyncVolume"
     },
     "HciValidationFailureDetail": {
       "type": "object",
@@ -36857,16 +36934,6 @@
           }
         ]
       }
-    },
-    "VolumeSyncClusterVolumeJobProperties": {
-      "type": "object",
-      "description": "Properties for resolving cluster volume configuration drift.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/ClusterVolumeJobProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "VolumeSync"
     },
     "VolumeType": {
       "type": "string",
