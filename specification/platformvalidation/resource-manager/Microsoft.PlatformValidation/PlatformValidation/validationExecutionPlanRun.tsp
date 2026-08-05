@@ -136,8 +136,8 @@ union TestRunOverallResult {
 }
 
 @armResourceOperations
-@tag("Validation Execution Plan Run Interfaces")
-interface ValidationExecutionPlanRuns {
+@tag("Execution Plan Run Interfaces")
+interface ExecutionPlanRuns {
   @doc("Get a Validation test execution plan run details")
   get is ArmResourceRead<ExecutionPlanRun>;
 

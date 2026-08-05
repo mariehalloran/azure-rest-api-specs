@@ -7,10 +7,10 @@ namespace Microsoft.PlatformValidation;
 
 @doc("Audience visibility of a published catalog item.")
 union CatalogAudience {
-  @doc("Visible to all customers, including 1P and 3P callers.")
+  @doc("Visible to all customers, including first-party and third-party callers.")
   Public: "Public",
 
-  @doc("Visible only to authorized internal 1P callers.")
+  @doc("Visible only to authorized Microsoft-internal callers.")
   Internal: "Internal",
 
   string,
@@ -123,25 +123,26 @@ model ValidationTestProperties {
   @doc("Overall state of the validation test.")
   overallState?: ValidationTestOverallState;
 
-  @doc("Owners of the validation test definition.")
+  @doc("""
+    Owners of the validation test definition, expressed as aliases.
+    Only catalog publishers(limited to microsoft internal only) set this value via the create/update operations; end users of the validation
+    service consume catalog entries read-only through Get/List and cannot modify it.
+    """)
   owners?: string[];
 
   @doc("Declared input contract for this validation test.")
   inputs?: ValidationTestInput[];
 
-  @doc("URI of the test artifact in TestStore.")
+  @doc("URI of the location where the test artifact is stored.")
   testStoreUri?: string;
 
   @doc("The resource ID of the current immutable version snapshot.")
-  @visibility(Lifecycle.Read)
   currentVersion?: string;
 
   @doc("The resource ID of the latest published version snapshot.")
-  @visibility(Lifecycle.Read)
   latestPublishedVersion?: string;
 
   @doc("Timestamp of the last version publication.")
-  @visibility(Lifecycle.Read)
   lastPublishedAt?: utcDateTime;
 }
 
@@ -163,7 +164,11 @@ model ValidationTestVersionProperties {
   @doc("Overall state of the validation test.")
   overallState?: ValidationTestOverallState;
 
-  @doc("Owners of the validation test version definition.")
+  @doc("""
+    Owners of the validation test version definition, expressed as email aliases or Microsoft Entra object IDs.
+    Only catalog publishers set this value via the create/update operations; end users of the validation
+    service consume catalog entries read-only through Get/List and cannot modify it.
+    """)
   owners?: string[];
 
   @doc("Declared input contract for this validation test version.")
@@ -173,7 +178,7 @@ model ValidationTestVersionProperties {
   @pattern("^[A-Fa-f0-9]{64}$")
   contentHash?: string;
 
-  @doc("URI of the test artifact in TestStore.")
+  @doc("URI of the location where the test artifact is stored.")
   testStoreUri?: string;
 }
 
@@ -216,58 +221,39 @@ model ValidationTestCategoryProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ResourceProvisioningState;
 
-  @doc("Parent validation test category id.")
+  @doc("""
+    Parent validation test category id. Categories form a two-level hierarchy only:
+    a top-level category leaves this unset, and a sub-category sets this to its
+    top-level parent's category id. Sub-categories cannot themselves have sub-categories,
+    and a category must not reference itself as its own parent.
+    """)
   parentCategoryId?: string;
 
-  @doc("Owners of the validation test category.")
+  @doc("""
+    Owners of the validation test category, expressed as email aliases or Microsoft Entra object IDs.
+    Only catalog publishers set this value via the create/update operations; end users of the validation
+    service consume catalog entries read-only through Get/List and cannot modify it.
+    """)
   owners?: string[];
 }
-
-@armResourceOperations
-interface ValidationTestsOps
-  extends Azure.ResourceManager.Legacy.ExtensionOperations<
-      {
-        ...ApiVersionParameter,
-
-        @path
-        @segment("providers")
-        @key
-        @doc("The provider namespace.")
-        providerNamespace: "Microsoft.PlatformValidation",
-      },
-      {},
-      {
-        @path
-        @segment("validationTests")
-        @key
-        @doc("The validation test name.")
-        @pattern("^[a-zA-Z0-9-]{1,90}$")
-        validationTestName: string,
-      },
-      ResourceName = "ValidationTests"
-    > {}
 
 @armResourceOperations
 @tag("Validation Test Interfaces")
 interface ValidationTests {
   @doc("Get a validation test catalog entry")
-  get is ValidationTestsOps.Read<ValidationTest>;
+  get is ArmResourceRead<ValidationTest>;
 
   @doc("Create or update a validation test catalog entry and publish a new immutable version snapshot")
-  createOrUpdate is ValidationTestsOps.CreateOrUpdateSync<ValidationTest>;
+  createOrUpdate is ArmResourceCreateOrReplaceSync<ValidationTest>;
 
   @doc("Update a validation test catalog entry")
-  @patch(#{ implicitOptionality: false })
-  update is ValidationTestsOps.CustomPatchSync<
-    ValidationTest,
-    PatchModel = ValidationTest
-  >;
+  update is ArmResourcePatchSync<ValidationTest, ValidationTestProperties>;
 
   @doc("Delete a validation test catalog entry")
-  delete is ValidationTestsOps.DeleteSync<ValidationTest>;
+  delete is ArmResourceDeleteSync<ValidationTest>;
 
   @doc("List validation test catalog entries")
-  list is ValidationTestsOps.List<
+  list is ArmResourceListByParent<
     ValidationTest,
     Parameters = ValidationCatalogListQueryParameters
   >;
@@ -283,7 +269,6 @@ interface ValidationTestVersions {
   createOrUpdate is ArmResourceCreateOrReplaceSync<ValidationTestVersion>;
 
   @doc("Update a validation test version catalog entry")
-  @parameterVisibility(Lifecycle.Update)
   update is ArmResourcePatchSync<
     ValidationTestVersion,
     ValidationTestVersionProperties
@@ -300,50 +285,25 @@ interface ValidationTestVersions {
 }
 
 @armResourceOperations
-interface ValidationTestCategoriesOps
-  extends Azure.ResourceManager.Legacy.ExtensionOperations<
-      {
-        ...ApiVersionParameter,
-
-        @path
-        @segment("providers")
-        @key
-        @doc("The provider namespace.")
-        providerNamespace: "Microsoft.PlatformValidation",
-      },
-      {},
-      {
-        @path
-        @segment("validationTestCategories")
-        @key
-        @doc("The validation test category name.")
-        @pattern("^[a-zA-Z0-9-]{1,90}$")
-        validationTestCategoryName: string,
-      },
-      ResourceName = "ValidationTestCategories"
-    > {}
-
-@armResourceOperations
 @tag("Validation Test Category Interfaces")
 interface ValidationTestCategories {
   @doc("Get a validation test category catalog entry")
-  get is ValidationTestCategoriesOps.Read<ValidationTestCategory>;
+  get is ArmResourceRead<ValidationTestCategory>;
 
   @doc("Create or update a validation test category catalog entry")
-  createOrUpdate is ValidationTestCategoriesOps.CreateOrUpdateSync<ValidationTestCategory>;
+  createOrUpdate is ArmResourceCreateOrReplaceSync<ValidationTestCategory>;
 
   @doc("Update a validation test category catalog entry")
-  @patch(#{ implicitOptionality: false })
-  update is ValidationTestCategoriesOps.CustomPatchSync<
+  update is ArmResourcePatchSync<
     ValidationTestCategory,
-    PatchModel = ValidationTestCategory
+    ValidationTestCategoryProperties
   >;
 
   @doc("Delete a validation test category catalog entry")
-  delete is ValidationTestCategoriesOps.DeleteSync<ValidationTestCategory>;
+  delete is ArmResourceDeleteSync<ValidationTestCategory>;
 
   @doc("List validation test category catalog entries")
-  list is ValidationTestCategoriesOps.List<
+  list is ArmResourceListByParent<
     ValidationTestCategory,
     Parameters = ValidationCatalogListQueryParameters
   >;
