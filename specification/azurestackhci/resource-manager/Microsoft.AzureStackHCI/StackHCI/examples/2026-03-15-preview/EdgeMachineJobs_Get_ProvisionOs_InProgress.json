@@ -11,9 +11,9 @@
   "responses": {
     "200": {
       "body": {
-        "id": "/subscriptions/ff0aa6da-20f8-44fe-9aee-381c8e8a4aeb/resourceGroups/bhukumar-test-rg/providers/Microsoft.AzureStackHCI/EdgeMachines/em1/jobs/ProvisionOs",
+        "id": "/subscriptions/fd3c3665-1729-4b7b-9a38-238e83b0f98b/resourceGroups/ArcInstance-rg/providers/Microsoft.AzureStackHCI/edgeMachines/machine1/jobs/ProvisionOs",
         "name": "ProvisionOs",
-        "type": "microsoft.azurestackhci/edgemachines/jobs",
+        "type": "Microsoft.AzureStackHCI/edgeMachines/jobs",
         "properties": {
           "provisioningRequest": {
             "osProfile": {
@@ -86,7 +86,8 @@
                   "description": "ResolveConfiguration",
                   "startTimeUtc": "2026-07-09T17:59:55.0000000Z",
                   "endTimeUtc": "2026-07-09T18:00:00.0000000Z",
-                  "status": "Success"
+                  "status": "Success",
+                  "additionalData": "{\"resolvedOsProfile\":\"AzureLinux-3.0\",\"targetDisk\":\"/dev/sda\",\"validationChecks\":\"passed\"}"
                 },
                 {
                   "name": "DownloadOSArtifacts",

@@ -4148,6 +4148,8 @@ model DeploymentStep {
    */
   @added(Versions.v2026_03_15_preview)
   @visibility(Lifecycle.Read)
+  @minValue(0)
+  @maxValue(100)
   percentComplete?: int32;
 
   /**
