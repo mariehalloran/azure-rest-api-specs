@@ -11,16 +11,7 @@ interface Operations extends Azure.ResourceManager.Operations {}
 @doc("The status of the current operation.")
 @Azure.Core.lroStatus
 union ProvisioningState {
-  string,
-
-  @doc("Resource has been created successfully.")
-  Succeeded: "Succeeded",
-
-  @doc("Resource creation failed.")
-  Failed: "Failed",
-
-  @doc("Resource creation was canceled.")
-  Canceled: "Canceled",
+  Azure.ResourceManager.ResourceProvisioningState,
 
   @doc("Resource is being provisioned.")
   Provisioning: "Provisioning",

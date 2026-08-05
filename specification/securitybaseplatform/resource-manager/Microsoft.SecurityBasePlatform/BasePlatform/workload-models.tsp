@@ -547,7 +547,7 @@ model MdmConfig {
   @doc("Compute resources for the MDM sidecar.")
   resources?: ComputeResources;
 
-  @doc("Certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism.")
+  @doc("Certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism. This is a reference to a secret in the configured store, not the secret value itself.")
   secretName?: string;
 
   @doc("Application process name used for graceful metrics flush ordering.")
@@ -704,7 +704,7 @@ model OpenTelemetryConfig {
 
 @doc("Geneva Monitoring Agent (MDSD) collector configuration.")
 model MdsdConfig {
-  @doc("Geneva Monitoring Agent (MDSD) certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism.")
+  @doc("Geneva Monitoring Agent (MDSD) certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism. This is a reference to a secret in the configured store, not the secret value itself.")
   secretName?: string;
 
   @doc("Compute resources for the MDSD sidecar.")

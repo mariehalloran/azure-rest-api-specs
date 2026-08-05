@@ -1318,7 +1318,7 @@
         },
         "secretName": {
           "type": "string",
-          "description": "Certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism."
+          "description": "Certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism. This is a reference to a secret in the configured store, not the secret value itself."
         },
         "appProcessName": {
           "type": "string",
@@ -1556,7 +1556,7 @@
       "properties": {
         "secretName": {
           "type": "string",
-          "description": "Geneva Monitoring Agent (MDSD) certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism."
+          "description": "Geneva Monitoring Agent (MDSD) certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism. This is a reference to a secret in the configured store, not the secret value itself."
         },
         "resources": {
           "$ref": "#/definitions/ComputeResources",
@@ -1578,7 +1578,7 @@
         },
         "secretName": {
           "type": "string",
-          "description": "Certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism."
+          "description": "Certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism. This is a reference to a secret in the configured store, not the secret value itself."
         },
         "appProcessName": {
           "type": "string",
@@ -1647,7 +1647,7 @@
       "properties": {
         "secretName": {
           "type": "string",
-          "description": "Geneva Monitoring Agent (MDSD) certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism."
+          "description": "Geneva Monitoring Agent (MDSD) certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism. This is a reference to a secret in the configured store, not the secret value itself."
         },
         "resources": {
           "$ref": "#/definitions/ComputeResources",
@@ -2004,7 +2004,7 @@
           {
             "name": "Succeeded",
             "value": "Succeeded",
-            "description": "Resource has been created successfully."
+            "description": "Resource has been created."
           },
           {
             "name": "Failed",
