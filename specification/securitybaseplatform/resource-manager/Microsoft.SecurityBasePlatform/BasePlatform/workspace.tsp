@@ -12,6 +12,14 @@ using Azure.ResourceManager;
 
 namespace Microsoft.SecurityBasePlatform;
 
+@doc("ARM resource ID of an Azure Container Registry.")
+scalar ContainerRegistryResourceId
+  extends Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ContainerRegistry/registries",
+    }
+  ]>;
+
 @doc("Represents a Workspace - a lightweight organizational container for Cluster resources.")
 model Workspace is TrackedResource<WorkspaceProperties> {
   @doc("The name of the Workspace.")
@@ -39,6 +47,25 @@ model WorkspaceProperties {
   @visibility(Lifecycle.Read)
   @doc("Managed On Behalf Of Configuration.")
   managedOnBehalfOfConfiguration?: CommonTypes.ManagedOnBehalfOfConfiguration;
+
+  @visibility(Lifecycle.Read)
+  @doc("The container registry provisioned for this workspace.")
+  containerRegistry?: WorkspaceContainerRegistry;
+}
+
+@doc("The container registry provisioned for this workspace.")
+model WorkspaceContainerRegistry {
+  @doc("The login server host name of the Azure Container Registry.")
+  @visibility(Lifecycle.Read)
+  loginServer?: string;
+
+  @doc("The name of the Azure Container Registry.")
+  @visibility(Lifecycle.Read)
+  name?: string;
+
+  @doc("The ARM resource ID of the Azure Container Registry.")
+  @visibility(Lifecycle.Read)
+  resourceId?: ContainerRegistryResourceId;
 }
 
 @armResourceOperations(Workspace)
