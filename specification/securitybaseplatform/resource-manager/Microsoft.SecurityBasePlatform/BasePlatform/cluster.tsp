@@ -20,7 +20,6 @@ namespace Microsoft.SecurityBasePlatform;
   (Services, Jobs, CronJobs) are scheduled. Today the only backing kind is
   Kubernetes (see `clusterKind`), but the resource is modeled so additional
   compute backends can be introduced without changing the workload contract.
-  Backend-specific settings are isolated under the optional `kubernetes` block.
   """)
 model Cluster is TrackedResource<ClusterProperties> {
   @doc("The name of the Cluster.")
@@ -31,7 +30,7 @@ model Cluster is TrackedResource<ClusterProperties> {
   @path
   name: string;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "SKU is part of the established resource envelope."
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Cluster intentionally uses a service-defined custom SKU model (ClusterSku) with a closed value set (FullyManaged, Customizable) rather than the common-types ARM Sku; the standard resource-envelope SKU shape does not apply to this design."
   @doc("The SKU for this cluster.")
   sku?: ClusterSku;
 }
@@ -49,7 +48,7 @@ union ClusterSkuName {
   @doc("A fully managed cluster SKU where infrastructure is managed by the platform.")
   FullyManaged: "FullyManaged",
 
-  @doc("A customizable cluster SKU allowing user-defined node pool configurations.")
+  @doc("A customizable cluster SKU.")
   Customizable: "Customizable",
 }
 

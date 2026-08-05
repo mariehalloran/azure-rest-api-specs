@@ -317,7 +317,7 @@
           }
         },
         "x-ms-examples": {
-          "Create a Dk8s cluster with ingress and a GPU node pool": {
+          "Create a Dk8s cluster with ingress enabled": {
             "$ref": "./examples/Clusters_CreateOrUpdate.json"
           }
         },
@@ -795,7 +795,7 @@
     },
     "Cluster": {
       "type": "object",
-      "description": "Represents a Cluster - the platform's compute environment abstraction.\n\nA Cluster abstracts a unit of compute capacity onto which workloads\n(Services, Jobs, CronJobs) are scheduled. Today the only backing kind is\nKubernetes (see `clusterKind`), but the resource is modeled so additional\ncompute backends can be introduced without changing the workload contract.\nBackend-specific settings are isolated under the optional `kubernetes` block.",
+      "description": "Represents a Cluster - the platform's compute environment abstraction.\n\nA Cluster abstracts a unit of compute capacity onto which workloads\n(Services, Jobs, CronJobs) are scheduled. Today the only backing kind is\nKubernetes (see `clusterKind`), but the resource is modeled so additional\ncompute backends can be introduced without changing the workload contract.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/ClusterProperties",
@@ -962,14 +962,14 @@
           {
             "name": "Customizable",
             "value": "Customizable",
-            "description": "A customizable cluster SKU allowing user-defined node pool configurations."
+            "description": "A customizable cluster SKU."
           }
         ]
       }
     },
     "ClusterUpdate": {
       "type": "object",
-      "description": "The template for adding optional properties.",
+      "description": "The type used for update operations of the Cluster.",
       "properties": {
         "sku": {
           "$ref": "#/definitions/ClusterSku",
@@ -990,7 +990,7 @@
     },
     "ClusterUpdateProperties": {
       "type": "object",
-      "description": "Generated patch properties for Dk8sClusterProperties.",
+      "description": "The updatable properties of the Cluster.",
       "properties": {
         "observability": {
           "$ref": "#/definitions/ObservabilityConfigurationUpdate",
@@ -1140,7 +1140,7 @@
         },
         "mdsd": {
           "$ref": "#/definitions/MdsdConfig",
-          "description": "MDSD collector used by the high-throughput logs pipeline."
+          "description": "Geneva Monitoring Agent (MDSD) collector used by the high-throughput logs pipeline."
         }
       }
     },
@@ -1290,11 +1290,13 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The resource group name."
+          "description": "The resource group name.",
+          "readOnly": true
         },
         "location": {
           "type": "string",
-          "description": "The resource group location."
+          "description": "The resource group location.",
+          "readOnly": true
         }
       },
       "required": [
@@ -1304,7 +1306,7 @@
     },
     "MdmConfig": {
       "type": "object",
-      "description": "Geneva MDM metrics sidecar configuration.",
+      "description": "Geneva Metrics (MDM) sidecar configuration.",
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -1316,7 +1318,7 @@
         },
         "secretName": {
           "type": "string",
-          "description": "Certificate secret name. The platform maps the secret through the configured secret/CSI mechanism."
+          "description": "Certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism."
         },
         "appProcessName": {
           "type": "string",
@@ -1363,7 +1365,8 @@
         },
         "azureContainerRegistryUrl": {
           "type": "string",
-          "description": "ACR URL used for the MDM image when the shared chart cannot infer it."
+          "format": "uri",
+          "description": "Azure Container Registry (ACR) URL used for the Geneva Metrics (MDM) image when the shared chart cannot infer it."
         },
         "openTelemetry": {
           "$ref": "#/definitions/OpenTelemetryConfig",
@@ -1423,7 +1426,7 @@
     },
     "MdmTransformFunction": {
       "type": "string",
-      "description": "Built-in Geneva MDM transform functions exposed by ConfigGen.",
+      "description": "Built-in Geneva Metrics (MDM) transform functions exposed by ConfigGen.",
       "enum": [
         "hostname",
         "ap_machine_function",
@@ -1549,11 +1552,11 @@
     },
     "MdsdConfig": {
       "type": "object",
-      "description": "MDSD collector configuration.",
+      "description": "Geneva Monitoring Agent (MDSD) collector configuration.",
       "properties": {
         "secretName": {
           "type": "string",
-          "description": "MDSD certificate secret name. The platform maps the secret through the configured secret/CSI mechanism."
+          "description": "Geneva Monitoring Agent (MDSD) certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism."
         },
         "resources": {
           "$ref": "#/definitions/ComputeResources",
@@ -1575,7 +1578,7 @@
         },
         "secretName": {
           "type": "string",
-          "description": "Certificate secret name. The platform maps the secret through the configured secret/CSI mechanism."
+          "description": "Certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism."
         },
         "appProcessName": {
           "type": "string",
@@ -1622,7 +1625,8 @@
         },
         "azureContainerRegistryUrl": {
           "type": "string",
-          "description": "ACR URL used for the MDM image when the shared chart cannot infer it."
+          "format": "uri",
+          "description": "Azure Container Registry (ACR) URL used for the Geneva Metrics (MDM) image when the shared chart cannot infer it."
         },
         "openTelemetry": {
           "$ref": "#/definitions/OpenTelemetryConfig",
@@ -1643,7 +1647,7 @@
       "properties": {
         "secretName": {
           "type": "string",
-          "description": "MDSD certificate secret name. The platform maps the secret through the configured secret/CSI mechanism."
+          "description": "Geneva Monitoring Agent (MDSD) certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism."
         },
         "resources": {
           "$ref": "#/definitions/ComputeResources",

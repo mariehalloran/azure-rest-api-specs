@@ -18,9 +18,8 @@ namespace Microsoft.SecurityBasePlatform;
 // compute backend is Kubernetes and is ignored (or rejected) by other
 // backends.
 //
-// - Cluster-level K8s config is discriminated: it lives directly on
-//   Dk8sClusterProperties (the Dk8s subtype), which references the node-pool
-//   models below.
+// - Cluster-level K8s config is discriminated on Dk8sClusterProperties (the
+//   Dk8s subtype). Node-pool configuration is not exposed in this API version.
 // - Workload-level scheduling is exposed through the first-class `placement`
 //   block so Service/Job/CronJob do not grow a backend-named wrapper.
 //
@@ -78,7 +77,7 @@ union NodeCapacityType {
 
 @doc("A Kubernetes taint applied to nodes.")
 model NodeTaint {
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" ""
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "'key' is a Kubernetes taint key (a scheduling identifier), not a credential or secret."
   @doc("Taint key.")
   key: string;
 
@@ -188,7 +187,7 @@ union NodeAffinityOperator {
 
 @doc("A toleration that allows a workload to schedule onto nodes with a matching taint.")
 model Toleration {
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" ""
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "'key' is a Kubernetes taint key to tolerate (a scheduling identifier), not a credential or secret."
   @doc("Key of the taint to tolerate.")
   key?: string;
 

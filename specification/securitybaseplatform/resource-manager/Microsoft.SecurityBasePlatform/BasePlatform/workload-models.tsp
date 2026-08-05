@@ -151,7 +151,7 @@ model ScalingTrigger {
   @doc("Trigger type.")
   type: ScalingTriggerType;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" ""
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "'key' is a scaling-rule identifier, not a credential or secret."
   @doc("Rule identifier")
   key: string;
 }
@@ -535,11 +535,11 @@ model HighThroughputLogsConfig {
   @doc("Max event rate for the high-throughput logs pipeline.")
   maxEventRate?: int32;
 
-  @doc("MDSD collector used by the high-throughput logs pipeline.")
+  @doc("Geneva Monitoring Agent (MDSD) collector used by the high-throughput logs pipeline.")
   mdsd?: MdsdConfig;
 }
 
-@doc("Geneva MDM metrics sidecar configuration.")
+@doc("Geneva Metrics (MDM) sidecar configuration.")
 model MdmConfig {
   @doc("Whether the MDM sidecar is enabled.")
   enabled?: boolean;
@@ -547,7 +547,7 @@ model MdmConfig {
   @doc("Compute resources for the MDM sidecar.")
   resources?: ComputeResources;
 
-  @doc("Certificate secret name. The platform maps the secret through the configured secret/CSI mechanism.")
+  @doc("Certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism.")
   secretName?: string;
 
   @doc("Application process name used for graceful metrics flush ordering.")
@@ -576,8 +576,8 @@ model MdmConfig {
   @identifiers(#[])
   transformRules?: MdmTransformRule[];
 
-  @doc("ACR URL used for the MDM image when the shared chart cannot infer it.")
-  azureContainerRegistryUrl?: string;
+  @doc("Azure Container Registry (ACR) URL used for the Geneva Metrics (MDM) image when the shared chart cannot infer it.")
+  azureContainerRegistryUrl?: url;
 
   @doc("OpenTelemetry receiver settings for Geneva MDM.")
   openTelemetry?: OpenTelemetryConfig;
@@ -666,7 +666,7 @@ union MdmTransformOperationValueType {
   Function: "function",
 }
 
-@doc("Built-in Geneva MDM transform functions exposed by ConfigGen.")
+@doc("Built-in Geneva Metrics (MDM) transform functions exposed by ConfigGen.")
 union MdmTransformFunction {
   string,
 
@@ -702,9 +702,9 @@ model OpenTelemetryConfig {
   maxReceiveMessageSizeMbytes?: int32;
 }
 
-@doc("MDSD collector configuration.")
+@doc("Geneva Monitoring Agent (MDSD) collector configuration.")
 model MdsdConfig {
-  @doc("MDSD certificate secret name. The platform maps the secret through the configured secret/CSI mechanism.")
+  @doc("Geneva Monitoring Agent (MDSD) certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism.")
   secretName?: string;
 
   @doc("Compute resources for the MDSD sidecar.")
@@ -965,7 +965,7 @@ model OperatorManagedObservabilityConfig {
   manageCertificates?: boolean;
 }
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" ""
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "StringMap models user-defined Kubernetes labels and annotations whose keys are not knowable in advance, so an open string-to-string map is required."
 @doc("String key/value map used for annotations and labels whose keys are user-defined.")
 model StringMap is Record<string>;
 
@@ -993,7 +993,7 @@ model EnvironmentVariable {
   @pattern("^[A-Za-z_][A-Za-z0-9_]*$")
   name: string;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" ""
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "'value' is a non-sensitive environment variable value; sensitive values are referenced via secretName rather than inlined here."
   @doc("Environment variable value.")
   value: string;
 }

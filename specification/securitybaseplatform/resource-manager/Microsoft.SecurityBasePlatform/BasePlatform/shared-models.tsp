@@ -38,8 +38,10 @@ union ProvisioningState {
 @doc("Configuration of the managed resource group associated with the resource.")
 model ManagedResourceGroupConfiguration {
   @doc("The resource group name.")
+  @visibility(Lifecycle.Read)
   name: string;
 
   @doc("The resource group location.")
+  @visibility(Lifecycle.Read)
   location: string;
 }

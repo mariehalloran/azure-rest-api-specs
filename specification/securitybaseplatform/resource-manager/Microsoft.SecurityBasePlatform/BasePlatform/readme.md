@@ -27,10 +27,6 @@ input-file:
 
 ```yaml
 directive:
-  - suppress: LocationMustHaveXmsMutability
-    from: securitybaseplatform.json
-    where: $.definitions.ManagedResourceGroupConfiguration.properties.location
-    reason: The managed resource group configuration is service-generated and read-only.
   - suppress: AvoidAdditionalProperties
     from: securitybaseplatform.json
     where: $.definitions.StringMap
