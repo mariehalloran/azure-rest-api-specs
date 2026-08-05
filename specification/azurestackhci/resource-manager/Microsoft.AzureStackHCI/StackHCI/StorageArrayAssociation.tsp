@@ -63,4 +63,6 @@ interface StorageArrayAssociations {
   /** Create or update a storage-array association. */
   createOrUpdate is ArmResourceCreateOrUpdateAsync<StorageArrayAssociation>;
 
+  /** Delete a storage-array association. */
+  delete is ArmResourceDeleteWithoutOkAsync<StorageArrayAssociation>;
 }
