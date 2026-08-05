@@ -4026,6 +4026,9 @@
           "ClusterJobs_Get_SetGpuConfidentialComputingModeJob": {
             "$ref": "./examples/ClusterJobs_Get_SetGpuConfidentialComputingModeJob.json"
           },
+          "ClusterJobs_Get_SyncVolume": {
+            "$ref": "./examples/ClusterJobs_Get_SyncVolume.json"
+          },
           "ClusterJobs_Get_VmConnectProvisionJob": {
             "$ref": "./examples/ClusterJobs_Get_VmConnectProvisionJob.json"
           },
@@ -4133,6 +4136,9 @@
           },
           "ClusterJobs_CreateOrUpdate_SetGpuConfidentialComputingModeJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_SetGpuConfidentialComputingMode.json"
+          },
+          "ClusterJobs_CreateOrUpdate_SyncVolume": {
+            "$ref": "./examples/ClusterJobs_CreateOrUpdate_SyncVolume.json"
           },
           "ClusterJobs_CreateOrUpdate_VmConnectProvisionJob": {
             "$ref": "./examples/ClusterJobs_CreateOrUpdate_VmConnectProvision.json"
@@ -6960,9 +6966,6 @@
           }
         },
         "x-ms-examples": {
-          "ClusterVolumeJobs_Get": {
-            "$ref": "./examples/ClusterVolumeJobs_Get.json"
-          },
           "ClusterVolumeJobs_Get_ApplyVolumeConfiguration": {
             "$ref": "./examples/ClusterVolumeJobs_Get_ApplyVolumeConfiguration.json"
           }
@@ -7049,9 +7052,6 @@
           }
         },
         "x-ms-examples": {
-          "ClusterVolumeJobs_CreateOrUpdate": {
-            "$ref": "./examples/ClusterVolumeJobs_CreateOrUpdate.json"
-          },
           "ClusterVolumeJobs_CreateOrUpdate_ApplyVolumeConfiguration": {
             "$ref": "./examples/ClusterVolumeJobs_CreateOrUpdate_ApplyVolumeConfiguration.json"
           }
@@ -17599,18 +17599,12 @@
       "type": "string",
       "description": "Type of cluster volume job operation.",
       "enum": [
-        "VolumeSync",
         "ApplyVolumeConfiguration"
       ],
       "x-ms-enum": {
         "name": "ClusterVolumeJobType",
         "modelAsString": true,
         "values": [
-          {
-            "name": "VolumeSync",
-            "value": "VolumeSync",
-            "description": "Job to resolve configuration drift between the desired and reported state of the cluster volume."
-          },
           {
             "name": "ApplyVolumeConfiguration",
             "value": "ApplyVolumeConfiguration",
@@ -24813,6 +24807,7 @@
       "enum": [
         "AddServer",
         "RepairServer",
+        "SyncVolume",
         "ConfigureLocalAvailabilityZone",
         "ConfigureArcGateway",
         "GpuCreatePartition",
@@ -24836,6 +24831,11 @@
             "name": "RepairServer",
             "value": "RepairServer",
             "description": "Job to repair a server in the cluster."
+          },
+          {
+            "name": "SyncVolume",
+            "value": "SyncVolume",
+            "description": "Job to synchronize the cluster volumes."
           },
           {
             "name": "ConfigureLocalAvailabilityZone",
@@ -25175,6 +25175,16 @@
           ]
         }
       }
+    },
+    "HciSyncVolumeJobProperties": {
+      "type": "object",
+      "description": "Properties for synchronizing the cluster volumes.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ClusterJobProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "SyncVolume"
     },
     "HciValidationFailureDetail": {
       "type": "object",
@@ -36857,16 +36867,6 @@
           }
         ]
       }
-    },
-    "VolumeSyncClusterVolumeJobProperties": {
-      "type": "object",
-      "description": "Properties for resolving cluster volume configuration drift.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/ClusterVolumeJobProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "VolumeSync"
     },
     "VolumeType": {
       "type": "string",
