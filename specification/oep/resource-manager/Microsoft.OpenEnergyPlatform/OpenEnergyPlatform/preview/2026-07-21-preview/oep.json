@@ -1765,10 +1765,6 @@
           "$ref": "#/definitions/EnergyServiceUpdateProperties",
           "description": "The properties of an Energy service resource patch."
         },
-        "sku": {
-          "$ref": "#/definitions/SkuUpdate",
-          "description": "The SKU of the energy service. Only the capacity can be updated."
-        },
         "tags": {
           "type": "object",
           "description": "Resource tags.",
@@ -1793,15 +1789,8 @@
         "identity": {
           "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
           "description": "The managed service identities assigned to this resource."
-        },
-        "sku": {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/Sku",
-          "description": "The resource model definition representing SKU"
         }
       },
-      "required": [
-        "sku"
-      ],
       "allOf": [
         {
           "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
@@ -1907,6 +1896,10 @@
           },
           "x-ms-identifiers": []
         },
+        "sku": {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/Sku",
+          "description": "The resource model definition representing SKU"
+        },
         "geoRedundancy": {
           "$ref": "#/definitions/GeoRedundancy",
           "description": "Specifies whether geo-redundancy is enabled or disabled for the energy service. If omitted, geo-redundancy is not enabled. (In 2026-02-02-preview this property defaulted to Enabled.)"
@@ -1938,7 +1931,8 @@
       },
       "required": [
         "authAppId",
-        "dataPartitionNames"
+        "dataPartitionNames",
+        "sku"
       ]
     },
     "EnergyServiceUpdateProperties": {
@@ -1948,6 +1942,10 @@
         "encryption": {
           "$ref": "#/definitions/Encryption",
           "description": "Properties to configure Encryption"
+        },
+        "sku": {
+          "$ref": "#/definitions/SkuUpdate",
+          "description": "The SKU of the energy service. Only the capacity can be updated."
         },
         "geoRedundancy": {
           "$ref": "#/definitions/GeoRedundancy",

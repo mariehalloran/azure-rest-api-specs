@@ -453,9 +453,8 @@ model EnergyServiceProperties {
   /**
    * The resource model definition representing SKU
    */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-duplicate-property" "Version transition: sku moves from the properties bag (2026-02-02-preview) to the top-level envelope (2026-07-21-preview); never present in both within a single version."
-  @removed(Versions.v2026_07_21_preview)
-  sku?: Azure.ResourceManager.CommonTypes.Sku;
+  @madeRequired(Versions.v2026_07_21_preview)
+  sku: Azure.ResourceManager.CommonTypes.Sku;
 
   /**
    * Maximum autoscale capacity limit for the energy service. Must be a power of 2 between 1 and 256 (applicable for Flex SKU).
@@ -759,12 +758,6 @@ model EnergyResourceUpdate {
   properties?: EnergyServiceUpdateProperties;
 
   /**
-   * The SKU of the energy service. Only the capacity can be updated.
-   */
-  @added(Versions.v2026_07_21_preview)
-  sku?: SkuUpdate;
-
-  /**
    * Resource tags.
    */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Preserving existing wire contract."
@@ -797,6 +790,12 @@ model EnergyServiceUpdateProperties {
    * Properties to configure Encryption
    */
   encryption?: Encryption;
+
+  /**
+   * The SKU of the energy service. Only the capacity can be updated.
+   */
+  @added(Versions.v2026_07_21_preview)
+  sku?: SkuUpdate;
 
   /**
    * Specifies whether geo-redundancy is enabled or disabled for the energy service. If omitted, geo-redundancy is not enabled. (In 2026-02-02-preview this property defaulted to Enabled.)

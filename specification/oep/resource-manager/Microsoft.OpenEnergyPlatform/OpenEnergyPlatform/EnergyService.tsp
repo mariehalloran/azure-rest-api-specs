@@ -2,14 +2,12 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@typespec/openapi";
 import "@typespec/rest";
-import "@typespec/versioning";
 import "./models.tsp";
 
 using TypeSpec.Rest;
 using Azure.ResourceManager;
 using TypeSpec.Http;
 using TypeSpec.OpenAPI;
-using TypeSpec.Versioning;
 
 namespace Microsoft.OpenEnergyPlatform;
 /**
@@ -24,13 +22,6 @@ model EnergyService
     NamePattern = "^[a-zA-Z0-9]*$"
   >;
   ...Azure.ResourceManager.ManagedServiceIdentityProperty;
-
-  /**
-   * The resource model definition representing SKU
-   */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "sku is a standard ARM top-level envelope property (ARM guidelines §2.6). It is declared as a required, version-gated property (added in 2026-07-21-preview, moved out of the properties bag) because the ResourceSkuProperty template only exposes an optional sku and cannot be combined with @madeRequired. Emitted as a top-level sku referencing the common Sku type."
-  @added(Versions.v2026_07_21_preview)
-  sku: Azure.ResourceManager.CommonTypes.Sku;
 }
 
 @armResourceOperations
