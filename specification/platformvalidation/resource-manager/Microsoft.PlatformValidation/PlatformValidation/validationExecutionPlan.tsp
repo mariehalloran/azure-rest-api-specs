@@ -90,6 +90,6 @@ interface ValidationExecutionPlans {
   @doc("List validation test execution plans by resource group")
   listByResourceGroup is ArmResourceListByParent<
     ValidationExecutionPlan,
-    Parameters = ODataFilterQueryParameter
+    Parameters = OdataFilterQueryParameter
   >;
 }

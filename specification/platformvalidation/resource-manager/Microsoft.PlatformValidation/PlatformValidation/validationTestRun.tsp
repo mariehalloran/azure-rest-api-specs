@@ -40,10 +40,10 @@ model ValidationTestRunProperties {
   @visibility(Lifecycle.Read)
   reportedAt?: utcDateTime;
 
-  @doc("The test id in the validation test catalog.")
+  @doc("The name of the validation test (ValidationTest resource name, not an ARM resource ID) in the validation test catalog.")
   testId?: string;
 
-  @doc("The validation test category ids.")
+  @doc("The names of the validation test categories (ValidationTestCategory resource names, not ARM resource IDs) associated with this test run.")
   testCategoryIds?: string[];
 
   @doc("Validation test run inputs json")
@@ -143,8 +143,8 @@ interface ValidationTestRuns {
   @doc("Get a validation test run details")
   get is ArmResourceRead<ValidationTestRun>;
 
-  @doc("Put a validation test run")
-  put is ArmResourceCreateOrReplaceAsync<ValidationTestRun>;
+  @doc("Create or update a validation test run")
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<ValidationTestRun>;
 
   @doc("Delete a validation test run")
   delete is ArmResourceDeleteWithoutOkAsync<ValidationTestRun>;

@@ -150,6 +150,6 @@ interface ValidationExecutionPlanRuns {
   @doc("List Validation test execution plan runs for an execution plan")
   listByExecutionPlan is ArmResourceListByParent<
     ExecutionPlanRun,
-    Parameters = ODataFilterQueryParameter
+    Parameters = OdataFilterQueryParameter
   >;
 }

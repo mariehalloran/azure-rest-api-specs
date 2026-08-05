@@ -117,7 +117,7 @@ model ValidationTestProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ResourceProvisioningState;
 
-  @doc("Validation test category ids.")
+  @doc("The names of the validation test categories (ValidationTestCategory resource names, not ARM resource IDs) associated with this test.")
   categoryIds?: string[];
 
   @doc("Overall state of the validation test.")
@@ -157,7 +157,7 @@ model ValidationTestVersionProperties {
   @visibility(Lifecycle.Read)
   provisioningState?: ResourceProvisioningState;
 
-  @doc("Validation test category ids.")
+  @doc("The names of the validation test categories (ValidationTestCategory resource names, not ARM resource IDs) associated with this test version.")
   categoryIds?: string[];
 
   @doc("Overall state of the validation test.")
@@ -279,8 +279,8 @@ interface ValidationTestVersions {
   @doc("Get a validation test version catalog entry")
   get is ArmResourceRead<ValidationTestVersion>;
 
-  @doc("Put a validation test version catalog entry")
-  put is ArmResourceCreateOrReplaceSync<ValidationTestVersion>;
+  @doc("Create or update a validation test version catalog entry")
+  createOrUpdate is ArmResourceCreateOrReplaceSync<ValidationTestVersion>;
 
   @doc("Update a validation test version catalog entry")
   @parameterVisibility(Lifecycle.Update)
@@ -293,7 +293,7 @@ interface ValidationTestVersions {
   delete is ArmResourceDeleteSync<ValidationTestVersion>;
 
   @doc("List validation test version catalog entries")
-  listByParent is ArmResourceListByParent<
+  list is ArmResourceListByParent<
     ValidationTestVersion,
     Parameters = ValidationCatalogListQueryParameters
   >;

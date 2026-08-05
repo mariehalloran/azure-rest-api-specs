@@ -91,12 +91,12 @@ interface CloudValidations {
   @doc("List cloud validations by resource group")
   listByResourceGroup is ArmResourceListByParent<
     CloudValidation,
-    Parameters = ODataFilterQueryParameter
+    Parameters = OdataFilterQueryParameter
   >;
 
   @doc("List cloud validations by subscription")
   listBySubscription is ArmListBySubscription<
     CloudValidation,
-    ODataFilterQueryParameter
+    OdataFilterQueryParameter
   >;
 }

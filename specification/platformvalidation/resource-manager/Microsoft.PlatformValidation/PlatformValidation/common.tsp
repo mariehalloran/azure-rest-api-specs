@@ -6,7 +6,7 @@ using Azure.ResourceManager.Foundations;
 namespace Microsoft.PlatformValidation;
 
 @doc("Provides the OData '$filter' query parameter for list operations.")
-model ODataFilterQueryParameter {
+model OdataFilterQueryParameter {
   @query("$filter")
   @doc("The OData filter expression to apply to the list operation.")
   filter?: string;
