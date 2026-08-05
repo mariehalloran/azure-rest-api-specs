@@ -309,26 +309,31 @@ model MongoHostMachineProperties {
   /**
    * The operating system type for mongo.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   osType?: string;
 
   /**
    * The operating system name for mongo.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   osName?: string;
 
   /**
    * The operating system version for mongo.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   osVersion?: string;
 
   /**
    * The operating system edition for mongo.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   osEdition?: string;
 
   /**
    * The operating system architecture for mongo.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   osArch?: string;
 
   /**
@@ -402,6 +407,7 @@ model MongoInstanceProperties is AzureResourceProperties {
   /**
    * The Server IP/host name.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   hostIp?: string[];
 
   /**
@@ -581,6 +587,7 @@ model MongoInstanceResourcePatch is AzureResourceProperties {
   /**
    * The Server IP/host name.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   hostIp?: string[];
 
   /**

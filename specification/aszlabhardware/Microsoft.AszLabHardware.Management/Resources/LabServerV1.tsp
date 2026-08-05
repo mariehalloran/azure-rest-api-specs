@@ -32,6 +32,7 @@ model LabServerV1Properties {
   @doc("The Serial Number of the LabServer.")
   serialNumber: string;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @visibility(Lifecycle.Read, Lifecycle.Create)
   @doc("IP address of the LabServer's BMC.")
   bmcIpAddress: string;

@@ -96,6 +96,15 @@ model StorageAccountDsmsResourceProperties {
   @doc("Defines if Infrastructure Encryption is required.")
   requireInfrastructureEncryption?: boolean;
 
+  @doc("Enables soft delete for blobs in the Storage Account.")
+  blobDeleteRetentionPolicy?: DeleteRetentionPolicy;
+
+  @doc("Enables soft delete for containers in the Storage Account.")
+  containerDeleteRetentionPolicy?: DeleteRetentionPolicy;
+
+  @doc("Minimum TLS version on requests to the Storage Account. Expected format: 'TLS1_0', 'TLS1_1', 'TLS1_2', etc.")
+  minimumTlsVersion?: string;
+
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-duplicate-property" "Duplicate property found in the resource envelope and resource properties."
   #suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model" "Generic object model is used, because the number of nested properties can be different."
   @doc("Properties can be used to save customer key-value pairs associated with the dSMS secrets. Optional.")
@@ -330,6 +339,16 @@ model DualStackEndpointPreference {
 
   @doc("Publish IPv6 endpoint.")
   publishIpv6Endpoint?: boolean;
+}
+
+@doc("Soft delete retention policy for the Storage Account.")
+model DeleteRetentionPolicy {
+  @doc("Defines if the delete retention policy is enabled.")
+  enabled: boolean;
+
+  @doc("Number of days for which the deleted data should be retained.")
+  @minValue(0)
+  days?: int32;
 }
 
 @doc("StorageAccount Resource")
