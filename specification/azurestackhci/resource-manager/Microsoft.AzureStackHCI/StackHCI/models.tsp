@@ -9301,6 +9301,24 @@ model ClusterJobListResult is Azure.Core.Page<ClusterJob>;
 ////////////////////////////////////////////////////////////////
 
 /**
+ * Represents the solution type (OS family) of a os image.
+ */
+@added(Versions.v2026_03_15_preview)
+union SolutionType {
+  string,
+
+  /**
+   * AzureLinux OS.
+   */
+  AzureLinux: "AzureLinux",
+
+  /**
+   * HCI OS.
+   */
+  HCI: "HCI",
+}
+
+/**
  * Represents properties of a os image resource.
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "OsImage is a read-only catalog proxy resource exposing available OS images; it has no lifecycle and therefore no provisioningState."
@@ -9337,7 +9355,7 @@ model OsImageProperties {
    * The solution type (OS family) of the os image, for example AzureLinux or HCI.
    */
   @added(Versions.v2026_03_15_preview)
-  solutionType?: ProvisioningOsType;
+  solutionType?: SolutionType;
 }
 
 ////////////////////////////////////////////////////////////////

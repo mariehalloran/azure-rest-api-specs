@@ -28616,7 +28616,7 @@
           "description": "Represents the CPU architecture of a os image, for example amd64 or arm64."
         },
         "solutionType": {
-          "$ref": "#/definitions/ProvisioningOsType",
+          "$ref": "#/definitions/SolutionType",
           "description": "The solution type (OS family) of the os image, for example AzureLinux or HCI."
         }
       }
@@ -33194,6 +33194,30 @@
             "name": "Disabled",
             "value": "Disabled",
             "description": "Software Assurance is disabled for the cluster."
+          }
+        ]
+      }
+    },
+    "SolutionType": {
+      "type": "string",
+      "description": "Represents the solution type (OS family) of a os image.",
+      "enum": [
+        "AzureLinux",
+        "HCI"
+      ],
+      "x-ms-enum": {
+        "name": "SolutionType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "AzureLinux",
+            "value": "AzureLinux",
+            "description": "AzureLinux OS."
+          },
+          {
+            "name": "HCI",
+            "value": "HCI",
+            "description": "HCI OS."
           }
         ]
       }
