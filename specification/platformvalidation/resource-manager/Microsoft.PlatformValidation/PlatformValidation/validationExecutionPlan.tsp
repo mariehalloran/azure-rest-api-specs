@@ -21,13 +21,18 @@ model ValidationExecutionPlanProperties {
   @doc("The description of the resource.")
   description?: string;
 
-  @doc("URI where the configuration of the execution plan is defined.")
+  @doc("""
+    URI where the configuration of the execution plan is defined.
+    Either this property or `planConfigurationJson` is mandatory while creating; they are mutually exclusive.
+    This value is returned as-is in get responses, so it must not contain credentials or other secrets.
+    """)
   planConfigurationUri?: string;
 
   @doc("""
     Entire execution plan configuration/manifest json.
-    Either of URI or this property is mandatory while creating.
+    Either this property or `planConfigurationUri` is mandatory while creating; they are mutually exclusive.
     In get, always return the entire json configuration.
+    This value is returned as-is in get responses, so it must not contain credentials or other secrets.
     """)
   planConfigurationJson?: string;
 

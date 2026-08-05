@@ -2732,11 +2732,11 @@
         },
         "planConfigurationUri": {
           "type": "string",
-          "description": "URI where the configuration of the execution plan is defined."
+          "description": "URI where the configuration of the execution plan is defined.\nEither this property or `planConfigurationJson` is mandatory while creating; they are mutually exclusive.\nThis value is returned as-is in get responses, so it must not contain credentials or other secrets."
         },
         "planConfigurationJson": {
           "type": "string",
-          "description": "Entire execution plan configuration/manifest json.\nEither of URI or this property is mandatory while creating.\nIn get, always return the entire json configuration."
+          "description": "Entire execution plan configuration/manifest json.\nEither this property or `planConfigurationUri` is mandatory while creating; they are mutually exclusive.\nIn get, always return the entire json configuration.\nThis value is returned as-is in get responses, so it must not contain credentials or other secrets."
         },
         "provisioningState": {
           "$ref": "#/definitions/ValidationExecutionPlanProvisioningState",
@@ -3254,7 +3254,7 @@
         },
         "inputsJson": {
           "type": "string",
-          "description": "Validation test run inputs json"
+          "description": "Validation test run inputs json, conforming to the input contract declared by `ValidationTestInput` on the corresponding validation test.\nThis value is returned as-is in get responses, so it must not contain credentials or other secrets."
         },
         "passDetails": {
           "type": "array",
