@@ -969,7 +969,7 @@
     },
     "ClusterUpdate": {
       "type": "object",
-      "description": "The template for adding optional properties.",
+      "description": "The type used for update operations of the Cluster.",
       "properties": {
         "sku": {
           "$ref": "#/definitions/ClusterSku",
@@ -990,7 +990,7 @@
     },
     "ClusterUpdateProperties": {
       "type": "object",
-      "description": "Generated patch properties for Dk8sClusterProperties.",
+      "description": "The updatable properties of the Cluster.",
       "properties": {
         "observability": {
           "$ref": "#/definitions/ObservabilityConfigurationUpdate",

@@ -8,6 +8,7 @@ namespace Microsoft.SecurityBasePlatform;
 // - UpdateableProperties keeps only fields that are valid for PATCH.
 // - OptionalProperties makes top-level PATCH fields optional.
 // The resource-specific properties field is added below with the generated update model.
+@doc("The type used for update operations of the Cluster.")
 model ClusterUpdate
   is OptionalProperties<UpdateableProperties<OmitProperties<
     Cluster,
@@ -17,7 +18,7 @@ model ClusterUpdate
   properties?: ClusterUpdateProperties;
 }
 
-@doc("Generated patch properties for Dk8sClusterProperties.")
+@doc("The updatable properties of the Cluster.")
 model ClusterUpdateProperties {
   @doc("Default observability settings inherited by namespaces and workloads unless overridden at a lower scope.")
   observability?: ObservabilityConfigurationUpdate;
