@@ -179,6 +179,7 @@ model FetchSasUriResult {
   expirationTime: utcDateTime;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Model representing the request to import applications.")
 model ImportApplicationsRequest {
   @doc("The SAS URI of the CSV file to be imported.")
