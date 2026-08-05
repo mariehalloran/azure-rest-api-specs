@@ -634,7 +634,7 @@ union MdmTransformConditionType {
   Any: "any",
 
   @doc("Apply to metrics matching account, namespace, or metric name.")
-  SetDimension: "metric_key",
+  MetricKey: "metric_key",
 }
 
 @doc("Geneva MDM transform operation.")
