@@ -79,77 +79,78 @@
                   "description": "Creating the intended ARC machine resource",
                   "startTimeUtc": "2026-05-25T06:38:53.64783Z",
                   "endTimeUtc": "2026-05-25T06:38:58.5472181Z",
-                  "status": "Succeeded"
+                  "status": "Success"
                 },
                 {
                   "name": "CopiedSiteSettings",
                   "description": "Copied necessary networking and other settings from the site if required",
                   "startTimeUtc": "2026-05-25T06:38:53.64783Z",
                   "endTimeUtc": "2026-05-25T06:39:00.8174338Z",
-                  "status": "Succeeded"
+                  "status": "Success"
                 },
                 {
                   "name": "SetupPermissions",
                   "description": "Setting up permissions on the existing ARC machine for Administrator operations",
                   "startTimeUtc": "2026-05-25T06:38:53.64783Z",
                   "endTimeUtc": "2026-05-25T06:39:08.3348534Z",
-                  "status": "Succeeded"
+                  "status": "Success"
                 },
                 {
                   "name": "ArcNotificationSent",
                   "description": "Sent the notification to the ARC Machine",
                   "startTimeUtc": "2026-05-25T06:38:53.64783Z",
                   "endTimeUtc": "2026-05-25T06:39:11.8471641Z",
-                  "status": "Succeeded"
+                  "status": "Success"
                 },
                 {
                   "name": "Initialize",
                   "description": "Initialization completed.",
                   "startTimeUtc": "2026-05-25T06:39:21.6711009Z",
                   "endTimeUtc": "2026-05-25T06:39:21.7999499Z",
-                  "status": "Succeeded"
+                  "status": "Success"
                 },
                 {
                   "name": "ResolveConfiguration",
                   "description": "ResolveConfiguration",
                   "startTimeUtc": "0001-01-01T00:00:00Z",
                   "endTimeUtc": "0001-01-01T00:00:00Z",
-                  "status": "Succeeded"
+                  "status": "Success"
                 },
                 {
                   "name": "DownloadOSArtifacts",
                   "description": "DownloadOSArtifacts",
                   "startTimeUtc": "2026-05-25T06:39:21.9170413Z",
                   "endTimeUtc": "2026-05-25T07:39:23.2833341Z",
-                  "status": "Succeeded"
+                  "status": "Success",
+                  "additionalData": "{\"downloadProgress\":\"{\\\"Type\\\":\\\"DownloadProgress\\\",\\\"status\\\":\\\"Completed\\\",\\\"percentComplete\\\":100,\\\"ProgressInfo\\\":{\\\"totalFiles\\\":2,\\\"completedFiles\\\":2,\\\"files\\\":[{\\\"fileName\\\":\\\"bios_update.bin\\\",\\\"totalBytes\\\":104857600,\\\"bytesDownloaded\\\":104857600,\\\"status\\\":\\\"Completed\\\"},{\\\"fileName\\\":\\\"bmc_update.bin\\\",\\\"totalBytes\\\":52428800,\\\"bytesDownloaded\\\":52428800,\\\"status\\\":\\\"Completed\\\"}]}}\",\"totalBytes\":\"157286400\",\"bytesDownloaded\":\"157286400\"}"
                 },
                 {
                   "name": "SBEDiscoveryDownload",
                   "description": "SBEDiscoveryDownload",
                   "startTimeUtc": "2026-05-25T06:39:21.9170413Z",
                   "endTimeUtc": "2026-05-25T07:39:23.2833341Z",
-                  "status": "Succeeded"
+                  "status": "Success"
                 },
                 {
                   "name": "SetupHybridComputeRP",
                   "description": "SetupHybridComputeRP",
                   "startTimeUtc": "2026-05-25T06:39:21.9170413Z",
                   "endTimeUtc": "2026-05-25T07:39:23.2833341Z",
-                  "status": "Succeeded"
+                  "status": "Success"
                 },
                 {
                   "name": "PrepareTargetOSProvisioning",
                   "description": "PrepareTargetOSProvisioning",
                   "startTimeUtc": "2026-05-25T06:39:21.9170413Z",
                   "endTimeUtc": "2026-05-25T07:39:23.2833341Z",
-                  "status": "Succeeded"
+                  "status": "Success"
                 },
                 {
                   "name": "InitiateTargetOSProvisioning",
                   "description": "InitiateTargetOSProvisioning",
                   "startTimeUtc": "2026-05-25T06:39:21.9170413Z",
                   "endTimeUtc": "2026-05-25T07:39:23.2833341Z",
-                  "status": "Succeeded"
+                  "status": "Success"
                 },
                 {
                   "name": "BootIntoTargetOS",
@@ -168,7 +169,11 @@
                         "target": "BootIntoTargetOS"
                       }
                     ]
-                  }
+                  },
+                  "recommendedSteps": [
+                    "Verify the edge machine has stable network connectivity to the OS image location and retry the ProvisionOs job.",
+                    "Ensure the required outbound endpoints are reachable and not throttled by a proxy or firewall."
+                  ]
                 },
                 {
                   "name": "ValidateStagedArtifacts",
@@ -197,7 +202,7 @@
                   "fullStepIndex": "0",
                   "startTimeUtc": "2026-05-25T06:39:17Z",
                   "endTimeUtc": "2026-05-25T06:39:17Z",
-                  "status": "Succeeded"
+                  "status": "Success"
                 }
               ]
             },

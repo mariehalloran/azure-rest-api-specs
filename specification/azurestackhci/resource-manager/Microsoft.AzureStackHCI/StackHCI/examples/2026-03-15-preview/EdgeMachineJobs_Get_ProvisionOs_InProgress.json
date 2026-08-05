@@ -1,5 +1,5 @@
 {
-  "title": "EdgeMachineJobs_Get_ProvisionOs",
+  "title": "EdgeMachineJobs_Get_ProvisionOs_InProgress",
   "operationId": "EdgeMachineJobs_Get",
   "parameters": {
     "api-version": "2026-03-15-preview",
@@ -70,54 +70,63 @@
             "target": "AzureLinux"
           },
           "reportedProperties": {
-            "percentComplete": 100,
+            "percentComplete": 45,
             "deploymentStatus": {
-              "status": "Succeeded",
+              "status": "InProgress",
               "steps": [
                 {
                   "name": "Initialize",
-                  "startTimeUtc": "03/11/2025 15:11:01",
-                  "endTimeUtc": "03/11/2025 15:11:01",
+                  "description": "Initialization completed.",
+                  "startTimeUtc": "2026-07-09T17:59:50.0000000Z",
+                  "endTimeUtc": "2026-07-09T17:59:55.0000000Z",
                   "status": "Success"
                 },
                 {
                   "name": "ResolveConfiguration",
-                  "startTimeUtc": "03/11/2025 15:11:02",
-                  "endTimeUtc": "03/11/2025 15:11:02",
+                  "description": "ResolveConfiguration",
+                  "startTimeUtc": "2026-07-09T17:59:55.0000000Z",
+                  "endTimeUtc": "2026-07-09T18:00:00.0000000Z",
                   "status": "Success"
                 },
                 {
                   "name": "DownloadOSArtifacts",
-                  "startTimeUtc": "03/11/2025 15:11:03",
-                  "endTimeUtc": "03/11/2025 15:11:23",
-                  "status": "Success"
+                  "description": "Downloading OS artifacts to staging location",
+                  "fullStepIndex": "3",
+                  "startTimeUtc": "2026-07-09T18:00:00.0000000Z",
+                  "endTimeUtc": "0001-01-01T00:00:00.0000000",
+                  "status": "InProgress",
+                  "percentComplete": 45,
+                  "exception": [],
+                  "steps": [],
+                  "additionalData": "{\"downloadProgress\":\"{\\\"Type\\\":\\\"DownloadProgress\\\",\\\"status\\\":\\\"InProgress\\\",\\\"percentComplete\\\":45,\\\"ProgressInfo\\\":{\\\"totalFiles\\\":2,\\\"completedFiles\\\":1,\\\"files\\\":[{\\\"fileName\\\":\\\"bios_update.bin\\\",\\\"totalBytes\\\":104857600,\\\"bytesDownloaded\\\":104857600,\\\"status\\\":\\\"Completed\\\"},{\\\"fileName\\\":\\\"bmc_update.bin\\\",\\\"totalBytes\\\":52428800,\\\"bytesDownloaded\\\":26214400,\\\"status\\\":\\\"InProgress\\\"}]}}\",\"totalBytes\":\"157286400\",\"bytesDownloaded\":\"131072000\"}"
                 },
                 {
                   "name": "SetupHybridComputeRP",
-                  "startTimeUtc": "03/11/2025 15:11:23",
-                  "endTimeUtc": "03/11/2025 15:13:24",
-                  "status": "Success"
+                  "description": "SetupHybridComputeRP",
+                  "startTimeUtc": "0001-01-01T00:00:00Z",
+                  "endTimeUtc": "0001-01-01T00:00:00Z",
+                  "status": "NotStarted"
                 },
                 {
                   "name": "PrepareTargetOSProvisioning",
-                  "description": "NotStarted",
-                  "startTimeUtc": "01/01/0001 00:00:00",
-                  "endTimeUtc": "01/01/0001 00:00:00",
-                  "status": "Success"
+                  "description": "PrepareTargetOSProvisioning",
+                  "startTimeUtc": "0001-01-01T00:00:00Z",
+                  "endTimeUtc": "0001-01-01T00:00:00Z",
+                  "status": "NotStarted"
                 },
                 {
                   "name": "InitiateTargetOSProvisioning",
-                  "description": "NotStarted",
-                  "startTimeUtc": "01/01/0001 00:00:00",
-                  "endTimeUtc": "01/01/0001 00:00:00",
-                  "status": "Success"
+                  "description": "InitiateTargetOSProvisioning",
+                  "startTimeUtc": "0001-01-01T00:00:00Z",
+                  "endTimeUtc": "0001-01-01T00:00:00Z",
+                  "status": "NotStarted"
                 },
                 {
                   "name": "BootIntoTargetOS",
-                  "description": "NotStarted",
-                  "startTimeUtc": "01/01/0001 00:00:00",
-                  "endTimeUtc": "01/01/0001 00:00:00",
-                  "status": "Success"
+                  "description": "BootIntoTargetOS",
+                  "startTimeUtc": "0001-01-01T00:00:00Z",
+                  "endTimeUtc": "0001-01-01T00:00:00Z",
+                  "status": "NotStarted"
                 }
               ]
             },
@@ -125,11 +134,11 @@
           },
           "jobType": "ProvisionOs",
           "deploymentMode": "Deploy",
-          "provisioningState": "Succeeded",
+          "provisioningState": "Provisioning",
           "jobId": "8f94f7e2-00c8-4751-986c-3802143c7900",
-          "startTimeUtc": "2025-03-12T10:42:06.0716967Z",
-          "endTimeUtc": "2025-03-12T10:45:32.7360665Z",
-          "status": "DeploymentSuccess"
+          "startTimeUtc": "2026-07-09T17:59:50.0000000Z",
+          "endTimeUtc": "0001-01-01T00:00:00.0000000",
+          "status": "DeploymentInProgress"
         }
       }
     }
