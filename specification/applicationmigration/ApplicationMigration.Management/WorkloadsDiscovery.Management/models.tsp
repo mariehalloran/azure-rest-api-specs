@@ -707,6 +707,7 @@ model PgsqlInstanceProperties is AzureResourceProperties {
   /**
    * The Server IP/host name.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   hostIp?: string[];
 
   /**
@@ -906,6 +907,7 @@ model PgsqlInstanceResourcePatch {
   /**
    * The Server IP/host name.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   hostIp?: string[];
 
   /**

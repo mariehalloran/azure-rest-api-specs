@@ -140,13 +140,17 @@ model HostMachineProperties {
   ]>;
 
   @doc("Fully qualified domain name of the host.") hostFqdn?: string;
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("Primary IP address of the host.") hostPrimaryIp?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
 @doc("Host machine identity with OS details (for containerInstances).")
 model HostMachineWithOsProperties {
   ...HostMachineProperties;
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("Host operating system type.") hostOsType?: OsType;
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("Host operating system version.") hostOsVersion?: string;
   @doc("Host kernel version.") hostKernelVersion?: string;
   @doc("Host CPU architecture.") hostCpuArchitecture?: CpuArchitecture;
@@ -573,10 +577,14 @@ model ClusterCapacitySummary {
 // NODE SUB-MODELS (full detail for child sub-resource)
 // ═══════════════════════════════════════════════════════════════════════════════
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
 @doc("Host OS details.")
 model HostOsProperties {
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("Operating system type.") osType?: OsType;
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("OS distribution name.") osDistribution?: string;
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("OS version.") osVersion?: string;
   @doc("Kernel version.") kernelVersion?: string;
   @doc("CPU architecture.") cpuArchitecture?: CpuArchitecture;
@@ -682,6 +690,7 @@ model ContainerImageProperties {
   @doc("Image registry.") imageRegistry?: string;
   @doc("Image size in MB.") imageSizeMb?: float64;
   @doc("Image architecture.") imageArchitecture?: string;
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("Image OS type.") osType?: OsType;
 }
 
@@ -706,6 +715,7 @@ model ContainerVolumeMount {
 model ContainerNetworkInfo {
   @doc("Network name.") networkName?: string;
   @doc("Network driver.") networkDriver?: string;
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("Container IP address.") ipAddress?: string;
 }
 
