@@ -583,6 +583,10 @@ model Resource {
 model UpdateAdministrativeState extends EnableDisableOnResources {
   @doc("Administrative state.")
   state?: EnableDisableState;
+
+  @doc("Force update of administrative state on the resources. Default value is false.")
+  @added(Versions.v2026_07_15_preview)
+  force?: BooleanEnumProperty;
 }
 
 @doc("Update administrative state on list of resources.")
@@ -1575,17 +1579,17 @@ union ValidationCheckCategory {
   string,
 }
 
-@doc("Properties for overriding validation checks when performing an action. Allows referencing a prior validateReadiness result and optionally skipping specific failed checks.")
+@doc("A validation check to waive during a validation run, with an optional operator-provided justification captured for audit.")
 @added(Versions.v2026_07_15_preview)
-model ValidationOverrideProperties {
-  @doc("Reference to a prior validateReadiness result. When provided, the action skips re-validation and uses the referenced validation outcome.")
-  validationId?: Azure.Core.uuid;
+model ValidationCheckOverride {
+  @doc("Name of the validation check to waive. Must match a checkName produced by the validation run.")
+  checkName: string;
 
-  @doc("List of check names to override (skip) even if they failed during validation. Allows proceeding with the action despite specific failed checks.")
-  overrideChecks?: string[];
+  @doc("Operator-provided justification for waiving this check. Captured for audit and included in the detailed validation report.")
+  justification?: string;
 }
 
-@doc("Request properties for the validateReadiness action.")
+@doc("Request properties for the runValidation action.")
 @added(Versions.v2026_07_15_preview)
 model RunValidationRequest {
   @doc("Type of validation to perform.")
@@ -1597,16 +1601,13 @@ model RunValidationRequest {
   @doc("Device command configuration specifying how validation commands are provided.")
   deviceCommandConfiguration?: DeviceCommandConfiguration;
 
-  @doc("Custom metric validation rules to evaluate device metrics as part of readiness validation.")
+  @doc("Custom metric validation rules to evaluate device metrics as part of validation.")
   @identifiers(#["checkName"])
   metricsConfiguration?: MetricValidationRule[];
 
-  @doc("List of device resource IDs to filter validation to specific devices. Only applicable at fabric-level.")
-  deviceFilter?: Azure.Core.armResourceIdentifier<[
-    {
-      type: "Microsoft.ManagedNetworkFabric/networkDevices";
-    }
-  ]>[];
+  @doc("List of validation checks to waive for this run even if they fail or warn, each with an optional operator-provided justification captured for audit. Waived checks are recorded in the detailed validation report.")
+  @identifiers(#["checkName"])
+  overrideChecks?: ValidationCheckOverride[];
 }
 
 @doc("Base model for device command configuration, discriminated by configurationType.")
@@ -1666,7 +1667,62 @@ union ValidationOperator {
   LessThan: "LessThan",
 }
 
-@doc("A custom metric validation rule that defines a metric-based check to evaluate during readiness validation.")
+@doc("Aggregation applied to metric values within each sampling bucket.")
+@added(Versions.v2026_07_15_preview)
+union MetricBucketAggregation {
+  string,
+
+  @doc("Arithmetic mean of the samples in the bucket.")
+  average: "Average",
+
+  @doc("Smallest sample value in the bucket.")
+  min: "Min",
+
+  @doc("Largest sample value in the bucket.")
+  max: "Max",
+
+  @doc("Sum of the sample values in the bucket.")
+  sum: "Sum",
+
+  @doc("Number of samples in the bucket.")
+  count: "Count",
+}
+
+@doc("The sampling type used to evaluate the bucketed metric values.")
+@added(Versions.v2026_07_15_preview)
+union MetricSamplingType {
+  string,
+
+  @doc("Arithmetic mean of the bucketed values.")
+  average: "Average",
+
+  @doc("Number of bucketed values.")
+  count: "Count",
+
+  @doc("Largest bucketed value.")
+  max: "Max",
+
+  @doc("Smallest bucketed value.")
+  min: "Min",
+
+  @doc("Rate of change across the bucketed values.")
+  rate: "Rate",
+
+  @doc("Sum of the bucketed values.")
+  sum: "Sum",
+}
+
+@doc("A dimension filter used to scope a custom metric query.")
+@added(Versions.v2026_07_15_preview)
+model MetricDimensionFilter {
+  @doc("The metric dimension name to filter.")
+  dimensionName: string;
+
+  @doc("The metric dimension value to filter on.")
+  value: string;
+}
+
+@doc("A custom metric validation rule that defines a metric-based check to evaluate during validation.")
 @added(Versions.v2026_07_15_preview)
 model MetricValidationRule {
   @doc("Unique check name that identifies this metric check in the validation results. Maps to checkName in checkResults response.")
@@ -1678,17 +1734,37 @@ model MetricValidationRule {
   @doc("The name of the metric to query (e.g., 'CpuUtilizationMax', 'MemoryUtilization').")
   metricName: string;
 
+  @doc("The metrics namespace containing the metric.")
+  `namespace`: string;
+
+  @doc("Optional dimension filters used to scope the metric query.")
+  @identifiers(#["dimensionName"])
+  dimensionFilters?: MetricDimensionFilter[];
+
   @doc("Time window in minutes to look back for metric data.")
   timeWindowMinutes: int32;
+
+  @doc("Optional interval in minutes used to group metric samples into buckets.")
+  samplingIntervalMinutes?: int32;
+
+  @doc("Optional aggregation applied to metric values within each sampling bucket (e.g., 'Average').")
+  bucketAggregation?: MetricBucketAggregation;
+
+  @doc("The sampling type used to evaluate the bucketed metric values (e.g., 'Max').")
+  samplingType: MetricSamplingType;
+
+  @doc("The metric dimension used to produce an individual validation result per dimension value (e.g., 'DeviceId').")
+  perResultDimensionName: string;
 
   @doc("The comparison operator to use for evaluating the metric value.")
   operator: ValidationOperator;
 
   @doc("The expected value to compare against the metric value.")
-  expectedValue: string;
+  expectedValue: float64;
 
   @doc("Maximum number of metric samples allowed to fail before the check is considered failed. Default is 0 (any failure fails the check).")
-  maxAllowedFailures?: int32;
+  @minValue(0)
+  maxAllowedFailures?: int32 = 0;
 }
 
 @doc("File-based device command configuration using a URL to a custom commands file.")
@@ -1702,15 +1778,6 @@ model FileDeviceCommandConfiguration extends DeviceCommandConfiguration {
   commandsUrl: url;
 }
 
-@doc("The response of the action run validation.")
-@added(Versions.v2026_07_15_preview)
-model RunValidationResponse {
-  ...OperationStatusResult;
-
-  @doc("Run validation response properties.")
-  properties?: RunValidationResponseProperties;
-}
-
 @doc("Response properties for the runValidation action.")
 @added(Versions.v2026_07_15_preview)
 model RunValidationResponseProperties {
@@ -1718,9 +1785,9 @@ model RunValidationResponseProperties {
   @visibility(Lifecycle.Read)
   validationId: Azure.Core.uuid;
 
-  @doc("Timestamp when the validation results expire (24-hour TTL).")
+  @doc("Timestamp when the validation was performed.")
   @visibility(Lifecycle.Read)
-  expiresAt?: utcDateTime;
+  validationTime?: utcDateTime;
 
   @doc("Overall result of the validation.")
   @visibility(Lifecycle.Read)
@@ -1738,22 +1805,6 @@ model RunValidationResponseProperties {
   @doc("Target version for upgrade validation in semantic versioning format (e.g., '4.1.0').")
   @visibility(Lifecycle.Read)
   targetVersion?: string;
-
-  @doc("List of device resource IDs that passed validation.")
-  @visibility(Lifecycle.Read)
-  successfulDevices?: Azure.Core.armResourceIdentifier<[
-    {
-      type: "Microsoft.ManagedNetworkFabric/networkDevices";
-    }
-  ]>[];
-
-  @doc("List of device resource IDs that failed validation.")
-  @visibility(Lifecycle.Read)
-  failedDevices?: Azure.Core.armResourceIdentifier<[
-    {
-      type: "Microsoft.ManagedNetworkFabric/networkDevices";
-    }
-  ]>[];
 
   @doc("Individual validation check results.")
   @visibility(Lifecycle.Read)
@@ -1788,6 +1839,68 @@ model ValidationCheckResult {
   @visibility(Lifecycle.Read)
   impactedResources?: Azure.Core.armResourceIdentifier[];
 }
+
+@doc("Request properties for the Network Fabric runValidation action. Extends the common request with fabric-only device scoping.")
+@added(Versions.v2026_07_15_preview)
+model NetworkFabricRunValidationRequest {
+  ...RunValidationRequest;
+
+  @doc("List of device resource IDs to filter validation to specific devices. When omitted, all devices in the fabric are validated.")
+  deviceFilter?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedNetworkFabric/networkDevices";
+    }
+  ]>[];
+}
+
+@doc("The response of the Network Fabric runValidation action.")
+@added(Versions.v2026_07_15_preview)
+model NetworkFabricRunValidationResponse {
+  ...OperationStatusResult;
+
+  @doc("Network Fabric run validation response properties.")
+  properties?: NetworkFabricRunValidationResponseProperties;
+}
+
+@doc("Response properties for the Network Fabric runValidation action. Extends the common response with fabric-only per-device results.")
+@added(Versions.v2026_07_15_preview)
+model NetworkFabricRunValidationResponseProperties {
+  ...RunValidationResponseProperties;
+
+  @doc("List of device resource IDs that passed validation.")
+  @visibility(Lifecycle.Read)
+  successfulDevices?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedNetworkFabric/networkDevices";
+    }
+  ]>[];
+
+  @doc("List of device resource IDs that failed validation.")
+  @visibility(Lifecycle.Read)
+  failedDevices?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedNetworkFabric/networkDevices";
+    }
+  ]>[];
+}
+
+@doc("Request properties for the Network Device runValidation action. Kept as a distinct type so device runValidation can evolve independently of the fabric.")
+@added(Versions.v2026_07_15_preview)
+model NetworkDeviceRunValidationRequest is RunValidationRequest;
+
+@doc("The response of the Network Device runValidation action.")
+@added(Versions.v2026_07_15_preview)
+model NetworkDeviceRunValidationResponse {
+  ...OperationStatusResult;
+
+  @doc("Network Device run validation response properties.")
+  properties?: NetworkDeviceRunValidationResponseProperties;
+}
+
+@doc("Response properties for the Network Device runValidation action. Kept as a distinct type so device runValidation can evolve independently of the fabric.")
+@added(Versions.v2026_07_15_preview)
+model NetworkDeviceRunValidationResponseProperties
+  is RunValidationResponseProperties;
 
 /**
  * The error message.

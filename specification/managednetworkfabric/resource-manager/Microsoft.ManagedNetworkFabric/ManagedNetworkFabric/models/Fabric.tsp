@@ -16,6 +16,317 @@ union ManagementMode {
   managed: "managed",
 }
 
+@doc("Fabric kind: which party drives the switches. Set at create time and immutable.")
+@added(Versions.v2026_07_15_preview)
+union FabricKind {
+  string,
+
+  @doc("The Arc-for-Fabric RP drives devices directly (no external controller).")
+  platformManaged: "PlatformManaged",
+
+  @doc("An external SDN controller (Cisco ACI or Arista CloudVision) owns the devices; the RP integrates through it.")
+  controllerManaged: "ControllerManaged",
+
+  @doc("The customer drives devices; the RP observes only.")
+  userManaged: "UserManaged",
+}
+
+@doc("External SDN controller implementation kind for a controller-managed Fabric.")
+@added(Versions.v2026_07_15_preview)
+union ControllerKind {
+  string,
+
+  @doc("Cisco Application Centric Infrastructure (APIC).")
+  ciscoAci: "CiscoACI",
+
+  @doc("Arista CloudVision (CVP).")
+  aristaCloudVision: "AristaCloudVision",
+}
+
+@doc("Whether controller-side resources are discovered and adopted as hydrated read-only child resources.")
+@added(Versions.v2026_07_15_preview)
+union HydrationMode {
+  string,
+
+  @doc("Discover and adopt controller-side objects as read-only children.")
+  enabled: "Enabled",
+
+  @doc("Do not discover or adopt controller-side objects.")
+  disabled: "Disabled",
+}
+
+@doc("VLAN allocation mode for a Cisco ACI VLAN pool.")
+@added(Versions.v2026_07_15_preview)
+union VlanAllocationType {
+  string,
+
+  @doc("VLAN IDs are assigned explicitly by the operator.")
+  static: "Static",
+
+  @doc("VLAN IDs are assigned automatically from the pool range.")
+  dynamic: "Dynamic",
+}
+
+@doc("Live connection state between the RP/operator and an external SDN controller.")
+@added(Versions.v2026_07_15_preview)
+union ConnectionState {
+  string,
+
+  @doc("The controller endpoint is reachable and authenticated.")
+  connected: "Connected",
+
+  @doc("The controller endpoint is unreachable or authentication failed.")
+  disconnected: "Disconnected",
+}
+
+@doc("Layout used for CloudVision Static Configuration Studio workspaces.")
+@added(Versions.v2026_07_15_preview)
+union StudioWorkspaceLayout {
+  string,
+
+  @doc("A single shared workspace for the fabric.")
+  singleton: "Singleton",
+
+  @doc("A per-device base workspace plus an overlay workspace.")
+  perDeviceBaseAndOverlay: "PerDeviceBaseAndOverlay",
+}
+
+@doc("Controller connection configuration for controller-managed Fabrics. Required when kind is controllerManaged.")
+@added(Versions.v2026_07_15_preview)
+model ControllerManagedConfig {
+  @doc("Controller implementation kind (Cisco ACI or Arista CloudVision). Selects which vendor config bag applies.")
+  controllerKind: ControllerKind;
+
+  @doc("Controller API endpoints the RP connects to. At least one is required; additional entries provide standby endpoints.")
+  @minItems(1)
+  @maxItems(5)
+  @Azure.ResourceManager.identifiers(#["url"])
+  endpoints: ControllerEndpoint[];
+
+  @doc("Kubernetes Secret reference used by the RP to authenticate to the controller.")
+  credentialSecretRef?: CredentialSecretReference;
+
+  @doc("Cisco ACI-specific configuration. Required when controllerKind is CiscoACI; must be omitted otherwise.")
+  ciscoAciConfig?: CiscoAciConfig;
+
+  @doc("Arista CloudVision-specific configuration. Required when controllerKind is AristaCloudVision; must be omitted otherwise.")
+  aristaCloudVisionConfig?: AristaCloudVisionConfig;
+
+  @doc("Whether controller-side resources are discovered and adopted as hydrated read-only child resources. Defaults to Enabled.")
+  hydration?: HydrationMode = HydrationMode.enabled;
+}
+
+@doc("Controller endpoint entry.")
+@added(Versions.v2026_07_15_preview)
+model ControllerEndpoint {
+  @doc("Controller API endpoint URL. Must use the https scheme.")
+  @minLength(1)
+  @pattern("^[Hh][Tt][Tt][Pp][Ss]://")
+  url: url;
+
+  @doc("Free-form endpoint role, such as primary or standby.")
+  role?: string;
+}
+
+@doc("Reference to the stored secret containing controller credentials.")
+@added(Versions.v2026_07_15_preview)
+model CredentialSecretReference {
+  @doc("Name of the stored secret.")
+  @minLength(1)
+  name?: string;
+}
+
+@doc("Cisco ACI controller configuration.")
+@added(Versions.v2026_07_15_preview)
+model CiscoAciConfig {
+  @doc("Name of the ACI physical domain used for Azure Local workloads.")
+  @minLength(1)
+  physicalDomainName: string;
+
+  @doc("Name of the Attachable Access Entity Profile.")
+  @minLength(1)
+  aaepName: string;
+
+  @doc("VLAN pool used for workload encapsulation.")
+  vlanPool: AciVlanPoolConfig;
+
+  @doc("Name of the ACI tenant for Azure Local objects.")
+  @minLength(1)
+  tenant: string;
+
+  @doc("Name of the ACI application profile for Azure Local EPGs.")
+  @minLength(1)
+  appProfile: string;
+
+  @doc("ACI authentication login domain / realm (for example a RADIUS or TACACS+ login domain).")
+  loginDomain?: string;
+}
+
+@doc("Cisco ACI VLAN pool configuration.")
+@added(Versions.v2026_07_15_preview)
+model AciVlanPoolConfig {
+  @doc("Name of the VLAN pool.")
+  @minLength(1)
+  name: string;
+
+  @doc("First VLAN ID in the pool range.")
+  @minValue(1)
+  @maxValue(4094)
+  rangeStart: int32;
+
+  @doc("Last VLAN ID in the pool range.")
+  @minValue(1)
+  @maxValue(4094)
+  rangeEnd: int32;
+
+  @doc("VLAN allocation mode.")
+  allocationType?: VlanAllocationType = VlanAllocationType.static;
+}
+
+@doc("Arista CloudVision controller configuration.")
+@added(Versions.v2026_07_15_preview)
+model AristaCloudVisionConfig {
+  @doc("CloudVision container path containing Azure Local-managed devices.")
+  @minLength(1)
+  defaultContainerPath: string;
+
+  @doc("Prefix for generated CloudVision configlets.")
+  configletPrefix?: string = "AzureLocal_";
+
+  @doc("CloudVision tag label used to identify managed devices.")
+  tagLabel?: string = "AzureLocal-Managed";
+
+  @doc("CloudVision tag value used to identify managed devices.")
+  tagValue?: string = "true";
+
+  @doc("Whether the provider automatically approves CloudVision change controls.")
+  autoApproveChangeControls?: BooleanEnumProperty = BooleanEnumProperty.True;
+
+  @doc("Prefix for CloudVision workspaces created by the provider.")
+  workspacePrefix?: string = "azurelocal-";
+
+  @doc("Layout used for CloudVision Static Configuration Studio workspaces.")
+  studioWorkspaceLayout?: StudioWorkspaceLayout = StudioWorkspaceLayout.singleton;
+
+  @doc("Prefix for per-device baseline configlets in CloudVision.")
+  externalBaselineConfigletPrefix?: string;
+}
+
+@doc("Controller runtime status reported by the operator.")
+@added(Versions.v2026_07_15_preview)
+model ControllerStatus {
+  @doc("Detected controller software version.")
+  @visibility(Lifecycle.Read)
+  controllerVersion?: string;
+
+  @doc("Current connection state to the controller.")
+  @visibility(Lifecycle.Read)
+  connectionState?: ConnectionState;
+
+  @doc("Currently active endpoint URL.")
+  @visibility(Lifecycle.Read)
+  activeEndpoint?: url;
+
+  @doc("Whether hydration is active after the operator has observed the requested mode.")
+  @visibility(Lifecycle.Read)
+  hydrationState?: HydrationMode;
+}
+
+@doc("Controller-managed connection config for PATCH. All fields optional so any single field can be updated independently.")
+@added(Versions.v2026_07_15_preview)
+model PatchControllerManagedConfig {
+  @doc("Controller implementation kind (Cisco ACI or Arista CloudVision).")
+  controllerKind?: ControllerKind;
+
+  @doc("Controller API endpoints (1-5). Supplying this replaces the endpoint list.")
+  @minItems(1)
+  @maxItems(5)
+  @Azure.ResourceManager.identifiers(#["url"])
+  endpoints?: ControllerEndpoint[];
+
+  @doc("Kubernetes Secret reference to update the controller credential.")
+  credentialSecretRef?: CredentialSecretReference;
+
+  @doc("Cisco ACI-specific configuration fields to update.")
+  ciscoAciConfig?: PatchCiscoAciConfig;
+
+  @doc("Arista CloudVision-specific configuration fields to update.")
+  aristaCloudVisionConfig?: PatchAristaCloudVisionConfig;
+
+  @doc("Whether controller-side resources are hydrated as read-only children.")
+  hydration?: HydrationMode;
+}
+
+@doc("Cisco ACI configuration for PATCH. All fields optional.")
+@added(Versions.v2026_07_15_preview)
+model PatchCiscoAciConfig {
+  @doc("Name of the ACI physical domain used for Azure Local workloads.")
+  physicalDomainName?: string;
+
+  @doc("Name of the Attachable Access Entity Profile.")
+  aaepName?: string;
+
+  @doc("VLAN pool used for workload encapsulation.")
+  vlanPool?: PatchAciVlanPoolConfig;
+
+  @doc("Name of the ACI tenant for Azure Local objects.")
+  tenant?: string;
+
+  @doc("Name of the ACI application profile for Azure Local EPGs.")
+  appProfile?: string;
+
+  @doc("ACI authentication login domain / realm.")
+  loginDomain?: string;
+}
+
+@doc("Cisco ACI VLAN pool configuration for PATCH. All fields optional.")
+@added(Versions.v2026_07_15_preview)
+model PatchAciVlanPoolConfig {
+  @doc("Name of the VLAN pool.")
+  name?: string;
+
+  @doc("First VLAN ID in the pool range.")
+  @minValue(1)
+  @maxValue(4094)
+  rangeStart?: int32;
+
+  @doc("Last VLAN ID in the pool range.")
+  @minValue(1)
+  @maxValue(4094)
+  rangeEnd?: int32;
+
+  @doc("VLAN allocation mode.")
+  allocationType?: VlanAllocationType;
+}
+
+@doc("Arista CloudVision configuration for PATCH. All fields optional.")
+@added(Versions.v2026_07_15_preview)
+model PatchAristaCloudVisionConfig {
+  @doc("CloudVision container path containing Azure Local-managed devices.")
+  defaultContainerPath?: string;
+
+  @doc("Prefix for generated CloudVision configlets.")
+  configletPrefix?: string;
+
+  @doc("CloudVision tag label used to identify managed devices.")
+  tagLabel?: string;
+
+  @doc("CloudVision tag value used to identify managed devices.")
+  tagValue?: string;
+
+  @doc("Whether the provider automatically approves CloudVision change controls.")
+  autoApproveChangeControls?: BooleanEnumProperty;
+
+  @doc("Prefix for CloudVision workspaces created by the provider.")
+  workspacePrefix?: string;
+
+  @doc("Layout used for CloudVision Static Configuration Studio workspaces.")
+  studioWorkspaceLayout?: StudioWorkspaceLayout;
+
+  @doc("Prefix for per-device baseline configlets in CloudVision.")
+  externalBaselineConfigletPrefix?: string;
+}
+
 @doc("Controller type for device interaction.")
 @added(Versions.v2026_01_15_preview)
 @removed(Versions.v2026_07_15_preview)
@@ -238,7 +549,7 @@ model NetworkDefinition {
   ipv6Mtu?: int32 = 1500;
 
   @doc("Enables DHCP addressing. Valid only for management purpose.")
-  useDhcp?: boolean = false;
+  useDhcp?: BooleanEnumProperty = BooleanEnumProperty.False;
 }
 
 @doc("Proxy configuration for a traffic scope.")
@@ -477,7 +788,7 @@ model PatchNetworkDefinition {
   ipv6Mtu?: int32;
 
   @doc("Enables DHCP addressing. Valid only for management purpose.")
-  useDhcp?: boolean;
+  useDhcp?: BooleanEnumProperty;
 }
 
 @doc("Proxy config entry for PATCH. All fields optional.")
@@ -588,6 +899,11 @@ model PatchTenantConfig {
 @doc("Fabric patchable properties.")
 @added(Versions.v2026_01_15_preview)
 model FabricPatchableProperties {
+  @doc("Free-text description. Max 1024 characters.")
+  @added(Versions.v2026_07_15_preview)
+  @maxLength(1024)
+  description?: string;
+
   @doc("Infrastructure network definitions.")
   @removed(Versions.v2026_07_15_preview)
   infrastructureNetworks?: PatchInfrastructureNetworks;
@@ -619,20 +935,40 @@ model FabricPatchableProperties {
   @doc("Tenant/workload configuration.")
   @added(Versions.v2026_07_15_preview)
   tenant?: PatchTenantConfig;
+
+  @doc("SDN-controller connection configuration to update on a controllerManaged fabric. All fields optional; kind is immutable and cannot be changed by PATCH.")
+  @added(Versions.v2026_07_15_preview)
+  controllerManagedConfig?: PatchControllerManagedConfig;
+
+  @doc("ARM resource ID of the custom location where controller-managed child resources are projected.")
+  @added(Versions.v2026_07_15_preview)
+  customLocationId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ExtendedLocation/customLocations";
+    }
+  ]>;
 }
 
 @doc("Fabric patch body.")
 @added(Versions.v2026_01_15_preview)
 model FabricPatch {
   ...TagsUpdate;
+  ...Azure.ResourceManager.ManagedServiceIdentityProperty;
 
   @doc("Resource properties.")
   properties?: FabricPatchableProperties;
 }
 
+@@added(FabricPatch.identity, Versions.v2026_07_15_preview);
+
 @doc("FabricProperties defines the resource properties.")
 @added(Versions.v2026_01_15_preview)
 model FabricProperties {
+  @doc("Free-text description. Max 1024 characters.")
+  @added(Versions.v2026_07_15_preview)
+  @maxLength(1024)
+  description?: string;
+
   @doc("Infrastructure network definitions.")
   @removed(Versions.v2026_07_15_preview)
   infrastructureNetworks?: InfrastructureNetworks;
@@ -667,8 +1003,21 @@ model FabricProperties {
   ]>;
 
   @doc("Management mode.")
+  @removed(Versions.v2026_07_15_preview)
   @visibility(Lifecycle.Read, Lifecycle.Create)
   managementMode: ManagementMode;
+
+  @doc("SDN-controller connection configuration. Required when kind is controllerManaged; must be omitted otherwise.")
+  @added(Versions.v2026_07_15_preview)
+  controllerManagedConfig?: ControllerManagedConfig;
+
+  @doc("ARM resource ID of the custom location where controller-managed child resources are projected.")
+  @added(Versions.v2026_07_15_preview)
+  customLocationId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ExtendedLocation/customLocations";
+    }
+  ]>;
 
   @doc("Controller type for device interaction.")
   @removed(Versions.v2026_07_15_preview)
@@ -704,6 +1053,11 @@ model FabricProperties {
       type: "Microsoft.Network/virtualNetworks/subnets";
     }
   ]>;
+
+  @doc("Live controller runtime status reported by the operator. Populated only when kind is controllerManaged.")
+  @added(Versions.v2026_07_15_preview)
+  @visibility(Lifecycle.Read)
+  controllerStatus?: ControllerStatus;
 
   @doc("Provisioning state of the resource.")
   @visibility(Lifecycle.Read)
