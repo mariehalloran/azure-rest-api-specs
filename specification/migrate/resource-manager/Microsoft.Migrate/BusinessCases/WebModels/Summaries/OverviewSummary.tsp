@@ -213,6 +213,84 @@ model OverviewSummaryProperties {
   @doc("The final azure arc enabled on-premises cost based on the final migration percentage.")
   @visibility(Lifecycle.Read)
   futureAzureArcEnabledOnPremisesCostDetails?: TotalCostDetails;
+
+  @added(BusinessCaseApiVersions.v2026_06_06_preview)
+  @doc("Azure value uplift benefits, aggregated across the heterogeneous assessments that contribute to this business case. Absent when none of the contributing assessments reported value benefits.")
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  valueBenefitComponents?: ValueBenefitDetails[];
+}
+
+@doc("Azure value uplift benefits for a set of workloads, broken down by pillar.")
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+model ValueBenefitDetails {
+  @doc("Total annual value benefit after risk adjustment, expressed in the business case currency.")
+  @visibility(Lifecycle.Read)
+  totalAnnualRiskAdjusted: float64;
+
+  @doc("Net present value of the risk-adjusted value benefit over the finance horizon.")
+  @visibility(Lifecycle.Read)
+  valueBenefitNpv: float64;
+
+  @doc("Breakdown of the value benefit by pillar.")
+  @visibility(Lifecycle.Read)
+  @identifiers(#["pillar"])
+  pillars: ValueBenefitPillar[];
+}
+
+@doc("Value benefit contributed by a single pillar.")
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+model ValueBenefitPillar {
+  @doc("The pillar this benefit is attributed to.")
+  @visibility(Lifecycle.Read)
+  pillar: ValueBenefitPillarType;
+
+  @doc("Total annual value benefit for the pillar before risk adjustment.")
+  @visibility(Lifecycle.Read)
+  totalAnnual: float64;
+
+  @doc("Total annual value benefit for the pillar after risk adjustment.")
+  @visibility(Lifecycle.Read)
+  riskAdjustedAnnual: float64;
+
+  @doc("Net present value of the pillar's risk-adjusted benefit over the finance horizon.")
+  @visibility(Lifecycle.Read)
+  npv: float64;
+
+  @doc("Individual contributions that make up the pillar's benefit.")
+  @visibility(Lifecycle.Read)
+  @identifiers(#["name"])
+  lineItems: ValueBenefitLineItem[];
+}
+
+@doc("A single named contribution to a value benefit pillar.")
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+model ValueBenefitLineItem {
+  @doc("Name of the contribution.")
+  @visibility(Lifecycle.Read)
+  name: string;
+
+  @doc("Value of the contribution, expressed in the business case currency.")
+  @visibility(Lifecycle.Read)
+  value: float64;
+}
+
+@doc("Represents the value uplift pillar a benefit belongs to.")
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+union ValueBenefitPillarType {
+  @doc("Unknown or uninitialized pillar.")
+  Unknown: "Unknown",
+
+  @doc("Productivity pillar, covering administrator, developer and operations efficiency gains.")
+  Productivity: "Productivity",
+
+  @doc("Resiliency pillar, covering avoided downtime and reduced incidents.")
+  Resiliency: "Resiliency",
+
+  @doc("Business agility pillar, covering the value of earlier delivery.")
+  BusinessAgility: "BusinessAgility",
+
+  string,
 }
 
 @doc("Shows the discovered servers by virtualization platform.")

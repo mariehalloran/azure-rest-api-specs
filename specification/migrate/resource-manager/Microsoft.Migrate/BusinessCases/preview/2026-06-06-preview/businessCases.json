@@ -2367,6 +2367,15 @@
           "$ref": "#/definitions/TotalCostDetails",
           "description": "The final azure arc enabled on-premises cost based on the final migration percentage.",
           "readOnly": true
+        },
+        "valueBenefitComponents": {
+          "type": "array",
+          "description": "Azure value uplift benefits, aggregated across the heterogeneous assessments that contribute to this business case. Absent when none of the contributing assessments reported value benefits.",
+          "items": {
+            "$ref": "#/definitions/ValueBenefitDetails"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
         }
       },
       "required": [
@@ -2916,6 +2925,144 @@
         "totalCost",
         "licenseCostDetails"
       ]
+    },
+    "ValueBenefitDetails": {
+      "type": "object",
+      "description": "Azure value uplift benefits for a set of workloads, broken down by pillar.",
+      "properties": {
+        "totalAnnualRiskAdjusted": {
+          "type": "number",
+          "format": "double",
+          "description": "Total annual value benefit after risk adjustment, expressed in the business case currency.",
+          "readOnly": true
+        },
+        "valueBenefitNpv": {
+          "type": "number",
+          "format": "double",
+          "description": "Net present value of the risk-adjusted value benefit over the finance horizon.",
+          "readOnly": true
+        },
+        "pillars": {
+          "type": "array",
+          "description": "Breakdown of the value benefit by pillar.",
+          "items": {
+            "$ref": "#/definitions/ValueBenefitPillar"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "pillar"
+          ]
+        }
+      },
+      "required": [
+        "totalAnnualRiskAdjusted",
+        "valueBenefitNpv",
+        "pillars"
+      ]
+    },
+    "ValueBenefitLineItem": {
+      "type": "object",
+      "description": "A single named contribution to a value benefit pillar.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the contribution.",
+          "readOnly": true
+        },
+        "value": {
+          "type": "number",
+          "format": "double",
+          "description": "Value of the contribution, expressed in the business case currency.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ]
+    },
+    "ValueBenefitPillar": {
+      "type": "object",
+      "description": "Value benefit contributed by a single pillar.",
+      "properties": {
+        "pillar": {
+          "$ref": "#/definitions/ValueBenefitPillarType",
+          "description": "The pillar this benefit is attributed to.",
+          "readOnly": true
+        },
+        "totalAnnual": {
+          "type": "number",
+          "format": "double",
+          "description": "Total annual value benefit for the pillar before risk adjustment.",
+          "readOnly": true
+        },
+        "riskAdjustedAnnual": {
+          "type": "number",
+          "format": "double",
+          "description": "Total annual value benefit for the pillar after risk adjustment.",
+          "readOnly": true
+        },
+        "npv": {
+          "type": "number",
+          "format": "double",
+          "description": "Net present value of the pillar's risk-adjusted benefit over the finance horizon.",
+          "readOnly": true
+        },
+        "lineItems": {
+          "type": "array",
+          "description": "Individual contributions that make up the pillar's benefit.",
+          "items": {
+            "$ref": "#/definitions/ValueBenefitLineItem"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "pillar",
+        "totalAnnual",
+        "riskAdjustedAnnual",
+        "npv",
+        "lineItems"
+      ]
+    },
+    "ValueBenefitPillarType": {
+      "type": "string",
+      "description": "Represents the value uplift pillar a benefit belongs to.",
+      "enum": [
+        "Unknown",
+        "Productivity",
+        "Resiliency",
+        "BusinessAgility"
+      ],
+      "x-ms-enum": {
+        "name": "ValueBenefitPillarType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Unknown or uninitialized pillar."
+          },
+          {
+            "name": "Productivity",
+            "value": "Productivity",
+            "description": "Productivity pillar, covering administrator, developer and operations efficiency gains."
+          },
+          {
+            "name": "Resiliency",
+            "value": "Resiliency",
+            "description": "Resiliency pillar, covering avoided downtime and reduced incidents."
+          },
+          {
+            "name": "BusinessAgility",
+            "value": "BusinessAgility",
+            "description": "Business agility pillar, covering the value of earlier delivery."
+          }
+        ]
+      }
     },
     "Year": {
       "type": "string",
