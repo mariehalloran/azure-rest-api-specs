@@ -2,6 +2,7 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@typespec/openapi";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "./models.tsp";
 import "./NetworkSite.tsp";
 
@@ -9,6 +10,7 @@ using TypeSpec.Rest;
 using Azure.ResourceManager;
 using TypeSpec.Http;
 using TypeSpec.OpenAPI;
+using TypeSpec.Versioning;
 
 namespace Microsoft.ApplicationMigration;
 
@@ -45,9 +47,11 @@ model NsxDistributedFirewallRuleProperties is AzureResourceProperties {
   direction?: FirewallDirection;
 
   /** The sequence number determining rule evaluation order. */
+  @added(Versions.v2026_08_01_preview)
   sequenceNumber?: int64;
 
   /** The deterministic global priority used to order the rule. */
+  @added(Versions.v2026_08_01_preview)
   globalPriority?: string;
 
   /** Whether scope is ANY. */
