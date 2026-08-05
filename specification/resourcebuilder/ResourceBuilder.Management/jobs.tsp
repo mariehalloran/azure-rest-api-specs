@@ -540,7 +540,10 @@ interface Jobs {
    * Required steps before deleting a job:
    * 1. Update the parent pipeline to remove the activity that references this job, or delete the pipeline.
    * 2. Once no pipeline activity references this job, retry this delete request.
+   *
+   * The delete is performed asynchronously: the service returns 202 Accepted with a Location header
+   * to poll, or 204 No Content when the job does not exist.
    */
-  delete is ArmResourceDeleteSync<Job>;
+  delete is ArmResourceDeleteWithoutOkAsync<Job>;
   list is ArmResourceListByParent<Job>;
 }
