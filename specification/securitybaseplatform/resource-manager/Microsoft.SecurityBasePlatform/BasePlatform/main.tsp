@@ -7,7 +7,6 @@ import "./shared-models.tsp";
 import "./patch-models.tsp";
 import "./workspace.tsp";
 import "./cluster.tsp";
-import "./kubernetes-models.tsp";
 import "./workload-models.tsp";
 
 using TypeSpec.Versioning;
