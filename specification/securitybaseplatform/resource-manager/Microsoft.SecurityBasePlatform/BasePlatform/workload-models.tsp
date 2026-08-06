@@ -41,10 +41,10 @@ model ObservabilityDefaults {
   @doc("Audit log collection configuration.")
   auditLogs?: WorkloadAuditLogsConfig;
 
-  @doc("Geneva MDM metrics sidecar configuration.")
+  @doc("Geneva Metrics (MDM) sidecar configuration.")
   mdm?: MdmConfig;
 
-  @doc("Additional Geneva MDM metrics sidecars when more than one metrics pipeline is needed.")
+  @doc("Additional Geneva Metrics (MDM) sidecars when more than one metrics pipeline is needed.")
   @identifiers(#["name"])
   extraMdms?: NamedMdmConfig[];
 
@@ -57,7 +57,7 @@ model ObservabilityDefaults {
   @doc("High throughput telemetry pipeline configuration.")
   highThroughput?: HighThroughputConfig;
 
-  @doc("Additional MDSD log collector sidecars when the high-throughput logs pipeline needs more than one collector.")
+  @doc("Additional Geneva Monitoring Agent (MDSD) log collector sidecars when the high-throughput logs pipeline needs more than one collector.")
   @identifiers(#["name"])
   extraMdsds?: NamedMdsdConfig[];
 
@@ -88,7 +88,7 @@ model WorkloadMetricsConfig {
   @doc("Named service port used for metrics scraping.")
   portName?: string;
 
-  @doc("Whether PII filtering is enabled before emitting metrics dimensions.")
+  @doc("Whether personally identifiable information (PII) filtering is enabled before emitting metrics dimensions.")
   piiFilteringEnabled?: boolean;
 }
 
@@ -103,7 +103,7 @@ model WorkloadLogsConfig {
   @doc("Collect stderr from workload containers.")
   collectStderr?: boolean;
 
-  @doc("Whether PII filtering is enabled before logs are routed to telemetry backends.")
+  @doc("Whether personally identifiable information (PII) filtering is enabled before logs are routed to telemetry backends.")
   piiFilteringEnabled?: boolean;
 
   @doc("Whether raw application logs are excluded from generic collection and only explicitly configured sources are collected.")
@@ -144,7 +144,7 @@ model HighThroughputConfig {
   @doc("Application process name used by Geneva sidecars for shutdown ordering and attribution.")
   appName?: string;
 
-  @doc("Geneva MDM namespace for high-throughput metrics.")
+  @doc("Geneva Metrics (MDM) namespace for high-throughput metrics.")
   genevaMdmNamespace?: string;
 
   @doc("Metrics configuration.")
@@ -372,7 +372,7 @@ model OpenTelemetryConfig {
   @doc("Whether the OpenTelemetry receiver is enabled.")
   enabled?: boolean;
 
-  @doc("OTLP receiver port.")
+  @doc("OpenTelemetry Protocol (OTLP) receiver port.")
   otlpPort?: int32;
 
   @doc("Maximum OTLP receive message size in MB.")
@@ -636,7 +636,7 @@ model OperatorManagedObservabilityConfig {
   @doc("Enable the operator-managed telemetry resources for this workload.")
   enabled?: boolean;
 
-  @doc("Enable GBF/operator-managed bootstrap integration for observability sidecars.")
+  @doc("Enable Geneva Bit Forwarder (GBF)/operator-managed bootstrap integration for observability sidecars.")
   gbfEnabled?: boolean;
 
   @doc("Let the operator manage telemetry certificates/secrets instead of requiring explicit sidecar secret names.")

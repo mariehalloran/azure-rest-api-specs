@@ -1040,7 +1040,7 @@
         },
         "genevaMdmNamespace": {
           "type": "string",
-          "description": "Geneva MDM namespace for high-throughput metrics."
+          "description": "Geneva Metrics (MDM) namespace for high-throughput metrics."
         },
         "metrics": {
           "$ref": "#/definitions/HighThroughputMetricsConfig",
@@ -1682,11 +1682,11 @@
         },
         "mdm": {
           "$ref": "#/definitions/MdmConfig",
-          "description": "Geneva MDM metrics sidecar configuration."
+          "description": "Geneva Metrics (MDM) sidecar configuration."
         },
         "extraMdms": {
           "type": "array",
-          "description": "Additional Geneva MDM metrics sidecars when more than one metrics pipeline is needed.",
+          "description": "Additional Geneva Metrics (MDM) sidecars when more than one metrics pipeline is needed.",
           "items": {
             "$ref": "#/definitions/NamedMdmConfig"
           },
@@ -1708,7 +1708,7 @@
         },
         "extraMdsds": {
           "type": "array",
-          "description": "Additional MDSD log collector sidecars when the high-throughput logs pipeline needs more than one collector.",
+          "description": "Additional Geneva Monitoring Agent (MDSD) log collector sidecars when the high-throughput logs pipeline needs more than one collector.",
           "items": {
             "$ref": "#/definitions/NamedMdsdConfig"
           },
@@ -1850,7 +1850,7 @@
         "otlpPort": {
           "type": "integer",
           "format": "int32",
-          "description": "OTLP receiver port."
+          "description": "OpenTelemetry Protocol (OTLP) receiver port."
         },
         "maxReceiveMessageSizeMBytes": {
           "type": "integer",
@@ -1870,7 +1870,7 @@
         },
         "gbfEnabled": {
           "type": "boolean",
-          "description": "Enable GBF/operator-managed bootstrap integration for observability sidecars."
+          "description": "Enable Geneva Bit Forwarder (GBF)/operator-managed bootstrap integration for observability sidecars."
         },
         "manageCertificates": {
           "type": "boolean",
@@ -2228,7 +2228,7 @@
         },
         "piiFilteringEnabled": {
           "type": "boolean",
-          "description": "Whether PII filtering is enabled before logs are routed to telemetry backends."
+          "description": "Whether personally identifiable information (PII) filtering is enabled before logs are routed to telemetry backends."
         },
         "excludeRawLogs": {
           "type": "boolean",
@@ -2266,7 +2266,7 @@
         },
         "piiFilteringEnabled": {
           "type": "boolean",
-          "description": "Whether PII filtering is enabled before emitting metrics dimensions."
+          "description": "Whether personally identifiable information (PII) filtering is enabled before emitting metrics dimensions."
         }
       }
     },
