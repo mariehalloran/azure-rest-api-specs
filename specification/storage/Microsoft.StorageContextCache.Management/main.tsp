@@ -7,6 +7,8 @@ import "@azure-tools/typespec-azure-resource-manager";
 import "./common.tsp";
 import "./ContextCaches/contextCacheModels.tsp";
 import "./ContextCacheContainers/contextCacheContainerModels.tsp";
+import "./InternalContextCaches/internalContextCacheModels.tsp";
+import "./InternalContextCacheContainers/internalContextCacheContainerModels.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
@@ -25,6 +27,14 @@ enum Versions {
   /** 2026-01-01-preview version */
   @useDependency(Azure.ResourceManager.CommonTypes.Versions.v6)
   v2026_01_01_preview: "2026-01-01-preview",
+
+  /** 2026-02-01-preview version */
+  @useDependency(Azure.ResourceManager.CommonTypes.Versions.v6)
+  v2026_02_01_preview: "2026-02-01-preview",
+
+  /** 2026-03-01-preview version */
+  @useDependency(Azure.ResourceManager.CommonTypes.Versions.v6)
+  v2026_03_01_preview: "2026-03-01-preview",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}
@@ -38,8 +48,15 @@ model ContextCache is TrackedResource<ContextCacheProperties, false> {
   @path
   name: string;
 
-  ...ManagedSystemAssignedIdentityProperty;
+  ...ManagedServiceIdentityProperty;
 }
+
+// Keep 2026-02-01-preview as SystemAssigned and broaden from 2026-03-01-preview.
+@@typeChangedFrom(
+  ContextCache.identity,
+  Versions.v2026_03_01_preview,
+  Azure.ResourceManager.CommonTypes.SystemAssignedServiceIdentity
+);
 
 @armResourceOperations(ContextCache)
 interface ContextCaches {
@@ -64,8 +81,10 @@ interface ContextCaches {
 
 /** A container resource within a Context Cache */
 @parentResource(ContextCache)
-model ContextCacheContainer
-  is ProxyResource<ContextCacheContainerProperties, false> {
+model ContextCacheContainer is ProxyResource<
+  ContextCacheContainerProperties,
+  false
+> {
   /** The name of the context cache container */
   @pattern("^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$")
   @key("contextCacheContainerName")
@@ -93,4 +112,84 @@ interface ContextCacheContainers {
 
   /** List all containers in a Context Cache. */
   listByContextCache is ArmResourceListByParent<ContextCacheContainer>;
+}
+
+// ─── Internal (location-based, ProxyOnly) resource types ────────────────────
+// Hidden from end users via AFEC flag AllowInternalUserRPResourceTypes.
+// RoutingType: ProxyOnly, LocationBased. Regionality: Regional.
+// ARM metadata is stored in RPaaS (MetaRP), not tracked by ARM.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** An internal Azure Context Cache resource. This is a ProxyOnly, location-based resource hidden from end users via AFEC. Metadata is stored in RPaaS. */
+@added(Versions.v2026_02_01_preview)
+@parentResource(ResourceGroupLocationResource)
+model InternalContextCache is ProxyResource<
+  InternalContextCacheProperties,
+  false
+> {
+  /** The name of the internal Azure Context Cache resource. */
+  @pattern("^[a-z0-9][a-z0-9-]{1,22}[a-z0-9]$")
+  @key("internalContextCacheName")
+  @segment("internalContextCaches")
+  @path
+  name: string;
+}
+
+@added(Versions.v2026_02_01_preview)
+@armResourceOperations(InternalContextCache)
+interface InternalContextCaches {
+  /** Get an internal Azure Context Cache resource. */
+  get is ArmResourceRead<InternalContextCache>;
+
+  /** List internal Azure Context Cache resources by location. */
+  listByLocation is ArmResourceListByParent<InternalContextCache>;
+
+  /** Create or update an internal Azure Context Cache resource. For RPaaS-internal use only. */
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<InternalContextCache>;
+
+  /** Update an internal Azure Context Cache resource. For RPaaS-internal use only. */
+  update is ArmCustomPatchAsync<
+    InternalContextCache,
+    InternalContextCacheUpdate
+  >;
+
+  /** Delete an internal Azure Context Cache resource. For RPaaS-internal use only. */
+  delete is ArmResourceDeleteWithoutOkAsync<InternalContextCache>;
+}
+
+/** An internal container resource within an internal Azure Context Cache resource. This is a ProxyOnly resource hidden from end users via AFEC. */
+@added(Versions.v2026_02_01_preview)
+@parentResource(InternalContextCache)
+model InternalContextCacheContainer is ProxyResource<
+  InternalContextCacheContainerProperties,
+  false
+> {
+  /** The name of the internal container. */
+  @pattern("^[a-z0-9](?!.*--)[a-z0-9-]{1,61}[a-z0-9]$")
+  @key("internalContextCacheContainerName")
+  @segment("internalContextCacheContainers")
+  @path
+  name: string;
+}
+
+@added(Versions.v2026_02_01_preview)
+@armResourceOperations(InternalContextCacheContainer)
+interface InternalContextCacheContainers {
+  /** Get a container in an internal Azure Context Cache resource. */
+  get is ArmResourceRead<InternalContextCacheContainer>;
+
+  /** List all containers in an internal Azure Context Cache resource. */
+  listByAccount is ArmResourceListByParent<InternalContextCacheContainer>;
+
+  /** Create or update a container in an internal Azure Context Cache resource. For RPaaS-internal use only. */
+  createOrUpdate is ArmResourceCreateOrUpdateAsync<InternalContextCacheContainer>;
+
+  /** Update a container in an internal Azure Context Cache resource. For RPaaS-internal use only. */
+  update is ArmCustomPatchAsync<
+    InternalContextCacheContainer,
+    InternalContextCacheContainerUpdate
+  >;
+
+  /** Delete a container from an internal Azure Context Cache resource. For RPaaS-internal use only. */
+  delete is ArmResourceDeleteWithoutOkAsync<InternalContextCacheContainer>;
 }

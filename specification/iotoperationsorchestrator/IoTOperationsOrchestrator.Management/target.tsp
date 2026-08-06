@@ -1,7 +1,6 @@
 import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/versioning";
-import "@azure-tools/typespec-providerhub";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "./common.tsp";
@@ -63,6 +62,7 @@ model TopologiesProperties {
 
 @doc("Defines a component binding for a provider.")
 model BindingProperties {
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "properties field is loosely defined and are dependent on customer scenarios"
   @doc("Configuration values for the binding.")
   config: Record<unknown>;
 

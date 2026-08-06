@@ -63,38 +63,6 @@ model AzureResourceProperties {
 }
 
 /**
- * Represents the presence of Oids in Tables under a DB.
- */
-union HasTablesWithOids {
-  @doc("Oids presence in the database is unknown.")
-  Unknown: "Unknown",
-
-  @doc("The Database has tables with Oids.")
-  True: "True",
-
-  @doc("The Database does not have tables with Oids.")
-  False: "False",
-
-  string,
-}
-
-/**
- * Represents the presence of custom data types in a DB.
- */
-union HasCustomDataTypes {
-  @doc("Custom data types presence in the database is unknown.")
-  Unknown: "Unknown",
-
-  @doc("The Database has custom data types.")
-  True: "True",
-
-  @doc("The Database does not have custom data types.")
-  False: "False",
-
-  string,
-}
-
-/**
  * Represents an Enum with boolean values.
  */
 union BoolValue {
@@ -202,7 +170,12 @@ union Edition {
   /**
    * Standard edition.
    */
-  StandardEdition2: "StandardEdition2",
+  Standard: "Standard",
+
+  /**
+   * Enterprise edition.
+   */
+  Enterprise: "Enterprise",
 
   /**
    * Express edition.
@@ -456,11 +429,6 @@ union Language {
   PLSQL: "PLSQL",
 
   /**
-   * PLPERL language.
-   */
-  PLPERL: "PLPERL",
-
-  /**
    * JAVA language.
    */
   JAVA: "JAVA",
@@ -472,11 +440,6 @@ union Language {
    * C language.
    */
   C: "C",
-
-  /**
-   * INTERNAL language.
-   */
-  INTERNAL: "INTERNAL",
 }
 
 /**
@@ -556,6 +519,66 @@ union OracleAuthenticationMethod {
    * Global authentication (shared across systems).
    */
   GLOBAL: "GLOBAL",
+}
+
+/**
+ * Represents the configuration of the database.
+ */
+union DataBasePlatformType {
+  string,
+
+  /**
+   * Unknown .
+   */
+  Unknown: "Unknown",
+
+  /**
+   * Standalone .
+   */
+  STANDALONE: "STANDALONE",
+
+  /**
+   * Real Application Cluster (RAC) .
+   */
+  RAC: "RAC",
+
+  /**
+   * Real Application Cluster One Node (RAC ONE NODE) .
+   */
+  RAC_ONE_NODE: "RAC_ONE_NODE",
+
+  /**
+   * Oracle Restart (Single Instance High Availability).
+   */
+  ORACLE_RESTART: "ORACLE_RESTART",
+}
+
+/**
+ * Represents the infrastructure type of the database. i.e standard, exadata, autonomous.
+ */
+union DatabaseInfrastructureType {
+  string,
+
+  /**
+   * Unknown .
+   */
+  Unknown: "Unknown",
+
+  /**
+   * Oracle running on standard infrastructure
+   * (VMware, Hyper-V, Physical, Azure VM, AWS, OCI Compute, etc.)
+   */
+  STANDARD: "STANDARD",
+
+  /**
+   * Oracle running on Exadata infrastructure.
+   */
+  EXADATA: "EXADATA",
+
+  /**
+   * Oracle Autonomous Database.
+   */
+  AUTONOMOUS: "AUTONOMOUS",
 }
 
 /**
@@ -639,6 +662,7 @@ model OracleInstanceProperties is AzureResourceProperties {
   /**
    *The Server IP in ipv4/ipv6 format.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   hostIp?: string[];
 
   /**
@@ -728,21 +752,6 @@ model OracleInstanceProperties is AzureResourceProperties {
   maxConnections?: int64;
 
   /**
-   * Indicates whether the system has custom casts defined.
-   */
-  hasCustomCasts?: BoolValue;
-
-  /**
-   * Indicates whether the system has custom full-text search (FTS) parsers defined.
-   */
-  hasCustomFtsParsers?: BoolValue;
-
-  /**
-   * Indicates whether the system has custom full-text search (FTS) templates defined.
-   */
-  hasCustomFtsTemplates?: BoolValue;
-
-  /**
    * Specifies the TLS version used by the system.
    */
   tlsVersion?: TlsVersion;
@@ -773,31 +782,6 @@ model OracleInstanceProperties is AzureResourceProperties {
   deepDiscoveryPerformed?: BoolValue;
 
   /**
-   * The number of compute IOPS (Input/Output Operations Per Second) collected.
-   */
-  computeIopsCollected?: int32;
-
-  /**
-   * The number of storage IOPS (Input/Output Operations Per Second) collected.
-   */
-  storageIopsCollected?: int32;
-
-  /**
-   * The storage throughput collected, measured in units per second.
-   */
-  storageThroughPutCollected?: int32;
-
-  /**
-   * Indicates whether read replica functionality is enabled.
-   */
-  isReadReplicaEnabled?: BoolValue;
-
-  /**
-   * The number of read replicas configured for the system.
-   */
-  readReplicaCount?: int32;
-
-  /**
    * Indicates whether disaster recovery (DR) functionality is enabled.
    */
   isDrEnabled?: BoolValue;
@@ -819,6 +803,136 @@ model OracleInstanceProperties is AzureResourceProperties {
    */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
   tags?: Record<string>;
+
+  /**
+   * The display name of the Oracle instance.
+   */
+  displayName?: string;
+
+  /**
+   * The Oracle System Identifier (serviceId) for the instance.
+   */
+  serviceId: string;
+
+  /**
+   * The number of pluggable databases (PDBs) in the instance.
+   */
+  pdbCount?: int64;
+
+  /**
+   * The database type (e.g., Container Database (CDB) or Non-Container Database (NON-CDB)).
+   */
+  dbType?: string;
+
+  /**
+   * The database Name
+   */
+  dbName?: string;
+
+  /**
+   * The unique name of the database.
+   */
+  dbUniqueName?: string;
+
+  /**
+   * The CPU count of the database.
+   */
+  dbCpuCount?: int64;
+
+  /**
+   * The CPU core count of the database.
+   */
+  dbCpuCoreCount?: int64;
+
+  /**
+   * The database platform type, i.e standlone, RAC.
+   */
+  dbPlatformType?: DataBasePlatformType;
+
+  /**
+   * The database infrastructure type, i.e standard, exadata, autonomous.
+   */
+  dbInfrastructureType?: DatabaseInfrastructureType;
+
+  /**
+   * The list of database features, i.e. partitioning, olap, spatial, inmemory, asm, dataguard, multitenant etc.
+   */
+  dbFeatures?: string[];
+
+  /**
+   * The size of the SGA memory.
+   */
+  memSgaSize?: int64;
+
+  /**
+   * The size of the PGA memory.
+   */
+  memPgaSize?: int64;
+
+  /**
+   * The log mode of the database.
+   */
+  dbLogMode?: string;
+
+  /**
+   * The operating mode of the database.
+   */
+  dbOperatingMode?: string;
+
+  /**
+   * The data protection mode of the database.
+   */
+  dbDataProtectionMode?: string;
+
+  /**
+   * Indicates whether HA/DR broker is enabled.
+   */
+  dbHaDrBroker?: string;
+
+  /**
+   * The database deployment configuration.
+   */
+  dbConfiguration?: string;
+
+  /**
+   * The role of the database in a cluster.
+   */
+  dbDatabaseRole?: string;
+
+  /**
+   * The flashback status of the database.
+   */
+  dbFlashbackStatus?: string;
+
+  /**
+   * Current system change number for the database.
+   */
+  dbCurrentScn?: int64;
+
+  /**
+   * Count of database file segments on storage disks.
+   */
+  dbFileSegmentCount?: int64;
+
+  /**
+   * Total size of database file segments in MB.
+   */
+  dbFileSegmentSize?: float32;
+
+  /**
+   * The count of OS processes for the CPU.
+   */
+  cpuOsProcessCount?: int64;
+
+  /**
+   * The process limit for the CPU.
+   */
+  cpuProcessLimit?: float32;
+
+  /**
+   * The recent critical errors of the database.
+   */
+  recentCriticalErrors?: string[];
 }
 
 /**
@@ -836,8 +950,14 @@ model OracleInstanceResourcePatchProperties {
  */
 model OracleInstanceResourcePatch {
   /**
+   * The Server IP/host name.
+   */
+  hostName?: string;
+
+  /**
    * The Server IP in ipv4/ipv6 format.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   hostIp?: string[];
 
   /**
@@ -853,6 +973,11 @@ model OracleInstanceResourcePatch {
    * The host machine properties.
    */
   hostMachineProperties?: HostMachineProperties;
+
+  /**
+   * Oracle Server port number
+   */
+  portNumber?: int32;
 
   /**
    * The oracle server version.
@@ -896,6 +1021,12 @@ model OracleInstanceResourcePatch {
   collations?: Collation[];
 
   /**
+   * Dictionary of server parameters for the instance
+   */
+  @identifiers(#["key", "value"])
+  serverParameters?: ServerParameter[];
+
+  /**
    * List of tablespaces in the instance.
    */
   tableSpaces?: string[];
@@ -914,21 +1045,6 @@ model OracleInstanceResourcePatch {
    * The maximum number of connections allowed in the instance
    */
   maxConnections?: int64;
-
-  /**
-   * Indicates whether the system has custom casts defined.
-   */
-  hasCustomCasts?: BoolValue;
-
-  /**
-   * Indicates whether the system has custom full-text search (FTS) parsers defined.
-   */
-  hasCustomFtsParsers?: BoolValue;
-
-  /**
-   * Indicates whether the system has custom full-text search (FTS) templates defined.
-   */
-  hasCustomFtsTemplates?: BoolValue;
 
   /**
    * Specifies the TLS version used by the system.
@@ -961,31 +1077,6 @@ model OracleInstanceResourcePatch {
   deepDiscoveryPerformed?: BoolValue;
 
   /**
-   * The number of compute IOPS (Input/Output Operations Per Second) collected.
-   */
-  computeIopsCollected?: int32;
-
-  /**
-   * The number of storage IOPS (Input/Output Operations Per Second) collected.
-   */
-  storageIopsCollected?: int32;
-
-  /**
-   * The storage throughput collected, measured in units per second.
-   */
-  storageThroughPutCollected?: int32;
-
-  /**
-   * Indicates whether read replica functionality is enabled.
-   */
-  isReadReplicaEnabled?: BoolValue;
-
-  /**
-   * The number of read replicas configured for the system.
-   */
-  readReplicaCount?: int32;
-
-  /**
    * Indicates whether disaster recovery (DR) functionality is enabled.
    */
   isDrEnabled?: BoolValue;
@@ -1007,6 +1098,136 @@ model OracleInstanceResourcePatch {
    */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record"
   tags?: Record<string>;
+
+  /**
+   * The display name of the Oracle instance.
+   */
+  displayName?: string;
+
+  /**
+   * The Oracle System Identifier (serviceId) for the instance.
+   */
+  serviceId?: string;
+
+  /**
+   * The number of pluggable databases (PDBs) in the instance.
+   */
+  pdbCount?: int64;
+
+  /**
+   * The database type (e.g., Container Database (CDB) or Non-Container Database (NON-CDB)).
+   */
+  dbType?: string;
+
+  /**
+   * The database Name
+   */
+  dbName?: string;
+
+  /**
+   * The unique name of the database.
+   */
+  dbUniqueName?: string;
+
+  /**
+   * The CPU count of the database.
+   */
+  dbCpuCount?: int64;
+
+  /**
+   * The CPU core count of the database.
+   */
+  dbCpuCoreCount?: int64;
+
+  /**
+   * The database platform type, i.e standlone, RAC.
+   */
+  dbPlatformType?: DataBasePlatformType;
+
+  /**
+   * The database infrastructure type, i.e standard, exadata, autonomous.
+   */
+  dbInfrastructureType?: DatabaseInfrastructureType;
+
+  /**
+   * The list of database features, i.e. partitioning, olap, spatial, inmemory, asm, dataguard, multitenant etc.
+   */
+  dbFeatures?: string[];
+
+  /**
+   * The size of the SGA memory.
+   */
+  memSgaSize?: int64;
+
+  /**
+   * The size of the PGA memory.
+   */
+  memPgaSize?: int64;
+
+  /**
+   * The log mode of the database.
+   */
+  dbLogMode?: string;
+
+  /**
+   * The operating mode of the database.
+   */
+  dbOperatingMode?: string;
+
+  /**
+   * The data protection mode of the database.
+   */
+  dbDataProtectionMode?: string;
+
+  /**
+   * Indicates whether HA/DR broker is enabled.
+   */
+  dbHaDrBroker?: string;
+
+  /**
+   * The database deployment configuration.
+   */
+  dbConfiguration?: string;
+
+  /**
+   * The role of the database in a cluster.
+   */
+  dbDatabaseRole?: string;
+
+  /**
+   * The flashback status of the database.
+   */
+  dbFlashbackStatus?: string;
+
+  /**
+   * Current system change number for the database.
+   */
+  dbCurrentScn?: int64;
+
+  /**
+   * Count of database file segments on storage disks.
+   */
+  dbFileSegmentCount?: int64;
+
+  /**
+   * Total size of database file segments in MB.
+   */
+  dbFileSegmentSize?: float32;
+
+  /**
+   * The count of OS processes for the CPU.
+   */
+  cpuOsProcessCount?: int64;
+
+  /**
+   * The process limit for the CPU.
+   */
+  cpuProcessLimit?: float32;
+
+  /**
+   * The recent critical errors of the database.
+   */
+  recentCriticalErrors?: string[];
 }
 
 /**
@@ -1130,39 +1351,124 @@ model OracleDatabaseProperties is AzureResourceProperties {
   languages?: Language[];
 
   /**
-   * Whether tables with oid's exists in the database.
+   * The audit status of the database.
    */
-  hasTablesWithOids?: HasTablesWithOids;
+  dbAudit?: string;
 
   /**
-   * Whether the database has custom data types.
+   * Whether advanced queues feature is enabled.
    */
-  hasCustomDataTypes?: HasCustomDataTypes;
+  dbAdvanceQueues?: string;
+
+  /**
+   * Whether block change tracking is enabled.
+   */
+  dbBlockChangeTracking?: string;
+
+  /**
+   * Whether change data capture is enabled.
+   */
+  dbCdc?: string;
+
+  /**
+   * Whether column encryption is enabled.
+   */
+  dbColumnEncryption?: string;
+
+  /**
+   * Whether global temporary tables feature is enabled.
+   */
+  dbGlobalTempTables?: string;
+
+  /**
+   * Whether linked servers support is enabled.
+   */
+  dbLinkedServers?: string;
+
+  /**
+   * Whether database mail feature is enabled.
+   */
+  dbMail?: string;
+
+  /**
+   * The multibyte data byte order.
+   */
+  dbMultibyteByteorder?: string;
+
+  /**
+   * Whether parallel buffers are enabled.
+   */
+  dbParallelBuffers?: string;
+
+  /**
+   * Whether parallel queries are enabled.
+   */
+  dbParallelQueries?: string;
+
+  /**
+   * Whether point-in-time recovery is enabled.
+   */
+  dbPointIntimeRecovery?: string;
+
+  /**
+   * Whether row-level security is enabled.
+   */
+  dbRowLevelSecurity?: string;
+
+  /**
+   * Whether scheduler jobs are enabled.
+   */
+  dbScheduledJob?: string;
+
+  /**
+   * Whether stream feature is enabled.
+   */
+  dbStream?: string;
+
+  /**
+   * Whether supplemental logging is enabled.
+   */
+  dbSupplementalLog?: string;
+
+  /**
+   * Whether database trace files feature is enabled.
+   */
+  dbTraceFiles?: string;
+
+  /**
+   * Whether transparent application failover is enabled.
+   */
+  dbTransparentAppFailover?: string;
+
+  /**
+   * The vault status of the database.
+   */
+  dbVault?: string;
+
+  /**
+   * The partitioning status of the database.
+   */
+  dbPartitioning?: boolean;
+
+  /**
+   * The OLAP status of the database.
+   */
+  dbOlap?: boolean;
+
+  /**
+   * The spatial status of the database.
+   */
+  dbSpatial?: boolean;
+
+  /**
+   * The in-memory status of the database.
+   */
+  dbInmemory?: string;
 
   /**
    * Gets or sets storage size of Oracle database.
    */
   storageSizeInMb?: float32;
-
-  /**
-   * Gets or sets hasSuperUserCreatedObjects of Oracle database.
-   */
-  hasSuperUserCreatedObjects?: BoolValue;
-
-  /**
-   * Indicates whether the system has custom casts defined.
-   */
-  hasCustomCasts?: BoolValue;
-
-  /**
-   * Indicates whether the system has custom full-text search (FTS) parsers defined.
-   */
-  hasCustomFtsParsers?: BoolValue;
-
-  /**
-   * Indicates whether the system has custom full-text search (FTS) templates defined.
-   */
-  hasCustomFtsTemplates?: BoolValue;
 
   /**
    * Indicates whether the access to the machine's file system is enabled for the database objects.
@@ -1237,39 +1543,124 @@ model OracleDatabaseResourcePatch {
   languages?: Language[];
 
   /**
-   * Whether tables with oid's exists in the database.
+   * The audit status of the database.
    */
-  hasTablesWithOids?: HasTablesWithOids;
+  dbAudit?: string;
 
   /**
-   * Whether the database has custom data types.
+   * Whether advanced queues feature is enabled.
    */
-  hasCustomDataTypes?: HasCustomDataTypes;
+  dbAdvanceQueues?: string;
+
+  /**
+   * Whether block change tracking is enabled.
+   */
+  dbBlockChangeTracking?: string;
+
+  /**
+   * Whether change data capture is enabled.
+   */
+  dbCdc?: string;
+
+  /**
+   * Whether column encryption is enabled.
+   */
+  dbColumnEncryption?: string;
+
+  /**
+   * Whether global temporary tables feature is enabled.
+   */
+  dbGlobalTempTables?: string;
+
+  /**
+   * Whether linked servers support is enabled.
+   */
+  dbLinkedServers?: string;
+
+  /**
+   * Whether database mail feature is enabled.
+   */
+  dbMail?: string;
+
+  /**
+   * The multibyte data byte order.
+   */
+  dbMultibyteByteorder?: string;
+
+  /**
+   * Whether parallel buffers are enabled.
+   */
+  dbParallelBuffers?: string;
+
+  /**
+   * Whether parallel queries are enabled.
+   */
+  dbParallelQueries?: string;
+
+  /**
+   * Whether point-in-time recovery is enabled.
+   */
+  dbPointIntimeRecovery?: string;
+
+  /**
+   * Whether row-level security is enabled.
+   */
+  dbRowLevelSecurity?: string;
+
+  /**
+   * Whether scheduler jobs are enabled.
+   */
+  dbScheduledJob?: string;
+
+  /**
+   * Whether stream feature is enabled.
+   */
+  dbStream?: string;
+
+  /**
+   * Whether supplemental logging is enabled.
+   */
+  dbSupplementalLog?: string;
+
+  /**
+   * Whether database trace files feature is enabled.
+   */
+  dbTraceFiles?: string;
+
+  /**
+   * Whether transparent application failover is enabled.
+   */
+  dbTransparentAppFailover?: string;
+
+  /**
+   * The vault status of the database.
+   */
+  dbVault?: string;
+
+  /**
+   * The partitioning status of the database.
+   */
+  dbPartitioning?: boolean;
+
+  /**
+   * The OLAP status of the database.
+   */
+  dbOlap?: boolean;
+
+  /**
+   * The spatial status of the database.
+   */
+  dbSpatial?: boolean;
+
+  /**
+   * The in-memory status of the database.
+   */
+  dbInmemory?: string;
 
   /**
    * Gets or sets storage size of Oracle database.
    */
   storageSizeInMb?: float32;
-
-  /**
-   * Gets or sets hasSuperUserCreatedObjects of Oracle database.
-   */
-  hasSuperUserCreatedObjects?: BoolValue;
-
-  /**
-   * Indicates whether the system has custom casts defined.
-   */
-  hasCustomCasts?: BoolValue;
-
-  /**
-   * Indicates whether the system has custom full-text search (FTS) parsers defined.
-   */
-  hasCustomFtsParsers?: BoolValue;
-
-  /**
-   * Indicates whether the system has custom full-text search (FTS) templates defined.
-   */
-  hasCustomFtsTemplates?: BoolValue;
 
   /**
    * Indicates whether the access to the machine's file system is enabled for the database objects.

@@ -11,6 +11,7 @@ import "@azure-tools/typespec-azure-resource-manager";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 
 namespace Microsoft.EncryptedTransport;
@@ -29,6 +30,12 @@ model DeviceProfile is TrackedResource<DeviceProfileProperties> {
 
 @doc("Device Profile Properties")
 model DeviceProfileProperties {
+  @doc("List of wifi ssid and pre-shared key pairs as printable ASCII secure strings")
+  @added(Microsoft.EncryptedTransport.Versions.v2026_06_01_preview)
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  @identifiers(#["ssid"])
+  wifiProfiles: WifiProfile[];
+
   @doc("File name such as eud-rhel94-image-0_1_0.vhd corresponding to the device profile image.")
   @pattern("^[A-Za-z0-9-]{3,60}\\.[A-Za-z]+$")
   @visibility(Lifecycle.Create, Lifecycle.Read)
@@ -49,7 +56,22 @@ interface DeviceProfileOperations {
   get is ArmResourceRead<DeviceProfile>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<DeviceProfile>;
   update is ArmResourcePatchSync<DeviceProfile, DeviceProfileProperties>;
-  delete is ArmResourceDeleteWithoutOkAsync<DeviceProfile>;
+
+  @renamedFrom(
+    Microsoft.EncryptedTransport.Versions.v2026_07_01_preview,
+    "delete"
+  )
+  @removed(Microsoft.EncryptedTransport.Versions.v2026_07_01_preview)
+  @sharedRoute
+  deleteV1 is ArmResourceDeleteWithoutOkAsync<DeviceProfile>;
+
+  @added(Microsoft.EncryptedTransport.Versions.v2026_07_01_preview)
+  @sharedRoute
+  delete is ArmResourceDeleteWithoutOkAsync<
+    DeviceProfile,
+    LroHeaders = ArmCombinedLroHeaders<FinalResult = void> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
   listByEncryptedTransportAccount is ArmResourceListByParent<DeviceProfile>;
   listBySubscription is ArmListBySubscription<DeviceProfile>;
 }

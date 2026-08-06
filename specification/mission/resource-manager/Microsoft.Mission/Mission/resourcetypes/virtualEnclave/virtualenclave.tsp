@@ -81,6 +81,10 @@ model SubnetConfiguration {
   @doc("Network security group ID.")
   @visibility(Lifecycle.Read)
   networkSecurityGroupResourceId?: NsgResourceId;
+
+  @added(Microsoft.Mission.Versions.v2026_08_01_preview)
+  @doc("The purpose of the subnet, used to determine automatic configuration behavior.")
+  subnetPurpose?: SubnetPurpose;
 }
 
 @removed(Microsoft.Mission.Versions.v2026_07_01_preview)
@@ -141,6 +145,21 @@ model EnclaveAddressSpacesModel {
 
   @doc("Managed Address Space")
   managedAddressSpace?: string;
+}
+
+@added(Microsoft.Mission.Versions.v2026_08_01_preview)
+@doc("The purpose of the subnet, used to determine automatic configuration behavior.")
+union SubnetPurpose {
+  string,
+
+  @doc("General purpose subnet with no specialized configuration (default).")
+  General: "General",
+
+  @doc("Subnet configured for Azure Kubernetes Service (AKS) workloads.")
+  AKS: "AKS",
+
+  @doc("Subnet configured for the Azure Kubernetes Service (AKS) API server.")
+  AKSApiServer: "AKSApiServer",
 }
 
 @added(Microsoft.Mission.Versions.v2026_07_01_preview)

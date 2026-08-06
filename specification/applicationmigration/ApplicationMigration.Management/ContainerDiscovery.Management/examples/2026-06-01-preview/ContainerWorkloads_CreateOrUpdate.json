@@ -11,11 +11,11 @@
       "properties": {
         "workloadScenario": "orchestrated",
         "clusterArmId": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerClusters/cluster01",
-        "parentClusterName": "prod-k8s",
         "nodeIds": [
           "node01",
           "node02"
         ],
+        "machineArmId": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.OffAzure/serverSites/mySite/machines/vm-001",
         "softwareAttributes": {
           "softwareName": "Kubernetes",
           "softwareVersion": "1.28.4"
@@ -45,50 +45,19 @@
                 "name": "http",
                 "protocol": "TCP",
                 "port": 80,
-                "targetPort": 8080
+                "targetPort": "8080"
+              },
+              {
+                "name": "metrics",
+                "protocol": "TCP",
+                "port": 9090,
+                "targetPort": "metrics"
               }
             ],
             "clusterIp": "10.96.0.100"
           }
         ],
         "matchingRoutes": [],
-        "matchingIngresses": [
-          {
-            "ingressName": "web-frontend-ingress",
-            "ingressNamespace": "production",
-            "ingressClassName": "nginx",
-            "rules": [
-              {
-                "host": "myapp.example.com",
-                "path": "/",
-                "pathType": "Prefix",
-                "backendServiceName": "web-frontend-svc",
-                "backendServiceNamespace": "production",
-                "backendServicePortNumber": 80
-              }
-            ],
-            "hasTls": true,
-            "tlsSecretRef": "myapp-tls"
-          }
-        ],
-        "matchingGatewayRoutes": [
-          {
-            "routeName": "web-frontend-route",
-            "routeNamespace": "production",
-            "parentGatewayName": "main-gateway",
-            "parentGatewayNamespace": "gateway-system",
-            "routeType": "HTTPRoute",
-            "hostnames": [
-              "myapp.example.com"
-            ],
-            "path": "/api",
-            "pathType": "PathPrefix",
-            "backendServiceName": "web-frontend-svc",
-            "backendServiceNamespace": "production",
-            "backendServicePortNumber": 80,
-            "backendWeight": 100
-          }
-        ],
         "workloadSummary": {
           "containerCount": 2,
           "initContainerCount": 0,
@@ -97,6 +66,9 @@
           "totalMemoryRequest": "256Mi",
           "totalMemoryLimit": "512Mi",
           "hasGpuRequests": false,
+          "hasPersistentVolumes": false,
+          "persistentVolumeCount": 0,
+          "totalPvSizeGb": 0,
           "distinctImages": [
             "nginx:1.25",
             "redis:7.2"
@@ -124,16 +96,20 @@
           "hasTopologySpreadConstraints": false,
           "hasTolerations": false,
           "hasWindowsContainers": false,
+          "hasHostPathVolumes": false,
           "usesSecrets": false,
           "usesConfigMaps": true,
           "hasPrivateRegistry": false,
+          "hasGpuRequirement": false,
           "hasHpa": false,
           "hasVpa": false,
           "hasPdb": false,
           "hasIngressRules": false,
+          "hasTlsSecrets": false,
           "hasLivenessProbes": true,
           "hasReadinessProbes": true,
-          "exposesMultiplePorts": false
+          "exposesMultiplePorts": false,
+          "hasNetworkPolicy": false
         },
         "containers": [
           {
@@ -158,7 +134,8 @@
         "workloadType": "Kubernetes",
         "discoveryCompleteness": "deep-complete",
         "isShallowCompleted": true,
-        "isDeepDiscoveryCompleted": true
+        "isDeepDiscoveryCompleted": true,
+        "isKubeconfigDiscoveryCompleted": true
       }
     }
   },
@@ -167,7 +144,7 @@
       "body": {
         "id": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerWorkloads/cluster01_production_deployment_web-frontend",
         "name": "cluster01_production_deployment_web-frontend",
-        "type": "Microsoft.ApplicationMigration/containerSites/containerWorkloads",
+        "type": "Microsoft.ApplicationMigration/containerSites/ContainerWorkloads",
         "properties": {
           "provisioningState": "Succeeded",
           "workloadScenario": "orchestrated",
@@ -185,7 +162,7 @@
       "body": {
         "id": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.ApplicationMigration/containerSites/myContainerSite/containerWorkloads/cluster01_production_deployment_web-frontend",
         "name": "cluster01_production_deployment_web-frontend",
-        "type": "Microsoft.ApplicationMigration/containerSites/containerWorkloads",
+        "type": "Microsoft.ApplicationMigration/containerSites/ContainerWorkloads",
         "properties": {
           "provisioningState": "Creating",
           "workloadScenario": "orchestrated",

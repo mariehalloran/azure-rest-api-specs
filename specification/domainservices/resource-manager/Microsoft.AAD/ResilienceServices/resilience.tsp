@@ -39,8 +39,11 @@ model AttestationServiceConfig {
 
 /** Entra Resilience Host. Child resource representing a physical host running the nested virtual machine, attached to a parent Entra Resilience Service. */
 @parentResource(ResilienceService)
-model ResilienceHost is ProxyResource<ResilienceHostProperties> {
+model ResilienceHost is TrackedResource<ResilienceHostProperties> {
   ...ResourceNameParameter<ResilienceHost, SegmentName = "hosts">;
+
+  /** The managed service identities assigned to this resource. */
+  ...Azure.ResourceManager.ManagedServiceIdentityProperty;
 }
 
 /** Resilience host properties. */

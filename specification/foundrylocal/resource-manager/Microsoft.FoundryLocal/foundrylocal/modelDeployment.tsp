@@ -132,6 +132,7 @@ model ModelDeploymentStatus {
   @doc("Latest human-readable status message.")
   message?: string;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("Inference endpoint URL exposed by the deployment, once ready.")
   endpointUrl?: url;
 

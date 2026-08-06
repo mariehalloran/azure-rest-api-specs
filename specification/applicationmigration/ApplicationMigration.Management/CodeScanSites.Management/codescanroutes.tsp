@@ -41,6 +41,7 @@ interface CodeScanSites {
 
   @added(CodeScanSitesApiVersions.v2025_09_09_preview)
   @added(CodeScanSitesApiVersions.v2026_05_12_preview)
+  @doc("A long-running resource action.")
   processReportAsync is ArmResourceActionAsync<
     CodeScanSite,
     ProcessReportRequest,
@@ -58,6 +59,7 @@ interface CodeScanSites {
   >;
 
   @added(CodeScanSitesApiVersions.v2026_05_12_preview)
+  @doc("A long-running resource action.")
   generateConfigAsync is ArmResourceActionAsync<
     CodeScanSite,
     ScanRequest,

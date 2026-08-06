@@ -16,8 +16,10 @@ namespace Microsoft.ApplicationMigration;
  * An NS group resource (NSX security group).
  */
 @parentResource(NetworkSite)
-model NsxNsGroup
-  is Azure.ResourceManager.ProxyResource<NsxNsGroupProperties, false> {
+model NsxNsGroup is Azure.ResourceManager.ProxyResource<
+  NsxNsGroupProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = NsxNsGroup,
     KeyName = "groupName",
@@ -41,6 +43,7 @@ model NsxNsGroupProperties is AzureResourceProperties {
   machineArmIds?: Azure.Core.armResourceIdentifier[];
 
   /** Effective IPv4/IPv6 address members resolved by the group. */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   effectiveIpMembers?: string[];
 }
 

@@ -162,6 +162,16 @@ model CloudVmClusterProperties {
   @visibility(Lifecycle.Read)
   ocid?: Ocid;
 
+  @added(Versions.v20260501_preview)
+  @doc("Azure Resource Anchor ID")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  resourceAnchorId?: ResourceAnchorResourceId;
+
+  @added(Versions.v20260501_preview)
+  @doc("Azure Network Anchor ID")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  networkAnchorId?: NetworkAnchorResourceId;
+
   @doc("The port number configured for the listener on the cloud VM cluster.")
   @visibility(Lifecycle.Read)
   listenerPort?: int64;
@@ -262,6 +272,11 @@ model CloudVmClusterProperties {
   @visibility(Lifecycle.Create, Lifecycle.Read)
   cloudExadataInfrastructureId: CloudExadataInfrastructureId;
 
+  @added(Versions.v20260501_preview)
+  @doc("Proximity placement group settings")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  proximityPlacementGroup?: ProximityPlacementGroup;
+
   @doc("If true, sparse disk group is configured for the cloud VM cluster. If false, sparse disk group is not created. ")
   @visibility(Lifecycle.Create, Lifecycle.Read)
   isSparseDiskgroupEnabled?: boolean = false;
@@ -337,10 +352,12 @@ model CloudVmClusterProperties {
   @visibility(Lifecycle.Create, Lifecycle.Read)
   giVersion: string;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("HTTPS link to OCI resources exposed to Azure Customer via Azure Interface.")
   @visibility(Lifecycle.Read)
   ociUrl?: url;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("HTTPS link to OCI Network Security Group exposed to Azure Customer via the Azure Interface.")
   @visibility(Lifecycle.Read)
   nsgUrl?: url;

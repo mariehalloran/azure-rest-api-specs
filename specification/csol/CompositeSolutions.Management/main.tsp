@@ -339,6 +339,7 @@ interface CompositeSolutions {
   delete is ArmResourceDeleteWithoutOkAsync<CompositeSolution>;
   listByResourceGroup is ArmResourceListByParent<CompositeSolution>;
   listBySubscription is ArmListBySubscription<CompositeSolution>;
+  @doc("A long-running resource action.")
   detailedStatus is ArmResourceActionAsync<
     CompositeSolution,
     void,

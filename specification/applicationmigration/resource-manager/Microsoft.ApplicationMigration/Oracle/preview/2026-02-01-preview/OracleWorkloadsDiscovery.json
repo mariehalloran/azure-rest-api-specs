@@ -1628,12 +1628,91 @@
         "value"
       ]
     },
+    "DataBasePlatformType": {
+      "type": "string",
+      "description": "Represents the configuration of the database.",
+      "enum": [
+        "Unknown",
+        "STANDALONE",
+        "RAC",
+        "RAC_ONE_NODE",
+        "ORACLE_RESTART"
+      ],
+      "x-ms-enum": {
+        "name": "DataBasePlatformType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Unknown ."
+          },
+          {
+            "name": "STANDALONE",
+            "value": "STANDALONE",
+            "description": "Standalone ."
+          },
+          {
+            "name": "RAC",
+            "value": "RAC",
+            "description": "Real Application Cluster (RAC) ."
+          },
+          {
+            "name": "RAC_ONE_NODE",
+            "value": "RAC_ONE_NODE",
+            "description": "Real Application Cluster One Node (RAC ONE NODE) ."
+          },
+          {
+            "name": "ORACLE_RESTART",
+            "value": "ORACLE_RESTART",
+            "description": "Oracle Restart (Single Instance High Availability)."
+          }
+        ]
+      }
+    },
+    "DatabaseInfrastructureType": {
+      "type": "string",
+      "description": "Represents the infrastructure type of the database. i.e standard, exadata, autonomous.",
+      "enum": [
+        "Unknown",
+        "STANDARD",
+        "EXADATA",
+        "AUTONOMOUS"
+      ],
+      "x-ms-enum": {
+        "name": "DatabaseInfrastructureType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Unknown ."
+          },
+          {
+            "name": "STANDARD",
+            "value": "STANDARD",
+            "description": "Oracle running on standard infrastructure\n(VMware, Hyper-V, Physical, Azure VM, AWS, OCI Compute, etc.)"
+          },
+          {
+            "name": "EXADATA",
+            "value": "EXADATA",
+            "description": "Oracle running on Exadata infrastructure."
+          },
+          {
+            "name": "AUTONOMOUS",
+            "value": "AUTONOMOUS",
+            "description": "Oracle Autonomous Database."
+          }
+        ]
+      }
+    },
     "Edition": {
       "type": "string",
       "description": "Represents the Edition of the Oracle instance.",
       "enum": [
         "Unknown",
-        "StandardEdition2",
+        "Standard",
+        "Enterprise",
         "Express",
         "Personal"
       ],
@@ -1647,9 +1726,14 @@
             "description": "Unknown edition."
           },
           {
-            "name": "StandardEdition2",
-            "value": "StandardEdition2",
+            "name": "Standard",
+            "value": "Standard",
             "description": "Standard edition."
+          },
+          {
+            "name": "Enterprise",
+            "value": "Enterprise",
+            "description": "Enterprise edition."
           },
           {
             "name": "Express",
@@ -1969,66 +2053,6 @@
         }
       }
     },
-    "HasCustomDataTypes": {
-      "type": "string",
-      "description": "Represents the presence of custom data types in a DB.",
-      "enum": [
-        "Unknown",
-        "True",
-        "False"
-      ],
-      "x-ms-enum": {
-        "name": "HasCustomDataTypes",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Unknown",
-            "value": "Unknown",
-            "description": "Custom data types presence in the database is unknown."
-          },
-          {
-            "name": "True",
-            "value": "True",
-            "description": "The Database has custom data types."
-          },
-          {
-            "name": "False",
-            "value": "False",
-            "description": "The Database does not have custom data types."
-          }
-        ]
-      }
-    },
-    "HasTablesWithOids": {
-      "type": "string",
-      "description": "Represents the presence of Oids in Tables under a DB.",
-      "enum": [
-        "Unknown",
-        "True",
-        "False"
-      ],
-      "x-ms-enum": {
-        "name": "HasTablesWithOids",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Unknown",
-            "value": "Unknown",
-            "description": "Oids presence in the database is unknown."
-          },
-          {
-            "name": "True",
-            "value": "True",
-            "description": "The Database has tables with Oids."
-          },
-          {
-            "name": "False",
-            "value": "False",
-            "description": "The Database does not have tables with Oids."
-          }
-        ]
-      }
-    },
     "HostMachineProperties": {
       "type": "object",
       "description": "Represents the properties of the machine where the Oracle instance is running.",
@@ -2062,10 +2086,8 @@
         "UNKNOWN",
         "SQL",
         "PLSQL",
-        "PLPERL",
         "JAVA",
-        "C",
-        "INTERNAL"
+        "C"
       ],
       "x-ms-enum": {
         "name": "Language",
@@ -2087,11 +2109,6 @@
             "description": "PLSQL language"
           },
           {
-            "name": "PLPERL",
-            "value": "PLPERL",
-            "description": "PLPERL language."
-          },
-          {
             "name": "JAVA",
             "value": "JAVA",
             "description": "JAVA language."
@@ -2100,11 +2117,6 @@
             "name": "C",
             "value": "C",
             "description": "C language.C language."
-          },
-          {
-            "name": "INTERNAL",
-            "value": "INTERNAL",
-            "description": "INTERNAL language."
           }
         ]
       }
@@ -2311,34 +2323,102 @@
             "$ref": "#/definitions/Language"
           }
         },
-        "hasTablesWithOids": {
-          "$ref": "#/definitions/HasTablesWithOids",
-          "description": "Whether tables with oid's exists in the database."
+        "dbAudit": {
+          "type": "string",
+          "description": "The audit status of the database."
         },
-        "hasCustomDataTypes": {
-          "$ref": "#/definitions/HasCustomDataTypes",
-          "description": "Whether the database has custom data types."
+        "dbAdvanceQueues": {
+          "type": "string",
+          "description": "Whether advanced queues feature is enabled."
+        },
+        "dbBlockChangeTracking": {
+          "type": "string",
+          "description": "Whether block change tracking is enabled."
+        },
+        "dbCdc": {
+          "type": "string",
+          "description": "Whether change data capture is enabled."
+        },
+        "dbColumnEncryption": {
+          "type": "string",
+          "description": "Whether column encryption is enabled."
+        },
+        "dbGlobalTempTables": {
+          "type": "string",
+          "description": "Whether global temporary tables feature is enabled."
+        },
+        "dbLinkedServers": {
+          "type": "string",
+          "description": "Whether linked servers support is enabled."
+        },
+        "dbMail": {
+          "type": "string",
+          "description": "Whether database mail feature is enabled."
+        },
+        "dbMultibyteByteorder": {
+          "type": "string",
+          "description": "The multibyte data byte order."
+        },
+        "dbParallelBuffers": {
+          "type": "string",
+          "description": "Whether parallel buffers are enabled."
+        },
+        "dbParallelQueries": {
+          "type": "string",
+          "description": "Whether parallel queries are enabled."
+        },
+        "dbPointIntimeRecovery": {
+          "type": "string",
+          "description": "Whether point-in-time recovery is enabled."
+        },
+        "dbRowLevelSecurity": {
+          "type": "string",
+          "description": "Whether row-level security is enabled."
+        },
+        "dbScheduledJob": {
+          "type": "string",
+          "description": "Whether scheduler jobs are enabled."
+        },
+        "dbStream": {
+          "type": "string",
+          "description": "Whether stream feature is enabled."
+        },
+        "dbSupplementalLog": {
+          "type": "string",
+          "description": "Whether supplemental logging is enabled."
+        },
+        "dbTraceFiles": {
+          "type": "string",
+          "description": "Whether database trace files feature is enabled."
+        },
+        "dbTransparentAppFailover": {
+          "type": "string",
+          "description": "Whether transparent application failover is enabled."
+        },
+        "dbVault": {
+          "type": "string",
+          "description": "The vault status of the database."
+        },
+        "dbPartitioning": {
+          "type": "boolean",
+          "description": "The partitioning status of the database."
+        },
+        "dbOlap": {
+          "type": "boolean",
+          "description": "The OLAP status of the database."
+        },
+        "dbSpatial": {
+          "type": "boolean",
+          "description": "The spatial status of the database."
+        },
+        "dbInmemory": {
+          "type": "string",
+          "description": "The in-memory status of the database."
         },
         "storageSizeInMb": {
           "type": "number",
           "format": "float",
           "description": "Gets or sets storage size of Oracle database."
-        },
-        "hasSuperUserCreatedObjects": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Gets or sets hasSuperUserCreatedObjects of Oracle database."
-        },
-        "hasCustomCasts": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Indicates whether the system has custom casts defined."
-        },
-        "hasCustomFtsParsers": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Indicates whether the system has custom full-text search (FTS) parsers defined."
-        },
-        "hasCustomFtsTemplates": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Indicates whether the system has custom full-text search (FTS) templates defined."
         },
         "fileSystemAccessEnabled": {
           "$ref": "#/definitions/BoolValue",
@@ -2424,34 +2504,102 @@
             "$ref": "#/definitions/Language"
           }
         },
-        "hasTablesWithOids": {
-          "$ref": "#/definitions/HasTablesWithOids",
-          "description": "Whether tables with oid's exists in the database."
+        "dbAudit": {
+          "type": "string",
+          "description": "The audit status of the database."
         },
-        "hasCustomDataTypes": {
-          "$ref": "#/definitions/HasCustomDataTypes",
-          "description": "Whether the database has custom data types."
+        "dbAdvanceQueues": {
+          "type": "string",
+          "description": "Whether advanced queues feature is enabled."
+        },
+        "dbBlockChangeTracking": {
+          "type": "string",
+          "description": "Whether block change tracking is enabled."
+        },
+        "dbCdc": {
+          "type": "string",
+          "description": "Whether change data capture is enabled."
+        },
+        "dbColumnEncryption": {
+          "type": "string",
+          "description": "Whether column encryption is enabled."
+        },
+        "dbGlobalTempTables": {
+          "type": "string",
+          "description": "Whether global temporary tables feature is enabled."
+        },
+        "dbLinkedServers": {
+          "type": "string",
+          "description": "Whether linked servers support is enabled."
+        },
+        "dbMail": {
+          "type": "string",
+          "description": "Whether database mail feature is enabled."
+        },
+        "dbMultibyteByteorder": {
+          "type": "string",
+          "description": "The multibyte data byte order."
+        },
+        "dbParallelBuffers": {
+          "type": "string",
+          "description": "Whether parallel buffers are enabled."
+        },
+        "dbParallelQueries": {
+          "type": "string",
+          "description": "Whether parallel queries are enabled."
+        },
+        "dbPointIntimeRecovery": {
+          "type": "string",
+          "description": "Whether point-in-time recovery is enabled."
+        },
+        "dbRowLevelSecurity": {
+          "type": "string",
+          "description": "Whether row-level security is enabled."
+        },
+        "dbScheduledJob": {
+          "type": "string",
+          "description": "Whether scheduler jobs are enabled."
+        },
+        "dbStream": {
+          "type": "string",
+          "description": "Whether stream feature is enabled."
+        },
+        "dbSupplementalLog": {
+          "type": "string",
+          "description": "Whether supplemental logging is enabled."
+        },
+        "dbTraceFiles": {
+          "type": "string",
+          "description": "Whether database trace files feature is enabled."
+        },
+        "dbTransparentAppFailover": {
+          "type": "string",
+          "description": "Whether transparent application failover is enabled."
+        },
+        "dbVault": {
+          "type": "string",
+          "description": "The vault status of the database."
+        },
+        "dbPartitioning": {
+          "type": "boolean",
+          "description": "The partitioning status of the database."
+        },
+        "dbOlap": {
+          "type": "boolean",
+          "description": "The OLAP status of the database."
+        },
+        "dbSpatial": {
+          "type": "boolean",
+          "description": "The spatial status of the database."
+        },
+        "dbInmemory": {
+          "type": "string",
+          "description": "The in-memory status of the database."
         },
         "storageSizeInMb": {
           "type": "number",
           "format": "float",
           "description": "Gets or sets storage size of Oracle database."
-        },
-        "hasSuperUserCreatedObjects": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Gets or sets hasSuperUserCreatedObjects of Oracle database."
-        },
-        "hasCustomCasts": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Indicates whether the system has custom casts defined."
-        },
-        "hasCustomFtsParsers": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Indicates whether the system has custom full-text search (FTS) parsers defined."
-        },
-        "hasCustomFtsTemplates": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Indicates whether the system has custom full-text search (FTS) templates defined."
         },
         "fileSystemAccessEnabled": {
           "$ref": "#/definitions/BoolValue",
@@ -2654,18 +2802,6 @@
           "format": "int64",
           "description": "The maximum number of connections allowed in the instance"
         },
-        "hasCustomCasts": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Indicates whether the system has custom casts defined."
-        },
-        "hasCustomFtsParsers": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Indicates whether the system has custom full-text search (FTS) parsers defined."
-        },
-        "hasCustomFtsTemplates": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Indicates whether the system has custom full-text search (FTS) templates defined."
-        },
         "tlsVersion": {
           "$ref": "#/definitions/TlsVersion",
           "description": "Specifies the TLS version used by the system."
@@ -2690,30 +2826,6 @@
           "$ref": "#/definitions/BoolValue",
           "description": "Indicates whether Deep Discovery has been performed on the instance."
         },
-        "computeIopsCollected": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The number of compute IOPS (Input/Output Operations Per Second) collected."
-        },
-        "storageIopsCollected": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The number of storage IOPS (Input/Output Operations Per Second) collected."
-        },
-        "storageThroughPutCollected": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The storage throughput collected, measured in units per second."
-        },
-        "isReadReplicaEnabled": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Indicates whether read replica functionality is enabled."
-        },
-        "readReplicaCount": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The number of read replicas configured for the system."
-        },
         "isDrEnabled": {
           "$ref": "#/definitions/BoolValue",
           "description": "Indicates whether disaster recovery (DR) functionality is enabled."
@@ -2732,17 +2844,142 @@
           "additionalProperties": {
             "type": "string"
           }
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The display name of the Oracle instance."
+        },
+        "serviceId": {
+          "type": "string",
+          "description": "The Oracle System Identifier (serviceId) for the instance."
+        },
+        "pdbCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The number of pluggable databases (PDBs) in the instance."
+        },
+        "dbType": {
+          "type": "string",
+          "description": "The database type (e.g., Container Database (CDB) or Non-Container Database (NON-CDB))."
+        },
+        "dbName": {
+          "type": "string",
+          "description": "The database Name"
+        },
+        "dbUniqueName": {
+          "type": "string",
+          "description": "The unique name of the database."
+        },
+        "dbCpuCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The CPU count of the database."
+        },
+        "dbCpuCoreCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The CPU core count of the database."
+        },
+        "dbPlatformType": {
+          "$ref": "#/definitions/DataBasePlatformType",
+          "description": "The database platform type, i.e standlone, RAC."
+        },
+        "dbInfrastructureType": {
+          "$ref": "#/definitions/DatabaseInfrastructureType",
+          "description": "The database infrastructure type, i.e standard, exadata, autonomous."
+        },
+        "dbFeatures": {
+          "type": "array",
+          "description": "The list of database features, i.e. partitioning, olap, spatial, inmemory, asm, dataguard, multitenant etc.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "memSgaSize": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The size of the SGA memory."
+        },
+        "memPgaSize": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The size of the PGA memory."
+        },
+        "dbLogMode": {
+          "type": "string",
+          "description": "The log mode of the database."
+        },
+        "dbOperatingMode": {
+          "type": "string",
+          "description": "The operating mode of the database."
+        },
+        "dbDataProtectionMode": {
+          "type": "string",
+          "description": "The data protection mode of the database."
+        },
+        "dbHaDrBroker": {
+          "type": "string",
+          "description": "Indicates whether HA/DR broker is enabled."
+        },
+        "dbConfiguration": {
+          "type": "string",
+          "description": "The database deployment configuration."
+        },
+        "dbDatabaseRole": {
+          "type": "string",
+          "description": "The role of the database in a cluster."
+        },
+        "dbFlashbackStatus": {
+          "type": "string",
+          "description": "The flashback status of the database."
+        },
+        "dbCurrentScn": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Current system change number for the database."
+        },
+        "dbFileSegmentCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Count of database file segments on storage disks."
+        },
+        "dbFileSegmentSize": {
+          "type": "number",
+          "format": "float",
+          "description": "Total size of database file segments in MB."
+        },
+        "cpuOsProcessCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The count of OS processes for the CPU."
+        },
+        "cpuProcessLimit": {
+          "type": "number",
+          "format": "float",
+          "description": "The process limit for the CPU."
+        },
+        "recentCriticalErrors": {
+          "type": "array",
+          "description": "The recent critical errors of the database.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
         "hostName",
-        "portNumber"
+        "portNumber",
+        "serviceId"
       ]
     },
     "OracleInstanceResourcePatch": {
       "type": "object",
       "description": "Oracle Server properties",
       "properties": {
+        "hostName": {
+          "type": "string",
+          "description": "The Server IP/host name."
+        },
         "hostIp": {
           "type": "array",
           "description": "The Server IP in ipv4/ipv6 format.",
@@ -2769,6 +3006,11 @@
         "hostMachineProperties": {
           "$ref": "#/definitions/HostMachineProperties",
           "description": "The host machine properties."
+        },
+        "portNumber": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Oracle Server port number"
         },
         "version": {
           "type": "string",
@@ -2817,6 +3059,17 @@
             "isDeterministic"
           ]
         },
+        "serverParameters": {
+          "type": "array",
+          "description": "Dictionary of server parameters for the instance",
+          "items": {
+            "$ref": "#/definitions/ServerParameter"
+          },
+          "x-ms-identifiers": [
+            "key",
+            "value"
+          ]
+        },
         "tableSpaces": {
           "type": "array",
           "description": "List of tablespaces in the instance.",
@@ -2840,18 +3093,6 @@
           "type": "integer",
           "format": "int64",
           "description": "The maximum number of connections allowed in the instance"
-        },
-        "hasCustomCasts": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Indicates whether the system has custom casts defined."
-        },
-        "hasCustomFtsParsers": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Indicates whether the system has custom full-text search (FTS) parsers defined."
-        },
-        "hasCustomFtsTemplates": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Indicates whether the system has custom full-text search (FTS) templates defined."
         },
         "tlsVersion": {
           "$ref": "#/definitions/TlsVersion",
@@ -2877,30 +3118,6 @@
           "$ref": "#/definitions/BoolValue",
           "description": "Indicates whether Deep Discovery has been performed on the instance."
         },
-        "computeIopsCollected": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The number of compute IOPS (Input/Output Operations Per Second) collected."
-        },
-        "storageIopsCollected": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The number of storage IOPS (Input/Output Operations Per Second) collected."
-        },
-        "storageThroughPutCollected": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The storage throughput collected, measured in units per second."
-        },
-        "isReadReplicaEnabled": {
-          "$ref": "#/definitions/BoolValue",
-          "description": "Indicates whether read replica functionality is enabled."
-        },
-        "readReplicaCount": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The number of read replicas configured for the system."
-        },
         "isDrEnabled": {
           "$ref": "#/definitions/BoolValue",
           "description": "Indicates whether disaster recovery (DR) functionality is enabled."
@@ -2917,6 +3134,126 @@
           "type": "object",
           "description": "Resource tags",
           "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The display name of the Oracle instance."
+        },
+        "serviceId": {
+          "type": "string",
+          "description": "The Oracle System Identifier (serviceId) for the instance."
+        },
+        "pdbCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The number of pluggable databases (PDBs) in the instance."
+        },
+        "dbType": {
+          "type": "string",
+          "description": "The database type (e.g., Container Database (CDB) or Non-Container Database (NON-CDB))."
+        },
+        "dbName": {
+          "type": "string",
+          "description": "The database Name"
+        },
+        "dbUniqueName": {
+          "type": "string",
+          "description": "The unique name of the database."
+        },
+        "dbCpuCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The CPU count of the database."
+        },
+        "dbCpuCoreCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The CPU core count of the database."
+        },
+        "dbPlatformType": {
+          "$ref": "#/definitions/DataBasePlatformType",
+          "description": "The database platform type, i.e standlone, RAC."
+        },
+        "dbInfrastructureType": {
+          "$ref": "#/definitions/DatabaseInfrastructureType",
+          "description": "The database infrastructure type, i.e standard, exadata, autonomous."
+        },
+        "dbFeatures": {
+          "type": "array",
+          "description": "The list of database features, i.e. partitioning, olap, spatial, inmemory, asm, dataguard, multitenant etc.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "memSgaSize": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The size of the SGA memory."
+        },
+        "memPgaSize": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The size of the PGA memory."
+        },
+        "dbLogMode": {
+          "type": "string",
+          "description": "The log mode of the database."
+        },
+        "dbOperatingMode": {
+          "type": "string",
+          "description": "The operating mode of the database."
+        },
+        "dbDataProtectionMode": {
+          "type": "string",
+          "description": "The data protection mode of the database."
+        },
+        "dbHaDrBroker": {
+          "type": "string",
+          "description": "Indicates whether HA/DR broker is enabled."
+        },
+        "dbConfiguration": {
+          "type": "string",
+          "description": "The database deployment configuration."
+        },
+        "dbDatabaseRole": {
+          "type": "string",
+          "description": "The role of the database in a cluster."
+        },
+        "dbFlashbackStatus": {
+          "type": "string",
+          "description": "The flashback status of the database."
+        },
+        "dbCurrentScn": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Current system change number for the database."
+        },
+        "dbFileSegmentCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Count of database file segments on storage disks."
+        },
+        "dbFileSegmentSize": {
+          "type": "number",
+          "format": "float",
+          "description": "Total size of database file segments in MB."
+        },
+        "cpuOsProcessCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The count of OS processes for the CPU."
+        },
+        "cpuProcessLimit": {
+          "type": "number",
+          "format": "float",
+          "description": "The process limit for the CPU."
+        },
+        "recentCriticalErrors": {
+          "type": "array",
+          "description": "The recent critical errors of the database.",
+          "items": {
             "type": "string"
           }
         }

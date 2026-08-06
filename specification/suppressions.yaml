@@ -2,6 +2,17 @@
 # Remove suppressions as specs are fixed
 
 - tool: TypeSpecValidation
+  reason: Specs still using legacy C# emitter, as of 2026-06-17
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - emit.@azure-typespec/http-client-csharp-mgmt
+  paths:
+    - aigrounding/resource-manager/Microsoft.AIGrounding/AIGrounding/tspconfig.yaml
+    - copilot/resource-manager/Microsoft.Copilot/CopilotManagement/tspconfig.yaml
+    - networksecurity/resource-manager/Microsoft.NetworkSecurity/agentFabric/tspconfig.yaml
+    - webiq/resource-manager/Microsoft.WebIQ/WebIQ
+
+- tool: TypeSpecValidation
   rules: [FolderStructure]
   sub-rules: [MustUseV2]
   reason: Specs added as folder structure v1, not yet converted to v2
@@ -44,17 +55,13 @@
     - azurecapacitypolicy/CapacityRestrictionPolicy.Management
     - azurecertificateservice/AzureCertificateService.Management
     - azurecloudmetadata/AzureCloudMetadata.Management
-    - azuredependencymap/DependencyMap.Management
     - azurefleetcapacity/AzureFleetCapacity.Management
     - azureimagetestingforlinux/Aitl.Management
-    - azureintegrationspaces/IntegrationSpaces.Management
     - azureresiliencemanagement/AzureResilience.Management
     - azurezonalnetworkmanager/AzureZonalNetworkManager.Management
     - baremetal/Microsoft.BareMetal.Management
-    - billingbenefits/BillingBenefits.Management
     - bing/Bing.Management
     - capacityallocation/CapacityAllocation.Management
-    - carbon/Carbon.Management
     - certificateinventory/CertificateInventory.Management
     - changesafety/ChangeControl.Management
     - changesafety/SafeRollout.Management
@@ -62,17 +69,11 @@
     - cisograph/CisoGraph.Management
     - cleanroom/CleanRoom.Management
     - clouddeviceplatform/CloudDevicePlatform.Management
-    - cloudhealth/CloudHealth.Management
     - cloudmine/CloudMine.Management
     - cloudpcinternal/CloudPcInternal.Management
-    - codesigning/CodeSigning.Management
     - cognitivesearch/CognitiveSearch.Management
     - communication/Communication.Management
-    - communitytraining/Community.Management
-    - confluent/Confluent.Management
     - computebulkactions/ComputeBulkActions.Management
-    - computeschedule/ComputeSchedule.Management
-    - connectedcache/ConnectedCache.Management
     - connectedcredentials/ConnectedCredentials.Management
     - containernetworking/ContainerNetworking.Management
     - contoso/Microsoft.Contoso.Management
@@ -80,19 +81,13 @@
     - copilotforsecurity/SecurityCopilot.Management
     - copilotstudio/CopilotStudio.Management
     - csol/CompositeSolutions.Management
-    - dashboard/Dashboard.Management
-    - databasefleetmanager/DatabaseFleetManager.Management
-    - databasewatcher/DatabaseWatcher.Management
     - datacenterhardware/DatacenterHardware.Management
     - datacenterproductioninventory/DatacenterProductionInventory.Management
-    - datadog/Datadog.Management
     - datalabs/Datalabs.Management
     - datamigration/PostgresqlDataMigration.Management
     - defenderaiagents/DefenderAgentSecurity.Management
-    - dell/Dell.Storage.Management
     - deviceonboarding/DeviceOnboarding.Management
     - deviceupdate/DeviceUpdate.Edge.Management
-    - devopsinfrastructure/DevOpsInfrastructure.Management
     - devtunnels/DevTunnels.Management
     - directorystore/DirectoryStore.Management
     - discovery/Discovery.Management
@@ -101,34 +96,16 @@
     - dsms/Dsms.Management
     - dsts/Dsts.Management
     - dstsinventory/DstsInventory.Management
-    - durabletask/DurableTask.Management
-    - dynatrace/Dynatrace.Management
-    - edge/Microsoft.Edge.ConfigurationManager.Management
-    - edge/Microsoft.Edge.Configurations.Management
-    - edge/Microsoft.Edge.ConnectivityStatuses.Management
-    - edge/Microsoft.Edge.DisconnectedOperations.Management
-    - edge/Microsoft.Edge.Management
-    - edge/Microsoft.Edge.ResourceInsights.Management
-    - edge/Microsoft.Edge.SiteInsights.Management
-    - edge/Microsoft.Edge.SiteKeys.Management
-    - edge/Microsoft.Edge.Sites.Management
-    - edge/Microsoft.Edge.Updates.Management
-    - edge/Microsoft.Edge.Winfields.Management
-    - edge/Microsoft.ExposureControl.Management
     - edgeapprovals/Microsoft.Approvals.Management
     - edgecopilot/Microsoft.EdgeManagement.Management
     - edgemarketplace/Microsoft.EdgeMarketPlace.Management
-    - edgezones/EdgeZones.Management
-    - elastic/Elastic.Management
     - encryptedtransport/EncryptedTransport.Management
     - engineeringsystem/EngineeringSystem.Management
     - entrainventory/EntraInventory.Management
     - erroratlas/ErrorAtlas.Management
-    - ews/SecretSyncController.Management
     - experimentation/Experimentation.Management
     - fabricplatform/FabricPlatform.Management
     - falcon/Falcon.Management
-    - fist/IotFirmwareDefense.Management
     - footprintmonitoring/FootprintMonitoring.Management
     - fpss/Fpss.Management
     - frontdoor/Frontdoor.Management
@@ -145,31 +122,19 @@
     - healthcareinterop/Microsoft.HealthcareInterop.Edge.Management
     - healthplatform/Accounts.Management
     - hostedrpa/HostedRpa.Management
-    - hybridaks/HybridContainerService.Management
     - hybridconnectivity/HybridConnectivity.Management
     - hybridconnectivity/PublicCloud.Management
     - hybridinventory/HybridInventory.Management
-    - hybridnetwork/HybridNetwork.Management
     - identitygovernance/Microsoft.EntraIDGovernance.Management
     - identitygovernance/Microsoft.EntraIDGovernance.ScimApiConsumption.Management
     - identitygovernanceaccelerator/Microsoft.EntraIdGovernanceAccelerator.Management
     - idmapping/IdMapping.Management
     - impact/Impact.Management
-    - informatica/Informatica.DataManagement.Management
-    - iotoperations/IoTOperations.Management
-    - kubernetesruntime/KubernetesRuntime.Management
-    - liftrarize/ArizeAi.ObservabilityEval.Management
-    - liftrastronomer/Astronomer.Astro.Management
     - liftrbasicsample/LiftrBasic.SampleRP.Management
     - liftrcommvault/Commvault.ContentStore.Management
-    - liftrhyperexecute/LambdaTest.HyperExecute.Management
     - liftrmongodb/MongoDB.Atlas.Management
     - liftrpilot/Microsoft.LiftrPilot.Management
-    - liftrpinecone/Pinecone.VectorDb.Management
-    - liftrqumulo/Qumulo.Storage.Management
-    - liftrweightsandbiases/Liftr.WeightsAndBiases.Management
     - lionrock/Lionrock.Management
-    - managednetworkfabric/ManagedNetworkFabric.ResourceManager.Management
     - managedoperations/ManagedOps.Management
     - messagingcatalog/MessagingCatalog.Management
     - messagingconnectors/MessagingConnectors.Management
@@ -183,14 +148,12 @@
     - mycroft/Mycroft.Management
     - napster/Napster.CompanionAPI.Management
     - netappinternal/NetappInternal.Management
-    - networkcloud/NetworkCloud.Management
     - networkingpubsub/NetworkingPubSub.Management
     - networkresourceprovider/NetworkResourceProvider.Management
     - networkservicemanager/NetworkServiceManager.Management
     - newrelic/NewRelicObservability.Management
     - nexusidentity/NexusIdentity.IdentityController.Management
     - nexusidentity/NexusIdentity.IdentitySet.Management
-    - nginx/Nginx.Management
     - nsmplus/NsmPlus.Management
     - onedrivesharepoint/OneDriveSharePoint.Management
     - onlineexperimentation/OnlineExperimentation.Management
@@ -210,9 +173,6 @@
     - premonition/Insights.Management
     - programmableconnectivity/ProgrammableConnectivity.Management
     - proposal/Microsoft.Proposal.Management
-    - purestorage/PureStorage.Block.Management
-    - quantum/Microsoft.Quantum.Management
-    - relationships/Relationships.Management
     - resilience/Resilience.Management
     - resourcebuilder/ResourceBuilder.Management
     - resourceintelligence/Microsoft.ResourceIntelligence.Management
@@ -230,28 +190,21 @@
     - sentinelplatformservices/SentinelPlatformServices.Management
     - softwareplan/SoftwarePlan.Management
     - softwaresupplychain/SoftwareSupplyChain.Management
-    - sovereign/Sovereign.Management
     - splitio/SplitIO.Experimentation.Management
-    - standbypool/StandbyPool.Management
     - storage/Microsoft.StorageContextCache.Management
     - storage/Microsoft.StorageDataManagement.Management
-    - storageactions/StorageAction.Management
-    - storagediscovery/Microsoft.StorageDiscovery.Management
     - storageinventory/StorageInventory.Management
-    - storagemover/StorageMover.Management
     - subscriptionprovisioningorchestrator/SubscriptionProvisioningOrchestrator.Management
     - substrateinventory/SubstrateInventory.Management
     - sustainabilityservices/SustainabilityServices.Management
     - symphony/Symphony.Management
     - tenantgovernance/TenantGovernance.Management
-    - terraform/Microsoft.AzureTerraform.Management
     - titan/Titan.Management
     - touchcast/Touchcast.CogCache.Management
     - trustedlaunch/TrustedLaunch.Management
     - updatemanager/Microsoft.UpdateManager.Management
     - validate/Validate.Management
     - vast/Vast.Data.Management
-    - verifiedid/Microsoft.VerifiedId.Management
     - windowsimagebuilder/WindowsImageBuilder.Management
     - workloads/Workloads.ConfigurationChecksTemplates.Management
     - workloads/Workloads.ConfigurationValidationResults.Management
@@ -271,15 +224,17 @@
     - awsconnector/resource-manager/Microsoft.AwsConnector/preview/2023-12-01-preview/*.json
     - awsconnector/resource-manager/Microsoft.AwsConnector/preview/2024-08-01-preview/*.json
     - awsconnector/resource-manager/Microsoft.AwsConnector/stable/2024-12-01/*.json
-    - azureintegrationspaces/resource-manager/Microsoft.IntegrationSpaces/preview/2023-11-14-preview/openapi.json
+    - azureintegrationspaces/resource-manager/Microsoft.IntegrationSpaces/IntegrationSpaces/preview/2023-11-14-preview/openapi.json
     - azurestackhci/resource-manager/Microsoft.AzureStackHCI/StackHCI/preview/2024-07-01-preview/hci.json
     - azurestackhci/resource-manager/Microsoft.AzureStackHCI/StackHCI/preview/2024-11-01-preview/hci.json
     - baremetal/resource-manager/Microsoft.BareMetal/preview/2024-06-01-preview/BootstrapRP.json
     - baremetal/resource-manager/Microsoft.BareMetal/preview/2024-12-01-preview/BootstrapRP.json
-    - computeschedule/resource-manager/Microsoft.ComputeSchedule/preview/2023-10-01-preview/computeschedule.json
-    - computeschedule/resource-manager/Microsoft.ComputeSchedule/preview/2023-12-01-preview/computeschedule.json
-    - dell/resource-manager/Dell.Storage/preview/2024-08-28-preview/Dell.Storage.json
-    - dell/resource-manager/Dell.Storage/preview/2025-02-11-preview/Dell.Storage.json
+    - billingbenefits/resource-manager/Microsoft.BillingBenefits/BillingBenefits/preview/2025-12-01-preview/billingbenefits.json
+    - billingbenefits/resource-manager/Microsoft.BillingBenefits/BillingBenefits/preview/2026-02-01-preview/billingbenefits.json
+    - computeschedule/resource-manager/Microsoft.ComputeSchedule/ComputeSchedule/preview/2023-10-01-preview/computeschedule.json
+    - computeschedule/resource-manager/Microsoft.ComputeSchedule/ComputeSchedule/preview/2023-12-01-preview/computeschedule.json
+    - dell/resource-manager/Dell.Storage/DellStorage/preview/2024-08-28-preview/Dell.Storage.json
+    - dell/resource-manager/Dell.Storage/DellStorage/preview/2025-02-11-preview/Dell.Storage.json
     - edge/resource-manager/Microsoft.Edge/configurationmanager/preview/2024-06-01-preview/configurationmanager.json
     - edge/resource-manager/Microsoft.Edge/configurationmanager/preview/2024-08-01-preview/configurationmanager.json
     - edge/resource-manager/Microsoft.Edge/configurations/preview/2024-06-01-preview/configurations.json
@@ -300,20 +255,14 @@
     - scvmm/resource-manager/Microsoft.ScVmm/stable/2023-10-07/scvmm.json
     - scvmm/resource-manager/Microsoft.ScVmm/stable/2024-06-01/scvmm.json
     - splitio/resource-manager/SplitIO.Experimentation/preview/2024-03-01-preview/splitio.json
-    - liftrastronomer/resource-manager/Astronomer.Astro/preview/2023-06-01-preview/astronomer.json
-    - liftrastronomer/resource-manager/Astronomer.Astro/preview/2023-07-01-preview/astronomer.json
+    - liftrastronomer/resource-manager/Astronomer.Astro/AstronomerAstro/preview/2023-06-01-preview/astronomer.json
+    - liftrastronomer/resource-manager/Astronomer.Astro/AstronomerAstro/preview/2023-07-01-preview/astronomer.json
     - impact/resource-manager/Microsoft.Impact/preview/2022-11-01-preview/impact.json
     - impact/resource-manager/Microsoft.Impact/preview/2023-02-01-preview/impact.json
     - impact/resource-manager/Microsoft.Impact/preview/2023-07-01-preview/impact.json
     - impact/resource-manager/Microsoft.Impact/preview/2024-05-01-preview/impact.json
     - impact/resource-manager/Microsoft.Impact/preview/2023-12-01-preview/impact.json
     - azurebusinesscontinuitycenter/resource-manager/Microsoft.AzureBusinessContinuity/preview/2024-03-01-preview/openapi.json
-
-- tool: TypeSpecValidation
-  rules: [Compile]
-  reason: TypeSpec compilation failing with autorest emitter errors
-  paths:
-    - appcomplianceautomation/AppComplianceAutomation.Management
 
 - tool: TypeSpecValidationAll
   reason: Specs currently failing validation in RPSaaSMaster
@@ -322,7 +271,6 @@
     - regionalnetworkmanager/RegionalNetworkManager.Management
     # Added before 2/12/2025
     - alicesprings/AlicespringsDataplane.Management
-    - appcomplianceautomation/AppComplianceAutomation.Management
     - azuredevopsplatform/Microsoft.AzureDevOpsPlatform
     - bluefin/Bluefin.Management
     - deviceregistry/DeviceRegistry.Management
@@ -333,8 +281,6 @@
     - healthdataaiservices/HealthDataAIServices.Management
     - healthmodel/HealthModel.Management
     - hybridonboarding/ExtensionManager.Management
-    - iotoperationsdataprocessor/IoTOperationsDataProcessor.Management
-    - iotoperationsmq/IoTOperationsMQ.Management
     - iotoperationsorchestrator/IoTOperationsOrchestrator.Management
     - kx/Microsoft.KX.Management
     - managedsc/resource-manager/Microsoft.ManagedStorageClass/cadl

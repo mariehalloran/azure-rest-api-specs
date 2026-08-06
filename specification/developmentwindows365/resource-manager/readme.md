@@ -1,17 +1,17 @@
 # DevelopmentWindows365
 
 > see https://aka.ms/autorest
-This is the AutoRest configuration file for DevelopmentWindows365.
+> This is the AutoRest configuration file for DevelopmentWindows365.
 
 ## Getting Started
 
 To build the SDKs for My API, simply install AutoRest via `npm` (`npm install -g autorest`) and then run:
 
 > `autorest readme.md`
-To see additional help and options, run:
+> To see additional help and options, run:
 
 > `autorest --help`
-For other options on installation see [Installing AutoRest](https://aka.ms/autorest/install) on the AutoRest github page.
+> For other options on installation see [Installing AutoRest](https://aka.ms/autorest/install) on the AutoRest github page.
 
 ---
 
@@ -33,7 +33,21 @@ These settings apply only when `--tag= 2023-11-01-preview` is specified on the c
 
 ```yaml $(tag) == '2023-11-01-preview'
 input-file:
- - Microsoft.DevelopmentWindows365/preview/2023-11-01-preview/developmentwindows365.json
+  - Microsoft.DevelopmentWindows365/preview/2023-11-01-preview/developmentwindows365.json
+```
+
+### Suppression
+
+```yaml
+directive:
+  - suppress: GuidUsage
+    from: developmentwindows365.json
+    where: $.definitions["Azure.Core.uuid"].format
+    reason: UUID used as the tenant identifier for internal delegated resources.
+  - suppress: AvoidAdditionalProperties
+    from: developmentwindows365.json
+    where: $.definitions.DelegatedResources
+    reason: Delegated resources intentionally use a dictionary keyed by source resource internal ids for backward compatibility.
 ```
 
 ---
@@ -48,6 +62,5 @@ This is not used by Autorest itself.
 ```yaml $(swagger-to-sdk)
 swagger-to-sdk:
   - repo: azure-resource-manager-schemas
-  - repo: azure-sdk-for-js
   - repo: azure-cli-extensions
 ```

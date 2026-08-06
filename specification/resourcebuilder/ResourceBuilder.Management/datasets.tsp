@@ -18,7 +18,7 @@ model Dataset is ProxyResource<DatasetProperties> {
   @key("datasetName")
   @visibility(Lifecycle.Read)
   @path
-  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,63}$")
+  @pattern("^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,127}$")
   name: string;
 
   /**
@@ -69,7 +69,9 @@ model DatasetProperties {
   /** Azure regions where the dataset exists. */
   locations?: string[];
 
-  /** Reference to an existing data connection resource that provides the source connection for this dataset. */
+  /** Reference to an existing data connection resource that provides the source connection for this dataset.
+   * While this reference is set, the referenced data connection cannot be deleted until the dataset is
+   * updated to remove the reference or the dataset itself is deleted. */
   connection?: DataConnectionReference;
 
   /** Path (e.g. blob prefix) within the target specified by the connection. Applicable only for StorageAccount kind connections. */
@@ -139,6 +141,25 @@ union DatasetColumnType {
 interface Datasets {
   get is ArmResourceRead<Dataset>;
   createOrUpdate is ArmResourceCreateOrReplaceSync<Dataset>;
-  delete is ArmResourceDeleteSync<Dataset>;
+
+  /**
+   * Delete a dataset.
+   *
+   * Delete-time dependency validation is enforced. A dataset cannot be deleted while one or more jobs
+   * still reference it as an input or output through `JobProperties.inputs` or `JobProperties.outputs`
+   * (via `JobDataset.dataset`). If any consuming job exists, the delete is rejected with the
+   * `ResourceDeleteHasActiveConsumers` error (code `ARB-RP-228`) and the dataset is not deleted. The error reports the total
+   * number of consumers and returns links to the consuming jobs, each with the property path of the reference.
+   *
+   * Required steps before deleting a dataset:
+   * 1. Identify every job whose `properties.inputs` or `properties.outputs` reference this dataset.
+   * 2. For each consuming job, either update it to remove the reference to this dataset or delete the job
+   *    (and, where applicable, the pipeline that contains it).
+   * 3. Once no job references this dataset, retry this delete request.
+   *
+   * The delete is performed asynchronously: the service returns 202 Accepted with a Location header
+   * to poll, or 204 No Content when the dataset does not exist.
+   */
+  delete is ArmResourceDeleteWithoutOkAsync<Dataset>;
   list is ArmResourceListByParent<Dataset>;
 }

@@ -1,0 +1,46 @@
+{
+  "operationId": "InternalContextCacheContainers_Update",
+  "title": "Update an internal Context Cache Container",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "testrg",
+    "location": "eastus",
+    "api-version": "2026-02-01-preview",
+    "internalContextCacheName": "testaccount",
+    "internalContextCacheContainerName": "gpt4-prompts",
+    "properties": {
+      "properties": {
+        "description": "Updated internal container description",
+        "timeToLive": 14
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/locations/eastus/internalContextCaches/testaccount/internalContextCacheContainers/gpt4-prompts",
+        "name": "gpt4-prompts",
+        "type": "Microsoft.Storage/internalContextCaches/internalContextCacheContainers",
+        "properties": {
+          "description": "Updated internal container description",
+          "modelName": "gpt-4",
+          "provider": "OpenAI",
+          "timeToLive": 14,
+          "provisioningState": "Succeeded",
+          "resourceProperties": {
+            "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/contextCaches/testaccount/contextCacheContainers/gpt4-prompts",
+            "resourceType": "Microsoft.Storage/contextCaches/contextCacheContainers",
+            "baseLocation": "eastus",
+            "parentResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testrg/providers/Microsoft.Storage/locations/eastus/internalContextCaches/testaccount"
+          }
+        }
+      }
+    },
+    "202": {
+      "headers": {
+        "location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Storage/locations/eastus/operationStatuses/00000000-0000-0000-0000-000000000000?api-version=2026-02-01-preview",
+        "Retry-After": "10"
+      }
+    }
+  }
+}

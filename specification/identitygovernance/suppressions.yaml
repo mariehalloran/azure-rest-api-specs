@@ -6,4 +6,16 @@
   rules: [SdkTspConfigValidation]
   sub-rules:
     - options.@azure-tools/typespec-ts.*
+    - options.@azure-typespec/http-client-csharp-mgmt.*
   paths: [Microsoft.EntraIDGovernance.Management/tspconfig.yaml]
+
+- tool: TypeSpecValidation
+  reason: >
+    Not ready to generate SDKs from TypeSpec.
+    Responsibility: Service team with SDK team collaboration.
+    More info: https://aka.ms/azsdk/spec-gen-sdk-config.
+  rules: [SdkTspConfigValidation]
+  sub-rules:
+    - options.@azure-tools/typespec-python.*
+    - options.@azure-typespec/http-client-csharp-mgmt.*
+  paths: [Microsoft.EntraIDGovernance.ScimApiConsumption.Management/tspconfig.yaml]

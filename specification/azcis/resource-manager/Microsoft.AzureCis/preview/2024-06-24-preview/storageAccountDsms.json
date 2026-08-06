@@ -410,6 +410,25 @@
         "value"
       ]
     },
+    "DeleteRetentionPolicy": {
+      "type": "object",
+      "description": "Soft delete retention policy for the Storage Account.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Defines if the delete retention policy is enabled."
+        },
+        "days": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of days for which the deleted data should be retained.",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "enabled"
+      ]
+    },
     "DualStackEndpointPreference": {
       "type": "object",
       "description": "Dual Stack Endpoint Preference.",
@@ -835,6 +854,18 @@
         "requireInfrastructureEncryption": {
           "type": "boolean",
           "description": "Defines if Infrastructure Encryption is required."
+        },
+        "blobDeleteRetentionPolicy": {
+          "$ref": "#/definitions/DeleteRetentionPolicy",
+          "description": "Enables soft delete for blobs in the Storage Account."
+        },
+        "containerDeleteRetentionPolicy": {
+          "$ref": "#/definitions/DeleteRetentionPolicy",
+          "description": "Enables soft delete for containers in the Storage Account."
+        },
+        "minimumTlsVersion": {
+          "type": "string",
+          "description": "Minimum TLS version on requests to the Storage Account. Expected format: 'TLS1_0', 'TLS1_1', 'TLS1_2', etc."
         },
         "properties": {
           "type": "object",

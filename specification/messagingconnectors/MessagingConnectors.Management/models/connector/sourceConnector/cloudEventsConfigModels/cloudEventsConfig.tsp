@@ -127,6 +127,7 @@ model SchemaSetAutoRegisterConfig {
   @doc("The auto register type.")
   autoRegisterType: SchemaSetAutoRegisterType;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("The catalog URL of auto register schema.")
   catalogUrl: string;
 
@@ -148,6 +149,7 @@ model SchemaSetCloudEventsConfig extends CloudEventsConfig {
   @doc("Auth of SchemaSet")
   authentication: Models.Auth.Authentication;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("The catalog URL.")
   catalogUrl: string;
 

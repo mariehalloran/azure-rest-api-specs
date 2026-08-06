@@ -13,8 +13,10 @@ namespace Microsoft.ApplicationMigration;
 /**
  * The PGSQLSite resource definition.
  */
-model PgsqlSite
-  is Azure.ResourceManager.TrackedResource<PgsqlSiteProperties, false> {
+model PgsqlSite is Azure.ResourceManager.TrackedResource<
+  PgsqlSiteProperties,
+  false
+> {
   ...ResourceNameParameter<
     Resource = PgsqlSite,
     KeyName = "siteName",

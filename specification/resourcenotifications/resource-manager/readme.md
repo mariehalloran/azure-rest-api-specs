@@ -22,7 +22,25 @@ These are the global settings for the Azure Resource Notifications API.
 
 ``` yaml
 openapi-type: arm
-tag: package-2026-03-01-preview
+tag: package-2026-08-01-preview
+```
+
+### Tag: package-2026-08-01-preview
+
+These settings apply only when `--tag=package-2026-08-01-preview` is specified on the command line.
+
+``` yaml $(tag) == 'package-2026-08-01-preview'
+input-file:
+- Microsoft.ResourceNotifications/preview/2026-08-01-preview/resourcenotifications.json
+```
+
+### Tag: package-2026-06-01-preview
+
+These settings apply only when `--tag=package-2026-06-01-preview` is specified on the command line.
+
+``` yaml $(tag) == 'package-2026-06-01-preview'
+input-file:
+- Microsoft.ResourceNotifications/preview/2026-06-01-preview/resourcenotifications.json
 ```
 
 ### Tag: package-2026-03-01-preview
@@ -49,8 +67,12 @@ input-file:
 suppressions:
   - code: GuidUsage
     from: resourcenotifications.json
-    reason: appId is an AAD application ID which is a GUID by definition.
+    reason: appId, objectId, and tenantId are AAD identity identifiers which are GUIDs by definition. These fields share the Azure.Core.uuid definition.
     where: $.definitions["Azure.Core.uuid"].format
+  - code: ArmResourcePropertiesBag
+    from: resourcenotifications.json
+    reason: Temporary suppression. Destination discriminator kind is currently modeled under DestinationProperties.kind across existing preview API versions (2025-11-19-preview, 2026-03-01-preview, 2026-06-01-preview). Track debt and remove by 2026-09-01-preview by moving kind to top-level Destination envelope.
+    where: $.definitions.Destination
   - code: TrackedResourcesMustHavePut
     from: resourcenotifications.json
     reason: Namespace is read-only, pre-provisioned by the platform.

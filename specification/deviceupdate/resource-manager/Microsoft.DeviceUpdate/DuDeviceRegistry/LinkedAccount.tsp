@@ -2,12 +2,14 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@azure-tools/typespec-client-generator-core";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "./models.tsp";
 
 using Azure.ResourceManager;
 using Azure.ClientGenerator.Core;
 using TypeSpec.Http;
 using TypeSpec.Rest;
+using TypeSpec.Versioning;
 
 namespace Microsoft.DeviceUpdate;
 
@@ -42,6 +44,7 @@ model LinkedAccount
  * These actions are publicly documented per ARM modeling guidance: external requests
  * are blocked via RP business logic rather than hiding behind an RPaaS-internal endpoint.
  */
+@removed(Versions.v2026_07_02_preview)
 @armResourceOperations
 interface LinkedAccounts {
   /**
@@ -57,8 +60,25 @@ interface LinkedAccounts {
   /**
    * Updates linked account's patchable properties
    */
+  @removed(Versions.v2026_06_01_preview)
+  @renamedFrom(Versions.v2026_06_01_preview, "update")
+  @sharedRoute
   @patch(#{ implicitOptionality: false })
-  update is ArmCustomPatchSync<LinkedAccount, LinkedAccountUpdate>;
+  updateSync is ArmCustomPatchSync<LinkedAccount, LinkedAccountUpdate>;
+
+  /**
+   * Updates linked account's patchable properties
+   */
+  @added(Versions.v2026_06_01_preview)
+  @sharedRoute
+  @patch(#{ implicitOptionality: false })
+  update is ArmCustomPatchAsync<
+    LinkedAccount,
+    LinkedAccountUpdate,
+    LroHeaders = ArmAsyncOperationHeader<FinalResult = LinkedAccount> &
+      ArmLroLocationHeader<FinalResult = LinkedAccount> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
 
   /**
    * Deletes a linked account.
@@ -78,6 +98,7 @@ interface LinkedAccounts {
   /**
    * Check if the Linked Account name is available
    */
+  @sharedRoute
   checkNameAvailability is checkGlobalNameAvailability;
 
   /**
@@ -123,14 +144,33 @@ interface LinkedAccounts {
    * Update linking properties (e.g., identity rotation).
    */
   @access(Access.internal)
+  @removed(Versions.v2026_06_01_preview)
+  @renamedFrom(Versions.v2026_06_01_preview, "linkUpdate")
+  @sharedRoute
   @action("linkUpdate")
-  linkUpdate is ArmResourceActionSync<
+  linkUpdateSync is ArmResourceActionSync<
     LinkedAccount,
     LinkUpdateRequest,
     {
       @body
       body: LinkUpdateResponse;
     }
+  >;
+
+  /**
+   * Update linking properties (e.g., identity rotation).
+   */
+  @access(Access.internal)
+  @added(Versions.v2026_06_01_preview)
+  @sharedRoute
+  @action("linkUpdate")
+  linkUpdate is ArmResourceActionAsync<
+    LinkedAccount,
+    LinkUpdateRequest,
+    LinkUpdateResponse,
+    LroHeaders = ArmAsyncOperationHeader &
+      ArmLroLocationHeader &
+      Azure.Core.Foundations.RetryAfterHeader
   >;
 }
 
@@ -141,4 +181,8 @@ interface LinkedAccounts {
   "The user-chosen Linked Account name. Must be unique within the subscription and is used in the resource URL and ADU service routing. Allowed characters: alphanumeric and hyphens (not leading/trailing); length 3-36."
 );
 @@doc(LinkedAccounts.create::parameters.resource, "Linked Account details.");
+@@doc(
+  LinkedAccounts.updateSync::parameters.properties,
+  "Updated Linked Account."
+);
 @@doc(LinkedAccounts.update::parameters.properties, "Updated Linked Account.");
