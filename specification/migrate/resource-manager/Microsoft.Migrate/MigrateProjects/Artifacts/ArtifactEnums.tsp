@@ -3,6 +3,7 @@ using TypeSpec.Versioning;
 
 namespace Microsoft.Migrate;
 
+@added(ApiVersions.v2026_06_15_preview)
 @doc("The type of a Migrate artifact. The type is extensible so additional artifact kinds can be introduced in future versions.")
 union ArtifactType {
   @doc("A wave report artifact.")
@@ -20,6 +21,7 @@ union ArtifactType {
   string,
 }
 
+@added(ApiVersions.v2026_06_15_preview)
 @doc("The mode used when generating a download URL for an artifact. The mode is extensible so additional download modes can be introduced in future versions.")
 union DownloadMode {
   @doc("Download a single file within the artifact.")

@@ -1,8 +1,8 @@
 {
-  "title": "OperationStatus_Get_Failed",
+  "title": "OperationStatus_Get_MaximumSet_Gen",
   "operationId": "OperationStatus_Get",
   "parameters": {
-    "api-version": "2026-06-01-preview",
+    "api-version": "2026-06-15-preview",
     "subscriptionId": "4bd2aa0f-2bd2-4d67-91a8-5a4533d58600",
     "location": "eastus",
     "operationId": "00000000-0000-0000-0000-000000000001"
@@ -12,13 +12,18 @@
       "body": {
         "id": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/providers/Microsoft.Migrate/locations/eastus/operationStatuses/00000000-0000-0000-0000-000000000001",
         "name": "00000000-0000-0000-0000-000000000001",
-        "status": "Failed",
+        "status": "Succeeded",
         "startTime": "2026-07-01T00:55:00.000Z",
-        "endTime": "2026-07-01T00:56:10.000Z",
+        "endTime": "2026-07-01T00:55:30.000Z",
         "percentComplete": 100,
-        "error": {
-          "code": "DownloadArchiveGenerationFailed",
-          "message": "The download archive could not be generated because one or more blobs in the requested directory were unavailable."
+        "properties": {
+          "artifactName": "myArtifact",
+          "versionId": "v-2026070100",
+          "version": 7,
+          "mode": "directory",
+          "path": "reports",
+          "sasUrl": "https://mystorageaccount.blob.core.windows.net/artifacts/myArtifact/reports.zip?${sasToken}",
+          "expiresAt": "2026-07-01T01:55:30.000Z"
         }
       }
     }

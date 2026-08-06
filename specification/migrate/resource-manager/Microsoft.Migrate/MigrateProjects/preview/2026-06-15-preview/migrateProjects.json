@@ -1,0 +1,1461 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Azure Migrate Projects Service",
+    "version": "2026-06-15-preview",
+    "description": "Azure Migrate Resource Provider management API for Migrate projects and their child resources.",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "MigratePlans"
+    },
+    {
+      "name": "Artifacts"
+    },
+    {
+      "name": "OperationStatus"
+    }
+  ],
+  "paths": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Migrate/locations/{location}/operationStatuses/{operationId}": {
+      "get": {
+        "operationId": "OperationStatus_Get",
+        "tags": [
+          "OperationStatus"
+        ],
+        "description": "Get the status of an asynchronous generateDownloadUrl operation. When the operation succeeds, the generated download URL is available in the `properties` field of the returned status monitor.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/LocationParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/OperationIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/GenerateDownloadUrlOperationStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "OperationStatus_Get_Failed": {
+            "$ref": "./examples/OperationStatus_Get_Failed.json"
+          },
+          "OperationStatus_Get_InProgress": {
+            "$ref": "./examples/OperationStatus_Get_InProgress.json"
+          },
+          "OperationStatus_Get_MaximumSet_Gen": {
+            "$ref": "./examples/OperationStatus_Get_MaximumSet_Gen.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/migrateProjects/{projectName}/artifacts": {
+      "get": {
+        "operationId": "Artifacts_ListByParent",
+        "tags": [
+          "Artifacts"
+        ],
+        "description": "List the artifacts of a Migrate project, optionally filtered by associated resource ID or artifact type.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Migrate Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,62}[A-Za-z0-9])?$"
+          },
+          {
+            "$ref": "#/parameters/ArtifactListQueryParams"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ArtifactListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Artifacts_ListByParent_MaximumSet_Gen": {
+            "$ref": "./examples/Artifacts_ListByParent_MaximumSet_Gen.json"
+          },
+          "Artifacts_ListByParent_MinimumSet_Gen": {
+            "$ref": "./examples/Artifacts_ListByParent_MinimumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/migrateProjects/{projectName}/artifacts/{artifactName}": {
+      "get": {
+        "operationId": "Artifacts_Get",
+        "tags": [
+          "Artifacts"
+        ],
+        "description": "Get the specified artifact by name.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Migrate Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,62}[A-Za-z0-9])?$"
+          },
+          {
+            "name": "artifactName",
+            "in": "path",
+            "description": "The name of the artifact.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,89}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Artifact"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Artifacts_Get_MaximumSet_Gen": {
+            "$ref": "./examples/Artifacts_Get_MaximumSet_Gen.json"
+          },
+          "Artifacts_Get_MinimumSet_Gen": {
+            "$ref": "./examples/Artifacts_Get_MinimumSet_Gen.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/migrateProjects/{projectName}/artifacts/{artifactName}/generateDownloadUrl": {
+      "post": {
+        "operationId": "Artifacts_GenerateDownloadUrl",
+        "tags": [
+          "Artifacts"
+        ],
+        "description": "Generate a time-limited download URL for the content of an artifact. For a single file the download URL is returned synchronously (200). For a directory the request is accepted (202) and runs asynchronously; poll the operation through the Azure-AsyncOperation status monitor, whose terminal status carries the generated download URL in its `properties`.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Migrate Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,62}[A-Za-z0-9])?$"
+          },
+          {
+            "name": "artifactName",
+            "in": "path",
+            "description": "The name of the artifact.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,89}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateDownloadUrlRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/GenerateDownloadUrlResult"
+            }
+          },
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Artifacts_GenerateDownloadUrl_Directory_MaximumSet_Gen": {
+            "$ref": "./examples/Artifacts_GenerateDownloadUrl_Directory_MaximumSet_Gen.json"
+          },
+          "Artifacts_GenerateDownloadUrl_File_MaximumSet_Gen": {
+            "$ref": "./examples/Artifacts_GenerateDownloadUrl_File_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/migrateProjects/{projectName}/artifacts/{artifactName}/getVersionHistory": {
+      "post": {
+        "operationId": "Artifacts_GetVersionHistory",
+        "tags": [
+          "Artifacts"
+        ],
+        "description": "Get the version history of an artifact. The service retains only the 20 most recent versions, so the returned history contains at most 20 entries.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Migrate Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,62}[A-Za-z0-9])?$"
+          },
+          {
+            "name": "artifactName",
+            "in": "path",
+            "description": "The name of the artifact.",
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,89}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ArtifactVersionHistoryResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Artifacts_GetVersionHistory_MaximumSet_Gen": {
+            "$ref": "./examples/Artifacts_GetVersionHistory_MaximumSet_Gen.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/migrateProjects/{projectName}/plans": {
+      "get": {
+        "operationId": "MigratePlans_ListByParent",
+        "tags": [
+          "MigratePlans"
+        ],
+        "description": "List MigratePlan resources by MigrateProject",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Migrate Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,62}[A-Za-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/MigratePlanListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "MigratePlans_ListByParent_MaximumSet_Gen": {
+            "$ref": "./examples/MigratePlans_ListByParent_MaximumSet_Gen.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/migrateProjects/{projectName}/plans/{planName}": {
+      "get": {
+        "operationId": "MigratePlans_Get",
+        "tags": [
+          "MigratePlans"
+        ],
+        "description": "Get a MigratePlan",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Migrate Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,62}[A-Za-z0-9])?$"
+          },
+          {
+            "name": "planName",
+            "in": "path",
+            "description": "The name of the Migrate plan.",
+            "required": true,
+            "type": "string",
+            "maxLength": 40,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,39}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/MigratePlan"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "MigratePlans_Get_MaximumSet_Gen": {
+            "$ref": "./examples/MigratePlans_Get_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "MigratePlans_CreateOrUpdate",
+        "tags": [
+          "MigratePlans"
+        ],
+        "description": "Register or activate a Migrate plan. Registering creates the plan; supplying artifacts activates it and starts plan generation. This is a synchronous (non-LRO) operation: provisioningState is terminal in the response, and asynchronous plan-generation progress is tracked by polling the read-only `status` property via GET until it reaches a terminal value.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Migrate Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,62}[A-Za-z0-9])?$"
+          },
+          {
+            "name": "planName",
+            "in": "path",
+            "description": "The name of the Migrate plan.",
+            "required": true,
+            "type": "string",
+            "maxLength": 40,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,39}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MigratePlan"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'MigratePlan' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/MigratePlan"
+            }
+          },
+          "201": {
+            "description": "Resource 'MigratePlan' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/MigratePlan"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "MigratePlans_CreateOrUpdate_MaximumSet_Gen": {
+            "$ref": "./examples/MigratePlans_CreateOrUpdate_MaximumSet_Gen.json"
+          },
+          "MigratePlans_CreateOrUpdate_MinimumSet_Gen": {
+            "$ref": "./examples/MigratePlans_CreateOrUpdate_MinimumSet_Gen.json"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "MigratePlans_Update",
+        "tags": [
+          "MigratePlans"
+        ],
+        "description": "Update a Migrate plan. Supports updating the migration strategy. Artifact `status` is read-only and reflects server-computed plan-generation progress, so it cannot be changed through this operation.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Migrate Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,62}[A-Za-z0-9])?$"
+          },
+          {
+            "name": "planName",
+            "in": "path",
+            "description": "The name of the Migrate plan.",
+            "required": true,
+            "type": "string",
+            "maxLength": 40,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,39}$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MigratePlanUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/MigratePlan"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "MigratePlans_Update_MaximumSet_Gen": {
+            "$ref": "./examples/MigratePlans_Update_MaximumSet_Gen.json"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "MigratePlans_Delete",
+        "tags": [
+          "MigratePlans"
+        ],
+        "description": "Delete a Migrate plan.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "projectName",
+            "in": "path",
+            "description": "Migrate Project Name",
+            "required": true,
+            "type": "string",
+            "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,62}[A-Za-z0-9])?$"
+          },
+          {
+            "name": "planName",
+            "in": "path",
+            "description": "The name of the Migrate plan.",
+            "required": true,
+            "type": "string",
+            "maxLength": 40,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,39}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully."
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "MigratePlans_Delete_MaximumSet_Gen": {
+            "$ref": "./examples/MigratePlans_Delete_MaximumSet_Gen.json"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Artifact": {
+      "type": "object",
+      "description": "A Migrate artifact. Artifacts are read-only Azure Resource Manager projections of documents generated for a Migrate project.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ArtifactProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "ArtifactListResult": {
+      "type": "object",
+      "description": "The response of a Artifact list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Artifact items on this page",
+          "items": {
+            "$ref": "#/definitions/Artifact"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ArtifactProperties": {
+      "type": "object",
+      "description": "The properties of a Migrate artifact.",
+      "properties": {
+        "artifactType": {
+          "$ref": "#/definitions/ArtifactType",
+          "description": "The type of the artifact.",
+          "readOnly": true
+        },
+        "associatedResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "The Azure Resource Manager ID of the resource that this artifact is associated with, if any.",
+          "readOnly": true
+        },
+        "latestVersionId": {
+          "type": "string",
+          "description": "The identifier of the latest version of the artifact. VersionIds are unordered and supplied by the client during creation",
+          "readOnly": true
+        },
+        "latestVersion": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The latest version number of the artifact. Version numbers are monotonically increasing integers assigned at commit time, starting at 1.",
+          "readOnly": true
+        },
+        "latestVersionMetadataHash": {
+          "type": "string",
+          "description": "The hash of the `metadata.json` present in the latest version of the artifact, formatted as `{algorithm}:<hex>`. Clients may verify integrity of the artifact by checking this hash against the downloaded `metadata.json`.",
+          "readOnly": true
+        }
+      }
+    },
+    "ArtifactType": {
+      "type": "string",
+      "description": "The type of a Migrate artifact. The type is extensible so additional artifact kinds can be introduced in future versions.",
+      "enum": [
+        "WaveReport",
+        "WavePlan",
+        "DCPlan",
+        "CTD"
+      ],
+      "x-ms-enum": {
+        "name": "ArtifactType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "WaveReport",
+            "value": "WaveReport",
+            "description": "A wave report artifact."
+          },
+          {
+            "name": "WavePlan",
+            "value": "WavePlan",
+            "description": "A wave plan artifact."
+          },
+          {
+            "name": "DCPlan",
+            "value": "DCPlan",
+            "description": "A data center plan artifact."
+          },
+          {
+            "name": "CTD",
+            "value": "CTD",
+            "description": "A current target design (CTD) artifact."
+          }
+        ]
+      }
+    },
+    "ArtifactVersionHistoryResult": {
+      "type": "object",
+      "description": "The version history of a Migrate artifact.",
+      "properties": {
+        "artifactName": {
+          "type": "string",
+          "description": "The name of the artifact."
+        },
+        "artifactType": {
+          "$ref": "#/definitions/ArtifactType",
+          "description": "The type of the artifact."
+        },
+        "latestVersionId": {
+          "type": "string",
+          "description": "The identifier of the latest version of the artifact. VersionIds are unordered and supplied by the client during creation"
+        },
+        "latestVersion": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The latest version number of the artifact. Version numbers are monotonically increasing integers assigned at commit time, starting at 1."
+        },
+        "history": {
+          "type": "array",
+          "description": "The ordered list of version history entries for the artifact, most recent first. The service retains only the 20 most recent versions, so this list contains at most 20 entries.",
+          "maxItems": 20,
+          "items": {
+            "$ref": "#/definitions/VersionHistoryEntry"
+          },
+          "x-ms-identifiers": [
+            "versionId"
+          ]
+        }
+      },
+      "required": [
+        "artifactName",
+        "artifactType",
+        "latestVersionId",
+        "latestVersion",
+        "history"
+      ]
+    },
+    "Azure.ResourceManager.ResourceProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a resource type.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "DownloadMode": {
+      "type": "string",
+      "description": "The mode used when generating a download URL for an artifact. The mode is extensible so additional download modes can be introduced in future versions.",
+      "enum": [
+        "file",
+        "directory"
+      ],
+      "x-ms-enum": {
+        "name": "DownloadMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "File",
+            "value": "file",
+            "description": "Download a single file within the artifact."
+          },
+          {
+            "name": "Directory",
+            "value": "directory",
+            "description": "Download a directory within the artifact."
+          }
+        ]
+      }
+    },
+    "GenerateDownloadUrlOperationState": {
+      "type": "string",
+      "description": "The status values for an asynchronous generateDownloadUrl operation on a Migrate artifact.",
+      "enum": [
+        "InProgress",
+        "Succeeded",
+        "Failed",
+        "Canceled"
+      ],
+      "x-ms-enum": {
+        "name": "GenerateDownloadUrlOperationState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "InProgress",
+            "value": "InProgress",
+            "description": "The download archive is still being generated. Poll again after the interval indicated by the Retry-After header."
+          },
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "The operation completed successfully. The generated download URL is available in the result properties."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "The operation failed. See the error details for more information."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "The operation was canceled."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "GenerateDownloadUrlOperationStatus": {
+      "type": "object",
+      "description": "The status of an asynchronous generateDownloadUrl operation on a Migrate artifact. When the operation succeeds, the generated download URL is available in the `properties` field.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/GenerateDownloadUrlResult",
+          "description": "RP-specific properties for the operationStatus resource, only appears when operation ended with Succeeded status",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/GenerateDownloadUrlOperationState",
+          "description": "The operation status"
+        },
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the operationStatus resource"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the operationStatus resource",
+          "readOnly": true
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Operation start time",
+          "readOnly": true
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Operation complete time",
+          "readOnly": true
+        },
+        "percentComplete": {
+          "type": "number",
+          "format": "double",
+          "description": "The progress made toward completing the operation",
+          "readOnly": true
+        },
+        "error": {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
+          "description": "Errors that occurred if the operation ended with Canceled or Failed status",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "status",
+        "id"
+      ]
+    },
+    "GenerateDownloadUrlRequest": {
+      "type": "object",
+      "description": "The request to generate a download URL for a Migrate artifact. Clients need not specify both of `versionId` and `version`. If both are specified, they must agree with each other. If neither is specified, the latest version is used.",
+      "properties": {
+        "versionId": {
+          "type": "string",
+          "description": "The identifier of the artifact version to download. When omitted, the latest version of the artifact is used. If both `versionId` and `version` are specified, they must agree with each other."
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The version number to download. When omitted, the latest artifact version is used. If both `versionId` and `version` are specified, they must agree with each other."
+        },
+        "mode": {
+          "$ref": "#/definitions/DownloadMode",
+          "description": "Whether to download a single file or a directory within the artifact."
+        },
+        "path": {
+          "type": "string",
+          "description": "The path, relative to the artifact root, of the file or directory to download."
+        },
+        "includeMetadata": {
+          "type": "boolean",
+          "description": "Whether to include metadata alongside the downloaded content."
+        }
+      },
+      "required": [
+        "mode",
+        "path"
+      ]
+    },
+    "GenerateDownloadUrlResult": {
+      "type": "object",
+      "description": "The result of generating a download URL for a Migrate artifact.",
+      "properties": {
+        "artifactName": {
+          "type": "string",
+          "description": "The name of the artifact."
+        },
+        "versionId": {
+          "type": "string",
+          "description": "The identifier of the artifact version that the download URL refers to."
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The version number of the artifact version present at the download URL."
+        },
+        "mode": {
+          "$ref": "#/definitions/DownloadMode",
+          "description": "Whether the download URL refers to a single file or a directory within the artifact."
+        },
+        "path": {
+          "type": "string",
+          "description": "The path, relative to the artifact root, that the download URL refers to."
+        },
+        "sasUrl": {
+          "type": "string",
+          "format": "password",
+          "description": "The shared access signature (SAS) URL that can be used to download the requested content.",
+          "readOnly": true,
+          "x-ms-secret": true
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp, in UTC, at which the download URL expires."
+        }
+      },
+      "required": [
+        "artifactName",
+        "versionId",
+        "version",
+        "mode",
+        "path",
+        "sasUrl",
+        "expiresAt"
+      ]
+    },
+    "MigratePlan": {
+      "type": "object",
+      "description": "A Migrate plan (Data Center Plan).",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/MigratePlanProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "MigratePlanArtifact": {
+      "type": "object",
+      "description": "The base representation of an artifact within a Migrate plan.",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/Status",
+          "description": "The status of the artifact.",
+          "readOnly": true
+        },
+        "error": {
+          "$ref": "#/definitions/MigratePlanErrorDetails",
+          "description": "The error encountered while generating the artifact, if any.",
+          "readOnly": true
+        }
+      }
+    },
+    "MigratePlanArtifacts": {
+      "type": "object",
+      "description": "The collection of artifacts associated with a Migrate plan.",
+      "properties": {
+        "discovery": {
+          "$ref": "#/definitions/MigratePlanDiscoveryArtifact",
+          "description": "The discovery artifact."
+        },
+        "heterogeneousAssessment": {
+          "$ref": "#/definitions/MigratePlanSourceArtifact",
+          "description": "The heterogeneous assessment artifact."
+        },
+        "businessCases": {
+          "type": "array",
+          "description": "The business case artifacts, one per migration strategy.",
+          "items": {
+            "$ref": "#/definitions/MigratePlanStrategyArtifact"
+          },
+          "x-ms-identifiers": []
+        },
+        "wavePlans": {
+          "type": "array",
+          "description": "The wave plan artifacts, one per migration strategy.",
+          "items": {
+            "$ref": "#/definitions/MigratePlanStrategyArtifact"
+          },
+          "x-ms-identifiers": []
+        },
+        "platformLandingZone": {
+          "$ref": "#/definitions/MigratePlanSourceArtifact",
+          "description": "The platform landing zone artifact."
+        },
+        "ameReports": {
+          "type": "array",
+          "description": "The application migration evaluation (AME) report artifacts.",
+          "items": {
+            "$ref": "#/definitions/MigratePlanStrategyArtifact"
+          },
+          "x-ms-identifiers": []
+        }
+      }
+    },
+    "MigratePlanDiscoveryArtifact": {
+      "type": "object",
+      "description": "The discovery artifact for a Migrate plan.",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/Status",
+          "description": "The status of the artifact.",
+          "readOnly": true
+        },
+        "error": {
+          "$ref": "#/definitions/MigratePlanErrorDetails",
+          "description": "The error encountered while generating the artifact, if any.",
+          "readOnly": true
+        },
+        "scope": {
+          "$ref": "#/definitions/MigratePlanDiscoveryScope",
+          "description": "The scope that controls which resources are included in discovery."
+        }
+      }
+    },
+    "MigratePlanDiscoveryScope": {
+      "type": "object",
+      "description": "The scope that controls which resources are included in discovery for a Migrate plan.",
+      "properties": {
+        "azureResourceGraphQuery": {
+          "type": "string",
+          "description": "The Azure Resource Graph query used to scope discovery.",
+          "maxLength": 5000
+        }
+      }
+    },
+    "MigratePlanErrorDetails": {
+      "type": "object",
+      "description": "The details of an error encountered during Migrate plan generation.",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "The error code.",
+          "readOnly": true
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message.",
+          "readOnly": true
+        },
+        "updatedTimeStamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp, in UTC, at which the error was last updated.",
+          "readOnly": true
+        }
+      }
+    },
+    "MigratePlanListResult": {
+      "type": "object",
+      "description": "The response of a MigratePlan list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The MigratePlan items on this page",
+          "items": {
+            "$ref": "#/definitions/MigratePlan"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "MigratePlanProperties": {
+      "type": "object",
+      "description": "The properties of a Migrate plan (Data Center Plan).",
+      "properties": {
+        "planType": {
+          "$ref": "#/definitions/PlanType",
+          "description": "The type of the plan. Defaults to 'DataCenter' when not specified."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/Azure.ResourceManager.ResourceProvisioningState",
+          "description": "The status of the last operation performed on the plan.",
+          "readOnly": true
+        },
+        "status": {
+          "$ref": "#/definitions/Status",
+          "description": "The status of the plan.",
+          "readOnly": true
+        },
+        "artifactId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "The Azure Resource Manager ID of the artifact resource generated for the plan.",
+          "readOnly": true,
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Migrate/migrateProjects/artifacts"
+              }
+            ]
+          }
+        },
+        "settings": {
+          "$ref": "#/definitions/MigratePlanSettings",
+          "description": "The settings that control how the plan is generated."
+        },
+        "artifacts": {
+          "$ref": "#/definitions/MigratePlanArtifacts",
+          "description": "The artifacts associated with the plan."
+        },
+        "error": {
+          "$ref": "#/definitions/MigratePlanErrorDetails",
+          "description": "The error encountered while generating the plan, if any.",
+          "readOnly": true
+        }
+      }
+    },
+    "MigratePlanSettings": {
+      "type": "object",
+      "description": "The settings for a Migrate plan.",
+      "properties": {
+        "migrationStrategy": {
+          "$ref": "#/definitions/MigrationStrategy",
+          "description": "The migration strategy selected for the plan."
+        }
+      }
+    },
+    "MigratePlanSourceArtifact": {
+      "type": "object",
+      "description": "An artifact within a Migrate plan that is backed by a source resource.",
+      "properties": {
+        "armId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "The Azure Resource Manager ID of the source resource for this artifact."
+        },
+        "status": {
+          "$ref": "#/definitions/Status",
+          "description": "The status of the artifact.",
+          "readOnly": true
+        },
+        "error": {
+          "$ref": "#/definitions/MigratePlanErrorDetails",
+          "description": "The error encountered while generating the artifact, if any.",
+          "readOnly": true
+        }
+      }
+    },
+    "MigratePlanStrategyArtifact": {
+      "type": "object",
+      "description": "An artifact within a Migrate plan that is associated with a migration strategy.",
+      "properties": {
+        "armId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "The Azure Resource Manager ID of the source resource for this artifact."
+        },
+        "status": {
+          "$ref": "#/definitions/Status",
+          "description": "The status of the artifact.",
+          "readOnly": true
+        },
+        "error": {
+          "$ref": "#/definitions/MigratePlanErrorDetails",
+          "description": "The error encountered while generating the artifact, if any.",
+          "readOnly": true
+        },
+        "migrationStrategy": {
+          "$ref": "#/definitions/MigrationStrategy",
+          "description": "The migration strategy associated with the artifact."
+        }
+      }
+    },
+    "MigratePlanUpdate": {
+      "type": "object",
+      "description": "A Migrate plan (Data Center Plan).",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/MigratePlanProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "MigrateProject": {
+      "type": "object",
+      "description": "The Migrate project that is the parent of the Migrate plan. This resource is owned by the Microsoft.Migrate GA API and is referenced here only to establish the parent scope; it is intentionally not modeled by this API version.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Migrate Project Name",
+          "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,62}[A-Za-z0-9])?$",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "MigrationStrategy": {
+      "type": "string",
+      "description": "The migration strategy selected for a Migrate plan or artifact.",
+      "enum": [
+        "Modernize",
+        "AVS",
+        "LiftAndShift"
+      ],
+      "x-ms-enum": {
+        "name": "MigrationStrategy",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Modernize",
+            "value": "Modernize",
+            "description": "Modernize the workload to a managed or PaaS target."
+          },
+          {
+            "name": "AVS",
+            "value": "AVS",
+            "description": "Migrate the workload to Azure VMware Solution (AVS)."
+          },
+          {
+            "name": "LiftAndShift",
+            "value": "LiftAndShift",
+            "description": "Lift and shift the workload to Azure IaaS."
+          }
+        ]
+      }
+    },
+    "PlanType": {
+      "type": "string",
+      "description": "The type of a Migrate plan. Data center is the first supported kind; the type is extensible so additional plan kinds can be introduced in future versions.",
+      "enum": [
+        "DataCenter"
+      ],
+      "x-ms-enum": {
+        "name": "PlanType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "DataCenter",
+            "value": "DataCenter",
+            "description": "A data center plan spanning the full set of plan artifacts for a Migrate project."
+          }
+        ]
+      }
+    },
+    "Status": {
+      "type": "string",
+      "description": "The status of a Migrate plan or one of its artifacts.",
+      "enum": [
+        "Created",
+        "Updated",
+        "Running",
+        "Completed",
+        "Invalid",
+        "OutOfSync",
+        "OutDated",
+        "Deleted",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "Status",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Created",
+            "value": "Created",
+            "description": "The plan or artifact has been created."
+          },
+          {
+            "name": "Updated",
+            "value": "Updated",
+            "description": "The plan or artifact has been updated."
+          },
+          {
+            "name": "Running",
+            "value": "Running",
+            "description": "The plan or artifact is currently running."
+          },
+          {
+            "name": "Completed",
+            "value": "Completed",
+            "description": "The plan or artifact has completed and is ready."
+          },
+          {
+            "name": "Invalid",
+            "value": "Invalid",
+            "description": "The plan or artifact is invalid."
+          },
+          {
+            "name": "OutOfSync",
+            "value": "OutOfSync",
+            "description": "The plan or artifact is out of sync."
+          },
+          {
+            "name": "OutDated",
+            "value": "OutDated",
+            "description": "The plan or artifact is out of date."
+          },
+          {
+            "name": "Deleted",
+            "value": "Deleted",
+            "description": "The plan or artifact has been deleted."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "The plan or artifact has failed."
+          }
+        ]
+      }
+    },
+    "VersionHistoryEntry": {
+      "type": "object",
+      "description": "A single version entry in the version history of a Migrate artifact.",
+      "properties": {
+        "versionId": {
+          "type": "string",
+          "description": "The identifier of this version, supplied by the client at creation time."
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The version number, assigned at commit time, starting at 1, indicating the ordering in versions."
+        },
+        "metadataHash": {
+          "type": "string",
+          "description": "The hash of the `metadata.json` present in this version, formatted as `{algorithm}:<hex>`."
+        },
+        "committedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp, in UTC, at which this version was committed."
+        }
+      },
+      "required": [
+        "versionId",
+        "version",
+        "metadataHash",
+        "committedAt"
+      ]
+    }
+  },
+  "parameters": {
+    "ArtifactListQueryParams": {
+      "name": "$filter",
+      "in": "query",
+      "description": "An OData `$filter` expression to constrain the returned artifacts. Supported filters are `associatedResourceId eq '<armResourceId>'` and `artifactType eq '<ArtifactType>'`, which may be combined with `and`.",
+      "required": false,
+      "type": "string",
+      "x-ms-parameter-location": "method",
+      "x-ms-client-name": "filter"
+    }
+  }
+}

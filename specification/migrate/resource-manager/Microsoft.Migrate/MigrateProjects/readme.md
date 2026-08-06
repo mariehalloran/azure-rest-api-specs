@@ -26,16 +26,16 @@ These are the global settings for the API.
 
 ```yaml
 openapi-type: arm
-tag: package-preview-2026-06
+tag: package-preview-2026-06-15
 ```
 
-### Tag: package-preview-2026-06
+### Tag: package-preview-2026-06-15
 
-These settings apply only when `--tag=package-preview-2026-06` is specified on the command line.
+These settings apply only when `--tag=package-preview-2026-06-15` is specified on the command line.
 
-```yaml $(tag) == 'package-preview-2026-06'
+```yaml $(tag) == 'package-preview-2026-06-15'
 input-file:
-  - preview/2026-06-01-preview/migrateProjects.json
+  - preview/2026-06-15-preview/migrateProjects.json
 suppressions:
   - code: OperationsAPIImplementation
     reason: Microsoft.Migrate resource provider has one RP with multiple SDKs. Operations API is centrally implemented at the AssessmentProjects level and intentionally excluded from individual service specifications to avoid duplication across multiple SDK instances.
@@ -57,12 +57,24 @@ suppressions:
     reason: The generateDownloadUrl action is an ARM asynchronous operation whose terminal state is reported exclusively via the Azure-AsyncOperation header (final-state-via azure-async-operation). The 202 intentionally omits the Location header because there is no interim result resource to poll; clients poll the subscription/location-scoped operationStatuses status monitor referenced by Azure-AsyncOperation. The Location header required by RPC-Async-V1-07 does not apply to this azure-async-operation-only polling model.
 ```
 
+### Tag: package-preview-2026-06
+
+These settings apply only when `--tag=package-preview-2026-06` is specified on the command line.
+
+```yaml $(tag) == 'package-preview-2026-06'
+input-file:
+  - preview/2026-06-01-preview/migrateProjects.json
+suppressions:
+  - code: OperationsAPIImplementation
+    reason: Microsoft.Migrate resource provider has one RP with multiple SDKs. Operations API is centrally implemented at the AssessmentProjects level and intentionally excluded from individual service specifications to avoid duplication across multiple SDK instances.
+```
+
 ## Suppression
 
 ```yaml
 directive:
   - suppress: SECRET_PROPERTY
-    from: preview/2026-06-01-preview/migrateProjects.json
+    from: preview/2026-06-15-preview/migrateProjects.json
     where: $.definitions.GenerateDownloadUrlResult.properties.sasUrl
     reason: The read-only sasUrl is a short-lived, per-request download credential produced only by the generateDownloadUrl POST action and surfaced through its asynchronous operation status monitor. All clients with `Microsoft.Migrate/locations/operationStatuses/read` (or higher) should (intentionally) be able to use the storage resource referred to by the read-only SAS URL, as per the product design of Azure Migrate.
 ```
