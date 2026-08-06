@@ -555,7 +555,12 @@ model KeyVaultProperties {
   /**
    * The user assigned identity (Azure resource id) that has access to the key.
    */
-  userIdentity?: string;
+  @typeChangedFrom(Versions.v2026_07_21_preview, string)
+  userIdentity?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedIdentity/userAssignedIdentities";
+    }
+  ]>;
 }
 
 /**
@@ -597,7 +602,11 @@ model KeyVaultPropertiesUpdate {
   /**
    * The user assigned identity (Azure resource id) that has access to the key.
    */
-  userIdentity?: string;
+  userIdentity?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedIdentity/userAssignedIdentities";
+    }
+  ]>;
 }
 
 /**
@@ -637,7 +646,12 @@ model EdsKeyVaultPropertiesIdentity {
   /**
    * The user assigned identity (Azure resource id) that has access to the key. This property is required if identityType is 'UserAssigned'.
    */
-  userAssignedIdentityId?: string;
+  @typeChangedFrom(Versions.v2026_07_21_preview, string)
+  userAssignedIdentityId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedIdentity/userAssignedIdentities";
+    }
+  ]>;
 }
 
 /**
@@ -749,7 +763,7 @@ model UpgradeSettings {
   upgradePolicy?: UpgradePolicy = UpgradePolicy.Automatic;
 
   /**
-   * Indicates the readiness status of the instance for upgrade.
+   * Indicates the readiness status of the instance for upgrade. The `markReadyForUpgrade` action is a convenience wrapper that sets this same field; both mechanisms drive the same state transition.
    */
   readyForUpgrade?: ReadyForUpgrade = ReadyForUpgrade.NotApplicable;
 
@@ -771,7 +785,7 @@ model UpgradeSettingsUpdate {
   upgradePolicy?: UpgradePolicy;
 
   /**
-   * Indicates the readiness status of the instance for upgrade.
+   * Indicates the readiness status of the instance for upgrade. The `markReadyForUpgrade` action is a convenience wrapper that sets this same field; both mechanisms drive the same state transition.
    */
   readyForUpgrade?: ReadyForUpgrade;
 }

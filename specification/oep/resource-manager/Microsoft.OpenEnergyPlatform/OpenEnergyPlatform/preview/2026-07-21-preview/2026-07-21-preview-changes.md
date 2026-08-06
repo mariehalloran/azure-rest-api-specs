@@ -117,9 +117,18 @@ Not patchable:
 - Acronyms are expanded on first use: `ADME` → "Azure Data Manager for Energy (ADME)", `ACZ` →
   "Analytics Consumption Zone (ACZ)".
 - Identity property descriptions use "Azure resource id" (not "ARM resource id").
-- `Acz.identity.userAssignedIdentityId` is typed as
+- User-assigned managed identity resource-id properties are typed as
   `armResourceIdentifier<[{ type: "Microsoft.ManagedIdentity/userAssignedIdentities" }]>`, emitting
-  `format: arm-id` with `x-ms-arm-id-details`.
+  `format: arm-id` with `x-ms-arm-id-details`. This covers `AczIdentity.userAssignedIdentityId`
+  (new), plus `KeyVaultProperties.userIdentity` and `EdsKeyVaultPropertiesIdentity.userAssignedIdentityId`
+  — the latter two are version-gated (`@typeChangedFrom`), so `2026-02-02-preview` keeps them as
+  plain `string`.
+- PATCH-only mirror models (`EncryptionUpdate`, `KeyVaultPropertiesUpdate`, `EdsUpdate`,
+  `EdsKeyVaultPropertiesUpdate`) reuse the same SDK property names (`x-ms-client-name`) as their
+  PUT/GET counterparts, so a logical field keeps one SDK identifier across PUT/GET/PATCH. SDK-name
+  only; no wire impact.
+- `readyForUpgrade` doc: notes that the `markReadyForUpgrade` action is a convenience wrapper over
+  the same field (both drive the same state transition).
 - `geoRedundancy` doc: omitting the property leaves geo-redundancy not enabled (it defaulted to
   `Enabled` in `2026-02-02-preview`).
 - `checkNameAvailability` tag is `Locations` (the interface is named `Locations`; operationId

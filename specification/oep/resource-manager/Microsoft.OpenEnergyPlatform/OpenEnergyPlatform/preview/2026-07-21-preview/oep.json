@@ -1698,8 +1698,16 @@
         },
         "userAssignedIdentityId": {
           "type": "string",
+          "format": "arm-id",
           "description": "The user assigned identity (Azure resource id) that has access to the key. This property is required if identityType is 'UserAssigned'.",
-          "x-ms-client-name": "UserAssignedIdentity"
+          "x-ms-client-name": "UserAssignedIdentity",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.ManagedIdentity/userAssignedIdentities"
+              }
+            ]
+          }
         }
       }
     },
@@ -1709,7 +1717,8 @@
       "properties": {
         "keyVaultUri": {
           "type": "string",
-          "description": "The Uri of the key vault."
+          "description": "The Uri of the key vault.",
+          "x-ms-client-name": "KeyVaultUri"
         },
         "identity": {
           "$ref": "#/definitions/EdsKeyVaultPropertiesIdentity",
@@ -1723,7 +1732,8 @@
       "properties": {
         "keyVaultProperties": {
           "$ref": "#/definitions/EdsKeyVaultPropertiesUpdate",
-          "description": "Properties of KeyVault"
+          "description": "Properties of KeyVault",
+          "x-ms-client-name": "EdsKeyVaultProperties"
         }
       }
     },
@@ -1763,7 +1773,8 @@
       "properties": {
         "keyVaultProperties": {
           "$ref": "#/definitions/KeyVaultPropertiesUpdate",
-          "description": "Properties of KeyVault"
+          "description": "Properties of KeyVault",
+          "x-ms-client-name": "KeyVaultProperties"
         },
         "keySource": {
           "$ref": "#/definitions/keySource",
@@ -2179,8 +2190,16 @@
         },
         "userIdentity": {
           "type": "string",
+          "format": "arm-id",
           "description": "The user assigned identity (Azure resource id) that has access to the key.",
-          "x-ms-client-name": "UserIdentity"
+          "x-ms-client-name": "UserIdentity",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.ManagedIdentity/userAssignedIdentities"
+              }
+            ]
+          }
         }
       },
       "required": [
@@ -2194,19 +2213,31 @@
       "properties": {
         "keyName": {
           "type": "string",
-          "description": "The name of the key vault key."
+          "description": "The name of the key vault key.",
+          "x-ms-client-name": "KeyName"
         },
         "keyVersion": {
           "type": "string",
-          "description": "The version of the key vault key."
+          "description": "The version of the key vault key.",
+          "x-ms-client-name": "KeyVersion"
         },
         "keyVaultUri": {
           "type": "string",
-          "description": "The Uri of the key vault."
+          "description": "The Uri of the key vault.",
+          "x-ms-client-name": "KeyVaultUri"
         },
         "userIdentity": {
           "type": "string",
-          "description": "The user assigned identity (Azure resource id) that has access to the key."
+          "format": "arm-id",
+          "description": "The user assigned identity (Azure resource id) that has access to the key.",
+          "x-ms-client-name": "UserIdentity",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.ManagedIdentity/userAssignedIdentities"
+              }
+            ]
+          }
         }
       }
     },
@@ -2614,7 +2645,7 @@
         },
         "readyForUpgrade": {
           "type": "string",
-          "description": "Indicates the readiness status of the instance for upgrade.",
+          "description": "Indicates the readiness status of the instance for upgrade. The `markReadyForUpgrade` action is a convenience wrapper that sets this same field; both mechanisms drive the same state transition.",
           "default": "NotApplicable",
           "enum": [
             "NotApplicable",
@@ -2661,7 +2692,7 @@
         },
         "readyForUpgrade": {
           "$ref": "#/definitions/readyForUpgrade",
-          "description": "Indicates the readiness status of the instance for upgrade."
+          "description": "Indicates the readiness status of the instance for upgrade. The `markReadyForUpgrade` action is a convenience wrapper that sets this same field; both mechanisms drive the same state transition."
         }
       }
     },

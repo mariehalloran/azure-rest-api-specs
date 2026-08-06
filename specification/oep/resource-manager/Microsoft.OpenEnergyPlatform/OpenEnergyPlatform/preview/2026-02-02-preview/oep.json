@@ -2559,7 +2559,7 @@
         },
         "readyForUpgrade": {
           "type": "string",
-          "description": "Indicates the readiness status of the instance for upgrade.",
+          "description": "Indicates the readiness status of the instance for upgrade. The `markReadyForUpgrade` action is a convenience wrapper that sets this same field; both mechanisms drive the same state transition.",
           "default": "NotApplicable",
           "enum": [
             "NotApplicable",
