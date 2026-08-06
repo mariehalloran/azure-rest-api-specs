@@ -29,8 +29,6 @@ model Cluster is TrackedResource<ClusterProperties> {
   @visibility(Lifecycle.Read)
   @path
   name: string;
-
-  ...ResourceSkuProperty;
 }
 
 scalar WorkspaceResourceId
