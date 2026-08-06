@@ -90,7 +90,7 @@ model HealthModelProperties {
   dataPlaneUri?: url;
 
   @added(Versions.v2026_09_01_preview)
-  @doc("Controls public-network access to the data plane only; Default `Disabled` value denies all data-plane requests.")
+  @doc("Controls public-network access to the data plane only. Defaults to `Enabled`.")
   publicNetworkAccess?: PublicNetworkAccess;
 
   @added(Versions.v2026_09_01_preview)
