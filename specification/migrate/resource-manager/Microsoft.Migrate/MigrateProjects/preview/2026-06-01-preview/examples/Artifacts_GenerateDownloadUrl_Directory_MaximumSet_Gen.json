@@ -1,0 +1,37 @@
+{
+  "title": "Artifacts_GenerateDownloadUrl_Directory_MaximumSet_Gen",
+  "operationId": "Artifacts_GenerateDownloadUrl",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "4bd2aa0f-2bd2-4d67-91a8-5a4533d58600",
+    "resourceGroupName": "myResourceGroup",
+    "projectName": "myMigrateProject",
+    "artifactName": "myArtifact",
+    "body": {
+      "versionId": "v-2026070100",
+      "version": 7,
+      "mode": "directory",
+      "path": "reports",
+      "includeMetadata": false
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "artifactName": "myArtifact",
+        "versionId": "v-2026070100",
+        "version": 7,
+        "mode": "directory",
+        "path": "reports",
+        "sasUrl": "https://mystorageaccount.blob.core.windows.net/artifacts/reports.zip?${sasToken}",
+        "expiresAt": "2026-07-01T01:00:00.000Z"
+      }
+    },
+    "202": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/providers/Microsoft.Migrate/locations/eastus/operationStatuses/00000000-0000-0000-0000-000000000001?api-version=2026-06-01-preview",
+        "Retry-After": 10
+      }
+    }
+  }
+}

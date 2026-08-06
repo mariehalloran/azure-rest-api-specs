@@ -1,0 +1,26 @@
+{
+  "title": "OperationStatus_Get_Failed",
+  "operationId": "OperationStatus_Get",
+  "parameters": {
+    "api-version": "2026-06-01-preview",
+    "subscriptionId": "4bd2aa0f-2bd2-4d67-91a8-5a4533d58600",
+    "location": "eastus",
+    "operationId": "00000000-0000-0000-0000-000000000001"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/providers/Microsoft.Migrate/locations/eastus/operationStatuses/00000000-0000-0000-0000-000000000001",
+        "name": "00000000-0000-0000-0000-000000000001",
+        "status": "Failed",
+        "startTime": "2026-07-01T00:55:00.000Z",
+        "endTime": "2026-07-01T00:56:10.000Z",
+        "percentComplete": 100,
+        "error": {
+          "code": "DownloadArchiveGenerationFailed",
+          "message": "The download archive could not be generated because one or more blobs in the requested directory were unavailable."
+        }
+      }
+    }
+  }
+}
