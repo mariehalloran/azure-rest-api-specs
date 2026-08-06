@@ -30,26 +30,7 @@ model Cluster is TrackedResource<ClusterProperties> {
   @path
   name: string;
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Cluster intentionally uses a service-defined custom SKU model (ClusterSku) with a closed value set (FullyManaged, Customizable) rather than the common-types ARM Sku; the standard resource-envelope SKU shape does not apply to this design."
-  @doc("The SKU for this cluster.")
-  sku?: ClusterSku;
-}
-
-@doc("Represents the SKU for a Cluster.")
-model ClusterSku {
-  @doc("The SKU name.")
-  name?: ClusterSkuName;
-}
-
-@doc("Represents the SKU name for a Cluster.")
-union ClusterSkuName {
-  string,
-
-  @doc("A fully managed cluster SKU where infrastructure is managed by the platform.")
-  FullyManaged: "FullyManaged",
-
-  @doc("A customizable cluster SKU.")
-  Customizable: "Customizable",
+  ...ResourceSkuProperty;
 }
 
 scalar WorkspaceResourceId

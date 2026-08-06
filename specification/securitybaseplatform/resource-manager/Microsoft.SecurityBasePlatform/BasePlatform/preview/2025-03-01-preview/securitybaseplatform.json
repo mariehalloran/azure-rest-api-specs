@@ -802,8 +802,8 @@
           "description": "The resource-specific properties for this resource."
         },
         "sku": {
-          "$ref": "#/definitions/ClusterSku",
-          "description": "The SKU for this cluster."
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/Sku",
+          "description": "The SKU (Stock Keeping Unit) assigned to this resource."
         }
       },
       "allOf": [
@@ -933,47 +933,13 @@
         "clusterKind"
       ]
     },
-    "ClusterSku": {
-      "type": "object",
-      "description": "Represents the SKU for a Cluster.",
-      "properties": {
-        "name": {
-          "$ref": "#/definitions/ClusterSkuName",
-          "description": "The SKU name."
-        }
-      }
-    },
-    "ClusterSkuName": {
-      "type": "string",
-      "description": "Represents the SKU name for a Cluster.",
-      "enum": [
-        "FullyManaged",
-        "Customizable"
-      ],
-      "x-ms-enum": {
-        "name": "ClusterSkuName",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "FullyManaged",
-            "value": "FullyManaged",
-            "description": "A fully managed cluster SKU where infrastructure is managed by the platform."
-          },
-          {
-            "name": "Customizable",
-            "value": "Customizable",
-            "description": "A customizable cluster SKU."
-          }
-        ]
-      }
-    },
     "ClusterUpdate": {
       "type": "object",
       "description": "The type used for update operations of the Cluster.",
       "properties": {
         "sku": {
-          "$ref": "#/definitions/ClusterSku",
-          "description": "The SKU for this cluster."
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/Sku",
+          "description": "The SKU (Stock Keeping Unit) assigned to this resource."
         },
         "tags": {
           "type": "object",
