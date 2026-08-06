@@ -559,6 +559,48 @@ model KeyVaultProperties {
 }
 
 /**
+ * Properties to configure Encryption for a PATCH request. Mirrors Encryption but all sub-properties are optional and carry no defaults, so fields omitted from a JSON Merge Patch are left unchanged.
+ */
+@added(Versions.v2026_07_21_preview)
+model EncryptionUpdate {
+  /**
+   * Properties of KeyVault
+   */
+  keyVaultProperties?: KeyVaultPropertiesUpdate;
+
+  /**
+   * The encryption keySource (provider). Possible values (case-insensitive):  Microsoft.Keyvault
+   */
+  keySource?: KeySource;
+}
+
+/**
+ * KeyVault properties for an Encryption PATCH request. All fields are optional so unspecified values are preserved.
+ */
+@added(Versions.v2026_07_21_preview)
+model KeyVaultPropertiesUpdate {
+  /**
+   * The name of the key vault key.
+   */
+  keyName?: string;
+
+  /**
+   * The version of the key vault key.
+   */
+  keyVersion?: string;
+
+  /**
+   * The Uri of the key vault.
+   */
+  keyVaultUri?: string;
+
+  /**
+   * The user assigned identity (Azure resource id) that has access to the key.
+   */
+  userIdentity?: string;
+}
+
+/**
  * Properties to configure EDS
  */
 model Eds {
@@ -786,7 +828,8 @@ model EnergyServiceUpdateProperties {
   /**
    * Properties to configure Encryption
    */
-  encryption?: Encryption;
+  @typeChangedFrom(Versions.v2026_07_21_preview, Encryption)
+  encryption?: EncryptionUpdate;
 
   /**
    * The SKU of the energy service. Only the capacity can be updated.

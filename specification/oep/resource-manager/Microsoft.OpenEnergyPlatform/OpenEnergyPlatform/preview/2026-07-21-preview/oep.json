@@ -1757,6 +1757,20 @@
         }
       }
     },
+    "EncryptionUpdate": {
+      "type": "object",
+      "description": "Properties to configure Encryption for a PATCH request. Mirrors Encryption but all sub-properties are optional and carry no defaults, so fields omitted from a JSON Merge Patch are left unchanged.",
+      "properties": {
+        "keyVaultProperties": {
+          "$ref": "#/definitions/KeyVaultPropertiesUpdate",
+          "description": "Properties of KeyVault"
+        },
+        "keySource": {
+          "$ref": "#/definitions/keySource",
+          "description": "The encryption keySource (provider). Possible values (case-insensitive):  Microsoft.Keyvault"
+        }
+      }
+    },
     "EnergyResourceUpdate": {
       "type": "object",
       "description": "The resource model definition used for updating a tracked ARM resource.",
@@ -1935,7 +1949,7 @@
       "description": "The properties of an Energy service resource patch.",
       "properties": {
         "encryption": {
-          "$ref": "#/definitions/Encryption",
+          "$ref": "#/definitions/EncryptionUpdate",
           "description": "Properties to configure Encryption"
         },
         "sku": {
@@ -2173,6 +2187,28 @@
         "keyName",
         "keyVaultUri"
       ]
+    },
+    "KeyVaultPropertiesUpdate": {
+      "type": "object",
+      "description": "KeyVault properties for an Encryption PATCH request. All fields are optional so unspecified values are preserved.",
+      "properties": {
+        "keyName": {
+          "type": "string",
+          "description": "The name of the key vault key."
+        },
+        "keyVersion": {
+          "type": "string",
+          "description": "The version of the key vault key."
+        },
+        "keyVaultUri": {
+          "type": "string",
+          "description": "The Uri of the key vault."
+        },
+        "userIdentity": {
+          "type": "string",
+          "description": "The user assigned identity (Azure resource id) that has access to the key."
+        }
+      }
     },
     "PrivateEndpointConnectionProxy": {
       "type": "object",
@@ -2685,6 +2721,24 @@
             "name": "PATCH",
             "value": "PATCH",
             "description": "Allow HTTP PATCH requests."
+          }
+        ]
+      }
+    },
+    "keySource": {
+      "type": "string",
+      "description": "The encryption keySource (provider). Possible values (case-insensitive):  Microsoft.Keyvault",
+      "enum": [
+        "Microsoft.Keyvault"
+      ],
+      "x-ms-enum": {
+        "name": "keySource",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Microsoft.Keyvault",
+            "value": "Microsoft.Keyvault",
+            "description": "Use Microsoft Key Vault as the key provider for encryption."
           }
         ]
       }
