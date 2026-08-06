@@ -1,4 +1,4 @@
-import "./WebModels/MigratePlan.tsp";
+import "./MigratePlan.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
