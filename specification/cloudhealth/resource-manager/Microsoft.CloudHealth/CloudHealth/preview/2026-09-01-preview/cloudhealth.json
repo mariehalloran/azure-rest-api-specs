@@ -3409,29 +3409,8 @@
           "readOnly": true
         },
         "publicNetworkAccess": {
-          "type": "string",
-          "description": "Controls public-network access to the data plane only. Defaults to `Enabled`.",
-          "default": "Enabled",
-          "enum": [
-            "Enabled",
-            "Disabled"
-          ],
-          "x-ms-enum": {
-            "name": "PublicNetworkAccess",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "Enabled",
-                "value": "Enabled",
-                "description": "Data plane requests are allowed, subject to `dataPlaneIpAllowList`."
-              },
-              {
-                "name": "Disabled",
-                "value": "Disabled",
-                "description": "All data plane requests are denied."
-              }
-            ]
-          }
+          "$ref": "#/definitions/PublicNetworkAccess",
+          "description": "Controls public-network access to the data plane only. Defaults to `Enabled`."
         },
         "dataPlaneIpAllowList": {
           "type": "array",
@@ -3510,29 +3489,8 @@
       "description": "The updatable properties of the HealthModel.",
       "properties": {
         "publicNetworkAccess": {
-          "type": "string",
-          "description": "Controls public-network access to the data plane only. Defaults to `Enabled`.",
-          "default": "Enabled",
-          "enum": [
-            "Enabled",
-            "Disabled"
-          ],
-          "x-ms-enum": {
-            "name": "PublicNetworkAccess",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "Enabled",
-                "value": "Enabled",
-                "description": "Data plane requests are allowed, subject to `dataPlaneIpAllowList`."
-              },
-              {
-                "name": "Disabled",
-                "value": "Disabled",
-                "description": "All data plane requests are denied."
-              }
-            ]
-          }
+          "$ref": "#/definitions/PublicNetworkAccess",
+          "description": "Controls public-network access to the data plane only. Defaults to `Enabled`."
         },
         "dataPlaneIpAllowList": {
           "type": "array",
@@ -4038,6 +3996,30 @@
         }
       ],
       "x-ms-discriminator-value": "PrometheusMetricsQuery"
+    },
+    "PublicNetworkAccess": {
+      "type": "string",
+      "description": "Whether requests from the public network are allowed.",
+      "enum": [
+        "Enabled",
+        "Disabled"
+      ],
+      "x-ms-enum": {
+        "name": "PublicNetworkAccess",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Enabled",
+            "value": "Enabled",
+            "description": "Data plane requests are allowed, subject to `dataPlaneIpAllowList`."
+          },
+          {
+            "name": "Disabled",
+            "value": "Disabled",
+            "description": "All data plane requests are denied."
+          }
+        ]
+      }
     },
     "Relationship": {
       "type": "object",

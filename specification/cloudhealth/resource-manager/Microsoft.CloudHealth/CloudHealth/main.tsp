@@ -91,7 +91,7 @@ model HealthModelProperties {
 
   @added(Versions.v2026_09_01_preview)
   @doc("Controls public-network access to the data plane only. Defaults to `Enabled`.")
-  publicNetworkAccess?: PublicNetworkAccess = PublicNetworkAccess.Enabled;
+  publicNetworkAccess?: PublicNetworkAccess;
 
   @added(Versions.v2026_09_01_preview)
   @doc("IP addresses or CIDR ranges allowed to reach the data plane when `publicNetworkAccess` is `Enabled`. Empty array means all public IPs are allowed when `publicNetworkAccess` is `Enabled`.")
