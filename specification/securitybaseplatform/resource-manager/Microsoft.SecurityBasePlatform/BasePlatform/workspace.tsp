@@ -12,7 +12,7 @@ using Azure.ResourceManager;
 
 namespace Microsoft.SecurityBasePlatform;
 
-@doc("ARM resource ID of an Azure Container Registry.")
+@doc("Azure Resource Manager resource ID of an Azure Container Registry.")
 scalar ContainerRegistryResourceId
   extends Azure.Core.armResourceIdentifier<[
     {
@@ -63,7 +63,7 @@ model WorkspaceContainerRegistry {
   @visibility(Lifecycle.Read)
   name?: string;
 
-  @doc("The ARM resource ID of the Azure Container Registry.")
+  @doc("The Azure Resource Manager resource ID of the Azure Container Registry.")
   @visibility(Lifecycle.Read)
   resourceId?: ContainerRegistryResourceId;
 }
