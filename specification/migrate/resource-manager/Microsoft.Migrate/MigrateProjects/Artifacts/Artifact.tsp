@@ -104,7 +104,7 @@ model GenerateDownloadUrlRequest {
   @doc("Whether to download a single file or a directory within the artifact.")
   mode: DownloadMode;
 
-  @doc("The path, relative to the artifact root, of the file or directory to download.")
+  @doc("The path within the artifact version. In single-file mode, a non-empty path is required. In directory mode, an empty string or `/` selects the whole artifact version; otherwise, the value is treated as a directory prefix.")
   path: string;
 
   @doc("Whether to include metadata alongside the downloaded content.")

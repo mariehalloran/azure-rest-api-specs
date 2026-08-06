@@ -47,14 +47,6 @@ suppressions:
     from: migrateProjects.json
     where: $.definitions.GenerateDownloadUrlOperationStatus
     reason: GenerateDownloadUrlOperationStatus is the long-running-operation status monitor returned by the operationStatuses GET, not an ARM resource. Its top-level status/startTime/endTime/percentComplete/error properties are required by the ARM async operation status result contract; the LRO poller reads status from the top level, so these properties cannot be moved into a properties bag without breaking asynchronous polling.
-  - code: EnumInsteadOfBoolean
-    from: migrateProjects.json
-    where: $.definitions.GenerateDownloadUrlRequest.properties.includeMetadata
-    reason: includeMetadata is a genuine two-state include/exclude flag with no foreseeable additional states. Modeling it as an enum would add no descriptive value and would complicate client usage, so it is intentionally kept as a boolean.
-  - code: LroLocationHeader
-    from: migrateProjects.json
-    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/migrateProjects/{projectName}/artifacts/{artifactName}/generateDownloadUrl"].post.responses["202"].headers
-    reason: The generateDownloadUrl action is an ARM asynchronous operation whose terminal state is reported exclusively via the Azure-AsyncOperation header (final-state-via azure-async-operation). The 202 intentionally omits the Location header because there is no interim result resource to poll; clients poll the subscription/location-scoped operationStatuses status monitor referenced by Azure-AsyncOperation. The Location header required by RPC-Async-V1-07 does not apply to this azure-async-operation-only polling model.
 ```
 
 ### Tag: package-preview-2026-06

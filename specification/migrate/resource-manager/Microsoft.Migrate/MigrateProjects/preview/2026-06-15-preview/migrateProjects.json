@@ -963,7 +963,7 @@
         },
         "path": {
           "type": "string",
-          "description": "The path, relative to the artifact root, of the file or directory to download."
+          "description": "The path within the artifact version. In single-file mode, a non-empty path is required. In directory mode, an empty string or `/` selects the whole artifact version; otherwise, the value is treated as a directory prefix."
         },
         "includeMetadata": {
           "type": "boolean",
