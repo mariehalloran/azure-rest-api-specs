@@ -125,8 +125,8 @@ Not patchable:
 - `checkNameAvailability` tag is `Locations` (the interface is named `Locations`; operationId
   unchanged). Applies to both versions.
 - `GroupInformationProperties` uses composition (spreads `...PrivateLinkResourceProperties`) rather
-  than `extends`. The emitted definition inlines `groupId`/`requiredMembers`/`requiredZoneNames`
-  instead of an `allOf` reference; field visibility and the runtime JSON contract are unchanged.
+  than `extends`. The emitted definition lists `groupId`/`requiredMembers`/`requiredZoneNames`
+  inline instead of an `allOf` reference; field visibility and the runtime JSON contract are unchanged.
 
 ## Unchanged (carried over)
 
