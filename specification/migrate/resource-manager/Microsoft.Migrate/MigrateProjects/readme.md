@@ -2,7 +2,7 @@
 
 > see https://aka.ms/autorest
 
-This is the AutoRest configuration file for Azure Migrate - Plans.
+This is the AutoRest configuration file for Azure Migrate Projects and Plans.
 
 ---
 
@@ -35,7 +35,7 @@ These settings apply only when `--tag=package-preview-2026-06` is specified on t
 
 ```yaml $(tag) == 'package-preview-2026-06'
 input-file:
-  - preview/2026-06-01-preview/migratePlans.json
+  - preview/2026-06-01-preview/migrateProjects.json
 suppressions:
   - code: OperationsAPIImplementation
     reason: Microsoft.Migrate resource provider has one RP with multiple SDKs. Operations API is centrally implemented at the AssessmentProjects level and intentionally excluded from individual service specifications to avoid duplication across multiple SDK instances.
