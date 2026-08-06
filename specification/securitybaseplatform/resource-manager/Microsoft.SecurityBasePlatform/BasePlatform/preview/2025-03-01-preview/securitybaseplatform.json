@@ -907,6 +907,10 @@
           "$ref": "#/definitions/ClusterIngressConfig",
           "description": "Ingress configuration for the cluster. When omitted or disabled, the cluster has no ingress."
         },
+        "deploymentIdentity": {
+          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "description": "Managed identities used for this cluster's deployments. They are authorized to push container images to the workspace container registry and to deploy workloads to this cluster. Identity resource IDs are map keys in the userAssignedIdentities dictionary. May be changed after create."
+        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "The provisioning state of the resource.",

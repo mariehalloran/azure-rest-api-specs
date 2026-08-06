@@ -58,6 +58,9 @@ model ClusterProperties {
   @doc("Ingress configuration for the cluster. When omitted or disabled, the cluster has no ingress.")
   ingress?: ClusterIngressConfig;
 
+  @doc("Managed identities used for this cluster's deployments. They are authorized to push container images to the workspace container registry and to deploy workloads to this cluster. Identity resource IDs are map keys in the userAssignedIdentities dictionary. May be changed after create.")
+  deploymentIdentity?: Azure.ResourceManager.CommonTypes.ManagedServiceIdentity;
+
   @doc("The provisioning state of the resource.")
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
