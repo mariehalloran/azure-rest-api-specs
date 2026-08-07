@@ -271,6 +271,9 @@
         "x-ms-examples": {
           "CreateBlobAccessPointConfiguration": {
             "$ref": "./examples/BlobAccessPointConfigurations_Create.json"
+          },
+          "CreateBlobAccessPointConfigurationWithAzureNetAppFilesPrivateLink": {
+            "$ref": "./examples/BlobAccessPointConfigurations_Create_AzureNetAppFilesPrivateLink.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -1666,7 +1669,7 @@
           "$ref": "#/definitions/BlobAccessPointSourceProperties"
         }
       ],
-      "x-ms-discriminator-value": "Azure_NetApp_Files"
+      "x-ms-discriminator-value": "AzureNetAppFiles"
     },
     "BlobAccessPointAzureNetAppFilesSourcePropertiesUpdate": {
       "type": "object",
@@ -1686,11 +1689,55 @@
           "$ref": "#/definitions/BlobAccessPointSourcePropertiesUpdate"
         }
       ],
-      "x-ms-discriminator-value": "Azure_NetApp_Files"
+      "x-ms-discriminator-value": "AzureNetAppFiles"
+    },
+    "BlobAccessPointCommvaultSourceProperties": {
+      "type": "object",
+      "description": "A Commvault backing source.",
+      "properties": {
+        "connection": {
+          "$ref": "#/definitions/BlobAccessPointConnectionProperties",
+          "description": "Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards."
+        },
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthProperties",
+          "description": "Details for authenticating to the backing data source."
+        }
+      },
+      "required": [
+        "connection",
+        "auth"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointSourceProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "Commvault"
+    },
+    "BlobAccessPointCommvaultSourcePropertiesUpdate": {
+      "type": "object",
+      "description": "A Commvault backing source.",
+      "properties": {
+        "connection": {
+          "$ref": "#/definitions/BlobAccessPointConnectionPropertiesUpdate",
+          "description": "Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards."
+        },
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthPropertiesUpdate",
+          "description": "Details for authenticating to the backing data source."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointSourcePropertiesUpdate"
+        }
+      ],
+      "x-ms-discriminator-value": "Commvault"
     },
     "BlobAccessPointConfiguration": {
       "type": "object",
-      "description": "A BlobAccessPointConfiguration is a tracked ARM resource modeled as a sub-resource of a Storage Account.",
+      "description": "A BlobAccessPointConfiguration is a tracked Azure resource modeled as a sub-resource of a Storage Account.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/BlobAccessPointConfigurationProperties",
@@ -1738,35 +1785,8 @@
           "readOnly": true
         },
         "state": {
-          "type": "string",
-          "description": "The configuration state. A configuration is created in the Active state when this value is not specified.",
-          "default": "Active",
-          "enum": [
-            "Active",
-            "Inactive"
-          ],
-          "x-ms-enum": {
-            "name": "BlobAccessPointConfigurationState",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "Active",
-                "value": "Active",
-                "description": "The Blob Access Point configuration is active."
-              },
-              {
-                "name": "Inactive",
-                "value": "Inactive",
-                "description": "The Blob Access Point configuration is inactive."
-              }
-            ]
-          }
-        },
-        "creationTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The system-generated creation time.",
-          "readOnly": true
+          "$ref": "#/definitions/BlobAccessPointConfigurationState",
+          "description": "The configuration state. A configuration is created in the Active state when this value is not specified."
         },
         "description": {
           "type": "string",
@@ -1808,29 +1828,8 @@
       "description": "Details of a Blob Access Point configuration.",
       "properties": {
         "state": {
-          "type": "string",
-          "description": "The configuration state. A configuration is created in the Active state when this value is not specified.",
-          "default": "Active",
-          "enum": [
-            "Active",
-            "Inactive"
-          ],
-          "x-ms-enum": {
-            "name": "BlobAccessPointConfigurationState",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "Active",
-                "value": "Active",
-                "description": "The Blob Access Point configuration is active."
-              },
-              {
-                "name": "Inactive",
-                "value": "Inactive",
-                "description": "The Blob Access Point configuration is inactive."
-              }
-            ]
-          }
+          "$ref": "#/definitions/BlobAccessPointConfigurationState",
+          "description": "The configuration state. A configuration is created in the Active state when this value is not specified."
         },
         "description": {
           "type": "string",
@@ -1843,9 +1842,33 @@
         }
       }
     },
+    "BlobAccessPointConfigurationState": {
+      "type": "string",
+      "description": "The state of a Blob Access Point configuration.",
+      "enum": [
+        "Active",
+        "Inactive"
+      ],
+      "x-ms-enum": {
+        "name": "BlobAccessPointConfigurationState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Active",
+            "value": "Active",
+            "description": "The Blob Access Point configuration is active."
+          },
+          {
+            "name": "Inactive",
+            "value": "Inactive",
+            "description": "The Blob Access Point configuration is inactive."
+          }
+        ]
+      }
+    },
     "BlobAccessPointConfigurationUpdate": {
       "type": "object",
-      "description": "A BlobAccessPointConfiguration is a tracked ARM resource modeled as a sub-resource of a Storage Account.",
+      "description": "A BlobAccessPointConfiguration is a tracked Azure resource modeled as a sub-resource of a Storage Account.",
       "properties": {
         "properties": {
           "$ref": "#/definitions/BlobAccessPointConfigurationPropertiesUpdate",
@@ -1995,7 +2018,7 @@
           "$ref": "#/definitions/BlobAccessPointSourceProperties"
         }
       ],
-      "x-ms-discriminator-value": "Dell_OneFS"
+      "x-ms-discriminator-value": "DellOneFs"
     },
     "BlobAccessPointDellOneFsSourcePropertiesUpdate": {
       "type": "object",
@@ -2015,7 +2038,7 @@
           "$ref": "#/definitions/BlobAccessPointSourcePropertiesUpdate"
         }
       ],
-      "x-ms-discriminator-value": "Dell_OneFS"
+      "x-ms-discriminator-value": "DellOneFs"
     },
     "BlobAccessPointEndpointConnectionProperties": {
       "type": "object",
@@ -2032,29 +2055,8 @@
           ]
         },
         "tlsVerification": {
-          "type": "string",
-          "description": "TLS certificate verification behavior.",
-          "default": "Perform",
-          "enum": [
-            "Perform",
-            "Skip"
-          ],
-          "x-ms-enum": {
-            "name": "BlobAccessPointTlsVerification",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "Perform",
-                "value": "Perform",
-                "description": "Verify the TLS certificate chain."
-              },
-              {
-                "name": "Skip",
-                "value": "Skip",
-                "description": "Skip TLS certificate-chain verification."
-              }
-            ]
-          }
+          "$ref": "#/definitions/BlobAccessPointTlsVerification",
+          "description": "TLS certificate verification behavior. Defaults to Perform when not specified."
         }
       },
       "required": [
@@ -2072,29 +2074,8 @@
       "description": "A direct endpoint connection.",
       "properties": {
         "tlsVerification": {
-          "type": "string",
-          "description": "TLS certificate verification behavior.",
-          "default": "Perform",
-          "enum": [
-            "Perform",
-            "Skip"
-          ],
-          "x-ms-enum": {
-            "name": "BlobAccessPointTlsVerification",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "Perform",
-                "value": "Perform",
-                "description": "Verify the TLS certificate chain."
-              },
-              {
-                "name": "Skip",
-                "value": "Skip",
-                "description": "Skip TLS certificate-chain verification."
-              }
-            ]
-          }
+          "$ref": "#/definitions/BlobAccessPointTlsVerification",
+          "description": "TLS certificate verification behavior. Defaults to Perform when not specified."
         }
       },
       "allOf": [
@@ -2126,7 +2107,7 @@
           "$ref": "#/definitions/BlobAccessPointSourceProperties"
         }
       ],
-      "x-ms-discriminator-value": "S3_Compatible"
+      "x-ms-discriminator-value": "S3Compatible"
     },
     "BlobAccessPointGenericS3SourcePropertiesUpdate": {
       "type": "object",
@@ -2146,7 +2127,51 @@
           "$ref": "#/definitions/BlobAccessPointSourcePropertiesUpdate"
         }
       ],
-      "x-ms-discriminator-value": "S3_Compatible"
+      "x-ms-discriminator-value": "S3Compatible"
+    },
+    "BlobAccessPointNasuniSourceProperties": {
+      "type": "object",
+      "description": "A Nasuni backing source.",
+      "properties": {
+        "connection": {
+          "$ref": "#/definitions/BlobAccessPointConnectionProperties",
+          "description": "Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards."
+        },
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthProperties",
+          "description": "Details for authenticating to the backing data source."
+        }
+      },
+      "required": [
+        "connection",
+        "auth"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointSourceProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "Nasuni"
+    },
+    "BlobAccessPointNasuniSourcePropertiesUpdate": {
+      "type": "object",
+      "description": "A Nasuni backing source.",
+      "properties": {
+        "connection": {
+          "$ref": "#/definitions/BlobAccessPointConnectionPropertiesUpdate",
+          "description": "Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards."
+        },
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthPropertiesUpdate",
+          "description": "Details for authenticating to the backing data source."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointSourcePropertiesUpdate"
+        }
+      ],
+      "x-ms-discriminator-value": "Nasuni"
     },
     "BlobAccessPointNetAppOntapSourceProperties": {
       "type": "object",
@@ -2170,7 +2195,7 @@
           "$ref": "#/definitions/BlobAccessPointSourceProperties"
         }
       ],
-      "x-ms-discriminator-value": "NetApp_ONTAP"
+      "x-ms-discriminator-value": "NetAppOntap"
     },
     "BlobAccessPointNetAppOntapSourcePropertiesUpdate": {
       "type": "object",
@@ -2190,7 +2215,7 @@
           "$ref": "#/definitions/BlobAccessPointSourcePropertiesUpdate"
         }
       ],
-      "x-ms-discriminator-value": "NetApp_ONTAP"
+      "x-ms-discriminator-value": "NetAppOntap"
     },
     "BlobAccessPointPrivateLinkConnectionProperties": {
       "type": "object",
@@ -2247,29 +2272,8 @@
           ]
         },
         "tlsVerification": {
-          "type": "string",
-          "description": "TLS certificate verification behavior.",
-          "default": "Perform",
-          "enum": [
-            "Perform",
-            "Skip"
-          ],
-          "x-ms-enum": {
-            "name": "BlobAccessPointTlsVerification",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "Perform",
-                "value": "Perform",
-                "description": "Verify the TLS certificate chain."
-              },
-              {
-                "name": "Skip",
-                "value": "Skip",
-                "description": "Skip TLS certificate-chain verification."
-              }
-            ]
-          }
+          "$ref": "#/definitions/BlobAccessPointTlsVerification",
+          "description": "TLS certificate verification behavior. Defaults to Perform when not specified."
         },
         "privateEndpointName": {
           "type": "string",
@@ -2296,29 +2300,8 @@
       "description": "A connection established through Azure Private Link.",
       "properties": {
         "tlsVerification": {
-          "type": "string",
-          "description": "TLS certificate verification behavior.",
-          "default": "Perform",
-          "enum": [
-            "Perform",
-            "Skip"
-          ],
-          "x-ms-enum": {
-            "name": "BlobAccessPointTlsVerification",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "Perform",
-                "value": "Perform",
-                "description": "Verify the TLS certificate chain."
-              },
-              {
-                "name": "Skip",
-                "value": "Skip",
-                "description": "Skip TLS certificate-chain verification."
-              }
-            ]
-          }
+          "$ref": "#/definitions/BlobAccessPointTlsVerification",
+          "description": "TLS certificate verification behavior. Defaults to Perform when not specified."
         }
       },
       "allOf": [
@@ -2357,29 +2340,8 @@
       "description": "The request used to test a proposed Blob Access Point configuration.",
       "properties": {
         "state": {
-          "type": "string",
-          "description": "The configuration state. A configuration is created in the Active state when this value is not specified.",
-          "default": "Active",
-          "enum": [
-            "Active",
-            "Inactive"
-          ],
-          "x-ms-enum": {
-            "name": "BlobAccessPointConfigurationState",
-            "modelAsString": true,
-            "values": [
-              {
-                "name": "Active",
-                "value": "Active",
-                "description": "The Blob Access Point configuration is active."
-              },
-              {
-                "name": "Inactive",
-                "value": "Inactive",
-                "description": "The Blob Access Point configuration is inactive."
-              }
-            ]
-          }
+          "$ref": "#/definitions/BlobAccessPointConfigurationState",
+          "description": "The configuration state. A configuration is created in the Active state when this value is not specified."
         },
         "description": {
           "type": "string",
@@ -2394,6 +2356,50 @@
       "required": [
         "source"
       ]
+    },
+    "BlobAccessPointQumuloSourceProperties": {
+      "type": "object",
+      "description": "A Qumulo backing source.",
+      "properties": {
+        "connection": {
+          "$ref": "#/definitions/BlobAccessPointConnectionProperties",
+          "description": "Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards."
+        },
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthProperties",
+          "description": "Details for authenticating to the backing data source."
+        }
+      },
+      "required": [
+        "connection",
+        "auth"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointSourceProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "Qumulo"
+    },
+    "BlobAccessPointQumuloSourcePropertiesUpdate": {
+      "type": "object",
+      "description": "A Qumulo backing source.",
+      "properties": {
+        "connection": {
+          "$ref": "#/definitions/BlobAccessPointConnectionPropertiesUpdate",
+          "description": "Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards."
+        },
+        "auth": {
+          "$ref": "#/definitions/BlobAccessPointRemoteAuthPropertiesUpdate",
+          "description": "Details for authenticating to the backing data source."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/BlobAccessPointSourcePropertiesUpdate"
+        }
+      ],
+      "x-ms-discriminator-value": "Qumulo"
     },
     "BlobAccessPointRemoteAuthProperties": {
       "type": "object",
@@ -2473,34 +2479,76 @@
       "type": "string",
       "description": "The type of the non-Azure S3-compatible data source exposed through the Blob Access Point.",
       "enum": [
-        "NetApp_ONTAP",
-        "Azure_NetApp_Files",
-        "Dell_OneFS",
-        "S3_Compatible"
+        "NetAppOntap",
+        "AzureNetAppFiles",
+        "DellOneFs",
+        "Qumulo",
+        "Commvault",
+        "Nasuni",
+        "S3Compatible"
       ],
       "x-ms-enum": {
         "name": "BlobAccessPointSourceType",
         "modelAsString": true,
         "values": [
           {
-            "name": "NetApp_ONTAP",
-            "value": "NetApp_ONTAP",
+            "name": "NetAppOntap",
+            "value": "NetAppOntap",
             "description": "NetApp ONTAP."
           },
           {
-            "name": "Azure_NetApp_Files",
-            "value": "Azure_NetApp_Files",
+            "name": "AzureNetAppFiles",
+            "value": "AzureNetAppFiles",
             "description": "Azure NetApp Files."
           },
           {
-            "name": "Dell_OneFS",
-            "value": "Dell_OneFS",
+            "name": "DellOneFs",
+            "value": "DellOneFs",
             "description": "Dell OneFS."
           },
           {
-            "name": "S3_Compatible",
-            "value": "S3_Compatible",
+            "name": "Qumulo",
+            "value": "Qumulo",
+            "description": "Qumulo."
+          },
+          {
+            "name": "Commvault",
+            "value": "Commvault",
+            "description": "Commvault."
+          },
+          {
+            "name": "Nasuni",
+            "value": "Nasuni",
+            "description": "Nasuni."
+          },
+          {
+            "name": "S3Compatible",
+            "value": "S3Compatible",
             "description": "Another S3-compatible data source."
+          }
+        ]
+      }
+    },
+    "BlobAccessPointTlsVerification": {
+      "type": "string",
+      "description": "TLS certificate verification behavior.",
+      "enum": [
+        "Perform",
+        "Skip"
+      ],
+      "x-ms-enum": {
+        "name": "BlobAccessPointTlsVerification",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Perform",
+            "value": "Perform",
+            "description": "Verify the TLS certificate chain."
+          },
+          {
+            "name": "Skip",
+            "value": "Skip",
+            "description": "Skip TLS certificate-chain verification."
           }
         ]
       }

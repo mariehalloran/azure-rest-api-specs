@@ -100,7 +100,7 @@ interface DataShares {
   listByStorageAccount is ArmResourceListByParent<DataShare>;
 }
 
-@doc("A BlobAccessPointConfiguration is a tracked ARM resource modeled as a sub-resource of a Storage Account.")
+@doc("A BlobAccessPointConfiguration is a tracked Azure resource modeled as a sub-resource of a Storage Account.")
 @parentResource(StorageAccount)
 @added(Versions.v2026_09_01)
 model BlobAccessPointConfiguration is TrackedResource<

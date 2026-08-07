@@ -41,16 +41,28 @@ union BlobAccessPointConnectionTestStatus {
 @doc("The type of the non-Azure S3-compatible data source exposed through the Blob Access Point.")
 union BlobAccessPointSourceType {
   @doc("NetApp ONTAP.")
-  NetApp_ONTAP: "NetApp_ONTAP",
+  NetAppOntap: "NetAppOntap",
 
   @doc("Azure NetApp Files.")
-  Azure_NetApp_Files: "Azure_NetApp_Files",
+  AzureNetAppFiles: "AzureNetAppFiles",
 
   @doc("Dell OneFS.")
-  Dell_OneFS: "Dell_OneFS",
+  DellOneFs: "DellOneFs",
+
+  @added(Versions.v2026_09_01)
+  @doc("Qumulo.")
+  Qumulo: "Qumulo",
+
+  @added(Versions.v2026_09_01)
+  @doc("Commvault.")
+  Commvault: "Commvault",
+
+  @added(Versions.v2026_09_01)
+  @doc("Nasuni.")
+  Nasuni: "Nasuni",
 
   @doc("Another S3-compatible data source.")
-  S3_Compatible: "S3_Compatible",
+  S3Compatible: "S3Compatible",
 
   string,
 }
@@ -120,8 +132,8 @@ model BlobAccessPointEndpointConnectionProperties
   @minLength(4)
   endpoint: url;
 
-  @doc("TLS certificate verification behavior.")
-  tlsVerification?: BlobAccessPointTlsVerification = BlobAccessPointTlsVerification.Perform;
+  @doc("TLS certificate verification behavior. Defaults to Perform when not specified.")
+  tlsVerification?: BlobAccessPointTlsVerification;
 }
 
 @added(Versions.v2026_09_01)
@@ -156,8 +168,8 @@ model BlobAccessPointPrivateLinkConnectionProperties
   @minLength(4)
   endpoint: url;
 
-  @doc("TLS certificate verification behavior.")
-  tlsVerification?: BlobAccessPointTlsVerification = BlobAccessPointTlsVerification.Perform;
+  @doc("TLS certificate verification behavior. Defaults to Perform when not specified.")
+  tlsVerification?: BlobAccessPointTlsVerification;
 
   @visibility(Lifecycle.Read)
   @doc("The name of the private endpoint created by Azure Storage.")
@@ -204,22 +216,21 @@ model BlobAccessPointSourceProperties {
   sourceType: BlobAccessPointSourceType;
 }
 
-@added(Versions.v2026_09_01)
-@doc("Properties shared by every non-Azure S3-compatible backing source.")
-model BlobAccessPointS3CompatibleSourceProperties {
+/** Properties shared by every non-Azure S3-compatible backing source. */
+alias BlobAccessPointS3CompatibleSourceProperties = {
   @doc("Details for connecting to the backing data source. The connection target is fixed when the configuration is created; only the TLS verification behavior can be changed afterwards.")
   connection: BlobAccessPointConnectionProperties;
 
   @doc("Details for authenticating to the backing data source.")
   auth: BlobAccessPointRemoteAuthProperties;
-}
+};
 
 @added(Versions.v2026_09_01)
 @doc("A NetApp ONTAP backing source.")
 model BlobAccessPointNetAppOntapSourceProperties
   extends BlobAccessPointSourceProperties {
   @visibility(Lifecycle.Read)
-  sourceType: BlobAccessPointSourceType.NetApp_ONTAP;
+  sourceType: BlobAccessPointSourceType.NetAppOntap;
 
   ...BlobAccessPointS3CompatibleSourceProperties;
 }
@@ -229,7 +240,7 @@ model BlobAccessPointNetAppOntapSourceProperties
 model BlobAccessPointAzureNetAppFilesSourceProperties
   extends BlobAccessPointSourceProperties {
   @visibility(Lifecycle.Read)
-  sourceType: BlobAccessPointSourceType.Azure_NetApp_Files;
+  sourceType: BlobAccessPointSourceType.AzureNetAppFiles;
 
   ...BlobAccessPointS3CompatibleSourceProperties;
 }
@@ -239,7 +250,37 @@ model BlobAccessPointAzureNetAppFilesSourceProperties
 model BlobAccessPointDellOneFsSourceProperties
   extends BlobAccessPointSourceProperties {
   @visibility(Lifecycle.Read)
-  sourceType: BlobAccessPointSourceType.Dell_OneFS;
+  sourceType: BlobAccessPointSourceType.DellOneFs;
+
+  ...BlobAccessPointS3CompatibleSourceProperties;
+}
+
+@added(Versions.v2026_09_01)
+@doc("A Qumulo backing source.")
+model BlobAccessPointQumuloSourceProperties
+  extends BlobAccessPointSourceProperties {
+  @visibility(Lifecycle.Read)
+  sourceType: BlobAccessPointSourceType.Qumulo;
+
+  ...BlobAccessPointS3CompatibleSourceProperties;
+}
+
+@added(Versions.v2026_09_01)
+@doc("A Commvault backing source.")
+model BlobAccessPointCommvaultSourceProperties
+  extends BlobAccessPointSourceProperties {
+  @visibility(Lifecycle.Read)
+  sourceType: BlobAccessPointSourceType.Commvault;
+
+  ...BlobAccessPointS3CompatibleSourceProperties;
+}
+
+@added(Versions.v2026_09_01)
+@doc("A Nasuni backing source.")
+model BlobAccessPointNasuniSourceProperties
+  extends BlobAccessPointSourceProperties {
+  @visibility(Lifecycle.Read)
+  sourceType: BlobAccessPointSourceType.Nasuni;
 
   ...BlobAccessPointS3CompatibleSourceProperties;
 }
@@ -249,7 +290,7 @@ model BlobAccessPointDellOneFsSourceProperties
 model BlobAccessPointGenericS3SourceProperties
   extends BlobAccessPointSourceProperties {
   @visibility(Lifecycle.Read)
-  sourceType: BlobAccessPointSourceType.S3_Compatible;
+  sourceType: BlobAccessPointSourceType.S3Compatible;
 
   ...BlobAccessPointS3CompatibleSourceProperties;
 }
@@ -263,11 +304,7 @@ model BlobAccessPointConfigurationProperties {
   uniqueId?: string;
 
   @doc("The configuration state. A configuration is created in the Active state when this value is not specified.")
-  state?: BlobAccessPointConfigurationState = BlobAccessPointConfigurationState.Active;
-
-  @visibility(Lifecycle.Read)
-  @doc("The system-generated creation time.")
-  creationTime?: utcDateTime;
+  state?: BlobAccessPointConfigurationState;
 
   @maxLength(250)
   @doc("An arbitrary description of the Blob Access Point configuration.")

@@ -87,12 +87,14 @@ suppressions:
     from:
       - StorageDataManagementRP.json
     reason: >
-      Both PATCH contracts carry a state property that defaults to Active, and
-      both require a discriminator to select the concrete shape of the source
-      object being updated. The Connector contract is carried forward unchanged
-      from prior API versions.
+      The Connector PATCH contract is carried forward unchanged with a state
+      default and a required source discriminator. The DataShare PATCH contract
+      is also carried forward and contains required properties in nested
+      access-policy and asset items. Blob Access Point requires a source
+      discriminator to select the concrete polymorphic shape being updated.
     where:
       - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/connectors/{connectorName}"].patch.parameters[5].schema.properties.properties
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/dataShares/{dataShareName}"].patch.parameters[5].schema.properties.properties
       - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobAccessPointConfigurations/{blobAccessPointConfigurationName}"].patch.parameters[5].schema.properties.properties
 ```
 
