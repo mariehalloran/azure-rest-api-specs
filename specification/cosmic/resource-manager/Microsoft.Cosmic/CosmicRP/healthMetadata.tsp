@@ -51,7 +51,7 @@ model HealthMetadataProperties {
   @minItems(1)
   monitors: HealthMetadataMonitor[];
 
-  @doc("The provisioning state of the health metadata resource.")
+  /** The provisioning state of the health metadata resource. */
   @visibility(Lifecycle.Read)
   provisioningState?: CosmicProvisioningState;
 }
