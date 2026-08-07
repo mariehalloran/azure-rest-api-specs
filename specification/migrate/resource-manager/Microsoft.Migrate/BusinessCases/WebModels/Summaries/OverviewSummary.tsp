@@ -281,49 +281,6 @@ model ValueBenefitDetails {
   @visibility(Lifecycle.Read)
   @identifiers(#["pillar"])
   pillars: ValueBenefitPillar[];
-
-  @doc("Whether the shipped benchmark assumptions were used, or the customer has overridden at least one of them.")
-  @visibility(Lifecycle.Read)
-  confidenceLevel?: ValueBenefitConfidenceLevel;
-
-  @doc("""
-    The finance basis the net present value was computed on. Returned so a reviewer can reproduce
-    the figure without reading the cost assumptions resource separately.
-    """)
-  @visibility(Lifecycle.Read)
-  financeBasis?: ValueBenefitFinanceBasis;
-}
-
-@doc("""
-  Whether a value benefit was computed from the shipped benchmarks or from customer-overridden
-  assumptions. Drives whether the result is presented as an industry benchmark or as specific to
-  this customer, and a customized result is no longer comparable to the benchmark defaults.
-  """)
-@added(BusinessCaseApiVersions.v2026_06_06_preview)
-union ValueBenefitConfidenceLevel {
-  string,
-
-  @doc("The shipped industry benchmark assumptions were used with no customer overrides.")
-  Benchmark: "Benchmark",
-
-  @doc("The customer has overridden at least one assumption.")
-  Customized: "Customized",
-}
-
-@doc("The finance basis a value benefit net present value was computed on.")
-@added(BusinessCaseApiVersions.v2026_06_06_preview)
-model ValueBenefitFinanceBasis {
-  @doc("Number of years in the finance horizon, including the undiscounted first year.")
-  @visibility(Lifecycle.Read)
-  years: int32;
-
-  @doc("Weighted average cost of capital used as the discount rate, expressed as a fraction.")
-  @visibility(Lifecycle.Read)
-  wacc: float64;
-
-  @doc("Currency the value benefit amounts are expressed in, inherited from the business case.")
-  @visibility(Lifecycle.Read)
-  currency?: string;
 }
 
 @doc("Value benefit contributed by a single pillar.")
