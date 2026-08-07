@@ -102,7 +102,7 @@ interface MaintenancePlansCollectionRoutes {
   @tag("MaintenancePlans")
   @summary("List Maintenance Plans for a resource")
   @doc("Lists all Maintenance Plans for a resource.")
-  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{providerName}/{resourceType}/{resourceName}/providers/Microsoft.Maintenance/maintenancePlans")
+  @route("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{providerName}/{resourceType}/{resourceName}/providers/Microsoft.Maintenance/maintenancePlans")
   @get
   @list
   list(

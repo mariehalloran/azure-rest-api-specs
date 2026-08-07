@@ -149,3 +149,9 @@ using Microsoft.Maintenance;
 );
 @@clientLocation(UpdatesOperationGroup.listParent, "Updates");
 @@clientLocation(UpdatesOperationGroup.list, "Updates");
+
+// Back compat - keep the resource group segment in the path in all lowercase instead of camelCase.
+@@TypeSpec.Rest.segment(
+  Azure.ResourceManager.ResourceGroupParameter.resourceGroupName,
+  "resourcegroups"
+);
