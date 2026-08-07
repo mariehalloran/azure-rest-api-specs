@@ -9,6 +9,7 @@ using OpenAPI;
 
 namespace Microsoft.Migrate;
 
+@added(ApiVersions.v2026_06_01_preview)
 @doc("A Migrate plan (Data Center Plan).")
 @parentResource(MigrateProject)
 model MigratePlan is ProxyResource<MigratePlanProperties> {
@@ -21,6 +22,7 @@ model MigratePlan is ProxyResource<MigratePlanProperties> {
   name: string;
 }
 
+@added(ApiVersions.v2026_06_01_preview)
 @doc("The properties of a Migrate plan (Data Center Plan).")
 model MigratePlanProperties {
   @doc("The type of the plan. Defaults to 'DataCenter' when not specified.")
@@ -53,12 +55,14 @@ model MigratePlanProperties {
   error?: MigratePlanErrorDetails;
 }
 
+@added(ApiVersions.v2026_06_01_preview)
 @doc("The settings for a Migrate plan.")
 model MigratePlanSettings {
   @doc("The migration strategy selected for the plan.")
   migrationStrategy?: MigrationStrategy;
 }
 
+@added(ApiVersions.v2026_06_01_preview)
 @doc("The collection of artifacts associated with a Migrate plan.")
 model MigratePlanArtifacts {
   @doc("The discovery artifact.")
@@ -83,6 +87,7 @@ model MigratePlanArtifacts {
   ameReports?: MigratePlanStrategyArtifact[];
 }
 
+@added(ApiVersions.v2026_06_01_preview)
 @doc("The base representation of an artifact within a Migrate plan.")
 model MigratePlanArtifact {
   @doc("The status of the artifact.")
@@ -94,6 +99,7 @@ model MigratePlanArtifact {
   error?: MigratePlanErrorDetails;
 }
 
+@added(ApiVersions.v2026_06_01_preview)
 @doc("The discovery artifact for a Migrate plan.")
 model MigratePlanDiscoveryArtifact {
   ...MigratePlanArtifact;
@@ -102,6 +108,7 @@ model MigratePlanDiscoveryArtifact {
   scope?: MigratePlanDiscoveryScope;
 }
 
+@added(ApiVersions.v2026_06_01_preview)
 @doc("The scope that controls which resources are included in discovery for a Migrate plan.")
 model MigratePlanDiscoveryScope {
   @doc("The Azure Resource Graph query used to scope discovery.")
@@ -109,6 +116,7 @@ model MigratePlanDiscoveryScope {
   azureResourceGraphQuery?: string;
 }
 
+@added(ApiVersions.v2026_06_01_preview)
 @doc("The details of an error encountered during Migrate plan generation.")
 model MigratePlanErrorDetails {
   @doc("The error code.")
@@ -124,6 +132,7 @@ model MigratePlanErrorDetails {
   updatedTimeStamp?: utcDateTime;
 }
 
+@added(ApiVersions.v2026_06_01_preview)
 @doc("An artifact within a Migrate plan that is backed by a source resource.")
 model MigratePlanSourceArtifact {
   @doc("The Azure Resource Manager ID of the source resource for this artifact.")
@@ -132,6 +141,7 @@ model MigratePlanSourceArtifact {
   ...MigratePlanArtifact;
 }
 
+@added(ApiVersions.v2026_06_01_preview)
 @doc("An artifact within a Migrate plan that is associated with a migration strategy.")
 model MigratePlanStrategyArtifact {
   ...MigratePlanSourceArtifact;
