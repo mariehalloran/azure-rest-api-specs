@@ -14,6 +14,9 @@ import "./MigrateProjects/MigrateProject.tsp";
 // Migrate plan (Data Center Plan) routes.
 import "./MigratePlans/routes.tsp";
 
+// Migrate artifact routes.
+import "./Artifacts/routes.tsp";
+
 using TypeSpec.Http;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
