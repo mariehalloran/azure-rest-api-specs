@@ -35,7 +35,7 @@ model MaintenancePlansResponseProperties {
   endTimeUtc: utcDateTime;
 
   /** Scope of the maintenance plan (Ex: Flighting, AllProf etc.). */
-  updateScope: MaintenancePlansUpdateScope = MaintenancePlansUpdateScope.None;
+  updateScope: MaintenancePlansUpdateScope;
 
   /**
    * Version to update to.
@@ -56,9 +56,6 @@ enum MaintenancePlansState {
 /** Maintenance Plan Update Scope. */
 #suppress "@azure-tools/typespec-azure-core/no-enum" "MaintenancePlansUpdateScope is constrained to a fixed set of values."
 enum MaintenancePlansUpdateScope {
-  /** The default update scope. No updates are applied when specified, preventing errors when customers explicitly indicate no update intent. */
-  None: "None",
-
   /** Apply flighting firmware updates on the node. */
   FlightingNodeFirmwareUpdates: "FlightingNodeFirmwareUpdates",
 
@@ -91,6 +88,26 @@ enum MaintenancePlansUpdateScope {
 
   /** Customer specifies via versionToUpdate what package they want us to update. */
   Custom: "Custom",
+
+  /** @deprecated Legacy single-node flighting enum member. Use FlightingNodeFirmwareUpdates or FlightingRackFirmwareUpdates. */
+  #deprecated "Use FlightingNodeFirmwareUpdates or FlightingRackFirmwareUpdates"
+  FlightingNodeFirmwareUpdatesOnly: "FlightingNodeFirmwareUpdatesOnly",
+
+  /** @deprecated Legacy node qualified update enum member. Use QualifiedNodeFirmwareUpdates or QualifiedRackFirmwareUpdates. */
+  #deprecated "Use QualifiedNodeFirmwareUpdates or QualifiedRackFirmwareUpdates"
+  QualifiedNodeFirmwareUpdatesOnly: "QualifiedNodeFirmwareUpdatesOnly",
+
+  /** @deprecated Legacy node critical impactless enum member. Use CriticalNodeImpactlessUpdates or CriticalRackImpactlessUpdates. */
+  #deprecated "Use CriticalNodeImpactlessUpdates or CriticalRackImpactlessUpdates"
+  CriticalImpactlessUpdatesOnly: "CriticalImpactlessUpdatesOnly",
+
+  /** @deprecated Legacy node critical impactful enum member. Use CriticalNodeImpactfulUpdates or CriticalRackImpactfulUpdates. */
+  #deprecated "Use CriticalNodeImpactfulUpdates or CriticalRackImpactfulUpdates"
+  CriticalImpactfulUpdatesOnly: "CriticalImpactfulUpdatesOnly",
+
+  /** @deprecated Legacy qualified update enum member. Use QualifiedNodeAllUpdates or QualifiedRackAllUpdates. */
+  #deprecated "Use QualifiedNodeAllUpdates or QualifiedRackAllUpdates"
+  AllQualifiedUpdates: "AllQualifiedUpdates",
 }
 
 /**
