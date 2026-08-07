@@ -74,9 +74,11 @@ interface AgentFabrics {
   update is ArmTagsPatchSync<AgentFabric>;
   delete is ArmResourceDeleteWithoutOkAsync<
     AgentFabric,
-    Response = ArmDeleteAcceptedLroResponse<ArmAsyncOperationHeader &
-      ArmLroLocationHeader &
-      Azure.Core.Foundations.RetryAfterHeader> | ArmDeletedNoContentResponse
+    Response =
+      | ArmDeleteAcceptedLroResponse<ArmAsyncOperationHeader &
+          ArmLroLocationHeader &
+          Azure.Core.Foundations.RetryAfterHeader>
+      | ArmDeletedNoContentResponse
   >;
   listByResourceGroup is ArmResourceListByParent<AgentFabric>;
   listBySubscription is ArmListBySubscription<AgentFabric>;
@@ -816,9 +818,11 @@ interface PolicyGroups {
   update is ArmTagsPatchSync<PolicyGroup>;
   delete is ArmResourceDeleteWithoutOkAsync<
     PolicyGroup,
-    Response = ArmDeleteAcceptedLroResponse<ArmAsyncOperationHeader &
-      ArmLroLocationHeader &
-      Azure.Core.Foundations.RetryAfterHeader> | ArmDeletedNoContentResponse
+    Response =
+      | ArmDeleteAcceptedLroResponse<ArmAsyncOperationHeader &
+          ArmLroLocationHeader &
+          Azure.Core.Foundations.RetryAfterHeader>
+      | ArmDeletedNoContentResponse
   >;
   listByResourceGroup is ArmResourceListByParent<PolicyGroup>;
   listBySubscription is ArmListBySubscription<PolicyGroup>;
