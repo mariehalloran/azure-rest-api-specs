@@ -45,6 +45,12 @@ union RequestType {
 
   @doc("Subscription provisioning request.")
   Subscription: "Subscription",
+
+  @doc("Application consent request. A non-billable production automation request that grants first-party application consent for the specified billing scope.")
+  AppConsent: "AppConsent",
+
+  @doc("PC (Profit Center) code update request. A non-billable production automation request that updates the PC code / service group mapping for the specified billing scope.")
+  PCCodeUpdate: "PCCodeUpdate",
 }
 
 @doc("The account type to create.")
@@ -421,6 +427,134 @@ model RequestContext {
 
   @doc("The tenant context. Required when requestType is 'Tenant'.")
   tenantContext?: TenantContext;
+
+  @doc("The application consent context. Required when requestType is 'AppConsent'.")
+  appConsentContext?: AppConsentContext;
+
+  @doc("The PC code update context. Required when requestType is 'PCCodeUpdate'.")
+  pcCodeUpdateContext?: PCCodeUpdateContext;
+}
+
+@doc("The Azure environment (cloud) that an application consent selection applies to.")
+union AzureEnvironment {
+  string,
+
+  @doc("The Azure public cloud.")
+  Public: "Public",
+
+  @doc("The Azure production environment.")
+  Prod: "Prod",
+
+  @doc("The Azure US Government (Fairfax) cloud.")
+  Fairfax: "Fairfax",
+
+  @doc("The Azure China (Mooncake) cloud.")
+  Mooncake: "Mooncake",
+
+  @doc("The Azure Germany (Blackforest) cloud.")
+  Blackforest: "Blackforest",
+
+  @doc("The test environment.")
+  Test: "Test",
+
+  @doc("The dogfood environment.")
+  Dog: "Dog",
+
+  @doc("The development environment.")
+  Development: "Development",
+
+  @doc("The US Nat air-gapped cloud.")
+  UsNat: "USNat",
+
+  @doc("The US Sec air-gapped cloud.")
+  UsSec: "USSec",
+
+  @doc("The CBV environment.")
+  Cbv: "Cbv",
+
+  @doc("The France cloud.")
+  France: "France",
+
+  @doc("The Delos air-gapped cloud.")
+  Delos: "Delos",
+}
+
+@doc("The first-party application consent grant for a single tenant.")
+model TenantAppConsent {
+  @doc("The tenant ID (GUID) the applications belong to.")
+  tenantId: string;
+
+  @doc("The first-party application IDs (GUIDs) to grant consent for in this tenant.")
+  applicationIds: string[];
+}
+
+@doc("The application consent selections for a single Azure environment.")
+model AppConsentEnvironmentSelection {
+  @doc("The Azure environment (cloud) the consent applies to.")
+  environment: AzureEnvironment;
+
+  @doc("The per-tenant application consent grants for this environment.")
+  @identifiers(#["tenantId"])
+  tenants: TenantAppConsent[];
+}
+
+@doc("Configuration for an application consent request. Grants first-party application consent for a billing scope. AppConsent is a non-billable production automation request.")
+model AppConsentContext {
+  @doc("Whether this is a HOBO (hosted-on-behalf-of) consent. Defaults to false server-side.")
+  isHobo?: boolean;
+
+  @doc("The Service Tree ID (GUID) of the billing service that owns the consent.")
+  billingServiceTreeId: string;
+
+  @doc("The display name of the billing service that owns the consent.")
+  billingServiceName: string;
+
+  @doc("The applications to consent, grouped by Azure environment then by tenant.")
+  @identifiers(#["environment"])
+  appsConsentPerTenant?: AppConsentEnvironmentSelection[];
+}
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "'PCCode' is the Profit Center code domain acronym; this casing matches the enum and field names already serialized by the deployed BAMI service (e.g. RequestType.PCCodeUpdate, currentPCCode), so the spec must preserve it to stay wire-accurate."
+@doc("Configuration for a PC (Profit Center) code update request. Updates the PC code / service group mapping for a billing scope. PCCodeUpdate is a non-billable production automation request.")
+model PCCodeUpdateContext {
+  #suppress "@azure-tools/typespec-azure-core/casing-style" "'currentPCCode' matches the field name already serialized by the deployed BAMI service (Profit Center code domain term); renaming would diverge the spec from the wire contract."
+  @doc("The current PC code prior to the update.")
+  currentPCCode?: string;
+
+  @doc("The Service Tree ID (GUID) of the billing service that owns the subscriptions.")
+  billingServiceTreeId?: string;
+
+  @doc("The display name of the billing service that owns the subscriptions.")
+  billingServiceName?: string;
+
+  @doc("The subscription IDs to update. Used for subscription-scoped PC code updates.")
+  subscriptionIds?: string[];
+
+  @doc("The source service group ID. Used for service-group-scoped PC code updates.")
+  serviceGroupId?: string;
+
+  @doc("The target service group ID to move the subscriptions to.")
+  targetServiceGroupId?: string;
+
+  @doc("The target service group display name.")
+  targetServiceGroupName?: string;
+
+  @doc("The per-service subscription selections for a service-group-scoped PC code update.")
+  @identifiers(#["serviceTreeId"])
+  serviceSelections?: PCCodeUpdateServiceSelection[];
+}
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "'PCCode' is the Profit Center code domain acronym; this casing matches the enum and field names already serialized by the deployed BAMI service (e.g. RequestType.PCCodeUpdate, currentPCCode), so the spec must preserve it to stay wire-accurate."
+@doc("A service and its selected subscriptions within a service-group-scoped PC code update.")
+model PCCodeUpdateServiceSelection {
+  @doc("The service identifier (Service Tree ID, GUID) within the service group.")
+  serviceTreeId?: string;
+
+  @doc("The service display name.")
+  serviceName?: string;
+
+  @doc("The subscription IDs selected under this service.")
+  subscriptionIds?: string[];
 }
 
 // ─── Fulfillment Models ─────────────────────────────────────────────────────
@@ -516,6 +650,46 @@ model FieldLedRequestFulfillmentDetail {
   errorDetail?: FulfillmentErrorDetail;
 }
 
+@doc("Fulfillment details for a completed application consent request.")
+model AppConsentFulfillmentDetail {
+  @doc("The billing profile ID associated with the consent.")
+  billingProfileId?: string;
+
+  @doc("The invoice section ID associated with the consent.")
+  invoiceSectionId?: string;
+
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Consent fulfillment tags are a dynamic string-to-string map; an explicit type is not applicable."
+  @doc("Tags applied as part of the consent fulfillment.")
+  tags?: Record<string>;
+
+  @doc("Error details if the application consent failed.")
+  errorDetail?: FulfillmentErrorDetail;
+}
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "'PCCode' is the Profit Center code domain acronym; this casing matches the enum and field names already serialized by the deployed BAMI service (e.g. RequestType.PCCodeUpdate, currentPCCode), so the spec must preserve it to stay wire-accurate."
+@doc("Fulfillment details for a completed PC code update request.")
+model PCCodeUpdateFulfillmentDetail {
+  @doc("The transfer ID generated for a subscription-scoped PC code update.")
+  transferId?: string;
+
+  @doc("The per-service transfer IDs generated for a service-group-scoped PC code update.")
+  @identifiers(#["serviceTreeId"])
+  serviceTransferIds?: PCCodeUpdateServiceTransfer[];
+
+  @doc("Error details if the PC code update failed.")
+  errorDetail?: FulfillmentErrorDetail;
+}
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "'PCCode' is the Profit Center code domain acronym; this casing matches the enum and field names already serialized by the deployed BAMI service (e.g. RequestType.PCCodeUpdate, currentPCCode), so the spec must preserve it to stay wire-accurate."
+@doc("The transfer ID produced for a single service within a service-group-scoped PC code update.")
+model PCCodeUpdateServiceTransfer {
+  @doc("The service identifier (Service Tree ID, GUID) the transfer belongs to.")
+  serviceTreeId?: string;
+
+  @doc("The transfer ID generated for the service.")
+  transferId?: string;
+}
+
 @doc("Result details for a completed automation request. The populated fields depend on the requestType.")
 model RequestFulfillmentDetails {
   @doc("The organization info with full domain name (subdomain + suffix). Populated for Account and Tenant requests.")
@@ -535,6 +709,14 @@ model RequestFulfillmentDetails {
 
   @doc("The signup entity used for tenant creation. Contains organization info and user info.")
   signupEntity?: SignupEntity;
+
+  @doc("The application consent fulfillment details. Populated for AppConsent requests.")
+  @visibility(Lifecycle.Read)
+  appConsentFulfillmentDetail?: AppConsentFulfillmentDetail;
+
+  @doc("The PC code update fulfillment details. Populated for PCCodeUpdate requests.")
+  @visibility(Lifecycle.Read)
+  pcCodeUpdateFulfillmentDetail?: PCCodeUpdateFulfillmentDetail;
 }
 
 // ─── Cancel Request Body ─────────────────────────────────────────────────────
@@ -554,18 +736,24 @@ model AutomationRequestProperties {
   provisioningState?: ProvisioningState;
 
   @doc("The type of request to create.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   requestType: RequestType;
 
   @doc("The account type to create. Required for Account requests.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   accountType?: AccountType;
 
-  @doc("The estimated monthly spend in USD for this test account. Must be greater than zero.")
-  estimatedMonthlySpend: float64;
+  @doc("The estimated monthly spend in USD for this test account. Required and must be greater than zero for billable request types (Account, Subscription, Tenant). Optional for non-billable production request types (AppConsent, PCCodeUpdate).")
+  @minValue(0)
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  estimatedMonthlySpend?: float64;
 
   @doc("Business justification for this request. Optional — when omitted, the value is taken from the parent ApplicationEntitlement's businessJustification (captured at onboarding time). Free-form text MUST NOT contain customer data, PII, or secrets.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   businessJustification?: string;
 
   @doc("The test account context containing all configuration for the request.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   context: RequestContext;
 
   @doc("The current processing status of the request.")
@@ -707,9 +895,12 @@ interface AutomationRequests {
   createOrUpdate is ArmResourceCreateOrUpdateAsync<AutomationRequestResource>;
 
   @doc("Update an automation request.")
-  update is ArmResourcePatchSync<
+  update is ArmCustomPatchSync<
     AutomationRequestResource,
-    AutomationRequestProperties
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      AutomationRequestResource,
+      AutomationRequestProperties
+    >
   >;
 
   @doc("Delete an automation request.")
@@ -735,9 +926,12 @@ interface ApplicationEntitlements {
   createOrUpdate is ArmResourceCreateOrUpdateAsync<ApplicationEntitlementResource>;
 
   @doc("Update application entitlement.")
-  update is ArmResourcePatchSync<
+  update is ArmCustomPatchSync<
     ApplicationEntitlementResource,
-    ApplicationEntitlementProperties
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      ApplicationEntitlementResource,
+      ApplicationEntitlementProperties
+    >
   >;
 
   @doc("Delete application entitlement.")

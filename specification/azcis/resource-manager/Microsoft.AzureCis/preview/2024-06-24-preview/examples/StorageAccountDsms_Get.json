@@ -122,6 +122,15 @@
             }
           ],
           "requireInfrastructureEncryption": false,
+          "blobDeleteRetentionPolicy": {
+            "enabled": true,
+            "days": 7
+          },
+          "containerDeleteRetentionPolicy": {
+            "enabled": true,
+            "days": 7
+          },
+          "minimumTlsVersion": "TLS1_2",
           "properties": {
             "purpose": "dSMSTest",
             "sampleProperty1": "sampleValue1",

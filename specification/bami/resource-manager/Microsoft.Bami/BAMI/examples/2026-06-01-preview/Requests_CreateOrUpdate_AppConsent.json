@@ -1,0 +1,78 @@
+{
+  "operationId": "AutomationRequests_CreateOrUpdate",
+  "title": "Create or Update AppConsent Request",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "myResourceGroup",
+    "api-version": "2026-06-01-preview",
+    "applicationEntitlementId": "cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa",
+    "requestId": "5a1b7c3d-9e2f-4a6b-8c0d-1e2f3a4b5c6d",
+    "resource": {
+      "location": "centralus",
+      "properties": {
+        "requestType": "AppConsent",
+        "businessJustification": "Grant first-party application consent for billing service onboarding.",
+        "context": {
+          "appConsentContext": {
+            "isHobo": false,
+            "billingServiceTreeId": "11111111-2222-3333-4444-555555555555",
+            "billingServiceName": "Contoso Billing Service",
+            "appsConsentPerTenant": [
+              {
+                "environment": "Public",
+                "tenants": [
+                  {
+                    "tenantId": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                    "applicationIds": [
+                      "99999999-8888-7777-6666-555555555555"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Bami/applicationEntitlements/cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa/requests/5a1b7c3d-9e2f-4a6b-8c0d-1e2f3a4b5c6d",
+        "name": "5a1b7c3d-9e2f-4a6b-8c0d-1e2f3a4b5c6d",
+        "type": "Microsoft.Bami/applicationEntitlements/requests",
+        "location": "centralus",
+        "properties": {
+          "requestStatus": "Started",
+          "requestType": "AppConsent",
+          "businessJustification": "Grant first-party application consent for billing service onboarding.",
+          "serviceName": "Contoso Billing Service",
+          "createdDate": "2026-03-06T12:00:00Z",
+          "lastModifiedDate": "2026-03-06T12:00:00Z",
+          "context": {}
+        }
+      }
+    },
+    "201": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Bami/locations/global/operationStatuses/5a1b7c3d-9e2f-4a6b-8c0d-1e2f3a4b5c6d?api-version=2026-06-01-preview",
+        "Retry-After": 10
+      },
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Bami/applicationEntitlements/cccccccc-dddd-eeee-ffff-aaaaaaaaaaaa/requests/5a1b7c3d-9e2f-4a6b-8c0d-1e2f3a4b5c6d",
+        "name": "5a1b7c3d-9e2f-4a6b-8c0d-1e2f3a4b5c6d",
+        "type": "Microsoft.Bami/applicationEntitlements/requests",
+        "location": "centralus",
+        "properties": {
+          "requestStatus": "Started",
+          "requestType": "AppConsent",
+          "businessJustification": "Grant first-party application consent for billing service onboarding.",
+          "serviceName": "Contoso Billing Service",
+          "createdDate": "2026-03-06T12:00:00Z",
+          "lastModifiedDate": "2026-03-06T12:00:00Z",
+          "context": {}
+        }
+      }
+    }
+  }
+}

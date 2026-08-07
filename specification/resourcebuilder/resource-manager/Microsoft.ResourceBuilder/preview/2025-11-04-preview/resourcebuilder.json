@@ -341,7 +341,7 @@
         "tags": [
           "Workspaces"
         ],
-        "description": "Delete a Workspace",
+        "description": "Delete a workspace.\n\nDeleting a workspace cascades to all child resources (datasets, data connections, pipelines, jobs,\nand runs), which are removed as part of the ARM delete. A workspace is not subject to active-consumer\ndependency validation, so this delete is not blocked by references between its child resources.\n\nThe cascade is performed asynchronously: the service returns 202 Accepted with a Location header\nto poll, or 204 No Content when the workspace does not exist.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -362,8 +362,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -379,7 +390,11 @@
           "Workspaces_Delete": {
             "$ref": "./examples/Workspaces_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceBuilder/workspaces/{workspaceName}/dataConnections": {
@@ -562,7 +577,7 @@
         "tags": [
           "DataConnections"
         ],
-        "description": "Delete a DataConnection",
+        "description": "Delete a data connection.\n\nDelete-time dependency validation is enforced. A data connection cannot be deleted while one or\nmore datasets in the same workspace still reference it through `DatasetProperties.connection.id`.\nIf any consuming dataset exists, the delete is rejected with the `ResourceDeleteHasActiveConsumers`\nerror (code `ARB-RP-228`) and the data connection is not deleted. The error reports the total number of consumers and\nreturns links to the consuming datasets, each with the property path of the reference.\n\nRequired steps before deleting a data connection:\n1. Identify every dataset in the workspace whose `properties.connection.id` references this data connection.\n2. For each consuming dataset, either update it to reference a different data connection (detach)\nor delete the dataset.\n3. Once no dataset references this data connection, retry this delete request.\n\nThe delete is performed asynchronously: the service returns 202 Accepted with a Location header\nto poll, or 204 No Content when the data connection does not exist.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -591,8 +606,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -608,7 +634,11 @@
           "DataConnections_Delete": {
             "$ref": "./examples/DataConnections_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceBuilder/workspaces/{workspaceName}/datasets": {
@@ -797,7 +827,7 @@
         "tags": [
           "Datasets"
         ],
-        "description": "Delete a Dataset",
+        "description": "Delete a dataset.\n\nDelete-time dependency validation is enforced. A dataset cannot be deleted while one or more jobs\nstill reference it as an input or output through `JobProperties.inputs` or `JobProperties.outputs`\n(via `JobDataset.dataset`). If any consuming job exists, the delete is rejected with the\n`ResourceDeleteHasActiveConsumers` error (code `ARB-RP-228`) and the dataset is not deleted. The error reports the total\nnumber of consumers and returns links to the consuming jobs, each with the property path of the reference.\n\nRequired steps before deleting a dataset:\n1. Identify every job whose `properties.inputs` or `properties.outputs` reference this dataset.\n2. For each consuming job, either update it to remove the reference to this dataset or delete the job\n(and, where applicable, the pipeline that contains it).\n3. Once no job references this dataset, retry this delete request.\n\nThe delete is performed asynchronously: the service returns 202 Accepted with a Location header\nto poll, or 204 No Content when the dataset does not exist.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -826,8 +856,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -843,7 +884,11 @@
           "Datasets_Delete": {
             "$ref": "./examples/Datasets_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceBuilder/workspaces/{workspaceName}/pipelines": {
@@ -1023,7 +1068,7 @@
         "tags": [
           "Pipelines"
         ],
-        "description": "Delete a Pipeline",
+        "description": "Delete a pipeline.\n\nDeleting a pipeline cascades to its child resources (jobs and runs), which are removed as part of\nthe ARM delete. A pipeline is not subject to active-consumer dependency validation, so this delete\nis not blocked by references from its child jobs.\n\nThe cascade is performed asynchronously: the service returns 202 Accepted with a Location header\nto poll, or 204 No Content when the pipeline does not exist.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -1052,8 +1097,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -1069,7 +1125,11 @@
           "Pipelines_Delete": {
             "$ref": "./examples/Pipelines_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceBuilder/workspaces/{workspaceName}/pipelines/{pipelineName}/jobs": {
@@ -1285,7 +1345,7 @@
         "tags": [
           "Jobs"
         ],
-        "description": "Delete a Job",
+        "description": "Delete a job.\n\nDelete-time dependency validation is enforced. A job cannot be deleted while its parent pipeline\nstill references it by name through `PipelineProperties.activities[].job` (a `ReferencePipelineJob`).\nIf the parent pipeline references this job, the delete is rejected with the\n`ResourceDeleteHasActiveConsumers` error (code `ARB-RP-228`) and the job is not deleted. The error reports the consuming\npipeline and the property path of the reference.\n\nRequired steps before deleting a job:\n1. Update the parent pipeline to remove the activity that references this job, or delete the pipeline.\n2. Once no pipeline activity references this job, retry this delete request.\n\nThe delete is performed asynchronously: the service returns 202 Accepted with a Location header\nto poll, or 204 No Content when the job does not exist.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -1322,8 +1382,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -1339,7 +1410,11 @@
           "Jobs_Delete": {
             "$ref": "./examples/Jobs_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceBuilder/workspaces/{workspaceName}/pipelines/{pipelineName}/triggerRun": {
@@ -1711,7 +1786,7 @@
     },
     "DataConnectionReference": {
       "type": "object",
-      "description": "Data connection reference. Used to link a dataset to an existing data connection resource.",
+      "description": "Data connection reference. Used to link a dataset to an existing data connection resource.\n\nWhile a dataset holds this reference, the referenced data connection cannot be deleted.\nDetach the reference (update the dataset) or delete the dataset before deleting the data connection.",
       "properties": {
         "id": {
           "type": "string",
@@ -2285,7 +2360,7 @@
         },
         "connection": {
           "$ref": "#/definitions/DataConnectionReference",
-          "description": "Reference to an existing data connection resource that provides the source connection for this dataset."
+          "description": "Reference to an existing data connection resource that provides the source connection for this dataset.\nWhile this reference is set, the referenced data connection cannot be deleted until the dataset is\nupdated to remove the reference or the dataset itself is deleted."
         },
         "path": {
           "type": "string",
@@ -2295,7 +2370,7 @@
     },
     "DatasetReference": {
       "type": "object",
-      "description": "Dataset reference",
+      "description": "Dataset reference.\nWhile a job references a dataset (as an input or output), that dataset cannot be deleted.\nUpdate the job to remove the reference or delete the job before deleting the dataset.",
       "properties": {
         "id": {
           "type": "string",

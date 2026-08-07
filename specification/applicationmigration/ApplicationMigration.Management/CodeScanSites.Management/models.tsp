@@ -87,6 +87,7 @@ union IssueCategory {
   string,
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("SAS URI response model.")
 model SasUriResponse {
   @doc("The SAS URI for uploading reports.")
@@ -94,6 +95,7 @@ model SasUriResponse {
   sasUri: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Process report request model.")
 model ProcessReportRequest {
   @doc("Properties for processing the report.")
@@ -110,6 +112,7 @@ model ProcessReportProperties {
   reportType: ReportType;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Model representing the status of the process report operation.")
 model ProcessReportOperationStatusResponse {
   @doc("Additional properties applicable for process report operation status result")

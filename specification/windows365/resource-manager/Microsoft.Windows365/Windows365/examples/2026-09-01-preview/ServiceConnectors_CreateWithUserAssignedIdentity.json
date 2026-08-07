@@ -1,0 +1,62 @@
+{
+  "parameters": {
+    "api-version": "2026-09-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg1",
+    "serviceConnectorName": "connector1",
+    "resource": {
+      "location": "eastus2",
+      "identity": {
+        "type": "UserAssigned",
+        "userAssignedIdentities": {
+          "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identity1": {}
+        }
+      },
+      "properties": {}
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Windows365/serviceConnectors/connector1",
+        "name": "connector1",
+        "type": "Microsoft.Windows365/serviceConnectors",
+        "location": "eastus2",
+        "identity": {
+          "type": "UserAssigned",
+          "userAssignedIdentities": {
+            "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identity1": {
+              "clientId": "33333333-3333-3333-3333-333333333333",
+              "principalId": "44444444-4444-4444-4444-444444444444"
+            }
+          }
+        },
+        "properties": {
+          "provisioningState": "Succeeded"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Windows365/serviceConnectors/connector1",
+        "name": "connector1",
+        "type": "Microsoft.Windows365/serviceConnectors",
+        "location": "eastus2",
+        "identity": {
+          "type": "UserAssigned",
+          "userAssignedIdentities": {
+            "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identity1": {
+              "clientId": "33333333-3333-3333-3333-333333333333",
+              "principalId": "44444444-4444-4444-4444-444444444444"
+            }
+          }
+        },
+        "properties": {
+          "provisioningState": "Succeeded"
+        }
+      }
+    }
+  },
+  "operationId": "ServiceConnector_CreateOrUpdate",
+  "title": "Create a service connector with a user-assigned identity"
+}

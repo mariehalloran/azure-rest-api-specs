@@ -38,19 +38,47 @@
           "checkName": "cpu-utilization-check",
           "description": "Verify CPU utilization is reporting data and within acceptable range",
           "metricName": "CpuUtilizationMax",
+          "namespace": "NfaDeviceMetrics",
+          "dimensionFilters": [
+            {
+              "dimensionName": "FabricId",
+              "value": "FabricId"
+            }
+          ],
           "timeWindowMinutes": 15,
+          "samplingIntervalMinutes": 15,
+          "bucketAggregation": "Average",
+          "samplingType": "Max",
+          "perResultDimensionName": "DeviceId",
           "operator": "GreaterThan",
-          "expectedValue": "0",
+          "expectedValue": 0,
           "maxAllowedFailures": 0
         },
         {
           "checkName": "device-reachability-check",
           "description": "Verify device connectivity is reporting data",
           "metricName": "DeviceReachability",
+          "namespace": "NfaDeviceMetrics",
+          "dimensionFilters": [
+            {
+              "dimensionName": "FabricId",
+              "value": "FabricId"
+            }
+          ],
           "timeWindowMinutes": 60,
+          "samplingIntervalMinutes": 15,
+          "bucketAggregation": "Average",
+          "samplingType": "Max",
+          "perResultDimensionName": "DeviceId",
           "operator": "Equals",
-          "expectedValue": "1",
+          "expectedValue": 1,
           "maxAllowedFailures": 1
+        }
+      ],
+      "overrideChecks": [
+        {
+          "checkName": "custom-ntp-check",
+          "justification": "NTP drift on this device is known and being remediated separately; waived for this validation."
         }
       ]
     }
@@ -65,21 +93,17 @@
         "endTime": "2026-04-17T17:03:00Z",
         "properties": {
           "validationId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-          "expiresAt": "2026-04-18T17:00:00Z",
+          "validationTime": "2026-04-17T17:03:00Z",
           "validationResult": "Passed",
           "resultUrl": "https://customerstorageaccount.blob.core.windows.net/validation-reports/example-device-UpgradePrecheck-2026-04-17T17-00-00Z.json",
           "currentVersion": "7.0.0",
           "targetVersion": "8.0.0",
-          "successfulDevices": [
-            "/subscriptions/0000ABCD-0A0B-0000-0000-000000ABCDEF/resourceGroups/example-rg/providers/Microsoft.ManagedNetworkFabric/networkDevices/example-device"
-          ],
-          "failedDevices": [],
           "checkResults": [
             {
               "checkName": "ResourceHealthCheck",
               "category": "ImplicitBaseline",
               "result": "Passed",
-              "message": "All fabric resources are in healthy state.",
+              "message": "The device is in a healthy state.",
               "impactedResources": []
             },
             {
