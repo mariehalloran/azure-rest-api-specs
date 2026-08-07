@@ -50,15 +50,15 @@ union BlobAccessPointSourceType {
   DellOneFs: "DellOneFs",
 
   @added(Versions.v2026_09_01)
-  @doc("Qumulo.")
+  @doc("Qumulo S3-compatible data source.")
   Qumulo: "Qumulo",
 
   @added(Versions.v2026_09_01)
-  @doc("Commvault.")
+  @doc("Commvault S3-compatible data source.")
   Commvault: "Commvault",
 
   @added(Versions.v2026_09_01)
-  @doc("Nasuni.")
+  @doc("Nasuni S3-compatible data source.")
   Nasuni: "Nasuni",
 
   @doc("Another S3-compatible data source.")
