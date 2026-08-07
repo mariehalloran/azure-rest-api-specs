@@ -2934,7 +2934,7 @@
         "costSavingsAnnual": {
           "type": "number",
           "format": "double",
-          "description": "Annual infrastructure cost savings, the difference between the on-premises and the Azure cost.",
+          "description": "Annual infrastructure cost savings, the on-premises cost less the future-state cost.\n\nMeasured against the future-state cost rather than the Azure cost, so that any on-premises\nfootprint the customer keeps running is charged against the saving instead of being ignored.",
           "readOnly": true
         },
         "valueBenefitAnnualRiskAdjusted": {
@@ -2946,13 +2946,7 @@
         "totalEconomicBenefitAnnual": {
           "type": "number",
           "format": "double",
-          "description": "Annual total economic benefit, the sum of the cost savings and the risk-adjusted value benefit.",
-          "readOnly": true
-        },
-        "totalEconomicBenefitNpv": {
-          "type": "number",
-          "format": "double",
-          "description": "Net present value of the total economic benefit over the finance horizon.",
+          "description": "Annual total economic benefit, the sum of the cost savings and the risk-adjusted value benefit.\n\nReported annually rather than as a net present value. The two halves are discounted differently\ntoday — the value benefit arrives already discounted from the contributing assessment, while\ncost savings ramp with the migration completion percentage — so a combined net present value\nwould be the sum of two methods and would overstate the benefit of a phased migration.",
           "readOnly": true
         },
         "percentOfOnPremisesCost": {
@@ -2967,6 +2961,30 @@
         "valueBenefitAnnualRiskAdjusted",
         "totalEconomicBenefitAnnual"
       ]
+    },
+    "ValueBenefitConfidenceLevel": {
+      "type": "string",
+      "description": "Whether a value benefit was computed from the shipped benchmarks or from customer-overridden\nassumptions. Drives whether the result is presented as an industry benchmark or as specific to\nthis customer, and a customized result is no longer comparable to the benchmark defaults.",
+      "enum": [
+        "Benchmark",
+        "Customized"
+      ],
+      "x-ms-enum": {
+        "name": "ValueBenefitConfidenceLevel",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Benchmark",
+            "value": "Benchmark",
+            "description": "The shipped industry benchmark assumptions were used with no customer overrides."
+          },
+          {
+            "name": "Customized",
+            "value": "Customized",
+            "description": "The customer has overridden at least one assumption."
+          }
+        ]
+      }
     },
     "ValueBenefitDetails": {
       "type": "object",
@@ -2994,12 +3012,49 @@
           "x-ms-identifiers": [
             "pillar"
           ]
+        },
+        "confidenceLevel": {
+          "$ref": "#/definitions/ValueBenefitConfidenceLevel",
+          "description": "Whether the shipped benchmark assumptions were used, or the customer has overridden at least one of them.",
+          "readOnly": true
+        },
+        "financeBasis": {
+          "$ref": "#/definitions/ValueBenefitFinanceBasis",
+          "description": "The finance basis the net present value was computed on. Returned so a reviewer can reproduce\nthe figure without reading the cost assumptions resource separately.",
+          "readOnly": true
         }
       },
       "required": [
         "totalAnnualRiskAdjusted",
         "valueBenefitNpv",
         "pillars"
+      ]
+    },
+    "ValueBenefitFinanceBasis": {
+      "type": "object",
+      "description": "The finance basis a value benefit net present value was computed on.",
+      "properties": {
+        "years": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of years in the finance horizon, including the undiscounted first year.",
+          "readOnly": true
+        },
+        "wacc": {
+          "type": "number",
+          "format": "double",
+          "description": "Weighted average cost of capital used as the discount rate, expressed as a fraction.",
+          "readOnly": true
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency the value benefit amounts are expressed in, inherited from the business case.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "years",
+        "wacc"
       ]
     },
     "ValueBenefitLineItem": {
