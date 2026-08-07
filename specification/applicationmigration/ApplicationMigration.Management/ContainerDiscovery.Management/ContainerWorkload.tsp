@@ -63,6 +63,19 @@ model ContainerWorkloadProperties is AzureResourceProperties {
     }
   ]>;
 
+  @doc("Azure resource ID of the underlying VM.")
+  machineArmId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.OffAzure/serverSites/machines";
+    },
+    {
+      type: "Microsoft.OffAzure/vmwareSites/machines";
+    },
+    {
+      type: "Microsoft.OffAzure/hyperVSites/machines";
+    }
+  ]>;
+
   // ── Software & Discovery Metadata ──
   @doc("Software attributes.") softwareAttributes?: SoftwareAttributes;
 
@@ -247,8 +260,10 @@ model MatchingServiceInfo {
   @identifiers(#[])
   ports?: ServicePortInfo[];
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("Load balancer IP address.") loadBalancerIp?: string;
   @doc("External traffic policy.") externalTrafficPolicy?: string;
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("Cluster-internal IP address.") clusterIp?: string;
 }
 
@@ -407,6 +422,7 @@ model NetworkExposureSummary {
   @doc("Service types.") serviceTypes?: string[];
   @doc("Load balancer count.") loadBalancerCount?: int32;
   @doc("NodePort count.") nodePortCount?: int32;
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("ClusterIP count.") clusterIpCount?: int32;
   @doc("Ingress count.") ingressCount?: int32;
   @doc("Has TLS.") hasTls?: boolean;

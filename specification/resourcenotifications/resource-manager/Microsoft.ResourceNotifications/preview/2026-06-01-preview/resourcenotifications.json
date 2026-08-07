@@ -50,27 +50,6 @@
     },
     {
       "name": "NotificationsSessions"
-    },
-    {
-      "name": "Namespaces"
-    },
-    {
-      "name": "PublisherSettingsOperations"
-    },
-    {
-      "name": "ProviderSettingsOperations"
-    },
-    {
-      "name": "TypeSettings"
-    },
-    {
-      "name": "AllowedPublishers"
-    },
-    {
-      "name": "IngestionUnits"
-    },
-    {
-      "name": "Flows"
     }
   ],
   "paths": {
@@ -103,84 +82,6 @@
         "x-ms-examples": {
           "Operations - List": {
             "$ref": "./examples/Operations_List.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/flows": {
-      "get": {
-        "operationId": "Flows_ListBySubscription",
-        "tags": [
-          "Flows"
-        ],
-        "description": "List flows in a subscription.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/FlowListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Flows - ListBySubscription": {
-            "$ref": "./examples/Flows_ListBySubscription.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/ingestionUnits": {
-      "get": {
-        "operationId": "IngestionUnits_ListBySubscription",
-        "tags": [
-          "IngestionUnits"
-        ],
-        "description": "List ingestion units in a subscription.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/IngestionUnitListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "IngestionUnits - ListBySubscription": {
-            "$ref": "./examples/IngestionUnits_ListBySubscription.json"
           }
         },
         "x-ms-pageable": {
@@ -478,953 +379,6 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces": {
-      "get": {
-        "operationId": "Namespaces_List",
-        "tags": [
-          "Namespaces"
-        ],
-        "description": "List namespaces in subscription.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/NamespaceListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Namespaces - List": {
-            "$ref": "./examples/Namespaces_List.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}": {
-      "get": {
-        "operationId": "Namespaces_Get",
-        "tags": [
-          "Namespaces"
-        ],
-        "description": "Get a namespace. Returns partner details derived from ServiceTree and ARM RP registration.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/Namespace"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Namespaces - Get": {
-            "$ref": "./examples/Namespaces_Get.json"
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings": {
-      "get": {
-        "operationId": "ProviderSettingsOperations_ListByParent",
-        "tags": [
-          "ProviderSettingsOperations"
-        ],
-        "description": "List provider settings under a namespace.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ProviderSettingsListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ProviderSettingsOperations - ListByParent": {
-            "$ref": "./examples/ProviderSettingsOperations_ListByParent.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default": {
-      "get": {
-        "operationId": "ProviderSettingsOperations_Get",
-        "tags": [
-          "ProviderSettingsOperations"
-        ],
-        "description": "Get provider settings for this namespace.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/ProviderSettings"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ProviderSettingsOperations - Get": {
-            "$ref": "./examples/ProviderSettingsOperations_Get.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "ProviderSettingsOperations_CreateOrUpdate",
-        "tags": [
-          "ProviderSettingsOperations"
-        ],
-        "description": "Create or update provider settings.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ProviderSettings"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'ProviderSettings' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ProviderSettings"
-            }
-          },
-          "201": {
-            "description": "Resource 'ProviderSettings' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/ProviderSettings"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ProviderSettingsOperations - CreateOrUpdate": {
-            "$ref": "./examples/ProviderSettingsOperations_CreateOrUpdate.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "ProviderSettingsOperations_Delete",
-        "tags": [
-          "ProviderSettingsOperations"
-        ],
-        "description": "Delete provider settings.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "ProviderSettingsOperations - Delete": {
-            "$ref": "./examples/ProviderSettingsOperations_Delete.json"
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default/types": {
-      "get": {
-        "operationId": "TypeSettings_ListByParent",
-        "tags": [
-          "TypeSettings"
-        ],
-        "description": "List all type settings under provider settings.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/TypeSettingListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "TypeSettings - ListByParent": {
-            "$ref": "./examples/TypeSettings_ListByParent.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default/types/{typeName}": {
-      "get": {
-        "operationId": "TypeSettings_Get",
-        "tags": [
-          "TypeSettings"
-        ],
-        "description": "Get a type setting.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "typeName",
-            "in": "path",
-            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). Forward slashes must be URL-encoded as %2F in the path segment. Allows dots, percent-encoding, and slashes to support ARM resource type naming.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9.%/]{1,128}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/TypeSetting"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "TypeSettings - Get": {
-            "$ref": "./examples/TypeSettings_Get.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "TypeSettings_CreateOrUpdate",
-        "tags": [
-          "TypeSettings"
-        ],
-        "description": "Create or update a type setting. Type owner sets validationPolicy here.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "typeName",
-            "in": "path",
-            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). Forward slashes must be URL-encoded as %2F in the path segment. Allows dots, percent-encoding, and slashes to support ARM resource type naming.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9.%/]{1,128}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/TypeSetting"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'TypeSetting' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/TypeSetting"
-            }
-          },
-          "201": {
-            "description": "Resource 'TypeSetting' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/TypeSetting"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "TypeSettings - CreateOrUpdate": {
-            "$ref": "./examples/TypeSettings_CreateOrUpdate.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "TypeSettings_Delete",
-        "tags": [
-          "TypeSettings"
-        ],
-        "description": "Delete a type setting.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "typeName",
-            "in": "path",
-            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). Forward slashes must be URL-encoded as %2F in the path segment. Allows dots, percent-encoding, and slashes to support ARM resource type naming.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9.%/]{1,128}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "TypeSettings - Delete": {
-            "$ref": "./examples/TypeSettings_Delete.json"
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default/types/{typeName}/allowedPublishers": {
-      "get": {
-        "operationId": "AllowedPublishers_ListByParent",
-        "tags": [
-          "AllowedPublishers"
-        ],
-        "description": "List all allowed publishers for this type.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "typeName",
-            "in": "path",
-            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). Forward slashes must be URL-encoded as %2F in the path segment. Allows dots, percent-encoding, and slashes to support ARM resource type naming.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9.%/]{1,128}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/AllowedPublisherResourceListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "AllowedPublishers - ListByParent": {
-            "$ref": "./examples/AllowedPublishers_ListByParent.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/providerSettings/default/types/{typeName}/allowedPublishers/{publisherNamespace}": {
-      "get": {
-        "operationId": "AllowedPublishers_Get",
-        "tags": [
-          "AllowedPublishers"
-        ],
-        "description": "Get an allowed publisher entry.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "typeName",
-            "in": "path",
-            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). Forward slashes must be URL-encoded as %2F in the path segment. Allows dots, percent-encoding, and slashes to support ARM resource type naming.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9.%/]{1,128}$"
-          },
-          {
-            "name": "publisherNamespace",
-            "in": "path",
-            "description": "Publisher namespace being granted permission (e.g., 'Microsoft.Advisor'). Use '*' for wildcard (extension types).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$|^\\*$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/AllowedPublisherResource"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "AllowedPublishers - Get": {
-            "$ref": "./examples/AllowedPublishers_Get.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "AllowedPublishers_CreateOrUpdate",
-        "tags": [
-          "AllowedPublishers"
-        ],
-        "description": "Grant a publisher permission to publish this type.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "typeName",
-            "in": "path",
-            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). Forward slashes must be URL-encoded as %2F in the path segment. Allows dots, percent-encoding, and slashes to support ARM resource type naming.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9.%/]{1,128}$"
-          },
-          {
-            "name": "publisherNamespace",
-            "in": "path",
-            "description": "Publisher namespace being granted permission (e.g., 'Microsoft.Advisor'). Use '*' for wildcard (extension types).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$|^\\*$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AllowedPublisherResource"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'AllowedPublisherResource' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/AllowedPublisherResource"
-            }
-          },
-          "201": {
-            "description": "Resource 'AllowedPublisherResource' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/AllowedPublisherResource"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "AllowedPublishers - CreateOrUpdate": {
-            "$ref": "./examples/AllowedPublishers_CreateOrUpdate.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "AllowedPublishers_Delete",
-        "tags": [
-          "AllowedPublishers"
-        ],
-        "description": "Revoke a publisher's permission to publish this type.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "typeName",
-            "in": "path",
-            "description": "Fully qualified resource type (e.g., 'Microsoft.Compute/virtualMachines'). Forward slashes must be URL-encoded as %2F in the path segment. Allows dots, percent-encoding, and slashes to support ARM resource type naming.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9.%/]{1,128}$"
-          },
-          {
-            "name": "publisherNamespace",
-            "in": "path",
-            "description": "Publisher namespace being granted permission (e.g., 'Microsoft.Advisor'). Use '*' for wildcard (extension types).",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$|^\\*$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "AllowedPublishers - Delete": {
-            "$ref": "./examples/AllowedPublishers_Delete.json"
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings": {
-      "get": {
-        "operationId": "PublisherSettingsOperations_ListByParent",
-        "tags": [
-          "PublisherSettingsOperations"
-        ],
-        "description": "List publisher settings under a namespace.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/PublisherSettingsListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "PublisherSettingsOperations - ListByParent": {
-            "$ref": "./examples/PublisherSettingsOperations_ListByParent.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/namespaces/{namespaceName}/publisherSettings/{settingName}": {
-      "get": {
-        "operationId": "PublisherSettingsOperations_Get",
-        "tags": [
-          "PublisherSettingsOperations"
-        ],
-        "description": "Get a publisher setting.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/PublisherSettings"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "PublisherSettingsOperations - Get": {
-            "$ref": "./examples/PublisherSettingsOperations_Get.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "PublisherSettingsOperations_CreateOrUpdate",
-        "tags": [
-          "PublisherSettingsOperations"
-        ],
-        "description": "Create or update a publisher setting.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/PublisherSettings"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'PublisherSettings' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/PublisherSettings"
-            }
-          },
-          "201": {
-            "description": "Resource 'PublisherSettings' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/PublisherSettings"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "PublisherSettingsOperations - CreateOrUpdate": {
-            "$ref": "./examples/PublisherSettingsOperations_CreateOrUpdate.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "PublisherSettingsOperations_Delete",
-        "tags": [
-          "PublisherSettingsOperations"
-        ],
-        "description": "Delete a publisher setting.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "name": "namespaceName",
-            "in": "path",
-            "description": "Publisher namespace name (e.g., 'Microsoft.Compute').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
-          },
-          {
-            "name": "settingName",
-            "in": "path",
-            "description": "Publisher setting name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "PublisherSettingsOperations - Delete": {
-            "$ref": "./examples/PublisherSettingsOperations_Delete.json"
-          }
-        }
-      }
-    },
     "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceNotifications/resourceSubscriptions": {
       "get": {
         "operationId": "ResourceSubscriptions_ListBySubscription",
@@ -1462,577 +416,6 @@
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/flows": {
-      "get": {
-        "operationId": "Flows_ListByResourceGroup",
-        "tags": [
-          "Flows"
-        ],
-        "description": "List flows in a resource group.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/FlowListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Flows - ListByResourceGroup": {
-            "$ref": "./examples/Flows_ListByResourceGroup.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/flows/{flowName}": {
-      "get": {
-        "operationId": "Flows_Get",
-        "tags": [
-          "Flows"
-        ],
-        "description": "Get a flow.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "flowName",
-            "in": "path",
-            "description": "Flow name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/Flow"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Flows - Get DiscoveryQuery": {
-            "$ref": "./examples/Flows_Get_DiscoveryQuery.json"
-          },
-          "Flows - Get DiscoveryStreaming": {
-            "$ref": "./examples/Flows_Get_DiscoveryStreaming.json"
-          },
-          "Flows - Get FullSync": {
-            "$ref": "./examples/Flows_Get_FullSync.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "Flows_CreateOrUpdate",
-        "tags": [
-          "Flows"
-        ],
-        "description": "Create or update a flow. Asynchronous operation. Use PUT to change flow properties including subtype-specific fields.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "flowName",
-            "in": "path",
-            "description": "Flow name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Flow"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'Flow' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/Flow"
-            }
-          },
-          "201": {
-            "description": "Resource 'Flow' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/Flow"
-            },
-            "headers": {
-              "Azure-AsyncOperation": {
-                "type": "string",
-                "description": "A link to the status monitor"
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Flows - CreateOrUpdate DiscoveryQuery": {
-            "$ref": "./examples/Flows_CreateOrUpdate_DiscoveryQuery.json"
-          },
-          "Flows - CreateOrUpdate DiscoveryStreaming": {
-            "$ref": "./examples/Flows_CreateOrUpdate_DiscoveryStreaming.json"
-          },
-          "Flows - CreateOrUpdate FullSync": {
-            "$ref": "./examples/Flows_CreateOrUpdate_FullSync.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        },
-        "x-ms-long-running-operation": true
-      },
-      "patch": {
-        "operationId": "Flows_Update",
-        "tags": [
-          "Flows"
-        ],
-        "description": "Update tags and managed identity on a flow.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "flowName",
-            "in": "path",
-            "description": "Flow name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "The resource properties to be updated.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/FlowUpdate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/Flow"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Flows - Update": {
-            "$ref": "./examples/Flows_Update.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "Flows_Delete",
-        "tags": [
-          "Flows"
-        ],
-        "description": "Delete a flow. Asynchronous operation.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "flowName",
-            "in": "path",
-            "description": "Flow name.",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Resource deletion accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "Flows - Delete": {
-            "$ref": "./examples/Flows_Delete.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/ingestionUnits": {
-      "get": {
-        "operationId": "IngestionUnits_ListByResourceGroup",
-        "tags": [
-          "IngestionUnits"
-        ],
-        "description": "List ingestion units in a resource group.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/IngestionUnitListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "IngestionUnits - ListByResourceGroup": {
-            "$ref": "./examples/IngestionUnits_ListByResourceGroup.json"
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/ingestionUnits/{unitName}": {
-      "get": {
-        "operationId": "IngestionUnits_Get",
-        "tags": [
-          "IngestionUnits"
-        ],
-        "description": "Get an ingestion unit.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "unitName",
-            "in": "path",
-            "description": "Ingestion unit name (e.g., 'eastus-primary').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/IngestionUnit"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "IngestionUnits - Get": {
-            "$ref": "./examples/IngestionUnits_Get.json"
-          }
-        }
-      },
-      "put": {
-        "operationId": "IngestionUnits_CreateOrUpdate",
-        "tags": [
-          "IngestionUnits"
-        ],
-        "description": "Create or update an ingestion unit. Asynchronous operation.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "unitName",
-            "in": "path",
-            "description": "Ingestion unit name (e.g., 'eastus-primary').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
-          },
-          {
-            "name": "resource",
-            "in": "body",
-            "description": "Resource create parameters.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/IngestionUnit"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Resource 'IngestionUnit' update operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/IngestionUnit"
-            }
-          },
-          "201": {
-            "description": "Resource 'IngestionUnit' create operation succeeded",
-            "schema": {
-              "$ref": "#/definitions/IngestionUnit"
-            },
-            "headers": {
-              "Azure-AsyncOperation": {
-                "type": "string",
-                "description": "A link to the status monitor"
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "IngestionUnits - CreateOrUpdate": {
-            "$ref": "./examples/IngestionUnits_CreateOrUpdate.json"
-          },
-          "IngestionUnits - CreateOrUpdate Flow": {
-            "$ref": "./examples/IngestionUnits_CreateOrUpdate_Flow.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "azure-async-operation"
-        },
-        "x-ms-long-running-operation": true
-      },
-      "patch": {
-        "operationId": "IngestionUnits_Update",
-        "tags": [
-          "IngestionUnits"
-        ],
-        "description": "Update tags on an ingestion unit.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "unitName",
-            "in": "path",
-            "description": "Ingestion unit name (e.g., 'eastus-primary').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
-          },
-          {
-            "name": "properties",
-            "in": "body",
-            "description": "The resource properties to be updated.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/IngestionUnitTagsUpdate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Azure operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/IngestionUnit"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "IngestionUnits - Update Tags": {
-            "$ref": "./examples/IngestionUnits_Update.json"
-          }
-        }
-      },
-      "delete": {
-        "operationId": "IngestionUnits_Delete",
-        "tags": [
-          "IngestionUnits"
-        ],
-        "description": "Delete an ingestion unit. Asynchronous operation.",
-        "parameters": [
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "name": "unitName",
-            "in": "path",
-            "description": "Ingestion unit name (e.g., 'eastus-primary').",
-            "required": true,
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Resource deletion accepted.",
-            "headers": {
-              "Location": {
-                "type": "string",
-                "description": "The Location header contains the URL where the status of the long running operation can be checked."
-              },
-              "Retry-After": {
-                "type": "integer",
-                "format": "int32",
-                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
-              }
-            }
-          },
-          "204": {
-            "description": "Resource does not exist."
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-examples": {
-          "IngestionUnits - Delete": {
-            "$ref": "./examples/IngestionUnits_Delete.json"
-          }
-        },
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
-        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/resourceSubscriptions": {
@@ -2203,7 +586,7 @@
         "tags": [
           "ResourceSubscriptions"
         ],
-        "description": "Updates a resource subscription (supports tags and property updates)",
+        "description": "Updates the tags on a resource subscription",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -2228,7 +611,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ResourceSubscriptionUpdate"
+              "$ref": "#/definitions/ResourceSubscriptionTagsUpdate"
             }
           }
         ],
@@ -2257,7 +640,7 @@
         "tags": [
           "ResourceSubscriptions"
         ],
-        "description": "Deletes a resource subscription",
+        "description": "Deletes a resource subscription. Asynchronous operation.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -2278,8 +661,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -2295,7 +689,11 @@
           "Delete a resource subscription": {
             "$ref": "./examples/ResourceSubscriptions_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ResourceNotifications/resourceSubscriptions/{subscriptionRuleName}/destinations": {
@@ -2407,7 +805,7 @@
         "tags": [
           "Destinations"
         ],
-        "description": "Creates or updates a destination",
+        "description": "Creates or updates a destination. Asynchronous operation.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -2455,6 +853,17 @@
             "description": "Resource 'Destination' create operation succeeded",
             "schema": {
               "$ref": "#/definitions/Destination"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
             }
           },
           "default": {
@@ -2467,6 +876,78 @@
         "x-ms-examples": {
           "Create or update a fabric table destination": {
             "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate.json"
+          },
+          "Create or update a webhook destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_Webhook.json"
+          },
+          "Create or update an event hub destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_EventHub.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "ResourceSubscriptionDestinations_Update",
+        "tags": [
+          "Destinations"
+        ],
+        "description": "Updates the tags on a destination",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "subscriptionRuleName",
+            "in": "path",
+            "description": "The name of the resource subscription",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          },
+          {
+            "name": "destinationName",
+            "in": "path",
+            "description": "The name of the destination",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DestinationUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Destination"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update the tags on a destination": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_Update.json"
           }
         }
       },
@@ -2475,7 +956,7 @@
         "tags": [
           "Destinations"
         ],
-        "description": "Deletes a destination",
+        "description": "Deletes a destination. Asynchronous operation.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
@@ -2504,8 +985,19 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -2521,102 +1013,15 @@
           "Delete a destination": {
             "$ref": "./examples/ResourceSubscriptionDestinations_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     }
   },
   "definitions": {
-    "AadAuthorization": {
-      "type": "object",
-      "description": "AAD authorization with per-application scoping.",
-      "properties": {
-        "applications": {
-          "type": "array",
-          "description": "Authorized AAD applications.",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/definitions/AuthorizedApplication"
-          },
-          "x-ms-identifiers": [
-            "applicationId"
-          ]
-        }
-      },
-      "required": [
-        "applications"
-      ],
-      "allOf": [
-        {
-          "$ref": "#/definitions/Authorization"
-        }
-      ],
-      "x-ms-discriminator-value": "AAD"
-    },
-    "AlertingInfo": {
-      "type": "object",
-      "description": "Alerting configuration for discovery pipelines.",
-      "properties": {
-        "severity": {
-          "type": "string",
-          "description": "Alert severity level."
-        },
-        "notificationEmail": {
-          "type": "string",
-          "description": "Alert notification email."
-        }
-      }
-    },
-    "AllowedPublisherProperties": {
-      "type": "object",
-      "description": "Properties of an AllowedPublisher entry.",
-      "properties": {
-        "validationPolicy": {
-          "$ref": "#/definitions/ValidationPolicy",
-          "description": "Optional validation policy override for this specific delegation grant."
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
-        }
-      }
-    },
-    "AllowedPublisherResource": {
-      "type": "object",
-      "description": "Cross-publisher permission grant. Type owner allows another namespace to publish this type, and controls whether that publisher's data flows to ARG.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/AllowedPublisherProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "AllowedPublisherResourceListResult": {
-      "type": "object",
-      "description": "The response of a AllowedPublisherResource list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The AllowedPublisherResource items on this page",
-          "items": {
-            "$ref": "#/definitions/AllowedPublisherResource"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
     "ArnLocationPartitioningConfiguration": {
       "type": "object",
       "description": "ARN location partitioning configuration",
@@ -2641,78 +1046,6 @@
         }
       ],
       "x-ms-discriminator-value": "arnLocation"
-    },
-    "Authorization": {
-      "type": "object",
-      "description": "Base model for polymorphic authorization. Discriminated on 'kind'.",
-      "properties": {
-        "kind": {
-          "$ref": "#/definitions/AuthorizationKind",
-          "description": "Discriminator: 'AAD' or 'DSTS'."
-        }
-      },
-      "discriminator": "kind",
-      "required": [
-        "kind"
-      ]
-    },
-    "AuthorizationKind": {
-      "type": "string",
-      "description": "Authorization kind.",
-      "enum": [
-        "AAD",
-        "DSTS"
-      ],
-      "x-ms-enum": {
-        "name": "AuthorizationKind",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Aad",
-            "value": "AAD",
-            "description": "Azure Active Directory authorization."
-          },
-          {
-            "name": "Dsts",
-            "value": "DSTS",
-            "description": "DSTS claim-based authorization."
-          }
-        ]
-      }
-    },
-    "AuthorizedApplication": {
-      "type": "object",
-      "description": "An authorized AAD application.",
-      "properties": {
-        "applicationId": {
-          "type": "string",
-          "description": "AAD application (client) ID."
-        },
-        "scopes": {
-          "type": "array",
-          "description": "Environment scopes. Empty = all.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "allowedTenantIds": {
-          "type": "array",
-          "description": "Allowed tenant IDs. Empty = all.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "allowedSubscriptionIds": {
-          "type": "array",
-          "description": "Allowed subscription IDs. Empty = all.",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": [
-        "applicationId"
-      ]
     },
     "Azure.Core.uuid": {
       "type": "string",
@@ -2782,31 +1115,24 @@
         ]
       }
     },
-    "CapacityOverrides": {
+    "CallerIdentity": {
       "type": "object",
-      "description": "Capacity overrides — fine-grained overrides for push-tier IngestionUnits. Each field must be ≤ the SKU tier ceiling. If omitted entirely, all values default from the SKU tier.",
+      "description": "The caller identity extracted from the AAD token, validated against the manifest",
       "properties": {
-        "maxRequestsPerMinute": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Max requests/minute globally. Must be ≤ SKU tier ceiling. Default: tier value.",
-          "minimum": 20000,
-          "maximum": 5000000
+        "appId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The application ID extracted from the auth token",
+          "readOnly": true
         },
-        "maxRequestsPerMinutePerRegion": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Max requests/minute/region. Must be ≤ maxRequestsPerMinute.",
-          "minimum": 20000,
-          "maximum": 5000000
+        "objectId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The object ID extracted from the auth token",
+          "readOnly": true
         },
-        "burstAllowance": {
-          "type": "number",
-          "format": "double",
-          "description": "Burst multiplier allowing short spikes above the RPM limit. Default: 1.5.",
-          "default": 1.5,
-          "minimum": 1,
-          "maximum": 5
+        "tenantId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The tenant ID extracted from the auth token",
+          "readOnly": true
         }
       }
     },
@@ -2814,25 +1140,93 @@
       "type": "object",
       "description": "Cloud scope configuration",
       "properties": {
+        "id": {
+          "type": "string",
+          "description": "The resource provider id populated by the caller, used to perform the linked access check and validate the caller has permission against the RP itself."
+        },
         "providerNamespace": {
           "type": "string",
           "description": "The provider namespace populated by caller"
         },
         "appId": {
           "$ref": "#/definitions/Azure.Core.uuid",
-          "description": "The application ID extracted from request, checked against manifest",
-          "readOnly": true
+          "description": "The application ID extracted from request, checked against manifest"
         }
       },
-      "required": [
-        "providerNamespace"
-      ],
       "allOf": [
         {
           "$ref": "#/definitions/Scope"
         }
       ],
       "x-ms-discriminator-value": "cloud"
+    },
+    "DataBoundary": {
+      "type": "string",
+      "description": "The data boundary used for routing notifications and enforcing data residency/compliance",
+      "enum": [
+        "Global",
+        "EU"
+      ],
+      "x-ms-enum": {
+        "name": "DataBoundary",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "global",
+            "value": "Global",
+            "description": "Global data boundary"
+          },
+          {
+            "name": "eu",
+            "value": "EU",
+            "description": "European Union data boundary"
+          }
+        ]
+      }
+    },
+    "DeliveryModeConfiguration": {
+      "type": "object",
+      "description": "Base configuration for how notifications are distributed across a subscription's destination endpoints",
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/DeliveryModeKind",
+          "description": "The kind of delivery mode"
+        }
+      },
+      "discriminator": "kind",
+      "required": [
+        "kind"
+      ]
+    },
+    "DeliveryModeKind": {
+      "type": "string",
+      "description": "The kind of delivery mode, determining how notifications are distributed across destination endpoints",
+      "enum": [
+        "FanOut",
+        "Partitioning",
+        "EqualDistribution"
+      ],
+      "x-ms-enum": {
+        "name": "DeliveryModeKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "fanOut",
+            "value": "FanOut",
+            "description": "Deliver every notification to all endpoints (default)"
+          },
+          {
+            "name": "partitioning",
+            "value": "Partitioning",
+            "description": "Distribute notifications across endpoints based on partitioning"
+          },
+          {
+            "name": "equalDistribution",
+            "value": "EqualDistribution",
+            "description": "Distribute notifications evenly across endpoints"
+          }
+        ]
+      }
     },
     "Destination": {
       "type": "object",
@@ -2841,11 +1235,15 @@
         "properties": {
           "$ref": "#/definitions/DestinationProperties",
           "description": "The resource-specific properties for this resource."
+        },
+        "identity": {
+          "$ref": "#/definitions/Identity",
+          "description": "The managed identity used by ARN to deliver notifications to the destination endpoint."
         }
       },
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
         }
       ]
     },
@@ -2854,7 +1252,9 @@
       "description": "Destination kind discriminator",
       "enum": [
         "fabricTable",
-        "storageAccount"
+        "storageAccount",
+        "webhook",
+        "eventhub"
       ],
       "x-ms-enum": {
         "name": "DestinationKind",
@@ -2869,6 +1269,16 @@
             "name": "storageAccount",
             "value": "storageAccount",
             "description": "Storage account destination"
+          },
+          {
+            "name": "webhook",
+            "value": "webhook",
+            "description": "Webhook (HTTP endpoint) destination"
+          },
+          {
+            "name": "eventhub",
+            "value": "eventhub",
+            "description": "Event Hub destination"
           }
         ]
       }
@@ -2931,173 +1341,22 @@
         "kind"
       ]
     },
-    "DiscoveryQueryFlowProperties": {
+    "DestinationUpdate": {
       "type": "object",
-      "description": "Properties for a DiscoveryQuery flow — batch ingestion via Kusto query on a schedule.",
+      "description": "The updatable fields of a destination resource.",
       "properties": {
-        "queryDefinition": {
-          "$ref": "#/definitions/QueryDefinition",
-          "description": "Inline KQL query definition for this flow."
-        },
-        "sourceClusterEndpoint": {
-          "type": "string",
-          "format": "uri",
-          "description": "Partner's Kusto cluster endpoint URL."
-        },
-        "sourceDatabase": {
-          "type": "string",
-          "description": "Partner's Kusto database name."
-        },
-        "partitionColumn": {
-          "type": "string",
-          "description": "Column name for hash partitioning. Omit if no partitioning needed."
-        },
-        "estimatedRowCount": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Estimated row count for auto-partition sizing (partitions = rows / 100K)."
-        },
-        "scheduling": {
-          "$ref": "#/definitions/FlowScheduling",
-          "description": "Scheduling configuration. Default interval: 24 hours."
-        },
-        "partitionCountOverride": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Manual partition count override. Must be >= auto-calculated value."
-        },
-        "queryParallelism": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of parallel Kusto query batches for large datasets (>1M rows)."
-        },
-        "distributionType": {
-          "$ref": "#/definitions/DistributionType",
-          "description": "Kusto export distribution strategy."
-        },
-        "partitionCount": {
-          "type": "integer",
-          "format": "int32",
-          "description": "System-computed partition count (estimatedRowCount / 100K).",
-          "readOnly": true
-        }
-      },
-      "required": [
-        "queryDefinition",
-        "sourceClusterEndpoint",
-        "sourceDatabase",
-        "estimatedRowCount"
-      ],
-      "allOf": [
-        {
-          "$ref": "#/definitions/FlowProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "DiscoveryQuery"
-    },
-    "DiscoveryStreamingFlowProperties": {
-      "type": "object",
-      "description": "Properties for a DiscoveryStreaming flow — streaming ingestion from Geneva Data Service.",
-      "properties": {
-        "gdsAccount": {
-          "type": "string",
-          "description": "Geneva log account name."
-        },
-        "gdsEventNamespaces": {
-          "type": "array",
-          "description": "GDS event namespaces.",
-          "items": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
             "type": "string"
           }
         },
-        "gdsEventNames": {
-          "type": "array",
-          "description": "GDS event names within those namespaces.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "transformationType": {
-          "$ref": "#/definitions/TransformationType",
-          "description": "Transformation type for the streaming data."
+        "identity": {
+          "$ref": "#/definitions/IdentityUpdate",
+          "description": "The managed identity used by ARN to deliver notifications to the destination endpoint."
         }
-      },
-      "required": [
-        "gdsAccount",
-        "gdsEventNamespaces",
-        "gdsEventNames",
-        "transformationType"
-      ],
-      "allOf": [
-        {
-          "$ref": "#/definitions/FlowProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "DiscoveryStreaming"
-    },
-    "DistributionType": {
-      "type": "string",
-      "description": "Kusto export distribution strategy.",
-      "enum": [
-        "single",
-        "per_node"
-      ],
-      "x-ms-enum": {
-        "name": "DistributionType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "single",
-            "value": "single",
-            "description": "Single export operation."
-          },
-          {
-            "name": "perNode",
-            "value": "per_node",
-            "description": "Distributed per-node export."
-          }
-        ]
       }
-    },
-    "DstsAuthorization": {
-      "type": "object",
-      "description": "DSTS claim-based authorization.",
-      "properties": {
-        "claims": {
-          "type": "array",
-          "description": "Required DSTS claims.",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/definitions/DstsClaim"
-          },
-          "x-ms-identifiers": [
-            "claim"
-          ]
-        }
-      },
-      "required": [
-        "claims"
-      ],
-      "allOf": [
-        {
-          "$ref": "#/definitions/Authorization"
-        }
-      ],
-      "x-ms-discriminator-value": "DSTS"
-    },
-    "DstsClaim": {
-      "type": "object",
-      "description": "A required DSTS claim.",
-      "properties": {
-        "claim": {
-          "type": "string",
-          "format": "uri",
-          "description": "DSTS claim URI."
-        }
-      },
-      "required": [
-        "claim"
-      ]
     },
     "EndpointDeliveryMode": {
       "type": "string",
@@ -3122,6 +1381,65 @@
           }
         ]
       }
+    },
+    "EqualDistributionDeliveryModeConfiguration": {
+      "type": "object",
+      "description": "Equal-distribution delivery mode: notifications are distributed evenly across endpoints",
+      "allOf": [
+        {
+          "$ref": "#/definitions/DeliveryModeConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "EqualDistribution"
+    },
+    "EventHubDestinationProperties": {
+      "type": "object",
+      "description": "Event Hub destination properties",
+      "properties": {
+        "outputSchema": {
+          "type": "string",
+          "description": "The schema to use for the delivered notifications"
+        },
+        "outputEncoding": {
+          "type": "string",
+          "description": "The encoding/format to use for the delivered notifications"
+        },
+        "endpoints": {
+          "type": "array",
+          "description": "The set of event hub endpoints to deliver notifications to",
+          "items": {
+            "$ref": "#/definitions/EventHubEndpoint"
+          },
+          "x-ms-identifiers": [
+            "id"
+          ]
+        }
+      },
+      "required": [
+        "outputSchema",
+        "outputEncoding",
+        "endpoints"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/DestinationProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "eventhub"
+    },
+    "EventHubEndpoint": {
+      "type": "object",
+      "description": "Event Hub endpoint configuration",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "The Azure resource ID of the target Event Hub"
+        }
+      },
+      "required": [
+        "id"
+      ]
     },
     "FabricEndpoint": {
       "type": "object",
@@ -3178,163 +1496,15 @@
       ],
       "x-ms-discriminator-value": "fabricTable"
     },
-    "Flow": {
+    "FanOutDeliveryModeConfiguration": {
       "type": "object",
-      "description": "Regional discovery flow with Managed Identity support. Polymorphic by kind.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/FlowProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
+      "description": "Fan-out delivery mode: every notification is delivered to all endpoints",
       "allOf": [
         {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
-        }
-      ]
-    },
-    "FlowKind": {
-      "type": "string",
-      "description": "The kind of discovery flow.",
-      "enum": [
-        "DiscoveryQuery",
-        "DiscoveryStreaming",
-        "FullSync"
-      ],
-      "x-ms-enum": {
-        "name": "FlowKind",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "DiscoveryQuery",
-            "value": "DiscoveryQuery",
-            "description": "Batch ingestion via Kusto query on a schedule."
-          },
-          {
-            "name": "DiscoveryStreaming",
-            "value": "DiscoveryStreaming",
-            "description": "Streaming ingestion from Geneva Data Service."
-          },
-          {
-            "name": "FullSync",
-            "value": "FullSync",
-            "description": "Full resource synchronization via ARM LIST calls."
-          }
-        ]
-      }
-    },
-    "FlowListResult": {
-      "type": "object",
-      "description": "The response of a Flow list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The Flow items on this page",
-          "items": {
-            "$ref": "#/definitions/Flow"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "FlowProperties": {
-      "type": "object",
-      "description": "Common properties for all flow kinds. Discriminated by kind.",
-      "properties": {
-        "flowKind": {
-          "$ref": "#/definitions/FlowKind",
-          "description": "The kind of discovery flow."
-        },
-        "linkedPublisherSettingId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "ARM resource ID of the linked publisher setting."
-        },
-        "managedIdentityResourceId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "ARM resource ID of the user-assigned managed identity used to authenticate\n      to the partner data source (Kusto for DiscoveryQuery, GDS for DiscoveryStreaming\n      when partner-driven auth is enabled). Optional — platform default applies if omitted."
-        },
-        "ingestionUnitId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "ARM resource ID of the IngestionUnit providing billing capacity for this flow. Must reference a flow-tier SKU IngestionUnit. RP validates at PUT: unit exists, is enabled, has a flow-tier SKU, and its linkedPublisherSettingId and location match this flow."
-        },
-        "fullyQualifiedResourceType": {
-          "type": "string",
-          "description": "Fully qualified resource type this flow processes (e.g., 'Microsoft.Compute/virtualMachines')."
-        },
-        "isPreview": {
-          "type": "boolean",
-          "description": "Whether this is a preview notification flow."
-        },
-        "previewZones": {
-          "type": "array",
-          "description": "Preview zones for this flow (e.g., ['Galaxy.InfrastructureGraph.QCS']).",
-          "items": {
-            "type": "string"
-          }
-        },
-        "enabled": {
-          "type": "boolean",
-          "description": "Whether this flow is enabled. Set to false to pause the flow during outages. Default: true.",
-          "default": true
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
-        }
-      },
-      "discriminator": "flowKind",
-      "required": [
-        "flowKind",
-        "linkedPublisherSettingId",
-        "ingestionUnitId",
-        "fullyQualifiedResourceType"
-      ]
-    },
-    "FlowScheduling": {
-      "type": "object",
-      "description": "Flow scheduling configuration.",
-      "properties": {
-        "intervalHours": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Interval in hours.",
-          "default": 24
-        }
-      }
-    },
-    "FlowUpdate": {
-      "type": "object",
-      "description": "Patch model for flow updates — tags and identity only.",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "FullSyncFlowProperties": {
-      "type": "object",
-      "description": "Properties for a FullSync flow — full resource synchronization via ARM LIST calls.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/FlowProperties"
+          "$ref": "#/definitions/DeliveryModeConfiguration"
         }
       ],
-      "x-ms-discriminator-value": "FullSync"
+      "x-ms-discriminator-value": "FanOut"
     },
     "GetNotificationSessionDetails": {
       "type": "object",
@@ -3374,172 +1544,39 @@
         }
       }
     },
-    "IngestionUnit": {
+    "Identity": {
       "type": "object",
-      "description": "Per-region ingestion capacity linked to a publisher setting. SKU determines workload type (push or flow) and capacity tier.",
+      "description": "Identity for the destination resource, used by ARN to deliver notifications to the destination endpoint.",
       "properties": {
-        "properties": {
-          "$ref": "#/definitions/IngestionUnitProperties",
-          "description": "The resource-specific properties for this resource."
+        "type": {
+          "$ref": "#/definitions/ResourceIdentityType",
+          "description": "The identity type."
         },
-        "sku": {
-          "$ref": "#/definitions/IngestionUnitSku",
-          "description": "SKU selecting capacity tier and workload type."
-        }
-      },
-      "required": [
-        "sku"
-      ],
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
-        }
-      ]
-    },
-    "IngestionUnitListResult": {
-      "type": "object",
-      "description": "The response of a IngestionUnit list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The IngestionUnit items on this page",
-          "items": {
-            "$ref": "#/definitions/IngestionUnit"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "IngestionUnitProperties": {
-      "type": "object",
-      "description": "Properties for an ingestion unit resource.",
-      "properties": {
-        "linkedPublisherSettingId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "ARM resource ID of the linked publisher setting."
-        },
-        "authorization": {
-          "$ref": "#/definitions/Authorization",
-          "description": "Authorization override for this region."
-        },
-        "capacityOverrides": {
-          "$ref": "#/definitions/CapacityOverrides",
-          "description": "Capacity overrides. Optional — if omitted, all values default from the SKU tier ceiling. Each field, if present, must be ≤ the SKU tier ceiling. Applicable to push-tier SKUs only."
-        },
-        "endpoint": {
-          "type": "string",
-          "description": "System-provisioned receiver hostname. Derived from location.",
-          "readOnly": true
-        },
-        "eventGridTopicIds": {
-          "type": "array",
-          "description": "ARM resource IDs of Event Grid topics/domains routed through this unit.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "enabled": {
-          "type": "boolean",
-          "description": "Whether this ingestion unit is enabled. Set to false to disable during outages. Default: true.",
-          "default": true
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
-        }
-      },
-      "required": [
-        "linkedPublisherSettingId"
-      ]
-    },
-    "IngestionUnitSku": {
-      "type": "object",
-      "description": "SKU for an ingestion unit. Selects capacity tier and workload type.",
-      "properties": {
-        "name": {
-          "$ref": "#/definitions/IngestionUnitSkuName",
-          "description": "SKU name selecting capacity tier and workload type. Required on PUT."
-        },
-        "tier": {
-          "$ref": "#/definitions/SkuTier",
-          "description": "ARM standard tier label. RP populates on GET; not required on PUT. Free→Free, Standard/Standard_Flow→Standard, Dedicated/Dedicated_Flow/DedicatedPlus→Premium."
-        },
-        "capacity": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Optional capacity unit multiplier. Must be ≤ tier ceiling. If omitted, tier default applies."
-        }
-      },
-      "required": [
-        "name"
-      ]
-    },
-    "IngestionUnitSkuName": {
-      "type": "string",
-      "description": "SKU name for an ingestion unit. Determines capacity tier and workload type (push or flow).",
-      "enum": [
-        "Standard",
-        "Premium",
-        "Dedicated",
-        "Standard_Flow",
-        "Premium_Flow",
-        "Dedicated_Flow"
-      ],
-      "x-ms-enum": {
-        "name": "IngestionUnitSkuName",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Standard",
-            "value": "Standard",
-            "description": "Standard push tier: production HTTP push ingestion capacity."
-          },
-          {
-            "name": "Premium",
-            "value": "Premium",
-            "description": "Premium push tier: high-throughput HTTP push ingestion capacity."
-          },
-          {
-            "name": "Dedicated",
-            "value": "Dedicated",
-            "description": "Dedicated push tier: high-volume HTTP push ingestion capacity."
-          },
-          {
-            "name": "Standard_Flow",
-            "value": "Standard_Flow",
-            "description": "Standard flow tier: production discovery pipeline capacity."
-          },
-          {
-            "name": "Premium_Flow",
-            "value": "Premium_Flow",
-            "description": "Premium flow tier: high-throughput discovery pipeline capacity."
-          },
-          {
-            "name": "Dedicated_Flow",
-            "value": "Dedicated_Flow",
-            "description": "Dedicated flow tier: high-volume discovery pipeline capacity."
-          }
-        ]
-      }
-    },
-    "IngestionUnitTagsUpdate": {
-      "type": "object",
-      "description": "The type used for updating tags in IngestionUnit resources.",
-      "properties": {
-        "tags": {
+        "userAssignedIdentities": {
           "type": "object",
-          "description": "Resource tags.",
+          "description": "The user identity associated with the destination. The user identity dictionary key references will be ARM resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.",
           "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/UserAssignedIdentitiesValue"
+          }
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "IdentityUpdate": {
+      "type": "object",
+      "description": "Identity for the destination resource, used by ARN to deliver notifications to the destination endpoint.",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ResourceIdentityType",
+          "description": "The identity type."
+        },
+        "userAssignedIdentities": {
+          "type": "object",
+          "description": "The user identity associated with the destination. The user identity dictionary key references will be ARM resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.",
+          "additionalProperties": {
+            "$ref": "#/definitions/UserAssignedIdentitiesValue"
           }
         }
       }
@@ -3569,61 +1606,6 @@
         }
       ],
       "x-ms-discriminator-value": "minCountMaxDelay"
-    },
-    "Namespace": {
-      "type": "object",
-      "description": "Pre-existing namespace representing a registered resource provider in ARN. Read-only - Namespaces details are pre-fetched and populated in the RP Layer.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/NamespaceProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "NamespaceListResult": {
-      "type": "object",
-      "description": "The response of a Namespace list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The Namespace items on this page",
-          "items": {
-            "$ref": "#/definitions/Namespace"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "NamespaceProperties": {
-      "type": "object",
-      "description": "Properties of the Namespace resource. All fields are read-only, populated from ServiceTree and ARM RP registration.",
-      "properties": {
-        "serviceName": {
-          "type": "string",
-          "readOnly": true
-        },
-        "serviceTeamEmail": {
-          "type": "string",
-          "readOnly": true
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
-        }
-      }
     },
     "NotificationSessionConnectionDetails": {
       "type": "object",
@@ -3820,7 +1802,10 @@
       "type": "string",
       "description": "Partitioning configuration kind discriminator",
       "enum": [
-        "arnLocation"
+        "arnLocation",
+        "resourceLocation",
+        "routingLocation",
+        "scopeId"
       ],
       "x-ms-enum": {
         "name": "PartitioningConfigurationKind",
@@ -3830,9 +1815,43 @@
             "name": "arnLocation",
             "value": "arnLocation",
             "description": "ARN location partitioning"
+          },
+          {
+            "name": "resourceLocation",
+            "value": "resourceLocation",
+            "description": "Resource location partitioning"
+          },
+          {
+            "name": "routingLocation",
+            "value": "routingLocation",
+            "description": "Routing location partitioning"
+          },
+          {
+            "name": "scopeId",
+            "value": "scopeId",
+            "description": "Scope ID hash-based partitioning"
           }
         ]
       }
+    },
+    "PartitioningDeliveryModeConfiguration": {
+      "type": "object",
+      "description": "Partitioning delivery mode: notifications are distributed across endpoints based on partitioning",
+      "properties": {
+        "configurationSettings": {
+          "$ref": "#/definitions/PartitioningConfiguration",
+          "description": "The partitioning configuration settings. Supported kind: arnLocation"
+        }
+      },
+      "required": [
+        "configurationSettings"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/DeliveryModeConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "Partitioning"
     },
     "PathPolicy": {
       "type": "object",
@@ -3864,53 +1883,6 @@
             "description": "Time and scope range hash path policy"
           }
         ]
-      }
-    },
-    "ProviderSettings": {
-      "type": "object",
-      "description": "Type ownership governance - managed by the provider namespace (type owner). Controls validation policies and cross-publisher permissions. Prerequisite: parent Namespace must exist; returns 400 NamespaceNotFound otherwise.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/ProviderSettingsProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "ProviderSettingsListResult": {
-      "type": "object",
-      "description": "The response of a ProviderSettings list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The ProviderSettings items on this page",
-          "items": {
-            "$ref": "#/definitions/ProviderSettings"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "ProviderSettingsProperties": {
-      "type": "object",
-      "description": "Properties of ProviderSettings.",
-      "properties": {
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
-        }
       }
     },
     "ProvisioningState": {
@@ -3968,78 +1940,48 @@
       },
       "readOnly": true
     },
-    "PublisherSettings": {
-      "type": "object",
-      "description": "Publisher-facing configuration: resource types and default alerting. Prerequisite: parent Namespace must exist; returns 400 NamespaceNotFound otherwise.",
-      "properties": {
-        "properties": {
-          "$ref": "#/definitions/PublisherSettingsProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "PublisherSettingsListResult": {
-      "type": "object",
-      "description": "The response of a PublisherSettings list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The PublisherSettings items on this page",
-          "items": {
-            "$ref": "#/definitions/PublisherSettings"
+    "ResourceIdentityType": {
+      "type": "string",
+      "description": "The identity type.",
+      "enum": [
+        "UserAssigned"
+      ],
+      "x-ms-enum": {
+        "name": "ResourceIdentityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "UserAssigned",
+            "value": "UserAssigned",
+            "description": "Indicates that a user assigned identity is associated with the resource."
           }
-        },
-        "nextLink": {
-          "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "PublisherSettingsProperties": {
-      "type": "object",
-      "description": "Properties of PublisherSettings.",
-      "properties": {
-        "alertingInfo": {
-          "$ref": "#/definitions/AlertingInfo",
-          "description": "Default IcM / alerting configuration."
-        },
-        "enabled": {
-          "type": "boolean",
-          "description": "Whether this publisher setting is enabled. Set to false to disable during outages. Default: true.",
-          "default": true
-        },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
-          "readOnly": true
-        }
+        ]
       }
     },
-    "QueryDefinition": {
+    "ResourceLocationPartitioningConfiguration": {
       "type": "object",
-      "description": "Inline KQL query definition embedded in a DiscoveryQuery flow.",
+      "description": "Resource location partitioning configuration",
       "properties": {
-        "query": {
-          "type": "string",
-          "description": "KQL query text."
-        },
-        "description": {
-          "type": "string",
-          "description": "Human-readable description of this query."
+        "partitions": {
+          "type": "array",
+          "description": "The partitions list",
+          "items": {
+            "$ref": "#/definitions/Partition"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
         }
       },
       "required": [
-        "query"
-      ]
+        "partitions"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/PartitioningConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "resourceLocation"
     },
     "ResourceSubscription": {
       "type": "object",
@@ -4089,9 +2031,33 @@
           "$ref": "#/definitions/Scope",
           "description": "The scope for the execution of the filter"
         },
+        "dataBoundary": {
+          "$ref": "#/definitions/DataBoundary",
+          "description": "The data boundary used for routing notifications and enforcing data residency/compliance"
+        },
+        "subscriberAuthType": {
+          "$ref": "#/definitions/SubscriberAuthType",
+          "description": "The authentication type used by ARN when delivering notifications to the subscriber. Defaults to DSTS."
+        },
+        "deliveryMode": {
+          "$ref": "#/definitions/DeliveryModeConfiguration",
+          "description": "Determines how notifications are distributed across the subscription's destination endpoints. Defaults to FanOut."
+        },
+        "deliveryModeConfiguration": {
+          "$ref": "#/definitions/DeliveryModeConfiguration",
+          "description": "Compatibility alias for delivery mode configuration used by existing examples."
+        },
         "partitioningConfiguration": {
           "$ref": "#/definitions/PartitioningConfiguration",
           "description": "Defines how to partition the event stream. Supported kind: arnLocation"
+        },
+        "partitionConfigurations": {
+          "type": "array",
+          "description": "Additional partitioning configurations applied to the event stream",
+          "items": {
+            "$ref": "#/definitions/PartitioningConfiguration"
+          },
+          "x-ms-identifiers": []
         },
         "options": {
           "type": "array",
@@ -4112,9 +2078,9 @@
         "scope"
       ]
     },
-    "ResourceSubscriptionUpdate": {
+    "ResourceSubscriptionTagsUpdate": {
       "type": "object",
-      "description": "The type used for update operations of the ResourceSubscription.",
+      "description": "The type used for updating tags in ResourceSubscription resources.",
       "properties": {
         "tags": {
           "type": "object",
@@ -4122,22 +2088,33 @@
           "additionalProperties": {
             "type": "string"
           }
-        },
-        "properties": {
-          "$ref": "#/definitions/ResourceSubscriptionUpdateProperties",
-          "description": "The resource-specific properties for this resource."
         }
       }
     },
-    "ResourceSubscriptionUpdateProperties": {
+    "RoutingLocationPartitioningConfiguration": {
       "type": "object",
-      "description": "The updatable properties of the ResourceSubscription.",
+      "description": "Routing location partitioning configuration",
       "properties": {
-        "query": {
-          "type": "string",
-          "description": "The query to execute - only one table can be targeted at a time"
+        "partitions": {
+          "type": "array",
+          "description": "The partitions list",
+          "items": {
+            "$ref": "#/definitions/Partition"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
         }
-      }
+      },
+      "required": [
+        "partitions"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/PartitioningConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "routingLocation"
     },
     "Scope": {
       "type": "object",
@@ -4152,6 +2129,74 @@
       "required": [
         "kind"
       ]
+    },
+    "ScopeIdPartitionEntry": {
+      "type": "object",
+      "description": "A key/value pair entry for scope ID partitioning",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The partition key"
+        },
+        "value": {
+          "type": "string",
+          "description": "The partition value"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "ScopeIdPartitioningConfiguration": {
+      "type": "object",
+      "description": "Scope ID hash-based partitioning configuration",
+      "properties": {
+        "configName": {
+          "type": "string",
+          "description": "The field based on which the scope is hashed"
+        },
+        "hashBucket": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of hash buckets. The scope id is hashed into the range [0, hashBucket - 1]. Must be a positive integer."
+        },
+        "partitions": {
+          "type": "array",
+          "description": "Map of partition key to partition value. Must be non-null/non-empty.",
+          "items": {
+            "$ref": "#/definitions/ScopeIdPartitionEntry"
+          },
+          "x-ms-identifiers": [
+            "key"
+          ]
+        },
+        "partitionToPartitioningConfigurationMappings": {
+          "type": "array",
+          "description": "Optional map from a partition key to the name of a nested partitioning configuration, enabling hierarchical partitioning.",
+          "items": {
+            "$ref": "#/definitions/ScopeIdPartitionEntry"
+          },
+          "x-ms-identifiers": [
+            "key"
+          ]
+        },
+        "dataBoundary": {
+          "$ref": "#/definitions/DataBoundary",
+          "description": "Data boundary for the configuration. Defaults to Global."
+        }
+      },
+      "required": [
+        "configName",
+        "hashBucket",
+        "partitions"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/PartitioningConfiguration"
+        }
+      ],
+      "x-ms-discriminator-value": "scopeId"
     },
     "ScopeKind": {
       "type": "string",
@@ -4173,30 +2218,6 @@
             "name": "cloud",
             "value": "cloud",
             "description": "Cloud scope"
-          }
-        ]
-      }
-    },
-    "SkuTier": {
-      "type": "string",
-      "description": "ARM standard SKU tier.",
-      "enum": [
-        "Standard",
-        "Premium"
-      ],
-      "x-ms-enum": {
-        "name": "SkuTier",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Standard",
-            "value": "Standard",
-            "description": "Standard tier."
-          },
-          {
-            "name": "Premium",
-            "value": "Premium",
-            "description": "Premium tier (maps to Dedicated and DedicatedPlus SKU names)."
           }
         ]
       }
@@ -4245,7 +2266,7 @@
             "$ref": "#/definitions/StorageAccountEndpoint"
           },
           "x-ms-identifiers": [
-            "url"
+            "id"
           ]
         }
       },
@@ -4267,14 +2288,38 @@
       "type": "object",
       "description": "Storage account endpoint",
       "properties": {
-        "url": {
+        "id": {
           "type": "string",
-          "description": "The storage account endpoint URL"
+          "description": "The storage account endpoint resource ID"
         }
       },
       "required": [
-        "url"
+        "id"
       ]
+    },
+    "SubscriberAuthType": {
+      "type": "string",
+      "description": "The authentication type used by ARN when delivering notifications to the subscriber",
+      "enum": [
+        "DefaultRBAC",
+        "DSTS"
+      ],
+      "x-ms-enum": {
+        "name": "SubscriberAuthType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "defaultRBAC",
+            "value": "DefaultRBAC",
+            "description": "Default RBAC based authentication"
+          },
+          {
+            "name": "dSTS",
+            "value": "DSTS",
+            "description": "Datacenter STS based authentication (default)"
+          }
+        ]
+      }
     },
     "SubscriptionOptions": {
       "type": "string",
@@ -4305,14 +2350,13 @@
       "description": "Tenant scope configuration",
       "properties": {
         "tenantId": {
-          "type": "string",
-          "description": "The tenant ID populated by API after validation (from Aux token)",
-          "readOnly": true
+          "type": "string"
         },
         "servicePrincipal": {
-          "type": "string",
-          "description": "The service principal populated by API after validation (from Aux token)",
-          "readOnly": true
+          "type": "string"
+        },
+        "identity": {
+          "$ref": "#/definitions/CallerIdentity"
         }
       },
       "allOf": [
@@ -4357,125 +2401,75 @@
       ],
       "x-ms-discriminator-value": "timeAndScopeRangeHash"
     },
-    "TransformationType": {
-      "type": "string",
-      "description": "Transformation type for streaming ingestion.",
-      "enum": [
-        "ArmResource",
-        "PassThroughLogs"
-      ],
-      "x-ms-enum": {
-        "name": "TransformationType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "ArmResource",
-            "value": "ArmResource",
-            "description": "Transform data as ARM resource format."
-          },
-          {
-            "name": "PassThroughLogs",
-            "value": "PassThroughLogs",
-            "description": "Pass-through log data without transformation."
-          }
-        ]
-      }
-    },
-    "TypeSetting": {
+    "UserAssignedIdentitiesValue": {
       "type": "object",
-      "description": "Per-type governance override. Type owner sets validationPolicy to control who can publish this type.",
+      "description": "The details of a user assigned identity.",
       "properties": {
-        "properties": {
-          "$ref": "#/definitions/TypeSettingProperties",
-          "description": "The resource-specific properties for this resource."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
-        }
-      ]
-    },
-    "TypeSettingListResult": {
-      "type": "object",
-      "description": "The response of a TypeSetting list operation.",
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "The TypeSetting items on this page",
-          "items": {
-            "$ref": "#/definitions/TypeSetting"
-          }
-        },
-        "nextLink": {
+        "principalId": {
           "type": "string",
-          "format": "uri",
-          "description": "The link to the next page of items"
-        }
-      },
-      "required": [
-        "value"
-      ]
-    },
-    "TypeSettingProperties": {
-      "type": "object",
-      "description": "Properties of a TypeSetting. validationPolicy is the core type-owner governance decision.",
-      "properties": {
-        "validationPolicy": {
-          "$ref": "#/definitions/ValidationPolicy",
-          "description": "Validation policy controlling who may publish this type. Set by the type owner."
+          "description": "The principal id of user assigned identity.",
+          "readOnly": true
         },
-        "provisioningState": {
-          "$ref": "#/definitions/ProvisioningState",
-          "description": "Read-only provisioning state.",
+        "clientId": {
+          "type": "string",
+          "description": "The client id of user assigned identity.",
           "readOnly": true
         }
+      }
+    },
+    "WebhookDestinationProperties": {
+      "type": "object",
+      "description": "Webhook destination properties",
+      "properties": {
+        "outputSchema": {
+          "type": "string",
+          "description": "The schema to use for the delivered notifications"
+        },
+        "outputEncoding": {
+          "type": "string",
+          "description": "The encoding/format to use for the delivered notifications"
+        },
+        "endpoints": {
+          "type": "array",
+          "description": "The set of webhook endpoints to deliver notifications to",
+          "items": {
+            "$ref": "#/definitions/WebhookEndpoint"
+          },
+          "x-ms-identifiers": [
+            "url"
+          ]
+        }
       },
       "required": [
-        "validationPolicy"
-      ]
-    },
-    "ValidationPolicy": {
-      "type": "string",
-      "description": "Validation policy determining publishing authorization for a resource type. Set by the type owner (provider namespace).",
-      "enum": [
-        "Default",
-        "DisallowParentPublishing",
-        "BaseNamespaceSameAsPublisher",
-        "PublisherOwnsServiceTree",
-        "AllowAll"
+        "outputSchema",
+        "outputEncoding",
+        "endpoints"
       ],
-      "x-ms-enum": {
-        "name": "ValidationPolicy",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "Default",
-            "value": "Default",
-            "description": "Standard: parent RP + explicit allowlist. ARM/ARN/ARG always allowed."
-          },
-          {
-            "name": "DisallowParentPublishing",
-            "value": "DisallowParentPublishing",
-            "description": "Block parent RP from publishing. Type published exclusively by another namespace."
-          },
-          {
-            "name": "BaseNamespaceSameAsPublisher",
-            "value": "BaseNamespaceSameAsPublisher",
-            "description": "Base namespace may publish extension types on its own resources."
-          },
-          {
-            "name": "PublisherOwnsServiceTree",
-            "value": "PublisherOwnsServiceTree",
-            "description": "Publisher must own the ServiceTree entry for the resource. Strictest policy."
-          },
-          {
-            "name": "AllowAll",
-            "value": "AllowAll",
-            "description": "Any publisher may publish (no validation). Use with extreme caution - system types only."
-          }
-        ]
-      }
+      "allOf": [
+        {
+          "$ref": "#/definitions/DestinationProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "webhook"
+    },
+    "WebhookEndpoint": {
+      "type": "object",
+      "description": "Webhook endpoint configuration",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The HTTPS endpoint URL to which notifications are delivered"
+        },
+        "applicationId": {
+          "type": "string",
+          "description": "The application ID used to acquire a token for delivery"
+        }
+      },
+      "required": [
+        "url",
+        "applicationId"
+      ]
     }
   },
   "parameters": {}

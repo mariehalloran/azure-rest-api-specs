@@ -543,24 +543,42 @@ union DataBasePlatformType {
   RAC: "RAC",
 
   /**
-   * Oracle Exadata .
+   * Real Application Cluster One Node (RAC ONE NODE) .
+   */
+  RAC_ONE_NODE: "RAC_ONE_NODE",
+
+  /**
+   * Oracle Restart (Single Instance High Availability).
+   */
+  ORACLE_RESTART: "ORACLE_RESTART",
+}
+
+/**
+ * Represents the infrastructure type of the database. i.e standard, exadata, autonomous.
+ */
+union DatabaseInfrastructureType {
+  string,
+
+  /**
+   * Unknown .
+   */
+  Unknown: "Unknown",
+
+  /**
+   * Oracle running on standard infrastructure
+   * (VMware, Hyper-V, Physical, Azure VM, AWS, OCI Compute, etc.)
+   */
+  STANDARD: "STANDARD",
+
+  /**
+   * Oracle running on Exadata infrastructure.
    */
   EXADATA: "EXADATA",
 
   /**
-   * Oracle Data Guard .
-   */
-  DATAGUARD: "DATAGUARD",
-
-  /**
-   * Oracle Autonomous .
+   * Oracle Autonomous Database.
    */
   AUTONOMOUS: "AUTONOMOUS",
-
-  /**
-   * Oracle Multitenant .
-   */
-  MULTITENANT: "MULTITENANT",
 }
 
 /**
@@ -644,6 +662,7 @@ model OracleInstanceProperties is AzureResourceProperties {
   /**
    *The Server IP in ipv4/ipv6 format.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   hostIp?: string[];
 
   /**
@@ -826,9 +845,19 @@ model OracleInstanceProperties is AzureResourceProperties {
   dbCpuCoreCount?: int64;
 
   /**
-   * The database platform type, i.e standlone, RAC, EXADATA, DATA_GUARD, AUTONOMOUS, MULTITENANT.
+   * The database platform type, i.e standlone, RAC.
    */
   dbPlatformType?: DataBasePlatformType;
+
+  /**
+   * The database infrastructure type, i.e standard, exadata, autonomous.
+   */
+  dbInfrastructureType?: DatabaseInfrastructureType;
+
+  /**
+   * The list of database features, i.e. partitioning, olap, spatial, inmemory, asm, dataguard, multitenant etc.
+   */
+  dbFeatures?: string[];
 
   /**
    * The size of the SGA memory.
@@ -928,6 +957,7 @@ model OracleInstanceResourcePatch {
   /**
    * The Server IP in ipv4/ipv6 format.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   hostIp?: string[];
 
   /**
@@ -1110,9 +1140,19 @@ model OracleInstanceResourcePatch {
   dbCpuCoreCount?: int64;
 
   /**
-   * The database platform type, i.e standlone, RAC, EXADATA, DATA_GUARD, AUTONOMOUS, MULTITENANT.
+   * The database platform type, i.e standlone, RAC.
    */
   dbPlatformType?: DataBasePlatformType;
+
+  /**
+   * The database infrastructure type, i.e standard, exadata, autonomous.
+   */
+  dbInfrastructureType?: DatabaseInfrastructureType;
+
+  /**
+   * The list of database features, i.e. partitioning, olap, spatial, inmemory, asm, dataguard, multitenant etc.
+   */
+  dbFeatures?: string[];
 
   /**
    * The size of the SGA memory.

@@ -5,9 +5,14 @@
     More info: https://aka.ms/azsdk/spec-gen-sdk-config.
   rules: [SdkTspConfigValidation]
   sub-rules:
-    - parameters.service-dir.default
     - options.@azure-tools/typespec-go.*
     - options.@azure-tools/typespec-java.*
     - options.@azure-tools/typespec-python.*
     - options.@azure-tools/typespec-ts.*
   paths: [IoTOperationsDataProcessor.Management/tspconfig.yaml]
+- tool: TypeSpecValidation
+  rules: [FolderStructure]
+  sub-rules: [MustUseV2]
+  reason: Specs added as folder structure v1, not yet converted to v2
+  paths:
+    - IoTOperationsDataProcessor.Management

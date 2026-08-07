@@ -5,6 +5,7 @@ import "./NetworkCollection.tsp";
 
 @doc("Details of the physical properties of the AszLabHw Server System")
 model System {
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("The IP Address of the server")
   // Add IP address regex validation?
   bmcIpAddress?: string;
