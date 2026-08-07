@@ -956,6 +956,18 @@
         "x-ms-examples": {
           "PolicyGroups_CreateOrUpdate": {
             "$ref": "./examples/PolicyGroups_CreateOrUpdate.json"
+          },
+          "PolicyGroups_CreateOrUpdate_ContentInspection": {
+            "$ref": "./examples/PolicyGroups_CreateOrUpdate_ContentInspection.json"
+          },
+          "PolicyGroups_CreateOrUpdate_Mcp": {
+            "$ref": "./examples/PolicyGroups_CreateOrUpdate_Mcp.json"
+          },
+          "PolicyGroups_CreateOrUpdate_TlsInspection": {
+            "$ref": "./examples/PolicyGroups_CreateOrUpdate_TlsInspection.json"
+          },
+          "PolicyGroups_CreateOrUpdate_UrlFiltering": {
+            "$ref": "./examples/PolicyGroups_CreateOrUpdate_UrlFiltering.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -1091,7 +1103,14 @@
         "resourceId": {
           "type": "string",
           "format": "arm-id",
-          "description": "The ARM resource ID of the ACI container group backing this member's sandbox."
+          "description": "The Azure Resource Manager resource ID of the Azure Container Instances (ACI) container group backing this member's sandbox.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.ContainerInstance/containerGroups"
+              }
+            ]
+          }
         }
       },
       "required": [
@@ -1163,6 +1182,8 @@
         "trustDomain": {
           "type": "string",
           "description": "The trust domain that scopes this fabric's member identities. It is the leading component of\neach member's identity, which takes the form `<trustDomain>/<agentFabricName>/<memberName>`.\nSet at creation and immutable thereafter; when omitted, the shared default trust domain\n`microsoft.agentfabric` is used.",
+          "maxLength": 253,
+          "pattern": "^[a-z0-9]([a-z0-9.-]*[a-z0-9])?$",
           "x-ms-mutability": [
             "read",
             "create"

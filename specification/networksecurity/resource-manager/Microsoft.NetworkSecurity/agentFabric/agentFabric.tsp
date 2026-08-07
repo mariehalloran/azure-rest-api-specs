@@ -60,6 +60,8 @@ model AgentFabricProperties {
    */
   @added(Versions.v2026_07_21_preview)
   @visibility(Lifecycle.Create, Lifecycle.Read)
+  @maxLength(253)
+  @pattern("^[a-z0-9]([a-z0-9.-]*[a-z0-9])?$")
   trustDomain?: string;
 
   /** The provisioning state of the resource. */
@@ -118,7 +120,7 @@ model FoundryWorkload extends WorkloadBase {
   /** The workload type. */
   type: "Foundry";
 
-  /** The ARM resource ID of the Foundry resource. */
+  /** The Azure Resource Manager resource ID of the Foundry resource. */
   resourceId?: Azure.Core.armResourceIdentifier;
 }
 
@@ -128,8 +130,12 @@ model AciWorkload extends WorkloadBase {
   /** The workload type. */
   type: "ACI";
 
-  /** The ARM resource ID of the ACI container group backing this member's sandbox. */
-  resourceId: Azure.Core.armResourceIdentifier;
+  /** The Azure Resource Manager resource ID of the Azure Container Instances (ACI) container group backing this member's sandbox. */
+  resourceId: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ContainerInstance/containerGroups";
+    }
+  ]>;
 }
 
 /** The image pull policy for a sandbox workload container image. */
