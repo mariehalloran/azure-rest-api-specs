@@ -47,6 +47,10 @@ suppressions:
     from: migrateProjects.json
     where: $.definitions.GenerateDownloadUrlOperationStatus
     reason: GenerateDownloadUrlOperationStatus is the long-running-operation status monitor returned by the operationStatuses GET, not an ARM resource. Its top-level status/startTime/endTime/percentComplete/error properties are required by the ARM async operation status result contract; the LRO poller reads status from the top level, so these properties cannot be moved into a properties bag without breaking asynchronous polling.
+  - code: LroLocationHeader
+    from: migrateProjects.json
+    where: $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/migrateProjects/{projectName}/artifacts/{artifactName}/generateDownloadUrl"].post.responses["202"].headers
+    reason: The generateDownloadUrl action is an Azure Resource Manager asynchronous operation whose terminal state is reported exclusively through the Azure-AsyncOperation header. The 202 response intentionally omits Location because there is no separate result resource; clients poll the operation status monitor referenced by Azure-AsyncOperation. This preview-only exception must be revisited before a stable API release.
 ```
 
 ### Tag: package-preview-2026-06
