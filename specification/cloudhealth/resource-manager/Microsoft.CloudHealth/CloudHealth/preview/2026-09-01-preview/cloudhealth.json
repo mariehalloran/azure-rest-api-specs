@@ -3410,7 +3410,7 @@
         },
         "publicNetworkAccess": {
           "type": "string",
-          "description": "Controls public-network access to the data plane only. Defaults to `Enabled`.",
+          "description": "Controls public-network access to the data plane only; never gates control-plane operations. Defaults to `Enabled`. `Disabled` denies all data-plane requests and ignores `dataPlaneIpAllowList`.",
           "default": "Enabled",
           "enum": [
             "Enabled",
@@ -3435,7 +3435,7 @@
         },
         "dataPlaneIpAllowList": {
           "type": "array",
-          "description": "IP addresses or CIDR ranges allowed to reach the data plane when `publicNetworkAccess` is `Enabled`. Empty array means all public IPs are allowed when `publicNetworkAccess` is `Enabled`.",
+          "description": "IP addresses or CIDR ranges allowed to reach the data plane. An absent, null, or empty list allows all public IPs; the list is ignored when `publicNetworkAccess` is `Disabled`. On PUT an omitted list becomes empty.",
           "default": [],
           "maxItems": 100,
           "items": {
@@ -3512,11 +3512,11 @@
       "properties": {
         "publicNetworkAccess": {
           "$ref": "#/definitions/PublicNetworkAccess",
-          "description": "Controls public-network access to the data plane only."
+          "description": "Controls public-network access to the data plane only; never gates control-plane operations. `Disabled` denies all data-plane requests and ignores `dataPlaneIpAllowList`. Omitting this property leaves the stored value unchanged."
         },
         "dataPlaneIpAllowList": {
           "type": "array",
-          "description": "IP addresses or CIDR ranges allowed to reach the data plane when `publicNetworkAccess` is `Enabled`. Empty array means all public IPs are allowed when `publicNetworkAccess` is `Enabled`.",
+          "description": "IP addresses or CIDR ranges allowed to reach the data plane. An absent, null, or empty list allows all public IPs; the list is ignored when `publicNetworkAccess` is `Disabled`. PATCH replaces the list wholesale rather than merging: omitting it or sending null preserves the stored list, an empty array clears it.",
           "maxItems": 100,
           "items": {
             "$ref": "#/definitions/ipAddressOrRange"

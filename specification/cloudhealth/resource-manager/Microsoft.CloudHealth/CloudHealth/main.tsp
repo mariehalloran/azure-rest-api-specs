@@ -91,11 +91,11 @@ model HealthModelProperties {
   dataPlaneUri?: url;
 
   @added(Versions.v2026_09_01_preview)
-  @doc("Controls public-network access to the data plane only. Defaults to `Enabled`.")
+  @doc("Controls public-network access to the data plane only; never gates control-plane operations. Defaults to `Enabled`. `Disabled` denies all data-plane requests and ignores `dataPlaneIpAllowList`.")
   publicNetworkAccess?: PublicNetworkAccess = PublicNetworkAccess.Enabled;
 
   @added(Versions.v2026_09_01_preview)
-  @doc("IP addresses or CIDR ranges allowed to reach the data plane when `publicNetworkAccess` is `Enabled`. Empty array means all public IPs are allowed when `publicNetworkAccess` is `Enabled`.")
+  @doc("IP addresses or CIDR ranges allowed to reach the data plane. An absent, null, or empty list allows all public IPs; the list is ignored when `publicNetworkAccess` is `Disabled`. On PUT an omitted list becomes empty.")
   @maxItems(100)
   dataPlaneIpAllowList?: ipAddressOrRange[] = #[];
 }
@@ -109,11 +109,11 @@ alias HealthModelPatchProperties = {
   discovery?: ModelDiscoverySettings;
 
   @added(Versions.v2026_09_01_preview)
-  @doc("Controls public-network access to the data plane only.")
+  @doc("Controls public-network access to the data plane only; never gates control-plane operations. `Disabled` denies all data-plane requests and ignores `dataPlaneIpAllowList`. Omitting this property leaves the stored value unchanged.")
   publicNetworkAccess?: PublicNetworkAccess;
 
   @added(Versions.v2026_09_01_preview)
-  @doc("IP addresses or CIDR ranges allowed to reach the data plane when `publicNetworkAccess` is `Enabled`. Empty array means all public IPs are allowed when `publicNetworkAccess` is `Enabled`.")
+  @doc("IP addresses or CIDR ranges allowed to reach the data plane. An absent, null, or empty list allows all public IPs; the list is ignored when `publicNetworkAccess` is `Disabled`. PATCH replaces the list wholesale rather than merging: omitting it or sending null preserves the stored list, an empty array clears it.")
   @maxItems(100)
   dataPlaneIpAllowList?: ipAddressOrRange[];
 };
