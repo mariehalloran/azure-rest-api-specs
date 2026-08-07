@@ -218,6 +218,44 @@ model OverviewSummaryProperties {
   @doc("Azure value uplift benefits, aggregated across the heterogeneous assessment that contributes to this business case. Absent when the contributing assessment reported no value benefits.")
   @visibility(Lifecycle.Read)
   valueBenefit?: ValueBenefitDetails;
+
+  @added(BusinessCaseApiVersions.v2026_06_06_preview)
+  @doc("Infrastructure cost savings and the value benefit combined into the total economic benefit of the migration. Absent when no value benefit was reported, since the total would then restate the cost savings.")
+  @visibility(Lifecycle.Read)
+  totalEconomicBenefit?: TotalEconomicBenefitDetails;
+}
+
+@doc("""
+  The complete economic picture of the migration: what is saved on infrastructure, plus what Azure
+  delivers beyond price.
+  
+  Carries the totals only. The pillar and line-item breakdown behind the value benefit is the
+  sibling `valueBenefit`, so it is not repeated here.
+  
+  The total is returned rather than left for the caller to add up, so that the portal, the export
+  and any downstream report agree on the figure instead of each rounding the parts independently.
+  """)
+@added(BusinessCaseApiVersions.v2026_06_06_preview)
+model TotalEconomicBenefitDetails {
+  @doc("Annual infrastructure cost savings, the difference between the on-premises and the Azure cost.")
+  @visibility(Lifecycle.Read)
+  costSavingsAnnual: float64;
+
+  @doc("Annual risk-adjusted value benefit. Restates the aggregate of the sibling value benefit so this object can be read on its own.")
+  @visibility(Lifecycle.Read)
+  valueBenefitAnnualRiskAdjusted: float64;
+
+  @doc("Annual total economic benefit, the sum of the cost savings and the risk-adjusted value benefit.")
+  @visibility(Lifecycle.Read)
+  totalEconomicBenefitAnnual: float64;
+
+  @doc("Net present value of the total economic benefit over the finance horizon.")
+  @visibility(Lifecycle.Read)
+  totalEconomicBenefitNpv?: float64;
+
+  @doc("Total economic benefit expressed as a fraction of the current annual on-premises spend.")
+  @visibility(Lifecycle.Read)
+  percentOfOnPremisesCost?: float64;
 }
 
 @doc("Azure value uplift benefits for a set of workloads, broken down by pillar.")

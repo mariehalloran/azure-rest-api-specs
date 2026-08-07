@@ -2372,6 +2372,11 @@
           "$ref": "#/definitions/ValueBenefitDetails",
           "description": "Azure value uplift benefits, aggregated across the heterogeneous assessment that contributes to this business case. Absent when the contributing assessment reported no value benefits.",
           "readOnly": true
+        },
+        "totalEconomicBenefit": {
+          "$ref": "#/definitions/TotalEconomicBenefitDetails",
+          "description": "Infrastructure cost savings and the value benefit combined into the total economic benefit of the migration. Absent when no value benefit was reported, since the total would then restate the cost savings.",
+          "readOnly": true
         }
       },
       "required": [
@@ -2920,6 +2925,47 @@
       "required": [
         "totalCost",
         "licenseCostDetails"
+      ]
+    },
+    "TotalEconomicBenefitDetails": {
+      "type": "object",
+      "description": "The complete economic picture of the migration: what is saved on infrastructure, plus what Azure\ndelivers beyond price.\n\nCarries the totals only. The pillar and line-item breakdown behind the value benefit is the\nsibling `valueBenefit`, so it is not repeated here.\n\nThe total is returned rather than left for the caller to add up, so that the portal, the export\nand any downstream report agree on the figure instead of each rounding the parts independently.",
+      "properties": {
+        "costSavingsAnnual": {
+          "type": "number",
+          "format": "double",
+          "description": "Annual infrastructure cost savings, the difference between the on-premises and the Azure cost.",
+          "readOnly": true
+        },
+        "valueBenefitAnnualRiskAdjusted": {
+          "type": "number",
+          "format": "double",
+          "description": "Annual risk-adjusted value benefit. Restates the aggregate of the sibling value benefit so this object can be read on its own.",
+          "readOnly": true
+        },
+        "totalEconomicBenefitAnnual": {
+          "type": "number",
+          "format": "double",
+          "description": "Annual total economic benefit, the sum of the cost savings and the risk-adjusted value benefit.",
+          "readOnly": true
+        },
+        "totalEconomicBenefitNpv": {
+          "type": "number",
+          "format": "double",
+          "description": "Net present value of the total economic benefit over the finance horizon.",
+          "readOnly": true
+        },
+        "percentOfOnPremisesCost": {
+          "type": "number",
+          "format": "double",
+          "description": "Total economic benefit expressed as a fraction of the current annual on-premises spend.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "costSavingsAnnual",
+        "valueBenefitAnnualRiskAdjusted",
+        "totalEconomicBenefitAnnual"
       ]
     },
     "ValueBenefitDetails": {
