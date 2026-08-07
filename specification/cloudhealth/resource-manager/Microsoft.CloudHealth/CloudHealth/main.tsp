@@ -45,6 +45,7 @@ scalar stringModelResourceName extends string;
 // Regex for all our proxy resource name validations. Up to 260 characters, alphanumeric and hyphens, must start and end with an alphanumeric character
 alias proxyResourceNameRegex = "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$";
 
+@added(Versions.v2026_09_01_preview)
 @doc("An IP address or IP range in CIDR notation (IPv4 /0-/32 or IPv6 /0-/128).")
 scalar ipAddressOrRange extends string;
 
@@ -91,13 +92,36 @@ model HealthModelProperties {
 
   @added(Versions.v2026_09_01_preview)
   @doc("Controls public-network access to the data plane only. Defaults to `Enabled`.")
+  publicNetworkAccess?: PublicNetworkAccess = PublicNetworkAccess.Enabled;
+
+  @added(Versions.v2026_09_01_preview)
+  @doc("IP addresses or CIDR ranges allowed to reach the data plane when `publicNetworkAccess` is `Enabled`. Empty array means all public IPs are allowed when `publicNetworkAccess` is `Enabled`.")
+  @maxItems(100)
+  dataPlaneIpAllowList?: ipAddressOrRange[] = #[];
+}
+
+// The patchable properties are listed explicitly so that the defaults PUT needs do not
+// leak into the PATCH schema (ARM rule RPC-Patch-V1-10 forbids defaults in a PATCH body).
+// Must stay an `alias`, and must not use OmitDefaults<>.
+alias HealthModelPatchProperties = {
+  @removed(Versions.v2026_01_01_preview)
+  @doc("Configure to automatically discover entities from a given scope, such as a Service Group. The discovered entities will be linked to the root entity of the health model.")
+  discovery?: ModelDiscoverySettings;
+
+  @added(Versions.v2026_09_01_preview)
+  @doc("Controls public-network access to the data plane only.")
   publicNetworkAccess?: PublicNetworkAccess;
 
   @added(Versions.v2026_09_01_preview)
   @doc("IP addresses or CIDR ranges allowed to reach the data plane when `publicNetworkAccess` is `Enabled`. Empty array means all public IPs are allowed when `publicNetworkAccess` is `Enabled`.")
   @maxItems(100)
   dataPlaneIpAllowList?: ipAddressOrRange[];
-}
+};
+
+model HealthModelUpdate is Azure.ResourceManager.Foundations.ResourceUpdateModel<
+  HealthModel,
+  HealthModelPatchProperties
+>;
 
 @added(Versions.v2026_09_01_preview)
 @doc("Whether requests from the public network are allowed.")
@@ -1734,13 +1758,7 @@ interface HealthModels {
   create is ArmResourceCreateOrUpdateAsync<HealthModel>;
   #suppress "@typespec/http/deprecated-implicit-optionality" "Legacy implicit optionality - DO NOT COPY"
   @patch(#{ implicitOptionality: true })
-  update is ArmCustomPatchAsync<
-    HealthModel,
-    Azure.ResourceManager.Foundations.ResourceUpdateModel<
-      HealthModel,
-      HealthModelProperties
-    >
-  >;
+  update is ArmCustomPatchAsync<HealthModel, HealthModelUpdate>;
   delete is ArmResourceDeleteWithoutOkAsync<HealthModel>;
   listByResourceGroup is ArmResourceListByParent<HealthModel>;
   listBySubscription is ArmListBySubscription<HealthModel>;

@@ -3409,12 +3409,34 @@
           "readOnly": true
         },
         "publicNetworkAccess": {
-          "$ref": "#/definitions/PublicNetworkAccess",
-          "description": "Controls public-network access to the data plane only. Defaults to `Enabled`."
+          "type": "string",
+          "description": "Controls public-network access to the data plane only. Defaults to `Enabled`.",
+          "default": "Enabled",
+          "enum": [
+            "Enabled",
+            "Disabled"
+          ],
+          "x-ms-enum": {
+            "name": "PublicNetworkAccess",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "Enabled",
+                "value": "Enabled",
+                "description": "Data plane requests are allowed, subject to `dataPlaneIpAllowList`."
+              },
+              {
+                "name": "Disabled",
+                "value": "Disabled",
+                "description": "All data plane requests are denied."
+              }
+            ]
+          }
         },
         "dataPlaneIpAllowList": {
           "type": "array",
           "description": "IP addresses or CIDR ranges allowed to reach the data plane when `publicNetworkAccess` is `Enabled`. Empty array means all public IPs are allowed when `publicNetworkAccess` is `Enabled`.",
+          "default": [],
           "maxItems": 100,
           "items": {
             "$ref": "#/definitions/ipAddressOrRange"
@@ -3490,7 +3512,7 @@
       "properties": {
         "publicNetworkAccess": {
           "$ref": "#/definitions/PublicNetworkAccess",
-          "description": "Controls public-network access to the data plane only. Defaults to `Enabled`."
+          "description": "Controls public-network access to the data plane only."
         },
         "dataPlaneIpAllowList": {
           "type": "array",
