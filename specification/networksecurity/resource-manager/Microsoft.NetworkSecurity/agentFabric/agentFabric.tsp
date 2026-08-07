@@ -72,7 +72,12 @@ interface AgentFabrics {
   get is ArmResourceRead<AgentFabric>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<AgentFabric>;
   update is ArmTagsPatchSync<AgentFabric>;
-  delete is ArmResourceDeleteWithoutOkAsync<AgentFabric>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    AgentFabric,
+    Response = ArmDeleteAcceptedLroResponse<ArmAsyncOperationHeader &
+      ArmLroLocationHeader &
+      Azure.Core.Foundations.RetryAfterHeader> | ArmDeletedNoContentResponse
+  >;
   listByResourceGroup is ArmResourceListByParent<AgentFabric>;
   listBySubscription is ArmListBySubscription<AgentFabric>;
 }
@@ -202,7 +207,7 @@ model AgentFabricSandboxWorkload extends WorkloadBase {
 
 /** Member resource */
 @parentResource(AgentFabric)
-model Member is ProxyResource<MemberProperties> {
+model Member is TrackedResource<MemberProperties> {
   ...ResourceNameParameter<Member>;
 }
 
@@ -809,7 +814,12 @@ interface PolicyGroups {
   get is ArmResourceRead<PolicyGroup>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<PolicyGroup>;
   update is ArmTagsPatchSync<PolicyGroup>;
-  delete is ArmResourceDeleteWithoutOkAsync<PolicyGroup>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    PolicyGroup,
+    Response = ArmDeleteAcceptedLroResponse<ArmAsyncOperationHeader &
+      ArmLroLocationHeader &
+      Azure.Core.Foundations.RetryAfterHeader> | ArmDeletedNoContentResponse
+  >;
   listByResourceGroup is ArmResourceListByParent<PolicyGroup>;
   listBySubscription is ArmListBySubscription<PolicyGroup>;
 }
