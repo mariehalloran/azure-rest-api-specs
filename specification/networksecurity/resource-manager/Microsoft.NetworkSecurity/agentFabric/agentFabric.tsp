@@ -847,7 +847,7 @@ interface OperationStatus {
     @doc("The provider namespace (this parameter will not show up in operations).")
     provider: "Microsoft.NetworkSecurity",
 
-    ...LocationParameter,
+    ...Azure.ResourceManager.CommonTypes.LocationParameter,
     ...Azure.ResourceManager.Foundations.OperationIdParameter,
   ):
     | ArmResponse<Azure.ResourceManager.CommonTypes.OperationStatusResult>

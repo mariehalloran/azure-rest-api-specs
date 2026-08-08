@@ -146,7 +146,7 @@
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
           },
           {
-            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/LocationParameter"
+            "$ref": "#/parameters/Azure.ResourceManager.CommonTypes.LocationParameter"
           },
           {
             "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/OperationIdParameter"
@@ -2794,5 +2794,15 @@
       }
     }
   },
-  "parameters": {}
+  "parameters": {
+    "Azure.ResourceManager.CommonTypes.LocationParameter": {
+      "name": "location",
+      "in": "path",
+      "description": "The name of Azure region.",
+      "required": true,
+      "type": "string",
+      "minLength": 1,
+      "x-ms-parameter-location": "method"
+    }
+  }
 }
