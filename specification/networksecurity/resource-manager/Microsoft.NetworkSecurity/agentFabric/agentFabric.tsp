@@ -237,7 +237,7 @@ model MemberProperties {
 interface Members {
   get is ArmResourceRead<Member>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Member>;
-  update is ArmResourcePatchSync<Member, MemberProperties>;
+  update is ArmTagsPatchSync<Member>;
   delete is ArmResourceDeleteSync<Member>;
   listByParent is ArmResourceListByParent<Member>;
 }

@@ -722,7 +722,7 @@
             "description": "The resource properties to be updated.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/MemberUpdate"
+              "$ref": "#/definitions/MemberTagsUpdate"
             }
           }
         ],
@@ -1293,25 +1293,6 @@
       "required": [
         "tenantId",
         "agentId"
-      ]
-    },
-    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
-      "type": "object",
-      "title": "Tracked Resource",
-      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/Resource"
-        }
       ]
     },
     "AzureManagedCaCertificate": {
@@ -2040,24 +2021,18 @@
         }
       }
     },
-    "MemberPropertiesUpdate": {
+    "MemberTagsUpdate": {
       "type": "object",
-      "description": "Member properties"
-    },
-    "MemberUpdate": {
-      "type": "object",
-      "description": "Member resource",
+      "description": "The type used for updating tags in Member resources.",
       "properties": {
-        "properties": {
-          "$ref": "#/definitions/MemberPropertiesUpdate",
-          "description": "The resource-specific properties for this resource."
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
-        }
-      ]
+      }
     },
     "NetworkSecurityPolicyBase": {
       "type": "object",
