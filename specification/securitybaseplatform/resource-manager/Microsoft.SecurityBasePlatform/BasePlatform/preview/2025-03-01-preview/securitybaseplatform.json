@@ -370,6 +370,11 @@
           "202": {
             "description": "Resource update request accepted.",
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
               "Location": {
                 "type": "string",
                 "description": "The Location header contains the URL where the status of the long running operation can be checked."
@@ -427,6 +432,11 @@
           "202": {
             "description": "Resource deletion accepted.",
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
               "Location": {
                 "type": "string",
                 "description": "The Location header contains the URL where the status of the long running operation can be checked."
@@ -927,7 +937,6 @@
           "readOnly": true
         }
       },
-      "discriminator": "clusterKind",
       "required": [
         "workspaceId",
         "clusterKind"
@@ -965,6 +974,10 @@
         "ingress": {
           "$ref": "#/definitions/ClusterIngressConfigUpdate",
           "description": "Ingress configuration for the cluster. When omitted or disabled, the cluster has no ingress."
+        },
+        "deploymentIdentity": {
+          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "description": "Managed identities used for this cluster's deployments. They are authorized to push container images to the workspace container registry and to deploy workloads to this cluster. Identity resource IDs are map keys in the userAssignedIdentities dictionary. May be changed after create."
         }
       }
     },
@@ -993,16 +1006,6 @@
           }
         ]
       }
-    },
-    "Dk8sClusterProperties": {
-      "type": "object",
-      "description": "Properties for a Dk8s (dedicated Kubernetes) Cluster.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/ClusterProperties"
-        }
-      ],
-      "x-ms-discriminator-value": "Dk8s"
     },
     "ExecProbeConfig": {
       "type": "object",
@@ -1260,11 +1263,7 @@
           "description": "The resource group location.",
           "readOnly": true
         }
-      },
-      "required": [
-        "name",
-        "location"
-      ]
+      }
     },
     "MdmConfig": {
       "type": "object",
@@ -1388,7 +1387,7 @@
     },
     "MdmTransformFunction": {
       "type": "string",
-      "description": "Built-in Geneva Metrics (MDM) transform functions exposed by ConfigGen.",
+      "description": "Built-in Geneva Metrics (MDM) transform functions.",
       "enum": [
         "hostname",
         "ap_machine_function",
@@ -1714,7 +1713,7 @@
         },
         "probes": {
           "$ref": "#/definitions/WorkloadProbesConfig",
-          "description": "Container probe configuration surfaced with observability because ConfigGen treats liveness, readiness, and startup monitors as telemetry/operator health settings."
+          "description": "Container probe configuration for liveness, readiness, and startup health monitoring."
         },
         "service": {
           "$ref": "#/definitions/ObservabilityServiceConfig",
@@ -1734,6 +1733,64 @@
       "type": "object",
       "description": "Generated patch properties for ObservabilityConfiguration.",
       "properties": {
+        "metrics": {
+          "$ref": "#/definitions/WorkloadMetricsConfig",
+          "description": "Metrics collection configuration."
+        },
+        "logs": {
+          "$ref": "#/definitions/WorkloadLogsConfig",
+          "description": "Log collection configuration."
+        },
+        "auditLogs": {
+          "$ref": "#/definitions/WorkloadAuditLogsConfig",
+          "description": "Audit log collection configuration."
+        },
+        "mdm": {
+          "$ref": "#/definitions/MdmConfig",
+          "description": "Geneva Metrics (MDM) sidecar configuration."
+        },
+        "extraMdms": {
+          "type": "array",
+          "description": "Additional Geneva Metrics (MDM) sidecars when more than one metrics pipeline is needed.",
+          "items": {
+            "$ref": "#/definitions/NamedMdmConfig"
+          }
+        },
+        "logTail": {
+          "$ref": "#/definitions/LogTailConfig",
+          "description": "File log tailing sidecar configuration."
+        },
+        "logsMountPath": {
+          "type": "string",
+          "description": "Path mounted into telemetry sidecars for application log files."
+        },
+        "highThroughput": {
+          "$ref": "#/definitions/HighThroughputConfig",
+          "description": "High throughput telemetry pipeline configuration."
+        },
+        "extraMdsds": {
+          "type": "array",
+          "description": "Additional Geneva Monitoring Agent (MDSD) log collector sidecars when the high-throughput logs pipeline needs more than one collector.",
+          "items": {
+            "$ref": "#/definitions/NamedMdsdConfig"
+          }
+        },
+        "probes": {
+          "$ref": "#/definitions/WorkloadProbesConfig",
+          "description": "Container probe configuration for liveness, readiness, and startup health monitoring."
+        },
+        "service": {
+          "$ref": "#/definitions/ObservabilityServiceConfig",
+          "description": "Kubernetes Service object settings used by ingress, probes, and service discovery."
+        },
+        "routing": {
+          "$ref": "#/definitions/TelemetryRoutingConfig",
+          "description": "Telemetry routing settings for selecting closed, supported log and metric destinations."
+        },
+        "operatorManaged": {
+          "$ref": "#/definitions/OperatorManagedObservabilityConfig",
+          "description": "Operator-managed observability integration flags."
+        },
         "metricsAccount": {
           "type": "string",
           "description": "Telemetry account/destination for metrics emitted by this cluster."
@@ -1818,7 +1875,7 @@
         },
         "targetPort": {
           "type": "string",
-          "description": "Target port exposed by the workload."
+          "description": "Target port exposed by the workload, specified as a decimal numeric string or a named Kubernetes container port."
         },
         "protocol": {
           "type": "string",
@@ -2008,11 +2065,11 @@
       "properties": {
         "request": {
           "type": "string",
-          "description": "Resource request."
+          "description": "Kubernetes resource quantity requested by the workload, such as `500m` CPU or `512Mi` memory."
         },
         "limit": {
           "type": "string",
-          "description": "Resource limit."
+          "description": "Kubernetes resource quantity limit for the workload, such as `1` CPU or `1Gi` memory."
         }
       }
     },

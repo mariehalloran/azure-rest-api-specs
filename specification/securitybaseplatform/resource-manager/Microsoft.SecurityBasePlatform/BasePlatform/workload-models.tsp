@@ -23,10 +23,10 @@ model ComputeResources {
 
 @doc("Resource requests and limits.")
 model ResourceRequestsLimits {
-  @doc("Resource request.")
+  @doc("Kubernetes resource quantity requested by the workload, such as `500m` CPU or `512Mi` memory.")
   request?: string;
 
-  @doc("Resource limit.")
+  @doc("Kubernetes resource quantity limit for the workload, such as `1` CPU or `1Gi` memory.")
   limit?: string;
 }
 
@@ -61,7 +61,7 @@ model ObservabilityDefaults {
   @identifiers(#["name"])
   extraMdsds?: NamedMdsdConfig[];
 
-  @doc("Container probe configuration surfaced with observability because ConfigGen treats liveness, readiness, and startup monitors as telemetry/operator health settings.")
+  @doc("Container probe configuration for liveness, readiness, and startup health monitoring.")
   probes?: WorkloadProbesConfig;
 
   @doc("Kubernetes Service object settings used by ingress, probes, and service discovery.")
@@ -344,7 +344,7 @@ union MdmTransformOperationValueType {
   Function: "function",
 }
 
-@doc("Built-in Geneva Metrics (MDM) transform functions exposed by ConfigGen.")
+@doc("Built-in Geneva Metrics (MDM) transform functions.")
 union MdmTransformFunction {
   string,
 
@@ -546,7 +546,7 @@ model ObservabilityServicePort {
   @doc("Port exposed by the Service.")
   port: int32;
 
-  @doc("Target port exposed by the workload.")
+  @doc("Target port exposed by the workload, specified as a decimal numeric string or a named Kubernetes container port.")
   targetPort: string;
 
   @doc("Network protocol.")

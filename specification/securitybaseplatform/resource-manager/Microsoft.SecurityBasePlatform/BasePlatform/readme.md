@@ -34,23 +34,3 @@ directive:
       StringMap models user-defined Kubernetes labels and annotations whose keys
       are not knowable in advance, so an open string-to-string map is required.
 ```
-
-### Tag: avocado-examples
-
-These settings are used for CI reference validation of example files.
-
-```yaml $(tag) == 'avocado-examples'
-input-file:
-  - examples/2025-03-01-preview/Clusters_CreateOrUpdate.json
-  - examples/2025-03-01-preview/Clusters_Delete.json
-  - examples/2025-03-01-preview/Clusters_Get.json
-  - examples/2025-03-01-preview/Clusters_ListByResourceGroup.json
-  - examples/2025-03-01-preview/Clusters_ListBySubscription.json
-  - examples/2025-03-01-preview/Clusters_Update.json
-  - examples/2025-03-01-preview/Workspaces_CreateOrUpdate.json
-  - examples/2025-03-01-preview/Workspaces_Delete.json
-  - examples/2025-03-01-preview/Workspaces_Get.json
-  - examples/2025-03-01-preview/Workspaces_ListByResourceGroup.json
-  - examples/2025-03-01-preview/Workspaces_ListBySubscription.json
-  - examples/2025-03-01-preview/Workspaces_Update.json
-```

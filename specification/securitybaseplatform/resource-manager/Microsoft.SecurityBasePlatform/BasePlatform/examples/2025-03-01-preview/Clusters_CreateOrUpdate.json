@@ -102,8 +102,13 @@
               "manageCertificates": true
             }
           },
+          "networkConfig": {
+            "egressIpTag": "SecBasePlatform-Egress",
+            "networkIdentifierIpTag": "SecBasePlatform-Net"
+          },
           "ingress": {
-            "enabled": true
+            "enabled": true,
+            "ipTag": "SecBasePlatform-Ingress"
           },
           "provisioningState": "Succeeded"
         }
@@ -118,6 +123,14 @@
         "properties": {
           "workspaceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/workspaces/prod-ws",
           "clusterKind": "Dk8s",
+          "networkConfig": {
+            "egressIpTag": "SecBasePlatform-Egress",
+            "networkIdentifierIpTag": "SecBasePlatform-Net"
+          },
+          "ingress": {
+            "enabled": true,
+            "ipTag": "SecBasePlatform-Ingress"
+          },
           "provisioningState": "Accepted"
         }
       }
