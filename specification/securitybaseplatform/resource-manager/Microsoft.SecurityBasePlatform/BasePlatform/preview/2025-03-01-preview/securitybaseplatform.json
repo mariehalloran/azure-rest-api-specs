@@ -944,7 +944,7 @@
     },
     "ClusterUpdate": {
       "type": "object",
-      "description": "The type used for update operations of the Cluster.",
+      "description": "The template for adding optional properties.",
       "properties": {
         "tags": {
           "type": "object",
@@ -976,7 +976,7 @@
           "description": "Ingress configuration for the cluster. When omitted or disabled, the cluster has no ingress."
         },
         "deploymentIdentity": {
-          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "$ref": "#/definitions/ManagedServiceIdentityUpdate",
           "description": "Managed identities used for this cluster's deployments. They are authorized to push container images to the workspace container registry and to deploy workloads to this cluster. Identity resource IDs are map keys in the userAssignedIdentities dictionary. May be changed after create."
         }
       }
@@ -1262,6 +1262,24 @@
           "type": "string",
           "description": "The resource group location.",
           "readOnly": true
+        }
+      }
+    },
+    "ManagedServiceIdentityUpdate": {
+      "type": "object",
+      "description": "The updatable properties of Azure.ResourceManager.CommonTypes.ManagedServiceIdentity.",
+      "properties": {
+        "type": {
+          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentityType",
+          "description": "The type of managed identity assigned to this resource."
+        },
+        "userAssignedIdentities": {
+          "type": "object",
+          "description": "The identities assigned to this resource by the user.",
+          "additionalProperties": {
+            "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/UserAssignedIdentity",
+            "x-nullable": true
+          }
         }
       }
     },
@@ -1733,64 +1751,6 @@
       "type": "object",
       "description": "Generated patch properties for ObservabilityConfiguration.",
       "properties": {
-        "metrics": {
-          "$ref": "#/definitions/WorkloadMetricsConfig",
-          "description": "Metrics collection configuration."
-        },
-        "logs": {
-          "$ref": "#/definitions/WorkloadLogsConfig",
-          "description": "Log collection configuration."
-        },
-        "auditLogs": {
-          "$ref": "#/definitions/WorkloadAuditLogsConfig",
-          "description": "Audit log collection configuration."
-        },
-        "mdm": {
-          "$ref": "#/definitions/MdmConfig",
-          "description": "Geneva Metrics (MDM) sidecar configuration."
-        },
-        "extraMdms": {
-          "type": "array",
-          "description": "Additional Geneva Metrics (MDM) sidecars when more than one metrics pipeline is needed.",
-          "items": {
-            "$ref": "#/definitions/NamedMdmConfig"
-          }
-        },
-        "logTail": {
-          "$ref": "#/definitions/LogTailConfig",
-          "description": "File log tailing sidecar configuration."
-        },
-        "logsMountPath": {
-          "type": "string",
-          "description": "Path mounted into telemetry sidecars for application log files."
-        },
-        "highThroughput": {
-          "$ref": "#/definitions/HighThroughputConfig",
-          "description": "High throughput telemetry pipeline configuration."
-        },
-        "extraMdsds": {
-          "type": "array",
-          "description": "Additional Geneva Monitoring Agent (MDSD) log collector sidecars when the high-throughput logs pipeline needs more than one collector.",
-          "items": {
-            "$ref": "#/definitions/NamedMdsdConfig"
-          }
-        },
-        "probes": {
-          "$ref": "#/definitions/WorkloadProbesConfig",
-          "description": "Container probe configuration for liveness, readiness, and startup health monitoring."
-        },
-        "service": {
-          "$ref": "#/definitions/ObservabilityServiceConfig",
-          "description": "Kubernetes Service object settings used by ingress, probes, and service discovery."
-        },
-        "routing": {
-          "$ref": "#/definitions/TelemetryRoutingConfig",
-          "description": "Telemetry routing settings for selecting closed, supported log and metric destinations."
-        },
-        "operatorManaged": {
-          "$ref": "#/definitions/OperatorManagedObservabilityConfig",
-          "description": "Operator-managed observability integration flags."
-        },
         "metricsAccount": {
           "type": "string",
           "description": "Telemetry account/destination for metrics emitted by this cluster."

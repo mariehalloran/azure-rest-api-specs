@@ -8,13 +8,11 @@ namespace Microsoft.SecurityBasePlatform;
 // - UpdateableProperties keeps only fields that are valid for PATCH.
 // - OptionalProperties makes top-level PATCH fields optional.
 // The resource-specific properties field is added below with the generated update model.
-#suppress "@azure-tools/typespec-azure-resource-manager/patch-envelope" "Create-only envelope properties (e.g. identity with ABAC roleAssignmentMode) are deliberately excluded from PATCH. See @visibility usage on the resource model."
-@doc("The type used for update operations of the Cluster.")
+// Envelope properties decorated with @visibility(Lifecycle.Create, Lifecycle.Read) are
+// intentionally absent from this PATCH shape — they are create-only by design.
+#suppress "@azure-tools/typespec-azure-resource-manager/patch-envelope" "Create-only envelope properties (e.g. identity with attribute-based roleAssignmentMode) are deliberately excluded from PATCH. See @visibility usage on the resource model."
 model ClusterUpdate
-  is OptionalProperties<UpdateableProperties<OmitProperties<
-    Cluster,
-    "Name" | "name" | "properties"
-  >>> {
+  is OptionalProperties<UpdateableProperties<OmitProperties<Cluster, "Name" | "name" | "properties">>> {
   @doc("The resource-specific properties for this resource.")
   properties?: ClusterUpdateProperties;
 }
@@ -23,61 +21,18 @@ model ClusterUpdate
 model ClusterUpdateProperties {
   @doc("Default observability settings inherited by namespaces and workloads unless overridden at a lower scope.")
   observability?: ObservabilityConfigurationUpdate;
-
   @doc("Networking configuration.")
   networkConfig?: NetworkingConfigUpdate;
-
   @doc("Ingress configuration for the cluster. When omitted or disabled, the cluster has no ingress.")
   ingress?: ClusterIngressConfigUpdate;
-
   @doc("Managed identities used for this cluster's deployments. They are authorized to push container images to the workspace container registry and to deploy workloads to this cluster. Identity resource IDs are map keys in the userAssignedIdentities dictionary. May be changed after create.")
-  deploymentIdentity?: Azure.ResourceManager.CommonTypes.ManagedServiceIdentity;
+  deploymentIdentity?: ManagedServiceIdentityUpdate;
 }
 
 @doc("Generated patch properties for ObservabilityConfiguration.")
 model ObservabilityConfigurationUpdate {
-  @doc("Metrics collection configuration.")
-  metrics?: WorkloadMetricsConfig;
-
-  @doc("Log collection configuration.")
-  logs?: WorkloadLogsConfig;
-
-  @doc("Audit log collection configuration.")
-  auditLogs?: WorkloadAuditLogsConfig;
-
-  @doc("Geneva Metrics (MDM) sidecar configuration.")
-  mdm?: MdmConfig;
-
-  @doc("Additional Geneva Metrics (MDM) sidecars when more than one metrics pipeline is needed.")
-  extraMdms?: NamedMdmConfig[];
-
-  @doc("File log tailing sidecar configuration.")
-  logTail?: LogTailConfig;
-
-  @doc("Path mounted into telemetry sidecars for application log files.")
-  logsMountPath?: string;
-
-  @doc("High throughput telemetry pipeline configuration.")
-  highThroughput?: HighThroughputConfig;
-
-  @doc("Additional Geneva Monitoring Agent (MDSD) log collector sidecars when the high-throughput logs pipeline needs more than one collector.")
-  extraMdsds?: NamedMdsdConfig[];
-
-  @doc("Container probe configuration for liveness, readiness, and startup health monitoring.")
-  probes?: WorkloadProbesConfig;
-
-  @doc("Kubernetes Service object settings used by ingress, probes, and service discovery.")
-  service?: ObservabilityServiceConfig;
-
-  @doc("Telemetry routing settings for selecting closed, supported log and metric destinations.")
-  routing?: TelemetryRoutingConfig;
-
-  @doc("Operator-managed observability integration flags.")
-  operatorManaged?: OperatorManagedObservabilityConfig;
-
   @doc("Telemetry account/destination for metrics emitted by this cluster.")
   metricsAccount?: string;
-
   @doc("Telemetry account/destination for logs and traces emitted by this cluster.")
   logsAccount?: string;
 }
@@ -86,7 +41,6 @@ model ObservabilityConfigurationUpdate {
 model NetworkingConfigUpdate {
   @doc("The service tag used to identify the cluster's egress NAT IP addresses. Always applied; defaults per-region if omitted.")
   egressIpTag?: string;
-
   @doc("The service tag used to identify the cluster's network. Always applied; defaults per-region if omitted.")
   networkIdentifierIpTag?: string;
 }
@@ -95,7 +49,10 @@ model NetworkingConfigUpdate {
 model ClusterIngressConfigUpdate {
   @doc("Whether the platform provisions ingress (controller and public IP / load balancer) for this cluster. Defaults to false.")
   enabled?: boolean;
-
   @doc("The service tag stamped on the ingress public IP. Only relevant when ingress is enabled.")
   ipTag?: string;
 }
+
+@doc("The updatable properties of Azure.ResourceManager.CommonTypes.ManagedServiceIdentity.")
+model ManagedServiceIdentityUpdate
+  is OptionalProperties<UpdateableProperties<Azure.ResourceManager.CommonTypes.ManagedServiceIdentity>>;
