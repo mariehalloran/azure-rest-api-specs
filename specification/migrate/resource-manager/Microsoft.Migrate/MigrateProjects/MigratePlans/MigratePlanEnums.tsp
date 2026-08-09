@@ -3,6 +3,7 @@ using TypeSpec.Versioning;
 
 namespace Microsoft.Migrate;
 
+@added(ApiVersions.v2026_06_01_preview)
 @doc("The status of a Migrate plan or one of its artifacts.")
 union Status {
   @doc("The plan or artifact has been created.")
@@ -35,6 +36,7 @@ union Status {
   string,
 }
 
+@added(ApiVersions.v2026_06_01_preview)
 @doc("The migration strategy selected for a Migrate plan or artifact.")
 union MigrationStrategy {
   @doc("Modernize the workload to a managed or PaaS target.")
@@ -49,6 +51,7 @@ union MigrationStrategy {
   string,
 }
 
+@added(ApiVersions.v2026_06_01_preview)
 @doc("The type of a Migrate plan. Data center is the first supported kind; the type is extensible so additional plan kinds can be introduced in future versions.")
 union PlanType {
   @doc("A data center plan spanning the full set of plan artifacts for a Migrate project.")
