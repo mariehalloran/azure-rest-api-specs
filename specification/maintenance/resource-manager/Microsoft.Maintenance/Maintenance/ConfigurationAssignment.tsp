@@ -264,7 +264,7 @@ interface ConfigurationAssignmentsForSubscriptions {
   >;
 }
 @armResourceOperations
-interface ConfigurationAssignmentsForResourceGroupOps
+interface ConfigurationAssignmentsForResourceGroupReadOps
   extends Azure.ResourceManager.Legacy.ExtensionOperations<
       {
         ...ApiVersionParameter,
@@ -287,11 +287,34 @@ interface ConfigurationAssignmentsForResourceGroupOps
     > {}
 
 @armResourceOperations
+interface ConfigurationAssignmentsForResourceGroupWriteOps
+  extends Azure.ResourceManager.Legacy.ExtensionOperations<
+      {
+        ...ApiVersionParameter,
+        ...SubscriptionIdParameter,
+        ...ResourceGroupParameter,
+      },
+      {
+        ...Extension.ExtensionProviderNamespace<ConfigurationAssignment>,
+        ...ParentKeysOf<ConfigurationAssignment>,
+      },
+      {
+        ...Extension.ExtensionProviderNamespace<ConfigurationAssignment>,
+        ...KeysOf<ResourceNameParameter<
+          Resource = ConfigurationAssignment,
+          KeyName = "configurationAssignmentName",
+          SegmentName = "configurationAssignments",
+          NamePattern = ""
+        >>,
+      }
+    > {}
+
+@armResourceOperations
 interface ConfigurationAssignmentsForResourceGroup {
   /**
    * Get configuration assignment for resource.
    */
-  get is ConfigurationAssignmentsForResourceGroupOps.Read<
+  get is ConfigurationAssignmentsForResourceGroupReadOps.Read<
     ConfigurationAssignment,
     ErrorType = MaintenanceError
   >;
@@ -299,7 +322,7 @@ interface ConfigurationAssignmentsForResourceGroup {
   /**
    * Register configuration for resource.
    */
-  createOrUpdate is ConfigurationAssignmentsForResourceGroupOps.CreateOrUpdateSync<
+  createOrUpdate is ConfigurationAssignmentsForResourceGroupWriteOps.CreateOrUpdateSync<
     ConfigurationAssignment,
     ErrorType = MaintenanceError
   >;
@@ -308,7 +331,7 @@ interface ConfigurationAssignmentsForResourceGroup {
    * Register configuration for resource.
    */
   @patch(#{ implicitOptionality: false })
-  update is ConfigurationAssignmentsForResourceGroupOps.CustomPatchSync<
+  update is ConfigurationAssignmentsForResourceGroupWriteOps.CustomPatchSync<
     ConfigurationAssignment,
     PatchModel = ConfigurationAssignment,
     ErrorType = MaintenanceError
@@ -317,7 +340,7 @@ interface ConfigurationAssignmentsForResourceGroup {
   /**
    * Unregister configuration for resource.
    */
-  delete is ConfigurationAssignmentsForResourceGroupOps.DeleteSync<
+  delete is ConfigurationAssignmentsForResourceGroupWriteOps.DeleteSync<
     ConfigurationAssignment,
     Response =
       | ArmResponse<ConfigurationAssignment>
