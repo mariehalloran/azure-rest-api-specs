@@ -22,7 +22,7 @@ enum Versions {
 interface Operations extends Azure.ResourceManager.Operations {}
 
 @doc("An education program enrollment that groups Entra domains under a single sovereign/edu program scope.")
-model EduEnrollment is TrackedResource<EduEnrollmentProperties> {
+model EduEnrollment is ExtensionResource<EduEnrollmentProperties> {
   @doc("The name of the edu enrollment")
   @pattern("^[a-zA-Z0-9-]{3,24}$")
   @key("enrollmentName")
@@ -100,19 +100,18 @@ model EduEnrollmentProperties {
   failureReason?: Azure.ResourceManager.CommonTypes.ErrorDetail;
 }
 
-@doc("The type used for update operations of the EduEnrollment.")
-model EduEnrollmentPatch {
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "ARM tags are represented as a string map."
-  @doc("Resource tags.")
-  tags?: Record<string>;
-}
-
+// EduEnrollment is modeled as a generic ARM extension resource. The public
+// contract uses the `{resourceUri}` extension scope
+// (`/{resourceUri}/providers/Microsoft.ProgramEnrollment/eduEnrollments/{enrollmentName}`),
+// matching the ARM-approved Microsoft.BillingTrust precedent. At runtime the
+// service constrains the scope to `Microsoft.Billing/billingAccounts/{name}`
+// only (see BillingAccountResourceUriParser); the RP-side ProviderHub callbacks
+// are routed to the generated single-segment `{resourceUri}` route by
+// ExtensionResourceRoutingMiddleware.
 @armResourceOperations(EduEnrollment)
 interface EduEnrollments {
   get is ArmResourceRead<EduEnrollment>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<EduEnrollment>;
-  update is ArmCustomPatchSync<EduEnrollment, EduEnrollmentPatch>;
   delete is ArmResourceDeleteWithoutOkAsync<EduEnrollment>;
-  listByResourceGroup is ArmResourceListByParent<EduEnrollment>;
-  listBySubscription is ArmListBySubscription<EduEnrollment>;
+  list is ArmResourceListByParent<EduEnrollment>;
 }

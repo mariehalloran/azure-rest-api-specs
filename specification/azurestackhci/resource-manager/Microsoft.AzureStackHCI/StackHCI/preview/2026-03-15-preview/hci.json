@@ -9976,6 +9976,9 @@
           "EdgeMachineJobs_Get_ProvisionOs_Failed": {
             "$ref": "./examples/EdgeMachineJobs_Get_ProvisionOs_Failed.json"
           },
+          "EdgeMachineJobs_Get_ProvisionOs_InProgress": {
+            "$ref": "./examples/EdgeMachineJobs_Get_ProvisionOs_InProgress.json"
+          },
           "EdgeMachineJobs_Get_RemoteSupport": {
             "$ref": "./examples/EdgeMachineJobs_Get_RemoteSupport.json"
           }
@@ -19437,6 +19440,27 @@
         "error": {
           "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
           "description": "error details.",
+          "readOnly": true
+        },
+        "percentComplete": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The progress percentage of the step.",
+          "minimum": 0,
+          "maximum": 100,
+          "readOnly": true
+        },
+        "additionalData": {
+          "type": "string",
+          "description": "Additional data associated with the step.",
+          "readOnly": true
+        },
+        "recommendedSteps": {
+          "type": "array",
+          "description": "Recommended steps to resolve failures in this step.",
+          "items": {
+            "type": "string"
+          },
           "readOnly": true
         }
       }

@@ -620,6 +620,64 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServicesHub/connectors/{servicesHubConnectorName}/publishAssessmentAndSurveyTelemetry": {
+      "post": {
+        "tags": [
+          "PublishAssessmentAndSurveyTelemetry"
+        ],
+        "summary": "Publishes the assessment and survey telemetry for the given solutions for Log Analytics workspace.",
+        "description": "Publishes assessment and survey telemetry for the specified Services Hub solutions to the target Log Analytics workspace.",
+        "operationId": "ServicesHubConnectors_PublishAssessmentAndSurveyTelemetry",
+        "parameters": [
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/ServicesHubConnectorNameParameter"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "requestBody",
+            "in": "body",
+            "description": "Payload describing the assessment and survey telemetry to publish.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ServicesHubPublishAssessmentSurveyTelemetryPayload"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the result message of the assessment and survey telemetry publish operation.",
+            "schema": {
+              "$ref": "#/definitions/PublishTelemetryResult"
+            },
+            "headers": {
+              "x-ms-request-id": {
+                "type": "string",
+                "description": "A unique opaque request identifier for troubleshooting."
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Publish Assessment And Survey Telemetry": {
+            "$ref": "./examples/PublishAssessmentAndSurveyTelemetry.json"
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServicesHub/connectors/{servicesHubConnectorName}/getAMASolutionStatus": {
       "post": {
         "tags": [
@@ -1578,6 +1636,16 @@
         }
       }
     },
+    "PublishTelemetryResult": {
+      "type": "object",
+      "description": "Result of publishing assessment and survey telemetry.",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Message describing the outcome of the publish operation."
+        }
+      }
+    },
     "ErrorResponse": {
       "type": "object",
       "description": "Error response.",
@@ -1738,6 +1806,88 @@
         }
       }
     },
+    "ServicesHubPublishAssessmentSurveyTelemetryPayload": {
+      "type": "object",
+      "description": "Services Hub publish assessments and surveys telemetry for the given solutions",
+      "properties": {
+        "properties": {
+          "description": "Services Hub Publish Assessments And Surveys Telemetry Properties",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ServicesHubPublishAssessmentSurveyTelemetryPayloadProperties"
+            }
+          ]
+        }
+      },
+      "required": [
+        "properties"
+      ]
+    },
+    "ServicesHubPublishAssessmentSurveyTelemetryPayloadProperties": {
+      "type": "object",
+      "description": "Services Hub Publish Assessments And Surveys Telemetry Properties",
+      "properties": {
+        "logAnalyticsSubscriptionId": {
+          "type": "string",
+          "description": "Azure subscription ID containing the target Log Analytics workspace."
+        },
+        "logAnalyticsResourceGroupName": {
+          "type": "string",
+          "description": "Name of the resource group containing the target Log Analytics workspace."
+        },
+        "logAnalyticsWorkspaceName": {
+          "type": "string",
+          "description": "Name of the target Log Analytics workspace."
+        },
+        "logAnalyticsWorkspaceId": {
+          "type": "string",
+          "description": "Unique identifier of the target Log Analytics workspace."
+        },
+        "token": {
+          "type": "string",
+          "format": "password",
+          "description": "Microsoft Entra ID access token used by the service to authenticate requests to the target Log Analytics workspace on behalf of the caller.",
+          "x-ms-secret": true
+        },
+        "solutionNames": {
+          "type": "array",
+          "maxItems": 30,
+          "description": "Names of the Services Hub assessment solutions to process.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assessmentNames": {
+          "type": "array",
+          "maxItems": 30,
+          "description": "Names of the assessments to process.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "surveyIds": {
+          "type": "array",
+          "maxItems": 30,
+          "description": "IDs of the surveys to process.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "culture": {
+          "type": "string",
+          "default": "en-US",
+          "description": "Culture code used when retrieving localized assessment and survey content. Defaults to en-US when omitted."
+        }
+      },
+      "required": [
+        "logAnalyticsSubscriptionId",
+        "logAnalyticsResourceGroupName",
+        "logAnalyticsWorkspaceName",
+        "logAnalyticsWorkspaceId",
+        "token",
+        "solutionNames"
+      ]
+    },
     "ServicesHubEnableSolutionPayload": {
       "type": "object",
       "description": "Services Hub Enable Solution Payload",
@@ -1779,7 +1929,8 @@
         },
         "token": {
           "type": "string",
-          "description": "Log Analytics Workspace AAD token for Orchestration Azure function",
+          "format": "password",
+          "description": "Microsoft Entra ID token for Log Analytics Workspace for Orchestration Azure function",
           "x-ms-secret": true
         },
         "machineType": {
@@ -2282,7 +2433,8 @@
         },
         "token": {
           "type": "string",
-          "description": "Defines the token.",
+          "format": "password",
+          "description": "Microsoft Entra ID access token used by the service to authenticate requests to the target Log Analytics workspace on behalf of the caller.",
           "x-ms-secret": true
         },
         "solutionDisplayName": {
