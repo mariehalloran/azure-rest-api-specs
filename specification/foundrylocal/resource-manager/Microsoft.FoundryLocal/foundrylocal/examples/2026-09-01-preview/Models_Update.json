@@ -1,0 +1,68 @@
+{
+  "operationId": "Models_Update",
+  "title": "Update a Model",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg1",
+    "modelName": "my-custom-model",
+    "api-version": "2026-09-01-preview",
+    "properties": {
+      "tags": {
+        "team": "platform"
+      },
+      "properties": {
+        "description": "Updated description for the custom model."
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.FoundryLocal/models/my-custom-model",
+        "name": "my-custom-model",
+        "type": "Microsoft.FoundryLocal/models",
+        "location": "eastus",
+        "extendedLocation": {
+          "name": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ExtendedLocation/customLocations/my-custom-location",
+          "type": "CustomLocation"
+        },
+        "tags": {
+          "team": "platform"
+        },
+        "properties": {
+          "provisioningState": "Succeeded",
+          "source": {
+            "custom": {
+              "registry": "myacr.azurecr.io",
+              "repository": "models/my-custom-model",
+              "tag": "v1",
+              "credentials": {
+                "kind": "KubernetesSecretRef",
+                "secretRef": {
+                  "name": "acr-creds"
+                }
+              }
+            }
+          },
+          "displayName": "My Custom Model",
+          "description": "Updated description for the custom model."
+        },
+        "systemData": {
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2026-05-20T00:00:00.000Z",
+          "lastModifiedBy": "user@example.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-05-21T00:00:00.000Z"
+        }
+      }
+    },
+    "202": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.FoundryLocal/locations/eastus/operationStatuses/operationId?api-version=2026-09-01-preview",
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.FoundryLocal/locations/eastus/operationStatuses/operationId?api-version=2026-09-01-preview",
+        "Retry-After": 10
+      }
+    }
+  }
+}
