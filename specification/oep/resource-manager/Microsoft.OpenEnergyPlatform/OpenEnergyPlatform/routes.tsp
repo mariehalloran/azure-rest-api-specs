@@ -14,7 +14,7 @@ using TypeSpec.OpenAPI;
 namespace Microsoft.OpenEnergyPlatform;
 
 @armResourceOperations
-interface LocationsOperationGroup {
+interface Locations {
   /**
    * Checks the name availability of the resource with requested resource name.
    */

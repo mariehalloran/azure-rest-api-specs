@@ -1,0 +1,35 @@
+{
+  "title": "ValidationTestCategories_Update_MaximumSet",
+  "operationId": "ValidationTestCategories_Update",
+  "parameters": {
+    "api-version": "2026-07-01-preview",
+    "validationTestCategoryName": "category1",
+    "properties": {
+      "properties": {
+        "description": "Updated validation test category description.",
+        "parentCategoryId": "/providers/Microsoft.PlatformValidation/validationTestCategories/root"
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "description": "Updated validation test category description.",
+          "parentCategoryId": "/providers/Microsoft.PlatformValidation/validationTestCategories/root"
+        },
+        "id": "/providers/Microsoft.PlatformValidation/validationTestCategories/category1",
+        "name": "category1",
+        "type": "Microsoft.PlatformValidation/validationTestCategories",
+        "systemData": {
+          "createdBy": "user@contoso.com",
+          "createdByType": "User",
+          "createdAt": "2026-06-01T11:52:22.926Z",
+          "lastModifiedBy": "user@contoso.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-06-01T11:52:22.926Z"
+        }
+      }
+    }
+  }
+}
