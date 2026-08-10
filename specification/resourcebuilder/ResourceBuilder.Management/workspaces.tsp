@@ -43,8 +43,11 @@ interface Workspaces {
    * Deleting a workspace cascades to all child resources (datasets, data connections, pipelines, jobs,
    * and runs), which are removed as part of the ARM delete. A workspace is not subject to active-consumer
    * dependency validation, so this delete is not blocked by references between its child resources.
+   *
+   * The cascade is performed asynchronously: the service returns 202 Accepted with a Location header
+   * to poll, or 204 No Content when the workspace does not exist.
    */
-  delete is ArmResourceDeleteSync<Workspace>;
+  delete is ArmResourceDeleteWithoutOkAsync<Workspace>;
   list is ArmResourceListByParent<Workspace>;
   listBySubscription is ArmListBySubscription<Workspace>;
 }

@@ -156,7 +156,10 @@ interface Datasets {
    * 2. For each consuming job, either update it to remove the reference to this dataset or delete the job
    *    (and, where applicable, the pipeline that contains it).
    * 3. Once no job references this dataset, retry this delete request.
+   *
+   * The delete is performed asynchronously: the service returns 202 Accepted with a Location header
+   * to poll, or 204 No Content when the dataset does not exist.
    */
-  delete is ArmResourceDeleteSync<Dataset>;
+  delete is ArmResourceDeleteWithoutOkAsync<Dataset>;
   list is ArmResourceListByParent<Dataset>;
 }

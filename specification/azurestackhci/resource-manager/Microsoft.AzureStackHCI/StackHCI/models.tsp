@@ -21,6 +21,9 @@ union HciJobType {
   /** Job to repair a server in the cluster. */
   RepairServer: "RepairServer",
 
+  /** Job to synchronize the cluster volumes. */
+  SyncVolume: "SyncVolume",
+
   /** Job to configure local availability zones for the cluster. */
   ConfigureLocalAvailabilityZone: "ConfigureLocalAvailabilityZone",
 
@@ -4151,6 +4154,29 @@ model DeploymentStep {
   @added(Versions.v2026_03_15_preview)
   @visibility(Lifecycle.Read)
   error?: Azure.ResourceManager.Foundations.ErrorDetail;
+
+  /**
+   * The progress percentage of the step.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  @minValue(0)
+  @maxValue(100)
+  percentComplete?: int32;
+
+  /**
+   * Additional data associated with the step.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  additionalData?: string;
+
+  /**
+   * Recommended steps to resolve failures in this step.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  recommendedSteps?: string[];
 }
 
 /**
@@ -6910,6 +6936,13 @@ model HciRepairServerJobProperties extends ClusterJobProperties {
   /** List of protected parameters to pass to trigger job for cluster. */
   @Azure.ResourceManager.identifiers(#["secretName"])
   secrets?: EceDeploymentSecrets[];
+}
+
+/** Properties for synchronizing the cluster volumes. */
+@added(Versions.v2026_03_15_preview)
+model HciSyncVolumeJobProperties extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.SyncVolume;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -12060,20 +12093,8 @@ model ClusterVolumeJobProperties {
 union ClusterVolumeJobType {
   string,
 
-  /** Job to resolve configuration drift between the desired and reported state of the cluster volume. */
-  VolumeSync: "VolumeSync",
-
   /** Job to apply the desired configuration to the cluster volume. */
   ApplyVolumeConfiguration: "ApplyVolumeConfiguration",
-}
-
-/**
- * Properties for resolving cluster volume configuration drift.
- */
-@added(Versions.v2026_03_15_preview)
-model VolumeSyncClusterVolumeJobProperties extends ClusterVolumeJobProperties {
-  /** Job type. */
-  jobType: ClusterVolumeJobType.VolumeSync;
 }
 
 /**

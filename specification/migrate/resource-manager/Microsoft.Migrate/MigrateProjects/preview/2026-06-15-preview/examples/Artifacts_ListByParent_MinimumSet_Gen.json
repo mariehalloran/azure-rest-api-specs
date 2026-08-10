@@ -1,0 +1,23 @@
+{
+  "title": "Artifacts_ListByParent_MinimumSet_Gen",
+  "operationId": "Artifacts_ListByParent",
+  "parameters": {
+    "api-version": "2026-06-15-preview",
+    "subscriptionId": "4bd2aa0f-2bd2-4d67-91a8-5a4533d58600",
+    "resourceGroupName": "myResourceGroup",
+    "projectName": "myMigrateProject"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.Migrate/migrateProjects/myMigrateProject/artifacts/myArtifact",
+            "name": "myArtifact",
+            "type": "Microsoft.Migrate/migrateProjects/artifacts"
+          }
+        ]
+      }
+    }
+  }
+}
