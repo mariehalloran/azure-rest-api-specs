@@ -2597,7 +2597,15 @@
         },
         "partnerSchedulerResourceId": {
           "type": "string",
-          "description": "The resource ID of the partner scheduler in the failover configuration"
+          "format": "arm-id",
+          "description": "The resource ID of the partner scheduler in the failover configuration",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.DurableTask/schedulers"
+              }
+            ]
+          }
         },
         "partnerSchedulerLocation": {
           "type": "string",
