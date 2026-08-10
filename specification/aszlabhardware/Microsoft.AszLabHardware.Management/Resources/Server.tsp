@@ -40,6 +40,7 @@ model ServerProperties {
   @doc("Server association with LabServer status.")
   associationStatus?: UserLabResourceAssociationStatus;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @visibility(Lifecycle.Read)
   @doc("IP address of the associated LabServer's BMC.")
   bmcIpAddress?: string;

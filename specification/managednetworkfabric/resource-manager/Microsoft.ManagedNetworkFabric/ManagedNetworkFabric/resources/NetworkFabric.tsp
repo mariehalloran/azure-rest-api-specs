@@ -431,22 +431,22 @@ interface NetworkFabrics {
   @added(Versions.v2026_07_15_preview)
   runValidation is ArmResourceActionAsync<
     NetworkFabric,
-    RunValidationRequest,
-    RunValidationResponse
+    NetworkFabricRunValidationRequest,
+    NetworkFabricRunValidationResponse
   >;
 
-  @summary("NF Resource Troubleshooting.")
-  @doc("Perform troubleshooting on Network Fabric resources.")
-  @action("nfRsTroubleshoot")
+  @doc("Runs diagnostics information collection on the Network Fabric")
+  @action("runDiagnostics")
   @added(Versions.v2026_07_15_preview)
-  troubleshoot is ArmResourceActionAsync<
+  runDiagnostics is ArmResourceActionAsync<
     NetworkFabric,
-    NfResourceTroubleshootRequest,
-    NfResourceTroubleshootResponse
+    RunDiagnosticsRequest,
+    RunDiagnosticsResponse
   >;
 }
 
 @@doc(NetworkFabrics.create::parameters.resource, "Request payload.");
+@@doc(NetworkFabrics.runValidation::parameters.body, "Request payload.");
 @@doc(
   NetworkFabrics.update::parameters.properties,
   "Network Fabric properties to update."
@@ -504,8 +504,4 @@ interface NetworkFabrics {
 @@doc(
   NetworkFabrics.refreshConfigurationDeprecatedV2::parameters.body,
   "Request payload."
-);
-@@doc(
-  NetworkFabrics.runValidation::parameters.body,
-  "Validate readiness properties."
 );

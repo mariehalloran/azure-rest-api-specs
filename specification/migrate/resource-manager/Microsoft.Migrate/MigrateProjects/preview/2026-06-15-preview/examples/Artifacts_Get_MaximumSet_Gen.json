@@ -1,0 +1,35 @@
+{
+  "title": "Artifacts_Get_MaximumSet_Gen",
+  "operationId": "Artifacts_Get",
+  "parameters": {
+    "api-version": "2026-06-15-preview",
+    "subscriptionId": "4bd2aa0f-2bd2-4d67-91a8-5a4533d58600",
+    "resourceGroupName": "myResourceGroup",
+    "projectName": "myMigrateProject",
+    "artifactName": "myArtifact"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "artifactType": "WaveReport",
+          "associatedResourceId": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.Migrate/migrateProjects/myMigrateProject/plans/default",
+          "latestVersionId": "v-2026070100",
+          "latestVersion": 7,
+          "latestVersionMetadataHash": "sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+        },
+        "id": "/subscriptions/4bd2aa0f-2bd2-4d67-91a8-5a4533d58600/resourceGroups/myResourceGroup/providers/Microsoft.Migrate/migrateProjects/myMigrateProject/artifacts/myArtifact",
+        "name": "myArtifact",
+        "type": "Microsoft.Migrate/migrateProjects/artifacts",
+        "systemData": {
+          "createdBy": "user@contoso.com",
+          "createdByType": "User",
+          "createdAt": "2026-07-01T00:00:00.000Z",
+          "lastModifiedBy": "user@contoso.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-07-01T00:55:00.000Z"
+        }
+      }
+    }
+  }
+}

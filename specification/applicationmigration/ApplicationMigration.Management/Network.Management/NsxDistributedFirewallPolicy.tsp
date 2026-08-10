@@ -2,6 +2,7 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@typespec/openapi";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "./models.tsp";
 import "./NetworkSite.tsp";
 
@@ -9,6 +10,7 @@ using TypeSpec.Rest;
 using Azure.ResourceManager;
 using TypeSpec.Http;
 using TypeSpec.OpenAPI;
+using TypeSpec.Versioning;
 
 namespace Microsoft.ApplicationMigration;
 
@@ -40,6 +42,10 @@ model NsxDistributedFirewallPolicyProperties is AzureResourceProperties {
 
   /** The sequence number determining policy evaluation order. */
   sequenceNumber?: int32;
+
+  /** The zero-based precedence rank, where zero is the highest precedence. */
+  @added(Versions.v2026_08_01_preview)
+  precedenceRank?: int32;
 
   /** Whether this is a default policy. */
   isDefault?: boolean;

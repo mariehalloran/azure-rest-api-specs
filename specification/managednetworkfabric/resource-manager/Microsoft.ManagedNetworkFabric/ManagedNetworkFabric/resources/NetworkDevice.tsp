@@ -207,8 +207,17 @@ interface NetworkDevices {
   @added(Versions.v2026_07_15_preview)
   runValidation is ArmResourceActionAsync<
     NetworkDevice,
-    RunValidationRequest,
-    RunValidationResponse
+    NetworkDeviceRunValidationRequest,
+    NetworkDeviceRunValidationResponse
+  >;
+
+  @doc("Runs a diagnostics operation on the Network Device.")
+  @action("runDiagnostics")
+  @added(Versions.v2026_07_15_preview)
+  runDiagnostics is ArmResourceActionAsync<
+    NetworkDevice,
+    NetworkDeviceRunDiagnosticsRequest,
+    NetworkDeviceRunDiagnosticsResponse
   >;
 }
 
@@ -239,7 +248,5 @@ interface NetworkDevices {
   "Request the command."
 );
 @@doc(NetworkDevices.runRwCommand::parameters.body, "Request the command.");
-@@doc(
-  NetworkDevices.runValidation::parameters.body,
-  "Validate readiness properties."
-);
+@@doc(NetworkDevices.runValidation::parameters.body, "Request payload.");
+@@doc(NetworkDevices.runDiagnostics::parameters.body, "Request payload.");

@@ -128,6 +128,7 @@ model ProcessedRepo {
   lastUpdatedOn?: utcDateTime;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(CodeScanSitesApiVersions.v2026_05_12_preview)
 @doc("The request model for triggering code scan.")
 model ScanRequest {
@@ -138,6 +139,7 @@ model ScanRequest {
   webAppIds?: armResourceIdentifier[];
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(CodeScanSitesApiVersions.v2026_05_12_preview)
 @doc("The URI path response model for the configuration file.")
 model ConfigUriResponse {
@@ -145,6 +147,7 @@ model ConfigUriResponse {
   configUri: url;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(CodeScanSitesApiVersions.v2026_05_12_preview)
 @doc("The Operation status response model for the configuration file URI generation.")
 model ConfigUriOperationStatusResponse {
@@ -152,6 +155,7 @@ model ConfigUriOperationStatusResponse {
   properties: ConfigUriResponse;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(CodeScanSitesApiVersions.v2026_05_12_preview)
 @doc("The request model for fetching SAS URI by report paths.")
 model SasUriByReportPathsRequest {
@@ -159,6 +163,7 @@ model SasUriByReportPathsRequest {
   reportPaths: string[];
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(CodeScanSitesApiVersions.v2026_05_12_preview)
 @doc("The response model for fetching SAS URI by report paths.")
 model SasUriByReportPathsResponse {
