@@ -331,6 +331,7 @@ union Year {
 }
 
 @doc("AzureArc state values.")
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 union AzureArcState {
   @doc("AzureArc state disabled.")
   Disabled: "Disabled",
@@ -346,6 +347,7 @@ union AzureArcState {
 
 @doc("Scope type.")
 @added(BusinessCaseApiVersions.v2024_03_03_preview)
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 union ScopeType {
   @doc("Enum for Datacenter.")
   Datacenter: "Datacenter",
@@ -433,6 +435,7 @@ union NetworkSkuType {
 }
 
 @doc("The licensing program.")
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 union LicensingProgram {
   @doc("Retail/Pay as you go.")
   Retail: "Retail",

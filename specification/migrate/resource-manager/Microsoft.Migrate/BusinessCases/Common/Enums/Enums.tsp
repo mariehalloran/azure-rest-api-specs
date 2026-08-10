@@ -517,6 +517,7 @@ union TimeRange {
 }
 
 @doc("The licensing program.")
+@removed(BusinessCaseApiVersions.v2026_06_06_preview)
 union LicensingProgram {
   @doc("Retail/Pay as you go.")
   Retail: "Retail",
