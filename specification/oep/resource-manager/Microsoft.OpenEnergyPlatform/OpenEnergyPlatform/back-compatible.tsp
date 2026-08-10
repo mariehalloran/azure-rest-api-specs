@@ -108,3 +108,14 @@ using Microsoft.OpenEnergyPlatform;
   EdsKeyVaultPropertiesIdentity.userAssignedIdentityId,
   "UserAssignedIdentity"
 );
+
+// PATCH-only mirror models (added in 2026-07-21-preview) reuse the same SDK
+// property names as their PUT/GET counterparts so a single logical field keeps
+// one SDK identifier across PUT/GET/PATCH. SDK-name only; no wire impact.
+@@clientName(EncryptionUpdate.keyVaultProperties, "KeyVaultProperties");
+@@clientName(KeyVaultPropertiesUpdate.keyName, "KeyName");
+@@clientName(KeyVaultPropertiesUpdate.keyVersion, "KeyVersion");
+@@clientName(KeyVaultPropertiesUpdate.keyVaultUri, "KeyVaultUri");
+@@clientName(KeyVaultPropertiesUpdate.userIdentity, "UserIdentity");
+@@clientName(EdsUpdate.keyVaultProperties, "EdsKeyVaultProperties");
+@@clientName(EdsKeyVaultPropertiesUpdate.keyVaultUri, "KeyVaultUri");
