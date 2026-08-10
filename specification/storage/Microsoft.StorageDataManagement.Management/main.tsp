@@ -129,12 +129,17 @@ interface BlobAccessPointConfigurations {
   @added(Versions.v2026_09_01)
   update is ArmResourcePatchAsync<
     BlobAccessPointConfiguration,
-    BlobAccessPointConfigurationProperties
+    BlobAccessPointConfigurationProperties,
+    LroHeaders = ArmCombinedLroHeaders<FinalResult = BlobAccessPointConfiguration> &
+      Azure.Core.Foundations.RetryAfterHeader
   >;
 
   @doc("Delete a Blob Access Point configuration.")
   @added(Versions.v2026_09_01)
-  delete is ArmResourceDeleteWithoutOkAsync<BlobAccessPointConfiguration>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    BlobAccessPointConfiguration,
+    LroHeaders = ArmCombinedLroHeaders & Azure.Core.Foundations.RetryAfterHeader
+  >;
 
   @doc("List all Blob Access Point configurations in a Storage Account.")
   @added(Versions.v2026_09_01)
@@ -145,7 +150,9 @@ interface BlobAccessPointConfigurations {
   testExistingConnection is ArmResourceActionAsync<
     BlobAccessPointConfiguration,
     BlobAccessPointConnectionTestRequest,
-    BlobAccessPointConnectionTestResponse
+    BlobAccessPointConnectionTestResponse,
+    LroHeaders = ArmCombinedLroHeaders<FinalResult = BlobAccessPointConnectionTestResponse> &
+      Azure.Core.Foundations.RetryAfterHeader
   >;
 }
 
@@ -157,6 +164,8 @@ interface BlobAccessPointConnectionTests {
   testProposedConnection is ArmResourceActionAsync<
     StorageAccount,
     BlobAccessPointProposedConnectionTestRequest,
-    BlobAccessPointConnectionTestResponse
+    BlobAccessPointConnectionTestResponse,
+    LroHeaders = ArmCombinedLroHeaders<FinalResult = BlobAccessPointConnectionTestResponse> &
+      Azure.Core.Foundations.RetryAfterHeader
   >;
 }

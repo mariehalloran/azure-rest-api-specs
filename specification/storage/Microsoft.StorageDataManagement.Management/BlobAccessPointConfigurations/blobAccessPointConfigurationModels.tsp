@@ -49,15 +49,12 @@ union BlobAccessPointSourceType {
   @doc("Dell OneFS.")
   DellOneFs: "DellOneFs",
 
-  @added(Versions.v2026_09_01)
   @doc("Qumulo S3-compatible data source.")
   Qumulo: "Qumulo",
 
-  @added(Versions.v2026_09_01)
   @doc("Commvault S3-compatible data source.")
   Commvault: "Commvault",
 
-  @added(Versions.v2026_09_01)
   @doc("Nasuni S3-compatible data source.")
   Nasuni: "Nasuni",
 
@@ -97,7 +94,7 @@ union BlobAccessPointTlsVerification {
   @doc("Verify the TLS certificate chain.")
   Perform: "Perform",
 
-  @doc("Skip TLS certificate-chain verification.")
+  @doc("Skip TLS certificate-chain verification. Use only when the backing source uses a certificate that cannot be validated against a trusted root. Skipping verification exposes credentials and data to an on-path attacker.")
   Skip: "Skip",
 
   string,
