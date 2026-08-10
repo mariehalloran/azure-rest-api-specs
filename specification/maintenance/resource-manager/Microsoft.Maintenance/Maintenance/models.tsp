@@ -753,6 +753,8 @@ model Operation {
   /**
    * Name of the operation
    */
+  // Known cross-version finding: the legacy stable schema did not mark this response-only property as read-only.
+  // Keep it read-only because Operation is returned by the Operations API and is never accepted in a request.
   @visibility(Lifecycle.Read)
   name?: string;
 
