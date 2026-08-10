@@ -95,7 +95,7 @@ using Microsoft.Maintenance;
   MaintenanceConfigurations
 );
 @@clientLocation(
-  MaintenanceConfigurationOperationGroup.list,
+  MaintenanceConfigurationsForResourceGroupRoutes.list,
   "MaintenanceConfigurationsForResourceGroup"
 );
 @@clientLocation(

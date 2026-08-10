@@ -278,7 +278,7 @@ interface ConfigurationAssignmentsForResourceGroupOps
           Resource = ConfigurationAssignment,
           KeyName = "configurationAssignmentName",
           SegmentName = "configurationAssignments",
-          NamePattern = "^.+$"
+          NamePattern = ""
         >>,
       }
     > {}

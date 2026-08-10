@@ -141,17 +141,6 @@ interface MaintenanceConfigurationOperationGroup {
   >;
 
   /**
-   * Get Configuration records within a subscription and resource group
-   */
-  @segment("maintenanceConfigurations")
-  list is Extension.ListByTarget<
-    Extension.ResourceGroup,
-    MaintenanceConfiguration,
-    Response = ArmResponse<ListMaintenanceConfigurationsResult>,
-    Error = MaintenanceError
-  >;
-
-  /**
    * Get Configuration records within a subscription
    */
   @segment("maintenanceConfigurations")
@@ -161,6 +150,25 @@ interface MaintenanceConfigurationOperationGroup {
     Response = ArmResponse<ListMaintenanceConfigurationsResult>,
     Error = MaintenanceError
   >;
+}
+
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "This interface intentionally uses an explicit route to preserve legacy path casing."
+interface MaintenanceConfigurationsForResourceGroupRoutes {
+  /**
+   * Get Configuration records within a subscription and resource group
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "Explicit route preserves the legacy resourceGroups casing for this operation."
+  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Maintenance/maintenanceConfigurations")
+  @get
+  @list
+  @tag("MaintenanceConfigurationOperationGroup")
+  #suppress "@azure-tools/typespec-azure-core/no-openapi" "Preserve the existing operation ID for backward compatibility."
+  @operationId("MaintenanceConfigurationsForResourceGroup_List")
+  list(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+    ...ResourceGroupParameter,
+  ): ArmResponse<ListMaintenanceConfigurationsResult> | MaintenanceError;
 }
 
 @@doc(MaintenanceConfiguration.name, "Maintenance Configuration Name");
