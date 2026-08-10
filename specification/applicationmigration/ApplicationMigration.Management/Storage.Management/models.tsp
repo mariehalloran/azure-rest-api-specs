@@ -588,6 +588,7 @@ model NasProperties is AzureResourceProperties {
   /**
    * The OS version of the NAS device.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   osVersion?: string;
 
   /**
@@ -725,6 +726,7 @@ model NasResourcePatch {
   /**
    * The OS version of the NAS device.
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   osVersion?: string;
 
   /**

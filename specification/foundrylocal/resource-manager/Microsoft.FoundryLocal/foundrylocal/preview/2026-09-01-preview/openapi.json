@@ -1,0 +1,2504 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Microsoft.FoundryLocal management service",
+    "version": "2026-09-01-preview",
+    "description": "Microsoft.FoundryLocal Resource Provider management API.",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "ModelDeployments"
+    },
+    {
+      "name": "Models"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.FoundryLocal/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List provider operations": {
+            "$ref": "./examples/Operations_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.FoundryLocal/modelDeployments": {
+      "get": {
+        "operationId": "ModelDeployments_ListBySubscription",
+        "tags": [
+          "ModelDeployments"
+        ],
+        "description": "List ModelDeployment resources by subscription ID",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ModelDeploymentListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List ModelDeployments by subscription": {
+            "$ref": "./examples/ModelDeployments_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.FoundryLocal/models": {
+      "get": {
+        "operationId": "Models_ListBySubscription",
+        "tags": [
+          "Models"
+        ],
+        "description": "List Model resources by subscription ID",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ModelListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Models by subscription": {
+            "$ref": "./examples/Models_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FoundryLocal/modelDeployments": {
+      "get": {
+        "operationId": "ModelDeployments_ListByResourceGroup",
+        "tags": [
+          "ModelDeployments"
+        ],
+        "description": "List ModelDeployment resources by resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ModelDeploymentListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List ModelDeployments by resource group": {
+            "$ref": "./examples/ModelDeployments_ListByResourceGroup.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FoundryLocal/modelDeployments/{modelDeploymentName}": {
+      "get": {
+        "operationId": "ModelDeployments_Get",
+        "tags": [
+          "ModelDeployments"
+        ],
+        "description": "Get a ModelDeployment",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "modelDeploymentName",
+            "in": "path",
+            "description": "The name of the ModelDeployment",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z]([a-z0-9]*(-[a-z0-9]+)*)?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ModelDeployment"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a ModelDeployment": {
+            "$ref": "./examples/ModelDeployments_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ModelDeployments_CreateOrUpdate",
+        "tags": [
+          "ModelDeployments"
+        ],
+        "description": "Create a ModelDeployment",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "modelDeploymentName",
+            "in": "path",
+            "description": "The name of the ModelDeployment",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z]([a-z0-9]*(-[a-z0-9]+)*)?$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ModelDeployment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'ModelDeployment' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ModelDeployment"
+            }
+          },
+          "201": {
+            "description": "Resource 'ModelDeployment' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/ModelDeployment"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create or update a ModelDeployment": {
+            "$ref": "./examples/ModelDeployments_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "ModelDeployments_Update",
+        "tags": [
+          "ModelDeployments"
+        ],
+        "description": "Update a ModelDeployment",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "modelDeploymentName",
+            "in": "path",
+            "description": "The name of the ModelDeployment",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z]([a-z0-9]*(-[a-z0-9]+)*)?$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ModelDeploymentUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ModelDeployment"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update a ModelDeployment": {
+            "$ref": "./examples/ModelDeployments_Update.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "ModelDeployments_Delete",
+        "tags": [
+          "ModelDeployments"
+        ],
+        "description": "Delete a ModelDeployment",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "modelDeploymentName",
+            "in": "path",
+            "description": "The name of the ModelDeployment",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z]([a-z0-9]*(-[a-z0-9]+)*)?$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a ModelDeployment": {
+            "$ref": "./examples/ModelDeployments_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FoundryLocal/models": {
+      "get": {
+        "operationId": "Models_ListByResourceGroup",
+        "tags": [
+          "Models"
+        ],
+        "description": "List Model resources by resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ModelListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List Models by resource group": {
+            "$ref": "./examples/Models_ListByResourceGroup.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.FoundryLocal/models/{modelName}": {
+      "get": {
+        "operationId": "Models_Get",
+        "tags": [
+          "Models"
+        ],
+        "description": "Get a Model",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "modelName",
+            "in": "path",
+            "description": "The name of the Model",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z]([a-z0-9]*(-[a-z0-9]+)*)?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Model"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a Model": {
+            "$ref": "./examples/Models_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "Models_CreateOrUpdate",
+        "tags": [
+          "Models"
+        ],
+        "description": "Create a Model",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "modelName",
+            "in": "path",
+            "description": "The name of the Model",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z]([a-z0-9]*(-[a-z0-9]+)*)?$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Model"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'Model' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Model"
+            }
+          },
+          "201": {
+            "description": "Resource 'Model' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Model"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create or update a Model": {
+            "$ref": "./examples/Models_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "Models_Update",
+        "tags": [
+          "Models"
+        ],
+        "description": "Update a Model",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "modelName",
+            "in": "path",
+            "description": "The name of the Model",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z]([a-z0-9]*(-[a-z0-9]+)*)?$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ModelUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Model"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update a Model": {
+            "$ref": "./examples/Models_Update.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "Models_Delete",
+        "tags": [
+          "Models"
+        ],
+        "description": "Delete a Model",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "modelName",
+            "in": "path",
+            "description": "The name of the Model",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z]([a-z0-9]*(-[a-z0-9]+)*)?$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a Model": {
+            "$ref": "./examples/Models_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    }
+  },
+  "definitions": {
+    "Azure.ResourceManager.CommonTypes.ExtendedLocation": {
+      "type": "object",
+      "description": "The complex type of the extended location.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the extended location."
+        },
+        "type": {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.ExtendedLocationType",
+          "description": "The type of the extended location."
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ]
+    },
+    "Azure.ResourceManager.CommonTypes.ExtendedLocationType": {
+      "type": "string",
+      "description": "The supported ExtendedLocation types.",
+      "enum": [
+        "EdgeZone",
+        "CustomLocation"
+      ],
+      "x-ms-enum": {
+        "name": "ExtendedLocationType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "EdgeZone",
+            "value": "EdgeZone",
+            "description": "Azure Edge Zones location type"
+          },
+          {
+            "name": "CustomLocation",
+            "value": "CustomLocation",
+            "description": "Azure Custom Locations type"
+          }
+        ]
+      }
+    },
+    "ComputeType": {
+      "type": "string",
+      "description": "Supported compute types for a Model variant.",
+      "enum": [
+        "Cpu",
+        "Gpu"
+      ],
+      "x-ms-enum": {
+        "name": "ComputeType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Cpu",
+            "value": "Cpu",
+            "description": "CPU compute."
+          },
+          {
+            "name": "Gpu",
+            "value": "Gpu",
+            "description": "GPU compute."
+          }
+        ]
+      }
+    },
+    "CustomModelSource": {
+      "type": "object",
+      "description": "Custom model source description. Points at a container image in a registry.",
+      "properties": {
+        "registry": {
+          "type": "string",
+          "description": "Container registry URL, e.g. 'myacr.azurecr.io'.",
+          "minLength": 1,
+          "maxLength": 253
+        },
+        "repository": {
+          "type": "string",
+          "description": "Repository path within the registry, e.g. 'models/my-custom-model'.",
+          "minLength": 1,
+          "maxLength": 253
+        },
+        "tag": {
+          "type": "string",
+          "description": "Image or artifact tag.",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "credentials": {
+          "$ref": "#/definitions/RegistryCredentials",
+          "description": "Registry authentication credentials."
+        }
+      },
+      "required": [
+        "registry",
+        "repository",
+        "tag",
+        "credentials"
+      ]
+    },
+    "EndpointConfig": {
+      "type": "object",
+      "description": "External endpoint (Gateway API) configuration for the deployment.",
+      "properties": {
+        "exposure": {
+          "$ref": "#/definitions/EndpointExposure",
+          "description": "Exposure mode for the deployment's inference endpoint. Cluster default is `internal` if omitted."
+        },
+        "host": {
+          "type": "string",
+          "description": "Hostname for routing.",
+          "maxLength": 253
+        },
+        "path": {
+          "type": "string",
+          "description": "URL path served by the endpoint. Derived from the deployment name if not specified."
+        },
+        "rewritePath": {
+          "type": "string",
+          "description": "Target path to rewrite incoming requests to."
+        },
+        "pathType": {
+          "$ref": "#/definitions/PathType",
+          "description": "Path matching type. Cluster default is 'ImplementationSpecific' if omitted."
+        },
+        "tls": {
+          "$ref": "#/definitions/TlsConfig",
+          "description": "TLS configuration for the endpoint."
+        }
+      }
+    },
+    "EndpointExposure": {
+      "type": "string",
+      "description": "How the deployment's inference endpoint is exposed via the cluster's Gateway API.",
+      "enum": [
+        "internal",
+        "external",
+        "none"
+      ],
+      "x-ms-enum": {
+        "name": "EndpointExposure",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Internal",
+            "value": "internal",
+            "description": "Route through the in-cluster Gateway (reachable within the cluster only)."
+          },
+          {
+            "name": "External",
+            "value": "external",
+            "description": "Route through a LoadBalancer Gateway (externally reachable)."
+          },
+          {
+            "name": "None",
+            "value": "none",
+            "description": "No Gateway route; a ClusterIP Service only."
+          }
+        ]
+      }
+    },
+    "EnvVar": {
+      "type": "object",
+      "description": "Environment variable to set on the inference container.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Environment variable name.",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string",
+          "description": "Environment variable value."
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ]
+    },
+    "EppConfig": {
+      "type": "object",
+      "description": "EPP (Endpoint Picker) configuration for inference-aware load balancing. Relevant only when `runtime` is `Vllm`.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether to enable EPP intelligent routing for this deployment. If omitted, the cluster defaults to true when `replicas` > 1 and false when `replicas` == 1."
+        }
+      }
+    },
+    "KubernetesSecretCredentials": {
+      "type": "object",
+      "description": "Credentials stored in a Kubernetes Secret that already exists in the same namespace as the model on the cluster.",
+      "properties": {
+        "secretRef": {
+          "$ref": "#/definitions/SecretReference",
+          "description": "Reference to the Kubernetes Secret containing registry credentials."
+        }
+      },
+      "required": [
+        "secretRef"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/RegistryCredentials"
+        }
+      ],
+      "x-ms-discriminator-value": "KubernetesSecretRef"
+    },
+    "MaasFormat": {
+      "type": "string",
+      "description": "MaaS model format.",
+      "enum": [
+        "OpenAI"
+      ],
+      "x-ms-enum": {
+        "name": "MaasFormat",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "OpenAI",
+            "value": "OpenAI",
+            "description": "OpenAI-compatible API."
+          }
+        ]
+      }
+    },
+    "MaasSku": {
+      "type": "object",
+      "description": "SKU for a Models-as-a-Service deployment.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "MaaS SKU name, e.g. 'ProvisionedManaged'. Immutable after create.",
+          "minLength": 1,
+          "maxLength": 64,
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "capacity": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Provisioned capacity units. Mutable via PATCH.",
+          "minimum": 1,
+          "maximum": 100000
+        }
+      },
+      "required": [
+        "name",
+        "capacity"
+      ]
+    },
+    "Model": {
+      "type": "object",
+      "description": "A Model registered on an Azure Arc-enabled Kubernetes cluster. Models are reusable artifacts that one or more ModelDeployments can reference.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ModelProperties",
+          "description": "The resource-specific properties for this resource."
+        },
+        "extendedLocation": {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.ExtendedLocation",
+          "description": "The Arc-enabled cluster extended location where this resource runs. Required; immutable after create.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      },
+      "required": [
+        "extendedLocation"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "ModelByCatalog": {
+      "type": "object",
+      "description": "Reference to a model from the Foundry Local catalog. The cluster resolves the catalog entry against its installed catalog ConfigMap.",
+      "properties": {
+        "catalogName": {
+          "type": "string",
+          "description": "Catalog model name (e.g. 'phi-4').",
+          "minLength": 1,
+          "maxLength": 253
+        },
+        "catalogVersion": {
+          "type": "string",
+          "description": "Catalog model version. Defaults to 'latest'.",
+          "default": "latest"
+        }
+      },
+      "required": [
+        "catalogName"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/ModelReference"
+        }
+      ],
+      "x-ms-discriminator-value": "Catalog"
+    },
+    "ModelByCustom": {
+      "type": "object",
+      "description": "Inline reference to a custom model. Equivalent to creating a Microsoft.FoundryLocal/models resource and referencing it, but provides a one-shot path for deployments that do not need a reusable Model.",
+      "properties": {
+        "registry": {
+          "type": "string",
+          "description": "Container registry URL.",
+          "minLength": 1,
+          "maxLength": 253
+        },
+        "repository": {
+          "type": "string",
+          "description": "Repository path within the registry.",
+          "minLength": 1,
+          "maxLength": 253
+        },
+        "tag": {
+          "type": "string",
+          "description": "Image or artifact tag.",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "credentials": {
+          "$ref": "#/definitions/RegistryCredentials",
+          "description": "Registry authentication credentials."
+        },
+        "task": {
+          "type": "string",
+          "description": "Optional model task type, e.g. 'chat-completion', 'automatic-speech-recognition'.",
+          "minLength": 1,
+          "maxLength": 64
+        }
+      },
+      "required": [
+        "registry",
+        "repository",
+        "tag",
+        "credentials"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/ModelReference"
+        }
+      ],
+      "x-ms-discriminator-value": "Custom"
+    },
+    "ModelByMaas": {
+      "type": "object",
+      "description": "Reference to an external Models-as-a-Service (MaaS) deployment. Inference traffic is forwarded to the upstream MaaS endpoint via a thin CPU-only router pod on the cluster. Requires `runtime` to be `Maas` and `compute` to be `Cpu`.",
+      "properties": {
+        "format": {
+          "$ref": "#/definitions/MaasFormat",
+          "description": "MaaS model API format."
+        },
+        "modelName": {
+          "type": "string",
+          "description": "Upstream MaaS model name, e.g. 'gpt-4o'.",
+          "minLength": 1,
+          "maxLength": 253
+        },
+        "modelVersion": {
+          "type": "string",
+          "description": "Upstream MaaS model version, e.g. '2024-08-06'.",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "backendRef": {
+          "type": "string",
+          "description": "Name of the MaaS backend (configured on the cluster's helm values) to route through. Immutable after create.",
+          "minLength": 1,
+          "maxLength": 47,
+          "pattern": "^[a-z][a-z0-9-]{0,46}$",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "maasDeploymentName": {
+          "type": "string",
+          "description": "Name of the deployment in the upstream MaaS control plane. Immutable after create.",
+          "minLength": 1,
+          "maxLength": 25,
+          "pattern": "^[a-z0-9]([a-z0-9-]{0,23}[a-z0-9])?$",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "sku": {
+          "$ref": "#/definitions/MaasSku",
+          "description": "SKU for the MaaS deployment. `name` is immutable after create; `capacity` is mutable."
+        }
+      },
+      "required": [
+        "format",
+        "modelName",
+        "modelVersion",
+        "backendRef",
+        "maasDeploymentName",
+        "sku"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/ModelReference"
+        }
+      ],
+      "x-ms-discriminator-value": "Maas"
+    },
+    "ModelByRef": {
+      "type": "object",
+      "description": "Reference to an existing Microsoft.FoundryLocal/models resource. The referenced Model must be on the same Arc cluster (same `extendedLocation`) as the deployment.",
+      "properties": {
+        "modelId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID of the Microsoft.FoundryLocal/models resource to reference.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.FoundryLocal/models"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "modelId"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/ModelReference"
+        }
+      ],
+      "x-ms-discriminator-value": "Ref"
+    },
+    "ModelCapabilities": {
+      "type": "object",
+      "description": "Declared capabilities of a Model.",
+      "properties": {
+        "task": {
+          "type": "string",
+          "description": "Model task type, e.g. 'chat-completion', 'text-generation'.",
+          "maxLength": 64
+        },
+        "contextLength": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum context window size supported by the model.",
+          "minimum": 1
+        },
+        "streaming": {
+          "type": "boolean",
+          "description": "Whether the model supports streaming responses. Cluster default is false if omitted."
+        }
+      }
+    },
+    "ModelCondition": {
+      "type": "object",
+      "description": "Detailed status condition reported for a Model.",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ModelConditionType",
+          "description": "Condition type."
+        },
+        "status": {
+          "$ref": "#/definitions/ModelDeploymentConditionStatus",
+          "description": "Condition status."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Machine-readable reason for the condition's last transition."
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable message describing the condition."
+        },
+        "lastTransitionTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the last transition for this condition."
+        }
+      },
+      "required": [
+        "type",
+        "status"
+      ]
+    },
+    "ModelConditionType": {
+      "type": "string",
+      "description": "Standard Kubernetes-style condition type for a Model.",
+      "enum": [
+        "Available"
+      ],
+      "x-ms-enum": {
+        "name": "ModelConditionType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Available",
+            "value": "Available",
+            "description": "Whether the model is currently available for use by deployments."
+          }
+        ]
+      }
+    },
+    "ModelDeployment": {
+      "type": "object",
+      "description": "A model deployment running on an Azure Arc-enabled Kubernetes cluster.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ModelDeploymentProperties",
+          "description": "The resource-specific properties for this resource."
+        },
+        "extendedLocation": {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.ExtendedLocation",
+          "description": "The Arc-enabled cluster extended location where this resource runs. Required; immutable after create.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      },
+      "required": [
+        "extendedLocation"
+      ],
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "ModelDeploymentCondition": {
+      "type": "object",
+      "description": "Detailed status condition reported for a model deployment.",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ModelDeploymentConditionType",
+          "description": "Condition type."
+        },
+        "status": {
+          "$ref": "#/definitions/ModelDeploymentConditionStatus",
+          "description": "Condition status."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Machine-readable reason for the condition's last transition."
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable message describing the condition."
+        },
+        "lastTransitionTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the last transition for this condition."
+        },
+        "observedGeneration": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The value of metadata.generation the condition was set for."
+        }
+      },
+      "required": [
+        "type",
+        "status"
+      ]
+    },
+    "ModelDeploymentConditionStatus": {
+      "type": "string",
+      "description": "Standard Kubernetes-style condition status.",
+      "enum": [
+        "True",
+        "False",
+        "Unknown"
+      ],
+      "x-ms-enum": {
+        "name": "ModelDeploymentConditionStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "True",
+            "value": "True",
+            "description": "The condition is currently true."
+          },
+          {
+            "name": "False",
+            "value": "False",
+            "description": "The condition is currently false."
+          },
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "The current condition status is unknown."
+          }
+        ]
+      }
+    },
+    "ModelDeploymentConditionType": {
+      "type": "string",
+      "description": "Standard Kubernetes-style condition type for a model deployment.",
+      "enum": [
+        "Available",
+        "Progressing",
+        "Degraded"
+      ],
+      "x-ms-enum": {
+        "name": "ModelDeploymentConditionType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Available",
+            "value": "Available",
+            "description": "Whether the deployment is currently available and serving traffic."
+          },
+          {
+            "name": "Progressing",
+            "value": "Progressing",
+            "description": "Whether the deployment is currently being rolled out."
+          },
+          {
+            "name": "Degraded",
+            "value": "Degraded",
+            "description": "Whether the deployment is in a degraded state."
+          }
+        ]
+      }
+    },
+    "ModelDeploymentListResult": {
+      "type": "object",
+      "description": "The response of a ModelDeployment list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ModelDeployment items on this page",
+          "items": {
+            "$ref": "#/definitions/ModelDeployment"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ModelDeploymentPhase": {
+      "type": "string",
+      "description": "Observed lifecycle phase of a model deployment on the cluster.",
+      "enum": [
+        "Pending",
+        "Creating",
+        "Running",
+        "Updating",
+        "Error",
+        "Terminating"
+      ],
+      "x-ms-enum": {
+        "name": "ModelDeploymentPhase",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Pending",
+            "value": "Pending",
+            "description": "The deployment has been accepted by the cluster but not yet scheduled."
+          },
+          {
+            "name": "Creating",
+            "value": "Creating",
+            "description": "The deployment is being created on the cluster."
+          },
+          {
+            "name": "Running",
+            "value": "Running",
+            "description": "The deployment is in the operational phase. Detailed readiness is reported via conditions."
+          },
+          {
+            "name": "Updating",
+            "value": "Updating",
+            "description": "The deployment is being updated."
+          },
+          {
+            "name": "Error",
+            "value": "Error",
+            "description": "The deployment has encountered an error."
+          },
+          {
+            "name": "Terminating",
+            "value": "Terminating",
+            "description": "The deployment is being terminated."
+          }
+        ]
+      }
+    },
+    "ModelDeploymentProperties": {
+      "type": "object",
+      "description": "Properties of a ModelDeployment resource. Cross-field constraints (e.g. `Predictive` requires a Custom model; `Vllm` runtime requires GPU compute; `Maas` model requires `Maas` runtime and CPU compute) are enforced by the cluster on PUT and surface as 400 errors if violated.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the resource.",
+          "readOnly": true
+        },
+        "model": {
+          "$ref": "#/definitions/ModelReference",
+          "description": "Reference to the model this deployment serves. Immutable after create.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "compute": {
+          "$ref": "#/definitions/ComputeType",
+          "description": "Compute type for the deployment. Immutable after create.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "workloadType": {
+          "type": "string",
+          "description": "Type of inference workload. Defaults to `Generative`. `Predictive` requires a Custom model. Immutable after create.",
+          "default": "Generative",
+          "enum": [
+            "Generative",
+            "Predictive"
+          ],
+          "x-ms-enum": {
+            "name": "WorkloadType",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "Generative",
+                "value": "Generative",
+                "description": "Generative (LLM) workload."
+              },
+              {
+                "name": "Predictive",
+                "value": "Predictive",
+                "description": "Predictive (classification/regression) workload. Requires a custom model."
+              }
+            ]
+          },
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "runtime": {
+          "type": "string",
+          "description": "Inference runtime engine. Defaults to `OnnxGenai`. Must be `Maas` if and only if the model is `Maas`. `Vllm` requires `Gpu` compute. Immutable after create.",
+          "default": "OnnxGenai",
+          "enum": [
+            "OnnxGenai",
+            "Vllm",
+            "Maas"
+          ],
+          "x-ms-enum": {
+            "name": "RuntimeType",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "OnnxGenai",
+                "value": "OnnxGenai",
+                "description": "ONNX Runtime GenAI engine."
+              },
+              {
+                "name": "Vllm",
+                "value": "Vllm",
+                "description": "vLLM engine. Requires GPU compute."
+              },
+              {
+                "name": "Maas",
+                "value": "Maas",
+                "description": "Models-as-a-Service router. Forwards inference requests to an external MaaS endpoint. Required when using the Maas model variant."
+              }
+            ]
+          },
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Human-readable deployment name shown in tooling.",
+          "maxLength": 256
+        },
+        "replicas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of pod replicas to run. Defaults to 1.",
+          "default": 1,
+          "minimum": 1,
+          "maximum": 100
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Container port the inference server listens on. Defaults to 5000.",
+          "default": 5000,
+          "minimum": 1024,
+          "maximum": 65535
+        },
+        "skipGpuResource": {
+          "type": "boolean",
+          "description": "When true, allows `Gpu` compute without requiring the `nvidia.com/gpu` resource limit. Must be used with `nodeSelector` to target GPU nodes manually.",
+          "default": false
+        },
+        "vllmConfig": {
+          "$ref": "#/definitions/VllmConfig",
+          "description": "vLLM-specific runtime configuration. Used only when `runtime` is `Vllm`."
+        },
+        "resources": {
+          "$ref": "#/definitions/ResourceRequirements",
+          "description": "Resource requirements for the inference container."
+        },
+        "env": {
+          "type": "array",
+          "description": "Environment variables to set on the inference container.",
+          "items": {
+            "$ref": "#/definitions/EnvVar"
+          }
+        },
+        "tolerations": {
+          "type": "array",
+          "description": "Tolerations that allow inference pods to be scheduled on tainted nodes.",
+          "items": {
+            "$ref": "#/definitions/Toleration"
+          },
+          "x-ms-identifiers": []
+        },
+        "nodeSelector": {
+          "type": "object",
+          "description": "Kubernetes node selector labels for pod scheduling. Keys are user-defined cluster node labels.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "endpoint": {
+          "$ref": "#/definitions/EndpointConfig",
+          "description": "External endpoint (Ingress) configuration for the deployment."
+        },
+        "status": {
+          "$ref": "#/definitions/ModelDeploymentStatus",
+          "description": "Observed status of the model deployment as reported by the cluster.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "model",
+        "compute"
+      ]
+    },
+    "ModelDeploymentStatus": {
+      "type": "object",
+      "description": "Observed status of a model deployment as reported by the cluster.",
+      "properties": {
+        "phase": {
+          "$ref": "#/definitions/ModelDeploymentPhase",
+          "description": "Current lifecycle phase of the deployment on the cluster."
+        },
+        "message": {
+          "type": "string",
+          "description": "Latest human-readable status message."
+        },
+        "endpointUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Inference endpoint URL exposed by the deployment, once ready."
+        },
+        "readyReplicas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of replicas currently in the Ready condition.",
+          "minimum": 0
+        },
+        "conditions": {
+          "type": "array",
+          "description": "Latest condition states reported by the cluster.",
+          "items": {
+            "$ref": "#/definitions/ModelDeploymentCondition"
+          },
+          "x-ms-identifiers": [
+            "type"
+          ]
+        },
+        "resolvedModel": {
+          "$ref": "#/definitions/ResolvedModel",
+          "description": "Information about the model variant the cluster resolved and deployed for this request."
+        },
+        "lastObservedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the cluster last refreshed this status block."
+        }
+      }
+    },
+    "ModelDeploymentUpdate": {
+      "type": "object",
+      "description": "The type used for update operations of the ModelDeployment.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/ModelDeploymentUpdateProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      }
+    },
+    "ModelDeploymentUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of the ModelDeployment. The model reference, compute, workloadType, and runtime are immutable post-create; replicas, port, scheduling, env, resources, and endpoint can be updated.",
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "Human-readable deployment name.",
+          "maxLength": 256
+        },
+        "replicas": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of pod replicas.",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Container port the inference server listens on.",
+          "minimum": 1024,
+          "maximum": 65535
+        },
+        "skipGpuResource": {
+          "type": "boolean",
+          "description": "Whether to skip the GPU resource limit when running on GPU compute."
+        },
+        "vllmConfig": {
+          "$ref": "#/definitions/VllmConfig",
+          "description": "vLLM-specific runtime configuration."
+        },
+        "resources": {
+          "$ref": "#/definitions/ResourceRequirements",
+          "description": "Resource requirements for the inference container."
+        },
+        "env": {
+          "type": "array",
+          "description": "Environment variables to set on the inference container.",
+          "items": {
+            "$ref": "#/definitions/EnvVar"
+          }
+        },
+        "tolerations": {
+          "type": "array",
+          "description": "Tolerations for pod scheduling.",
+          "items": {
+            "$ref": "#/definitions/Toleration"
+          },
+          "x-ms-identifiers": []
+        },
+        "nodeSelector": {
+          "type": "object",
+          "description": "Kubernetes node selector labels for pod scheduling.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "endpoint": {
+          "$ref": "#/definitions/EndpointConfig",
+          "description": "External endpoint (Ingress) configuration."
+        }
+      }
+    },
+    "ModelListResult": {
+      "type": "object",
+      "description": "The response of a Model list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Model items on this page",
+          "items": {
+            "$ref": "#/definitions/Model"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ModelPhase": {
+      "type": "string",
+      "description": "Lifecycle phase of a Model resource as observed by the cluster.",
+      "enum": [
+        "Pending",
+        "Available",
+        "Error"
+      ],
+      "x-ms-enum": {
+        "name": "ModelPhase",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Pending",
+            "value": "Pending",
+            "description": "The model is being prepared on the cluster (e.g. credentials being resolved, manifest being fetched)."
+          },
+          {
+            "name": "Available",
+            "value": "Available",
+            "description": "The model is available for use by deployments."
+          },
+          {
+            "name": "Error",
+            "value": "Error",
+            "description": "The model has encountered an error."
+          }
+        ]
+      }
+    },
+    "ModelProperties": {
+      "type": "object",
+      "description": "Properties of a Model resource.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the resource.",
+          "readOnly": true
+        },
+        "source": {
+          "$ref": "#/definitions/ModelSource",
+          "description": "Source describing where the model artifacts come from."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Human-readable model name shown in tooling.",
+          "maxLength": 256
+        },
+        "description": {
+          "type": "string",
+          "description": "Long-form description of the model.",
+          "maxLength": 1024
+        },
+        "publisher": {
+          "type": "string",
+          "description": "Model publisher or author.",
+          "maxLength": 128
+        },
+        "license": {
+          "type": "string",
+          "description": "SPDX-style license identifier, e.g. 'Apache-2.0', 'MIT'.",
+          "maxLength": 64
+        },
+        "licenseUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the full license text.",
+          "maxLength": 512
+        },
+        "variants": {
+          "type": "array",
+          "description": "Hardware-specific model variants, used by deployments to select the right artifact for their compute type.",
+          "items": {
+            "$ref": "#/definitions/ModelVariant"
+          },
+          "x-ms-identifiers": [
+            "id"
+          ]
+        },
+        "requirements": {
+          "$ref": "#/definitions/ModelRequirements",
+          "description": "Resource requirements for the model."
+        },
+        "capabilities": {
+          "$ref": "#/definitions/ModelCapabilities",
+          "description": "Declared capabilities of the model."
+        },
+        "status": {
+          "$ref": "#/definitions/ModelStatus",
+          "description": "Observed status of the model as reported by the cluster.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "source"
+      ]
+    },
+    "ModelReference": {
+      "type": "object",
+      "description": "Reference to the model that a deployment serves. Exactly one variant is used per deployment, indicated by `kind`.",
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/ModelReferenceKind",
+          "description": "Discriminator: which model-reference shape is in use."
+        }
+      },
+      "discriminator": "kind",
+      "required": [
+        "kind"
+      ]
+    },
+    "ModelReferenceKind": {
+      "type": "string",
+      "description": "Discriminator for the kind of model reference used by a deployment.",
+      "enum": [
+        "Catalog",
+        "Custom",
+        "Maas",
+        "Ref"
+      ],
+      "x-ms-enum": {
+        "name": "ModelReferenceKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Catalog",
+            "value": "Catalog",
+            "description": "Inline reference to a model from the Foundry Local catalog."
+          },
+          {
+            "name": "Custom",
+            "value": "Custom",
+            "description": "Inline reference to a custom model from a container registry."
+          },
+          {
+            "name": "Maas",
+            "value": "Maas",
+            "description": "Reference to an external Models-as-a-Service deployment. Requires `runtime` to be `Maas`."
+          },
+          {
+            "name": "Ref",
+            "value": "Ref",
+            "description": "Reference to an existing Microsoft.FoundryLocal/models resource on the same Arc cluster."
+          }
+        ]
+      }
+    },
+    "ModelRequirements": {
+      "type": "object",
+      "description": "Resource requirements for a Model.",
+      "properties": {
+        "minMemory": {
+          "type": "string",
+          "description": "Minimum system RAM required, e.g. '2Gi'."
+        },
+        "minVram": {
+          "type": "string",
+          "description": "Minimum GPU VRAM required, e.g. '4Gi'."
+        },
+        "supportedCompute": {
+          "type": "array",
+          "description": "Compute types this model supports.",
+          "items": {
+            "$ref": "#/definitions/ComputeType"
+          }
+        }
+      }
+    },
+    "ModelSource": {
+      "type": "object",
+      "description": "Source description for a Model. v1 supports only custom (user-provided) sources.",
+      "properties": {
+        "custom": {
+          "$ref": "#/definitions/CustomModelSource",
+          "description": "Custom model source from a container registry."
+        }
+      },
+      "required": [
+        "custom"
+      ]
+    },
+    "ModelStatus": {
+      "type": "object",
+      "description": "Observed status of a Model as reported by the cluster.",
+      "properties": {
+        "phase": {
+          "$ref": "#/definitions/ModelPhase",
+          "description": "Current lifecycle phase of the model on the cluster."
+        },
+        "message": {
+          "type": "string",
+          "description": "Latest human-readable status message."
+        },
+        "conditions": {
+          "type": "array",
+          "description": "Latest condition states reported by the cluster.",
+          "items": {
+            "$ref": "#/definitions/ModelCondition"
+          },
+          "x-ms-identifiers": [
+            "type"
+          ]
+        },
+        "lastObservedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the cluster last refreshed this status block."
+        }
+      }
+    },
+    "ModelUpdate": {
+      "type": "object",
+      "description": "The type used for update operations of the Model.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/ModelUpdateProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      }
+    },
+    "ModelUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of the Model. The model source is immutable post-create; metadata, variants, requirements, and capabilities can be updated.",
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "Human-readable model name shown in tooling.",
+          "maxLength": 256
+        },
+        "description": {
+          "type": "string",
+          "description": "Long-form description of the model.",
+          "maxLength": 1024
+        },
+        "publisher": {
+          "type": "string",
+          "description": "Model publisher or author.",
+          "maxLength": 128
+        },
+        "license": {
+          "type": "string",
+          "description": "SPDX-style license identifier.",
+          "maxLength": 64
+        },
+        "licenseUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the full license text.",
+          "maxLength": 512
+        },
+        "variants": {
+          "type": "array",
+          "description": "Hardware-specific model variants.",
+          "items": {
+            "$ref": "#/definitions/ModelVariant"
+          },
+          "x-ms-identifiers": [
+            "id"
+          ]
+        },
+        "requirements": {
+          "$ref": "#/definitions/ModelRequirements",
+          "description": "Resource requirements for the model."
+        },
+        "capabilities": {
+          "$ref": "#/definitions/ModelCapabilities",
+          "description": "Declared capabilities of the model."
+        }
+      }
+    },
+    "ModelVariant": {
+      "type": "object",
+      "description": "A hardware-specific variant of a Model.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Variant identifier, unique within the model.",
+          "minLength": 1,
+          "maxLength": 253
+        },
+        "compute": {
+          "$ref": "#/definitions/ComputeType",
+          "description": "Compute type this variant targets."
+        },
+        "executionProvider": {
+          "type": "string",
+          "description": "Optional ONNX Runtime execution provider, e.g. 'CUDAExecutionProvider'.",
+          "maxLength": 64
+        },
+        "fileSizeBytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Optional model file size in bytes.",
+          "minimum": 0
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Selection priority for this variant. Lower values are preferred. Cluster default is 50 if omitted.",
+          "minimum": 1,
+          "maximum": 100
+        }
+      },
+      "required": [
+        "id",
+        "compute"
+      ]
+    },
+    "PathType": {
+      "type": "string",
+      "description": "Ingress path matching type.",
+      "enum": [
+        "Prefix",
+        "Exact",
+        "ImplementationSpecific"
+      ],
+      "x-ms-enum": {
+        "name": "PathType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Prefix",
+            "value": "Prefix",
+            "description": "Match by URL path prefix."
+          },
+          {
+            "name": "Exact",
+            "value": "Exact",
+            "description": "Exact path match."
+          },
+          {
+            "name": "ImplementationSpecific",
+            "value": "ImplementationSpecific",
+            "description": "Implementation-specific path match semantics, as defined by the Ingress controller."
+          }
+        ]
+      }
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "description": "Provisioning state of a resource.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Accepted",
+        "Provisioning",
+        "Deleting"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          },
+          {
+            "name": "Accepted",
+            "value": "Accepted",
+            "description": "The resource request has been accepted for processing."
+          },
+          {
+            "name": "Provisioning",
+            "value": "Provisioning",
+            "description": "The resource is being provisioned."
+          },
+          {
+            "name": "Deleting",
+            "value": "Deleting",
+            "description": "The resource is being deleted."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "RegistryCredentials": {
+      "type": "object",
+      "description": "Registry authentication credentials for pulling a custom model image. Exactly one variant is used per Model, indicated by `kind`.",
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/RegistryCredentialsKind",
+          "description": "Discriminator: which credentials shape is in use."
+        }
+      },
+      "discriminator": "kind",
+      "required": [
+        "kind"
+      ]
+    },
+    "RegistryCredentialsKind": {
+      "type": "string",
+      "description": "Discriminator for the kind of registry credentials used to pull a custom model image.",
+      "enum": [
+        "KubernetesSecretRef"
+      ],
+      "x-ms-enum": {
+        "name": "RegistryCredentialsKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "KubernetesSecretRef",
+            "value": "KubernetesSecretRef",
+            "description": "Credentials are stored in a pre-existing Kubernetes Secret on the target cluster."
+          }
+        ]
+      }
+    },
+    "RequiredExtendedLocationProperty": {
+      "type": "object",
+      "description": "Model representing the required `extendedLocation` envelope property for Arc-only resources in Microsoft.FoundryLocal.",
+      "properties": {
+        "extendedLocation": {
+          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.ExtendedLocation",
+          "description": "The Arc-enabled cluster extended location where this resource runs. Required; immutable after create.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        }
+      },
+      "required": [
+        "extendedLocation"
+      ]
+    },
+    "ResolvedModel": {
+      "type": "object",
+      "description": "Identifies the specific model variant the cluster resolved and deployed.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Resolved model identifier (catalog name) on the cluster."
+        },
+        "variant": {
+          "type": "string",
+          "description": "Selected variant identifier within the model (e.g., 'cpu-fp16', 'gpu-int8')."
+        },
+        "image": {
+          "type": "string",
+          "description": "Container image deployed by the cluster."
+        }
+      }
+    },
+    "ResourceLimits": {
+      "type": "object",
+      "description": "Maximum resource limits for the inference container.",
+      "properties": {
+        "cpu": {
+          "type": "string",
+          "description": "CPU limit. Cluster default is '4000m' if omitted."
+        },
+        "memory": {
+          "type": "string",
+          "description": "Memory limit. Cluster default is '1Gi' if omitted."
+        },
+        "gpu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of GPUs (nvidia.com/gpu) requested.",
+          "minimum": 0,
+          "maximum": 8
+        }
+      }
+    },
+    "ResourceRequests": {
+      "type": "object",
+      "description": "Minimum resource requests for the inference container.",
+      "properties": {
+        "cpu": {
+          "type": "string",
+          "description": "CPU request, e.g. '100m', '0.5', '2'. Cluster default is '2000m' if omitted."
+        },
+        "memory": {
+          "type": "string",
+          "description": "Memory request, e.g. '256Mi', '1Gi'. Cluster default is '256Mi' if omitted."
+        }
+      }
+    },
+    "ResourceRequirements": {
+      "type": "object",
+      "description": "Resource requirements for the inference container.",
+      "properties": {
+        "requests": {
+          "$ref": "#/definitions/ResourceRequests",
+          "description": "Minimum resources required."
+        },
+        "limits": {
+          "$ref": "#/definitions/ResourceLimits",
+          "description": "Maximum resources allowed."
+        }
+      }
+    },
+    "RuntimeType": {
+      "type": "string",
+      "description": "Inference runtime engine that serves the model.",
+      "enum": [
+        "OnnxGenai",
+        "Vllm",
+        "Maas"
+      ],
+      "x-ms-enum": {
+        "name": "RuntimeType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "OnnxGenai",
+            "value": "OnnxGenai",
+            "description": "ONNX Runtime GenAI engine."
+          },
+          {
+            "name": "Vllm",
+            "value": "Vllm",
+            "description": "vLLM engine. Requires GPU compute."
+          },
+          {
+            "name": "Maas",
+            "value": "Maas",
+            "description": "Models-as-a-Service router. Forwards inference requests to an external MaaS endpoint. Required when using the Maas model variant."
+          }
+        ]
+      }
+    },
+    "SecretReference": {
+      "type": "object",
+      "description": "Reference to a Kubernetes Secret holding registry credentials. The secret must exist in either the target deployment namespace or the operator's release namespaces.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the Kubernetes Secret.",
+          "minLength": 1,
+          "maxLength": 253
+        },
+        "usernameKey": {
+          "type": "string",
+          "description": "Key in the secret that holds the username. Defaults to 'username' if omitted."
+        },
+        "passwordKey": {
+          "type": "string",
+          "description": "Key in the secret that holds the password. Defaults to 'password' if omitted."
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "TlsConfig": {
+      "type": "object",
+      "description": "TLS configuration for the endpoint.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether TLS is enabled on the endpoint. Cluster default is false if omitted. When true, `endpoint.host` and `secretName` are required."
+        },
+        "secretName": {
+          "type": "string",
+          "description": "Name of the Kubernetes TLS secret to use. Required when TLS is enabled.",
+          "minLength": 1,
+          "maxLength": 253
+        }
+      }
+    },
+    "Toleration": {
+      "type": "object",
+      "description": "Kubernetes node taint toleration that allows the inference pods to be scheduled on tainted nodes.",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Taint key to tolerate.",
+          "minLength": 1
+        },
+        "operator": {
+          "$ref": "#/definitions/TolerationOperator",
+          "description": "Operator. 'Equal' matches by key+value; 'Exists' matches by key only."
+        },
+        "value": {
+          "type": "string",
+          "description": "Taint value (required when operator is 'Equal')."
+        },
+        "effect": {
+          "$ref": "#/definitions/TolerationEffect",
+          "description": "Taint effect to tolerate."
+        },
+        "tolerationSeconds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Duration in seconds to tolerate the taint. Only valid for 'NoExecute' effect.",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "key",
+        "operator",
+        "effect"
+      ]
+    },
+    "TolerationEffect": {
+      "type": "string",
+      "description": "Effect of a Kubernetes node taint to tolerate.",
+      "enum": [
+        "NoSchedule",
+        "PreferNoSchedule",
+        "NoExecute"
+      ],
+      "x-ms-enum": {
+        "name": "TolerationEffect",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "NoSchedule",
+            "value": "NoSchedule",
+            "description": "Pods will not be scheduled onto tainted nodes unless they tolerate the taint."
+          },
+          {
+            "name": "PreferNoSchedule",
+            "value": "PreferNoSchedule",
+            "description": "Scheduler will avoid placing pods on tainted nodes but will not strictly forbid it."
+          },
+          {
+            "name": "NoExecute",
+            "value": "NoExecute",
+            "description": "Running pods that do not tolerate the taint will be evicted."
+          }
+        ]
+      }
+    },
+    "TolerationOperator": {
+      "type": "string",
+      "description": "Operator for a Kubernetes node taint toleration.",
+      "enum": [
+        "Equal",
+        "Exists"
+      ],
+      "x-ms-enum": {
+        "name": "TolerationOperator",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Equal",
+            "value": "Equal",
+            "description": "Toleration value must equal the taint value."
+          },
+          {
+            "name": "Exists",
+            "value": "Exists",
+            "description": "Toleration matches any value (or the absence of a value)."
+          }
+        ]
+      }
+    },
+    "VllmConfig": {
+      "type": "object",
+      "description": "vLLM-specific runtime configuration. Relevant only when `runtime` is `Vllm`.",
+      "properties": {
+        "modelCacheStorageGi": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Size of the model weight cache PVC in GiB. Cluster default is 100 if omitted.",
+          "minimum": 1
+        },
+        "epp": {
+          "$ref": "#/definitions/EppConfig",
+          "description": "EPP (Endpoint Picker) configuration for inference-aware load balancing."
+        },
+        "preferences": {
+          "type": "object",
+          "description": "vLLM engine preferences passed through to the runtime, e.g. `max_model_len`, `gpu_memory_utilization`. Keys and accepted values depend on the vLLM version installed on the cluster.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "WorkloadType": {
+      "type": "string",
+      "description": "Type of inference workload served by a model deployment.",
+      "enum": [
+        "Generative",
+        "Predictive"
+      ],
+      "x-ms-enum": {
+        "name": "WorkloadType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Generative",
+            "value": "Generative",
+            "description": "Generative (LLM) workload."
+          },
+          {
+            "name": "Predictive",
+            "value": "Predictive",
+            "description": "Predictive (classification/regression) workload. Requires a custom model."
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {}
+}

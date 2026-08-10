@@ -146,7 +146,22 @@
               "mlagReloadDelayTimeoutInSeconds": 900
             }
           }
-        ]
+        ],
+        "publicConnectivity": {
+          "peering": {
+            "peeringType": "PublicPeering",
+            "publicPeeringConfiguration": {
+              "infrastructureLocalNetworkGateways": {
+                "primaryLocalNetworkGatewayIpV4Address": "203.0.113.10",
+                "secondaryLocalNetworkGatewayIpV4Address": "203.0.113.11"
+              },
+              "tenantLocalNetworkGateways": {
+                "primaryLocalNetworkGatewayIpV4Address": "203.0.113.20",
+                "secondaryLocalNetworkGatewayIpV4Address": "203.0.113.21"
+              }
+            }
+          }
+        }
       },
       "identity": {
         "type": "None",
@@ -299,8 +314,9 @@
           ],
           "featureFlags": [
             {
-              "featureFlagName": "uniqueRdConfiguration",
-              "featureFlagValue": "Enabled"
+              "featureFlagName": "UseMicroBfd",
+              "featureFlagValue": "Enabled",
+              "featureFlagState": "Active"
             }
           ],
           "trustedIpPrefixes": [
@@ -334,7 +350,50 @@
                 "mlagReloadDelayTimeoutInSeconds": 900
               }
             }
-          ]
+          ],
+          "publicConnectivity": {
+            "peering": {
+              "peeringType": "PublicPeering",
+              "publicPeeringConfiguration": {
+                "infrastructureLocalNetworkGateways": {
+                  "primaryLocalNetworkGatewayIpV4Address": "203.0.113.10",
+                  "secondaryLocalNetworkGatewayIpV4Address": "203.0.113.11"
+                },
+                "tenantLocalNetworkGateways": {
+                  "primaryLocalNetworkGatewayIpV4Address": "203.0.113.20",
+                  "secondaryLocalNetworkGatewayIpV4Address": "203.0.113.21"
+                }
+              }
+            },
+            "infraVpnTunnels": [
+              {
+                "ipSecTunnelName": "infra-tunnel-1",
+                "vpnGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/virtualNetworkGateways/infra-vpn-gw",
+                "vpnGatewayConnectionId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/connections/infra-vpn-conn-1",
+                "localNetworkGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/localNetworkGateways/infra-local-gateway"
+              },
+              {
+                "ipSecTunnelName": "infra-tunnel-2",
+                "vpnGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/virtualNetworkGateways/infra-vpn-gw",
+                "vpnGatewayConnectionId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/connections/infra-vpn-conn-2",
+                "localNetworkGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/localNetworkGateways/infra-local-gateway"
+              }
+            ],
+            "tenantVpnTunnels": [
+              {
+                "ipSecTunnelName": "tenant-tunnel-1",
+                "vpnGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/virtualNetworkGateways/tenant-vpn-gw",
+                "vpnGatewayConnectionId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/connections/tenant-vpn-conn-1",
+                "localNetworkGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/localNetworkGateways/tenant-local-gateway"
+              },
+              {
+                "ipSecTunnelName": "tenant-tunnel-2",
+                "vpnGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/virtualNetworkGateways/tenant-vpn-gw",
+                "vpnGatewayConnectionId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/connections/tenant-vpn-conn-2",
+                "localNetworkGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/localNetworkGateways/tenant-local-gateway"
+              }
+            ]
+          }
         },
         "identity": {
           "principalId": "0000ABCD-0A0B-0000-0000-000000ABCDEF",
@@ -505,8 +564,9 @@
           ],
           "featureFlags": [
             {
-              "featureFlagName": "uniqueRdConfiguration",
-              "featureFlagValue": "Enabled"
+              "featureFlagName": "UseMicroBfd",
+              "featureFlagValue": "Enabled",
+              "featureFlagState": "Active"
             }
           ],
           "trustedIpPrefixes": [
@@ -540,7 +600,50 @@
                 "mlagReloadDelayTimeoutInSeconds": 900
               }
             }
-          ]
+          ],
+          "publicConnectivity": {
+            "peering": {
+              "peeringType": "PublicPeering",
+              "publicPeeringConfiguration": {
+                "infrastructureLocalNetworkGateways": {
+                  "primaryLocalNetworkGatewayIpV4Address": "203.0.113.10",
+                  "secondaryLocalNetworkGatewayIpV4Address": "203.0.113.11"
+                },
+                "tenantLocalNetworkGateways": {
+                  "primaryLocalNetworkGatewayIpV4Address": "203.0.113.20",
+                  "secondaryLocalNetworkGatewayIpV4Address": "203.0.113.21"
+                }
+              }
+            },
+            "infraVpnTunnels": [
+              {
+                "ipSecTunnelName": "infra-tunnel-1",
+                "vpnGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/virtualNetworkGateways/infra-vpn-gw",
+                "vpnGatewayConnectionId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/connections/infra-vpn-conn-1",
+                "localNetworkGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/localNetworkGateways/infra-local-gateway"
+              },
+              {
+                "ipSecTunnelName": "infra-tunnel-2",
+                "vpnGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/virtualNetworkGateways/infra-vpn-gw",
+                "vpnGatewayConnectionId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/connections/infra-vpn-conn-2",
+                "localNetworkGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/localNetworkGateways/infra-local-gateway"
+              }
+            ],
+            "tenantVpnTunnels": [
+              {
+                "ipSecTunnelName": "tenant-tunnel-1",
+                "vpnGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/virtualNetworkGateways/tenant-vpn-gw",
+                "vpnGatewayConnectionId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/connections/tenant-vpn-conn-1",
+                "localNetworkGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/localNetworkGateways/tenant-local-gateway"
+              },
+              {
+                "ipSecTunnelName": "tenant-tunnel-2",
+                "vpnGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/virtualNetworkGateways/tenant-vpn-gw",
+                "vpnGatewayConnectionId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/connections/tenant-vpn-conn-2",
+                "localNetworkGatewayId": "/subscriptions/1234ABCD-0A1B-1234-5678-123456ABCDEF/resourceGroups/example-rg/providers/Microsoft.Network/localNetworkGateways/tenant-local-gateway"
+              }
+            ]
+          }
         },
         "identity": {
           "principalId": "0000ABCD-0A0B-0000-0000-000000ABCDEF",
