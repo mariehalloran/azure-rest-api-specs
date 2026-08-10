@@ -1025,6 +1025,10 @@
           "minLength": 2,
           "maxLength": 100
         },
+        "product": {
+          "type": "string",
+          "description": "Marketplace product selected for this Workspace."
+        },
         "marketplaceDetails": {
           "type": "array",
           "description": "Azure Marketplace SaaS subscriptions linked to this Workspace.\nAt least one entry is required. Mutable to support Marketplace-driven\nplan changes.",
@@ -1552,6 +1556,10 @@
       "type": "object",
       "description": "Properties of a Kore.AgentPlatform Workspace.",
       "properties": {
+        "product": {
+          "type": "string",
+          "description": "Marketplace product selected for this Workspace."
+        },
         "marketplaceDetails": {
           "type": "array",
           "description": "Azure Marketplace SaaS subscriptions linked to this Workspace.\nAt least one entry is required. Mutable to support Marketplace-driven\nplan changes.",

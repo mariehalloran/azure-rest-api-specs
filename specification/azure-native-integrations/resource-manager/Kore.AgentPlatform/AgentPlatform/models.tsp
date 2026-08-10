@@ -107,6 +107,10 @@ model DefaultWorkspaceProperties {
   @maxLength(100)
   name: string;
 
+  /** Marketplace product selected for this Workspace. */
+  @added(Versions.v2026_07_01_preview)
+  product?: string;
+
   /**
    * Azure Marketplace SaaS subscriptions linked to this Workspace.
    * At least one entry is required. Mutable to support Marketplace-driven
@@ -198,6 +202,10 @@ model WorkspacePartnerProperties {
 
 /** Properties of a Kore.AgentPlatform Workspace. */
 model WorkspaceProperties {
+  /** Marketplace product selected for this Workspace. */
+  @added(Versions.v2026_07_01_preview)
+  product?: string;
+
   /**
    * Azure Marketplace SaaS subscriptions linked to this Workspace.
    * At least one entry is required. Mutable to support Marketplace-driven
