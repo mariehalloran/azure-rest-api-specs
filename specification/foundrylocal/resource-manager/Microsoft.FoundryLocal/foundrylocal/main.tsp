@@ -19,9 +19,9 @@ namespace Microsoft.FoundryLocal;
 
 @doc("Microsoft.FoundryLocal Resource Provider supported API versions.")
 enum Versions {
-  @doc("Microsoft.FoundryLocal Resource Provider management API version 2026-05-01-preview.")
+  @doc("Microsoft.FoundryLocal Resource Provider management API version 2026-09-01-preview.")
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
-  v2026_05_01_preview: "2026-05-01-preview",
+  v2026_09_01_preview: "2026-09-01-preview",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}

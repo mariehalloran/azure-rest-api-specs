@@ -573,6 +573,7 @@ model ResolvedMachineReference {
  */
 model BackendPoolMember {
   /** The IP address of the member. */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   ipAddress?: string;
 
   /** The port number. */
@@ -611,6 +612,7 @@ model SnatConfig {
   type?: SnatType;
 
   /** IP pool addresses for SNAT. */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   ipPoolAddresses?: string[];
 }
 
@@ -659,6 +661,7 @@ model BackendConfig {
  */
 model NatEndpoint {
   /** IP addresses to match. */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   ipAddress?: string[];
 
   /** Port to match. */
@@ -684,6 +687,7 @@ model NatMatch {
  */
 model NatTranslate {
   /** The translated IP address. */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   ipAddress?: string;
 
   /** The translated port. */
@@ -971,6 +975,7 @@ model NsxNsGroupPatchFields {
   machineArmIds?: Azure.Core.armResourceIdentifier[];
 
   /** Effective IPv4/IPv6 address members resolved by the group. */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   effectiveIpMembers?: string[];
 
   /** The tags applied to this resource. */
@@ -1067,12 +1072,14 @@ model NsxGatewayFirewallRulePatchFields {
   globalPriority?: string;
 
   /** ARM resource IDs of source IP groups. */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   sourceIpGroupArmIds?: Azure.Core.armResourceIdentifier[];
 
   /** Source IPv4/IPv6 addresses or CIDR ranges. */
   sourceAddresses?: string[];
 
   /** ARM resource IDs of destination IP groups. */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   destinationIpGroupArmIds?: Azure.Core.armResourceIdentifier[];
 
   /** Destination IPv4/IPv6 addresses or CIDR ranges. */
@@ -1120,6 +1127,10 @@ model NsxDistributedFirewallPolicyPatchFields {
 
   /** The sequence number determining policy evaluation order. */
   sequenceNumber?: int32;
+
+  /** The zero-based precedence rank, where zero is the highest precedence. */
+  @added(Versions.v2026_08_01_preview)
+  precedenceRank?: int32;
 
   /** Whether this is a default policy. */
   isDefault?: boolean;
@@ -1171,6 +1182,14 @@ model NsxDistributedFirewallRulePatchFields {
 
   /** The traffic direction the rule applies to. */
   direction?: FirewallDirection;
+
+  /** The sequence number determining rule evaluation order. */
+  @added(Versions.v2026_08_01_preview)
+  sequenceNumber?: int64;
+
+  /** The deterministic global priority used to order the rule. */
+  @added(Versions.v2026_08_01_preview)
+  globalPriority?: string;
 
   /** Whether scope is ANY. */
   anyScope?: boolean;
