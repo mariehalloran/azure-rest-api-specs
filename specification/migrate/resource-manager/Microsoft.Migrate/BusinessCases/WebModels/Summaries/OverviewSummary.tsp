@@ -392,19 +392,6 @@ model PaasDistribution {
 }
 
 @added(BusinessCaseApiVersions.v2025_09_09_preview)
-@doc("Summary of migration strategy, including count and cost details.")
-model StrategySummary {
-  @doc("Name of the migration strategy.")
-  strategy: string;
-
-  @doc("Number of workloads using this strategy.")
-  count: int32;
-
-  @doc("Cost details for workloads using this strategy.")
-  costDetails: TotalCostDetails;
-}
-
-@added(BusinessCaseApiVersions.v2025_09_09_preview)
 @doc("Summary of application migration, including readiness, cost, and strategies.")
 model CostSummary {
   @doc("Azure cost details for the applications.")
