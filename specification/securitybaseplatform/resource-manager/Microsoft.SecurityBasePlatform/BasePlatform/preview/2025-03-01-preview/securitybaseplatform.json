@@ -676,6 +676,11 @@
           "202": {
             "description": "Resource update request accepted.",
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
               "Location": {
                 "type": "string",
                 "description": "The Location header contains the URL where the status of the long running operation can be checked."
@@ -733,6 +738,11 @@
           "202": {
             "description": "Resource deletion accepted.",
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
               "Location": {
                 "type": "string",
                 "description": "The Location header contains the URL where the status of the long running operation can be checked."
@@ -1765,13 +1775,17 @@
       "type": "object",
       "description": "Kubernetes Service LoadBalancer settings.",
       "properties": {
-        "ipName": {
+        "publicIpAddressId": {
           "type": "string",
-          "description": "Azure public IP resource name."
-        },
-        "resourceGroup": {
-          "type": "string",
-          "description": "Azure resource group containing the public IP."
+          "format": "arm-id",
+          "description": "Azure Resource Manager resource ID of the public IP address.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Network/publicIPAddresses"
+              }
+            ]
+          }
         },
         "externalTrafficPolicy": {
           "type": "string",

@@ -77,9 +77,15 @@ interface Workspaces {
     Azure.ResourceManager.Foundations.ResourceUpdateModel<
       Workspace,
       Update<WorkspaceProperties>
-    >
+    >,
+    LroHeaders = ArmCombinedLroHeaders<ArmOperationStatus, Workspace> &
+      Azure.Core.Foundations.RetryAfterHeader
   >;
-  delete is ArmResourceDeleteWithoutOkAsync<Workspace>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    Workspace,
+    LroHeaders = ArmCombinedLroHeaders<ArmOperationStatus> &
+      Azure.Core.Foundations.RetryAfterHeader
+  >;
   listByResourceGroup is ArmResourceListByParent<Workspace>;
   listBySubscription is ArmListBySubscription<Workspace>;
 }

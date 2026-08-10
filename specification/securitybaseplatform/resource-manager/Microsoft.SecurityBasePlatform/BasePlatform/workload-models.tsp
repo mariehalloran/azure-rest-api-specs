@@ -558,11 +558,12 @@ model ObservabilityServicePort {
 
 @doc("Kubernetes Service LoadBalancer settings.")
 model ObservabilityLoadBalancerConfig {
-  @doc("Azure public IP resource name.")
-  ipName?: string;
-
-  @doc("Azure resource group containing the public IP.")
-  resourceGroup?: string;
+  @doc("Azure Resource Manager resource ID of the public IP address.")
+  publicIpAddressId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Network/publicIPAddresses";
+    }
+  ]>;
 
   @doc("External traffic policy.")
   externalTrafficPolicy?: string;
