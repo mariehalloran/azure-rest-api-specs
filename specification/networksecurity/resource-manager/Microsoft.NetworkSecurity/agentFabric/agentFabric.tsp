@@ -73,7 +73,7 @@ model AgentFabricProperties {
 interface AgentFabrics {
   get is ArmResourceRead<AgentFabric>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<AgentFabric>;
-  update is ArmTagsPatchSync<AgentFabric>;
+  update is ArmTagsPatchAsync<AgentFabric>;
   delete is ArmResourceDeleteWithoutOkAsync<
     AgentFabric,
     Response =
@@ -228,6 +228,15 @@ model MemberProperties {
   @visibility(Lifecycle.Create, Lifecycle.Read)
   workload?: WorkloadBase;
 
+  /**
+   * The SPIFFE ID that identifies this member's workload identity, system-assigned by the service
+   * at creation time. It takes the form `spiffe://<trustDomain>/<agentFabricName>/<memberName>`,
+   * using the owning fabric's trust domain (or the default `microsoft.agentfabric` when unset), with
+   * all segments lower-cased to conform to the SPIFFE ID scheme. Read-only.
+   */
+  @visibility(Lifecycle.Read)
+  spiffeId?: string;
+
   /** The provisioning state of the resource. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
@@ -237,8 +246,15 @@ model MemberProperties {
 interface Members {
   get is ArmResourceRead<Member>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Member>;
-  update is ArmTagsPatchSync<Member>;
-  delete is ArmResourceDeleteSync<Member>;
+  update is ArmTagsPatchAsync<Member>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    Member,
+    Response =
+      | ArmDeleteAcceptedLroResponse<ArmAsyncOperationHeader &
+          ArmLroLocationHeader &
+          Azure.Core.Foundations.RetryAfterHeader>
+      | ArmDeletedNoContentResponse
+  >;
   listByParent is ArmResourceListByParent<Member>;
 }
 
@@ -821,7 +837,7 @@ model PolicyGroupProperties {
 interface PolicyGroups {
   get is ArmResourceRead<PolicyGroup>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<PolicyGroup>;
-  update is ArmTagsPatchSync<PolicyGroup>;
+  update is ArmTagsPatchAsync<PolicyGroup>;
   delete is ArmResourceDeleteWithoutOkAsync<
     PolicyGroup,
     Response =
