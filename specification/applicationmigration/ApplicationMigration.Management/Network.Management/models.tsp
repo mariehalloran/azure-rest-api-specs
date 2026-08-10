@@ -1128,6 +1128,10 @@ model NsxDistributedFirewallPolicyPatchFields {
   /** The sequence number determining policy evaluation order. */
   sequenceNumber?: int32;
 
+  /** The zero-based precedence rank, where zero is the highest precedence. */
+  @added(Versions.v2026_08_01_preview)
+  precedenceRank?: int32;
+
   /** Whether this is a default policy. */
   isDefault?: boolean;
 
@@ -1178,6 +1182,14 @@ model NsxDistributedFirewallRulePatchFields {
 
   /** The traffic direction the rule applies to. */
   direction?: FirewallDirection;
+
+  /** The sequence number determining rule evaluation order. */
+  @added(Versions.v2026_08_01_preview)
+  sequenceNumber?: int64;
+
+  /** The deterministic global priority used to order the rule. */
+  @added(Versions.v2026_08_01_preview)
+  globalPriority?: string;
 
   /** Whether scope is ANY. */
   anyScope?: boolean;
