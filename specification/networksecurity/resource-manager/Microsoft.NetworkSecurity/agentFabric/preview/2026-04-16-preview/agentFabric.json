@@ -416,6 +416,20 @@
               "$ref": "#/definitions/AgentFabric"
             }
           },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -427,7 +441,11 @@
           "AgentFabrics_Update": {
             "$ref": "./examples/AgentFabrics_Update.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       },
       "delete": {
         "operationId": "AgentFabrics_Delete",
@@ -733,6 +751,20 @@
               "$ref": "#/definitions/Member"
             }
           },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -744,7 +776,11 @@
           "Members_Update": {
             "$ref": "./examples/Members_Update.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       },
       "delete": {
         "operationId": "Members_Delete",
@@ -780,8 +816,23 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Resource deleted successfully."
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
           },
           "204": {
             "description": "Resource does not exist."
@@ -797,7 +848,11 @@
           "Members_Delete": {
             "$ref": "./examples/Members_Delete.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NetworkSecurity/policyGroups": {
@@ -1016,6 +1071,20 @@
               "$ref": "#/definitions/PolicyGroup"
             }
           },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
           "default": {
             "description": "An unexpected error response.",
             "schema": {
@@ -1027,7 +1096,11 @@
           "PolicyGroups_Update": {
             "$ref": "./examples/PolicyGroups_Update.json"
           }
-        }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
       },
       "delete": {
         "operationId": "PolicyGroups_Delete",
@@ -2013,6 +2086,11 @@
             "read",
             "create"
           ]
+        },
+        "spiffeId": {
+          "type": "string",
+          "description": "The SPIFFE ID that identifies this member's workload identity, system-assigned by the service\nat creation time. It takes the form `spiffe://<trustDomain>/<agentFabricName>/<memberName>`,\nusing the owning fabric's trust domain (or the default `microsoft.agentfabric` when unset), with\nall segments lower-cased to conform to the SPIFFE ID scheme. Read-only.",
+          "readOnly": true
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
