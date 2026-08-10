@@ -16,7 +16,7 @@ using Azure.ResourceManager;
 namespace Microsoft.ProgramEnrollment;
 
 enum Versions {
-  `2026-03-01-preview`,
+  `2026-08-10-preview`,
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}
