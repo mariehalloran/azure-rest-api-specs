@@ -203,6 +203,10 @@ model NetworkFabricProperties extends AnnotationResource {
   ])
   @added(Versions.v2026_01_15_preview)
   upgradeProfile?: UpgradeProfileProperties[];
+
+  @doc("Public connectivity configuration for the Network Fabric, including peering details and read-only IPsec VPN tunnel information for infrastructure and tenant traffic.")
+  @added(Versions.v2026_07_15_preview)
+  publicConnectivity?: NetworkFabricPublicConnectivity;
 }
 
 @doc("Network and credentials configuration currently applied to terminal server.")
@@ -470,14 +474,6 @@ model ManagementNetworkPatchConfiguration {
 model UpgradeNetworkFabricProperties extends UpdateVersion {
   @doc("Action to be performed while upgrading the fabric.")
   action?: NetworkFabricUpgradeAction;
-
-  @doc("Reference to a prior validateReadiness result. When provided, the action skips re-validation and uses the referenced validation outcome.")
-  @added(Versions.v2026_07_15_preview)
-  validationId?: Azure.Core.uuid;
-
-  @doc("List of check names to override (skip) even if they failed during validation. Allows proceeding with the action despite specific failed checks.")
-  @added(Versions.v2026_07_15_preview)
-  overrideChecks?: string[];
 }
 
 @doc("Validation configuration properties.")
@@ -677,6 +673,10 @@ model FeatureFlagProperties {
 
   @doc("Feature flag value.")
   featureFlagValue?: string;
+
+  @added(Versions.v2026_07_15_preview)
+  @doc("Feature flag state.")
+  featureFlagState?: string;
 }
 
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Extending common error response"
@@ -1079,63 +1079,169 @@ model RefreshConfigurationRequestProperties {
   deviceTypes?: NetworkFabricRefreshDeviceTypes[];
 }
 
-@doc("Type of Debug actions that can be performed.")
+@doc("Public connectivity configuration for the Network Fabric, including peering details and read-only IPsec VPN tunnel information for infrastructure and tenant traffic.")
 @added(Versions.v2026_07_15_preview)
-union DebugType {
-  @doc("Generic debug type")
-  Generic: "Generic",
+model NetworkFabricPublicConnectivity {
+  @doc("Peering configuration applied between the Network Fabric CE devices and the Azure VPN Gateways.")
+  peering: NetworkFabricPublicConnectivityPeering;
 
-  @doc("Base debug type")
-  Base: "Base",
+  @doc("Infrastructure IPsec VPN tunnel information. Populated by the platform once the tunnels are established.")
+  @Azure.ResourceManager.identifiers(#["ipSecTunnelName"])
+  @visibility(Lifecycle.Read)
+  infraVpnTunnels?: VpnTunnel[];
 
-  @doc("L2Isd debug type")
-  L2Isd: "L2Isd",
+  @doc("Tenant IPsec VPN tunnel information. Populated by the platform once the tunnels are established.")
+  @Azure.ResourceManager.identifiers(#["ipSecTunnelName"])
+  @visibility(Lifecycle.Read)
+  tenantVpnTunnels?: VpnTunnel[];
+}
 
-  @doc("L3Isd debug type")
-  L3Isd: "L3Isd",
+@doc("Peering configuration for the Network Fabric public connectivity.")
+@added(Versions.v2026_07_15_preview)
+model NetworkFabricPublicConnectivityPeering {
+  @doc("Type of peering between the Network Fabric and the Azure VPN Gateways.")
+  peeringType?: PeeringType;
 
-  @doc("AccessControlList(Acl) debug type")
-  Acl: "AccessControlList",
+  @doc("Public peering configuration. Required when peeringType is PublicPeering.")
+  publicPeeringConfiguration?: PublicPeeringConfiguration;
+}
 
-  @doc("NetworkTap debug type")
-  NetworkTap: "NetworkTap",
+@doc("Public peering configuration containing the Local Network Gateways used for the infrastructure and tenant tunnels.")
+@added(Versions.v2026_07_15_preview)
+model PublicPeeringConfiguration {
+  @doc("Local Network Gateways used as the on-premises endpoints for the infrastructure VPN tunnels.")
+  infrastructureLocalNetworkGateways: PublicPeeringLocalNetworkGateways;
 
-  @doc("DebugLog debug type")
-  DebugLog: "DebugLog",
+  @doc("Local Network Gateways used as the on-premises endpoints for the tenant VPN tunnels.")
+  tenantLocalNetworkGateways: PublicPeeringLocalNetworkGateways;
+}
 
-  @doc("NfUpgrade debug type")
-  NfUpgrade: "NfUpgrade",
+@doc("Public Peering Local Network Gateway")
+@added(Versions.v2026_07_15_preview)
+model PublicPeeringLocalNetworkGateways {
+  @doc("Primary Local Network Gateway IPv4 address used as the on-premises endpoint for the infrastructure VPN tunnel.")
+  primaryLocalNetworkGatewayIpV4Address: Azure.Core.ipV4Address;
 
-  @doc("CertificateRotation debug type")
-  CertificateRotation: "CertificateRotation",
+  @doc("Secondary Local Network Gateway IPv4 address used as the on-premises endpoint for the infrastructure VPN tunnel.")
+  secondaryLocalNetworkGatewayIpV4Address: Azure.Core.ipV4Address;
+}
 
-  @doc("Nni debug type")
-  Nni: "Nni",
+@doc("Information about an IPsec VPN tunnel established between the Network Fabric and an Azure VPN Gateway instance.")
+@added(Versions.v2026_07_15_preview)
+model VpnTunnel {
+  @doc("Name of the IPsec tunnel.")
+  @visibility(Lifecycle.Read)
+  ipSecTunnelName?: string;
 
-  @doc("BmpMonitoring debug type")
-  BmpMonitoring: "BmpMonitoring",
+  @doc("VPN Gateway Resource ID of the Azure VPN Gateway instance that the tunnel is established with.")
+  @visibility(Lifecycle.Read)
+  vpnGatewayId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Network/virtualNetworkGateways";
+    }
+  ]>;
+
+  @doc("VPN Gateway connection ID of the Azure VPN Gateway instance that the tunnel is established with.")
+  @visibility(Lifecycle.Read)
+  vpnGatewayConnectionId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Network/connections";
+    }
+  ]>;
+
+  @doc("Local Network Gateway Resource ID of the Local Network Gateway instance that the tunnel is established with.")
+  @visibility(Lifecycle.Read)
+  localNetworkGatewayId?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.Network/localNetworkGateways";
+    }
+  ]>;
+}
+
+@doc("Type of peering between the Network Fabric and the Azure VPN Gateways.")
+@added(Versions.v2026_07_15_preview)
+union PeeringType {
+  @doc("Public peering over the Internet using Local Network Gateways.")
+  PublicPeering: "PublicPeering",
+
+  @doc("Private peering over an ExpressRoute circuit.")
+  ExpressRouteCircuitPrivatePeering: "ExpressRouteCircuitPrivatePeering",
 
   string,
 }
 
-@doc("NetworkFabric Resource Troubleshoot Request.")
+@doc("Configuration Category for the Network Fabric.")
 @added(Versions.v2026_07_15_preview)
-model NfResourceTroubleshootRequest {
-  @doc("Type of debug operation to be performed.")
-  debugType: DebugType;
+union RuntimeConfigurationType {
+  @doc("Infrastructure configuration type.")
+  InfrastructureNetwork: "InfrastructureNetwork",
 
-  @doc("List of ARM resource IDs to be included in the troubleshoot operation. Depends on debug type.")
-  resourceIds?: Azure.Core.armResourceIdentifier[];
+  @doc("Tenant configuration type.")
+  TenantNetwork: "TenantNetwork",
 
-  @doc("List of device roles to be included in the troubleshoot operation")
-  deviceRoles?: DeviceRole[];
+  @doc("Network Packet Broker configuration type.")
+  NetworkPacketBroker: "NetworkPacketBroker",
 
-  @doc("Storage URL ID to upload the troubleshoot result. (optional)")
-  storageUrlId?: string;
+  string,
 }
 
-@doc("NetworkFabric Resource Troubleshoot Response.")
+@doc("Filters to apply when collecting configuration for the Network Fabric.")
 @added(Versions.v2026_07_15_preview)
-model NfResourceTroubleshootResponse {
+model RuntimeConfigurationFilter {
+  @doc("The types of devices for which the configuration needs to be collected. If not provided, configuration will be collected for all device types.")
+  deviceRole?: NetworkDeviceRole;
+
+  @doc("Resource Identifier of which the configuration needs to be collected. If not provided, configuration will be collected for all devices.")
+  resourceIds?: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ManagedNetworkFabric/*";
+    }
+  ]>[];
+}
+
+@doc("RuntimeConfigurationRequest for the Network Fabric.")
+@added(Versions.v2026_07_15_preview)
+model RuntimeConfigurationProperties {
+  @doc("Configuration Category for the Network Fabric.")
+  category?: RuntimeConfigurationType;
+
+  @Azure.ResourceManager.identifiers(#[])
+  @doc("Filter to apply when collecting configuration for the Network Fabric. If not provided, configuration will be collected for all devices.")
+  filters?: RuntimeConfigurationFilter[];
+}
+
+@doc("Type of diagnostics to run on the Network Fabric.")
+@added(Versions.v2026_07_15_preview)
+union DiagnosticsOperationType {
+  @doc("Run diagnostics for the Network Fabric's runtime configuration.")
+  runtimeConfiguration: "RuntimeConfiguration",
+
+  string,
+}
+
+@doc("Run Diagnostics Request.")
+@added(Versions.v2026_07_15_preview)
+model RunDiagnosticsRequest {
+  @doc("The types of diagnostics to run on the Network Fabric.")
+  operationType: DiagnosticsOperationType;
+
+  @doc("RuntimeConfigurationRequest for the Network Fabric. Required when operationType is RuntimeConfiguration.")
+  runtimeConfiguration?: RuntimeConfigurationProperties;
+}
+
+@doc("Run Diagnostics Response.")
+@added(Versions.v2026_07_15_preview)
+model RunDiagnosticsResponse {
   ...OperationStatusResult;
+
+  @doc("Run Diagnostics Response Properties.")
+  properties?: RunDiagnosticsResponseProperties;
+}
+
+@doc("Run Diagnostics Response Properties.")
+@added(Versions.v2026_07_15_preview)
+model RunDiagnosticsResponseProperties {
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
+  @doc("Storage URL to the diagnostics information collected.")
+  diagnosticsUrl?: url;
 }
