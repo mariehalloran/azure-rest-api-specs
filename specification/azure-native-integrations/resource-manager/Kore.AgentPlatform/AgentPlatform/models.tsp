@@ -1,3 +1,5 @@
+// cspell:words aiforservice aiforwork
+
 import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/versioning";
@@ -105,7 +107,7 @@ model OrganizationPartnerProperties {
 union Product {
   string,
 
-  /** AI for Work product. */
+  /** AI for Work product. <!-- cspell:words aiforservice aiforwork --> */
   aiforwork: "aiforwork",
 
   /** AI for Service product. */
