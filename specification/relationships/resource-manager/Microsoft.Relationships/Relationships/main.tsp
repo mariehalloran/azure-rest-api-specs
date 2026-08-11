@@ -26,6 +26,17 @@ enum Versions {
   `2026-03-01-preview`,
 }
 
+// Relationship resource name constraint. In 2023-09-01-preview the name was
+// restricted to alphanumerics (^[a-zA-Z0-9]{3,64}$). From 2026-03-01-preview the
+// swagger no longer constrains the relationship name at all: name validation is
+// owned by the RP service code so it can be hot-configured, and RPaaS lets all
+// names through. The 2023-09-01-preview pattern is preserved by pinning each
+// shared resource's name to `relationshipNameV1` via `@@typeChangedFrom`; the
+// shipped 2023-09-01-preview swagger is therefore left unchanged.
+@doc("The name of a relationship resource.")
+@pattern("^[a-zA-Z0-9]{3,64}$")
+scalar relationshipNameV1 extends string;
+
 /*
  * Base relationship types definitions
  */
@@ -127,14 +138,20 @@ model DependencyOfRelationshipProperties is BaseRelationshipProperties;
 @doc("Defines a dependencyOf relationship resource.")
 model DependencyOfRelationship
   is ExtensionResource<DependencyOfRelationshipProperties> {
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-name-pattern" "Name validation is owned by the RP service code from 2026-03-01-preview; the published swagger intentionally omits a name pattern so RPaaS does not gate names."
   @doc("Name of dependencyOf relationship.")
-  @pattern("^[a-zA-Z0-9]{3,64}$")
   @visibility(Lifecycle.Read)
   @key
   @path
   @segment("dependencyOf")
   name: string;
 }
+
+@@typeChangedFrom(
+  DependencyOfRelationship.name,
+  Versions.`2026-03-01-preview`,
+  relationshipNameV1
+);
 
 /*
  * serviceGroupMember relationship type definition
@@ -197,14 +214,20 @@ model ServiceGroupMemberRelationshipPropertiesV2 {
 @doc("Defines a ServiceGroupMember relationship resource.")
 model ServiceGroupMemberRelationship
   is ExtensionResource<ServiceGroupMemberRelationshipPropertiesV2> {
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-name-pattern" "Name validation is owned by the RP service code from 2026-03-01-preview; the published swagger intentionally omits a name pattern so RPaaS does not gate names."
   @doc("Name of ServiceGroupMember relationship.")
-  @pattern("^[a-zA-Z0-9]{3,64}$")
   @visibility(Lifecycle.Read)
   @key
   @path
   @segment("serviceGroupMember")
   name: string;
 }
+
+@@typeChangedFrom(
+  ServiceGroupMemberRelationship.name,
+  Versions.`2026-03-01-preview`,
+  relationshipNameV1
+);
 
 // Swap the SGM properties type per version: 2023 uses the inherited-base shape,
 // 2026 uses the decoupled V2 shape.
@@ -257,8 +280,8 @@ model ContainsRelationshipProperties {
 @added(Versions.`2026-03-01-preview`)
 model ContainsRelationship
   is ExtensionResource<ContainsRelationshipProperties> {
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-name-pattern" "Name validation is owned by the RP service code from 2026-03-01-preview; the published swagger intentionally omits a name pattern so RPaaS does not gate names."
   @doc("Name of contains relationship.")
-  @pattern("^[a-zA-Z0-9]{3,64}$")
   @visibility(Lifecycle.Read)
   @key
   @path
