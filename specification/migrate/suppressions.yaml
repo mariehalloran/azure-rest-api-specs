@@ -1,0 +1,11 @@
+- tool: Swagger Avocado
+  paths:
+    - resource-manager/Microsoft.Migrate/BusinessCases/preview/2025-09-09-preview/businessCases.json
+  reason: >-
+    The operation getReportDownloadUrl (POST .../businessCases/{businessCaseName}/getReportDownloadUrl)
+    was intentionally removed in the 2026-06-06-preview API version and replaced by the report action
+    (POST .../businessCases/{businessCaseName}/report, operationId BusinessCaseOperations_GetReport).
+    Microsoft.Migrate/BusinessCases is a preview-only service with no GA version, so this preview
+    removal does not require breaking-change board approval. Swagger Avocado reports
+    MISSING_APIS_IN_DEFAULT_TAG because the removed operation still exists in the earlier
+    2025-09-09-preview version, which is expected for an intentional preview deprecation.
