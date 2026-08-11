@@ -39,7 +39,11 @@ model FailoverInstanceProperties {
   failoverState?: FailoverState;
 
   @doc("The resource ID of the partner scheduler in the failover configuration")
-  partnerSchedulerResourceId: string;
+  partnerSchedulerResourceId: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.DurableTask/schedulers";
+    }
+  ]>;
 
   @visibility(Lifecycle.Read)
   @doc("The location of the partner scheduler in the failover configuration")

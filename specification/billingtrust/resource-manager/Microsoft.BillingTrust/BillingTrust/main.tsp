@@ -17,10 +17,10 @@ namespace Microsoft.BillingTrust;
 
 @doc("Supported API Versions for Microsoft.BillingTrust")
 enum Versions {
-  @doc("API Version 2026-03-17-preview.")
+  @doc("API Version 2026-08-10-preview.")
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   @Azure.Core.previewVersion
-  `2026-03-17-preview`,
+  `2026-08-10-preview`,
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}
