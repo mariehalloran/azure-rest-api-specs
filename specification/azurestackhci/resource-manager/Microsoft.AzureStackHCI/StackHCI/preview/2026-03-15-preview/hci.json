@@ -28723,6 +28723,31 @@
         "capacityPolicy": {
           "$ref": "#/definitions/DeploymentCapacityPolicy",
           "description": "Optional Day Zero capacity policy used to seed the cluster's Capacity Settings\nsingleton during deployment. When omitted, the service uses its own defaults."
+        },
+        "confidentialVmIntent": {
+          "type": "string",
+          "description": "Captures the customer's intent to enable or disable Confidential VM (CVM) support on the AzureStackHCI Cluster.",
+          "default": "Disable",
+          "enum": [
+            "Enable",
+            "Disable"
+          ],
+          "x-ms-enum": {
+            "name": "ConfidentialVmIntent",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "Enable",
+                "value": "Enable",
+                "description": "Indicates that the customer intends to enable CVM support on the cluster."
+              },
+              {
+                "name": "Disable",
+                "value": "Disable",
+                "description": "Indicates that the customer intends to disable CVM support on the cluster."
+              }
+            ]
+          }
         }
       }
     },
