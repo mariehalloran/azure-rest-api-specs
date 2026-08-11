@@ -1026,7 +1026,7 @@
           "maxLength": 100
         },
         "product": {
-          "type": "string",
+          "$ref": "#/definitions/Product",
           "description": "Marketplace product selected for this Workspace."
         },
         "marketplaceDetails": {
@@ -1372,6 +1372,30 @@
         }
       }
     },
+    "Product": {
+      "type": "string",
+      "description": "Marketplace product options available for a Workspace.",
+      "enum": [
+        "aiforwork",
+        "aiforservice"
+      ],
+      "x-ms-enum": {
+        "name": "Product",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "aiforwork",
+            "value": "aiforwork",
+            "description": "AI for Work product."
+          },
+          {
+            "name": "aiforservice",
+            "value": "aiforservice",
+            "description": "AI for Service product."
+          }
+        ]
+      }
+    },
     "SaaSResourceDetailsResponse": {
       "type": "object",
       "description": "Marketplace SaaS resource details.",
@@ -1557,7 +1581,7 @@
       "description": "Properties of a Kore.AgentPlatform Workspace.",
       "properties": {
         "product": {
-          "type": "string",
+          "$ref": "#/definitions/Product",
           "description": "Marketplace product selected for this Workspace."
         },
         "marketplaceDetails": {

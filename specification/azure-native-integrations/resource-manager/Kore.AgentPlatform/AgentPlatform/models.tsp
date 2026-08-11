@@ -100,6 +100,18 @@ model OrganizationPartnerProperties {
   partnerResourceId?: string;
 }
 
+/** Marketplace product options available for a Workspace. */
+@added(Versions.v2026_07_01_preview)
+union Product {
+  string,
+
+  /** AI for Work product. */
+  aiforwork: "aiforwork",
+
+  /** AI for Service product. */
+  aiforservice: "aiforservice",
+}
+
 /** Properties of the default Workspace created with the Organization. */
 model DefaultWorkspaceProperties {
   /** Display name of the default Workspace. */
@@ -109,7 +121,7 @@ model DefaultWorkspaceProperties {
 
   /** Marketplace product selected for this Workspace. */
   @added(Versions.v2026_07_01_preview)
-  product?: string;
+  product?: Product;
 
   /**
    * Azure Marketplace SaaS subscriptions linked to this Workspace.
@@ -204,7 +216,7 @@ model WorkspacePartnerProperties {
 model WorkspaceProperties {
   /** Marketplace product selected for this Workspace. */
   @added(Versions.v2026_07_01_preview)
-  product?: string;
+  product?: Product;
 
   /**
    * Azure Marketplace SaaS subscriptions linked to this Workspace.
