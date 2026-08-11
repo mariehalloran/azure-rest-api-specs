@@ -79,15 +79,6 @@ model BusinessCaseProperties is AzureResourceProperties {
   @doc("Arm id of dependent partner assessments.")
   @added(BusinessCaseApiVersions.v2025_09_09_preview)
   dependentAssessmentIds?: string[];
-
-  @doc("Whether report generation is requested after the business case completes.")
-  @added(BusinessCaseApiVersions.v2026_06_06_preview)
-  reportsRequired?: boolean;
-
-  @doc("ARM resource ID of the generated report.")
-  @visibility(Lifecycle.Read)
-  @added(BusinessCaseApiVersions.v2026_06_06_preview)
-  reportArmId?: string;
 }
 
 @added(BusinessCaseApiVersions.v2025_09_09_preview)
