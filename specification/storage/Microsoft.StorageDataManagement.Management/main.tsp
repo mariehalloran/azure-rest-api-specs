@@ -121,7 +121,7 @@ interface BlobAccessPointConfigurations {
   @added(Versions.v2026_09_01)
   get is ArmResourceRead<BlobAccessPointConfiguration>;
 
-  @doc("Create a Blob Access Point configuration if it does not already exist. If a Blob Access Point configuration with the same name already exists, the request returns an error and the existing resource is not replaced.")
+  @doc("Creates or updates a Blob Access Point configuration.")
   @added(Versions.v2026_09_01)
   create is ArmResourceCreateOrReplaceAsync<BlobAccessPointConfiguration>;
 
@@ -150,9 +150,7 @@ interface BlobAccessPointConfigurations {
   testExistingConnection is ArmResourceActionAsync<
     BlobAccessPointConfiguration,
     BlobAccessPointConnectionTestRequest,
-    BlobAccessPointConnectionTestResponse,
-    LroHeaders = ArmCombinedLroHeaders<FinalResult = BlobAccessPointConnectionTestResponse> &
-      Azure.Core.Foundations.RetryAfterHeader
+    BlobAccessPointConnectionTestResponse
   >;
 }
 
@@ -164,8 +162,6 @@ interface BlobAccessPointConnectionTests {
   testProposedConnection is ArmResourceActionAsync<
     StorageAccount,
     BlobAccessPointProposedConnectionTestRequest,
-    BlobAccessPointConnectionTestResponse,
-    LroHeaders = ArmCombinedLroHeaders<FinalResult = BlobAccessPointConnectionTestResponse> &
-      Azure.Core.Foundations.RetryAfterHeader
+    BlobAccessPointConnectionTestResponse
   >;
 }
