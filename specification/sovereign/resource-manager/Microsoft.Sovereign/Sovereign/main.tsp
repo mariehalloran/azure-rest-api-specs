@@ -214,6 +214,16 @@ interface SovereignViewOperations {
     SovereignViewFilterValuesRequest,
     SovereignViewFilterValuesResponse
   >;
+
+  @action("operationalStatus")
+  @doc("Gets the operational status for the Sovereign View resource.")
+  @added(Versions.Preview20260731)
+  @armResourceAction(SovereignViewResource)
+  operationalStatus is ArmResourceActionSync<
+    SovereignViewResource,
+    SovereignViewOperationalStatusRequest,
+    SovereignViewOperationalStatusResponse
+  >;
 }
 
 @parentResource(LandingZoneAccountResource)

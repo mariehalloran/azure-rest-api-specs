@@ -662,6 +662,62 @@
           }
         }
       }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sovereign/sovereignViews/{sovereignViewName}/operationalStatus": {
+      "post": {
+        "operationId": "SovereignViewOperations_OperationalStatus",
+        "tags": [
+          "SovereignViewOperations"
+        ],
+        "description": "Gets the operational status for the Sovereign View resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "sovereignViewName",
+            "in": "path",
+            "description": "The name of the Sovereign View resource.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,64}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The content of the action request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SovereignViewOperationalStatusRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SovereignViewOperationalStatusResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "SovereignViewOperations_OperationalStatus": {
+            "$ref": "./examples/SovereignViewOperations_OperationalStatus.json"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1004,6 +1060,24 @@
           }
         ]
       }
+    },
+    "DataStateInfo": {
+      "type": "object",
+      "description": "The state of the report data, including the report generation status and the next evaluation time.",
+      "properties": {
+        "reportStatus": {
+          "$ref": "#/definitions/ReportStatus",
+          "description": "The current compliance report generation status."
+        },
+        "nextEvaluation": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The next scheduled evaluation time, in RFC3339 format. May not be available for all report states."
+        }
+      },
+      "required": [
+        "reportStatus"
+      ]
     },
     "DecommissionedManagementGroupProperties": {
       "type": "object",
@@ -1658,6 +1732,114 @@
         "policyInitiativesAssignmentProperties"
       ]
     },
+    "OperationalStatusEvaluationParameter": {
+      "type": "string",
+      "description": "An evaluation parameter that controls which checks are performed when determining operational status.",
+      "enum": [
+        "PermissionsEvaluation",
+        "PolicyAssignmentEvaluation"
+      ],
+      "x-ms-enum": {
+        "name": "OperationalStatusEvaluationParameter",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "PermissionsEvaluation",
+            "value": "PermissionsEvaluation",
+            "description": "Evaluate managed identity permissions on the scopes in the sovereign view."
+          },
+          {
+            "name": "PolicyAssignmentEvaluation",
+            "value": "PolicyAssignmentEvaluation",
+            "description": "Evaluate policy assignments on the scopes in the sovereign view."
+          }
+        ]
+      }
+    },
+    "OperationalStatusRequestMode": {
+      "type": "string",
+      "description": "The level of detail to return in the sovereign view operational status response.",
+      "enum": [
+        "Summary",
+        "Detailed"
+      ],
+      "x-ms-enum": {
+        "name": "OperationalStatusRequestMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Summary",
+            "value": "Summary",
+            "description": "Returns a high-level operational status suitable for quickly determining overall view health."
+          },
+          {
+            "name": "Detailed",
+            "value": "Detailed",
+            "description": "Returns a comprehensive operational status, including detailed information about individual checks, dependencies, and any issues impacting view operability."
+          }
+        ]
+      }
+    },
+    "OperationalStatusStates": {
+      "type": "string",
+      "description": "The overall operational status states for a sovereign view.",
+      "enum": [
+        "Healthy",
+        "Unhealthy",
+        "Unknown"
+      ],
+      "x-ms-enum": {
+        "name": "OperationalStatusStates",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Healthy",
+            "value": "Healthy",
+            "description": "The sovereign view is healthy and fully operational."
+          },
+          {
+            "name": "Unhealthy",
+            "value": "Unhealthy",
+            "description": "The sovereign view is unhealthy and its operability is impacted."
+          },
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "The operational status of the sovereign view could not be determined."
+          }
+        ]
+      }
+    },
+    "OperationalStatusUnhealthyReason": {
+      "type": "string",
+      "description": "The reasons a sovereign view or an individual scope is unhealthy.",
+      "enum": [
+        "MIMissing",
+        "MIPermissionMissing",
+        "PolicyAssignmentMissing"
+      ],
+      "x-ms-enum": {
+        "name": "OperationalStatusUnhealthyReason",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "MIMissing",
+            "value": "MIMissing",
+            "description": "The managed identity is missing."
+          },
+          {
+            "name": "MIPermissionMissing",
+            "value": "MIPermissionMissing",
+            "description": "The managed identity is missing required permissions."
+          },
+          {
+            "name": "PolicyAssignmentMissing",
+            "value": "PolicyAssignmentMissing",
+            "description": "A required policy assignment is missing."
+          }
+        ]
+      }
+    },
     "PolicyComplianceState": {
       "type": "string",
       "description": "Supported compliance states for the policy initiatives.",
@@ -1725,6 +1907,54 @@
         "assignmentParameters"
       ]
     },
+    "ReportStatus": {
+      "type": "string",
+      "description": "The compliance report generation status.",
+      "enum": [
+        "Generating",
+        "NoDataYet",
+        "UpToDate",
+        "Retrying",
+        "Refreshing",
+        "Stale"
+      ],
+      "x-ms-enum": {
+        "name": "ReportStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Generating",
+            "value": "Generating",
+            "description": "The compliance report is being generated for the first time."
+          },
+          {
+            "name": "NoDataYet",
+            "value": "NoDataYet",
+            "description": "No compliance data is available yet."
+          },
+          {
+            "name": "UpToDate",
+            "value": "UpToDate",
+            "description": "The compliance report is up to date."
+          },
+          {
+            "name": "Retrying",
+            "value": "Retrying",
+            "description": "The compliance report generation is being retried."
+          },
+          {
+            "name": "Refreshing",
+            "value": "Refreshing",
+            "description": "The compliance report is being refreshed."
+          },
+          {
+            "name": "Stale",
+            "value": "Stale",
+            "description": "The compliance report is stale and pending refresh."
+          }
+        ]
+      }
+    },
     "ResourceCreationOptions": {
       "type": "string",
       "description": "Options for resource creation.",
@@ -1775,6 +2005,62 @@
       "required": [
         "policyInitiativesAssignmentProperties",
         "create"
+      ]
+    },
+    "ScopeLevelOperationalStatusStates": {
+      "type": "string",
+      "description": "The operational status states for an individual scope within a sovereign view.",
+      "enum": [
+        "Unhealthy",
+        "Unknown"
+      ],
+      "x-ms-enum": {
+        "name": "ScopeLevelOperationalStatusStates",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unhealthy",
+            "value": "Unhealthy",
+            "description": "The scope is unhealthy and its operability is impacted."
+          },
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "The operational status of the scope could not be determined."
+          }
+        ]
+      }
+    },
+    "SovereignViewAffectedScopes": {
+      "type": "object",
+      "description": "An affected scope in a sovereign view operational status detail.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the management group or subscription affected."
+        },
+        "id": {
+          "type": "string",
+          "description": "The identifier of the management group or subscription affected."
+        },
+        "type": {
+          "$ref": "#/definitions/SovereignViewScopeType",
+          "description": "The type of the affected scope."
+        },
+        "status": {
+          "$ref": "#/definitions/ScopeLevelOperationalStatusStates",
+          "description": "The operational status of the affected scope."
+        },
+        "actionRequired": {
+          "type": "string",
+          "description": "The action required to remediate the affected scope, such as a role name or a policy initiative id."
+        }
+      },
+      "required": [
+        "name",
+        "id",
+        "type",
+        "status"
       ]
     },
     "SovereignViewComplianceDetail": {
@@ -1975,7 +2261,7 @@
       "description": "The response for the sovereign view compliance details action.",
       "properties": {
         "dataState": {
-          "$ref": "#/definitions/DataState",
+          "$ref": "#/definitions/DataStateInfo",
           "description": "State indicating whether the data is processed or still being processed."
         },
         "error": {
@@ -2221,7 +2507,7 @@
       "description": "The response for the sovereign view compliance summary action.",
       "properties": {
         "dataState": {
-          "$ref": "#/definitions/DataState",
+          "$ref": "#/definitions/DataStateInfo",
           "description": "State indicating whether the data is processed or still being processed."
         },
         "error": {
@@ -2486,6 +2772,74 @@
         "id"
       ]
     },
+    "SovereignViewOperationalStatusDetails": {
+      "type": "object",
+      "description": "An operational status detail item describing an issue impacting the operability of the sovereign view.",
+      "properties": {
+        "reason": {
+          "$ref": "#/definitions/OperationalStatusUnhealthyReason",
+          "description": "The reason the sovereign view is unhealthy."
+        },
+        "affectedScopes": {
+          "type": "array",
+          "description": "The scopes affected by the issue.",
+          "items": {
+            "$ref": "#/definitions/SovereignViewAffectedScopes"
+          },
+          "x-ms-identifiers": [
+            "id"
+          ]
+        }
+      },
+      "required": [
+        "reason"
+      ]
+    },
+    "SovereignViewOperationalStatusRequest": {
+      "type": "object",
+      "description": "The request for the sovereign view operational status action.",
+      "properties": {
+        "mode": {
+          "$ref": "#/definitions/OperationalStatusRequestMode",
+          "description": "The level of detail to return in the operational status response. Defaults to Detailed."
+        },
+        "evaluationParameters": {
+          "type": "array",
+          "description": "The evaluation parameters that control which checks are performed when determining operational status.",
+          "items": {
+            "$ref": "#/definitions/OperationalStatusEvaluationParameter"
+          }
+        }
+      }
+    },
+    "SovereignViewOperationalStatusResponse": {
+      "type": "object",
+      "description": "The response for the sovereign view operational status action.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the sovereign view."
+        },
+        "status": {
+          "$ref": "#/definitions/OperationalStatusStates",
+          "description": "The overall operational status of the sovereign view."
+        },
+        "details": {
+          "type": "array",
+          "description": "The detailed operational status information. Returned when the operational status is evaluated in Detailed mode.",
+          "items": {
+            "$ref": "#/definitions/SovereignViewOperationalStatusDetails"
+          },
+          "x-ms-identifiers": [
+            "reason"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "status"
+      ]
+    },
     "SovereignViewPolicyInitiativeDetail": {
       "type": "object",
       "description": "The policy initiative details for the sovereign view.",
@@ -2652,6 +3006,30 @@
             "$ref": "#/definitions/SovereignViewSubscriptionScope"
           }
         }
+      }
+    },
+    "SovereignViewScopeType": {
+      "type": "string",
+      "description": "The type of scope in a sovereign view.",
+      "enum": [
+        "ManagementGroup",
+        "Subscription"
+      ],
+      "x-ms-enum": {
+        "name": "SovereignViewScopeType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "ManagementGroup",
+            "value": "ManagementGroup",
+            "description": "A management group scope."
+          },
+          {
+            "name": "Subscription",
+            "value": "Subscription",
+            "description": "A subscription scope."
+          }
+        ]
       }
     },
     "SovereignViewSubscriptionScope": {
