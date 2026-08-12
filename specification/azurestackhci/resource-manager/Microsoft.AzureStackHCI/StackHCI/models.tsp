@@ -4154,6 +4154,29 @@ model DeploymentStep {
   @added(Versions.v2026_03_15_preview)
   @visibility(Lifecycle.Read)
   error?: Azure.ResourceManager.Foundations.ErrorDetail;
+
+  /**
+   * The progress percentage of the step.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  @minValue(0)
+  @maxValue(100)
+  percentComplete?: int32;
+
+  /**
+   * Additional data associated with the step.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  additionalData?: string;
+
+  /**
+   * Recommended steps to resolve failures in this step.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  recommendedSteps?: string[];
 }
 
 /**

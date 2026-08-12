@@ -13,8 +13,36 @@
         "configurationType": "File",
         "commandsUrl": "https://customerstorageaccount.blob.core.windows.net/commands/upgrade-precheck-commands.json"
       },
+      "metricsConfiguration": [
+        {
+          "checkName": "cpu-utilization-check",
+          "description": "Verify CPU utilization is reporting data and within acceptable range",
+          "metricName": "CpuUtilizationMax",
+          "namespace": "NfaDeviceMetrics",
+          "dimensionFilters": [
+            {
+              "dimensionName": "FabricId",
+              "value": "FabricId"
+            }
+          ],
+          "timeWindowMinutes": 15,
+          "samplingIntervalMinutes": 15,
+          "bucketAggregation": "Average",
+          "samplingType": "Max",
+          "perResultDimensionName": "DeviceId",
+          "operator": "GreaterThan",
+          "expectedValue": 0,
+          "maxAllowedFailures": 0
+        }
+      ],
       "deviceFilter": [
         "/subscriptions/0000ABCD-0A0B-0000-0000-000000ABCDEF/resourceGroups/example-rg/providers/Microsoft.ManagedNetworkFabric/networkDevices/example-device"
+      ],
+      "overrideChecks": [
+        {
+          "checkName": "BgpStateValidation",
+          "justification": "BGP idle on CE1 is expected during the maintenance window; waived for this validation."
+        }
       ]
     }
   },
@@ -28,7 +56,7 @@
         "endTime": "2026-04-17T16:05:00Z",
         "properties": {
           "validationId": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
-          "expiresAt": "2026-04-18T16:00:00Z",
+          "validationTime": "2026-04-17T16:05:00Z",
           "validationResult": "Warning",
           "resultUrl": "https://customerstorageaccount.blob.core.windows.net/validation-reports/example-fabric-UpgradePrecheck-2026-04-17T16-00-00Z.json",
           "currentVersion": "7.0.0",
