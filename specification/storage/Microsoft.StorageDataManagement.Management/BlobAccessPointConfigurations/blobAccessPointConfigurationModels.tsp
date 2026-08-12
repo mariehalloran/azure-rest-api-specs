@@ -330,7 +330,7 @@ model BlobAccessPointConfigurationProperties {
 @added(Versions.v2026_09_01)
 @doc("The result of testing a Blob Access Point configuration connection.")
 model BlobAccessPointConnectionTestResponse {
-  @doc("The request attempted against the backing data source. Valid values include `List` and `GetBlob`.")
+  @doc("The name of the request attempted against the backing data source.")
   @minLength(1)
   methodName: string;
 
@@ -343,10 +343,10 @@ model BlobAccessPointConnectionTestResponse {
 }
 
 @added(Versions.v2026_09_01)
-@withVisibility(Lifecycle.Create)
 @doc("The request used to test a proposed Blob Access Point configuration.")
 model BlobAccessPointProposedConnectionTestRequest {
-  ...BlobAccessPointConfigurationProperties;
+  @doc("Information about the backing data source whose connection is tested.")
+  source: BlobAccessPointSourceProperties;
 }
 
 @added(Versions.v2026_09_01)

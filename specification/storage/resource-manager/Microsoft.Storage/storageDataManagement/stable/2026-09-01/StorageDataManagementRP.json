@@ -493,6 +493,11 @@
           "202": {
             "description": "Resource operation accepted.",
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
               "Location": {
                 "type": "string",
                 "description": "The Location header contains the URL where the status of the long running operation can be checked."
@@ -1321,6 +1326,11 @@
           "202": {
             "description": "Resource operation accepted.",
             "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
               "Location": {
                 "type": "string",
                 "description": "The Location header contains the URL where the status of the long running operation can be checked."
@@ -1939,7 +1949,7 @@
       "properties": {
         "methodName": {
           "type": "string",
-          "description": "The request attempted against the backing data source. Valid values include `List` and `GetBlob`.",
+          "description": "The name of the request attempted against the backing data source.",
           "minLength": 1
         },
         "errorMessage": {
@@ -2349,18 +2359,9 @@
       "type": "object",
       "description": "The request used to test a proposed Blob Access Point configuration.",
       "properties": {
-        "state": {
-          "$ref": "#/definitions/BlobAccessPointConfigurationState",
-          "description": "The configuration state. A configuration is created in the Active state when this value is not specified."
-        },
-        "description": {
-          "type": "string",
-          "description": "An arbitrary description of the Blob Access Point configuration.",
-          "maxLength": 250
-        },
         "source": {
           "$ref": "#/definitions/BlobAccessPointSourceProperties",
-          "description": "Information about the backing data source."
+          "description": "Information about the backing data source whose connection is tested."
         }
       },
       "required": [

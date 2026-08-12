@@ -150,7 +150,9 @@ interface BlobAccessPointConfigurations {
   testExistingConnection is ArmResourceActionAsync<
     BlobAccessPointConfiguration,
     BlobAccessPointConnectionTestRequest,
-    BlobAccessPointConnectionTestResponse
+    BlobAccessPointConnectionTestResponse,
+    LroHeaders = ArmCombinedLroHeaders<FinalResult = BlobAccessPointConnectionTestResponse> &
+      Azure.Core.Foundations.RetryAfterHeader
   >;
 }
 
@@ -162,6 +164,8 @@ interface BlobAccessPointConnectionTests {
   testProposedConnection is ArmResourceActionAsync<
     StorageAccount,
     BlobAccessPointProposedConnectionTestRequest,
-    BlobAccessPointConnectionTestResponse
+    BlobAccessPointConnectionTestResponse,
+    LroHeaders = ArmCombinedLroHeaders<FinalResult = BlobAccessPointConnectionTestResponse> &
+      Azure.Core.Foundations.RetryAfterHeader
   >;
 }
