@@ -8,6 +8,7 @@
     "agentFabricName": "testAIFabric",
     "memberName": "sandboxMember",
     "resource": {
+      "location": "eastus",
       "properties": {
         "workload": {
           "type": "AgentFabricSandbox",
@@ -39,6 +40,7 @@
   "responses": {
     "200": {
       "body": {
+        "location": "eastus",
         "properties": {
           "workload": {
             "type": "AgentFabricSandbox",
@@ -65,6 +67,7 @@
             ],
             "domain": "sandbox-member.testaifabric.contoso.com"
           },
+          "spiffeId": "spiffe://microsoft.agentfabric/testaifabric/sandboxmember",
           "provisioningState": "Succeeded"
         },
         "id": "/subscriptions/11809CA1-E126-4017-945E-AA795CD5C5A9/resourceGroups/rgnetworksecurity/providers/Microsoft.NetworkSecurity/agentFabrics/testAIFabric/members/sandboxMember",
@@ -82,9 +85,10 @@
     },
     "201": {
       "headers": {
-        "Azure-AsyncOperation": "https://contoso.com/operationstatus"
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/11809CA1-E126-4017-945E-AA795CD5C5A9/providers/Microsoft.NetworkSecurity/locations/westus3/operationStatuses/00000000-0000-0000-0000-000000000001?api-version=2026-04-16-preview"
       },
       "body": {
+        "location": "eastus",
         "properties": {
           "workload": {
             "type": "AgentFabricSandbox",
@@ -111,6 +115,7 @@
             ],
             "domain": "sandbox-member.testaifabric.contoso.com"
           },
+          "spiffeId": "spiffe://microsoft.agentfabric/testaifabric/sandboxmember",
           "provisioningState": "Succeeded"
         },
         "id": "/subscriptions/11809CA1-E126-4017-945E-AA795CD5C5A9/resourceGroups/rgnetworksecurity/providers/Microsoft.NetworkSecurity/agentFabrics/testAIFabric/members/sandboxMember",
