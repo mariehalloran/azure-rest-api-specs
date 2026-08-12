@@ -1,0 +1,83 @@
+{
+  "operationId": "ModelDeployments_Update",
+  "title": "Update a ModelDeployment",
+  "parameters": {
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg1",
+    "modelDeploymentName": "phi-4-deployment",
+    "api-version": "2026-09-01-preview",
+    "properties": {
+      "tags": {
+        "environment": "production"
+      },
+      "properties": {
+        "replicas": 3
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.FoundryLocal/modelDeployments/phi-4-deployment",
+        "name": "phi-4-deployment",
+        "type": "Microsoft.FoundryLocal/modelDeployments",
+        "location": "eastus",
+        "extendedLocation": {
+          "name": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ExtendedLocation/customLocations/my-custom-location",
+          "type": "CustomLocation"
+        },
+        "tags": {
+          "environment": "production"
+        },
+        "properties": {
+          "provisioningState": "Succeeded",
+          "model": {
+            "kind": "Catalog",
+            "catalogName": "phi-4",
+            "catalogVersion": "latest"
+          },
+          "compute": "Gpu",
+          "workloadType": "Generative",
+          "runtime": "OnnxGenai",
+          "replicas": 3,
+          "status": {
+            "phase": "Updating",
+            "message": "Rolling out updated configuration.",
+            "endpointUrl": "https://phi-4-deployment.contoso.com/invoke",
+            "readyReplicas": 1,
+            "conditions": [
+              {
+                "type": "Progressing",
+                "status": "True",
+                "reason": "ReplicaSetUpdated",
+                "message": "Scaling to 3 replicas",
+                "lastTransitionTime": "2026-05-20T01:00:00Z"
+              }
+            ],
+            "resolvedModel": {
+              "name": "phi-4",
+              "variant": "gpu-fp16",
+              "image": "mcr.microsoft.com/foundrylocal/phi-4:latest"
+            },
+            "lastObservedAt": "2026-05-20T01:00:00Z"
+          }
+        },
+        "systemData": {
+          "createdBy": "user@example.com",
+          "createdByType": "User",
+          "createdAt": "2026-05-20T00:00:00.000Z",
+          "lastModifiedBy": "user@example.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-05-20T01:00:00.000Z"
+        }
+      }
+    },
+    "202": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.FoundryLocal/locations/eastus/operationStatuses/operationId?api-version=2026-09-01-preview",
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.FoundryLocal/locations/eastus/operationStatuses/operationId?api-version=2026-09-01-preview",
+        "Retry-After": 10
+      }
+    }
+  }
+}
