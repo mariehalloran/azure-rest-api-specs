@@ -8120,6 +8120,13 @@ model HardwareProfile {
    */
   @visibility(Lifecycle.Read)
   processorType?: string;
+
+  /**
+   * CPU architecture of the machine, for example amd64 or arm64.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  architecture?: Architecture;
 }
 
 /**
@@ -8870,6 +8877,11 @@ union OSOperationType {
    * OS ReImage operation
    */
   ReImage: "ReImage",
+
+  /**
+   * OS Reset operation
+   */
+  Reset: "Reset",
 }
 
 /**
@@ -9334,6 +9346,42 @@ model ClusterJobListResult is Azure.Core.Page<ClusterJob>;
 ////////////////////////////////////////////////////////////////
 
 /**
+ * Represents the CPU architecture of a machine or an OS image.
+ */
+@added(Versions.v2026_03_15_preview)
+union Architecture {
+  string,
+
+  /**
+   * 64-bit x86 architecture.
+   */
+  Amd64: "amd64",
+
+  /**
+   * 64-bit Arm architecture.
+   */
+  Arm64: "arm64",
+}
+
+/**
+ * Represents the solution type (OS family) of an OS image.
+ */
+@added(Versions.v2026_03_15_preview)
+union SolutionType {
+  string,
+
+  /**
+   * AzureLinux OS.
+   */
+  AzureLinux: "AzureLinux",
+
+  /**
+   * HCI OS.
+   */
+  HCI: "HCI",
+}
+
+/**
  * Represents properties of a os image resource.
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "OsImage is a read-only catalog proxy resource exposing available OS images; it has no lifecycle and therefore no provisioningState."
@@ -9359,6 +9407,18 @@ model OsImageProperties {
    * Represents composed image iso hash of a os image.
    */
   composedImageIsoHash?: string;
+
+  /**
+   * Represents the CPU architecture of an OS image, for example amd64 or arm64.
+   */
+  @added(Versions.v2026_03_15_preview)
+  architecture?: Architecture;
+
+  /**
+   * The solution type (OS family) of the OS image, for example AzureLinux or HCI.
+   */
+  @added(Versions.v2026_03_15_preview)
+  solutionType?: SolutionType;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -9495,6 +9555,12 @@ model OwnershipVoucherValidationDetails {
    * Azure Machine Id of the Ownership voucher
    */
   azureMachineId?: string;
+
+  /**
+   * CPU architecture of the device, for example amd64 or arm64.
+   */
+  @added(Versions.v2026_03_15_preview)
+  architecture?: Architecture;
 
   /**
    * Error details if the validation failed.

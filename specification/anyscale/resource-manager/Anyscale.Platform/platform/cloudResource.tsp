@@ -49,6 +49,27 @@ model CloudResourceProperties {
   /** The cloud storage bucket endpoint */
   cloudStorageBucketEndpoint: string;
 
+  /**
+   * The cloud provider region of this cloud resource, e.g. us-west-2. For Generic clouds this is a
+   * free-form routing label and need not match a real cloud provider region.
+   * Defaults to the resource location when unset. Immutable once the resource is created.
+   */
+  @added(Versions.v2026_08_01_preview)
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  @pattern("^[a-z0-9]+(-[a-z0-9]+)*$")
+  @maxLength(35)
+  region?: string;
+
+  /**
+   * The region of the cloud storage bucket. Defaults to `region` when unset.
+   * Immutable once the resource is created.
+   */
+  @added(Versions.v2026_08_01_preview)
+  @visibility(Lifecycle.Read, Lifecycle.Create)
+  @pattern("^[a-z0-9]+(-[a-z0-9]+)*$")
+  @maxLength(35)
+  cloudStorageBucketRegion?: string;
+
   /** The principal ID of the managed identity that will be used by the Anyscale operator */
   @added(Versions.v2026_02_01_preview)
   anyscaleOperatorIamIdentity?: string;
@@ -64,6 +85,18 @@ union Provider {
 
   /** Microsoft Azure */
   Azure: "Azure",
+
+  /** Generic Kubernetes */
+  @added(Versions.v2026_08_01_preview)
+  Generic: "Generic",
+
+  /** Amazon Web Services */
+  @added(Versions.v2026_08_01_preview)
+  AWS: "AWS",
+
+  /** Google Cloud Platform */
+  @added(Versions.v2026_08_01_preview)
+  GCP: "GCP",
 }
 
 /** Compute stack associated with the cloud resource */
