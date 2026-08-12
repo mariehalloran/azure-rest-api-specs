@@ -150,7 +150,8 @@ using Microsoft.Maintenance;
 @@clientLocation(UpdatesOperationGroup.listParent, "Updates");
 @@clientLocation(UpdatesOperationGroup.list, "Updates");
 
-// Back compat - keep the resource group segment in the path in all lowercase instead of camelCase.
+// All current and future Maintenance resource-group-scoped routes intentionally use lowercase
+// `resourcegroups`. Operations that must preserve legacy camelCase declare an explicit route.
 @@TypeSpec.Rest.segment(
   Azure.ResourceManager.ResourceGroupParameter.resourceGroupName,
   "resourcegroups"

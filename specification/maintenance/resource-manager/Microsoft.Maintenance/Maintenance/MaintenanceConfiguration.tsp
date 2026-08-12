@@ -160,6 +160,8 @@ interface MaintenanceConfigurationsForResourceGroupRoutes {
   /**
    * Get Configuration records within a subscription and resource group
    */
+  // Stable 2023-04-01 uses camelCase `resourceGroups` for this collection operation.
+  // Preserve it as the explicit exception to Maintenance's lowercase route convention.
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "Explicit route preserves the legacy resourceGroups casing for this operation."
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "Preserve the existing operation ID for backward compatibility."
   @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Maintenance/maintenanceConfigurations")

@@ -263,50 +263,58 @@ interface ConfigurationAssignmentsForSubscriptions {
     ErrorType = MaintenanceError
   >;
 }
+
+/** Scope parameters shared by resource-group configuration assignment operations. */
+model ConfigurationAssignmentsForResourceGroupScopeParameters {
+  ...ApiVersionParameter,
+  ...SubscriptionIdParameter,
+  ...ResourceGroupParameter,
+}
+
+/** Parent resource parameters shared by resource-group configuration assignment operations. */
+model ConfigurationAssignmentsForResourceGroupParentParameters {
+  ...Extension.ExtensionProviderNamespace<ConfigurationAssignment>,
+  ...ParentKeysOf<ConfigurationAssignment>,
+}
+
+/** Configuration assignment name parameters used by the GET operation. */
+model ConfigurationAssignmentsForResourceGroupReadNameParameters {
+  ...Extension.ExtensionProviderNamespace<ConfigurationAssignment>,
+  ...KeysOf<ResourceNameParameter<
+    Resource = ConfigurationAssignment,
+    KeyName = "configurationAssignmentName",
+    SegmentName = "configurationAssignments",
+    NamePattern = "^.+$"
+  >>,
+}
+
+/** Configuration assignment name parameters used by write operations. */
+model ConfigurationAssignmentsForResourceGroupWriteNameParameters {
+  ...Extension.ExtensionProviderNamespace<ConfigurationAssignment>,
+  // Stable 2023-04-01 omits the name pattern on PUT, PATCH, and DELETE.
+  // Keep the empty pattern so writes match that contract while GET retains `^.+$`.
+  ...KeysOf<ResourceNameParameter<
+    Resource = ConfigurationAssignment,
+    KeyName = "configurationAssignmentName",
+    SegmentName = "configurationAssignments",
+    NamePattern = ""
+  >>,
+}
+
 @armResourceOperations
 interface ConfigurationAssignmentsForResourceGroupReadOps
   extends Azure.ResourceManager.Legacy.ExtensionOperations<
-      {
-        ...ApiVersionParameter,
-        ...SubscriptionIdParameter,
-        ...ResourceGroupParameter,
-      },
-      {
-        ...Extension.ExtensionProviderNamespace<ConfigurationAssignment>,
-        ...ParentKeysOf<ConfigurationAssignment>,
-      },
-      {
-        ...Extension.ExtensionProviderNamespace<ConfigurationAssignment>,
-        ...KeysOf<ResourceNameParameter<
-          Resource = ConfigurationAssignment,
-          KeyName = "configurationAssignmentName",
-          SegmentName = "configurationAssignments",
-          NamePattern = "^.+$"
-        >>,
-      }
+      ConfigurationAssignmentsForResourceGroupScopeParameters,
+      ConfigurationAssignmentsForResourceGroupParentParameters,
+      ConfigurationAssignmentsForResourceGroupReadNameParameters
     > {}
 
 @armResourceOperations
 interface ConfigurationAssignmentsForResourceGroupWriteOps
   extends Azure.ResourceManager.Legacy.ExtensionOperations<
-      {
-        ...ApiVersionParameter,
-        ...SubscriptionIdParameter,
-        ...ResourceGroupParameter,
-      },
-      {
-        ...Extension.ExtensionProviderNamespace<ConfigurationAssignment>,
-        ...ParentKeysOf<ConfigurationAssignment>,
-      },
-      {
-        ...Extension.ExtensionProviderNamespace<ConfigurationAssignment>,
-        ...KeysOf<ResourceNameParameter<
-          Resource = ConfigurationAssignment,
-          KeyName = "configurationAssignmentName",
-          SegmentName = "configurationAssignments",
-          NamePattern = ""
-        >>,
-      }
+      ConfigurationAssignmentsForResourceGroupScopeParameters,
+      ConfigurationAssignmentsForResourceGroupParentParameters,
+      ConfigurationAssignmentsForResourceGroupWriteNameParameters
     > {}
 
 @armResourceOperations

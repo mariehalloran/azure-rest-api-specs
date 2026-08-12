@@ -208,7 +208,10 @@ directive:
     reason: False positive. ConfigurationAssignments is proxy resource at subscription/resourceGroup level.
   - suppress: TrackedExtensionResourcesAreNotAllowed
     from: maintenance.json
-    reason: ConfigurationAssignment is an existing proxy extension resource whose compatibility contract includes location.
+    reason: >-
+      ConfigurationAssignment is an existing proxy extension resource whose compatibility contract includes location.
+      This suppression is intentionally limited to the item GET and PUT operations currently flagged by the validator;
+      DELETE and collection operations are not suppressed because they produce no finding.
     where:
       - $.paths["/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{providerName}/{resourceParentType}/{resourceParentName}/{resourceType}/{resourceName}/providers/Microsoft.Maintenance/configurationAssignments/{configurationAssignmentName}"].get
       - $.paths["/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{providerName}/{resourceParentType}/{resourceParentName}/{resourceType}/{resourceName}/providers/Microsoft.Maintenance/configurationAssignments/{configurationAssignmentName}"].put
@@ -239,7 +242,7 @@ directive:
     from: maintenance.json
     reason: rebootSetting has an existing default shared by PUT and PATCH; removing it would change generated SDK default behavior.
     where:
-      - $.paths["/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Maintenance/maintenanceConfigurations/{resourceName}"].patch.parameters[4].schema.properties.properties
+      - $.paths["/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Maintenance/maintenanceConfigurations/{resourceName}"].patch.parameters[?(@.in == "body" && @.name == "configuration")].schema.properties.properties
   - suppress: RequiredPropertiesMissingInResourceModel
     from: maintenance.json
     reason: ListUpdatesResult is a pageable response envelope, not an ARM resource.
