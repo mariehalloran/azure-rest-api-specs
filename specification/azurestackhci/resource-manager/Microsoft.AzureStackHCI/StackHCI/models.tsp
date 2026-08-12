@@ -21,6 +21,9 @@ union HciJobType {
   /** Job to repair a server in the cluster. */
   RepairServer: "RepairServer",
 
+  /** Job to synchronize the cluster volumes. */
+  SyncVolume: "SyncVolume",
+
   /** Job to configure local availability zones for the cluster. */
   ConfigureLocalAvailabilityZone: "ConfigureLocalAvailabilityZone",
 
@@ -686,6 +689,9 @@ union WitnessType {
 
   /** File-share witness on a local SMB share. */
   FileShare: "FileShare",
+
+  /** Cluster witness disk for RAC SAN clusters. */
+  ClusterWitnessDisk: "ClusterWitnessDisk",
 }
 
 /**
@@ -3334,6 +3340,12 @@ model DeploymentCluster {
    * Cluster Pattern supported.
    */
   clusterPattern?: ClusterPattern;
+
+  /**
+   * Witness volume LUN ID (e.g. PURE1234567890ABCDEF). Required when witnessType is ClusterWitnessDisk. Minimum LUN size is 1 GB.
+   */
+  @added(Versions.v2026_03_15_preview)
+  witnessLunId?: string;
 
   /**
    * Indicates the cluster's cloud witness authenticates using each node's managed identity (MSI) instead of a storage account access key. Set by the resource provider from the Validated Solution Recipe; read by the device to configure the witness in identity (passwordless) mode.
@@ -6869,6 +6881,9 @@ model HciAddServerJobProperties extends ClusterJobProperties {
 
   /** Specify the Azure Storage account name for cloud witness for your Azure Stack HCI cluster. */
   cloudAccountName?: string;
+
+  /** Witness volume LUN ID (e.g. PURE1234567890ABCDEF). Required when witnessType is ClusterWitnessDisk. Minimum LUN size is 1 GB. */
+  witnessLunId?: string;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -6898,6 +6913,13 @@ model HciRepairServerJobProperties extends ClusterJobProperties {
   /** List of protected parameters to pass to trigger job for cluster. */
   @Azure.ResourceManager.identifiers(#["secretName"])
   secrets?: EceDeploymentSecrets[];
+}
+
+/** Properties for synchronizing the cluster volumes. */
+@added(Versions.v2026_03_15_preview)
+model HciSyncVolumeJobProperties extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.SyncVolume;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -9664,6 +9686,12 @@ model EdgeMachineGpuProperties {
   partitionable?: boolean;
 
   /**
+   * The confidential computing status of the GPU. Reports GpuNotCapable when the GPU does not support confidential computing, otherwise the mode the GPU is currently in.
+   */
+  @visibility(Lifecycle.Read)
+  confidentialComputingModeStatus?: ConfidentialComputingModeStatus;
+
+  /**
    * This is the host driver for the host on which GPU is assigned, only for DDA
    */
   @visibility(Lifecycle.Read)
@@ -10024,6 +10052,34 @@ union ConfidentialComputingMode {
 }
 
 /**
+ * Confidential computing status of a GPU, reporting either that the GPU cannot support confidential computing or the mode it is currently in.
+ */
+@added(Versions.v2026_03_15_preview)
+union ConfidentialComputingModeStatus {
+  string,
+
+  /**
+   * The GPU does not support confidential computing.
+   */
+  GpuNotCapable: "GpuNotCapable",
+
+  /**
+   * Confidential computing is disabled on the GPU.
+   */
+  Off: "Off",
+
+  /**
+   * Confidential computing is enabled on the GPU in developer tools mode, which permits debugging and profiling tools that are blocked when confidential computing is fully enabled.
+   */
+  DevTools: "DevTools",
+
+  /**
+   * Confidential computing is enabled on the GPU.
+   */
+  On: "On",
+}
+
+/**
  * Properties for creating GPU partitions for virtualization and workload isolation.
  */
 @added(Versions.v2026_03_15_preview)
@@ -10212,6 +10268,10 @@ model DiskReportedProperties {
   @visibility(Lifecycle.Read)
   sizeInBytes?: string;
 
+  /** Storage type of the disk. */
+  @visibility(Lifecycle.Read)
+  storageType?: DiskStorageType;
+
   /** Type of the disk. */
   @visibility(Lifecycle.Read)
   diskType?: DiskType;
@@ -10264,6 +10324,20 @@ union DiskType {
 
   /** Other disk type. */
   Other: "Other",
+}
+
+/**
+ * Storage type of the disk.
+ */
+@added(Versions.v2026_03_15_preview)
+union DiskStorageType {
+  string,
+
+  /** SAN storage. */
+  SAN: "SAN",
+
+  /** Storage Spaces Direct storage. */
+  S2D: "S2D",
 }
 
 /**
@@ -12062,20 +12136,8 @@ model ClusterVolumeJobProperties {
 union ClusterVolumeJobType {
   string,
 
-  /** Job to resolve configuration drift between the desired and reported state of the cluster volume. */
-  VolumeSync: "VolumeSync",
-
   /** Job to apply the desired configuration to the cluster volume. */
   ApplyVolumeConfiguration: "ApplyVolumeConfiguration",
-}
-
-/**
- * Properties for resolving cluster volume configuration drift.
- */
-@added(Versions.v2026_03_15_preview)
-model VolumeSyncClusterVolumeJobProperties extends ClusterVolumeJobProperties {
-  /** Job type. */
-  jobType: ClusterVolumeJobType.VolumeSync;
 }
 
 /**
@@ -13217,7 +13279,7 @@ model EdgeMachineDeploymentData {
   /**
    * Storage type for the edge machine node.
    */
-  storageType?: NodeStorageType;
+  storageType: NodeStorageType;
 
   /**
    * iSCSI configuration for the edge machine.

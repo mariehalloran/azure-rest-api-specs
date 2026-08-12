@@ -14,6 +14,9 @@ options:
     arm-types-dir: "{project-root}/../../../../common-types/resource-management"
     # omit the enum type Versions from being added to versioned swagger
     omit-unreachable-types: true
+  "@azure-typespec/http-client-csharp-mgmt":
+    namespace: "Azure.ResourceManager.StandbyPool"
+    emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
   "@azure-tools/typespec-go":
     service-dir: sdk/resourcemanager/standbypool #!!!IMPORTANT!!! To ensure the emitter correctly produces SDK, this configuration is added by Azure SDK Team. Some configurations use standbypool values. For modifications, please refer to https://aka.ms/azsdk/specs/typespec-validation#sdktspconfigvalidation
     emitter-output-dir: "{output-dir}/{service-dir}/armstandbypool" #!!!IMPORTANT!!! To ensure the emitter correctly produces SDK, this configuration is added by Azure SDK Team. Some configurations use standbypool values. For modifications, please refer to https://aka.ms/azsdk/specs/typespec-validation#sdktspconfigvalidation

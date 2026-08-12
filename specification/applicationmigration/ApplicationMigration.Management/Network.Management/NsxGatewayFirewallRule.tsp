@@ -54,12 +54,14 @@ model NsxGatewayFirewallRuleProperties is AzureResourceProperties {
   globalPriority?: string;
 
   /** ARM resource IDs of source IP groups. */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   sourceIpGroupArmIds?: Azure.Core.armResourceIdentifier[];
 
   /** Source IPv4/IPv6 addresses or CIDR ranges. */
   sourceAddresses?: string[];
 
   /** ARM resource IDs of destination IP groups. */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   destinationIpGroupArmIds?: Azure.Core.armResourceIdentifier[];
 
   /** Destination IPv4/IPv6 addresses or CIDR ranges. */

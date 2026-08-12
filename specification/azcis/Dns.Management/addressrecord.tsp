@@ -19,6 +19,7 @@ model AddressRecordResourceProperties {
   @doc("Gets or sets the DNS name")
   dnsName: string;
 
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   @doc("Gets or sets the IP Address in String format")
   ipAddress: string;
 

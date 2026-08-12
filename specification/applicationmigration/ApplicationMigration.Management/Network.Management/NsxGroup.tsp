@@ -43,6 +43,7 @@ model NsxNsGroupProperties is AzureResourceProperties {
   machineArmIds?: Azure.Core.armResourceIdentifier[];
 
   /** Effective IPv4/IPv6 address members resolved by the group. */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-use-standard-acronyms" "Name kept for backward compatibility"
   effectiveIpMembers?: string[];
 }
 
