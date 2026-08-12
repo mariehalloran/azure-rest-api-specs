@@ -242,7 +242,7 @@ directive:
     from: maintenance.json
     reason: rebootSetting has an existing default shared by PUT and PATCH; removing it would change generated SDK default behavior.
     where:
-      - $.paths["/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Maintenance/maintenanceConfigurations/{resourceName}"].patch.parameters[?(@.in == "body" && @.name == "configuration")].schema.properties.properties
+      - $.paths["/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Maintenance/maintenanceConfigurations/{resourceName}"].patch.parameters[*].schema.properties.properties
   - suppress: RequiredPropertiesMissingInResourceModel
     from: maintenance.json
     reason: ListUpdatesResult is a pageable response envelope, not an ARM resource.
