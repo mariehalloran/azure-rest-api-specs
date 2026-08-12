@@ -8081,7 +8081,7 @@ model HardwareProfile {
    */
   @added(Versions.v2026_03_15_preview)
   @visibility(Lifecycle.Read)
-  architecture?: string;
+  architecture?: Architecture;
 }
 
 /**
@@ -9301,7 +9301,25 @@ model ClusterJobListResult is Azure.Core.Page<ClusterJob>;
 ////////////////////////////////////////////////////////////////
 
 /**
- * Represents the solution type (OS family) of a os image.
+ * Represents the CPU architecture of a machine or an OS image.
+ */
+@added(Versions.v2026_03_15_preview)
+union Architecture {
+  string,
+
+  /**
+   * 64-bit x86 architecture.
+   */
+  Amd64: "amd64",
+
+  /**
+   * 64-bit Arm architecture.
+   */
+  Arm64: "arm64",
+}
+
+/**
+ * Represents the solution type (OS family) of an OS image.
  */
 @added(Versions.v2026_03_15_preview)
 union SolutionType {
@@ -9346,13 +9364,13 @@ model OsImageProperties {
   composedImageIsoHash?: string;
 
   /**
-   * Represents the CPU architecture of a os image, for example amd64 or arm64.
+   * Represents the CPU architecture of an OS image, for example amd64 or arm64.
    */
   @added(Versions.v2026_03_15_preview)
-  architecture?: string;
+  architecture?: Architecture;
 
   /**
-   * The solution type (OS family) of the os image, for example AzureLinux or HCI.
+   * The solution type (OS family) of the OS image, for example AzureLinux or HCI.
    */
   @added(Versions.v2026_03_15_preview)
   solutionType?: SolutionType;
@@ -9497,7 +9515,7 @@ model OwnershipVoucherValidationDetails {
    * CPU architecture of the device, for example amd64 or arm64.
    */
   @added(Versions.v2026_03_15_preview)
-  architecture?: string;
+  architecture?: Architecture;
 
   /**
    * Error details if the validation failed.

@@ -15799,6 +15799,30 @@
         }
       }
     },
+    "Architecture": {
+      "type": "string",
+      "description": "Represents the CPU architecture of a machine or an OS image.",
+      "enum": [
+        "amd64",
+        "arm64"
+      ],
+      "x-ms-enum": {
+        "name": "Architecture",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Amd64",
+            "value": "amd64",
+            "description": "64-bit x86 architecture."
+          },
+          {
+            "name": "Arm64",
+            "value": "arm64",
+            "description": "64-bit Arm architecture."
+          }
+        ]
+      }
+    },
     "ArrayType": {
       "type": "string",
       "description": "The kind of storage backing a storage array. Determines whether the array is\nan external SAN or local Storage Spaces Direct (S2D) capacity.",
@@ -24169,7 +24193,7 @@
           "readOnly": true
         },
         "architecture": {
-          "type": "string",
+          "$ref": "#/definitions/Architecture",
           "description": "CPU architecture of the machine, for example amd64 or arm64.",
           "readOnly": true
         }
@@ -28612,12 +28636,12 @@
           "description": "Represents composed image iso hash of a os image."
         },
         "architecture": {
-          "type": "string",
-          "description": "Represents the CPU architecture of a os image, for example amd64 or arm64."
+          "$ref": "#/definitions/Architecture",
+          "description": "Represents the CPU architecture of an OS image, for example amd64 or arm64."
         },
         "solutionType": {
           "$ref": "#/definitions/SolutionType",
-          "description": "The solution type (OS family) of the os image, for example AzureLinux or HCI."
+          "description": "The solution type (OS family) of the OS image, for example AzureLinux or HCI."
         }
       }
     },
@@ -28886,7 +28910,7 @@
           "description": "Azure Machine Id of the Ownership voucher"
         },
         "architecture": {
-          "type": "string",
+          "$ref": "#/definitions/Architecture",
           "description": "CPU architecture of the device, for example amd64 or arm64."
         },
         "error": {
@@ -33200,7 +33224,7 @@
     },
     "SolutionType": {
       "type": "string",
-      "description": "Represents the solution type (OS family) of a os image.",
+      "description": "Represents the solution type (OS family) of an OS image.",
       "enum": [
         "AzureLinux",
         "HCI"
