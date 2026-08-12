@@ -1,0 +1,52 @@
+{
+  "title": "Cancel-or-reduce-seats immediate full cancellation",
+  "operationId": "SaasResources_CancelOrReduceSeatsForIncludedResources",
+  "parameters": {
+    "saasResourceName": "targetResourceName",
+    "api-version": "2026-03-31-preview",
+    "body": {
+      "includedResources": [
+        {
+          "id": "/providers/Microsoft.SaaSHub/saasResources/sourceResourceName1",
+          "quantity": 40
+        },
+        {
+          "id": "/providers/Microsoft.SaaSHub/saasResources/sourceResourceName2",
+          "quantity": 18
+        }
+      ],
+      "changeType": "Immediate"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "state": "Succeeded",
+        "resourceOutcomes": [
+          {
+            "resourceId": "/providers/Microsoft.SaaSHub/saasResources/sourceResourceName1",
+            "operation": "Cancel",
+            "status": "Succeeded",
+            "quantity": 40,
+            "code": "ResourceCancelled",
+            "message": "Resource cancelled and consolidated into target resource."
+          },
+          {
+            "resourceId": "/providers/Microsoft.SaaSHub/saasResources/sourceResourceName2",
+            "operation": "Cancel",
+            "status": "Succeeded",
+            "quantity": 18,
+            "code": "ResourceCancelled",
+            "message": "Resource cancelled and consolidated into target resource."
+          }
+        ]
+      }
+    },
+    "202": {
+      "headers": {
+        "Location": "https://management.azure.com/providers/Microsoft.SaaSHub/operationStatuses/{operationId}?api-version=2026-03-31-preview",
+        "Retry-After": "60"
+      }
+    }
+  }
+}
