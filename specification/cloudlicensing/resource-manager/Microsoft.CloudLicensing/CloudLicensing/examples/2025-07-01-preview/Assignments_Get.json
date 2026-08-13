@@ -1,0 +1,33 @@
+{
+  "operationId": "Assignments_Get",
+  "title": "Get a license assignment",
+  "parameters": {
+    "api-version": "2025-07-01-preview",
+    "resourceUri": "subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/example-rg/providers/Microsoft.SaaSHub/cloudServices/mcl-test-cs",
+    "allotmentName": "enterprise-licenses",
+    "assignmentName": "user-assignment-001"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/example-rg/providers/Microsoft.SaaSHub/cloudServices/mcl-test-cs/providers/Microsoft.CloudLicensing/allotments/enterprise-licenses/assignments/user-assignment-001",
+        "name": "user-assignment-001",
+        "type": "Microsoft.CloudLicensing/allotments/assignments",
+        "properties": {
+          "provisioningState": "Succeeded",
+          "assignedIdentityId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+          "assignedIdentityType": "User",
+          "disabledServicePlanIds": []
+        },
+        "systemData": {
+          "createdBy": "admin@contoso.com",
+          "createdByType": "User",
+          "createdAt": "2026-04-01T00:00:00Z",
+          "lastModifiedBy": "admin@contoso.com",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-04-01T00:00:00Z"
+        }
+      }
+    }
+  }
+}

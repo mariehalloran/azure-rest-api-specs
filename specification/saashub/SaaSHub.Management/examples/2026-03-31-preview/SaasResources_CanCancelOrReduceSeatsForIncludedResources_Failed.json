@@ -1,0 +1,31 @@
+{
+  "parameters": {
+    "saasResourceName": "targetResourceName",
+    "api-version": "2026-03-31-preview",
+    "body": {
+      "includedResources": [
+        {
+          "id": "/providers/Microsoft.SaaSHub/saasResources/sourceResourceName1",
+          "quantity": 9999
+        }
+      ],
+      "changeType": "Immediate"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "items": [
+          {
+            "resourceUri": "/providers/Microsoft.SaaSHub/saasResources/sourceResourceName1",
+            "evaluateResult": "Failed",
+            "code": "QuantityExceeded",
+            "reason": "Requested quantity exceeds current subscription quantity."
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "SaasResources_CanCancelOrReduceSeatsForIncludedResources",
+  "title": "CanCancelOrReduceSeatsForIncludedResources Failed"
+}

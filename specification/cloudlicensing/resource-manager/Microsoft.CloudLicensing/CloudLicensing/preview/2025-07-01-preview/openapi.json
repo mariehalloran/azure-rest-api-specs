@@ -1,0 +1,776 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "CloudLicensingManagementClient",
+    "version": "2025-07-01-preview",
+    "description": "Microsoft Cloud Licensing Resource Provider for managing license allotments and assignments.",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "Allotments"
+    },
+    {
+      "name": "Assignments"
+    }
+  ],
+  "paths": {
+    "/{resourceUri}/providers/Microsoft.CloudLicensing/allotments": {
+      "get": {
+        "operationId": "Allotments_ListByParent",
+        "tags": [
+          "Allotments"
+        ],
+        "description": "Lists all license allotments under the parent Azure Resource Manager resource.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AllotmentListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List all license allotments under the parent Azure Resource Manager resource": {
+            "$ref": "./examples/Allotments_ListByParent.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/{resourceUri}/providers/Microsoft.CloudLicensing/allotments/{allotmentName}": {
+      "get": {
+        "operationId": "Allotments_Get",
+        "tags": [
+          "Allotments"
+        ],
+        "description": "Gets a license allotment by its identifier.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          },
+          {
+            "name": "allotmentName",
+            "in": "path",
+            "description": "The name that uniquely identifies a license allotment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{2,62}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Allotment"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a license allotment": {
+            "$ref": "./examples/Allotments_Get.json"
+          }
+        }
+      }
+    },
+    "/{resourceUri}/providers/Microsoft.CloudLicensing/allotments/{allotmentName}/assignments": {
+      "get": {
+        "operationId": "Assignments_ListByAllotment",
+        "tags": [
+          "Assignments"
+        ],
+        "description": "Lists all license assignments under an allotment.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          },
+          {
+            "name": "allotmentName",
+            "in": "path",
+            "description": "The name that uniquely identifies a license allotment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{2,62}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/AssignmentListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List all license assignments under an allotment": {
+            "$ref": "./examples/Assignments_ListByAllotment.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/{resourceUri}/providers/Microsoft.CloudLicensing/allotments/{allotmentName}/assignments/{assignmentName}": {
+      "get": {
+        "operationId": "Assignments_Get",
+        "tags": [
+          "Assignments"
+        ],
+        "description": "Gets a license assignment by its identifier.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          },
+          {
+            "name": "allotmentName",
+            "in": "path",
+            "description": "The name that uniquely identifies a license allotment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{2,62}$"
+          },
+          {
+            "name": "assignmentName",
+            "in": "path",
+            "description": "The name that uniquely identifies a license assignment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{2,62}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Assignment"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a license assignment": {
+            "$ref": "./examples/Assignments_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "Assignments_CreateOrUpdate",
+        "tags": [
+          "Assignments"
+        ],
+        "description": "Creates or updates a license assignment.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          },
+          {
+            "name": "allotmentName",
+            "in": "path",
+            "description": "The name that uniquely identifies a license allotment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{2,62}$"
+          },
+          {
+            "name": "assignmentName",
+            "in": "path",
+            "description": "The name that uniquely identifies a license assignment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{2,62}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "The assignment resource to create or update.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Assignment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'Assignment' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Assignment"
+            }
+          },
+          "201": {
+            "description": "Resource 'Assignment' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Assignment"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create or update a license assignment": {
+            "$ref": "./examples/Assignments_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "Assignments_Delete",
+        "tags": [
+          "Assignments"
+        ],
+        "description": "Deletes a license assignment.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/Azure.ResourceManager.ResourceUriParameter"
+          },
+          {
+            "name": "allotmentName",
+            "in": "path",
+            "description": "The name that uniquely identifies a license allotment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{2,62}$"
+          },
+          {
+            "name": "assignmentName",
+            "in": "path",
+            "description": "The name that uniquely identifies a license assignment.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{2,62}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a license assignment": {
+            "$ref": "./examples/Assignments_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/providers/Microsoft.CloudLicensing/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List available operations": {
+            "$ref": "./examples/Operations_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Allotment": {
+      "type": "object",
+      "description": "A license allotment resource representing a container of licenses.\nModeled as an Azure Resource Manager extension resource on a parent Azure Resource Manager resource (e.g., a\nMicrosoft.SaaSHub/cloudServices resource). The allowed extension parents\nare constrained by the resource provider manifest.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/AllotmentProperties",
+          "description": "The properties of a license allotment."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "AllotmentListResult": {
+      "type": "object",
+      "description": "The response of a Allotment list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Allotment items on this page",
+          "items": {
+            "$ref": "#/definitions/Allotment"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "AllotmentOwner": {
+      "type": "object",
+      "description": "Represents the owner of an allotment.",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/OwnerType",
+          "description": "The type of the owner."
+        },
+        "id": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The unique identifier of the owner."
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "AllotmentProperties": {
+      "type": "object",
+      "description": "The properties of a license allotment.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the allotment resource.",
+          "readOnly": true
+        },
+        "owner": {
+          "$ref": "#/definitions/AllotmentOwner",
+          "description": "The owner of the allotment."
+        },
+        "allotted": {
+          "$ref": "#/definitions/Allotted",
+          "description": "The product information for the allotment."
+        },
+        "totalQuantity": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The total number of licenses in the allotment, summed across all sources."
+        },
+        "assignedCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of unique principals currently holding an assignment from the allotment."
+        },
+        "sources": {
+          "type": "array",
+          "description": "The underlying sources (subscriptions or assets) backing the allotment.",
+          "items": {
+            "$ref": "#/definitions/AllotmentSource"
+          }
+        },
+        "beneficiaryTenantId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The tenant identifier of the beneficiary organization for the allotment.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "owner",
+        "allotted",
+        "totalQuantity"
+      ]
+    },
+    "AllotmentSource": {
+      "type": "object",
+      "description": "An underlying source (subscription or asset) backing a license allotment.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier of the underlying source."
+        },
+        "type": {
+          "type": "string",
+          "description": "The source type (e.g., \"asset\", \"subscription\")."
+        },
+        "state": {
+          "type": "string",
+          "description": "The lifecycle state of the source (e.g., \"active\", \"warning\", \"suspended\")."
+        }
+      }
+    },
+    "Allotted": {
+      "type": "object",
+      "description": "The product information for a license allotment.",
+      "properties": {
+        "productCode": {
+          "type": "string",
+          "description": "The product code (UPN) for the allotted product (e.g., \"EMSPREMIUM\")."
+        },
+        "serviceId": {
+          "type": "string",
+          "description": "The service identifier for the allotted product."
+        },
+        "aadSkuId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The Microsoft Entra SKU identifier (GUID) for the product.",
+          "x-nullable": true
+        },
+        "aadSkuPartNumber": {
+          "type": "string",
+          "description": "The Microsoft Entra SKU part number for the product."
+        },
+        "isvTenantId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The ISV (Independent Software Vendor) tenant identifier.",
+          "x-nullable": true
+        },
+        "isTrial": {
+          "type": "boolean",
+          "description": "Indicates whether this is a trial offering.",
+          "x-nullable": true
+        }
+      }
+    },
+    "AssignedIdentityType": {
+      "type": "string",
+      "description": "The type of identity that a license can be assigned to.",
+      "enum": [
+        "User",
+        "Group",
+        "Device"
+      ],
+      "x-ms-enum": {
+        "name": "AssignedIdentityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "User",
+            "value": "User",
+            "description": "A user identity."
+          },
+          {
+            "name": "Group",
+            "value": "Group",
+            "description": "A group identity."
+          },
+          {
+            "name": "Device",
+            "value": "Device",
+            "description": "A device identity."
+          }
+        ]
+      }
+    },
+    "Assignment": {
+      "type": "object",
+      "description": "A license assignment resource representing a license assigned to an identity.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/AssignmentProperties",
+          "description": "The properties of a license assignment."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ProxyResource"
+        }
+      ]
+    },
+    "AssignmentListResult": {
+      "type": "object",
+      "description": "The response of a Assignment list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Assignment items on this page",
+          "items": {
+            "$ref": "#/definitions/Assignment"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "AssignmentProperties": {
+      "type": "object",
+      "description": "The properties of a license assignment.",
+      "properties": {
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the assignment resource.",
+          "readOnly": true
+        },
+        "assignedIdentityId": {
+          "$ref": "#/definitions/Azure.Core.uuid",
+          "description": "The Microsoft Entra object (principal) ID of the identity to which the license is assigned."
+        },
+        "assignedIdentityType": {
+          "$ref": "#/definitions/AssignedIdentityType",
+          "description": "The type of identity that the license is assigned to."
+        },
+        "disabledServicePlanIds": {
+          "type": "array",
+          "description": "The set of service plan IDs that are disabled for this assignment.",
+          "items": {
+            "$ref": "#/definitions/Azure.Core.uuid"
+          }
+        }
+      },
+      "required": [
+        "assignedIdentityId",
+        "assignedIdentityType"
+      ]
+    },
+    "Azure.Core.uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Universally Unique Identifier"
+    },
+    "OwnerType": {
+      "type": "string",
+      "description": "The type of owner for an allotment.",
+      "enum": [
+        "tenant",
+        "user"
+      ],
+      "x-ms-enum": {
+        "name": "OwnerType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Tenant",
+            "value": "tenant",
+            "description": "The owner is a tenant."
+          },
+          {
+            "name": "User",
+            "value": "user",
+            "description": "The owner is a user."
+          }
+        ]
+      }
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of a cloud licensing resource.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Accepted",
+        "Provisioning",
+        "Updating",
+        "Deleting"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          },
+          {
+            "name": "Accepted",
+            "value": "Accepted",
+            "description": "Resource provisioning request has been accepted."
+          },
+          {
+            "name": "Provisioning",
+            "value": "Provisioning",
+            "description": "Resource is being provisioned."
+          },
+          {
+            "name": "Updating",
+            "value": "Updating",
+            "description": "Resource is being updated."
+          },
+          {
+            "name": "Deleting",
+            "value": "Deleting",
+            "description": "Resource is being deleted."
+          }
+        ]
+      },
+      "readOnly": true
+    }
+  },
+  "parameters": {
+    "Azure.ResourceManager.ResourceUriParameter": {
+      "name": "resourceUri",
+      "in": "path",
+      "description": "The fully qualified Azure Resource manager identifier of the resource.",
+      "required": true,
+      "type": "string",
+      "x-ms-parameter-location": "method",
+      "x-ms-skip-url-encoding": true
+    }
+  }
+}

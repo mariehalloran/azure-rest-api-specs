@@ -87,4 +87,12 @@ interface Agreements {
 
   /** Accept (sign) the agreement. The accepting identity is taken from the ARM caller token. Idempotent. */
   accept is ArmResourceActionSync<Agreement, void, Agreement>;
+
+  /** Sign the agreement via PUT. The request body is intentionally empty -- send `{"properties": {}}`. Every agreement property is RP-managed and read-only, so any value supplied in the body is ignored; the accepting identity is taken from the ARM caller token, not the payload. Idempotent -- PUT-ting an already-Active agreement is a no-op. Resource-oriented equivalent of `accept`, usable as an ordered step in an ARM template. */
+  @added(Versions.v2026_08_01_preview)
+  createOrUpdate is ArmResourceCreateOrReplaceSync<Agreement>;
+
+  /** Revoke the subscription's acceptance of the agreement. Refused (rejected at validation, before begin) while the subscription still has active Anyscale clouds, since those clouds depend on the accepted agreement -- delete the clouds first. Once permitted, the catalog entry persists (a subsequent GET returns status "Pending") and only the signed record is removed; idempotent. */
+  @added(Versions.v2026_08_01_preview)
+  delete is ArmResourceDeleteSync<Agreement>;
 }

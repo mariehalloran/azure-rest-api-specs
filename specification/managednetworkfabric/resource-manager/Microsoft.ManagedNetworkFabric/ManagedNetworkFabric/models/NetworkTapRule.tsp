@@ -20,6 +20,10 @@ model NetworkTapRuleProperties {
   @added(Versions.v2025_07_15)
   identitySelector?: IdentitySelector;
 
+  @doc("Match configuration update types. If the configuration type is not provided, then both static and dynamic match configurations will be updated.")
+  @added(Versions.v2026_07_15_preview)
+  isMatchConfigurationUpdated?: BooleanEnumProperty;
+
   @doc("List of match configurations.")
   @Azure.ResourceManager.identifiers(#[])
   @minItems(1)
@@ -211,6 +215,10 @@ model NetworkTapRulePatchableProperties {
   #suppress "@azure-tools/typespec-client-generator-core/csharp-no-url-suffix" "Name kept for backward compatibility"
   @doc("Network Tap Rules file URL.")
   tapRulesUrl?: url;
+
+  @doc("Match configuration update types. If the configuration type is not provided, then both static and dynamic match configurations will be updated.")
+  @added(Versions.v2026_07_15_preview)
+  isMatchConfigurationUpdated?: BooleanEnumProperty;
 
   @doc("List of match configurations.")
   @Azure.ResourceManager.identifiers(#[])

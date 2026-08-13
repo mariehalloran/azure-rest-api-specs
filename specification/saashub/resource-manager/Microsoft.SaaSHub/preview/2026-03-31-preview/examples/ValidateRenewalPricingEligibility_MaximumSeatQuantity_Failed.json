@@ -1,0 +1,71 @@
+{
+  "parameters": {
+    "api-version": "2026-03-31-preview",
+    "body": {
+      "purchaseLineItems": [
+        {
+          "productCode": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+          "pricingAudience": "Direct-Commercial",
+          "quantity": 900,
+          "startDate": "2026-07-01T00:00:00Z",
+          "resourceUri": "/providers/Microsoft.SaaSHub/saasResources/contoso-e3-001",
+          "itemTrackingId": "LINE_001"
+        }
+      ],
+      "market": "US",
+      "nationalCloud": "Public",
+      "customerBillingScope": "/providers/Microsoft.Billing/billingAccounts/6ba7b813-9dad-11d1-80b4-00c04fd430c8:6ba7b814-9dad-11d1-80b4-00c04fd430c8"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "purchaseLineItem": {
+              "productCode": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+              "pricingAudience": "Direct-Commercial",
+              "quantity": 900,
+              "startDate": "2026-07-01T00:00:00Z",
+              "resourceUri": "/providers/Microsoft.SaaSHub/saasResources/contoso-e3-001"
+            },
+            "itemTrackingId": "LINE_001",
+            "promotions": [
+              {
+                "promotionId": "c1d2e3f4-a5b6-4789-0abc-def123456789",
+                "isEligible": "Ineligible",
+                "ineligibilityReasons": [
+                  "seatQuantityConstraintsNotMet"
+                ],
+                "eligibilityConstraints": [
+                  {
+                    "constraintType": "termDuration",
+                    "isEligible": "Eligible"
+                  },
+                  {
+                    "constraintType": "renewalPurchaseQuantity",
+                    "isEligible": "Ineligible",
+                    "minEligibleSeatQuantity": 150,
+                    "maxEligibleSeatQuantity": 500,
+                    "renewalSeatQuantity": 900,
+                    "eligiblePurchaseLineItems": [
+                      {
+                        "productCode": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                        "pricingAudience": "Direct-Commercial",
+                        "quantity": 900,
+                        "startDate": "2026-07-01T00:00:00Z",
+                        "resourceUri": "/providers/Microsoft.SaaSHub/saasResources/contoso-e3-001"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "ProviderLevelActions_ValidateRenewalPricingEligibility",
+  "title": "Validate Renewal Pricing Eligibility - Ineligible because the renewal seat quantity exceeds the maximum"
+}

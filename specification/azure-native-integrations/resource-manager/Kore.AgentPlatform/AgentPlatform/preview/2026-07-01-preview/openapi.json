@@ -1025,6 +1025,10 @@
           "minLength": 2,
           "maxLength": 100
         },
+        "product": {
+          "$ref": "#/definitions/Product",
+          "description": "Marketplace product selected for this Workspace."
+        },
         "marketplaceDetails": {
           "type": "array",
           "description": "Azure Marketplace SaaS subscriptions linked to this Workspace.\nAt least one entry is required. Mutable to support Marketplace-driven\nplan changes.",
@@ -1368,6 +1372,30 @@
         }
       }
     },
+    "Product": {
+      "type": "string",
+      "description": "Marketplace product options available for a Workspace.",
+      "enum": [
+        "aiforwork",
+        "aiforservice"
+      ],
+      "x-ms-enum": {
+        "name": "Product",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "aiforwork",
+            "value": "aiforwork",
+            "description": "AI for Work product. <!-- cspell:words aiforservice aiforwork -->"
+          },
+          {
+            "name": "aiforservice",
+            "value": "aiforservice",
+            "description": "AI for Service product."
+          }
+        ]
+      }
+    },
     "SaaSResourceDetailsResponse": {
       "type": "object",
       "description": "Marketplace SaaS resource details.",
@@ -1552,6 +1580,10 @@
       "type": "object",
       "description": "Properties of a Kore.AgentPlatform Workspace.",
       "properties": {
+        "product": {
+          "$ref": "#/definitions/Product",
+          "description": "Marketplace product selected for this Workspace."
+        },
         "marketplaceDetails": {
           "type": "array",
           "description": "Azure Marketplace SaaS subscriptions linked to this Workspace.\nAt least one entry is required. Mutable to support Marketplace-driven\nplan changes.",

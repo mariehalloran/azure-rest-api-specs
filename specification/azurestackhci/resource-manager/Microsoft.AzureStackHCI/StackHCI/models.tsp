@@ -21,6 +21,9 @@ union HciJobType {
   /** Job to repair a server in the cluster. */
   RepairServer: "RepairServer",
 
+  /** Job to synchronize the cluster volumes. */
+  SyncVolume: "SyncVolume",
+
   /** Job to configure local availability zones for the cluster. */
   ConfigureLocalAvailabilityZone: "ConfigureLocalAvailabilityZone",
 
@@ -3888,6 +3891,12 @@ model OptionalServices {
    */
   @added(Versions.v2026_03_15_preview)
   capacityPolicy?: DeploymentCapacityPolicy;
+
+  /**
+   * Captures the customer's intent to enable or disable Confidential VM (CVM) support on the AzureStackHCI Cluster.
+   */
+  @added(Versions.v2026_03_15_preview)
+  confidentialVmIntent?: ConfidentialVmIntent = ConfidentialVmIntent.Disable;
 }
 
 /**
@@ -4151,6 +4160,29 @@ model DeploymentStep {
   @added(Versions.v2026_03_15_preview)
   @visibility(Lifecycle.Read)
   error?: Azure.ResourceManager.Foundations.ErrorDetail;
+
+  /**
+   * The progress percentage of the step.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  @minValue(0)
+  @maxValue(100)
+  percentComplete?: int32;
+
+  /**
+   * Additional data associated with the step.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  additionalData?: string;
+
+  /**
+   * Recommended steps to resolve failures in this step.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  recommendedSteps?: string[];
 }
 
 /**
@@ -6912,6 +6944,13 @@ model HciRepairServerJobProperties extends ClusterJobProperties {
   secrets?: EceDeploymentSecrets[];
 }
 
+/** Properties for synchronizing the cluster volumes. */
+@added(Versions.v2026_03_15_preview)
+model HciSyncVolumeJobProperties extends ClusterJobProperties {
+  /** ClusterJob Type to support polymorphic resource. */
+  jobType: HciJobType.SyncVolume;
+}
+
 ////////////////////////////////////////////////////////////////
 ////////// Local Availability Zone Config Job Models //////////
 ////////////////////////////////////////////////////////////////
@@ -8087,6 +8126,13 @@ model HardwareProfile {
    */
   @visibility(Lifecycle.Read)
   processorType?: string;
+
+  /**
+   * CPU architecture of the machine, for example amd64 or arm64.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  architecture?: Architecture;
 }
 
 /**
@@ -8837,6 +8883,11 @@ union OSOperationType {
    * OS ReImage operation
    */
   ReImage: "ReImage",
+
+  /**
+   * OS Reset operation
+   */
+  Reset: "Reset",
 }
 
 /**
@@ -9301,6 +9352,42 @@ model ClusterJobListResult is Azure.Core.Page<ClusterJob>;
 ////////////////////////////////////////////////////////////////
 
 /**
+ * Represents the CPU architecture of a machine or an OS image.
+ */
+@added(Versions.v2026_03_15_preview)
+union Architecture {
+  string,
+
+  /**
+   * 64-bit x86 architecture.
+   */
+  Amd64: "amd64",
+
+  /**
+   * 64-bit Arm architecture.
+   */
+  Arm64: "arm64",
+}
+
+/**
+ * Represents the solution type (OS family) of an OS image.
+ */
+@added(Versions.v2026_03_15_preview)
+union SolutionType {
+  string,
+
+  /**
+   * AzureLinux OS.
+   */
+  AzureLinux: "AzureLinux",
+
+  /**
+   * HCI OS.
+   */
+  HCI: "HCI",
+}
+
+/**
  * Represents properties of a os image resource.
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "OsImage is a read-only catalog proxy resource exposing available OS images; it has no lifecycle and therefore no provisioningState."
@@ -9326,6 +9413,18 @@ model OsImageProperties {
    * Represents composed image iso hash of a os image.
    */
   composedImageIsoHash?: string;
+
+  /**
+   * Represents the CPU architecture of an OS image, for example amd64 or arm64.
+   */
+  @added(Versions.v2026_03_15_preview)
+  architecture?: Architecture;
+
+  /**
+   * The solution type (OS family) of the OS image, for example AzureLinux or HCI.
+   */
+  @added(Versions.v2026_03_15_preview)
+  solutionType?: SolutionType;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -9462,6 +9561,12 @@ model OwnershipVoucherValidationDetails {
    * Azure Machine Id of the Ownership voucher
    */
   azureMachineId?: string;
+
+  /**
+   * CPU architecture of the device, for example amd64 or arm64.
+   */
+  @added(Versions.v2026_03_15_preview)
+  architecture?: Architecture;
 
   /**
    * Error details if the validation failed.
@@ -12060,20 +12165,8 @@ model ClusterVolumeJobProperties {
 union ClusterVolumeJobType {
   string,
 
-  /** Job to resolve configuration drift between the desired and reported state of the cluster volume. */
-  VolumeSync: "VolumeSync",
-
   /** Job to apply the desired configuration to the cluster volume. */
   ApplyVolumeConfiguration: "ApplyVolumeConfiguration",
-}
-
-/**
- * Properties for resolving cluster volume configuration drift.
- */
-@added(Versions.v2026_03_15_preview)
-model VolumeSyncClusterVolumeJobProperties extends ClusterVolumeJobProperties {
-  /** Job type. */
-  jobType: ClusterVolumeJobType.VolumeSync;
 }
 
 /**

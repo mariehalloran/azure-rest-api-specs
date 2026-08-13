@@ -1,3 +1,5 @@
+// cspell:words aiforservice aiforwork
+
 import "@typespec/http";
 import "@typespec/rest";
 import "@typespec/versioning";
@@ -100,12 +102,28 @@ model OrganizationPartnerProperties {
   partnerResourceId?: string;
 }
 
+/** Marketplace product options available for a Workspace. */
+@added(Versions.v2026_07_01_preview)
+union Product {
+  string,
+
+  /** AI for Work product. <!-- cspell:words aiforservice aiforwork --> */
+  aiforwork: "aiforwork",
+
+  /** AI for Service product. */
+  aiforservice: "aiforservice",
+}
+
 /** Properties of the default Workspace created with the Organization. */
 model DefaultWorkspaceProperties {
   /** Display name of the default Workspace. */
   @minLength(2)
   @maxLength(100)
   name: string;
+
+  /** Marketplace product selected for this Workspace. */
+  @added(Versions.v2026_07_01_preview)
+  product?: Product;
 
   /**
    * Azure Marketplace SaaS subscriptions linked to this Workspace.
@@ -198,6 +216,10 @@ model WorkspacePartnerProperties {
 
 /** Properties of a Kore.AgentPlatform Workspace. */
 model WorkspaceProperties {
+  /** Marketplace product selected for this Workspace. */
+  @added(Versions.v2026_07_01_preview)
+  product?: Product;
+
   /**
    * Azure Marketplace SaaS subscriptions linked to this Workspace.
    * At least one entry is required. Mutable to support Marketplace-driven

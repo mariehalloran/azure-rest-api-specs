@@ -27,7 +27,16 @@ These are the global settings for the networksecurity.
 ``` yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-preview-2026-04-16
+tag: package-preview-2026-07-21
+```
+
+### Tag: package-preview-2026-07-21
+
+These settings apply only when `--tag=package-preview-2026-07-21` is specified on the command line.
+
+```yaml $(tag) == 'package-preview-2026-07-21'
+input-file:
+  - Microsoft.NetworkSecurity/agentFabric/preview/2026-07-21-preview/agentFabric.json
 ```
 
 ### Tag: package-preview-2026-04-16
