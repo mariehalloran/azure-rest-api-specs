@@ -1061,24 +1061,6 @@
         ]
       }
     },
-    "DataStateInfo": {
-      "type": "object",
-      "description": "The state of the report data, including the report generation status and the next evaluation time.",
-      "properties": {
-        "reportStatus": {
-          "$ref": "#/definitions/ReportStatus",
-          "description": "The current compliance report generation status."
-        },
-        "nextEvaluation": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The next scheduled evaluation time, in RFC3339 format. May not be available for all report states."
-        }
-      },
-      "required": [
-        "reportStatus"
-      ]
-    },
     "DecommissionedManagementGroupProperties": {
       "type": "object",
       "description": "Decommissioned management group properties.",
@@ -1907,9 +1889,9 @@
         "assignmentParameters"
       ]
     },
-    "ReportStatus": {
+    "ReportState": {
       "type": "string",
-      "description": "The compliance report generation status.",
+      "description": "The compliance report generation state.",
       "enum": [
         "Generating",
         "NoDataYet",
@@ -1919,7 +1901,7 @@
         "Stale"
       ],
       "x-ms-enum": {
-        "name": "ReportStatus",
+        "name": "ReportState",
         "modelAsString": true,
         "values": [
           {
@@ -1954,6 +1936,24 @@
           }
         ]
       }
+    },
+    "ReportStatus": {
+      "type": "object",
+      "description": "The compliance report generation status, including the current state and the next attempt time.",
+      "properties": {
+        "state": {
+          "$ref": "#/definitions/ReportState",
+          "description": "The current compliance report generation state."
+        },
+        "nextAttempt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The next scheduled evaluation time, in RFC3339 format. May not be available for all report states."
+        }
+      },
+      "required": [
+        "state"
+      ]
     },
     "ResourceCreationOptions": {
       "type": "string",
@@ -2012,7 +2012,8 @@
       "description": "The operational status states for an individual scope within a sovereign view.",
       "enum": [
         "Unhealthy",
-        "Unknown"
+        "Unknown",
+        "Deleted"
       ],
       "x-ms-enum": {
         "name": "ScopeLevelOperationalStatusStates",
@@ -2027,6 +2028,11 @@
             "name": "Unknown",
             "value": "Unknown",
             "description": "The operational status of the scope could not be determined."
+          },
+          {
+            "name": "Deleted",
+            "value": "Deleted",
+            "description": "The scope has been deleted."
           }
         ]
       }
@@ -2260,8 +2266,8 @@
       "type": "object",
       "description": "The response for the sovereign view compliance details action.",
       "properties": {
-        "dataState": {
-          "$ref": "#/definitions/DataStateInfo",
+        "reportStatus": {
+          "$ref": "#/definitions/ReportStatus",
           "description": "State indicating whether the data is processed or still being processed."
         },
         "error": {
@@ -2291,7 +2297,7 @@
         }
       },
       "required": [
-        "dataState",
+        "reportStatus",
         "lastEvaluated"
       ]
     },
@@ -2506,8 +2512,8 @@
       "type": "object",
       "description": "The response for the sovereign view compliance summary action.",
       "properties": {
-        "dataState": {
-          "$ref": "#/definitions/DataStateInfo",
+        "reportStatus": {
+          "$ref": "#/definitions/ReportStatus",
           "description": "State indicating whether the data is processed or still being processed."
         },
         "error": {
@@ -2547,7 +2553,7 @@
         }
       },
       "required": [
-        "dataState",
+        "reportStatus",
         "lastEvaluated"
       ]
     },

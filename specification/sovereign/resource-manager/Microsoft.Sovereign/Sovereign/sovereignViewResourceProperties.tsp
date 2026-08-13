@@ -129,8 +129,8 @@ union DataState {
 }
 
 @added(Versions.Preview20260731)
-@doc("The compliance report generation status.")
-union ReportStatus {
+@doc("The compliance report generation state.")
+union ReportState {
   @doc("The compliance report is being generated for the first time.")
   Generating: "Generating",
 
@@ -153,21 +153,22 @@ union ReportStatus {
 }
 
 @added(Versions.Preview20260731)
-@doc("The state of the report data, including the report generation status and the next evaluation time.")
-model DataStateInfo {
-  @doc("The current compliance report generation status.")
-  reportStatus: ReportStatus;
+@doc("The compliance report generation status, including the current state and the next attempt time.")
+model ReportStatus {
+  @doc("The current compliance report generation state.")
+  state: ReportState;
 
   @doc("The next scheduled evaluation time, in RFC3339 format. May not be available for all report states.")
-  nextEvaluation?: utcDateTime;
+  nextAttempt?: utcDateTime;
 }
 
 @added(Versions.Preview20260315)
 @doc("The response for the sovereign view compliance summary action.")
 model SovereignViewComplianceSummaryResponse {
   @doc("State indicating whether the data is processed or still being processed.")
+  @renamedFrom(Versions.Preview20260731, "dataState")
   @typeChangedFrom(Versions.Preview20260731, DataState)
-  dataState: DataStateInfo;
+  reportStatus: ReportStatus;
 
   @doc("Error details when dataState is Error.")
   error?: Azure.ResourceManager.Foundations.ErrorDetail;
@@ -437,8 +438,9 @@ model SovereignViewComplianceDetailsSearch {
 @doc("The response for the sovereign view compliance details action.")
 model SovereignViewComplianceDetailsResponse {
   @doc("State indicating whether the data is processed or still being processed.")
+  @renamedFrom(Versions.Preview20260731, "dataState")
   @typeChangedFrom(Versions.Preview20260731, DataState)
-  dataState: DataStateInfo;
+  reportStatus: ReportStatus;
 
   @doc("Error details when dataState is Error.")
   error?: Azure.ResourceManager.Foundations.ErrorDetail;
@@ -658,6 +660,9 @@ union ScopeLevelOperationalStatusStates {
 
   @doc("The operational status of the scope could not be determined.")
   Unknown: "Unknown",
+
+  @doc("The scope has been deleted.")
+  Deleted: "Deleted",
 
   string,
 }
