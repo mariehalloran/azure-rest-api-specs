@@ -50,6 +50,51 @@
     }
   ],
   "paths": {
+    "/providers/Microsoft.SaaSHub/listConsolidableResources": {
+      "post": {
+        "operationId": "ProviderLevelActions_ListConsolidableResources",
+        "tags": [
+          "ProviderLevelActions"
+        ],
+        "description": "Returns customer-owned SaaS resources that are eligible for consolidation to a target product.\nOnly available starting in API version 2026-03-31-preview.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Request payload containing target SKU and scope for consolidation discovery.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ListConsolidableResourcesRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ListConsolidableResourcesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List consolidable resources for target SKU": {
+            "$ref": "./examples/ProviderLevelActions_ListConsolidableResources.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
     "/providers/Microsoft.SaaSHub/operations": {
       "get": {
         "operationId": "Operations_List",
@@ -460,6 +505,61 @@
         }
       }
     },
+    "/providers/Microsoft.SaaSHub/saasResources/{saasResourceName}/canCancelOrReduceSeatsForIncludedResources": {
+      "post": {
+        "operationId": "SaasResources_CanCancelOrReduceSeatsForIncludedResources",
+        "tags": [
+          "SaasResources"
+        ],
+        "description": "Evaluates whether one or more source SaaS resources can be cancelled or have seats reduced into the target SaaS resource.\nThe resource name in the URL is the anchored target resource.\nOnly available starting in API version 2026-03-31-preview.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "saasResourceName",
+            "in": "path",
+            "description": "The name that uniquely identifies a SaaSHub Saas resource.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 50,
+            "pattern": "^[-_0-9a-zA-Z]{3,50}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Request parameters that are provided to the can cancel-or-reduce-seats SaaSHub Saas resource operation.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ManyToOneUpgradeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/CanCancelOrReduceSeatsForIncludedResourcesResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "CanCancelOrReduceSeatsForIncludedResources Failed": {
+            "$ref": "./examples/SaasResources_CanCancelOrReduceSeatsForIncludedResources_Failed.json"
+          },
+          "CanCancelOrReduceSeatsForIncludedResources Passed": {
+            "$ref": "./examples/SaasResources_CanCancelOrReduceSeatsForIncludedResources_Passed.json"
+          }
+        }
+      }
+    },
     "/providers/Microsoft.SaaSHub/saasResources/{saasResourceName}/canMerge": {
       "post": {
         "operationId": "SaasResources_CanMerge",
@@ -650,6 +750,79 @@
         "x-ms-examples": {
           "Cancel SaasResource": {
             "$ref": "./examples/SaasResources_Cancel.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/providers/Microsoft.SaaSHub/saasResources/{saasResourceName}/cancelOrReduceSeatsForIncludedResources": {
+      "post": {
+        "operationId": "SaasResources_CancelOrReduceSeatsForIncludedResources",
+        "tags": [
+          "SaasResources"
+        ],
+        "description": "Consolidates one or more source SaaS resources into the target SaaS resource.\nThe resource name in the URL is the anchored target resource.\nOnly available starting in API version 2026-03-31-preview.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "saasResourceName",
+            "in": "path",
+            "description": "The name that uniquely identifies a SaaSHub Saas resource.",
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 50,
+            "pattern": "^[-_0-9a-zA-Z]{3,50}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Request parameters that are provided to the cancel-or-reduce-seats SaaSHub Saas resource operation.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ManyToOneUpgradeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ManyToOneUpgradeResponse"
+            }
+          },
+          "202": {
+            "description": "Resource operation accepted.",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Cancel-or-reduce-seats immediate full cancellation": {
+            "$ref": "./examples/SaasResources_CancelOrReduceSeatsForIncludedResources_Immediate_Full.json"
+          },
+          "Cancel-or-reduce-seats scheduled partial with mixed outcomes": {
+            "$ref": "./examples/SaasResources_CancelOrReduceSeatsForIncludedResources_Scheduled_Partial.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -991,6 +1164,66 @@
         }
       }
     },
+    "/providers/Microsoft.SaaSHub/validateAddOnEligibility": {
+      "post": {
+        "operationId": "ProviderLevelActions_ValidateAddOnEligibility",
+        "tags": [
+          "ProviderLevelActions"
+        ],
+        "description": "Evaluates customer eligibility for one or more add-ons.\nOnly available starting in API version 2026-03-31-preview.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Request parameters containing add-ons to evaluate for eligibility.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ValidateAddOnEligibilityRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidateAddOnEligibilityResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Validate Add-On Eligibility - Bulk add-ons where some are ineligible": {
+            "$ref": "./examples/ValidateAddOnEligibility_BulkAddOns_PartialFailure.json"
+          },
+          "Validate Add-On Eligibility - Ineligible because add-on seats are below the minimum percentage of base seats": {
+            "$ref": "./examples/ValidateAddOnEligibility_MinimumAddOnPercentage_Failed.json"
+          },
+          "Validate Add-On Eligibility - Ineligible because add-on seats exceed the maximum percentage of base seats": {
+            "$ref": "./examples/ValidateAddOnEligibility_MaximumAddOnPercentage_Failed.json"
+          },
+          "Validate Add-On Eligibility - Ineligible because no prerequisite base product is owned": {
+            "$ref": "./examples/ValidateAddOnEligibility_MissingBaseProduct_Failed.json"
+          },
+          "Validate Add-On Eligibility - Ineligible because the base license quantity is below the minimum": {
+            "$ref": "./examples/ValidateAddOnEligibility_MinimumBaseQuantity_Failed.json"
+          },
+          "Validate Add-On Eligibility - Ineligible for multiple constraints at once": {
+            "$ref": "./examples/ValidateAddOnEligibility_MultipleConstraints_Failed.json"
+          },
+          "Validate Add-On Eligibility - No Billing Scope": {
+            "$ref": "./examples/ValidateAddOnEligibility_NoBillingScope.json"
+          }
+        }
+      }
+    },
     "/providers/Microsoft.SaaSHub/validateFuturePriceEligibility": {
       "post": {
         "operationId": "ProviderLevelActions_ValidateFuturePriceEligibility",
@@ -1140,9 +1373,192 @@
           }
         }
       }
+    },
+    "/providers/Microsoft.SaaSHub/validateRenewalPricingEligibility": {
+      "post": {
+        "operationId": "ProviderLevelActions_ValidateRenewalPricingEligibility",
+        "tags": [
+          "ProviderLevelActions"
+        ],
+        "description": "Evaluates customer eligibility for promotional renewal pricing on the purchase line items\nin a quote, cart or order for a customer who is renewing their agreement or contract.\nOnly available starting in API version 2026-03-31-preview.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Request parameters containing purchase line items to evaluate for promotional renewal pricing.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ValidateRenewalPricingEligibilityRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ValidateRenewalPricingEligibilityResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Validate Renewal Pricing Eligibility - Bulk line items with mixed results": {
+            "$ref": "./examples/ValidateRenewalPricingEligibility_BulkLineItems_MixedResults.json"
+          },
+          "Validate Renewal Pricing Eligibility - Eligible": {
+            "$ref": "./examples/ValidateRenewalPricingEligibility_Eligible.json"
+          },
+          "Validate Renewal Pricing Eligibility - Ineligible because the commitment term duration is not eligible": {
+            "$ref": "./examples/ValidateRenewalPricingEligibility_CommitmentDuration_Failed.json"
+          },
+          "Validate Renewal Pricing Eligibility - Ineligible because the promotion is not currently available": {
+            "$ref": "./examples/ValidateRenewalPricingEligibility_PromotionUnavailable_Failed.json"
+          },
+          "Validate Renewal Pricing Eligibility - Ineligible because the renewal seat quantity exceeds the maximum": {
+            "$ref": "./examples/ValidateRenewalPricingEligibility_MaximumSeatQuantity_Failed.json"
+          },
+          "Validate Renewal Pricing Eligibility - Ineligible because the renewal seat quantity is below the minimum": {
+            "$ref": "./examples/ValidateRenewalPricingEligibility_RenewalPurchaseQuantity_Failed.json"
+          }
+        }
+      }
     }
   },
   "definitions": {
+    "AddOnEligibilityConstraint": {
+      "type": "object",
+      "description": "Add-on eligibility constraint with detailed evaluation results.\nExtends EligibilityConstraint with additional type-specific properties.\n\nProperties are grouped by constraintType:\n- **requiredBaseProducts**: mustHaveAnyBaseProducts, ownedBaseProducts\n- **minimumBaseLicenseQuantity**: currentTotalBaseLicenseQuantity, minimumRequiredBaseLicenses, missingBaseLicenses\n- **minimumAddOnPercentageQuantityOfBase**: currentTotalAddOnLicenseQuantity, currentTotalBaseLicenseQuantity, minimumPercentOfBaseQuantity, minimumAddOnLicenseQuantityToBePurchased, missingAddOnLicenses, purchaseQuantity\n- **maximumAddOnPercentageQuantityOfBase**: currentTotalAddOnLicenseQuantity, currentTotalBaseLicenseQuantity, maximumPercentOfBaseQuantity, maximumAddOnLicenseQuantityAllowed, excessAddOnLicenseQuantity, purchaseQuantity",
+      "properties": {
+        "constraintType": {
+          "type": "string",
+          "description": "The failed eligibility constraint type.",
+          "readOnly": true
+        },
+        "isEligible": {
+          "$ref": "#/definitions/EligibilityResult",
+          "description": "true if eligibility is satisfied, false otherwise",
+          "readOnly": true
+        },
+        "mustHaveAnyBaseProducts": {
+          "type": "array",
+          "description": "Product codes of the prerequisite base products, at least one of which must be owned.\nApplicable when constraintType = \"requiredBaseProducts\"",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "ownedBaseProducts": {
+          "type": "array",
+          "description": "Product codes of the prerequisite base products the customer already owns.\nApplicable when constraintType = \"requiredBaseProducts\"",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "currentTotalBaseLicenseQuantity": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total base license quantity currently owned and in the cart.\nApplicable when constraintType = \"minimumBaseLicenseQuantity\",\n\"minimumAddOnPercentageQuantityOfBase\" or \"maximumAddOnPercentageQuantityOfBase\"",
+          "readOnly": true
+        },
+        "minimumRequiredBaseLicenses": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Minimum number of base licenses required.\nApplicable when constraintType = \"minimumBaseLicenseQuantity\"",
+          "readOnly": true
+        },
+        "missingBaseLicenses": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of additional base licenses needed to satisfy the constraint.\nApplicable when constraintType = \"minimumBaseLicenseQuantity\"",
+          "readOnly": true
+        },
+        "currentTotalAddOnLicenseQuantity": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total add-on license quantity currently owned and in the cart.\nApplicable when constraintType = \"minimumAddOnPercentageQuantityOfBase\"\nor \"maximumAddOnPercentageQuantityOfBase\"",
+          "readOnly": true
+        },
+        "minimumPercentOfBaseQuantity": {
+          "type": "number",
+          "format": "double",
+          "description": "Minimum percentage of the base quantity that the add-on quantity must reach.\nApplicable when constraintType = \"minimumAddOnPercentageQuantityOfBase\"",
+          "readOnly": true
+        },
+        "minimumAddOnLicenseQuantityToBePurchased": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Minimum number of add-on licenses that must be purchased.\nApplicable when constraintType = \"minimumAddOnPercentageQuantityOfBase\"",
+          "readOnly": true
+        },
+        "missingAddOnLicenses": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of additional add-on licenses needed to satisfy the constraint.\nApplicable when constraintType = \"minimumAddOnPercentageQuantityOfBase\"",
+          "readOnly": true
+        },
+        "purchaseQuantity": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Add-on quantity in the evaluated request.\nApplicable when constraintType = \"minimumAddOnPercentageQuantityOfBase\"\nor \"maximumAddOnPercentageQuantityOfBase\"",
+          "readOnly": true
+        },
+        "maximumPercentOfBaseQuantity": {
+          "type": "number",
+          "format": "double",
+          "description": "Maximum percentage of the base quantity that the add-on quantity may reach.\nApplicable when constraintType = \"maximumAddOnPercentageQuantityOfBase\"",
+          "readOnly": true
+        },
+        "maximumAddOnLicenseQuantityAllowed": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Maximum number of add-on licenses allowed.\nApplicable when constraintType = \"maximumAddOnPercentageQuantityOfBase\"",
+          "readOnly": true
+        },
+        "excessAddOnLicenseQuantity": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of add-on licenses in excess of the maximum allowed.\nApplicable when constraintType = \"maximumAddOnPercentageQuantityOfBase\"",
+          "readOnly": true
+        }
+      }
+    },
+    "AddOnEligibilityInfo": {
+      "type": "object",
+      "description": "Add-on eligibility detail returned by the ValidateAddOnEligibility operation.\n\nMirrors CanCreateResultAddOnInfo, but carries the richer AddOnEligibilityConstraint\nso the numeric constraint detail computed by the publisher is not trimmed.",
+      "properties": {
+        "isEligible": {
+          "$ref": "#/definitions/EligibilityResult",
+          "description": "Whether the add-on eligibility is satisfied.",
+          "readOnly": true
+        },
+        "ineligibilityReasons": {
+          "type": "array",
+          "description": "AddOn ineligible reasons.",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        },
+        "eligibilityConstraints": {
+          "type": "array",
+          "description": "AddOn eligibility constraints, including the detail properties for each\nevaluated constraint type.",
+          "items": {
+            "$ref": "#/definitions/AddOnEligibilityConstraint"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        }
+      }
+    },
     "AdditionalInfoItem": {
       "type": "object",
       "description": "Additional information key-value pair",
@@ -1190,6 +1606,52 @@
           }
         ]
       }
+    },
+    "CanCancelOrReduceSeatsForIncludedResourcesResult": {
+      "type": "object",
+      "description": "Validation result for canCancelOrReduceSeatsForIncludedResources operation.",
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Per-resource validation results. Each entry corresponds to an included resource\nin the request, allowing partial success/failure to be reported per resource.",
+          "items": {
+            "$ref": "#/definitions/CanCancelOrReduceSeatsForIncludedResourcesResultItem"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": [
+            "resourceUri"
+          ]
+        }
+      }
+    },
+    "CanCancelOrReduceSeatsForIncludedResourcesResultItem": {
+      "type": "object",
+      "description": "Per-resource validation result for canCancelOrReduceSeatsForIncludedResources operation.",
+      "properties": {
+        "resourceUri": {
+          "type": "string",
+          "description": "URI of the included source resource that was evaluated.",
+          "readOnly": true
+        },
+        "evaluateResult": {
+          "$ref": "#/definitions/EvaluateResult",
+          "description": "Whether the validation passed/failed for this resource.",
+          "readOnly": true
+        },
+        "code": {
+          "type": "string",
+          "description": "Outcome code for why this resource failed validation. Null when validation passed.\nUses the same vocabulary as the code returned by\ncancelOrReduceSeatsForIncludedResources, for example QuantityExceeded.",
+          "readOnly": true
+        },
+        "reason": {
+          "type": "string",
+          "description": "Detailed reason for why this resource failed validation. Null when validation passed.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "resourceUri"
+      ]
     },
     "CanCancelResult": {
       "type": "object",
@@ -1854,6 +2316,38 @@
         ]
       }
     },
+    "ConsolidableResourceItem": {
+      "type": "object",
+      "description": "Consolidable source resource candidate.",
+      "properties": {
+        "resourceId": {
+          "type": "string",
+          "description": "Resource ID of the source SaaS resource."
+        },
+        "productCode": {
+          "type": "string",
+          "description": "Product code on the source resource."
+        },
+        "currentQuantity": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Current quantity on the source resource."
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Source resource end date in UTC time."
+        },
+        "allowedLicenseCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Maximum quantity that can be consolidated from this source resource."
+        }
+      },
+      "required": [
+        "resourceId"
+      ]
+    },
     "ConstraintFailingItem": {
       "type": "object",
       "description": "Failing item for constraint failure details.",
@@ -2248,6 +2742,57 @@
         }
       }
     },
+    "ListConsolidableResourcesRequest": {
+      "type": "object",
+      "description": "Request model for listConsolidableResources provider-level action.",
+      "properties": {
+        "targetProductCode": {
+          "type": "string",
+          "description": "Product code of the target SKU."
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Target term end date in UTC time."
+        },
+        "licenseCount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Desired license count on the target SKU."
+        },
+        "billingScope": {
+          "type": "string",
+          "description": "Billing scope for candidate discovery."
+        }
+      },
+      "required": [
+        "targetProductCode",
+        "endDate",
+        "licenseCount",
+        "billingScope"
+      ]
+    },
+    "ListConsolidableResourcesResponse": {
+      "type": "object",
+      "description": "Response model for listConsolidableResources with pagination support.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ConsolidableResourceItem items on this page",
+          "items": {
+            "$ref": "#/definitions/ConsolidableResourceItem"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "LookbackWindow": {
       "type": "object",
       "description": "Lookback window for prerequisite constraint evaluation.",
@@ -2263,6 +2808,252 @@
           "readOnly": true
         }
       }
+    },
+    "ManyToOneChangeType": {
+      "type": "string",
+      "description": "Change type for many-to-one upgrade operation.",
+      "enum": [
+        "Immediate",
+        "Scheduled"
+      ],
+      "x-ms-enum": {
+        "name": "ManyToOneChangeType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Immediate",
+            "value": "Immediate",
+            "description": "Execute consolidation immediately."
+          },
+          {
+            "name": "Scheduled",
+            "value": "Scheduled",
+            "description": "Schedule consolidation at an allowed future point."
+          }
+        ]
+      }
+    },
+    "ManyToOneIncludedResource": {
+      "type": "object",
+      "description": "Included source resource in many-to-one upgrade request.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Source SaaS resource ID."
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Quantity to cancel or reduce from the source resource."
+        }
+      },
+      "required": [
+        "id",
+        "quantity"
+      ]
+    },
+    "ManyToOneOperationState": {
+      "type": "string",
+      "description": "Overall operation state for many-to-one upgrade.",
+      "enum": [
+        "Succeeded",
+        "PartiallySucceeded",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "ManyToOneOperationState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "All resource outcomes succeeded."
+          },
+          {
+            "name": "PartiallySucceeded",
+            "value": "PartiallySucceeded",
+            "description": "Some resource outcomes failed."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Operation failed."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "ManyToOneOutcomeOperation": {
+      "type": "string",
+      "description": "Per-resource operation type for many-to-one upgrade outcome.",
+      "enum": [
+        "Cancel",
+        "ReduceSeat"
+      ],
+      "x-ms-enum": {
+        "name": "ManyToOneOutcomeOperation",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Cancel",
+            "value": "Cancel",
+            "description": "Full source resource cancellation."
+          },
+          {
+            "name": "ReduceSeat",
+            "value": "ReduceSeat",
+            "description": "Seat reduction on source resource."
+          }
+        ]
+      }
+    },
+    "ManyToOneOutcomeStatus": {
+      "type": "string",
+      "description": "Per-resource status for many-to-one upgrade outcome.",
+      "enum": [
+        "Unknown",
+        "Accepted",
+        "Processing",
+        "Updating",
+        "Succeeded",
+        "Cancelled",
+        "Failed"
+      ],
+      "x-ms-enum": {
+        "name": "ManyToOneOutcomeStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Unknown",
+            "value": "Unknown",
+            "description": "Resource-level operation state is unknown."
+          },
+          {
+            "name": "Accepted",
+            "value": "Accepted",
+            "description": "Resource-level operation accepted for async processing."
+          },
+          {
+            "name": "Processing",
+            "value": "Processing",
+            "description": "Resource-level operation is in progress."
+          },
+          {
+            "name": "Updating",
+            "value": "Updating",
+            "description": "Resource-level operation is being updated."
+          },
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource-level operation succeeded."
+          },
+          {
+            "name": "Cancelled",
+            "value": "Cancelled",
+            "description": "Resource-level operation was cancelled."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource-level operation failed."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "ManyToOneResourceOutcome": {
+      "type": "object",
+      "description": "Per-resource outcome model for many-to-one upgrade.",
+      "properties": {
+        "resourceId": {
+          "type": "string",
+          "description": "Source resource id."
+        },
+        "operation": {
+          "$ref": "#/definitions/ManyToOneOutcomeOperation",
+          "description": "Executed operation type."
+        },
+        "status": {
+          "$ref": "#/definitions/ManyToOneOutcomeStatus",
+          "description": "Resource-level status."
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Quantity affected on this source resource."
+        },
+        "code": {
+          "type": "string",
+          "description": "Service-defined outcome code emitted by the many-to-one handler.\nUses the same unprefixed vocabulary as the reasonCode returned by\ncanCancelOrReduceSeatsForIncludedResources, for example\nResourceCancelled, SeatsReduced, or QuantityExceeded."
+        },
+        "message": {
+          "type": "string",
+          "description": "Outcome message."
+        },
+        "scheduledDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Scheduled execution date when operation is scheduled."
+        }
+      },
+      "required": [
+        "resourceId",
+        "operation",
+        "status",
+        "quantity",
+        "code",
+        "message"
+      ]
+    },
+    "ManyToOneUpgradeRequest": {
+      "type": "object",
+      "description": "Request model for SaasResources_CancelOrReduceSeatsForIncludedResources.",
+      "properties": {
+        "includedResources": {
+          "type": "array",
+          "description": "Source resources included for consolidation.",
+          "items": {
+            "$ref": "#/definitions/ManyToOneIncludedResource"
+          }
+        },
+        "changeType": {
+          "$ref": "#/definitions/ManyToOneChangeType",
+          "description": "Consolidation change type."
+        },
+        "consolidateResourceScheduleActionTrackingItemId": {
+          "type": "string",
+          "description": "Optional tracking identifier for consolidation scheduled action.\nRequired for Scheduled changes and optional when changeType is Immediate."
+        }
+      },
+      "required": [
+        "includedResources",
+        "changeType"
+      ]
+    },
+    "ManyToOneUpgradeResponse": {
+      "type": "object",
+      "description": "Response model for SaasResources_CancelOrReduceSeatsForIncludedResources.",
+      "properties": {
+        "state": {
+          "$ref": "#/definitions/ManyToOneOperationState",
+          "description": "Overall upgrade state."
+        },
+        "resourceOutcomes": {
+          "type": "array",
+          "description": "Per-resource outcomes.",
+          "items": {
+            "$ref": "#/definitions/ManyToOneResourceOutcome"
+          },
+          "x-ms-identifiers": [
+            "resourceId"
+          ]
+        }
+      },
+      "required": [
+        "state",
+        "resourceOutcomes"
+      ]
     },
     "MergeSaasResourcesRequest": {
       "type": "object",
@@ -2751,6 +3542,62 @@
           "readOnly": true
         }
       }
+    },
+    "RenewalPricingPurchaseLineItem": {
+      "type": "object",
+      "description": "Purchase line item submitted for renewal pricing promotion evaluation.",
+      "properties": {
+        "productCode": {
+          "type": "string",
+          "description": "GUID representing productId, skuId, termDuration, billingPlan combination."
+        },
+        "pricingAudience": {
+          "type": "string",
+          "description": "Pricing audience used for the purchase (e.g., \"Direct-Commercial\", \"Partner-Commercial\")."
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of seats being purchased for the line item."
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start date of the line item in UTC time."
+        },
+        "resourceUri": {
+          "type": "string",
+          "description": "ARM resource URI of the SaaS resource being renewed.\nFormat: /providers/Microsoft.SaaSHub/saasResources/{resourceName}"
+        },
+        "hasDiscount": {
+          "type": "boolean",
+          "description": "Whether the line item already has a discount applied."
+        },
+        "seatCap": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Seat cap for the line item."
+        },
+        "itemTrackingId": {
+          "type": "string",
+          "description": "Custom item identifier for tracking, returned as-is on the corresponding result."
+        },
+        "resourceTokens": {
+          "type": "array",
+          "description": "Product hydration tokens for authorization and context purposes.",
+          "items": {
+            "$ref": "#/definitions/ResourceToken"
+          },
+          "x-ms-identifiers": [
+            "type"
+          ]
+        }
+      },
+      "required": [
+        "productCode",
+        "pricingAudience",
+        "quantity"
+      ]
     },
     "ResourceToken": {
       "type": "object",
@@ -3315,6 +4162,169 @@
         "billingScope"
       ]
     },
+    "ValidateAddOnEligibilityAddOnRequest": {
+      "type": "object",
+      "description": "Add-on request for ValidateAddOnEligibility operation.",
+      "properties": {
+        "productCode": {
+          "type": "string",
+          "description": "GUID representing productId, skuId, termDuration, billingPlan combination."
+        },
+        "pricingAudience": {
+          "type": "string",
+          "description": "Pricing audience used for the add-on purchase (e.g., \"Direct-Commercial\", \"Partner-Commercial\")."
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of add-on seats to purchase."
+        },
+        "itemTrackingId": {
+          "type": "string",
+          "description": "Custom item identifier for tracking, returned as-is on the corresponding result."
+        },
+        "resourceTokens": {
+          "type": "array",
+          "description": "Product hydration tokens for authorization and context purposes.",
+          "items": {
+            "$ref": "#/definitions/ResourceToken"
+          },
+          "x-ms-identifiers": [
+            "type"
+          ]
+        }
+      },
+      "required": [
+        "productCode",
+        "pricingAudience"
+      ]
+    },
+    "ValidateAddOnEligibilityAddOnResult": {
+      "type": "object",
+      "description": "Add-on result for ValidateAddOnEligibility operation.",
+      "properties": {
+        "productCode": {
+          "type": "string",
+          "description": "GUID representing productId, skuId, termDuration, billingPlan combination, echoed from the request.",
+          "readOnly": true
+        },
+        "itemTrackingId": {
+          "type": "string",
+          "description": "Custom item identifier for tracking, returned as-is from the request.",
+          "readOnly": true
+        },
+        "pricingAudience": {
+          "type": "string",
+          "description": "Pricing audience used for the add-on purchase, echoed from the request.",
+          "readOnly": true
+        },
+        "eligibilityResult": {
+          "$ref": "#/definitions/AddOnEligibilityInfo",
+          "description": "Add-on eligibility status, ineligibility reasons and eligibility constraint results.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "productCode"
+      ]
+    },
+    "ValidateAddOnEligibilityCartProduct": {
+      "type": "object",
+      "description": "Product purchased alongside the add-ons in the same cart.",
+      "properties": {
+        "productCode": {
+          "type": "string",
+          "description": "GUID representing productId, skuId, termDuration, billingPlan combination."
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of seats to purchase for the product in the cart."
+        },
+        "itemTrackingId": {
+          "type": "string",
+          "description": "Custom item identifier for tracking."
+        },
+        "resourceTokens": {
+          "type": "array",
+          "description": "Product hydration tokens for authorization and context purposes.",
+          "items": {
+            "$ref": "#/definitions/ResourceToken"
+          },
+          "x-ms-identifiers": [
+            "type"
+          ]
+        }
+      },
+      "required": [
+        "productCode"
+      ]
+    },
+    "ValidateAddOnEligibilityRequest": {
+      "type": "object",
+      "description": "Request model for ValidateAddOnEligibility operation.",
+      "properties": {
+        "addOns": {
+          "type": "array",
+          "description": "List of add-ons to evaluate for eligibility.",
+          "items": {
+            "$ref": "#/definitions/ValidateAddOnEligibilityAddOnRequest"
+          },
+          "x-ms-identifiers": []
+        },
+        "productsInCart": {
+          "type": "array",
+          "description": "List of products in the cart being purchased alongside the add-ons.\nUsed as context when evaluating base SKU quantity and ownership constraints.",
+          "items": {
+            "$ref": "#/definitions/ValidateAddOnEligibilityCartProduct"
+          },
+          "x-ms-identifiers": []
+        },
+        "customerTenantId": {
+          "type": "string",
+          "description": "AAD tenant ID for the customer for which add-on eligibility is evaluated."
+        },
+        "market": {
+          "type": "string",
+          "description": "ISO 3166 country code for the customer's market."
+        },
+        "nationalCloud": {
+          "type": "string",
+          "description": "Cloud environment where the customer account exists (e.g., \"Public\", \"USGov\", \"China\")."
+        },
+        "customerBillingScope": {
+          "type": "string",
+          "description": "Customer billing scope. Replaces customerAccountId/customerOrganizationId.\nSupports multiple formats:\n- Partial: /providers/Microsoft.Billing/billingAccounts/{baId}\n- Full customer-led: /providers/Microsoft.Billing/billingAccounts/{baId}/billingProfiles/{profileId}/invoiceSections/{sectionId}\n- Full partner-led: /providers/Microsoft.Billing/billingAccounts/{baId}/billingProfiles/{profileId}/customers/{customerId}"
+        }
+      },
+      "required": [
+        "addOns",
+        "customerTenantId",
+        "market",
+        "nationalCloud"
+      ]
+    },
+    "ValidateAddOnEligibilityResponse": {
+      "type": "object",
+      "description": "Response model for ValidateAddOnEligibility operation with pagination support.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ValidateAddOnEligibilityAddOnResult items on this page",
+          "items": {
+            "$ref": "#/definitions/ValidateAddOnEligibilityAddOnResult"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
     "ValidateFuturePriceEligibilityCopurchasedProduct": {
       "type": "object",
       "description": "Copurchased product for ValidateFuturePriceEligibility operation.\nProducts being purchased in the current transaction that establish ownership baseline.",
@@ -3759,6 +4769,88 @@
           "description": "The ValidatePromotionsProductResult items on this page",
           "items": {
             "$ref": "#/definitions/ValidatePromotionsProductResult"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ValidateRenewalPricingEligibilityLineItemResult": {
+      "type": "object",
+      "description": "Renewal pricing promotion eligibility result for a single purchase line item.",
+      "properties": {
+        "purchaseLineItem": {
+          "$ref": "#/definitions/EligiblePurchaseLineItem",
+          "description": "The purchase line item for which renewal pricing promotion eligibility was evaluated,\nechoed from the request.",
+          "readOnly": true
+        },
+        "itemTrackingId": {
+          "type": "string",
+          "description": "Custom item identifier for tracking, returned as-is from the request.",
+          "readOnly": true
+        },
+        "promotions": {
+          "type": "array",
+          "description": "Renewal pricing promotions available for the purchase line item, with eligibility\ndetails for each promotion.",
+          "items": {
+            "$ref": "#/definitions/CanCreateResultPromotionInfo"
+          },
+          "readOnly": true,
+          "x-ms-identifiers": []
+        }
+      },
+      "required": [
+        "purchaseLineItem",
+        "promotions"
+      ]
+    },
+    "ValidateRenewalPricingEligibilityRequest": {
+      "type": "object",
+      "description": "Request model for ValidateRenewalPricingEligibility operation.",
+      "properties": {
+        "purchaseLineItems": {
+          "type": "array",
+          "description": "Purchase line items in the customer's quote, cart or order to evaluate for\npromotional renewal pricing.",
+          "items": {
+            "$ref": "#/definitions/RenewalPricingPurchaseLineItem"
+          },
+          "x-ms-identifiers": []
+        },
+        "market": {
+          "type": "string",
+          "description": "ISO 3166 country code for the customer's market."
+        },
+        "nationalCloud": {
+          "type": "string",
+          "description": "Cloud environment where the customer account exists (e.g., \"Public\", \"USGov\", \"China\")."
+        },
+        "customerBillingScope": {
+          "type": "string",
+          "description": "Customer billing scope. Replaces customerAccountId/customerOrganizationId,\nboth of which are required by the downstream contract.\nSupports multiple formats:\n- Partial: /providers/Microsoft.Billing/billingAccounts/{baId}\n- Full customer-led: /providers/Microsoft.Billing/billingAccounts/{baId}/billingProfiles/{profileId}/invoiceSections/{sectionId}\n- Full partner-led: /providers/Microsoft.Billing/billingAccounts/{baId}/billingProfiles/{profileId}/customers/{customerId}"
+        }
+      },
+      "required": [
+        "purchaseLineItems",
+        "market",
+        "nationalCloud",
+        "customerBillingScope"
+      ]
+    },
+    "ValidateRenewalPricingEligibilityResponse": {
+      "type": "object",
+      "description": "Response model for ValidateRenewalPricingEligibility operation with pagination support.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The ValidateRenewalPricingEligibilityLineItemResult items on this page",
+          "items": {
+            "$ref": "#/definitions/ValidateRenewalPricingEligibilityLineItemResult"
           }
         },
         "nextLink": {

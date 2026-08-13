@@ -1,0 +1,54 @@
+{
+  "title": "Cancel-or-reduce-seats scheduled partial with mixed outcomes",
+  "operationId": "SaasResources_CancelOrReduceSeatsForIncludedResources",
+  "parameters": {
+    "saasResourceName": "targetResourceName",
+    "api-version": "2026-03-31-preview",
+    "body": {
+      "includedResources": [
+        {
+          "id": "/providers/Microsoft.SaaSHub/saasResources/sourceResourceName1",
+          "quantity": 20
+        },
+        {
+          "id": "/providers/Microsoft.SaaSHub/saasResources/sourceResourceName2",
+          "quantity": 25
+        }
+      ],
+      "changeType": "Scheduled",
+      "consolidateResourceScheduleActionTrackingItemId": "550e8400-e29b-41d4-a716-446655440000"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "state": "PartiallySucceeded",
+        "resourceOutcomes": [
+          {
+            "resourceId": "/providers/Microsoft.SaaSHub/saasResources/sourceResourceName1",
+            "operation": "ReduceSeat",
+            "status": "Succeeded",
+            "quantity": 20,
+            "code": "SeatsReduced",
+            "message": "Seat reduction scheduled.",
+            "scheduledDate": "2026-12-31T00:00:00Z"
+          },
+          {
+            "resourceId": "/providers/Microsoft.SaaSHub/saasResources/sourceResourceName2",
+            "operation": "ReduceSeat",
+            "status": "Failed",
+            "quantity": 25,
+            "code": "QuantityExceeded",
+            "message": "Requested quantity exceeds current subscription quantity."
+          }
+        ]
+      }
+    },
+    "202": {
+      "headers": {
+        "Location": "https://management.azure.com/providers/Microsoft.SaaSHub/operationStatuses/{operationId}?api-version=2026-03-31-preview",
+        "Retry-After": "60"
+      }
+    }
+  }
+}

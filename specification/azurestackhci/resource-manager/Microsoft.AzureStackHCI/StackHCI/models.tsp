@@ -3891,6 +3891,12 @@ model OptionalServices {
    */
   @added(Versions.v2026_03_15_preview)
   capacityPolicy?: DeploymentCapacityPolicy;
+
+  /**
+   * Captures the customer's intent to enable or disable Confidential VM (CVM) support on the AzureStackHCI Cluster.
+   */
+  @added(Versions.v2026_03_15_preview)
+  confidentialVmIntent?: ConfidentialVmIntent = ConfidentialVmIntent.Disable;
 }
 
 /**

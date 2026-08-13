@@ -1,0 +1,35 @@
+{
+  "title": "List consolidable resources for target SKU",
+  "operationId": "ProviderLevelActions_ListConsolidableResources",
+  "parameters": {
+    "api-version": "2026-03-31-preview",
+    "body": {
+      "targetProductCode": "M365E5_UPN",
+      "endDate": "2026-12-31T00:00:00Z",
+      "licenseCount": 40,
+      "billingScope": "/providers/Microsoft.Billing/billingAccounts/1111:2222"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "resourceId": "/providers/Microsoft.SaaSHub/saasResources/contoso-e3-001",
+            "productCode": "M365E3_UPN",
+            "currentQuantity": 25,
+            "endDate": "2026-06-30T00:00:00Z",
+            "allowedLicenseCount": 25
+          },
+          {
+            "resourceId": "/providers/Microsoft.SaaSHub/saasResources/contoso-e3-002",
+            "productCode": "M365E3_UPN",
+            "currentQuantity": 15,
+            "endDate": "2026-09-30T00:00:00Z",
+            "allowedLicenseCount": 15
+          }
+        ]
+      }
+    }
+  }
+}
