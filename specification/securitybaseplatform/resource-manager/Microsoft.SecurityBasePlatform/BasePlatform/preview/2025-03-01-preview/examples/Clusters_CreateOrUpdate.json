@@ -44,6 +44,21 @@
           "operatorManaged": {
             "enabled": true,
             "manageCertificates": true
+          },
+          "probes": {
+            "liveness": {
+              "type": "httpGet",
+              "path": "/health",
+              "port": 8080
+            },
+            "readiness": {
+              "type": "tcpSocket",
+              "port": 8080
+            },
+            "startup": {
+              "type": "exec",
+              "command": ["check-health"]
+            }
           }
         },
         "networkConfig": {
