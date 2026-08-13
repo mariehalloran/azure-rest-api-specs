@@ -235,7 +235,7 @@ model NetworkInterfaceIpConfiguration {
   privateIpAddress: string;
 
   /** IP version. */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   privateIpAddressVersion: "IPv4" | "IPv6" | string;
 
   /** Whether this is primary. */

@@ -328,6 +328,7 @@ model GlobalNetworkTapRuleActionPatchProperties {
   truncate?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Response for Network Tap Rule resync operation.")
 model NetworkTapRuleResyncResponse {
   ...OperationStatusResult;

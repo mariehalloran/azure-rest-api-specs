@@ -10,6 +10,7 @@ namespace Microsoft.Cosmic;
 
 // --- Preview models -------------------------------------------------
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request body for the preview action.")
 model PreviewRequest {
   @doc("The name of the environment to preview.")
@@ -30,6 +31,7 @@ model PreviewResult {
 
 // --- Validate models ------------------------------------------------
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request body for the validate action.")
 model ValidateRequest {
   @doc("The name of the environment to validate.")
@@ -95,6 +97,7 @@ union ValidationDifferenceType {
 
 // --- Migrate models -------------------------------------------------
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request body for the migrate action.")
 model MigrateRequest {
   @doc("The name of the environment to migrate.")

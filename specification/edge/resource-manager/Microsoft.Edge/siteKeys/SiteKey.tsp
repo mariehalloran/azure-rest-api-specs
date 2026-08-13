@@ -44,6 +44,7 @@ model SiteKeyProperties {
   generatedDate?: utcDateTime;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Downloaded Msi Token Response")
 model TokenResponse {
   @doc("The downloaded token")
@@ -51,6 +52,7 @@ model TokenResponse {
   token?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Response payload for downloading SiteKey material.")
 model DownloadSiteKeyResponse {
   @doc("The downloaded token response")

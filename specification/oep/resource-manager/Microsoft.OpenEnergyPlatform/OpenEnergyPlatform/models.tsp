@@ -913,6 +913,7 @@ model EnergyServiceUpdateProperties {
 /**
  * Defines the partition add/ delete action properties.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model DataPartitionAddOrRemoveRequest {
   /**
    * The list of Energy services resource's Data Partition Names.

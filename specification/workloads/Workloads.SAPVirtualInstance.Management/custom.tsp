@@ -12,7 +12,9 @@ using Azure.ResourceManager.Foundations;
  * @template Parameters Optional. Additional parameters after the path parameters
  * @template Error Optional. The error response, if non-standard.
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "Custom template"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "Custom template"
 // THIS IS TO PROVIDE a temp workaround. The standard ArmResourceXX operations will be expected to support
 // ARM virtual resources. Until then, use this custom template
 @autoRoute

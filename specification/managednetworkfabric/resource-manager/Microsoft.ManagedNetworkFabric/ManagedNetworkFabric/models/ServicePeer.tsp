@@ -105,6 +105,7 @@ model OperationAcknowledged {
   requestId: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request to prepare a single-consumer service endpoint attachment.")
 @added(Versions.v2026_07_15_preview)
 model PrepareServicePeerAttachmentRequest {
@@ -143,6 +144,7 @@ model ServicePeerAttachment {
   expiresAt: utcDateTime;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request to confirm a previously prepared service endpoint attachment.")
 @added(Versions.v2026_07_15_preview)
 model ConfirmServicePeerAttachmentRequest {
@@ -158,6 +160,7 @@ model ConfirmServicePeerAttachmentRequest {
   servicePeerAttachmentToken: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request to revoke an attachment and withdraw service exposure before cleanup.")
 @added(Versions.v2026_07_15_preview)
 model RevokeServicePeerAttachmentRequest {

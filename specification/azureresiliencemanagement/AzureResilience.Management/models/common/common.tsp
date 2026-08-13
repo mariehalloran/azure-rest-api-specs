@@ -265,6 +265,7 @@ model FailoverRequestProperties {
   executionConfigurations?: ExecutionConfigurations;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Failover post action request.")
 model FailoverRequest {
   @doc("Type of Failover direction.")
@@ -282,6 +283,7 @@ model ReprotectRequestProperties {
   selectedResourceIds?: armResourceIdentifier[];
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_03_01_preview)
 @doc("Reprotect post action request.")
 model ReprotectRequest {

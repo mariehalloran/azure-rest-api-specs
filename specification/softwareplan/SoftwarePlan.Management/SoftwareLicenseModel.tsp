@@ -88,6 +88,7 @@ model SoftwareLicenseProductKey
 }
 
 /** List SoftwareLicense Product Keys Response */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ListSoftwareLicenseProductKeysResponse {
   /** Array of product keys */
   value: SoftwareLicenseProductKey[];
@@ -145,6 +146,7 @@ model SoftwareLicenseProductDownloadOption
 }
 
 /** List SoftwareLicenseProductDownloadOptions Response */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ListSoftwareLicenseProductDownloadOptionsResponse {
   /** Array of product download options */
   value: SoftwareLicenseProductDownloadOption[];
@@ -164,6 +166,7 @@ model SoftwareLicenseDownloadLinkItem {
 }
 
 /** Generate Download Links Response for SoftwareLicense */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SoftwareLicenseGenerateDownloadLinksResponse {
   /** Array of download link items */
   @identifiers(#["fileName"])

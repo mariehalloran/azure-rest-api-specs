@@ -185,6 +185,7 @@ model ImageProperties {
   compatibleVersions?: Array<string>;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The winfield image download properties")
 model ImageDownloadResponse {
   @visibility(Lifecycle.Read)

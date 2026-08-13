@@ -35,6 +35,7 @@ interface VmmServers {
   createOrUpdate is ArmResourceCreateOrUpdateAsync<VmmServer>;
   /** Updates the VmmServers resource. */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "TODO migrate to LRO"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation-options' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @summary("Implements VmmServers PATCH method.")
   @extension(
     "x-ms-long-running-operation-options",
@@ -43,6 +44,7 @@ interface VmmServers {
   update is ArmTagsPatchAsync<VmmServer>;
   /** Removes the SCVmm fabric from Azure. */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "TODO migrate to LRO"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation-options' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @summary("Implements VmmServers DELETE method.")
   @extension(
     "x-ms-long-running-operation-options",

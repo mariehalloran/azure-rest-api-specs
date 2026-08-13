@@ -48,7 +48,9 @@ model LocationCollectionParameters<T extends Foundations.Resource> {
  * @template TParentName Optional. The name of the parent resource
  * @template TParentFriendlyName Optional. The friendly name of the parent resource
  */
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "All operations are inside an interface"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "All operations are inside an interface"
 #suppress "@azure-tools/typespec-azure-core/casing-style" "This is a valid casing"
 @autoRoute
 @get
@@ -71,7 +73,9 @@ op ArmLocResourceListByParent<
  * @template TBaseParameters Optional. Allows overriding the operation parameters
  */
 /// #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation-outside-interface" "This is a valid template"
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "All operations are inside an interface"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "All operations are inside an interface"
 @autoRoute
 @doc("Get a {name}", TResource)
 @get

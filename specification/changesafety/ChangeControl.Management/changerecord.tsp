@@ -97,7 +97,7 @@ model ChangeRecordProperties {
   additionalData?: {};
 
   #suppress "@azure-tools/typespec-autorest/union-unsupported" "Suppressing warning: We need to have a strong type for the stagemap snapshot. So need to provide all the supported types which are string & StageMap for now."
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Suppressing warning: We need to have a strong type for the stagemap snapshot. So need to provide all the supported types which are string & StageMap for now."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Suppressing warning: We need to have a strong type for the stagemap snapshot. So need to provide all the supported types which are string & StageMap for now."
   @doc("Referenced stagemap snapshot.")
   @visibility(Lifecycle.Read)
   stageMapSnapshot?: Array<string | StageMap>;

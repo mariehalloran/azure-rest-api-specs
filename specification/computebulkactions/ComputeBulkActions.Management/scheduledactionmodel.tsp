@@ -431,6 +431,7 @@ model ResourceNotificationDetails {
   operationContext?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The submit-type request for power operations")
 model SubmitTypeRequest {
   @doc("The schedule for the request")
@@ -464,6 +465,7 @@ model ExecuteTypeRequest {
   correlationid: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Common model for operation response")
 model OperationResponse {
   @doc("The description of the operation response")
@@ -482,6 +484,7 @@ model OperationResponse {
 }
 
 // ----------- SubmitDeallocate ---------
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The deallocate request for resources")
 model SubmitDeallocateRequest {
   ...SubmitTypeRequest;
@@ -493,6 +496,7 @@ model DeallocateResourceOperationResponse {
 }
 
 // ----------- SubmitStart ---------
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("This is the request for start")
 model SubmitStartRequest {
   ...SubmitTypeRequest;
@@ -504,6 +508,7 @@ model StartResourceOperationResponse {
 }
 
 // ----------- SubmitHibernate ---------
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("This is the request for hibernate")
 model SubmitHibernateRequest {
   ...SubmitTypeRequest;
@@ -595,6 +600,7 @@ model CancelOperationsResponse {
 }
 
 // ----------- GetOperationErrors ---------
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("This is the request to get errors per vm operations")
 model GetOperationErrorsRequest {
   @doc("The list of operation ids to query errors of")

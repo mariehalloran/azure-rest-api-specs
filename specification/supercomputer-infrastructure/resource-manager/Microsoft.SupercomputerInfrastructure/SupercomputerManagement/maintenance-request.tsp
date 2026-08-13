@@ -12,6 +12,7 @@ using Azure.ResourceManager;
 namespace Microsoft.SupercomputerInfrastructure;
 
 /** A maintenance request on resource(s) that can be requested and approved. */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @parentResource(Supercomputer)
 model MaintenanceRequest is ProxyResource<MaintenanceRequestProperties> {
   ...ResourceNameParameter<

@@ -169,6 +169,7 @@ union Status {
 /**
  * Response of a list operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model DatadogAgreementResourceListResponse
   is Azure.Core.Page<DatadogAgreementResource>;
 
@@ -307,6 +308,7 @@ model DatadogApplicationKey {
 /**
  * Response of a list operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model DatadogApiKeyListResponse is Azure.Core.Page<DatadogApiKey>;
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "For backward compatibility"
@@ -336,6 +338,7 @@ model DatadogApiKey {
 /**
  * Response of a list operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model DatadogHostListResponse is Azure.Core.Page<DatadogHost>;
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "For backward compatibility"
@@ -401,6 +404,7 @@ model DatadogLogsAgent {
 /**
  * Response of a list operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model LinkedResourceListResponse is Azure.Core.Page<LinkedResource>;
 
 /**
@@ -421,6 +425,7 @@ model LinkedResource {
 /**
  * Response of a list operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model MonitoredResourceListResponse is Azure.Core.Page<MonitoredResource>;
 
 /**
@@ -501,6 +506,7 @@ model OperationDisplay {
 /**
  * Response of a list operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model DatadogMonitorResourceListResponse
   is Azure.Core.Page<DatadogMonitorResource>;
 
@@ -661,6 +667,7 @@ model DatadogOrganizationProperties {
 /**
  * Response of a list operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Microsoft.Datadog.Versions.v2025_11_03_preview)
 model SreAgentConfigurationListResponse
   is Azure.Core.Page<SreAgentConfiguration>;
@@ -780,6 +787,7 @@ union ConnectorAction {
 /**
  * Request for adding/removing Datadog MCP connectors on SRE Agent resource.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Microsoft.Datadog.Versions.v2025_11_03_preview)
 model SreAgentConnectorRequest {
   /**
@@ -875,6 +883,7 @@ model DatadogSetPasswordLink {
 /**
  * Response of a list operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model MonitoringTagRulesListResponse is Azure.Core.Page<MonitoringTagRules>;
 
 /**
@@ -984,6 +993,7 @@ model AgentRules {
 /**
  * Response of a list operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model DatadogSingleSignOnResourceListResponse
   is Azure.Core.Page<DatadogSingleSignOnResource>;
 
@@ -1080,6 +1090,7 @@ model ResubscribeProperties {
  * SaaS resource details for Activate and Validate SaaS Resource
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is the standard abbreviation for Software as a Service"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Microsoft.Datadog.Versions.v2025_12_26_preview)
 model ActivateSaaSParameterRequest {
   /**
@@ -1103,6 +1114,7 @@ model ActivateSaaSParameterRequest {
  * Response of get latest linked SaaS resource operation
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is the standard abbreviation for Software as a Service"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Microsoft.Datadog.Versions.v2025_12_26_preview)
 model LatestLinkedSaaSResponse {
   /**
@@ -1136,6 +1148,7 @@ model SaaSData {
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is the standard abbreviation for Software as a Service"
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Using extends for proxy resource model"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Microsoft.Datadog.Versions.v2025_12_26_preview)
 model SaaSResourceDetailsResponse
   extends Azure.ResourceManager.Foundations.ProxyResource {

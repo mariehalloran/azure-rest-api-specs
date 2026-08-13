@@ -20,7 +20,9 @@ interface Operations extends Azure.ResourceManager.Operations {}
 interface ScheduledActions {
   // -------------- Routes -------------
   /** virtualMachinesSubmitDeallocate: submitDeallocate for a virtual machine */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "necessary to avoid standard routing"
   @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesSubmitDeallocate")
   @post
   virtualMachinesSubmitDeallocate(
@@ -29,7 +31,9 @@ interface ScheduledActions {
   ): ArmResponse<DeallocateResourceOperationResponse> | ErrorResponse;
 
   /** virtualMachinesSubmitHibernate: submitHibernate for a virtual machine */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "necessary to avoid standard routing"
   @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesSubmitHibernate")
   @post
   virtualMachinesSubmitHibernate(
@@ -38,7 +42,9 @@ interface ScheduledActions {
   ): ArmResponse<HibernateResourceOperationResponse> | ErrorResponse;
 
   /** virtualMachinesSubmitStart: submitStart for a virtual machine */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "necessary to avoid standard routing"
   @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesSubmitStart")
   @post
   virtualMachinesSubmitStart(
@@ -47,7 +53,9 @@ interface ScheduledActions {
   ): ArmResponse<StartResourceOperationResponse> | ErrorResponse;
 
   /** virtualMachinesExecuteDeallocate: executeDeallocate for a virtual machine */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "necessary to avoid standard routing"
   @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesExecuteDeallocate")
   @post
   virtualMachinesExecuteDeallocate(
@@ -56,7 +64,9 @@ interface ScheduledActions {
   ): ArmResponse<DeallocateResourceOperationResponse> | ErrorResponse;
 
   /** virtualMachinesExecuteHibernate: executeHibernate for a virtual machine */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "necessary to avoid standard routing"
   @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesExecuteHibernate")
   @post
   virtualMachinesExecuteHibernate(
@@ -65,7 +75,9 @@ interface ScheduledActions {
   ): ArmResponse<HibernateResourceOperationResponse> | ErrorResponse;
 
   /** virtualMachinesExecuteStart: executeStart for a virtual machine */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "necessary to avoid standard routing"
   @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesExecuteStart")
   @post
   virtualMachinesExecuteStart(
@@ -74,7 +86,9 @@ interface ScheduledActions {
   ): ArmResponse<StartResourceOperationResponse> | ErrorResponse;
 
   /** virtualMachinesExecuteCreateFlex: executeCreateFlex for a batch of virtual machines, this operation is triggered as soon as Computeschedule receives it. */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "necessary to avoid standard routing"
   @added(Microsoft.ComputeSchedule.Versions.`2026-03-01-preview`)
   @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesExecuteCreateFlex")
   @post
@@ -84,7 +98,9 @@ interface ScheduledActions {
   ): ArmResponse<CreateFlexResourceOperationResponse> | ErrorResponse;
 
   /** virtualMachinesExecuteCreate: executeCreate for a batch of virtual machines, this operation is triggered as soon as Computeschedule receives it. */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "necessary to avoid standard routing"
   @added(Microsoft.ComputeSchedule.Versions.`2026-03-01-preview`)
   @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesExecuteCreate")
   @post
@@ -94,7 +110,9 @@ interface ScheduledActions {
   ): ArmResponse<CreateResourceOperationResponse> | ErrorResponse;
 
   /** virtualMachinesExecuteDelete: executeDelete for a batch of virtual machines, this operation is triggered as soon as Computeschedule receives it. */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "necessary to avoid standard routing"
   @added(Microsoft.ComputeSchedule.Versions.`2026-03-01-preview`)
   @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesExecuteDelete")
   @post
@@ -104,7 +122,9 @@ interface ScheduledActions {
   ): ArmResponse<DeleteResourceOperationResponse> | ErrorResponse;
 
   /** virtualMachinesExecuteDeallocateWithCapacityCheck: deallocate VMs only if capacity predictions indicate sufficient capacity at the desired restart time. VMs that fail the capacity check are returned with a VmNoCapacity error. */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "necessary to avoid standard routing"
   @added(Microsoft.ComputeSchedule.Versions.`2026-04-27-preview`)
   @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesExecuteDeallocateWithCapacityCheck")
   @post
@@ -117,7 +137,9 @@ interface ScheduledActions {
   ): ArmResponse<DeallocateResourceOperationResponse> | ErrorResponse;
 
   /** virtualMachinesGetOperationStatus: getOperationStatus for a virtual machine */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "necessary to avoid standard routing"
   @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesGetOperationStatus")
   @post
   virtualMachinesGetOperationStatus(
@@ -126,7 +148,9 @@ interface ScheduledActions {
   ): ArmResponse<GetOperationStatusResponse> | ErrorResponse;
 
   /** virtualMachinesCancelOperations: cancelOperations for a virtual machine */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "necessary to avoid standard routing"
   @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesCancelOperations")
   @post
   virtualMachinesCancelOperations(
@@ -135,7 +159,9 @@ interface ScheduledActions {
   ): ArmResponse<CancelOperationsResponse> | ErrorResponse;
 
   /** virtualMachinesGetOperationErrors: Get error details on operation errors (like transient errors encountered, additional logs) if they exist. */
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "necessary to avoid standard routing"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "necessary to avoid standard routing"
   @added(Microsoft.ComputeSchedule.Versions.`2026-03-01-preview`)
   @route("/subscriptions/{subscriptionId}/providers/Microsoft.ComputeSchedule/locations/{locationparameter}/virtualMachinesGetOperationErrors")
   @post

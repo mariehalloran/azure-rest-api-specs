@@ -35,6 +35,7 @@ interface VirtualNetworks {
   createOrUpdate is ArmResourceCreateOrUpdateAsync<VirtualNetwork>;
   /** Updates the VirtualNetworks resource. */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "TODO migrate to LRO"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation-options' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @summary("Implements the VirtualNetworks PATCH method.")
   @extension(
     "x-ms-long-running-operation-options",
@@ -43,6 +44,7 @@ interface VirtualNetworks {
   update is ArmTagsPatchAsync<VirtualNetwork>;
   /** Deregisters the ScVmm virtual network from Azure. */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "TODO migrate to LRO"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation-options' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @summary("Implements VirtualNetwork DELETE method.")
   @extension(
     "x-ms-long-running-operation-options",

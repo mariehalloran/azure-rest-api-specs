@@ -383,6 +383,7 @@ interface StoragePools {
     | ErrorResponse;
 
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "TODO - Migrate to LRO pattern"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation', 'x-ms-long-running-operation-options' OpenAPI extension(s) predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @doc("Initiate a connection between the storage pool and a specified AVS SDDC resource")
   @armResourceAction(StoragePool)
   @action("enableAvsConnection")
@@ -406,6 +407,7 @@ interface StoragePools {
     | ErrorResponse;
 
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "TODO - Migrate to LRO pattern"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation', 'x-ms-long-running-operation-options' OpenAPI extension(s) predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @doc("Disable the existing AVS connection")
   @armResourceAction(StoragePool)
   @action("disableAvsConnection")
@@ -423,6 +425,7 @@ interface StoragePools {
     | ErrorResponse;
 
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "TODO - Migrate to LRO pattern"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation', 'x-ms-long-running-operation-options' OpenAPI extension(s) predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @doc("Finalize an already started AVS connection to a specific AVS SDDC")
   @armResourceAction(StoragePool)
   @action("finalizeAvsConnection")
@@ -446,6 +449,7 @@ interface StoragePools {
     | ErrorResponse;
 
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "TODO - Migrate to LRO pattern"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation', 'x-ms-long-running-operation-options' OpenAPI extension(s) predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @doc("Test and repair, if needed, all configuration elements of the storage pool connection to the AVS instance")
   @armResourceAction(StoragePool)
   @action("repairAvsConnection")
@@ -625,6 +629,7 @@ model RangeLimits {
   max: int64;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Health information for a storage pool")
 model HealthResponse {
   @doc("Health metrics")
@@ -1206,6 +1211,7 @@ model IscsiConnectionParameters {
   endpoints: IscsiEndpoint[];
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_01_01_preview)
 @doc("Connection parameters response")
 model ConnectionParametersResponse {
@@ -1213,6 +1219,7 @@ model ConnectionParametersResponse {
   iscsi: IscsiConnectionParameters;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_05_01_preview)
 @doc("Request to overwrite all volumes in a volume group from a snapshot")
 model VolumeGroupOverwriteRequest {
@@ -1223,6 +1230,7 @@ model VolumeGroupOverwriteRequest {
   sourceVolumeGroupResourceId: Azure.Core.armResourceIdentifier;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_05_01_preview)
 @doc("Request to overwrite a volume's content from another volume or a snapshot")
 model VolumeOverwriteRequest {
@@ -1515,6 +1523,7 @@ interface RecoverableVolumeGroups {
 }
 
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is the correct casing for Software as a Service"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_03_01_preview)
 @doc("SaaS guid for Activate SaaS Resource")
 model ActivateSaaSRequest {
@@ -1527,6 +1536,7 @@ model ActivateSaaSRequest {
 
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Response model extending ProxyResource for consistency with Azure patterns"
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is the correct casing for Software as a Service"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_03_01_preview)
 @doc("Marketplace SaaS resource details.")
 model SaaSResourceDetailsResponse
@@ -1536,6 +1546,7 @@ model SaaSResourceDetailsResponse
 }
 
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is the correct casing for Software as a Service"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_03_01_preview)
 @doc("SaaS details for linking to a reservation.")
 model LinkSaaSRequest {
@@ -1545,6 +1556,7 @@ model LinkSaaSRequest {
 }
 
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is the correct casing for Software as a Service"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_03_01_preview)
 @doc("Response of get latest linked SaaS resource operation.")
 model LatestLinkedSaaSResponse {
@@ -1684,6 +1696,7 @@ model VolumeGroupSnapshotPostListResult {
   totalCount?: int32;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_05_01_preview)
 @doc("Request payload for listing volume group snapshots")
 model VolumeGroupSnapshotListRequest {

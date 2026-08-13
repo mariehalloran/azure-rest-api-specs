@@ -98,6 +98,7 @@ model NotificationSessionResource
 }
 
 /** Request body for getting session details */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model GetSessionDetailsRequest {
   /** Duration in minutes for session validity */
   @minValue(1)

@@ -369,6 +369,7 @@ model InvestigationResult {
  * Common fields that are returned in the response for all Azure Resource Manager resources
  */
 #suppress "@azure-tools/typespec-azure-core/no-openapi" "TODO is x-ms-azure-resource needed?"
+#suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-azure-resource' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to Azure.ResourceManager resource types."
 @added(Microsoft.Monitor.Versions.v2024_01_01_preview)
 @removed(Microsoft.Monitor.Versions.v2024_10_01)
 @extension("x-ms-azure-resource", true)

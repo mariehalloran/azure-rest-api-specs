@@ -39,6 +39,7 @@ model DicomConnectorProperties {
   @visibility(Lifecycle.Create, Lifecycle.Read, Lifecycle.Update)
   connectedClusterId: ConnectedClusterResourceId;
 
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   @doc("The receiver configuration to be used for the DICOM connector.")
   receiver?: {
     @added(Versions.v2025_06_01_preview)
