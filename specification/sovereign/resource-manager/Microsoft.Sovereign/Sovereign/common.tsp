@@ -23,7 +23,7 @@ enum Versions {
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   Preview20260315: "2026-03-15-preview",
 
-  @doc("SCP August Release version.")
+  @doc("The 2026-07-31 preview version.")
   @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v6)
   Preview20260731: "2026-07-31-preview",
 }

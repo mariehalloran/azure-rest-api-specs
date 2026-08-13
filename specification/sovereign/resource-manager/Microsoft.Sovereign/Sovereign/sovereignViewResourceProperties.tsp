@@ -289,7 +289,6 @@ model SovereignViewComplianceDetailsRequest {
   @identifiers(#["field", "operator"])
   filters?: SovereignViewComplianceDetailsFilters[];
 
-  #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "sort is a request input array whose element type changed via @typeChangedFrom; @identifiers cannot be applied because the property is not an array in the prior version."
   @doc("The sorting to apply when querying for compliance details.")
   @typeChangedFrom(Versions.Preview20260731, SovereignViewComplianceDetailsSort)
   sort?: SovereignViewComplianceDetailsSort[];
@@ -383,7 +382,7 @@ union SovereignViewFilterField {
   controlledNetworkExposure: "ControlledNetworkExposure",
 
   @added(Versions.Preview20260731)
-  @doc("Filter by parent resource name.")
+  @doc("Filter by the name of the parent resource that contains the resource.")
   parentResourceName: "ParentResourceName",
 
   string,
@@ -401,6 +400,13 @@ union SovereignViewComplianceDetailsFilterOperators {
 @added(Versions.Preview20260315)
 @doc("The sorting for compliance details.")
 model SovereignViewComplianceDetailsSort {
+  // @key marks `field` as the array element identifier so the emitter produces
+  // x-ms-identifiers on the sort array in 2026-07-31-preview (where sort is an
+  // array). It is intentionally used without @visibility: adding @visibility
+  // would emit x-ms-mutability on this property in the prior 2026-03-15-preview
+  // version (where sort is a single object), altering an already-released version.
+  #suppress "@azure-tools/typespec-azure-core/key-visibility-required" "Applying @visibility here would change the already-released 2026-03-15-preview swagger; @key alone leaves it byte-identical."
+  @key
   @doc("The field to sort on.")
   field: string;
 
@@ -408,8 +414,8 @@ model SovereignViewComplianceDetailsSort {
   direction: SovereignViewComplianceDetailsSortDirections;
 
   @added(Versions.Preview20260731)
-  @doc("The order of sorting to apply when querying for compliance details. Works with policy states.")
-  sortingOrder?: string[];
+  @doc("Explicit ordering of policy compliance states to apply when sorting on a compliance-state field. The states are ranked in the order listed. When provided for a compliance-state field, this takes precedence over `direction`, which is ignored for that field.")
+  sortingOrder?: PolicyComplianceState[];
 }
 
 @added(Versions.Preview20260315)
@@ -464,7 +470,7 @@ model SovereignViewComplianceDetailResource {
   resourceId: armResourceIdentifier;
 
   @added(Versions.Preview20260731)
-  @doc("The parent resource identifier.")
+  @doc("The fully qualified Azure Resource Manager ID of the resource that directly contains this resource. For a resource nested under a parent resource, this is the parent resource's ID. For a top-level resource that has no parent resource, this is the ID of the containing scope, such as the resource group.")
   parentResourceId: armResourceIdentifier;
 
   @doc("The location of the resource.")
