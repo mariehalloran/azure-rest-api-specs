@@ -13,6 +13,7 @@ namespace Microsoft.MessagingConnectors.Models.Manifest;
 model ManifestProperties {}
 
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request for getting connector manifest.")
 model GetConnectorManifestRequest {
   @doc("The connector type.")
@@ -36,6 +37,7 @@ model ConnectorManifest {
 }
 
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request for getting custom connector configuration definition.")
 model GetCustomConnectorConfigurationDefRequest {
   @doc("Id used for isolation.")

@@ -61,6 +61,7 @@ model DeletedEnvironmentDeleteMetadata {
 
 // --- Action models --------------------------------------------------
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request body for the soft-deleted environment actions (purge, restore), carrying the platform ring so APIM can route the request to the target ring's RP instance. The soft-deleted environment is a proxy resource (not cached by ARM/MetaRP), so the ring is supplied explicitly rather than read from a replayed body.")
 model DeletedEnvironmentActionRequest {
   @doc("Platform ring classification (e.g. test, sdf, msit, prod). Used by APIM to route the request to the target ring's RP instance.")

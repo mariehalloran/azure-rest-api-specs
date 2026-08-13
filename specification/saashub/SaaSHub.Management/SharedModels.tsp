@@ -835,6 +835,7 @@ model RefundableQuantityResultRefundableQuantitiesInfo {
 /**
  * Response model for GetRefundableQuantity operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model GetRefundableQuantityResponse {
   /**
    * List of refundable quantity information with event details.
@@ -1275,6 +1276,7 @@ model CotermEndDateItem {
 /**
  * Request model for GetCotermEndDates operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CotermEndDatesRequest {
   /**
    * List of end dates to calculate coterm targets for.
@@ -1354,12 +1356,14 @@ model CotermResponseItemErrorOptional {
 /**
  * Bulk response model for TenantLevelGetCotermEndDates and GetCotermEndDates operations with pagination support.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CotermResponseItemBulkResponse
   is Azure.Core.Page<CotermResponseItemErrorOptional>;
 
 /**
  * Request model for CanTransact operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CanTransactSaasResourcesRequest {
   /**
    * The unique identifier for tracking the canTransact request item.
@@ -1403,6 +1407,7 @@ model CanTransactSaasResourcesRequest {
 /**
  * Bulk request model for TenantLevelCanTransact operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model TenantLevelCanTransactBulkRequest {
   /**
    * Array of transaction requests to evaluate.
@@ -1414,6 +1419,7 @@ model TenantLevelCanTransactBulkRequest {
 /**
  * Request model for listConsolidableResources provider-level action.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ListConsolidableResourcesRequest {
   /**
    * Product code of the target SKU.
@@ -1469,6 +1475,7 @@ model ConsolidableResourceItem {
 /**
  * Response model for listConsolidableResources with pagination support.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ListConsolidableResourcesResponse
   is Azure.Core.Page<ConsolidableResourceItem>;
 
@@ -1507,6 +1514,7 @@ model ManyToOneIncludedResource {
 /**
  * Request model for SaasResources_CancelOrReduceSeatsForIncludedResources.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ManyToOneUpgradeRequest {
   /**
    * Source resources included for consolidation.
@@ -1652,6 +1660,7 @@ model ManyToOneResourceOutcome {
 /**
  * Response model for SaasResources_CancelOrReduceSeatsForIncludedResources.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ManyToOneUpgradeResponse {
   /**
    * Overall upgrade state.
@@ -1668,6 +1677,7 @@ model ManyToOneUpgradeResponse {
 /**
  * Request model for CanTransact operation with CloudServices.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CanTransactCloudServicesRequest {
   /**
    * The unique identifier for tracking the canTransact request item.
@@ -1711,6 +1721,7 @@ model CanTransactCloudServicesRequest {
 /**
  * Bulk request model for ResourceGroupLevelCanTransact operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ResourceGroupLevelCanTransactBulkRequest {
   /**
    * Array of transaction requests to evaluate.
@@ -1722,6 +1733,7 @@ model ResourceGroupLevelCanTransactBulkRequest {
 /**
  * Bulk response model for ResourceGroupLevelCanTransact operation with pagination support.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ResourceGroupLevelCanTransactBulkResponse
   is Azure.Core.Page<CanTransactResponse>;
 
@@ -1756,6 +1768,7 @@ union CanTransactOperationType {
  * Base response model for CanTransact operation result.
  * The operationType discriminator determines which specific result structure is used.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @discriminator("operationType")
 model CanTransactResponse {
   /**
@@ -1794,6 +1807,7 @@ model CanTransactResponse {
 /**
  * Response for canCreate operation evaluation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CanTransactCanCreateResponse extends CanTransactResponse {
   // Discriminator value: must be a literal string (not a union reference) matching a CanTransactOperationType value for proper polymorphic deserialization
   operationType: "canCreate";
@@ -1808,6 +1822,7 @@ model CanTransactCanCreateResponse extends CanTransactResponse {
 /**
  * Response for canCancel operation evaluation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CanTransactCanCancelResponse extends CanTransactResponse {
   // Discriminator value: must be a literal string (not a union reference) matching a CanTransactOperationType value for proper polymorphic deserialization
   operationType: "canCancel";
@@ -1822,6 +1837,7 @@ model CanTransactCanCancelResponse extends CanTransactResponse {
 /**
  * Response for canUpdate operation evaluation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CanTransactCanUpdateResponse extends CanTransactResponse {
   // Discriminator value: must be a literal string (not a union reference) matching a CanTransactOperationType value for proper polymorphic deserialization
   operationType: "canUpdate";
@@ -1836,6 +1852,7 @@ model CanTransactCanUpdateResponse extends CanTransactResponse {
 /**
  * Response for canMerge operation evaluation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CanTransactCanMergeResponse extends CanTransactResponse {
   // Discriminator value: must be a literal string (not a union reference) matching a CanTransactOperationType value for proper polymorphic deserialization
   operationType: "canMerge";
@@ -1850,6 +1867,7 @@ model CanTransactCanMergeResponse extends CanTransactResponse {
 /**
  * Bulk response model for TenantLevelCanTransact operation with pagination support.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model TenantLevelCanTransactBulkResponse
   is Azure.Core.Page<CanTransactResponse>;
 
@@ -1860,6 +1878,7 @@ model TenantLevelCanTransactBulkResponse
 /**
  * Request model for ValidatePromotions operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model ValidatePromotionsRequest {
   /**
@@ -1887,6 +1906,7 @@ model ValidatePromotionsRequest {
 /**
  * Product request for ValidatePromotions operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model ValidatePromotionsProductRequest {
   /**
@@ -1974,6 +1994,7 @@ model ValidatePromotionsProductContext {
 /**
  * Response model for ValidatePromotions operation with pagination support.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model ValidatePromotionsResponse
   is Azure.Core.Page<ValidatePromotionsProductResult>;
@@ -2676,6 +2697,7 @@ model TransferParticipant {
 /**
  * Request to transfer a SaaS resource to another partner tenant.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model TransferToPartnerRequest {
   /**
@@ -2704,6 +2726,7 @@ model TransferToPartnerRequest {
 /**
  * Request model for ValidateAddOnEligibility operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model ValidateAddOnEligibilityRequest {
   /**
@@ -2747,6 +2770,7 @@ model ValidateAddOnEligibilityRequest {
 /**
  * Add-on request for ValidateAddOnEligibility operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model ValidateAddOnEligibilityAddOnRequest {
   /**
@@ -2806,6 +2830,7 @@ model ValidateAddOnEligibilityCartProduct {
 /**
  * Response model for ValidateAddOnEligibility operation with pagination support.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model ValidateAddOnEligibilityResponse
   is Azure.Core.Page<ValidateAddOnEligibilityAddOnResult>;
@@ -3002,6 +3027,7 @@ model AddOnEligibilityConstraint {
  * Request model for ValidateFuturePriceEligibility operation.
  * Evaluates whether customers qualify for future price concessions when purchasing Microsoft 365 products.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model ValidateFuturePriceEligibilityRequest {
   /**
@@ -3132,6 +3158,7 @@ model ValidateFuturePriceEligibilityProductContext {
 /**
  * Response model for ValidateFuturePriceEligibility operation with pagination support.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model ValidateFuturePriceEligibilityResponse
   is Azure.Core.Page<ValidateFuturePriceEligibilityProductResult>;
@@ -3193,6 +3220,7 @@ model ValidateFuturePriceEligibilityRequestMetadata {
 /**
  * Request model for ValidateRenewalPricingEligibility operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model ValidateRenewalPricingEligibilityRequest {
   /**
@@ -3279,6 +3307,7 @@ model RenewalPricingPurchaseLineItem {
 /**
  * Response model for ValidateRenewalPricingEligibility operation with pagination support.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model ValidateRenewalPricingEligibilityResponse
   is Azure.Core.Page<ValidateRenewalPricingEligibilityLineItemResult>;

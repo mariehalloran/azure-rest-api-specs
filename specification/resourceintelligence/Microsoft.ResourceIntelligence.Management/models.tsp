@@ -98,6 +98,7 @@ union ResumePolicy {
 /**
  * Request body for creating and running an agent.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model RunRequest {
   /**
    * Whether tool invocation is permitted during the run. Defaults to enabled.
@@ -134,6 +135,7 @@ model RunRequest {
 /**
  * Response for a long-running POST action that returns 201 with Location polling.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ArmAccepted201LroResponse {
   @doc("Resource operation accepted.")
   @statusCode

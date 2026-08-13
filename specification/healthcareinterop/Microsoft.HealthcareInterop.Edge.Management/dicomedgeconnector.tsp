@@ -32,6 +32,7 @@ model DicomEdgeConnector is TrackedResource<DicomEdgeConnectorProperties> {
 @added(Versions.v2025_06_01_preview)
 @doc("DicomEdgeConnector properties")
 model DicomEdgeConnectorProperties {
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   @doc("The Receiver Configuration to be used for dicom connector configuration.")
   receiver?: {
     @added(Versions.v2025_06_01_preview)
@@ -42,6 +43,7 @@ model DicomEdgeConnectorProperties {
     @doc("The resource requirements for the application (CPU, Memory, and Storage).")
     requirements?: Requirements;
 
+    #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
     @doc("The Storage Endpoint Configuration to be used for dicom connector configuration.")
     @visibility(Lifecycle.Create, Lifecycle.Read, Lifecycle.Update)
     storageEndpointConfiguration?: {

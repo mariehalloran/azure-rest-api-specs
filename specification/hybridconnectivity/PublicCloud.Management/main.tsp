@@ -29,6 +29,7 @@ enum Versions {
 
 //------------------- Generate Aws Template -------------------
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("ConnectorId and SolutionTypes and their properties to Generate AWS CFT Template.")
 model GenerateAwsTemplateRequest {
   @doc("The name of public cloud connector")
@@ -51,6 +52,7 @@ model SolutionTypeSettings {
 
 //------------------- Test Permissions -------------------
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Public connector permissions.")
 model TestPermissionResponse {
   #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers"
@@ -315,7 +317,9 @@ alias GenerateAwsTemplatePostResponse =
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "Need to remove autoroute"
 @route("/subscriptions/{subscriptionId}/providers/Microsoft.HybridConnectivity/")
 interface GenerateAwsTemplate {
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "Need to remove autoroute"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "Need to remove autoroute"
   @route("generateAwsTemplate")
   @post
   @action

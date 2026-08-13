@@ -128,6 +128,7 @@ union DataState {
   string,
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.Preview20260315)
 @doc("The response for the sovereign view compliance summary action.")
 model SovereignViewComplianceSummaryResponse {
@@ -234,6 +235,7 @@ model SovereignViewComplianceDimensionSummary {
   othersCount: int32;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.Preview20260315)
 @doc("The request for the sovereign view compliance details action.")
 model SovereignViewComplianceDetailsRequest {
@@ -387,6 +389,7 @@ model SovereignViewComplianceDetailsSearch {
   value: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.Preview20260315)
 @doc("The response for the sovereign view compliance details action.")
 model SovereignViewComplianceDetailsResponse {
@@ -457,6 +460,7 @@ model SovereignViewComplianceDetail {
   evaluatedAt?: utcDateTime;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.Preview20260315)
 @doc("The request for the sovereign view filter values action.")
 model SovereignViewFilterValuesRequest {
@@ -471,6 +475,7 @@ model SovereignViewFilterValuesRequest {
   searchTerm?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.Preview20260315)
 @doc("The response for the sovereign view filter values action.")
 model SovereignViewFilterValuesResponse {

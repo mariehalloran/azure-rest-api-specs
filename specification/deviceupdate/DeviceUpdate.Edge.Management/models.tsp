@@ -1132,6 +1132,7 @@ model DeviceClassInfo {
 /**
  * Import Update API request body.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ImportUpdateRequest {
   /**
    * Import update input metadata.

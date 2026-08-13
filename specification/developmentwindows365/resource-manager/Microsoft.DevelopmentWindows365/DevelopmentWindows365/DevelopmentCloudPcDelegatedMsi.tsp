@@ -174,6 +174,7 @@ interface DevelopmentCloudPcDelegatedMsis {
   "DevelopmentCloudPcDelegatedMsi properties"
 );
 #suppress "@azure-tools/typespec-azure-core/no-openapi" "For backward compatibility with the existing Swagger x-ms-client-flatten extension."
+#suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "For backward compatibility with the existing Swagger x-ms-client-flatten extension."
 @@extension(
   DevelopmentCloudPcDelegatedMsi.properties,
   "x-ms-client-flatten",

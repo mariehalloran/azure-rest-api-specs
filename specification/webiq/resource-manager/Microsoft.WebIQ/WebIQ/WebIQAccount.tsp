@@ -72,6 +72,7 @@ interface WebIQAccounts {
    * List available SKUs for the requested WebIQ account
    */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "Required for x-ms-pageable extension on custom action"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-pageable' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to @pageItems/@nextLink in first-class paging."
   @get
   @action("skus")
   @extension("x-ms-pageable", #{ nextLinkName: "nextLink" })
@@ -85,6 +86,7 @@ interface WebIQAccounts {
    * List usages for the requested WebIQ account
    */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "Required for x-ms-pageable extension on custom action"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-pageable' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to @pageItems/@nextLink in first-class paging."
   @get
   @action("usages")
   @extension("x-ms-pageable", #{ nextLinkName: "nextLink" })

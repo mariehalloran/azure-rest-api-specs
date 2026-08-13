@@ -78,6 +78,7 @@ model CloudServiceUpdate {
 /**
  * Request to check if the cloud service can be created
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CanCreateCloudServiceRequest {
   /**
    * Resource name of the saas hub resource to be created.
@@ -115,6 +116,7 @@ model MergeSourceCloudService {
 /**
  * Request to merge multiple cloud service resources into one target cloud service resource
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model MergeCloudServiceRequest {
   /**
    * List of source resources to be merged into target resource.

@@ -173,6 +173,7 @@ model ServiceConfigurationPropertiesPatch {
 /**
  * The details of the service for which credentials needs to be returned.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ListCredentialsRequest {
   /**
    * The name of the service. If not provided, the request will by pass the generation of service configuration token
@@ -289,6 +290,7 @@ model AADProfileProperties {
 /**
  * Represent ManageProxy Request object.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ManagedProxyRequest {
   /**
    * The name of the service.
@@ -324,6 +326,7 @@ model ManagedProxyResource {
 /**
  * Represent ListIngressGatewayCredentials Request object.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ListIngressGatewayCredentialsRequest {
   /**
    * The name of the service. If not provided, the request will by pass the generation of service configuration token.

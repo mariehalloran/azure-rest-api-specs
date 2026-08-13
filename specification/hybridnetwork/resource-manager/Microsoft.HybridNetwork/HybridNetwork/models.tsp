@@ -2038,6 +2038,7 @@ model HelmMappingRuleProfile {
 /**
  * The helm deployment options
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model HelmMappingRuleProfileOptions {
   /**
    * The helm deployment install options
@@ -2055,6 +2056,7 @@ model HelmMappingRuleProfileOptions {
 /**
  * The helm deployment install options
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model HelmInstallOptions {
   /**
    * The helm deployment atomic options
@@ -2075,6 +2077,7 @@ model HelmInstallOptions {
 /**
  * The helm deployment install options
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model HelmUpgradeOptions {
   /**
    * The helm deployment atomic options

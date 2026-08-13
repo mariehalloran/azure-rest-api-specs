@@ -11,8 +11,11 @@ using OpenAPI;
 
 namespace Microsoft.AzureTerraform;
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "Cannot use @armResourceOperations decorator here, the auto-generated routes do not match feature requirements"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "Cannot use @armResourceOperations decorator here, the auto-generated routes do not match feature requirements"
 #suppress "@azure-tools/typespec-azure-core/no-openapi" "TODO: migrate to LRO concepts DO NOT USE x-ms-long-running-operation-options"
+#suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation-options' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
 @doc("Exports the Terraform configuration of the specified resource(s).")
 @route("/subscriptions/{subscriptionId}/providers/Microsoft.AzureTerraform/exportTerraform")
 @post

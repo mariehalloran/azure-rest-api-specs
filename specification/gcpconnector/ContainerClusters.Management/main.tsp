@@ -1206,7 +1206,7 @@ model Operation {
   /**
    * The current status of the operation.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   status?:
     | "STATUS_UNSPECIFIED"
     | "PENDING"
@@ -2348,7 +2348,7 @@ model ReleaseChannel {
   /**
    * The release channel the cluster is subscribed to
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   channel?: "UNSPECIFIED" | "RAPID" | "REGULAR" | "STABLE" | string;
 }
 
@@ -2419,7 +2419,7 @@ model Filter {
   /**
    * Event types to include in the filter
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   eventType?: (
     | "EVENT_TYPE_UNSPECIFIED"
     | "UPGRADE_AVAILABLE_EVENT"
@@ -2476,7 +2476,7 @@ model StatusCondition {
   /**
    * Machine-readable code indicating the condition state
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   code?:
     | "UNKNOWN"
     | "GCE_STOCKOUT"
@@ -2495,7 +2495,7 @@ model StatusCondition {
   /**
    * Canonical code of the condition.
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   canonicalCode?:
     | "OK"
     | "CANCELLED"
@@ -2549,8 +2549,9 @@ model LoggingConfig {
   /**
    * Configuration of cluster logging components
    */
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   componentConfig?: {
-    #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+    #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
     enableComponents?: (
       | "COMPONENT_UNSPECIFIED"
       | "SYSTEM_COMPONENTS"
@@ -2566,8 +2567,9 @@ model MonitoringConfig {
   /**
    * Configuration of cluster monitoring components
    */
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   componentConfig?: {
-    #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+    #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
     enableComponents?: (
       | "COMPONENT_UNSPECIFIED"
       | "SYSTEM_COMPONENTS"
@@ -2618,7 +2620,7 @@ model SecurityPostureConfig {
   /**
    * Mode of the security posture
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   mode?: "MODE_UNSPECIFIED" | "BASIC" | "STANDARD" | string;
 }
 
@@ -2629,8 +2631,9 @@ model ControlPlaneEndpointsConfig {
   /**
    * Network access configuration for the control plane endpoints
    */
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   networkAccess?: {
-    #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+    #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
     accessTypes?: (
       | "ACCESS_TYPE_UNSPECIFIED"
       | "PUBLIC"
@@ -2672,7 +2675,7 @@ model EnterpriseConfig {
   /**
    * The enterprise tier level
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   enterpriseTier?:
     | "TIER_UNSPECIFIED"
     | "STANDARD"
@@ -2733,7 +2736,9 @@ model NodePoolDefaults {
   /**
    * Default node configuration for node pools
    */
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   nodeConfigDefaults?: {
+    #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
     gcfsConfig?: {
       enabled?: boolean;
     };
@@ -2802,7 +2807,7 @@ model DnsConfig {
   /**
    * DNS scope for the cluster
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   dnsScope?: "DNS_SCOPE_UNSPECIFIED" | "CLUSTER_SCOPE" | "VPC_SCOPE" | string;
 
   /**
@@ -2823,7 +2828,7 @@ model GatewayApiConfig {
   /**
    * The Gateway API release channel to subscribe to
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   channel?: "CHANNEL_UNSPECIFIED" | "RAPID" | "REGULAR" | "STABLE" | string;
 }
 
@@ -2834,7 +2839,7 @@ model ClusterNetworkPerformanceConfig {
   /**
    * Total egress bandwidth tier for the cluster
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   totalEgressBandwidthTier?: "TIER_UNSPECIFIED" | "TIER_1" | string;
 }
 
@@ -2978,7 +2983,7 @@ model GpuSharingConfig {
   /**
    * The type of GPU sharing strategy to enable on the GPU node
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   gpuSharingStrategy?:
     | "GPU_SHARING_STRATEGY_UNSPECIFIED"
     | "TIME_SHARING"
@@ -2998,7 +3003,7 @@ model GpuDriverInstallationConfig {
   /**
    * Mode for how the GPU driver is installed
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   gpuDriverVersion?:
     | "GPU_DRIVER_VERSION_UNSPECIFIED"
     | "INSTALLATION_DISABLED"
@@ -3014,7 +3019,7 @@ model WorkloadMetadataConfig {
   /**
    * Mode is the configuration for how to expose metadata to workloads running on the node pool
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   mode?: "MODE_UNSPECIFIED" | "GCE_METADATA" | "GKE_METADATA" | string;
 }
 
@@ -3036,7 +3041,7 @@ model NodeTaint {
   /**
    * Effect for taint
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   effect?:
     | "EFFECT_UNSPECIFIED"
     | "NO_SCHEDULE"
@@ -3052,7 +3057,7 @@ model SandboxConfig {
   /**
    * Type of the sandbox to use for the node
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   type?: "UNSPECIFIED" | "GVISOR" | string;
 }
 
@@ -3063,7 +3068,7 @@ model ReservationAffinity {
   /**
    * Corresponds to the type of reservation consumption
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   consumeReservationType?:
     | "UNSPECIFIED"
     | "NO_RESERVATION"
@@ -3111,7 +3116,7 @@ model LinuxNodeConfig {
   /**
    * cgroup_mode specifies the cgroup mode to be used on the node
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   cgroupMode?:
     | "CGROUP_MODE_UNSPECIFIED"
     | "CGROUP_MODE_V1"
@@ -3201,7 +3206,7 @@ model LoggingVariantConfig {
   /**
    * Logging variant deployed on nodes
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   variant?: "VARIANT_UNSPECIFIED" | "DEFAULT" | "MAX_THROUGHPUT" | string;
 }
 
@@ -3212,7 +3217,7 @@ model WindowsNodeConfig {
   /**
    * OSVersion specifies the Windows node config to be used on the node
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   osVersion?:
     | "OS_VERSION_UNSPECIFIED"
     | "OS_VERSION_LTSC2019"
@@ -3264,7 +3269,7 @@ model NodeAffinity {
   /**
    * Operator for NodeAffinity
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   operator?: "OPERATOR_UNSPECIFIED" | "IN" | "NOT_IN" | string;
 
   /**
@@ -3357,7 +3362,7 @@ model SecondaryBootDisk {
   /**
    * Disk boot mode
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   mode?: "MODE_UNSPECIFIED" | "CONTAINER_IMAGE_CACHE" | string;
 }
 
@@ -3378,7 +3383,7 @@ model SecondaryBootDiskUpdateStrategy {
   /**
    * Update strategy for secondary boot disks
    */
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   strategy?: "STRATEGY_UNSPECIFIED" | string;
 }
 

@@ -12,6 +12,7 @@ using Azure.ResourceManager;
 namespace Microsoft.Offers;
 
 /** Request body for looking up an enumeration set by its type key. */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model LookupEnumerationRequest {
   /** The enumeration type key (for example, `categories`, `productFamilies`, `claimTypes`). */
   @maxLength(64)
