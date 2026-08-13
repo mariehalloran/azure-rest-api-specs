@@ -2726,8 +2726,8 @@ model TransferToPartnerRequest {
 /**
  * Request model for ValidateAddOnEligibility operation.
  */
-@added(SaaSHubVersions.v2026_03_31_preview)
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@added(SaaSHubVersions.v2026_03_31_preview)
 model ValidateAddOnEligibilityRequest {
   /**
    * List of add-ons to evaluate for eligibility.
@@ -2770,8 +2770,8 @@ model ValidateAddOnEligibilityRequest {
 /**
  * Add-on request for ValidateAddOnEligibility operation.
  */
-@added(SaaSHubVersions.v2026_03_31_preview)
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@added(SaaSHubVersions.v2026_03_31_preview)
 model ValidateAddOnEligibilityAddOnRequest {
   /**
    * GUID representing productId, skuId, termDuration, billingPlan combination.
@@ -2830,8 +2830,8 @@ model ValidateAddOnEligibilityCartProduct {
 /**
  * Response model for ValidateAddOnEligibility operation with pagination support.
  */
-@added(SaaSHubVersions.v2026_03_31_preview)
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@added(SaaSHubVersions.v2026_03_31_preview)
 model ValidateAddOnEligibilityResponse
   is Azure.Core.Page<ValidateAddOnEligibilityAddOnResult>;
 
@@ -3220,8 +3220,8 @@ model ValidateFuturePriceEligibilityRequestMetadata {
 /**
  * Request model for ValidateRenewalPricingEligibility operation.
  */
-@added(SaaSHubVersions.v2026_03_31_preview)
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@added(SaaSHubVersions.v2026_03_31_preview)
 model ValidateRenewalPricingEligibilityRequest {
   /**
    * Purchase line items in the customer's quote, cart or order to evaluate for
@@ -3307,8 +3307,8 @@ model RenewalPricingPurchaseLineItem {
 /**
  * Response model for ValidateRenewalPricingEligibility operation with pagination support.
  */
-@added(SaaSHubVersions.v2026_03_31_preview)
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@added(SaaSHubVersions.v2026_03_31_preview)
 model ValidateRenewalPricingEligibilityResponse
   is Azure.Core.Page<ValidateRenewalPricingEligibilityLineItemResult>;
 
