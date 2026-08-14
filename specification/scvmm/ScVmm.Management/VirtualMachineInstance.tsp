@@ -63,6 +63,7 @@ interface VirtualMachineInstances {
   createOrUpdate is ArmResourceCreateOrUpdateAsync<VirtualMachineInstance>;
   /** The operation to update a virtual machine instance. */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "TODO migrate to LRO"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation-options' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @summary("Updates a virtual machine.")
   @extension(
     "x-ms-long-running-operation-options",
@@ -74,6 +75,7 @@ interface VirtualMachineInstances {
   >;
   /** The operation to delete a virtual machine instance. */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "TODO migrate to LRO"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation-options' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @summary("Deletes an virtual machine.")
   @extension(
     "x-ms-long-running-operation-options",

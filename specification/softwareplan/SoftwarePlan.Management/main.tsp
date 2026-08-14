@@ -123,6 +123,7 @@ interface SoftwareLicenseProductDownloadOptions {
 interface SoftwareBillingSubscriptions {
   /** List SoftwareBillingSubscription resources by BillingAccount */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "Using x-ms-pageable extensions for proper OpenAPI generation"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-pageable' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to @pageItems/@nextLink in first-class paging."
   @tag("SoftwareBillingSubscriptions")
   @route("/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/providers/Microsoft.SoftwarePlan/softwareBillingSubscriptions")
   @get
@@ -237,6 +238,7 @@ interface Amendments {
 
   /** List Amendment resources by billing account */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "Using x-ms-pageable and x-ms-odata extensions for proper OpenAPI generation"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-pageable' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to @pageItems/@nextLink in first-class paging."
   @tag("Amendments")
   @route("/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/providers/Microsoft.SoftwarePlan/amendments")
   @get
@@ -302,6 +304,7 @@ interface ProductDownloadOptions {
 interface LicenseSummary {
   /** List LicenseSummary resources by BillingAccount ID */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "Using x-ms-pageable and x-ms-odata extensions for proper OpenAPI generation"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-pageable' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to @pageItems/@nextLink in first-class paging."
   @tag("LicenseSummary")
   @route("/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/providers/Microsoft.SoftwarePlan/licenseSummary/default")
   @get

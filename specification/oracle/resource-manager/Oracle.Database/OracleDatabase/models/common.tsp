@@ -139,6 +139,7 @@ union ValidationStatus {
   string,
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("DataCollectionOptions resource properties")
 model DataCollectionOptions {
   @doc("Indicates whether diagnostic collection is enabled for the VM cluster/Cloud VM cluster/VMBM DBCS.")

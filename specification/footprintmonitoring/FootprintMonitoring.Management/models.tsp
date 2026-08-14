@@ -138,6 +138,7 @@ model ResourceProviderOperationDisplay {
 /**
  * The base response with an error.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @error
 model DefaultErrorResponse {
   /**
@@ -240,6 +241,7 @@ model SubResource {
  * An Azure resource.
  */
 #suppress "@azure-tools/typespec-azure-core/no-openapi" ""
+#suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" ""
 @OpenAPI.extension("x-ms-azure-resource", true)
 model Resource {
   /**

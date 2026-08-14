@@ -16,6 +16,7 @@ using Azure.ResourceManager.CommonTypes;
 
 namespace Microsoft.Edge;
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Remove Version response")
 model RemoveVersionResponse {
   @doc("Status for remove version response")

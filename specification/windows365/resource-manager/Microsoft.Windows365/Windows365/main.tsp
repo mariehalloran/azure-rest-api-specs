@@ -32,8 +32,7 @@ enum Versions {
 
 /** Resource provider operations. */
 interface Operations {
-  #suppress "@azure-tools/typespec-azure-core/no-private-usage" "For backward compatibility with the existing operations route shape."
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "For backward compatibility with the existing operations route shape."
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "For backward compatibility with the existing operations route shape."
   @tag("Operations")
   @autoRoute
   @doc("Lists all of the available resource provider operations.")

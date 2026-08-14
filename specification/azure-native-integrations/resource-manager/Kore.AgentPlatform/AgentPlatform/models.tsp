@@ -334,6 +334,7 @@ model WorkspaceSaaSData {
 
 /** SaaS guid & PublisherId for Activate and Validate SaaS Resource. */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model ActivateSaaSParameterRequest {
   /** SaaS subscription identifier (GUID) issued by the Azure Marketplace fulfillment API. */
   @pattern("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
@@ -346,6 +347,7 @@ model ActivateSaaSParameterRequest {
 /** Marketplace SaaS resource details. */
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Using extends for proxy resource model"
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model SaaSResourceDetailsResponse
   extends Azure.ResourceManager.CommonTypes.ProxyResource {
   /** SaaS subscription identifier (GUID) issued by the Azure Marketplace fulfillment API for the activated SaaS resource. */
@@ -370,6 +372,7 @@ model LinkedSaaSItem {
 
 /** Response containing the list of SaaS resources linked to the Organization. */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model LinkedSaaSListResponse {
   /** List of SaaS resources linked to this Organization. */
   @identifiers(#["saaSResourceId"])
@@ -393,6 +396,7 @@ model WorkspaceLinkedSaaSItem {
 
 /** Response containing the list of SaaS resources linked to the Workspace. */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS abbreviation."
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model WorkspaceLinkedSaaSListResponse {
   /** List of SaaS resources linked to this Workspace. */
   @identifiers(#["saaSResourceId"])

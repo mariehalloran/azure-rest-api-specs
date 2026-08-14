@@ -604,6 +604,7 @@ model CommonPostActionResponseForStateUpdate extends CommonErrorResponse {
 }
 
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Extending common error response"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The response of the action validate configuration.")
 model ValidateConfigurationResponse extends CommonErrorResponse {
   @doc("Gets the configuration state.")
@@ -1395,6 +1396,7 @@ model BmpExportPolicyPatchProperties {
   exportPolicies?: BmpExportPolicy[];
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Update Administrative State Response.")
 @added(Versions.v2025_07_15)
 model UpdateAdministrativeStateResponse {
@@ -1589,6 +1591,7 @@ model ValidationCheckOverride {
   justification?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request properties for the runValidation action.")
 @added(Versions.v2026_07_15_preview)
 model RunValidationRequest {
@@ -1840,6 +1843,7 @@ model ValidationCheckResult {
   impactedResources?: Azure.Core.armResourceIdentifier[];
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request properties for the Network Fabric runValidation action. Extends the common request with fabric-only device scoping.")
 @added(Versions.v2026_07_15_preview)
 model NetworkFabricRunValidationRequest {
@@ -1853,6 +1857,7 @@ model NetworkFabricRunValidationRequest {
   ]>[];
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The response of the Network Fabric runValidation action.")
 @added(Versions.v2026_07_15_preview)
 model NetworkFabricRunValidationResponse {
@@ -1884,10 +1889,12 @@ model NetworkFabricRunValidationResponseProperties {
   ]>[];
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request properties for the Network Device runValidation action. Kept as a distinct type so device runValidation can evolve independently of the fabric.")
 @added(Versions.v2026_07_15_preview)
 model NetworkDeviceRunValidationRequest is RunValidationRequest;
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The response of the Network Device runValidation action.")
 @added(Versions.v2026_07_15_preview)
 model NetworkDeviceRunValidationResponse {
@@ -1906,6 +1913,7 @@ model NetworkDeviceRunValidationResponseProperties
  * The error message.
  */
 #suppress "@azure-tools/typespec-azure-core/no-private-usage" "Extending Resource Manager error response"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @Azure.ResourceManager.CommonTypes.Private.armCommonDefinition(
   "ErrorResponse",
   Azure.ResourceManager.CommonTypes.Versions.v5

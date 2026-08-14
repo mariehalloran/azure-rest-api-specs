@@ -155,6 +155,7 @@ union MccIssueType {
   string,
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @removed(Versions.v2024_11_30_preview)
 @doc("Model representing Cache Node for ConnectedCache resource")
 model CacheNodeOldResponse {

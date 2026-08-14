@@ -328,6 +328,7 @@ union DbSystemSourceType {
   string,
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v20250701_preview)
 @doc("DbSystemOptions resource properties.")
 model DbSystemOptions {

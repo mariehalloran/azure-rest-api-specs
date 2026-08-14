@@ -1001,6 +1001,7 @@ model AgentPoolProvisioningStatusStatus {
 /**
  * The list kubeconfig result response.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ListCredentialResponse {
   /**
    * Operation Id

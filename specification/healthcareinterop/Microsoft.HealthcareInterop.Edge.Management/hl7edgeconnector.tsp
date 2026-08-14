@@ -29,6 +29,7 @@ model Hl7EdgeConnector is TrackedResource<Hl7EdgeConnectorProperties> {
 
 @doc("Hl7EdgeConnector properties")
 model Hl7EdgeConnectorProperties {
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   @doc("The Receiver Configuration to be used for hl7 connector configuration.")
   receiver?: {
     @doc("Settings used to customize how HL7 messages are read.")
@@ -41,6 +42,7 @@ model Hl7EdgeConnectorProperties {
     @doc("The resource requirements for the application (CPU, Memory, and Storage).")
     requirements?: Requirements;
 
+    #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
     @doc("The Storage Endpoint Configuration to be used for hl7 connector configuration.")
     @visibility(Lifecycle.Create, Lifecycle.Read, Lifecycle.Update)
     storageEndpointConfiguration: {

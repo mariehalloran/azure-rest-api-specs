@@ -50,6 +50,7 @@ model FetchingLimits {
 }
 
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request of DataPreview")
 model DataPreviewRequest {
   @doc("DataPreview properties")

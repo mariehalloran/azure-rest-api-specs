@@ -51,6 +51,7 @@ union ApprovalDeletionCallbackResourceRequestAction {
   Update: "Update",
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request body for calling post-action")
 model ApprovalCallbackRequest {
   @removed(Microsoft.Mission.Versions.v2024_12_01_preview)
@@ -69,6 +70,7 @@ model ApprovalCallbackRequest {
 }
 
 // Define a model for the approval initator callback request
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request body for calling post-action")
 model ApprovalActionRequest {
   @doc("Approval status indicating 'Approved' or 'Rejected'")
@@ -76,12 +78,14 @@ model ApprovalActionRequest {
 }
 
 // Define a model for the approval initator callback response
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Response body after handling of approvalCallbackRequest")
 model ApprovalActionResponse {
   @doc("Confirmation message indicating the result of the operation.")
   message: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request body for calling post-action")
 model ApprovalDeletionCallbackRequest {
   @doc("Resource request action indicating action which needed to be performed upon calling approval-deletion-callback post action")

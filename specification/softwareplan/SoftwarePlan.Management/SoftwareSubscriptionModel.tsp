@@ -28,6 +28,7 @@ model ExpandSoftwareSubscriptionQueryParameter {
 }
 
 /** SoftwareSubscription update request */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SoftwareSubscriptionUpdateRequest {
   /** SoftwareSubscription properties to be updated */
   properties: SoftwareSubscriptionUpdateProperties;
@@ -250,6 +251,7 @@ model OperationResult {
   status: OperationResultStatus;
 
   /** Properties associated with the operation result. */
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   properties: {
     /** Resource ID related to the operation result. */
     resourceId: string;
@@ -361,6 +363,7 @@ model ListProductKeysParameters {
 }
 
 /** List Product Keys Response */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ListProductKeysResponse {
   /** Array of product keys */
   value: ProductKey[];
@@ -417,6 +420,7 @@ model ProductDownloadOption is ProxyResource<ProductDownloadOptionProperties> {
 }
 
 /** List ProductDownloadOptions Response */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ListProductDownloadOptionsResponse {
   /** Array of product download options */
   value: ProductDownloadOption[];
@@ -436,6 +440,7 @@ model DownloadLinkItem {
 }
 
 /** GenerateDownloadLinks Response */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model GenerateDownloadLinksResponse {
   /** Array of download link items */
   @identifiers(#["fileName"])

@@ -592,6 +592,7 @@ model SignupErrorDetails {
   error?: SignupError;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The response from tenant creation containing provisioning state and tenant details.")
 model SignupEntityResponse {
   @doc("The provisioning state of the tenant creation.")

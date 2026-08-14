@@ -381,6 +381,7 @@ union SSOStatus {
 /**
  * Request for getting log status for given monitored resource Ids
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model LogStatusRequest {
   /**
    * List of azure resource Id of monitored resources for which we get the log status
@@ -391,6 +392,7 @@ model LogStatusRequest {
 /**
  * List of all the resources being monitored by Dynatrace monitor resource
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model MonitoredResourceListResponse is Azure.Core.Page<MonitoredResource>;
 
 /**
@@ -562,6 +564,7 @@ model MetricRules {
 /**
  * Dynatrace resource can be created or not.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CreateResourceSupportedResponse {
   /**
    * Represents the properties of the resource.
@@ -626,6 +629,7 @@ union MonitoredComputeResourceType {
 /**
  * Request body for listing monitored compute resources. If not provided, returns all monitored compute resources.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Dynatrace.Observability.Versions.v2025_11_03_preview)
 model MonitoredComputeResourcesRequest {
   /**
@@ -637,6 +641,7 @@ model MonitoredComputeResourcesRequest {
 /**
  * Response of a list operation for monitored compute resources.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Dynatrace.Observability.Versions.v2025_11_03_preview)
 model MonitoredComputeResourceListResponse
   is Azure.Core.Page<MonitoredComputeResourceInfo> {
@@ -670,6 +675,7 @@ model MonitoredComputeResourceInfo {
 /**
  * Request for performing Dynatrace agent install/uninstall action through the Azure Dynatrace resource on the provided list of agent resources.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ManageAgentInstallationRequest {
   /**
    * The list of resources.
@@ -685,6 +691,7 @@ model ManageAgentInstallationRequest {
 /**
  * Request for adding/removing Dynatrace MCP connectors on SRE Agent resource.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Dynatrace.Observability.Versions.v2025_11_03_preview)
 model SreAgentConnectorRequest {
   /**
@@ -805,6 +812,7 @@ model DynatraceEnvironmentProperties {
 /**
  * Response of a list operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Dynatrace.Observability.Versions.v2025_11_03_preview)
 model SreAgentConfigurationListResponse
   is Azure.Core.Page<SreAgentConfiguration>;
@@ -1084,6 +1092,7 @@ model OperationDisplay {
 /**
  * Request for getting connected resources count for a Marketplace Subscription Id
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model MarketplaceSubscriptionIdRequest {
   /**
    * Marketplace Subscription Id
@@ -1094,6 +1103,7 @@ model MarketplaceSubscriptionIdRequest {
 /**
  * Response for getting Connected resources for a MP SaaS Resource
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ConnectedResourcesCountResponse {
   /**
    * Count of the connected resources
@@ -1105,6 +1115,7 @@ model ConnectedResourcesCountResponse {
  * Request for getting Marketplace SaaS resource details for a tenant Id
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model MarketplaceSaaSResourceDetailsRequest {
   /**
    * Tenant Id
@@ -1116,6 +1127,7 @@ model MarketplaceSaaSResourceDetailsRequest {
  * Marketplace SaaS resource details linked to the given tenant Id
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model MarketplaceSaaSResourceDetailsResponse {
   /**
    * Id of the Marketplace SaaS Resource
@@ -1148,6 +1160,7 @@ model MarketplaceSaaSResourceDetailsResponse {
  * Response of a list VM Host Operation.
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model VMHostsListResponse is Azure.Core.Page<VMInfo>;
 
 /**
@@ -1203,6 +1216,7 @@ model VMInfo {
 /**
  * Request for getting metric status for given monitored resource Ids
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model MetricStatusRequest {
   /**
    * List of azure resource Id of monitored resources for which we get the metric status
@@ -1213,6 +1227,7 @@ model MetricStatusRequest {
 /**
  * Response of get metrics status operation
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model MetricsStatusResponse {
   /**
    * Azure resource IDs
@@ -1223,6 +1238,7 @@ model MetricsStatusResponse {
 /**
  * Response of a list App Services Operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model AppServiceListResponse is Azure.Core.Page<AppServiceInfo>;
 
 /**
@@ -1278,6 +1294,7 @@ model AppServiceInfo {
 /**
  * The billing plan properties for the upgrade plan call.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model UpgradePlanRequest {
   /**
    * The new Billing plan information.
@@ -1289,6 +1306,7 @@ model UpgradePlanRequest {
  * Request for getting sso details for a user
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SSODetailsRequest {
   /**
    * user principal id of the user
@@ -1300,6 +1318,7 @@ model SSODetailsRequest {
  * SSO details from the Dynatrace partner
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SSODetailsResponse {
   /**
    * Whether the SSO is enabled for this resource or not.
@@ -1332,6 +1351,7 @@ model SSODetailsResponse {
 /**
  * Request for getting all the linkable environments for a user
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model LinkableEnvironmentRequest {
   /**
    * Tenant Id of the user in which they want to link the environment
@@ -1352,12 +1372,14 @@ model LinkableEnvironmentRequest {
 /**
  * Response for getting all the linkable environments
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model LinkableEnvironmentListResponse
   is Azure.Core.Page<LinkableEnvironmentResponse>;
 
 /**
  * Response for getting all the linkable environments
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model LinkableEnvironmentResponse {
   /**
    * environment id for which user is an admin
@@ -1379,6 +1401,7 @@ model LinkableEnvironmentResponse {
  * SaaS guid for activate and Validate SaaS Resource
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is the standard abbreviation for Software as a Service"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Dynatrace.Observability.Versions.v2026_01_07_preview)
 model ActivateSaaSParameterRequest {
   /**
@@ -1445,6 +1468,7 @@ model AdminUserDetails {
  * Response of get latest linked SaaS resource operation
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is the standard abbreviation for Software as a Service"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Dynatrace.Observability.Versions.v2026_01_07_preview)
 model LatestLinkedSaaSResponse {
   /**
@@ -1477,6 +1501,7 @@ model SaaSData {
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is the standard abbreviation for Software as a Service"
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Using extends for proxy resource model"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Dynatrace.Observability.Versions.v2026_01_07_preview)
 model SaaSResourceDetailsResponse
   extends Azure.ResourceManager.Foundations.ProxyResource {
