@@ -583,3 +583,234 @@ model InstanceLevelPublicIp {
   @visibility(Lifecycle.Create, Lifecycle.Read)
   ipVersion?: IpVersion;
 }
+
+// --- Deployment models ----------------------------------------------
+
+@doc("The kind of a component. Fixed at create and immutable for the component's life; every revision under the component inherits it.")
+union ComponentKind {
+  @doc("The component carries deployable code.")
+  Code: "Code",
+
+  @doc("The component carries a configuration feature.")
+  Config: "Config",
+
+  string,
+}
+
+@doc("How many revisions of one component may be concurrently active in an environment.")
+union ActiveRevisionsMode {
+  @doc("At most one revision of this component is active per partition at a time. The natural shape for traditional SDP rollout.")
+  Single: "Single",
+
+  @doc("Several revisions of this component may be concurrently active environment-wide, with an external mechanism routing traffic across them.")
+  Multiple: "Multiple",
+
+  string,
+}
+
+@doc("Per-component, per-instance apply outcome.")
+union ApplyState {
+  @doc("The apply has not started on this instance.")
+  Pending: "Pending",
+
+  @doc("The apply is in progress on this instance.")
+  InProgress: "InProgress",
+
+  @doc("The apply succeeded on this instance.")
+  Succeeded: "Succeeded",
+
+  @doc("The apply failed on this instance.")
+  Failed: "Failed",
+
+  string,
+}
+
+@doc("Apply outcome rolled up across every component on every instance in the environment.")
+union AggregateApplyState {
+  @doc("No component has begun applying on any instance.")
+  Pending: "Pending",
+
+  @doc("At least one component and instance pair is still applying.")
+  InProgress: "InProgress",
+
+  @doc("Every component on every instance has succeeded.")
+  Succeeded: "Succeeded",
+
+  @doc("Some component and instance pairs failed while others succeeded.")
+  PartiallyFailed: "PartiallyFailed",
+
+  @doc("Every component and instance pair failed.")
+  Failed: "Failed",
+
+  string,
+}
+
+@doc("Whether the active revision's declared images are present in the registry the instance pulls from. Reported by the image-distribution component, not by the apply agents, and excluded from the aggregate apply rollup.")
+union ImageDistributionState {
+  @doc("Distribution has not started.")
+  Pending: "Pending",
+
+  @doc("Distribution is in progress.")
+  InProgress: "InProgress",
+
+  @doc("The declared images are present in the target registry.")
+  Ready: "Ready",
+
+  @doc("Distribution failed.")
+  Failed: "Failed",
+
+  string,
+}
+
+@doc("The provisioning state of a Deployment resource. This tracks the ARM write lifecycle of the deployment resource itself and is distinct from status.aggregateApplyState, which reports the observed workload apply outcome across the environment's instances.")
+union CosmicDeployingState {
+  ResourceProvisioningState,
+
+  @doc("The deployment write has been accepted and queued for reconciliation.")
+  Accepted: "Accepted",
+
+  @doc("The RP is applying the requested component revisions to the environment's realized instances.")
+  Deploying: "Deploying",
+
+  @doc("The RP is removing the workload from the environment's realized instances following a delete.")
+  Undeploying: "Undeploying",
+
+  string,
+}
+
+@doc("A digest-pinned container image reference declared on a revision.")
+model ImageReference {
+  @doc("Digest-pinned container image reference in the form registry/repository@sha256 followed by 64 hex characters. Tag-only and version-only references are rejected.")
+  @pattern("^[a-zA-Z0-9]([a-zA-Z0-9._-]*[a-zA-Z0-9])?(:[0-9]+)?(/[a-zA-Z0-9]([a-zA-Z0-9._-]*[a-zA-Z0-9])?)+@sha256:[0-9a-f]{64}$")
+  @minLength(1)
+  reference: string;
+}
+
+@doc("Source metadata describing where a revision came from. Creation time and identity are not repeated here - they are carried by the resource's standard ARM systemData envelope.")
+model RevisionProvenance {
+  @doc("The orchestrator or automation that published this revision.")
+  source?: string;
+
+  @doc("Source commit hash the artifact was built from.")
+  commitHash?: string;
+
+  @doc("Name of the earliest existing revision under the same component carrying the same artifact digest. Set by the RP when a revision is created under a new name with an already-seen digest, so retention automation and dashboards can collapse duplicates.")
+  @visibility(Lifecycle.Read)
+  duplicateOfRevisionName?: string;
+}
+
+@doc("The referential state of a revision.")
+model RevisionStatus {
+  @doc("True when this revision is referenced by the deployment resource of at least one environment under the namespace. The RP updates this flag as deployment references change, so it is eventually consistent and a read taken immediately after a deployment write may briefly lag. Deletion guards do not rely on it: a referenced revision cannot be deleted because references are evaluated live at delete time. Cross-environment breadth is answered by Azure Resource Graph over the deployment resources rather than by this field.")
+  @visibility(Lifecycle.Read)
+  referenced?: boolean;
+}
+
+@doc("The name of a revision under a component. Shared by every property that points at a revision so the accepted name shape cannot drift between Single-mode and Multiple-mode intent.")
+@pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
+@minLength(1)
+@maxLength(63)
+scalar RevisionName extends string;
+
+@doc("Active-revision intent for one component in one environment.")
+model ComponentState {
+  @doc("The component name, matching a component under the same namespace. Always required; there is no implicit default component.")
+  @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
+  @minLength(1)
+  @maxLength(63)
+  component: string;
+
+  @doc("How many revisions of this component may be concurrently active, chosen independently per component. Defaults to Single.")
+  activeRevisionsMode?: ActiveRevisionsMode = ActiveRevisionsMode.Single;
+
+  @doc("Per-partition active-revision pointers for this component, used when it is in Single mode. The RP auto-populates one entry per realized partition of the parent environment, each initially with no active revision.")
+  @identifiers(#["region", "partition"])
+  partitionTargets?: PartitionTarget[];
+
+  @doc("Environment-wide list of this component's revision names currently active, used when it is in Multiple mode.")
+  activeRevisions?: RevisionName[];
+}
+
+@doc("Active-revision pointer for one component in one partition. The region and partition pair identifies the partition, matching the identity the provisioning side uses; the entry applies to every realized instance of that partition.")
+model PartitionTarget {
+  @doc("Canonical Azure region of the partition, matching a location declared in the parent environment's capacity and the region of the corresponding realization.")
+  @minLength(1)
+  region: string;
+
+  @doc("Partition label declared under that region in the parent environment's capacity.")
+  @pattern("^[a-z0-9]([-a-z0-9]*[a-z0-9])?$")
+  @minLength(1)
+  @maxLength(24)
+  partition: string;
+
+  @doc("Name of this component's active revision for this partition. Absent when no revision is active yet, which is how auto-populated entries start.")
+  activeRevisionName?: RevisionName;
+}
+
+@doc("Observed apply outcome for an environment's deployment, correlated to the environment's realizations by instance identifier.")
+model DeploymentStatus {
+  @doc("Apply outcome rolled up across every component on every instance.")
+  @visibility(Lifecycle.Read)
+  aggregateApplyState?: AggregateApplyState;
+
+  @doc("Most recent transition timestamp across all instances and components.")
+  @visibility(Lifecycle.Read)
+  lastTransitionAt?: utcDateTime;
+
+  @doc("Per-instance apply outcomes, flattened environment-wide so per-revision outcome can be filtered and counted without traversing realizations.")
+  @visibility(Lifecycle.Read)
+  @identifiers(#["id"])
+  instances?: DeploymentInstanceStatus[];
+}
+
+@doc("Apply outcome for every component on one realized instance.")
+model DeploymentInstanceStatus {
+  @doc("Opaque instance identifier, matching an instance identifier in the parent environment's realization status.")
+  id: string;
+
+  @doc("Canonical Azure region of the realization containing this instance.")
+  region: string;
+
+  @doc("Partition label of this instance.")
+  partition: string;
+
+  @doc("Per-component apply outcome on this instance.")
+  @identifiers(#["component"])
+  components?: DeploymentComponentStatus[];
+}
+
+@doc("Apply outcome for one component on one instance.")
+model DeploymentComponentStatus {
+  @doc("The component name.")
+  component: string;
+
+  @doc("Currently applied revision of this component on this instance. Absent when no revision is applied.")
+  appliedRevisionName?: string;
+
+  @doc("Additional revisions of this component co-resident on this instance. Populated only when the component is in Multiple mode.")
+  additionalAppliedRevisions?: string[];
+
+  @doc("Whether the active revision's declared images are present in the registry this instance pulls from. Omitted when the active revision declares no images.")
+  imageDistributionState?: ImageDistributionState;
+
+  @doc("Error detail for the most recent image-distribution failure. Present only when imageDistributionState is Failed.")
+  imageDistributionError?: DeploymentErrorDetail;
+
+  @doc("Apply outcome for this component on this instance.")
+  applyState?: ApplyState;
+
+  @doc("Timestamp of the most recent apply-state transition for this component on this instance.")
+  lastTransitionAt?: utcDateTime;
+
+  @doc("Error detail for the most recent apply failure. Present only when applyState is Failed.")
+  error?: DeploymentErrorDetail;
+}
+
+@doc("Error detail reported against a deployment apply or image-distribution outcome.")
+model DeploymentErrorDetail {
+  @doc("Machine-readable error code.")
+  code?: string;
+
+  @doc("Human-readable error message.")
+  message?: string;
+}
