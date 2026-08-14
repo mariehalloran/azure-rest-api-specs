@@ -8,6 +8,7 @@ import "./SharedModels.tsp";
 
 using Azure.ResourceManager;
 using TypeSpec.Versioning;
+using TypeSpec.Rest;
 
 namespace Microsoft.SaaSHub;
 /**
@@ -86,6 +87,19 @@ interface SaasResources {
   >;
 
   /**
+   * Evaluates whether one or more source SaaS resources can be cancelled or have seats reduced into the target SaaS resource.
+   * The resource name in the URL is the anchored target resource.
+   * Only available starting in API version 2026-03-31-preview.
+   */
+  @added(SaaSHubVersions.v2026_03_31_preview)
+  canCancelOrReduceSeatsForIncludedResources is ArmResourceActionSync<
+    SaasResource,
+    Microsoft.SaaSHub.ManyToOneUpgradeRequest,
+    Microsoft.SaaSHub.CanCancelOrReduceSeatsForIncludedResourcesResult,
+    BaseParameters = ApiVersionParameter
+  >;
+
+  /**
    * Evaluates whether the request payload can update an existing Saas resource.
    */
   canUpdate is ArmResourceActionSync<
@@ -128,6 +142,19 @@ interface SaasResources {
   >;
 
   /**
+   * Consolidates one or more source SaaS resources into the target SaaS resource.
+   * The resource name in the URL is the anchored target resource.
+   * Only available starting in API version 2026-03-31-preview.
+   */
+  @added(SaaSHubVersions.v2026_03_31_preview)
+  cancelOrReduceSeatsForIncludedResources is ArmResourceActionAsync<
+    SaasResource,
+    Microsoft.SaaSHub.ManyToOneUpgradeRequest,
+    Microsoft.SaaSHub.ManyToOneUpgradeResponse,
+    BaseParameters = ApiVersionParameter
+  >;
+
+  /**
    * Gets the refundable quantity for a SaaSHub Saas resource.
    * Only available in API version 2025-07-01-preview.
    */
@@ -159,12 +186,20 @@ interface SaasResources {
   "Request parameters that are provided to the merge SaaSHub Saas resource operation."
 );
 @@doc(
+  SaasResources.canCancelOrReduceSeatsForIncludedResources::parameters.body,
+  "Request parameters that are provided to the can cancel-or-reduce-seats SaaSHub Saas resource operation."
+);
+@@doc(
   SaasResources.canUpdate::parameters.body,
   "Request parameters that are provided to the update SaaSHub Saas resource operation."
 );
 @@doc(
   SaasResources.merge::parameters.body,
   "Request parameters that are provided to the merge SaaSHub Saas resource operation."
+);
+@@doc(
+  SaasResources.cancelOrReduceSeatsForIncludedResources::parameters.body,
+  "Request parameters that are provided to the cancel-or-reduce-seats SaaSHub Saas resource operation."
 );
 @@doc(
   SaasResources.refundableQuantity,
