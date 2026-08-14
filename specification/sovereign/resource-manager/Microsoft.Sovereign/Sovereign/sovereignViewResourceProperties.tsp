@@ -473,8 +473,8 @@ model SovereignViewComplianceDetailResource {
   resourceId: armResourceIdentifier;
 
   @added(Versions.Preview20260731)
-  @doc("The fully qualified Azure Resource Manager ID of the resource that directly contains this resource. For a resource nested under a parent resource, this is the parent resource's ID. For a top-level resource that has no parent resource, this is the ID of the containing scope, such as the resource group.")
-  parentResourceId: armResourceIdentifier;
+  @doc("The fully qualified Azure Resource Manager ID of the parent resource. When a resource is created as part of another Azure resource's creation and its lifecycle is managed by the platform, this is the ID of that parent resource. For a top-level resource that has no parent resource, this is empty.")
+  parentResourceId?: armResourceIdentifier;
 
   @doc("The location of the resource.")
   location: string;
