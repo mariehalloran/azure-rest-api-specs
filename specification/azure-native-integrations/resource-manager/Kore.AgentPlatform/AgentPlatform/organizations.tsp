@@ -66,7 +66,13 @@ interface Organizations {
   /** List Organizations in a Subscription. */
   listBySubscription is ArmListBySubscription<OrganizationResource>;
 
-  /** Lists all Workspaces in the Kore Organization, including Workspaces not managed through Liftr. */
+  /**
+   * Lists all Workspaces in the Kore Organization, including Workspaces not managed through Liftr.
+   *
+   * This discovery operation uses POST because its response combines ARM-tracked
+   * Workspaces with Kore-only Workspaces that have no ARM resource ID and cannot
+   * be represented by the standard Workspaces collection GET.
+   */
   @added(Versions.v2026_07_01_preview)
   listWorkspaces is ArmResourceActionSync<
     OrganizationResource,
