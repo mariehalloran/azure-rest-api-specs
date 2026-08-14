@@ -1428,12 +1428,12 @@
       "properties": {
         "principalId": {
           "type": "string",
-          "description": "The AAD principal ID of the Managed Identity.",
+          "description": "The Microsoft Entra ID principal ID of the managed identity.",
           "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
         },
         "tenantId": {
           "type": "string",
-          "description": "The AAD tenant ID of the Managed Identity.",
+          "description": "The Microsoft Entra tenant ID of the managed identity.",
           "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
         },
         "permission": {
@@ -2733,11 +2733,6 @@
             ]
           }
         },
-        "creationTime": {
-          "type": "string",
-          "description": "System-generated creation time for the Storage Connector. Not a valid input parameter when creating.",
-          "readOnly": true
-        },
         "description": {
           "type": "string",
           "description": "Arbitrary description of this Storage Connector. Max 250 characters.",
@@ -3036,45 +3031,45 @@
       "type": "string",
       "description": "The type of the backing data source.",
       "enum": [
-        "NetApp_ONTAP",
-        "Azure_NetApp_Files",
-        "Dell_OneFS",
-        "AWS_S3",
-        "S3_Compatible",
-        "Azure_DataShare"
+        "NetAppOntap",
+        "AzureNetAppFiles",
+        "DellOneFs",
+        "AwsS3",
+        "S3Compatible",
+        "AzureDataShare"
       ],
       "x-ms-enum": {
         "name": "DataSourceType",
         "modelAsString": true,
         "values": [
           {
-            "name": "NetApp_ONTAP",
-            "value": "NetApp_ONTAP",
+            "name": "NetAppOntap",
+            "value": "NetAppOntap",
             "description": "NetApp ONTAP data source type."
           },
           {
-            "name": "Azure_NetApp_Files",
-            "value": "Azure_NetApp_Files",
+            "name": "AzureNetAppFiles",
+            "value": "AzureNetAppFiles",
             "description": "Azure NetApp Files data source type."
           },
           {
-            "name": "Dell_OneFS",
-            "value": "Dell_OneFS",
+            "name": "DellOneFs",
+            "value": "DellOneFs",
             "description": "Dell OneFS data source type."
           },
           {
-            "name": "AWS_S3",
-            "value": "AWS_S3",
+            "name": "AwsS3",
+            "value": "AwsS3",
             "description": "AWS S3 data source type."
           },
           {
-            "name": "S3_Compatible",
-            "value": "S3_Compatible",
+            "name": "S3Compatible",
+            "value": "S3Compatible",
             "description": "S3 Compatible data source type."
           },
           {
-            "name": "Azure_DataShare",
-            "value": "Azure_DataShare",
+            "name": "AzureDataShare",
+            "value": "AzureDataShare",
             "description": "Azure DataShare data source type."
           }
         ]
