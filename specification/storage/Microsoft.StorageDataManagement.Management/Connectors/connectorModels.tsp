@@ -189,6 +189,7 @@ model ManagedIdentityAuthProperties extends AuthProperties {
 }
 
 // Test Existing Connection request
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The test connection related properties.")
 model TestExistingConnectionRequest {
   @doc("The uniqueId of the connector as returned by the server.")
@@ -196,6 +197,7 @@ model TestExistingConnectionRequest {
 }
 
 // Test connection response
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The test connection response")
 model TestConnectionResponse {
   @doc("Indicates the method used to validate the connection to the backing data store. Valid values are `GetBlob` and `ListBlobs` for failure, and `TestExistingConnection` for success.")

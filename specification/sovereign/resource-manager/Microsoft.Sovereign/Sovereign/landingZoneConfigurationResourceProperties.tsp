@@ -189,6 +189,7 @@ model SandboxManagementGroupProperties {
   create: boolean;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @removed(Versions.Preview20260731)
 @doc("The request to generate code for a landing zone.")
 model GenerateLandingZoneRequest {
@@ -250,6 +251,7 @@ model GenerateLandingZoneRequest {
   organization?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @removed(Versions.Preview20260731)
 @doc("The response for the request to generate landing zone code.")
 model GenerateLandingZoneResponse {
@@ -285,6 +287,7 @@ model GenerateLandingZoneResponse {
   generatedArmTemplate?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @removed(Versions.Preview20260731)
 @doc("The request to update authoring status of a configuration.")
 model UpdateAuthoringStatusRequest {
@@ -292,6 +295,7 @@ model UpdateAuthoringStatusRequest {
   authoringStatus: AuthoringStatus;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @removed(Versions.Preview20260731)
 @doc("The response for the request to update authoring status.")
 model UpdateAuthoringStatusResponse {
@@ -362,6 +366,7 @@ union ResourceCreationOptions {
   string,
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The request for the create copy action of landing zone configuration.")
 model CreateCopyRequest {
   @doc("The name of the new landing zone configuration resource.")
@@ -369,6 +374,7 @@ model CreateCopyRequest {
   name: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The response of the create copy action of landing zone configuration.")
 model CreateCopyResponse {
   @doc("The id of the copied landing zone configuration resource.")
@@ -379,6 +385,7 @@ model CreateCopyResponse {
   ]>;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.Preview20241031)
 @removed(Versions.Preview20260731)
 @doc("The request for the create copy action of landing zone configuration.")
@@ -388,6 +395,7 @@ model CreateLandingZoneConfigurationCopyRequest {
   name: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.Preview20241031)
 @removed(Versions.Preview20260731)
 @doc("The response of the create copy action of landing zone configuration.")

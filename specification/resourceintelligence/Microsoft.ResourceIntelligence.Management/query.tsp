@@ -74,6 +74,7 @@ model StatusResult {
 /**
  * Query Generation Request
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model QueryGenerationRequest {
   /**
    * A collection of chat history to provide context in query generation

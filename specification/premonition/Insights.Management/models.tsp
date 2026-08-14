@@ -121,6 +121,7 @@ model AnalysisProperties {
   @doc("The result if the analysis succeeded")
   result?: AnalysisResult;
 
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   @visibility(Lifecycle.Read)
   @doc("The error if the analysis failed")
   @removed(Microsoft.Premonition.Versions.v2025_04_01_preview)
@@ -250,6 +251,7 @@ union ReadsType {
   long: "long",
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request to identify the sources of genetic material in a sample")
 model IdentifyRequest {
   @doc("The name for the new analysis")

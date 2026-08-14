@@ -101,6 +101,7 @@ model GcpSqlAdminInstanceProperties {
   /**
    * The name and status of the failover replica.
    */
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   failoverReplica?: {
     /**
      * The availability status of the failover replica. A false status indicates that the failover replica is out of sync. The primary instance can only failover to the failover replica when the status is true.
@@ -899,6 +900,7 @@ model Operation {
   /**
    * If errors occurred during processing of this operation, this field will be populated.
    */
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   error?: {
     @identifiers(#[])
     errors?: OperationError[];

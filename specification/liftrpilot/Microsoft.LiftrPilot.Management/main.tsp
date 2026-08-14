@@ -294,6 +294,7 @@ model TestTrackedResource
   ...Azure.ResourceManager.ManagedServiceIdentityProperty;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_05_21_preview)
 @doc("The properties of StopBackupTestTrackedResourceRequest")
 model StopBackupTestTrackedResourceRequest {
@@ -302,6 +303,7 @@ model StopBackupTestTrackedResourceRequest {
   reason: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_05_21_preview)
 @doc("The properties of RestoreTestTrackedResourceRequest")
 model RestoreTestTrackedResourceRequest {
@@ -310,6 +312,7 @@ model RestoreTestTrackedResourceRequest {
   inPlaceRestore: boolean;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_05_21_preview)
 @doc("Restore resource response for a Test tracked resource.")
 model RestoreTestTrackedResourceResponse {
@@ -342,6 +345,7 @@ interface TestTrackedResources {
   ): ArmResponse<RestoreTestTrackedResourceResponse> | ErrorResponse;
 
   #suppress "@azure-tools/typespec-azure-core/no-openapi"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @doc("Stop Backup for a Test Tracked Resource")
   @armResourceAction(TestTrackedResource)
   @post
@@ -386,6 +390,7 @@ model TestProxyResourceProperties {
   provisioningState?: ResourceProvisioningState;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_05_21_preview)
 @doc("The properties of ExportTestProxyResourceRequest")
 model ExportTestProxyResourceRequest {
@@ -394,6 +399,7 @@ model ExportTestProxyResourceRequest {
   region: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_05_21_preview)
 @doc("The properties of RestartTestProxyResourceRequest")
 model RestartTestProxyResourceRequest {
@@ -402,6 +408,7 @@ model RestartTestProxyResourceRequest {
   inStaleState: boolean;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_05_21_preview)
 @doc("Restart resource response for a Test proxy resource.")
 model RestartTestProxyResourceResponse {
@@ -430,6 +437,7 @@ interface TestProxyResources {
   ): ArmResponse<RestartTestProxyResourceResponse> | ErrorResponse;
 
   #suppress "@azure-tools/typespec-azure-core/no-openapi"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @doc("Export for a Test Proxy Resource")
   @armResourceAction(TestProxyResource)
   @post
@@ -475,6 +483,7 @@ model TestChildPureProxyResourceProperties {
   provisioningState?: ResourceProvisioningState;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_05_21_preview)
 @doc("The properties of UnregisterTestChildPureProxyResourceRequest")
 model UnregisterTestChildPureProxyResourceRequest {
@@ -483,6 +492,7 @@ model UnregisterTestChildPureProxyResourceRequest {
   region: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_05_21_preview)
 @doc("The properties of RegisterTestChildPureProxyResourceRequest")
 model RegisterTestChildPureProxyResourceRequest {
@@ -491,6 +501,7 @@ model RegisterTestChildPureProxyResourceRequest {
   inRegisterState: boolean;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_05_21_preview)
 @doc("Restart resource response for a Test child pure proxy resource.")
 model RegisterTestChildPureProxyResourceResponse {
@@ -519,6 +530,7 @@ interface TestChildPureProxyResources {
   ): ArmResponse<RegisterTestChildPureProxyResourceResponse> | ErrorResponse;
 
   #suppress "@azure-tools/typespec-azure-core/no-openapi"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @doc("Unregister for a Test Child Pure Proxy Resource")
   @armResourceAction(TestChildPureProxyResource)
   @post
@@ -597,6 +609,7 @@ model SaaS is Azure.ResourceManager.TrackedResource<SaasProperties> {
   name: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_05_23_preview)
 @doc("SaaS guid & PublishedId for Activate and Validate SaaS Resource")
 model ActivateSaasParameterRequest {
@@ -608,6 +621,7 @@ model ActivateSaasParameterRequest {
   publisherId?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_05_23_preview)
 @doc("Restore resource response for a Test tracked resource.")
 model ActivateSaasResponse {
@@ -626,6 +640,7 @@ model SaaSData {
 }
 
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS matches the existing Marketplace SaaS contract naming."
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_06_01_preview)
 @doc("Response of the latest linked SaaS resource operation.")
 model LatestLinkedSaaSResponse {
@@ -638,6 +653,7 @@ model LatestLinkedSaaSResponse {
   isHiddenSaaS?: boolean;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_10_24_preview)
 @doc("Input for ProviderLevelTestAction")
 model ProviderLevelTestActionRequest {
@@ -646,6 +662,7 @@ model ProviderLevelTestActionRequest {
   actionId: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_10_24_preview)
 @doc("Output for ProviderLevelTestAction")
 model ProviderLevelTestActionResponse {
@@ -658,6 +675,7 @@ model ProviderLevelTestActionResponse {
 @armResourceOperations
 interface ProviderLevelTestActions {
   #suppress "@azure-tools/typespec-azure-core/no-openapi"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @doc("Test Provider Level Action.")
   @armResourceAction(OrganizationResource)
   @action("providerLevelTestAction")
@@ -681,6 +699,7 @@ interface ProviderLevelTestActions {
 @armResourceOperations
 interface SaasOperations {
   #suppress "@azure-tools/typespec-azure-core/no-openapi"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @doc("Activate SaaS resource.")
   @armResourceAction(SaaS)
   @action("activateSaaS")
@@ -787,6 +806,7 @@ model TestEnvironmentUpdate {
   properties?: TestEnvironmentUpdateProperties;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_04_01_preview)
 @doc("The properties of RestoreTestEnvironmentRequest")
 model RestoreTestEnvironmentRequest {
@@ -795,6 +815,7 @@ model RestoreTestEnvironmentRequest {
   inPlaceRestore: boolean;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_04_01_preview)
 @doc("Restore resource response for a Test environment resource.")
 model RestoreTestEnvironmentResponse {
@@ -815,6 +836,7 @@ interface TestEnvironments {
   listByTestWorkspace is ArmResourceListByParent<TestEnvironment>;
 
   #suppress "@azure-tools/typespec-azure-core/no-openapi"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-long-running-operation' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to first-class TypeSpec constructs."
   @doc("Restore resource for a test environment resource.")
   @armResourceAction(TestEnvironment)
   @action("restore")

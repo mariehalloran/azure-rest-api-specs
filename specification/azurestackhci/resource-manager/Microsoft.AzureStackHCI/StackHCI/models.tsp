@@ -1413,6 +1413,7 @@ union AvailabilityType {
 /**
  * Request body for the check updates action on update summaries.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model CheckUpdatesRequest {
   /**
@@ -2025,6 +2026,7 @@ model PasswordCredential {
 /**
  * ArcIdentity details.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model ArcIdentityResponse {
   /**
    * ArcIdentity properties.
@@ -2048,6 +2050,7 @@ model ArcIdentityResponseProperties {
 /**
  * Request for reconciling Arc Settings.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model ReconcileArcSettingsRequest {
   /**
    * List of Arc Nodes in the cluster
@@ -2876,6 +2879,7 @@ model NextBillingModel {
 /**
  * Update secrets locations change  Request.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model SecretsLocationsChangeRequest {
   /**
    * List of secret locations
@@ -2885,6 +2889,7 @@ model SecretsLocationsChangeRequest {
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model UploadCertificateRequest {
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   properties?: RawCertificateData;
@@ -2899,6 +2904,7 @@ model RawCertificateData {
 /**
  * Cluster Identity details.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model ClusterIdentityResponse {
   /**
    * Cluster identity properties.
@@ -2920,6 +2926,7 @@ model ClusterIdentityResponseProperties {
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model SoftwareAssuranceChangeRequest {
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   properties?: SoftwareAssuranceChangeRequestProperties;
@@ -2936,6 +2943,7 @@ model SoftwareAssuranceChangeRequestProperties {
 /**
  * Request body for the change-ring action on a cluster.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model ChangeRingRequest {
   /** Properties of the change-ring request. */
@@ -2956,6 +2964,7 @@ model ChangeRingRequestProperties {
 /**
  * Log Collection Request
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model LogCollectionRequest {
   /**
    * Properties for Log Collection Request
@@ -2983,6 +2992,7 @@ model LogCollectionRequestProperties {
 /**
  * Remote Support Request
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model RemoteSupportRequest {
   /**
    * Properties for Remote Support Request
@@ -4188,6 +4198,7 @@ model DeploymentStep {
 /**
  * The validate request for Edge Device.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model ValidateRequest {
   /**
    * Node Ids against which, current node has to be validated.
@@ -4203,6 +4214,7 @@ model ValidateRequest {
 /**
  * An Accepted response with an Operation-Location header.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model ValidateResponse {
   /**
    * edge device validation status
@@ -7106,6 +7118,7 @@ model VmConnectRemoveJobProperties extends ClusterJobProperties {
 /**
  * Request for Add/Remove Devices to the pool.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model ListOfDevicesRequest {
   /**
@@ -7117,6 +7130,7 @@ model ListOfDevicesRequest {
 /**
  * Request for claiming devices of the pool.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model ClaimDeviceRequest {
   /**
@@ -7133,6 +7147,7 @@ model ClaimDeviceRequest {
 /**
  * Request for releasing devices of the pool.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model ReleaseDeviceRequest {
   /**
@@ -7368,6 +7383,7 @@ model EdgeMachinePatch {
 /**
  * The validate request for Edge Machine.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model EdgeMachineValidateRequest {
   /**
@@ -7388,6 +7404,7 @@ model EdgeMachineValidateRequest {
 /**
  * The validate response for Edge Machine.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model EdgeMachineValidateResponse {
   /**
@@ -8545,6 +8562,7 @@ model ProvisionOsJobProperties extends EdgeMachineJobProperties {
 /**
  * Download Request properties
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model DownloadRequest {
   /**
@@ -8591,6 +8609,7 @@ model ProvisionOsReportedProperties {
 /**
  * Represents a provisioning request.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model ProvisioningRequest {
   /**
@@ -9500,6 +9519,7 @@ model PlatformPayload {
 /**
  * Validate Ownership Voucher Request
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model ValidateOwnershipVouchersRequest {
   /**
@@ -9513,6 +9533,7 @@ model ValidateOwnershipVouchersRequest {
 /**
  * Validate Ownership Voucher Response
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model ValidateOwnershipVouchersResponse {
   /**

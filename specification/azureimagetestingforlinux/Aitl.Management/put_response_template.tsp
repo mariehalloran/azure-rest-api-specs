@@ -14,7 +14,9 @@ using OpenAPI;
  * @template TBaseParameters Optional. Allows overriding the operation parameters
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation-outside-interface" "This is a valid template"
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "For backward compatibility"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "For backward compatibility"
 @autoRoute
 @doc("Create a {name}", TResource)
 @armResourceCreateOrUpdate(TResource)
@@ -51,7 +53,10 @@ model ArmCreatedResponseSync<TResource extends Azure.ResourceManager.Foundations
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation-outside-interface" "This is a valid template"
 #suppress "@azure-tools/typespec-azure-core/no-openapi" "For backward compatibility"
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "For backward compatibility"
+#suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "For backward compatibility"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+#suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "For backward compatibility"
 @autoRoute
 @doc("Create a {name}", TResource)
 @extension("x-ms-long-running-operation", true)

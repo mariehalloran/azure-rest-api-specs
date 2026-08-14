@@ -79,6 +79,7 @@ model DrillRunProperties extends JobProperties {
   currentActiveOperationId?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request body for AddNotes API.")
 model DrillRunAddNotesRequest {
   @doc("The notes string.")
@@ -93,6 +94,7 @@ model DrillRunAddNotesRequest {
   author?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request body for Failover API.")
 model DrillRunFailoverRequest {
   @doc("AutoFailover - whether to pause between Fault and Failover for manual input.")
@@ -102,6 +104,7 @@ model DrillRunFailoverRequest {
   failoverProperties: FailoverRequest;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request body for TestFailover API.")
 @removed(Versions.v2026_04_01_preview)
 model DrillRunTestFailoverRequest {
@@ -109,6 +112,7 @@ model DrillRunTestFailoverRequest {
   failoverProperties: FailoverRequest;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request body for TestFailoverCleanup API.")
 @removed(Versions.v2026_04_01_preview)
 model DrillRunTestFailoverCleanupRequest {
@@ -116,6 +120,7 @@ model DrillRunTestFailoverCleanupRequest {
   comments?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request body for TestFailoverCleanup API.")
 model DrillRunActionResponse {
   @doc("JobId of the RO job.")
@@ -127,12 +132,14 @@ model DrillRunActionResponse {
   ]>;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request body for MarkAsComplete API.")
 model MarkAsCompleteRequest {
   @doc("State of the Drill Run.")
   drillRunStage: DrillRunSubtasks;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Response body for MarkAsComplete API.")
 model MarkAsCompleteResponse {
   @doc("Matrix of Actions supported on Operations.")

@@ -38,6 +38,7 @@ model ReportResource extends Foundations.ProxyResource {
    * Report property.
    */
   #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Legacy flattening"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "For backward compatibility"
   @Azure.ClientGenerator.Core.Legacy.flattenProperty
   @extension("x-ms-client-name", "properties")
   properties: ReportProperties;

@@ -8,10 +8,12 @@ namespace Microsoft.MessagingConnectors.Models.Validation;
 
 #suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model"
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request of validation")
 model ValidationRequest {}
 
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request of connector configuration validation")
 model ConnectorConfigurationValidationRequest {
   @doc("Connector properties")
@@ -19,6 +21,7 @@ model ConnectorConfigurationValidationRequest {
 }
 
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request of datapreview configuration validation")
 model DataPreviewConfigurationValidationRequest {
   @doc("Datapreview properties")

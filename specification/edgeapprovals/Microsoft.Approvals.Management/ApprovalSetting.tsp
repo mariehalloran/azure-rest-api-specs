@@ -137,6 +137,7 @@ union secureLedgerStorageType {
   AzureConfidentialLedger: "AzureConfidentialLedger",
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request payload for initializing approval settings.")
 model InitializeApprovalSettingRequest {
   @doc("The list of signed records to bootstrap the approval system.")

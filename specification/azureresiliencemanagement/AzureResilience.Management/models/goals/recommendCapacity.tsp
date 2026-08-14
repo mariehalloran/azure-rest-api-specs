@@ -11,6 +11,7 @@ using Azure.Core;
 
 namespace Microsoft.AzureResilienceManagement;
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_03_01_preview)
 @doc("Request body for the recommend capacity action. Provide specific resource IDs to evaluate, or pass an empty array to let the service automatically select non-resilient resources from the goal assignment.")
 model RecommendCapacityRequest {

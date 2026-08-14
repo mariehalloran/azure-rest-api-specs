@@ -234,6 +234,7 @@ model InboundCallerIdentity {
 /**
  * Request body for /link/preflight.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model LinkPreflightRequest {
   /**
    * ARM resource ID of the namespace. Resource stores this for ARM property visibility and optional best-effort deletion notification.
@@ -271,6 +272,7 @@ union LinkPreflightStatus {
 /**
  * Response body for /link/preflight.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model LinkPreflightResponse {
   /**
    * Ready if all readiness checks pass, NotReady if any blocking error exists.
@@ -308,6 +310,7 @@ model LinkedResourceMetadata {
 /**
  * Request body for /link/initiate.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model LinkInitiateRequest {
   /**
    * ARM resource ID of the namespace.
@@ -347,6 +350,7 @@ model LinkInitiateRequest {
  * resource's current linkingState returns 200 with no further state change, making
  * it safe for ADR to retry after transient failures.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model LinkNotifyRequest {
   /**
    * The action to perform on the linking state.
@@ -369,6 +373,7 @@ model LinkNotifyRequest {
 /**
  * Request body for /link/update. Acts as a PATCH — only provided properties are applied.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model LinkUpdateRequest {
   /**
    * ARM resource ID of the namespace.
@@ -399,11 +404,13 @@ model LinkUpdateRequest {
  * Response body for /link/update. Empty on success.
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Empty response object to satisfy R4008 AvoidEmptyResponseSchema, preserves forward extensibility"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model LinkUpdateResponse is Record<unknown>;
 
 /**
  * Response body for /link/update.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model UpdateInstanceLinkUpdateResponse {
   /**
    * Placeholder state for the 200 response. This value is only a placeholder to satisfy the response contract and does not represent backend operation state.
