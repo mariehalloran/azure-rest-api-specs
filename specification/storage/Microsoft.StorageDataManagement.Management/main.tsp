@@ -8,6 +8,7 @@ import "./Connectors/connectorModels.tsp";
 import "./DataShares/dataShareModels.tsp";
 import "./BlobAccessPointConfigurations/blobAccessPointConfigurationModels.tsp";
 import "./storageAccount.tsp";
+import "./client.tsp";
 
 using TypeSpec.Http;
 using TypeSpec.Rest;
