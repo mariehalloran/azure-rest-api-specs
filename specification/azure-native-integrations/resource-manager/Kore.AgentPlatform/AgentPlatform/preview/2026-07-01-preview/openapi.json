@@ -513,6 +513,50 @@
         "x-ms-long-running-operation": true
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/listWorkspaces": {
+      "post": {
+        "operationId": "Organizations_ListWorkspaces",
+        "tags": [
+          "Organizations"
+        ],
+        "description": "Lists all Workspaces in the Kore Organization, including Workspaces not managed through Liftr.",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v5/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "organizationName",
+            "in": "path",
+            "description": "Name of the Organization.",
+            "required": true,
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{0,48}[a-zA-Z0-9]$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ListWorkspacesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v5/types.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Kore.AgentPlatform/organizations/{organizationName}/workspaces": {
       "get": {
         "operationId": "Workspaces_ListByOrganization",
@@ -1047,6 +1091,60 @@
         "marketplaceDetails"
       ]
     },
+    "DiscoveredWorkspace": {
+      "type": "object",
+      "description": "Workspace returned by the Organization listWorkspaces discovery action.",
+      "properties": {
+        "partnerResourceId": {
+          "type": "string",
+          "description": "Partner-issued Workspace identifier."
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the Workspace on the partner side."
+        },
+        "ownerEmail": {
+          "$ref": "#/definitions/LiftrBase.email",
+          "description": "Email address of the Workspace owner."
+        },
+        "isDefault": {
+          "type": "boolean",
+          "description": "Indicates whether this is the default Workspace created with the Organization."
+        },
+        "status": {
+          "$ref": "#/definitions/WorkspaceLifecycleStatus",
+          "description": "Lifecycle status of the Workspace as reported by the Kore partner."
+        },
+        "product": {
+          "$ref": "#/definitions/Product",
+          "description": "Marketplace product selected for this Workspace."
+        },
+        "marketplaceDetails": {
+          "type": "array",
+          "description": "Azure Marketplace SaaS subscriptions linked to this Workspace.",
+          "items": {
+            "$ref": "#/definitions/LiftrBase.MarketplaceDetails"
+          },
+          "x-ms-identifiers": [
+            "subscriptionId"
+          ]
+        },
+        "isManagedByLiftr": {
+          "type": "boolean",
+          "description": "Indicates whether the Workspace is managed as an ARM resource through Liftr."
+        },
+        "armResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "ARM resource ID when the Workspace is managed through Liftr."
+        }
+      },
+      "required": [
+        "partnerResourceId",
+        "name",
+        "isManagedByLiftr"
+      ]
+    },
     "LiftrBase.MarketplaceDetails": {
       "type": "object",
       "description": "Marketplace details for an organization",
@@ -1205,6 +1303,25 @@
       "type": "string",
       "description": "Reusable representation of an email address.",
       "pattern": "^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$"
+    },
+    "ListWorkspacesResponse": {
+      "type": "object",
+      "description": "Response containing all Workspaces in a Kore Organization.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "Workspaces returned by Kore, including Liftr-managed and partner-managed Workspaces.",
+          "items": {
+            "$ref": "#/definitions/DiscoveredWorkspace"
+          },
+          "x-ms-identifiers": [
+            "partnerResourceId"
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ]
     },
     "OrganizationPartnerProperties": {
       "type": "object",
