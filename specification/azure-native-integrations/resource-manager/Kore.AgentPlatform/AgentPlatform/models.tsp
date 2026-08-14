@@ -247,6 +247,46 @@ model WorkspaceProperties {
   provisioningState?: ResourceProvisioningState;
 }
 
+/** Workspace returned by the Organization listWorkspaces discovery action. */
+@added(Versions.v2026_07_01_preview)
+model DiscoveredWorkspace {
+  /** Partner-issued Workspace identifier. */
+  partnerResourceId: string;
+
+  /** Display name of the Workspace on the partner side. */
+  name: string;
+
+  /** Email address of the Workspace owner. */
+  ownerEmail?: email;
+
+  /** Indicates whether this is the default Workspace created with the Organization. */
+  isDefault?: boolean;
+
+  /** Lifecycle status of the Workspace as reported by the Kore partner. */
+  status?: WorkspaceLifecycleStatus;
+
+  /** Marketplace product selected for this Workspace. */
+  product?: Product;
+
+  /** Azure Marketplace SaaS subscriptions linked to this Workspace. */
+  @identifiers(#["subscriptionId"])
+  marketplaceDetails?: LiftrBase.MarketplaceDetails[];
+
+  /** Indicates whether the Workspace is managed as an ARM resource through Liftr. */
+  isManagedByLiftr: boolean;
+
+  /** ARM resource ID when the Workspace is managed through Liftr. */
+  armResourceId?: armResourceIdentifier;
+}
+
+/** Response containing all Workspaces in a Kore Organization. */
+@added(Versions.v2026_07_01_preview)
+model ListWorkspacesResponse {
+  /** Workspaces returned by Kore, including Liftr-managed and partner-managed Workspaces. */
+  @identifiers(#["partnerResourceId"])
+  value: DiscoveredWorkspace[];
+}
+
 // =============================================================================
 // Organization PATCH body
 // =============================================================================
