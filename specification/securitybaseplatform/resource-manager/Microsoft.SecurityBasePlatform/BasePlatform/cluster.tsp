@@ -39,6 +39,7 @@ scalar WorkspaceResourceId
   ]>;
 
 @doc("Properties of the Cluster.")
+@discriminator("clusterKind")
 model ClusterProperties {
   @doc("The resource ID of the Workspace.")
   @visibility(Lifecycle.Create, Lifecycle.Read)
@@ -71,6 +72,17 @@ model ClusterProperties {
   @visibility(Lifecycle.Read)
   @doc("Managed On Behalf Of Configuration.")
   managedOnBehalfOfConfiguration?: CommonTypes.ManagedOnBehalfOfConfiguration;
+}
+
+@doc("Properties for a Dk8s (dedicated Kubernetes) Cluster.")
+model Dk8sClusterProperties extends ClusterProperties {
+  @doc("The kind of this cluster.")
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  clusterKind: ClusterKind.Dk8s;
+
+  @doc("Additional user node pools for scheduling workloads on auto-provisioned capacity.")
+  @identifiers(#["name"])
+  additionalNodePools?: NodePool[];
 }
 
 @doc("Represents the kind of a Cluster.")
