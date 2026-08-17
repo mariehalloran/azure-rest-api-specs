@@ -9,11 +9,13 @@
     - options.@azure-typespec/http-client-csharp-mgmt.*
   paths: [tspconfig.yaml]
 - tool: Swagger Avocado
-  path: ./preview/2026-03-15-preview/sovereign.json
+  paths:
+    - ./preview/2024-03-31-preview/sovereign.json
+    - ./preview/2026-03-15-preview/sovereign.json
   reason: >
     The landingZoneAccounts, landingZoneConfigurations, landingZoneRegistrations,
     and transparencyLogs resource types were intentionally retired in the
-    2026-07-31-preview API version. This older version still contains them, so
+    2026-07-31-preview API version. These older versions still contain them, so
     Avocado reports MISSING_APIS_IN_DEFAULT_TAG against the 2026-07-31-preview
     default tag. Permanently suppressing per the retirement intent
     (ARM breaking-change approval: <link>).
