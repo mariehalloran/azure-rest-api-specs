@@ -570,6 +570,7 @@ model SovereignViewFilterValueItem {
   count: int32;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept consistent with the sibling action request/response models in this resource provider."
 @added(Versions.Preview20260731)
 @doc("The request for the sovereign view operational status action.")
 model SovereignViewOperationalStatusRequest {
@@ -580,6 +581,7 @@ model SovereignViewOperationalStatusRequest {
   evaluationParameters?: OperationalStatusEvaluationParameter[];
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept consistent with the sibling action request/response models in this resource provider."
 @added(Versions.Preview20260731)
 @doc("The response for the sovereign view operational status action.")
 model SovereignViewOperationalStatusResponse {
