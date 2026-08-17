@@ -1,0 +1,31 @@
+{
+  "operationId": "Workspaces_ListByResourceGroup",
+  "title": "List workspaces in a resource group",
+  "parameters": {
+    "api-version": "2025-03-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-secbaseplatform"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/workspaces/prod-ws",
+            "name": "prod-ws",
+            "type": "Microsoft.SecurityBasePlatform/workspaces",
+            "location": "eastus2",
+            "tags": {
+              "environment": "production"
+            },
+            "properties": {
+              "serviceTreeId": "11111111-2222-3333-4444-555555555555",
+              "provisioningState": "Succeeded"
+            }
+          }
+        ],
+        "nextLink": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/workspaces?api-version=2025-03-01-preview&%24skiptoken=token"
+      }
+    }
+  }
+}

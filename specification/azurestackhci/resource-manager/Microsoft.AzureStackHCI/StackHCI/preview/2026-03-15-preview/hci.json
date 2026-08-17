@@ -17686,6 +17686,11 @@
           "format": "int32",
           "description": "The percentage of the job that is complete.",
           "readOnly": true
+        },
+        "deploymentStatus": {
+          "$ref": "#/definitions/EceActionStatus",
+          "description": "Deployment status reported by the device for the cluster volume job.",
+          "readOnly": true
         }
       }
     },
@@ -34163,6 +34168,11 @@
           "type": "integer",
           "format": "int32",
           "description": "The percentage of the job that is complete.",
+          "readOnly": true
+        },
+        "deploymentStatus": {
+          "$ref": "#/definitions/EceActionStatus",
+          "description": "Deployment status reported by the device for the storage array job.",
           "readOnly": true
         }
       }

@@ -12213,6 +12213,12 @@ model ClusterVolumeJobReportedProperties {
    */
   @visibility(Lifecycle.Read)
   percentComplete?: int32;
+
+  /**
+   * Deployment status reported by the device for the cluster volume job.
+   */
+  @visibility(Lifecycle.Read)
+  deploymentStatus?: EceActionStatus;
 }
 
 /** Represents an available update for an edge machine. */
@@ -15049,6 +15055,12 @@ model StorageArrayJobReportedProperties {
    */
   @visibility(Lifecycle.Read)
   percentComplete?: int32;
+
+  /**
+   * Deployment status reported by the device for the storage array job.
+   */
+  @visibility(Lifecycle.Read)
+  deploymentStatus?: EceActionStatus;
 }
 
 // ─────────────────────────── StoragePool models ───────────────────────────

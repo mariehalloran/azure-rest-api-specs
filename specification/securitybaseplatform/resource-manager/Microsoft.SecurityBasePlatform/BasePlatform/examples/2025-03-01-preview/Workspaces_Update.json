@@ -1,0 +1,43 @@
+{
+  "operationId": "Workspaces_Update",
+  "title": "Update workspace tags and service tree ID",
+  "parameters": {
+    "api-version": "2025-03-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-secbaseplatform",
+    "workspaceName": "prod-ws",
+    "properties": {
+      "tags": {
+        "environment": "production",
+        "costCenter": "security"
+      },
+      "properties": {
+        "serviceTreeId": "66666666-7777-8888-9999-000000000000"
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/workspaces/prod-ws",
+        "name": "prod-ws",
+        "type": "Microsoft.SecurityBasePlatform/workspaces",
+        "location": "eastus2",
+        "tags": {
+          "environment": "production",
+          "costCenter": "security"
+        },
+        "properties": {
+          "serviceTreeId": "66666666-7777-8888-9999-000000000000",
+          "provisioningState": "Succeeded"
+        }
+      }
+    },
+    "202": {
+      "headers": {
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.SecurityBasePlatform/locations/eastus2/operationStatuses/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee?api-version=2025-03-01-preview",
+        "Retry-After": 30
+      }
+    }
+  }
+}

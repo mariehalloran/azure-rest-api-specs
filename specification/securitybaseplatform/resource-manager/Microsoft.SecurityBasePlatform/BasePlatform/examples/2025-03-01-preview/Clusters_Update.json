@@ -1,0 +1,55 @@
+{
+  "operationId": "Clusters_Update",
+  "title": "Update cluster tags and ingress settings",
+  "parameters": {
+    "api-version": "2025-03-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-secbaseplatform",
+    "clusterName": "prod-cluster",
+    "properties": {
+      "tags": {
+        "environment": "production"
+      },
+      "properties": {
+        "ingress": {
+          "enabled": false
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/clusters/prod-cluster",
+        "name": "prod-cluster",
+        "type": "Microsoft.SecurityBasePlatform/clusters",
+        "location": "eastus2",
+        "properties": {
+          "workspaceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/workspaces/prod-ws",
+          "clusterKind": "Dk8s",
+          "observability": {
+            "metricsAccount": "SecurityBasePlatformProd",
+            "logsAccount": "SecurityBasePlatformProd"
+          },
+          "ingress": {
+            "enabled": false
+          },
+          "provisioningState": "Succeeded",
+          "managedResourceGroupConfiguration": {
+            "name": "MRG-prod-cluster",
+            "location": "eastus2"
+          }
+        },
+        "tags": {
+          "environment": "production"
+        }
+      }
+    },
+    "202": {
+      "headers": {
+        "Location": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.SecurityBasePlatform/locations/eastus2/operationStatuses/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee?api-version=2025-03-01-preview",
+        "Retry-After": 30
+      }
+    }
+  }
+}
