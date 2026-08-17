@@ -1,0 +1,40 @@
+{
+  "operationId": "Clusters_ListByResourceGroup",
+  "title": "List clusters in a resource group",
+  "parameters": {
+    "api-version": "2025-03-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-secbaseplatform"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/clusters/prod-cluster",
+            "name": "prod-cluster",
+            "type": "Microsoft.SecurityBasePlatform/clusters",
+            "location": "eastus2",
+            "properties": {
+              "workspaceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/workspaces/prod-ws",
+              "clusterKind": "Dk8s",
+              "observability": {
+                "metricsAccount": "SecurityBasePlatformProd",
+                "logsAccount": "SecurityBasePlatformProd"
+              },
+              "ingress": {
+                "enabled": true
+              },
+              "provisioningState": "Succeeded",
+              "managedResourceGroupConfiguration": {
+                "name": "MRG-prod-cluster",
+                "location": "eastus2"
+              }
+            }
+          }
+        ],
+        "nextLink": "https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/clusters?api-version=2025-03-01-preview&%24skiptoken=token"
+      }
+    }
+  }
+}
