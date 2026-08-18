@@ -53,7 +53,7 @@ model TenantScope extends Scope {
   /** The discriminator for tenant scope */
   kind: "tenant";
 
-  tenantId?: string;
+  tenantId: string;
   servicePrincipal?: string;
 
   @added(Versions.v2026_06_01_preview)
@@ -65,34 +65,24 @@ model CloudScope extends Scope {
   /** The discriminator for cloud scope */
   kind: "cloud";
 
-  /** The resource provider id populated by the caller, used to perform the linked access check and validate the caller has permission against the RP itself. */
-  @added(Versions.v2026_06_01_preview)
-  id?: string;
-
-  /** The provider namespace populated by caller */
-  providerNamespace?: string;
-
-  /** The application ID extracted from request, checked against manifest */
-  appId?: uuid;
+  /** Provider registration or namespace identity used to validate the caller against the RP relationship. */
+  id: string;
 }
 
 /** Partitioning configuration kind discriminator */
 union PartitioningConfigurationKind {
   string,
 
-  /** ARN location partitioning */
-  arnLocation: "arnLocation",
+  /** ARN region partitioning */
+  arnRegion: "arnRegion",
 
   /** Resource location partitioning */
-  @added(Versions.v2026_06_01_preview)
   resourceLocation: "resourceLocation",
 
   /** Routing location partitioning */
-  @added(Versions.v2026_06_01_preview)
   routingLocation: "routingLocation",
 
   /** Scope ID hash-based partitioning */
-  @added(Versions.v2026_06_01_preview)
   scopeId: "scopeId",
 }
 
@@ -101,25 +91,55 @@ union PartitioningConfigurationKind {
 model PartitioningConfiguration {
   /** The kind of partitioning configuration */
   kind: PartitioningConfigurationKind;
+
+  /** Only specified for a child partitioning config. References the parent partition name. Root config omits this field. */
+  parentPartition?: string;
 }
 
-/** Partition definition */
-model Partition {
+/** ARN region partition definition */
+model ArnRegionPartition {
   /** The name of the partition */
   name: string;
 
-  /** The regions for this partition */
-  regions: string[];
+  /** The ARN regions included in this partition */
+  arnRegions: string[];
 }
 
-/** ARN location partitioning configuration */
-model ArnLocationPartitioningConfiguration extends PartitioningConfiguration {
-  /** The discriminator for ARN location partitioning */
-  kind: "arnLocation";
+/** Resource location partition definition */
+model ResourceLocationPartition {
+  /** The name of the partition */
+  name: string;
+
+  /** The resource locations included in this partition */
+  resourceLocations: string[];
+}
+
+/** Routing location partition definition */
+model RoutingLocationPartition {
+  /** The name of the partition */
+  name: string;
+
+  /** The routing locations included in this partition */
+  routingLocations: string[];
+}
+
+/** Hash range partition definition */
+model HashRangePartition {
+  /** The name of the partition */
+  name: string;
+
+  /** Single hash range string, e.g., '0:49'. */
+  range: string;
+}
+
+/** ARN region partitioning configuration */
+model ArnRegionPartitioningConfiguration extends PartitioningConfiguration {
+  /** The discriminator for ARN region partitioning */
+  kind: "arnRegion";
 
   /** The partitions list */
-  @OpenAPI.extension("x-ms-identifiers", #["name"])
-  partitions: Partition[];
+  @identifiers(#["name"])
+  partitions: ArnRegionPartition[];
 }
 
 /** Resource location partitioning configuration */
@@ -130,8 +150,8 @@ model ResourceLocationPartitioningConfiguration
   kind: "resourceLocation";
 
   /** The partitions list */
-  @OpenAPI.extension("x-ms-identifiers", #["name"])
-  partitions: Partition[];
+  @identifiers(#["name"])
+  partitions: ResourceLocationPartition[];
 }
 
 /** Routing location partitioning configuration */
@@ -142,18 +162,8 @@ model RoutingLocationPartitioningConfiguration
   kind: "routingLocation";
 
   /** The partitions list */
-  @OpenAPI.extension("x-ms-identifiers", #["name"])
-  partitions: Partition[];
-}
-
-/** A key/value pair entry for scope ID partitioning */
-@added(Versions.v2026_06_01_preview)
-model ScopeIdPartitionEntry {
-  /** The partition key */
-  key: string;
-
-  /** The partition value */
-  value: string;
+  @identifiers(#["name"])
+  partitions: RoutingLocationPartition[];
 }
 
 /** Scope ID hash-based partitioning configuration */
@@ -162,33 +172,26 @@ model ScopeIdPartitioningConfiguration extends PartitioningConfiguration {
   /** The discriminator for scope ID partitioning */
   kind: "scopeId";
 
-  /** The field based on which the scope is hashed */
-  configName: string;
+  /** Number of hash buckets. The scope id is hashed into the range [0, hashBucketCount - 1]. Must be a positive integer. */
+  hashBucketCount: int32;
 
-  /** Number of hash buckets. The scope id is hashed into the range [0, hashBucket - 1]. Must be a positive integer. */
-  hashBucket: int32;
-
-  /** Map of partition key to partition value. Must be non-null/non-empty. */
-  @OpenAPI.extension("x-ms-identifiers", #["key"])
-  partitions: ScopeIdPartitionEntry[];
-
-  /** Optional map from a partition key to the name of a nested partitioning configuration, enabling hierarchical partitioning. */
-  @OpenAPI.extension("x-ms-identifiers", #["key"])
-  partitionToPartitioningConfigurationMappings?: ScopeIdPartitionEntry[];
-
-  /** Data boundary for the configuration. Defaults to Global. */
-  dataBoundary?: DataBoundary;
+  /** The partitions list. Ranges must be sorted, contiguous, gap-free, and cover [0, hashBucketCount - 1]. */
+  @identifiers(#["name"])
+  partitions: HashRangePartition[];
 }
 
-/** Available options for resource subscriptions */
-union SubscriptionOptions {
-  string,
+/** Optional configuration options for a resource subscription */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility and to match the wire property name 'options'."
+@added(Versions.v2026_08_01_preview)
+model ResourceSubscriptionOptions {
+  /** Strips notification payload/resources before delivery. */
+  skipPayload?: boolean;
 
-  /** Enables delivery of periodic snapshots */
-  enablePeriodicSnapshots: "enablePeriodicSnapshots",
+  /** Subscriber receives preview/pre-GA notifications that are otherwise dropped. */
+  allowPreviewNotifications?: boolean;
 
-  /** Enables delivery of writes and deletes */
-  enableDeltas: "enableDeltas",
+  /** The authentication type used by ARN when delivering notifications to the subscriber. Defaults to DefaultRBAC when omitted. */
+  authorizationMode?: AuthorizationMode;
 }
 
 /** The data boundary used for routing notifications and enforcing data residency/compliance */
@@ -205,10 +208,10 @@ union DataBoundary {
 
 /** The authentication type used by ARN when delivering notifications to the subscriber */
 @added(Versions.v2026_06_01_preview)
-union SubscriberAuthType {
+union AuthorizationMode {
   string,
 
-  /** Default RBAC based authentication */
+  /** Default RBAC-based authorization mode (default when omitted). */
   defaultRBAC: "DefaultRBAC",
 
   /** Datacenter STS based authentication (default) */
@@ -221,13 +224,10 @@ union DeliveryModeKind {
   string,
 
   /** Deliver every notification to all endpoints (default) */
-  fanOut: "FanOut",
+  fanOut: "fanOut",
 
   /** Distribute notifications across endpoints based on partitioning */
-  partitioning: "Partitioning",
-
-  /** Distribute notifications evenly across endpoints */
-  equalDistribution: "EqualDistribution",
+  partitioned: "partitioned",
 }
 
 /** Base configuration for how notifications are distributed across a subscription's destination endpoints */
@@ -242,25 +242,18 @@ model DeliveryModeConfiguration {
 @added(Versions.v2026_06_01_preview)
 model FanOutDeliveryModeConfiguration extends DeliveryModeConfiguration {
   /** The discriminator for fan-out delivery mode */
-  kind: "FanOut";
+  kind: "fanOut";
 }
 
 /** Partitioning delivery mode: notifications are distributed across endpoints based on partitioning */
 @added(Versions.v2026_06_01_preview)
 model PartitioningDeliveryModeConfiguration extends DeliveryModeConfiguration {
   /** The discriminator for partitioning delivery mode */
-  kind: "Partitioning";
+  kind: "partitioned";
 
-  /** The partitioning configuration settings. Supported kind: arnLocation */
-  configurationSettings: PartitioningConfiguration;
-}
-
-/** Equal-distribution delivery mode: notifications are distributed evenly across endpoints */
-@added(Versions.v2026_06_01_preview)
-model EqualDistributionDeliveryModeConfiguration
-  extends DeliveryModeConfiguration {
-  /** The discriminator for equal-distribution delivery mode */
-  kind: "EqualDistribution";
+  /** The partitioning configurations. Present only when kind = partitioned. */
+  @identifiers(#[])
+  partitioningConfigurations: PartitioningConfiguration[];
 }
 
 /** Properties of a resource subscription */
@@ -271,33 +264,13 @@ model ResourceSubscriptionProperties {
   /** The scope for the execution of the filter */
   scope: Scope;
 
-  /** The data boundary used for routing notifications and enforcing data residency/compliance */
-  @added(Versions.v2026_06_01_preview)
-  dataBoundary?: DataBoundary;
-
-  /** The authentication type used by ARN when delivering notifications to the subscriber. Defaults to DSTS. */
-  @added(Versions.v2026_06_01_preview)
-  subscriberAuthType?: SubscriberAuthType;
-
-  /** Determines how notifications are distributed across the subscription's destination endpoints. Defaults to FanOut. */
+  /** Determines how notifications are distributed across the subscription's destination endpoints. Defaults to fanOut. */
   @added(Versions.v2026_06_01_preview)
   deliveryMode?: DeliveryModeConfiguration;
 
-  /** Compatibility alias for delivery mode configuration used by existing examples. */
-  @added(Versions.v2026_06_01_preview)
-  deliveryModeConfiguration?: DeliveryModeConfiguration;
-
-  /** Defines how to partition the event stream. Supported kind: arnLocation */
-  partitioningConfiguration?: PartitioningConfiguration;
-
-  /** Additional partitioning configurations applied to the event stream */
-  @added(Versions.v2026_06_01_preview)
-  @OpenAPI.extension("x-ms-identifiers", #[])
-  partitionConfigurations?: PartitioningConfiguration[];
-
   /** Optional configuration options */
-  @visibility(Lifecycle.Read)
-  options?: SubscriptionOptions[];
+  @added(Versions.v2026_08_01_preview)
+  options?: ResourceSubscriptionOptions;
 
   /** The status of the last operation */
   @visibility(Lifecycle.Read)
@@ -402,26 +375,59 @@ union DestinationKind {
 
   /** Event Hub destination */
   @added(Versions.v2026_06_01_preview)
-  eventhub: "eventhub",
+  eventHub: "eventHub",
 }
 
-/** Available destination options */
-union DestinationOptions {
+/** The kind of destination-level delivery mode */
+@added(Versions.v2026_08_01_preview)
+union DestinationDeliveryModeKind {
   string,
 
-  /** Enables delivery of the initial snapshot */
-  enableInitialSnapshot: "enableInitialSnapshot",
+  /** Deliver every notification to all endpoints in the destination (default) */
+  fanOut: "fanOut",
+
+  /** Distribute notifications evenly across the destination's endpoints */
+  equalDistribution: "equalDistribution",
 }
 
-/** Base properties for destination configuration */
+/** Base configuration for how notifications are distributed across a destination's endpoints */
+@added(Versions.v2026_08_01_preview)
 @discriminator("kind")
-model DestinationProperties {
-  /** The kind of destination */
-  kind: DestinationKind;
+model DestinationDeliveryMode {
+  /** The kind of destination delivery mode */
+  kind: DestinationDeliveryModeKind;
+}
 
+/** Fan-out destination delivery mode: every notification is delivered to all endpoints */
+@added(Versions.v2026_08_01_preview)
+model FanOutDestinationDeliveryMode extends DestinationDeliveryMode {
+  /** The discriminator for fan-out destination delivery mode */
+  kind: "fanOut";
+}
+
+/** Equal-distribution destination delivery mode: notifications are distributed evenly across endpoints */
+@added(Versions.v2026_08_01_preview)
+model EqualDistributionDestinationDeliveryMode extends DestinationDeliveryMode {
+  /** The discriminator for equal-distribution destination delivery mode */
+  kind: "equalDistribution";
+}
+
+/** Base properties shared by all destination kinds */
+model DestinationPropertiesBase {
   /** The status of the last operation */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
+
+  /** Destination-level data boundary used to route/deliver notifications for EU/global where required. */
+  @added(Versions.v2026_08_01_preview)
+  dataBoundary?: DataBoundary;
+
+  /** Parent partition names this destination receives. Required when the parent subscription's deliveryMode is partitioned. */
+  partitions?: string[];
+
+  /** Delivery mode applied only within this destination to its endpoints. Defaults to fanOut. */
+  @added(Versions.v2026_08_01_preview)
+  deliveryMode?: DestinationDeliveryMode;
 }
 
 /** Fabric endpoint configuration */
@@ -433,31 +439,10 @@ model FabricEndpoint {
   databaseId: string;
 }
 
-/** Fabric table destination properties */
-model FabricTableDestinationProperties extends DestinationProperties {
-  /** The discriminator for fabric table destination */
-  kind: "fabricTable";
-
-  /** The output schema - readonly for now, will provide a way for 1P to set to fabric1P */
-  @visibility(Lifecycle.Read)
-  outputSchema?: string;
-
-  /** The output encoding - readonly and not configurable */
-  @visibility(Lifecycle.Read)
-  outputEncoding?: string;
-
-  /** The fabric endpoint configuration */
-  endpoint: FabricEndpoint;
-
-  /** Optional destination configuration options */
-  @visibility(Lifecycle.Read)
-  options?: DestinationOptions[];
-}
-
 /** Storage account endpoint */
 model StorageAccountEndpoint {
   /** The storage account endpoint resource ID */
-  id: string;
+  id: armResourceIdentifier;
 }
 
 /** Path policy kind discriminator */
@@ -481,18 +466,12 @@ model TimeAndScopeRangeHashPathPolicy extends PathPolicy {
   kind: "timeAndScopeRangeHash";
 
   /**
-   * The source of time used for partitioning and hashing.
-   * Typical values include "eventTime" (use the event timestamp) and "systemTime" (use the ingestion/processing time).
-   */
-  timeSource: string;
-
-  /**
-   * The logical scope used for hashing into buckets, for example "tenant", "subscription", or "resourceGroup".
+   * The logical scope used for hashing into buckets, for example 'tenant', 'subscription', or 'resourceGroup'.
    */
   scope: string;
 
   /** The number of scope buckets to hash the chosen scope into. */
-  scopeBuckets: int32;
+  scopeBucketsCount: int32;
 
   /**
    * The path template string with variable placeholders that will be resolved at runtime, following the pattern:
@@ -508,17 +487,6 @@ union BatchingPolicyKind {
 
   /** Min count max delay batching policy */
   minCountMaxDelay: "minCountMaxDelay",
-}
-
-/** The delivery mode for endpoints, determining how notifications are distributed across endpoints */
-union EndpointDeliveryMode {
-  string,
-
-  /** Spreads load over all endpoints */
-  roundRobin: "round-robin",
-
-  /** Delivers to the first available endpoint */
-  failover: "failover",
 }
 
 /** Base properties for batching policy configuration */
@@ -539,65 +507,14 @@ model MinCountMaxDelayBatchingPolicy extends BatchingPolicy {
   /** Maximum delay in ISO 8601 duration format (e.g., PT5M for 5 minutes) */
   maxDelay: duration;
 }
-
-/** Storage account destination properties */
-model StorageAccountDestinationProperties extends DestinationProperties {
-  /** The discriminator for storage account destination */
-  kind: "storageAccount";
-
-  /** Which partitions go to this destination */
-  partitions: string[];
-
-  /** Incoming notifications are mapped to a path based on the path policy */
-  pathPolicy: PathPolicy;
-
-  /** Notifications for the same path are batched following the batching policy */
-  batchingPolicy?: BatchingPolicy;
-
-  /** The schema to use for the delivered notifications - read-only, must be "firstParty" for now */
-  @visibility(Lifecycle.Read)
-  outputSchema?: string;
-
-  /** Format for the output - read-only, must be "parquet" for now */
-  @visibility(Lifecycle.Read)
-  outputEncoding?: string;
-
-  /** Storage container to store the data */
-  endpointContainer: string;
-
-  /** How to deliver to the endpoints below */
-  endpointDeliveryMode: EndpointDeliveryMode;
-
-  /** Set of endpoints to use */
-  @OpenAPI.extension("x-ms-identifiers", #["id"])
-  endpoints: StorageAccountEndpoint[];
-}
-
 /** Webhook endpoint configuration */
 @added(Versions.v2026_06_01_preview)
 model WebhookEndpoint {
   /** The HTTPS endpoint URL to which notifications are delivered */
   url: url;
 
-  /** The application ID used to acquire a token for delivery */
-  applicationId: string;
-}
-
-/** Webhook destination properties */
-@added(Versions.v2026_06_01_preview)
-model WebhookDestinationProperties extends DestinationProperties {
-  /** The discriminator for webhook destination */
-  kind: "webhook";
-
-  /** The schema to use for the delivered notifications */
-  outputSchema: string;
-
-  /** The encoding/format to use for the delivered notifications */
-  outputEncoding: string;
-
-  /** The set of webhook endpoints to deliver notifications to */
-  @OpenAPI.extension("x-ms-identifiers", #["url"])
-  endpoints: WebhookEndpoint[];
+  /** The application id used as audience/auth target for delivery. */
+  appId: string;
 }
 
 /** Event Hub endpoint configuration */
@@ -607,29 +524,12 @@ model EventHubEndpoint {
   id: armResourceIdentifier;
 }
 
-/** Event Hub destination properties */
-@added(Versions.v2026_06_01_preview)
-model EventHubDestinationProperties extends DestinationProperties {
-  /** The discriminator for event hub destination */
-  kind: "eventhub";
-
-  /** The schema to use for the delivered notifications */
-  outputSchema: string;
-
-  /** The encoding/format to use for the delivered notifications */
-  outputEncoding: string;
-
-  /** The set of event hub endpoints to deliver notifications to */
-  @OpenAPI.extension("x-ms-identifiers", #["id"])
-  endpoints: EventHubEndpoint[];
-}
-
-/** The identity type. */
+/** The identity type for a destination resource. Only UserAssigned is supported. */
 @added(Versions.v2026_06_01_preview)
 union ResourceIdentityType {
   string,
 
-  /** Indicates that a user assigned identity is associated with the resource. */
+  /** User-assigned managed identity. Only UserAssigned is supported; to swap the assigned identity, update userAssignedIdentities with the new identity resource ID. */
   UserAssigned: "UserAssigned",
 }
 
@@ -645,22 +545,23 @@ model UserAssignedIdentitiesValue {
   clientId?: string;
 }
 
-/** Identity for the destination resource, used by ARN to deliver notifications to the destination endpoint. */
+/** Identity for the destination resource, used by ARN to deliver notifications to the destination endpoint. Only user-assigned managed identity is supported. */
 @added(Versions.v2026_06_01_preview)
 model Identity {
-  /** The identity type. */
+  /** The identity type. Only UserAssigned is supported. To change the assigned identity, PATCH userAssignedIdentities with the replacement identity resource ID; removal is not supported. */
   type: ResourceIdentityType;
 
   /** The user identity associated with the destination. The user identity dictionary key references will be ARM resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'. */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "User assigned identities are keyed by ARM resource id, following the Microsoft.Authorization/policyAssignments Identity model"
-  userAssignedIdentities?: Record<UserAssignedIdentitiesValue>;
+  userAssignedIdentities: Record<UserAssignedIdentitiesValue>;
 }
 
 /** Destination resource for Azure Resource Notifications */
+@discriminator("kind")
 @resource("destinations")
 @parentResource(ResourceSubscription)
 model Destination
-  is Azure.ResourceManager.TrackedResource<DestinationProperties> {
+  is Azure.ResourceManager.TrackedResource<DestinationPropertiesBase> {
   /** The name of the destination */
   @pattern("^[a-zA-Z0-9][a-zA-Z0-9_-]*$")
   @key("destinationName")
@@ -668,12 +569,66 @@ model Destination
   @path
   name: string;
 
+  /** The kind of destination */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "kind is the ARM envelope discriminator for the Destination polymorphic resource type"
+  kind: DestinationKind;
+
   /** The managed identity used by ARN to deliver notifications to the destination endpoint. */
   #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "Custom identity model on the resource envelope, following the Microsoft.Authorization/policyAssignments pattern"
-  identity?: Identity;
+  identity: Identity;
 }
 
 @@added(Destination.identity, Versions.v2026_06_01_preview);
+
+/** Fabric table destination */
+model FabricTableDestination extends Destination {
+  /** The discriminator for fabric table destination */
+  kind: DestinationKind.fabricTable;
+
+  /** The fabric endpoint configuration */
+  endpoint: FabricEndpoint;
+}
+
+/** Storage account destination */
+model StorageAccountDestination extends Destination {
+  /** The discriminator for storage account destination */
+  kind: DestinationKind.storageAccount;
+
+  /** Container where blobs are written. Applies to all storage account endpoints in this destination. */
+  container: string;
+
+  /** Incoming notifications are mapped to a path based on the path policy */
+  pathPolicy: PathPolicy;
+
+  /** Notifications for the same path are batched following the batching policy */
+  batchingPolicy?: BatchingPolicy;
+
+  /** Set of endpoints to use */
+  @identifiers(#["id"])
+  endpoints: StorageAccountEndpoint[];
+}
+
+/** Webhook destination */
+@added(Versions.v2026_06_01_preview)
+model WebhookDestination extends Destination {
+  /** The discriminator for webhook destination */
+  kind: DestinationKind.webhook;
+
+  /** The set of webhook endpoints to deliver notifications to */
+  @identifiers(#["url"])
+  endpoints: WebhookEndpoint[];
+}
+
+/** Event Hub destination */
+@added(Versions.v2026_06_01_preview)
+model EventHubDestination extends Destination {
+  /** The discriminator for event hub destination */
+  kind: DestinationKind.eventHub;
+
+  /** The set of event hub endpoints to deliver notifications to */
+  @identifiers(#["id"])
+  endpoints: EventHubEndpoint[];
+}
 
 /** The updatable fields of a destination resource. */
 model DestinationUpdate {
@@ -688,24 +643,19 @@ model DestinationUpdate {
 
 /** Operations for Destinations */
 @armResourceOperations
-interface Destinations {
+interface ResourceSubscriptionDestinations {
   /** Gets a destination */
-  @operationId("ResourceSubscriptionDestinations_Get")
   get is ArmResourceRead<Destination>;
 
   /** Creates or updates a destination. Asynchronous operation. */
-  @operationId("ResourceSubscriptionDestinations_CreateOrUpdate")
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Destination>;
 
   /** Updates the tags on a destination */
-  @operationId("ResourceSubscriptionDestinations_Update")
   @patch(#{ implicitOptionality: true })
   update is ArmCustomPatchSync<Destination, DestinationUpdate>;
 
   /** Deletes a destination. Asynchronous operation. */
-  @operationId("ResourceSubscriptionDestinations_Delete")
   delete is ArmResourceDeleteWithoutOkAsync<Destination>;
-
   /** Lists all destinations for a resource subscription */
   @OpenAPI.extension(
     "x-ms-examples",
@@ -715,6 +665,5 @@ interface Destinations {
       },
     }
   )
-  @operationId("ResourceSubscriptionDestinations_List")
   list is ArmResourceListByParent<Destination>;
 }

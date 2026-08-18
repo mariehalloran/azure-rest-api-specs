@@ -11,12 +11,11 @@
       "properties": {
         "query": "resources",
         "scope": {
-          "kind": "tenant"
+          "kind": "tenant",
+          "tenantId": "12345678-1234-1234-1234-123456789012"
         },
-        "dataBoundary": "Global",
-        "subscriberAuthType": "DSTS",
-        "deliveryModeConfiguration": {
-          "kind": "FanOut"
+        "deliveryMode": {
+          "kind": "fanOut"
         }
       }
     }
@@ -40,12 +39,10 @@
               "tenantId": "12345678-1234-1234-1234-123456789012"
             }
           },
-          "dataBoundary": "Global",
-          "subscriberAuthType": "DSTS",
-          "deliveryModeConfiguration": {
-            "kind": "FanOut"
-          },
-          "provisioningState": "Succeeded"
+          "provisioningState": "Succeeded",
+          "deliveryMode": {
+            "kind": "fanOut"
+          }
         }
       }
     },
@@ -71,12 +68,10 @@
               "tenantId": "12345678-1234-1234-1234-123456789012"
             }
           },
-          "dataBoundary": "Global",
-          "subscriberAuthType": "DSTS",
-          "deliveryModeConfiguration": {
-            "kind": "FanOut"
-          },
-          "provisioningState": "Accepted"
+          "provisioningState": "Accepted",
+          "deliveryMode": {
+            "kind": "fanOut"
+          }
         }
       }
     }
