@@ -516,6 +516,7 @@ model ConfigurationChecksTemplateProperties {
   errors?: CommonTypes.ErrorDetail;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Defines the request body for updating the properties of the configuration checks template.")
 model ConfigurationChecksTemplateUpdateRequest {
   /**
@@ -524,6 +525,7 @@ model ConfigurationChecksTemplateUpdateRequest {
   properties?: ConfigurationChecksTemplatePropertiesUpdateRequest;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Defines the properties to be updated in the configuration checks template.")
 model ConfigurationChecksTemplatePropertiesUpdateRequest {
   /**
@@ -532,6 +534,7 @@ model ConfigurationChecksTemplatePropertiesUpdateRequest {
   configuration?: ChecksConfigurationUpdateRequest;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Defines the configuration for the template properties.")
 model ChecksConfigurationUpdateRequest {
   /**

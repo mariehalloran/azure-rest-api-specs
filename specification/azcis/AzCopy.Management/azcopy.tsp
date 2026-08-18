@@ -17,10 +17,18 @@ model AzCopyResourceProperties {
   @doc("Specifies the azcopy command to run. Acceptable values: cp, copy. Default: cp.")
   command: CommandType;
 
-  @doc("The storage resource URI for the source object. This can target an account, container, virtual directory, or blob.")
+  @doc("The storage resource URI for the source object. This can target an account, container, virtual directory, or blob. Must not contain a SAS token; supply the full SAS URI in 'sourceSasUri' instead.")
+  @pattern(
+    "^(?![\\s\\S]*[?&][Ss][Ii][Gg]=)[\\s\\S]*$",
+    "'source' must not contain a SAS token. Supply the full SAS URI in 'sourceSasUri' instead."
+  )
   source?: string;
 
-  @doc("The storage resource URI for the destination object. This can target an account, container, virtual directory, or blob.")
+  @doc("The storage resource URI for the destination object. This can target an account, container, virtual directory, or blob. Must not contain a SAS token; supply the full SAS URI in 'destinationSasUri' instead.")
+  @pattern(
+    "^(?![\\s\\S]*[?&][Ss][Ii][Gg]=)[\\s\\S]*$",
+    "'destination' must not contain a SAS token. Supply the full SAS URI in 'destinationSasUri' instead."
+  )
   destination?: string;
 
   @doc("The full SAS URI for the source object, marked secret. This can target an account, container, virtual directory, or blob.")

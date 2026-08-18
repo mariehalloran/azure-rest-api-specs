@@ -15869,6 +15869,30 @@
         }
       }
     },
+    "Architecture": {
+      "type": "string",
+      "description": "Represents the CPU architecture of a machine or an OS image.",
+      "enum": [
+        "amd64",
+        "arm64"
+      ],
+      "x-ms-enum": {
+        "name": "Architecture",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Amd64",
+            "value": "amd64",
+            "description": "64-bit x86 architecture."
+          },
+          {
+            "name": "Arm64",
+            "value": "arm64",
+            "description": "64-bit Arm architecture."
+          }
+        ]
+      }
+    },
     "ArrayType": {
       "type": "string",
       "description": "The kind of storage backing a storage array. Determines whether the array is\nan external SAN or local Storage Spaces Direct (S2D) capacity.",
@@ -17661,6 +17685,11 @@
           "type": "integer",
           "format": "int32",
           "description": "The percentage of the job that is complete.",
+          "readOnly": true
+        },
+        "deploymentStatus": {
+          "$ref": "#/definitions/EceActionStatus",
+          "description": "Deployment status reported by the device for the cluster volume job.",
           "readOnly": true
         }
       }
@@ -24329,6 +24358,11 @@
           "type": "string",
           "description": "Process type of the machine",
           "readOnly": true
+        },
+        "architecture": {
+          "$ref": "#/definitions/Architecture",
+          "description": "CPU architecture of the machine, for example amd64 or arm64.",
+          "readOnly": true
         }
       }
     },
@@ -28426,7 +28460,8 @@
       "enum": [
         "Provision",
         "Update",
-        "ReImage"
+        "ReImage",
+        "Reset"
       ],
       "x-ms-enum": {
         "name": "OSOperationType",
@@ -28446,6 +28481,11 @@
             "name": "ReImage",
             "value": "ReImage",
             "description": "OS ReImage operation"
+          },
+          {
+            "name": "Reset",
+            "value": "Reset",
+            "description": "OS Reset operation"
           }
         ]
       }
@@ -28723,6 +28763,31 @@
         "capacityPolicy": {
           "$ref": "#/definitions/DeploymentCapacityPolicy",
           "description": "Optional Day Zero capacity policy used to seed the cluster's Capacity Settings\nsingleton during deployment. When omitted, the service uses its own defaults."
+        },
+        "confidentialVmIntent": {
+          "type": "string",
+          "description": "Captures the customer's intent to enable or disable Confidential VM (CVM) support on the AzureStackHCI Cluster.",
+          "default": "Disable",
+          "enum": [
+            "Enable",
+            "Disable"
+          ],
+          "x-ms-enum": {
+            "name": "ConfidentialVmIntent",
+            "modelAsString": true,
+            "values": [
+              {
+                "name": "Enable",
+                "value": "Enable",
+                "description": "Indicates that the customer intends to enable CVM support on the cluster."
+              },
+              {
+                "name": "Disable",
+                "value": "Disable",
+                "description": "Indicates that the customer intends to disable CVM support on the cluster."
+              }
+            ]
+          }
         }
       }
     },
@@ -28781,6 +28846,14 @@
         "composedImageIsoHash": {
           "type": "string",
           "description": "Represents composed image iso hash of a os image."
+        },
+        "architecture": {
+          "$ref": "#/definitions/Architecture",
+          "description": "Represents the CPU architecture of an OS image, for example amd64 or arm64."
+        },
+        "solutionType": {
+          "$ref": "#/definitions/SolutionType",
+          "description": "The solution type (OS family) of the OS image, for example AzureLinux or HCI."
         }
       }
     },
@@ -28869,7 +28942,8 @@
           "enum": [
             "Provision",
             "Update",
-            "ReImage"
+            "ReImage",
+            "Reset"
           ],
           "x-ms-enum": {
             "name": "OSOperationType",
@@ -28889,6 +28963,11 @@
                 "name": "ReImage",
                 "value": "ReImage",
                 "description": "OS ReImage operation"
+              },
+              {
+                "name": "Reset",
+                "value": "Reset",
+                "description": "OS Reset operation"
               }
             ]
           }
@@ -29041,6 +29120,10 @@
         "azureMachineId": {
           "type": "string",
           "description": "Azure Machine Id of the Ownership voucher"
+        },
+        "architecture": {
+          "$ref": "#/definitions/Architecture",
+          "description": "CPU architecture of the device, for example amd64 or arm64."
         },
         "error": {
           "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorDetail",
@@ -33351,6 +33434,30 @@
         ]
       }
     },
+    "SolutionType": {
+      "type": "string",
+      "description": "Represents the solution type (OS family) of an OS image.",
+      "enum": [
+        "AzureLinux",
+        "HCI"
+      ],
+      "x-ms-enum": {
+        "name": "SolutionType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "AzureLinux",
+            "value": "AzureLinux",
+            "description": "AzureLinux OS."
+          },
+          {
+            "name": "HCI",
+            "value": "HCI",
+            "description": "HCI OS."
+          }
+        ]
+      }
+    },
     "State": {
       "type": "string",
       "description": "Represents the current state of the update as it relates to this stamp. This includes phases such as preparation, installation, scanning, and error handling, providing insight into the update's progress and any issues encountered.",
@@ -34061,6 +34168,11 @@
           "type": "integer",
           "format": "int32",
           "description": "The percentage of the job that is complete.",
+          "readOnly": true
+        },
+        "deploymentStatus": {
+          "$ref": "#/definitions/EceActionStatus",
+          "description": "Deployment status reported by the device for the storage array job.",
           "readOnly": true
         }
       }

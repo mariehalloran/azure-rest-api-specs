@@ -1,0 +1,200 @@
+{
+  "operationId": "Clusters_CreateOrUpdate",
+  "title": "Create a Dk8s cluster with ingress enabled",
+  "parameters": {
+    "api-version": "2025-03-01-preview",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000",
+    "resourceGroupName": "rg-secbaseplatform",
+    "clusterName": "prod-cluster",
+    "resource": {
+      "location": "eastus2",
+      "properties": {
+        "workspaceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/workspaces/prod-ws",
+        "clusterKind": "Dk8s",
+        "observability": {
+          "metricsAccount": "SecurityBasePlatformProd",
+          "logsAccount": "SecurityBasePlatformProd",
+          "metrics": {
+            "enabled": true,
+            "scrapeIntervalSeconds": 60
+          },
+          "logs": {
+            "enabled": true,
+            "collectStdout": true,
+            "collectStderr": true
+          },
+          "mdm": {
+            "enabled": true,
+            "account": "SecBasePlatformMetrics"
+          },
+          "routing": {
+            "logRoutes": [
+              {
+                "name": "geneva",
+                "destination": "genevaMdsd"
+              }
+            ],
+            "metricRoutes": [
+              {
+                "name": "mdm",
+                "destination": "genevaMdm"
+              }
+            ]
+          },
+          "operatorManaged": {
+            "enabled": true,
+            "manageCertificates": true
+          },
+          "probes": {
+            "liveness": {
+              "type": "httpGet",
+              "path": "/health",
+              "port": 8080
+            },
+            "readiness": {
+              "type": "tcpSocket",
+              "port": 8080
+            },
+            "startup": {
+              "type": "exec",
+              "command": [
+                "check-health"
+              ]
+            }
+          }
+        },
+        "networkConfig": {
+          "egressIpTag": "SecBasePlatform-Egress",
+          "networkIdentifierIpTag": "SecBasePlatform-Net"
+        },
+        "ingress": {
+          "enabled": true,
+          "ipTag": "SecBasePlatform-Ingress"
+        },
+        "additionalNodePools": [
+          {
+            "name": "gpu-training",
+            "skuSeries": [
+              "NCads_v5"
+            ],
+            "capacityType": [
+              "on-demand"
+            ],
+            "weight": 100,
+            "taints": [
+              {
+                "key": "gpu",
+                "value": "true",
+                "effect": "NoSchedule"
+              }
+            ],
+            "labels": [
+              "workload=gpu"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/clusters/prod-cluster",
+        "name": "prod-cluster",
+        "type": "Microsoft.SecurityBasePlatform/clusters",
+        "location": "eastus2",
+        "properties": {
+          "workspaceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/workspaces/prod-ws",
+          "clusterKind": "Dk8s",
+          "observability": {
+            "metricsAccount": "SecurityBasePlatformProd",
+            "logsAccount": "SecurityBasePlatformProd",
+            "metrics": {
+              "enabled": true,
+              "scrapeIntervalSeconds": 60
+            },
+            "logs": {
+              "enabled": true,
+              "collectStdout": true,
+              "collectStderr": true
+            },
+            "mdm": {
+              "enabled": true,
+              "account": "SecBasePlatformMetrics"
+            },
+            "routing": {
+              "logRoutes": [
+                {
+                  "name": "geneva",
+                  "destination": "genevaMdsd"
+                }
+              ],
+              "metricRoutes": [
+                {
+                  "name": "mdm",
+                  "destination": "genevaMdm"
+                }
+              ]
+            },
+            "operatorManaged": {
+              "enabled": true,
+              "manageCertificates": true
+            }
+          },
+          "networkConfig": {
+            "egressIpTag": "SecBasePlatform-Egress",
+            "networkIdentifierIpTag": "SecBasePlatform-Net"
+          },
+          "ingress": {
+            "enabled": true,
+            "ipTag": "SecBasePlatform-Ingress"
+          },
+          "additionalNodePools": [
+            {
+              "name": "gpu-training",
+              "skuSeries": [
+                "NCads_v5"
+              ],
+              "capacityType": [
+                "on-demand"
+              ],
+              "weight": 100,
+              "taints": [
+                {
+                  "key": "gpu",
+                  "value": "true",
+                  "effect": "NoSchedule"
+                }
+              ],
+              "labels": [
+                "workload=gpu"
+              ]
+            }
+          ],
+          "provisioningState": "Succeeded"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/clusters/prod-cluster",
+        "name": "prod-cluster",
+        "type": "Microsoft.SecurityBasePlatform/clusters",
+        "location": "eastus2",
+        "properties": {
+          "workspaceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-secbaseplatform/providers/Microsoft.SecurityBasePlatform/workspaces/prod-ws",
+          "clusterKind": "Dk8s",
+          "networkConfig": {
+            "egressIpTag": "SecBasePlatform-Egress",
+            "networkIdentifierIpTag": "SecBasePlatform-Net"
+          },
+          "ingress": {
+            "enabled": true,
+            "ipTag": "SecBasePlatform-Ingress"
+          },
+          "provisioningState": "Accepted"
+        }
+      }
+    }
+  }
+}

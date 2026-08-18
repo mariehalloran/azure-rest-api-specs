@@ -1552,6 +1552,20 @@
         ]
       }
     },
+    "CodeComplexityMetric": {
+      "type": "object",
+      "description": "Definition of Code Complexity Metric for assessing PL/SQL migration effort.",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Property key, e.g. PACKAGE_BODY, PROCEDURE, TOTAL_OBJECT_COUNT, SCHEMA_COUNT"
+        },
+        "value": {
+          "type": "string",
+          "description": "Property value"
+        }
+      }
+    },
     "Collation": {
       "type": "object",
       "description": "Represents a Collation in Oracle.",
@@ -2424,6 +2438,16 @@
           "$ref": "#/definitions/BoolValue",
           "description": "Indicates whether the access to the machine's file system is enabled for the database objects."
         },
+        "codeComplexityMetrics": {
+          "type": "array",
+          "description": "Code complexity metrics for assessing PL/SQL migration effort to PostgreSQL.\nContains per-type programmable object counts (e.g. PACKAGE_BODY, PROCEDURE, FUNCTION, TRIGGER),\ninvalid object counts, total counts, and schema count.",
+          "items": {
+            "$ref": "#/definitions/CodeComplexityMetric"
+          },
+          "x-ms-identifiers": [
+            "key"
+          ]
+        },
         "errorCount": {
           "type": "integer",
           "format": "int64",
@@ -2604,6 +2628,16 @@
         "fileSystemAccessEnabled": {
           "$ref": "#/definitions/BoolValue",
           "description": "Indicates whether the access to the machine's file system is enabled for the database objects."
+        },
+        "codeComplexityMetrics": {
+          "type": "array",
+          "description": "Code complexity metrics for assessing PL/SQL migration effort to PostgreSQL.\nContains per-type programmable object counts (e.g. PACKAGE_BODY, PROCEDURE, FUNCTION, TRIGGER),\ninvalid object counts, total counts, and schema count.",
+          "items": {
+            "$ref": "#/definitions/CodeComplexityMetric"
+          },
+          "x-ms-identifiers": [
+            "key"
+          ]
         },
         "errorCount": {
           "type": "integer",

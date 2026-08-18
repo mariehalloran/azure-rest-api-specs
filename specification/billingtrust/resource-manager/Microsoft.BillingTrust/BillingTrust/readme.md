@@ -15,16 +15,16 @@ use the native TypeSpec code generation configured in the tspconfig.yaml file.
 ```yaml
 openapi-type: arm
 openapi-subtype: rpaas
-tag: package-preview-2026-03-17
+tag: package-preview-2026-08-10
 ```
 
-### Tag: package-preview-2026-03-17
+### Tag: package-preview-2026-08-10
 
-These settings apply only when `--tag=package-preview-2026-03-17` is specified on the command line.
+These settings apply only when `--tag=package-preview-2026-08-10` is specified on the command line.
 
-```yaml $(tag) == 'package-preview-2026-03-17'
+```yaml $(tag) == 'package-preview-2026-08-10'
 input-file:
-  - preview/2026-03-17-preview/openapi.json
+  - preview/2026-08-10-preview/openapi.json
 
 directive:
   - suppress: ConsistentPatchProperties
@@ -98,27 +98,6 @@ directive:
       `format: uuid` schema is required for SDK type generation, schema
       validation, and consistency with other Azure RP specs that reference
       Entra tenant IDs (e.g. Microsoft.ManagedIdentity, Microsoft.Authorization).
-
-  - suppress: WriteOnlyProperties
-    from:
-      - openapi.json
-    where:
-      - $.definitions.AssessmentProperties.properties.initialValues
-    reason: |
-      `initialValues` is an intentional transient seed parameter forwarded by
-      the parent resource provider at assessment creation. The values are forwarded to the
-      per-kind rule resources and are NOT persisted on the assessment itself,
-      so they cannot be returned on Read. The rules themselves expose the
-      read-side projection of these seeds (for example,
-      `EduQualificationRuleProperties.domains` is the readable projection of
-      the eduQualification seed). This is the ARM-recommended pattern for
-      "create-only seed" inputs and is mirrored by the
-      `x-ms-mutability: ["create"]` annotation in the schema. A round-trip
-      (GET → PUT) re-issued with the same `initialValues` after the assessment
-      exists is a no-op on the rules (already instantiated); a round-trip
-      with a different seed that would re-seed existing rules is rejected
-      with 409 Conflict — so the absence of `initialValues` in the GET
-      response cannot cause What-If false drift.
 
   - suppress: ParametersInPointGet
     from:

@@ -49,6 +49,7 @@ model SaasResourceProperties {
 /**
  * Request to check if the saas resource can be created
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CanCreateSaasResourceRequest {
   /**
    * Resource name of the saas hub resource to be created.
@@ -69,6 +70,7 @@ model CanCreateSaasResourceRequest {
 /**
  * Request to merge multiple saas resource resources into one target saas resource resource
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model MergeSaasResourcesRequest {
   /**
    * List of source resources to be merged into target resource.

@@ -372,6 +372,7 @@ union IsManagementType {
   string,
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("NNI Bidirectional Forwarding Detection (BFD) Administrative State request.")
 @added(Versions.v2024_06_15_preview)
 model NniBfdAdministrativeStateRequest {
@@ -383,6 +384,7 @@ model NniBfdAdministrativeStateRequest {
 }
 
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Extending common error response"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("NNI Bidirectional Forwarding Detection (BFD) Administrative State response.")
 @added(Versions.v2024_06_15_preview)
 model NniBfdAdministrativeStateResponse extends CommonErrorResponse {
@@ -488,6 +490,7 @@ model OptionBLayer3PrefixLimitProperties {
 model OptionBLayer3PrefixLimitPatchProperties
   is OptionBLayer3PrefixLimitProperties;
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("NNI Bidirectional Forwarding Detection (BFD) Administrative State request.")
 @added(Versions.v2025_07_15)
 model NniUpdateBfdAdministrativeStateRequest {
@@ -498,6 +501,7 @@ model NniUpdateBfdAdministrativeStateRequest {
   administrativeState?: BfdAdministrativeState;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("NNI Bidirectional Forwarding Detection (BFD) Administrative State response.")
 @added(Versions.v2025_07_15)
 model NniUpdateBfdAdministrativeStateResponse {

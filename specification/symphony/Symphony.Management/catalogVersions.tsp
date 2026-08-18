@@ -60,6 +60,7 @@ model CatalogVersion is TrackedResource<CatalogVersionProperties> {
   extendedLocation?: ExtendedLocation;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The expression evaluation result response.")
 @added(Versions.v2024_08_01_preview)
 model EvalExpressionResponse {

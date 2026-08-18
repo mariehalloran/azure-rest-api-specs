@@ -35,6 +35,7 @@ model PaginationParameters {
 }
 
 /** Validation result */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ValidationResponse {
   /** Validation result */
   validationResult: ValidationResult;

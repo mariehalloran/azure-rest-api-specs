@@ -455,6 +455,7 @@ model ExecuteStartRequest {
 }
 
 // ----------- ExecuteDeallocateWithCapacityCheck ---------
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Microsoft.ComputeSchedule.Versions.`2026-04-27-preview`)
 @doc("The request for deallocating VMs with a capacity check, which verifies capacity predictions at the desired start time before proceeding with deallocation")
 model ExecuteDeallocateWithCapacityCheckRequest {
@@ -643,6 +644,7 @@ model ResourceProvisionFlexPayload {
   flexProperties: FlexProperties;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Microsoft.ComputeSchedule.Versions.`2026-03-01-preview`)
 @doc("The ExecuteCreateFlexRequest request for executeCreateFlex operations")
 model ExecuteCreateFlexRequest {
@@ -656,6 +658,7 @@ model ExecuteCreateFlexRequest {
   correlationid?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Microsoft.ComputeSchedule.Versions.`2026-03-01-preview`)
 @doc("The response from a create flex request")
 model CreateFlexResourceOperationResponse {

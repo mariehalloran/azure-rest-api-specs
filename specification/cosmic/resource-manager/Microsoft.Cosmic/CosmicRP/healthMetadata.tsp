@@ -13,7 +13,7 @@ namespace Microsoft.Cosmic;
 
 @doc("Health metadata for COSMIC monitoring, scoped under a namespace and consumed by HealthService.")
 @parentResource(Namespace)
-model HealthMetadata is ProxyResource<HealthMetadataProperties> {
+model HealthMetadata is TrackedResource<HealthMetadataProperties> {
   @doc("The name of the health metadata resource.")
   @key("healthMetadataName")
   @segment("healthMetadatas")
@@ -24,7 +24,6 @@ model HealthMetadata is ProxyResource<HealthMetadataProperties> {
   name: string;
 }
 
-#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "HealthMetadata is a pure proxy resource backed by Inventory; it has no RP-owned provisioning lifecycle."
 @doc("Properties of a HealthMetadata resource.")
 model HealthMetadataProperties {
   @doc("Platform ring this health metadata applies to.")
@@ -51,6 +50,10 @@ model HealthMetadataProperties {
   @identifiers(#["monitorName"])
   @minItems(1)
   monitors: HealthMetadataMonitor[];
+
+  /** The provisioning state of the health metadata resource. */
+  @visibility(Lifecycle.Read)
+  provisioningState?: CosmicProvisioningState;
 }
 
 @doc("Mapping from COSMIC dimension keys to partner Geneva dimension names.")
@@ -118,7 +121,6 @@ union GenevaEnvironment {
 @armResourceOperations
 interface HealthMetadatas {
   get is ArmResourceRead<HealthMetadata>;
-  // Synchronous proxy CRUD: MetaRP routes the call to RP, while RP persists the source of truth in Inventory.
   createOrUpdate is ArmResourceCreateOrReplaceSync<HealthMetadata>;
   update is ArmCustomPatchSync<
     HealthMetadata,
@@ -128,6 +130,5 @@ interface HealthMetadatas {
     >
   >;
   delete is ArmResourceDeleteSync<HealthMetadata>;
-  // Lists are projected from Inventory rather than MetaRP cache because this is a pure proxy resource.
   listByNamespace is ArmResourceListByParent<HealthMetadata>;
 }

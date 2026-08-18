@@ -20,6 +20,15 @@ model ServerParameter {
   value?: string;
 }
 
+@doc("Definition of Code Complexity Metric for assessing PL/SQL migration effort.")
+model CodeComplexityMetric {
+  @doc("Property key, e.g. PACKAGE_BODY, PROCEDURE, TOTAL_OBJECT_COUNT, SCHEMA_COUNT")
+  key?: string;
+
+  @doc("Property value")
+  value?: string;
+}
+
 @doc("Base tracked resource type for PATCH updates.")
 model TagsUpdate {
   ...ArmTagsProperty;
@@ -1476,6 +1485,14 @@ model OracleDatabaseProperties is AzureResourceProperties {
   fileSystemAccessEnabled?: BoolValue;
 
   /**
+   * Code complexity metrics for assessing PL/SQL migration effort to PostgreSQL.
+   * Contains per-type programmable object counts (e.g. PACKAGE_BODY, PROCEDURE, FUNCTION, TRIGGER),
+   * invalid object counts, total counts, and schema count.
+   */
+  @identifiers(#["key"])
+  codeComplexityMetrics?: CodeComplexityMetric[];
+
+  /**
    * The number of errors.
    */
   errorCount?: int64;
@@ -1666,6 +1683,14 @@ model OracleDatabaseResourcePatch {
    * Indicates whether the access to the machine's file system is enabled for the database objects.
    */
   fileSystemAccessEnabled?: BoolValue;
+
+  /**
+   * Code complexity metrics for assessing PL/SQL migration effort to PostgreSQL.
+   * Contains per-type programmable object counts (e.g. PACKAGE_BODY, PROCEDURE, FUNCTION, TRIGGER),
+   * invalid object counts, total counts, and schema count.
+   */
+  @identifiers(#["key"])
+  codeComplexityMetrics?: CodeComplexityMetric[];
 
   /**
    * The number of errors.

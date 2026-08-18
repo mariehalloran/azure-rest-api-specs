@@ -1,10 +1,12 @@
 import "@typespec/rest";
 import "@typespec/http";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 
 using Rest;
 using Http;
+using Versioning;
 using Azure.Core;
 using Azure.ResourceManager;
 
@@ -27,6 +29,18 @@ union ProvisioningState {
 
   /** Resource provisioning was canceled */
   Canceled: "Canceled",
+
+  /** The resource create request has been accepted; provisioning is in progress. */
+  Provisioning: "Provisioning",
+
+  /** The resource update request has been accepted; the update is in progress. */
+  Updating: "Updating",
+
+  /** The resource delete request has been accepted; deletion is in progress. */
+  Deleting: "Deleting",
+
+  /** The long-running operation has been accepted and is not yet complete. */
+  Accepted: "Accepted",
 }
 
 /** AgentFabric properties */
@@ -38,6 +52,18 @@ model AgentFabricProperties {
     }
   ]>[];
 
+  /**
+   * The trust domain that scopes this fabric's member identities. It is the leading component of
+   * each member's identity, which takes the form `<trustDomain>/<agentFabricName>/<memberName>`.
+   * Set at creation and immutable thereafter; when omitted, the shared default trust domain
+   * `microsoft.agentfabric` is used.
+   */
+  @added(Versions.v2026_07_21_preview)
+  @visibility(Lifecycle.Create, Lifecycle.Read)
+  @maxLength(253)
+  @pattern("^[a-z0-9]([a-z0-9.-]*[a-z0-9])?$")
+  trustDomain?: string;
+
   /** The provisioning state of the resource. */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
@@ -47,8 +73,15 @@ model AgentFabricProperties {
 interface AgentFabrics {
   get is ArmResourceRead<AgentFabric>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<AgentFabric>;
-  update is ArmTagsPatchSync<AgentFabric>;
-  delete is ArmResourceDeleteSync<AgentFabric>;
+  update is ArmTagsPatchAsync<AgentFabric>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    AgentFabric,
+    Response =
+      | ArmDeleteAcceptedLroResponse<ArmAsyncOperationHeader &
+          ArmLroLocationHeader &
+          Azure.Core.Foundations.RetryAfterHeader>
+      | ArmDeletedNoContentResponse
+  >;
   listByResourceGroup is ArmResourceListByParent<AgentFabric>;
   listBySubscription is ArmListBySubscription<AgentFabric>;
 }
@@ -58,7 +91,12 @@ union WorkloadType {
   string,
 
   /** Foundry workload type */
+  @removed(Versions.v2026_07_21_preview)
   Foundry: "Foundry",
+
+  /** ACI (Azure Container Instances) sandbox workload type */
+  @added(Versions.v2026_07_21_preview)
+  ACI: "ACI",
 
   /** Agent Fabric sandbox workload type */
   AgentFabricSandbox: "AgentFabricSandbox",
@@ -77,12 +115,27 @@ model WorkloadBase {
 }
 
 /** Foundry workload configuration. */
+@removed(Versions.v2026_07_21_preview)
 model FoundryWorkload extends WorkloadBase {
   /** The workload type. */
   type: "Foundry";
 
-  /** The ARM resource ID of the Foundry resource. */
+  /** The Azure Resource Manager resource ID of the Foundry resource. */
   resourceId?: Azure.Core.armResourceIdentifier;
+}
+
+/** ACI (Azure Container Instances) sandbox workload configuration. */
+@added(Versions.v2026_07_21_preview)
+model AciWorkload extends WorkloadBase {
+  /** The workload type. */
+  type: "ACI";
+
+  /** The Azure Resource Manager resource ID of the Azure Container Instances (ACI) container group backing this member's sandbox. */
+  resourceId: Azure.Core.armResourceIdentifier<[
+    {
+      type: "Microsoft.ContainerInstance/containerGroups";
+    }
+  ]>;
 }
 
 /** The image pull policy for a sandbox workload container image. */
@@ -162,14 +215,27 @@ model AgentFabricSandboxWorkload extends WorkloadBase {
 
 /** Member resource */
 @parentResource(AgentFabric)
-model Member is ProxyResource<MemberProperties> {
+model Member is TrackedResource<MemberProperties> {
   ...ResourceNameParameter<Member>;
 }
 
 /** Member properties */
 model MemberProperties {
-  /** The workload configuration of the member. */
+  /**
+   * The workload configuration of the member. Set at creation and immutable
+   * thereafter; to change the workload, delete and recreate the member.
+   */
+  @visibility(Lifecycle.Create, Lifecycle.Read)
   workload?: WorkloadBase;
+
+  /**
+   * The SPIFFE ID that identifies this member's workload identity, system-assigned by the service
+   * at creation time. It takes the form `spiffe://<trustDomain>/<agentFabricName>/<memberName>`,
+   * using the owning fabric's trust domain (or the default `microsoft.agentfabric` when unset), with
+   * all segments lower-cased to conform to the SPIFFE ID scheme. Read-only.
+   */
+  @visibility(Lifecycle.Read)
+  spiffeId?: string;
 
   /** The provisioning state of the resource. */
   @visibility(Lifecycle.Read)
@@ -180,7 +246,15 @@ model MemberProperties {
 interface Members {
   get is ArmResourceRead<Member>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<Member>;
-  delete is ArmResourceDeleteSync<Member>;
+  update is ArmTagsPatchAsync<Member>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    Member,
+    Response =
+      | ArmDeleteAcceptedLroResponse<ArmAsyncOperationHeader &
+          ArmLroLocationHeader &
+          Azure.Core.Foundations.RetryAfterHeader>
+      | ArmDeletedNoContentResponse
+  >;
   listByParent is ArmResourceListByParent<Member>;
 }
 
@@ -763,8 +837,37 @@ model PolicyGroupProperties {
 interface PolicyGroups {
   get is ArmResourceRead<PolicyGroup>;
   createOrUpdate is ArmResourceCreateOrReplaceAsync<PolicyGroup>;
-  update is ArmTagsPatchSync<PolicyGroup>;
-  delete is ArmResourceDeleteSync<PolicyGroup>;
+  update is ArmTagsPatchAsync<PolicyGroup>;
+  delete is ArmResourceDeleteWithoutOkAsync<
+    PolicyGroup,
+    Response =
+      | ArmDeleteAcceptedLroResponse<ArmAsyncOperationHeader &
+          ArmLroLocationHeader &
+          Azure.Core.Foundations.RetryAfterHeader>
+      | ArmDeletedNoContentResponse
+  >;
   listByResourceGroup is ArmResourceListByParent<PolicyGroup>;
   listBySubscription is ArmListBySubscription<PolicyGroup>;
 }
+
+@armResourceOperations
+interface OperationStatus {
+  @doc("Returns the current status of an async operation.")
+  @autoRoute
+  get(
+    ...ApiVersionParameter,
+    ...SubscriptionIdParameter,
+
+    @path
+    @segment("providers")
+    @doc("The provider namespace (this parameter will not show up in operations).")
+    provider: "Microsoft.NetworkSecurity",
+
+    ...Azure.ResourceManager.CommonTypes.LocationParameter,
+    ...Azure.ResourceManager.Foundations.OperationIdParameter,
+  ):
+    | ArmResponse<Azure.ResourceManager.CommonTypes.OperationStatusResult>
+    | ErrorResponse;
+}
+
+@@segment(OperationStatus.get::parameters.operationId, "operationStatuses");

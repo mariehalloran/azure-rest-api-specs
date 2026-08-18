@@ -98,7 +98,9 @@ interface MaintenancePlans {
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "This interface intentionally uses an explicit @route instead of @armResourceOperations templates."
 interface MaintenancePlansCollectionRoutes {
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "Explicit @route list operation (custom query parameter)."
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "Explicit @route list operation (custom query parameter)."
   @tag("MaintenancePlans")
   @summary("List Maintenance Plans for a resource")
   @doc("Lists all Maintenance Plans for a resource.")

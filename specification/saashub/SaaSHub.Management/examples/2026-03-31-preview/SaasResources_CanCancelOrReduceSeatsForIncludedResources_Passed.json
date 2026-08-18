@@ -1,0 +1,37 @@
+{
+  "parameters": {
+    "saasResourceName": "targetResourceName",
+    "api-version": "2026-03-31-preview",
+    "body": {
+      "includedResources": [
+        {
+          "id": "/providers/Microsoft.SaaSHub/saasResources/sourceResourceName1",
+          "quantity": 12
+        },
+        {
+          "id": "/providers/Microsoft.SaaSHub/saasResources/sourceResourceName2",
+          "quantity": 8
+        }
+      ],
+      "changeType": "Immediate"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "items": [
+          {
+            "resourceUri": "/providers/Microsoft.SaaSHub/saasResources/sourceResourceName1",
+            "evaluateResult": "Passed"
+          },
+          {
+            "resourceUri": "/providers/Microsoft.SaaSHub/saasResources/sourceResourceName2",
+            "evaluateResult": "Passed"
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "SaasResources_CanCancelOrReduceSeatsForIncludedResources",
+  "title": "CanCancelOrReduceSeatsForIncludedResources Passed"
+}

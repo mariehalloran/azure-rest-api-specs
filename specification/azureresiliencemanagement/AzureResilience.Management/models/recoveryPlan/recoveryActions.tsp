@@ -33,6 +33,7 @@ union RecoveryOperationNames {
   string,
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("ValidateForOperation post action request to check if operation can be performed.")
 model ValidateForOperationRequest {
   @doc("Operation Name to validate.")
@@ -91,6 +92,7 @@ model RecoveryResourceQualification {
   operationQualificationDetails: OperationQualificationDetails;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("ValidateForRecoveryOperation post action response.")
 model ValidateForRecoveryOperationBaseResponse {
   @identifiers(#[])
@@ -98,12 +100,14 @@ model ValidateForRecoveryOperationBaseResponse {
   recoveryResourceQualifications: RecoveryResourceQualification[];
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Recovery Orchestration Plan post action response.")
 model RecoveryPlanActionBaseResponse {
   @doc("JobId of the job triggered for Recovery Orchestration Plan.")
   jobId: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("TestFailoverCleanup post action request.")
 model TestFailoverCleanupRequest {
   @doc("Comments for test failover cleanup.")
@@ -111,6 +115,7 @@ model TestFailoverCleanupRequest {
   comments?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_03_01_preview)
 @doc("Request body for providing user input for a recovery action.")
 model RecoveryActionRequest {

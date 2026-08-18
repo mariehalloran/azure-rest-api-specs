@@ -1,0 +1,75 @@
+{
+  "operationId": "Operations_List",
+  "title": "List available operations",
+  "parameters": {
+    "api-version": "2025-07-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "Microsoft.CloudLicensing/allotments/read",
+            "display": {
+              "provider": "Microsoft Cloud Licensing",
+              "resource": "Allotments",
+              "operation": "Get/List allotments",
+              "description": "Read allotment resources"
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.CloudLicensing/allotments/write",
+            "display": {
+              "provider": "Microsoft Cloud Licensing",
+              "resource": "Allotments",
+              "operation": "Create/Update allotments",
+              "description": "Write allotment resources"
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.CloudLicensing/allotments/delete",
+            "display": {
+              "provider": "Microsoft Cloud Licensing",
+              "resource": "Allotments",
+              "operation": "Delete allotments",
+              "description": "Delete allotment resources"
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.CloudLicensing/allotments/assignments/read",
+            "display": {
+              "provider": "Microsoft Cloud Licensing",
+              "resource": "Assignments",
+              "operation": "Get/List assignments",
+              "description": "Read assignment resources"
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.CloudLicensing/allotments/assignments/write",
+            "display": {
+              "provider": "Microsoft Cloud Licensing",
+              "resource": "Assignments",
+              "operation": "Create/Update assignments",
+              "description": "Write assignment resources"
+            },
+            "isDataAction": false
+          },
+          {
+            "name": "Microsoft.CloudLicensing/allotments/assignments/delete",
+            "display": {
+              "provider": "Microsoft Cloud Licensing",
+              "resource": "Assignments",
+              "operation": "Delete assignments",
+              "description": "Delete assignment resources"
+            },
+            "isDataAction": false
+          }
+        ]
+      }
+    }
+  }
+}

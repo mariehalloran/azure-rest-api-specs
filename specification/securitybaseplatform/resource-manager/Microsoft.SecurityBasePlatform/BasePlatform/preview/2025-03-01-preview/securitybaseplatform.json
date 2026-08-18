@@ -1,0 +1,2628 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Microsoft.SecurityBasePlatform",
+    "version": "2025-03-01-preview",
+    "x-typespec-generated": [
+      {
+        "emitter": "@azure-tools/typespec-autorest"
+      }
+    ]
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "management.azure.com",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "description": "Azure Active Directory OAuth2 Flow.",
+      "flow": "implicit",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "Workspaces"
+    },
+    {
+      "name": "Clusters"
+    }
+  ],
+  "paths": {
+    "/providers/Microsoft.SecurityBasePlatform/operations": {
+      "get": {
+        "operationId": "Operations_List",
+        "tags": [
+          "Operations"
+        ],
+        "description": "List the operations for the provider",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/OperationListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List the operations of the Microsoft.SecurityBasePlatform provider": {
+            "$ref": "./examples/Operations_List.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.SecurityBasePlatform/clusters": {
+      "get": {
+        "operationId": "Clusters_ListBySubscription",
+        "tags": [
+          "Clusters"
+        ],
+        "description": "List Cluster resources by subscription ID",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ClusterListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List clusters in a subscription": {
+            "$ref": "./examples/Clusters_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/providers/Microsoft.SecurityBasePlatform/workspaces": {
+      "get": {
+        "operationId": "Workspaces_ListBySubscription",
+        "tags": [
+          "Workspaces"
+        ],
+        "description": "List Workspace resources by subscription ID",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/WorkspaceListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List workspaces in a subscription": {
+            "$ref": "./examples/Workspaces_ListBySubscription.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SecurityBasePlatform/clusters": {
+      "get": {
+        "operationId": "Clusters_ListByResourceGroup",
+        "tags": [
+          "Clusters"
+        ],
+        "description": "List Cluster resources by resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ClusterListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List clusters in a resource group": {
+            "$ref": "./examples/Clusters_ListByResourceGroup.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SecurityBasePlatform/clusters/{clusterName}": {
+      "get": {
+        "operationId": "Clusters_Get",
+        "tags": [
+          "Clusters"
+        ],
+        "description": "Get a Cluster",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the Cluster.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9]([-a-z0-9]{1,22}[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Cluster"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a cluster": {
+            "$ref": "./examples/Clusters_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "Clusters_CreateOrUpdate",
+        "tags": [
+          "Clusters"
+        ],
+        "description": "Create a Cluster",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the Cluster.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9]([-a-z0-9]{1,22}[a-z0-9])?$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Cluster"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'Cluster' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Cluster"
+            }
+          },
+          "201": {
+            "description": "Resource 'Cluster' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Cluster"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create a Dk8s cluster with ingress enabled": {
+            "$ref": "./examples/Clusters_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "Clusters_Update",
+        "tags": [
+          "Clusters"
+        ],
+        "description": "Update a Cluster",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the Cluster.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9]([-a-z0-9]{1,22}[a-z0-9])?$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ClusterUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Cluster"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update cluster tags and ingress settings": {
+            "$ref": "./examples/Clusters_Update.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "Clusters_Delete",
+        "tags": [
+          "Clusters"
+        ],
+        "description": "Delete a Cluster",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "clusterName",
+            "in": "path",
+            "description": "The name of the Cluster.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-z0-9]([-a-z0-9]{1,22}[a-z0-9])?$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a cluster": {
+            "$ref": "./examples/Clusters_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SecurityBasePlatform/workspaces": {
+      "get": {
+        "operationId": "Workspaces_ListByResourceGroup",
+        "tags": [
+          "Workspaces"
+        ],
+        "description": "List Workspace resources by resource group",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/WorkspaceListResult"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "List workspaces in a resource group": {
+            "$ref": "./examples/Workspaces_ListByResourceGroup.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SecurityBasePlatform/workspaces/{workspaceName}": {
+      "get": {
+        "operationId": "Workspaces_Get",
+        "tags": [
+          "Workspaces"
+        ],
+        "description": "Get a Workspace",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "workspaceName",
+            "in": "path",
+            "description": "The name of the Workspace.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Workspace"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get a workspace": {
+            "$ref": "./examples/Workspaces_Get.json"
+          }
+        }
+      },
+      "put": {
+        "operationId": "Workspaces_CreateOrUpdate",
+        "tags": [
+          "Workspaces"
+        ],
+        "description": "Create a Workspace",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "workspaceName",
+            "in": "path",
+            "description": "The name of the Workspace.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "resource",
+            "in": "body",
+            "description": "Resource create parameters.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Workspace"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource 'Workspace' update operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Workspace"
+            }
+          },
+          "201": {
+            "description": "Resource 'Workspace' create operation succeeded",
+            "schema": {
+              "$ref": "#/definitions/Workspace"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "description": "A link to the status monitor"
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Create a production workspace": {
+            "$ref": "./examples/Workspaces_CreateOrUpdate.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "operationId": "Workspaces_Update",
+        "tags": [
+          "Workspaces"
+        ],
+        "description": "Update a Workspace",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "workspaceName",
+            "in": "path",
+            "description": "The name of the Workspace.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          },
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "The resource properties to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WorkspaceUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Azure operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/Workspace"
+            }
+          },
+          "202": {
+            "description": "Resource update request accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update workspace tags and service tree ID": {
+            "$ref": "./examples/Workspaces_Update.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      },
+      "delete": {
+        "operationId": "Workspaces_Delete",
+        "tags": [
+          "Workspaces"
+        ],
+        "description": "Delete a Workspace",
+        "parameters": [
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../../common-types/resource-management/v6/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "name": "workspaceName",
+            "in": "path",
+            "description": "The name of the Workspace.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Resource deletion accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "type": "string",
+                "format": "uri",
+                "description": "A link to the status monitor"
+              },
+              "Location": {
+                "type": "string",
+                "description": "The Location header contains the URL where the status of the long running operation can be checked."
+              },
+              "Retry-After": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The Retry-After header can indicate how long the client should wait before polling the operation status."
+              }
+            }
+          },
+          "204": {
+            "description": "Resource does not exist."
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Delete a workspace": {
+            "$ref": "./examples/Workspaces_Delete.json"
+          }
+        },
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "x-ms-long-running-operation": true
+      }
+    }
+  },
+  "definitions": {
+    "AuditLogCategory": {
+      "type": "string",
+      "description": "Audit log category.",
+      "enum": [
+        "Administrative",
+        "Security",
+        "DataAccess",
+        "Application"
+      ],
+      "x-ms-enum": {
+        "name": "AuditLogCategory",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Administrative",
+            "value": "Administrative",
+            "description": "Administrative audit events."
+          },
+          {
+            "name": "Security",
+            "value": "Security",
+            "description": "Security audit events."
+          },
+          {
+            "name": "DataAccess",
+            "value": "DataAccess",
+            "description": "Data access audit events."
+          },
+          {
+            "name": "Application",
+            "value": "Application",
+            "description": "Application-defined audit events."
+          }
+        ]
+      }
+    },
+    "Cluster": {
+      "type": "object",
+      "description": "Represents a Cluster - the platform's compute environment abstraction.\n\nA Cluster abstracts a unit of compute capacity onto which workloads\n(Services, Jobs, CronJobs) are scheduled. Today the only backing kind is\nKubernetes (see `clusterKind`), but the resource is modeled so additional\ncompute backends can be introduced without changing the workload contract.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/ClusterProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "ClusterIngressConfig": {
+      "type": "object",
+      "description": "Cluster-level ingress configuration.\n\nIngress must be enabled here before any Service in the cluster can be exposed\nwith `Public` visibility; a `Public` Service in a cluster without ingress\nenabled is rejected at provisioning time.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the platform provisions ingress (controller and public IP / load balancer) for this cluster. Defaults to false."
+        },
+        "ipTag": {
+          "type": "string",
+          "description": "The service tag stamped on the ingress public IP. Only relevant when ingress is enabled."
+        }
+      }
+    },
+    "ClusterIngressConfigUpdate": {
+      "type": "object",
+      "description": "Generated patch properties for ClusterIngressConfig.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the platform provisions ingress (controller and public IP / load balancer) for this cluster. Defaults to false."
+        },
+        "ipTag": {
+          "type": "string",
+          "description": "The service tag stamped on the ingress public IP. Only relevant when ingress is enabled."
+        }
+      }
+    },
+    "ClusterKind": {
+      "type": "string",
+      "description": "Represents the kind of a Cluster.",
+      "enum": [
+        "Dk8s"
+      ],
+      "x-ms-enum": {
+        "name": "ClusterKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Dk8s",
+            "value": "Dk8s",
+            "description": "A Dk8s (dedicated Kubernetes) cluster kind."
+          }
+        ]
+      }
+    },
+    "ClusterListResult": {
+      "type": "object",
+      "description": "The response of a Cluster list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Cluster items on this page",
+          "items": {
+            "$ref": "#/definitions/Cluster"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "ClusterProperties": {
+      "type": "object",
+      "description": "Properties of the Cluster.",
+      "properties": {
+        "workspaceId": {
+          "$ref": "#/definitions/WorkspaceResourceId",
+          "description": "The resource ID of the Workspace.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "clusterKind": {
+          "$ref": "#/definitions/ClusterKind",
+          "description": "The kind of this cluster.",
+          "x-ms-mutability": [
+            "read",
+            "create"
+          ]
+        },
+        "observability": {
+          "$ref": "#/definitions/ObservabilityConfiguration",
+          "description": "Default observability settings inherited by namespaces and workloads unless overridden at a lower scope."
+        },
+        "networkConfig": {
+          "$ref": "#/definitions/NetworkingConfig",
+          "description": "Networking configuration."
+        },
+        "ingress": {
+          "$ref": "#/definitions/ClusterIngressConfig",
+          "description": "Ingress configuration for the cluster. When omitted or disabled, the cluster has no ingress."
+        },
+        "deploymentIdentity": {
+          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentity",
+          "description": "Managed identities used for this cluster's deployments. They are authorized to push container images to the workspace container registry and to deploy workloads to this cluster. Identity resource IDs are map keys in the userAssignedIdentities dictionary. May be changed after create."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the resource.",
+          "readOnly": true
+        },
+        "managedResourceGroupConfiguration": {
+          "$ref": "#/definitions/ManagedResourceGroupConfiguration",
+          "description": "Configuration of the managed resource group associated with the resource.",
+          "readOnly": true
+        },
+        "managedOnBehalfOfConfiguration": {
+          "$ref": "../../../../../../common-types/resource-management/v6/mobo.json#/definitions/ManagedOnBehalfOfConfiguration",
+          "description": "Managed On Behalf Of Configuration.",
+          "readOnly": true
+        }
+      },
+      "discriminator": "clusterKind",
+      "required": [
+        "workspaceId",
+        "clusterKind"
+      ]
+    },
+    "ClusterUpdate": {
+      "type": "object",
+      "description": "The template for adding optional properties.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/ClusterUpdateProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      }
+    },
+    "ClusterUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of the Cluster.",
+      "properties": {
+        "observability": {
+          "$ref": "#/definitions/ObservabilityConfigurationUpdate",
+          "description": "Default observability settings inherited by namespaces and workloads unless overridden at a lower scope."
+        },
+        "networkConfig": {
+          "$ref": "#/definitions/NetworkingConfigUpdate",
+          "description": "Networking configuration."
+        },
+        "ingress": {
+          "$ref": "#/definitions/ClusterIngressConfigUpdate",
+          "description": "Ingress configuration for the cluster. When omitted or disabled, the cluster has no ingress."
+        },
+        "deploymentIdentity": {
+          "$ref": "#/definitions/ManagedServiceIdentityUpdate",
+          "description": "Managed identities used for this cluster's deployments. They are authorized to push container images to the workspace container registry and to deploy workloads to this cluster. Identity resource IDs are map keys in the userAssignedIdentities dictionary. May be changed after create."
+        }
+      }
+    },
+    "ComputeResources": {
+      "type": "object",
+      "description": "Compute resources.",
+      "properties": {
+        "cpu": {
+          "$ref": "#/definitions/ResourceRequestsLimits",
+          "description": "CPU requests and limits."
+        },
+        "memory": {
+          "$ref": "#/definitions/ResourceRequestsLimits",
+          "description": "Memory requests and limits."
+        }
+      }
+    },
+    "ContainerRegistryResourceId": {
+      "type": "string",
+      "format": "arm-id",
+      "description": "Azure Resource Manager resource ID of an Azure Container Registry.",
+      "x-ms-arm-id-details": {
+        "allowedResources": [
+          {
+            "type": "Microsoft.ContainerRegistry/registries"
+          }
+        ]
+      }
+    },
+    "Dk8sClusterProperties": {
+      "type": "object",
+      "description": "Properties for a Dk8s (dedicated Kubernetes) Cluster.",
+      "properties": {
+        "additionalNodePools": {
+          "type": "array",
+          "description": "Additional user node pools for scheduling workloads on auto-provisioned capacity.",
+          "items": {
+            "$ref": "#/definitions/NodePool"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/ClusterProperties"
+        }
+      ],
+      "x-ms-discriminator-value": "Dk8s"
+    },
+    "ExecProbeConfig": {
+      "type": "object",
+      "description": "Exec command probe configuration.",
+      "properties": {
+        "command": {
+          "type": "array",
+          "description": "Command and arguments to execute.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "command"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/ProbeConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "exec"
+    },
+    "HighThroughputConfig": {
+      "type": "object",
+      "description": "High throughput telemetry pipeline configuration.",
+      "properties": {
+        "appName": {
+          "type": "string",
+          "description": "Application process name used by Geneva sidecars for shutdown ordering and attribution."
+        },
+        "genevaMdmNamespace": {
+          "type": "string",
+          "description": "Geneva Metrics (MDM) namespace for high-throughput metrics."
+        },
+        "metrics": {
+          "$ref": "#/definitions/HighThroughputMetricsConfig",
+          "description": "Metrics configuration."
+        },
+        "logs": {
+          "$ref": "#/definitions/HighThroughputLogsConfig",
+          "description": "Logs configuration."
+        }
+      }
+    },
+    "HighThroughputLogsConfig": {
+      "type": "object",
+      "description": "High throughput logs configuration.",
+      "properties": {
+        "resources": {
+          "$ref": "#/definitions/ComputeResources",
+          "description": "Compute resources for the high-throughput logs sidecar."
+        },
+        "circularBufferMb": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Circular buffer size in MB."
+        },
+        "appendMetricDisplayUnits": {
+          "type": "boolean",
+          "description": "Append metric display units to log pipeline metrics."
+        },
+        "gcsEnvironment": {
+          "type": "string",
+          "description": "Geneva configuration service environment."
+        },
+        "gcsNamespace": {
+          "type": "string",
+          "description": "Geneva configuration service namespace."
+        },
+        "gcsAccount": {
+          "type": "string",
+          "description": "Geneva configuration service account."
+        },
+        "gcsRegion": {
+          "type": "string",
+          "description": "Geneva configuration service region."
+        },
+        "gcsVersion": {
+          "type": "string",
+          "description": "Geneva configuration service version."
+        },
+        "batchSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Log batch size."
+        },
+        "parallelismLevel": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Parallelism level for log processing."
+        },
+        "maxEventRate": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Max event rate for the high-throughput logs pipeline."
+        },
+        "mdsd": {
+          "$ref": "#/definitions/MdsdConfig",
+          "description": "Geneva Monitoring Agent (MDSD) collector used by the high-throughput logs pipeline."
+        }
+      }
+    },
+    "HighThroughputMetricsConfig": {
+      "type": "object",
+      "description": "High throughput metrics configuration.",
+      "properties": {
+        "resources": {
+          "$ref": "#/definitions/ComputeResources",
+          "description": "Compute resources for the high-throughput metrics sidecar."
+        },
+        "circularBufferMb": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Circular buffer size in MB."
+        },
+        "appendMetricDisplayUnits": {
+          "type": "boolean",
+          "description": "Append metric display units to emitted metrics."
+        },
+        "pollingIntervalSeconds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Polling interval in seconds."
+        },
+        "mdmMetricsPollingIntervalSeconds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "MDM metrics polling interval in seconds."
+        },
+        "useMdmService": {
+          "type": "boolean",
+          "description": "Use the shared MDM service instead of a local MDM endpoint."
+        },
+        "mdmHostname": {
+          "type": "string",
+          "description": "Explicit MDM hostname used by the metrics pipeline."
+        }
+      }
+    },
+    "HttpGetProbeConfig": {
+      "type": "object",
+      "description": "HTTP GET probe configuration.",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "HTTP path to probe."
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "description": "HTTP port to probe."
+        },
+        "httpHeaders": {
+          "type": "array",
+          "description": "HTTP headers to send with the probe.",
+          "items": {
+            "$ref": "#/definitions/HttpHeader"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        },
+        "https": {
+          "type": "boolean",
+          "description": "Whether to use HTTPS for the probe."
+        }
+      },
+      "required": [
+        "path",
+        "port"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/ProbeConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "httpGet"
+    },
+    "HttpHeader": {
+      "type": "object",
+      "description": "HTTP header used by a probe.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Header name."
+        },
+        "value": {
+          "type": "string",
+          "description": "Header value."
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ]
+    },
+    "LogTailConfig": {
+      "type": "object",
+      "description": "File log tailing sidecar configuration.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether log tailing is enabled."
+        },
+        "resources": {
+          "$ref": "#/definitions/ComputeResources",
+          "description": "Compute resources for the log tail sidecar."
+        },
+        "sources": {
+          "type": "array",
+          "description": "Files and container mappings to tail.",
+          "items": {
+            "$ref": "#/definitions/LogTailSource"
+          },
+          "x-ms-identifiers": [
+            "fileName"
+          ]
+        }
+      }
+    },
+    "LogTailSource": {
+      "type": "object",
+      "description": "A file and container mapping for log tailing.",
+      "properties": {
+        "fileName": {
+          "type": "string",
+          "description": "Path or name of the file to tail."
+        },
+        "containerName": {
+          "type": "string",
+          "description": "Container that owns the tailed file."
+        },
+        "excludeLogTailer": {
+          "type": "boolean",
+          "description": "Exclude this source from the raw log tailer."
+        }
+      },
+      "required": [
+        "fileName",
+        "containerName"
+      ]
+    },
+    "ManagedResourceGroupConfiguration": {
+      "type": "object",
+      "description": "Configuration of the managed resource group associated with the resource.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The resource group name.",
+          "readOnly": true
+        },
+        "location": {
+          "type": "string",
+          "description": "The resource group location.",
+          "readOnly": true
+        }
+      }
+    },
+    "ManagedServiceIdentityUpdate": {
+      "type": "object",
+      "description": "The updatable properties of Azure.ResourceManager.CommonTypes.ManagedServiceIdentity.",
+      "properties": {
+        "type": {
+          "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/ManagedServiceIdentityType",
+          "description": "The type of managed identity assigned to this resource."
+        },
+        "userAssignedIdentities": {
+          "type": "object",
+          "description": "The identities assigned to this resource by the user.",
+          "additionalProperties": {
+            "$ref": "../../../../../../common-types/resource-management/v6/managedidentity.json#/definitions/UserAssignedIdentity",
+            "x-nullable": true
+          }
+        }
+      }
+    },
+    "MdmConfig": {
+      "type": "object",
+      "description": "Geneva Metrics (MDM) sidecar configuration.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the MDM sidecar is enabled."
+        },
+        "resources": {
+          "$ref": "#/definitions/ComputeResources",
+          "description": "Compute resources for the MDM sidecar."
+        },
+        "secretName": {
+          "type": "string",
+          "description": "Certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism. This is a reference to a secret in the configured store, not the secret value itself."
+        },
+        "appProcessName": {
+          "type": "string",
+          "description": "Application process name used for graceful metrics flush ordering."
+        },
+        "account": {
+          "type": "string",
+          "description": "Geneva metrics account."
+        },
+        "protocol": {
+          "type": "string",
+          "description": "Metrics protocol, for example ifx_tcp, ifx_local, or statsd_tcp."
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Metrics listening port."
+        },
+        "unixDomainSockets": {
+          "type": "boolean",
+          "description": "Use Unix domain sockets for local MDM traffic."
+        },
+        "infraMetricsEnrichment": {
+          "type": "boolean",
+          "description": "Enable Geneva infra metrics enrichment and transform rules."
+        },
+        "defaultDimensions": {
+          "type": "array",
+          "description": "Default dimensions added to metrics when infra metrics enrichment is enabled.",
+          "items": {
+            "$ref": "#/definitions/TelemetryDimension"
+          },
+          "x-ms-identifiers": [
+            "dimension"
+          ]
+        },
+        "transformRules": {
+          "type": "array",
+          "description": "Geneva MDM transform rules.",
+          "items": {
+            "$ref": "#/definitions/MdmTransformRule"
+          },
+          "x-ms-identifiers": []
+        },
+        "azureContainerRegistryUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Azure Container Registry (ACR) URL used for the Geneva Metrics (MDM) image when the shared chart cannot infer it."
+        },
+        "openTelemetry": {
+          "$ref": "#/definitions/OpenTelemetryConfig",
+          "description": "OpenTelemetry receiver settings for Geneva MDM."
+        }
+      }
+    },
+    "MdmTransformCondition": {
+      "type": "object",
+      "description": "Geneva MDM transform condition.",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/MdmTransformConditionType",
+          "description": "Condition type."
+        },
+        "account": {
+          "type": "string",
+          "description": "Optional metrics account filter."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Optional metrics namespace filter.",
+          "x-ms-client-name": "namespaceName"
+        },
+        "name": {
+          "type": "string",
+          "description": "Optional metric name filter."
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "MdmTransformConditionType": {
+      "type": "string",
+      "description": "Geneva MDM transform condition type.",
+      "enum": [
+        "any",
+        "metric_key"
+      ],
+      "x-ms-enum": {
+        "name": "MdmTransformConditionType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Any",
+            "value": "any",
+            "description": "Apply to every metric."
+          },
+          {
+            "name": "MetricKey",
+            "value": "metric_key",
+            "description": "Apply to metrics matching account, namespace, or metric name."
+          }
+        ]
+      }
+    },
+    "MdmTransformFunction": {
+      "type": "string",
+      "description": "Built-in Geneva Metrics (MDM) transform functions.",
+      "enum": [
+        "hostname",
+        "ap_machine_function",
+        "ap_machine_name",
+        "ap_environment",
+        "ap_cluster",
+        "source_id"
+      ],
+      "x-ms-enum": {
+        "name": "MdmTransformFunction",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Hostname",
+            "value": "hostname",
+            "description": "Use the host name."
+          },
+          {
+            "name": "ApMachineFunction",
+            "value": "ap_machine_function",
+            "description": "Use the application platform machine function."
+          },
+          {
+            "name": "ApMachineName",
+            "value": "ap_machine_name",
+            "description": "Use the application platform machine name."
+          },
+          {
+            "name": "ApEnvironment",
+            "value": "ap_environment",
+            "description": "Use the application platform environment."
+          },
+          {
+            "name": "ApCluster",
+            "value": "ap_cluster",
+            "description": "Use the application platform cluster."
+          },
+          {
+            "name": "SourceId",
+            "value": "source_id",
+            "description": "Use the source identifier."
+          }
+        ]
+      }
+    },
+    "MdmTransformOperation": {
+      "type": "object",
+      "description": "Geneva MDM transform operation.",
+      "properties": {
+        "operationType": {
+          "$ref": "#/definitions/MdmTransformOperationValueType",
+          "description": "Operation value type."
+        },
+        "dimensionName": {
+          "type": "string",
+          "description": "Dimension name to set."
+        },
+        "dimensionValue": {
+          "type": "string",
+          "description": "Literal value or environment-variable name used by value/envVar operation types."
+        },
+        "function": {
+          "$ref": "#/definitions/MdmTransformFunction",
+          "description": "Built-in Geneva function used by the function operation type."
+        }
+      },
+      "required": [
+        "operationType",
+        "dimensionName"
+      ]
+    },
+    "MdmTransformOperationValueType": {
+      "type": "string",
+      "description": "Geneva MDM transform operation value type.",
+      "enum": [
+        "value",
+        "env_var",
+        "function"
+      ],
+      "x-ms-enum": {
+        "name": "MdmTransformOperationValueType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Value",
+            "value": "value",
+            "description": "Use a literal value."
+          },
+          {
+            "name": "EnvVar",
+            "value": "env_var",
+            "description": "Read the value from an environment variable."
+          },
+          {
+            "name": "Function",
+            "value": "function",
+            "description": "Use a built-in Geneva function."
+          }
+        ]
+      }
+    },
+    "MdmTransformRule": {
+      "type": "object",
+      "description": "Geneva MDM transform rule.",
+      "properties": {
+        "condition": {
+          "$ref": "#/definitions/MdmTransformCondition",
+          "description": "Condition selecting the metrics to transform."
+        },
+        "operations": {
+          "type": "array",
+          "description": "Operations applied to matching metrics.",
+          "items": {
+            "$ref": "#/definitions/MdmTransformOperation"
+          },
+          "x-ms-identifiers": []
+        }
+      },
+      "required": [
+        "condition",
+        "operations"
+      ]
+    },
+    "MdsdConfig": {
+      "type": "object",
+      "description": "Geneva Monitoring Agent (MDSD) collector configuration.",
+      "properties": {
+        "secretName": {
+          "type": "string",
+          "description": "Geneva Monitoring Agent (MDSD) certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism. This is a reference to a secret in the configured store, not the secret value itself."
+        },
+        "resources": {
+          "$ref": "#/definitions/ComputeResources",
+          "description": "Compute resources for the MDSD sidecar."
+        }
+      }
+    },
+    "NamedMdmConfig": {
+      "type": "object",
+      "description": "Named Geneva MDM sidecar configuration.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the MDM sidecar is enabled."
+        },
+        "resources": {
+          "$ref": "#/definitions/ComputeResources",
+          "description": "Compute resources for the MDM sidecar."
+        },
+        "secretName": {
+          "type": "string",
+          "description": "Certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism. This is a reference to a secret in the configured store, not the secret value itself."
+        },
+        "appProcessName": {
+          "type": "string",
+          "description": "Application process name used for graceful metrics flush ordering."
+        },
+        "account": {
+          "type": "string",
+          "description": "Geneva metrics account."
+        },
+        "protocol": {
+          "type": "string",
+          "description": "Metrics protocol, for example ifx_tcp, ifx_local, or statsd_tcp."
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Metrics listening port."
+        },
+        "unixDomainSockets": {
+          "type": "boolean",
+          "description": "Use Unix domain sockets for local MDM traffic."
+        },
+        "infraMetricsEnrichment": {
+          "type": "boolean",
+          "description": "Enable Geneva infra metrics enrichment and transform rules."
+        },
+        "defaultDimensions": {
+          "type": "array",
+          "description": "Default dimensions added to metrics when infra metrics enrichment is enabled.",
+          "items": {
+            "$ref": "#/definitions/TelemetryDimension"
+          },
+          "x-ms-identifiers": [
+            "dimension"
+          ]
+        },
+        "transformRules": {
+          "type": "array",
+          "description": "Geneva MDM transform rules.",
+          "items": {
+            "$ref": "#/definitions/MdmTransformRule"
+          },
+          "x-ms-identifiers": []
+        },
+        "azureContainerRegistryUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Azure Container Registry (ACR) URL used for the Geneva Metrics (MDM) image when the shared chart cannot infer it."
+        },
+        "openTelemetry": {
+          "$ref": "#/definitions/OpenTelemetryConfig",
+          "description": "OpenTelemetry receiver settings for Geneva MDM."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the additional MDM sidecar/pipeline."
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "NamedMdsdConfig": {
+      "type": "object",
+      "description": "Named MDSD collector configuration.",
+      "properties": {
+        "secretName": {
+          "type": "string",
+          "description": "Geneva Monitoring Agent (MDSD) certificate secret name. The platform maps the secret through the configured secret / Container Storage Interface (CSI) mechanism. This is a reference to a secret in the configured store, not the secret value itself."
+        },
+        "resources": {
+          "$ref": "#/definitions/ComputeResources",
+          "description": "Compute resources for the MDSD sidecar."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the additional MDSD sidecar/pipeline."
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "NetworkingConfig": {
+      "type": "object",
+      "description": "Networking configuration.",
+      "properties": {
+        "egressIpTag": {
+          "type": "string",
+          "description": "The service tag used to identify the cluster's egress NAT IP addresses. Always applied; defaults per-region if omitted."
+        },
+        "networkIdentifierIpTag": {
+          "type": "string",
+          "description": "The service tag used to identify the cluster's network. Always applied; defaults per-region if omitted."
+        }
+      }
+    },
+    "NetworkingConfigUpdate": {
+      "type": "object",
+      "description": "Generated patch properties for NetworkingConfig.",
+      "properties": {
+        "egressIpTag": {
+          "type": "string",
+          "description": "The service tag used to identify the cluster's egress NAT IP addresses. Always applied; defaults per-region if omitted."
+        },
+        "networkIdentifierIpTag": {
+          "type": "string",
+          "description": "The service tag used to identify the cluster's network. Always applied; defaults per-region if omitted."
+        }
+      }
+    },
+    "NodeCapacityType": {
+      "type": "string",
+      "description": "Capacity type for node provisioning.",
+      "enum": [
+        "on-demand",
+        "spot"
+      ],
+      "x-ms-enum": {
+        "name": "NodeCapacityType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "OnDemand",
+            "value": "on-demand",
+            "description": "On-demand capacity."
+          },
+          {
+            "name": "Spot",
+            "value": "spot",
+            "description": "Spot capacity."
+          }
+        ]
+      }
+    },
+    "NodePool": {
+      "type": "object",
+      "description": "A user node pool for auto-provisioned cluster capacity.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Workload-oriented node pool name (e.g. gpu-training, analytics, highmem).",
+          "pattern": "^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$"
+        },
+        "skuSeries": {
+          "type": "array",
+          "description": "Eligible VM SKU series for this pool.",
+          "items": {
+            "$ref": "#/definitions/NodeSkuSeries"
+          }
+        },
+        "capacityType": {
+          "type": "array",
+          "description": "Capacity types the pool may use. Defaults to on-demand.",
+          "items": {
+            "$ref": "#/definitions/NodeCapacityType"
+          }
+        },
+        "weight": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Scheduling preference; higher is preferred. Use descending unique values across pools.",
+          "minimum": 11
+        },
+        "taints": {
+          "type": "array",
+          "description": "Taints applied to nodes in this pool.",
+          "items": {
+            "$ref": "#/definitions/NodeTaint"
+          },
+          "x-ms-identifiers": [
+            "key"
+          ]
+        },
+        "labels": {
+          "type": "array",
+          "description": "Labels applied to nodes in this pool, formatted as Kubernetes label assignments such as `workload=gpu`.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "skuSeries",
+        "weight"
+      ]
+    },
+    "NodeSkuSeries": {
+      "type": "string",
+      "description": "Supported VM SKU series for auto-provisioned node pools.",
+      "enum": [
+        "Das_v5",
+        "Eas_v6",
+        "NCads_v5"
+      ],
+      "x-ms-enum": {
+        "name": "NodeSkuSeries",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "DasV5",
+            "value": "Das_v5",
+            "description": "D-series general purpose SKU family, version 5."
+          },
+          {
+            "name": "EasV6",
+            "value": "Eas_v6",
+            "description": "E-series memory optimized SKU family, version 6."
+          },
+          {
+            "name": "NCadsV5",
+            "value": "NCads_v5",
+            "description": "N-series GPU SKU family, NCads version 5."
+          }
+        ]
+      }
+    },
+    "NodeTaint": {
+      "type": "object",
+      "description": "A Kubernetes taint applied to nodes.",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Taint key."
+        },
+        "value": {
+          "type": "string",
+          "description": "Taint value."
+        },
+        "effect": {
+          "$ref": "#/definitions/TaintEffect",
+          "description": "Taint effect."
+        }
+      },
+      "required": [
+        "key",
+        "effect"
+      ]
+    },
+    "ObservabilityConfiguration": {
+      "type": "object",
+      "description": "Cluster-level default observability configuration.\n\nThese settings are inherited by namespaces in the cluster unless the Namespace\nresource supplies its own `observability` override. Workloads can still provide\nnarrower workload-level observability overrides.",
+      "properties": {
+        "metricsAccount": {
+          "type": "string",
+          "description": "Telemetry account/destination for metrics emitted by this cluster."
+        },
+        "logsAccount": {
+          "type": "string",
+          "description": "Telemetry account/destination for logs and traces emitted by this cluster."
+        },
+        "metrics": {
+          "$ref": "#/definitions/WorkloadMetricsConfig",
+          "description": "Metrics collection configuration."
+        },
+        "logs": {
+          "$ref": "#/definitions/WorkloadLogsConfig",
+          "description": "Log collection configuration."
+        },
+        "auditLogs": {
+          "$ref": "#/definitions/WorkloadAuditLogsConfig",
+          "description": "Audit log collection configuration."
+        },
+        "mdm": {
+          "$ref": "#/definitions/MdmConfig",
+          "description": "Geneva Metrics (MDM) sidecar configuration."
+        },
+        "extraMdms": {
+          "type": "array",
+          "description": "Additional Geneva Metrics (MDM) sidecars when more than one metrics pipeline is needed.",
+          "items": {
+            "$ref": "#/definitions/NamedMdmConfig"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        },
+        "logTail": {
+          "$ref": "#/definitions/LogTailConfig",
+          "description": "File log tailing sidecar configuration."
+        },
+        "logsMountPath": {
+          "type": "string",
+          "description": "Path mounted into telemetry sidecars for application log files."
+        },
+        "highThroughput": {
+          "$ref": "#/definitions/HighThroughputConfig",
+          "description": "High throughput telemetry pipeline configuration."
+        },
+        "extraMdsds": {
+          "type": "array",
+          "description": "Additional Geneva Monitoring Agent (MDSD) log collector sidecars when the high-throughput logs pipeline needs more than one collector.",
+          "items": {
+            "$ref": "#/definitions/NamedMdsdConfig"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        },
+        "probes": {
+          "$ref": "#/definitions/WorkloadProbesConfig",
+          "description": "Container probe configuration for liveness, readiness, and startup health monitoring."
+        },
+        "service": {
+          "$ref": "#/definitions/ObservabilityServiceConfig",
+          "description": "Kubernetes Service object settings used by ingress, probes, and service discovery."
+        },
+        "routing": {
+          "$ref": "#/definitions/TelemetryRoutingConfig",
+          "description": "Telemetry routing settings for selecting closed, supported log and metric destinations."
+        },
+        "operatorManaged": {
+          "$ref": "#/definitions/OperatorManagedObservabilityConfig",
+          "description": "Operator-managed observability integration flags."
+        }
+      }
+    },
+    "ObservabilityConfigurationUpdate": {
+      "type": "object",
+      "description": "Generated patch properties for ObservabilityConfiguration.",
+      "properties": {
+        "metricsAccount": {
+          "type": "string",
+          "description": "Telemetry account/destination for metrics emitted by this cluster."
+        },
+        "logsAccount": {
+          "type": "string",
+          "description": "Telemetry account/destination for logs and traces emitted by this cluster."
+        }
+      }
+    },
+    "ObservabilityLoadBalancerConfig": {
+      "type": "object",
+      "description": "Kubernetes Service LoadBalancer settings.",
+      "properties": {
+        "publicIpAddressId": {
+          "type": "string",
+          "format": "arm-id",
+          "description": "Azure Resource Manager resource ID of the public IP address.",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Network/publicIPAddresses"
+              }
+            ]
+          }
+        },
+        "externalTrafficPolicy": {
+          "type": "string",
+          "description": "External traffic policy."
+        },
+        "annotations": {
+          "$ref": "#/definitions/StringMap",
+          "description": "Additional LoadBalancer annotations."
+        }
+      }
+    },
+    "ObservabilityServiceConfig": {
+      "type": "object",
+      "description": "Kubernetes Service object settings used by observability probes and ingress.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether to create a Kubernetes Service object."
+        },
+        "serviceNameOverride": {
+          "type": "string",
+          "description": "Override for the generated service name."
+        },
+        "useFullnameAsServiceName": {
+          "type": "boolean",
+          "description": "Use the Helm fullname as the Service name."
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Single service port."
+        },
+        "ports": {
+          "type": "array",
+          "description": "Multiple service ports.",
+          "items": {
+            "$ref": "#/definitions/ObservabilityServicePort"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        },
+        "loadBalancer": {
+          "$ref": "#/definitions/ObservabilityLoadBalancerConfig",
+          "description": "Load balancer settings."
+        }
+      }
+    },
+    "ObservabilityServicePort": {
+      "type": "object",
+      "description": "Kubernetes Service port.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Port name."
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Port exposed by the Service."
+        },
+        "targetPort": {
+          "type": "string",
+          "description": "Target port exposed by the workload, specified as a decimal numeric string or a named Kubernetes container port."
+        },
+        "protocol": {
+          "type": "string",
+          "description": "Network protocol."
+        },
+        "appProtocol": {
+          "type": "string",
+          "description": "Application protocol."
+        }
+      },
+      "required": [
+        "name",
+        "port",
+        "targetPort"
+      ]
+    },
+    "OpenTelemetryConfig": {
+      "type": "object",
+      "description": "OpenTelemetry receiver settings for Geneva MDM.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the OpenTelemetry receiver is enabled."
+        },
+        "otlpPort": {
+          "type": "integer",
+          "format": "int32",
+          "description": "OpenTelemetry Protocol (OTLP) receiver port."
+        },
+        "maxReceiveMessageSizeMBytes": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum OTLP receive message size in MB.",
+          "x-ms-client-name": "maxReceiveMessageSizeMbytes"
+        }
+      }
+    },
+    "OperatorManagedObservabilityConfig": {
+      "type": "object",
+      "description": "Operator-managed observability integration flags.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable the operator-managed telemetry resources for this workload."
+        },
+        "gbfEnabled": {
+          "type": "boolean",
+          "description": "Enable Geneva Bit Forwarder (GBF)/operator-managed bootstrap integration for observability sidecars."
+        },
+        "manageCertificates": {
+          "type": "boolean",
+          "description": "Let the operator manage telemetry certificates/secrets instead of requiring explicit sidecar secret names."
+        }
+      }
+    },
+    "ProbeConfig": {
+      "type": "object",
+      "description": "A Kubernetes probe configuration.",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ProbeType",
+          "description": "Probe type."
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether this probe is enabled."
+        },
+        "failureThreshold": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of failures before the probe is considered failed."
+        },
+        "initialDelaySeconds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Initial delay in seconds before probing starts."
+        },
+        "periodSeconds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Probe period in seconds."
+        },
+        "successThreshold": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of successes required after failure."
+        },
+        "timeoutSeconds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Probe timeout in seconds."
+        }
+      },
+      "discriminator": "type",
+      "required": [
+        "type"
+      ]
+    },
+    "ProbeType": {
+      "type": "string",
+      "description": "Probe type.",
+      "enum": [
+        "httpGet",
+        "tcpSocket",
+        "exec"
+      ],
+      "x-ms-enum": {
+        "name": "ProbeType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "HttpGet",
+            "value": "httpGet",
+            "description": "Use an HTTP GET probe."
+          },
+          {
+            "name": "TcpSocket",
+            "value": "tcpSocket",
+            "description": "Use a TCP socket probe."
+          },
+          {
+            "name": "Exec",
+            "value": "exec",
+            "description": "Use a command execution probe."
+          }
+        ]
+      }
+    },
+    "ProvisioningState": {
+      "type": "string",
+      "description": "The status of the current operation.",
+      "enum": [
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Provisioning",
+        "Updating",
+        "Deleting",
+        "Accepted"
+      ],
+      "x-ms-enum": {
+        "name": "ProvisioningState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Succeeded",
+            "value": "Succeeded",
+            "description": "Resource has been created."
+          },
+          {
+            "name": "Failed",
+            "value": "Failed",
+            "description": "Resource creation failed."
+          },
+          {
+            "name": "Canceled",
+            "value": "Canceled",
+            "description": "Resource creation was canceled."
+          },
+          {
+            "name": "Provisioning",
+            "value": "Provisioning",
+            "description": "Resource is being provisioned."
+          },
+          {
+            "name": "Updating",
+            "value": "Updating",
+            "description": "Resource is being updated."
+          },
+          {
+            "name": "Deleting",
+            "value": "Deleting",
+            "description": "Resource is being deleted."
+          },
+          {
+            "name": "Accepted",
+            "value": "Accepted",
+            "description": "Resource creation request has been accepted."
+          }
+        ]
+      },
+      "readOnly": true
+    },
+    "ResourceRequestsLimits": {
+      "type": "object",
+      "description": "Resource requests and limits.",
+      "properties": {
+        "request": {
+          "type": "string",
+          "description": "Kubernetes resource quantity requested by the workload, such as `500m` CPU or `512Mi` memory."
+        },
+        "limit": {
+          "type": "string",
+          "description": "Kubernetes resource quantity limit for the workload, such as `1` CPU or `1Gi` memory."
+        }
+      }
+    },
+    "StringMap": {
+      "type": "object",
+      "description": "String key/value map used for annotations and labels whose keys are user-defined.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "TaintEffect": {
+      "type": "string",
+      "description": "Effect of a node taint.",
+      "enum": [
+        "NoSchedule",
+        "PreferNoSchedule",
+        "NoExecute"
+      ],
+      "x-ms-enum": {
+        "name": "TaintEffect",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "NoSchedule",
+            "value": "NoSchedule",
+            "description": "Pods that do not tolerate the taint are not scheduled."
+          },
+          {
+            "name": "PreferNoSchedule",
+            "value": "PreferNoSchedule",
+            "description": "Scheduler avoids placing non-tolerating pods on the node."
+          },
+          {
+            "name": "NoExecute",
+            "value": "NoExecute",
+            "description": "Non-tolerating pods are evicted from the node."
+          }
+        ]
+      }
+    },
+    "TcpSocketProbeConfig": {
+      "type": "object",
+      "description": "TCP socket probe configuration.",
+      "properties": {
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "description": "TCP port to probe."
+        }
+      },
+      "required": [
+        "port"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/ProbeConfig"
+        }
+      ],
+      "x-ms-discriminator-value": "tcpSocket"
+    },
+    "TelemetryDimension": {
+      "type": "object",
+      "description": "A metric dimension whose value is sourced from an environment variable.",
+      "properties": {
+        "dimension": {
+          "type": "string",
+          "description": "Dimension name emitted to Geneva."
+        },
+        "envVar": {
+          "type": "string",
+          "description": "Environment variable that supplies the dimension value at runtime."
+        }
+      },
+      "required": [
+        "dimension",
+        "envVar"
+      ]
+    },
+    "TelemetryLogDestination": {
+      "type": "string",
+      "description": "Supported log destinations.",
+      "enum": [
+        "genevaMdsd",
+        "logTail",
+        "fluentd",
+        "splunk"
+      ],
+      "x-ms-enum": {
+        "name": "TelemetryLogDestination",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "GenevaMdsd",
+            "value": "genevaMdsd",
+            "description": "Send logs to Geneva MDSD."
+          },
+          {
+            "name": "LogTail",
+            "value": "logTail",
+            "description": "Send logs to the log tail collector."
+          },
+          {
+            "name": "Fluentd",
+            "value": "fluentd",
+            "description": "Send logs to Fluentd."
+          },
+          {
+            "name": "Splunk",
+            "value": "splunk",
+            "description": "Send logs to Splunk."
+          }
+        ]
+      }
+    },
+    "TelemetryLogRoute": {
+      "type": "object",
+      "description": "A named log route.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Route name."
+        },
+        "destination": {
+          "$ref": "#/definitions/TelemetryLogDestination",
+          "description": "Destination backend."
+        }
+      },
+      "required": [
+        "name",
+        "destination"
+      ]
+    },
+    "TelemetryMetricDestination": {
+      "type": "string",
+      "description": "Supported metric destinations.",
+      "enum": [
+        "genevaMdm",
+        "prometheus",
+        "otlp"
+      ],
+      "x-ms-enum": {
+        "name": "TelemetryMetricDestination",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "GenevaMdm",
+            "value": "genevaMdm",
+            "description": "Send metrics to Geneva MDM."
+          },
+          {
+            "name": "Prometheus",
+            "value": "prometheus",
+            "description": "Send metrics to Prometheus."
+          },
+          {
+            "name": "Otlp",
+            "value": "otlp",
+            "description": "Send metrics using OpenTelemetry Protocol."
+          }
+        ]
+      }
+    },
+    "TelemetryMetricRoute": {
+      "type": "object",
+      "description": "A named metric route.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Route name."
+        },
+        "destination": {
+          "$ref": "#/definitions/TelemetryMetricDestination",
+          "description": "Destination backend."
+        }
+      },
+      "required": [
+        "name",
+        "destination"
+      ]
+    },
+    "TelemetryRoutingConfig": {
+      "type": "object",
+      "description": "Telemetry routing configuration.",
+      "properties": {
+        "logRoutes": {
+          "type": "array",
+          "description": "Closed set of log routes.",
+          "items": {
+            "$ref": "#/definitions/TelemetryLogRoute"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        },
+        "metricRoutes": {
+          "type": "array",
+          "description": "Closed set of metric routes.",
+          "items": {
+            "$ref": "#/definitions/TelemetryMetricRoute"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
+        }
+      }
+    },
+    "WorkloadAuditLogsConfig": {
+      "type": "object",
+      "description": "Audit log collection configuration.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether audit log collection is enabled for the workload."
+        },
+        "categories": {
+          "type": "array",
+          "description": "Audit log categories emitted by the workload.",
+          "items": {
+            "$ref": "#/definitions/AuditLogCategory"
+          }
+        }
+      }
+    },
+    "WorkloadLogsConfig": {
+      "type": "object",
+      "description": "Log collection configuration.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether log collection is enabled for the workload."
+        },
+        "collectStdout": {
+          "type": "boolean",
+          "description": "Collect stdout from workload containers."
+        },
+        "collectStderr": {
+          "type": "boolean",
+          "description": "Collect stderr from workload containers."
+        },
+        "piiFilteringEnabled": {
+          "type": "boolean",
+          "description": "Whether personally identifiable information (PII) filtering is enabled before logs are routed to telemetry backends."
+        },
+        "excludeRawLogs": {
+          "type": "boolean",
+          "description": "Whether raw application logs are excluded from generic collection and only explicitly configured sources are collected."
+        },
+        "destinations": {
+          "type": "array",
+          "description": "Closed set of log backends to receive this workload's logs.",
+          "items": {
+            "$ref": "#/definitions/TelemetryLogDestination"
+          }
+        }
+      }
+    },
+    "WorkloadMetricsConfig": {
+      "type": "object",
+      "description": "Metrics collection configuration.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether metrics collection is enabled for the workload."
+        },
+        "scrapeIntervalSeconds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Metrics scrape interval in seconds."
+        },
+        "path": {
+          "type": "string",
+          "description": "HTTP path used for metrics scraping."
+        },
+        "portName": {
+          "type": "string",
+          "description": "Named service port used for metrics scraping."
+        },
+        "piiFilteringEnabled": {
+          "type": "boolean",
+          "description": "Whether personally identifiable information (PII) filtering is enabled before emitting metrics dimensions."
+        }
+      }
+    },
+    "WorkloadProbesConfig": {
+      "type": "object",
+      "description": "Probe configuration for liveness, readiness, and startup health monitors.",
+      "properties": {
+        "liveness": {
+          "$ref": "#/definitions/ProbeConfig",
+          "description": "Liveness probe configuration."
+        },
+        "readiness": {
+          "$ref": "#/definitions/ProbeConfig",
+          "description": "Readiness probe configuration."
+        },
+        "startup": {
+          "$ref": "#/definitions/ProbeConfig",
+          "description": "Startup probe configuration."
+        }
+      }
+    },
+    "Workspace": {
+      "type": "object",
+      "description": "Represents a Workspace - a lightweight organizational container for Cluster resources.",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/WorkspaceProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
+        }
+      ]
+    },
+    "WorkspaceContainerRegistry": {
+      "type": "object",
+      "description": "The container registry provisioned for this workspace.",
+      "properties": {
+        "loginServer": {
+          "type": "string",
+          "description": "The login server host name of the Azure Container Registry.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the Azure Container Registry.",
+          "readOnly": true
+        },
+        "resourceId": {
+          "$ref": "#/definitions/ContainerRegistryResourceId",
+          "description": "The Azure Resource Manager resource ID of the Azure Container Registry.",
+          "readOnly": true
+        }
+      }
+    },
+    "WorkspaceListResult": {
+      "type": "object",
+      "description": "The response of a Workspace list operation.",
+      "properties": {
+        "value": {
+          "type": "array",
+          "description": "The Workspace items on this page",
+          "items": {
+            "$ref": "#/definitions/Workspace"
+          }
+        },
+        "nextLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link to the next page of items"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "WorkspaceProperties": {
+      "type": "object",
+      "description": "Properties of the Workspace.",
+      "properties": {
+        "serviceTreeId": {
+          "type": "string",
+          "description": "The Service Tree ID associated with this workspace."
+        },
+        "provisioningState": {
+          "$ref": "#/definitions/ProvisioningState",
+          "description": "The provisioning state of the resource.",
+          "readOnly": true
+        },
+        "managedResourceGroupConfiguration": {
+          "$ref": "#/definitions/ManagedResourceGroupConfiguration",
+          "description": "Configuration of the managed resource group associated with the resource.",
+          "readOnly": true
+        },
+        "managedOnBehalfOfConfiguration": {
+          "$ref": "../../../../../../common-types/resource-management/v6/mobo.json#/definitions/ManagedOnBehalfOfConfiguration",
+          "description": "Managed On Behalf Of Configuration.",
+          "readOnly": true
+        },
+        "containerRegistry": {
+          "$ref": "#/definitions/WorkspaceContainerRegistry",
+          "description": "The container registry provisioned for this workspace.",
+          "readOnly": true
+        }
+      }
+    },
+    "WorkspaceResourceId": {
+      "type": "string",
+      "format": "arm-id",
+      "description": "A type definition that refers the id to an Azure Resource Manager resource.",
+      "x-ms-arm-id-details": {
+        "allowedResources": [
+          {
+            "type": "Microsoft.SecurityBasePlatform/workspaces"
+          }
+        ]
+      }
+    },
+    "WorkspaceUpdate": {
+      "type": "object",
+      "description": "The type used for update operations of the Workspace.",
+      "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/WorkspaceUpdateProperties",
+          "description": "The resource-specific properties for this resource."
+        }
+      }
+    },
+    "WorkspaceUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of the Workspace.",
+      "properties": {
+        "serviceTreeId": {
+          "type": "string",
+          "description": "The Service Tree ID associated with this workspace."
+        }
+      }
+    }
+  },
+  "parameters": {}
+}

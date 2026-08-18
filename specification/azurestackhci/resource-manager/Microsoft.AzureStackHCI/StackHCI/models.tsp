@@ -1413,6 +1413,7 @@ union AvailabilityType {
 /**
  * Request body for the check updates action on update summaries.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model CheckUpdatesRequest {
   /**
@@ -2025,6 +2026,7 @@ model PasswordCredential {
 /**
  * ArcIdentity details.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model ArcIdentityResponse {
   /**
    * ArcIdentity properties.
@@ -2048,6 +2050,7 @@ model ArcIdentityResponseProperties {
 /**
  * Request for reconciling Arc Settings.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model ReconcileArcSettingsRequest {
   /**
    * List of Arc Nodes in the cluster
@@ -2876,6 +2879,7 @@ model NextBillingModel {
 /**
  * Update secrets locations change  Request.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model SecretsLocationsChangeRequest {
   /**
    * List of secret locations
@@ -2885,6 +2889,7 @@ model SecretsLocationsChangeRequest {
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model UploadCertificateRequest {
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   properties?: RawCertificateData;
@@ -2899,6 +2904,7 @@ model RawCertificateData {
 /**
  * Cluster Identity details.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model ClusterIdentityResponse {
   /**
    * Cluster identity properties.
@@ -2920,6 +2926,7 @@ model ClusterIdentityResponseProperties {
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model SoftwareAssuranceChangeRequest {
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
   properties?: SoftwareAssuranceChangeRequestProperties;
@@ -2936,6 +2943,7 @@ model SoftwareAssuranceChangeRequestProperties {
 /**
  * Request body for the change-ring action on a cluster.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model ChangeRingRequest {
   /** Properties of the change-ring request. */
@@ -2956,6 +2964,7 @@ model ChangeRingRequestProperties {
 /**
  * Log Collection Request
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model LogCollectionRequest {
   /**
    * Properties for Log Collection Request
@@ -2983,6 +2992,7 @@ model LogCollectionRequestProperties {
 /**
  * Remote Support Request
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model RemoteSupportRequest {
   /**
    * Properties for Remote Support Request
@@ -3891,6 +3901,12 @@ model OptionalServices {
    */
   @added(Versions.v2026_03_15_preview)
   capacityPolicy?: DeploymentCapacityPolicy;
+
+  /**
+   * Captures the customer's intent to enable or disable Confidential VM (CVM) support on the AzureStackHCI Cluster.
+   */
+  @added(Versions.v2026_03_15_preview)
+  confidentialVmIntent?: ConfidentialVmIntent = ConfidentialVmIntent.Disable;
 }
 
 /**
@@ -4182,6 +4198,7 @@ model DeploymentStep {
 /**
  * The validate request for Edge Device.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model ValidateRequest {
   /**
    * Node Ids against which, current node has to be validated.
@@ -4197,6 +4214,7 @@ model ValidateRequest {
 /**
  * An Accepted response with an Operation-Location header.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 model ValidateResponse {
   /**
    * edge device validation status
@@ -7100,6 +7118,7 @@ model VmConnectRemoveJobProperties extends ClusterJobProperties {
 /**
  * Request for Add/Remove Devices to the pool.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model ListOfDevicesRequest {
   /**
@@ -7111,6 +7130,7 @@ model ListOfDevicesRequest {
 /**
  * Request for claiming devices of the pool.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model ClaimDeviceRequest {
   /**
@@ -7127,6 +7147,7 @@ model ClaimDeviceRequest {
 /**
  * Request for releasing devices of the pool.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model ReleaseDeviceRequest {
   /**
@@ -7362,6 +7383,7 @@ model EdgeMachinePatch {
 /**
  * The validate request for Edge Machine.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model EdgeMachineValidateRequest {
   /**
@@ -7382,6 +7404,7 @@ model EdgeMachineValidateRequest {
 /**
  * The validate response for Edge Machine.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model EdgeMachineValidateResponse {
   /**
@@ -8120,6 +8143,13 @@ model HardwareProfile {
    */
   @visibility(Lifecycle.Read)
   processorType?: string;
+
+  /**
+   * CPU architecture of the machine, for example amd64 or arm64.
+   */
+  @added(Versions.v2026_03_15_preview)
+  @visibility(Lifecycle.Read)
+  architecture?: Architecture;
 }
 
 /**
@@ -8532,6 +8562,7 @@ model ProvisionOsJobProperties extends EdgeMachineJobProperties {
 /**
  * Download Request properties
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model DownloadRequest {
   /**
@@ -8578,6 +8609,7 @@ model ProvisionOsReportedProperties {
 /**
  * Represents a provisioning request.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model ProvisioningRequest {
   /**
@@ -8870,6 +8902,11 @@ union OSOperationType {
    * OS ReImage operation
    */
   ReImage: "ReImage",
+
+  /**
+   * OS Reset operation
+   */
+  Reset: "Reset",
 }
 
 /**
@@ -9334,6 +9371,42 @@ model ClusterJobListResult is Azure.Core.Page<ClusterJob>;
 ////////////////////////////////////////////////////////////////
 
 /**
+ * Represents the CPU architecture of a machine or an OS image.
+ */
+@added(Versions.v2026_03_15_preview)
+union Architecture {
+  string,
+
+  /**
+   * 64-bit x86 architecture.
+   */
+  Amd64: "amd64",
+
+  /**
+   * 64-bit Arm architecture.
+   */
+  Arm64: "arm64",
+}
+
+/**
+ * Represents the solution type (OS family) of an OS image.
+ */
+@added(Versions.v2026_03_15_preview)
+union SolutionType {
+  string,
+
+  /**
+   * AzureLinux OS.
+   */
+  AzureLinux: "AzureLinux",
+
+  /**
+   * HCI OS.
+   */
+  HCI: "HCI",
+}
+
+/**
  * Represents properties of a os image resource.
  */
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-provisioning-state" "OsImage is a read-only catalog proxy resource exposing available OS images; it has no lifecycle and therefore no provisioningState."
@@ -9359,6 +9432,18 @@ model OsImageProperties {
    * Represents composed image iso hash of a os image.
    */
   composedImageIsoHash?: string;
+
+  /**
+   * Represents the CPU architecture of an OS image, for example amd64 or arm64.
+   */
+  @added(Versions.v2026_03_15_preview)
+  architecture?: Architecture;
+
+  /**
+   * The solution type (OS family) of the OS image, for example AzureLinux or HCI.
+   */
+  @added(Versions.v2026_03_15_preview)
+  solutionType?: SolutionType;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -9434,6 +9519,7 @@ model PlatformPayload {
 /**
  * Validate Ownership Voucher Request
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model ValidateOwnershipVouchersRequest {
   /**
@@ -9447,6 +9533,7 @@ model ValidateOwnershipVouchersRequest {
 /**
  * Validate Ownership Voucher Response
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "For backward compatibility."
 @added(Versions.v2026_03_15_preview)
 model ValidateOwnershipVouchersResponse {
   /**
@@ -9495,6 +9582,12 @@ model OwnershipVoucherValidationDetails {
    * Azure Machine Id of the Ownership voucher
    */
   azureMachineId?: string;
+
+  /**
+   * CPU architecture of the device, for example amd64 or arm64.
+   */
+  @added(Versions.v2026_03_15_preview)
+  architecture?: Architecture;
 
   /**
    * Error details if the validation failed.
@@ -12120,6 +12213,12 @@ model ClusterVolumeJobReportedProperties {
    */
   @visibility(Lifecycle.Read)
   percentComplete?: int32;
+
+  /**
+   * Deployment status reported by the device for the cluster volume job.
+   */
+  @visibility(Lifecycle.Read)
+  deploymentStatus?: EceActionStatus;
 }
 
 /** Represents an available update for an edge machine. */
@@ -14956,6 +15055,12 @@ model StorageArrayJobReportedProperties {
    */
   @visibility(Lifecycle.Read)
   percentComplete?: int32;
+
+  /**
+   * Deployment status reported by the device for the storage array job.
+   */
+  @visibility(Lifecycle.Read)
+  deploymentStatus?: EceActionStatus;
 }
 
 // ─────────────────────────── StoragePool models ───────────────────────────

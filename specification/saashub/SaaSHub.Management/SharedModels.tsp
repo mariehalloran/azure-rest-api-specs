@@ -668,6 +668,50 @@ model CanCancelResultAdditionalInfo {
 }
 
 /**
+ * Per-resource validation result for canCancelOrReduceSeatsForIncludedResources operation.
+ */
+model CanCancelOrReduceSeatsForIncludedResourcesResultItem {
+  /**
+   * URI of the included source resource that was evaluated.
+   */
+  @visibility(Lifecycle.Read)
+  resourceUri: string;
+
+  /**
+   * Whether the validation passed/failed for this resource.
+   */
+  @visibility(Lifecycle.Read)
+  evaluateResult?: EvaluateResult;
+
+  /**
+   * Outcome code for why this resource failed validation. Null when validation passed.
+   * Uses the same vocabulary as the code returned by
+   * cancelOrReduceSeatsForIncludedResources, for example QuantityExceeded.
+   */
+  @visibility(Lifecycle.Read)
+  code?: string;
+
+  /**
+   * Detailed reason for why this resource failed validation. Null when validation passed.
+   */
+  @visibility(Lifecycle.Read)
+  reason?: string;
+}
+
+/**
+ * Validation result for canCancelOrReduceSeatsForIncludedResources operation.
+ */
+model CanCancelOrReduceSeatsForIncludedResourcesResult {
+  /**
+   * Per-resource validation results. Each entry corresponds to an included resource
+   * in the request, allowing partial success/failure to be reported per resource.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#["resourceUri"])
+  items?: CanCancelOrReduceSeatsForIncludedResourcesResultItem[];
+}
+
+/**
  * Validation result for canUpdate operation.
  */
 model CanUpdateResult {
@@ -791,6 +835,7 @@ model RefundableQuantityResultRefundableQuantitiesInfo {
 /**
  * Response model for GetRefundableQuantity operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model GetRefundableQuantityResponse {
   /**
    * List of refundable quantity information with event details.
@@ -1231,6 +1276,7 @@ model CotermEndDateItem {
 /**
  * Request model for GetCotermEndDates operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CotermEndDatesRequest {
   /**
    * List of end dates to calculate coterm targets for.
@@ -1310,12 +1356,14 @@ model CotermResponseItemErrorOptional {
 /**
  * Bulk response model for TenantLevelGetCotermEndDates and GetCotermEndDates operations with pagination support.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CotermResponseItemBulkResponse
   is Azure.Core.Page<CotermResponseItemErrorOptional>;
 
 /**
  * Request model for CanTransact operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CanTransactSaasResourcesRequest {
   /**
    * The unique identifier for tracking the canTransact request item.
@@ -1359,6 +1407,7 @@ model CanTransactSaasResourcesRequest {
 /**
  * Bulk request model for TenantLevelCanTransact operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model TenantLevelCanTransactBulkRequest {
   /**
    * Array of transaction requests to evaluate.
@@ -1368,8 +1417,267 @@ model TenantLevelCanTransactBulkRequest {
 }
 
 /**
+ * Request model for listConsolidableResources provider-level action.
+ */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+model ListConsolidableResourcesRequest {
+  /**
+   * Product code of the target SKU.
+   */
+  targetProductCode: string;
+
+  /**
+   * Target term end date in UTC time.
+   */
+  endDate: utcDateTime;
+
+  /**
+   * Desired license count on the target SKU.
+   */
+  licenseCount: int64;
+
+  /**
+   * Billing scope for candidate discovery.
+   */
+  billingScope: string;
+}
+
+/**
+ * Consolidable source resource candidate.
+ */
+model ConsolidableResourceItem {
+  /**
+   * Resource ID of the source SaaS resource.
+   */
+  resourceId: string;
+
+  /**
+   * Product code on the source resource.
+   */
+  productCode?: string;
+
+  /**
+   * Current quantity on the source resource.
+   */
+  currentQuantity?: int64;
+
+  /**
+   * Source resource end date in UTC time.
+   */
+  endDate?: utcDateTime;
+
+  /**
+   * Maximum quantity that can be consolidated from this source resource.
+   */
+  allowedLicenseCount?: int64;
+}
+
+/**
+ * Response model for listConsolidableResources with pagination support.
+ */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+model ListConsolidableResourcesResponse
+  is Azure.Core.Page<ConsolidableResourceItem>;
+
+/**
+ * Change type for many-to-one upgrade operation.
+ */
+union ManyToOneChangeType {
+  string,
+
+  /**
+   * Execute consolidation immediately.
+   */
+  Immediate: "Immediate",
+
+  /**
+   * Schedule consolidation at an allowed future point.
+   */
+  Scheduled: "Scheduled",
+}
+
+/**
+ * Included source resource in many-to-one upgrade request.
+ */
+model ManyToOneIncludedResource {
+  /**
+   * Source SaaS resource ID.
+   */
+  id: string;
+
+  /**
+   * Quantity to cancel or reduce from the source resource.
+   */
+  quantity: int64;
+}
+
+/**
+ * Request model for SaasResources_CancelOrReduceSeatsForIncludedResources.
+ */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+model ManyToOneUpgradeRequest {
+  /**
+   * Source resources included for consolidation.
+   */
+  includedResources: ManyToOneIncludedResource[];
+
+  /**
+   * Consolidation change type.
+   */
+  changeType: ManyToOneChangeType;
+
+  /**
+   * Optional tracking identifier for consolidation scheduled action.
+   * Required for Scheduled changes and optional when changeType is Immediate.
+   */
+  consolidateResourceScheduleActionTrackingItemId?: string;
+}
+
+/**
+ * Per-resource operation type for many-to-one upgrade outcome.
+ */
+union ManyToOneOutcomeOperation {
+  string,
+
+  /**
+   * Full source resource cancellation.
+   */
+  Cancel: "Cancel",
+
+  /**
+   * Seat reduction on source resource.
+   */
+  ReduceSeat: "ReduceSeat",
+}
+
+/**
+ * Per-resource status for many-to-one upgrade outcome.
+ */
+union ManyToOneOutcomeStatus {
+  string,
+
+  /**
+   * Resource-level operation state is unknown.
+   */
+  Unknown: "Unknown",
+
+  /**
+   * Resource-level operation accepted for async processing.
+   */
+  Accepted: "Accepted",
+
+  /**
+   * Resource-level operation is in progress.
+   */
+  Processing: "Processing",
+
+  /**
+   * Resource-level operation is being updated.
+   */
+  Updating: "Updating",
+
+  /**
+   * Resource-level operation succeeded.
+   */
+  Succeeded: "Succeeded",
+
+  /**
+   * Resource-level operation was cancelled.
+   */
+  Cancelled: "Cancelled",
+
+  /**
+   * Resource-level operation failed.
+   */
+  Failed: "Failed",
+}
+
+/**
+ * Overall operation state for many-to-one upgrade.
+ */
+union ManyToOneOperationState {
+  string,
+
+  /**
+   * All resource outcomes succeeded.
+   */
+  Succeeded: "Succeeded",
+
+  /**
+   * Some resource outcomes failed.
+   */
+  PartiallySucceeded: "PartiallySucceeded",
+
+  /**
+   * Operation failed.
+   */
+  Failed: "Failed",
+}
+
+/**
+ * Per-resource outcome model for many-to-one upgrade.
+ */
+model ManyToOneResourceOutcome {
+  /**
+   * Source resource id.
+   */
+  resourceId: string;
+
+  /**
+   * Executed operation type.
+   */
+  operation: ManyToOneOutcomeOperation;
+
+  /**
+   * Resource-level status.
+   */
+  status: ManyToOneOutcomeStatus;
+
+  /**
+   * Quantity affected on this source resource.
+   */
+  quantity: int64;
+
+  /**
+   * Service-defined outcome code emitted by the many-to-one handler.
+   * Uses the same unprefixed vocabulary as the reasonCode returned by
+   * canCancelOrReduceSeatsForIncludedResources, for example
+   * ResourceCancelled, SeatsReduced, or QuantityExceeded.
+   */
+  code: string;
+
+  /**
+   * Outcome message.
+   */
+  message: string;
+
+  /**
+   * Scheduled execution date when operation is scheduled.
+   */
+  scheduledDate?: utcDateTime;
+}
+
+/**
+ * Response model for SaasResources_CancelOrReduceSeatsForIncludedResources.
+ */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+model ManyToOneUpgradeResponse {
+  /**
+   * Overall upgrade state.
+   */
+  state: ManyToOneOperationState;
+
+  /**
+   * Per-resource outcomes.
+   */
+  @identifiers(#["resourceId"])
+  resourceOutcomes: ManyToOneResourceOutcome[];
+}
+
+/**
  * Request model for CanTransact operation with CloudServices.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CanTransactCloudServicesRequest {
   /**
    * The unique identifier for tracking the canTransact request item.
@@ -1413,6 +1721,7 @@ model CanTransactCloudServicesRequest {
 /**
  * Bulk request model for ResourceGroupLevelCanTransact operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ResourceGroupLevelCanTransactBulkRequest {
   /**
    * Array of transaction requests to evaluate.
@@ -1424,6 +1733,7 @@ model ResourceGroupLevelCanTransactBulkRequest {
 /**
  * Bulk response model for ResourceGroupLevelCanTransact operation with pagination support.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model ResourceGroupLevelCanTransactBulkResponse
   is Azure.Core.Page<CanTransactResponse>;
 
@@ -1458,6 +1768,7 @@ union CanTransactOperationType {
  * Base response model for CanTransact operation result.
  * The operationType discriminator determines which specific result structure is used.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @discriminator("operationType")
 model CanTransactResponse {
   /**
@@ -1496,6 +1807,7 @@ model CanTransactResponse {
 /**
  * Response for canCreate operation evaluation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CanTransactCanCreateResponse extends CanTransactResponse {
   // Discriminator value: must be a literal string (not a union reference) matching a CanTransactOperationType value for proper polymorphic deserialization
   operationType: "canCreate";
@@ -1510,6 +1822,7 @@ model CanTransactCanCreateResponse extends CanTransactResponse {
 /**
  * Response for canCancel operation evaluation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CanTransactCanCancelResponse extends CanTransactResponse {
   // Discriminator value: must be a literal string (not a union reference) matching a CanTransactOperationType value for proper polymorphic deserialization
   operationType: "canCancel";
@@ -1524,6 +1837,7 @@ model CanTransactCanCancelResponse extends CanTransactResponse {
 /**
  * Response for canUpdate operation evaluation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CanTransactCanUpdateResponse extends CanTransactResponse {
   // Discriminator value: must be a literal string (not a union reference) matching a CanTransactOperationType value for proper polymorphic deserialization
   operationType: "canUpdate";
@@ -1538,6 +1852,7 @@ model CanTransactCanUpdateResponse extends CanTransactResponse {
 /**
  * Response for canMerge operation evaluation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model CanTransactCanMergeResponse extends CanTransactResponse {
   // Discriminator value: must be a literal string (not a union reference) matching a CanTransactOperationType value for proper polymorphic deserialization
   operationType: "canMerge";
@@ -1552,6 +1867,7 @@ model CanTransactCanMergeResponse extends CanTransactResponse {
 /**
  * Bulk response model for TenantLevelCanTransact operation with pagination support.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model TenantLevelCanTransactBulkResponse
   is Azure.Core.Page<CanTransactResponse>;
 
@@ -1562,6 +1878,7 @@ model TenantLevelCanTransactBulkResponse
 /**
  * Request model for ValidatePromotions operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model ValidatePromotionsRequest {
   /**
@@ -1589,6 +1906,7 @@ model ValidatePromotionsRequest {
 /**
  * Product request for ValidatePromotions operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model ValidatePromotionsProductRequest {
   /**
@@ -1676,6 +1994,7 @@ model ValidatePromotionsProductContext {
 /**
  * Response model for ValidatePromotions operation with pagination support.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model ValidatePromotionsResponse
   is Azure.Core.Page<ValidatePromotionsProductResult>;
@@ -2378,6 +2697,7 @@ model TransferParticipant {
 /**
  * Request to transfer a SaaS resource to another partner tenant.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model TransferToPartnerRequest {
   /**
@@ -2400,6 +2720,306 @@ model TransferToPartnerRequest {
 }
 
 // =====================================================
+// ValidateAddOnEligibility Models (added in v2026_03_31_preview)
+// =====================================================
+
+/**
+ * Request model for ValidateAddOnEligibility operation.
+ */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@added(SaaSHubVersions.v2026_03_31_preview)
+model ValidateAddOnEligibilityRequest {
+  /**
+   * List of add-ons to evaluate for eligibility.
+   */
+  @identifiers(#[])
+  addOns: ValidateAddOnEligibilityAddOnRequest[];
+
+  /**
+   * List of products in the cart being purchased alongside the add-ons.
+   * Used as context when evaluating base SKU quantity and ownership constraints.
+   */
+  @identifiers(#[])
+  productsInCart?: ValidateAddOnEligibilityCartProduct[];
+
+  /**
+   * AAD tenant ID for the customer for which add-on eligibility is evaluated.
+   */
+  customerTenantId: string;
+
+  /**
+   * ISO 3166 country code for the customer's market.
+   */
+  market: string;
+
+  /**
+   * Cloud environment where the customer account exists (e.g., "Public", "USGov", "China").
+   */
+  nationalCloud: string;
+
+  /**
+   * Customer billing scope. Replaces customerAccountId/customerOrganizationId.
+   * Supports multiple formats:
+   * - Partial: /providers/Microsoft.Billing/billingAccounts/{baId}
+   * - Full customer-led: /providers/Microsoft.Billing/billingAccounts/{baId}/billingProfiles/{profileId}/invoiceSections/{sectionId}
+   * - Full partner-led: /providers/Microsoft.Billing/billingAccounts/{baId}/billingProfiles/{profileId}/customers/{customerId}
+   */
+  customerBillingScope?: string;
+}
+
+/**
+ * Add-on request for ValidateAddOnEligibility operation.
+ */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@added(SaaSHubVersions.v2026_03_31_preview)
+model ValidateAddOnEligibilityAddOnRequest {
+  /**
+   * GUID representing productId, skuId, termDuration, billingPlan combination.
+   */
+  productCode: string;
+
+  /**
+   * Pricing audience used for the add-on purchase (e.g., "Direct-Commercial", "Partner-Commercial").
+   */
+  pricingAudience: string;
+
+  /**
+   * Number of add-on seats to purchase.
+   */
+  quantity?: int64;
+
+  /**
+   * Custom item identifier for tracking, returned as-is on the corresponding result.
+   */
+  itemTrackingId?: string;
+
+  /**
+   * Product hydration tokens for authorization and context purposes.
+   */
+  @identifiers(#["type"])
+  resourceTokens?: ResourceToken[];
+}
+
+/**
+ * Product purchased alongside the add-ons in the same cart.
+ */
+@added(SaaSHubVersions.v2026_03_31_preview)
+model ValidateAddOnEligibilityCartProduct {
+  /**
+   * GUID representing productId, skuId, termDuration, billingPlan combination.
+   */
+  productCode: string;
+
+  /**
+   * Number of seats to purchase for the product in the cart.
+   */
+  quantity?: int64;
+
+  /**
+   * Custom item identifier for tracking.
+   */
+  itemTrackingId?: string;
+
+  /**
+   * Product hydration tokens for authorization and context purposes.
+   */
+  @identifiers(#["type"])
+  resourceTokens?: ResourceToken[];
+}
+
+/**
+ * Response model for ValidateAddOnEligibility operation with pagination support.
+ */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@added(SaaSHubVersions.v2026_03_31_preview)
+model ValidateAddOnEligibilityResponse
+  is Azure.Core.Page<ValidateAddOnEligibilityAddOnResult>;
+
+/**
+ * Add-on result for ValidateAddOnEligibility operation.
+ */
+@added(SaaSHubVersions.v2026_03_31_preview)
+model ValidateAddOnEligibilityAddOnResult {
+  /**
+   * GUID representing productId, skuId, termDuration, billingPlan combination, echoed from the request.
+   */
+  @visibility(Lifecycle.Read)
+  productCode: string;
+
+  /**
+   * Custom item identifier for tracking, returned as-is from the request.
+   */
+  @visibility(Lifecycle.Read)
+  itemTrackingId?: string;
+
+  /**
+   * Pricing audience used for the add-on purchase, echoed from the request.
+   */
+  @visibility(Lifecycle.Read)
+  pricingAudience?: string;
+
+  /**
+   * Add-on eligibility status, ineligibility reasons and eligibility constraint results.
+   */
+  @visibility(Lifecycle.Read)
+  eligibilityResult?: AddOnEligibilityInfo;
+}
+
+/**
+ * Add-on eligibility detail returned by the ValidateAddOnEligibility operation.
+ *
+ * Mirrors CanCreateResultAddOnInfo, but carries the richer AddOnEligibilityConstraint
+ * so the numeric constraint detail computed by the publisher is not trimmed.
+ */
+@added(SaaSHubVersions.v2026_03_31_preview)
+model AddOnEligibilityInfo {
+  /**
+   * Whether the add-on eligibility is satisfied.
+   */
+  @visibility(Lifecycle.Read)
+  isEligible?: EligibilityResult;
+
+  /**
+   * AddOn ineligible reasons.
+   */
+  @visibility(Lifecycle.Read)
+  ineligibilityReasons?: string[];
+
+  /**
+   * AddOn eligibility constraints, including the detail properties for each
+   * evaluated constraint type.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  eligibilityConstraints?: AddOnEligibilityConstraint[];
+}
+
+/**
+ * Add-on eligibility constraint with detailed evaluation results.
+ * Extends EligibilityConstraint with additional type-specific properties.
+ *
+ * Properties are grouped by constraintType:
+ * - **requiredBaseProducts**: mustHaveAnyBaseProducts, ownedBaseProducts
+ * - **minimumBaseLicenseQuantity**: currentTotalBaseLicenseQuantity, minimumRequiredBaseLicenses, missingBaseLicenses
+ * - **minimumAddOnPercentageQuantityOfBase**: currentTotalAddOnLicenseQuantity, currentTotalBaseLicenseQuantity, minimumPercentOfBaseQuantity, minimumAddOnLicenseQuantityToBePurchased, missingAddOnLicenses, purchaseQuantity
+ * - **maximumAddOnPercentageQuantityOfBase**: currentTotalAddOnLicenseQuantity, currentTotalBaseLicenseQuantity, maximumPercentOfBaseQuantity, maximumAddOnLicenseQuantityAllowed, excessAddOnLicenseQuantity, purchaseQuantity
+ */
+@added(SaaSHubVersions.v2026_03_31_preview)
+model AddOnEligibilityConstraint {
+  ...EligibilityConstraint;
+
+  // ─────────────────────────────────────────────────────────────────
+  // requiredBaseProducts constraint properties
+  // ─────────────────────────────────────────────────────────────────
+
+  /**
+   * Product codes of the prerequisite base products, at least one of which must be owned.
+   * Applicable when constraintType = "requiredBaseProducts"
+   */
+  @visibility(Lifecycle.Read)
+  mustHaveAnyBaseProducts?: string[];
+
+  /**
+   * Product codes of the prerequisite base products the customer already owns.
+   * Applicable when constraintType = "requiredBaseProducts"
+   */
+  @visibility(Lifecycle.Read)
+  ownedBaseProducts?: string[];
+
+  // ─────────────────────────────────────────────────────────────────
+  // minimumBaseLicenseQuantity constraint properties
+  // ─────────────────────────────────────────────────────────────────
+
+  /**
+   * Total base license quantity currently owned and in the cart.
+   * Applicable when constraintType = "minimumBaseLicenseQuantity",
+   * "minimumAddOnPercentageQuantityOfBase" or "maximumAddOnPercentageQuantityOfBase"
+   */
+  @visibility(Lifecycle.Read)
+  currentTotalBaseLicenseQuantity?: int64;
+
+  /**
+   * Minimum number of base licenses required.
+   * Applicable when constraintType = "minimumBaseLicenseQuantity"
+   */
+  @visibility(Lifecycle.Read)
+  minimumRequiredBaseLicenses?: int64;
+
+  /**
+   * Number of additional base licenses needed to satisfy the constraint.
+   * Applicable when constraintType = "minimumBaseLicenseQuantity"
+   */
+  @visibility(Lifecycle.Read)
+  missingBaseLicenses?: int64;
+
+  // ─────────────────────────────────────────────────────────────────
+  // minimumAddOnPercentageQuantityOfBase constraint properties
+  // ─────────────────────────────────────────────────────────────────
+
+  /**
+   * Total add-on license quantity currently owned and in the cart.
+   * Applicable when constraintType = "minimumAddOnPercentageQuantityOfBase"
+   * or "maximumAddOnPercentageQuantityOfBase"
+   */
+  @visibility(Lifecycle.Read)
+  currentTotalAddOnLicenseQuantity?: int64;
+
+  /**
+   * Minimum percentage of the base quantity that the add-on quantity must reach.
+   * Applicable when constraintType = "minimumAddOnPercentageQuantityOfBase"
+   */
+  @visibility(Lifecycle.Read)
+  minimumPercentOfBaseQuantity?: float64;
+
+  /**
+   * Minimum number of add-on licenses that must be purchased.
+   * Applicable when constraintType = "minimumAddOnPercentageQuantityOfBase"
+   */
+  @visibility(Lifecycle.Read)
+  minimumAddOnLicenseQuantityToBePurchased?: int64;
+
+  /**
+   * Number of additional add-on licenses needed to satisfy the constraint.
+   * Applicable when constraintType = "minimumAddOnPercentageQuantityOfBase"
+   */
+  @visibility(Lifecycle.Read)
+  missingAddOnLicenses?: int64;
+
+  /**
+   * Add-on quantity in the evaluated request.
+   * Applicable when constraintType = "minimumAddOnPercentageQuantityOfBase"
+   * or "maximumAddOnPercentageQuantityOfBase"
+   */
+  @visibility(Lifecycle.Read)
+  purchaseQuantity?: int64;
+
+  // ─────────────────────────────────────────────────────────────────
+  // maximumAddOnPercentageQuantityOfBase constraint properties
+  // ─────────────────────────────────────────────────────────────────
+
+  /**
+   * Maximum percentage of the base quantity that the add-on quantity may reach.
+   * Applicable when constraintType = "maximumAddOnPercentageQuantityOfBase"
+   */
+  @visibility(Lifecycle.Read)
+  maximumPercentOfBaseQuantity?: float64;
+
+  /**
+   * Maximum number of add-on licenses allowed.
+   * Applicable when constraintType = "maximumAddOnPercentageQuantityOfBase"
+   */
+  @visibility(Lifecycle.Read)
+  maximumAddOnLicenseQuantityAllowed?: int64;
+
+  /**
+   * Number of add-on licenses in excess of the maximum allowed.
+   * Applicable when constraintType = "maximumAddOnPercentageQuantityOfBase"
+   */
+  @visibility(Lifecycle.Read)
+  excessAddOnLicenseQuantity?: int64;
+}
+
+// =====================================================
 // ValidateFuturePriceEligibility Models (added in v2026_03_31_preview)
 // =====================================================
 
@@ -2407,6 +3027,7 @@ model TransferToPartnerRequest {
  * Request model for ValidateFuturePriceEligibility operation.
  * Evaluates whether customers qualify for future price concessions when purchasing Microsoft 365 products.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model ValidateFuturePriceEligibilityRequest {
   /**
@@ -2537,6 +3158,7 @@ model ValidateFuturePriceEligibilityProductContext {
 /**
  * Response model for ValidateFuturePriceEligibility operation with pagination support.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(SaaSHubVersions.v2026_03_31_preview)
 model ValidateFuturePriceEligibilityResponse
   is Azure.Core.Page<ValidateFuturePriceEligibilityProductResult>;
@@ -2589,4 +3211,130 @@ model ValidateFuturePriceEligibilityRequestMetadata {
    */
   @visibility(Lifecycle.Read)
   customerBillingScope?: string;
+}
+
+// =====================================================
+// ValidateRenewalPricingEligibility Models (added in v2026_03_31_preview)
+// =====================================================
+
+/**
+ * Request model for ValidateRenewalPricingEligibility operation.
+ */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@added(SaaSHubVersions.v2026_03_31_preview)
+model ValidateRenewalPricingEligibilityRequest {
+  /**
+   * Purchase line items in the customer's quote, cart or order to evaluate for
+   * promotional renewal pricing.
+   */
+  @identifiers(#[])
+  purchaseLineItems: RenewalPricingPurchaseLineItem[];
+
+  /**
+   * ISO 3166 country code for the customer's market.
+   */
+  market: string;
+
+  /**
+   * Cloud environment where the customer account exists (e.g., "Public", "USGov", "China").
+   */
+  nationalCloud: string;
+
+  /**
+   * Customer billing scope. Replaces customerAccountId/customerOrganizationId,
+   * both of which are required by the downstream contract.
+   * Supports multiple formats:
+   * - Partial: /providers/Microsoft.Billing/billingAccounts/{baId}
+   * - Full customer-led: /providers/Microsoft.Billing/billingAccounts/{baId}/billingProfiles/{profileId}/invoiceSections/{sectionId}
+   * - Full partner-led: /providers/Microsoft.Billing/billingAccounts/{baId}/billingProfiles/{profileId}/customers/{customerId}
+   */
+  customerBillingScope: string;
+}
+
+/**
+ * Purchase line item submitted for renewal pricing promotion evaluation.
+ */
+@added(SaaSHubVersions.v2026_03_31_preview)
+model RenewalPricingPurchaseLineItem {
+  /**
+   * GUID representing productId, skuId, termDuration, billingPlan combination.
+   */
+  productCode: string;
+
+  /**
+   * Pricing audience used for the purchase (e.g., "Direct-Commercial", "Partner-Commercial").
+   */
+  pricingAudience: string;
+
+  /**
+   * Number of seats being purchased for the line item.
+   */
+  quantity: int64;
+
+  /**
+   * Start date of the line item in UTC time.
+   */
+  startDate?: utcDateTime;
+
+  /**
+   * ARM resource URI of the SaaS resource being renewed.
+   * Format: /providers/Microsoft.SaaSHub/saasResources/{resourceName}
+   */
+  resourceUri?: string;
+
+  /**
+   * Whether the line item already has a discount applied.
+   */
+  hasDiscount?: boolean;
+
+  /**
+   * Seat cap for the line item.
+   */
+  seatCap?: int64;
+
+  /**
+   * Custom item identifier for tracking, returned as-is on the corresponding result.
+   */
+  itemTrackingId?: string;
+
+  /**
+   * Product hydration tokens for authorization and context purposes.
+   */
+  @identifiers(#["type"])
+  resourceTokens?: ResourceToken[];
+}
+
+/**
+ * Response model for ValidateRenewalPricingEligibility operation with pagination support.
+ */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@added(SaaSHubVersions.v2026_03_31_preview)
+model ValidateRenewalPricingEligibilityResponse
+  is Azure.Core.Page<ValidateRenewalPricingEligibilityLineItemResult>;
+
+/**
+ * Renewal pricing promotion eligibility result for a single purchase line item.
+ */
+@added(SaaSHubVersions.v2026_03_31_preview)
+model ValidateRenewalPricingEligibilityLineItemResult {
+  /**
+   * The purchase line item for which renewal pricing promotion eligibility was evaluated,
+   * echoed from the request.
+   */
+  @visibility(Lifecycle.Read)
+  purchaseLineItem: EligiblePurchaseLineItem;
+
+  /**
+   * Custom item identifier for tracking, returned as-is from the request.
+   */
+  @visibility(Lifecycle.Read)
+  itemTrackingId?: string;
+
+  /**
+   * Renewal pricing promotions available for the purchase line item, with eligibility
+   * details for each promotion.
+   */
+  @visibility(Lifecycle.Read)
+  @identifiers(#[])
+  promotions: CanCreateResultPromotionInfo[];
 }

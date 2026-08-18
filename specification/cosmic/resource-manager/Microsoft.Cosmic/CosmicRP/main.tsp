@@ -9,6 +9,9 @@ import "./environment.tsp";
 import "./healthMetadata.tsp";
 import "./migration.tsp";
 import "./deletedEnvironment.tsp";
+import "./component.tsp";
+import "./revision.tsp";
+import "./deployment.tsp";
 
 import "./client.tsp";
 

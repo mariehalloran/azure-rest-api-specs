@@ -53,6 +53,7 @@ interface Operations extends Azure.ResourceManager.Operations {}
  * Response of get latest linked SaaS resource operation
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SaaS is a widely recognized acronym"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_03_01_preview)
 model LatestLinkedSaaSResponse {
   /**

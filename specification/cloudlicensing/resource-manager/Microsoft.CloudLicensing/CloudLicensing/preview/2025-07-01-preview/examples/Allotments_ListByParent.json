@@ -1,0 +1,50 @@
+{
+  "operationId": "Allotments_ListByParent",
+  "title": "List all license allotments under the parent Azure Resource Manager resource",
+  "parameters": {
+    "api-version": "2025-07-01-preview",
+    "resourceUri": "subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/example-rg/providers/Microsoft.SaaSHub/cloudServices/mcl-test-cs"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/example-rg/providers/Microsoft.SaaSHub/cloudServices/mcl-test-cs/providers/Microsoft.CloudLicensing/allotments/enterprise-licenses",
+            "name": "enterprise-licenses",
+            "type": "Microsoft.CloudLicensing/allotments",
+            "properties": {
+              "provisioningState": "Succeeded",
+              "owner": {
+                "type": "tenant",
+                "id": "00000000-0000-0000-0000-000000000001"
+              },
+              "allotted": {
+                "aadSkuId": "c7df2760-2c81-4ef7-bb25-d5191b90c7f1",
+                "aadSkuPartNumber": "ENTERPRISEPACK"
+              },
+              "totalQuantity": 100,
+              "assignedCount": 25,
+              "sources": [
+                {
+                  "id": "8eed4da6-49a5-4e24-da2a-a793488d3792",
+                  "type": "asset",
+                  "state": "active"
+                }
+              ],
+              "beneficiaryTenantId": "00000000-0000-0000-0000-000000000001"
+            },
+            "systemData": {
+              "createdBy": "user@contoso.com",
+              "createdByType": "User",
+              "createdAt": "2026-04-01T00:00:00Z",
+              "lastModifiedBy": "user@contoso.com",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-04-01T00:00:00Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

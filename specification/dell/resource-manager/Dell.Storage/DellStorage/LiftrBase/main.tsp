@@ -280,6 +280,7 @@ model UserDetails {
    * User Email
    */
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "FIXME: Mark as @secret if this content should be kept private."
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "For backward compatibility"
   @OpenAPI.extension("x-ms-secret", true)
   email: string;
 }

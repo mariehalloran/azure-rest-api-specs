@@ -654,6 +654,7 @@ model RegistrationConfiguration extends EpicConfiguration {
   /**
    * Registration details for WSS servers, including VM identifiers and roles.
    */
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   wssServerInstance?: {
     vmDetails: WssServerDetails[];
   };
@@ -661,6 +662,7 @@ model RegistrationConfiguration extends EpicConfiguration {
   /**
    * Registration details for Database servers, including VM identifiers and roles.
    */
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   databaseServerInstance?: {
     vmDetails: DatabaseServerDetails[];
   };
@@ -668,6 +670,7 @@ model RegistrationConfiguration extends EpicConfiguration {
   /**
    * Registration details for HyperspaceWeb servers, including VM identifiers and roles.
    */
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   hyperspaceWebServerInstance?: {
     vmDetails: HyperspaceWebServerDetails[];
   };
@@ -675,6 +678,7 @@ model RegistrationConfiguration extends EpicConfiguration {
   /**
    * Registration details for Presentation servers, including VM identifiers and roles.
    */
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   presentationServerInstance?: {
     vmDetails: PresentationServerDetails[];
   };
@@ -682,6 +686,7 @@ model RegistrationConfiguration extends EpicConfiguration {
   /**
    * Registration details for Shared servers, including VM identifiers and roles.
    */
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   sharedServerInstance?: {
     vmDetails: SharedServerDetails[];
   };
