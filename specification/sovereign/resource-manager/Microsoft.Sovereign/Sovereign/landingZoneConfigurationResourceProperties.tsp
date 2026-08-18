@@ -367,6 +367,7 @@ union ResourceCreationOptions {
 }
 
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@removed(Versions.Preview20260731)
 @doc("The request for the create copy action of landing zone configuration.")
 model CreateCopyRequest {
   @doc("The name of the new landing zone configuration resource.")
@@ -375,6 +376,7 @@ model CreateCopyRequest {
 }
 
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@removed(Versions.Preview20260731)
 @doc("The response of the create copy action of landing zone configuration.")
 model CreateCopyResponse {
   @doc("The id of the copied landing zone configuration resource.")

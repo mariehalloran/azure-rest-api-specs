@@ -768,41 +768,6 @@
         ]
       }
     },
-    "CreateCopyRequest": {
-      "type": "object",
-      "description": "The request for the create copy action of landing zone configuration.",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "The name of the new landing zone configuration resource.",
-          "pattern": "^[a-zA-Z0-9-]{3,24}$"
-        }
-      },
-      "required": [
-        "name"
-      ]
-    },
-    "CreateCopyResponse": {
-      "type": "object",
-      "description": "The response of the create copy action of landing zone configuration.",
-      "properties": {
-        "copiedLandingZoneConfigurationId": {
-          "type": "string",
-          "format": "arm-id",
-          "description": "The id of the copied landing zone configuration resource.",
-          "x-ms-arm-id-details": {
-            "allowedResources": [
-              {
-                "type": "Microsoft.Sovereign/landingZoneConfigurations"
-              }
-            ]
-          }
-        }
-      },
-      "required": [
-        "copiedLandingZoneConfigurationId"
-      ]
-    },
     "DataState": {
       "type": "string",
       "description": "The state of the report data.",
