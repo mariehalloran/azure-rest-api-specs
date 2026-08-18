@@ -998,7 +998,8 @@
         "UpToDate",
         "Retrying",
         "Refreshing",
-        "Stale"
+        "Stale",
+        "Blocked"
       ],
       "x-ms-enum": {
         "name": "ReportState",
@@ -1033,6 +1034,11 @@
             "name": "Stale",
             "value": "Stale",
             "description": "The compliance report is stale and pending refresh."
+          },
+          {
+            "name": "Blocked",
+            "value": "Blocked",
+            "description": "The compliance report generation is blocked."
           }
         ]
       }
@@ -1168,7 +1174,7 @@
         "parentResourceId": {
           "type": "string",
           "format": "arm-id",
-          "description": "The fully qualified Azure Resource Manager ID of the parent resource. When a resource is created as part of another Azure resource's creation and its lifecycle is managed by the platform, this is the ID of that parent resource. For a top-level resource that has no parent resource, this is empty."
+          "description": "The fully qualified Azure Resource Manager ID of the parent resource. When a resource is created as part of another Azure resource's creation and its lifecycle is managed by the platform, this is the ID of that parent resource. For a resource that was created standalone and has no parent resource, this will be empty."
         },
         "location": {
           "type": "string",

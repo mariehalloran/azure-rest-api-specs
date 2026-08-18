@@ -149,6 +149,9 @@ union ReportState {
   @doc("The compliance report is stale and pending refresh.")
   Stale: "Stale",
 
+  @doc("The compliance report generation is blocked.")
+  Blocked: "Blocked",
+
   string,
 }
 
@@ -473,7 +476,7 @@ model SovereignViewComplianceDetailResource {
   resourceId: armResourceIdentifier;
 
   @added(Versions.Preview20260731)
-  @doc("The fully qualified Azure Resource Manager ID of the parent resource. When a resource is created as part of another Azure resource's creation and its lifecycle is managed by the platform, this is the ID of that parent resource. For a top-level resource that has no parent resource, this is empty.")
+  @doc("The fully qualified Azure Resource Manager ID of the parent resource. When a resource is created as part of another Azure resource's creation and its lifecycle is managed by the platform, this is the ID of that parent resource. For a resource that was created standalone and has no parent resource, this will be empty.")
   parentResourceId?: armResourceIdentifier;
 
   @doc("The location of the resource.")
