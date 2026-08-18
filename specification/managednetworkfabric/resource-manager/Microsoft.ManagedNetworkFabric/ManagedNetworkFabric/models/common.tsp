@@ -1518,8 +1518,8 @@ union OperationType {
   /** Validate configuration operation */
   ValidateConfiguration: "ValidateConfiguration",
 
-  /** Validate readiness operation */
-  ValidateReadiness: "ValidateReadiness",
+  /** Run validation operation */
+  RunValidation: "RunValidation",
 
   /** Refresh configuration operation */
   RefreshConfiguration: "RefreshConfiguration",
@@ -1791,6 +1791,10 @@ model RunValidationResponseProperties {
   @doc("Timestamp when the validation was performed.")
   @visibility(Lifecycle.Read)
   validationTime?: utcDateTime;
+
+  @doc("Timestamp when this validation result expires.")
+  @visibility(Lifecycle.Read)
+  expiresAt?: utcDateTime;
 
   @doc("Overall result of the validation.")
   @visibility(Lifecycle.Read)
