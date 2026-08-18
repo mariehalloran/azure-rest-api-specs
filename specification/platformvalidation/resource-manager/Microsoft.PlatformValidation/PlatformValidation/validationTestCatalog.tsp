@@ -95,7 +95,7 @@ model ValidationCatalogListQueryParameters {
 }
 
 @doc("Validation test catalog entry.")
-@tenantResource
+@subscriptionResource
 model ValidationTest is ProxyResource<ValidationTestProperties> {
   ...ResourceNameParameter<
     Resource = ValidationTest,
@@ -125,7 +125,7 @@ model ValidationTestProperties {
 
   @doc("""
     Owners of the validation test definition, expressed as aliases.
-    Only catalog publishers(limited to microsoft internal only) set this value via the create/update operations; end users of the validation
+    Only catalog publishers(limited to microsoft internal only) set this value through an internal publishing process; end users of the validation
     service consume catalog entries read-only through Get/List and cannot modify it.
     """)
   owners?: string[];
@@ -166,7 +166,7 @@ model ValidationTestVersionProperties {
 
   @doc("""
     Owners of the validation test version definition, expressed as email aliases or Microsoft Entra object IDs.
-    Only catalog publishers set this value via the create/update operations; end users of the validation
+    Only catalog publishers set this value through an internal publishing process; end users of the validation
     service consume catalog entries read-only through Get/List and cannot modify it.
     """)
   owners?: string[];
@@ -183,7 +183,6 @@ model ValidationTestVersionProperties {
 }
 
 @doc("Validation test version catalog entry.")
-@tenantResource
 @parentResource(ValidationTest)
 model ValidationTestVersion is ProxyResource<ValidationTestVersionProperties> {
   ...ResourceNameParameter<
@@ -195,7 +194,7 @@ model ValidationTestVersion is ProxyResource<ValidationTestVersionProperties> {
 }
 
 @doc("Validation test category catalog entry.")
-@tenantResource
+@subscriptionResource
 model ValidationTestCategory
   is ProxyResource<ValidationTestCategoryProperties> {
   ...ResourceNameParameter<
@@ -231,7 +230,7 @@ model ValidationTestCategoryProperties {
 
   @doc("""
     Owners of the validation test category, expressed as email aliases or Microsoft Entra object IDs.
-    Only catalog publishers set this value via the create/update operations; end users of the validation
+    Only catalog publishers set this value through an internal publishing process; end users of the validation
     service consume catalog entries read-only through Get/List and cannot modify it.
     """)
   owners?: string[];
@@ -243,17 +242,8 @@ interface ValidationTests {
   @doc("Get a validation test catalog entry")
   get is ArmResourceRead<ValidationTest>;
 
-  @doc("Create or update a validation test catalog entry and publish a new immutable version snapshot")
-  createOrUpdate is ArmResourceCreateOrReplaceSync<ValidationTest>;
-
-  @doc("Update a validation test catalog entry")
-  update is ArmResourcePatchSync<ValidationTest, ValidationTestProperties>;
-
-  @doc("Delete a validation test catalog entry")
-  delete is ArmResourceDeleteSync<ValidationTest>;
-
-  @doc("List validation test catalog entries")
-  list is ArmResourceListByParent<
+  @doc("List validation test catalog entries for a subscription")
+  listBySubscription is ArmResourceListByParent<
     ValidationTest,
     Parameters = ValidationCatalogListQueryParameters
   >;
@@ -264,18 +254,6 @@ interface ValidationTests {
 interface ValidationTestVersions {
   @doc("Get a validation test version catalog entry")
   get is ArmResourceRead<ValidationTestVersion>;
-
-  @doc("Create or update a validation test version catalog entry")
-  createOrUpdate is ArmResourceCreateOrReplaceSync<ValidationTestVersion>;
-
-  @doc("Update a validation test version catalog entry")
-  update is ArmResourcePatchSync<
-    ValidationTestVersion,
-    ValidationTestVersionProperties
-  >;
-
-  @doc("Delete a validation test version catalog entry")
-  delete is ArmResourceDeleteSync<ValidationTestVersion>;
 
   @doc("List validation test version catalog entries")
   list is ArmResourceListByParent<
@@ -290,20 +268,8 @@ interface ValidationTestCategories {
   @doc("Get a validation test category catalog entry")
   get is ArmResourceRead<ValidationTestCategory>;
 
-  @doc("Create or update a validation test category catalog entry")
-  createOrUpdate is ArmResourceCreateOrReplaceSync<ValidationTestCategory>;
-
-  @doc("Update a validation test category catalog entry")
-  update is ArmResourcePatchSync<
-    ValidationTestCategory,
-    ValidationTestCategoryProperties
-  >;
-
-  @doc("Delete a validation test category catalog entry")
-  delete is ArmResourceDeleteSync<ValidationTestCategory>;
-
-  @doc("List validation test category catalog entries")
-  list is ArmResourceListByParent<
+  @doc("List validation test category catalog entries for a subscription")
+  listBySubscription is ArmResourceListByParent<
     ValidationTestCategory,
     Parameters = ValidationCatalogListQueryParameters
   >;

@@ -48,6 +48,10 @@ model ExecutionPlanRunProperties {
   @visibility(Lifecycle.Read)
   planConfigurationSnapshot?: string;
 
+  @doc("The names of the validation test runs (ValidationTestRun resource names, not ARM resource IDs) executed as part of this execution plan run.")
+  @visibility(Lifecycle.Read)
+  testRunIds?: string[];
+
   @doc("The provisioning state of the execution plan run.")
   @visibility(Lifecycle.Read)
   provisioningState?: ExecutionPlanRunProvisioningState;
