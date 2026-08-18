@@ -8,14 +8,13 @@
     "destinationName": "fabric-destination",
     "api-version": "2025-11-19-preview",
     "resource": {
-      "properties": {
-        "endpoint": {
-          "workspaceId": "12345678-1234-1234-1234-123456789012",
-          "databaseId": "sample-database-id"
-        },
-        "kind": "fabricTable"
-      },
-      "location": "westus"
+      "properties": {},
+      "location": "westus",
+      "kind": "fabricTable",
+      "endpoint": {
+        "workspaceId": "12345678-1234-1234-1234-123456789012",
+        "databaseId": "sample-database-id"
+      }
     }
   },
   "responses": {
@@ -25,19 +24,14 @@
         "name": "fabric-destination",
         "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
         "properties": {
-          "outputSchema": "fabric",
-          "outputEncoding": "parquet",
-          "endpoint": {
-            "workspaceId": "12345678-1234-1234-1234-123456789012",
-            "databaseId": "sample-database-id"
-          },
-          "options": [
-            "enableInitialSnapshot"
-          ],
-          "provisioningState": "Succeeded",
-          "kind": "fabricTable"
+          "provisioningState": "Succeeded"
         },
-        "location": "westus"
+        "location": "westus",
+        "kind": "fabricTable",
+        "endpoint": {
+          "workspaceId": "12345678-1234-1234-1234-123456789012",
+          "databaseId": "sample-database-id"
+        }
       }
     },
     "201": {
@@ -50,19 +44,14 @@
         "name": "fabric-destination",
         "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
         "properties": {
-          "outputSchema": "fabric",
-          "outputEncoding": "parquet",
-          "endpoint": {
-            "workspaceId": "12345678-1234-1234-1234-123456789012",
-            "databaseId": "sample-database-id"
-          },
-          "options": [
-            "enableInitialSnapshot"
-          ],
-          "provisioningState": "Accepted",
-          "kind": "fabricTable"
+          "provisioningState": "Accepted"
         },
-        "location": "westus"
+        "location": "westus",
+        "kind": "fabricTable",
+        "endpoint": {
+          "workspaceId": "12345678-1234-1234-1234-123456789012",
+          "databaseId": "sample-database-id"
+        }
       }
     }
   }

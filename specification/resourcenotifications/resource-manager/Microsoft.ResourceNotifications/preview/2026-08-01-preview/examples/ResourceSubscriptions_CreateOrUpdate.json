@@ -11,12 +11,16 @@
       "properties": {
         "query": "resources",
         "scope": {
-          "kind": "tenant"
+          "kind": "tenant",
+          "tenantId": "12345678-1234-1234-1234-123456789012"
         },
-        "dataBoundary": "Global",
-        "subscriberAuthType": "DSTS",
-        "deliveryModeConfiguration": {
-          "kind": "FanOut"
+        "deliveryMode": {
+          "kind": "fanOut"
+        },
+        "options": {
+          "skipPayload": false,
+          "allowPreviewNotifications": true,
+          "authorizationMode": "DSTS"
         }
       }
     }
@@ -40,12 +44,15 @@
               "tenantId": "12345678-1234-1234-1234-123456789012"
             }
           },
-          "dataBoundary": "Global",
-          "subscriberAuthType": "DSTS",
-          "deliveryModeConfiguration": {
-            "kind": "FanOut"
+          "provisioningState": "Succeeded",
+          "deliveryMode": {
+            "kind": "fanOut"
           },
-          "provisioningState": "Succeeded"
+          "options": {
+            "skipPayload": false,
+            "allowPreviewNotifications": true,
+            "authorizationMode": "DSTS"
+          }
         }
       }
     },
@@ -71,12 +78,15 @@
               "tenantId": "12345678-1234-1234-1234-123456789012"
             }
           },
-          "dataBoundary": "Global",
-          "subscriberAuthType": "DSTS",
-          "deliveryModeConfiguration": {
-            "kind": "FanOut"
+          "provisioningState": "Accepted",
+          "deliveryMode": {
+            "kind": "fanOut"
           },
-          "provisioningState": "Accepted"
+          "options": {
+            "skipPayload": false,
+            "allowPreviewNotifications": true,
+            "authorizationMode": "DSTS"
+          }
         }
       }
     }

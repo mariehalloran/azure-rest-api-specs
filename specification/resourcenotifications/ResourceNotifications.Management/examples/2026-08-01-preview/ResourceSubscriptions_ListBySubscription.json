@@ -26,12 +26,15 @@
                   "tenantId": "12345678-1234-1234-1234-123456789012"
                 }
               },
-              "dataBoundary": "Global",
-              "subscriberAuthType": "DSTS",
-              "deliveryModeConfiguration": {
-                "kind": "FanOut"
+              "provisioningState": "Succeeded",
+              "deliveryMode": {
+                "kind": "fanOut"
               },
-              "provisioningState": "Succeeded"
+              "options": {
+                "skipPayload": false,
+                "allowPreviewNotifications": true,
+                "authorizationMode": "DSTS"
+              }
             }
           },
           {
@@ -43,35 +46,38 @@
               "query": "resources | where type == 'Microsoft.Compute/virtualMachines'",
               "scope": {
                 "kind": "cloud",
-                "providerNamespace": "Microsoft.Compute",
-                "appId": "00000000-0000-0000-0000-000000000001",
-                "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.ResourceNotifications/namespaces/Microsoft.Compute"
+                "id": "/subscriptions/6a251768-2874-41af-9124-7bd752fcae23/providers/Microsoft.ProviderHub/providerRegistrations/microsoft.compute"
               },
-              "dataBoundary": "EU",
-              "subscriberAuthType": "DSTS",
-              "deliveryModeConfiguration": {
-                "kind": "Partitioning",
-                "configurationSettings": {
-                  "kind": "arnLocation",
-                  "partitions": [
-                    {
-                      "name": "eastus-partition",
-                      "regions": [
-                        "eastus",
-                        "eastus2"
-                      ]
-                    },
-                    {
-                      "name": "westus-partition",
-                      "regions": [
-                        "westus",
-                        "westus2"
-                      ]
-                    }
-                  ]
-                }
+              "provisioningState": "Succeeded",
+              "deliveryMode": {
+                "kind": "partitioned",
+                "partitioningConfigurations": [
+                  {
+                    "kind": "arnRegion",
+                    "partitions": [
+                      {
+                        "name": "eastus-partition",
+                        "arnRegions": [
+                          "eastus",
+                          "eastus2"
+                        ]
+                      },
+                      {
+                        "name": "westus-partition",
+                        "arnRegions": [
+                          "westus",
+                          "westus2"
+                        ]
+                      }
+                    ]
+                  }
+                ]
               },
-              "provisioningState": "Succeeded"
+              "options": {
+                "skipPayload": false,
+                "allowPreviewNotifications": true,
+                "authorizationMode": "DSTS"
+              }
             }
           }
         ]
