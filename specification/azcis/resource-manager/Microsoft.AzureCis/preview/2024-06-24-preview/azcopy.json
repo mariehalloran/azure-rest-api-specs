@@ -371,11 +371,13 @@
         },
         "source": {
           "type": "string",
-          "description": "The storage resource URI for the source object. This can target an account, container, virtual directory, or blob."
+          "description": "The storage resource URI for the source object. This can target an account, container, virtual directory, or blob. Must not contain a SAS token; supply the full SAS URI in 'sourceSasUri' instead.",
+          "pattern": "^(?![\\s\\S]*[?&][Ss][Ii][Gg]=)[\\s\\S]*$"
         },
         "destination": {
           "type": "string",
-          "description": "The storage resource URI for the destination object. This can target an account, container, virtual directory, or blob."
+          "description": "The storage resource URI for the destination object. This can target an account, container, virtual directory, or blob. Must not contain a SAS token; supply the full SAS URI in 'destinationSasUri' instead.",
+          "pattern": "^(?![\\s\\S]*[?&][Ss][Ii][Gg]=)[\\s\\S]*$"
         },
         "sourceSasUri": {
           "type": "string",
