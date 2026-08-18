@@ -1,0 +1,46 @@
+{
+  "operationId": "Operations_List",
+  "title": "List the operations of the Microsoft.SecurityBasePlatform provider",
+  "parameters": {
+    "api-version": "2025-03-01-preview"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "name": "Microsoft.SecurityBasePlatform/clusters/read",
+            "isDataAction": false,
+            "display": {
+              "provider": "Microsoft.SecurityBasePlatform",
+              "resource": "clusters",
+              "operation": "Get Cluster",
+              "description": "Gets a cluster."
+            }
+          },
+          {
+            "name": "Microsoft.SecurityBasePlatform/clusters/write",
+            "isDataAction": false,
+            "display": {
+              "provider": "Microsoft.SecurityBasePlatform",
+              "resource": "clusters",
+              "operation": "Create or Update Cluster",
+              "description": "Creates or updates a cluster."
+            }
+          },
+          {
+            "name": "Microsoft.SecurityBasePlatform/operations/read",
+            "isDataAction": false,
+            "display": {
+              "provider": "Microsoft.SecurityBasePlatform",
+              "resource": "operations",
+              "operation": "List operations",
+              "description": "Lists the available operations."
+            }
+          }
+        ],
+        "nextLink": "https://management.azure.com/providers/Microsoft.SecurityBasePlatform/operations?api-version=2025-03-01-preview&%24skiptoken=token"
+      }
+    }
+  }
+}
