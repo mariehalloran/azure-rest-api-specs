@@ -36,6 +36,7 @@ model Hl7ConnectorProperties {
   @visibility(Lifecycle.Create, Lifecycle.Read, Lifecycle.Update)
   connectedClusterId: ConnectedClusterResourceId;
 
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "inline anonymous model"
   @doc("The receiver configuration to be used for the Hl7 connector.")
   receiver?: {
     @doc("The receiver endpoint configuration to be used for Hl7 connector.")

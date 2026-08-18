@@ -20,6 +20,7 @@ namespace Microsoft.SaasHub.Client {
   /**
    * Client-specific customizations for Microsoft.SaaSHub models
    */
+  #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
   @clientName("csharp", "MergeSaasResourceContent")
   model MergeSaasResourcesRequest {
     // Use composition rather than inheritance

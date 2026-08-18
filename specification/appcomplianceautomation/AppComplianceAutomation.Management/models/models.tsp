@@ -542,6 +542,7 @@ union AppEnvironment {
 /**
  * The get collection count request body.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Get collection count's request object.")
 model GetCollectionCountRequest {
   /**
@@ -553,6 +554,7 @@ model GetCollectionCountRequest {
 /**
  * The get collection count response.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model GetCollectionCountResponse {
   /**
    * The count of the specified resource.
@@ -563,6 +565,7 @@ model GetCollectionCountResponse {
 /**
  * The get overview status request body.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Get overview status request object.")
 model GetOverviewStatusRequest {
   /**
@@ -574,6 +577,7 @@ model GetOverviewStatusRequest {
 /**
  * The get overview status response.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model GetOverviewStatusResponse {
   /**
    * List of different status items.
@@ -600,6 +604,7 @@ model StatusItem {
 /**
  * Onboard subscriptions request.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Parameters for onboard operation")
 model OnboardRequest {
   /**
@@ -611,6 +616,7 @@ model OnboardRequest {
 /**
  * Onboard subscriptions response.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Success. The response indicates given subscriptions has been onboarded.")
 model OnboardResponse {
   /**
@@ -622,6 +628,7 @@ model OnboardResponse {
 /**
  * Trigger evaluation request.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model TriggerEvaluationRequest {
   /**
    * List of resource ids to be evaluated
@@ -632,6 +639,7 @@ model TriggerEvaluationRequest {
 /**
  * Trigger evaluation response.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model TriggerEvaluationResponse {
   /**
    * trigger evaluation property.
@@ -720,6 +728,7 @@ model QuickAssessment {
 /**
  * List in use storage accounts request.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Parameters for listing in use storage accounts operation. If subscription list is null, it will check the user's all subscriptions.")
 model ListInUseStorageAccountsRequest {
   /**
@@ -731,6 +740,7 @@ model ListInUseStorageAccountsRequest {
 /**
  * List in use storage accounts response.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Parameters for listing in use storage accounts operation. If subscription list is null, it will check the user's all subscriptions.")
 model ListInUseStorageAccountsResponse {
   /**
@@ -1034,6 +1044,7 @@ model ReportResourcePatch {
 /**
  * Synchronize certification record request.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SyncCertRecordRequest {
   /**
    * certification record to be synchronized.
@@ -1044,6 +1055,7 @@ model SyncCertRecordRequest {
 /**
  * Synchronize certification record response.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SyncCertRecordResponse {
   /**
    * certification record synchronized.
@@ -1590,6 +1602,7 @@ model RecommendationSolution {
 /**
  * Snapshot's download request.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SnapshotDownloadRequest {
   /**
    * Tenant id.
@@ -1611,6 +1624,7 @@ model SnapshotDownloadRequest {
 /**
  * Object that includes all the possible response for the download operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model DownloadResponse {
   /**
    * Resource list of the report
@@ -1892,6 +1906,7 @@ model EvidenceProperties {
 /**
  * Evidence file's download request.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model EvidenceFileDownloadRequest {
   /**
    * Tenant id.
@@ -1908,6 +1923,7 @@ model EvidenceFileDownloadRequest {
 /**
  * Object that includes all the possible response for the evidence file download operation.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model EvidenceFileDownloadResponse {
   /**
    * The uri of evidence file

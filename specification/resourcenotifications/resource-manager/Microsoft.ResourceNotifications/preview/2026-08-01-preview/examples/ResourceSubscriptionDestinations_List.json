@@ -16,17 +16,7 @@
             "name": "fabric-destination",
             "type": "Microsoft.ResourceNotifications/resourceSubscriptions/destinations",
             "properties": {
-              "outputSchema": "fabric",
-              "outputEncoding": "parquet",
-              "endpoint": {
-                "workspaceId": "12345678-1234-1234-1234-123456789012",
-                "databaseId": "sample-database-id"
-              },
-              "options": [
-                "enableInitialSnapshot"
-              ],
-              "provisioningState": "Succeeded",
-              "kind": "fabricTable"
+              "provisioningState": "Succeeded"
             },
             "location": "westus",
             "identity": {
@@ -37,6 +27,11 @@
                   "principalId": "22222222-2222-2222-2222-222222222222"
                 }
               }
+            },
+            "kind": "fabricTable",
+            "endpoint": {
+              "workspaceId": "12345678-1234-1234-1234-123456789012",
+              "databaseId": "sample-database-id"
             }
           },
           {
@@ -48,32 +43,7 @@
                 "p0",
                 "p1"
               ],
-              "pathPolicy": {
-                "kind": "timeAndScopeRangeHash",
-                "timeSource": "eventTime",
-                "scope": "tenant",
-                "scopeBuckets": 50,
-                "pathTemplate": "year={yyyy},month={mm},day={dd}/hour={hh}/tenantBucket={scopeBucket}"
-              },
-              "batchingPolicy": {
-                "kind": "minCountMaxDelay",
-                "minResources": 500,
-                "maxDelay": "PT10M"
-              },
-              "outputSchema": "firstParty",
-              "outputEncoding": "parquet",
-              "endpointContainer": "events",
-              "endpointDeliveryMode": "failover",
-              "endpoints": [
-                {
-                  "id": "https://primary.blob.core.windows.net"
-                },
-                {
-                  "id": "https://secondary.blob.core.windows.net"
-                }
-              ],
-              "provisioningState": "Succeeded",
-              "kind": "storageAccount"
+              "provisioningState": "Succeeded"
             },
             "location": "westus",
             "identity": {
@@ -84,7 +54,28 @@
                   "principalId": "22222222-2222-2222-2222-222222222222"
                 }
               }
-            }
+            },
+            "kind": "storageAccount",
+            "container": "events",
+            "pathPolicy": {
+              "kind": "timeAndScopeRangeHash",
+              "scope": "tenant",
+              "scopeBucketsCount": 50,
+              "pathTemplate": "year={yyyy},month={mm},day={dd}/hour={hh}/tenantBucket={scopeBucket}"
+            },
+            "batchingPolicy": {
+              "kind": "minCountMaxDelay",
+              "minResources": 500,
+              "maxDelay": "PT10M"
+            },
+            "endpoints": [
+              {
+                "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.Storage/storageAccounts/primarystorage"
+              },
+              {
+                "id": "/subscriptions/12345678-1234-1234-1234-123456789012/resourceGroups/example-rg/providers/Microsoft.Storage/storageAccounts/secondarystorage"
+              }
+            ]
           }
         ]
       }

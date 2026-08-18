@@ -46,7 +46,7 @@
       "name": "ResourceSubscriptions"
     },
     {
-      "name": "Destinations"
+      "name": "ResourceSubscriptionDestinations"
     },
     {
       "name": "NotificationsSessions"
@@ -893,8 +893,14 @@
           }
         },
         "x-ms-examples": {
+          "Create or update a resource subscription with cloud scope and fanOut delivery": {
+            "$ref": "./examples/ResourceSubscriptions_CreateOrUpdate_CloudFanOut.json"
+          },
           "Create or update a resource subscription with tenant scope": {
             "$ref": "./examples/ResourceSubscriptions_CreateOrUpdate.json"
+          },
+          "Create or update a resource subscription with two-layer partitioned delivery": {
+            "$ref": "./examples/ResourceSubscriptions_CreateOrUpdate_Partitioned.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -1021,7 +1027,7 @@
       "get": {
         "operationId": "ResourceSubscriptionDestinations_List",
         "tags": [
-          "Destinations"
+          "ResourceSubscriptionDestinations"
         ],
         "description": "Lists all destinations for a resource subscription",
         "parameters": [
@@ -1071,7 +1077,7 @@
       "get": {
         "operationId": "ResourceSubscriptionDestinations_Get",
         "tags": [
-          "Destinations"
+          "ResourceSubscriptionDestinations"
         ],
         "description": "Gets a destination",
         "parameters": [
@@ -1124,7 +1130,7 @@
       "put": {
         "operationId": "ResourceSubscriptionDestinations_CreateOrUpdate",
         "tags": [
-          "Destinations"
+          "ResourceSubscriptionDestinations"
         ],
         "description": "Creates or updates a destination. Asynchronous operation.",
         "parameters": [
@@ -1198,11 +1204,20 @@
           "Create or update a fabric table destination": {
             "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate.json"
           },
+          "Create or update a storage account destination with two storage accounts": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_StorageAccount.json"
+          },
           "Create or update a webhook destination": {
             "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_Webhook.json"
           },
+          "Create or update a webhook destination bound to a partition with fan-out delivery": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_WebhookPartitioned.json"
+          },
           "Create or update an event hub destination": {
             "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_EventHub.json"
+          },
+          "Create or update an event hub destination bound to a partition": {
+            "$ref": "./examples/ResourceSubscriptionDestinations_CreateOrUpdate_Partitioned.json"
           }
         },
         "x-ms-long-running-operation-options": {
@@ -1213,7 +1228,7 @@
       "patch": {
         "operationId": "ResourceSubscriptionDestinations_Update",
         "tags": [
-          "Destinations"
+          "ResourceSubscriptionDestinations"
         ],
         "description": "Updates the tags on a destination",
         "parameters": [
@@ -1275,7 +1290,7 @@
       "delete": {
         "operationId": "ResourceSubscriptionDestinations_Delete",
         "tags": [
-          "Destinations"
+          "ResourceSubscriptionDestinations"
         ],
         "description": "Deletes a destination. Asynchronous operation.",
         "parameters": [
@@ -1369,15 +1384,36 @@
       ],
       "x-ms-discriminator-value": "AAD"
     },
-    "ArnLocationPartitioningConfiguration": {
+    "ArnRegionPartition": {
       "type": "object",
-      "description": "ARN location partitioning configuration",
+      "description": "ARN region partition definition",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the partition"
+        },
+        "arnRegions": {
+          "type": "array",
+          "description": "The ARN regions included in this partition",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "arnRegions"
+      ]
+    },
+    "ArnRegionPartitioningConfiguration": {
+      "type": "object",
+      "description": "ARN region partitioning configuration",
       "properties": {
         "partitions": {
           "type": "array",
           "description": "The partitions list",
           "items": {
-            "$ref": "#/definitions/Partition"
+            "$ref": "#/definitions/ArnRegionPartition"
           },
           "x-ms-identifiers": [
             "name"
@@ -1392,7 +1428,7 @@
           "$ref": "#/definitions/PartitioningConfiguration"
         }
       ],
-      "x-ms-discriminator-value": "arnLocation"
+      "x-ms-discriminator-value": "arnRegion"
     },
     "AuthenticationType": {
       "type": "string",
@@ -1414,6 +1450,30 @@
             "name": "Dsts",
             "value": "DSTS",
             "description": "DSTS claim authentication."
+          }
+        ]
+      }
+    },
+    "AuthorizationMode": {
+      "type": "string",
+      "description": "The authentication type used by ARN when delivering notifications to the subscriber",
+      "enum": [
+        "DefaultRBAC",
+        "DSTS"
+      ],
+      "x-ms-enum": {
+        "name": "AuthorizationMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "defaultRBAC",
+            "value": "DefaultRBAC",
+            "description": "Default RBAC-based authorization mode (default when omitted)."
+          },
+          {
+            "name": "dSTS",
+            "value": "DSTS",
+            "description": "Datacenter STS based authentication (default)"
           }
         ]
       }
@@ -1585,17 +1645,12 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "The resource provider id populated by the caller, used to perform the linked access check and validate the caller has permission against the RP itself."
-        },
-        "providerNamespace": {
-          "type": "string",
-          "description": "The provider namespace populated by caller"
-        },
-        "appId": {
-          "$ref": "#/definitions/Azure.Core.uuid",
-          "description": "The application ID extracted from request, checked against manifest"
+          "description": "Provider registration or namespace identity used to validate the caller against the RP relationship."
         }
       },
+      "required": [
+        "id"
+      ],
       "allOf": [
         {
           "$ref": "#/definitions/Scope"
@@ -1645,9 +1700,8 @@
       "type": "string",
       "description": "The kind of delivery mode, determining how notifications are distributed across destination endpoints",
       "enum": [
-        "FanOut",
-        "Partitioning",
-        "EqualDistribution"
+        "fanOut",
+        "partitioned"
       ],
       "x-ms-enum": {
         "name": "DeliveryModeKind",
@@ -1655,18 +1709,13 @@
         "values": [
           {
             "name": "fanOut",
-            "value": "FanOut",
+            "value": "fanOut",
             "description": "Deliver every notification to all endpoints (default)"
           },
           {
-            "name": "partitioning",
-            "value": "Partitioning",
+            "name": "partitioned",
+            "value": "partitioned",
             "description": "Distribute notifications across endpoints based on partitioning"
-          },
-          {
-            "name": "equalDistribution",
-            "value": "EqualDistribution",
-            "description": "Distribute notifications evenly across endpoints"
           }
         ]
       }
@@ -1676,19 +1725,66 @@
       "description": "Destination resource for Azure Resource Notifications",
       "properties": {
         "properties": {
-          "$ref": "#/definitions/DestinationProperties",
+          "$ref": "#/definitions/DestinationPropertiesBase",
           "description": "The resource-specific properties for this resource."
+        },
+        "kind": {
+          "$ref": "#/definitions/DestinationKind",
+          "description": "The kind of destination"
         },
         "identity": {
           "$ref": "#/definitions/Identity",
           "description": "The managed identity used by ARN to deliver notifications to the destination endpoint."
         }
       },
+      "discriminator": "kind",
+      "required": [
+        "kind",
+        "identity"
+      ],
       "allOf": [
         {
           "$ref": "../../../../../common-types/resource-management/v6/types.json#/definitions/TrackedResource"
         }
       ]
+    },
+    "DestinationDeliveryMode": {
+      "type": "object",
+      "description": "Base configuration for how notifications are distributed across a destination's endpoints",
+      "properties": {
+        "kind": {
+          "$ref": "#/definitions/DestinationDeliveryModeKind",
+          "description": "The kind of destination delivery mode"
+        }
+      },
+      "discriminator": "kind",
+      "required": [
+        "kind"
+      ]
+    },
+    "DestinationDeliveryModeKind": {
+      "type": "string",
+      "description": "The kind of destination-level delivery mode",
+      "enum": [
+        "fanOut",
+        "equalDistribution"
+      ],
+      "x-ms-enum": {
+        "name": "DestinationDeliveryModeKind",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "fanOut",
+            "value": "fanOut",
+            "description": "Deliver every notification to all endpoints in the destination (default)"
+          },
+          {
+            "name": "equalDistribution",
+            "value": "equalDistribution",
+            "description": "Distribute notifications evenly across the destination's endpoints"
+          }
+        ]
+      }
     },
     "DestinationKind": {
       "type": "string",
@@ -1697,7 +1793,7 @@
         "fabricTable",
         "storageAccount",
         "webhook",
-        "eventhub"
+        "eventHub"
       ],
       "x-ms-enum": {
         "name": "DestinationKind",
@@ -1719,8 +1815,8 @@
             "description": "Webhook (HTTP endpoint) destination"
           },
           {
-            "name": "eventhub",
-            "value": "eventhub",
+            "name": "eventHub",
+            "value": "eventHub",
             "description": "Event Hub destination"
           }
         ]
@@ -1747,42 +1843,31 @@
         "value"
       ]
     },
-    "DestinationOptions": {
-      "type": "string",
-      "description": "Available destination options",
-      "enum": [
-        "enableInitialSnapshot"
-      ],
-      "x-ms-enum": {
-        "name": "DestinationOptions",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "enableInitialSnapshot",
-            "value": "enableInitialSnapshot",
-            "description": "Enables delivery of the initial snapshot"
-          }
-        ]
-      }
-    },
-    "DestinationProperties": {
+    "DestinationPropertiesBase": {
       "type": "object",
-      "description": "Base properties for destination configuration",
+      "description": "Base properties shared by all destination kinds",
       "properties": {
-        "kind": {
-          "$ref": "#/definitions/DestinationKind",
-          "description": "The kind of destination"
-        },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
           "description": "The status of the last operation",
           "readOnly": true
+        },
+        "dataBoundary": {
+          "$ref": "#/definitions/DataBoundary",
+          "description": "Destination-level data boundary used to route/deliver notifications for EU/global where required."
+        },
+        "partitions": {
+          "type": "array",
+          "description": "Parent partition names this destination receives. Required when the parent subscription's deliveryMode is partitioned.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deliveryMode": {
+          "$ref": "#/definitions/DestinationDeliveryMode",
+          "description": "Delivery mode applied only within this destination to its endpoints. Defaults to fanOut."
         }
-      },
-      "discriminator": "kind",
-      "required": [
-        "kind"
-      ]
+      }
     },
     "DestinationUpdate": {
       "type": "object",
@@ -1841,52 +1926,20 @@
       ],
       "x-ms-discriminator-value": "DSTS"
     },
-    "EndpointDeliveryMode": {
-      "type": "string",
-      "description": "The delivery mode for endpoints, determining how notifications are distributed across endpoints",
-      "enum": [
-        "round-robin",
-        "failover"
-      ],
-      "x-ms-enum": {
-        "name": "EndpointDeliveryMode",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "roundRobin",
-            "value": "round-robin",
-            "description": "Spreads load over all endpoints"
-          },
-          {
-            "name": "failover",
-            "value": "failover",
-            "description": "Delivers to the first available endpoint"
-          }
-        ]
-      }
-    },
-    "EqualDistributionDeliveryModeConfiguration": {
+    "EqualDistributionDestinationDeliveryMode": {
       "type": "object",
-      "description": "Equal-distribution delivery mode: notifications are distributed evenly across endpoints",
+      "description": "Equal-distribution destination delivery mode: notifications are distributed evenly across endpoints",
       "allOf": [
         {
-          "$ref": "#/definitions/DeliveryModeConfiguration"
+          "$ref": "#/definitions/DestinationDeliveryMode"
         }
       ],
-      "x-ms-discriminator-value": "EqualDistribution"
+      "x-ms-discriminator-value": "equalDistribution"
     },
-    "EventHubDestinationProperties": {
+    "EventHubDestination": {
       "type": "object",
-      "description": "Event Hub destination properties",
+      "description": "Event Hub destination",
       "properties": {
-        "outputSchema": {
-          "type": "string",
-          "description": "The schema to use for the delivered notifications"
-        },
-        "outputEncoding": {
-          "type": "string",
-          "description": "The encoding/format to use for the delivered notifications"
-        },
         "endpoints": {
           "type": "array",
           "description": "The set of event hub endpoints to deliver notifications to",
@@ -1899,16 +1952,14 @@
         }
       },
       "required": [
-        "outputSchema",
-        "outputEncoding",
         "endpoints"
       ],
       "allOf": [
         {
-          "$ref": "#/definitions/DestinationProperties"
+          "$ref": "#/definitions/Destination"
         }
       ],
-      "x-ms-discriminator-value": "eventhub"
+      "x-ms-discriminator-value": "eventHub"
     },
     "EventHubEndpoint": {
       "type": "object",
@@ -1942,31 +1993,13 @@
         "databaseId"
       ]
     },
-    "FabricTableDestinationProperties": {
+    "FabricTableDestination": {
       "type": "object",
-      "description": "Fabric table destination properties",
+      "description": "Fabric table destination",
       "properties": {
-        "outputSchema": {
-          "type": "string",
-          "description": "The output schema - readonly for now, will provide a way for 1P to set to fabric1P",
-          "readOnly": true
-        },
-        "outputEncoding": {
-          "type": "string",
-          "description": "The output encoding - readonly and not configurable",
-          "readOnly": true
-        },
         "endpoint": {
           "$ref": "#/definitions/FabricEndpoint",
           "description": "The fabric endpoint configuration"
-        },
-        "options": {
-          "type": "array",
-          "description": "Optional destination configuration options",
-          "items": {
-            "$ref": "#/definitions/DestinationOptions"
-          },
-          "readOnly": true
         }
       },
       "required": [
@@ -1974,7 +2007,7 @@
       ],
       "allOf": [
         {
-          "$ref": "#/definitions/DestinationProperties"
+          "$ref": "#/definitions/Destination"
         }
       ],
       "x-ms-discriminator-value": "fabricTable"
@@ -1987,7 +2020,17 @@
           "$ref": "#/definitions/DeliveryModeConfiguration"
         }
       ],
-      "x-ms-discriminator-value": "FanOut"
+      "x-ms-discriminator-value": "fanOut"
+    },
+    "FanOutDestinationDeliveryMode": {
+      "type": "object",
+      "description": "Fan-out destination delivery mode: every notification is delivered to all endpoints",
+      "allOf": [
+        {
+          "$ref": "#/definitions/DestinationDeliveryMode"
+        }
+      ],
+      "x-ms-discriminator-value": "fanOut"
     },
     "GetNotificationSessionDetails": {
       "type": "object",
@@ -2027,13 +2070,31 @@
         }
       }
     },
+    "HashRangePartition": {
+      "type": "object",
+      "description": "Hash range partition definition",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the partition"
+        },
+        "range": {
+          "type": "string",
+          "description": "Single hash range string, e.g., '0:49'."
+        }
+      },
+      "required": [
+        "name",
+        "range"
+      ]
+    },
     "Identity": {
       "type": "object",
-      "description": "Identity for the destination resource, used by ARN to deliver notifications to the destination endpoint.",
+      "description": "Identity for the destination resource, used by ARN to deliver notifications to the destination endpoint. Only user-assigned managed identity is supported.",
       "properties": {
         "type": {
           "$ref": "#/definitions/ResourceIdentityType",
-          "description": "The identity type."
+          "description": "The identity type. Only UserAssigned is supported. To change the assigned identity, PATCH userAssignedIdentities with the replacement identity resource ID; removal is not supported."
         },
         "userAssignedIdentities": {
           "type": "object",
@@ -2044,16 +2105,17 @@
         }
       },
       "required": [
-        "type"
+        "type",
+        "userAssignedIdentities"
       ]
     },
     "IdentityUpdate": {
       "type": "object",
-      "description": "Identity for the destination resource, used by ARN to deliver notifications to the destination endpoint.",
+      "description": "Identity for the destination resource, used by ARN to deliver notifications to the destination endpoint. Only user-assigned managed identity is supported.",
       "properties": {
         "type": {
           "$ref": "#/definitions/ResourceIdentityType",
-          "description": "The identity type."
+          "description": "The identity type. Only UserAssigned is supported. To change the assigned identity, PATCH userAssignedIdentities with the replacement identity resource ID; removal is not supported."
         },
         "userAssignedIdentities": {
           "type": "object",
@@ -2492,27 +2554,6 @@
         ]
       }
     },
-    "Partition": {
-      "type": "object",
-      "description": "Partition definition",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "The name of the partition"
-        },
-        "regions": {
-          "type": "array",
-          "description": "The regions for this partition",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": [
-        "name",
-        "regions"
-      ]
-    },
     "PartitioningConfiguration": {
       "type": "object",
       "description": "Base properties for partitioning configuration",
@@ -2520,6 +2561,10 @@
         "kind": {
           "$ref": "#/definitions/PartitioningConfigurationKind",
           "description": "The kind of partitioning configuration"
+        },
+        "parentPartition": {
+          "type": "string",
+          "description": "Only specified for a child partitioning config. References the parent partition name. Root config omits this field."
         }
       },
       "discriminator": "kind",
@@ -2531,7 +2576,7 @@
       "type": "string",
       "description": "Partitioning configuration kind discriminator",
       "enum": [
-        "arnLocation",
+        "arnRegion",
         "resourceLocation",
         "routingLocation",
         "scopeId"
@@ -2541,9 +2586,9 @@
         "modelAsString": true,
         "values": [
           {
-            "name": "arnLocation",
-            "value": "arnLocation",
-            "description": "ARN location partitioning"
+            "name": "arnRegion",
+            "value": "arnRegion",
+            "description": "ARN region partitioning"
           },
           {
             "name": "resourceLocation",
@@ -2567,20 +2612,24 @@
       "type": "object",
       "description": "Partitioning delivery mode: notifications are distributed across endpoints based on partitioning",
       "properties": {
-        "configurationSettings": {
-          "$ref": "#/definitions/PartitioningConfiguration",
-          "description": "The partitioning configuration settings. Supported kind: arnLocation"
+        "partitioningConfigurations": {
+          "type": "array",
+          "description": "The partitioning configurations. Present only when kind = partitioned.",
+          "items": {
+            "$ref": "#/definitions/PartitioningConfiguration"
+          },
+          "x-ms-identifiers": []
         }
       },
       "required": [
-        "configurationSettings"
+        "partitioningConfigurations"
       ],
       "allOf": [
         {
           "$ref": "#/definitions/DeliveryModeConfiguration"
         }
       ],
-      "x-ms-discriminator-value": "Partitioning"
+      "x-ms-discriminator-value": "partitioned"
     },
     "PathPolicy": {
       "type": "object",
@@ -2671,7 +2720,7 @@
     },
     "ResourceIdentityType": {
       "type": "string",
-      "description": "The identity type.",
+      "description": "The identity type for a destination resource. Only UserAssigned is supported.",
       "enum": [
         "UserAssigned"
       ],
@@ -2682,10 +2731,31 @@
           {
             "name": "UserAssigned",
             "value": "UserAssigned",
-            "description": "Indicates that a user assigned identity is associated with the resource."
+            "description": "User-assigned managed identity. Only UserAssigned is supported; to swap the assigned identity, update userAssignedIdentities with the new identity resource ID."
           }
         ]
       }
+    },
+    "ResourceLocationPartition": {
+      "type": "object",
+      "description": "Resource location partition definition",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the partition"
+        },
+        "resourceLocations": {
+          "type": "array",
+          "description": "The resource locations included in this partition",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "resourceLocations"
+      ]
     },
     "ResourceLocationPartitioningConfiguration": {
       "type": "object",
@@ -2695,7 +2765,7 @@
           "type": "array",
           "description": "The partitions list",
           "items": {
-            "$ref": "#/definitions/Partition"
+            "$ref": "#/definitions/ResourceLocationPartition"
           },
           "x-ms-identifiers": [
             "name"
@@ -2748,6 +2818,24 @@
         "value"
       ]
     },
+    "ResourceSubscriptionOptions": {
+      "type": "object",
+      "description": "Optional configuration options for a resource subscription",
+      "properties": {
+        "skipPayload": {
+          "type": "boolean",
+          "description": "Strips notification payload/resources before delivery."
+        },
+        "allowPreviewNotifications": {
+          "type": "boolean",
+          "description": "Subscriber receives preview/pre-GA notifications that are otherwise dropped."
+        },
+        "authorizationMode": {
+          "$ref": "#/definitions/AuthorizationMode",
+          "description": "The authentication type used by ARN when delivering notifications to the subscriber. Defaults to DefaultRBAC when omitted."
+        }
+      }
+    },
     "ResourceSubscriptionProperties": {
       "type": "object",
       "description": "Properties of a resource subscription",
@@ -2760,41 +2848,13 @@
           "$ref": "#/definitions/Scope",
           "description": "The scope for the execution of the filter"
         },
-        "dataBoundary": {
-          "$ref": "#/definitions/DataBoundary",
-          "description": "The data boundary used for routing notifications and enforcing data residency/compliance"
-        },
-        "subscriberAuthType": {
-          "$ref": "#/definitions/SubscriberAuthType",
-          "description": "The authentication type used by ARN when delivering notifications to the subscriber. Defaults to DSTS."
-        },
         "deliveryMode": {
           "$ref": "#/definitions/DeliveryModeConfiguration",
-          "description": "Determines how notifications are distributed across the subscription's destination endpoints. Defaults to FanOut."
-        },
-        "deliveryModeConfiguration": {
-          "$ref": "#/definitions/DeliveryModeConfiguration",
-          "description": "Compatibility alias for delivery mode configuration used by existing examples."
-        },
-        "partitioningConfiguration": {
-          "$ref": "#/definitions/PartitioningConfiguration",
-          "description": "Defines how to partition the event stream. Supported kind: arnLocation"
-        },
-        "partitionConfigurations": {
-          "type": "array",
-          "description": "Additional partitioning configurations applied to the event stream",
-          "items": {
-            "$ref": "#/definitions/PartitioningConfiguration"
-          },
-          "x-ms-identifiers": []
+          "description": "Determines how notifications are distributed across the subscription's destination endpoints. Defaults to fanOut."
         },
         "options": {
-          "type": "array",
-          "description": "Optional configuration options",
-          "items": {
-            "$ref": "#/definitions/SubscriptionOptions"
-          },
-          "readOnly": true
+          "$ref": "#/definitions/ResourceSubscriptionOptions",
+          "description": "Optional configuration options"
         },
         "provisioningState": {
           "$ref": "#/definitions/ProvisioningState",
@@ -2820,6 +2880,27 @@
         }
       }
     },
+    "RoutingLocationPartition": {
+      "type": "object",
+      "description": "Routing location partition definition",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the partition"
+        },
+        "routingLocations": {
+          "type": "array",
+          "description": "The routing locations included in this partition",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "routingLocations"
+      ]
+    },
     "RoutingLocationPartitioningConfiguration": {
       "type": "object",
       "description": "Routing location partitioning configuration",
@@ -2828,7 +2909,7 @@
           "type": "array",
           "description": "The partitions list",
           "items": {
-            "$ref": "#/definitions/Partition"
+            "$ref": "#/definitions/RoutingLocationPartition"
           },
           "x-ms-identifiers": [
             "name"
@@ -2859,65 +2940,28 @@
         "kind"
       ]
     },
-    "ScopeIdPartitionEntry": {
-      "type": "object",
-      "description": "A key/value pair entry for scope ID partitioning",
-      "properties": {
-        "key": {
-          "type": "string",
-          "description": "The partition key"
-        },
-        "value": {
-          "type": "string",
-          "description": "The partition value"
-        }
-      },
-      "required": [
-        "key",
-        "value"
-      ]
-    },
     "ScopeIdPartitioningConfiguration": {
       "type": "object",
       "description": "Scope ID hash-based partitioning configuration",
       "properties": {
-        "configName": {
-          "type": "string",
-          "description": "The field based on which the scope is hashed"
-        },
-        "hashBucket": {
+        "hashBucketCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of hash buckets. The scope id is hashed into the range [0, hashBucket - 1]. Must be a positive integer."
+          "description": "Number of hash buckets. The scope id is hashed into the range [0, hashBucketCount - 1]. Must be a positive integer."
         },
         "partitions": {
           "type": "array",
-          "description": "Map of partition key to partition value. Must be non-null/non-empty.",
+          "description": "The partitions list. Ranges must be sorted, contiguous, gap-free, and cover [0, hashBucketCount - 1].",
           "items": {
-            "$ref": "#/definitions/ScopeIdPartitionEntry"
+            "$ref": "#/definitions/HashRangePartition"
           },
           "x-ms-identifiers": [
-            "key"
+            "name"
           ]
-        },
-        "partitionToPartitioningConfigurationMappings": {
-          "type": "array",
-          "description": "Optional map from a partition key to the name of a nested partitioning configuration, enabling hierarchical partitioning.",
-          "items": {
-            "$ref": "#/definitions/ScopeIdPartitionEntry"
-          },
-          "x-ms-identifiers": [
-            "key"
-          ]
-        },
-        "dataBoundary": {
-          "$ref": "#/definitions/DataBoundary",
-          "description": "Data boundary for the configuration. Defaults to Global."
         }
       },
       "required": [
-        "configName",
-        "hashBucket",
+        "hashBucketCount",
         "partitions"
       ],
       "allOf": [
@@ -2951,16 +2995,13 @@
         ]
       }
     },
-    "StorageAccountDestinationProperties": {
+    "StorageAccountDestination": {
       "type": "object",
-      "description": "Storage account destination properties",
+      "description": "Storage account destination",
       "properties": {
-        "partitions": {
-          "type": "array",
-          "description": "Which partitions go to this destination",
-          "items": {
-            "type": "string"
-          }
+        "container": {
+          "type": "string",
+          "description": "Container where blobs are written. Applies to all storage account endpoints in this destination."
         },
         "pathPolicy": {
           "$ref": "#/definitions/PathPolicy",
@@ -2969,24 +3010,6 @@
         "batchingPolicy": {
           "$ref": "#/definitions/BatchingPolicy",
           "description": "Notifications for the same path are batched following the batching policy"
-        },
-        "outputSchema": {
-          "type": "string",
-          "description": "The schema to use for the delivered notifications - read-only, must be \"firstParty\" for now",
-          "readOnly": true
-        },
-        "outputEncoding": {
-          "type": "string",
-          "description": "Format for the output - read-only, must be \"parquet\" for now",
-          "readOnly": true
-        },
-        "endpointContainer": {
-          "type": "string",
-          "description": "Storage container to store the data"
-        },
-        "endpointDeliveryMode": {
-          "$ref": "#/definitions/EndpointDeliveryMode",
-          "description": "How to deliver to the endpoints below"
         },
         "endpoints": {
           "type": "array",
@@ -3000,15 +3023,13 @@
         }
       },
       "required": [
-        "partitions",
+        "container",
         "pathPolicy",
-        "endpointContainer",
-        "endpointDeliveryMode",
         "endpoints"
       ],
       "allOf": [
         {
-          "$ref": "#/definitions/DestinationProperties"
+          "$ref": "#/definitions/Destination"
         }
       ],
       "x-ms-discriminator-value": "storageAccount"
@@ -3019,60 +3040,13 @@
       "properties": {
         "id": {
           "type": "string",
+          "format": "arm-id",
           "description": "The storage account endpoint resource ID"
         }
       },
       "required": [
         "id"
       ]
-    },
-    "SubscriberAuthType": {
-      "type": "string",
-      "description": "The authentication type used by ARN when delivering notifications to the subscriber",
-      "enum": [
-        "DefaultRBAC",
-        "DSTS"
-      ],
-      "x-ms-enum": {
-        "name": "SubscriberAuthType",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "defaultRBAC",
-            "value": "DefaultRBAC",
-            "description": "Default RBAC based authentication"
-          },
-          {
-            "name": "dSTS",
-            "value": "DSTS",
-            "description": "Datacenter STS based authentication (default)"
-          }
-        ]
-      }
-    },
-    "SubscriptionOptions": {
-      "type": "string",
-      "description": "Available options for resource subscriptions",
-      "enum": [
-        "enablePeriodicSnapshots",
-        "enableDeltas"
-      ],
-      "x-ms-enum": {
-        "name": "SubscriptionOptions",
-        "modelAsString": true,
-        "values": [
-          {
-            "name": "enablePeriodicSnapshots",
-            "value": "enablePeriodicSnapshots",
-            "description": "Enables delivery of periodic snapshots"
-          },
-          {
-            "name": "enableDeltas",
-            "value": "enableDeltas",
-            "description": "Enables delivery of writes and deletes"
-          }
-        ]
-      }
     },
     "TenantScope": {
       "type": "object",
@@ -3088,6 +3062,9 @@
           "$ref": "#/definitions/CallerIdentity"
         }
       },
+      "required": [
+        "tenantId"
+      ],
       "allOf": [
         {
           "$ref": "#/definitions/Scope"
@@ -3099,15 +3076,11 @@
       "type": "object",
       "description": "Time and scope range hash path policy",
       "properties": {
-        "timeSource": {
-          "type": "string",
-          "description": "The source of time used for partitioning and hashing.\nTypical values include \"eventTime\" (use the event timestamp) and \"systemTime\" (use the ingestion/processing time)."
-        },
         "scope": {
           "type": "string",
-          "description": "The logical scope used for hashing into buckets, for example \"tenant\", \"subscription\", or \"resourceGroup\"."
+          "description": "The logical scope used for hashing into buckets, for example 'tenant', 'subscription', or 'resourceGroup'."
         },
-        "scopeBuckets": {
+        "scopeBucketsCount": {
           "type": "integer",
           "format": "int32",
           "description": "The number of scope buckets to hash the chosen scope into."
@@ -3118,9 +3091,8 @@
         }
       },
       "required": [
-        "timeSource",
         "scope",
-        "scopeBuckets",
+        "scopeBucketsCount",
         "pathTemplate"
       ],
       "allOf": [
@@ -3146,18 +3118,10 @@
         }
       }
     },
-    "WebhookDestinationProperties": {
+    "WebhookDestination": {
       "type": "object",
-      "description": "Webhook destination properties",
+      "description": "Webhook destination",
       "properties": {
-        "outputSchema": {
-          "type": "string",
-          "description": "The schema to use for the delivered notifications"
-        },
-        "outputEncoding": {
-          "type": "string",
-          "description": "The encoding/format to use for the delivered notifications"
-        },
         "endpoints": {
           "type": "array",
           "description": "The set of webhook endpoints to deliver notifications to",
@@ -3170,13 +3134,11 @@
         }
       },
       "required": [
-        "outputSchema",
-        "outputEncoding",
         "endpoints"
       ],
       "allOf": [
         {
-          "$ref": "#/definitions/DestinationProperties"
+          "$ref": "#/definitions/Destination"
         }
       ],
       "x-ms-discriminator-value": "webhook"
@@ -3190,14 +3152,14 @@
           "format": "uri",
           "description": "The HTTPS endpoint URL to which notifications are delivered"
         },
-        "applicationId": {
+        "appId": {
           "type": "string",
-          "description": "The application ID used to acquire a token for delivery"
+          "description": "The application id used as audience/auth target for delivery."
         }
       },
       "required": [
         "url",
-        "applicationId"
+        "appId"
       ]
     }
   },

@@ -542,6 +542,7 @@ union SAPSoftwareInstallationType {
  * The SAP Sizing Recommendation request.
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SAP is used for representing the company product."
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SAPSizingRecommendationRequest {
   /**
    * The geo-location where the resource is to be created.
@@ -605,6 +606,7 @@ model SAPSizingRecommendationResult {
  * The SAP request to get list of supported SKUs.
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SAP is used for representing the company product."
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SAPSupportedSkusRequest {
   /**
    * The geo-location where the resource is to be created.
@@ -674,6 +676,7 @@ model SAPSupportedSku {
  * The SAP request to get list of disk configurations.
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SAP is used for representing the company product."
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SAPDiskConfigurationsRequest {
   /**
    * The geo-location where the SAP resources will be created.
@@ -811,6 +814,7 @@ model DiskDetails {
  * The SAP request to get list of availability zones.
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SAP is used for representing the company product."
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SAPAvailabilityZoneDetailsRequest {
   /**
    * The geo-location where the SAP resources will be created.
@@ -1010,6 +1014,7 @@ model Resource {
  * Defines the request body for updating Virtual Instance for SAP.
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SAP is used for representing the company product."
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model UpdateSAPVirtualInstanceRequest {
   /**
    * Gets or sets the Resource tags.
@@ -1316,6 +1321,7 @@ model StorageInformation {
  * Defines the request body for updating SAP Central Instance.
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SAP is used for representing the company product."
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model UpdateSAPCentralInstanceRequest {
   /**
    * Gets or sets the Resource tags.
@@ -1413,6 +1419,7 @@ model DatabaseVmDetails {
  * Defines the request body for updating SAP Database Instance.
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SAP is used for representing the company product."
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model UpdateSAPDatabaseInstanceRequest {
   /**
    * Gets or sets the Resource tags.
@@ -1552,6 +1559,7 @@ model ApplicationServerVmDetails {
  * Defines the request body for updating SAP Application Instance.
  */
 #suppress "@azure-tools/typespec-azure-core/casing-style" "SAP is used for representing the company product."
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model UpdateSAPApplicationInstanceRequest {
   /**
    * Gets or sets the Resource tags.
@@ -1563,6 +1571,7 @@ model UpdateSAPApplicationInstanceRequest {
 /**
  * Start SAP instance(s) request body.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model StartRequest {
   /**
    * The boolean value indicates whether to start the virtual machines before starting the SAP instances.
@@ -1573,6 +1582,7 @@ model StartRequest {
 /**
  * Stop SAP instance(s) request body.
  */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model StopRequest {
   /**
    * This parameter defines how long (in seconds) the soft shutdown waits until the RFC/HTTP clients no longer consider the server for calls with load balancing. Value 0 means that the kernel does not wait, but goes directly into the next shutdown state, i.e. hard stop.

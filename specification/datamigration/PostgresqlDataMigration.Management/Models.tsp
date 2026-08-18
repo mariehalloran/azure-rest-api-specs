@@ -795,6 +795,7 @@ model DatabaseMigrationPatchProperties {
   operationType?: MigrationOperationType;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request body for testing connectivity.")
 model TestConnectivityRequest {
   #suppress "@azure-tools/typespec-azure-resource-manager/missing-x-ms-identifiers" "No identifier properties for this array"
@@ -831,6 +832,7 @@ model ConnectivityTestResult {
   properties?: ConnectivityTestProperties;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Request body for discovering database objects.")
 model DiscoverDatabaseObjectsRequest {
   @doc("Source database configuration")

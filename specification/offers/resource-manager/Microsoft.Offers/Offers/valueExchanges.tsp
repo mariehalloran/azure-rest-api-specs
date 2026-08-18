@@ -14,6 +14,7 @@ using Azure.ResourceManager;
 namespace Microsoft.Offers;
 
 /** Request body for looking up a value exchange (UPN) by its identifier. */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model LookupValueExchangeRequest {
   /** The value-exchange identifier (BigCat UPN id, e.g. `DZH318Z0995B`). */
   @pattern("^[A-Z0-9]{12}$")

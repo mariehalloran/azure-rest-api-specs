@@ -13,6 +13,7 @@ namespace Microsoft.AzureStackHCI;
 
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-invalid-envelope-property" "For backward compatibility"
 #suppress "@azure-tools/typespec-azure-core/no-openapi" "TODO - x-ms-azure-resource is this needed?"
+#suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "For backward compatibility"
 @doc("The marketplace gallery image resource definition.")
 @extension("x-ms-azure-resource", true)
 model MarketplaceGalleryImage

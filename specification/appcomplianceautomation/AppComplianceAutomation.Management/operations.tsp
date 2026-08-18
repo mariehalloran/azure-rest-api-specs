@@ -45,6 +45,7 @@ interface AcatOperations {
   #suppress "@azure-tools/typespec-azure-resource-manager/lro-location-header" "legacy"
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "Azure specs should not be using decorator"
   #suppress "@azure-tools/typespec-azure-core/no-private-usage" "Referencing elements inside Private namespace"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "For backward compatibility"
   @autoRoute
   @doc("Create a {name}", Resource)
   @extension("x-ms-long-running-operation", true)

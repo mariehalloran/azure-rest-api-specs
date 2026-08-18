@@ -102,6 +102,7 @@ model AccountKeysResult {
 }
 
 /** The request body for regenerating an inference account API key. */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2026_08_01_preview)
 model RegenerateApiKeyRequest {
   /** The type of API key to regenerate. */

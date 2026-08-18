@@ -83,10 +83,12 @@ interface ValidationExecutionPlans {
   createOrUpdate is ArmResourceCreateOrReplaceAsync<ValidationExecutionPlan>;
 
   @doc("Update a validation test execution plan")
-  @parameterVisibility(Lifecycle.Update)
-  update is ArmResourcePatchAsync<
+  update is ArmCustomPatchAsync<
     ValidationExecutionPlan,
-    ValidationExecutionPlanProperties
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      ValidationExecutionPlan,
+      ValidationExecutionPlanProperties
+    >
   >;
 
   @doc("Delete a validation test execution plan")

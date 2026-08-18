@@ -375,6 +375,7 @@ model ImageProperties {
   updateProperties?: ImageUpdateProperties;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("The image download properties")
 @removed(Microsoft.Edge.Versions.v2025_05_01)
 model ImageDownloadResponse {

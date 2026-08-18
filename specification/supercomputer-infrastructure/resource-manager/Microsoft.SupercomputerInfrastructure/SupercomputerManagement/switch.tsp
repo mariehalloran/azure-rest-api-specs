@@ -55,6 +55,7 @@ union SwitchNetworkType {
 }
 
 /** The request body for a packet capture action over a switch. */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SwitchPacketCaptureRequest {
   /** The location to store captured packets, such as a Storage Account Blob URI. */
   destinationLocation: string;
@@ -161,6 +162,7 @@ union SwitchPacketCaptureResultStatus {
 }
 
 /** The request body a retrieve data action over a switch. */
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 model SwitchRetrieveDataRequest {
   /** The gNMI paths of the read operation. */
   paths: string[];

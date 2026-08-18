@@ -18,6 +18,7 @@ namespace Microsoft.HybridConnectivity;
 
 //------------------- Generate Aws Template -------------------
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("ConnectorId and SolutionTypes and their properties to Generate AWS CFT Template.")
 model GenerateAwsTemplateRequest {
   @doc("The name of public cloud connector")
@@ -31,6 +32,7 @@ model GenerateAwsTemplateRequest {
 
 //------------------- Generate Gcp Template -------------------
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.v2025_12_01_preview)
 @doc("ConnectorId and SolutionTypes and their properties to Generate GCP Access Control Template.")
 model GenerateGcpTemplateRequest {
@@ -474,7 +476,9 @@ model SolutionSettings is Record<string>;
 #suppress "@azure-tools/typespec-azure-resource-manager/no-empty-model" "Existing use case"
 @route("/subscriptions/{subscriptionId}/providers/Microsoft.HybridConnectivity/")
 interface GenerateAwsTemplate {
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "Need to remove autoroute"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "Need to remove autoroute"
   @route("generateAwsTemplate")
   @post
   @action
@@ -503,7 +507,9 @@ model GenerateAwsTemplateResponse {}
 @added(Versions.v2025_12_01_preview)
 @route("/subscriptions/{subscriptionId}/providers/Microsoft.HybridConnectivity/")
 interface GenerateGcpTemplate {
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "Need to remove autoroute"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "Need to remove autoroute"
   @route("generateGcpTemplate")
   @post
   @action

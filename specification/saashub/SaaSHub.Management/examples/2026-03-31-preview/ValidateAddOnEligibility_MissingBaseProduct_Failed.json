@@ -1,0 +1,51 @@
+{
+  "parameters": {
+    "api-version": "2026-03-31-preview",
+    "body": {
+      "addOns": [
+        {
+          "productCode": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+          "pricingAudience": "Direct-Commercial",
+          "quantity": 10,
+          "itemTrackingId": "ADDON_001"
+        }
+      ],
+      "customerTenantId": "6ba7b815-9dad-11d1-80b4-00c04fd430c8",
+      "market": "US",
+      "nationalCloud": "Public",
+      "customerBillingScope": "/providers/Microsoft.Billing/billingAccounts/6ba7b813-9dad-11d1-80b4-00c04fd430c8:6ba7b814-9dad-11d1-80b4-00c04fd430c8"
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "value": [
+          {
+            "productCode": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+            "itemTrackingId": "ADDON_001",
+            "pricingAudience": "Direct-Commercial",
+            "eligibilityResult": {
+              "isEligible": "Ineligible",
+              "ineligibilityReasons": [
+                "missingBaseProduct"
+              ],
+              "eligibilityConstraints": [
+                {
+                  "constraintType": "requiredBaseProducts",
+                  "isEligible": "Ineligible",
+                  "mustHaveAnyBaseProducts": [
+                    "a1b2c3d4-e5f6-4789-0abc-def123456789",
+                    "b2c3d4e5-f6a7-4890-1bcd-ef2345678901"
+                  ],
+                  "ownedBaseProducts": []
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "operationId": "ProviderLevelActions_ValidateAddOnEligibility",
+  "title": "Validate Add-On Eligibility - Ineligible because no prerequisite base product is owned"
+}

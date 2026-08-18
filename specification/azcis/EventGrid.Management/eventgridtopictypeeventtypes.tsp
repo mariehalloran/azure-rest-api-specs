@@ -28,7 +28,7 @@ model EventGridTopicTypeEventTypesResourceProperties {
   @doc("SchemaUrl of the EventType. Required.")
   schemaUrl: string;
 
-  #suppress "@azure-tools/typespec-azure-core/no-unnamed-union" "Maintaining compatibility with current SDKs."
+  #suppress "@azure-tools/typespec-azure-core/no-unnamed-types" "Maintaining compatibility with current SDKs."
   @doc("If True, the eventType is pre-selected as part of Event Subscription creation process. Optional.")
   isInDefaultSet?: string | "False" | "True";
 

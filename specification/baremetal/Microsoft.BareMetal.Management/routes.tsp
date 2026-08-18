@@ -16,7 +16,9 @@ interface Operations extends Azure.ResourceManager.Operations {}
 
 @armResourceOperations
 interface Locations {
-  #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-operation" "Template for async post request with body"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-operation-decorator" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-api-version" "FIXME: review suppression and update justification"
+  #suppress "@azure-tools/typespec-azure-resource-manager/use-interface" "Template for async post request with body"
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "Decorator exists as previously approved by ARM"
   @doc("Update Routes on Virtual Network.")
   @autoRoute

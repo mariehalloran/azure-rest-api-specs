@@ -286,10 +286,12 @@ model AutoActionProperties {
 }
 
 @@identifiers(AutoActionResourceListResponse.value, #[]);
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Microsoft.ComputeSchedule.Versions.`2024-08-01-preview`)
 @removed(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
 model AutoActionResourceListResponse is Azure.Core.Page<AutoActionResource>;
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Microsoft.ComputeSchedule.Versions.`2024-08-01-preview`)
 @removed(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
 @doc("Request model to attach a list of auto action resources.")
@@ -299,6 +301,7 @@ model AutoActionResourceAttachRequest {
   resources: Array<AutoActionResource>;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Microsoft.ComputeSchedule.Versions.`2024-08-01-preview`)
 @removed(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
 @doc("Request model to detach a list of auto action resources.")
@@ -307,6 +310,7 @@ model AutoActionResourceDetachRequest {
   resources: Array<ValidAutoActionResourceId>;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Microsoft.ComputeSchedule.Versions.`2024-08-01-preview`)
 @removed(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
 @doc("Request model perform a resource operation in a list of resources")
@@ -329,6 +333,7 @@ union ResourceOperationStatus {
   string,
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Microsoft.ComputeSchedule.Versions.`2024-08-01-preview`)
 @removed(Microsoft.ComputeSchedule.Versions.`2025-04-15-preview`)
 @doc("The response from auto action resource requests, which contains the status of each resource")

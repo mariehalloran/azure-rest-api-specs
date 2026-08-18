@@ -55,6 +55,47 @@ interface ProviderLevelActions {
   ): ArmResponse<Microsoft.SaaSHub.ValidatePromotionsResponse> | ErrorResponse;
 
   /**
+   * Evaluates customer eligibility for one or more add-ons.
+   * Only available starting in API version 2026-03-31-preview.
+   */
+  @added(SaaSHubVersions.v2026_03_31_preview)
+  @route("/providers/Microsoft.SaaSHub/validateAddOnEligibility")
+  @post
+  @tag("ProviderLevelActions")
+  validateAddOnEligibility(
+    ...ApiVersionParameter,
+
+    /**
+     * Request parameters containing add-ons to evaluate for eligibility.
+     */
+    @bodyRoot
+    body: Microsoft.SaaSHub.ValidateAddOnEligibilityRequest,
+  ):
+    | ArmResponse<Microsoft.SaaSHub.ValidateAddOnEligibilityResponse>
+    | ErrorResponse;
+
+  /**
+   * Evaluates customer eligibility for promotional renewal pricing on the purchase line items
+   * in a quote, cart or order for a customer who is renewing their agreement or contract.
+   * Only available starting in API version 2026-03-31-preview.
+   */
+  @added(SaaSHubVersions.v2026_03_31_preview)
+  @route("/providers/Microsoft.SaaSHub/validateRenewalPricingEligibility")
+  @post
+  @tag("ProviderLevelActions")
+  validateRenewalPricingEligibility(
+    ...ApiVersionParameter,
+
+    /**
+     * Request parameters containing purchase line items to evaluate for promotional renewal pricing.
+     */
+    @bodyRoot
+    body: Microsoft.SaaSHub.ValidateRenewalPricingEligibilityRequest,
+  ):
+    | ArmResponse<Microsoft.SaaSHub.ValidateRenewalPricingEligibilityResponse>
+    | ErrorResponse;
+
+  /**
    * Evaluates whether customers qualify for future price concessions when purchasing Microsoft 365 products.
    * On each evaluated product, hydrates the catalog product SKU for the constraints and checks whether
    * the sum of new and existing resources would meet the requirements for concessions.
@@ -74,6 +115,27 @@ interface ProviderLevelActions {
     body: Microsoft.SaaSHub.ValidateFuturePriceEligibilityRequest,
   ):
     | ArmResponse<Microsoft.SaaSHub.ValidateFuturePriceEligibilityResponse>
+    | ErrorResponse;
+
+  /**
+   * Returns customer-owned SaaS resources that are eligible for consolidation to a target product.
+   * Only available starting in API version 2026-03-31-preview.
+   */
+  @added(SaaSHubVersions.v2026_03_31_preview)
+  @route("/providers/Microsoft.SaaSHub/listConsolidableResources")
+  @post
+  @list
+  @tag("ProviderLevelActions")
+  listConsolidableResources(
+    ...ApiVersionParameter,
+
+    /**
+     * Request payload containing target SKU and scope for consolidation discovery.
+     */
+    @bodyRoot
+    body: Microsoft.SaaSHub.ListConsolidableResourcesRequest,
+  ):
+    | ArmResponse<Microsoft.SaaSHub.ListConsolidableResourcesResponse>
     | ErrorResponse;
 
   /**

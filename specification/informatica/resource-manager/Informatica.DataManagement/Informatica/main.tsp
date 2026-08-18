@@ -147,6 +147,7 @@ interface ServerlessRuntimes
   ): ArmResponse<InformaticaServerlessRuntimeResource> | ErrorResponse;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Model for the check dependencies API for an informatica serverless runtime resource")
 model CheckDependenciesResponse {
   @doc("Count of dependencies")
@@ -413,6 +414,7 @@ model InformaticaProperties {
 model LinkOrganization {
   #suppress "@azure-tools/typespec-azure-core/no-openapi" "Using x-ms-secret extension to avoid format:password breaking change from @secret"
   #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "Already marked with x-ms-secret extension"
+  #suppress "@azure-tools/typespec-azure-core/no-openapi-client-extensions" "Existing use of the 'x-ms-secret' OpenAPI extension predates the no-openapi-client-extensions rule; suppressed pending migration to the @secret decorator."
   @visibility(Lifecycle.Create)
   @OpenAPI.extension("x-ms-secret", true)
   @doc("Link organization token")
@@ -440,6 +442,7 @@ model UserDetails {
   phoneNumber?: string;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("Serverless Runtime environment Metadata response.")
 model ServerlessMetadataResponse {
   @doc("type of the runtime environment.")

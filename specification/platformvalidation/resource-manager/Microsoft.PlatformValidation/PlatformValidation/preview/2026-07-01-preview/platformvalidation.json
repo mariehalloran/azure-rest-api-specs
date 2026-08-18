@@ -2160,25 +2160,6 @@
     }
   },
   "definitions": {
-    "Azure.ResourceManager.CommonTypes.TrackedResourceUpdate": {
-      "type": "object",
-      "title": "Tracked Resource",
-      "description": "The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags' and a 'location'",
-      "properties": {
-        "tags": {
-          "type": "object",
-          "description": "Resource tags.",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "../../../../../../common-types/resource-management/v6/types.json#/definitions/Resource"
-        }
-      ]
-    },
     "Azure.ResourceManager.ResourceProvisioningState": {
       "type": "string",
       "description": "The provisioning state of a resource type.",
@@ -2325,18 +2306,34 @@
     },
     "CloudValidationUpdate": {
       "type": "object",
-      "description": "Cloud Validation Resource",
+      "description": "The type used for update operations of the CloudValidation.",
       "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
         "properties": {
-          "$ref": "#/definitions/CloudValidationProperties",
+          "$ref": "#/definitions/CloudValidationUpdateProperties",
           "description": "The resource-specific properties for this resource."
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
+      }
+    },
+    "CloudValidationUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of the CloudValidation.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "The description of the resource."
+        },
+        "overallState": {
+          "$ref": "#/definitions/CloudValidationOverallState",
+          "description": "The overall state of the resource."
         }
-      ]
+      }
     },
     "ExecutionPlanRun": {
       "type": "object",
@@ -2799,18 +2796,42 @@
     },
     "ValidationExecutionPlanUpdate": {
       "type": "object",
-      "description": "Validation Test Execution Plan",
+      "description": "The type used for update operations of the ValidationExecutionPlan.",
       "properties": {
+        "tags": {
+          "type": "object",
+          "description": "Resource tags.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
         "properties": {
-          "$ref": "#/definitions/ValidationExecutionPlanProperties",
+          "$ref": "#/definitions/ValidationExecutionPlanUpdateProperties",
           "description": "The resource-specific properties for this resource."
         }
-      },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Azure.ResourceManager.CommonTypes.TrackedResourceUpdate"
+      }
+    },
+    "ValidationExecutionPlanUpdateProperties": {
+      "type": "object",
+      "description": "The updatable properties of the ValidationExecutionPlan.",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "The description of the resource."
+        },
+        "planConfigurationUri": {
+          "type": "string",
+          "description": "URI where the configuration of the execution plan is defined.\nEither this property or `planConfigurationJson` is mandatory while creating; they are mutually exclusive.\nThis value is returned as-is in get responses, so it must not contain credentials or other secrets."
+        },
+        "planConfigurationJson": {
+          "type": "string",
+          "description": "Entire execution plan configuration/manifest json.\nEither this property or `planConfigurationUri` is mandatory while creating; they are mutually exclusive.\nIn get, always return the entire json configuration.\nThis value is returned as-is in get responses, so it must not contain credentials or other secrets."
+        },
+        "overallState": {
+          "$ref": "#/definitions/ValidationExecutionPlanOverallState",
+          "description": "The overall state of the resource."
         }
-      ]
+      }
     },
     "ValidationTest": {
       "type": "object",

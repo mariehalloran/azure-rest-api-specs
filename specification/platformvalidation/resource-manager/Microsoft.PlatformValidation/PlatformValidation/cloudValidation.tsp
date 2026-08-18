@@ -82,8 +82,13 @@ interface CloudValidations {
   createOrUpdate is ArmResourceCreateOrReplaceAsync<CloudValidation>;
 
   @doc("Update a cloud validation")
-  @parameterVisibility(Lifecycle.Update)
-  update is ArmResourcePatchAsync<CloudValidation, CloudValidationProperties>;
+  update is ArmCustomPatchAsync<
+    CloudValidation,
+    Azure.ResourceManager.Foundations.ResourceUpdateModel<
+      CloudValidation,
+      CloudValidationProperties
+    >
+  >;
 
   @doc("Delete a cloud validation")
   delete is ArmResourceDeleteWithoutOkAsync<CloudValidation>;

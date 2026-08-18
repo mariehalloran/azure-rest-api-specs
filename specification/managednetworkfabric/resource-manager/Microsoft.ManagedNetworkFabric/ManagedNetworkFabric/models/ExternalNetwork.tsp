@@ -368,6 +368,7 @@ model L3OptionAProperties {
   ]>;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("External Network Administrative State request")
 @added(Versions.v2024_06_15_preview)
 model ExternalNetworkBfdAdministrativeStateRequest {
@@ -379,6 +380,7 @@ model ExternalNetworkBfdAdministrativeStateRequest {
 }
 
 #suppress "@azure-tools/typespec-azure-core/composition-over-inheritance" "Extending common error response for ExternalNetwork BFD Administrative State response"
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("External Network Administrative State response")
 @added(Versions.v2024_06_15_preview)
 model ExternalNetworkBfdAdministrativeStateResponse
@@ -446,6 +448,7 @@ model ExternalNetworkBmpPatchProperties {
   configurationState?: BmpConfigurationState;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("External Network Update Administrative State request")
 @added(Versions.v2025_07_15)
 model ExternalNetworkUpdateBfdAdministrativeStateRequest {
@@ -456,6 +459,7 @@ model ExternalNetworkUpdateBfdAdministrativeStateRequest {
   administrativeState?: BfdAdministrativeState;
 }
 
+#suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @doc("External Network Update Administrative State response")
 @added(Versions.v2025_07_15)
 model ExternalNetworkUpdateBfdAdministrativeStateResponse {
