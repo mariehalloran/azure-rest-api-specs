@@ -1,9 +1,10 @@
 {
-  "title": "HealthModels_ListBySubscription",
-  "operationId": "HealthModels_ListBySubscription",
+  "title": "HealthModels_ListByResourceGroup",
+  "operationId": "HealthModels_ListByResourceGroup",
   "parameters": {
-    "api-version": "2026-09-01-preview",
-    "subscriptionId": "abcdef12-3456-7890-abcd-ef1234567890"
+    "api-version": "2026-10-01-preview",
+    "subscriptionId": "abcdef12-3456-7890-abcd-ef1234567890",
+    "resourceGroupName": "online-store-rg"
   },
   "responses": {
     "200": {
@@ -11,7 +12,13 @@
         "value": [
           {
             "properties": {
-              "provisioningState": "Succeeded"
+              "provisioningState": "Succeeded",
+              "dataPlaneUri": "https://online-store.eastus.data.healthmodels.azure.com",
+              "publicNetworkAccess": "Enabled",
+              "dataPlaneIpAllowList": [
+                "203.0.113.0/24",
+                "2001:db8::/32"
+              ]
             },
             "identity": {
               "type": "SystemAssigned",
@@ -37,7 +44,10 @@
           },
           {
             "properties": {
-              "provisioningState": "Succeeded"
+              "provisioningState": "Succeeded",
+              "dataPlaneUri": "https://online-store-staging.eastus.data.healthmodels.azure.com",
+              "publicNetworkAccess": "Disabled",
+              "dataPlaneIpAllowList": []
             },
             "identity": {
               "type": "UserAssigned",

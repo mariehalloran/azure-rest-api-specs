@@ -2,12 +2,18 @@
   "title": "HealthModels_Update",
   "operationId": "HealthModels_Update",
   "parameters": {
-    "api-version": "2026-09-01-preview",
+    "api-version": "2026-10-01-preview",
     "subscriptionId": "abcdef12-3456-7890-abcd-ef1234567890",
     "resourceGroupName": "online-store-rg",
     "healthModelName": "online-store",
     "properties": {
-      "properties": {},
+      "properties": {
+        "publicNetworkAccess": "Enabled",
+        "dataPlaneIpAllowList": [
+          "203.0.113.0/24",
+          "2001:db8::/32"
+        ]
+      },
       "tags": {
         "environment": "production",
         "team": "online-store",
@@ -19,7 +25,13 @@
     "200": {
       "body": {
         "properties": {
-          "provisioningState": "Succeeded"
+          "provisioningState": "Succeeded",
+          "dataPlaneUri": "https://online-store.eastus.data.healthmodels.azure.com",
+          "publicNetworkAccess": "Enabled",
+          "dataPlaneIpAllowList": [
+            "203.0.113.0/24",
+            "2001:db8::/32"
+          ]
         },
         "identity": {
           "type": "SystemAssigned",
@@ -47,7 +59,7 @@
     },
     "202": {
       "headers": {
-        "location": "https://management.azure.com/subscriptions/abcdef12-3456-7890-abcd-ef1234567890/providers/Microsoft.CloudHealth/locations/eastus/operations/c4a9d3b2-5e6f-7081-92a3-b4c5d6e7f809?api-version=2026-09-01-preview"
+        "location": "https://management.azure.com/subscriptions/abcdef12-3456-7890-abcd-ef1234567890/providers/Microsoft.CloudHealth/locations/eastus/operations/c4a9d3b2-5e6f-7081-92a3-b4c5d6e7f809?api-version=2026-10-01-preview"
       }
     }
   }
