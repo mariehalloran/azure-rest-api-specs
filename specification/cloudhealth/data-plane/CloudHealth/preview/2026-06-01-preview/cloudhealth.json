@@ -94,6 +94,22 @@
               }
             },
             "x-ms-error-response": true
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/EntityDiagnosticDefaultErrorResponse"
+            },
+            "headers": {
+              "Retry-After": {
+                "type": "string",
+                "description": "Retry guidance supplied by the service as an HTTP date or delay in seconds."
+              },
+              "x-ms-error-code": {
+                "type": "string",
+                "description": "String error code indicating what went wrong."
+              }
+            }
           }
         },
         "x-ms-examples": {
@@ -114,6 +130,7 @@
             "description": "The entity to return a diagnostic snapshot for.",
             "required": true,
             "type": "string",
+            "maxLength": 260,
             "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
           },
           {
@@ -160,7 +177,8 @@
             },
             "headers": {
               "Retry-After": {
-                "type": "string"
+                "type": "string",
+                "description": "Retry guidance supplied by the service as an HTTP date or delay in seconds."
               },
               "x-ms-error-code": {
                 "type": "string",
@@ -178,7 +196,7 @@
     },
     "/api/entities/{entityName}/dataAnnotations": {
       "get": {
-        "operationId": "DataAnnotations_GetDataAnnotations",
+        "operationId": "DataAnnotations_List",
         "description": "Return the data annotations recorded for an entity, newest first.",
         "parameters": [
           {
@@ -187,6 +205,7 @@
             "description": "The entity to return data annotations for.",
             "required": true,
             "type": "string",
+            "maxLength": 260,
             "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
           },
           {
@@ -259,12 +278,31 @@
               }
             },
             "x-ms-error-response": true
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/EntityDiagnosticDefaultErrorResponse"
+            },
+            "headers": {
+              "Retry-After": {
+                "type": "string",
+                "description": "Retry guidance supplied by the service as an HTTP date or delay in seconds."
+              },
+              "x-ms-error-code": {
+                "type": "string",
+                "description": "String error code indicating what went wrong."
+              }
+            }
           }
         },
         "x-ms-examples": {
-          "Get entity data annotations": {
-            "$ref": "./examples/DataAnnotations_GetDataAnnotations.json"
+          "List entity data annotations": {
+            "$ref": "./examples/DataAnnotations_List.json"
           }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
         }
       }
     },
@@ -279,6 +317,7 @@
             "description": "Name of the entity that the health report targets.",
             "required": true,
             "type": "string",
+            "maxLength": 260,
             "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
           },
           {
@@ -357,7 +396,8 @@
             },
             "headers": {
               "Retry-After": {
-                "type": "string"
+                "type": "string",
+                "description": "Retry guidance supplied by the service as an HTTP date or delay in seconds."
               },
               "x-ms-error-code": {
                 "type": "string",
@@ -373,7 +413,8 @@
             },
             "headers": {
               "Retry-After": {
-                "type": "string"
+                "type": "string",
+                "description": "Retry guidance supplied by the service as an HTTP date or delay in seconds."
               },
               "x-ms-error-code": {
                 "type": "string",
@@ -381,6 +422,22 @@
               }
             },
             "x-ms-error-response": true
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/EntityDiagnosticDefaultErrorResponse"
+            },
+            "headers": {
+              "Retry-After": {
+                "type": "string",
+                "description": "Retry guidance supplied by the service as an HTTP date or delay in seconds."
+              },
+              "x-ms-error-code": {
+                "type": "string",
+                "description": "String error code indicating what went wrong."
+              }
+            }
           }
         },
         "x-ms-examples": {
@@ -392,7 +449,7 @@
     },
     "/api/entities/{entityName}/healthStateHistory": {
       "get": {
-        "operationId": "EntityHealthStateHistory_GetHealthStateHistory",
+        "operationId": "EntityHealthStateHistory_List",
         "description": "Return the health-state periods active during the requested window for an entity.",
         "parameters": [
           {
@@ -401,6 +458,7 @@
             "description": "The entity to return health-state history for.",
             "required": true,
             "type": "string",
+            "maxLength": 260,
             "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
           },
           {
@@ -455,18 +513,34 @@
               }
             },
             "x-ms-error-response": true
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/EntityDiagnosticDefaultErrorResponse"
+            },
+            "headers": {
+              "Retry-After": {
+                "type": "string",
+                "description": "Retry guidance supplied by the service as an HTTP date or delay in seconds."
+              },
+              "x-ms-error-code": {
+                "type": "string",
+                "description": "String error code indicating what went wrong."
+              }
+            }
           }
         },
         "x-ms-examples": {
-          "Get entity health-state history": {
-            "$ref": "./examples/EntityHealthStateHistory_GetHealthStateHistory.json"
+          "List entity health-state history": {
+            "$ref": "./examples/EntityHealthStateHistory_List.json"
           }
         }
       }
     },
     "/api/entities/{entityName}/signals/{signalName}/history": {
       "get": {
-        "operationId": "SignalHistory_GetSignalHistory",
+        "operationId": "SignalHistory_List",
         "description": "Return the data points recorded for an entity's signal, newest first.",
         "parameters": [
           {
@@ -475,6 +549,7 @@
             "description": "The entity that owns the signal to return history for.",
             "required": true,
             "type": "string",
+            "maxLength": 260,
             "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
           },
           {
@@ -483,6 +558,7 @@
             "description": "The signal to return history for.",
             "required": true,
             "type": "string",
+            "maxLength": 260,
             "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
           },
           {
@@ -555,18 +631,37 @@
               }
             },
             "x-ms-error-response": true
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/EntityDiagnosticDefaultErrorResponse"
+            },
+            "headers": {
+              "Retry-After": {
+                "type": "string",
+                "description": "Retry guidance supplied by the service as an HTTP date or delay in seconds."
+              },
+              "x-ms-error-code": {
+                "type": "string",
+                "description": "String error code indicating what went wrong."
+              }
+            }
           }
         },
         "x-ms-examples": {
-          "Get entity signal history": {
-            "$ref": "./examples/SignalHistory_GetSignalHistory.json"
+          "List entity signal history": {
+            "$ref": "./examples/SignalHistory_List.json"
           }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
         }
       }
     },
     "/api/entities/{entityName}/transitions": {
       "get": {
-        "operationId": "EntityTransitionHistory_GetTransitionHistory",
+        "operationId": "EntityTransitionHistory_List",
         "description": "Return the health-state transitions recorded for an entity, newest first.",
         "parameters": [
           {
@@ -575,6 +670,7 @@
             "description": "The entity to return health-state transitions for.",
             "required": true,
             "type": "string",
+            "maxLength": 260,
             "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
           },
           {
@@ -647,12 +743,31 @@
               }
             },
             "x-ms-error-response": true
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/EntityDiagnosticDefaultErrorResponse"
+            },
+            "headers": {
+              "Retry-After": {
+                "type": "string",
+                "description": "Retry guidance supplied by the service as an HTTP date or delay in seconds."
+              },
+              "x-ms-error-code": {
+                "type": "string",
+                "description": "String error code indicating what went wrong."
+              }
+            }
           }
         },
         "x-ms-examples": {
-          "Get entity health-state transition history": {
-            "$ref": "./examples/EntityTransitionHistory_GetTransitionHistory.json"
+          "List entity health-state transition history": {
+            "$ref": "./examples/EntityTransitionHistory_List.json"
           }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
         }
       }
     }
@@ -871,7 +986,7 @@
       ],
       "x-ms-enum": {
         "name": "EntityDiagnosticAggregationResolution",
-        "modelAsString": false,
+        "modelAsString": true,
         "values": [
           {
             "name": "ImplicitDefault",
@@ -1111,6 +1226,7 @@
     },
     "EntityTransitionHistoryResponse": {
       "type": "object",
+      "description": "Health-state transitions recorded for an entity, returned as a pageable result.",
       "properties": {
         "value": {
           "type": "array",
@@ -1548,11 +1664,13 @@
     "entityName": {
       "type": "string",
       "description": "Entity resource name; matches the control-plane proxy-resource naming contract.",
+      "maxLength": 260,
       "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
     },
     "signalName": {
       "type": "string",
       "description": "Signal resource name; matches the control-plane proxy-resource naming contract.",
+      "maxLength": 260,
       "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$"
     },
     "string4096": {

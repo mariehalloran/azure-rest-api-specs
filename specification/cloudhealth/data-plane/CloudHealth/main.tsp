@@ -1,11 +1,9 @@
 import "@typespec/http";
-import "@typespec/openapi";
 import "@typespec/rest";
 import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 
 using TypeSpec.Http;
-using TypeSpec.OpenAPI;
 using TypeSpec.Rest;
 using TypeSpec.Versioning;
 using Azure.Core;
@@ -33,10 +31,12 @@ alias proxyResourceNameRegex = "^[a-zA-Z0-9][a-zA-Z0-9-]{1,258}[a-zA-Z0-9]$";
 scalar string4096 extends string;
 
 @pattern(proxyResourceNameRegex)
+@maxLength(260)
 @doc("Entity resource name; matches the control-plane proxy-resource naming contract.")
 scalar entityName extends string;
 
 @pattern(proxyResourceNameRegex)
+@maxLength(260)
 @doc("Signal resource name; matches the control-plane proxy-resource naming contract.")
 scalar signalName extends string;
 
@@ -157,6 +157,8 @@ union EntityTransitionReason {
 
 @doc("How the effective aggregation configuration was resolved for diagnostics.")
 union EntityDiagnosticAggregationResolution {
+  string,
+
   @doc("The service applied an implicit default because no explicit configuration was present.")
   ImplicitDefault: "ImplicitDefault",
 
@@ -254,25 +256,28 @@ model EntityDiagnosticSnapshot {
 @error
 @doc("Returned when the requested health model does not exist.")
 model ModelNotFoundResponse is Azure.Core.Foundations.ErrorResponse {
+  @doc("HTTP status code indicating that the requested health model was not found.")
   @statusCode statusCode: 404;
 }
 
 @error
 @doc("Returned when the requested resource does not exist.")
 model NotFoundResponse is Azure.Core.Foundations.ErrorResponse {
+  @doc("HTTP status code indicating that the requested resource was not found.")
   @statusCode statusCode: 404;
 }
 
 @error
 @doc("Returned when the request is malformed, or a query parameter is invalid.")
 model BadRequestResponse is Azure.Core.Foundations.ErrorResponse {
+  @doc("HTTP status code indicating that the request was invalid.")
   @statusCode statusCode: 400;
 }
 
-#suppress "@typespec/openapi/default-response-with-status-code" "Entity GET intentionally uses an OpenAPI default response while reusing Azure.Core.Foundations.ErrorResponse for CloudError shape compatibility."
-@defaultResponse
+@error
 @doc("Returned when entity diagnostics fail for reasons outside the explicit user-fault contract.")
 model EntityDiagnosticDefaultErrorResponse is Azure.Core.Foundations.ErrorResponse {
+  @doc("Retry guidance supplied by the service as an HTTP date or delay in seconds.")
   @header("Retry-After")
   retryAfter?: string;
 }
@@ -297,8 +302,10 @@ model EntityHealthStatePeriod {
   endAt?: utcDateTime;
 }
 
+@doc("Health-state transitions recorded for an entity, returned as a pageable result.")
 model EntityTransitionHistoryResponse {
   @doc("The health-state transitions, ordered newest first.")
+  @pageItems
   value: HealthStateTransition[];
 
   @doc("The full URI to fetch the next page of results; absent when there is no next page.")
@@ -309,6 +316,7 @@ model EntityTransitionHistoryResponse {
 @doc("Health-state periods overlapping the requested window, newest first.")
 model EntityHealthStateHistoryResponse {
   @doc("The health-state periods, ordered newest first.")
+  @pageItems
   value: EntityHealthStatePeriod[];
 }
 
@@ -330,6 +338,7 @@ model SignalHistoryDataPoint {
 @doc("Signal data points recorded for an entity's signal, newest first.")
 model SignalDataPointHistoryResponse {
   @doc("The signal data points, ordered newest first.")
+  @pageItems
   value: SignalHistoryDataPoint[];
 
   @doc("The full URI to fetch the next page of results; absent when there is no next page.")
@@ -355,6 +364,7 @@ model DataAnnotation {
 @doc("Data annotations recorded for an entity, newest first.")
 model DataAnnotationsResponse {
   @doc("The data annotations, ordered newest first.")
+  @pageItems
   value: DataAnnotation[];
 
   @doc("The full URI to fetch the next page of results; absent when there is no next page.")
@@ -444,14 +454,17 @@ model IngestHealthReportAcceptedResponse {
 @error
 @doc("The health-report ingestion request payload exceeded the size limit of 32 KiB (32768 bytes).")
 model PayloadTooLargeResponse is Azure.Core.Foundations.ErrorResponse {
+  @doc("HTTP status code indicating that the request payload was too large.")
   @statusCode statusCode: 413;
 }
 
 @error
 @doc("Too many health-report ingestion requests were received.")
 model TooManyRequestsResponse is Azure.Core.Foundations.ErrorResponse {
+  @doc("HTTP status code indicating that the request rate limit was exceeded.")
   @statusCode statusCode: 429;
 
+  @doc("Retry guidance supplied by the service as an HTTP date or delay in seconds.")
   @header("Retry-After")
   // RFC 9110 §10.2.3 defines Retry-After as an HTTP-date or delay-seconds, so it is
   // not an int32; the pinned emitter also cannot render non-string headers into its
@@ -462,14 +475,17 @@ model TooManyRequestsResponse is Azure.Core.Foundations.ErrorResponse {
 @error
 @doc("Returned when the ingestion request's Content-Type is not supported.")
 model UnsupportedMediaTypeResponse is Azure.Core.Foundations.ErrorResponse {
+  @doc("HTTP status code indicating that the request content type was unsupported.")
   @statusCode statusCode: 415;
 }
 
 @error
 @doc("Health-report ingestion service is temporarily unavailable; the client may retry after the given delay.")
 model ServiceUnavailableResponse is Azure.Core.Foundations.ErrorResponse {
+  @doc("HTTP status code indicating that the service was temporarily unavailable.")
   @statusCode statusCode: 503;
 
+  @doc("Retry guidance supplied by the service as an HTTP date or delay in seconds.")
   @header("Retry-After")
   // RFC 9110 §10.2.3 defines Retry-After as an HTTP-date or delay-seconds, so it is
   // not an int32; the pinned emitter also cannot render non-string headers into its
@@ -483,15 +499,17 @@ interface Model {
   #suppress "@azure-tools/typespec-azure-core/use-standard-names" "Operation name mirrors the implemented data-plane contract ('status'); renaming would diverge from the deployed service."
   @doc("Return whether the health model exists and its current health state.")
   @get
-  status(...ApiVersionParameter): QueryEchoResponse | ModelNotFoundResponse | BadRequestResponse;
+  status(...ApiVersionParameter):
+    QueryEchoResponse | ModelNotFoundResponse | BadRequestResponse | EntityDiagnosticDefaultErrorResponse;
 }
 
 @route("/api/entities/{entityName}/transitions")
 interface EntityTransitionHistory {
   #suppress "@azure-tools/typespec-azure-core/use-standard-operations" "Data-plane history query is a simple non-resource GET; it does not map to an Azure.Core resource operation template. To be revisited at API Stewardship review."
   @doc("Return the health-state transitions recorded for an entity, newest first.")
+  @list
   @get
-  getTransitionHistory(
+  list(
     @doc("The entity to return health-state transitions for.")
     @path
     entityName: entityName,
@@ -516,7 +534,11 @@ interface EntityTransitionHistory {
     nextMarker?: string4096,
 
     ...ApiVersionParameter,
-  ): EntityTransitionHistoryResponse | ModelNotFoundResponse | BadRequestResponse;
+  ):
+    | EntityTransitionHistoryResponse
+    | ModelNotFoundResponse
+    | BadRequestResponse
+    | EntityDiagnosticDefaultErrorResponse;
 }
 
 @route("/api/entities/{entityName}")
@@ -537,8 +559,9 @@ interface Entity {
 interface EntityHealthStateHistory {
   #suppress "@azure-tools/typespec-azure-core/use-standard-operations" "Data-plane history query is a simple non-resource GET; it does not map to an Azure.Core resource operation template. To be revisited at API Stewardship review."
   @doc("Return the health-state periods active during the requested window for an entity.")
+  @list
   @get
-  getHealthStateHistory(
+  list(
     @doc("The entity to return health-state history for.")
     @path
     entityName: entityName,
@@ -552,15 +575,20 @@ interface EntityHealthStateHistory {
     endAt?: utcDateTime,
 
     ...ApiVersionParameter,
-  ): EntityHealthStateHistoryResponse | ModelNotFoundResponse | BadRequestResponse;
+  ):
+    | EntityHealthStateHistoryResponse
+    | ModelNotFoundResponse
+    | BadRequestResponse
+    | EntityDiagnosticDefaultErrorResponse;
 }
 
 @route("/api/entities/{entityName}/signals/{signalName}/history")
 interface SignalHistory {
   #suppress "@azure-tools/typespec-azure-core/use-standard-operations" "Data-plane history query is a simple non-resource GET; it does not map to an Azure.Core resource operation template. To be revisited at API Stewardship review."
   @doc("Return the data points recorded for an entity's signal, newest first.")
+  @list
   @get
-  getSignalHistory(
+  list(
     @doc("The entity that owns the signal to return history for.")
     @path
     entityName: entityName,
@@ -589,15 +617,20 @@ interface SignalHistory {
     nextMarker?: string4096,
 
     ...ApiVersionParameter,
-  ): SignalDataPointHistoryResponse | ModelNotFoundResponse | BadRequestResponse;
+  ):
+    | SignalDataPointHistoryResponse
+    | ModelNotFoundResponse
+    | BadRequestResponse
+    | EntityDiagnosticDefaultErrorResponse;
 }
 
 @route("/api/entities/{entityName}/dataAnnotations")
 interface DataAnnotations {
   #suppress "@azure-tools/typespec-azure-core/use-standard-operations" "Data-plane history query is a simple non-resource GET; it does not map to an Azure.Core resource operation template. To be revisited at API Stewardship review."
   @doc("Return the data annotations recorded for an entity, newest first.")
+  @list
   @get
-  getDataAnnotations(
+  list(
     @doc("The entity to return data annotations for.")
     @path
     entityName: entityName,
@@ -622,7 +655,11 @@ interface DataAnnotations {
     nextMarker?: string4096,
 
     ...ApiVersionParameter,
-  ): DataAnnotationsResponse | ModelNotFoundResponse | BadRequestResponse;
+  ):
+    | DataAnnotationsResponse
+    | ModelNotFoundResponse
+    | BadRequestResponse
+    | EntityDiagnosticDefaultErrorResponse;
 }
 
 @route("/api/entities/{entityName}/healthReports")
@@ -650,5 +687,6 @@ interface HealthReportIngestion {
     | PayloadTooLargeResponse
     | UnsupportedMediaTypeResponse
     | TooManyRequestsResponse
-    | ServiceUnavailableResponse;
+    | ServiceUnavailableResponse
+    | EntityDiagnosticDefaultErrorResponse;
 }

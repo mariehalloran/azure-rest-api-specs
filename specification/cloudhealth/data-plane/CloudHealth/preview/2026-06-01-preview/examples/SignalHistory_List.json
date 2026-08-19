@@ -1,6 +1,6 @@
 {
-  "operationId": "SignalHistory_GetSignalHistory",
-  "title": "Get entity signal history",
+  "operationId": "SignalHistory_List",
+  "title": "List entity signal history",
   "parameters": {
     "endpoint": "https://contoso-1f33ba.eastus.data.cloudhealth.azure.com",
     "api-version": "2026-06-01-preview",
@@ -28,6 +28,28 @@
           }
         ],
         "nextLink": "https://contoso-1f33ba.eastus.data.cloudhealth.azure.com/api/entities/frontend-web-app/signals/request-latency-p95/history?api-version=2026-06-01-preview&nextMarker=eyJwYWdlIjoyfQ"
+      }
+    },
+    "400": {
+      "headers": {
+        "x-ms-error-code": "InvalidQuery"
+      },
+      "body": {
+        "error": {
+          "code": "InvalidQuery",
+          "message": "The requested time range is invalid."
+        }
+      }
+    },
+    "404": {
+      "headers": {
+        "x-ms-error-code": "HealthModelNotFound"
+      },
+      "body": {
+        "error": {
+          "code": "HealthModelNotFound",
+          "message": "The requested health model was not found."
+        }
       }
     }
   }

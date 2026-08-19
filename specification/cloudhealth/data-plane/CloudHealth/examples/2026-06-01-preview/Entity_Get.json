@@ -55,6 +55,28 @@
           }
         ]
       }
+    },
+    "400": {
+      "headers": {
+        "x-ms-error-code": "InvalidEntityName"
+      },
+      "body": {
+        "error": {
+          "code": "InvalidEntityName",
+          "message": "The entity name is invalid."
+        }
+      }
+    },
+    "404": {
+      "headers": {
+        "x-ms-error-code": "EntityNotFound"
+      },
+      "body": {
+        "error": {
+          "code": "EntityNotFound",
+          "message": "The requested entity was not found."
+        }
+      }
     }
   }
 }
