@@ -1,9 +1,8 @@
 {
-  "operationId": "DataAnnotations_Get",
+  "operationId": "DataAnnotations_GetDataAnnotations",
   "title": "Get entity data annotations",
   "parameters": {
-    "healthModelId": "00000000-0000-0000-0000-000000000000",
-    "region": "eastus",
+    "endpoint": "https://contoso-1f33ba.eastus.data.cloudhealth.azure.com",
     "api-version": "2026-06-01-preview",
     "entityName": "frontend-web-app",
     "startAt": "2026-06-01T00:00:00Z",
@@ -29,12 +28,7 @@
             "description": "Deployment of release 2026.06.03 completed."
           }
         ],
-        "nextLink": "https://00000000-0000-0000-0000-000000000000.eastus.data.healthmodels.azure.com/api/entities/frontend-web-app/dataAnnotations?api-version=2026-06-01-preview&nextMarker=eyJwYWdlIjoyfQ"
-      }
-    },
-    "404": {
-      "body": {
-        "healthModelExists": false
+        "nextLink": "https://contoso-1f33ba.eastus.data.cloudhealth.azure.com/api/entities/frontend-web-app/dataAnnotations?api-version=2026-06-01-preview&nextMarker=eyJwYWdlIjoyfQ"
       }
     }
   }

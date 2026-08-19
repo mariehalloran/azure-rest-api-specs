@@ -2,8 +2,7 @@
   "operationId": "EntityHealthStateHistory_GetHealthStateHistory",
   "title": "Get entity health-state history",
   "parameters": {
-    "healthModelId": "00000000-0000-0000-0000-000000000000",
-    "region": "eastus",
+    "endpoint": "https://contoso-1f33ba.eastus.data.cloudhealth.azure.com",
     "api-version": "2026-06-01-preview",
     "entityName": "frontend-web-app",
     "startAt": "2026-06-01T00:00:00Z",
@@ -23,11 +22,6 @@
             "endAt": "2026-06-05T12:00:00Z"
           }
         ]
-      }
-    },
-    "404": {
-      "body": {
-        "healthModelExists": false
       }
     }
   }

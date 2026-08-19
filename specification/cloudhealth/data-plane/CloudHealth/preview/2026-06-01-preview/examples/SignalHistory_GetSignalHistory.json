@@ -1,9 +1,8 @@
 {
-  "operationId": "SignalHistory_Get",
+  "operationId": "SignalHistory_GetSignalHistory",
   "title": "Get entity signal history",
   "parameters": {
-    "healthModelId": "00000000-0000-0000-0000-000000000000",
-    "region": "eastus",
+    "endpoint": "https://contoso-1f33ba.eastus.data.cloudhealth.azure.com",
     "api-version": "2026-06-01-preview",
     "entityName": "frontend-web-app",
     "signalName": "request-latency-p95",
@@ -28,12 +27,7 @@
             "additionalContext": "p95 latency exceeded the 200ms degraded threshold."
           }
         ],
-        "nextLink": "https://00000000-0000-0000-0000-000000000000.eastus.data.healthmodels.azure.com/api/entities/frontend-web-app/signals/request-latency-p95/history?api-version=2026-06-01-preview&nextMarker=eyJwYWdlIjoyfQ"
-      }
-    },
-    "404": {
-      "body": {
-        "healthModelExists": false
+        "nextLink": "https://contoso-1f33ba.eastus.data.cloudhealth.azure.com/api/entities/frontend-web-app/signals/request-latency-p95/history?api-version=2026-06-01-preview&nextMarker=eyJwYWdlIjoyfQ"
       }
     }
   }
