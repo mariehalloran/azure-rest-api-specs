@@ -2,12 +2,18 @@
   "title": "HealthModels_Create",
   "operationId": "HealthModels_Create",
   "parameters": {
-    "api-version": "2026-09-01-preview",
+    "api-version": "2026-10-01-preview",
     "subscriptionId": "abcdef12-3456-7890-abcd-ef1234567890",
     "resourceGroupName": "online-store-rg",
     "healthModelName": "online-store",
     "resource": {
-      "properties": {},
+      "properties": {
+        "publicNetworkAccess": "Enabled",
+        "dataPlaneIpAllowList": [
+          "203.0.113.0/24",
+          "2001:db8::/32"
+        ]
+      },
       "identity": {
         "type": "SystemAssigned"
       },
@@ -22,7 +28,13 @@
     "200": {
       "body": {
         "properties": {
-          "provisioningState": "Succeeded"
+          "provisioningState": "Succeeded",
+          "dataPlaneUri": "https://online-store.eastus.data.healthmodels.azure.com",
+          "publicNetworkAccess": "Enabled",
+          "dataPlaneIpAllowList": [
+            "203.0.113.0/24",
+            "2001:db8::/32"
+          ]
         },
         "identity": {
           "type": "SystemAssigned",
@@ -49,11 +61,17 @@
     },
     "201": {
       "headers": {
-        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/abcdef12-3456-7890-abcd-ef1234567890/providers/Microsoft.CloudHealth/locations/eastus/operations/b3f8c2a1-4d5e-6f70-8192-a3b4c5d6e7f8?api-version=2026-09-01-preview"
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/abcdef12-3456-7890-abcd-ef1234567890/providers/Microsoft.CloudHealth/locations/eastus/operations/b3f8c2a1-4d5e-6f70-8192-a3b4c5d6e7f8?api-version=2026-10-01-preview"
       },
       "body": {
         "properties": {
-          "provisioningState": "Succeeded"
+          "provisioningState": "Succeeded",
+          "dataPlaneUri": "https://online-store.eastus.data.healthmodels.azure.com",
+          "publicNetworkAccess": "Enabled",
+          "dataPlaneIpAllowList": [
+            "203.0.113.0/24",
+            "2001:db8::/32"
+          ]
         },
         "identity": {
           "type": "SystemAssigned",

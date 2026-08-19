@@ -7,13 +7,6 @@
     "resourceGroupName": "online-store-rg",
     "healthModelName": "online-store",
     "properties": {
-      "properties": {
-        "publicNetworkAccess": "Enabled",
-        "dataPlaneIpAllowList": [
-          "203.0.113.0/24",
-          "2001:db8::/32"
-        ]
-      },
       "tags": {
         "environment": "production",
         "team": "online-store",
@@ -25,13 +18,7 @@
     "200": {
       "body": {
         "properties": {
-          "provisioningState": "Succeeded",
-          "dataPlaneUri": "https://online-store.eastus.data.healthmodels.azure.com",
-          "publicNetworkAccess": "Enabled",
-          "dataPlaneIpAllowList": [
-            "203.0.113.0/24",
-            "2001:db8::/32"
-          ]
+          "provisioningState": "Succeeded"
         },
         "identity": {
           "type": "SystemAssigned",
