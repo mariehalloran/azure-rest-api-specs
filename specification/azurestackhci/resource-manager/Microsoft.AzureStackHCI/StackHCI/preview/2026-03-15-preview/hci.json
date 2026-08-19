@@ -19480,8 +19480,11 @@
           "readOnly": true
         },
         "additionalData": {
-          "type": "string",
-          "description": "Additional data associated with the step.",
+          "type": "array",
+          "description": "Additional metadata associated with the step.",
+          "items": {
+            "$ref": "#/definitions/Metadata"
+          },
           "readOnly": true
         },
         "recommendedSteps": {
@@ -26930,6 +26933,22 @@
           }
         ]
       }
+    },
+    "Metadata": {
+      "type": "object",
+      "description": "Metadata associated with a deployment step.",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ]
     },
     "NetworkAdapter": {
       "type": "object",
