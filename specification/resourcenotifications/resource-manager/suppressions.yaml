@@ -1,0 +1,9 @@
+- tool: ModelValidation
+  reason: >-
+    OAV discriminatorMap validation fails for envelope-level discriminated Destination resource (kind at ARM envelope level per API design).
+    The discriminator pattern with kind on the Destination envelope, and variants via allOf + x-ms-discriminator-value,
+    is not fully supported by OAV's internal discriminatorMap resolver but is correct per ARM API design standards.
+    Affects 2026-06-01-preview and 2026-08-01-preview which introduced the new envelope-level kind discriminator.
+  paths:
+    - Microsoft.ResourceNotifications/preview/2026-06-01-preview/resourcenotifications.json
+    - Microsoft.ResourceNotifications/preview/2026-08-01-preview/resourcenotifications.json

@@ -5,6 +5,7 @@ using Azure.Core;
 namespace Microsoft.Sovereign;
 
 @added(Versions.Preview20241031)
+@removed(Versions.Preview20260731)
 @doc("The properties of landing zone configuration resource type.")
 model LandingZoneConfigurationResourceProperties {
   @visibility(Lifecycle.Read)
@@ -104,6 +105,7 @@ model LandingZoneConfigurationResourceProperties {
 }
 
 @added(Versions.Preview20241031)
+@removed(Versions.Preview20260731)
 @doc("The properties of managed identity.")
 model ManagedIdentityProperties {
   @doc("The type of managed identity.")
@@ -118,6 +120,7 @@ model ManagedIdentityProperties {
 }
 
 @added(Versions.Preview20241031)
+@removed(Versions.Preview20260731)
 @doc("The authoring status for a landing zone configuration.")
 union ManagedIdentityResourceType {
   @doc("System assigned managed identity.")
@@ -129,6 +132,7 @@ union ManagedIdentityResourceType {
   string,
 }
 
+@removed(Versions.Preview20260731)
 @doc("The details associated with tags.")
 model Tags {
   @doc("A tag name.")
@@ -138,6 +142,7 @@ model Tags {
   value: string;
 }
 
+@removed(Versions.Preview20260731)
 @doc("Landing zone management group properties.")
 model LandingZoneManagementGroupProperties {
   ...ManagementGroupProperties;
@@ -146,6 +151,7 @@ model LandingZoneManagementGroupProperties {
   name: string;
 }
 
+@removed(Versions.Preview20260731)
 @doc("Details of the policy and initiatives associated with the management group.")
 model ManagementGroupProperties {
   @doc("Array of initiative assignments to be applied to the management group.")
@@ -153,6 +159,7 @@ model ManagementGroupProperties {
   policyInitiativesAssignmentProperties: PolicyInitiativeAssignmentProperties[];
 }
 
+@removed(Versions.Preview20260731)
 @doc("Details of policy assignments")
 model PolicyInitiativeAssignmentProperties {
   @doc("The fully qualified id of the policy initiative.")
@@ -164,6 +171,7 @@ model PolicyInitiativeAssignmentProperties {
   assignmentParameters: Record<unknown>;
 }
 
+@removed(Versions.Preview20260731)
 @doc("Decommissioned management group properties.")
 model DecommissionedManagementGroupProperties {
   ...ManagementGroupProperties;
@@ -172,6 +180,7 @@ model DecommissionedManagementGroupProperties {
   create: boolean;
 }
 
+@removed(Versions.Preview20260731)
 @doc("Sandbox management group properties.")
 model SandboxManagementGroupProperties {
   ...ManagementGroupProperties;
@@ -181,6 +190,7 @@ model SandboxManagementGroupProperties {
 }
 
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@removed(Versions.Preview20260731)
 @doc("The request to generate code for a landing zone.")
 model GenerateLandingZoneRequest {
   @doc("The export options available for code generation.")
@@ -242,6 +252,7 @@ model GenerateLandingZoneRequest {
 }
 
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@removed(Versions.Preview20260731)
 @doc("The response for the request to generate landing zone code.")
 model GenerateLandingZoneResponse {
   @doc("The top level Management Group display name.")
@@ -277,6 +288,7 @@ model GenerateLandingZoneResponse {
 }
 
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@removed(Versions.Preview20260731)
 @doc("The request to update authoring status of a configuration.")
 model UpdateAuthoringStatusRequest {
   @doc("The value of the authoring status to be updated.")
@@ -284,6 +296,7 @@ model UpdateAuthoringStatusRequest {
 }
 
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@removed(Versions.Preview20260731)
 @doc("The response for the request to update authoring status.")
 model UpdateAuthoringStatusResponse {
   @doc("The name of the landing zone configuration resource.")
@@ -293,6 +306,7 @@ model UpdateAuthoringStatusResponse {
   authoringStatus: AuthoringStatus;
 }
 
+@removed(Versions.Preview20260731)
 @doc("The authoring status for a landing zone configuration.")
 union AuthoringStatus {
   @doc("This is the default status when a create configuration request is made. In this state, the Landing Zone configuration can be updated.")
@@ -307,6 +321,7 @@ union AuthoringStatus {
   string,
 }
 
+@removed(Versions.Preview20260731)
 @doc("Output options for landing zone code generation.")
 union InfrastructureAsCodeOutputOptions {
   @doc("Value when generating Landing Zone code in Bicep.")
@@ -321,6 +336,7 @@ union InfrastructureAsCodeOutputOptions {
   string,
 }
 
+@removed(Versions.Preview20260731)
 @doc("The input values for creating or using an existing firewall resource.")
 union FirewallCreationOptions {
   @doc("Value when a firewall resource is not created.")
@@ -335,6 +351,7 @@ union FirewallCreationOptions {
   string,
 }
 
+@removed(Versions.Preview20260731)
 @doc("Options for resource creation.")
 union ResourceCreationOptions {
   @doc("Value to create a new resource.")
@@ -350,6 +367,7 @@ union ResourceCreationOptions {
 }
 
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@removed(Versions.Preview20260731)
 @doc("The request for the create copy action of landing zone configuration.")
 model CreateCopyRequest {
   @doc("The name of the new landing zone configuration resource.")
@@ -358,6 +376,7 @@ model CreateCopyRequest {
 }
 
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
+@removed(Versions.Preview20260731)
 @doc("The response of the create copy action of landing zone configuration.")
 model CreateCopyResponse {
   @doc("The id of the copied landing zone configuration resource.")
@@ -370,6 +389,7 @@ model CreateCopyResponse {
 
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.Preview20241031)
+@removed(Versions.Preview20260731)
 @doc("The request for the create copy action of landing zone configuration.")
 model CreateLandingZoneConfigurationCopyRequest {
   @doc("The name of the new landing zone configuration resource.")
@@ -379,6 +399,7 @@ model CreateLandingZoneConfigurationCopyRequest {
 
 #suppress "@azure-tools/typespec-client-generator-core/csharp-model-suffix" "Name kept for backward compatibility"
 @added(Versions.Preview20241031)
+@removed(Versions.Preview20260731)
 @doc("The response of the create copy action of landing zone configuration.")
 model CreateLandingZoneConfigurationCopyResponse {
   @doc("The id of the copied landing zone configuration resource.")

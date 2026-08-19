@@ -36,6 +36,8 @@ import "./models/Vrf.tsp";
 import "./models/FabricDelegation.tsp";
 import "./models/VrfDelegation.tsp";
 import "./models/ServicePeer.tsp";
+import "./models/Network.tsp";
+import "./models/Peering.tsp";
 import "./resources/AccessControlList.tsp";
 import "./resources/InternetGatewayRule.tsp";
 import "./resources/InternetGateway.tsp";
@@ -69,6 +71,8 @@ import "./resources/Vrf.tsp";
 import "./resources/FabricDelegation.tsp";
 import "./resources/VrfDelegation.tsp";
 import "./resources/ServicePeer.tsp";
+import "./resources/Network.tsp";
+import "./resources/Peering.tsp";
 import "./back-compatible.tsp";
 import "./client.tsp";
 
